@@ -347,10 +347,10 @@ else
 end    
 
 % Initialise the lists of fitting parameters    
-problemDef.fitpars = [];
-problemDef.otherpars = [];
-problemDef.fitconstr = [];
-problemDef.otherconstr = [];
+problemDef.fitParams = [];
+problemDef.otherParams = [];
+problemDef.fitLimits = [];
+problemDef.otherLimits = [];
 
 
 %% Now deal with the controls class

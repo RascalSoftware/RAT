@@ -17,7 +17,7 @@ classdef pmLogFunction
         function logFuncVal = get(obj,pars)
             
             problem = obj.problemDef;            
-            problem.fitpars = pars;
+            problem.fitParams = pars;
             
             if obj.scaled
                 problem = unscalePars(problem);
@@ -37,7 +37,7 @@ classdef pmLogFunction
             % Now apply the priors where necessary. 
             priorfun = @(th,mu,sig) sum(((th-mu)./sig).^2);
 
-            val = priorfun(problem.fitpars,obj.priors(:,1),obj.priors(:,2));
+            val = priorfun(problem.fitParams,obj.priors(:,1),obj.priors(:,2));
 
             logFuncVal = logFuncVal + val;           
 

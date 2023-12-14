@@ -35,7 +35,7 @@ controls = problem{2};
 problemDefLimits = problem{3};
 problemDefCells = problem{4};
 
-problemDef.fitpars = pars;
+problemDef.fitParams = pars;
 problemDef = unpackParams(problemDef,controls);
 [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 

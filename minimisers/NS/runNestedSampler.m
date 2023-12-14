@@ -26,7 +26,7 @@ end
 bayesResults = makeEmptyBayesResultsStruct(nPars, numberOfContrasts, domains, numberOfChains);
       
 %Deal with priors.
-priorList = getFittedPriors(fitNames,inPriors,problemDef.fitconstr);
+priorList = getFittedPriors(fitNames,inPriors,problemDef.fitLimits);
 
 %Tuning Parameters
 model.ssfun = @nsIntraFun;

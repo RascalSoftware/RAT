@@ -7,7 +7,7 @@ control = ratInputs.controls;
 cells = ratInputs.problemDefCells;
 
 % Put the current parameters into problem
-problem.fitpars = pars;
+problem.fitParams = pars;
 
 % Distribute them to the right parts
 problem = unpackParams(problem,control);

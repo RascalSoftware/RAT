@@ -39,10 +39,10 @@ problemDefLimits = problem{3};
 problemDefCells = problem{4};
 
 pars = theta;
-constr = problemDef.fitconstr;
+constr = problemDef.fitLimits;
 pars = unscalePars(pars,constr);
 
-problemDef.fitpars = pars;
+problemDef.fitParams = pars;
 problemDef = unpackParams(problemDef,controls);
 [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 

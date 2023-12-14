@@ -32,8 +32,8 @@ end
 
 % Make qcov based on the ranges of the parameters
 qcov = [];
-fitPars = problemDef.fitpars;
-fitConstr = problemDef.fitconstr;
+fitPars = problemDef.fitParams;
+fitConstr = problemDef.fitLimits;
 nPars = length(fitPars);
 
 for i = 1:nPars
@@ -89,7 +89,7 @@ output.data = data;
 % out = mcmcpred_compile(results,chain,[],data,problem,500);
 % outSld = mcmcpred_compile_sld(results,chain,[],data,problem,500);
 % 
-% problemDef.fitpars = output.bestPars;
+% problemDef.fitParams = output.bestPars;
 % problemDef = unpackParams(problemDef,controls);
 % [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 % 

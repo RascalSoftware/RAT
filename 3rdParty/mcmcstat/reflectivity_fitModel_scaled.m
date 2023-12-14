@@ -10,10 +10,10 @@ problemDefLimits = problem{3};
 problemDefCells = problem{4};
 
 pars = theta;           % Current parameter values from mcmcstat
-constr = problemDef.fitconstr;
+constr = problemDef.fitLimits;
 pars = unscalePars(pars,constr);
 
-problemDef.fitpars = pars;
+problemDef.fitParams = pars;
 problemDef = unpackParams(problemDef,controls);
 %setappdata(0,'problem',problem);
 %problem = reflectivityCalculation(problem);

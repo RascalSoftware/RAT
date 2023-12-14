@@ -24,7 +24,7 @@ npoints = floor(chainTrim * size(chain,1));
 % only take last part of chain...
 scaledChain = chain((end-npoints):end,:);
 
-limits = problemDef.fitconstr;
+limits = problemDef.fitLimits;
 rows = size(scaledChain,1);
 
 for i = 1:rows
@@ -49,8 +49,8 @@ bayesResults.chain = unscaledChain;
 
 result = parseResultToStruct(outProblemStruct,result);
 
-if isfield(problemDef,'fitpars')
-    result.bestFitPars = problemDef.fitpars;
+if isfield(problemDef,'fitParams')
+    result.bestFitPars = problemDef.fitParams;
 end
 
 result = mergeStructs(result,bayesResults);

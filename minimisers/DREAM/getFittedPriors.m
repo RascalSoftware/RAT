@@ -1,10 +1,10 @@
-function priorFitList = getFittedPriors(paramNames,priors,fitconstr)
+function priorFitList = getFittedPriors(paramNames,priors,fitLimits)
 
 % Get the list of all the priors..
 priorNames = priors.priorNames;
 priorValues = priors.priorValues;
 
-% Find the values for fitpars
+% Find the values for fitParams
 numberOfParams = length(paramNames);
 %priorFitList = cell(numberOfParams,5);
 
@@ -33,8 +33,8 @@ for i = 1:numberOfParams
         priorFitList(i,1) = priorType;
         priorFitList(i,2) = priorValues(index,2);
         priorFitList(i,3) = priorValues(index,3);
-        priorFitList(i,4) = fitconstr(i,1);
-        priorFitList(i,5) = fitconstr(i,2);
+        priorFitList(i,4) = fitLimits(i,1);
+        priorFitList(i,5) = fitLimits(i,2);
     else
         priorFitList(i,1) = 1;
     end

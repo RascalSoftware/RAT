@@ -29,9 +29,11 @@ save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsStandar
 outputs.problem = problem;
 outputs.result = result;
 
-[problemOutStruct,~,~,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors);
+[problemOutStruct,problemOutMain,resultOutMain,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors);
 
 outputs.problemOutStruct = problemOutStruct;
+outputs.problemOutMain = problemOutMain;
+outputs.resultOutMain = resultOutMain;
 outputs.bayesResults = bayesResults;
 
 resultOutStruct = parseResultToStruct(problem,result);
@@ -98,9 +100,11 @@ save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsCustomX
 outputs.problem = problem;
 outputs.result = result;
 
-[problemOutStruct,~,~,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors);
+[problemOutStruct,problemOutMain,resultOutMain,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors);
 
 outputs.problemOutStruct = problemOutStruct;
+outputs.problemOutMain = problemOutMain;
+outputs.resultOutMain = resultOutMain;
 outputs.bayesResults = bayesResults;
 
 resultOutStruct = parseResultToStruct(problem,result);
@@ -167,9 +171,11 @@ save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsCustomL
 outputs.problem = problem;
 outputs.result = result;
 
-[problemOutStruct,~,~,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors);
+[problemOutStruct,problemOutMain,resultOutMain,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors);
 
 outputs.problemOutStruct = problemOutStruct;
+outputs.problemOutMain = problemOutMain;
+outputs.resultOutMain = resultOutMain;
 outputs.bayesResults = bayesResults;
 
 resultOutStruct = parseResultToStruct(problem,result);

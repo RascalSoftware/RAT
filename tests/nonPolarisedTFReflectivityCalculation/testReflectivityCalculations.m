@@ -35,9 +35,11 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         controls                 % Instrument controls struct for the input problem
         expectedProblem          % Expected output value of the problem object
         expectedProblemOut       % Expected output value of the output problem object
+        expectedProblemOutMain   % Expected output value of the output problem object from RatMain
         expectedProblemOutStruct % Expected output value of the output problem struct
         expectedResult           % Expected output value of the results object
         expectedResultOut        % Expected output value of the output results object
+        expectedResultOutMain    % Expected output value of the output results object from RATMain
         expectedResultOutStruct  % Expected output value of the output results struct
         expectedBayesResults     % Expected output value of the results object
         TFReflectivity
@@ -80,9 +82,11 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 
             testCase.expectedProblem = testCase.outputs.outputs.problem;
             testCase.expectedProblemOut = testCase.outputs.outputs.problemOut;
+            testCase.expectedProblemOutMain = testCase.outputs.outputs.problemOutMain;
             testCase.expectedProblemOutStruct = testCase.outputs.outputs.problemOutStruct;
             testCase.expectedResult = testCase.outputs.outputs.result;
             testCase.expectedResultOut = testCase.outputs.outputs.resultOut;
+            testCase.expectedResultOutMain = testCase.outputs.outputs.resultOutMain;
             testCase.expectedResultOutStruct = testCase.outputs.outputs.resultOutStruct;
             testCase.expectedBayesResults = testCase.outputs.outputs.bayesResults;
         end
@@ -129,8 +133,8 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             [outProblemDef, problem, result, bayesResults] = RATMain(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls,testCase.priors);
 
             testCase.verifyEqual(outProblemDef, testCase.expectedProblemOutStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(result, testCase.expectedResult, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(problem, testCase.expectedProblemOutMain, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(result, testCase.expectedResultOutMain, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(bayesResults, testCase.expectedBayesResults, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end 
 

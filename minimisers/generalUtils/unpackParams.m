@@ -1,6 +1,6 @@
 function problemDef = unpackParams(problemDef,controls)
 
-    %Unpack the params out of the fitParamsma and otherparams arrays
+    %Unpack the params out of the fitParams and otherParams arrays
     %back into problem.params
     
     %problem = getappdata(0,'problem');

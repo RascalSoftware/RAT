@@ -109,15 +109,15 @@ for i = 1:numberOfContrasts
     tempAllLayers{i} = {layerSld1, layerSld2};
     tempSldProfiles{i} = {thisSld1, thisSld2};
 
-    shifted_dat =  shiftData(scalefactors(i),qzshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
-    shiftedData{i} = shifted_dat;
+    shiftedDat =  shiftData(scalefactors(i),qzshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
+    shiftedData{i} = shiftedDat;
     
     reflectivityType = 'standardAbeles';
-    [reflect1,simul1] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld1,allRoughs(i),resolutionParams(i),'single',reflectivityType,useImaginary);
-    [reflect2,simul2] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld2,allRoughs(i),resolutionParams(i),'single',reflectivityType,useImaginary);
+    [reflect1,simul1] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shiftedDat,layerSld1,allRoughs(i),resolutionParams(i),'single',reflectivityType,useImaginary);
+    [reflect2,simul2] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shiftedDat,layerSld2,allRoughs(i),resolutionParams(i),'single',reflectivityType,useImaginary);
 
-    [reflect1,simul1,shifted_dat] = applyBackgroundCorrection(reflect1,simul1,shifted_dat,backgroundParams(i),contrastBackgroundsType(i));
-    [reflect2,simul2,shifted_dat] = applyBackgroundCorrection(reflect2,simul2,shifted_dat,backgroundParams(i),contrastBackgroundsType(i));
+    [reflect1,simul1,shiftedDat] = applyBackgroundCorrection(reflect1,simul1,shiftedDat,backgroundParams(i),contrastBackgroundsType(i));
+    [reflect2,simul2,shiftedDat] = applyBackgroundCorrection(reflect2,simul2,shiftedDat,backgroundParams(i),contrastBackgroundsType(i));
 
      % Calculate the average reflectivities....
     [totReflect,totSimul] = domainsTF.averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio);
@@ -126,7 +126,7 @@ for i = 1:numberOfContrasts
     simulation{i} = totSimul;
     
     if dataPresent(i)
-        chis(i) = chiSquared(shifted_dat,totReflect,nParams);
+        chis(i) = chiSquared(shiftedDat,totReflect,nParams);
     else
         chis(i) = 0;
     end

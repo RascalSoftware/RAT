@@ -89,7 +89,7 @@ void eventCallback(const baseEvent& event)
         memcpy(mxGetPr(dataPresent), pEvent->data->dataPresent, dims[0] * mxGetElementSize(dataPresent));
 
         
-        const char* field_names[] = {"reflectivity", "shifted_data", "sldProfiles", "allLayers", "ssubs", 
+        const char* field_names[] = {"reflectivity", "shiftedData", "sldProfiles", "allLayers", "ssubs", 
                                      "resample", "dataPresent", "modelType"};
         const mwSize structDims[2] = {1, 1};
         prhs[1] = mxCreateStructArray(2, structDims, 8, field_names);

@@ -90,7 +90,7 @@ for i = 1:numberOfContrasts
     parallelPoints = 'points';
     
     % Call the reflectivity calculation
-    [sldProfile,reflect,simul,shifted_dat,layerSld,resamLayers,thisChiSquared,thisSsubs] = ...
+    [sldProfile,reflect,simul,shiftedDat,layerSld,resamLayers,thisChiSquared,thisSsubs] = ...
     nonPolarisedTF.coreLayersCalculation...
     (thisContrastLayers, thisRough, ...
     geometry, thisBulkIn, thisBulkOut, thisResample, calcSld, thisScalefactor, thisQzshift,...
@@ -105,7 +105,7 @@ for i = 1:numberOfContrasts
     sldProfiles{i} = sldProfile;
     reflectivity{i} = reflect;
     simulation{i} = simul;
-    shiftedData{i} = shifted_dat;
+    shiftedData{i} = shiftedDat;
     layerSlds{i} = layerSld;
     allLayers{i} = resamLayers;
     

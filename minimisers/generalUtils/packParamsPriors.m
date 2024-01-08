@@ -1,6 +1,6 @@
 function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDefCells,limits,priors,checks)
 
-    %We need to pack the parameters into seperate vectors
+    %We need to pack the parameters into separate vectors
     %of those that are being fitted, and those that are
     %held constant.
     numberOfFitted = sum(checks.fitParam) + ...

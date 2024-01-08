@@ -127,7 +127,7 @@ for i = 1:numberOfContrasts
     
     % Call the reflectivity calculation for each domain
     % Domain 1
-    [sldProfile1,reflect1,simul1,shifted_dat,layerSld1,resamLayers1,~,thisSsubs] = ...
+    [sldProfile1,reflect1,simul1,shiftedDat,layerSld1,resamLayers1,~,thisSsubs] = ...
     nonPolarisedTF.coreLayersCalculation...
     (thisContrastLayers1, thisRough, ...
     geometry, thisBulkIn, thisBulkOut, thisResample, calcSld, thisScalefactor, thisQzshift,...
@@ -146,7 +146,7 @@ for i = 1:numberOfContrasts
     [totReflect,totSimul] = domainsTF.averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio);
 
     % Get an overall chi-squared for the new averaged curve..
-    thisChiSquared = chiSquared(shifted_dat,totReflect,length(params));
+    thisChiSquared = chiSquared(shiftedDat,totReflect,length(params));
    
       % Store returned values for this contrast in the output arrays.
     % As well as the calculated profiles, we also store a record of 
@@ -158,7 +158,7 @@ for i = 1:numberOfContrasts
     tempSldProfiles{i} = {sldProfile1, sldProfile2};
     reflectivity{i} = totReflect;
     simulation{i} = totSimul;
-    shiftedData{i} = shifted_dat;
+    shiftedData{i} = shiftedDat;
     tempLayerSlds{i} = {layerSld1, layerSld2};
     tempAllLayers{i} = {resamLayers1, resamLayers2};
     

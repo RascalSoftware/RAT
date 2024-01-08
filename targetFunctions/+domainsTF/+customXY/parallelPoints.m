@@ -89,8 +89,8 @@ for i = 1:numberOfContrasts
     domainRatio = allDomainRatios(thisContrastDR);
 
     % Resample the sld profiles
-    thisSld1 = domainSldProfiles{1};
-    thisSld2 = domainSldProfiles{2};
+    thisSld1 = domainSldProfiles{i,1};
+    thisSld2 = domainSldProfiles{i,2};
     if ~useImaginary
         layerSld1 = resampleLayers(thisSld1,resamPars);
         layerSld2 = resampleLayers(thisSld2,resamPars);

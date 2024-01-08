@@ -3,7 +3,7 @@ function plotBayes(problem, results)
     figure(10); clf; plotRefSLD(problem,results)
     
     figure(30); clf;
-    bayesShadedPlot(results,'fit','average','KeepAxes',true,'interval',65,'q4',false)
+    bayesShadedPlot(problem,results,'fit','average','KeepAxes',true,'interval',65,'q4',false)
     
     h3 = figure(40); clf
     plotHists(results,h3,'smooth',true)

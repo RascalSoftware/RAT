@@ -1,8 +1,13 @@
-function bayesShadedPlot(result,varargin)
+function bayesShadedPlot(problem,result,varargin)
 
 % Plot the shaded reflectivities from Bayes output
 % from RAT
 sf = result.contrastParams.scalefactors;
+if isa(problem,'domainsClass')
+    isDomains = true;
+else
+    isDomains = false;
+end
 
 %  Parse the input options
 if ~isempty(varargin)
@@ -144,45 +149,81 @@ for i = 1:numberOfContrasts
 end
 
 % Now plot the SLD's
-subplot(1,2,2); hold on
+subplot(1,2,2); hold on; box on
 
-for i = 1:numberOfContrasts
-    
-    thisSldMean = bestSld_mean{i};
-    %thisSldMax = bestSld_max{i};
-    
-    theseLims = sldPlims{i};
-    
-    thisSldX = sldXdata{i};
-    
-    switch interval
-        case 95
-            vals = [1 5];
-        case 65
-            vals = [2 4];
+if ~isDomains
+    for i = 1:numberOfContrasts
+
+        thisSldMean = bestSld_mean{i};
+        %thisSldMax = bestSld_max{i};
+
+        theseLims = sldPlims{i};
+
+        thisSldX = sldXdata{i};
+
+        switch interval
+            case 95
+                vals = [1 5];
+            case 65
+                vals = [2 4];
+        end
+
+        thisMin = theseLims(vals(1),:);
+        thisMax = theseLims(vals(2),:);
+
+        thisSldAvg = theseLims(3,:);
+
+        if showWhichCurves(1)
+            % Plot the mean
+            plot(thisSldMean(:,1),thisSldMean(:,2),'b-');
+        end
+
+        if showWhichCurves(2)
+            % Plot the max
+            plot(thisSldX,thisSldAvg,'r-');
+        end
+
+        thisSldX = sldXdata{i};
+        shade(thisSldX,thisMin,thisSldX,thisMax,'FillColor',[0.7 0.7 0.7],'FillType',[1 2;2 1],'FillAlpha',0.3);
     end
-    
-    thisMin = theseLims(vals(1),:);
-    thisMax = theseLims(vals(2),:);
-        
-    thisSldAvg = theseLims(3,:);
-    
-    if showWhichCurves(1)
-        % Plot the mean
-        plot(thisSldMean(:,1),thisSldMean(:,2),'b-');
+else
+    for i = 1:numberOfContrasts
+
+        thisSldMean = bestSld_mean(i,:);
+        %thisSldMax = bestSld_max{i};
+
+        theseLims = sldPlims(i,:);
+
+        thisSldX = sldXdata(i,:);
+
+        switch interval
+            case 95
+                vals = [1 5];
+            case 65
+                vals = [2 4];
+        end
+
+        for m = 1:2
+            thisMin = theseLims{m}(vals(1),:);
+            thisMax = theseLims{m}(vals(2),:);
+
+            thisSldAvg = theseLims{m}(3,:);
+
+            if showWhichCurves(1)
+                % Plot the mean
+                plot(thisSldMean{m}(:,1),thisSldMean{m}(:,2),'b-');
+            end
+
+            if showWhichCurves(2)
+                % Plot the max
+                plot(thisSldX{m},thisSldAvg,'r-');
+            end
+
+            %thisSldX = sldXdata{i}{m};
+            shade(thisSldX{m},thisMin,thisSldX{m},thisMax,'FillColor',[0.7 0.7 0.7],'FillType',[1 2;2 1],'FillAlpha',0.3);
+        end
     end
-    
-    if showWhichCurves(2)
-        % Plot the max
-        plot(thisSldX,thisSldAvg,'r-');
-    end
-    
-%     plot(thisData(:,1),thisMin,'-','color',[0.7 0.7 0.7]);
-%     plot(thisData(:,1),thisMax,'-','color',[0.7 0.7 0.7]);
-    %plot(thisData(:,1),thisRef,'LineWidth',2.0);
-    thisSldX = sldXdata{i};
-    shade(thisSldX,thisMin,thisSldX,thisMax,'FillColor',[0.7 0.7 0.7],'FillType',[1 2;2 1],'FillAlpha',0.3);
-    %shade(thisData,thisMin,thisData,thisMax,'FillColor',[0.7 0.7 0.7],'FillType',[1 2;2 1],'FillAlpha',0.7);
+
 end
 
 end

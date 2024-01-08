@@ -70,6 +70,6 @@ function plotRefSLDHelper(data, noDelay)
     end
     
     if noDelay
-        drawnow;
+        drawnow limitrate;
     end
 end

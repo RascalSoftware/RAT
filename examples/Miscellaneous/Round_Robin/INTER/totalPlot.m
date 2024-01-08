@@ -1,0 +1,6 @@
+% Plot of all the results....
+
+chainInter = resultsInter.chain;
+chainPolref = resultsPolref.chain;
+chainCrip = resultsCrisp.chain;
+fitNames = resultsInter.fitNames; % Same for all....

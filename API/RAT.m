@@ -25,16 +25,6 @@ if ~strcmpi(controls.display,'off')
     toc
 end
 
-% Then just do a final calculation to fill in SLD if necessary (i.e. if
-% calSLD is no for fit)
-if ~controls.calcSldDuringFit
-    originalProcedure = controls.procedure;
-    controls.calcSldDuringFit = true;
-    controls.procedure = 'calculate';
-    [outProblemStruct,problem,result,~] = RATMain_mex(outProblemStruct,problemDefCells,problemDefLimits,controls,priors);
-    controls.procedure = originalProcedure;
-end
-
 result = parseResultToStruct(problem,result);
 
 if isfield(outProblemStruct,'fitParams')

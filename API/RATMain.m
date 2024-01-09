@@ -1,6 +1,5 @@
 function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors)
 
-
 result = cell(1,1);
 result{1} = {1};
 results = repmat(result,1,6);
@@ -61,6 +60,14 @@ switch lower(controls.procedure)
             fprintf('\nRunning DREAM\n\n');
         end
         [outProblemDef,problem,results,bayesResults] = runDREAM(problemDef,problemDefCells,problemDefLimits,controls,priors);
+end
+
+% Then just do a final calculation to fill in SLD if necessary
+% (i.e. if calcSLD is no for fit)
+if ~controls.calcSldDuringFit
+    controls.calcSldDuringFit = true;
+    controls.procedure = 'calculate';
+    [problem,results] = reflectivityCalculation(outProblemDef,problemDefCells,controls);
 end
 
 end

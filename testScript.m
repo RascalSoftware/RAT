@@ -1,4 +1,3 @@
-
 % TESTING CODE
 import matlab.unittest.TestSuite;
 import matlab.unittest.plugins.CodeCoveragePlugin

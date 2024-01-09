@@ -252,12 +252,12 @@ controls = controlsClass;
 controls.display = displayOptions.Off.value;
 [~,results] = RAT(r2Problem, controls);
 
-r1Problem.shifted_data = results.shifted_data;
-r1Problem.calculations.Simulation = results.Simulation;
+r1Problem.shifted_data = results.shiftedData;
+r1Problem.calculations.Simulation = results.simulation;
 r1Problem.calculations.reflectivity = results.reflectivity;
 r1Problem.calculations.slds = results.sldProfiles;
-r1Problem.calculations.all_chis = results.calculationResults.all_chis;
-r1Problem.calculations.sum_chi = results.calculationResults.sum_chi;
+r1Problem.calculations.all_chis = results.calculationResults.allChis;
+r1Problem.calculations.sum_chi = results.calculationResults.sumChi;
 
 newR1Problem = r1Problem;
 

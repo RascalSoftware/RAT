@@ -13,7 +13,7 @@ end
 %Call the main RAT routine...
     
 % If display is not silent print a
-% line confirminf RAT is starting
+% line confirming RAT is starting
 if ~strcmpi(controls.display,'off')
     fprintf('Starting RAT ________________________________________________________________________________________________\n\n');
 end
@@ -37,8 +37,8 @@ end
 
 result = parseResultToStruct(problem,result);
 
-if isfield(outProblemStruct,'fitpars')
-    result.bestFitPars = outProblemStruct.fitpars;
+if isfield(outProblemStruct,'fitParams')
+    result.bestFitPars = outProblemStruct.fitParams;
 end
 
 if any((strcmpi(controls.procedure,{'bayes','NS','dream'})))

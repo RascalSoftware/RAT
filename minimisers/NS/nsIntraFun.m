@@ -5,10 +5,10 @@ function fval = nsIntraFun(data,p)
     problemDefCells = data{4};
 
     % Removed use of cells....
-    problemDef.fitpars = p;
+    problemDef.fitParams = p;
 
     problemDef = unpackParams(problemDef,controls);
     [problemDef,~] = reflectivityCalculation(problemDef,problemDefCells,controls);
 
-    fval = (-problemDef.calculations.sum_chi/2); 
+    fval = (-problemDef.calculations.sumChi/2); 
 end

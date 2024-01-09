@@ -12,7 +12,7 @@ problem = struct('ssubs',preAlloc,...
                  'bulkIn',preAlloc,...
                  'bulkOut',preAlloc,...
                  'resolutionParams',preAlloc,...
-                 'calculations',struct('all_chis',preAlloc,'sum_chi',0),...
+                 'calculations',struct('allChis',preAlloc,'sumChi',0),...
                  'allSubRough',preAlloc);
 
 
@@ -39,9 +39,9 @@ end
 
 options = optimset('MaxIter',maxIter,'TolFun',tolFun,'TolX',tolX,'MaxFunEvals',maxFunEvals);
 
-x0 = problemDef.fitpars;
-LB = problemDef.fitconstr(:,1);
-UB = problemDef.fitconstr(:,2);
+x0 = problemDef.fitParams;
+LB = problemDef.fitLimits(:,1);
+UB = problemDef.fitLimits(:,2);
 
 % size checks
 xsize = size(x0);
@@ -129,7 +129,7 @@ x = simplexXTransform(xu,params);
 % final reshape
 %x = reshape(x,xsize);
 
-problemDef.fitpars = x;
+problemDef.fitParams = x;
 problemDef = unpackParams(problemDef,controls);
 [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 

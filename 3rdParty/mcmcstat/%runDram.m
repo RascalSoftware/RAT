@@ -15,12 +15,12 @@ rng(0);
 %Make uniform priors from the
 %min/max limits for now.
 prior = {};
-lims = problemDef.fitconstr;
+lims = problemDef.fitLimits;
 % Get the li
 
 for i = 1:length(fitNames)
     name = fitNames{i};
-    value = problemDef.fitpars(i);
+    value = problemDef.fitParams(i);
     min = lims(i,1);
     max = lims(i,2);
     mu = 0;
@@ -65,7 +65,7 @@ bayesResults.bayesData = output.data;
 bayesResults.bestFits = output.bestFits;
 bayesResults.predlims = output.predlims;
 
-problemDef.fitpars = output.bestPars;
+problemDef.fitParams = output.bestPars;
 problemDef = unpackParams(problemDef,controls);
 [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 
@@ -78,8 +78,8 @@ coder.varsize('problem.bulkIn',[Inf 1],[1 0]);
 coder.varsize('problem.bulkOut',[Inf 1],[1 0]);
 coder.varsize('problem.resolutionParams',[Inf 1],[1 0]);
 coder.varsize('problem.ssubs',[Inf 1],[1 0]);
-coder.varsize('problem.calculations.all_chis',[Inf 1],[1 0]);
-coder.varsize('problem.calculations.sum_chi',[1 1],[0 0]);
+coder.varsize('problem.calculations.allChis',[Inf 1],[1 0]);
+coder.varsize('problem.calculations.sumChi',[1 1],[0 0]);
 coder.varsize('problem.allSubRough',[Inf 1],[1 0]);
 
 %Result coder definitions....

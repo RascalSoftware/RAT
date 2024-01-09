@@ -12,17 +12,17 @@ numberOfFitted = sum(checks.fitParam) + ...
                  sum(checks.fitResolutionParam);
              
 % numberOfTotal = length(problemDef.params) + ...
-%                 length(problemDef.backs) + ...
-%                 length(problemDef.sf) + ...
-%                 length(problemDef.shifts) + ...
-%                 length(problemDef.nba) + ...
-%                 length(problemDef.nbs) + ...
-%                 length(problemDef.res);
+%                 length(problemDef.backgroundParams) + ...
+%                 length(problemDef.scalefactors) + ...
+%                 length(problemDef.qzshifts) + ...
+%                 length(problemDef.bulkIn) + ...
+%                 length(problemDef.bulkOut) + ...
+%                 length(problemDef.resolutionParams);
    
-% fitpars = problemDef.fitpars;%zeros(numberOfFitted,1);
-% otherpars = zeros((numberOfTotal-numberOfFitted),1);
-% fitconstr = zeros(numberOfFitted,2);
-% otherconstr = zeros((numberOfTotal-numberOfFitted),2);
+% fitParams = problemDef.fitParams;%zeros(numberOfFitted,1);
+% otherParams = zeros((numberOfTotal-numberOfFitted),1);
+% fitLimits = zeros(numberOfFitted,2);
+% otherLimits = zeros((numberOfTotal-numberOfFitted),2);
 % %limits = problemDef.limits;
 % fitNames = cell(numberOfFitted,1);
 fitCounter = 1;
@@ -33,16 +33,16 @@ for n = 1:length(checks.fitParam)
         fitPriors{fitCounter} = thesePriors(n,:);
         fitCounter = fitCounter + 1;
         
-%         fitpars(fitCounter) = problemDef.params(n);
-%         fitconstr(fitCounter,1) = limits.param(n,1);
-%         fitconstr(fitCounter,2) = limits.param(n,2);        
+%         fitParams(fitCounter) = problemDef.params(n);
+%         fitLimits(fitCounter,1) = limits.param(n,1);
+%         fitLimits(fitCounter,2) = limits.param(n,2);        
 %         fitNames{fitCounter} = problemDefCells{7}{n};
 %         fitCounter = fitCounter + 1;
 % 
 %     else
-%         otherpars(otherCounter) = problemDef.params(n);
-%         otherconstr(otherCounter,1) = limits.param(n,1);
-%         otherconstr(otherCounter,2) = limits.param(n,2);
+%         otherParams(otherCounter) = problemDef.params(n);
+%         otherLimits(otherCounter,1) = limits.param(n,1);
+%         otherLimits(otherCounter,2) = limits.param(n,2);
 %         otherCounter = otherCounter + 1;
     end
 end

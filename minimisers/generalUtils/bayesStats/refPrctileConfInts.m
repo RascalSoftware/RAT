@@ -14,7 +14,7 @@ chain = bayesOutputs.chain;
 % values of each that we then interpolate the values from the rest of the
 % cain onto....
 firstRow = chain(1,:); 
-problemDef.fitpars = firstRow;
+problemDef.fitParams = firstRow;
 problemDef = unpackParams(problemDef,controlsStruct);
 
 % Calc the reflectivities....
@@ -91,7 +91,7 @@ for i = 1:nsample
 
     thisChain= chain(isample(i),:);
 
-    problemDef.fitpars = thisChain;
+    problemDef.fitParams = thisChain;
     problemDef = unpackParams(problemDef,controlsStruct);
 
     % Calc the reflectivities....
@@ -103,7 +103,7 @@ for i = 1:nsample
     
     thisRef = calcResult.reflectivity;
     thisSld = calcResult.sldProfiles;
-    sampleChi(i) = calcResult.calculationResults.sum_chi;
+    sampleChi(i) = calcResult.calculationResults.sumChi;
 
     for n = 1:numberOfContrasts
 

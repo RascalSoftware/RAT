@@ -10,7 +10,7 @@ function plotRefSLDHelper(data, noDelay)
     
     modelType = data.modelType;
     reflectivity = data.reflectivity;
-    shifted_data = data.shifted_data;
+    shiftedData = data.shiftedData;
     slds = data.sldProfiles;
     allLayers = data.allLayers;
     dataPresent = data.dataPresent;
@@ -22,7 +22,7 @@ function plotRefSLDHelper(data, noDelay)
     hold on
     for i = 1:numberOfContrasts
         thisRef = reflectivity{i};
-        thisData = shifted_data{i};
+        thisData = shiftedData{i};
         if i == 1
             mult = 1;
         else
@@ -30,7 +30,7 @@ function plotRefSLDHelper(data, noDelay)
         end
     
         % If there is data present
-        % plot it - size of shifted_data
+        % plot it - size of shiftedData
         % will be [n x 3] if so
         if dataPresent(i)
             errorbar(thisData(:,1),thisData(:,2)./mult,thisData(:,3)./mult,'.','MarkerSize',2.5);

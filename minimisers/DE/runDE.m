@@ -2,10 +2,10 @@ function [problemDef,problem,result] = runDE(problemDef,problemDefCells,problemD
 
     [problemDef,~] = fitsetup(problemDef,problemDefCells,problemDefLimits,controls);
     F_VTR = controls.targetValue; %Value to reach
-    I_D = length(problemDef.fitpars);
+    I_D = length(problemDef.fitParams);
     
-    FVr_minbound = problemDef.fitconstr(:,1)'; 
-    FVr_maxbound = problemDef.fitconstr(:,2)'; 
+    FVr_minbound = problemDef.fitLimits(:,1)'; 
+    FVr_maxbound = problemDef.fitLimits(:,2)'; 
     I_bnd_constr = 1;  %1: use bounds as bound constraints, 0: no bound constraints
     
     % I_NP            number of population members
@@ -99,12 +99,12 @@ function [problemDef,problem,result] = runDE(problemDef,problemDefCells,problemD
     S_struct.FVr_bestmem = [0 0];
     
     [res,problemDef] = deopt(@intrafun,problemDef,problemDefCells,controls,S_struct);
-    problemDef.fitpars = res;
+    problemDef.fitParams = res;
     problemDef = unpackParams(problemDef,controls);
     [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
     
     if ~strcmpi(controls.display,'off')
-        fprintf('Final chi squared is %g\n',problem.calculations.sum_chi);
+        fprintf('Final chi squared is %g\n',problem.calculations.sumChi);
     end
 
 end
@@ -117,10 +117,10 @@ function S_MSE = intrafun(p,problemDef,controls,problemDefCells)
     coder.varsize('S_MSE.I_no',[1 1],[0 0]);
     coder.varsize('S_MSE.FVr_oa',[1 1],[0 0]);
     
-    problemDef.fitpars = p;
+    problemDef.fitParams = p;
     problemDef = unpackParams(problemDef,controls);
     [problemDef,~] = reflectivityCalculation(problemDef,problemDefCells,controls);
-    fval = problemDef.calculations.sum_chi;
+    fval = problemDef.calculations.sumChi;
     
     S_MSE.I_nc      = 0; %no constraints                 THESE FIRST FEW VALS MAY BE WRONG
     S_MSE.FVr_ca    = 0; %no constraint array

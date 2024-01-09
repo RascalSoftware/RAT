@@ -23,8 +23,8 @@ rng('default');
 logFunc = pmLogFunction();
 
 [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDefCells,problemDefLimits,priors,controls.checks);
-nDims = length(problemDef.fitpars);
-testPars = problemDef.fitpars;
+nDims = length(problemDef.fitParams);
+testPars = problemDef.fitParams;
 
 % Scale the parameters
 problemDef = scalePars(problemDef);
@@ -56,7 +56,7 @@ end
 % if isfield(pmPars,'stVec')
 %     pmpd.spec.startPointVec = pmPars.stVec;
 % else
-%     pmpd.spec.startPointVec = problemDef.fitpars;   % Maybe dependent on scaling?
+%     pmpd.spec.startPointVec = problemDef.fitParams;   % Maybe dependent on scaling?
 % end
 
 % if isfield(pmPars,'burninAdapt')
@@ -70,8 +70,8 @@ end
 name = pmPars.name;
 pmpd.reportEnabled = false;
 pmpd.spec.outputFileName = sprintf("./paramonte_out/%s",name);%,datestr(now,30)); 
-pmpd.spec.domainLowerLimitVec = scaledMins;%problemDef.fitconstr(:,1);
-pmpd.spec.domainUpperLimitVec = scaledMaxs;%problemDef.fitconstr(:,2);
+pmpd.spec.domainLowerLimitVec = scaledMins;%problemDef.fitLimits(:,1);
+pmpd.spec.domainUpperLimitVec = scaledMaxs;%problemDef.fitLimits(:,2);
 pmpd.spec.overwriteRequested = true;
 pmpd.spec.scaleFactor = pmPars.scalefactor; %1e-4;
 pmpd.spec.sampleRefinementCount = pmPars.chainSize;
@@ -101,7 +101,7 @@ pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective functi
 % % Get out the chain, and unscale it.....
 % scaledChain = chainTable{2:end,8:end};
 % 
-% limits = problemDef.fitconstr;
+% limits = problemDef.fitLimits;
 % rows = size(scaledChain,1);
 % 
 % for i = 1:rows

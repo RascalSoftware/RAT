@@ -1,6 +1,6 @@
 function problemDef = unpackParams(problemDef,controls)
 
-    %Unpack the params out of the fitparsma and otherparams arrays
+    %Unpack the params out of the fitParams and otherParams arrays
     %back into problem.params
     
     %problem = getappdata(0,'problem');
@@ -13,11 +13,11 @@ function problemDef = unpackParams(problemDef,controls)
     uppars = zeros(1,length(problemDef.params));
     for i = 1:length(controls.checks.fitParam)
         if controls.checks.fitParam(i) == 1
-            uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
+            uppars(uppars_counter) = problemDef.fitParams(unpacked_counter);
             unpacked_counter = unpacked_counter + 1;
             uppars_counter = uppars_counter + 1;
         else
-            uppars(uppars_counter) = problemDef.otherpars(packed_counter);
+            uppars(uppars_counter) = problemDef.otherParams(packed_counter);
             packed_counter = packed_counter + 1;
             uppars_counter = uppars_counter + 1;
         end
@@ -30,11 +30,11 @@ function problemDef = unpackParams(problemDef,controls)
     uppars_counter = 1;
     for i = 1:length(controls.checks.fitBackgroundParam)
         if controls.checks.fitBackgroundParam(i) == 1
-            uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
+            uppars(uppars_counter) = problemDef.fitParams(unpacked_counter);
             unpacked_counter = unpacked_counter + 1;
             uppars_counter = uppars_counter + 1;
         else
-            uppars(uppars_counter) = problemDef.otherpars(packed_counter);
+            uppars(uppars_counter) = problemDef.otherParams(packed_counter);
             packed_counter = packed_counter + 1;
             uppars_counter = uppars_counter + 1;
         end
@@ -46,11 +46,11 @@ function problemDef = unpackParams(problemDef,controls)
     uppars_counter = 1;
     for i = 1:length(controls.checks.fitScalefactor)
         if controls.checks.fitScalefactor(i) == 1
-            uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
+            uppars(uppars_counter) = problemDef.fitParams(unpacked_counter);
             unpacked_counter = unpacked_counter + 1;
             uppars_counter = uppars_counter + 1;
         else
-            uppars(uppars_counter) = problemDef.otherpars(packed_counter);
+            uppars(uppars_counter) = problemDef.otherParams(packed_counter);
             packed_counter = packed_counter + 1;
             uppars_counter = uppars_counter + 1;
         end
@@ -63,11 +63,11 @@ function problemDef = unpackParams(problemDef,controls)
     uppars_counter = 1;
     for i = 1:length(controls.checks.fitQzshift)
         if controls.checks.fitQzshift(i) == 1
-            uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
+            uppars(uppars_counter) = problemDef.fitParams(unpacked_counter);
             unpacked_counter = unpacked_counter + 1;
             uppars_counter = uppars_counter + 1;
         else
-            uppars(uppars_counter) = problemDef.otherpars(packed_counter);
+            uppars(uppars_counter) = problemDef.otherParams(packed_counter);
             packed_counter = packed_counter + 1;
             uppars_counter = uppars_counter + 1;
         end
@@ -81,11 +81,11 @@ function problemDef = unpackParams(problemDef,controls)
     uppars_counter = 1;
     for i = 1:length(controls.checks.fitBulkIn)
         if controls.checks.fitBulkIn(i) == 1
-            uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
+            uppars(uppars_counter) = problemDef.fitParams(unpacked_counter);
             unpacked_counter = unpacked_counter + 1;
             uppars_counter = uppars_counter + 1;
         else
-            uppars(uppars_counter) = problemDef.otherpars(packed_counter);
+            uppars(uppars_counter) = problemDef.otherParams(packed_counter);
             packed_counter = packed_counter + 1;
             uppars_counter = uppars_counter + 1;
         end
@@ -98,11 +98,11 @@ function problemDef = unpackParams(problemDef,controls)
     uppars_counter = 1;
     for i = 1:length(controls.checks.fitBulkOut)
         if controls.checks.fitBulkOut(i) == 1
-            uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
+            uppars(uppars_counter) = problemDef.fitParams(unpacked_counter);
             unpacked_counter = unpacked_counter + 1;
             uppars_counter = uppars_counter + 1;
         else
-            uppars(uppars_counter) = problemDef.otherpars(packed_counter);
+            uppars(uppars_counter) = problemDef.otherParams(packed_counter);
             packed_counter = packed_counter + 1;
             uppars_counter = uppars_counter + 1;
         end
@@ -115,11 +115,11 @@ function problemDef = unpackParams(problemDef,controls)
     uppars_counter = 1;
     for i = 1:length(controls.checks.fitResolutionParam)
         if controls.checks.fitResolutionParam(i) == 1
-            uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
+            uppars(uppars_counter) = problemDef.fitParams(unpacked_counter);
             unpacked_counter = unpacked_counter + 1;
             uppars_counter = uppars_counter + 1;
         else
-            uppars(uppars_counter) = problemDef.otherpars(packed_counter);
+            uppars(uppars_counter) = problemDef.otherParams(packed_counter);
             packed_counter = packed_counter + 1;
             uppars_counter = uppars_counter + 1;
         end
@@ -132,11 +132,11 @@ function problemDef = unpackParams(problemDef,controls)
     uppars_counter = 1;
     for i = 1:length(controls.checks.fitDomainRatio)
         if controls.checks.fitDomainRatio(i) == 1
-            uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
+            uppars(uppars_counter) = problemDef.fitParams(unpacked_counter);
             unpacked_counter = unpacked_counter + 1;
             uppars_counter = uppars_counter + 1;
         else
-            uppars(uppars_counter) = problemDef.otherpars(packed_counter);
+            uppars(uppars_counter) = problemDef.otherParams(packed_counter);
             packed_counter = packed_counter + 1;
             uppars_counter = uppars_counter + 1;
         end

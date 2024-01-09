@@ -59,8 +59,7 @@ classdef backgroundsClass < handle
             % in the object. 
             % 
             % names = background.getNames();
-            backsTable = obj.backgrounds.varTable;
-            names = backsTable{:,1};      
+            names = obj.backgrounds.varTable{:,1};      
         end
                  
         function obj = addBackground(obj, varargin)

@@ -134,7 +134,7 @@ classdef resolutionsClass < handle
             % Changes the value of a given resolution in the table. Expects the 
             % index or name of resolution and keyword/value pairs to set. 
             %
-            % resolution.setResolution(1, 'name', 'res 1', 'type', 'constant', 'value1', 'param_name');
+            % resolution.setResolution(1, 'name', 'resolution 1', 'type', 'constant', 'value1', 'param_name');
             if isText(row)
                 row = obj.resolutions.findRowIndex(row, obj.getNames(), 'Unrecognised resolution');
             elseif isnumeric(row)

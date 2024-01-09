@@ -1,4 +1,4 @@
-function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = calculate(problemDef,problemDefCells,controls)
+function [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemDef,problemDefCells,controls)
 
 % Standard layers reflectivity calculation for nonPolarisedTF
 % This function decides on parallelisation options before calling the
@@ -16,13 +16,13 @@ function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,all
 % for compilation, so do this in this block.
 numberOfContrasts = problemDef.numberOfContrasts;
 outSsubs = zeros(numberOfContrasts,1);
-backgs = zeros(numberOfContrasts,1);
+backgroundParams = zeros(numberOfContrasts,1);
 qzshifts = zeros(numberOfContrasts,1);
 scalefactors = zeros(numberOfContrasts,1);
 bulkIns = zeros(numberOfContrasts,1);
 bulkOuts = zeros(numberOfContrasts,1);
 chis = zeros(numberOfContrasts,1);
-resols = zeros(numberOfContrasts,1);
+resolutionParams = zeros(numberOfContrasts,1);
 allRoughs = zeros(numberOfContrasts,1);
 
 reflectivity = cell(numberOfContrasts,1);
@@ -30,14 +30,14 @@ for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
 end
 
-Simulation = cell(numberOfContrasts,1);
+simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    Simulation{i} = [1 1 ; 1 1];
+    simulation{i} = [1 1 ; 1 1];
 end
 
-shifted_data = cell(numberOfContrasts,1);
+shiftedData = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    shifted_data{i} = [1 1 1; 1 1 1];
+    shiftedData{i} = [1 1 1; 1 1 1];
 end
 
 layerSlds = cell(numberOfContrasts,1);
@@ -59,29 +59,29 @@ end
 
 switch controls.parallel
     case 'single'
-          [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
-             Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+          [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
+             simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
              allRoughs] = nonPolarisedTF.standardLayers.single(problemDef,problemDefCells,controls);
      case 'points'
-          [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
-             Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+          [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
+             simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
              allRoughs] = nonPolarisedTF.standardLayers.parallelPoints(problemDef,problemDefCells,controls);
     case 'contrasts'
-          [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
-             Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+          [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
+             simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
              allRoughs] = nonPolarisedTF.standardLayers.parallelContrasts(problemDef,problemDefCells,controls);        
 end
 
 % Package everything into one array for tidy output
 problem.ssubs = outSsubs;
-problem.backgroundParams = backgs;
+problem.backgroundParams = backgroundParams;
 problem.qzshifts = qzshifts;
 problem.scalefactors = scalefactors;
 problem.bulkIn = bulkIns;
 problem.bulkOut = bulkOuts;
-problem.resolutionParams = resols;
-problem.calculations.all_chis = chis;
-problem.calculations.sum_chi = sum(chis);
+problem.resolutionParams = resolutionParams;
+problem.calculations.allChis = chis;
+problem.calculations.sumChi = sum(chis);
 problem.allSubRough = allRoughs;
 problem.resample = problemDef.resample;
 end

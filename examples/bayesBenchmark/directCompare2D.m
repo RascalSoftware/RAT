@@ -65,7 +65,7 @@ for r = 1:gridSize
         d2oproblem.backgrounds(1) = thisBack;
         
         [outProblem,results] = RAT(d2oproblem,controls);
-        thisChi = results.calculationResults.sum_chi;
+        thisChi = results.calculationResults.sumChi;
         probArray(r,b) = exp(-thisChi/2);
         percent = (counter/totalGrid)*100;
         fprintf('Calculated %1.1f percent \n',percent);

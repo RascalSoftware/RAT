@@ -5,7 +5,7 @@ function ymod = refModel(data,problem,theta,varargin)
 % We need to reverse this correction, and actually return the simulation
 % corrected for the scalefactor. We have to do this because the scalefactor 
 % is in itself one of our fitting parameters (no need to correct the data -
-% problem.shifted_data contains the corrected data, but
+% problem.shiftedData contains the corrected data, but
 % problem.data is a record of the original).
 
 if isempty(varargin)
@@ -35,7 +35,7 @@ controls = problem{2};
 problemDefLimits = problem{3};
 problemDefCells = problem{4};
 
-problemDef.fitpars = pars;
+problemDef.fitParams = pars;
 problemDef = unpackParams(problemDef,controls);
 [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 

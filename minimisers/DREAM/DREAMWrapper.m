@@ -7,7 +7,7 @@ control = ratInputs.controls;
 cells = ratInputs.problemDefCells;
 
 % Put the current parameters into problem
-problem.fitpars = pars;
+problem.fitParams = pars;
 
 % Distribute them to the right parts
 problem = unpackParams(problem,control);
@@ -16,7 +16,7 @@ problem = unpackParams(problem,control);
 [outProblem,~] = reflectivityCalculation(problem,cells,control);
 
 % Function value is chi-squared....
-chiSquared = outProblem.calculations.sum_chi;
+chiSquared = outProblem.calculations.sumChi;
 
 Lik = -chiSquared/2;
 

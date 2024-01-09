@@ -15,7 +15,7 @@ rng(0);
 
 %First deal with priors.
 prior = {};
-lims = problemDef.fitconstr;
+lims = problemDef.fitLimits;
 
 % Preallocate params array to keep the compiler happy
 params = cell(length(fitNames),1);
@@ -117,7 +117,7 @@ priorValues = allPriors.priorValues;
 for i = 1:length(fitNames)
     coder.varsize('name',[1 Inf],[0 1]);
     name = fitNames{i};
-    value = problemDef.fitpars(i);
+    value = problemDef.fitParams(i);
     min = lims(i,1);
     max = lims(i,2);
     
@@ -155,7 +155,7 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 
 [problemDef,outProblem,result,bayesResults] = processBayes(output,problem);
 
-% problemDef.fitpars = bayesResults.bestPars_Mean;
+% problemDef.fitParams = bayesResults.bestPars_Mean;
 
 
 % Post processing of Bayes
@@ -170,20 +170,20 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 % bestPars_mean = output.results.mean;
 % 
 % % Calulate Max best fit curves
-% problemDef.fitpars = bestPars_max;
+% problemDef.fitParams = bestPars_max;
 % problemDef = unpackParams(problemDef,controls);
 % [outProblem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 % bestFitMax_Ref = result(1);
 % bestFitMax_Sld = result(5);
-% bestFitMax_chi = outProblem.calculations.sum_chi;
+% bestFitMax_chi = outProblem.calculations.sumChi;
 % 
 % % Calculate 'mean' best fit curves
-% problemDef.fitpars = bestPars_mean;
+% problemDef.fitParams = bestPars_mean;
 % problemDef = unpackParams(problemDef,controls);
 % [outProblem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 % bestFitMean_Ref = result(1);
 % bestFitMean_Sld = result(5);
-% bestFitMean_chi = outProblem.calculations.sum_chi;
+% bestFitMean_chi = outProblem.calculations.sumChi;
 % 
 % % 2. Reflectivity and SLD shading
 % predIntRef = mcmcpred_compile(output.results,output.chain,[],output.data,problem,500);

@@ -7,10 +7,10 @@ fittingParams = problem.params(find(fitWhichParams));
 fittingConstr = problem.constr(find(fitWhichParams),:);
 fittingNames = problem.paramnames(find(fitWhichParams));
 
-fitWhichBacks = problem.fitBackgrounds;
-fittingBacks = problem.backs(find(fitWhichBacks));
-fittingBacksConstr = problem.backgroundParamLimits(find(fitWhichBacks),:);
-fittingBacksNames = problem.backgroundParamNames(find(fitWhichBacks));
+fitWhichBackgroundParam = problem.fitBackgroundParam;
+fittingBackgroundParam = problem.backs(find(fitWhichBackgroundParam));
+fittingBackgroundParamConstr = problem.backgroundParamLimits(find(fitWhichBackgroundParam),:);
+fittingBackgroundParamNames = problem.backgroundParamNames(find(fitWhichBackgroundParam));
 
 fitWhichScales = problem.fitScalefactor;
 fittingScales = problem.scalefac(find(fitWhichScales));
@@ -28,9 +28,9 @@ fittingNbaConstr = problem.bulkInLimits(find(fitWhichNbas),:);
 fittingNbaNames = problem.bulkInNames(find(fitWhichNbas));
 
 
-fittingParams = [fittingParams(:) ; fittingBacks(:) ; fittingScales(:) ; fittingShifts(:) ; fittingNbas(:)];
-fittingConstr = [fittingConstr ; fittingBacksConstr ; fittingScalesConstr ; fittingShiftsConstr ; fittingNbaConstr];
-fittingNames = [fittingNames(:) ; fittingBacksNames(:) ; fittingScalesNames(:) ; fittingShiftsNames(:) ; fittingNbaNames(:)];
+fittingParams = [fittingParams(:) ; fittingBackgroundParam(:) ; fittingScales(:) ; fittingShifts(:) ; fittingNbas(:)];
+fittingConstr = [fittingConstr ; fittingBackgroundParamConstr ; fittingScalesConstr ; fittingShiftsConstr ; fittingNbaConstr];
+fittingNames = [fittingNames(:) ; fittingBackgroundParamNames(:) ; fittingScalesNames(:) ; fittingShiftsNames(:) ; fittingNbaNames(:)];
 
 if isempty(fittingParams)
     out{1} = 'fail';

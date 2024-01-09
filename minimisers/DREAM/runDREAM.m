@@ -34,7 +34,7 @@ end
 [problemDef,fitParamNames] = packParams(problemDef,problemDefCells,problemDefLimits,controls.checks);
 
 % Get the priors for the fitted parameters...
-priorList = getFittedPriors(fitParamNames,priors,problemDef.fitconstr);
+priorList = getFittedPriors(fitParamNames,priors,problemDef.fitLimits);
 
 % Put all the RAT parameters together into one array...
 ratInputs.problemDef = problemDef;
@@ -66,8 +66,8 @@ DREAMPar.adaptPCR = controls.adaptPCR;
 % Initial sampling and parameter range
 Par_info.prior = 'uniform';           
 
-Par_info.min = problemDef.fitconstr(:,1)';
-Par_info.max = problemDef.fitconstr(:,2)';
+Par_info.min = problemDef.fitLimits(:,1)';
+Par_info.max = problemDef.fitLimits(:,2)';
 Par_info.boundhandling = controls.boundHandling;
 
 %if dreamC.prior

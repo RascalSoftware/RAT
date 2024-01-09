@@ -5,7 +5,7 @@ function plotRefSLD(problem, result)
     [problemDef,~,~,~,~] = parseClassToStructs(problem,controls);
     
     data.reflectivity = result.reflectivity;
-    data.shifted_data = result.shifted_data;
+    data.shiftedData = result.shiftedData;
     data.sldProfiles = result.sldProfiles;
     data.allLayers = result.allLayers;
     data.dataPresent = problemDef.dataPresent;

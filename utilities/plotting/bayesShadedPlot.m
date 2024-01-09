@@ -60,8 +60,8 @@ sldXdata = pLims.sldXdata;
 bestRef_mean = result.bestFitsMean.ref;
 bestSld_mean = result.bestFitsMean.sld;
 
-shifted_data = result.shifted_data;
-numberOfContrasts = length(shifted_data);
+shiftedData = result.shiftedData;
+numberOfContrasts = length(shiftedData);
 
 % Calculate the best fits depending on the selected options
 subplot(1,2,1)
@@ -71,7 +71,7 @@ hold on; box on
 for i = 1:numberOfContrasts
     
     %thisRef = reflect{i};
-    thisData = shifted_data{i};
+    thisData = shiftedData{i};
     thisRefMean = bestRef_mean{i};
     thisSf = sf(i);
     

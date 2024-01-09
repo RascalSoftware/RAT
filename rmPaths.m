@@ -7,23 +7,21 @@ paths = {
     fullfile(root,'API','events');
     fullfile(root,'API','projectClass');
 
-    fullfile(root,'compile','events');
-    fullfile(root,'compile','reflectivityCalculation');
-    fullfile(root,'compile','customWrapper');
-    fullfile(root,'compile','fullCompile');
     fullfile(root,'compile');
+    fullfile(root,'compile','customWrapper');
+    fullfile(root,'compile','events');
+    fullfile(root,'compile','fullCompile');
+    fullfile(root,'compile','reflectivityCalculation');
 
+    fullfile(root,'minimisers','DE');
     fullfile(root,'minimisers','DREAM');
     fullfile(root,'minimisers','DREAM','diagnostics');
     fullfile(root,'minimisers','DREAM','functions');
     fullfile(root,'minimisers','DREAM','postprocessing');
     fullfile(root,'minimisers','generalUtils');
     fullfile(root,'minimisers','generalUtils','bayesStats');
-    fullfile(root,'minimisers','simplex');
-    fullfile(root,'minimisers','DE');
-    %fullfile(root,'minimisers','mcmcstat_new');
-    %fullfile(root,'minimisers','mcmcstat_new','src');
     fullfile(root,'minimisers','NS');
+    fullfile(root,'minimisers','simplex');
 
     fullfile(root,'targetFunctions' );
     fullfile(root,'targetFunctions','common');
@@ -42,7 +40,6 @@ paths = {
     fullfile(root,'tests','testProjectConversion');
 
     fullfile(root,'utilities');
-    fullfile(root,'utilities','exceptions');
     fullfile(root,'utilities','misc');
     fullfile(root,'utilities','plotting');
 

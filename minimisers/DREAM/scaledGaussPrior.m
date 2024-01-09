@@ -12,7 +12,7 @@ function pVal2 = scaledGaussPrior(m,extras)
     usedPriorInd = find(priorList(:,1) == 2);
 
     priorfun = @(th,mu,sig) sum(((th-mu)./sig).^2);
-    fitConstr = problem.fitconstr;
+    fitConstr = problem.fitLimits;
     
     usedPriors = priorList(usedPriorInd,:);
     usedConstr = fitConstr(usedPriorInd,:);

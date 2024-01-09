@@ -329,7 +329,7 @@ end %---end while ((I_iter < I_itermax) ...
 
 
 
-% problemDef.fitpars = x;
+% problemDef.fitParams = x;
 % problemDef = unpackParams(problemDef,controls);
 % [problem,res] = reflectivityCalculation(problemDef,problemDefCells,controls);
 

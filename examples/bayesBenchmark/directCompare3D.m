@@ -15,7 +15,7 @@ controls.calcSldDuringFit = true;
 [outProb,results] = RAT(d2oproblem,controls);
 figure(1); clf
 plotRefSLD(outProb, results);
-thisChisq = results.calculationResults.sum_chi;
+thisChisq = results.calculationResults.sumChi;
 fprintf('Chi squared in %d \n',thisChisq);
 
 % Run MCMC
@@ -102,9 +102,9 @@ else
                 %d2oproblem.backgrounds(1) = thisBack;
                 %d2oProblem.scalefactors(1) = thisScale;
 
-                problemDef.fitpars(1) = thisRough;
-                problemDef.fitpars(2) = thisBack;
-                problemDef.fitpars(3) = thisScale;
+                problemDef.fitParams(1) = thisRough;
+                problemDef.fitParams(2) = thisBack;
+                problemDef.fitParams(3) = thisScale;
                 problemDef = unpackParams(problemDef,controls);
                 [problem,results] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 
@@ -114,7 +114,7 @@ else
 % 
 %                 [outProblem,results] = RAT(d2oproblem,controls);
 
-                thisChi = problem.calculations.sum_chi;
+                thisChi = problem.calculations.sumChi;
                 probArray(r,b,s) = exp(-thisChi/2);
                 percent = (counter/totalGrid)*100;
                 fprintf('Calculated %1.1f percent \n',percent);

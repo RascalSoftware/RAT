@@ -1,6 +1,6 @@
-function [reflectivity, Simulation] = callReflectivity(bulkIns,bulkOuts,simLimits,repeatLayers,this_data,layers,ssubs,res,parallel,refType,useImaginary)
+function [reflectivity, simulation] = callReflectivity(bulkIns,bulkOuts,simLimits,repeatLayers,thisData,layers,ssubs,resolution,parallel,refType,useImaginary)
 
-xdata = this_data(:,1);
+xdata = thisData(:,1);
 
 
 repeatFlag = repeatLayers(1);
@@ -59,7 +59,7 @@ roughs(end) = ssubs;
 
 simXLo = simLimits(1);
 simXHi = simLimits(2);
-middleSection = this_data(:,1);
+middleSection = thisData(:,1);
 split = [0 0];
 
 if simXLo < xdata(1)
@@ -79,15 +79,15 @@ end
 simXdata = [firstSection(:) ; middleSection(:) ; lastSection(:)];
 splits = [(length(firstSection)+1) ((length(firstSection))+length(middleSection))];
 
-Simulation = zeros(length(simXdata),2);
-Simulation(:,1) = simXdata;
+simulation = zeros(length(simXdata),2);
+simulation(:,1) = simXdata;
 
 % If we are using data resolutions, then we also need to adjust the length
 % of the reolution column. We do thit by just extending with the rosolution
 % values at the ends of the curve.
 simResolData = 0;
-if res == -1
-    thisDataResol = this_data(:,4);
+if resolution == -1
+    thisDataResol = thisData(:,4);
     minVal = thisDataResol(1);
     maxVal = thisDataResol(end);
     startResol = ones((length(firstSection)),1) .* minVal;
@@ -107,12 +107,12 @@ switch refType
                 % Apply resolution              
                 % Note: paraPoints gives an error during valifation, so use
                 % single cored resolution as a workaround for now.
-                if res == -1
+                if resolution == -1
                     %simRef = dataResolutionPollyParallelPoints(simXdata,simRef,simResolData,length(simXdata));
                     simRef = dataResolutionPolly(simXdata,simRef,simResolData,length(simXdata));
                 else
                     %simRef = resolutionPollyParallelPoints(simXdata,simRef,res,length(simXdata));
-                    simRef = resolutionPolly(simXdata,simRef,res,length(simXdata));
+                    simRef = resolutionPolly(simXdata,simRef,resolution,length(simXdata));
                 end
                 
             otherwise
@@ -122,15 +122,15 @@ switch refType
                 simRef = abelesSingle(simXdata,nLayersTot,thicks,slds,roughs);
                 
                 % Apply resolution correction...
-                if res == -1
+                if resolution == -1
                     simRef = dataResolutionPolly(simXdata,simRef,simResolData,length(simXdata));
                 else
-                    simRef = resolutionPolly(simXdata,simRef,res,length(simXdata));
+                    simRef = resolutionPolly(simXdata,simRef,resolution,length(simXdata));
                 end
         end
 end
 
-Simulation(:,2) = simRef(:);
-reflectivity = Simulation(splits(1):splits(2),:);
+simulation(:,2) = simRef(:);
+reflectivity = simulation(splits(1):splits(2),:);
 
 end

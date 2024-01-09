@@ -358,8 +358,8 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(resultStruct, testCase.expectedResultOutStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
 
             testCase.verifyEqual(resultStruct.reflectivity, testCase.expectedResult{1}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(resultStruct.Simulation, testCase.expectedResult{2}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(resultStruct.shifted_data, testCase.expectedResult{3}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(resultStruct.simulation, testCase.expectedResult{2}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(resultStruct.shiftedData, testCase.expectedResult{3}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(resultStruct.layerSlds, testCase.expectedResult{4}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(resultStruct.sldProfiles, testCase.expectedResult{5}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(resultStruct.allLayers, testCase.expectedResult{6}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);

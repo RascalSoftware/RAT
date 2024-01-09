@@ -78,9 +78,9 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             testCase.resolution.addResolution();
             testCase.verifyEqual(string(testCase.resolution.resolutions.varTable{end, :}),...
                                     string({'New Resolution 2', allowedTypes.Constant.value, '', '', '', '', ''}), 'addResolution method not working');
-            testCase.resolution.addResolution('New Res');
+            testCase.resolution.addResolution('New Resolution');
             testCase.verifyEqual(string(testCase.resolution.resolutions.varTable{end, :}),...
-                                    string({'New Res', allowedTypes.Constant.value, '', '', '', '', ''}), 'addResolution method not working');
+                                    string({'New Resolution', allowedTypes.Constant.value, '', '', '', '', ''}), 'addResolution method not working');
             testCase.resolution.addResolution(testCase.resolutions{3, 1:5});
             testCase.verifyEqual(string(testCase.resolution.resolutions.varTable{end, :}),...
                                     string(testCase.resolutions(3, :)), 'addResolution method not working');

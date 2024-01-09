@@ -27,8 +27,8 @@ problem.scalefactors = 0;
 problem.bulkIn = 0;
 problem.bulkOut = 0;
 problem.resolutionParams = 0;
-problem.calculations.all_chis = 0;
-problem.calculations.sum_chi = 0;
+problem.calculations.allChis = 0;
+problem.calculations.sumChi = 0;
 problem.allSubRough = 0;
 problem.resample = 0;
 
@@ -45,17 +45,17 @@ for i = 1:numberOfContrasts
 end
 coder.varsize('reflectivity{:}',[10000 2],[1 0]);
 
-Simulation = cell(numberOfContrasts,1);
+simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    Simulation{i} = [1 1 ; 1 1];
+    simulation{i} = [1 1 ; 1 1];
 end
-coder.varsize('Simulation{:}',[10000 2],[1 0]);
+coder.varsize('simulation{:}',[10000 2],[1 0]);
 
-shifted_data = cell(numberOfContrasts,1);
+shiftedData = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    shifted_data{i} = [1 1 1 ; 1 1 1];
+    shiftedData{i} = [1 1 1 ; 1 1 1];
 end
-coder.varsize('shifted_data{:}',[10000 3],[1 0]);
+coder.varsize('shiftedData{:}',[10000 3],[1 0]);
 
 layerSlds = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
@@ -103,13 +103,13 @@ coder.varsize('domainAllLayers{:}',[10000 3],[1 0]);
 whichTF = problemDef.TF;
 switch whichTF
     case 'non polarised'
-        [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemDef,problemDefCells,controls);
+        [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemDef,problemDefCells,controls);
     %case 'oil water'
         %problem = oilWaterTF_reflectivityCalculation(problemDef,problemDefCells,controls);    
     %case 'magnetic'
         %problem = polarisedTF_reflectivityCalculation(problemDef,problemDefCells,controls);
     case 'domains'
-        [problem,reflectivity,Simulation,shifted_data,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTF.reflectivityCalculation(problemDef,problemDefCells,controls);
+        [problem,reflectivity,simulation,shiftedData,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTF.reflectivityCalculation(problemDef,problemDefCells,controls);
 %     otherwise
 %         error('The calculation type "%s" is not supported', whichTF);
 
@@ -125,13 +125,13 @@ result{1} = cell1;
 
 cell2 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    cell2{i} = Simulation{i};
+    cell2{i} = simulation{i};
 end
 result{2} = cell2;
 
 cell3 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    cell3{i} = shifted_data{i}; 
+    cell3{i} = shiftedData{i}; 
 end
 result{3} = cell3;
 
@@ -193,8 +193,8 @@ coder.varsize('problem.bulkIn',[Inf 1],[1 0]);
 coder.varsize('problem.bulkOut',[Inf 1],[1 0]);
 coder.varsize('problem.resolutionParams',[Inf 1],[1 0]);
 coder.varsize('problem.ssubs',[Inf 1],[1 0]);
-coder.varsize('problem.calculations.all_chis',[Inf 1],[1 0]);
-coder.varsize('problem.calculations.sum_chi',[1 1],[0 0]);
+coder.varsize('problem.calculations.allChis',[Inf 1],[1 0]);
+coder.varsize('problem.calculations.sumChi',[1 1],[0 0]);
 coder.varsize('problem.allSubRough',[Inf 1],[1 0]);
 coder.varsize('problem.resample',[1 Inf],[0 1]);
 
@@ -202,7 +202,7 @@ coder.varsize('problem.resample',[1 Inf],[0 1]);
 coder.varsize('result{1}',[Inf 1],[1 0]);           %Reflectivity
 coder.varsize('result{1}{:}',[Inf 2],[1 0]);
 
-coder.varsize('result{2}',[Inf 1],[1 0]);           %Simulation
+coder.varsize('result{2}',[Inf 1],[1 0]);           %simulation
 coder.varsize('result{2}{:}',[Inf 2],[1 0]);
 
 coder.varsize('result{3}',[Inf 1],[1 0]);           %Shifted data

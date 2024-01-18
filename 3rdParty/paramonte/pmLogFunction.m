@@ -2,7 +2,7 @@ classdef pmLogFunction
 
     properties 
         
-        problemDef;
+        problemDefStruct;
         problemDefCells;
         problemDefLimits;
         priors;
@@ -16,7 +16,7 @@ classdef pmLogFunction
         
         function logFuncVal = get(obj,pars)
             
-            problem = obj.problemDef;            
+            problem = obj.problemDefStruct;            
             problem.fitParams = pars;
             
             if obj.scaled

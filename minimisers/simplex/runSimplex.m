@@ -1,6 +1,6 @@
-function [problemDef,problem,result] = runSimplex(problemDef,problemDefCells,problemDefLimits,controls)
+function [problemDefStruct,problem,result] = runSimplex(problemDefStruct,problemDefCells,problemDefLimits,controls)
 
-numberOfContrasts = problemDef.numberOfContrasts;
+numberOfContrasts = problemDefStruct.numberOfContrasts;
 preAlloc = zeros(numberOfContrasts,1);
 
 result = cell(6,1);
@@ -16,7 +16,7 @@ problem = struct('ssubs',preAlloc,...
                  'allSubRough',preAlloc);
 
 
-[problemDef,~] = fitsetup(problemDef,problemDefCells,problemDefLimits,controls);
+[problemDefStruct,~] = fitsetup(problemDefStruct,problemDefCells,problemDefLimits,controls);
 
 maxIter = controls.maxIter;
 tolFun = controls.tolFun;
@@ -39,9 +39,9 @@ end
 
 options = optimset('MaxIter',maxIter,'TolFun',tolFun,'TolX',tolX,'MaxFunEvals',maxFunEvals);
 
-x0 = problemDef.fitParams;
-LB = problemDef.fitLimits(:,1);
-UB = problemDef.fitLimits(:,2);
+x0 = problemDefStruct.fitParams;
+LB = problemDefStruct.fitLimits(:,1);
+UB = problemDefStruct.fitLimits(:,2);
 
 % size checks
 xsize = size(x0);
@@ -63,7 +63,7 @@ end
 params.args = [];%varargin;
 params.LB = LB;
 params.UB = UB;
-params.fun = '';%problemDef.modelFilename;%fun;
+params.fun = '';%problemDefStruct.modelFilename;%fun;
 
 % 0 --> unconstrained variable
 % 1 --> lower bound only
@@ -119,9 +119,9 @@ end
 % now we can call fminsearch, but with our own
 % intra-objective function.
 
-[xu,~,~,~] = fMinSearch(@simplexIntrafun,x0u,options,dis,problemDef,problemDefCells,controls,params);
+[xu,~,~,~] = fMinSearch(@simplexIntrafun,x0u,options,dis,problemDefStruct,problemDefCells,controls,params);
 
-%[xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemDef,problemDefCells,problemDefLimits,controls,options,params,300);
+%[xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemDefStruct,problemDefCells,problemDefLimits,controls,options,params,300);
 
 % undo the variable transformations into the original space
 x = simplexXTransform(xu,params);
@@ -129,8 +129,8 @@ x = simplexXTransform(xu,params);
 % final reshape
 %x = reshape(x,xsize);
 
-problemDef.fitParams = x;
-problemDef = unpackParams(problemDef,controls);
-[problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
+problemDefStruct.fitParams = x;
+problemDefStruct = unpackParams(problemDefStruct,controls);
+[problem,result] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
 
 end

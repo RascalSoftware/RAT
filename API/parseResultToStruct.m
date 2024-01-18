@@ -1,11 +1,11 @@
-function result = parseResultToStruct(problem,results)
+function result = parseResultToStruct(problem,resultCells)
 
-result.reflectivity = results{1};   % Reflectivity art points
-result.simulation = results{2};     % Reflectivity between sim limits    
-result.shiftedData = results{3};    % Data corrected for sfs
-result.layerSlds = results{4};      % Layers if defined (i.e. not customXY)
-result.sldProfiles = results{5};    % Calculated SLD profiles
-result.allLayers = results{6};      % Resampled layers
+result.reflectivity = resultCells{1};   % Reflectivity art points
+result.simulation = resultCells{2};     % Reflectivity between sim limits    
+result.shiftedData = resultCells{3};    % Data corrected for sfs
+result.layerSlds = resultCells{4};      % Layers if defined (i.e. not customXY)
+result.sldProfiles = resultCells{5};    % Calculated SLD profiles
+result.allLayers = resultCells{6};      % Resampled layers
 
 result.calculationResults = problem.calculations;
 

@@ -5,9 +5,9 @@ function [outProblemDef,result,pmpd] = processParamonteRuns(problem,controls,cha
 % 
 % controls = controlsClass();
 
-[problemDef,problemDefCells,problemDefLimits,~,controls] = parseClassToStructs(problem,controls);
+[problemDefStruct,problemDefCells,problemDefLimits,~,controls] = parseClassToStructs(problem,controls);
 
-[problemDef,fitNames] = packParams(problemDef,problemDefCells,problemDefLimits,controls.checks);
+[problemDefStruct,fitNames] = packParams(problemDefStruct,problemDefCells,problemDefLimits,controls.checks);
 
 pm = paramonte();
 pmpd = pm.ParaDRAM();
@@ -24,7 +24,7 @@ npoints = floor(chainTrim * size(chain,1));
 % only take last part of chain...
 scaledChain = chain((end-npoints):end,:);
 
-limits = problemDef.fitLimits;
+limits = problemDefStruct.fitLimits;
 rows = size(scaledChain,1);
 
 for i = 1:rows
@@ -34,7 +34,7 @@ for i = 1:rows
 end
 
 
-allProblem = {problemDef, controls, problemDefLimits, problemDefCells};
+allProblem = {problemDefStruct, controls, problemDefLimits, problemDefCells};
 
 bayesOutputs.bestPars = mean(unscaledChain);
 bayesOutputs.chain = unscaledChain;
@@ -44,20 +44,20 @@ bayesOutputs.sschain = [];
 bayesOutputs.data = problemDefCells{2};
 bayesOutputs.results.mean = mean(unscaledChain);
 
-[problemDef,outProblemStruct,result,bayesResults] = processBayes(bayesOutputs,allProblem);
+[problemDefStruct,outProblemStruct,result,bayesResults] = processBayes(bayesOutputs,allProblem);
 bayesResults.chain = unscaledChain;
 
 result = parseResultToStruct(outProblemStruct,result);
 
-if isfield(problemDef,'fitParams')
-    result.bestFitPars = problemDef.fitParams;
+if isfield(problemDefStruct,'fitParams')
+    result.bestFitPars = problemDefStruct.fitParams;
 end
 
 result = mergeStructs(result,bayesResults);
 
-[~,fitNames] = packParams(problemDef,problemDefCells,problemDefLimits,controls.checks);
+[~,fitNames] = packParams(problemDefStruct,problemDefCells,problemDefLimits,controls.checks);
 result.fitNames = fitNames;
 
-outProblemDef = parseOutToProjectClass(problem,problemDef);
+outProblemDef = parseOutToProjectClass(problem,problemDefStruct);
 
 end

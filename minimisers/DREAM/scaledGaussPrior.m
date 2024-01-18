@@ -1,6 +1,6 @@
 function pVal2 = scaledGaussPrior(m,extras)
     
-    problem = extras.problemDef;
+    problem = extras.problemDefStruct;
     priorList = extras.priors;
     
     % All are in range, so check for Gaussian priors....

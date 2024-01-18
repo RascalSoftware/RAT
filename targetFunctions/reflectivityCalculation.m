@@ -1,4 +1,4 @@
-function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls)
+function [problem,resultCells] = reflectivityCalculation(problemDefStruct,problemDefCells,controls)
 % Main entry point into the reflectivity calculation for the toolbox.
 % This is the main function that is called by any of the minimisers or
 % analysis tools from the rest of the toolbox. 
@@ -38,7 +38,7 @@ problem.resample = 0;
 % end for the results block. We are unlikely to need both
 % TODO: Find out which is necessary and tidy this up.
 
-numberOfContrasts = problemDef.numberOfContrasts;
+numberOfContrasts = problemDefStruct.numberOfContrasts;
 reflectivity = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
@@ -100,40 +100,40 @@ coder.varsize('domainAllLayers',[10000 2],[1 1]);
 coder.varsize('domainAllLayers{:}',[10000 3],[1 0]);
 
 % Decide which target function we are calling and call the relevant routines
-whichTF = problemDef.TF;
+whichTF = problemDefStruct.TF;
 switch whichTF
     case 'non polarised'
-        [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemDef,problemDefCells,controls);
+        [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemDefStruct,problemDefCells,controls);
     %case 'oil water'
-        %problem = oilWaterTF_reflectivityCalculation(problemDef,problemDefCells,controls);    
+        %problem = oilWaterTF_reflectivityCalculation(problemDefStruct,problemDefCells,controls);    
     %case 'magnetic'
-        %problem = polarisedTF_reflectivityCalculation(problemDef,problemDefCells,controls);
+        %problem = polarisedTF_reflectivityCalculation(problemDefStruct,problemDefCells,controls);
     case 'domains'
-        [problem,reflectivity,simulation,shiftedData,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTF.reflectivityCalculation(problemDef,problemDefCells,controls);
+        [problem,reflectivity,simulation,shiftedData,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTF.reflectivityCalculation(problemDefStruct,problemDefCells,controls);
 %     otherwise
 %         error('The calculation type "%s" is not supported', whichTF);
 
 end
 
-result = cell(1,6);
+resultCells = cell(1,6);
 
 cell1 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     cell1{i} = reflectivity{i};
 end
-result{1} = cell1;
+resultCells{1} = cell1;
 
 cell2 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     cell2{i} = simulation{i};
 end
-result{2} = cell2;
+resultCells{2} = cell2;
 
 cell3 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     cell3{i} = shiftedData{i}; 
 end
-result{3} = cell3;
+resultCells{3} = cell3;
 
 
 % The size of this array now varies depending on TF
@@ -145,21 +145,21 @@ switch whichTF
             cell4{i,1} = domainLayerSlds{i,1};
             cell4{i,2} = domainLayerSlds{i,2};
         end
-        result{4} = cell4;
+        resultCells{4} = cell4;
 
         cell5 = cell(numberOfContrasts,2);
         for i = 1:numberOfContrasts
             cell5{i,1} = domainSldProfiles{i,1};
             cell5{i,2} = domainSldProfiles{i,2};
         end
-        result{5} = cell5;
+        resultCells{5} = cell5;
 
         cell6 = cell(numberOfContrasts,2);
         for i = 1:numberOfContrasts
             cell6{i,1} = domainAllLayers{i,1}; 
             cell6{i,2} = domainAllLayers{i,2};
         end
-        result{6} = cell6;
+        resultCells{6} = cell6;
 
     otherwise
 
@@ -167,19 +167,19 @@ switch whichTF
         for i = 1:numberOfContrasts
             cell4{i} = layerSlds{i};
         end
-        result{4} = cell4;
+        resultCells{4} = cell4;
 
         cell5 = cell(numberOfContrasts,1);
         for i = 1:numberOfContrasts
             cell5{i} = sldProfiles{i};
         end
-        result{5} = cell5;
+        resultCells{5} = cell5;
 
         cell6 = cell(numberOfContrasts,1);
         for i = 1:numberOfContrasts
             cell6{i} = allLayers{i}; 
         end
-        result{6} = cell6;
+        resultCells{6} = cell6;
 
 end
 

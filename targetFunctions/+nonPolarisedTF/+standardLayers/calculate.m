@@ -1,4 +1,4 @@
-function [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemDef,problemDefCells,controls)
+function [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemDefStruct,problemDefCells,controls)
 
 % Standard layers reflectivity calculation for nonPolarisedTF
 % This function decides on parallelisation options before calling the
@@ -14,7 +14,7 @@ function [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allL
 % Pre-allocation - It's necessary to
 % pre-define the types for all the arrays
 % for compilation, so do this in this block.
-numberOfContrasts = problemDef.numberOfContrasts;
+numberOfContrasts = problemDefStruct.numberOfContrasts;
 outSsubs = zeros(numberOfContrasts,1);
 backgroundParams = zeros(numberOfContrasts,1);
 qzshifts = zeros(numberOfContrasts,1);
@@ -61,15 +61,15 @@ switch controls.parallel
     case 'single'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
              simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = nonPolarisedTF.standardLayers.single(problemDef,problemDefCells,controls);
+             allRoughs] = nonPolarisedTF.standardLayers.single(problemDefStruct,problemDefCells,controls);
      case 'points'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
              simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = nonPolarisedTF.standardLayers.parallelPoints(problemDef,problemDefCells,controls);
+             allRoughs] = nonPolarisedTF.standardLayers.parallelPoints(problemDefStruct,problemDefCells,controls);
     case 'contrasts'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
              simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = nonPolarisedTF.standardLayers.parallelContrasts(problemDef,problemDefCells,controls);        
+             allRoughs] = nonPolarisedTF.standardLayers.parallelContrasts(problemDefStruct,problemDefCells,controls);        
 end
 
 % Package everything into one array for tidy output
@@ -83,5 +83,5 @@ problem.resolutionParams = resolutionParams;
 problem.calculations.allChis = chis;
 problem.calculations.sumChi = sum(chis);
 problem.allSubRough = allRoughs;
-problem.resample = problemDef.resample;
+problem.resample = problemDefStruct.resample;
 end

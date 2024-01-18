@@ -1,6 +1,6 @@
 function output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls)
 
-problemDef = problem{1};
+problemDefStruct = problem{1};
 controls = problem{2};
 problemDefLimits = problem{3};
 problemDefCells = problem{4};
@@ -12,7 +12,7 @@ display = controls.display;
 % We have the same number of 'batches' as contrasts.
 % Also need to pass problem in order to access this
 % from the subfunctions.
-numberOfContrasts = problemDef.numberOfContrasts;
+numberOfContrasts = problemDefStruct.numberOfContrasts;
 
 % Pre-allocate data to keep the compiler happy
 % data = cell(1,numberOfContrasts);
@@ -32,8 +32,8 @@ end
 
 % Make qcov based on the ranges of the parameters
 qcov = [];
-fitPars = problemDef.fitParams;
-fitConstr = problemDef.fitLimits;
+fitPars = problemDefStruct.fitParams;
+fitConstr = problemDefStruct.fitLimits;
 nPars = length(fitPars);
 
 for i = 1:nPars
@@ -89,9 +89,9 @@ output.data = data;
 % out = mcmcpred_compile(results,chain,[],data,problem,500);
 % outSld = mcmcpred_compile_sld(results,chain,[],data,problem,500);
 % 
-% problemDef.fitParams = output.bestPars;
-% problemDef = unpackParams(problemDef,controls);
-% [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
+% problemDefStruct.fitParams = output.bestPars;
+% problemDefStruct = unpackParams(problemDefStruct,controls);
+% [problem,result] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
 % 
 % output.bestFits = result{1};
 % output.shiftedData = problemDefCells{2};

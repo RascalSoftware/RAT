@@ -1,6 +1,6 @@
 function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
     simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
-    allRoughs] = parallelPoints(problemDef,problemDefCells,controls)
+    allRoughs] = parallelPoints(problemDefStruct,problemDefCells,controls)
 
 % Multi threaded version of the custom XY profile over reflectivity points
 % for nonPolarisedTF reflectivity calculation. 
@@ -13,10 +13,10 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resol
  ~,~,...        % Layers details N/A
  customFiles] = parseCells(problemDefCells);
 
-% Extract individual parameters from problemDef struct
+% Extract individual parameters from problemDefStruct
 [numberOfContrasts, ~, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
 contrastResolutions, backgroundParam, qzshift, scalefactor, bulkIn, bulkOut, resolutionParam, dataPresent, nParams, params,...
-~, ~, contrastBackgroundsType, cCustFiles] =  extractProblemParams(problemDef);      
+~, ~, contrastBackgroundsType, cCustFiles] =  extractProblemParams(problemDefStruct);      
             
 %Pre-Allocation...
 backgroundParams = zeros(numberOfContrasts,1);
@@ -54,7 +54,7 @@ end
 
 % Resampling parameters
 resamPars = controls.resamPars;
-useImaginary = problemDef.useImaginary;
+useImaginary = problemDefStruct.useImaginary;
 
 [sldProfiles,allRoughs] = nonPolarisedTF.customXY.processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backgroundParam, ...
     qzshift,scalefactor,bulkIn,bulkOut,resolutionParam,cCustFiles,numberOfContrasts,customFiles,params);

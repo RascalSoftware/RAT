@@ -1,44 +1,42 @@
-function [outProblemDef,result] = RAT(problemDefInput,controls)
+function [problemDefOutput,result] = RAT(problemDefInput,inputControls)
 
-[problemDef,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(problemDefInput,controls);
-[problemDef,~] = packParams(problemDef,problemDefCells,problemDefLimits,controls.checks);
+[problemDefStruct,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(problemDefInput,inputControls);
+[problemDefStruct,~] = packParams(problemDefStruct,problemDefCells,problemDefLimits,controls.checks);
 
-% Set controls.calCls always to 1
-% if we are doing customXY
-switch lower(problemDef.modelType)
+% Set controls.calcSLD to 1 if we are doing customXY
+switch lower(problemDefStruct.modelType)
     case 'custom xy'
         controls.calcSldDuringFit = true;
 end
 
 %Call the main RAT routine...
     
-% If display is not silent print a
-% line confirming RAT is starting
+% If display is not silent print a line confirming RAT is starting
 if ~strcmpi(controls.display,'off')
     fprintf('Starting RAT ________________________________________________________________________________________________\n\n');
 end
 
 tic
-[outProblemStruct,problem,result,bayesResults] = RATMain_mex(problemDef,problemDefCells,problemDefLimits,controls,priors);
+[problemDefStruct,problem,resultCells,bayesResults] = RATMain_mex(problemDefStruct,problemDefCells,problemDefLimits,controls,priors);
 
 if ~strcmpi(controls.display,'off')
     toc
 end
 
-result = parseResultToStruct(problem,result);
+result = parseResultToStruct(problem,resultCells);
 
-if isfield(outProblemStruct,'fitParams')
-    result.bestFitPars = outProblemStruct.fitParams;
+if isfield(problemDefStruct,'fitParams')
+    result.bestFitPars = problemDefStruct.fitParams;
 end
 
 if any((strcmpi(controls.procedure,{'bayes','NS','dream'})))
-    result = mergeStructs(result,bayesResults);
+    result = mergeStructs(result, bayesResults);
 end
 
-[~,fitNames] = packParams(problemDef,problemDefCells,problemDefLimits,controls.checks);
+[~,fitNames] = packParams(problemDefStruct,problemDefCells,problemDefLimits,controls.checks);
 result.fitNames = fitNames;
 
-outProblemDef = parseOutToProjectClass(problemDefInput,outProblemStruct);
+problemDefOutput = parseOutToProjectClass(problemDefInput,problemDefStruct);
 
 if ~strcmpi(controls.display,'off')
    fprintf('\nFinished RAT ______________________________________________________________________________________________ \n\n');

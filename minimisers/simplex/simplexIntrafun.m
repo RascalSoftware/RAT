@@ -1,13 +1,13 @@
-function [fval, problemDef,result] = simplexIntrafun(x,problemDef,problemDefCells,controls,params)
+function [fval,problemDefStruct,result] = simplexIntrafun(x,problemDefStruct,problemDefCells,controls,params)
 
 % transform variables, then call original function
 xtrans = simplexXTransform(x,params);
 
 %Unpck the params..
-problemDef.fitParams = xtrans;
-problemDef = unpackParams(problemDef,controls);
+problemDefStruct.fitParams = xtrans;
+problemDefStruct = unpackParams(problemDefStruct,controls);
 
-[problemDef,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
+[problemDefStruct,result] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
 
-fval = problemDef.calculations.sumChi;
+fval = problemDefStruct.calculations.sumChi;
 end

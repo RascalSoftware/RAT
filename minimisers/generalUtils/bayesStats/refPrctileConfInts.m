@@ -1,7 +1,7 @@
-function allPredInts = refPrctileConfInts(bayesOutputs,problemDef,problemDefCells,problemDefLimits,controlsStruct,result,parConfInts)
+function allPredInts = refPrctileConfInts(bayesOutputs,problemDefStruct,problemDefCells,problemDefLimits,controlsStruct,result,parConfInts)
 
 % Need to deal slightly differently with SLDs if there are domains
-if strcmpi(problemDef.TF,'domains')
+if strcmpi(problemDefStruct.TF,'domains')
     domains = true;
 else
     domains = false;
@@ -14,11 +14,11 @@ chain = bayesOutputs.chain;
 % values of each that we then interpolate the values from the rest of the
 % cain onto....
 firstRow = chain(1,:); 
-problemDef.fitParams = firstRow;
-problemDef = unpackParams(problemDef,controlsStruct);
+problemDefStruct.fitParams = firstRow;
+problemDefStruct = unpackParams(problemDefStruct,controlsStruct);
 
 % Calc the reflectivities....
-[calcProblem,calcResult] = reflectivityCalculation(problemDef,problemDefCells,controlsStruct);
+[calcProblem,calcResult] = reflectivityCalculation(problemDefStruct,problemDefCells,controlsStruct);
 
 % 'result' is currently a cell array. Convert this to a struct because it's
 % easier to work with fieldnames...
@@ -30,7 +30,7 @@ thisSld = calcResult.sldProfiles;
 % so each is a {n x 1} cell array, because of n contrasts. 
 % Prepare some arrays to hold the SLD's and Refs for all the chain, keeping only the Y vales.
 % We'll save x values in a separate array
-numberOfContrasts = problemDef.numberOfContrasts;
+numberOfContrasts = problemDefStruct.numberOfContrasts;
 
 vals = zeros(1,3);
 coder.varsize('vals',[1e4 1e4],[1 1]);
@@ -103,11 +103,11 @@ for i = 1:nsample
 
     thisChain= chain(isample(i),:);
 
-    problemDef.fitParams = thisChain;
-    problemDef = unpackParams(problemDef,controlsStruct);
+    problemDefStruct.fitParams = thisChain;
+    problemDefStruct = unpackParams(problemDefStruct,controlsStruct);
 
     % Calc the reflectivities....
-    [calcProblem,calcResult] = reflectivityCalculation(problemDef,problemDefCells,controlsStruct);
+    [calcProblem,calcResult] = reflectivityCalculation(problemDefStruct,problemDefCells,controlsStruct);
 
     % 'result' is currently a cell array. Convert this to a struct because it's
     % easier to work with fieldnames...

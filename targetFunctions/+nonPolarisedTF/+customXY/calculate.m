@@ -1,4 +1,4 @@
-function [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemDef,problemDefCells,controls)
+function [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemDefStruct,problemDefCells,controls)
 
 % Custom XP profile reflectivity calculation for nonPolarisedTF
 
@@ -15,7 +15,7 @@ function [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allL
 % pre-allocate the memory for all the arrays
 % for compilation, so do this in this block.
 
-numberOfContrasts = problemDef.numberOfContrasts;
+numberOfContrasts = problemDefStruct.numberOfContrasts;
 outSsubs = zeros(numberOfContrasts,1);
 backgroundParams = zeros(numberOfContrasts,1);
 qzshifts = zeros(numberOfContrasts,1);
@@ -60,15 +60,15 @@ switch controls.parallel
     case 'single'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
              simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = nonPolarisedTF.customXY.single(problemDef,problemDefCells,controls);
+             allRoughs] = nonPolarisedTF.customXY.single(problemDefStruct,problemDefCells,controls);
     case 'points'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
              simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = nonPolarisedTF.customXY.parallelPoints(problemDef,problemDefCells,controls);
+             allRoughs] = nonPolarisedTF.customXY.parallelPoints(problemDefStruct,problemDefCells,controls);
     case 'contrasts'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
              simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = nonPolarisedTF.customXY.parallelContrasts(problemDef,problemDefCells,controls);
+             allRoughs] = nonPolarisedTF.customXY.parallelContrasts(problemDefStruct,problemDefCells,controls);
 end
 
 problem.ssubs = outSsubs;

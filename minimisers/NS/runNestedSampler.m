@@ -1,7 +1,7 @@
-function  [problemDef,outProblem,result,bayesResults] = runNestedSampler(problemDef,problemDefCells,problemDefLimits,controls,inPriors)
+function  [problemDefStruct,outProblem,result,bayesResults] = runNestedSampler(problemDefStruct,problemDefCells,problemDefLimits,controls,inPriors)
 
 checks = controls.checks;
-[problemDef,fitNames] = packParams(problemDef,problemDefCells,problemDefLimits,checks);
+[problemDefStruct,fitNames] = packParams(problemDefStruct,problemDefCells,problemDefLimits,checks);
 
 nest_samples = [0 0 ; 0 0];
 coder.varsize('nest_samples');
@@ -15,10 +15,10 @@ H = 0;
 % Make an empty struct for bayesResults to hold the outputs of the
 % calculation
 nPars = 1e3;
-numberOfContrasts = problemDef.numberOfContrasts;
+numberOfContrasts = problemDefStruct.numberOfContrasts;
 numberOfChains = 1;
 
-if strcmpi(problemDef.TF,'domains')
+if strcmpi(problemDefStruct.TF,'domains')
     domains = true;
 else
     domains = false;
@@ -26,7 +26,7 @@ end
 bayesResults = makeEmptyBayesResultsStruct(nPars, numberOfContrasts, domains, numberOfChains);
       
 %Deal with priors.
-priorList = getFittedPriors(fitNames,inPriors,problemDef.fitLimits);
+priorList = getFittedPriors(fitNames,inPriors,problemDefStruct.fitLimits);
 
 %Tuning Parameters
 model.ssfun = @nsIntraFun;
@@ -34,7 +34,7 @@ Nlive = controls.Nlive;
 tolerance = controls.nsTolerance;
 likelihood = @nsIntraFun;
 Nmcmc = controls.Nmcmc;
-data = {problemDef ; controls ; problemDefLimits ; problemDefCells};
+data = {problemDefStruct ; controls ; problemDefLimits ; problemDefCells};
 
 [logZ, nest_samples, post_samples, H] = nestedSampler(data, Nlive, Nmcmc, ...
     tolerance, likelihood, model, priorList, fitNames);
@@ -53,12 +53,12 @@ bayesOutputs.sschain = [];
 bayesOutputs.data = problemDefCells{2};
 
 allProblem = cell(4,1);
-allProblem{1} = problemDef;
+allProblem{1} = problemDefStruct;
 allProblem{2} = controls;
 allProblem{3} = problemDefLimits;
 allProblem{4} = problemDefCells;
 
-[problemDef,outProblem,result,nestResults] = processBayes(bayesOutputs,allProblem);
+[problemDefStruct,outProblem,result,nestResults] = processBayes(bayesOutputs,allProblem);
 
 bayesResults.predlims = nestResults.predlims;
 bayesResults.bestFitsMean = nestResults.bestFitsMean;

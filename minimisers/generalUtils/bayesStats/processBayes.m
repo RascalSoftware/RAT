@@ -1,7 +1,7 @@
-function [problemDef,outProblem,result,bayesResults] = processBayes(bayesOutputs,allProblem)
+function [problemDefStruct,outProblem,result,bayesResults] = processBayes(bayesOutputs,allProblem)
 
-%problem = {problemDef ; controls ; problemDefLimits ; problemDefCells};
-problemDef = allProblem{1};
+%problem = {problemDefStruct ; controls ; problemDefLimits ; problemDefCells};
+problemDefStruct = allProblem{1};
 controlsStruct = allProblem{2};
 problemDefLimits = allProblem{3};
 problemDefCells = allProblem{4};
@@ -10,12 +10,12 @@ problemDefCells = allProblem{4};
 controlsStruct.calcSldDuringFit = true;
 
 %... and use the Bayes bestpars
-problemDef.fitParams = bayesOutputs.bestPars;
-problemDef = unpackParams(problemDef,controlsStruct);
+problemDefStruct.fitParams = bayesOutputs.bestPars;
+problemDefStruct = unpackParams(problemDefStruct,controlsStruct);
 parConfInts = prctileConfInts(bayesOutputs.chain);   %iterShortest(output.chain,length(fitNames),[],0.95);
 
 % Calculate 'mean' best fit curves
-[outProblem,result] = reflectivityCalculation(problemDef,problemDefCells,controlsStruct);
+[outProblem,result] = reflectivityCalculation(problemDefStruct,problemDefCells,controlsStruct);
 p = parseResultToStruct(outProblem,result);
 bestFitMean.ref = p.reflectivity;
 bestFitMean.sld = p.sldProfiles;
@@ -23,7 +23,7 @@ bestFitMean.chi = p.calculationResults.sumChi;
 bestFitMean.data = p.shiftedData;
 
 % 2. Reflectivity and SLD shading
-allPredInts = refPrctileConfInts(bayesOutputs,problemDef,problemDefCells,problemDefLimits,controlsStruct,result,parConfInts);
+allPredInts = refPrctileConfInts(bayesOutputs,problemDefStruct,problemDefCells,problemDefLimits,controlsStruct,result,parConfInts);
 
 
 % ---------------------------------

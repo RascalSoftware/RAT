@@ -1,4 +1,4 @@
-function [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = reflectivityCalculation(problemDef,problemDefCells,controls)
+function [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = reflectivityCalculation(problemDefStruct,problemDefCells,controls)
 
 % Main function for the nonPolarisedTF reflectivity calculation
 % This function decides what type of model is being analysed and barnches
@@ -14,8 +14,8 @@ function [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allL
 
 
 % Find out the model type from the input structs
-type = problemDef.modelType;
-numberOfContrasts = problemDef.numberOfContrasts;
+type = problemDefStruct.modelType;
+numberOfContrasts = problemDefStruct.numberOfContrasts;
 
 % Pre-allocate the output arrays.. this is necessary because otherwise
 % the compiler complains with 'Output argument <....> is not assigned on 
@@ -67,16 +67,16 @@ switch lower(type)
         % Standard layers calculation
         [problem,reflectivity,simulation,...
          shiftedData,layerSlds,sldProfiles,...
-         allLayers]= nonPolarisedTF.standardLayers.calculate(problemDef,problemDefCells,controls);
+         allLayers]= nonPolarisedTF.standardLayers.calculate(problemDefStruct,problemDefCells,controls);
     case 'custom layers'
         % Custom layers with user supplied custom model file
         [problem,reflectivity,simulation,...
             shiftedData,layerSlds,sldProfiles,...
-            allLayers] = nonPolarisedTF.customLayers.calculate(problemDef,problemDefCells,controls);
+            allLayers] = nonPolarisedTF.customLayers.calculate(problemDefStruct,problemDefCells,controls);
     case 'custom xy'
         % Custom SLD profile with user defined model file
         [problem,reflectivity,simulation,...
            shiftedData,layerSlds,sldProfiles,...
-           allLayers] = nonPolarisedTF.customXY.calculate(problemDef,problemDefCells,controls);
+           allLayers] = nonPolarisedTF.customXY.calculate(problemDefStruct,problemDefCells,controls);
 end
 end

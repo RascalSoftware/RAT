@@ -1,11 +1,11 @@
-function  [problemDef,outProblem,result,bayesResults] = runDram(problemDef,problemDefCells,problemDefLimits,controls,allPriors)
+function  [problemDefStruct,outProblem,result,bayesResults] = runDram(problemDefStruct,problemDefCells,problemDefLimits,controls,allPriors)
 
 %#codegen
 
-%coder.varsize('problemDef.contrastBacks',[1 Inf],[0 1]);
+%coder.varsize('problemDefStruct.contrastBacks',[1 Inf],[0 1]);
 
 checks = controls.checks;
-[problemDef,fitNames] = packParams(problemDef,problemDefCells,problemDefLimits,checks);
+[problemDefStruct,fitNames] = packParams(problemDefStruct,problemDefCells,problemDefLimits,checks);
 %fitPriors = packPriors(priors,checks);
 
 % Seed the Random Number Generator
@@ -15,7 +15,7 @@ rng(0);
 
 %First deal with priors.
 prior = {};
-lims = problemDef.fitLimits;
+lims = problemDefStruct.fitLimits;
 
 % Preallocate params array to keep the compiler happy
 params = cell(length(fitNames),1);
@@ -117,7 +117,7 @@ priorValues = allPriors.priorValues;
 for i = 1:length(fitNames)
     coder.varsize('name',[1 Inf],[0 1]);
     name = fitNames{i};
-    value = problemDef.fitParams(i);
+    value = problemDefStruct.fitParams(i);
     min = lims(i,1);
     max = lims(i,2);
     
@@ -149,13 +149,13 @@ nsimu =  controls.nsimu;
 burnin = controls.burnin;
 adaptint = 100;%controls.adaptint;
 
-problem = {problemDef ; controls ; problemDefLimits ; problemDefCells};
+problem = {problemDefStruct ; controls ; problemDefLimits ; problemDefCells};
 
 output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 
-[problemDef,outProblem,result,bayesResults] = processBayes(output,problem);
+[problemDefStruct,outProblem,result,bayesResults] = processBayes(output,problem);
 
-% problemDef.fitParams = bayesResults.bestPars_Mean;
+% problemDefStruct.fitParams = bayesResults.bestPars_Mean;
 
 
 % Post processing of Bayes
@@ -170,17 +170,17 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 % bestPars_mean = output.results.mean;
 % 
 % % Calulate Max best fit curves
-% problemDef.fitParams = bestPars_max;
-% problemDef = unpackParams(problemDef,controls);
-% [outProblem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
+% problemDefStruct.fitParams = bestPars_max;
+% problemDefStruct = unpackParams(problemDefStruct,controls);
+% [outProblem,result] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
 % bestFitMax_Ref = result(1);
 % bestFitMax_Sld = result(5);
 % bestFitMax_chi = outProblem.calculations.sumChi;
 % 
 % % Calculate 'mean' best fit curves
-% problemDef.fitParams = bestPars_mean;
-% problemDef = unpackParams(problemDef,controls);
-% [outProblem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
+% problemDefStruct.fitParams = bestPars_mean;
+% problemDefStruct = unpackParams(problemDefStruct,controls);
+% [outProblem,result] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
 % bestFitMean_Ref = result(1);
 % bestFitMean_Sld = result(5);
 % bestFitMean_chi = outProblem.calculations.sumChi;

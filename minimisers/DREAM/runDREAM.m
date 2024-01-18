@@ -1,13 +1,13 @@
-function [outProblemDef,outProblem,result,bayesResults] = runDREAM(problemDef,problemDefCells,problemDefLimits,controls,priors)
+function [outProblemDef,outProblem,result,bayesResults] = runDREAM(problemDefStruct,problemDefCells,problemDefLimits,controls,priors)
 
 
 % Make an empty struct for bayesResults to hold the outputs of the
 % calculation
 nPars = 1e3;
-numberOfContrasts = problemDef.numberOfContrasts;
+numberOfContrasts = problemDefStruct.numberOfContrasts;
 numberOfChains = controls.nChains;
 
-if strcmpi(problemDef.TF,'domains')
+if strcmpi(problemDefStruct.TF,'domains')
     domains = true;
 else
     domains = false;
@@ -31,14 +31,14 @@ for i = 1:numberOfFitted
     fitParamNames{i} = 'x';
 end
 
-[problemDef,fitParamNames] = packParams(problemDef,problemDefCells,problemDefLimits,controls.checks);
+[problemDefStruct,fitParamNames] = packParams(problemDefStruct,problemDefCells,problemDefLimits,controls.checks);
 
 % Get the priors for the fitted parameters...
-priorList = getFittedPriors(fitParamNames,priors,problemDef.fitLimits);
+priorList = getFittedPriors(fitParamNames,priors,problemDefStruct.fitLimits);
 
 % Put all the RAT parameters together into one array...
-ratInputs.problemDef = problemDef;
-ratInputs.problemDefCells = problemDefCells;% 
+ratInputs.problemDefStruct = problemDefStruct;
+ratInputs.problemDefCells = problemDefCells;
 ratInputs.problemDefLimits = problemDefLimits;
 ratInputs.controls = controls;
 ratInputs.priors = priorList;
@@ -66,8 +66,8 @@ DREAMPar.adaptPCR = controls.adaptPCR;
 % Initial sampling and parameter range
 Par_info.prior = 'uniform';           
 
-Par_info.min = problemDef.fitLimits(:,1)';
-Par_info.max = problemDef.fitLimits(:,2)';
+Par_info.min = problemDefStruct.fitLimits(:,1)';
+Par_info.max = problemDefStruct.fitLimits(:,2)';
 Par_info.boundhandling = controls.boundHandling;
 
 %if dreamC.prior
@@ -99,7 +99,7 @@ for i = 1:nChains
 end
 
 allProblem = cell(4,1);
-allProblem{1} = problemDef;
+allProblem{1} = problemDefStruct;
 allProblem{2} = controls;
 allProblem{3} = problemDefLimits;
 allProblem{4} = problemDefCells;

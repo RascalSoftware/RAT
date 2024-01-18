@@ -1,6 +1,6 @@
 function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
     simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
-    allRoughs] = parallelContrasts(problemDef,problemDefCells,controls)
+    allRoughs] = parallelContrasts(problemDefStruct,problemDefCells,controls)
 % Single threaded version of the custom layers, domainsTF reflectivity
 % calculation. The function extracts the relevant parameters from the input
 % arrays, allocates these on a pre-contrast basis, then calls the 'core' 
@@ -15,15 +15,15 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resol
  simLimits,...
  ~,~,customFiles] = parseCells(problemDefCells);
 
-% Extract individual parameters from problemDef struct
+% Extract individual parameters from problemDefStruct
 [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
 contrastResolutions, backgroundParam, qzshift, scalefactor, bulkIn, bulkOut, resolutionParam, dataPresent, nParams, params,...
-~, resample, contrastBackgroundsType, cCustFiles] =  extractProblemParams(problemDef);
+~, resample, contrastBackgroundsType, cCustFiles] =  extractProblemParams(problemDefStruct);
 
 calcSld = controls.calcSldDuringFit;
-useImaginary = problemDef.useImaginary;
-allDomainRatios = problemDef.domainRatio;
-contrastDomainRatios = problemDef.contrastDomainRatios;
+useImaginary = problemDefStruct.useImaginary;
+allDomainRatios = problemDefStruct.domainRatio;
+contrastDomainRatios = problemDefStruct.contrastDomainRatios;
 
 domainRatio = 1;    % Default for compile.
 

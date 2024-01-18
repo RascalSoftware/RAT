@@ -1,8 +1,8 @@
 function [refShadedIntervals, sldShadedIntervals, outMessage, boxEndValue] = refPredInterval(chain,bestFit,bestSld,intervals,...
-    valRange,problemDef, problemDefCells,problemDefLimits,controls,result)
+    valRange,problemDefStruct,problemDefCells,problemDefLimits,controls,result)
 
 
-% problemDef = problem.problemDef;
+% problemDefStruct = problem.problemDefStruct;
 % problemDefLimits = problem.problemDefLimits;
 % problemDefCells = problem.problemDefCells;
 % controls = problem.controls;
@@ -20,7 +20,7 @@ data = result.shiftedData;
 
 % Find out how many params and contrasts there are
 numberOfParams = size(chain,2);
-numberOfContrasts = problemDef.numberOfContrasts;
+numberOfContrasts = problemDefStruct.numberOfContrasts;
 
 % We aim to make a dummy set of datasets drawn from within 
 % the interval ranges.
@@ -69,9 +69,9 @@ for n = 1:numberOfContrasts
 %         % setappdata(0,'problem',problem);
 %         problem = reflectivityCalculation(problem);
         % problem = getappdata(0,'problem');
-        problemDef.fitParams = thisRow;
-        problemDef = unpackParams(problemDef,controls);
-        [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
+        problemDefStruct.fitParams = thisRow;
+        problemDefStruct = unpackParams(problemDefStruct,controls);
+        [problem,result] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
         result = parseResultToStruct(problem,result);
 
 %         ref.bestSlds = result.sldProfiles;

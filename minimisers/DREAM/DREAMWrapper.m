@@ -2,7 +2,7 @@ function Lik = DREAMWrapper(pars,ratInputs)
 
 % Get the inputs for Reflectivity Calculation
 
-problem = ratInputs.problemDef;
+problem = ratInputs.problemDefStruct;
 control = ratInputs.controls;
 cells = ratInputs.problemDefCells;
 

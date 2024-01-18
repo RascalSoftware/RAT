@@ -42,14 +42,14 @@ function triggerEvent(eventType, data)
                     return;
                 end
                 result = data{1};
-                problemDef = data{3};
+                problemDefStruct = data{3};
                 nContrast = length(result{1});
                 [reflect, nReflect] = packCellArray(result{1}, 1); % reflectivity
                 [shiftedData, nShiftedData] = packCellArray(result{3}, 1);  
                 [sldProfiles, nSldProfiles] = packCellArray(result{5}, 1);
                 [layers, nLayers] = packCellArray(result{6}, 1);
                 
-                switch problemDef.TF
+                switch problemDefStruct.TF
                     case 'domains'
                         [sldProfiles2, nSldProfiles2] = packCellArray(result{5}, 2);
                         [layers2, nLayers2] = packCellArray(result{6}, 2);
@@ -62,9 +62,9 @@ function triggerEvent(eventType, data)
 
                 ssubs = data{2}; % ssubs
    
-                modelType = [problemDef.modelType, 0];
-                resample = problemDef.resample;
-                dataPresent = problemDef.dataPresent;
+                modelType = [problemDefStruct.modelType, 0];
+                resample = problemDefStruct.resample;
+                dataPresent = problemDefStruct.dataPresent;
                 
                 coder.ceval('std::mem_fn(&eventHelper::updatePlot)', helper, nContrast, reflect, nReflect, shiftedData, ...
                             nShiftedData, sldProfiles, nSldProfiles, layers, nLayers, sldProfiles2, nSldProfiles2, layers2, ...

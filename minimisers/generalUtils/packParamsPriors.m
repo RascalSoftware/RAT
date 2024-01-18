@@ -1,4 +1,4 @@
-function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDefCells,limits,priors,checks)
+function [problemDefStruct,fitNames,fitPriors] = packParamsPriors(problemDefStruct,problemDefCells,limits,priors,checks)
 
     %We need to pack the parameters into separate vectors
     %of those that are being fitted, and those that are
@@ -12,16 +12,16 @@ function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDe
                      sum(checks.fitResolutionParam) + ...
                      sum(checks.fitDomainRatio);
                  
-    numberOfTotal = length(problemDef.params) + ...
-                    length(problemDef.backgroundParams) + ...
-                    length(problemDef.scalefactors) + ...
-                    length(problemDef.qzshifts) + ...
-                    length(problemDef.bulkIn) + ...
-                    length(problemDef.bulkOut) + ...
-                    length(problemDef.resolutionParams) + ...
-                    length(problemDef.domainRatio);
+    numberOfTotal = length(problemDefStruct.params) + ...
+                    length(problemDefStruct.backgroundParams) + ...
+                    length(problemDefStruct.scalefactors) + ...
+                    length(problemDefStruct.qzshifts) + ...
+                    length(problemDefStruct.bulkIn) + ...
+                    length(problemDefStruct.bulkOut) + ...
+                    length(problemDefStruct.resolutionParams) + ...
+                    length(problemDefStruct.domainRatio);
        
-    fitParams = problemDef.fitParams;
+    fitParams = problemDefStruct.fitParams;
     otherParams = zeros((numberOfTotal-numberOfFitted),1);
     fitLimits = zeros(numberOfFitted,2);
     otherLimits = zeros((numberOfTotal-numberOfFitted),2);
@@ -32,7 +32,7 @@ function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDe
     
     for n = 1:length(checks.fitParam)
         if checks.fitParam(n) == 1
-            fitParams(fitCounter) = problemDef.params(n);
+            fitParams(fitCounter) = problemDefStruct.params(n);
             fitLimits(fitCounter,1) = limits.param(n,1);
             fitLimits(fitCounter,2) = limits.param(n,2);        
             fitNames{fitCounter} = problemDefCells{7}{n};
@@ -45,7 +45,7 @@ function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDe
             fitPriors(fitCounter,:) = thisGausPrior; 
             fitCounter = fitCounter + 1;
         else
-            otherParams(otherCounter) = problemDef.params(n);
+            otherParams(otherCounter) = problemDefStruct.params(n);
             otherLimits(otherCounter,1) = limits.param(n,1);
             otherLimits(otherCounter,2) = limits.param(n,2);
             otherCounter = otherCounter + 1;
@@ -55,7 +55,7 @@ function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDe
     %Also do the same for backgrounds...
     for n = 1:length(checks.fitBackgroundParam)
         if checks.fitBackgroundParam(n) == 1
-            fitParams(fitCounter) = problemDef.backgroundParams(n);
+            fitParams(fitCounter) = problemDefStruct.backgroundParams(n);
             fitLimits(fitCounter,1) = limits.backgroundParam(n,1);
             fitLimits(fitCounter,2) = limits.backgroundParam(n,2);
             fitNames{fitCounter} = problemDefCells{8}{n};
@@ -68,7 +68,7 @@ function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDe
             fitPriors(fitCounter,:) = thisGausPrior;
             fitCounter = fitCounter + 1;
         else
-            otherParams(otherCounter) = problemDef.backgroundParams(n);
+            otherParams(otherCounter) = problemDefStruct.backgroundParams(n);
             otherLimits(otherCounter,1) = limits.backgroundParam(n,1);
             otherLimits(otherCounter,2) = limits.backgroundParam(n,2);
             otherCounter = otherCounter + 1;
@@ -78,7 +78,7 @@ function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDe
     %..also for the scale factors
     for n = 1:length(checks.fitScalefactor)
         if checks.fitScalefactor(n) == 1
-            fitParams(fitCounter) = problemDef.scalefactors(n);
+            fitParams(fitCounter) = problemDefStruct.scalefactors(n);
             fitLimits(fitCounter,1) = limits.scalefactor(n,1);
             fitLimits(fitCounter,2) = limits.scalefactor(n,2);
             fitNames{fitCounter} = problemDefCells{9}{n};
@@ -91,7 +91,7 @@ function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDe
             fitPriors(fitCounter,:) = thisGausPrior;
             fitCounter = fitCounter + 1;
         else
-            otherParams(otherCounter) = problemDef.scalefactors(n);
+            otherParams(otherCounter) = problemDefStruct.scalefactors(n);
             otherLimits(otherCounter,1) = limits.scalefactor(n,1);
             otherLimits(otherCounter,2) = limits.scalefactor(n,2);
             otherCounter = otherCounter + 1;
@@ -101,7 +101,7 @@ function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDe
     %Need qzshifts
     for n = 1:length(checks.fitQzshift)
         if checks.fitQzshift(n) == 1
-            fitParams(fitCounter) = problemDef.qzshifts(n);
+            fitParams(fitCounter) = problemDefStruct.qzshifts(n);
             fitLimits(fitCounter,1) = limits.qzshift(n,1);
             fitLimits(fitCounter,2) = limits.qzshift(n,2);
             fitNames{fitCounter} = problemDefCells{10}{n};
@@ -114,7 +114,7 @@ function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDe
             fitPriors(fitCounter,:) = thisGausPrior;
             fitCounter = fitCounter + 1;
         else
-            otherParams(otherCounter) = problemDef.qzshifts(n);
+            otherParams(otherCounter) = problemDefStruct.qzshifts(n);
             otherLimits(otherCounter,1) = limits.qzshift(n,1);
             otherLimits(otherCounter,2) = limits.qzshift(n,2);
             otherCounter = otherCounter + 1;
@@ -124,7 +124,7 @@ function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDe
     %Bulk In
     for n = 1:length(checks.fitBulkIn)
         if checks.fitBulkIn(n) == 1
-            fitParams(fitCounter) = problemDef.bulkIn(n);
+            fitParams(fitCounter) = problemDefStruct.bulkIn(n);
             fitLimits(fitCounter,1) = limits.bulkIn(n,1);
             fitLimits(fitCounter,2) = limits.bulkIn(n,2);
             fitNames{fitCounter} = problemDefCells{11}{n};
@@ -137,7 +137,7 @@ function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDe
             fitPriors(fitCounter,:) = thisGausPrior;
             fitCounter = fitCounter + 1;
         else
-            otherParams(otherCounter) = problemDef.bulkIn(n);
+            otherParams(otherCounter) = problemDefStruct.bulkIn(n);
             otherLimits(otherCounter,1) = limits.bulkIn(n,1);
             otherLimits(otherCounter,2) = limits.bulkIn(n,2);
             otherCounter = otherCounter + 1;
@@ -147,7 +147,7 @@ function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDe
     %Bulk Out
     for n = 1:length(checks.fitBulkOut)
         if checks.fitBulkOut(n) == 1
-            fitParams(fitCounter) = problemDef.bulkOut(n);
+            fitParams(fitCounter) = problemDefStruct.bulkOut(n);
             fitLimits(fitCounter,1) = limits.bulkOut(n,1);
             fitLimits(fitCounter,2) = limits.bulkOut(n,2);
             fitNames{fitCounter} = problemDefCells{12}{n};
@@ -160,7 +160,7 @@ function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDe
             fitPriors(fitCounter,:) = thisGausPrior;
             fitCounter = fitCounter + 1;
         else
-            otherParams(otherCounter) = problemDef.bulkOut(n);
+            otherParams(otherCounter) = problemDefStruct.bulkOut(n);
             otherLimits(otherCounter,1) = limits.bulkOut(n,1);
             otherLimits(otherCounter,2) = limits.bulkOut(n,2);
             otherCounter = otherCounter + 1;
@@ -170,7 +170,7 @@ function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDe
     %Resolution.....
     for n = 1:length(checks.fitResolutionParam)
         if checks.fitResolutionParam(n) == 1
-            fitParams(fitCounter) = problemDef.resolutionParams(n);
+            fitParams(fitCounter) = problemDefStruct.resolutionParams(n);
             fitLimits(fitCounter,1) = limits.resolutionParam(n,1);
             fitLimits(fitCounter,2) = limits.resolutionParam(n,2);
             fitNames{fitCounter} = problemDefCells{13}{n};
@@ -183,7 +183,7 @@ function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDe
             fitPriors(fitCounter,:) = thisGausPrior;
             fitCounter = fitCounter + 1;
         else
-            otherParams(otherCounter) = problemDef.resolutionParams(n);
+            otherParams(otherCounter) = problemDefStruct.resolutionParams(n);
             otherLimits(otherCounter,1) = limits.resolutionParam(n,1);
             otherLimits(otherCounter,2) = limits.resolutionParam(n,2);
             otherCounter = otherCounter + 1;
@@ -193,7 +193,7 @@ function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDe
     % Domain Ratio
     for n = 1:length(checks.fitDomainRatio)
         if checks.fitDomainRatio(n) == 1
-            fitParams(fitCounter) = problemDef.domainRatio(n);
+            fitParams(fitCounter) = problemDefStruct.domainRatio(n);
             fitLimits(fitCounter,1) = limits.domainRatio(n,1);
             fitLimits(fitCounter,2) = limits.domainRatio(n,2);
             fitNames{fitCounter} = problemDefCells{20}{n};
@@ -206,16 +206,16 @@ function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDe
             fitPriors(fitCounter,:) = thisGausPrior;
             fitCounter = fitCounter + 1;
         else
-            otherParams(otherCounter) = problemDef.domainRatio(n);
+            otherParams(otherCounter) = problemDefStruct.domainRatio(n);
             otherLimits(otherCounter,1) = limits.domainRatio(n,1);
             otherLimits(otherCounter,2) = limits.domainRatio(n,2);
             otherCounter = otherCounter + 1;
         end
     end 
     
-    problemDef.fitParams = fitParams;
-    problemDef.otherParams = otherParams;
-    problemDef.fitLimits = fitLimits;
-    problemDef.otherLimits = otherLimits;
+    problemDefStruct.fitParams = fitParams;
+    problemDefStruct.otherParams = otherParams;
+    problemDefStruct.fitLimits = fitLimits;
+    problemDefStruct.otherLimits = otherLimits;
 
 end

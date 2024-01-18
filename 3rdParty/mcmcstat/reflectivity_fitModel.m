@@ -6,20 +6,20 @@ function ss = reflectivity_fitModel(theta,data,problem)
 pars = theta;                                % Current parameter values from mcmcstat
 problem = data.problem;                   % Struct needed for the calculation
 %allProblem = data{1}.problem;
-problemDef = problem{1};
+problemDefStruct = problem{1};
 controls = problem{2};
 problemDefLimits = problem{3};
 problemDefCells = problem{4};
 
 
-problemDef.fitParams = pars;
-problemDef = unpackParams(problemDef,controls);
+problemDefStruct.fitParams = pars;
+problemDefStruct = unpackParams(problemDefStruct,controls);
 %setappdata(0,'problem',problem);
 %problem = reflectivityCalculation(problem);
-[problemDef,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
+[problemDefStruct,result] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
 
 %problem = getappdata(0,'problem');
-ss = problemDef.calculations.sumChi;
+ss = problemDefStruct.calculations.sumChi;
 
 end
 

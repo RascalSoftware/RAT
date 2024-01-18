@@ -8,7 +8,7 @@ ratInputs = load('ratInputs');
 ratInputs = ratInputs.ratInputs;
 
 
-problemDef = testProb.outProblemDef;
+problemDefStruct = testProb.outProblemDef;
 problem = testProb.problem;
 results = testProb.results;
 bayesResults = testProb.bayesResults;
@@ -20,11 +20,11 @@ problemDefCells = ratInputs.problemDefCells;
 problemDefLimits = ratInputs.problemDefLimits;
 
 
-problemDef.fitParams = bestFitPars;
-problemDef = unpackParams(problemDef,controls);
-[problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
+problemDefStruct.fitParams = bestFitPars;
+problemDefStruct = unpackParams(problemDefStruct,controls);
+[problem,result] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
 
 disp('debug');
 
 % Calculate the prediction intervals
-[best, intervals] = calcMCMCstatRefErrors(bayesResults,problemDef,problemDefCells,problemDefLimits,controls);
+[best, intervals] = calcMCMCstatRefErrors(bayesResults,problemDefStruct,problemDefCells,problemDefLimits,controls);

@@ -77,14 +77,14 @@
 % General Public License can be obtained from the 
 % Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [FVr_bestmem,problemDefStruct] = deopt(fname,problemDefStruct,problemDefCells,controls,S_struct)
+function [FVr_bestmem,problem] = deopt(fname,problem,problemDefCells,controls,S_struct)
 
 str = struct('I_nc',0,'FVr_ca',0,'I_no',0,'FVr_oa',0);
 S_val = repmat(str,S_struct.I_NP,1);
 
 %-----This is just for notational convenience and to keep the code uncluttered.--------
 
-coder.varsize('problemDefStruct.resample',[Inf,1],[1 0]);          
+coder.varsize('problemDef.resample',[Inf,1],[1 0]);          
 coder.varsize('FVr_bestmem',[1 Inf],[0 1]);
 coder.varsize('FVr_bestmemit',[1 Inf],[0 1]);
 
@@ -139,11 +139,11 @@ S_val = repmat(str,I_NP,1);
 
 coder.varsize('I_best_index',[1 1],[0 0]);
 I_best_index   = 1;                   % start with first population member
-S_val(1)       = fname(FM_pop(I_best_index,:),problemDefStruct,controls,problemDefCells);
+S_val(1)       = fname(FM_pop(I_best_index,:),problem,controls,problemDefCells);
 S_bestval = S_val(1);                 % best objective function value so far
 I_nfeval  = I_nfeval + 1;
 for k=2:I_NP                          % check the remaining members
-  S_val(k)  = fname(FM_pop(k,:),problemDefStruct,controls,problemDefCells);
+  S_val(k)  = fname(FM_pop(k,:),problem,controls,problemDefCells);
   I_nfeval  = I_nfeval + 1;
   if (leftWin(S_val(k),S_bestval) == 1)
      I_best_index   = k;              % save its location
@@ -284,7 +284,7 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
       end
       %=====End boundary constraints==========================================
   
-      S_tempval = fname(FM_ui(k,:),problemDefStruct, controls,problemDefCells);  % check cost of competitor
+      S_tempval = fname(FM_ui(k,:),problem, controls,problemDefCells);  % check cost of competitor
       I_nfeval  = I_nfeval + 1;
       if (leftWin(S_tempval,S_val(k)) == 1)   
          FM_pop(k,:) = FM_ui(k,:);                    % replace old vector with new one (for new iteration)

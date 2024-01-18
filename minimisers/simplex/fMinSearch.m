@@ -182,7 +182,7 @@ header = ' Iteration   Func-count     min f(x)         Procedure';
 % funfcn = fcnchk(funfcn,length(varargin));
 % Add a wrapper function to check for Inf/NaN/complex values
 controls = varargin{3};
-problemDef = varargin{1};
+problemDefStruct = varargin{1};
 if funValCheck
     % Add a wrapper function, CHECKFUN, to check for NaN/complex values without
     % having to change the calls that look like this:

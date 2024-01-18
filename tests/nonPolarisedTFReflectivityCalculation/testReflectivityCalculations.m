@@ -69,7 +69,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.inputs = load(inputsFile);
 
             testCase.problemDefInput = testCase.inputs.inputs.problemDefInput;
-            testCase.problemDefStruct = testCase.inputs.inputs.problemDef;
+            testCase.problemDefStruct = testCase.inputs.inputs.problemDefStruct;
             testCase.problemDefCells = testCase.inputs.inputs.problemDefCells;
             testCase.problemDefLimits = testCase.inputs.inputs.problemDefLimits;
             testCase.priors = testCase.inputs.inputs.priors;
@@ -81,13 +81,13 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.outputs = load(outputsFile);
 
             testCase.expectedProblem = testCase.outputs.outputs.problem;
-            testCase.expectedProblemMain = testCase.outputs.outputs.problemOutMain;
-            testCase.expectedProblemDefOutput = testCase.outputs.outputs.problemOut;
-            testCase.expectedProblemDefStruct = testCase.outputs.outputs.problemOutStruct;
-            testCase.expectedResult = testCase.outputs.outputs.resultOut;
-            testCase.expectedResultStruct = testCase.outputs.outputs.resultOutStruct;
-            testCase.expectedResultCells = testCase.outputs.outputs.result;
-            testCase.expectedResultCellsMain = testCase.outputs.outputs.resultOutMain;
+            testCase.expectedProblemMain = testCase.outputs.outputs.problemMain;
+            testCase.expectedProblemDefOutput = testCase.outputs.outputs.problemDefOutput;
+            testCase.expectedProblemDefStruct = testCase.outputs.outputs.problemDefStruct;
+            testCase.expectedResult = testCase.outputs.outputs.result;
+            testCase.expectedResultStruct = testCase.outputs.outputs.resultStruct;
+            testCase.expectedResultCells = testCase.outputs.outputs.resultCells;
+            testCase.expectedResultCellsMain = testCase.outputs.outputs.resultCellsMain;
             testCase.expectedBayesResults = testCase.outputs.outputs.bayesResults;
         end
 

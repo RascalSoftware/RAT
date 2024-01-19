@@ -1,11 +1,11 @@
-function [outProblemDef,results,outPmpd] = runParamonte(problem,inputControls,pmPars)
+function [project,results,outPmpd] = runParamonte(project,inputControls,pmPars)
 
 global logFunc;
 
 % Check the input classes to make sure they are of correct type
 if ~isa(pmPars,'pmPars')
     error('Third input must be a ''pmPars'' object');
-elseif ~isa(problem,'projectClass')
+elseif ~isa(project,'projectClass')
     error('First input must be a ''projectClass'' object');
 elseif ~isa(inputControls,'controlsClass')
     error('Second input must be a ''controlsClass'' object');
@@ -15,7 +15,7 @@ end
 rng('default');
 
 % Split problem using the routines from RAT..
-[problemStruct,problemCells,problemLimits,priors,controls] = parseClassToStructs(problem,inputControls);
+[problemStruct,problemCells,problemLimits,priors,controls] = parseClassToStructs(project,inputControls);
 
 %controls.parallel = 'points';
 
@@ -91,7 +91,7 @@ pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective functi
                 , @logFunc.get  ... the objective function
                 );
 
-[outProblemDef,results,outPmpd] = processParamonteRuns(problem,inputControls,pmPars.name,pmPars.chainTrim);    
+[project,results,outPmpd] = processParamonteRuns(project,inputControls,pmPars.name,pmPars.chainTrim);    
         
 
 % pmpd.readChain();

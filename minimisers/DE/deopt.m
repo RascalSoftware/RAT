@@ -84,7 +84,7 @@ S_val = repmat(str,S_struct.I_NP,1);
 
 %-----This is just for notational convenience and to keep the code uncluttered.--------
 
-coder.varsize('problemDef.resample',[Inf,1],[1 0]);          
+coder.varsize('problemStruct.resample',[Inf,1],[1 0]);          
 coder.varsize('FVr_bestmem',[1 Inf],[0 1]);
 coder.varsize('FVr_bestmemit',[1 Inf],[0 1]);
 

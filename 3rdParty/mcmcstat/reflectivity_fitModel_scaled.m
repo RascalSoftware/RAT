@@ -15,12 +15,9 @@ pars = unscalePars(pars,constr);
 
 problemStruct.fitParams = pars;
 problemStruct = unpackParams(problemStruct,controls);
-%setappdata(0,'problem',problem);
-%problem = reflectivityCalculation(problem);
-[problemStruct,result] = reflectivityCalculation(problemStruct,problemCells,controls);
 
-%problem = getappdata(0,'problem');
-ss = problemStruct.calculations.sumChi;
+[contrastParams,~] = reflectivityCalculation(problemStruct,problemCells,controls);
+
+ss = contrastParams.calculations.sumChi;
 
 end
-

@@ -1,11 +1,11 @@
-function problem = scalePars(problem)
+function problemStruct = scalePars(problemStruct)
 
-limits = problem.fitLimits;
-vals = problem.fitParams;
+limits = problemStruct.fitLimits;
+vals = problemStruct.fitParams;
 
 scaled = (vals(:) - limits(:,1))./(limits(:,2)-limits(:,1));
 
-problem.fitParams = scaled;
+problemStruct.fitParams = scaled;
 %problem.unscaledPars = vals;
 
 end

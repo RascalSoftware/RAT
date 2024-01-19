@@ -23,25 +23,25 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
     end
 
     properties
-        inputs                   % Test input parameters read from file
-        outputs                  % Test output parameters read from file
-        TFParams                 % Test TF Parameters read from file
-        problemDefInput          % Input projectClass object
-        problemDefStruct         % Input parameters for the test problem
-        problemDefCells          % Input cell arays for the test problem
-        problemDefLimits         % Input limits for the test problem
-        priors                   % Input priors for the test problem
-        controlsInput            % Instrument controls class for the input problem
-        controls                 % Instrument controls struct for the input problem
-        expectedProblem          % Expected output value of the problem struct
-        expectedProblemMain      % Expected output value of the problem struct from RATMain
-        expectedProblemDefOutput % Expected output value of the projectClass object
-        expectedProblemDefStruct % Expected output value of the problemDefStruct struct
-        expectedResultCells      % Expected output value of the results cell array
-        expectedResultCellsMain  % Expected output value of the results cell array from RATMain
-        expectedResultStruct     % Expected output value of the initial results struct
-        expectedResult           % Expected output value of the final results struct
-        expectedBayesResults     % Expected output value of the bayes results struct
+        inputs                     % Test input parameters read from file
+        outputs                    % Test output parameters read from file
+        TFParams                   % Test TF Parameters read from file
+        project                    % Input projectClass object
+        problemDefStruct           % Input parameters for the test problem
+        problemDefCells            % Input cell arays for the test problem
+        problemDefLimits           % Input limits for the test problem
+        priors                     % Input priors for the test problem
+        controlsInput              % Instrument controls class for the input problem
+        controls                   % Instrument controls struct for the input problem
+        expectedContrastParams     % Expected output value of the contrastParams struct
+        expectedContrastParamsMain % Expected output value of the contrastParams struct from RATMain
+        expectedProblemDefStruct   % Expected output value of the problemDefStruct struct
+        expectedProject            % Expected output value of the projectClass object
+        expectedResultCells        % Expected output value of the results cell array
+        expectedResultCellsMain    % Expected output value of the results cell array from RATMain
+        expectedResultStruct       % Expected output value of the initial results struct
+        expectedResult             % Expected output value of the final results struct
+        expectedBayesResults       % Expected output value of the bayes results struct
         TFReflectivity
         TFSimulation
         TFShiftedData
@@ -68,7 +68,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         function loadTestDataInputs(testCase, inputsFile)
             testCase.inputs = load(inputsFile);
 
-            testCase.problemDefInput = testCase.inputs.inputs.problemDefInput;
+            testCase.project = testCase.inputs.inputs.project;
             testCase.problemDefStruct = testCase.inputs.inputs.problemDefStruct;
             testCase.problemDefCells = testCase.inputs.inputs.problemDefCells;
             testCase.problemDefLimits = testCase.inputs.inputs.problemDefLimits;
@@ -80,9 +80,9 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         function loadTestDataOutputs(testCase, outputsFile)
             testCase.outputs = load(outputsFile);
 
-            testCase.expectedProblem = testCase.outputs.outputs.problem;
-            testCase.expectedProblemMain = testCase.outputs.outputs.problemMain;
-            testCase.expectedProblemDefOutput = testCase.outputs.outputs.problemDefOutput;
+            testCase.expectedContrastParams = testCase.outputs.outputs.contrastParams;
+            testCase.expectedContrastParamsMain = testCase.outputs.outputs.contrastParamsMain;
+            testCase.expectedProject = testCase.outputs.outputs.project;
             testCase.expectedProblemDefStruct = testCase.outputs.outputs.problemDefStruct;
             testCase.expectedResult = testCase.outputs.outputs.result;
             testCase.expectedResultStruct = testCase.outputs.outputs.resultStruct;
@@ -119,9 +119,9 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 %% Test High Level RAT Routines
 
         function testRAT(testCase)
-            [problemDefOutput, result] = RAT(testCase.problemDefInput,testCase.controlsInput);
+            [problemDefOutput, result] = RAT(testCase.project,testCase.controlsInput);
 
-            testCase.verifyEqual(problemDefOutput, testCase.expectedProblemDefOutput, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(problemDefOutput, testCase.expectedProject, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(result, testCase.expectedResult, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
@@ -133,7 +133,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             [testProblemDefStruct, problem, resultCells, bayesResults] = RATMain(testCase.problemDefStruct,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls,testCase.priors);
 
             testCase.verifyEqual(testProblemDefStruct, testCase.expectedProblemDefStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(problem, testCase.expectedProblemMain, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(problem, testCase.expectedContrastParamsMain, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(resultCells, testCase.expectedResultCellsMain, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(bayesResults, testCase.expectedBayesResults, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
@@ -157,14 +157,14 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             else        
                 [problem, resultCells] = reflectivityCalculation(testCase.problemDefStruct, testCase.problemDefCells, testCase.controls);
             end
-            testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(problem, testCase.expectedContrastParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(resultCells, testCase.expectedResultCells, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
         function testNonPolarisedTFReflectivityCalculation(testCase)
             [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = nonPolarisedTF.reflectivityCalculation(testCase.problemDefStruct, testCase.problemDefCells, testCase.controls);
 
-            testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(problem, testCase.expectedContrastParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(reflectivity, testCase.TFReflectivity, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(simulation, testCase.TFSimulation, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(shiftedData, testCase.TFShiftedData, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -184,7 +184,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
                     [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = nonPolarisedTF.customXY.calculate(testCase.problemDefStruct, testCase.problemDefCells,  testCase.controls);
             end
 
-            testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(problem, testCase.expectedContrastParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(reflectivity, testCase.TFReflectivity, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(simulation, testCase.TFSimulation, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(shiftedData, testCase.TFShiftedData, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -307,7 +307,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 %% Test Pre- and Post-Processing Routines
 
         function testParseClasstoStructs(testCase)
-            [testProblemDefStruct, testProblemDefCells, testProblemDefLimits, testPriors, testControls] = parseClassToStructs(testCase.problemDefInput, testCase.controlsInput);
+            [testProblemDefStruct, testProblemDefCells, testProblemDefLimits, testPriors, testControls] = parseClassToStructs(testCase.project, testCase.controlsInput);
 
             testCase.verifyEqual(testProblemDefStruct, testCase.problemDefStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(testProblemDefCells, testCase.problemDefCells, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -357,7 +357,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testParseResultToStruct(testCase)
-            resultStruct = parseResultToStruct(testCase.expectedProblem, testCase.expectedResultCells);
+            resultStruct = parseResultToStruct(testCase.expectedContrastParams, testCase.expectedResultCells);
             testCase.verifyEqual(resultStruct, testCase.expectedResultStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
 
             testCase.verifyEqual(resultStruct.reflectivity, testCase.expectedResultCells{1}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -366,12 +366,12 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(resultStruct.layerSlds, testCase.expectedResultCells{4}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(resultStruct.sldProfiles, testCase.expectedResultCells{5}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(resultStruct.allLayers, testCase.expectedResultCells{6}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(resultStruct.calculationResults, testCase.expectedProblem.calculations, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(resultStruct.calculationResults, testCase.expectedContrastParams.calculations, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
         function testParseOutToProjectClass(testCase)
-            problemOut = parseOutToProjectClass(testCase.problemDefInput, testCase.expectedProblemDefStruct);
-            testCase.verifyEqual(problemOut, testCase.expectedProblemDefOutput, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            problemOut = parseOutToProjectClass(testCase.project, testCase.expectedProblemDefStruct);
+            testCase.verifyEqual(problemOut, testCase.expectedProject, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
     end

@@ -13,7 +13,7 @@ controlsInput.display = 'off';
 
 [problemDefStruct,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(standardProblem,controlsInput);
 
-inputs.problemDefInput = standardProblem;
+inputs.project = standardProblem;
 inputs.problemDefStruct = problemDefStruct;
 inputs.problemDefCells = problemDefCells;
 inputs.problemDefLimits = problemDefLimits;
@@ -24,33 +24,33 @@ inputs.controls = controls;
 save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsStandardLayersInputs'],'inputs');
 
 % (b) Outputs
-[problem,resultCells] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
+[contrastParams,resultCells] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
 
-outputs.problem = problem;
+outputs.contrastParams = contrastParams;
 outputs.resultCells = resultCells;
 
-[problemDefStruct,problemMain,resultCellsMain,bayesResults] = RATMain(problemDefStruct,problemDefCells,problemDefLimits,controls,priors);
+[problemDefStruct,contrastParamsMain,resultCellsMain,bayesResults] = RATMain(problemDefStruct,problemDefCells,problemDefLimits,controls,priors);
 
 outputs.problemDefStruct = problemDefStruct;
-outputs.problemMain = problemMain;
+outputs.contrastParamsMain = contrastParamsMain;
 outputs.resultCellsMain = resultCellsMain;
 outputs.bayesResults = bayesResults;
 
-resultStruct = parseResultToStruct(problem,resultCells);
+resultStruct = parseResultToStruct(contrastParams,resultCells);
 
 outputs.resultStruct = resultStruct;
 
-[problemDefOutput, result] = RAT(standardProblem,controlsInput);
+[project, result] = RAT(standardProblem,controlsInput);
 
-outputs.problemDefOutput = problemDefOutput;
+outputs.project = project;
 outputs.result = result;
 
 save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsStandardLayersOutputs'],'outputs');
 
 % (c) TF Parameters
-[problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = domainsTF.reflectivityCalculation(problemDefStruct,problemDefCells,controls);
+[contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = domainsTF.reflectivityCalculation(problemDefStruct,problemDefCells,controls);
 
-TFParams.problem = problem;
+TFParams.contrastParams = contrastParams;
 TFParams.reflectivity = reflectivity;
 TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;
@@ -84,7 +84,7 @@ controlsInput.display = 'off';
 
 [problemDefStruct,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(customXYProblem,controlsInput);
 
-inputs.problemDefInput = customXYProblem;
+inputs.project = customXYProblem;
 inputs.problemDefStruct = problemDefStruct;
 inputs.problemDefCells = problemDefCells;
 inputs.problemDefLimits = problemDefLimits;
@@ -95,33 +95,33 @@ inputs.controls = controls;
 save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsCustomXYInputs'],'inputs');
 
 % (b) Outputs
-[problem,resultCells] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
+[contrastParams,resultCells] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
 
-outputs.problem = problem;
+outputs.contrastParams = contrastParams;
 outputs.resultCells = resultCells;
 
-[problemDefStruct,problemMain,resultCellsMain,bayesResults] = RATMain(problemDefStruct,problemDefCells,problemDefLimits,controls,priors);
+[problemDefStruct,contrastParamsMain,resultCellsMain,bayesResults] = RATMain(problemDefStruct,problemDefCells,problemDefLimits,controls,priors);
 
 outputs.problemDefStruct = problemDefStruct;
-outputs.problemMain = problemMain;
+outputs.contrastParamsMain = contrastParamsMain;
 outputs.resultCellsMain = resultCellsMain;
 outputs.bayesResults = bayesResults;
 
-resultStruct = parseResultToStruct(problem,resultCells);
+resultStruct = parseResultToStruct(contrastParams,resultCells);
 
 outputs.resultStruct = resultStruct;
 
-[problemDefOutput, result] = RAT(customXYProblem,controlsInput);
+[project, result] = RAT(customXYProblem,controlsInput);
 
-outputs.problemDefOutput = problemDefOutput;
+outputs.project = project;
 outputs.result = result;
 
 save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsCustomXYOutputs'],'outputs');
 
 % (c) TF Parameters
-[problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = domainsTF.reflectivityCalculation(problemDefStruct,problemDefCells,controls);
+[contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = domainsTF.reflectivityCalculation(problemDefStruct,problemDefCells,controls);
 
-TFParams.problem = problem;
+TFParams.contrastParams = contrastParams;
 TFParams.reflectivity = reflectivity;
 TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;
@@ -155,7 +155,7 @@ controlsInput.display = 'off';
 
 [problemDefStruct,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(customLayersProblem,controlsInput);
 
-inputs.problemDefInput = customLayersProblem;
+inputs.project = customLayersProblem;
 inputs.problemDefStruct = problemDefStruct;
 inputs.problemDefCells = problemDefCells;
 inputs.problemDefLimits = problemDefLimits;
@@ -166,33 +166,33 @@ inputs.controls = controls;
 save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsCustomLayersInputs'],'inputs');
 
 % (b) Outputs
-[problem,resultCells] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
+[contrastParams,resultCells] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
 
-outputs.problem = problem;
+outputs.contrastParams = contrastParams;
 outputs.resultCells = resultCells;
 
-[problemDefStruct,problemMain,resultCellsMain,bayesResults] = RATMain(problemDefStruct,problemDefCells,problemDefLimits,controls,priors);
+[problemDefStruct,contrastParamsMain,resultCellsMain,bayesResults] = RATMain(problemDefStruct,problemDefCells,problemDefLimits,controls,priors);
 
 outputs.problemDefStruct = problemDefStruct;
-outputs.problemMain = problemMain;
+outputs.contrastParamsMain = contrastParamsMain;
 outputs.resultCellsMain = resultCellsMain;
 outputs.bayesResults = bayesResults;
 
-resultStruct = parseResultToStruct(problem,resultCells);
+resultStruct = parseResultToStruct(contrastParams,resultCells);
 
 outputs.resultStruct = resultStruct;
 
-[problemDefOutput, result] = RAT(customLayersProblem,controlsInput);
+[project, result] = RAT(customLayersProblem,controlsInput);
 
-outputs.problemDefOutput = problemDefOutput;
+outputs.project = project;
 outputs.result = result;
 
 save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsCustomLayersOutputs'],'outputs');
 
 % (c) TF Parameters
-[problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = domainsTF.reflectivityCalculation(problemDefStruct,problemDefCells,controls);
+[contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = domainsTF.reflectivityCalculation(problemDefStruct,problemDefCells,controls);
 
-TFParams.problem = problem;
+TFParams.contrastParams = contrastParams;
 TFParams.reflectivity = reflectivity;
 TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;

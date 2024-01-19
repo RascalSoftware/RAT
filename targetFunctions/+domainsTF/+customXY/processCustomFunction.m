@@ -23,14 +23,14 @@ function [allSLDs,allRoughs] = processCustomFunction(contrastBackgrounds,contras
         functionHandle = customFiles{cCustFiles(i)};
 
         % Find values of 'bulkIn' and 'bulkOut' for this contrast...
-        [~,~,~,thisBulkIn,thisBulkOut,~] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParams,qzshifts,scalefactor,bulkIn,bulkOut,res);
+        [~,~,~,thisBulkIn,~,~] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParams,qzshifts,scalefactor,bulkIn,bulkOut,res);
 
         if isnan(str2double(functionHandle))
-            [tempAllSLDs{i, 1}, allRoughs(i)] = callMatlabFunction(params,i,functionHandle,thisBulkIn,thisBulkOut,numberOfContrasts,1);
-            [tempAllSLDs{i, 2}, ~] = callMatlabFunction(params,i,functionHandle,thisBulkIn,thisBulkOut,numberOfContrasts,2);
+            [tempAllSLDs{i, 1}, allRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOut, i, 1);
+            [tempAllSLDs{i, 2}, ~] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOut, i, 2);
         else
-            [tempAllSLDs{i, 1}, allRoughs(i)] = callCppFunction(params,thisBulkIn,thisBulkOut,i-1,0,functionHandle);
-            [tempAllSLDs{i, 2}, ~] = callCppFunction(params,thisBulkIn,thisBulkOut,i-1,1,functionHandle);
+            [tempAllSLDs{i, 1}, allRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, bulkOut, i-1, 0);
+            [tempAllSLDs{i, 2}, ~] = callCppFunction(functionHandle, params, thisBulkIn, bulkOut, i-1, 1);
         end
     end
 

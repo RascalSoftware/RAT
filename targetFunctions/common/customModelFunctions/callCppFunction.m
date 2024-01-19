@@ -1,4 +1,4 @@
-function [output,subRough] = callCppFunction(params, bulkIn, bulkOut, contrast, domain, pointer)
+function [output,subRough] = callCppFunction(pointer, params, bulkIn, bulkOut, contrast, domain)
     coder.cinclude('<functional>');
     coder.cinclude('classHandle.hpp')
     
@@ -35,13 +35,14 @@ function [output,subRough] = callCppFunction(params, bulkIn, bulkOut, contrast, 
                      coder.wref(outputSize), coder.wref(subRough)); 
     end
     
-    outArraySize = 0;
+    
     size = int32(outputSize(1) * outputSize(2));
     tempOutput = zeros(1, size);
-    outArraySize = coder.ceval('convertVector2Ptr', outArray, coder.wref(tempOutput));
+    actualSize = 0;
+    actualSize = coder.ceval('convertVector2Ptr', outArray, coder.wref(tempOutput));
 
-    if size ~= outArraySize
-        error('The output of the custom function with size %d does not match the specified size (%d x %d).', outArraySize, outputSize(2), outputSize(1))
+    if size ~= actualSize
+        error('The output of the custom function with size %d does not match the specified size (%d x %d).', actualSize, outputSize(2), outputSize(1))
     end
     output = reshape(tempOutput, [outputSize(2), outputSize(1)])';
 end

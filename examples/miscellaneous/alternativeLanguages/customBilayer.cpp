@@ -1,6 +1,5 @@
 //customBilayer.cpp
 
-#include <iostream>
 #include <vector>
 
 #if defined(_WIN32) || defined(_WIN64)
@@ -13,7 +12,6 @@
 extern "C" {
 
     LIB_EXPORT void customBilayer(std::vector<double>& params, std::vector<double>& bulkIn, std::vector<double>& bulkOut, int contrast, std::vector<double>& output, double* outputSize, double* rough)
-
     {
         double subRough = params[0];
         double oxideThick = params[1];
@@ -23,9 +21,6 @@ extern "C" {
         double bilayerHydration = params[5];
         double bilayerRough = params[6];
         double waterThick = params[7];
-
-        double bulk_out = bulkOut[0];
-        std::cout << "Bulk out value: " << bulk_out;
 
         // We have a constant SLD for the oxide
         double oxideSLD = 3.41e-6;
@@ -70,9 +65,9 @@ extern "C" {
 
         // Manually deal with hydration for layers in
         // this example.
-        double oxSLD = (oxideHydration * bulkOut[0]) + ((1 - oxideHydration) * oxideSLD);
-        double headSLD = (headHydration * bulkOut[0]) + ((1 - headHydration) * SLDhead);
-        double tailSLD = (bilayerHydration * bulkOut[0]) + ((1 - bilayerHydration) * SLDtail);
+        double oxSLD = (oxideHydration * bulkOut[contrast]) + ((1 - oxideHydration) * oxideSLD);
+        double headSLD = (headHydration * bulkOut[contrast]) + ((1 - headHydration) * SLDhead);
+        double tailSLD = (bilayerHydration * bulkOut[contrast]) + ((1 - bilayerHydration) * SLDtail);
 
         // Make the layers
         // oxide...
@@ -82,7 +77,7 @@ extern "C" {
 
         // Water...
         output.push_back(waterThick);
-        output.push_back(bulkOut[0]);
+        output.push_back(bulkOut[contrast]);
         output.push_back(bilayerRough);
 
         // Heads...
@@ -109,10 +104,5 @@ extern "C" {
         
         outputSize[0] = 6;     // row - Necessary to ouptut how many layers in stack
         outputSize[1] = 3;     // col - Should be different depending on calculation 
-
-        //std::cout << "roughness in func : " << subRough << "\n";
-        //std::cout << "Head SLD in func : " << headSLD << "\n";
-        //std::cout << "Array[1] in func : " << output[1] << "\n";
     }
-
 } // extern "C"

@@ -45,7 +45,7 @@ inline std::vector<double> convertPtr2Vector(double* ptr, int size)
     return array;
 }
 
-inline auto convertVector2Ptr(std::vector<double>& array, double* ptr)
+inline std::size_t convertVector2Ptr(std::vector<double>& array, double* ptr)
 {  
     std::memcpy(ptr, array.data(), array.size()*sizeof(double));
     return array.size();

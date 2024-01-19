@@ -10,6 +10,7 @@ Adapted from https://github.com/ojwoodford/mex_class_wrapper
 #include <stdint.h>
 #include <string>
 #include <cstring>
+#include <vector>
 #include <typeinfo>
 #include <stdexcept>
 
@@ -32,12 +33,23 @@ private:
 class CallbackInterface
 {
 public:
-    virtual void invoke(double* params,double *bulk_in,double *bulk_out, int contrast,  
-                                                        double *tempOutput,double *outputSize,double *roughness)=0;
-    virtual void invoke(double* params,double *bulk_in,double *bulk_out, int contrast, int domainNumber, 
-                                                        double *tempOutput,double *outputSize,double *roughness)=0;
+    virtual void invoke(std::vector<double>& params, std::vector<double>& bulk_in, std::vector<double>& bulk_out, 
+                        int contrast, std::vector<double>& tempOutput, double *outputSize, double *roughness)=0;
+    virtual void invoke(std::vector<double>& params, std::vector<double>& bulk_in, std::vector<double>& bulk_out, 
+                        int contrast, int domainNumber, std::vector<double>& tempOutput, double *outputSize, double *roughness)=0;
 };
 
+inline std::vector<double> convertPtr2Vector(double* ptr, int size)
+{  
+    std::vector<double> array(ptr, ptr + size);
+    return array;
+}
+
+inline auto convertVector2Ptr(std::vector<double>& array, double* ptr)
+{  
+    std::memcpy(ptr, array.data(), array.size()*sizeof(double));
+    return array.size();
+}
 
 template<class base> inline std::string convertPtr2String(base *ptr)
 {  

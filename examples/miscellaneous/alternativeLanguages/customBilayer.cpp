@@ -1,7 +1,7 @@
 //customBilayer.cpp
 
 #include <iostream>
-#include <iterator>
+#include <vector>
 
 #if defined(_WIN32) || defined(_WIN64)
 #define LIB_EXPORT __declspec(dllexport)
@@ -12,7 +12,7 @@
 // We user extern "C" decorator to avoid name mangling....
 extern "C" {
 
-    LIB_EXPORT void customBilayer(double* params, double* bulkIn, double* bulkOut, int contrast, double* output, double* outputSize, double* rough)
+    LIB_EXPORT void customBilayer(std::vector<double>& params, std::vector<double>& bulkIn, std::vector<double>& bulkOut, int contrast, std::vector<double>& output, double* outputSize, double* rough)
 
     {
         double subRough = params[0];
@@ -24,7 +24,7 @@ extern "C" {
         double bilayerRough = params[6];
         double waterThick = params[7];
 
-        double bulk_out = *bulkOut;
+        double bulk_out = bulkOut[0];
         std::cout << "Bulk out value: " << bulk_out;
 
         // We have a constant SLD for the oxide
@@ -70,40 +70,40 @@ extern "C" {
 
         // Manually deal with hydration for layers in
         // this example.
-        double oxSLD = (oxideHydration * *bulkOut) + ((1 - oxideHydration) * oxideSLD);
-        double headSLD = (headHydration * *bulkOut) + ((1 - headHydration) * SLDhead);
-        double tailSLD = (bilayerHydration * *bulkOut) + ((1 - bilayerHydration) * SLDtail);
+        double oxSLD = (oxideHydration * bulkOut[0]) + ((1 - oxideHydration) * oxideSLD);
+        double headSLD = (headHydration * bulkOut[0]) + ((1 - headHydration) * SLDhead);
+        double tailSLD = (bilayerHydration * bulkOut[0]) + ((1 - bilayerHydration) * SLDtail);
 
         // Make the layers
         // oxide...
-        output[0] = oxideThick;
-        output[1] = oxSLD;
-        output[2] = subRough;
+        output.push_back(oxideThick);
+        output.push_back(oxSLD);
+        output.push_back(subRough);
 
         // Water...
-        output[3] = waterThick;
-        output[4] = *bulkOut;
-        output[5] = bilayerRough;
+        output.push_back(waterThick);
+        output.push_back(bulkOut[0]);
+        output.push_back(bilayerRough);
 
         // Heads...
-        output[6] = headThick;
-        output[7] = headSLD;
-        output[8] = bilayerRough;
+        output.push_back(headThick);
+        output.push_back(headSLD);
+        output.push_back(bilayerRough);
 
         // Tails...
-        output[9] = tailThick;
-        output[10] = tailSLD;
-        output[11] = bilayerRough;
+        output.push_back(tailThick);
+        output.push_back(tailSLD);
+        output.push_back(bilayerRough);
 
         // Tails...
-        output[12] = tailThick;
-        output[13] = tailSLD;
-        output[14] = bilayerRough;
+        output.push_back(tailThick);
+        output.push_back(tailSLD);
+        output.push_back(bilayerRough);
 
         // Heads...
-        output[15] = headThick;
-        output[16] = headSLD;
-        output[17] = bilayerRough;
+        output.push_back(headThick);
+        output.push_back(headSLD);
+        output.push_back(bilayerRough);
 
         *rough = subRough;
         

@@ -27,7 +27,7 @@ function [allSLDs,allRoughs] = processCustomFunction(contrastBackgrounds,contras
         if isnan(str2double(functionHandle))
             [tempAllSLDs{i}, allRoughs(i)] = callMatlabFunction(params,i,functionHandle,thisBulkIn,thisBulkOut,numberOfContrasts,0);
         else
-            [tempAllSLDs{i}, allRoughs(i)] = callCppFunction(params,thisBulkIn,thisBulkOut,i,-1,functionHandle);
+            [tempAllSLDs{i}, allRoughs(i)] = callCppFunction(params,thisBulkIn,thisBulkOut,i-1,-1,functionHandle);
         end
     end
 

@@ -1,4 +1,4 @@
-function [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemDefStruct,problemDefCells,controls)
+function [contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemDefStruct,problemDefCells,controls)
 
 % Custom layers reflectivity calculation for nonPolarisedTF
 
@@ -70,15 +70,16 @@ switch controls.parallel
              allRoughs] = nonPolarisedTF.customLayers.parallelContrasts(problemDefStruct,problemDefCells,controls);
 end
 
-problem.ssubs = outSsubs;
-problem.backgroundParams = backgroundParams;
-problem.qzshifts = qzshifts;
-problem.scalefactors = scalefactors;
-problem.bulkIn = bulkIns;
-problem.bulkOut = bulkOuts;
-problem.resolutionParams = resolutionParams;
-problem.calculations.allChis = chis;
-problem.calculations.sumChi = sum(chis);
-problem.allSubRough = allRoughs;
-problem.resample = problemDefStruct.resample;
+contrastParams.ssubs = outSsubs;
+contrastParams.backgroundParams = backgroundParams;
+contrastParams.qzshifts = qzshifts;
+contrastParams.scalefactors = scalefactors;
+contrastParams.bulkIn = bulkIns;
+contrastParams.bulkOut = bulkOuts;
+contrastParams.resolutionParams = resolutionParams;
+contrastParams.calculations.allChis = chis;
+contrastParams.calculations.sumChi = sum(chis);
+contrastParams.allSubRough = allRoughs;
+contrastParams.resample = problemDefStruct.resample;
+
 end

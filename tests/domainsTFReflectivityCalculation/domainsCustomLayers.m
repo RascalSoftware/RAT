@@ -1,11 +1,11 @@
-function problem = domainsCustomLayers()
+function project = domainsCustomLayers()
     % Test of custom layers domains prioject...
     % Use incoherent summing on a permalloy layer
     % as a test
     
-    problem = createProject(calcType="domains");
-    problem.setModelType('custom layers');
-    problem.setGeometry('substrate/liquid');
+    project = createProject(calcType="domains");
+    project.setModelType('custom layers');
+    project.setGeometry('substrate/liquid');
     
     params = {{'Alloy thick',   100,    150,    200,   true}
               {'Alloy SLD up',  9e-6,   11e-6,  13e-6, true}
@@ -16,13 +16,13 @@ function problem = domainsCustomLayers()
               {'Gold Rough',    5,      7,      11,    true}
         };
     
-    problem.addParameterGroup(params);
+    project.addParameterGroup(params);
     
-    problem.setBulkIn(1,'name','Silicon','Value',2.073e-6);
+    project.setBulkIn(1,'name','Silicon','Value',2.073e-6);
     
-    problem.addCustomFile('Alloy domains','domainsAlloyModel.m','matlab',pwd);
+    project.addCustomFile('Alloy domains','domainsAlloyModel.m','matlab',pwd);
     
-    problem.addContrast('name',       'D2O Conrast', ...
+    project.addContrast('name',       'D2O Conrast', ...
                         'Data',       'Simulation',...
                         'Background', 'Background 1',...
                         'bulkIn',     'Silicon',...
@@ -32,5 +32,5 @@ function problem = domainsCustomLayers()
                         'Resample',    false,...
                         'domainRatio','Domain Ratio 1');
     
-    problem.setContrastModel(1,'Alloy domains');
+    project.setContrastModel(1,'Alloy domains');
 end

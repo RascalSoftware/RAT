@@ -1,4 +1,4 @@
-function [problemDefStruct,outProblem,result,bayesResults] = processBayes(bayesOutputs,allProblem)
+function [problemDefStruct,contrastParams,result,bayesResults] = processBayes(bayesOutputs,allProblem)
 
 %problem = {problemDefStruct ; controls ; problemDefLimits ; problemDefCells};
 problemDefStruct = allProblem{1};
@@ -15,8 +15,8 @@ problemDefStruct = unpackParams(problemDefStruct,controlsStruct);
 parConfInts = prctileConfInts(bayesOutputs.chain);   %iterShortest(output.chain,length(fitNames),[],0.95);
 
 % Calculate 'mean' best fit curves
-[outProblem,result] = reflectivityCalculation(problemDefStruct,problemDefCells,controlsStruct);
-p = parseResultToStruct(outProblem,result);
+[contrastParams,result] = reflectivityCalculation(problemDefStruct,problemDefCells,controlsStruct);
+p = parseResultToStruct(contrastParams,result);
 bestFitMean.ref = p.reflectivity;
 bestFitMean.sld = p.sldProfiles;
 bestFitMean.chi = p.calculationResults.sumChi;

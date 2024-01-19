@@ -32,29 +32,29 @@ classdef testCreateProject < matlab.unittest.TestCase
 
         function testProjectTypes(testCase, calculationType, SLDValues, domainsCalc, absorption)
             % Test setup
-            problem = createProject(calc=calculationType, absorption=absorption);
+            project = createProject(calc=calculationType, absorption=absorption);
 
-            testCase.verifyEqual(problem.experimentName, '', 'project does not initialise correctly');
-            testCase.verifyEqual(problem.calculationType, calculationType.value, 'project does not initialise correctly');
+            testCase.verifyEqual(project.experimentName, '', 'project does not initialise correctly');
+            testCase.verifyEqual(project.calculationType, calculationType.value, 'project does not initialise correctly');
 
             % Test for correct layers and contrasts
             layerColumns = [{'Name', 'Thickness'}, SLDValues, {'Roughness', 'Hydration', 'Hydrate with'}];
-            testCase.verifyEqual(problem.layers.varTable.Properties.VariableNames, layerColumns, 'project layers class does not initialise correctly');
-            testCase.verifyEqual(problem.contrasts.domainsCalc, domainsCalc, 'project contrasts class does not initialise correctly');
+            testCase.verifyEqual(project.layers.varTable.Properties.VariableNames, layerColumns, 'project layers class does not initialise correctly');
+            testCase.verifyEqual(project.contrasts.domainsCalc, domainsCalc, 'project contrasts class does not initialise correctly');
 
             % Test setting experiment name
             newName = 'New Project Name';
-            problem = createProject(name=newName, calc=calculationType, absorption=absorption);
-            testCase.verifyEqual(problem.experimentName, newName, 'project does not initialise correctly');
+            project = createProject(name=newName, calc=calculationType, absorption=absorption);
+            testCase.verifyEqual(project.experimentName, newName, 'project does not initialise correctly');
             testCase.verifyError(@() createProject(name=1), 'MATLAB:validators:mustBeTextScalar');
         end
 
         function testProtectedParameters(testCase)
             % Ensure errors are raised when attempting to remove protected
             % parameters
-            problem = createProject(calc=calculationTypes.OilWater);
-            testCase.verifyError(@() problem.removeParameter(2), exceptions.invalidOption.errorID);
-            testCase.verifyError(@() problem.removeParameter("Oil Roughness"), exceptions.invalidOption.errorID);
+            project = createProject(calc=calculationTypes.OilWater);
+            testCase.verifyError(@() project.removeParameter(2), exceptions.invalidOption.errorID);
+            testCase.verifyError(@() project.removeParameter("Oil Roughness"), exceptions.invalidOption.errorID);
         end
 
     end

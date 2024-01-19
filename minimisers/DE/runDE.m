@@ -1,4 +1,4 @@
-function [problemDefStruct,problem,result] = runDE(problemDefStruct,problemDefCells,problemDefLimits,controls)
+function [problemDefStruct,contrastParams,result] = runDE(problemDefStruct,problemDefCells,problemDefLimits,controls)
 
     [problemDefStruct,~] = fitsetup(problemDefStruct,problemDefCells,problemDefLimits,controls);
     F_VTR = controls.targetValue; %Value to reach
@@ -101,10 +101,10 @@ function [problemDefStruct,problem,result] = runDE(problemDefStruct,problemDefCe
     [res,problemDefStruct] = deopt(@intrafun,problemDefStruct,problemDefCells,controls,S_struct);
     problemDefStruct.fitParams = res;
     problemDefStruct = unpackParams(problemDefStruct,controls);
-    [problem,result] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
+    [contrastParams,result] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
     
     if ~strcmpi(controls.display,'off')
-        fprintf('Final chi squared is %g\n',problem.calculations.sumChi);
+        fprintf('Final chi squared is %g\n',contrastParams.calculations.sumChi);
     end
 
 end

@@ -71,8 +71,7 @@ coder.varsize('layers',[Inf,6],[1 1]);
             end
         end 
     end
-%     problem.layers{i} = layers;
-%     problem.ssubs(i) = s_sub;
+
 if ~isempty(layers)
     outLayers = layers(:,1:3);
 else

@@ -1,11 +1,11 @@
-function problem = DPPCStandardLayers() 
+function project = DPPCStandardLayers() 
 
 %% ORSO Lipid Example 1 - DSPC Bilayer Analysed Using a Standard Layers Model.
 % 
 % 
 % Start by making an empty instance of the project definition class:
 
-problem = projectClass('Orso lipid example');
+project = projectClass('Orso lipid example');
 
 %% 
 % In this example, we will use a standard layers model. This defines layers 
@@ -27,7 +27,7 @@ Parameters = {
 % Add these parameters to the project class, and group them into a layer to 
 % demonstrate how this is done:
 
-    problem.addParameterGroup(Parameters);
+    project.addParameterGroup(Parameters);
     % Now make the oxide layer
     Oxide =     {'Oxide Layer',...          % Name of the layer
                 'Oxide thick',...           % Layer thickness
@@ -37,7 +37,7 @@ Parameters = {
                 'bulk out' };               % Which bulk phase is hydrating the layer
             
     % Add this to the project...
-    problem.addLayer(Oxide);
+    project.addLayer(Oxide);
 %% 
 % Now we'll build the layers for the lipid, The bilayer is symmetrical, so we 
 % can have mostly the same values for the inner and outer tails and heads. We 
@@ -72,8 +72,8 @@ watParams = {
 
 
 % Add these parameters to the project as before.
-problem.addParameterGroup(watParams);
-problem.addParameterGroup(bilParams);
+project.addParameterGroup(watParams);
+project.addParameterGroup(bilParams);
 
 % Now make the layers
 waterLayer = {
@@ -120,7 +120,7 @@ bilOuterHead = {
 % 
 % Add these layers to the project:
 
-problem.addLayerGroup({waterLayer, bilInnerHead, bilTails, bilOuterHead});
+project.addLayerGroup({waterLayer, bilInnerHead, bilTails, bilOuterHead});
 %% 
 % We have three datasets we need to consider - the bilayer against D2O, Silicon 
 % Matched water and H2O. Load these datafiles in and put them in the data block....
@@ -131,28 +131,28 @@ SMW_data = dlmread('c_PLP0016601.dat');
 H2O_data = dlmread('c_PLP0016607.dat');
 
 % Add the data to the project
-problem.addData('Bilayer / D2O', D2O_data(:,1:3));
-problem.addData('Bilayer / SMW', SMW_data(:,1:3));
-problem.addData('Bilayer / H2O', H2O_data(:,1:3));
+project.addData('Bilayer / D2O', D2O_data(:,1:3));
+project.addData('Bilayer / SMW', SMW_data(:,1:3));
+project.addData('Bilayer / H2O', H2O_data(:,1:3));
 
-problem.setData(2,'dataRange',[0.013 0.35]);
-problem.setData(3,'dataRange',[0.013 0.35]);
-problem.setData(4,'dataRange',[0.013 0.35]);
+project.setData(2,'dataRange',[0.013 0.35]);
+project.setData(3,'dataRange',[0.013 0.35]);
+project.setData(4,'dataRange',[0.013 0.35]);
 
 %% 
 % We also need the correct SLD's for the bulk phases.....
 
 % Change bulk in from air to silicon....
-problem.setBulkIn(1,'name','Silicon','min',2.07e-6,'value',2.073e-6,'max',2.08e-6,'fit',false);
+project.setBulkIn(1,'name','Silicon','min',2.07e-6,'value',2.073e-6,'max',2.08e-6,'fit',false);
 
 % Add two more values for bulk out....
-problem.addBulkOut('SLD SMW',2e-6,2.073e-6,3e-6,true);
-problem.addBulkOut('SLD H2O',-0.6e-6,-0.56e-6,-0.3e-6,true);
-problem.setBulkOut(1,'min',4e-6,'fit',true);
+project.addBulkOut('SLD SMW',2e-6,2.073e-6,3e-6,true);
+project.addBulkOut('SLD H2O',-0.6e-6,-0.56e-6,-0.3e-6,true);
+project.setBulkOut(1,'min',4e-6,'fit',true);
 
- problem.setBulkOut(1,'fit',true);
- problem.setBulkOut(2,'fit',true);
- problem.setBulkOut(3,'fit',true);
+ project.setBulkOut(1,'fit',true);
+ project.setBulkOut(2,'fit',true);
+ project.setBulkOut(3,'fit',true);
 
 
 %% 
@@ -165,24 +165,24 @@ problem.setBulkOut(1,'min',4e-6,'fit',true);
 % parameter each...
 
 % Change the name of the existing parameters to refer to D2O
-problem.setBackgroundParam(1,'name','Backs par D2O','fit',true,'min',1e-8,'max',1e-5);
+project.setBackgroundParam(1,'name','Backs par D2O','fit',true,'min',1e-8,'max',1e-5);
 
 % Add two new backs parameters for the other two..
-problem.addBackgroundParam('Backs par SMW',1e-8,1e-8,1e-5,true);
-problem.addBackgroundParam('Backs par H2O',1e-8,1e-8,1e-5,true);
+project.addBackgroundParam('Backs par SMW',1e-8,1e-8,1e-5,true);
+project.addBackgroundParam('Backs par H2O',1e-8,1e-8,1e-5,true);
 
 % And add the two new constant backgrounds..
-problem.addBackground('Background SMW','constant','Backs par SMW');
-problem.addBackground('Background H2O','constant','Backs par H2O');
+project.addBackground('Background SMW','constant','Backs par SMW');
+project.addBackground('Background H2O','constant','Backs par H2O');
 
 % And edit the other one....
-problem.setBackground(1,'name','Background D2O','Value1','Backs par D2O');
+project.setBackground(1,'name','Background D2O','Value1','Backs par D2O');
 
 % Finally modify some of the other parameters to be more suitable values
 % for a solid / liquid experiment.
 
 % Set the scalefactor...
-problem.setScalefactor(1,'Value',1,'min',0.5,'max',2,'fit',false);
+project.setScalefactor(1,'Value',1,'min',0.5,'max',2,'fit',false);
 
 
 %% 
@@ -191,7 +191,7 @@ problem.setScalefactor(1,'Value',1,'min',0.5,'max',2,'fit',false);
 % as name value pairs.
 
 % D2O contrast..
-problem.addContrast('name','Bilayer / D2O',...
+project.addContrast('name','Bilayer / D2O',...
     'background','Background D2O',...
     'resolution','Resolution 1',...
     'scalefactor', 'Scalefactor 1',...
@@ -201,7 +201,7 @@ problem.addContrast('name','Bilayer / D2O',...
     'data', 'Bilayer / D2O');
 
 % SMW contrast..
-problem.addContrast('name','Bilayer / SMW',...
+project.addContrast('name','Bilayer / SMW',...
     'background','Background SMW',...
     'resolution','Resolution 1',...
     'scalefactor', 'Scalefactor 1',...
@@ -211,7 +211,7 @@ problem.addContrast('name','Bilayer / SMW',...
     'data', 'Bilayer / SMW');
 
 % SMW contrast..
-problem.addContrast('name','Bilayer / H2O',...
+project.addContrast('name','Bilayer / H2O',...
     'background','Background H2O',...
     'resolution','Resolution 1',...
     'scalefactor', 'Scalefactor 1',...
@@ -223,21 +223,21 @@ problem.addContrast('name','Bilayer / H2O',...
 %% 
 % Finally, add the layers to the contrasts to complete the models:
 
-problem.setContrastModel(1,{'Oxide Layer',...
+project.setContrastModel(1,{'Oxide Layer',...
               'Water Layer',...
               'Bil inner head',...
               'Bil tail',...
               'Bil tail',...
               'Bil outer head'});
           
- problem.setContrastModel(2, {'Oxide Layer',...
+ project.setContrastModel(2, {'Oxide Layer',...
               'Water Layer',...
               'Bil inner head',...
               'Bil tail',...
               'Bil tail',...
               'Bil outer head'});
           
- problem.setContrastModel(3,{'Oxide Layer',...
+ project.setContrastModel(3,{'Oxide Layer',...
               'Water Layer',...
               'Bil inner head',...
               'Bil tail',...

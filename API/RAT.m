@@ -1,6 +1,6 @@
-function [problemDefOutput,result] = RAT(problemDefInput,inputControls)
+function [project,result] = RAT(project,inputControls)
 
-[problemDefStruct,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(problemDefInput,inputControls);
+[problemDefStruct,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(project,inputControls);
 [problemDefStruct,~] = packParams(problemDefStruct,problemDefCells,problemDefLimits,controls.checks);
 
 % Set controls.calcSLD to 1 if we are doing customXY
@@ -17,13 +17,13 @@ if ~strcmpi(controls.display,'off')
 end
 
 tic
-[problemDefStruct,problem,resultCells,bayesResults] = RATMain_mex(problemDefStruct,problemDefCells,problemDefLimits,controls,priors);
+[problemDefStruct,contrastParams,resultCells,bayesResults] = RATMain_mex(problemDefStruct,problemDefCells,problemDefLimits,controls,priors);
 
 if ~strcmpi(controls.display,'off')
     toc
 end
 
-result = parseResultToStruct(problem,resultCells);
+result = parseResultToStruct(contrastParams,resultCells);
 
 if isfield(problemDefStruct,'fitParams')
     result.bestFitPars = problemDefStruct.fitParams;
@@ -36,7 +36,7 @@ end
 [~,fitNames] = packParams(problemDefStruct,problemDefCells,problemDefLimits,controls.checks);
 result.fitNames = fitNames;
 
-problemDefOutput = parseOutToProjectClass(problemDefInput,problemDefStruct);
+project = parseOutToProjectClass(project,problemDefStruct);
 
 if ~strcmpi(controls.display,'off')
    fprintf('\nFinished RAT ______________________________________________________________________________________________ \n\n');

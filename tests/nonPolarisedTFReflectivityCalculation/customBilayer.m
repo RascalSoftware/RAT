@@ -1,4 +1,4 @@
-function [output,sub_rough] = customBilayer(params,bulk_in,bulk_out,contrast)
+function [output,sub_rough] = customBilayer(params,bulkIn,bulkOut,contrast)
 %CUSTOMBILAYER  RASCAL Custom Layer Model File.
 %
 %
@@ -70,13 +70,13 @@ tailThick = vTail / lipidAPM;
 
 % Manually deal with hydration for layers in
 % this example.
-oxSLD = (oxide_hydration * bulk_out(contrast)) + ((1 - oxide_hydration) * oxide_SLD);
-headSLD = (headHydration * bulk_out(contrast)) + ((1 - headHydration) * SLDhead);
-tailSLD = (bilayerHydration * bulk_out(contrast)) + ((1 - bilayerHydration) * SLDtail);
+oxSLD = (oxide_hydration * bulkOut(contrast)) + ((1 - oxide_hydration) * oxide_SLD);
+headSLD = (headHydration * bulkOut(contrast)) + ((1 - headHydration) * SLDhead);
+tailSLD = (bilayerHydration * bulkOut(contrast)) + ((1 - bilayerHydration) * SLDtail);
 
 % Make the layers
 oxide = [oxide_thick oxSLD sub_rough];
-water = [waterThick bulk_out(contrast) bilayerRough];
+water = [waterThick bulkOut(contrast) bilayerRough];
 head = [headThick headSLD bilayerRough];
 tail = [tailThick tailSLD bilayerRough];
 

@@ -1,4 +1,4 @@
-function [outProblemDef,outProblem,result,bayesResults] = runDREAM(problemDefStruct,problemDefCells,problemDefLimits,controls,priors)
+function [outProblemDefStruct,contrastParams,result,bayesResults] = runDREAM(problemDefStruct,problemDefCells,problemDefLimits,controls,priors)
 
 
 % Make an empty struct for bayesResults to hold the outputs of the
@@ -109,7 +109,7 @@ output.results.outputDream = dreamOutput;
 output.bestPars = bestPars;
 output.chain = collectChains;
 
-[outProblemDef,outProblem,result,dreamResults] = processBayes(output,allProblem);
+[outProblemDefStruct,contrastParams,result,dreamResults] = processBayes(output,allProblem);
 
 % Populate the output struct
 bayesResults.bayesRes.allChains = chain;

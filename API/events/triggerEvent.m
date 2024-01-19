@@ -1,8 +1,8 @@
 function triggerEvent(eventType, data)
     % Triggers the event type with the given data. The supported event types are
     % 'message' and 'plot'. The data for message is a char array while for
-    % the plot it is a cell array containing the result cell, problem.ssubs
-    % and problemDef
+    % the plot it is a cell array containing the result cell,
+    % contrastParams.ssubs and problemDefStruct
     % 
     % triggerEvent('message', 'Hello world');
     persistent notified;

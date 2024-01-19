@@ -18,11 +18,11 @@ problemDefStruct.fitParams = firstRow;
 problemDefStruct = unpackParams(problemDefStruct,controlsStruct);
 
 % Calc the reflectivities....
-[calcProblem,calcResult] = reflectivityCalculation(problemDefStruct,problemDefCells,controlsStruct);
+[calcContrastParams,calcResult] = reflectivityCalculation(problemDefStruct,problemDefCells,controlsStruct);
 
 % 'result' is currently a cell array. Convert this to a struct because it's
 % easier to work with fieldnames...
-calcResult = parseResultToStruct(calcProblem,calcResult);
+calcResult = parseResultToStruct(calcContrastParams,calcResult);
 
 thisRef = calcResult.reflectivity;
 thisSld = calcResult.sldProfiles;
@@ -107,11 +107,11 @@ for i = 1:nsample
     problemDefStruct = unpackParams(problemDefStruct,controlsStruct);
 
     % Calc the reflectivities....
-    [calcProblem,calcResult] = reflectivityCalculation(problemDefStruct,problemDefCells,controlsStruct);
+    [calcContrastParams,calcResult] = reflectivityCalculation(problemDefStruct,problemDefCells,controlsStruct);
 
     % 'result' is currently a cell array. Convert this to a struct because it's
     % easier to work with fieldnames...
-    calcResult = parseResultToStruct(calcProblem,calcResult);
+    calcResult = parseResultToStruct(calcContrastParams,calcResult);
     
     thisRef = calcResult.reflectivity;
     thisSld = calcResult.sldProfiles;

@@ -88,8 +88,8 @@ if useSaved
     probArray = probArray.probArray;
 else
 
-    [problemDefStruct,problemDefCells,problemDefLimits,priors,controls] = RatParseClassToStructs_new(d2oproblem,controls);
-    [problemDefStruct,fitNames] = packParams(problemDefStruct,problemDefCells,problemDefLimits,controls.checks);
+    [problemStruct,problemCells,problemLimits,priors,controls] = RatParseClassToStructs_new(d2oproblem,controls);
+    [problemStruct,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
 
     for r = 1:gridSize
         for b = 1:gridSize
@@ -102,11 +102,11 @@ else
                 %d2oproblem.backgrounds(1) = thisBack;
                 %d2oProblem.scalefactors(1) = thisScale;
 
-                problemDefStruct.fitParams(1) = thisRough;
-                problemDefStruct.fitParams(2) = thisBack;
-                problemDefStruct.fitParams(3) = thisScale;
-                problemDefStruct = unpackParams(problemDefStruct,controls);
-                [problem,results] = reflectivity_calculation_wrapper(problemDefStruct,problemDefCells,problemDefLimits,controls);
+                problemStruct.fitParams(1) = thisRough;
+                problemStruct.fitParams(2) = thisBack;
+                problemStruct.fitParams(3) = thisScale;
+                problemStruct = unpackParams(problemStruct,controls);
+                [problem,results] = reflectivity_calculation_wrapper(problemStruct,problemCells,problemLimits,controls);
 
 %                 d2oproblem.setParameter(1,'value',thisRough);
 %                 d2oproblem.setBackgroundParam(1,'value',thisBack);

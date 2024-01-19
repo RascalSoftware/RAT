@@ -1,10 +1,10 @@
-function [problemDefStruct,contrastParams,resultCells,bayesResults] = RATMain(problemDefStruct,problemDefCells,problemDefLimits,controls,priors)
+function [problemStruct,contrastParams,resultCells,bayesResults] = RATMain(problemStruct,problemCells,problemLimits,controls,priors)
 
 result = cell(1,1);
 result{1} = {1};
 resultCells = repmat(result,1,6);
 
-numberOfContrasts = problemDefStruct.numberOfContrasts;
+numberOfContrasts = problemStruct.numberOfContrasts;
 preAlloc = zeros(numberOfContrasts,1);
 
 contrastParams = struct('ssubs',preAlloc, ...
@@ -18,38 +18,38 @@ contrastParams = struct('ssubs',preAlloc, ...
                         'allSubRough',preAlloc,...
                         'resample',preAlloc);
 
-if strcmpi(problemDefStruct.TF,'domains')
+if strcmpi(problemStruct.TF,'domains')
     domains = true;
 else
     domains = false;
 end
 
-bayesResults = makeEmptyBayesResultsStruct(1.0e3, problemDefStruct.numberOfContrasts, domains, controls.nChains);
+bayesResults = makeEmptyBayesResultsStruct(1.0e3, problemStruct.numberOfContrasts, domains, controls.nChains);
 
 %Decide what we are doing....
 switch lower(controls.procedure)
     case 'calculate' %Just a single reflectivity calculation
-        [contrastParams,resultCells] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
+        [contrastParams,resultCells] = reflectivityCalculation(problemStruct,problemCells,controls);
     case 'simplex'
         if ~strcmpi(controls.display,'off')
             fprintf('\nRunning simplex\n\n');
         end
-        [problemDefStruct,contrastParams,resultCells] = runSimplex(problemDefStruct,problemDefCells,problemDefLimits,controls);
+        [problemStruct,contrastParams,resultCells] = runSimplex(problemStruct,problemCells,problemLimits,controls);
     case 'de'
         if ~strcmpi(controls.display,'off')
             fprintf('\nRunning Differential Evolution\n\n');
         end
-        [problemDefStruct,contrastParams,resultCells] = runDE(problemDefStruct,problemDefCells,problemDefLimits,controls);
+        [problemStruct,contrastParams,resultCells] = runDE(problemStruct,problemCells,problemLimits,controls);
     case 'ns'
         if ~strcmpi(controls.display,'off')
             fprintf('\nRunning Nested Sampler\n\n');
         end            
-        [problemDefStruct,contrastParams,resultCells,bayesResults] = runNestedSampler(problemDefStruct,problemDefCells,problemDefLimits,controls,priors);   
+        [problemStruct,contrastParams,resultCells,bayesResults] = runNestedSampler(problemStruct,problemCells,problemLimits,controls,priors);   
     case 'dream'
         if ~strcmpi(controls.display,'off')
             fprintf('\nRunning DREAM\n\n');
         end
-        [problemDefStruct,contrastParams,resultCells,bayesResults] = runDREAM(problemDefStruct,problemDefCells,problemDefLimits,controls,priors);
+        [problemStruct,contrastParams,resultCells,bayesResults] = runDREAM(problemStruct,problemCells,problemLimits,controls,priors);
 end
 
 % Then just do a final calculation to fill in SLD if necessary
@@ -57,7 +57,7 @@ end
 if ~controls.calcSldDuringFit
     controls.calcSldDuringFit = true;
     controls.procedure = 'calculate';
-    [contrastParams,resultCells] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
+    [contrastParams,resultCells] = reflectivityCalculation(problemStruct,problemCells,controls);
 end
 
 end

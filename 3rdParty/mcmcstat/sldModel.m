@@ -24,15 +24,15 @@ end
 
 pars = theta;
 
-problemDefStruct = problem{1};
+problemStruct = problem{1};
 controls = problem{2};
-problemDefLimits = problem{3};
-problemDefCells = problem{4};
+problemLimits = problem{3};
+problemCells = problem{4};
 controls.calcSldDuringFit = true;
 
-problemDefStruct.fitParams = pars;
-problemDefStruct = unpackParams(problemDefStruct,controls);
-[~,result] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
+problemStruct.fitParams = pars;
+problemStruct = unpackParams(problemStruct,controls);
+[~,result] = reflectivityCalculation(problemStruct,problemCells,controls);
 
 sld = result{5}{contrast};
 

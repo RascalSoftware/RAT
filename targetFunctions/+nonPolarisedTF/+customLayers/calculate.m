@@ -1,4 +1,4 @@
-function [contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemDefStruct,problemDefCells,controls)
+function [contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemStruct,problemCells,controls)
 
 % Custom layers reflectivity calculation for nonPolarisedTF
 
@@ -13,7 +13,7 @@ function [contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfil
 % Pre-allocation - It's necessary to
 % pre-allocate the memory for all the arrays
 % for compilation, so do this in this block.
-numberOfContrasts = problemDefStruct.numberOfContrasts;
+numberOfContrasts = problemStruct.numberOfContrasts;
 outSsubs = zeros(numberOfContrasts,1);
 backgroundParams = zeros(numberOfContrasts,1);
 qzshifts = zeros(numberOfContrasts,1);
@@ -59,15 +59,15 @@ switch controls.parallel
     case 'single'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
              simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = nonPolarisedTF.customLayers.single(problemDefStruct,problemDefCells,controls);
+             allRoughs] = nonPolarisedTF.customLayers.single(problemStruct,problemCells,controls);
     case 'points'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
              simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = nonPolarisedTF.customLayers.parallelPoints(problemDefStruct,problemDefCells,controls);
+             allRoughs] = nonPolarisedTF.customLayers.parallelPoints(problemStruct,problemCells,controls);
     case 'contrasts'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
              simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = nonPolarisedTF.customLayers.parallelContrasts(problemDefStruct,problemDefCells,controls);
+             allRoughs] = nonPolarisedTF.customLayers.parallelContrasts(problemStruct,problemCells,controls);
 end
 
 contrastParams.ssubs = outSsubs;
@@ -80,6 +80,6 @@ contrastParams.resolutionParams = resolutionParams;
 contrastParams.calculations.allChis = chis;
 contrastParams.calculations.sumChi = sum(chis);
 contrastParams.allSubRough = allRoughs;
-contrastParams.resample = problemDefStruct.resample;
+contrastParams.resample = problemStruct.resample;
 
 end

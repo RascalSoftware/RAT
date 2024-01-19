@@ -1,14 +1,14 @@
 function fval = nsIntraFun(data,p)
 
-    problemDefStruct = data{1};
+    problemStruct = data{1};
     controls = data{2};
-    problemDefCells = data{4};
+    problemCells = data{4};
 
     % Removed use of cells....
-    problemDefStruct.fitParams = p;
+    problemStruct.fitParams = p;
 
-    problemDefStruct = unpackParams(problemDefStruct,controls);
-    [problemDefStruct,~] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
+    problemStruct = unpackParams(problemStruct,controls);
+    [problemStruct,~] = reflectivityCalculation(problemStruct,problemCells,controls);
 
-    fval = (-problemDefStruct.calculations.sumChi/2); 
+    fval = (-problemStruct.calculations.sumChi/2); 
 end

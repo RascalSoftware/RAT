@@ -1,29 +1,29 @@
 function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
 contrastResolutions, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, dataPresent, nParams, params,...
-numberOfLayers, resample, contrastBackgroundsType, contrastCustomFiles] =  extractProblemParams(problemDefStruct)
+numberOfLayers, resample, contrastBackgroundsType, contrastCustomFiles] =  extractProblemParams(problemStruct)
 
-%Extract individual parameters from problemDef
+%Extract individual parameters from problem
 
-numberOfContrasts = problemDefStruct.numberOfContrasts;
-geometry = problemDefStruct.geometry;
-contrastBackgrounds = problemDefStruct.contrastBackgrounds;
-contrastBackgroundsType = problemDefStruct.contrastBackgroundsType;
-contrastQzshifts = problemDefStruct.contrastQzshifts;
-contrastScalefactors = problemDefStruct.contrastScalefactors;
-contrastBulkIns = problemDefStruct.contrastBulkIns;
-contrastBulkOuts = problemDefStruct.contrastBulkOuts;
-contrastResolutions = problemDefStruct.contrastResolutions;
-contrastCustomFiles = problemDefStruct.contrastCustomFiles;
-backgroundParams = problemDefStruct.backgroundParams;
-qzshifts = problemDefStruct.qzshifts;
-scalefactors = problemDefStruct.scalefactors;
-bulkIn = problemDefStruct.bulkIn;
-bulkOut = problemDefStruct.bulkOut;
-resolutionParams = problemDefStruct.resolutionParams;
-dataPresent = problemDefStruct.dataPresent;
-nParams = length(problemDefStruct.params);
-params = problemDefStruct.params;
-numberOfLayers = problemDefStruct.numberOfLayers;
-resample = problemDefStruct.resample;
+numberOfContrasts = problemStruct.numberOfContrasts;
+geometry = problemStruct.geometry;
+contrastBackgrounds = problemStruct.contrastBackgrounds;
+contrastBackgroundsType = problemStruct.contrastBackgroundsType;
+contrastQzshifts = problemStruct.contrastQzshifts;
+contrastScalefactors = problemStruct.contrastScalefactors;
+contrastBulkIns = problemStruct.contrastBulkIns;
+contrastBulkOuts = problemStruct.contrastBulkOuts;
+contrastResolutions = problemStruct.contrastResolutions;
+contrastCustomFiles = problemStruct.contrastCustomFiles;
+backgroundParams = problemStruct.backgroundParams;
+qzshifts = problemStruct.qzshifts;
+scalefactors = problemStruct.scalefactors;
+bulkIn = problemStruct.bulkIn;
+bulkOut = problemStruct.bulkOut;
+resolutionParams = problemStruct.resolutionParams;
+dataPresent = problemStruct.dataPresent;
+nParams = length(problemStruct.params);
+params = problemStruct.params;
+numberOfLayers = problemStruct.numberOfLayers;
+resample = problemStruct.resample;
 
 end

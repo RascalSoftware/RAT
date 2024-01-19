@@ -1,4 +1,4 @@
-function [contrastParams,resultCells] = reflectivityCalculation(problemDefStruct,problemDefCells,controls)
+function [contrastParams,resultCells] = reflectivityCalculation(problemStruct,problemCells,controls)
 % Main entry point into the reflectivity calculation for the toolbox.
 % This is the main function that is called by any of the minimisers or
 % analysis tools from the rest of the toolbox. 
@@ -38,7 +38,7 @@ contrastParams.resample = 0;
 % end for the results block. We are unlikely to need both
 % TODO: Find out which is necessary and tidy this up.
 
-numberOfContrasts = problemDefStruct.numberOfContrasts;
+numberOfContrasts = problemStruct.numberOfContrasts;
 reflectivity = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
@@ -100,16 +100,16 @@ coder.varsize('domainAllLayers',[10000 2],[1 1]);
 coder.varsize('domainAllLayers{:}',[10000 3],[1 0]);
 
 % Decide which target function we are calling and call the relevant routines
-whichTF = problemDefStruct.TF;
+whichTF = problemStruct.TF;
 switch whichTF
     case 'non polarised'
-        [contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemDefStruct,problemDefCells,controls);
+        [contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
     %case 'oil water'
-        %contrastParams = oilWaterTFReflectivityCalculation(problemDefStruct,problemDefCells,controls);    
+        %contrastParams = oilWaterTFReflectivityCalculation(problemStruct,problemCells,controls);    
     %case 'magnetic'
-        %contrastParams = polarisedTFReflectivityCalculation(problemDefStruct,problemDefCells,controls);
+        %contrastParams = polarisedTFReflectivityCalculation(problemStruct,problemCells,controls);
     case 'domains'
-        [contrastParams,reflectivity,simulation,shiftedData,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTF.reflectivityCalculation(problemDefStruct,problemDefCells,controls);
+        [contrastParams,reflectivity,simulation,shiftedData,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
 %     otherwise
 %         error('The calculation type "%s" is not supported', whichTF);
 

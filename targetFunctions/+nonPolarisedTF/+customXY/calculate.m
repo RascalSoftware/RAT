@@ -1,4 +1,4 @@
-function [contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemDefStruct,problemDefCells,controls)
+function [contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemStruct,problemCells,controls)
 
 % Custom XP profile reflectivity calculation for nonPolarisedTF
 
@@ -15,7 +15,7 @@ function [contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfil
 % pre-allocate the memory for all the arrays
 % for compilation, so do this in this block.
 
-numberOfContrasts = problemDefStruct.numberOfContrasts;
+numberOfContrasts = problemStruct.numberOfContrasts;
 outSsubs = zeros(numberOfContrasts,1);
 backgroundParams = zeros(numberOfContrasts,1);
 qzshifts = zeros(numberOfContrasts,1);
@@ -60,15 +60,15 @@ switch controls.parallel
     case 'single'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
              simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = nonPolarisedTF.customXY.single(problemDefStruct,problemDefCells,controls);
+             allRoughs] = nonPolarisedTF.customXY.single(problemStruct,problemCells,controls);
     case 'points'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
              simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = nonPolarisedTF.customXY.parallelPoints(problemDefStruct,problemDefCells,controls);
+             allRoughs] = nonPolarisedTF.customXY.parallelPoints(problemStruct,problemCells,controls);
     case 'contrasts'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
              simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = nonPolarisedTF.customXY.parallelContrasts(problemDefStruct,problemDefCells,controls);
+             allRoughs] = nonPolarisedTF.customXY.parallelContrasts(problemStruct,problemCells,controls);
 end
 
 contrastParams.ssubs = outSsubs;

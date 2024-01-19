@@ -15,26 +15,26 @@ end
 rng('default');
 
 % Split problem using the routines from RAT..
-[problemDefStruct,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(problem,inputControls);
+[problemStruct,problemCells,problemLimits,priors,controls] = parseClassToStructs(problem,inputControls);
 
 %controls.parallel = 'points';
 
 % Make an instance of the paramonte objective function class
 logFunc = pmLogFunction();
 
-[problemDefStruct,fitNames,fitPriors] = packParamsPriors(problemDefStruct,problemDefCells,problemDefLimits,priors,controls.checks);
-nDims = length(problemDefStruct.fitParams);
-testPars = problemDefStruct.fitParams;
+[problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,problemCells,problemLimits,priors,controls.checks);
+nDims = length(problemStruct.fitParams);
+testPars = problemStruct.fitParams;
 
 % Scale the parameters
-problemDefStruct = scalePars(problemDefStruct);
+problemStruct = scalePars(problemStruct);
 
 % Also need to scale the priors...
-%scaledPriors = scalePriors(problemDefStruct,fitPriors);
+%scaledPriors = scalePriors(problemStruct,fitPriors);
 
-logFunc.problemDefStruct = problemDefStruct;
-logFunc.problemDefCells = problemDefCells;
-logFunc.problemDefLimits = problemDefLimits;
+logFunc.problemStruct = problemStruct;
+logFunc.problemCells = problemCells;
+logFunc.problemLimits = problemLimits;
 logFunc.priors = fitPriors; %scaledPriors;
 logFunc.controls = controls;
 logFunc.NDIM = nDims;
@@ -56,7 +56,7 @@ end
 % if isfield(pmPars,'stVec')
 %     pmpd.spec.startPointVec = pmPars.stVec;
 % else
-%     pmpd.spec.startPointVec = problemDefStruct.fitParams;   % Maybe dependent on scaling?
+%     pmpd.spec.startPointVec = problemStruct.fitParams;   % Maybe dependent on scaling?
 % end
 
 % if isfield(pmPars,'burninAdapt')
@@ -70,8 +70,8 @@ end
 name = pmPars.name;
 pmpd.reportEnabled = false;
 pmpd.spec.outputFileName = sprintf("./paramonte_out/%s",name);%,datestr(now,30)); 
-pmpd.spec.domainLowerLimitVec = scaledMins;%problemDefStruct.fitLimits(:,1);
-pmpd.spec.domainUpperLimitVec = scaledMaxs;%problemDefStruct.fitLimits(:,2);
+pmpd.spec.domainLowerLimitVec = scaledMins;%problemStruct.fitLimits(:,1);
+pmpd.spec.domainUpperLimitVec = scaledMaxs;%problemStruct.fitLimits(:,2);
 pmpd.spec.overwriteRequested = true;
 pmpd.spec.scaleFactor = pmPars.scalefactor; %1e-4;
 pmpd.spec.sampleRefinementCount = pmPars.chainSize;
@@ -101,7 +101,7 @@ pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective functi
 % % Get out the chain, and unscale it.....
 % scaledChain = chainTable{2:end,8:end};
 % 
-% limits = problemDefStruct.fitLimits;
+% limits = problemStruct.fitLimits;
 % rows = size(scaledChain,1);
 % 
 % for i = 1:rows
@@ -111,13 +111,13 @@ pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective functi
 % end
 % 
 % 
-% % problemDefStruct,problemDefCells,problemDefLimits,priors,controls
-% outProblem = {problemDefStruct ; controls ; problemDefLimits ; problemDefCells};
+% % problemStruct,problemCells,problemLimits,priors,controls
+% outProblem = {problemStruct ; controls ; problemLimits ; problemCells};
 % 
-% numberOfContrasts = problemDefStruct.numberOfContrasts;
+% numberOfContrasts = problemStruct.numberOfContrasts;
 % data = cell(1,numberOfContrasts);
 % for i = 1:numberOfContrasts
-%     thisData = problemDefCells{2}{i};
+%     thisData = problemCells{2}{i};
 %     if ~isempty(thisData)
 %         data{i} = thisData(:,:);
 %     end
@@ -130,7 +130,7 @@ pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective functi
 % output.bestPars = mean(unscaledChain);
 % output.data = data;
 % 
-% [problemDefStruct,outProblem,result,bayesResults] = processBayes(output,outProblem);
+% [problemStruct,outProblem,result,bayesResults] = processBayes(output,outProblem);
 
 % pmpdOut = pmpd;
 

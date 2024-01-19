@@ -1,9 +1,9 @@
 function output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls)
 
-problemDefStruct = problem{1};
+problemStruct = problem{1};
 controls = problem{2};
-problemDefLimits = problem{3};
-problemDefCells = problem{4};
+problemLimits = problem{3};
+problemCells = problem{4};
 
 display = controls.display;
 
@@ -12,7 +12,7 @@ display = controls.display;
 % We have the same number of 'batches' as contrasts.
 % Also need to pass problem in order to access this
 % from the subfunctions.
-numberOfContrasts = problemDefStruct.numberOfContrasts;
+numberOfContrasts = problemStruct.numberOfContrasts;
 
 % Pre-allocate data to keep the compiler happy
 % data = cell(1,numberOfContrasts);
@@ -23,7 +23,7 @@ numberOfContrasts = problemDefStruct.numberOfContrasts;
 data.data = cell(1,numberOfContrasts);
 data.problem = problem;
 for i = 1:numberOfContrasts
-    thisData = problemDefCells{2}{i};
+    thisData = problemCells{2}{i};
     if ~isempty(thisData)
         data.data{i} = [thisData(:,:)];
     end
@@ -32,8 +32,8 @@ end
 
 % Make qcov based on the ranges of the parameters
 qcov = [];
-fitPars = problemDefStruct.fitParams;
-fitConstr = problemDefStruct.fitLimits;
+fitPars = problemStruct.fitParams;
+fitConstr = problemStruct.fitLimits;
 nPars = length(fitPars);
 
 for i = 1:nPars
@@ -89,12 +89,12 @@ output.data = data;
 % out = mcmcpred_compile(results,chain,[],data,problem,500);
 % outSld = mcmcpred_compile_sld(results,chain,[],data,problem,500);
 % 
-% problemDefStruct.fitParams = output.bestPars;
-% problemDefStruct = unpackParams(problemDefStruct,controls);
-% [problem,result] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
+% problemStruct.fitParams = output.bestPars;
+% problemStruct = unpackParams(problemStruct,controls);
+% [problem,result] = reflectivityCalculation(problemStruct,problemCells,controls);
 % 
 % output.bestFits = result{1};
-% output.shiftedData = problemDefCells{2};
+% output.shiftedData = problemCells{2};
 % output.predlims = out;
 
 end

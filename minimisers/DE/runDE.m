@@ -1,11 +1,11 @@
-function [problemDefStruct,contrastParams,result] = runDE(problemDefStruct,problemDefCells,problemDefLimits,controls)
+function [problemStruct,contrastParams,result] = runDE(problemStruct,problemCells,problemLimits,controls)
 
-    [problemDefStruct,~] = fitsetup(problemDefStruct,problemDefCells,problemDefLimits,controls);
+    [problemStruct,~] = fitsetup(problemStruct,problemCells,problemLimits,controls);
     F_VTR = controls.targetValue; %Value to reach
-    I_D = length(problemDefStruct.fitParams);
+    I_D = length(problemStruct.fitParams);
     
-    FVr_minbound = problemDefStruct.fitLimits(:,1)'; 
-    FVr_maxbound = problemDefStruct.fitLimits(:,2)'; 
+    FVr_minbound = problemStruct.fitLimits(:,1)'; 
+    FVr_maxbound = problemStruct.fitLimits(:,2)'; 
     I_bnd_constr = 1;  %1: use bounds as bound constraints, 0: no bound constraints
     
     % I_NP            number of population members
@@ -98,10 +98,10 @@ function [problemDefStruct,contrastParams,result] = runDE(problemDefStruct,probl
     S_struct.FM_pop = zeros(I_NP,2);
     S_struct.FVr_bestmem = [0 0];
     
-    [res,problemDefStruct] = deopt(@intrafun,problemDefStruct,problemDefCells,controls,S_struct);
-    problemDefStruct.fitParams = res;
-    problemDefStruct = unpackParams(problemDefStruct,controls);
-    [contrastParams,result] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
+    [res,problemStruct] = deopt(@intrafun,problemStruct,problemCells,controls,S_struct);
+    problemStruct.fitParams = res;
+    problemStruct = unpackParams(problemStruct,controls);
+    [contrastParams,result] = reflectivityCalculation(problemStruct,problemCells,controls);
     
     if ~strcmpi(controls.display,'off')
         fprintf('Final chi squared is %g\n',contrastParams.calculations.sumChi);
@@ -110,17 +110,17 @@ function [problemDefStruct,contrastParams,result] = runDE(problemDefStruct,probl
 end
 
 
-function S_MSE = intrafun(p,problemDefStruct,controls,problemDefCells)
+function S_MSE = intrafun(p,problemStruct,controls,problemCells)
 
     coder.varsize('S_MSE.I_nc',[1 1],[0 0]);
     coder.varsize('S_MSE.FVr_ca',[1 1],[0 0]);
     coder.varsize('S_MSE.I_no',[1 1],[0 0]);
     coder.varsize('S_MSE.FVr_oa',[1 1],[0 0]);
     
-    problemDefStruct.fitParams = p;
-    problemDefStruct = unpackParams(problemDefStruct,controls);
-    [problemDefStruct,~] = reflectivityCalculation(problemDefStruct,problemDefCells,controls);
-    fval = problemDefStruct.calculations.sumChi;
+    problemStruct.fitParams = p;
+    problemStruct = unpackParams(problemStruct,controls);
+    [problemStruct,~] = reflectivityCalculation(problemStruct,problemCells,controls);
+    fval = problemStruct.calculations.sumChi;
     
     S_MSE.I_nc      = 0; %no constraints                 THESE FIRST FEW VALS MAY BE WRONG
     S_MSE.FVr_ca    = 0; %no constraint array

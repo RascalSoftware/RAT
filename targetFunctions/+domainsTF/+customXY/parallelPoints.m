@@ -1,6 +1,6 @@
 function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
     simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
-    allRoughs] = parallelPoints(problemDefStruct,problemDefCells,controls)
+    allRoughs] = parallelPoints(problemStruct,problemCells,controls)
 
 
 % Extract individual cell arrays
@@ -9,12 +9,12 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resol
  dataLimits,...
  simLimits,...
  ~,~,...        % Layers details N/A
- customFiles] = parseCells(problemDefCells);
+ customFiles] = parseCells(problemCells);
 
-% Extract individual parameters from problemDefStruct
+% Extract individual parameters from problemStruct
 [numberOfContrasts, ~, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
 contrastResolutions, backgroundParam, qzshift, scalefactor, bulkIn, bulkOut, resolutionParam, dataPresent, nParams, params,...
-~, ~, contrastBackgroundsType, cCustFiles] =  extractProblemParams(problemDefStruct);      
+~, ~, contrastBackgroundsType, cCustFiles] =  extractProblemParams(problemStruct);      
             
 %Pre-Allocation...
 backgroundParams = zeros(numberOfContrasts,1);
@@ -68,9 +68,9 @@ end
 
 % Resampling parameters
 resamPars = controls.resamPars;
-useImaginary = problemDefStruct.useImaginary;
-allDomainRatios = problemDefStruct.domainRatio;
-contrastDomainRatios = problemDefStruct.contrastDomainRatios;
+useImaginary = problemStruct.useImaginary;
+allDomainRatios = problemStruct.domainRatio;
+contrastDomainRatios = problemStruct.contrastDomainRatios;
 
 domainRatio = 1;    % Default for compile.
 

@@ -1,13 +1,13 @@
-function [outProblemDefStruct,contrastParams,result,bayesResults] = runDREAM(problemDefStruct,problemDefCells,problemDefLimits,controls,priors)
+function [outProblemDefStruct,contrastParams,result,bayesResults] = runDREAM(problemStruct,problemCells,problemLimits,controls,priors)
 
 
 % Make an empty struct for bayesResults to hold the outputs of the
 % calculation
 nPars = 1e3;
-numberOfContrasts = problemDefStruct.numberOfContrasts;
+numberOfContrasts = problemStruct.numberOfContrasts;
 numberOfChains = controls.nChains;
 
-if strcmpi(problemDefStruct.TF,'domains')
+if strcmpi(problemStruct.TF,'domains')
     domains = true;
 else
     domains = false;
@@ -31,15 +31,15 @@ for i = 1:numberOfFitted
     fitParamNames{i} = 'x';
 end
 
-[problemDefStruct,fitParamNames] = packParams(problemDefStruct,problemDefCells,problemDefLimits,controls.checks);
+[problemStruct,fitParamNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
 
 % Get the priors for the fitted parameters...
-priorList = getFittedPriors(fitParamNames,priors,problemDefStruct.fitLimits);
+priorList = getFittedPriors(fitParamNames,priors,problemStruct.fitLimits);
 
 % Put all the RAT parameters together into one array...
-ratInputs.problemDefStruct = problemDefStruct;
-ratInputs.problemDefCells = problemDefCells;
-ratInputs.problemDefLimits = problemDefLimits;
+ratInputs.problemStruct = problemStruct;
+ratInputs.problemCells = problemCells;
+ratInputs.problemLimits = problemLimits;
 ratInputs.controls = controls;
 ratInputs.priors = priorList;
 
@@ -66,8 +66,8 @@ DREAMPar.adaptPCR = controls.adaptPCR;
 % Initial sampling and parameter range
 Par_info.prior = 'uniform';           
 
-Par_info.min = problemDefStruct.fitLimits(:,1)';
-Par_info.max = problemDefStruct.fitLimits(:,2)';
+Par_info.min = problemStruct.fitLimits(:,1)';
+Par_info.max = problemStruct.fitLimits(:,2)';
 Par_info.boundhandling = controls.boundHandling;
 
 %if dreamC.prior
@@ -99,10 +99,10 @@ for i = 1:nChains
 end
 
 allProblem = cell(4,1);
-allProblem{1} = problemDefStruct;
+allProblem{1} = problemStruct;
 allProblem{2} = controls;
-allProblem{3} = problemDefLimits;
-allProblem{4} = problemDefCells;
+allProblem{3} = problemLimits;
+allProblem{4} = problemCells;
 
 bestPars = mean(collectChains);
 output.results.outputDream = dreamOutput;

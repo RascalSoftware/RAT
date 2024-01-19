@@ -1,6 +1,6 @@
 function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
     simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
-    allRoughs] = parallelContrasts(problemDefStruct,problemDefCells,controls)
+    allRoughs] = parallelContrasts(problemStruct,problemCells,controls)
 
 
 % Extract individual cell arrays
@@ -9,12 +9,12 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resol
  dataLimits,...
  simLimits,...
  ~,~,...        % Layers details N/A
- customFiles] = parseCells(problemDefCells);
+ customFiles] = parseCells(problemCells);
 
-% Extract individual parameters from problemDefStruct
+% Extract individual parameters from problemStruct
 [numberOfContrasts, ~, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
 contrastResolutions, backgroundParam, qzshift, scalefactor, bulkIn, bulkOut, resolutionParam, dataPresent, nParams, params,...
-~, ~, contrastBackgroundsType, cCustFiles] =  extractProblemParams(problemDefStruct);      
+~, ~, contrastBackgroundsType, cCustFiles] =  extractProblemParams(problemStruct);      
             
 %Pre-Allocation...
 backgroundParams = zeros(numberOfContrasts,1);
@@ -52,7 +52,7 @@ end
 
 % Resampling parameters
 resamPars = controls.resamPars;
-useImaginary = problemDefStruct.useImaginary;
+useImaginary = problemStruct.useImaginary;
 
 [sldProfiles,allRoughs] = nonPolarisedTF.customXY.processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backgroundParam, ...
     qzshift,scalefactor,bulkIn,bulkOut,resolutionParam,cCustFiles,numberOfContrasts,customFiles,params);

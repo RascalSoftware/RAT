@@ -1,7 +1,7 @@
-function  [problemDefStruct,contrastParams,result,bayesResults] = runNestedSampler(problemDefStruct,problemDefCells,problemDefLimits,controls,inPriors)
+function  [problemStruct,contrastParams,result,bayesResults] = runNestedSampler(problemStruct,problemCells,problemLimits,controls,inPriors)
 
 checks = controls.checks;
-[problemDefStruct,fitNames] = packParams(problemDefStruct,problemDefCells,problemDefLimits,checks);
+[problemStruct,fitNames] = packParams(problemStruct,problemCells,problemLimits,checks);
 
 nest_samples = [0 0 ; 0 0];
 coder.varsize('nest_samples');
@@ -15,10 +15,10 @@ H = 0;
 % Make an empty struct for bayesResults to hold the outputs of the
 % calculation
 nPars = 1e3;
-numberOfContrasts = problemDefStruct.numberOfContrasts;
+numberOfContrasts = problemStruct.numberOfContrasts;
 numberOfChains = 1;
 
-if strcmpi(problemDefStruct.TF,'domains')
+if strcmpi(problemStruct.TF,'domains')
     domains = true;
 else
     domains = false;
@@ -26,7 +26,7 @@ end
 bayesResults = makeEmptyBayesResultsStruct(nPars, numberOfContrasts, domains, numberOfChains);
       
 %Deal with priors.
-priorList = getFittedPriors(fitNames,inPriors,problemDefStruct.fitLimits);
+priorList = getFittedPriors(fitNames,inPriors,problemStruct.fitLimits);
 
 %Tuning Parameters
 model.ssfun = @nsIntraFun;
@@ -34,7 +34,7 @@ Nlive = controls.Nlive;
 tolerance = controls.nsTolerance;
 likelihood = @nsIntraFun;
 Nmcmc = controls.Nmcmc;
-data = {problemDefStruct ; controls ; problemDefLimits ; problemDefCells};
+data = {problemStruct ; controls ; problemLimits ; problemCells};
 
 [logZ, nest_samples, post_samples, H] = nestedSampler(data, Nlive, Nmcmc, ...
     tolerance, likelihood, model, priorList, fitNames);
@@ -50,15 +50,15 @@ bayesOutputs.chain = chain;
 bayesOutputs.fitNames = fitNames;
 bayesOutputs.s2chain = [];
 bayesOutputs.sschain = [];
-bayesOutputs.data = problemDefCells{2};
+bayesOutputs.data = problemCells{2};
 
 allProblem = cell(4,1);
-allProblem{1} = problemDefStruct;
+allProblem{1} = problemStruct;
 allProblem{2} = controls;
-allProblem{3} = problemDefLimits;
-allProblem{4} = problemDefCells;
+allProblem{3} = problemLimits;
+allProblem{4} = problemCells;
 
-[problemDefStruct,contrastParams,result,nestResults] = processBayes(bayesOutputs,allProblem);
+[problemStruct,contrastParams,result,nestResults] = processBayes(bayesOutputs,allProblem);
 
 bayesResults.predlims = nestResults.predlims;
 bayesResults.bestFitsMean = nestResults.bestFitsMean;

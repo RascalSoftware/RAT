@@ -1,4 +1,4 @@
-function [contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = reflectivityCalculation(problemDefStruct,problemDefCells,controls)
+function [contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = reflectivityCalculation(problemStruct,problemCells,controls)
 
 % Main function for the nonPolarisedTF reflectivity calculation
 % This function decides what type of model is being analysed and barnches
@@ -14,8 +14,8 @@ function [contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfil
 
 
 % Find out the model type from the input structs
-type = problemDefStruct.modelType;
-numberOfContrasts = problemDefStruct.numberOfContrasts;
+type = problemStruct.modelType;
+numberOfContrasts = problemStruct.numberOfContrasts;
 
 % Pre-allocate the output arrays.. this is necessary because otherwise
 % the compiler complains with 'Output argument <....> is not assigned on 
@@ -67,17 +67,17 @@ switch lower(type)
         % Standard layers calculation
         [contrastParams,reflectivity,simulation,...
          shiftedData,layerSlds,sldProfiles,...
-         allLayers]= nonPolarisedTF.standardLayers.calculate(problemDefStruct,problemDefCells,controls);
+         allLayers]= nonPolarisedTF.standardLayers.calculate(problemStruct,problemCells,controls);
     case 'custom layers'
         % Custom layers with user supplied custom model file
         [contrastParams,reflectivity,simulation,...
             shiftedData,layerSlds,sldProfiles,...
-            allLayers] = nonPolarisedTF.customLayers.calculate(problemDefStruct,problemDefCells,controls);
+            allLayers] = nonPolarisedTF.customLayers.calculate(problemStruct,problemCells,controls);
     case 'custom xy'
         % Custom SLD profile with user defined model file
         [contrastParams,reflectivity,simulation,...
            shiftedData,layerSlds,sldProfiles,...
-           allLayers] = nonPolarisedTF.customXY.calculate(problemDefStruct,problemDefCells,controls);
+           allLayers] = nonPolarisedTF.customXY.calculate(problemStruct,problemCells,controls);
 end
 
 end

@@ -1,4 +1,4 @@
-function [contrastParams,reflectivity,simulation,shiftedData,layerSlds,domainSldProfiles,allLayers] = reflectivityCalculation(problemDefStruct,problemDefCells,controls)
+function [contrastParams,reflectivity,simulation,shiftedData,layerSlds,domainSldProfiles,allLayers] = reflectivityCalculation(problemStruct,problemCells,controls)
 
 % Main function for the domainsTF reflectivity calculation
 % This function decides what type of model is being analysed and barnches
@@ -14,8 +14,8 @@ function [contrastParams,reflectivity,simulation,shiftedData,layerSlds,domainSld
 
 
 % Find out the model type from the input structs
-type = problemDefStruct.modelType;
-numberOfContrasts = problemDefStruct.numberOfContrasts;
+type = problemStruct.modelType;
+numberOfContrasts = problemStruct.numberOfContrasts;
 
 % Pre-allocate the output arrays.. this is necessary because otherwise
 % the compiler complains with 'Output argument <....> is not assigned on 
@@ -70,17 +70,17 @@ switch lower(type)
         % Standard layers calculation
         [contrastParams,reflectivity,simulation,...
          shiftedData,layerSlds,domainSldProfiles,...
-         allLayers]= domainsTF.standardLayers.calculate(problemDefStruct,problemDefCells,controls);
+         allLayers]= domainsTF.standardLayers.calculate(problemStruct,problemCells,controls);
     case 'custom layers'
         % Custom layers with user supplied custom model file
         [contrastParams,reflectivity,simulation,...
             shiftedData,layerSlds,domainSldProfiles,...
-            allLayers] = domainsTF.customLayers.calculate(problemDefStruct,problemDefCells,controls);
+            allLayers] = domainsTF.customLayers.calculate(problemStruct,problemCells,controls);
     case 'custom xy'
         % Custom SLD profile with user defined model file
         [contrastParams,reflectivity,simulation,...
            shiftedData,layerSlds,domainSldProfiles,...
-           allLayers] = domainsTF.customXY.calculate(problemDefStruct,problemDefCells,controls);
+           allLayers] = domainsTF.customXY.calculate(problemStruct,problemCells,controls);
 end
 
 end

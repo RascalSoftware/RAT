@@ -1,7 +1,7 @@
 
 function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
     simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
-    allRoughs] = single(problemDefStruct,problemDefCells,controls)
+    allRoughs] = single(problemStruct,problemCells,controls)
 % Single threaded version of the Standard Layers calculation 
 % This is the main reflectivity calculation of the standard layers
 % calculation type. It extracts the required parameters for the contrasts
@@ -16,15 +16,15 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resol
  dataLimits,...
  simLimits,...
  contrastLayers,...
- layersDetails,~] = parseCells(problemDefCells);
+ layersDetails,~] = parseCells(problemCells);
 
-% Extract individual parameters from problemDefStruct
+% Extract individual parameters from problemStruct
 [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
 contrastResolutions, backgroundParam, qzshift, scalefactor, bulkIn, bulkOut, resolutionParam, dataPresent, nParams, params,...
-~, resample, contrastBackgroundsType, ~] =  extractProblemParams(problemDefStruct);
+~, resample, contrastBackgroundsType, ~] =  extractProblemParams(problemStruct);
 
 calcSld = controls.calcSldDuringFit;   
-useImaginary = problemDefStruct.useImaginary;
+useImaginary = problemStruct.useImaginary;
 
 % Allocate the memory for the output arrays before the main loop
 backgroundParams = zeros(numberOfContrasts,1);

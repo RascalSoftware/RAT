@@ -1,8 +1,8 @@
-function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDefCells)
+function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemCells)
 % Splits up the master input list of all arrays into separate arrays
 % 
 % INPUTS:
-%     * problemDefCells: cell array where all the project data is grouped together.
+%     * problemCells: cell array where all the project data is grouped together.
 %
 % OUTPUTS:
 %     * repeatLayers: controls repeating of the layers stack.
@@ -14,12 +14,12 @@ function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails
 %     * customFiles:Filenames and path for any custom files used.
 
 
-repeatLayers = problemDefCells{1};
-allData = problemDefCells{2};
-dataLimits = problemDefCells{3};
-simLimits = problemDefCells{4};
-contrastLayers = problemDefCells{5};
-layersDetails = problemDefCells{6};
-customFiles = problemDefCells{14};
+repeatLayers = problemCells{1};
+allData = problemCells{2};
+dataLimits = problemCells{3};
+simLimits = problemCells{4};
+contrastLayers = problemCells{5};
+layersDetails = problemCells{6};
+customFiles = problemCells{14};
 
 end

@@ -182,7 +182,7 @@ header = ' Iteration   Func-count     min f(x)         Procedure';
 % funfcn = fcnchk(funfcn,length(varargin));
 % Add a wrapper function to check for Inf/NaN/complex values
 controls = varargin{3};
-problemDefStruct = varargin{1};
+problemStruct = varargin{1};
 if funValCheck
     % Add a wrapper function, CHECKFUN, to check for NaN/complex values without
     % having to change the calls that look like this:
@@ -259,7 +259,7 @@ if prnt == 3
 %     fprintf('%g \n', func_evals)
 end
 
-triggerEvent('plot', {result, problem.ssubs, problemDefStruct});
+triggerEvent('plot', {result, problem.ssubs, problemStruct});
 
 % OutputFcn and PlotFcns call
 % if haveoutputfcn || haveplotfcn
@@ -310,7 +310,7 @@ if prnt == 3
 %     fprintf('%g \n', func_evals)
 end
 if rem(itercount, controls.updatePlotFreq) == 0
-    triggerEvent('plot', {result, problem.ssubs, problemDefStruct});
+    triggerEvent('plot', {result, problem.ssubs, problemStruct});
 end
 % OutputFcn and PlotFcns call
 % if haveoutputfcn || haveplotfcn
@@ -425,7 +425,7 @@ while func_evals < maxfun && itercount < maxiter
 %         fprintf('%s \n', num2str(func_evals))
     end
     if rem(itercount, controls.updatePlotFreq) == 0   
-        triggerEvent('plot', {result, problem.ssubs, problemDefStruct});
+        triggerEvent('plot', {result, problem.ssubs, problemStruct});
     end
     % OutputFcn and PlotFcns call
 %     if haveoutputfcn || haveplotfcn

@@ -2,7 +2,7 @@
 % Standard layers analysis of a DSPC floating bilayer example.
 
 % Start by making our model....
-dspc_standard_layers;
+standardLayersDSPCScript;
 
 % This has set up the project in a variable called 'problem'...
 % Display it to see what we have...
@@ -10,7 +10,7 @@ disp(problem)
 input('Press return to continue....')
 
 
-% Now define a controls block and run some Differential Evoultion on our
+% Now define a controls block and run some Differential Evolution on our
 % model....
 controls = controlsClass();
 controls.procedure = 'DE';

@@ -65,7 +65,6 @@ VE = const*sqrt(det( fB * C ));
 % expand volume of bounding ellipsoid to VS if necessary
 fV = 1;
 if VE < VS
-    %pow = complex(2/ndims);
     fV = (VS/VE)^(2/ndims);
     VE = VS;
 end

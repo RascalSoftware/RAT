@@ -40,7 +40,7 @@ deut = [0 0 1;
 %define all the neutron b's.
 bc = 0.6646e-4;     %Carbon
 bo = 0.5843e-4;     %Oxygen
-bh = -0.3739e-4;	%Hydrogen
+bh = -0.3739e-4;    %Hydrogen
 bp = 0.513e-4;      %Phosphorus
 bn = 0.936e-4;      %Nitrogen
 bd = 0.6671e-4;     %Deuterium
@@ -72,8 +72,8 @@ vPO4 = 53.7;
 vCHOL = 120.4;
 vWAT = 30.4;
 
-vHead = vCHOL + vPO4 + vGLYC + 2*vCOO;%320.9;
-vTail = 2*(16*vCH2)+ 2*(vCH3);%1005;
+vHead = vCHOL + vPO4 + vGLYC + 2*vCOO;
+vTail = 2*(16*vCH2)+ 2*(vCH3);
 
 %Make the SLD's first...
 thisMask = deut(contrast,:);

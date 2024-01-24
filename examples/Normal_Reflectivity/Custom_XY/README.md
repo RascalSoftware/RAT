@@ -1,15 +1,13 @@
-
-
 ## Custom XY Example
 
 This shows an example of using a 'custom XY' model to analyse reflectivity
 from a supported bilayer of DSPC. 
 
-The custom model used here is a Matlab model, which is in the file 'DSPC_Custom_XY.m'.
+The custom model used here is a Matlab model, which is in the file 'customXYDSPC.m'.
 
 As for the Custom Layers example, we can make use of the fact that the volumes, and of course the
 atomistic composition are known. So, for lipid tails for example, then we can
-take a literature value for the tails volume, have a fittable paramater for the
+take a literature value for the tails volume, have a fittable parameter for the
 lipid area per molecule, and then the tail thickness will simply be 
 
 Tail Thick = Tail Volume / Lipid APM.
@@ -27,9 +25,5 @@ activate it to make final output plots of our analysis....
 ![VF](volumeFractions.jpg)
 
 
-As with all the examples, there is an m-file ('custom_DSPC_script.m'), or
-a more detailed worksheet ('custom_DSPC_worksheet.mlx').
-
-
-===
-
+As with all the examples, there is an m-file ('customXYDSPCScript.m'), or
+a more detailed worksheet ('customXYDSPCSheet.mlx').

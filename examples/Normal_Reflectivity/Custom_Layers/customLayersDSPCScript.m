@@ -1,26 +1,19 @@
 %% Custom Layers Example for Supported DSPC layer.
-% 
-% 
 % Example of using Custom layers to model a DSPC supported bilayer.
-% 
-% 
-% 
-% Start by making the class and setting it to a custom layers type:
 
+% Start by making the class and setting it to a custom layers type:
 problem = createProject(name='Orso lipid example - custom layers', model='custom layers');
 problem.setGeometry('Substrate/liquid');
 problem.setUsePriors(true);
+
 %% 
-% 
-% 
 % % First we need to set up a parameters group. We will be using a pre-prepared 
 % % custom model file, so it's useful to look at this to check which parameters 
 % % we are going to need:
-% 
+
 type customBilayer.m
+
 %% 
-% 
-% 
 % We need to add the relevant parameters we are going to need to define the 
 % model (note that Substrate Roughness' always exists as parameter 1..
 
@@ -39,8 +32,6 @@ Parameters = {
  problem.setParameter(1,'min',1,'max',10);
  
 %% 
-% 
-% 
 % Need to add the relevant Bulk SLD's. Change the bulk in from air to silicon, 
 % and add two additional water contrasts:
 
@@ -63,24 +54,20 @@ D2O_data = dlmread('c_PLP0016596.dat');
 SMW_data = dlmread('c_PLP0016601.dat');
 H2O_data = dlmread('c_PLP0016607.dat');
 
-% Add the data to the project
-problem.addData('Bilayer / D2O', D2O_data(:,1:3));
-problem.addData('Bilayer / SMW', SMW_data(:,1:3));
-problem.addData('Bilayer / H2O', H2O_data(:,1:3));
+% Add the data to the project - note this data has a resolution 4th column
+problem.addData('Bilayer / D2O', D2O_data);
+problem.addData('Bilayer / SMW', SMW_data); 
+problem.addData('Bilayer / H2O', H2O_data);
 
 problem.setData(2,'dataRange',[0.013 0.37]);
 problem.setData(3,'dataRange',[0.013 0.37]);
 problem.setData(4,'dataRange',[0.013 0.37]);
 
 %% 
-% 
-% 
 % Add the custom file to the project....
 
-problem.addCustomFile('DSPC Model','customBilayer.m','matlab',pwd);
+problem.addCustomFile('DSPC Model','customBilayerDSPC.m','matlab',pwd);
 %% 
-% 
-% 
 % Also, add the relevant background parameters - one each for each contrast:
 
 % Change the name of the existing parameters to refer to D2O
@@ -103,24 +90,26 @@ problem.setBackground(1,'name','Background D2O', 'value1','Backs par D2O');
 % Set the scalefactor...
 problem.setScalefactor(1,'Value',1,'min',0.5,'max',2,'fit',true);
 
+% Also, we are going to use the data resolution. Make a resolution for
+% this...
+problem.addResolution('Data Resolution','data');
+
 %% 
-% 
-% 
 % Now add the three contrasts as before:
 
 % D2O contrast..
 problem.addContrast('name',        'Bilayer / D2O',...
                     'background',  'Background D2O',...
-                    'resolution',  'Resolution 1',...
+                    'resolution',  'Data Resolution',...
                     'scalefactor', 'Scalefactor 1',...
                     'BulkOut',     'SLD D2O',...
                     'BulkIn',      'Silicon',...
                     'data',        'Bilayer / D2O');
-
+ 
 % SMW contrast..
 problem.addContrast('name',        'Bilayer / SMW',...
                     'background',  'Background SMW',...
-                    'resolution',  'Resolution 1',...
+                    'resolution',  'Data Resolution',...
                     'scalefactor', 'Scalefactor 1',...
                     'BulkOut',     'SLD SMW',...
                     'BulkIn',      'Silicon',...
@@ -129,7 +118,7 @@ problem.addContrast('name',        'Bilayer / SMW',...
 % SMW contrast..
 problem.addContrast('name',        'Bilayer / H2O',...
                     'background',  'Background H2O',...
-                    'resolution',  'Resolution 1',...
+                    'resolution',  'Data Resolution',...
                     'scalefactor', 'Scalefactor 1',...
                     'BulkOut',     'SLD H2O',...
                     'BulkIn',      'Silicon',...
@@ -140,3 +129,9 @@ problem.addContrast('name',        'Bilayer / H2O',...
 problem.setContrastModel(1,'DSPC Model');
 problem.setContrastModel(2,'DSPC Model');
 problem.setContrastModel(3,'DSPC Model');
+
+
+
+
+
+

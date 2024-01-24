@@ -1,8 +1,6 @@
-
-
 ## 'Incoherent Summing' with Standard Layers
 
-Analysing data containing domains using Standard Layers (SL) models is done in
+Analysing data containing domains using standard layers (SL) models is done in
 a similar way to a normal standard layers model, but with a couple of 
 additional steps. 
 
@@ -20,8 +18,3 @@ projectClass for domain ratios. And each contrast has an additional field
 for domain ratios which is set as one of the values from this block.
 
 ![Contrasts](./contrast.png)
-
-
-
-===
-

@@ -1112,14 +1112,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
             end
 
-            if isprop(obj, 'domainContrasts')
+            if isprop(obj, 'domainContrasts') && isa(obj.domainContrasts, 'domainContrastsClass')
                 for i=1:obj.domainContrasts.numberOfContrasts
                     
                     reducedStruct = rmfield(obj.domainContrasts.contrasts{i}, {'model'});
                     contrastParams = string(namedargs2cell(reducedStruct));
                     contrastSpec = options.objName + ".addDomainContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
                     fprintf(fileID, contrastSpec, contrastParams);
-                    if ~isempty(obj.contrasts.contrasts{i}.model)
+                    if ~isempty(obj.domainContrasts.contrasts{i}.model)
                         fprintf(fileID, options.objName + ".setDomainContrastModel(%d, {" + join(repmat("'%s'", 1, length(obj.domainContrasts.contrasts{i}.model))) +"});\n", i, obj.domainContrasts.contrasts{i}.model{:});
                     end
                     fprintf(fileID, "\n");

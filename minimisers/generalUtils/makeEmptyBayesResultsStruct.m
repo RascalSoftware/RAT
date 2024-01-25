@@ -64,12 +64,22 @@ function bayesResults = makeEmptyBayesResultsStruct(nPars,nContrasts,isDomains,n
     for i = 1:nContrasts
         refPredInts{i} = refPredIntsCell;
     end
-    
-    sldPredInts = cell(nContrasts,1);
-    sldPredIntsCell = [1 1 1];
-    coder.varsize('sldPredIntsCell',[5 1e4],[1 1]);
-    for i = 1:nContrasts
-        sldPredInts{i} = sldPredIntsCell;
+
+    if isDomains
+        sldPredInts = cell(nContrasts,2);
+        sldPredIntsCell = [1 1 1];
+        coder.varsize('sldPredIntsCell',[5 1e4],[1 1]);
+        for i = 1:nContrasts
+            sldPredInts{i,1} = sldPredIntsCell;
+            sldPredInts{i,2} = sldPredIntsCell;
+        end
+    else
+        sldPredInts = cell(nContrasts,1);
+        sldPredIntsCell = [1 1 1];
+        coder.varsize('sldPredIntsCell',[5 1e4],[1 1]);
+        for i = 1:nContrasts
+            sldPredInts{i} = sldPredIntsCell;
+        end
     end
     
     refXdata = cell(nContrasts,1);

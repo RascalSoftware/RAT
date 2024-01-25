@@ -146,7 +146,7 @@ end
 
 % Create contrasts
 for i = 1:problem.numberOfContrasts
-    thisName = char(problem.contrastNames{1});
+    thisName = char(problem.contrastNames{i});
     thisBackgroundNumber = problem.contrastBacks(i);
     thisBackground = char(thisProjectClass.background.backgrounds.varTable{thisBackgroundNumber,1});
 

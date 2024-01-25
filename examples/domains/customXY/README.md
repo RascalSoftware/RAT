@@ -4,7 +4,7 @@ This is an example of using incoherent summing ('domains') from custom
 XY models.
 
 These are broadly the same as normal custom XY models, except that the
-input to the custom function contains an additional 'domains' parameter..
+input to the custom function contains an additional 'domains' parameter.
 
 ``` matlab
 function [output, subRough] = domainsCustomModel(params, bulkIn, bulkOut, contrast, domain)

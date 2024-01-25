@@ -10,5 +10,4 @@ parameter group called 'domain ratio' (as compared to normal reflectivity).
 Then each actual measured contrast, along with the other usual parameters, 
 has a 'domain ratio' field. 
 
-The method for defining domains varies between Standard Layers and Custom models,
-as described in these examples (and the Documentation).
+The method for defining domains varies between standard layers and custom models, as described in these examples (and the Documentation).

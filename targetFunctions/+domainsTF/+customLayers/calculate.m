@@ -1,4 +1,4 @@
-function [problem,reflectivity,simulation,shiftedData,layerSlds,domainSldProfiles,allLayers] = calculate(problemDef,problemDefCells,controls)
+function [contrastParams,reflectivity,simulation,shiftedData,layerSlds,domainSldProfiles,allLayers] = calculate(problemStruct,problemCells,controls)
 
 % Custom layers reflectivity calculation for domainsTF
 
@@ -14,7 +14,7 @@ function [problem,reflectivity,simulation,shiftedData,layerSlds,domainSldProfile
 % Pre-allocation - It's necessary to
 % pre-allocate the memory for all the arrays
 % for compilation, so do this in this block.
-numberOfContrasts = problemDef.numberOfContrasts;
+numberOfContrasts = problemStruct.numberOfContrasts;
 outSsubs = zeros(numberOfContrasts,1);
 backgroundParams = zeros(numberOfContrasts,1);
 qzshifts = zeros(numberOfContrasts,1);
@@ -65,26 +65,27 @@ switch controls.parallel
     case 'single'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
              simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
-             allRoughs] = domainsTF.customLayers.single(problemDef,problemDefCells,controls);
+             allRoughs] = domainsTF.customLayers.single(problemStruct,problemCells,controls);
     case 'points'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
              simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
-             allRoughs] = domainsTF.customLayers.parallelPoints(problemDef,problemDefCells,controls);    
+             allRoughs] = domainsTF.customLayers.parallelPoints(problemStruct,problemCells,controls);    
     case 'contrasts'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
              simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
-             allRoughs] = domainsTF.customLayers.parallelContrasts(problemDef,problemDefCells,controls);
+             allRoughs] = domainsTF.customLayers.parallelContrasts(problemStruct,problemCells,controls);
 end
 
-problem.ssubs = outSsubs;
-problem.backgroundParams = backgroundParams;
-problem.qzshifts = qzshifts;
-problem.scalefactors = scalefactors;
-problem.bulkIn = bulkIns;
-problem.bulkOut = bulkOuts;
-problem.resolutionParams = resolutionParams;
-problem.calculations.allChis = chis;
-problem.calculations.sumChi = sum(chis);
-problem.allSubRough = allRoughs;
-problem.resample = problemDef.resample;
+contrastParams.ssubs = outSsubs;
+contrastParams.backgroundParams = backgroundParams;
+contrastParams.qzshifts = qzshifts;
+contrastParams.scalefactors = scalefactors;
+contrastParams.bulkIn = bulkIns;
+contrastParams.bulkOut = bulkOuts;
+contrastParams.resolutionParams = resolutionParams;
+contrastParams.calculations.allChis = chis;
+contrastParams.calculations.sumChi = sum(chis);
+contrastParams.allSubRough = allRoughs;
+contrastParams.resample = problemStruct.resample;
+
 end

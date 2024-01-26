@@ -1,11 +1,10 @@
 function [fitPars,fitNames,fitConstr] = getFitValues(inputProblem,controls)
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(inputProblem,controls);
+[problemStruct,problemCells,problemLimits,~,controls] = parseClassToStructs(inputProblem,controls);
 
-[problemDef,fitNames] = packParams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
+[problemStruct,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
 
-fitPars = problemDef.fitParams;
-fitConstr = problemDef.fitLimits;
-
+fitPars = problemStruct.fitParams;
+fitConstr = problemStruct.fitLimits;
 
 end

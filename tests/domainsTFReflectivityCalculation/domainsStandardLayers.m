@@ -1,6 +1,6 @@
-function problem = domainsStandardLayers()
+function project = domainsStandardLayers()
 
-    problem = createProject(calcType="domains");
+    project = createProject(calcType="domains");
     
     Parameters = {
         %       Name                min         val         max     fit?
@@ -14,7 +14,7 @@ function problem = domainsStandardLayers()
         {'D2 Hydr'           10,        20,         30,     true   };
         };
     
-    problem.addParameterGroup(Parameters);
+    project.addParameterGroup(Parameters);
     
     Layer1 = {'Domain1 Layer',...   % Name of the layer
         'D1 thick',...              % Layer thickness
@@ -30,16 +30,16 @@ function problem = domainsStandardLayers()
         'D2 Hydr',...               % hydration (precent)
         'bulk out' }; 
     
-    problem.addLayerGroup({Layer1, Layer2});
+    project.addLayerGroup({Layer1, Layer2});
     
     
-    problem.addDomainContrast('Domain1');
-    problem.addDomainContrast('Domain2');
+    project.addDomainContrast('Domain1');
+    project.addDomainContrast('Domain2');
     
-    problem.setDomainContrastModel(1,'Domain1 Layer');
-    problem.setDomainContrastModel(2,'Domain2 Layer');
+    project.setDomainContrastModel(1,'Domain1 Layer');
+    project.setDomainContrastModel(2,'Domain2 Layer');
     
-    problem.addContrast('name','Domain Test',...
+    project.addContrast('name','Domain Test',...
         'background','Background 1',...
         'resolution','Resolution 1',...
         'scalefactor', 'Scalefactor 1',...
@@ -49,5 +49,5 @@ function problem = domainsStandardLayers()
         'domainRatio', 'Domain Ratio 1',....
         'data', 'Simulation');
     
-    problem.setContrastModel(1,{'Domain1','Domain2'});
+    project.setContrastModel(1,{'Domain1','Domain2'});
 end

@@ -1,8 +1,8 @@
-function  [problemDef,problem,result,bayesResults] = runDram(problemDef,problemDefCells,problemDefLimits,priors,controls)
+function  [problemStruct,problem,result,bayesResults] = runDram(problemStruct,problemCells,problemLimits,priors,controls)
 debug = 0;
 
 checks = controls.checks;
-[problemDef,fitNames] = packParams(problemDef,problemDefCells,problemDefLimits,checks);
+[problemStruct,fitNames] = packParams(problemStruct,problemCells,problemLimits,checks);
 %fitPriors = packPriors(priors,checks);
 
 % Seed the Random Number Generator
@@ -15,12 +15,12 @@ rng(0);
 %Make uniform priors from the
 %min/max limits for now.
 prior = {};
-lims = problemDef.fitLimits;
+lims = problemStruct.fitLimits;
 % Get the li
 
 for i = 1:length(fitNames)
     name = fitNames{i};
-    value = problemDef.fitParams(i);
+    value = problemStruct.fitParams(i);
     min = lims(i,1);
     max = lims(i,2);
     mu = 0;
@@ -51,7 +51,7 @@ nsimu =  controls.nsimu;
 burnin = controls.burnin;
 adaptint = 100;%controls.adaptint;
 
-problem = {problemDef ; controls ; problemDefLimits ; problemDefCells};
+problem = {problemStruct ; controls ; problemLimits ; problemCells};
 
 res = [];
 output = runBayes(loop,nsimu,burnin,adaptint,params,problem);
@@ -65,9 +65,9 @@ bayesResults.bayesData = output.data;
 bayesResults.bestFits = output.bestFits;
 bayesResults.predlims = output.predlims;
 
-problemDef.fitParams = output.bestPars;
-problemDef = unpackParams(problemDef,controls);
-[problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
+problemStruct.fitParams = output.bestPars;
+problemStruct = unpackParams(problemStruct,controls);
+[problem,result] = reflectivityCalculation(problemStruct,problemCells,controls);
 
 % Pre-processor directives for Matlab Coder.
 coder.varsize('problem.ssubs',[Inf 1],[1 0]);

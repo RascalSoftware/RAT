@@ -58,7 +58,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % absorption terms are included in the refractive index.
             % All of the arguments are optional.
             %
-            % problem = projectClass('New experiment');
+            % project = projectClass('New experiment');
             arguments
                 experimentName {mustBeTextScalar} = ''
                 calculationType = calculationTypes.NonPolarised
@@ -148,14 +148,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % converts it to a domains calculation, preserving all
             % currently defined properties.
             %
-            % domainsProblem = problem.toDomainsClass();
+            % domainsProject = project.toDomainsClass();
             domainsObj = obj.domainsClass();
         end
 
         function obj = setUsePriors(obj, showFlag)
             % Sets the use priors flag. The showFlag should be a boolean/logical.
             %
-            % problem.setUsePriors(true); 
+            % project.setUsePriors(true); 
             if ~islogical(showFlag)
                 throw(exceptions.invalidType('usePriors must be logical ''true'' or ''false'''));
             end
@@ -191,7 +191,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Sets the experiment geometry. The geometry should be a string,  
             % either "Air/Substrate" or "Substrate/Liquid" is permitted.
             %
-            % problem.setGeometry('Substrate/liquid');
+            % project.setGeometry('Substrate/liquid');
             invalidTypeMessage = sprintf('Geometry must be a geometryOptions enum or one of the following strings (%s)', ...
                                          strjoin(geometryOptions.values(), ', '));
             obj.geometry = validateOption(geometry, 'geometryOptions', invalidTypeMessage).value;
@@ -202,7 +202,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % either "standard layers", "custom layers", or "custom xy" is
             % permitted.
             %
-            % problem.setModelType('Custom Layers');
+            % project.setModelType('Custom Layers');
             oldModel = obj.modelType;
             invalidTypeMessage = sprintf('Experiment type must be a modelTypes enum or one of the following strings (%s)', ...
                                          strjoin(modelTypes.values(), ', '));
@@ -250,7 +250,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Adds a group of parameters to the parameters object.
             % Expects a cell array of parameter cell arrays.
             %
-            % problem.addParameterGroup({{'Tails Thickness'}, {'Heads Thickness'}});
+            % project.addParameterGroup({{'Tails Thickness'}, {'Heads Thickness'}});
             for i = 1:length(paramGroup)
                 if iscell(paramGroup{i})
                     obj = addParameter(obj, paramGroup{i});
@@ -269,7 +269,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % is optional but if provided should contain 1, 2, 4, 5, or 8 
             % values of the parameter to added.
             %
-            % problem.addParameter('Tails Roughness');  
+            % project.addParameter('Tails Roughness');  
             if isempty(varargin)
                 obj.parameters.addParameter();
             else
@@ -288,7 +288,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % if it is in use. Expects series of indices or names of
             % parameters to remove
             %
-            % problem.removeParameter(2);
+            % project.removeParameter(2);
             if isa(row, 'double')
                 row = num2cell(sort(row, 'descend'));
             elseif isText(row)
@@ -336,7 +336,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % General purpose set parameter method. Expects
             % index or name of parameter and keyword/value pairs to set
             %
-            % problem.setParameter(2, 'value', 50);
+            % project.setParameter(2, 'value', 50);
             obj.parameters.setParameter(row, varargin{:});
         end
         
@@ -345,7 +345,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Sets the value of a given parameter. Expects
             % index or name of parameter and new value to set
             %
-            % problem.setParameterValue(2, 50);
+            % project.setParameterValue(2, 50);
             obj.parameters.setValue(row, value);
         end
         
@@ -354,7 +354,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Expects index or name of parameter and new min 
             % and max of the parameter's value
             %
-            % problem.setParameterLimits(2, 0, 100);
+            % project.setParameterLimits(2, 0, 100);
             obj.parameters.setLimits(row, min, max);
         end
         
@@ -363,7 +363,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Expects index or name of parameter and the
             % new name
             %
-            % problem.setParameterName(2, 'new name');
+            % project.setParameterName(2, 'new name');
             if (isnumeric(row) && row <= length(obj.protectedParameters)) || any((strcmpi(row, obj.protectedParameters)))
                 throw(exceptions.invalidOption('Can''t rename protected parameters'));
             end
@@ -375,7 +375,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Expects index or name of parameter and 
             % new fit flag
             %
-            % problem.setParameterFit(2, true);
+            % project.setParameterFit(2, true);
             obj.parameters.setFit(row, fitFlag);
         end
         
@@ -384,7 +384,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Expects index or name of parameter and 
             % new prior type('uniform','gaussian','jeffreys')
             %
-            % problem.setParameterPrior(2, 'uniform');        
+            % project.setParameterPrior(2, 'uniform');        
             obj.parameters.setPrior(row, varargin{:});  
         end
         
@@ -395,7 +395,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Adds a group of layers to the layers object. Expects 
             % a cell array of layer cell arrays
             %
-            % problem.addLayerGroup({{'Layer 1'}, {'Layer 2'}});
+            % project.addLayerGroup({{'Layer 1'}, {'Layer 2'}});
             if isa(obj.layers, 'layersClass')
                 for i = 1:length(layerGroup)
                     if iscell(layerGroup{i})
@@ -415,7 +415,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % hydration, and hydrate with, or provide with no details,
             % or just a name, to create an empty layer.
             %
-            % problem.addLayer('New Layer');
+            % project.addLayer('New Layer');
             if isa(obj.layers, 'layersClass')
                 if isempty(varargin)
                     obj.layers.addLayer(obj.parameters.varTable{:,1});
@@ -438,7 +438,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Removes layer(s) from the layers object. Expects
             % index of layer(s) to remove.
             %
-            % problem.removeLayer(1);
+            % project.removeLayer(1);
             if isa(obj.layers, 'layersClass')
                 obj.layers.removeRow(layer);
             else
@@ -451,7 +451,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % column of layer value to set, then the name/index of the 
             % parameter to set the value to.
             % 
-            % problem.setLayerValue(1, 2, 'Tails Thickness');
+            % project.setLayerValue(1, 2, 'Tails Thickness');
             if isa(obj.layers, 'layersClass')
                 obj.layers.setLayerValue(row, col, value, obj.parameters.varTable{:,1});
             else
@@ -470,7 +470,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % of a name, min, value, max, fit flag, prior type', mu,
             % and sigma
             %
-            % problem.addBackgroundParam('Backs Value D2O', 1e-8, 2.8e-6, 1e-5);
+            % project.addBackgroundParam('Backs Value D2O', 1e-8, 2.8e-6, 1e-5);
             obj.background.backgroundParams.addParameter(varargin{:});
         end
         
@@ -478,7 +478,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Removes a given background parameter.
             % Expects index or name of parameter to remove
             % 
-            % problem.removeBackgroundParam(2);
+            % project.removeBackgroundParam(2);
             obj.background.backgroundParams.removeParameter(varargin{:});
         end
         
@@ -487,7 +487,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % parameter. Expects index or name of parameter 
             % and new value to set
             %
-            % problem.setBackgroundParamValue(1, 5.5e-6);
+            % project.setBackgroundParamValue(1, 5.5e-6);
             obj.background.backgroundParams.setValue(row, value);
         end
         
@@ -496,7 +496,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % parameter. Expects index or name of parameter 
             % and new min and max of the parameter's value
             %
-            % problem.setBackgroundParamLimits(1, 0, 1);
+            % project.setBackgroundParamLimits(1, 0, 1);
             obj.background.backgroundParams.setLimits(row, min, max);
         end
         
@@ -505,7 +505,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % parameter. Expects index or name of parameter 
             % and the new name
             %
-            % problem.setBackgroundParamName(2, 'new name');
+            % project.setBackgroundParamName(2, 'new name');
             obj.background.backgroundParams.setName(row, name);
         end
         
@@ -515,7 +515,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % cell array with background name and type and 
             % up to 4 parameters
             %
-            % problem.addBackground('name', 'constant', 'par');
+            % project.addBackground('name', 'constant', 'par');
             obj.background.addBackground(varargin{:});
         end
         
@@ -524,7 +524,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index or array of indices of background(s) of background(s)
             % to remove
             %
-            % problem.removeBackground(1);
+            % project.removeBackground(1);
             obj.background.removeBackground(row);
         end
         
@@ -532,7 +532,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Sets the value of an existing background. Expects
             % index or name of background and keyword/value pairs to set
             %
-            % problem.setBackground(1, 'name', 'Background ACMW');
+            % project.setBackground(1, 'name', 'Background ACMW');
             obj.background.setBackground(row, varargin{:});
         end
         
@@ -540,7 +540,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Sets the name of an existing Background.
             % Expects index or name of background and the new name
             %
-            % problem.setBackgroundName(2, 'new name');
+            % project.setBackgroundName(2, 'new name');
             obj.background.setBackgroundName(row, name);
         end
         
@@ -548,7 +548,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Sets the value of an existing background parameter. Expects
             % index or name of parameter and keyword/value pairs to set
             %
-            % problem.setBackgroundParam(1, 'name', 'Backs Value H2O');
+            % project.setBackgroundParam(1, 'name', 'Backs Value H2O');
             obj.background.backgroundParams.setParameter(varargin{:});
         end
         
@@ -561,7 +561,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % parameter. Expects index or name of parameter 
             % and new value to set
             %
-            % problem.setResolutionParamValue(1, 5.5e-6);
+            % project.setResolutionParamValue(1, 5.5e-6);
             obj.resolution.resolutionParams.setValue(row, value);
         end
         
@@ -570,7 +570,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % of a name, min, value, max, fit flag, prior type', mu,
             % and sigma
             %
-            % problem.addResolutionParam('Resolution Param 1', 1e-8, 2.8e-6, 1e-5);
+            % project.addResolutionParam('Resolution Param 1', 1e-8, 2.8e-6, 1e-5);
             obj.resolution.resolutionParams.addParameter(varargin{:});
         end
         
@@ -578,7 +578,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Sets the value of an existing resolution parameter. Expects
             % index or name of parameter and keyword/value pairs to set
             %
-            % problem.setResolutionParam(1, 'name', 'Resolution Param');
+            % project.setResolutionParam(1, 'name', 'Resolution Param');
             obj.resolution.resolutionParams.setParameter(varargin{:});
         end
         
@@ -586,7 +586,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Removes a given resolution parameter.
             % Expects index or name of parameter to remove
             % 
-            % problem.removeResolutionParam(2);
+            % project.removeResolutionParam(2);
             obj.resolution.resolutionParams.removeParameter(varargin{:});
         end
         
@@ -596,7 +596,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % cell array with resolution name and type and 
             % up to 4 parameters
             %
-            % problem.addResolution('name','constant','par');
+            % project.addResolution('name','constant','par');
             obj.resolution.addResolution(varargin{:});
         end
         
@@ -604,7 +604,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Removes resolution from the project. Expects
             % index of resolution to remove
             %
-            % problem.removeResolution(1);
+            % project.removeResolution(1);
             obj.resolution.removeResolution(row);
         end
         
@@ -616,7 +616,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Adds a new data parameter. Expects the name
             % of data and the data array
             % 
-            % problem.addData('Sim 2', data);
+            % project.addData('Sim 2', data);
             obj.data.addData(varargin{:});
         end
         
@@ -624,7 +624,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Removes a dataset. Expects the index or array of
             % indices of dataset(s) to remove.
             % 
-            % problem.removeData(2);
+            % project.removeData(2);
             obj.data.removeRow(row);
         end
         
@@ -632,7 +632,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Edits an existing data parameter. Expects the
             % index of data to edit and key-value pairs
             %
-            % problem.setData(1, 'name', 'Sim 1', 'data', zeros(4, 3));
+            % project.setData(1, 'name', 'Sim 1', 'data', zeros(4, 3));
             nameChanged = obj.data.setData(varargin{:});
             
             if ~isempty(nameChanged)
@@ -648,7 +648,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Adds a new bulk-out parameter. Expects the name
             % of bulk-out, min, value, max, and if fit is off or on
             % 
-            % problem.addBulkOut('SLD ACMW', -1e-6, 0.0, 1e-6, true);
+            % project.addBulkOut('SLD ACMW', -1e-6, 0.0, 1e-6, true);
             obj.bulkOut.addParameter(varargin{:});
         end
         
@@ -656,7 +656,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Removes specified bulk-out parameter. Expects the name/index
             % of bulk-out to remove
             % 
-            % problem.removeBulkOut(2);
+            % project.removeBulkOut(2);
             obj.bulkOut.removeParameter(varargin{:});
         end
         
@@ -664,7 +664,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Edits an existing bulk-out parameter. Expects the
             % index of bulk-out to edit and key-value pairs
             %
-            % problem.setBulkOut(1, 'name', 'SLD H2O', 'min', 2.07e-6);
+            % project.setBulkOut(1, 'name', 'SLD H2O', 'min', 2.07e-6);
             obj.bulkOut.setParameter(varargin{:});
         end
         
@@ -676,7 +676,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Adds a new bulk-in parameter. Expects the name
             % of bulk-in, min, value, max, and if fit is off or on
             % 
-            % problem.addBulkIn('Silicon', -1e-6, 0.0, 1e-6, true);
+            % project.addBulkIn('Silicon', -1e-6, 0.0, 1e-6, true);
             obj.bulkIn.addParameter(varargin{:});
         end
         
@@ -684,7 +684,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Removes specified bulk-in parameter. Expects the name/index
             % of bulk-in to remove
             % 
-            % problem.removeBulkIn(2);
+            % project.removeBulkIn(2);
             obj.bulkIn.removeParameter(varargin{:});
         end
         
@@ -692,7 +692,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Edits an existing bulk-in parameter. Expects the
             % index of bulk-in to edit and key-value pairs
             %
-            % problem.setBulkIn(1, 'name', 'Silicon', 'max', 2.07e-6);
+            % project.setBulkIn(1, 'name', 'Silicon', 'max', 2.07e-6);
             obj.bulkIn.setParameter(varargin{:});
         end
         
@@ -703,7 +703,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Adds a new scale factor parameter. Expects the name
             % of scale factor, min, value, max, and if fit is off or on
             % 
-            % problem.addScalefactor('Scalefactor 2', 0.1, 0.19, 1.0, true);
+            % project.addScalefactor('Scalefactor 2', 0.1, 0.19, 1.0, true);
             obj.scalefactors.addParameter(varargin{:});
         end
         
@@ -711,7 +711,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Removes specified scale factor parameter. Expects the name/index
             % of scale factor to remove
             % 
-            % problem.removeScalefactor(2);
+            % project.removeScalefactor(2);
            obj.scalefactors.removeParameter(varargin{:}); 
         end
         
@@ -719,7 +719,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Edits an existing scale factor parameter. Expects the
             % index of scale factor to edit and key-value pairs
             %
-            % problem.setScalefactor(1, 'name','Scalefactor 1', 'value', 0.23251);
+            % project.setScalefactor(1, 'name','Scalefactor 1', 'value', 0.23251);
             obj.scalefactors.setParameter(varargin{:});
         end
         
@@ -731,7 +731,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Adds a new qz shift parameter. Expects the name
             % of qz shift, min, value, max, and if fit is off or on
             % 
-            % problem.addQzshift('Qz shift 2', -0.2e-4, 0, 2e-4, false);
+            % project.addQzshift('Qz shift 2', -0.2e-4, 0, 2e-4, false);
             obj.qzshifts.addParameter(varargin{:}); 
         end
 
@@ -739,7 +739,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Removes specified qz shift parameter. Expects the name/index
             % of qz shift parameter to remove
             % 
-            % problem.removeQzshift(2);
+            % project.removeQzshift(2);
             obj.qzshifts.removeParameter(varargin{:}); 
         end
 
@@ -747,7 +747,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Edits an existing qz shift parameter. Expects the index of
             % qz shift parameter to edit and key-value pairs
             %
-            % problem.setScalefactor(1, 'name','Qz shift 1', 'value', 0.0001);
+            % project.setScalefactor(1, 'name','Qz shift 1', 'value', 0.0001);
             obj.qzshifts.setParameter(varargin{:});
         end
 
@@ -759,7 +759,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Adds a new custom file parameter. Expects a parameter name, filename, 
             % language (matlab, octave, or cpp), and working directory
             % 
-            % problem.addCustomFile('model 1', 'custom.m', 'matlab', 'pwd');
+            % project.addCustomFile('model 1', 'custom.m', 'matlab', 'pwd');
             obj.customFile.addCustomFile(varargin{:});
         end
 
@@ -767,7 +767,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Removes custom file entry(ies) from the custom files object.
             % Expects index of entry(ies) to remove.
             %
-            % problem.removeCustomFile(1);
+            % project.removeCustomFile(1);
             obj.customFile.removeRow(row);
         end
 
@@ -775,7 +775,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Edits an existing custom file parameter. Expects the
             % index of custom file to edit and key-value pairs
             %
-            % problem.setCustomFile(2, 'filename', 'custom.cpp');
+            % project.setCustomFile(2, 'filename', 'custom.cpp');
             obj.customFile.setCustomFile(row, varargin{:});
         end
         
@@ -790,7 +790,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % "background", "bulk in", "bulk out", "scalefactor",
             % "resolution", "resample", "model"
             % 
-            % problem.addContrast('contrast 1', 'bulkIn', 'Silicon');
+            % project.addContrast('contrast 1', 'bulkIn', 'Silicon');
             allowedNames = obj.getAllAllowedNames();
             obj.contrasts.addContrast(allowedNames, varargin{:});   
         end
@@ -799,7 +799,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Removes a specified contrast parameter. Expects
             % index or name of resolution to remove
             %
-            % problem.removeContrast(1);
+            % project.removeContrast(1);
             obj.contrasts.removeContrast(row);
         end
 
@@ -808,7 +808,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % First input must be contrast number or name, subsequent
             % inputs are name / value pairs for the parts involved
             %
-            % problem.setContrast(1, 'name', 'contrast')
+            % project.setContrast(1, 'name', 'contrast')
                         
             % Get the list of allowed values depending on what is
             % set for the other contrasts.
@@ -822,7 +822,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Edits the model of an existing contrast parameter. Expects
             % the index of contrast parameter and cell array of layer names
             %
-            % problem.setContrastModel(1, {'layer 1'})
+            % project.setContrastModel(1, {'layer 1'})
                         
             % Make a different allowed list depending on whether 
             % it is custom or layers
@@ -923,10 +923,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Writes a MATLAB script that can be run to reproduce this
             % projectClass object.
             %
-            % problem.writeScript(script = "newScript.m");
+            % project.writeScript(script = "newScript.m");
             arguments
                 obj
-                options.objName {mustBeTextScalar} = 'problem'
+                options.objName {mustBeTextScalar} = 'project'
                 options.script {mustBeTextScalar} = 'projectScript.m'
             end
 
@@ -1247,7 +1247,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % converts it to a domains calculation, preserving all
             % currently defined properties.
             %
-            % domainsProblem = problem.domainsClass();
+            % domainsProject = project.domainsClass();
             domainsObj = domainsClass(obj.experimentName, calculationTypes.Domains, obj.modelType, obj.geometry, obj.absorption);
             domainsObj = copyProperties(obj, domainsObj);
 

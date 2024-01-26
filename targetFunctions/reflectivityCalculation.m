@@ -1,4 +1,4 @@
-function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls)
+function [contrastParams,resultCells] = reflectivityCalculation(problemStruct,problemCells,controls)
 % Main entry point into the reflectivity calculation for the toolbox.
 % This is the main function that is called by any of the minimisers or
 % analysis tools from the rest of the toolbox. 
@@ -20,17 +20,17 @@ function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,c
 
 % for compilation, we have to preallocate memory for the output arrays
 % Setting these parameters in the struct defines them as doubles
-problem.ssubs = 0;
-problem.backgroundParams = 0;
-problem.qzshifts = 0;
-problem.scalefactors = 0;
-problem.bulkIn = 0;
-problem.bulkOut = 0;
-problem.resolutionParams = 0;
-problem.calculations.allChis = 0;
-problem.calculations.sumChi = 0;
-problem.allSubRough = 0;
-problem.resample = 0;
+contrastParams.ssubs = 0;
+contrastParams.backgroundParams = 0;
+contrastParams.qzshifts = 0;
+contrastParams.scalefactors = 0;
+contrastParams.bulkIn = 0;
+contrastParams.bulkOut = 0;
+contrastParams.resolutionParams = 0;
+contrastParams.calculations.allChis = 0;
+contrastParams.calculations.sumChi = 0;
+contrastParams.allSubRough = 0;
+contrastParams.resample = 0;
 
 % We also foll the results arrays to define their
 % type and size. (NOTE: at the moment we have a 'coder.varsize'
@@ -38,7 +38,7 @@ problem.resample = 0;
 % end for the results block. We are unlikely to need both
 % TODO: Find out which is necessary and tidy this up.
 
-numberOfContrasts = problemDef.numberOfContrasts;
+numberOfContrasts = problemStruct.numberOfContrasts;
 reflectivity = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
@@ -100,40 +100,40 @@ coder.varsize('domainAllLayers',[10000 2],[1 1]);
 coder.varsize('domainAllLayers{:}',[10000 3],[1 0]);
 
 % Decide which target function we are calling and call the relevant routines
-whichTF = problemDef.TF;
+whichTF = problemStruct.TF;
 switch whichTF
     case 'non polarised'
-        [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemDef,problemDefCells,controls);
+        [contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
     %case 'oil water'
-        %problem = oilWaterTF_reflectivityCalculation(problemDef,problemDefCells,controls);    
+        %contrastParams = oilWaterTFReflectivityCalculation(problemStruct,problemCells,controls);    
     %case 'magnetic'
-        %problem = polarisedTF_reflectivityCalculation(problemDef,problemDefCells,controls);
+        %contrastParams = polarisedTFReflectivityCalculation(problemStruct,problemCells,controls);
     case 'domains'
-        [problem,reflectivity,simulation,shiftedData,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTF.reflectivityCalculation(problemDef,problemDefCells,controls);
+        [contrastParams,reflectivity,simulation,shiftedData,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
 %     otherwise
 %         error('The calculation type "%s" is not supported', whichTF);
 
 end
 
-result = cell(1,6);
+resultCells = cell(1,6);
 
 cell1 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     cell1{i} = reflectivity{i};
 end
-result{1} = cell1;
+resultCells{1} = cell1;
 
 cell2 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     cell2{i} = simulation{i};
 end
-result{2} = cell2;
+resultCells{2} = cell2;
 
 cell3 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     cell3{i} = shiftedData{i}; 
 end
-result{3} = cell3;
+resultCells{3} = cell3;
 
 
 % The size of this array now varies depending on TF
@@ -145,21 +145,21 @@ switch whichTF
             cell4{i,1} = domainLayerSlds{i,1};
             cell4{i,2} = domainLayerSlds{i,2};
         end
-        result{4} = cell4;
+        resultCells{4} = cell4;
 
         cell5 = cell(numberOfContrasts,2);
         for i = 1:numberOfContrasts
             cell5{i,1} = domainSldProfiles{i,1};
             cell5{i,2} = domainSldProfiles{i,2};
         end
-        result{5} = cell5;
+        resultCells{5} = cell5;
 
         cell6 = cell(numberOfContrasts,2);
         for i = 1:numberOfContrasts
             cell6{i,1} = domainAllLayers{i,1}; 
             cell6{i,2} = domainAllLayers{i,2};
         end
-        result{6} = cell6;
+        resultCells{6} = cell6;
 
     otherwise
 
@@ -167,36 +167,36 @@ switch whichTF
         for i = 1:numberOfContrasts
             cell4{i} = layerSlds{i};
         end
-        result{4} = cell4;
+        resultCells{4} = cell4;
 
         cell5 = cell(numberOfContrasts,1);
         for i = 1:numberOfContrasts
             cell5{i} = sldProfiles{i};
         end
-        result{5} = cell5;
+        resultCells{5} = cell5;
 
         cell6 = cell(numberOfContrasts,1);
         for i = 1:numberOfContrasts
             cell6{i} = allLayers{i}; 
         end
-        result{6} = cell6;
+        resultCells{6} = cell6;
 
 end
 
 % Pre-processor directives for Matlab Coder
 % to define the size of the output array
-coder.varsize('problem.ssubs',[Inf 1],[1 0]);
-coder.varsize('problem.backgroundParams',[Inf 1],[1 0]);
-coder.varsize('problem.qzshifts',[Inf 1],[1 0]);
-coder.varsize('problem.scalefactors',[Inf 1],[1 0]);
-coder.varsize('problem.bulkIn',[Inf 1],[1 0]);
-coder.varsize('problem.bulkOut',[Inf 1],[1 0]);
-coder.varsize('problem.resolutionParams',[Inf 1],[1 0]);
-coder.varsize('problem.ssubs',[Inf 1],[1 0]);
-coder.varsize('problem.calculations.allChis',[Inf 1],[1 0]);
-coder.varsize('problem.calculations.sumChi',[1 1],[0 0]);
-coder.varsize('problem.allSubRough',[Inf 1],[1 0]);
-coder.varsize('problem.resample',[1 Inf],[0 1]);
+coder.varsize('contrastParams.ssubs',[Inf 1],[1 0]);
+coder.varsize('contrastParams.backgroundParams',[Inf 1],[1 0]);
+coder.varsize('contrastParams.qzshifts',[Inf 1],[1 0]);
+coder.varsize('contrastParams.scalefactors',[Inf 1],[1 0]);
+coder.varsize('contrastParams.bulkIn',[Inf 1],[1 0]);
+coder.varsize('contrastParams.bulkOut',[Inf 1],[1 0]);
+coder.varsize('contrastParams.resolutionParams',[Inf 1],[1 0]);
+coder.varsize('contrastParams.ssubs',[Inf 1],[1 0]);
+coder.varsize('contrastParams.calculations.allChis',[Inf 1],[1 0]);
+coder.varsize('contrastParams.calculations.sumChi',[1 1],[0 0]);
+coder.varsize('contrastParams.allSubRough',[Inf 1],[1 0]);
+coder.varsize('contrastParams.resample',[1 Inf],[0 1]);
 
 %Result coder definitions....
 coder.varsize('result{1}',[Inf 1],[1 0]);           %Reflectivity

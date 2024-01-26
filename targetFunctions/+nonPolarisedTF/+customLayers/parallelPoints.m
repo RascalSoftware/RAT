@@ -1,6 +1,6 @@
 function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
     simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
-    allRoughs] = parallelPoints(problemDef,problemDefCells,controls)
+    allRoughs] = parallelPoints(problemStruct,problemCells,controls)
 % Multi threaded version of the custom layers over reflectivity poimnts
 % for nonPolarisedTF reflectivity calculation. 
 % The function extracts the relevant parameters from the input
@@ -13,15 +13,15 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resol
  allData,...
  dataLimits,...
  simLimits,...
- ~,~,customFiles] = parseCells(problemDefCells);
+ ~,~,customFiles] = parseCells(problemCells);
 
-% Extract individual parameters from problemDef struct
+% Extract individual parameters from problemStruct
 [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
 contrastResolutions, backgroundParam, qzshift, scalefactor, bulkIn, bulkOut, resolutionParam, dataPresent, nParams, params,...
-~, resample, contrastBackgroundsType, cCustFiles] =  extractProblemParams(problemDef);
+~, resample, contrastBackgroundsType, cCustFiles] =  extractProblemParams(problemStruct);
 
 calcSld = controls.calcSldDuringFit;
-useImaginary = problemDef.useImaginary;
+useImaginary = problemStruct.useImaginary;
                      
 % Pre-Allocation of output arrays...
 backgroundParams = zeros(numberOfContrasts,1);

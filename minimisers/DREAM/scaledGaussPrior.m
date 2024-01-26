@@ -1,6 +1,6 @@
 function pVal2 = scaledGaussPrior(m,extras)
     
-    problem = extras.problemDef;
+    problemStruct = extras.problemStruct;
     priorList = extras.priors;
     
     % All are in range, so check for Gaussian priors....
@@ -12,7 +12,7 @@ function pVal2 = scaledGaussPrior(m,extras)
     usedPriorInd = find(priorList(:,1) == 2);
 
     priorfun = @(th,mu,sig) sum(((th-mu)./sig).^2);
-    fitConstr = problem.fitLimits;
+    fitConstr = problemStruct.fitLimits;
     
     usedPriors = priorList(usedPriorInd,:);
     usedConstr = fitConstr(usedPriorInd,:);

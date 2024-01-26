@@ -1,22 +1,22 @@
-function [problemDef,problem,result] = runSimplex(problemDef,problemDefCells,problemDefLimits,controls)
+function [problemStruct,contrastParams,result] = runSimplex(problemStruct,problemCells,problemLimits,controls)
 
-numberOfContrasts = problemDef.numberOfContrasts;
+numberOfContrasts = problemStruct.numberOfContrasts;
 preAlloc = zeros(numberOfContrasts,1);
 
 result = cell(6,1);
 
-problem = struct('ssubs',preAlloc,...
-                 'backgroundParams',preAlloc,...
-                 'qzshifts',preAlloc,...
-                 'scalefactors',preAlloc,...
-                 'bulkIn',preAlloc,...
-                 'bulkOut',preAlloc,...
-                 'resolutionParams',preAlloc,...
-                 'calculations',struct('allChis',preAlloc,'sumChi',0),...
-                 'allSubRough',preAlloc);
+contrastParams = struct('ssubs',preAlloc,...
+                        'backgroundParams',preAlloc,...
+                        'qzshifts',preAlloc,...
+                        'scalefactors',preAlloc,...
+                        'bulkIn',preAlloc,...
+                        'bulkOut',preAlloc,...
+                        'resolutionParams',preAlloc,...
+                        'calculations',struct('allChis',preAlloc,'sumChi',0),...
+                        'allSubRough',preAlloc);
 
 
-[problemDef,~] = fitsetup(problemDef,problemDefCells,problemDefLimits,controls);
+[problemStruct,~] = fitsetup(problemStruct,problemCells,problemLimits,controls);
 
 maxIter = controls.maxIter;
 tolFun = controls.tolFun;
@@ -39,9 +39,9 @@ end
 
 options = optimset('MaxIter',maxIter,'TolFun',tolFun,'TolX',tolX,'MaxFunEvals',maxFunEvals);
 
-x0 = problemDef.fitParams;
-LB = problemDef.fitLimits(:,1);
-UB = problemDef.fitLimits(:,2);
+x0 = problemStruct.fitParams;
+LB = problemStruct.fitLimits(:,1);
+UB = problemStruct.fitLimits(:,2);
 
 % size checks
 xsize = size(x0);
@@ -63,7 +63,7 @@ end
 params.args = [];%varargin;
 params.LB = LB;
 params.UB = UB;
-params.fun = '';%problemDef.modelFilename;%fun;
+params.fun = '';%problemStruct.modelFilename;%fun;
 
 % 0 --> unconstrained variable
 % 1 --> lower bound only
@@ -119,9 +119,9 @@ end
 % now we can call fminsearch, but with our own
 % intra-objective function.
 
-[xu,~,~,~] = fMinSearch(@simplexIntrafun,x0u,options,dis,problemDef,problemDefCells,controls,params);
+[xu,~,~,~] = fMinSearch(@simplexIntrafun,x0u,options,dis,problemStruct,problemCells,controls,params);
 
-%[xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemDef,problemDefCells,problemDefLimits,controls,options,params,300);
+%[xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemStruct,problemCells,problemLimits,controls,options,params,300);
 
 % undo the variable transformations into the original space
 x = simplexXTransform(xu,params);
@@ -129,8 +129,8 @@ x = simplexXTransform(xu,params);
 % final reshape
 %x = reshape(x,xsize);
 
-problemDef.fitParams = x;
-problemDef = unpackParams(problemDef,controls);
-[problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
+problemStruct.fitParams = x;
+problemStruct = unpackParams(problemStruct,controls);
+[contrastParams,result] = reflectivityCalculation(problemStruct,problemCells,controls);
 
 end

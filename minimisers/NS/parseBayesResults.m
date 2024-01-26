@@ -1,4 +1,4 @@
-function results = parseBayesResults(chain,problemDef,problemDefCells,controls)
+function results = parseBayesResults(chain,problemStruct,problemCells,controls)
 debug = 1;
 
 numPars = size(chain,2)-1;
@@ -71,23 +71,23 @@ numCalcs = size(chain,1);
 allRefs = cell(numCalcs,1);
 allSLDs = cell(numCalcs,1);
 for i = 1:numCalcs
-    problemDef.fitParams = chain(i,1:end-1);
-    problemDef = unpackParams(problemDef,controls);
-    [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
+    problemStruct.fitParams = chain(i,1:end-1);
+    problemStruct = unpackParams(problemStruct,controls);
+    [contrastParams,result] = reflectivityCalculation(problemStruct,problemCells,controls);
     allRefs{i} = result{1};
     allSLDs{i} = result{5};
 end
 
 %Also calculate the best fit
-problemDef.fitParams = values(:,1);
-problemDef = unpackParams(problemDef,controls);
-[problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
+problemStruct.fitParams = values(:,1);
+problemStruct = unpackParams(problemStruct,controls);
+[contrastParams,result] = reflectivityCalculation(problemStruct,problemCells,controls);
 bestFit = result{1};
 
 
 %Put the reflectivities for each contrast together
 for n = 1:numCalcs
-    for i = 1:problemDef.numberOfContrasts
+    for i = 1:problemStruct.numberOfContrasts
         %Since array size may vary if qz-shift is fitted
         %interpolate all curves onto the x-range of the first
         thisRef = allRefs{n}{i};
@@ -101,7 +101,7 @@ for n = 1:numCalcs
     end
 end
 
-for i = 1:problemDef.numberOfContrasts
+for i = 1:problemStruct.numberOfContrasts
     range.mins{i} = min(groupRefs{i},[],2);
     range.maxs{i} = max(groupRefs{i},[],2);
 end
@@ -111,7 +111,7 @@ debugPlot = 1;
 switch debugPlot
     case 1
         figure(1); clf; hold on; set(gca,'YScale','log');set(gca,'YScale','log');set(gca,'XScale','log');
-        for i = 1:problemDef.numberOfContrasts
+        for i = 1:problemStruct.numberOfContrasts
             if i == 1
                 f = 1;
             else

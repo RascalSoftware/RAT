@@ -33,18 +33,18 @@ end
 
 
 
-problemDef = problem{1};
+problemStruct = problem{1};
 controls = problem{2};
-problemDefLimits = problem{3};
-problemDefCells = problem{4};
+problemLimits = problem{3};
+problemCells = problem{4};
 
 pars = theta;
-constr = problemDef.fitLimits;
+constr = problemStruct.fitLimits;
 pars = unscalePars(pars,constr);
 
-problemDef.fitParams = pars;
-problemDef = unpackParams(problemDef,controls);
-[problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
+problemStruct.fitParams = pars;
+problemStruct = unpackParams(problemStruct,controls);
+[problem,result] = reflectivityCalculation(problemStruct,problemCells,controls);
 
 ySim = result{1}{contrast};
 

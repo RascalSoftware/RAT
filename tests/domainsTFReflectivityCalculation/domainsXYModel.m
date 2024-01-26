@@ -1,4 +1,4 @@
-function [out,subRough] = testXyModel(params,bulkIn,bulkOut,contrast,domain)
+function [out,subRough] = domainsXYModel(params,bulkIn,bulkOut,contrast,domain)
 
 
 % {'Oxide thick',   10,         20,     50,     true}

@@ -1,55 +1,54 @@
-function outProblemDef = parseOutToProjectClass(problemDefInput,outProblemStruct)
+function project = parseOutToProjectClass(project,problemStruct)
 
-%Reconstruct the problemDef class as an output
+%Reconstruct the project class as an output
 %Using the outputs from the calculation(s)
-outProblemDef = problemDefInput;
 
 %(1) Parameters
-params = outProblemStruct.params;
+params = problemStruct.params;
 for i = 1:length(params)
-    outProblemDef.setParameterValue(i,params(i));
+    project.setParameterValue(i,params(i));
 end
 
 %(2) Backgrounds
-backgroundParams = outProblemStruct.backgroundParams;
+backgroundParams = problemStruct.backgroundParams;
 for i = 1:length(backgroundParams)
-    outProblemDef.setBackgroundParamValue(i,backgroundParams(i));
+    project.setBackgroundParamValue(i,backgroundParams(i));
 end
 
 %(3) Scalefactors
-scalefactors = outProblemStruct.scalefactors;
+scalefactors = problemStruct.scalefactors;
 for i = 1:length(scalefactors)
-    outProblemDef.setScalefactor(i,'value',scalefactors(i));
+    project.setScalefactor(i,'value',scalefactors(i));
 end
 
 %(4) Qzshifts
-qzshifts = outProblemStruct.qzshifts;
+qzshifts = problemStruct.qzshifts;
 for i = 1:length(qzshifts)
-    outProblemDef.setQzshift(i,'value',qzshifts(i));
+    project.setQzshift(i,'value',qzshifts(i));
 end
 
 %(5) Bulk In
-bulkIns = outProblemStruct.bulkIn;
+bulkIns = problemStruct.bulkIn;
 for i = 1:length(bulkIns)
-    outProblemDef.setBulkIn(i,'value',bulkIns(i));
+    project.setBulkIn(i,'value',bulkIns(i));
 end
 
 %(6) Bulk Out
-bulkOuts = outProblemStruct.bulkOut;
+bulkOuts = problemStruct.bulkOut;
 for i = 1:length(bulkOuts)
-    outProblemDef.setBulkOut(i,'value',bulkOuts(i));
+    project.setBulkOut(i,'value',bulkOuts(i));
 end
 
 %(7) Resolutions
-resolutionParams = outProblemStruct.resolutionParams;
+resolutionParams = problemStruct.resolutionParams;
 for i = 1:length(resolutionParams)
-    outProblemDef.setResolutionParam(i,'value',resolutionParams(i));
+    project.setResolutionParam(i,'value',resolutionParams(i));
 end
 
 % (8) Domain ratio
-if strcmpi(outProblemStruct.TF,'domains')
-    domainRatios = outProblemStruct.domainRatio;
+if strcmpi(problemStruct.TF,'domains')
+    domainRatios = problemStruct.domainRatio;
     for i = 1:length(domainRatios)
-        outProblemDef.setDomainRatio(i,'value',domainRatios(i));
+        project.setDomainRatio(i,'value',domainRatios(i));
     end
 end

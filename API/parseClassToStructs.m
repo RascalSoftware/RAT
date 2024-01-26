@@ -1,9 +1,9 @@
-function [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(inputProblemDef,inputControls)
+function [problemStruct,problemCells,problemLimits,priors,controls] = parseClassToStructs(project,inputControls)
 
 % Breaks up the classes into the relevant structures for inputting into C
 
 % Put the extracted fields into a cell array...
-% Structure of problemDefCells array.
+% Structure of problemCells array.
 %
 % {1} - inputProblemDef.contrastRepeatSLDs
 %       {1 x nContrasts} array of cells
@@ -87,7 +87,7 @@ function [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseCl
 
  
 % First parse the class to a structure variable.
-inputStruct = inputProblemDef.toStruct();
+inputStruct = project.toStruct();
 
 %% Start by removing the cell arrays
 contrastLayers = inputStruct.contrastLayers;
@@ -108,26 +108,26 @@ if isempty(layerDetails)
 end
 
 % Pull out all the cell arrays (except priors) into one array
-problemDefCells{1} = inputStruct.contrastRepeatSLDs;
-problemDefCells{2} = inputStruct.allData;
-problemDefCells{3} = inputStruct.dataLimits;
-problemDefCells{4} = inputStruct.simLimits;
-problemDefCells{5} = contrastLayers;
-problemDefCells{6} = layerDetails;
-problemDefCells{7} = inputStruct.paramNames;
-problemDefCells{8} = inputStruct.backgroundParamNames;
-problemDefCells{9} = inputStruct.scalefactorNames;
-problemDefCells{10} = inputStruct.qzshiftNames;
-problemDefCells{11} = inputStruct.bulkInNames;
-problemDefCells{12} = inputStruct.bulkOutNames;
-problemDefCells{13} = inputStruct.resolutionParamNames;
-problemDefCells{14} = inputStruct.files;
-problemDefCells{15} = cellstr(inputStruct.backgroundTypes');
-problemDefCells{16} = cellstr(inputStruct.resolutionTypes');
-problemDefCells{17} = inputStruct.allOilChiData;
+problemCells{1} = inputStruct.contrastRepeatSLDs;
+problemCells{2} = inputStruct.allData;
+problemCells{3} = inputStruct.dataLimits;
+problemCells{4} = inputStruct.simLimits;
+problemCells{5} = contrastLayers;
+problemCells{6} = layerDetails;
+problemCells{7} = inputStruct.paramNames;
+problemCells{8} = inputStruct.backgroundParamNames;
+problemCells{9} = inputStruct.scalefactorNames;
+problemCells{10} = inputStruct.qzshiftNames;
+problemCells{11} = inputStruct.bulkInNames;
+problemCells{12} = inputStruct.bulkOutNames;
+problemCells{13} = inputStruct.resolutionParamNames;
+problemCells{14} = inputStruct.files;
+problemCells{15} = cellstr(inputStruct.backgroundTypes');
+problemCells{16} = cellstr(inputStruct.resolutionTypes');
+problemCells{17} = inputStruct.allOilChiData;
 
 % Now deal with domains cell arrays
-if isa(inputProblemDef, 'domainsClass') && isa(inputProblemDef.domainContrasts, 'domainContrastsClass')
+if isa(project, 'domainsClass') && isa(project.domainContrasts, 'domainContrastsClass')
 
     domainContrastLayers = inputStruct.domainContrastLayers;
 
@@ -140,38 +140,38 @@ if isa(inputProblemDef, 'domainsClass') && isa(inputProblemDef.domainContrasts, 
         end
     end
     
-    problemDefCells{18} = inputStruct.domainContrastRepeatSLDs;
-    problemDefCells{19} = domainContrastLayers;
+    problemCells{18} = inputStruct.domainContrastRepeatSLDs;
+    problemCells{19} = domainContrastLayers;
     
 else
 
-    problemDefCells{18} = cell(1,0);
-    problemDefCells{19} = cell(1,0);
+    problemCells{18} = cell(1,0);
+    problemCells{19} = cell(1,0);
 
 end
 
-if isa(inputProblemDef, 'domainsClass')
-    problemDefCells{20} = inputStruct.domainRatioNames;
+if isa(project, 'domainsClass')
+    problemCells{20} = inputStruct.domainRatioNames;
 else
-    problemDefCells{20} = cell(1,0);
+    problemCells{20} = cell(1,0);
 end
 
 % Fix for cell array bug with custom layers - is this needed still??
 if strcmpi(inputStruct.modelType,'custom layers') || strcmpi(inputStruct.modelType,'custom xy')
-    for i = 1:length(problemDefCells{5})
-        problemDefCells{5}{i} = 0;
+    for i = 1:length(problemCells{5})
+        problemCells{5}{i} = 0;
     end
-    for i = 1:length(problemDefCells{19})
-        problemDefCells{19}{i} = 0;
+    for i = 1:length(problemCells{19})
+        problemCells{19}{i} = 0;
     end
     
-    problemDefCells{6} = {0};
+    problemCells{6} = {0};
     
 end
 
 % Also the custom files array..
-if isempty(problemDefCells{14})
-    problemDefCells{14} = {''};
+if isempty(problemCells{14})
+    problemCells{14} = {''};
 end
 
 
@@ -183,7 +183,7 @@ priors.bulkIn = inputStruct.bulkInPriors;
 priors.bulkOut = inputStruct.bulkOutPriors;
 priors.qzshift = inputStruct.qzshiftPriors;
 priors.scalefactor = inputStruct.scalefactorPriors;
-if isa(inputProblemDef, 'domainsClass')
+if isa(project, 'domainsClass')
     priors.domainRatio = inputStruct.domainRatioPriors;
 else
     priors.domainRatio = cell(0,1);
@@ -228,8 +228,8 @@ priors.priorValues = cell2mat(allPriors(:, 2:end));
 %% Split up the contrastBackgrounds array
 contrastBackgrounds = inputStruct.contrastBackgrounds;
 for i = 1:length(contrastBackgrounds)
-    problemDef.contrastBackgrounds(i) = contrastBackgrounds{i}(1);
-    problemDef.contrastBackgroundsType(i) = contrastBackgrounds{i}(2);
+    problemStruct.contrastBackgrounds(i) = contrastBackgrounds{i}(1);
+    problemStruct.contrastBackgroundsType(i) = contrastBackgrounds{i}(2);
 end
     
 % Here we need to do the same with the contrastResolutions array
@@ -261,43 +261,43 @@ end
 
 %% Now make the limits array
 for i = 1:length(inputStruct.paramLimits)
-    problemDefLimits.param(i,:) = inputStruct.paramLimits{i};
+    problemLimits.param(i,:) = inputStruct.paramLimits{i};
 end
 
 for i = 1:length(inputStruct.backgroundParamLimits)
-    problemDefLimits.backgroundParam(i,:) = inputStruct.backgroundParamLimits{i};
+    problemLimits.backgroundParam(i,:) = inputStruct.backgroundParamLimits{i};
 end
 
 for i = 1:length(inputStruct.scalefactorLimits)
-    problemDefLimits.scalefactor(i,:) = inputStruct.scalefactorLimits{i};
+    problemLimits.scalefactor(i,:) = inputStruct.scalefactorLimits{i};
 end
 
 for i = 1:length(inputStruct.qzshiftLimits)
-    problemDefLimits.qzshift(i,:) = inputStruct.qzshiftLimits{i};
+    problemLimits.qzshift(i,:) = inputStruct.qzshiftLimits{i};
 end
 
 for i = 1:length(inputStruct.bulkInLimits)
-    problemDefLimits.bulkIn(i,:) = inputStruct.bulkInLimits{i};
+    problemLimits.bulkIn(i,:) = inputStruct.bulkInLimits{i};
 end
 
 for i = 1:length(inputStruct.bulkOutLimits)
-    problemDefLimits.bulkOut(i,:) = inputStruct.bulkOutLimits{i};
+    problemLimits.bulkOut(i,:) = inputStruct.bulkOutLimits{i};
 end
 
 for i = 1:length(inputStruct.resolutionParamLimits)
-    problemDefLimits.resolutionParam(i,:) = inputStruct.resolutionParamLimits{i};
+    problemLimits.resolutionParam(i,:) = inputStruct.resolutionParamLimits{i};
 end
 
-if isa(inputProblemDef, 'domainsClass')
+if isa(project, 'domainsClass')
     for i = 1:length(inputStruct.domainRatioLimits)
-        problemDefLimits.domainRatio(i,:) = inputStruct.domainRatioLimits{i};
+        problemLimits.domainRatio(i,:) = inputStruct.domainRatioLimits{i};
     end
 else
-    problemDefLimits.domainRatio = ones(0,2);
+    problemLimits.domainRatio = ones(0,2);
 end
 
 
-%% Make the problemDef structure from the remaining inputs
+%% Make the problemStruct structure from the remaining inputs
 
 % *************************************************************************
 % NOTE - not using the more complicated background and resolution
@@ -306,51 +306,51 @@ end
 % *************************************************************************
 
 
-problemDef.TF = inputStruct.TF;
-problemDef.resample = inputStruct.resample;
-problemDef.dataPresent = inputStruct.dataPresent;
-problemDef.oilChiDataPresent = inputStruct.oilChiDataPresent;
-problemDef.numberOfContrasts = inputStruct.numberOfContrasts;
-problemDef.geometry = inputStruct.geometry;
-problemDef.useImaginary = inputStruct.useImaginary;
-%problemDef.contrastBackgrounds = contrastBackgrounds;
-problemDef.contrastQzshifts = inputStruct.contrastQzshifts;
-problemDef.contrastScalefactors = inputStruct.contrastScalefactors;
-problemDef.contrastBulkIns = inputStruct.contrastBulkIns;
-problemDef.contrastBulkOuts = inputStruct.contrastBulkOuts;
-problemDef.contrastResolutions = contrastRes;
-problemDef.backgroundParams = inputStruct.backgroundParamValues; %inputStruct.backgrounds;       % **** note backPar workaround (todo) ****
-problemDef.qzshifts = inputStruct.qzshiftValues;
-problemDef.scalefactors = inputStruct.scalefactorValues;
-problemDef.bulkIn = inputStruct.bulkInValues;
-problemDef.bulkOut = inputStruct.bulkOutValues;
-problemDef.resolutionParams = inputStruct.resolutionParamValues; %inputStruct.resolutions;           % **** note resolutionParam workaround (todo) ****          
-problemDef.params = inputStruct.paramValues;
-problemDef.numberOfLayers = inputStruct.numberOfLayers;
-problemDef.modelType = inputStruct.modelType;
-problemDef.contrastCustomFiles = inputStruct.contrastCustomFile;
+problemStruct.TF = inputStruct.TF;
+problemStruct.resample = inputStruct.resample;
+problemStruct.dataPresent = inputStruct.dataPresent;
+problemStruct.oilChiDataPresent = inputStruct.oilChiDataPresent;
+problemStruct.numberOfContrasts = inputStruct.numberOfContrasts;
+problemStruct.geometry = inputStruct.geometry;
+problemStruct.useImaginary = inputStruct.useImaginary;
+%problemStruct.contrastBackgrounds = contrastBackgrounds;
+problemStruct.contrastQzshifts = inputStruct.contrastQzshifts;
+problemStruct.contrastScalefactors = inputStruct.contrastScalefactors;
+problemStruct.contrastBulkIns = inputStruct.contrastBulkIns;
+problemStruct.contrastBulkOuts = inputStruct.contrastBulkOuts;
+problemStruct.contrastResolutions = contrastRes;
+problemStruct.backgroundParams = inputStruct.backgroundParamValues; %inputStruct.backgrounds;       % **** note backPar workaround (todo) ****
+problemStruct.qzshifts = inputStruct.qzshiftValues;
+problemStruct.scalefactors = inputStruct.scalefactorValues;
+problemStruct.bulkIn = inputStruct.bulkInValues;
+problemStruct.bulkOut = inputStruct.bulkOutValues;
+problemStruct.resolutionParams = inputStruct.resolutionParamValues; %inputStruct.resolutions;           % **** note resolutionParam workaround (todo) ****          
+problemStruct.params = inputStruct.paramValues;
+problemStruct.numberOfLayers = inputStruct.numberOfLayers;
+problemStruct.modelType = inputStruct.modelType;
+problemStruct.contrastCustomFiles = inputStruct.contrastCustomFile;
 
 % Add the domains parameters, using dummy values if this is not a domains
 % calculation
-problemDef.contrastDomainRatios = inputStruct.contrastDomainRatios;
+problemStruct.contrastDomainRatios = inputStruct.contrastDomainRatios;
 
-if isa(inputProblemDef, 'domainsClass')
-    problemDef.domainRatio = inputStruct.domainRatioValues;
+if isa(project, 'domainsClass')
+    problemStruct.domainRatio = inputStruct.domainRatioValues;
 else
-    problemDef.domainRatio = ones(1,0);
+    problemStruct.domainRatio = ones(1,0);
 end
 
-if isa(inputProblemDef, 'domainsClass') && isa(inputProblemDef.domainContrasts, 'domainContrastsClass')
-    problemDef.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
+if isa(project, 'domainsClass') && isa(project.domainContrasts, 'domainContrastsClass')
+    problemStruct.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
 else
-    problemDef.numberOfDomainContrasts = 0;
+    problemStruct.numberOfDomainContrasts = 0;
 end    
 
 % Initialise the lists of fitting parameters    
-problemDef.fitParams = [];
-problemDef.otherParams = [];
-problemDef.fitLimits = [];
-problemDef.otherLimits = [];
+problemStruct.fitParams = [];
+problemStruct.otherParams = [];
+problemStruct.fitLimits = [];
+problemStruct.otherLimits = [];
 
 
 %% Now deal with the controls class
@@ -390,7 +390,7 @@ checks.fitScalefactor = inputStruct.fitScalefactor;
 checks.fitBulkIn = inputStruct.fitBulkIn;
 checks.fitBulkOut = inputStruct.fitBulkOut;
 checks.fitResolutionParam = inputStruct.fitResolutionParam;
-if isa(inputProblemDef, 'domainsClass')
+if isa(project, 'domainsClass')
     checks.fitDomainRatio = inputStruct.fitDomainRatio;
 else
     checks.fitDomainRatio = ones(1,0);

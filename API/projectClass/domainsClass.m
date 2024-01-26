@@ -25,7 +25,7 @@ classdef domainsClass < projectClass
             % refractive index.
             % All of the arguments are optional.
             %
-            % problem = domainsClass('New experiment');
+            % project = domainsClass('New experiment');
             arguments
                 experimentName {mustBeTextScalar} = ''
                 calculationType = calculationTypes.Domains
@@ -56,7 +56,7 @@ classdef domainsClass < projectClass
             % converts it to a nonPolarised calculation, preserving all
             % currently defined properties.
             %
-            % nonPolarisedProblem = problem.toProjectClass();
+            % nonPolarisedProject = project.toProjectClass();
             projectObj = obj.projectClass();
         end
 
@@ -65,7 +65,7 @@ classdef domainsClass < projectClass
             % either "standard layers", "custom layers", or "custom xy" is
             % permitted.
             %
-            % problem.setModelType('Custom Layers');
+            % project.setModelType('Custom Layers');
             setModelType@projectClass(obj, modelType);
 
             % Also need to define domain contrasts as necessary
@@ -96,7 +96,7 @@ classdef domainsClass < projectClass
             % Edits the model of an existing contrast parameter. Expects
             % the index of contrast parameter and cell array of layer names
             %
-            % problem.setContrastModel(1, {'layer 1'})
+            % project.setContrastModel(1, {'layer 1'})
                         
             % Make a different allowed list depending on whether 
             % it is custom or layers
@@ -119,7 +119,7 @@ classdef domainsClass < projectClass
             % Adds a new domain ratio parameter. Expects the name
             % of domain ratio, min, value, max, and if fit is off or on
             % 
-            % problem.addDomainRatio('Domain Ratio 2', 0.4, 0.5, 0.6, true);
+            % project.addDomainRatio('Domain Ratio 2', 0.4, 0.5, 0.6, true);
             obj.domainRatio.addParameter(varargin{:});
         end
         
@@ -127,7 +127,7 @@ classdef domainsClass < projectClass
             % Removes specified domain ratio parameter. Expects the
             % name/index of domain ratio to remove
             % 
-            % problem.removeDomainRatio(2);
+            % project.removeDomainRatio(2);
            obj.domainRatio.removeParameter(varargin{:}); 
         end
         
@@ -135,7 +135,7 @@ classdef domainsClass < projectClass
             % Edits an existing domain ratio parameter. Expects the
             % index of domain ratio to edit and key-value pairs
             %
-            % problem.setDomainRatio(1, 'name','Domain Ratio 1', 'value', 0.55);
+            % project.setDomainRatio(1, 'name','Domain Ratio 1', 'value', 0.55);
             obj.domainRatio.setParameter(varargin{:});
         end
     
@@ -148,7 +148,7 @@ classdef domainsClass < projectClass
             % and with key-value pairs with one or more of the following
             % "bulk in", "bulk out", "model"
             % 
-            % problem.addDomainContrast('domainContrast 1', 'bulkIn', 'Silicon');
+            % project.addDomainContrast('domainContrast 1', 'bulkIn', 'Silicon');
             if isa(obj.domainContrasts, 'domainContrastsClass')
                 allowedNames = obj.getAllAllowedNames();
                 obj.domainContrasts.addContrast(allowedNames, varargin{:});
@@ -161,7 +161,7 @@ classdef domainsClass < projectClass
             % Removes a specified domainContrast parameter. Expects
             % index or name of resolution to remove
             %
-            % problem.removeDomainContrast(1);
+            % project.removeDomainContrast(1);
             if isa(obj.domainContrasts, 'domainContrastsClass')
                 obj.domainContrasts.removeContrast(row);
             else
@@ -174,7 +174,7 @@ classdef domainsClass < projectClass
             % First input must be domainContrast number or name, subsequent
             % inputs are name / value pairs for the parts involved
             %
-            % problem.setContrast(1, 'name', 'domainContrast')
+            % project.setContrast(1, 'name', 'domainContrast')
             if isa(obj.domainContrasts, 'domainContrastsClass')
                 % Get the list of allowed values depending on what is
                 % set for the other contrasts.
@@ -191,7 +191,7 @@ classdef domainsClass < projectClass
             % Edits the model of an existing contrast parameter. Expects
             % the index of contrast parameter and cell array of layer names
             %
-            % problem.setDomainContrastModel(1, {'layer 1'})
+            % project.setDomainContrastModel(1, {'layer 1'})
             if isa(obj.domainContrasts, 'domainContrastsClass')
                 allowedValues = obj.layers.getNames();
                 obj.domainContrasts.setContrastModel(row, obj.modelType, allowedValues, model);
@@ -248,7 +248,7 @@ classdef domainsClass < projectClass
             % converts it to a nonPolarised calculation, preserving all
             % currently defined properties.
             %
-            % nonPolarisedProblem = problem.projectClass();
+            % nonPolarisedProject = project.projectClass();
             projectObj = projectClass(obj.experimentName, calculationTypes.NonPolarised, obj.modelType, obj.geometry, obj.absorption);
             projectObj = copyProperties(obj, projectObj);
 

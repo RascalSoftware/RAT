@@ -7,7 +7,7 @@ function obj = createProject(options)
     % absorption terms are included in the refractive index.
     % All of the arguments are optional.
     %
-    % problem = createProject(name='New experiment', calc='non polarised');
+    % project = createProject(name='New experiment', calc='non polarised');
     arguments
         options.name {mustBeTextScalar} = ''
         options.calcType = calculationTypes.NonPolarised

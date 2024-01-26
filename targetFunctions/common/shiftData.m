@@ -3,12 +3,12 @@ function shiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits
 % x-data over the simulation range.
 %
 % INPUTS:
-%     * scalefactor: problem.scalefactors
-%     * qzshift: problem.qzhifts
-%     * dataPresent: problem.dataPresent
-%     * data: problem.data
-%     * dataLimits: problem.dataLimits
-%     * simLimits: problem.simLimits
+%     * scalefactor: problemStruct.scalefactors
+%     * qzshift: problemStruct.qzhifts
+%     * dataPresent: problemStruct.dataPresent
+%     * data: problemStruct.data
+%     * dataLimits: problemStruct.dataLimits
+%     * simLimits: problemStruct.simLimits
 %
 % OUTPUTS:
 %     * shiftedData: Data shifted using given scale factor

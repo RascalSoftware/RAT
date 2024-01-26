@@ -1,10 +1,10 @@
-function problem = unscalePars(problem) 
+function problemStruct = unscalePars(problemStruct) 
 
-limits = problem.fitLimits;
-scaled = problem.fitParams;
+limits = problemStruct.fitLimits;
+scaled = problemStruct.fitParams;
 
 unscaled = (scaled.*(limits(:,2)-limits(:,1)))+limits(:,1);
 
-problem.fitParams = unscaled;
+problemStruct.fitParams = unscaled;
 
 end

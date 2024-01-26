@@ -4,23 +4,20 @@ function ss = reflectivity_fitModel_scaled(theta,data,problem)
 % Calls reflectivity calculation and returns the value of chisquared.
 % Scaled version so the parameters need to be unscaled before use.
                               
-problemDef = problem{1};
+problemStruct = problem{1};
 controls = problem{2};
-problemDefLimits = problem{3};
-problemDefCells = problem{4};
+problemLimits = problem{3};
+problemCells = problem{4};
 
 pars = theta;           % Current parameter values from mcmcstat
-constr = problemDef.fitLimits;
+constr = problemStruct.fitLimits;
 pars = unscalePars(pars,constr);
 
-problemDef.fitParams = pars;
-problemDef = unpackParams(problemDef,controls);
-%setappdata(0,'problem',problem);
-%problem = reflectivityCalculation(problem);
-[problemDef,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
+problemStruct.fitParams = pars;
+problemStruct = unpackParams(problemStruct,controls);
 
-%problem = getappdata(0,'problem');
-ss = problemDef.calculations.sumChi;
+[contrastParams,~] = reflectivityCalculation(problemStruct,problemCells,controls);
+
+ss = contrastParams.calculations.sumChi;
 
 end
-

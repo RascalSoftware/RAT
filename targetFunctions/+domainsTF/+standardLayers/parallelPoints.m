@@ -1,7 +1,7 @@
 
 function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
     simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
-    allRoughs] = parallelPoints(problemDef,problemDefCells,controls)
+    allRoughs] = parallelPoints(problemStruct,problemCells,controls)
 % Single threaded version of the Standard Layers calculation 
 % This is the main reflectivity calculation of the standard layers
 % calculation type. It extracts the required parameters for the contrasts
@@ -15,20 +15,20 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resol
  allData,...
  dataLimits,...
  simLimits,~,...
- layersDetails,~] = parseCells(problemDefCells);
+ layersDetails,~] = parseCells(problemCells);
 
 % Additionally extract the additional domain layers details
-domainContrastLayers = problemDefCells{19};
+domainContrastLayers = problemCells{19};
 
-% Extract individual parameters from problemDef struct
+% Extract individual parameters from problemStruct
 [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
 contrastResolutions, backgroundParam, qzshift, scalefactor, bulkIn, bulkOut, resolutionParam, dataPresent, nParams, params,...
-~, resample, contrastBackgroundsType, ~] =  extractProblemParams(problemDef);
+~, resample, contrastBackgroundsType, ~] =  extractProblemParams(problemStruct);
 
 calcSld = controls.calcSldDuringFit;   
-useImaginary = problemDef.useImaginary;
-allDomainRatios = problemDef.domainRatio;
-contrastDomainRatios = problemDef.contrastDomainRatios;
+useImaginary = problemStruct.useImaginary;
+allDomainRatios = problemStruct.domainRatio;
+contrastDomainRatios = problemStruct.contrastDomainRatios;
 
 domainRatio = 1;    % Default for compile.
 

@@ -25,9 +25,9 @@ function [allSLDs,allRoughs] = processCustomFunction(contrastBackgrounds,contras
         [~,~,~,thisBulkIn,~,~] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParams,qzshifts,scalefactor,bulkIn,bulkOut,res);
 
         if isnan(str2double(functionHandle))
-            [tempAllSLDs{i}, allRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOut, i, 0);
+            [tempAllSLDs{i}, allRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOut(contrastBulkOuts), i, 0);
         else
-            [tempAllSLDs{i}, allRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, bulkOut, i-1, -1);
+            [tempAllSLDs{i}, allRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, bulkOut(contrastBulkOuts), i-1, -1);
         end
     end
 

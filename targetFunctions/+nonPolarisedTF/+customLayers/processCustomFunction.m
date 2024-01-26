@@ -28,9 +28,9 @@ function [allLayers,allRoughs] = processCustomFunction(contrastBackgrounds,contr
         thisContrastLayers = [1 1 1]; % typeDef
         coder.varsize('thisContrastLayers',[10000, 6],[1 1]);
         if isnan(str2double(functionHandle))
-            [thisContrastLayers,allRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOut, i, 0);
+            [thisContrastLayers,allRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOut(contrastBulkOuts), i, 0);
         else
-            [thisContrastLayers, allRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, bulkOut, i-1, -1);
+            [thisContrastLayers, allRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, bulkOut(contrastBulkOuts), i-1, -1);
         end
 
         % If the output layers has 5 columns, then we need to do

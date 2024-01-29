@@ -18,7 +18,8 @@ function [allLayers,allRoughs] = processCustomFunction(contrastBackgrounds,contr
     end
     coder.varsize('tempAllLayers{:}',[10000 6],[1 1]);
     coder.varsize('allLayers{:}',[10000 6],[1 1]);
-
+    
+    allBulkOuts = bulkOut(contrastBulkOuts);
     for i = 1:numberOfContrasts
 
         % Choose which custom file is associated with this contrast
@@ -26,21 +27,21 @@ function [allLayers,allRoughs] = processCustomFunction(contrastBackgrounds,contr
 
         % Find values of 'bulkIn' and 'bulkOut' for this
         % contrast...
-        [~,~,~,thisBulkIn,thisBulkOut,~] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),...
-            contrastBulkOuts(i),contrastResolutions(i),backgroundParams,qzshifts,scalefactor,bulkIn,bulkOut,resolutionParams);
-
         thisContrastLayers1 = [1 1 1]; % typeDef
         coder.varsize('thisContrastLayers1',[10000, 6],[1 1]);
 
         thisContrastLayers2 = [1 1 1]; % typeDef
         coder.varsize('thisContrastLayers2',[10000, 6],[1 1]);
 
+        thisBulkIn = bulkIn(contrastBulkIns(i));
+        thisBulkOut = allBulkOuts(i);
+
         if isnan(str2double(functionHandle))
-            [thisContrastLayers1, allRoughs(i)] = callMatlabFunction(params,i,functionHandle,thisBulkIn,thisBulkOut,numberOfContrasts,1);
-            [thisContrastLayers2, ~] = callMatlabFunction(params,i,functionHandle,thisBulkIn,thisBulkOut,numberOfContrasts,2);
+            [thisContrastLayers1, allRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, allBulkOuts, i, 1);
+            [thisContrastLayers2, ~] = callMatlabFunction(functionHandle, params, thisBulkIn, allBulkOuts, i, 2);
         else
-            [thisContrastLayers1, allRoughs(i)] = callCppFunction(params,thisBulkIn,thisBulkOut,i,0,functionHandle);
-            [thisContrastLayers2, ~] = callCppFunction(params,thisBulkIn,thisBulkOut,i,1,functionHandle);
+            [thisContrastLayers1, allRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, allBulkOuts, i-1, 0);
+            [thisContrastLayers2, ~] = callCppFunction(functionHandle, params, thisBulkIn, allBulkOuts, i-1, 1);
         end
 
         % If the output layers has 5 columns, then we need to do

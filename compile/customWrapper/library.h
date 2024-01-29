@@ -50,7 +50,7 @@ class Library: public CallbackInterface
         };
 
         // Domain overload
-        void invoke(double* params,double *bulk_in,double *bulk_out, int contrast, int domainNumber, double *tempOutput, double *outputSize, double *roughness)
+        void invoke(std::vector<double>& params, std::vector<double>& bulk_in, std::vector<double>& bulk_out, int contrast, int domainNumber, std::vector<double>& tempOutput, double *outputSize, double *roughness)
         {   
             if (!library)
             {
@@ -59,7 +59,7 @@ class Library: public CallbackInterface
             }     
 
             try{
-                auto func = library->get_function<void(double*, double*, double*, int, int, double*, double*, double*)>(functionName);
+                auto func = library->get_function<void(std::vector<double>&, std::vector<double>&, std::vector<double>&, int, int, std::vector<double>&, double*, double*)>(functionName);
                 // pass the arguments to the function
                 func(params, bulk_in, bulk_out, contrast, domainNumber, tempOutput, outputSize, roughness);           
             }catch (const dylib::symbol_error &) {
@@ -69,7 +69,7 @@ class Library: public CallbackInterface
         };
         
         // Non-Domain overload
-        void invoke(double* params,double *bulk_in,double *bulk_out, int contrast, double *tempOutput, double *outputSize, double *roughness)
+        void invoke(std::vector<double>& params, std::vector<double>& bulk_in, std::vector<double>& bulk_out, int contrast, std::vector<double>& tempOutput, double *outputSize, double *roughness)
         {   
             if (!library)
             {
@@ -78,7 +78,7 @@ class Library: public CallbackInterface
             }
             
             try{
-                auto func = library->get_function<void(double*, double*, double*, int, double*, double*, double*)>(functionName);
+                auto func = library->get_function<void(std::vector<double>&, std::vector<double>&, std::vector<double>&, int, std::vector<double>&, double*, double*)>(functionName);
                 // pass the arguments to the function
                 func(params, bulk_in, bulk_out, contrast, tempOutput, outputSize, roughness);           
             }catch (const dylib::symbol_error &) {
@@ -89,4 +89,3 @@ class Library: public CallbackInterface
 };
 
 #endif
-

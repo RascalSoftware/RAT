@@ -14,7 +14,8 @@ function [allSLDs,allRoughs] = processCustomFunction(contrastBackgrounds,contras
         tempAllSLDs{i} = [0 0];
     end
     coder.varsize('tempAllSLDs{:}',[10000 3],[1 1]);    % 3 columns to allow for potential imaginary curve
-
+    
+    allBulkOuts = bulkOut(contrastBulkOuts);
     for i = 1:numberOfContrasts     % TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..
 
         % Choose which custom file is associated with this contrast
@@ -22,12 +23,12 @@ function [allSLDs,allRoughs] = processCustomFunction(contrastBackgrounds,contras
 
         % Find values of 'bulkIn' and 'bulkOut' for this
         % contrast...
-        [~,~,~,thisBulkIn,thisBulkOut,~] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParams,qzshifts,scalefactor,bulkIn,bulkOut,res);
-
+        thisBulkIn = bulkIn(contrastBulkIns(i));
+        
         if isnan(str2double(functionHandle))
-            [tempAllSLDs{i}, allRoughs(i)] = callMatlabFunction(params,i,functionHandle,thisBulkIn,thisBulkOut,numberOfContrasts,0);
+            [tempAllSLDs{i}, allRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, allBulkOuts, i, 0);
         else
-            [tempAllSLDs{i}, allRoughs(i)] = callCppFunction(params,thisBulkIn,thisBulkOut,i,-1,functionHandle);
+            [tempAllSLDs{i}, allRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, allBulkOuts, i-1, -1);
         end
     end
 

@@ -15,7 +15,7 @@ function [allLayers,allRoughs] = processCustomFunction(contrastBackgrounds,contr
     end
     coder.varsize('tempAllLayers{:}',[10000 6],[1 1]);
 
-
+    allBulkOuts = bulkOut(contrastBulkOuts);
     for i = 1:numberOfContrasts     % TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..
 
         % Choose which custom file is associated with this contrast
@@ -23,14 +23,15 @@ function [allLayers,allRoughs] = processCustomFunction(contrastBackgrounds,contr
 
         % Find values of 'bulkIn' and 'bulkOut' for this
         % contrast...
-        [~,~,~,thisBulkIn,thisBulkOut,~] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParam,qzshifts,scalefactor,bulkIn,bulkOut,res);
+        thisBulkIn = bulkIn(contrastBulkIns(i));
+        thisBulkOut = allBulkOuts(i);
 
         thisContrastLayers = [1 1 1]; % typeDef
         coder.varsize('thisContrastLayers',[10000, 6],[1 1]);
         if isnan(str2double(functionHandle))
-            [thisContrastLayers,allRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOut(contrastBulkOuts), i, 0);
+            [thisContrastLayers,allRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, allBulkOuts, i, 0);
         else
-            [thisContrastLayers, allRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, bulkOut(contrastBulkOuts), i-1, -1);
+            [thisContrastLayers, allRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, allBulkOuts, i-1, -1);
         end
 
         % If the output layers has 5 columns, then we need to do

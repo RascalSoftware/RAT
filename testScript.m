@@ -10,10 +10,11 @@ p = CodeCoveragePlugin.forFolder(sourceCodeFolder, ...
                                  'Producing', reportFormat, ...
                                  'IncludingSubfolders', true);
 
+numThreads = feature('numCores');
 disp('Starting Parallel Pool')
 % if parallel pool has already been started, continue with it
 if isempty(gcp('nocreate'))
-    parpool('threads');
+    parpool('threads', numThreads);
 else
     % display how many workers are in the pool
     pool = gcp('nocreate');

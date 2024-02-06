@@ -16,8 +16,11 @@ Index
    
    install
    tutorial
-   reference
+   algorithms
    advanced
+   calcTypes
+   utilities
+   reference
    support
 
 

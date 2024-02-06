@@ -289,7 +289,7 @@ The data can be either a datafile or the simulation object in the data block. On
 
 A complete example
 ..................
-In Chapter 1, we showed an example of a pre-loaded problem definition class, which we used to analyse data from two contrasts of a lipid monolayer. Now, rather than loading in a pre-defined version of this problem we can use our class methods to build this from scratch, and do the same analysis as we did there, but this time from a script.
+In the previous sections, we showed an example of a pre-loaded problem definition class, which we used to analyse data from two contrasts of a lipid monolayer. Now, rather than loading in a pre-defined version of this problem we can use our class methods to build this from scratch, and do the same analysis as we did there, but this time from a script.
 
 To start, we first make an instance of the project class:
 

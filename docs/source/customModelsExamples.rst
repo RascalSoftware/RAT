@@ -1,4 +1,4 @@
-.. _chapter3:
+.. _customModelsExamples:
 
 
 Custom Models
@@ -11,24 +11,6 @@ Again in common with RasCAL, there are two main options for custom modelling:
 * **Custom Layers** - In this method, the parameters are grouped into layers within the script, with the output then defining layers as [d, :math:`\rho`, r] triplets.
 
 * **Custom XY Profile** - In this method the input parameters are used to create a z (in Angstroms) versus SLD curve, from which the reflectivity is calculated. 
-
-.. note::
-    Slight difference between RasCAL and RAT custom models:
-    Custom models are identical between RasCAL and RAT, except for a slight difference between the number of outputs. Historically, rascal models output two parameters, the first being the result of the calculation (custom layers or custom XY), and the second being the bulk roughness:
-
-    .. code:: MATLAB
-
-        [layers, subs_rough] = myCustomModel(params, bulk_in, bulk_out, contrast)
-
-    In RAT, only the result of the calculation is required, as the substrate roughness is a known parameter and so you don't need to return it again. 
-
-    .. code:: MATLAB
-
-        layers = myCustomModel(params, bulk_in, bulk_out, contrast)
-    
-    Otherwise, the model scripts are identical between RasCAL and RAT. 
-        
-    It's important to remove the second output parameter, as this is interpreted as a penalty to be applied to chi-squared, in order to implement model-based constraints, and if this is not what it is, there may be unpredictable results. This is discussed in more detail in Chapter 5.
 
 
 Custom Layers Models - DSPC bilayer example
@@ -408,6 +390,7 @@ To run this, we make a controls block as before, and pass this to RAT. This time
     disp(controls)
 
 .. image:: images/userManual/chapter3/dispControls.png
+    :width: 300
     :alt: Displays the controls
 
 .. code:: MATLAB
@@ -424,3 +407,11 @@ Custom XY Profile Models
 Although many systems can be well described by layers, sometimes these are not the most appropriate. So for example, we may want to incorporate SLD profiles from molecular simulations, or use interfaces that are not error functions. In these cases, a second type of custom model can be used, where instead of the custom model function outputting a list of layers, it builds a continuous SLD profile, which is then microsliced by RAT to calculate the reflectivity. This gives a high degree of flexibility for the type of model that can be generated.
 
 (tbc)
+
+
+
+Custom Models in Python or C++
+===============================
+
+
+

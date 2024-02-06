@@ -1,5 +1,14 @@
+.. _advanced:
+
 ===============
 Advanced Topics
 ===============
-In the next sections you will see advanced features.
+In this section we discuss some of the advanced features of the toolbox:-
+
+
+.. toctree::
+   :maxdepth: 2
+
+   resampling
+   parallelisation
 

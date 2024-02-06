@@ -1,6 +1,7 @@
 #include "mex.h"
 #include <cstring>
 #include <memory>
+#include <functional>
 #include "eventManager.h"
 #include "dylib.hpp"
 
@@ -58,10 +59,10 @@ void eventCallback(const baseEvent& event)
 {   
     mxArray *prhs[2];
     prhs[0] = mxCreateDoubleScalar((double)event.type);
-    if (event.type == MESSAGE) {
+    if (event.type == EventTypes::Message) {
         messageEvent* mEvent = (messageEvent*)&event; 
         prhs[1] = mxCreateString(mEvent->msg);
-    } else if (event.type == PLOT){
+    } else if (event.type == EventTypes::Plot){
         plotEvent* pEvent = (plotEvent*)&event; 
 
         mxArray *reflect = unpackDataToCell(pEvent->data->nContrast, 1, 
@@ -136,16 +137,14 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     // register
     if (!strcmp("register", cmd)) {
-        for ( int type = MESSAGE; type <= PLOT; ++type){
-            if (type == eventType){
-   	            void (*cbPtr)(const baseEvent&) = eventCallback;
-                initDyLib();
-                auto addListener = library->get_function<void(enum eventTypes, void (*)(const baseEvent&))>("addListener");
-                addListener((enum eventTypes)eventType, cbPtr);
-                return;
-            }
-        }
-        mexErrMsgTxt("Event type not recognized.");
+       if (eventType < 0 || eventType > static_cast<int>(EventTypes::Plot)) {
+          mexErrMsgTxt("Event type not recognized.");
+       }
+    
+       initDyLib();
+       auto addListener = library->get_function<void(EventTypes, std::function<void(const baseEvent&)>)>("addListener");
+       addListener(static_cast<EventTypes>(eventType), eventCallback);
+       return;    
     }
     
     mexErrMsgTxt("Command not recognized.");

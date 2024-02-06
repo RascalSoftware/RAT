@@ -16,8 +16,6 @@ function [contrastParams,resultCells] = reflectivityCalculation(problemStruct,pr
 % * magnetic       - Target function for cases for polarised neutrons with polarisation analysis.
 %                       
 
-% triggerEvent('message', 'Running reflectivity calculation...');
-
 % for compilation, we have to preallocate memory for the output arrays
 % Setting these parameters in the struct defines them as doubles
 contrastParams.ssubs = 0;

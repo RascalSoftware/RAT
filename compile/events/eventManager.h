@@ -22,7 +22,7 @@ LIB_EXPORT void sendMessage(const char* msg);
 
 LIB_EXPORT void notify(const baseEvent& event);
 
-LIB_EXPORT void addListener(enum eventTypes type, const callback fn);
+LIB_EXPORT void addListener(EventTypes type, const std::function<void(const baseEvent&)> fn);
 
 LIB_EXPORT void clearListeners();
 

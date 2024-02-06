@@ -36,12 +36,12 @@ LIB_EXPORT void notify(const baseEvent& event)
 	eventManager::get_instance()->notify(event);
 }
 
-LIB_EXPORT void addListener(enum eventTypes type, const callback fn)
+LIB_EXPORT void addListener(EventTypes type, const std::function<void(const baseEvent&)> fn)
 {
-    if (type == MESSAGE)
-	    eventManager::get_instance()->addListener(MESSAGE, fn);
-    else if (type == PLOT)
-        eventManager::get_instance()->addListener(PLOT, fn);
+    if (type == EventTypes::Message)
+	    eventManager::get_instance()->addListener(EventTypes::Message, fn);
+    else if (type == EventTypes::Plot)
+        eventManager::get_instance()->addListener(EventTypes::Plot, fn);
 }
 
 LIB_EXPORT void clearListeners()
@@ -53,7 +53,7 @@ LIB_EXPORT bool hasPlotHandler()
 {   
     auto names = eventManager::get_instance()->getEventNames();
 	for(unsigned i=0; i < names.size(); i++) {
-        if (names[i] == PLOT)
+        if (names[i] == EventTypes::Plot)
             return true;
     }
     return false;

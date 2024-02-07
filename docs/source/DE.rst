@@ -40,6 +40,8 @@ fWeight - A weighting value controlling the stepsize of mutations.
 
 strategy - The algorithm used (see below).
 
+Target Value - The value of chi-squared to aim for (algorithm will terminate if this is reached).
+
 
 DE is also somewhat sensitive to
 the choice of the stepsize fWeight. A good initial guess is to

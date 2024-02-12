@@ -24,6 +24,7 @@ devProjects/
 -lang*
 paramonte_out/
 codegen/
+cppDeploy/
 *.mexa64
 *.mexw64
 *.mexmaci64

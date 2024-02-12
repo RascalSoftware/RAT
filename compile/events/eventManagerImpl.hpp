@@ -3,14 +3,15 @@
 
 #include <mutex>
 #include <vector>
+#include <functional>
 
 /* 
   Implementation of a singleton event manager with support for multiple 
   event types.
 */
-enum eventTypes {
-  MESSAGE,
-  PLOT
+enum class EventTypes {
+  Message,
+  Plot
 }; 
 
 
@@ -36,23 +37,20 @@ struct plotData {
 
 
 struct baseEvent {
-    enum eventTypes type;
-    baseEvent(enum eventTypes type) : type(type) {}
+    EventTypes type;
+    baseEvent(EventTypes type) : type(type) {}
     virtual ~baseEvent() {}
 };
 
 struct messageEvent : baseEvent {
     const char* msg;
-    messageEvent(const char* msg) : baseEvent(MESSAGE), msg(msg) {}
+    messageEvent(const char* msg) : baseEvent(EventTypes::Message), msg(msg) {}
 };
 
 struct plotEvent : baseEvent {
     const plotData* data;
-    plotEvent(const plotData* data) : baseEvent(PLOT),  data(data) {}
+    plotEvent(const plotData* data) : baseEvent(EventTypes::Plot),  data(data) {}
 };
-
-
-typedef void (*callback) (const baseEvent&);
 		     
 		     	      
 class eventManager
@@ -63,9 +61,9 @@ public:
     eventManager& operator=(eventManager const&) = delete;
     ~eventManager() {}
     
-    const std::vector<enum eventTypes>& getEventNames()const {return eventNames;}
+    const std::vector<EventTypes>& getEventNames()const {return eventNames;}
 
-    void addListener(enum eventTypes type, const callback fn) {
+    void addListener(EventTypes type, const std::function<void(const baseEvent&)> fn) {
        std::lock_guard<std::mutex> lock(m_mutex);
 	   eventNames.push_back(type);
        eventHandlers.push_back(fn);
@@ -93,8 +91,8 @@ public:
 
 private:
     explicit eventManager() {}
-    std::vector<enum eventTypes> eventNames;
-    std::vector<void (*)(const baseEvent&)> eventHandlers;
+    std::vector<EventTypes> eventNames;
+    std::vector<std::function<void(const baseEvent&)>> eventHandlers;
     std::mutex m_mutex;
 };
 

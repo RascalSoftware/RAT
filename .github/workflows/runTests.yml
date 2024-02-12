@@ -55,11 +55,11 @@ jobs:
       with:
         ref: generated_source
         path: rat_source
-    - name: Deploy Souce
+    - name: Deploy Source
       run: |
         wget https://github.com/RascalSoftware/RAT/releases/download/nightly/Linux.zip
         unzip Linux.zip
-        rm -rf rat_source/*.c rat_source/*.cpp rat_source/*.h
+        rm -rf rat_source/*.c rat_source/*.cpp rat_source/*.h rat_source/*.hpp
         rsync -av compile/fullCompile/cppDeploy/ rat_source/
         cd rat_source
         git config user.name github-actions

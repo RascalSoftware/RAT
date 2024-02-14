@@ -27,9 +27,9 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         outputs                    % Test output parameters read from file
         TFParams                   % Test TF Parameters read from file
         project                    % Input projectClass object
-        problemStruct           % Input parameters for the test problem
-        problemCells            % Input cell arays for the test problem
-        problemLimits           % Input limits for the test problem
+        problemStruct              % Input parameters for the test problem
+        problemCells               % Input cell arays for the test problem
+        problemLimits              % Input limits for the test problem
         priors                     % Input priors for the test problem
         controlsInput              % Instrument controls class for the input problem
         controls                   % Instrument controls struct for the input problem
@@ -357,16 +357,16 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testParseResultToStruct(testCase)
-            resultStruct = parseResultToStruct(testCase.expectedContrastParams, testCase.expectedResultCells);
+            resultStruct = parseResultToStruct(testCase.expectedContrastParamsMain, testCase.expectedResultCellsMain);
             testCase.verifyEqual(resultStruct, testCase.expectedResultStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
 
-            testCase.verifyEqual(resultStruct.reflectivity, testCase.expectedResultCells{1}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(resultStruct.simulation, testCase.expectedResultCells{2}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(resultStruct.shiftedData, testCase.expectedResultCells{3}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(resultStruct.layerSlds, testCase.expectedResultCells{4}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(resultStruct.sldProfiles, testCase.expectedResultCells{5}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(resultStruct.allLayers, testCase.expectedResultCells{6}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(resultStruct.calculationResults, testCase.expectedContrastParams.calculations, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(resultStruct.reflectivity, testCase.expectedResultCellsMain{1}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(resultStruct.simulation, testCase.expectedResultCellsMain{2}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(resultStruct.shiftedData, testCase.expectedResultCellsMain{3}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(resultStruct.layerSlds, testCase.expectedResultCellsMain{4}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(resultStruct.sldProfiles, testCase.expectedResultCellsMain{5}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(resultStruct.allLayers, testCase.expectedResultCellsMain{6}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(resultStruct.calculationResults, testCase.expectedContrastParamsMain.calculations, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
         function testParseOutToProjectClass(testCase)

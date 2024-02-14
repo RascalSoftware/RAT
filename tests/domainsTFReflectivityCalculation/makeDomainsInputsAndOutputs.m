@@ -36,7 +36,7 @@ outputs.contrastParamsMain = contrastParamsMain;
 outputs.resultCellsMain = resultCellsMain;
 outputs.bayesResults = bayesResults;
 
-resultStruct = parseResultToStruct(contrastParams,resultCells);
+resultStruct = parseResultToStruct(contrastParamsMain,resultCellsMain);
 
 outputs.resultStruct = resultStruct;
 
@@ -107,7 +107,7 @@ outputs.contrastParamsMain = contrastParamsMain;
 outputs.resultCellsMain = resultCellsMain;
 outputs.bayesResults = bayesResults;
 
-resultStruct = parseResultToStruct(contrastParams,resultCells);
+resultStruct = parseResultToStruct(contrastParamsMain,resultCellsMain);
 
 outputs.resultStruct = resultStruct;
 
@@ -178,7 +178,7 @@ outputs.contrastParamsMain = contrastParamsMain;
 outputs.resultCellsMain = resultCellsMain;
 outputs.bayesResults = bayesResults;
 
-resultStruct = parseResultToStruct(contrastParams,resultCells);
+resultStruct = parseResultToStruct(contrastParamsMain,resultCellsMain);
 
 outputs.resultStruct = resultStruct;
 

@@ -29,14 +29,13 @@ save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customLay
 outputs.contrastParams = contrastParams;
 outputs.resultCells = resultCells;
 
-[problemStruct,contrastParamsMain,resultCellsMain,bayesResults] = RATMain(problemStruct,problemCells,problemLimits,controls,priors);
+[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemCells,problemLimits,controls,priors);
 
 outputs.problemStruct = problemStruct;
-outputs.contrastParamsMain = contrastParamsMain;
-outputs.resultCellsMain = resultCellsMain;
+outputs.resultStructMain = resultStructMain;
 outputs.bayesResults = bayesResults;
 
-resultStruct = parseResultToStruct(contrastParamsMain,resultCellsMain);
+resultStruct = parseResultToStruct(contrastParams,resultCells);
 
 outputs.resultStruct = resultStruct;
 
@@ -58,9 +57,9 @@ TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.allLayers = allLayers;
 
-[outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
- simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
- allRoughs] = nonPolarisedTF.customLayers.single(problemStruct,problemCells,controls);
+[outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,...
+ resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,...
+ sldProfiles,allLayers,allRoughs] = nonPolarisedTF.customLayers.single(problemStruct,problemCells,controls);
 
 TFParams.outSsubs = outSsubs;
 TFParams.backgroundParams = backgroundParams;
@@ -100,14 +99,13 @@ save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customXYI
 outputs.contrastParams = contrastParams;
 outputs.resultCells = resultCells;
 
-[problemStruct,contrastParamsMain,resultCellsMain,bayesResults] = RATMain(problemStruct,problemCells,problemLimits,controls,priors);
+[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemCells,problemLimits,controls,priors);
 
 outputs.problemStruct = problemStruct;
-outputs.contrastParamsMain = contrastParamsMain;
-outputs.resultCellsMain = resultCellsMain;
+outputs.resultStructMain = resultStructMain;
 outputs.bayesResults = bayesResults;
 
-resultStruct = parseResultToStruct(contrastParamsMain,resultCellsMain);
+resultStruct = parseResultToStruct(contrastParams,resultCells);
 
 outputs.resultStruct = resultStruct;
 
@@ -130,8 +128,8 @@ TFParams.sldProfiles = sldProfiles;
 TFParams.allLayers = allLayers;
 
 [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,...
- resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
- allRoughs] = nonPolarisedTF.customXY.single(problemStruct,problemCells,controls);
+ resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,...
+ sldProfiles,allLayers, allRoughs] = nonPolarisedTF.customXY.single(problemStruct,problemCells,controls);
 
 TFParams.outSsubs = outSsubs;
 TFParams.backgroundParams = backgroundParams;
@@ -171,14 +169,13 @@ save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'standardL
 outputs.contrastParams = contrastParams;
 outputs.resultCells = resultCells;
 
-[problemStruct,contrastParamsMain,resultCellsMain,bayesResults] = RATMain(problemStruct,problemCells,problemLimits,controls,priors);
+[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemCells,problemLimits,controls,priors);
 
 outputs.problemStruct = problemStruct;
-outputs.contrastParamsMain = contrastParamsMain;
-outputs.resultCellsMain = resultCellsMain;
+outputs.resultStructMain = resultStructMain;
 outputs.bayesResults = bayesResults;
 
-resultStruct = parseResultToStruct(contrastParamsMain,resultCellsMain);
+resultStruct = parseResultToStruct(contrastParams,resultCells);
 
 outputs.resultStruct = resultStruct;
 
@@ -201,8 +198,8 @@ TFParams.sldProfiles = sldProfiles;
 TFParams.allLayers = allLayers;
 
 [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,...
- resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
- allRoughs] = nonPolarisedTF.standardLayers.single(problemStruct,problemCells,controls);
+ resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,...
+ sldProfiles,allLayers,allRoughs] = nonPolarisedTF.standardLayers.single(problemStruct,problemCells,controls);
 
 TFParams.outSsubs = outSsubs;
 TFParams.backgroundParams = backgroundParams;

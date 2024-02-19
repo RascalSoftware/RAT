@@ -16,24 +16,15 @@ if ~strcmpi(controls.display,'off')
 end
 
 tic
-[problemStruct,contrastParams,resultCells,bayesResults] = RATMain_mex(problemStruct,problemCells,problemLimits,controls,priors);
+[problemStruct,result,bayesResults] = RATMain_mex(problemStruct,problemCells,problemLimits,controls,priors);
 
 if ~strcmpi(controls.display,'off')
     toc
 end
 
-result = parseResultToStruct(contrastParams,resultCells);
-
-if isfield(problemStruct,'fitParams')
-    result.bestFitPars = problemStruct.fitParams;
-end
-
 if any((strcmpi(controls.procedure,{'bayes','NS','dream'})))
     result = mergeStructs(result, bayesResults);
 end
-
-[~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
-result.fitNames = fitNames;
 
 project = parseOutToProjectClass(project,problemStruct);
 

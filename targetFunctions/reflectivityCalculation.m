@@ -30,7 +30,7 @@ contrastParams.calculations.sumChi = 0;
 contrastParams.allSubRough = 0;
 contrastParams.resample = 0;
 
-% We also foll the results arrays to define their
+% We also fill the results arrays to define their
 % type and size. (NOTE: at the moment we have a 'coder.varsize'
 % pre-processor directives for the compiler here and at the 
 % end for the results block. We are unlikely to need both

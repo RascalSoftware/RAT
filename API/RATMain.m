@@ -1,8 +1,8 @@
-function [problemStruct,contrastParams,resultCells,bayesResults] = RATMain(problemStruct,problemCells,problemLimits,controls,priors)
+function [problemStruct,result,bayesResults] = RATMain(problemStruct,problemCells,problemLimits,controls,priors)
 
-result = cell(1,1);
-result{1} = {1};
-resultCells = repmat(result,1,6);
+resultCell = cell(1,1);
+resultCell{1} = {1};
+resultCells = repmat(resultCell,1,6);
 
 numberOfContrasts = problemStruct.numberOfContrasts;
 preAlloc = zeros(numberOfContrasts,1);
@@ -59,5 +59,15 @@ if ~controls.calcSldDuringFit
     controls.procedure = 'calculate';
     [contrastParams,resultCells] = reflectivityCalculation(problemStruct,problemCells,controls);
 end
+
+% Construct the result struct
+result = parseResultToStruct(contrastParams,resultCells);
+
+if isfield(problemStruct,'fitParams')
+    result.bestFitPars = problemStruct.fitParams;
+end
+
+[~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
+result.fitNames = fitNames;
 
 end

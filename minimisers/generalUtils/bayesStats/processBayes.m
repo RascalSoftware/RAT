@@ -16,7 +16,8 @@ parConfInts = prctileConfInts(bayesOutputs.chain);   %iterShortest(output.chain,
 
 % Calculate 'mean' best fit curves
 [contrastParams,result] = reflectivityCalculation(problemStruct,problemCells,controlsStruct);
-p = parseResultToStruct(contrastParams,result);
+[~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controlsStruct.checks);
+p = parseResultToStruct(contrastParams,result,problemStruct.fitParams,fitNames);
 bestFitMean.ref = p.reflectivity;
 bestFitMean.sld = p.sldProfiles;
 bestFitMean.chi = p.calculationResults.sumChi;

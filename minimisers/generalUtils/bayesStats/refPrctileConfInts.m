@@ -22,7 +22,8 @@ problemStruct = unpackParams(problemStruct,controlsStruct);
 
 % 'result' is currently a cell array. Convert this to a struct because it's
 % easier to work with fieldnames...
-calcResult = parseResultToStruct(calcContrastParams,calcResult);
+[~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controlsStruct.checks);
+calcResult = parseResultToStruct(calcContrastParams,calcResult,problemStruct.fitParams,fitNames);
 
 thisRef = calcResult.reflectivity;
 thisSld = calcResult.sldProfiles;
@@ -111,7 +112,8 @@ for i = 1:nsample
 
     % 'result' is currently a cell array. Convert this to a struct because it's
     % easier to work with fieldnames...
-    calcResult = parseResultToStruct(calcContrastParams,calcResult);
+    [~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controlsStruct.checks);
+    calcResult = parseResultToStruct(calcContrastParams,calcResult,problemStruct.fitParams,fitNames);
     
     thisRef = calcResult.reflectivity;
     thisSld = calcResult.sldProfiles;

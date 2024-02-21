@@ -34,7 +34,8 @@ controls.calcSldDuringFit = true;
 problemStruct.fitParams = bestFitPars;
 problemStruct = unpackParams(problemStruct,controls);
 [contrastParams,result] = reflectivityCalculation(problemStruct,problemCells,controls);
-result = parseResultToStruct(contrastParams,result);
+[~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
+result = parseResultToStruct(contrastParams,result,problemStruct.fitParams,fitNames);
 
 ref.bestSlds = result.sldProfiles;
 ref.bestRefs = result.reflectivity;

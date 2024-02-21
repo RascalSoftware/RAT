@@ -35,7 +35,8 @@ outputs.problemStruct = problemStruct;
 outputs.resultStructMain = resultStructMain;
 outputs.bayesResults = bayesResults;
 
-resultStruct = parseResultToStruct(contrastParams,resultCells);
+[~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
+resultStruct = parseResultToStruct(contrastParams,resultCells,problemStruct.fitParams,fitNames);
 
 outputs.resultStruct = resultStruct;
 
@@ -105,7 +106,8 @@ outputs.problemStruct = problemStruct;
 outputs.resultStructMain = resultStructMain;
 outputs.bayesResults = bayesResults;
 
-resultStruct = parseResultToStruct(contrastParams,resultCells);
+[~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
+resultStruct = parseResultToStruct(contrastParams,resultCells,problemStruct.fitParams,fitNames);
 
 outputs.resultStruct = resultStruct;
 
@@ -175,7 +177,8 @@ outputs.problemStruct = problemStruct;
 outputs.resultStructMain = resultStructMain;
 outputs.bayesResults = bayesResults;
 
-resultStruct = parseResultToStruct(contrastParams,resultCells);
+[~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
+resultStruct = parseResultToStruct(contrastParams,resultCells,problemStruct.fitParams,fitNames);
 
 outputs.resultStruct = resultStruct;
 

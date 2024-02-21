@@ -61,13 +61,7 @@ if ~controls.calcSldDuringFit
 end
 
 % Construct the result struct
-result = parseResultToStruct(contrastParams,resultCells);
-
-if isfield(problemStruct,'fitParams')
-    result.bestFitPars = problemStruct.fitParams;
-end
-
 [~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
-result.fitNames = fitNames;
+result = parseResultToStruct(contrastParams,resultCells,problemStruct.fitParams,fitNames);
 
 end

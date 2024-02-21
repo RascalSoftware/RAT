@@ -1,4 +1,4 @@
-function result = parseResultToStruct(contrastParams,resultCells)
+function result = parseResultToStruct(contrastParams,resultCells,fitParams,fitNames)
 
 result.reflectivity = resultCells{1};   % Reflectivity art points
 result.simulation = resultCells{2};     % Reflectivity between sim limits    
@@ -12,5 +12,8 @@ result.calculationResults = contrastParams.calculations;
 % For compile, we can't remove a field, so just clear it for now...
 %contrastParams = rmfield(contrastParams,'calculations');
 result.contrastParams = contrastParams;
+
+result.bestFitPars = fitParams;
+result.fitNames = fitNames;
 
 end

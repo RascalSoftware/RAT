@@ -17,8 +17,13 @@ end
 % Check options are valid and make empty instance of projectClass
 invalidModelMessage = sprintf('modelType must be a modelTypes enum or one of the following strings (%s)', ...
                              strjoin(modelTypes.values(), ', '));
-problem.module.type = validateOption(problem.module.type, 'modelTypes', invalidModelMessage).value;
 
+% Rascal name for custom XY differs from RAT
+if strcmpi(problem.module.type,'custom XY profile')
+    problem.module.type = 'custom xy';
+end
+
+problem.module.type = validateOption(problem.module.type, 'modelTypes', invalidModelMessage).value;
 thisProjectClass = createProject(name=projectName, model=problem.module.type);
 
 % Set geometry

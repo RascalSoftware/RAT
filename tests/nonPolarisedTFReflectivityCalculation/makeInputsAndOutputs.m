@@ -154,6 +154,7 @@ controlsInput = controlsClass();
 controlsInput.display = 'off';
 
 [problemStruct,problemCells,problemLimits,priors,controls] = parseClassToStructs(standardProblem,controlsInput);
+[problemStruct,~] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
 
 inputs.project = standardProblem;
 inputs.problemStruct = problemStruct;

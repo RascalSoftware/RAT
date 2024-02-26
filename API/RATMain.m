@@ -24,6 +24,7 @@ else
     domains = false;
 end
 
+result = makeEmptyResultStruct(length(problemStruct.fitParams), problemStruct.numberOfContrasts, domains);
 bayesResults = makeEmptyBayesResultsStruct(1.0e3, problemStruct.numberOfContrasts, domains, controls.nChains);
 
 %Decide what we are doing....

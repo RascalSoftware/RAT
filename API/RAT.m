@@ -1,7 +1,6 @@
 function [project,result] = RAT(project,controls)
 
 [problemStruct,problemCells,problemLimits,priors,controls] = parseClassToStructs(project,controls);
-[problemStruct,~] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
 
 % Set controls.calcSLD to 1 if we are doing customXY
 switch lower(problemStruct.modelType)

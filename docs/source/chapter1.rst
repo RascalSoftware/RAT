@@ -36,8 +36,8 @@ In the next section, we will look at an example calculation, in order to introdu
     the *problemDef* class. These are (those in italics not initial release):
 
     * Standard Problem: Problem types which are well described by a non-polarised beam, with no absorption (i.e., real refractive index only). 
-    * *Standard Problem with Absorption*
-    * *Domains Problem Type*
+    * Standard Problem with Absorption
+    * Domains Problem Type
     * *Oil/Water problem type*
     * *Polarised problem type*
 

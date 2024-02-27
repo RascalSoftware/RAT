@@ -398,4 +398,7 @@ end
 
 controls.checks = checks;
 
+%% Finally, populate the fitParams, otherParams, fitLimits, otherLimits arrays
+[problemStruct,~] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
+
 end

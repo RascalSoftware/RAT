@@ -42,7 +42,7 @@
           testCase.verifyEqual(eventManager.getEvents(), {0, 0},  'eventManager.register is not working');
           testCase.verifyEqual(eventManager.getHandlers(), {"disp", 'fprintf'}, 'eventManager.register is not working');
           testCase.verifyEqual(mockFn.callCount, 1);
-          eventManager.register(eventTypes.Plot, 'plot');
+          eventManager.register(eventTypes.Plot, 'plot'); 
           testCase.verifyEqual(eventManager.getEvents(), {0, 0, 1},  'eventManager.register is not working');
           testCase.verifyEqual(eventManager.getHandlers(), {"disp", 'fprintf', 'plot'}, 'eventManager.register is not working');
           testCase.verifyEqual(mockFn.callCount, 2);
@@ -79,7 +79,7 @@
           
           plotFn.exceptionID = 'RAT:invalidValue'; 
           display = evalc('eventManager.notify(1, "plotting")');
-          testCase.verifyTrue(startsWith(display, 'EVENTMANAGER: calling fakePlot function failed because'));
+          testCase.verifyTrue(startsWith(display, 'EVENTMANAGER: calling fakePlot function failed on line 35 because'));
           testCase.verifyEqual(printFn.callCount, 0);
           testCase.verifyEqual(plotFn.callCount, 2);
           testCase.verifyEqual(plotFn.arguments{end}{1}, "plotting"); 

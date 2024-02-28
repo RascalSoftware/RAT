@@ -1,11 +1,15 @@
-function triggerEvent(eventType, data)
-    % Triggers the event type with the given data. The supported event types are
-    % 'message', 'plot', and 'progress'. The data for message is a char
-    % array, for the plot it is a cell array containing the result cell, 
-    % contrastParams.ssubs and problemStruct, and for progress data is cell
-    % array contain the progress message and precentage.
+function triggerEvent(eventType, varargin)
+    % Triggers the event type with the given varargin. The supported event types are
+    % 0, 1, and 2. 
+    % * The input for the message event is a char array, 
+    % * The input for the plot event are the result cell, contrastParams.ssubs 
+    %   and problemStruct 
+    % * The input for progress events are the message (char array) and percentage 
+    %   value (double) btw 0 and 1.
     % 
-    % triggerEvent('message', 'Hello world');
+    % triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
+    % triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
+    % triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     persistent notified;
     persistent helper;
 
@@ -15,13 +19,27 @@ function triggerEvent(eventType, data)
     if isempty(notified)
         notified = false;
     end
-
-    if coder.target('MATLAB')
-         if strcmpi(eventType, 'message')
-             fprintf("%s", data);
-         elseif strcmpi(eventType, 'progress')
-             textProgressBar(data{1}, data{2});
-         end
+    coder.extrinsic('textProgressBar');
+    coder.extrinsic('eventManager.notify')
+    if coder.target('MATLAB') || coder.target('MEX')
+        if eventType == coderEnums.eventTypes.Message
+            fprintf("%s", varargin{1});
+        elseif eventType == coderEnums.eventTypes.Progress
+            textProgressBar(varargin{1}, varargin{2});
+        elseif eventType == coderEnums.eventTypes.Plot
+            result = varargin{1};
+            problemStruct = varargin{2};
+            plotData.reflectivity = result.reflectivity;
+            plotData.shiftedData = result.shiftedData;
+            plotData.sldProfiles = result.sldProfiles;
+            plotData.allLayers = result.allLayers;
+            plotData.ssubs = result.contrastParams.ssubs;
+            plotData.resample = problemStruct.resample;
+            plotData.dataPresent = problemStruct.dataPresent;
+            plotData.modelType = problemStruct.modelType;
+             
+            eventManager.notify(eventType, plotData);
+        end
     else       
         coder.cinclude('eventHelper.hpp');
         coder.updateBuildInfo('addLinkFlags','-ldl');
@@ -37,17 +55,18 @@ function triggerEvent(eventType, data)
         
         initialised = coder.ceval('std::mem_fn(&eventHelper::isInitialised)', helper);
         if initialised
-            if strcmpi(eventType, 'message')
-                coder.ceval('std::mem_fn(&eventHelper::sendMessage)', helper, [data,0]);
-            elseif strcmpi(eventType, 'progress')
-                coder.ceval('std::mem_fn(&eventHelper::updateProgress)', helper, [data{1},0], data{2});
-            elseif strcmpi(eventType, 'plot')
+            if eventType == coderEnums.eventTypes.Message
+                coder.ceval('std::mem_fn(&eventHelper::sendMessage)', helper, [varargin{1},0]);
+            elseif eventType == coderEnums.eventTypes.Progress
+                coder.ceval('std::mem_fn(&eventHelper::updateProgress)', helper, [varargin{1},0], varargin{2});
+            elseif eventType == coderEnums.eventTypes.Plot
                 hasPlotHandler = coder.ceval('std::mem_fn(&eventHelper::hasPlotHandler)', helper);
                 if ~hasPlotHandler
                     return;
                 end
-                result = data{1};
-                problemStruct = data{2};
+
+                result = varargin{1};
+                problemStruct = varargin{2};
                 ssubs = result.contrastParams.ssubs;
                 nContrast = length(result.reflectivity);
                 [reflect, nReflect] = packCellArray(result.reflectivity, 1);
@@ -82,8 +101,8 @@ function triggerEvent(eventType, data)
                 notified = true;
             end
             
-            if strcmpi(eventType, 'message')
-                fprintf("%s", data);    
+            if eventType == coderEnums.eventTypes.Message
+                fprintf("%s", varargin{1});    
             end
         end
     end

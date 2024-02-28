@@ -1,5 +1,9 @@
 classdef eventTypes < customEnum
     methods (Static)
+        function s = toStruct()
+            s = customEnum.toStruct('eventTypes');
+        end
+        
         function v = values()
             v = customEnum.values('eventTypes');
         end

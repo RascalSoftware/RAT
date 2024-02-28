@@ -110,7 +110,7 @@ classdef eventManager < handle
                         funcHandle = str2func(handlers{i});
                         funcHandle(data);
                     catch ME
-                        fprintf('EVENTMANAGER: calling %s function failed because: \n\n %s\n', handlers{i}, ME.message);
+                        fprintf('EVENTMANAGER: calling %s function failed on line %d because: \n\n %s\n', handlers{i}, ME.stack(1).line, ME.message);
                     end
                 end
             end

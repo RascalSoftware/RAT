@@ -479,7 +479,7 @@ end
 
 rej=0; reju=0; ii=1; rejl = 0;
 %% setup waitbar
-if wbarupd; textProgressBar('init',0); end
+if wbarupd; triggerEvent('progress', {'init', 0}); end
 
 % covariance update uses these to store previous values
 covchain = []; meanchain = []; wsum = initqcovn; lasti = 0;
@@ -887,7 +887,7 @@ if dostats && (saveit == 1 || savesize >= nsimu)
   end
 end
 
-textProgressBar('end',1);
+triggerEvent('progress', {'end', 1});
 
 
 
@@ -994,7 +994,7 @@ end
 function status=wbar(i,nsimu)
     
     pct = i/nsimu;
-    textProgressBar('Bayes:',pct);
+    triggerEvent('progress', {'Bayes:', pct});
     status = 1;
     
     
@@ -1008,7 +1008,7 @@ function status=wbar(i,nsimu)
 %  case 'init'
 % %   hdl=waitbar(0,'Generating chain...','CreateCancelBtn','delete(gcbf)');
 % %   set(hdl,'Name','MCMC status');
-%   textProgressBar('Bayes:',0);
+%   triggerEvent('progress', {'Bayes:', 0});
 % 
 % 
 % 

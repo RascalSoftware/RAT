@@ -12,5 +12,6 @@ classdef eventTypes < customEnum
     enumeration
         Message (0)
         Plot (1)
+        Progress (2)
     end
 end

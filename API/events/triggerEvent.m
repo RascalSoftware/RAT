@@ -1,7 +1,9 @@
 function triggerEvent(eventType, data)
     % Triggers the event type with the given data. The supported event types are
-    % 'message' and 'plot'. The data for message is a char array while for
-    % the plot it is a cell array containing the result and problem structs
+    % 'message', 'plot', and 'progress'. The data for message is a char
+    % array, for the plot it is a cell array containing the result cell, 
+    % contrastParams.ssubs and problemStruct, and for progress data is cell
+    % array contain the progress message and precentage.
     % 
     % triggerEvent('message', 'Hello world');
     persistent notified;
@@ -17,6 +19,8 @@ function triggerEvent(eventType, data)
     if coder.target('MATLAB')
          if strcmpi(eventType, 'message')
              fprintf("%s", data);
+         elseif strcmpi(eventType, 'progress')
+             textProgressBar(data{1}, data{2});
          end
     else       
         coder.cinclude('eventHelper.hpp');
@@ -35,6 +39,8 @@ function triggerEvent(eventType, data)
         if initialised
             if strcmpi(eventType, 'message')
                 coder.ceval('std::mem_fn(&eventHelper::sendMessage)', helper, [data,0]);
+            elseif strcmpi(eventType, 'progress')
+                coder.ceval('std::mem_fn(&eventHelper::updateProgress)', helper, [data{1},0], data{2});
             elseif strcmpi(eventType, 'plot')
                 hasPlotHandler = coder.ceval('std::mem_fn(&eventHelper::hasPlotHandler)', helper);
                 if ~hasPlotHandler

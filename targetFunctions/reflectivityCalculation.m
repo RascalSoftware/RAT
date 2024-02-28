@@ -1,4 +1,4 @@
-function [contrastParams,resultCells] = reflectivityCalculation(problemStruct,problemCells,controls)
+function result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls)
 % Main entry point into the reflectivity calculation for the toolbox.
 % This is the main function that is called by any of the minimisers or
 % analysis tools from the rest of the toolbox. 
@@ -197,14 +197,14 @@ coder.varsize('contrastParams.allSubRough',[Inf 1],[1 0]);
 coder.varsize('contrastParams.resample',[1 Inf],[0 1]);
 
 %Result coder definitions....
-coder.varsize('result{1}',[Inf 1],[1 0]);           %Reflectivity
-coder.varsize('result{1}{:}',[Inf 2],[1 0]);
-
-coder.varsize('result{2}',[Inf 1],[1 0]);           %simulation
-coder.varsize('result{2}{:}',[Inf 2],[1 0]);
-
-coder.varsize('result{3}',[Inf 1],[1 0]);           %Shifted data
-coder.varsize('result{3}{:}',[Inf 3],[1 0]);
+% coder.varsize('result{1}',[Inf 1],[1 0]);           %Reflectivity
+% coder.varsize('result{1}{:}',[Inf 2],[1 0]);
+% 
+% coder.varsize('result{2}',[Inf 1],[1 0]);           %simulation
+% coder.varsize('result{2}{:}',[Inf 2],[1 0]);
+% 
+% coder.varsize('result{3}',[Inf 1],[1 0]);           %Shifted data
+% coder.varsize('result{3}{:}',[Inf 3],[1 0]);
 
 % coder.varsize('result{4}',[Inf 2],[1 1]);           %Layers slds
 % coder.varsize('result{4}{:}',[Inf 6],[1 1]);
@@ -214,4 +214,9 @@ coder.varsize('result{3}{:}',[Inf 3],[1 0]);
 
 % coder.varsize('result{6}',[Inf 2],[1 1]);           %All layers (resampled)
 % coder.varsize('result{6}{:}',[Inf 3],[1 0]);
+
+% Construct the result struct
+[~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
+result = parseResultToStruct(contrastParams,resultCells,problemStruct.fitParams,fitNames);
+
 end

@@ -67,13 +67,11 @@ for n = 1:numberOfContrasts
 %         problem.fitParams = thisRow;
 %         problem = unpackParams(problem);
 %         % setappdata(0,'problem',problem);
-%         problem = reflectivityCalculation(problem);
+%         result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
         % problem = getappdata(0,'problem');
         problemStruct.fitParams = thisRow;
         problemStruct = unpackParams(problemStruct,controls);
-        [contrastParams,result] = reflectivityCalculation(problemStruct,problemCells,controls);
-        [~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
-        result = parseResultToStruct(contrastParams,result,problemStruct.fitParams,fitNames);
+        result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 
 %         ref.bestSlds = result.sldProfiles;
 %         ref.bestRefs = result.reflectivity;

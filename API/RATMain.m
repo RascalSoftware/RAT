@@ -30,27 +30,27 @@ bayesResults = makeEmptyBayesResultsStruct(1.0e3, problemStruct.numberOfContrast
 %Decide what we are doing....
 switch lower(controls.procedure)
     case 'calculate' %Just a single reflectivity calculation
-        [contrastParams,resultCells] = reflectivityCalculation(problemStruct,problemCells,controls);
+        result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
     case 'simplex'
         if ~strcmpi(controls.display,'off')
             fprintf('\nRunning simplex\n\n');
         end
-        [problemStruct,contrastParams,resultCells] = runSimplex(problemStruct,problemCells,problemLimits,controls);
+        [problemStruct,result] = runSimplex(problemStruct,problemCells,problemLimits,controls);
     case 'de'
         if ~strcmpi(controls.display,'off')
             fprintf('\nRunning Differential Evolution\n\n');
         end
-        [problemStruct,contrastParams,resultCells] = runDE(problemStruct,problemCells,problemLimits,controls);
+        [problemStruct,result] = runDE(problemStruct,problemCells,problemLimits,controls);
     case 'ns'
         if ~strcmpi(controls.display,'off')
             fprintf('\nRunning Nested Sampler\n\n');
         end            
-        [problemStruct,contrastParams,resultCells,bayesResults] = runNestedSampler(problemStruct,problemCells,problemLimits,controls,priors);   
+        [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,problemCells,problemLimits,controls,priors);   
     case 'dream'
         if ~strcmpi(controls.display,'off')
             fprintf('\nRunning DREAM\n\n');
         end
-        [problemStruct,contrastParams,resultCells,bayesResults] = runDREAM(problemStruct,problemCells,problemLimits,controls,priors);
+        [problemStruct,result,bayesResults] = runDREAM(problemStruct,problemCells,problemLimits,controls,priors);
 end
 
 % Then just do a final calculation to fill in SLD if necessary
@@ -58,11 +58,7 @@ end
 if ~controls.calcSldDuringFit
     controls.calcSldDuringFit = true;
     controls.procedure = 'calculate';
-    [contrastParams,resultCells] = reflectivityCalculation(problemStruct,problemCells,controls);
+    result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 end
-
-% Construct the result struct
-[~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
-result = parseResultToStruct(contrastParams,resultCells,problemStruct.fitParams,fitNames);
 
 end

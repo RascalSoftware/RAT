@@ -1,4 +1,4 @@
-function  [problemStruct,contrastParams,result,bayesResults] = runNestedSampler(problemStruct,problemCells,problemLimits,controls,inPriors)
+function  [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,problemCells,problemLimits,controls,inPriors)
 
 checks = controls.checks;
 [problemStruct,fitNames] = packParams(problemStruct,problemCells,problemLimits,checks);
@@ -58,7 +58,7 @@ allProblem{2} = controls;
 allProblem{3} = problemLimits;
 allProblem{4} = problemCells;
 
-[problemStruct,contrastParams,result,nestResults] = processBayes(bayesOutputs,allProblem);
+[problemStruct,result,nestResults] = processBayes(bayesOutputs,allProblem);
 
 bayesResults.predlims = nestResults.predlims;
 bayesResults.bestFitsMean = nestResults.bestFitsMean;

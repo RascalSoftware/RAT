@@ -73,16 +73,16 @@ allSLDs = cell(numCalcs,1);
 for i = 1:numCalcs
     problemStruct.fitParams = chain(i,1:end-1);
     problemStruct = unpackParams(problemStruct,controls);
-    [contrastParams,result] = reflectivityCalculation(problemStruct,problemCells,controls);
-    allRefs{i} = result{1};
-    allSLDs{i} = result{5};
+    result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+    allRefs{i} = result.reflectivity;
+    allSLDs{i} = result.sldProfiles;
 end
 
 %Also calculate the best fit
 problemStruct.fitParams = values(:,1);
 problemStruct = unpackParams(problemStruct,controls);
-[contrastParams,result] = reflectivityCalculation(problemStruct,problemCells,controls);
-bestFit = result{1};
+result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+bestFit = result.reflectivity;
 
 
 %Put the reflectivities for each contrast together
@@ -117,7 +117,7 @@ switch debugPlot
             else
                 f = 1/(10^(2*i));
             end
-            errorbar(result{3}{i}(:,1),result{3}{i}(:,2)*f,result{3}{i}(:,3)*f,'b.');
+            errorbar(result.shiiftedData{i}(:,1),result.shiftedData{i}(:,2)*f,result.shiftedData{i}(:,3)*f,'b.');
             semilogy(bestFit{i}(:,1),bestFit{i}(:,2)*f,'k-');
             semilogy(bestFit{i}(:,1),range.maxs{i}*f,'r-');
             semilogy(bestFit{i}(:,1),range.mins{i}*f,'r-');

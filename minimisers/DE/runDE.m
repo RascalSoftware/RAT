@@ -1,4 +1,4 @@
-function [problemStruct,contrastParams,result] = runDE(problemStruct,problemCells,problemLimits,controls)
+function [problemStruct,result] = runDE(problemStruct,problemCells,problemLimits,controls)
 
     [problemStruct,~] = fitsetup(problemStruct,problemCells,problemLimits,controls);
     F_VTR = controls.targetValue; %Value to reach
@@ -98,19 +98,19 @@ function [problemStruct,contrastParams,result] = runDE(problemStruct,problemCell
     S_struct.FM_pop = zeros(I_NP,2);
     S_struct.FVr_bestmem = [0 0];
     
-    [res,problemStruct] = deopt(@intrafun,problemStruct,problemCells,controls,S_struct);
+    [res,problemStruct] = deopt(@intrafun,problemStruct,problemCells,problemLimits,controls,S_struct);
     problemStruct.fitParams = res;
     problemStruct = unpackParams(problemStruct,controls);
-    [contrastParams,result] = reflectivityCalculation(problemStruct,problemCells,controls);
+    result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
     
     if ~strcmpi(controls.display,'off')
-        fprintf('Final chi squared is %g\n',contrastParams.calculations.sumChi);
+        fprintf('Final chi squared is %g\n',result.calculationResults.sumChi);
     end
 
 end
 
 
-function S_MSE = intrafun(p,problemStruct,controls,problemCells)
+function S_MSE = intrafun(p,problemStruct,problemCells,problemLimits,controls)
 
     coder.varsize('S_MSE.I_nc',[1 1],[0 0]);
     coder.varsize('S_MSE.FVr_ca',[1 1],[0 0]);
@@ -119,8 +119,8 @@ function S_MSE = intrafun(p,problemStruct,controls,problemCells)
     
     problemStruct.fitParams = p;
     problemStruct = unpackParams(problemStruct,controls);
-    [problemStruct,~] = reflectivityCalculation(problemStruct,problemCells,controls);
-    fval = problemStruct.calculations.sumChi;
+    result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+    fval = result.calculationResults.sumChi;
     
     S_MSE.I_nc      = 0; %no constraints                 THESE FIRST FEW VALS MAY BE WRONG
     S_MSE.FVr_ca    = 0; %no constraint array

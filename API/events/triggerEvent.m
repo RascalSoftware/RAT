@@ -43,16 +43,16 @@ function triggerEvent(eventType, data)
                 end
                 result = data{1};
                 problemStruct = data{3};
-                nContrast = length(result{1});
-                [reflect, nReflect] = packCellArray(result{1}, 1); % reflectivity
-                [shiftedData, nShiftedData] = packCellArray(result{3}, 1);  
-                [sldProfiles, nSldProfiles] = packCellArray(result{5}, 1);
-                [layers, nLayers] = packCellArray(result{6}, 1);
+                nContrast = length(result.reflectivity);
+                [reflect, nReflect] = packCellArray(result.reflectivity, 1);
+                [shiftedData, nShiftedData] = packCellArray(result.shiftedData, 1);
+                [sldProfiles, nSldProfiles] = packCellArray(result.sldProfiles, 1);
+                [layers, nLayers] = packCellArray(result.allLayers, 1);
                 
                 switch problemStruct.TF
                     case 'domains'
-                        [sldProfiles2, nSldProfiles2] = packCellArray(result{5}, 2);
-                        [layers2, nLayers2] = packCellArray(result{6}, 2);
+                        [sldProfiles2, nSldProfiles2] = packCellArray(result.sldProfiles, 2);
+                        [layers2, nLayers2] = packCellArray(result.allLayers, 2);
                     otherwise 
                         sldProfiles2 = coder.nullcopy(zeros(0));
                         nSldProfiles2 =  coder.nullcopy(zeros(0));

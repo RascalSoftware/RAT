@@ -44,11 +44,8 @@ bayesOutputs.sschain = [];
 bayesOutputs.data = problemCells{2};
 bayesOutputs.results.mean = mean(unscaledChain);
 
-[problemStruct,contrastParams,result,bayesResults] = processBayes(bayesOutputs,allProblem);
+[problemStruct,result,bayesResults] = processBayes(bayesOutputs,allProblem);
 bayesResults.chain = unscaledChain;
-
-[~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
-result = parseResultToStruct(contrastParams,result,problemStruct.fitParams,fitNames);
 
 result = mergeStructs(result,bayesResults);
 

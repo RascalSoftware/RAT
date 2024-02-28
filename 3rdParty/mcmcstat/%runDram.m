@@ -67,7 +67,7 @@ bayesResults.predlims = output.predlims;
 
 problemStruct.fitParams = output.bestPars;
 problemStruct = unpackParams(problemStruct,controls);
-[problem,result] = reflectivityCalculation(problemStruct,problemCells,controls);
+result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 
 % Pre-processor directives for Matlab Coder.
 coder.varsize('problem.ssubs',[Inf 1],[1 0]);
@@ -83,27 +83,22 @@ coder.varsize('problem.calculations.sumChi',[1 1],[0 0]);
 coder.varsize('problem.allSubRough',[Inf 1],[1 0]);
 
 %Result coder definitions....
-coder.varsize('result{1}',[Inf 1],[1 0]);           %Reflectivity
-coder.varsize('result{1}{:}',[Inf 2],[1 0]);
-
-coder.varsize('result{2}',[Inf 1],[1 0]);           %Simulatin
-coder.varsize('result{2}{:}',[Inf 2],[1 0]);
-
-coder.varsize('result{3}',[Inf 1],[1 0]);           %Shifted data
-coder.varsize('result{3}{:}',[Inf 3],[1 0]);
-
-coder.varsize('result{4}',[Inf 1],[1 0]);           %Layers slds
-coder.varsize('result{4}{:}',[Inf 3],[1 0]);
-
-coder.varsize('result{5}',[Inf 1],[1 0]);           %Sld profiles
-coder.varsize('result{5}{:}',[Inf 2],[1 0]);
-
-coder.varsize('result{6}',[Inf 1],[1 0]);           %All layers
-coder.varsize('result{6}{:}',[Inf 1],[1 0]);
-
+% coder.varsize('result{1}',[Inf 1],[1 0]);           %Reflectivity
+% coder.varsize('result{1}{:}',[Inf 2],[1 0]);
+% 
+% coder.varsize('result{2}',[Inf 1],[1 0]);           %Simulatin
+% coder.varsize('result{2}{:}',[Inf 2],[1 0]);
+% 
+% coder.varsize('result{3}',[Inf 1],[1 0]);           %Shifted data
+% coder.varsize('result{3}{:}',[Inf 3],[1 0]);
+% 
+% coder.varsize('result{4}',[Inf 1],[1 0]);           %Layers slds
+% coder.varsize('result{4}{:}',[Inf 3],[1 0]);
+% 
+% coder.varsize('result{5}',[Inf 1],[1 0]);           %Sld profiles
+% coder.varsize('result{5}{:}',[Inf 2],[1 0]);
+% 
+% coder.varsize('result{6}',[Inf 1],[1 0]);           %All layers
+% coder.varsize('result{6}{:}',[Inf 1],[1 0]);
 
 end
-
-
-
-

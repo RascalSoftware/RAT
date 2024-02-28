@@ -22,7 +22,7 @@ problemLimits = ratInputs.problemLimits;
 
 problemStruct.fitParams = bestFitPars;
 problemStruct = unpackParams(problemStruct,controls);
-[problem,result] = reflectivityCalculation(problemStruct,problemCells,controls);
+result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 
 disp('debug');
 

@@ -113,25 +113,23 @@ switch whichTF
 
 end
 
-resultCells = cell(1,6);
-
 cell1 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     cell1{i} = reflectivity{i};
 end
-resultCells{1} = cell1;
+result.reflectivity = cell1;
 
 cell2 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     cell2{i} = simulation{i};
 end
-resultCells{2} = cell2;
+result.simulation = cell2;
 
 cell3 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     cell3{i} = shiftedData{i}; 
 end
-resultCells{3} = cell3;
+result.shiftedData = cell3;
 
 
 % The size of this array now varies depending on TF
@@ -143,21 +141,21 @@ switch whichTF
             cell4{i,1} = domainLayerSlds{i,1};
             cell4{i,2} = domainLayerSlds{i,2};
         end
-        resultCells{4} = cell4;
+        result.layerSlds = cell4;
 
         cell5 = cell(numberOfContrasts,2);
         for i = 1:numberOfContrasts
             cell5{i,1} = domainSldProfiles{i,1};
             cell5{i,2} = domainSldProfiles{i,2};
         end
-        resultCells{5} = cell5;
+        result.sldProfiles = cell5;
 
         cell6 = cell(numberOfContrasts,2);
         for i = 1:numberOfContrasts
             cell6{i,1} = domainAllLayers{i,1}; 
             cell6{i,2} = domainAllLayers{i,2};
         end
-        resultCells{6} = cell6;
+        result.allLayers = cell6;
 
     otherwise
 
@@ -165,19 +163,19 @@ switch whichTF
         for i = 1:numberOfContrasts
             cell4{i} = layerSlds{i};
         end
-        resultCells{4} = cell4;
+        result.layerSlds = cell4;
 
         cell5 = cell(numberOfContrasts,1);
         for i = 1:numberOfContrasts
             cell5{i} = sldProfiles{i};
         end
-        resultCells{5} = cell5;
+        result.sldProfiles = cell5;
 
         cell6 = cell(numberOfContrasts,1);
         for i = 1:numberOfContrasts
             cell6{i} = allLayers{i}; 
         end
-        resultCells{6} = cell6;
+        result.allLayers = cell6;
 
 end
 
@@ -196,27 +194,12 @@ coder.varsize('contrastParams.calculations.sumChi',[1 1],[0 0]);
 coder.varsize('contrastParams.allSubRough',[Inf 1],[1 0]);
 coder.varsize('contrastParams.resample',[1 Inf],[0 1]);
 
-%Result coder definitions....
-% coder.varsize('result{1}',[Inf 1],[1 0]);           %Reflectivity
-% coder.varsize('result{1}{:}',[Inf 2],[1 0]);
-% 
-% coder.varsize('result{2}',[Inf 1],[1 0]);           %simulation
-% coder.varsize('result{2}{:}',[Inf 2],[1 0]);
-% 
-% coder.varsize('result{3}',[Inf 1],[1 0]);           %Shifted data
-% coder.varsize('result{3}{:}',[Inf 3],[1 0]);
-
-% coder.varsize('result{4}',[Inf 2],[1 1]);           %Layers slds
-% coder.varsize('result{4}{:}',[Inf 6],[1 1]);
-
-% coder.varsize('result{5}',[Inf 2],[1 1]);           %Sld profiles
-% coder.varsize('results{5}{:}',[Inf 2],[1 2]);
-
-% coder.varsize('result{6}',[Inf 2],[1 1]);           %All layers (resampled)
-% coder.varsize('result{6}{:}',[Inf 3],[1 0]);
-
-% Construct the result struct
+% Complete the result struct
 [~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
-result = parseResultToStruct(contrastParams,resultCells,problemStruct.fitParams,fitNames);
+
+result.calculationResults = contrastParams.calculations;
+result.contrastParams = contrastParams;
+result.bestFitPars = problemStruct.fitParams;
+result.fitNames = fitNames;
 
 end

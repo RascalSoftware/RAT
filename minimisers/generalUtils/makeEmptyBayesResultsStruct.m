@@ -29,11 +29,11 @@ function bayesResults = makeEmptyBayesResultsStruct(nPars,nContrasts,isDomains,n
     
     if isDomains
         sld = cell(nContrasts,2);
-        sldCell2 = [1 1; 1 1];
-        coder.varsize('sldCell2',[1e7 3],[1 1]); 
+        sldCell = [1 1; 1 1];
+        coder.varsize('sldCell',[1e7 3],[1 1]); 
         for i = 1:nContrasts
-            sld{i,1} = sldCell2;
-            sld{i,2} = sldCell2;
+            sld{i,1} = sldCell;
+            sld{i,2} = sldCell;
         end
     else
         sld = cell(nContrasts, 1);
@@ -91,11 +91,11 @@ function bayesResults = makeEmptyBayesResultsStruct(nPars,nContrasts,isDomains,n
     
     if isDomains
         sldXdata = cell(nContrasts,2);
-        sldDataCell2 = [1 1 1 ; 1 1 1];
+        sldDataCell = [1 1 1 ; 1 1 1];
         coder.varsize('sldDataCell',[1 1e4],[1 1]); 
         for i = 1:nContrasts
-            sldXdata{i,1} = sldDataCell2;
-            sldXdata{i,2} = sldDataCell2;
+            sldXdata{i,1} = sldDataCell;
+            sldXdata{i,2} = sldDataCell;
         end
     else
         sldXdata = cell(nContrasts,1);

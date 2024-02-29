@@ -16,28 +16,23 @@ function result = reflectivityCalculation(problemStruct,problemCells,problemLimi
 % * magnetic       - Target function for cases for polarised neutrons with polarisation analysis.
 %                       
 
-% for compilation, we have to preallocate memory for the output arrays
-% Setting these parameters in the struct defines them as doubles
-contrastParams.ssubs = 0;
-contrastParams.backgroundParams = 0;
-contrastParams.qzshifts = 0;
-contrastParams.scalefactors = 0;
-contrastParams.bulkIn = 0;
-contrastParams.bulkOut = 0;
-contrastParams.resolutionParams = 0;
-contrastParams.allSubRough = 0;
-contrastParams.resample = 0;
+% For compilation, we have to preallocate memory for the output structs
+numberOfContrasts = problemStruct.numberOfContrasts;
+preAlloc = zeros(numberOfContrasts,1);
 
-preAlloc = zeros(problemStruct.numberOfContrasts,1);
+contrastParams = struct('ssubs',preAlloc, ...
+                        'backgroundParams',preAlloc,...
+                        'qzshifts',preAlloc,...
+                        'scalefactors',preAlloc,...
+                        'bulkIn',preAlloc,...
+                        'bulkOut',preAlloc,...
+                        'resolutionParams',preAlloc,...
+                        'allSubRough',preAlloc,...
+                        'resample',preAlloc);
+
 calculationResults = struct('allChis',preAlloc,'sumChi',0);
 
-% We also fill the results arrays to define their
-% type and size. (NOTE: at the moment we have a 'coder.varsize'
-% pre-processor directives for the compiler here and at the 
-% end for the results block. We are unlikely to need both
-% TODO: Find out which is necessary and tidy this up.
-
-numberOfContrasts = problemStruct.numberOfContrasts;
+% We also fill the results arrays to define their type and size.
 reflectivity = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
@@ -114,84 +109,26 @@ switch whichTF
 
 end
 
-cell1 = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    cell1{i} = reflectivity{i};
-end
-result.reflectivity = cell1;
-
-cell2 = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    cell2{i} = simulation{i};
-end
-result.simulation = cell2;
-
-cell3 = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    cell3{i} = shiftedData{i}; 
-end
-result.shiftedData = cell3;
-
+% Make the result struct
+result.reflectivity = reflectivity;
+result.simulation = simulation;
+result.shiftedData = shiftedData;
 
 % The size of this array now varies depending on TF
 switch whichTF
     case 'domains'
 
-        cell4 = cell(numberOfContrasts,2);
-        for i = 1:numberOfContrasts
-            cell4{i,1} = domainLayerSlds{i,1};
-            cell4{i,2} = domainLayerSlds{i,2};
-        end
-        result.layerSlds = cell4;
-
-        cell5 = cell(numberOfContrasts,2);
-        for i = 1:numberOfContrasts
-            cell5{i,1} = domainSldProfiles{i,1};
-            cell5{i,2} = domainSldProfiles{i,2};
-        end
-        result.sldProfiles = cell5;
-
-        cell6 = cell(numberOfContrasts,2);
-        for i = 1:numberOfContrasts
-            cell6{i,1} = domainAllLayers{i,1}; 
-            cell6{i,2} = domainAllLayers{i,2};
-        end
-        result.allLayers = cell6;
+        result.layerSlds = domainLayerSlds;
+        result.sldProfiles = domainSldProfiles;
+        result.allLayers = domainAllLayers;
 
     otherwise
 
-        cell4 = cell(numberOfContrasts,1);
-        for i = 1:numberOfContrasts
-            cell4{i} = layerSlds{i};
-        end
-        result.layerSlds = cell4;
-
-        cell5 = cell(numberOfContrasts,1);
-        for i = 1:numberOfContrasts
-            cell5{i} = sldProfiles{i};
-        end
-        result.sldProfiles = cell5;
-
-        cell6 = cell(numberOfContrasts,1);
-        for i = 1:numberOfContrasts
-            cell6{i} = allLayers{i}; 
-        end
-        result.allLayers = cell6;
+        result.layerSlds = layerSlds;
+        result.sldProfiles = sldProfiles;
+        result.allLayers = allLayers;
 
 end
-
-% Pre-processor directives for Matlab Coder
-% to define the size of the output array
-coder.varsize('contrastParams.ssubs',[Inf 1],[1 0]);
-coder.varsize('contrastParams.backgroundParams',[Inf 1],[1 0]);
-coder.varsize('contrastParams.qzshifts',[Inf 1],[1 0]);
-coder.varsize('contrastParams.scalefactors',[Inf 1],[1 0]);
-coder.varsize('contrastParams.bulkIn',[Inf 1],[1 0]);
-coder.varsize('contrastParams.bulkOut',[Inf 1],[1 0]);
-coder.varsize('contrastParams.resolutionParams',[Inf 1],[1 0]);
-coder.varsize('contrastParams.ssubs',[Inf 1],[1 0]);
-coder.varsize('contrastParams.allSubRough',[Inf 1],[1 0]);
-coder.varsize('contrastParams.resample',[1 Inf],[0 1]);
 
 % Complete the result struct
 [~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);

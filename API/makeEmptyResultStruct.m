@@ -143,13 +143,10 @@ function result = makeEmptyResultStruct(nPars,nContrasts,domains)
     coder.varsize('bestFitPars',[1 10000],[0 1]);
     
     fitNames = cell(nPars,1);
-    coder.varsize('fitNames',[10000 1],[1 0]);   
-
-    dummyName = '';
-    coder.varsize('dummyName',[1 1000],[0 1]); % May not be necessary..
-
+    fitNamesChar = '';
+    coder.varsize('fitNamesChar',[1 1000],[0 1]);
     for i = 1:nPars
-        fitNames{i} = dummyName;
+        fitNames{i} = fitNamesChar;
     end
 
     result = struct('reflectivity', {reflectivity}, ...

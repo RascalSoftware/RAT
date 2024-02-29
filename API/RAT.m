@@ -8,8 +8,8 @@ switch lower(problemStruct.modelType)
         controls.calcSldDuringFit = true;
 end
 
-%Call the main RAT routine...
-    
+% Call the main RAT routine...
+
 % If display is not silent print a line confirming RAT is starting
 if ~strcmpi(controls.display,'off')
     fprintf('Starting RAT ________________________________________________________________________________________________\n\n');

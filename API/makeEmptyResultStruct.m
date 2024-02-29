@@ -1,4 +1,4 @@
-function result = makeEmptyResultStruct(nPars,nContrasts,domains)
+function result = makeEmptyResultStruct(nContrasts,nPars,domains)
     % A function to make an empty container to hold the results of
     % reflectivity calculations. The struct has the following format:
     %

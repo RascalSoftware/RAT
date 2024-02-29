@@ -6,8 +6,8 @@ else
     domains = false;
 end
 
-result = makeEmptyResultStruct(length(problemStruct.fitParams), problemStruct.numberOfContrasts, domains);
-bayesResults = makeEmptyBayesResultsStruct(length(problemStruct.fitParams), problemStruct.numberOfContrasts, domains, controls.nChains);
+result = makeEmptyResultStruct(problemStruct.numberOfContrasts, length(problemStruct.fitParams), domains);
+bayesResults = makeEmptyBayesResultsStruct(problemStruct.numberOfContrasts, domains, controls.nChains);
 
 % Decide what we are doing....
 switch lower(controls.procedure)

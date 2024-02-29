@@ -14,7 +14,6 @@ H = 0;
 
 % Make an empty struct for bayesResults to hold the outputs of the
 % calculation
-nPars = 1e3;
 numberOfContrasts = problemStruct.numberOfContrasts;
 numberOfChains = 1;
 
@@ -23,7 +22,7 @@ if strcmpi(problemStruct.TF,'domains')
 else
     domains = false;
 end
-bayesResults = makeEmptyBayesResultsStruct(nPars, numberOfContrasts, domains, numberOfChains);
+bayesResults = makeEmptyBayesResultsStruct(numberOfContrasts, domains, numberOfChains);
       
 %Deal with priors.
 priorList = getFittedPriors(fitNames,inPriors,problemStruct.fitLimits);

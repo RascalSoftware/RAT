@@ -1,4 +1,4 @@
-function bayesResults = makeEmptyBayesResultsStruct(nPars,nContrasts,isDomains,nChains)
+function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains)
     % A function to make an empty container to hold the results of bayes
     % calculations. The struct has the following format:
     %
@@ -91,8 +91,8 @@ function bayesResults = makeEmptyBayesResultsStruct(nPars,nContrasts,isDomains,n
     
     if isDomains
         sldXdata = cell(nContrasts,2);
-        sldDataCell = [1 1 1 ; 1 1 1];
-        coder.varsize('sldDataCell',[1 1e4],[1 1]); 
+        sldDataCell = [1 1 1; 1 1 1];
+        coder.varsize('sldDataCell',[2 1e4],[1 1]); 
         for i = 1:nContrasts
             sldXdata{i,1} = sldDataCell;
             sldXdata{i,2} = sldDataCell;
@@ -100,7 +100,7 @@ function bayesResults = makeEmptyBayesResultsStruct(nPars,nContrasts,isDomains,n
     else
         sldXdata = cell(nContrasts,1);
         sldDataCell = [1 1 1];
-        coder.varsize('sldDataCell',[1 1e4],[1 1]);
+        coder.varsize('sldDataCell',[2 1e4],[1 1]);
         for i = 1:nContrasts
             sldXdata{i} = sldDataCell;
         end
@@ -116,13 +116,13 @@ function bayesResults = makeEmptyBayesResultsStruct(nPars,nContrasts,isDomains,n
     % (3) bayesResults.parConfInts
     
     par95 = zeros(2,1);
-    coder.varsize('par95',[2 nPars],[0 1]);
+    coder.varsize('par95',[2 1e3],[0 1]);
     
     par65 = zeros(2,1);
-    coder.varsize('par65',[2 nPars],[0 1]);
+    coder.varsize('par65',[2 1e3],[0 1]);
     
     mean = zeros(1,1);
-    coder.varsize('mean',[1 nPars],[0 1]);
+    coder.varsize('mean',[1 1e3],[0 1]);
     
     parConfInts = struct('par95',par95,'par65',par65,'mean',mean);
     
@@ -130,13 +130,13 @@ function bayesResults = makeEmptyBayesResultsStruct(nPars,nContrasts,isDomains,n
     % (4) bayesResults.bestPars
     
     bestPars = 1;
-    coder.varsize('bestPars',[1 nPars],[0 1]);
+    coder.varsize('bestPars',[1 1e3],[0 1]);
     
     % -------------------------------------------------------------------
     % (5) bayesResults.bayesRes
     
     outlier = [1 1];
-    coder.varsize('outlier',[nPars nPars],[1 1]);
+    coder.varsize('outlier',[1e3 1e3],[1 1]);
     
     R = zeros(nChains,nChains);
     coder.varsize('R',[1e4 1e4],[1 1]);
@@ -169,13 +169,13 @@ function bayesResults = makeEmptyBayesResultsStruct(nPars,nContrasts,isDomains,n
     iloc = 0;
     
     AR = [0 0];
-    coder.varsize('AR',[nPars nPars],[1 1]);
+    coder.varsize('AR',[1e3 1e3],[1 1]);
     
     R_stat = [0 0];
-    coder.varsize('R_stat',[nPars nPars],[1 1]);
+    coder.varsize('R_stat',[1e3 1e3],[1 1]);
     
     CR = [0 0];
-    coder.varsize('CR',[nPars nPars],[1 1]);
+    coder.varsize('CR',[1e3 1e3],[1 1]);
     
     dreamOutput = struct('outlier', outlier,...
             'RunTime', 100,...
@@ -212,7 +212,7 @@ function bayesResults = makeEmptyBayesResultsStruct(nPars,nContrasts,isDomains,n
     % (6) chain
     
     chain = [0 0];
-    coder.varsize('chain',[1e6 nPars],[1 1]);
+    coder.varsize('chain',[1e6 1e3],[1 1]);
     
     % -------------------------------------------------------------------
     % Make the final structure...

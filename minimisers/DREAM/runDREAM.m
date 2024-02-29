@@ -3,7 +3,6 @@ function [outProblemStruct,result,bayesResults] = runDREAM(problemStruct,problem
 
 % Make an empty struct for bayesResults to hold the outputs of the
 % calculation
-nPars = 1e3;
 numberOfContrasts = problemStruct.numberOfContrasts;
 numberOfChains = controls.nChains;
 
@@ -13,7 +12,7 @@ else
     domains = false;
 end
 
-bayesResults = makeEmptyBayesResultsStruct(nPars, numberOfContrasts, domains, numberOfChains);
+bayesResults = makeEmptyBayesResultsStruct(numberOfContrasts, domains, numberOfChains);
 
 % Pre-allocation
 checks = controls.checks;

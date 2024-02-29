@@ -1,14 +1,5 @@
 function [problemStruct,result] = runSimplex(problemStruct,problemCells,problemLimits,controls)
 
-numberOfContrasts = problemStruct.numberOfContrasts;
-preAlloc = zeros(numberOfContrasts,1);
-
-if strcmpi(problemStruct.TF,'domains')
-    domains = true;
-else
-    domains = false;
-end
-
 [problemStruct,~] = fitsetup(problemStruct,problemCells,problemLimits,controls);
 
 maxIter = controls.maxIter;
@@ -47,7 +38,7 @@ else
   LB = LB(:);
 end
 if isempty(UB)
-  UB = repmat(inf,n,1);
+  UB = inf(n,1);
 else
   UB = UB(:);
 end

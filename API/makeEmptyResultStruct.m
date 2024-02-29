@@ -48,8 +48,6 @@ function result = makeEmptyResultStruct(nPars,nContrasts,domains)
     coder.varsize('bulkOut',[10000 1],[1 0]);
     resolutionParams = zeros(nContrasts,1);
     coder.varsize('resolutionParams',[10000 1],[1 0]);
-    coder.varsize('calculations.allChis',[10000 1],[1 0]);
-    coder.varsize('calculations.sumChi',[1 1],[0 0]);
     allSubRough = zeros(nContrasts,1);
     coder.varsize('allSubRough',[10000 1],[1 0]);
     resample = zeros(1, nContrasts);
@@ -62,7 +60,6 @@ function result = makeEmptyResultStruct(nPars,nContrasts,domains)
                             'bulkIn', bulkIn, ...
                             'bulkOut', bulkOut, ...
                             'resolutionParams', resolutionParams, ...
-                            'calculations', calculationResults, ...
                             'allSubRough', allSubRough, ...
                             'resample', resample);
     

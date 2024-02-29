@@ -25,10 +25,11 @@ contrastParams.scalefactors = 0;
 contrastParams.bulkIn = 0;
 contrastParams.bulkOut = 0;
 contrastParams.resolutionParams = 0;
-contrastParams.calculations.allChis = 0;
-contrastParams.calculations.sumChi = 0;
 contrastParams.allSubRough = 0;
 contrastParams.resample = 0;
+
+preAlloc = zeros(problemStruct.numberOfContrasts,1);
+calculationResults = struct('allChis',preAlloc,'sumChi',0);
 
 % We also fill the results arrays to define their
 % type and size. (NOTE: at the moment we have a 'coder.varsize'
@@ -101,13 +102,13 @@ coder.varsize('domainAllLayers{:}',[10000 3],[1 0]);
 whichTF = problemStruct.TF;
 switch whichTF
     case 'non polarised'
-        [contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
+        [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
     %case 'oil water'
         %contrastParams = oilWaterTFReflectivityCalculation(problemStruct,problemCells,controls);    
     %case 'magnetic'
         %contrastParams = polarisedTFReflectivityCalculation(problemStruct,problemCells,controls);
     case 'domains'
-        [contrastParams,reflectivity,simulation,shiftedData,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
+        [contrastParams,calculationResults,reflectivity,simulation,shiftedData,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
 %     otherwise
 %         error('The calculation type "%s" is not supported', whichTF);
 
@@ -189,15 +190,13 @@ coder.varsize('contrastParams.bulkIn',[Inf 1],[1 0]);
 coder.varsize('contrastParams.bulkOut',[Inf 1],[1 0]);
 coder.varsize('contrastParams.resolutionParams',[Inf 1],[1 0]);
 coder.varsize('contrastParams.ssubs',[Inf 1],[1 0]);
-coder.varsize('contrastParams.calculations.allChis',[Inf 1],[1 0]);
-coder.varsize('contrastParams.calculations.sumChi',[1 1],[0 0]);
 coder.varsize('contrastParams.allSubRough',[Inf 1],[1 0]);
 coder.varsize('contrastParams.resample',[1 Inf],[0 1]);
 
 % Complete the result struct
 [~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
 
-result.calculationResults = contrastParams.calculations;
+result.calculationResults = calculationResults;
 result.contrastParams = contrastParams;
 result.bestFitPars = problemStruct.fitParams;
 result.fitNames = fitNames;

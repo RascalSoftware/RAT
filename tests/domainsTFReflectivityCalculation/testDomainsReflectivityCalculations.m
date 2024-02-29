@@ -40,6 +40,7 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
         expectedResult             % Expected output value of the final results struct
         expectedBayesResults       % Expected output value of the bayes results struct
         TFContrastParams
+        TFCalculationResults
         TFReflectivity
         TFSimulation
         TFShiftedData
@@ -90,6 +91,7 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             testCase.TFParams = load(TFFile);
 
             testCase.TFContrastParams = testCase.TFParams.TFParams.contrastParams;
+            testCase.TFCalculationResults = testCase.TFParams.TFParams.calculationResults;
             testCase.TFReflectivity = testCase.TFParams.TFParams.reflectivity;
             testCase.TFSimulation = testCase.TFParams.TFParams.simulation;
             testCase.TFShiftedData = testCase.TFParams.TFParams.shiftedData;
@@ -156,9 +158,10 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testDomainsTFReflectivityCalculation(testCase)
-            [contrastParams, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.reflectivityCalculation(testCase.problemStruct, testCase.problemCells, testCase.controls);
+            [contrastParams, calculationResults, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.reflectivityCalculation(testCase.problemStruct, testCase.problemCells, testCase.controls);
 
             testCase.verifyEqual(contrastParams, testCase.TFContrastParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(calculationResults, testCase.TFCalculationResults, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(reflectivity, testCase.TFReflectivity, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(simulation, testCase.TFSimulation, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(shiftedData, testCase.TFShiftedData, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -171,14 +174,15 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             % Choose the appropriate routine for each test case
             switch TFFile
                 case 'domainsStandardLayersTFParams.mat'
-                    [contrastParams, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.standardLayers.calculate(testCase.problemStruct, testCase.problemCells,  testCase.controls);
+                    [contrastParams, calculationResults, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.standardLayers.calculate(testCase.problemStruct, testCase.problemCells,  testCase.controls);
                 case 'domainsCustomLayersTFParams.mat'
-                    [contrastParams, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.customLayers.calculate(testCase.problemStruct, testCase.problemCells,  testCase.controls);
+                    [contrastParams, calculationResults, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.customLayers.calculate(testCase.problemStruct, testCase.problemCells,  testCase.controls);
                 case 'domainsCustomXYTFParams.mat'
-                    [contrastParams, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.customXY.calculate(testCase.problemStruct, testCase.problemCells,  testCase.controls);
+                    [contrastParams, calculationResults, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.customXY.calculate(testCase.problemStruct, testCase.problemCells,  testCase.controls);
             end
 
             testCase.verifyEqual(contrastParams, testCase.TFContrastParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(calculationResults, testCase.TFCalculationResults, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(reflectivity, testCase.TFReflectivity, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(simulation, testCase.TFSimulation, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(shiftedData, testCase.TFShiftedData, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);

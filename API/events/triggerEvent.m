@@ -1,8 +1,7 @@
 function triggerEvent(eventType, data)
     % Triggers the event type with the given data. The supported event types are
     % 'message' and 'plot'. The data for message is a char array while for
-    % the plot it is a cell array containing the result cell,
-    % contrastParams.ssubs and problemStruct
+    % the plot it is a cell array containing the result and problem structs
     % 
     % triggerEvent('message', 'Hello world');
     persistent notified;
@@ -42,7 +41,8 @@ function triggerEvent(eventType, data)
                     return;
                 end
                 result = data{1};
-                problemStruct = data{3};
+                problemStruct = data{2};
+                ssubs = result.contrastParams.ssubs;
                 nContrast = length(result.reflectivity);
                 [reflect, nReflect] = packCellArray(result.reflectivity, 1);
                 [shiftedData, nShiftedData] = packCellArray(result.shiftedData, 1);
@@ -59,8 +59,6 @@ function triggerEvent(eventType, data)
                         layers2 =  coder.nullcopy(zeros(0));
                         nLayers2 = coder.nullcopy(zeros(0));
                 end
-
-                ssubs = data{2}; % ssubs
    
                 modelType = [problemStruct.modelType, 0];
                 resample = problemStruct.resample;

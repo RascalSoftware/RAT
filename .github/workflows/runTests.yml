@@ -33,7 +33,9 @@ jobs:
       run:  tar --exclude="**/-lang:c++.zip" --exclude=".git*/" --exclude="htmlcov/" -acvf ../${{ runner.os }}.zip *
     - name: Create build archive (Linux)
       if: runner.os == 'Linux'
-      run:  zip -r ../${{ runner.os }}.zip * -x "**/-lang:c++.zip" ".git*/" "htmlcov/"
+      run: |
+        rm -rf ../${{ runner.os }}.zip
+        zip -r ../${{ runner.os }}.zip * -x "**/-lang:c++.zip" ".git*/" "htmlcov/"
     - name: Upload release
       if: github.ref == 'refs/heads/master'
       uses: svenstaro/upload-release-action@v2

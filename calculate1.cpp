@@ -28,14 +28,14 @@ namespace RAT
   {
     namespace customLayers
     {
-      void calculate(const d_struct_T *problemStruct, const cell_11
-                     *problemCells, const struct2_T *controls, e_struct_T
-                     *contrastParams, ::coder::array<cell_wrap_20, 1U>
-                     &reflectivity, ::coder::array<cell_wrap_20, 1U> &simulation,
-                     ::coder::array<cell_wrap_8, 1U> &shiftedData, ::coder::
-                     array<cell_wrap_8, 1U> &layerSlds, ::coder::array<
-                     cell_wrap_8, 1U> &sldProfiles, ::coder::array<cell_wrap_8,
-                     1U> &allLayers)
+      void calculate(const f_struct_T *problemStruct, const cell_11
+                     *problemCells, const struct2_T *controls, b_struct_T
+                     *contrastParams, struct6_T *calculationResults, ::coder::
+                     array<cell_wrap_8, 1U> &reflectivity, ::coder::array<
+                     cell_wrap_8, 1U> &simulation, ::coder::array<cell_wrap_10,
+                     1U> &shiftedData, ::coder::array<cell_wrap_10, 1U>
+                     &layerSlds, ::coder::array<cell_wrap_10, 1U> &sldProfiles, ::
+                     coder::array<cell_wrap_10, 1U> &allLayers)
       {
         real_T y;
         int32_T i;
@@ -54,50 +54,27 @@ namespace RAT
         //  for compilation, so do this in this block.
         loop_ub_tmp = static_cast<int32_T>(problemStruct->numberOfContrasts);
         contrastParams->ssubs.set_size(loop_ub_tmp);
-        for (i = 0; i < loop_ub_tmp; i++) {
-          contrastParams->ssubs[i] = 0.0;
-        }
-
         contrastParams->backgroundParams.set_size(loop_ub_tmp);
-        for (i = 0; i < loop_ub_tmp; i++) {
-          contrastParams->backgroundParams[i] = 0.0;
-        }
-
         contrastParams->qzshifts.set_size(loop_ub_tmp);
-        for (i = 0; i < loop_ub_tmp; i++) {
-          contrastParams->qzshifts[i] = 0.0;
-        }
-
         contrastParams->scalefactors.set_size(loop_ub_tmp);
-        for (i = 0; i < loop_ub_tmp; i++) {
-          contrastParams->scalefactors[i] = 0.0;
-        }
-
         contrastParams->bulkIn.set_size(loop_ub_tmp);
-        for (i = 0; i < loop_ub_tmp; i++) {
-          contrastParams->bulkIn[i] = 0.0;
-        }
-
         contrastParams->bulkOut.set_size(loop_ub_tmp);
         for (i = 0; i < loop_ub_tmp; i++) {
+          contrastParams->ssubs[i] = 0.0;
+          contrastParams->backgroundParams[i] = 0.0;
+          contrastParams->qzshifts[i] = 0.0;
+          contrastParams->scalefactors[i] = 0.0;
+          contrastParams->bulkIn[i] = 0.0;
           contrastParams->bulkOut[i] = 0.0;
         }
 
-        contrastParams->calculations.allChis.set_size(loop_ub_tmp);
+        calculationResults->allChis.set_size(loop_ub_tmp);
         for (i = 0; i < loop_ub_tmp; i++) {
-          contrastParams->calculations.allChis[i] = 0.0;
+          calculationResults->allChis[i] = 0.0;
         }
 
         contrastParams->resolutionParams.set_size(loop_ub_tmp);
-        for (i = 0; i < loop_ub_tmp; i++) {
-          contrastParams->resolutionParams[i] = 0.0;
-        }
-
         contrastParams->allSubRough.set_size(loop_ub_tmp);
-        for (i = 0; i < loop_ub_tmp; i++) {
-          contrastParams->allSubRough[i] = 0.0;
-        }
-
         reflectivity.set_size(loop_ub_tmp);
         simulation.set_size(loop_ub_tmp);
         shiftedData.set_size(loop_ub_tmp);
@@ -105,6 +82,8 @@ namespace RAT
         sldProfiles.set_size(loop_ub_tmp);
         allLayers.set_size(loop_ub_tmp);
         for (int32_T b_i{0}; b_i < loop_ub_tmp; b_i++) {
+          contrastParams->resolutionParams[b_i] = 0.0;
+          contrastParams->allSubRough[b_i] = 0.0;
           reflectivity[b_i].f1.set_size(2, 2);
           reflectivity[b_i].f1[0] = 1.0;
           reflectivity[b_i].f1[1] = 1.0;
@@ -153,8 +132,8 @@ namespace RAT
                    contrastParams->backgroundParams, contrastParams->qzshifts,
                    contrastParams->scalefactors, contrastParams->bulkIn,
                    contrastParams->bulkOut, contrastParams->resolutionParams,
-                   contrastParams->calculations.allChis, reflectivity,
-                   simulation, shiftedData, layerSlds, sldProfiles, allLayers,
+                   calculationResults->allChis, reflectivity, simulation,
+                   shiftedData, layerSlds, sldProfiles, allLayers,
                    contrastParams->allSubRough);
           break;
 
@@ -164,9 +143,9 @@ namespace RAT
                          contrastParams->qzshifts, contrastParams->scalefactors,
                          contrastParams->bulkIn, contrastParams->bulkOut,
                          contrastParams->resolutionParams,
-                         contrastParams->calculations.allChis, reflectivity,
-                         simulation, shiftedData, layerSlds, sldProfiles,
-                         allLayers, contrastParams->allSubRough);
+                         calculationResults->allChis, reflectivity, simulation,
+                         shiftedData, layerSlds, sldProfiles, allLayers,
+                         contrastParams->allSubRough);
           break;
 
          case 2:
@@ -177,25 +156,26 @@ namespace RAT
                             contrastParams->scalefactors, contrastParams->bulkIn,
                             contrastParams->bulkOut,
                             contrastParams->resolutionParams,
-                            contrastParams->calculations.allChis, reflectivity,
+                            calculationResults->allChis, reflectivity,
                             simulation, shiftedData, layerSlds, sldProfiles,
                             allLayers, contrastParams->allSubRough);
           break;
         }
 
-        if (contrastParams->calculations.allChis.size(0) == 0) {
-          y = 0.0;
-        } else {
-          y = coder::nestedIter(contrastParams->calculations.allChis,
-                                contrastParams->calculations.allChis.size(0));
-        }
-
-        contrastParams->calculations.sumChi = y;
         contrastParams->resample.set_size(1, problemStruct->resample.size(1));
         loop_ub_tmp = problemStruct->resample.size(1);
         for (i = 0; i < loop_ub_tmp; i++) {
           contrastParams->resample[i] = problemStruct->resample[i];
         }
+
+        if (calculationResults->allChis.size(0) == 0) {
+          y = 0.0;
+        } else {
+          y = coder::nestedIter(calculationResults->allChis,
+                                calculationResults->allChis.size(0));
+        }
+
+        calculationResults->sumChi = y;
       }
     }
   }

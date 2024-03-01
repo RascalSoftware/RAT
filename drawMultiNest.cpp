@@ -28,9 +28,9 @@ namespace RAT
   void drawMultiNest(const ::coder::array<real_T, 1U> &fracvol, const ::coder::
                      array<real_T, 2U> &Bs, const ::coder::array<real_T, 2U>
                      &mus, real_T logLmin, const ::coder::array<real_T, 2U>
-                     &prior, const d_struct_T *data_f1, const struct2_T *data_f2,
-                     const cell_11 *data_f4, ::coder::array<real_T, 2U> &sample,
-                     real_T *logL)
+                     &prior, const f_struct_T *data_f1, const struct2_T *data_f2,
+                     const struct1_T *data_f3, const cell_11 *data_f4, ::coder::
+                     array<real_T, 2U> &sample, real_T *logL)
   {
     ::coder::array<real_T, 2U> b_Bs;
     ::coder::array<real_T, 2U> b_mus;
@@ -150,7 +150,7 @@ namespace RAT
 
           //  get new likelihood
           //  logL = likelihood(data, model, parnames, loopCell(rescaledpnt));
-          *logL = nsIntraFun(data_f1, data_f2, data_f4, rescaledpnt);
+          *logL = nsIntraFun(data_f1, data_f2, data_f3, data_f4, rescaledpnt);
         }
       }
 

@@ -30,9 +30,9 @@ namespace RAT
 {
   void drawMCMC(const ::coder::array<real_T, 2U> &livepoints, const ::coder::
                 array<real_T, 2U> &cholmat, real_T logLmin, const ::coder::array<
-                real_T, 2U> &prior, const d_struct_T *data_f1, const struct2_T
-                *data_f2, const cell_11 *data_f4, real_T Nmcmc, ::coder::array<
-                real_T, 2U> &sample, real_T *logL)
+                real_T, 2U> &prior, const f_struct_T *data_f1, const struct2_T
+                *data_f2, const struct1_T *data_f3, const cell_11 *data_f4,
+                real_T Nmcmc, ::coder::array<real_T, 2U> &sample, real_T *logL)
   {
     ::coder::array<real_T, 2U> sampletmp;
     ::coder::array<real_T, 1U> gasdevs;
@@ -215,7 +215,7 @@ namespace RAT
           //  logLnew = likelihood(data, model, parnames, ...
           //                loopCell(sc));
           rescaleParameters(prior, sampletmp, r);
-          logLnew = nsIntraFun(data_f1, data_f2, data_f4, r);
+          logLnew = nsIntraFun(data_f1, data_f2, data_f3, data_f4, r);
 
           // likedur = toc(likestart);
           // fprintf(1, 'liketime = %.6f\n', likedur);

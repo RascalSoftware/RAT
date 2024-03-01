@@ -26,12 +26,13 @@ namespace RAT
 {
   namespace nonPolarisedTF
   {
-    void b_reflectivityCalculation(const d_struct_T *problemStruct, const
-      cell_11 *problemCells, const struct2_T *controls, e_struct_T
-      *contrastParams, ::coder::array<cell_wrap_20, 1U> &reflectivity, ::coder::
-      array<cell_wrap_20, 1U> &simulation, ::coder::array<cell_wrap_8, 1U>
-      &shiftedData, ::coder::array<cell_wrap_8, 1U> &layerSlds, ::coder::array<
-      cell_wrap_8, 1U> &sldProfiles, ::coder::array<cell_wrap_8, 1U> &allLayers)
+    void b_reflectivityCalculation(const f_struct_T *problemStruct, const
+      cell_11 *problemCells, const struct2_T *controls, b_struct_T
+      *contrastParams, struct6_T *calculationResults, ::coder::array<cell_wrap_8,
+      1U> &reflectivity, ::coder::array<cell_wrap_8, 1U> &simulation, ::coder::
+      array<cell_wrap_10, 1U> &shiftedData, ::coder::array<cell_wrap_10, 1U>
+      &layerSlds, ::coder::array<cell_wrap_10, 1U> &sldProfiles, ::coder::array<
+      cell_wrap_10, 1U> &allLayers)
     {
       int32_T switch_expression_size[2];
       int32_T loop_ub_tmp;
@@ -60,10 +61,10 @@ namespace RAT
       contrastParams->bulkIn.set_size(loop_ub_tmp);
       contrastParams->bulkOut.set_size(loop_ub_tmp);
       contrastParams->resolutionParams.set_size(loop_ub_tmp);
-      contrastParams->calculations.allChis.set_size(loop_ub_tmp);
-      contrastParams->calculations.sumChi = 0.0;
       contrastParams->allSubRough.set_size(loop_ub_tmp);
       contrastParams->resample.set_size(1, loop_ub_tmp);
+      calculationResults->allChis.set_size(loop_ub_tmp);
+      calculationResults->sumChi = 0.0;
       reflectivity.set_size(loop_ub_tmp);
       simulation.set_size(loop_ub_tmp);
       shiftedData.set_size(loop_ub_tmp);
@@ -78,9 +79,9 @@ namespace RAT
         contrastParams->bulkIn[i] = 0.0;
         contrastParams->bulkOut[i] = 0.0;
         contrastParams->resolutionParams[i] = 0.0;
-        contrastParams->calculations.allChis[i] = 0.0;
         contrastParams->allSubRough[i] = 0.0;
         contrastParams->resample[i] = 0.0;
+        calculationResults->allChis[i] = 0.0;
         reflectivity[i].f1.set_size(2, 2);
         reflectivity[i].f1[0] = 1.0;
         reflectivity[i].f1[1] = 1.0;
@@ -128,22 +129,23 @@ namespace RAT
        case 0:
         //  Standard layers calculation
         standardLayers::calculate(problemStruct, problemCells, controls,
-          contrastParams, reflectivity, simulation, shiftedData, layerSlds,
-          sldProfiles, allLayers);
+          contrastParams, calculationResults, reflectivity, simulation,
+          shiftedData, layerSlds, sldProfiles, allLayers);
         break;
 
        case 1:
         //  Custom layers with user supplied custom model file
         customLayers::calculate(problemStruct, problemCells, controls,
-          contrastParams, reflectivity, simulation, shiftedData, layerSlds,
-          sldProfiles, allLayers);
+          contrastParams, calculationResults, reflectivity, simulation,
+          shiftedData, layerSlds, sldProfiles, allLayers);
         break;
 
        case 2:
         //  Custom SLD profile with user defined model file
         customXY::calculate(problemStruct, problemCells, controls,
-                            contrastParams, reflectivity, simulation,
-                            shiftedData, layerSlds, sldProfiles, allLayers);
+                            contrastParams, calculationResults, reflectivity,
+                            simulation, shiftedData, layerSlds, sldProfiles,
+                            allLayers);
         break;
       }
     }

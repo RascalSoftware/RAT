@@ -24,26 +24,16 @@
 #include "runDE.h"
 #include "strcmp.h"
 #include "coder_array.h"
+#include "coder_bounded_array.h"
 #include <cmath>
 #include <stdio.h>
 
 // Function Definitions
 namespace RAT
 {
-  void deopt(const d_struct_T *problem, const ::coder::array<cell_wrap_2, 2U>
-             &problemCells_f1, const ::coder::array<cell_wrap_8, 2U>
-             &problemCells_f2, const ::coder::array<cell_wrap_2, 2U>
-             &problemCells_f3, const ::coder::array<cell_wrap_2, 2U>
-             &problemCells_f4, const ::coder::array<cell_wrap_8, 2U>
-             &problemCells_f5, const ::coder::array<cell_wrap_8, 1U>
-             &problemCells_f6, const ::coder::array<cell_wrap_1, 2U>
-             &problemCells_f14, const ::coder::array<cell_wrap_8, 2U>
-             &problemCells_f19, const char_T controls_parallel_data[], const
-             int32_T controls_parallel_size[2], const real_T controls_resamPars
-             [2], boolean_T controls_calcSldDuringFit, const char_T
-             controls_display_data[], const int32_T controls_display_size[2],
-             const struct3_T *controls_checks, const k_struct_T *S_struct, ::
-             coder::array<real_T, 2U> &FVr_bestmem)
+  void deopt(const f_struct_T *problem, const cell_11 *problemCells, const
+             struct1_T *problemLimits, const struct2_T *controls, const
+             m_struct_T *S_struct, ::coder::array<real_T, 2U> &FVr_bestmem)
   {
     ::coder::array<struct_T, 1U> S_val;
     ::coder::array<real_T, 2U> FM_pm3;
@@ -57,9 +47,8 @@ namespace RAT
     ::coder::array<real_T, 2U> b_FM_pop;
     ::coder::array<real_T, 2U> b_FVr_rot;
     ::coder::array<real_T, 2U> r;
-    ::coder::array<real_T, 2U> r1;
     ::coder::array<boolean_T, 2U> FM_mui;
-    d_struct_T b_problem;
+    f_struct_T b_problem;
     real_T validatedHoleFilling[5];
     real_T p[4];
     real_T F_CR;
@@ -193,13 +182,7 @@ namespace RAT
     // ----with random values between the min and max values of the-------------
     // ----parameters-----------------------------------------------------------
     for (k = 0; k < i; k++) {
-      coder::b_rand(I_D, r);
-      b_FM_pop.set_size(1, r.size(1));
-      loop_ub = r.size(1);
-      for (i1 = 0; i1 < loop_ub; i1++) {
-        b_FM_pop[i1] = r[i1];
-      }
-
+      coder::b_rand(I_D, b_FM_pop);
       loop_ub = S_struct->FVr_minbound.size(1);
       for (i1 = 0; i1 < loop_ub; i1++) {
         b = S_struct->FVr_minbound[i1];
@@ -220,12 +203,8 @@ namespace RAT
     }
 
     b_problem = *problem;
-    S_val[0] = intrafun(b_FM_pop, &b_problem, controls_parallel_data,
-                        controls_parallel_size, controls_resamPars,
-                        controls_calcSldDuringFit, controls_checks,
-                        problemCells_f1, problemCells_f2, problemCells_f3,
-                        problemCells_f4, problemCells_f5, problemCells_f6,
-                        problemCells_f14, problemCells_f19);
+    S_val[0] = intrafun(b_FM_pop, &b_problem, problemCells, problemLimits,
+                        controls);
     S_bestval_FVr_oa = S_val[0].FVr_oa;
 
     //  best objective function value so far
@@ -241,12 +220,8 @@ namespace RAT
       }
 
       b_problem = *problem;
-      expl_temp = intrafun(b_FM_pop, &b_problem, controls_parallel_data,
-                           controls_parallel_size, controls_resamPars,
-                           controls_calcSldDuringFit, controls_checks,
-                           problemCells_f1, problemCells_f2, problemCells_f3,
-                           problemCells_f4, problemCells_f5, problemCells_f6,
-                           problemCells_f14, problemCells_f19);
+      expl_temp = intrafun(b_FM_pop, &b_problem, problemCells, problemLimits,
+                           controls);
       S_val[k + 1] = expl_temp;
       if (leftWin(expl_temp.I_no, expl_temp.FVr_oa, S_bestval_FVr_oa) == 1.0) {
         //  save its location
@@ -315,11 +290,11 @@ namespace RAT
       p[1] = iv[1];
 
       //  index pointer array
-      coder::randperm(I_NP, r);
-      FVr_a1.set_size(1, r.size(1));
-      loop_ub = r.size(1);
+      coder::randperm(I_NP, b_FM_pop);
+      FVr_a1.set_size(1, b_FM_pop.size(1));
+      loop_ub = b_FM_pop.size(1);
       for (i1 = 0; i1 < loop_ub; i1++) {
-        FVr_a1[FVr_a1.size(0) * i1] = r[i1];
+        FVr_a1[FVr_a1.size(0) * i1] = b_FM_pop[i1];
       }
 
       //  shuffle locations of vectors
@@ -329,11 +304,11 @@ namespace RAT
         b_FVr_rot[i1] = FVr_rot[i1] + p[0];
       }
 
-      coder::b_rem(b_FVr_rot, I_NP, r);
-      FVr_rt.set_size(1, r.size(1));
-      loop_ub = r.size(1);
+      coder::b_rem(b_FVr_rot, I_NP, b_FM_pop);
+      FVr_rt.set_size(1, b_FM_pop.size(1));
+      loop_ub = b_FM_pop.size(1);
       for (i1 = 0; i1 < loop_ub; i1++) {
-        FVr_rt[FVr_rt.size(0) * i1] = r[i1];
+        FVr_rt[FVr_rt.size(0) * i1] = b_FM_pop[i1];
       }
 
       //  rotate indices by ind(1) positions
@@ -353,12 +328,12 @@ namespace RAT
         b_FVr_rot[i1] = FVr_rot[i1] + p[1];
       }
 
-      coder::b_rem(b_FVr_rot, I_NP, r);
-      FVr_a3.set_size(1, r.size(1));
-      loop_ub = r.size(1);
+      coder::b_rem(b_FVr_rot, I_NP, b_FM_pop);
+      FVr_a3.set_size(1, b_FM_pop.size(1));
+      loop_ub = b_FM_pop.size(1);
       for (i1 = 0; i1 < loop_ub; i1++) {
-        FVr_a3[FVr_a3.size(0) * i1] = FVr_a2[static_cast<int32_T>(r[i1] + 1.0) -
-          1];
+        FVr_a3[FVr_a3.size(0) * i1] = FVr_a2[static_cast<int32_T>(b_FM_pop[i1] +
+          1.0) - 1];
       }
 
       //  shuffled population 1
@@ -369,11 +344,11 @@ namespace RAT
         b_FVr_rot[i1] = FVr_rot[i1] + p[1];
       }
 
-      coder::b_rem(b_FVr_rot, I_NP, r);
-      b_FVr_a1 = r.size(1);
+      coder::b_rem(b_FVr_rot, I_NP, b_FM_pop);
+      b_FVr_a1 = b_FM_pop.size(1);
       loop_ub = FM_pop.size(1);
-      coder::b_rem(b_FVr_rot, I_NP, r);
-      FM_pm3.set_size(r.size(1), FM_pop.size(1));
+      coder::b_rem(b_FVr_rot, I_NP, b_FM_pop);
+      FM_pm3.set_size(b_FM_pop.size(1), FM_pop.size(1));
       for (i1 = 0; i1 < loop_ub; i1++) {
         for (i2 = 0; i2 < b_FVr_a1; i2++) {
           FM_pm3[i2 + FM_pm3.size(0) * i1] = FM_pop[(static_cast<int32_T>
@@ -384,13 +359,13 @@ namespace RAT
       //  shuffled population 3
       //  shuffled population 4
       //  shuffled population 5
-      coder::b_rand(I_NP, I_D, r1);
-      FM_mui.set_size(r1.size(0), r1.size(1));
-      loop_ub = r1.size(1);
+      coder::b_rand(I_NP, I_D, r);
+      FM_mui.set_size(r.size(0), r.size(1));
+      loop_ub = r.size(1);
       for (i1 = 0; i1 < loop_ub; i1++) {
-        b_FVr_a1 = r1.size(0);
+        b_FVr_a1 = r.size(0);
         for (i2 = 0; i2 < b_FVr_a1; i2++) {
-          FM_mui[i2 + FM_mui.size(0) * i1] = (r1[i2 + r1.size(0) * i1] < F_CR);
+          FM_mui[i2 + FM_mui.size(0) * i1] = (r[i2 + r.size(0) * i1] < F_CR);
         }
       }
 
@@ -459,12 +434,8 @@ namespace RAT
         }
 
         b_problem = *problem;
-        S_tempval = intrafun(b_FM_pop, &b_problem, controls_parallel_data,
-                             controls_parallel_size, controls_resamPars,
-                             controls_calcSldDuringFit, controls_checks,
-                             problemCells_f1, problemCells_f2, problemCells_f3,
-                             problemCells_f4, problemCells_f5, problemCells_f6,
-                             problemCells_f14, problemCells_f19);
+        S_tempval = intrafun(b_FM_pop, &b_problem, problemCells, problemLimits,
+                             controls);
 
         //  check cost of competitor
         if (leftWin(S_tempval.I_no, S_tempval.FVr_oa, S_val[k].FVr_oa) == 1.0) {
@@ -499,7 +470,7 @@ namespace RAT
       //  iteration. This is needed for some of the strategies.
       // ----Output section----------------------------------------------------------
       if (((rt_remd_snf(I_iter, 1.0) == 0.0) || (I_iter == 1.0)) && coder::
-          internal::w_strcmp(controls_display_data, controls_display_size)) {
+          internal::w_strcmp(controls->display.data, controls->display.size)) {
         coder::internal::print_processing(I_iter, S_bestval_FVr_oa, fWeight,
           F_CR, I_NP, validatedHoleFilling);
         printf("Iteration: %g,  Best: %f,  fWeight: %f,  F_CR: %f,  I_NP: %g\n\n",
@@ -525,7 +496,7 @@ namespace RAT
     // ---end while ((I_iter < I_itermax) ...
     //  problemStruct.fitParams = x;
     //  problemStruct = unpackParams(problemStruct,controls);
-    //  [problem,res] = reflectivityCalculation(problemStruct,problemCells,controls);
+    //  res = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
   }
 }
 

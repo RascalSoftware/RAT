@@ -26,9 +26,9 @@
 // Function Definitions
 namespace RAT
 {
-  void runSimplex(d_struct_T *problemStruct, const cell_11 *problemCells, const
-                  struct1_T *problemLimits, const struct2_T *controls,
-                  e_struct_T *contrastParams, cell_wrap_9 result[6])
+  void runSimplex(f_struct_T *problemStruct, const cell_11 *problemCells, const
+                  struct1_T *problemLimits, const struct2_T *controls, struct5_T
+                  *result)
   {
     static const char_T b_cv1[6]{ 'n', 'o', 't', 'i', 'f', 'y' };
 
@@ -37,8 +37,8 @@ namespace RAT
     ::coder::array<cell_wrap_1, 1U> b_problemStruct;
     ::coder::array<real_T, 1U> x;
     ::coder::array<real_T, 1U> x0u;
-    j_struct_T a__4;
-    l_struct_T expl_temp;
+    l_struct_T a__4;
+    n_struct_T expl_temp;
     real_T a__2;
     real_T a__3;
     int32_T dis_size[2];
@@ -220,11 +220,8 @@ namespace RAT
     //  now we can call fminsearch, but with our own
     //  intra-objective function.
     fMinSearch(x0u, controls->maxIter, controls->maxFunEvals, controls->tolX,
-               controls->tolFun, dis_data, dis_size, problemStruct,
-               problemCells->f1, problemCells->f2, problemCells->f3,
-               problemCells->f4, problemCells->f5, problemCells->f6,
-               problemCells->f14, problemCells->f19, controls, &expl_temp, &a__2,
-               &a__3, &a__4);
+               controls->tolFun, dis_data, dis_size, problemStruct, problemCells,
+               problemLimits, controls, &expl_temp, &a__2, &a__3, &a__4);
 
     // [xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemStruct,problemCells,problemLimits,controls,options,params,300);
     //  undo the variable transformations into the original space
@@ -246,8 +243,8 @@ namespace RAT
                  controls->checks.fitBulkIn, controls->checks.fitBulkOut,
                  controls->checks.fitResolutionParam,
                  controls->checks.fitDomainRatio);
-    reflectivityCalculation(problemStruct, problemCells, controls,
-      contrastParams, result);
+    reflectivityCalculation(problemStruct, problemCells, problemLimits, controls,
+      result);
   }
 }
 

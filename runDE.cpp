@@ -27,102 +27,28 @@
 // Function Definitions
 namespace RAT
 {
-  struct_T intrafun(const ::coder::array<real_T, 2U> &p, d_struct_T
-                    *problemStruct, const char_T controls_parallel_data[], const
-                    int32_T controls_parallel_size[2], const real_T
-                    controls_resamPars[2], boolean_T controls_calcSldDuringFit,
-                    const struct3_T *controls_checks, const ::coder::array<
-                    cell_wrap_2, 2U> &problemCells_f1, const ::coder::array<
-                    cell_wrap_8, 2U> &problemCells_f2, const ::coder::array<
-                    cell_wrap_2, 2U> &problemCells_f3, const ::coder::array<
-                    cell_wrap_2, 2U> &problemCells_f4, const ::coder::array<
-                    cell_wrap_8, 2U> &problemCells_f5, const ::coder::array<
-                    cell_wrap_8, 1U> &problemCells_f6, const ::coder::array<
-                    cell_wrap_1, 2U> &problemCells_f14, const ::coder::array<
-                    cell_wrap_8, 2U> &problemCells_f19)
+  struct_T intrafun(const ::coder::array<real_T, 2U> &p, f_struct_T
+                    *problemStruct, const cell_11 *problemCells, const struct1_T
+                    *problemLimits, const struct2_T *controls)
   {
-    cell_11 expl_temp;
-    cell_wrap_9 a__2[6];
-    e_struct_T b_problemStruct;
-    struct2_T b_expl_temp;
+    struct5_T expl_temp;
     struct_T S_MSE;
-    int32_T i;
     int32_T loop_ub;
     problemStruct->fitParams.set_size(1, p.size(1));
     loop_ub = p.size(1);
-    for (i = 0; i < loop_ub; i++) {
+    for (int32_T i{0}; i < loop_ub; i++) {
       problemStruct->fitParams[problemStruct->fitParams.size(0) * i] = p[i];
     }
 
-    unpackParams(problemStruct, controls_checks->fitParam,
-                 controls_checks->fitBackgroundParam,
-                 controls_checks->fitQzshift, controls_checks->fitScalefactor,
-                 controls_checks->fitBulkIn, controls_checks->fitBulkOut,
-                 controls_checks->fitResolutionParam,
-                 controls_checks->fitDomainRatio);
-    expl_temp.f19.set_size(1, problemCells_f19.size(1));
-    loop_ub = problemCells_f19.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      expl_temp.f19[i] = problemCells_f19[i];
-    }
-
-    expl_temp.f14.set_size(1, problemCells_f14.size(1));
-    loop_ub = problemCells_f14.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      expl_temp.f14[i] = problemCells_f14[i];
-    }
-
-    expl_temp.f6.set_size(problemCells_f6.size(0));
-    loop_ub = problemCells_f6.size(0);
-    for (i = 0; i < loop_ub; i++) {
-      expl_temp.f6[i] = problemCells_f6[i];
-    }
-
-    expl_temp.f5.set_size(1, problemCells_f5.size(1));
-    loop_ub = problemCells_f5.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      expl_temp.f5[i] = problemCells_f5[i];
-    }
-
-    expl_temp.f4.set_size(1, problemCells_f4.size(1));
-    loop_ub = problemCells_f4.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      expl_temp.f4[i] = problemCells_f4[i];
-    }
-
-    expl_temp.f3.set_size(1, problemCells_f3.size(1));
-    loop_ub = problemCells_f3.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      expl_temp.f3[i] = problemCells_f3[i];
-    }
-
-    expl_temp.f2.set_size(1, problemCells_f2.size(1));
-    loop_ub = problemCells_f2.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      expl_temp.f2[i] = problemCells_f2[i];
-    }
-
-    expl_temp.f1.set_size(1, problemCells_f1.size(1));
-    loop_ub = problemCells_f1.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      expl_temp.f1[i] = problemCells_f1[i];
-    }
-
-    b_expl_temp.checks = *controls_checks;
-    b_expl_temp.calcSldDuringFit = controls_calcSldDuringFit;
-    b_expl_temp.resamPars[0] = controls_resamPars[0];
-    b_expl_temp.resamPars[1] = controls_resamPars[1];
-    b_expl_temp.parallel.size[0] = 1;
-    b_expl_temp.parallel.size[1] = controls_parallel_size[1];
-    loop_ub = controls_parallel_size[1];
-    if (0 <= loop_ub - 1) {
-      std::copy(&controls_parallel_data[0], &controls_parallel_data[loop_ub],
-                &b_expl_temp.parallel.data[0]);
-    }
-
-    reflectivityCalculation(problemStruct, &expl_temp, &b_expl_temp,
-      &b_problemStruct, a__2);
-    S_MSE.FVr_oa = b_problemStruct.calculations.sumChi;
+    unpackParams(problemStruct, controls->checks.fitParam,
+                 controls->checks.fitBackgroundParam,
+                 controls->checks.fitQzshift, controls->checks.fitScalefactor,
+                 controls->checks.fitBulkIn, controls->checks.fitBulkOut,
+                 controls->checks.fitResolutionParam,
+                 controls->checks.fitDomainRatio);
+    reflectivityCalculation(problemStruct, problemCells, problemLimits, controls,
+      &expl_temp);
+    S_MSE.FVr_oa = expl_temp.calculationResults.sumChi;
     S_MSE.I_nc = 0.0;
 
     // no constraints                 THESE FIRST FEW VALS MAY BE WRONG
@@ -135,9 +61,9 @@ namespace RAT
     return S_MSE;
   }
 
-  void runDE(d_struct_T *problemStruct, const cell_11 *problemCells, const
-             struct1_T *problemLimits, const struct2_T *controls, e_struct_T
-             *contrastParams, cell_wrap_9 result[6])
+  void runDE(f_struct_T *problemStruct, const cell_11 *problemCells, const
+             struct1_T *problemLimits, const struct2_T *controls, struct5_T
+             *result)
   {
     static const real_T FVr_x[50]{ -1.0, -0.95918367346938771,
       -0.91836734693877542, -0.87755102040816324, -0.836734693877551,
@@ -160,7 +86,7 @@ namespace RAT
     ::coder::array<cell_wrap_1, 1U> b_problemStruct;
     ::coder::array<real_T, 2U> res;
     ::coder::array<int8_T, 2U> S_struct_FM_pop;
-    k_struct_T expl_temp;
+    m_struct_T expl_temp;
     int32_T i;
     int32_T i1;
     int32_T loop_ub;
@@ -260,12 +186,7 @@ namespace RAT
 
     expl_temp.I_lentol.size[0] = 1;
     expl_temp.I_lentol.data[0] = 50.0;
-    deopt(problemStruct, problemCells->f1, problemCells->f2, problemCells->f3,
-          problemCells->f4, problemCells->f5, problemCells->f6,
-          problemCells->f14, problemCells->f19, controls->parallel.data,
-          controls->parallel.size, controls->resamPars,
-          controls->calcSldDuringFit, controls->display.data,
-          controls->display.size, &controls->checks, &expl_temp, res);
+    deopt(problemStruct, problemCells, problemLimits, controls, &expl_temp, res);
     problemStruct->fitParams.set_size(1, res.size(1));
     loop_ub = res.size(1);
     for (i = 0; i < loop_ub; i++) {
@@ -278,11 +199,11 @@ namespace RAT
                  controls->checks.fitBulkIn, controls->checks.fitBulkOut,
                  controls->checks.fitResolutionParam,
                  controls->checks.fitDomainRatio);
-    reflectivityCalculation(problemStruct, problemCells, controls,
-      contrastParams, result);
+    reflectivityCalculation(problemStruct, problemCells, problemLimits, controls,
+      result);
     if (!coder::internal::q_strcmp(controls->display.data,
          controls->display.size)) {
-      printf("Final chi squared is %g\n", contrastParams->calculations.sumChi);
+      printf("Final chi squared is %g\n", result->calculationResults.sumChi);
       fflush(stdout);
     }
   }

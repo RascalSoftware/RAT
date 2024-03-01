@@ -19,7 +19,7 @@
 // Type Definitions
 namespace RAT
 {
-  struct struct14_T
+  struct struct15_T
   {
     real_T Y;
     real_T N;
@@ -35,12 +35,33 @@ namespace RAT
     ::coder::array<real_T, 2U> f1;
   };
 
-  struct cell_wrap_9
+  struct cell_wrap_24
   {
-    ::coder::array<cell_wrap_8, 2U> f1;
+    ::coder::array<real_T, 2U> f1;
   };
 
-  struct struct13_T
+  struct cell_wrap_10
+  {
+    ::coder::array<real_T, 2U> f1;
+  };
+
+  struct struct6_T
+  {
+    ::coder::array<real_T, 1U> allChis;
+    real_T sumChi;
+  };
+
+  struct cell_wrap_1
+  {
+    ::coder::array<char_T, 2U> f1;
+  };
+
+  struct cell_wrap_17
+  {
+    ::coder::array<real_T, 2U> f1;
+  };
+
+  struct struct14_T
   {
     real_T d;
     real_T N;
@@ -65,12 +86,12 @@ namespace RAT
     ::coder::array<real_T, 2U> R;
   };
 
-  struct struct12_T
+  struct struct13_T
   {
     ::coder::bounded_array<real_T, 2000U, 2U> outlier;
     real_T RunTime;
-    struct13_T DREAMPar;
-    struct14_T Meas_info;
+    struct14_T DREAMPar;
+    struct15_T Meas_info;
     real_T iteration;
     real_T iloc;
     real_T fx;
@@ -79,9 +100,16 @@ namespace RAT
     ::coder::array<real_T, 2U> CR;
   };
 
-  struct cell_wrap_1
+  struct struct1_T
   {
-    ::coder::array<char_T, 2U> f1;
+    ::coder::array<real_T, 2U> param;
+    ::coder::array<real_T, 2U> backgroundParam;
+    ::coder::array<real_T, 2U> scalefactor;
+    ::coder::array<real_T, 2U> qzshift;
+    ::coder::array<real_T, 2U> bulkIn;
+    ::coder::array<real_T, 2U> bulkOut;
+    ::coder::array<real_T, 2U> resolutionParam;
+    ::coder::array<real_T, 2U> domainRatio;
   };
 
   struct struct3_T
@@ -128,44 +156,48 @@ namespace RAT
     struct3_T checks;
   };
 
-  struct struct6_T
+  struct struct7_T
   {
-    ::coder::array<real_T, 1U> allChis;
-    real_T sumChi;
+    ::coder::array<real_T, 1U> ssubs;
+    ::coder::array<real_T, 1U> backgroundParams;
+    ::coder::array<real_T, 1U> qzshifts;
+    ::coder::array<real_T, 1U> scalefactors;
+    ::coder::array<real_T, 1U> bulkIn;
+    ::coder::array<real_T, 1U> bulkOut;
+    ::coder::array<real_T, 1U> resolutionParams;
+    ::coder::array<real_T, 1U> allSubRough;
+    ::coder::array<real_T, 2U> resample;
   };
 
-  struct cell_wrap_18
+  struct struct5_T
+  {
+    ::coder::array<cell_wrap_8, 1U> reflectivity;
+    ::coder::array<cell_wrap_8, 1U> simulation;
+    ::coder::array<cell_wrap_24, 1U> shiftedData;
+    ::coder::array<cell_wrap_10, 2U> layerSlds;
+    ::coder::array<cell_wrap_10, 2U> sldProfiles;
+    ::coder::array<cell_wrap_24, 2U> allLayers;
+    struct6_T calculationResults;
+    struct7_T contrastParams;
+    ::coder::array<real_T, 2U> bestFitPars;
+    ::coder::array<cell_wrap_1, 1U> fitNames;
+  };
+
+  struct cell_wrap_25
   {
     ::coder::array<real_T, 2U> f1;
   };
 
-  struct cell_wrap_22
+  struct cell_wrap_52
   {
     ::coder::array<real_T, 2U> f1;
   };
 
-  struct cell_wrap_47
-  {
-    ::coder::array<real_T, 2U> f1;
-  };
-
-  struct struct10_T
+  struct struct11_T
   {
     ::coder::array<real_T, 2U> par95;
     ::coder::array<real_T, 2U> par65;
     ::coder::array<real_T, 2U> mean;
-  };
-
-  struct struct1_T
-  {
-    ::coder::array<real_T, 2U> param;
-    ::coder::array<real_T, 2U> backgroundParam;
-    ::coder::array<real_T, 2U> scalefactor;
-    ::coder::array<real_T, 2U> qzshift;
-    ::coder::array<real_T, 2U> bulkIn;
-    ::coder::array<real_T, 2U> bulkOut;
-    ::coder::array<real_T, 2U> resolutionParam;
-    ::coder::array<real_T, 2U> domainRatio;
   };
 
   struct cell_0
@@ -190,20 +222,20 @@ namespace RAT
     ::coder::array<real_T, 2U> priorValues;
   };
 
-  struct struct8_T
-  {
-    ::coder::array<cell_wrap_8, 1U> ref;
-    ::coder::array<cell_wrap_8, 2U> sld;
-    real_T chi;
-    ::coder::array<cell_wrap_8, 1U> data;
-  };
-
   struct struct9_T
   {
-    ::coder::array<cell_wrap_8, 1U> refPredInts;
-    ::coder::array<cell_wrap_8, 2U> sldPredInts;
-    ::coder::array<cell_wrap_8, 1U> refXdata;
-    ::coder::array<cell_wrap_8, 2U> sldXdata;
+    ::coder::array<cell_wrap_10, 1U> ref;
+    ::coder::array<cell_wrap_10, 2U> sld;
+    real_T chi;
+    ::coder::array<cell_wrap_10, 1U> data;
+  };
+
+  struct struct10_T
+  {
+    ::coder::array<cell_wrap_10, 1U> refPredInts;
+    ::coder::array<cell_wrap_10, 2U> sldPredInts;
+    ::coder::array<cell_wrap_10, 1U> refXdata;
+    ::coder::array<cell_wrap_10, 2U> sldXdata;
     ::coder::bounded_array<real_T, 1000U, 1U> sampleChi;
   };
 
@@ -286,41 +318,27 @@ namespace RAT
     ::coder::array<real_T, 2U> otherLimits;
   };
 
-  struct struct5_T
-  {
-    ::coder::array<real_T, 1U> ssubs;
-    ::coder::array<real_T, 1U> backgroundParams;
-    ::coder::array<real_T, 1U> qzshifts;
-    ::coder::array<real_T, 1U> scalefactors;
-    ::coder::array<real_T, 1U> bulkIn;
-    ::coder::array<real_T, 1U> bulkOut;
-    ::coder::array<real_T, 1U> resolutionParams;
-    struct6_T calculations;
-    ::coder::array<real_T, 1U> allSubRough;
-    ::coder::array<real_T, 2U> resample;
-  };
-
-  struct struct15_T
+  struct struct16_T
   {
     real_T LogZ;
     ::coder::array<real_T, 2U> nestSamples;
     ::coder::array<real_T, 2U> postSamples;
   };
 
-  struct struct11_T
+  struct struct12_T
   {
     ::coder::array<real_T, 3U> allChains;
-    struct12_T dreamOutput;
-    struct15_T nestOutput;
+    struct13_T dreamOutput;
+    struct16_T nestOutput;
   };
 
-  struct struct7_T
+  struct struct8_T
   {
-    struct8_T bestFitsMean;
-    struct9_T predlims;
-    struct10_T parConfInts;
+    struct9_T bestFitsMean;
+    struct10_T predlims;
+    struct11_T parConfInts;
     ::coder::array<real_T, 2U> bestPars;
-    struct11_T bayesRes;
+    struct12_T bayesRes;
     ::coder::array<real_T, 2U> chain;
   };
 

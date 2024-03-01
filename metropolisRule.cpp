@@ -20,7 +20,7 @@
 // Function Definitions
 namespace RAT
 {
-  void metropolisRule(const struct13_T *DREAMPar, const ::coder::array<real_T,
+  void metropolisRule(const struct14_T *DREAMPar, const ::coder::array<real_T,
                       1U> &log_L_xnew, const ::coder::array<real_T, 1U>
                       &log_PR_xnew, const ::coder::array<real_T, 1U> &log_L_xold,
                       const ::coder::array<real_T, 1U> &log_PR_xold, ::coder::

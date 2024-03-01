@@ -24,14 +24,15 @@
 // Function Definitions
 namespace RAT
 {
-  void initializeDREAM(const struct13_T *DREAMPar, const ::coder::array<real_T,
+  void initializeDREAM(const struct14_T *DREAMPar, const ::coder::array<real_T,
                        2U> &Par_info_min, const ::coder::array<real_T, 2U>
                        &Par_info_max, const char_T Par_info_boundhandling_data[],
                        const int32_T Par_info_boundhandling_size[2], ::coder::
-                       array<real_T, 3U> &chain, struct12_T *output, ::coder::
-                       array<real_T, 2U> &log_L, const d_struct_T
+                       array<real_T, 3U> &chain, struct13_T *output, ::coder::
+                       array<real_T, 2U> &log_L, const f_struct_T
                        *ratInputs_problemStruct, const cell_11
-                       *ratInputs_problemCells, const struct2_T
+                       *ratInputs_problemCells, const struct1_T
+                       *ratInputs_problemLimits, const struct2_T
                        *ratInputs_controls, const ::coder::array<real_T, 2U>
                        &ratInputs_priors, ::coder::array<real_T, 2U> &X, ::coder::
                        array<real_T, 2U> &fx, ::coder::array<real_T, 2U> &CR,
@@ -113,7 +114,7 @@ namespace RAT
 
     //  Now evaluate the model ( = pdf ) and return fx
     evaluateModel(x, DREAMPar, ratInputs_problemStruct, ratInputs_problemCells,
-                  ratInputs_controls, fx);
+                  ratInputs_problemLimits, ratInputs_controls, fx);
 
     //  Calculate the log-likelihood and log-prior of x (fx)
     calcDensity(x, fx, DREAMPar, ratInputs_problemStruct->fitLimits,

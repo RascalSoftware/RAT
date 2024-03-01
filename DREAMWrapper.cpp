@@ -20,14 +20,14 @@
 // Function Definitions
 namespace RAT
 {
-  real_T DREAMWrapper(const ::coder::array<real_T, 2U> &pars, const d_struct_T
+  real_T DREAMWrapper(const ::coder::array<real_T, 2U> &pars, const f_struct_T
                       *ratInputs_problemStruct, const cell_11
-                      *ratInputs_problemCells, const struct2_T
+                      *ratInputs_problemCells, const struct1_T
+                      *ratInputs_problemLimits, const struct2_T
                       *ratInputs_controls)
   {
-    cell_wrap_9 a__1[6];
-    d_struct_T problemStruct;
-    e_struct_T contrastParams;
+    f_struct_T problemStruct;
+    struct5_T expl_temp;
     int32_T loop_ub;
 
     //  Get the inputs for Reflectivity Calculation
@@ -52,10 +52,10 @@ namespace RAT
 
     //  Calculate....
     reflectivityCalculation(&problemStruct, ratInputs_problemCells,
-      ratInputs_controls, &contrastParams, a__1);
+      ratInputs_problemLimits, ratInputs_controls, &expl_temp);
 
     //  Function value is chi-squared....
-    return -contrastParams.calculations.sumChi / 2.0;
+    return -expl_temp.calculationResults.sumChi / 2.0;
   }
 }
 

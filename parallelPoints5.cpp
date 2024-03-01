@@ -31,7 +31,7 @@ namespace RAT
   {
     namespace customXY
     {
-      void parallelPoints(const d_struct_T *problemStruct, const cell_11
+      void parallelPoints(const f_struct_T *problemStruct, const cell_11
                           *problemCells, const struct2_T *controls, ::coder::
                           array<real_T, 1U> &outSsubs, ::coder::array<real_T, 1U>
                           &backgroundParams, ::coder::array<real_T, 1U>
@@ -39,17 +39,17 @@ namespace RAT
                           coder::array<real_T, 1U> &bulkIns, ::coder::array<
                           real_T, 1U> &bulkOuts, ::coder::array<real_T, 1U>
                           &resolutionParams, ::coder::array<real_T, 1U> &chis, ::
-                          coder::array<cell_wrap_20, 1U> &reflectivity, ::coder::
-                          array<cell_wrap_20, 1U> &simulation, ::coder::array<
-                          cell_wrap_8, 1U> &shiftedData, ::coder::array<
-                          cell_wrap_8, 2U> &layerSlds, ::coder::array<
-                          cell_wrap_8, 2U> &domainSldProfiles, ::coder::array<
-                          cell_wrap_8, 2U> &allLayers, ::coder::array<real_T, 1U>
-                          &allRoughs)
+                          coder::array<cell_wrap_8, 1U> &reflectivity, ::coder::
+                          array<cell_wrap_8, 1U> &simulation, ::coder::array<
+                          cell_wrap_10, 1U> &shiftedData, ::coder::array<
+                          cell_wrap_10, 2U> &layerSlds, ::coder::array<
+                          cell_wrap_10, 2U> &domainSldProfiles, ::coder::array<
+                          cell_wrap_10, 2U> &allLayers, ::coder::array<real_T,
+                          1U> &allRoughs)
       {
-        ::coder::array<cell_wrap_34, 1U> tempAllLayers;
-        ::coder::array<cell_wrap_34, 1U> tempLayerSlds;
-        ::coder::array<cell_wrap_34, 1U> tempSldProfiles;
+        ::coder::array<cell_wrap_39, 1U> tempAllLayers;
+        ::coder::array<cell_wrap_39, 1U> tempLayerSlds;
+        ::coder::array<cell_wrap_39, 1U> tempSldProfiles;
         ::coder::array<real_T, 2U> b_domainSldProfiles;
         ::coder::array<real_T, 2U> b_problemCells;
         ::coder::array<real_T, 2U> c_domainSldProfiles;
@@ -62,12 +62,12 @@ namespace RAT
         ::coder::array<real_T, 2U> simul1;
         ::coder::array<real_T, 2U> simul2;
         ::coder::array<real_T, 2U> totReflect;
-        cell_wrap_8 r1;
-        cell_wrap_8 r2;
-        cell_wrap_8 r4;
-        cell_wrap_8 r5;
-        cell_wrap_8 r6;
-        cell_wrap_8 r7;
+        cell_wrap_10 r1;
+        cell_wrap_10 r2;
+        cell_wrap_10 r4;
+        cell_wrap_10 r5;
+        cell_wrap_10 r6;
+        cell_wrap_10 r7;
         int32_T b_i;
         int32_T b_loop_ub;
         int32_T i;

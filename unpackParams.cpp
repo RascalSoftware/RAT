@@ -17,7 +17,7 @@
 // Function Definitions
 namespace RAT
 {
-  void unpackParams(d_struct_T *problemStruct, const ::coder::array<real_T, 2U>
+  void unpackParams(f_struct_T *problemStruct, const ::coder::array<real_T, 2U>
                     &controls_checks_fitParam, const ::coder::array<real_T, 2U>
                     &controls_checks_fitBackgroundParam, const ::coder::array<
                     real_T, 2U> &controls_checks_fitQzshift, const ::coder::

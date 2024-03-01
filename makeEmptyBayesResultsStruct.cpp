@@ -21,11 +21,11 @@
 namespace RAT
 {
   static void cast(const ::coder::array<real_T, 2U> &t2_outlier, real_T
-                   t2_RunTime, const struct13_T *t2_DREAMPar, const struct14_T
+                   t2_RunTime, const struct14_T *t2_DREAMPar, const struct15_T
                    t2_Meas_info, real_T t2_iteration, real_T t2_iloc, real_T
                    t2_fx, const ::coder::array<real_T, 2U> &t2_AR, const ::coder::
                    array<real_T, 2U> &t2_R_stat, const ::coder::array<real_T, 2U>
-                   &t2_CR, struct12_T *b);
+                   &t2_CR, struct13_T *b);
   static void cast(const real_T t0_par95_data[], const int32_T t0_par95_size[2],
                    const real_T t0_par65_data[], const int32_T t0_par65_size[2],
                    const real_T t0_mean_data[], const int32_T t0_mean_size[2], ::
@@ -37,11 +37,11 @@ namespace RAT
 namespace RAT
 {
   static void cast(const ::coder::array<real_T, 2U> &t2_outlier, real_T
-                   t2_RunTime, const struct13_T *t2_DREAMPar, const struct14_T
+                   t2_RunTime, const struct14_T *t2_DREAMPar, const struct15_T
                    t2_Meas_info, real_T t2_iteration, real_T t2_iloc, real_T
                    t2_fx, const ::coder::array<real_T, 2U> &t2_AR, const ::coder::
                    array<real_T, 2U> &t2_R_stat, const ::coder::array<real_T, 2U>
-                   &t2_CR, struct12_T *b)
+                   &t2_CR, struct13_T *b)
   {
     int32_T b_loop_ub;
     int32_T i;
@@ -124,41 +124,41 @@ namespace RAT
   }
 
   void b_makeEmptyBayesResultsStruct(real_T nContrasts, boolean_T isDomains, ::
-    coder::array<cell_wrap_8, 1U> &bayesResults_bestFitsMean_ref, ::coder::array<
-    cell_wrap_8, 2U> &bayesResults_bestFitsMean_sld, real_T
-    *bayesResults_bestFitsMean_chi, ::coder::array<cell_wrap_8, 1U>
-    &bayesResults_bestFitsMean_data, ::coder::array<cell_wrap_8, 1U>
-    &bayesResults_predlims_refPredInts, ::coder::array<cell_wrap_8, 2U>
-    &bayesResults_predlims_sldPredInts, ::coder::array<cell_wrap_8, 1U>
-    &bayesResults_predlims_refXdata, ::coder::array<cell_wrap_8, 2U>
+    coder::array<cell_wrap_10, 1U> &bayesResults_bestFitsMean_ref, ::coder::
+    array<cell_wrap_10, 2U> &bayesResults_bestFitsMean_sld, real_T
+    *bayesResults_bestFitsMean_chi, ::coder::array<cell_wrap_10, 1U>
+    &bayesResults_bestFitsMean_data, ::coder::array<cell_wrap_10, 1U>
+    &bayesResults_predlims_refPredInts, ::coder::array<cell_wrap_10, 2U>
+    &bayesResults_predlims_sldPredInts, ::coder::array<cell_wrap_10, 1U>
+    &bayesResults_predlims_refXdata, ::coder::array<cell_wrap_10, 2U>
     &bayesResults_predlims_sldXdata, real_T
     bayesResults_predlims_sampleChi_data[], int32_T
     *bayesResults_predlims_sampleChi_size, ::coder::array<real_T, 2U>
     &bayesResults_parConfInts_par95, ::coder::array<real_T, 2U>
     &bayesResults_parConfInts_par65, ::coder::array<real_T, 2U>
     &bayesResults_parConfInts_mean, ::coder::array<real_T, 2U>
-    &bayesResults_bestPars, c_struct_T *bayesResults_bayesRes, ::coder::array<
+    &bayesResults_bestPars, e_struct_T *bayesResults_bayesRes, ::coder::array<
     real_T, 2U> &bayesResults_chain)
   {
-    ::coder::array<cell_wrap_8, 2U> b_f1;
-    ::coder::array<cell_wrap_8, 2U> e_f1;
-    ::coder::array<cell_wrap_8, 2U> g_f1;
-    ::coder::array<cell_wrap_8, 1U> c_f1;
-    ::coder::array<cell_wrap_8, 1U> d_f1;
-    ::coder::array<cell_wrap_8, 1U> f1;
-    ::coder::array<cell_wrap_8, 1U> f_f1;
+    ::coder::array<cell_wrap_10, 2U> b_f1;
+    ::coder::array<cell_wrap_10, 2U> e_f1;
+    ::coder::array<cell_wrap_10, 2U> g_f1;
+    ::coder::array<cell_wrap_10, 1U> c_f1;
+    ::coder::array<cell_wrap_10, 1U> d_f1;
+    ::coder::array<cell_wrap_10, 1U> f1;
+    ::coder::array<cell_wrap_10, 1U> f_f1;
     ::coder::array<real_T, 2U> t5_AR;
     ::coder::array<real_T, 2U> t5_CR;
     ::coder::array<real_T, 2U> t5_R_stat;
     ::coder::array<real_T, 2U> t5_outlier;
     ::coder::array<real_T, 1U> h_f1;
-    cell_wrap_12 r;
-    cell_wrap_12 r2;
-    cell_wrap_14 r4;
-    cell_wrap_9 r1;
-    cell_wrap_9 r3;
-    struct13_T expl_temp;
-    struct14_T b_expl_temp;
+    cell_wrap_14 r1;
+    cell_wrap_14 r3;
+    cell_wrap_19 r;
+    cell_wrap_19 r2;
+    cell_wrap_21 r4;
+    struct14_T expl_temp;
+    struct15_T b_expl_temp;
     real_T t6_par65_data[2000];
     real_T t6_par95_data[2000];
     real_T t6_mean_data[1000];
@@ -387,8 +387,9 @@ namespace RAT
       }
     }
 
-    cast(t5_outlier, 100.0, &expl_temp, b_expl_temp, 0.0, 0.0, 0.0, t5_AR,
-         t5_R_stat, t5_CR, &bayesResults_bayesRes->dreamOutput);
+    cast(t5_outlier, 100.0, &expl_temp, b_expl_temp, static_cast<real_T>(0.0),
+         static_cast<real_T>(0.0), static_cast<real_T>(0.0), t5_AR, t5_R_stat,
+         t5_CR, &bayesResults_bayesRes->dreamOutput);
     bayesResults_bayesRes->nestOutput.LogZ = 0.0;
     bayesResults_bayesRes->nestOutput.nestSamples.size[0] = 1;
     bayesResults_bayesRes->nestOutput.nestSamples.size[1] = 2;
@@ -404,48 +405,48 @@ namespace RAT
   }
 
   void makeEmptyBayesResultsStruct(real_T nContrasts, boolean_T isDomains,
-    real_T nChains, ::coder::array<cell_wrap_8, 1U>
-    &bayesResults_bestFitsMean_ref, ::coder::array<cell_wrap_8, 2U>
+    real_T nChains, ::coder::array<cell_wrap_10, 1U>
+    &bayesResults_bestFitsMean_ref, ::coder::array<cell_wrap_10, 2U>
     &bayesResults_bestFitsMean_sld, real_T *bayesResults_bestFitsMean_chi, ::
-    coder::array<cell_wrap_8, 1U> &bayesResults_bestFitsMean_data, ::coder::
-    array<cell_wrap_8, 1U> &bayesResults_predlims_refPredInts, ::coder::array<
-    cell_wrap_8, 2U> &bayesResults_predlims_sldPredInts, ::coder::array<
-    cell_wrap_8, 1U> &bayesResults_predlims_refXdata, ::coder::array<cell_wrap_8,
-    2U> &bayesResults_predlims_sldXdata, real_T
+    coder::array<cell_wrap_10, 1U> &bayesResults_bestFitsMean_data, ::coder::
+    array<cell_wrap_10, 1U> &bayesResults_predlims_refPredInts, ::coder::array<
+    cell_wrap_10, 2U> &bayesResults_predlims_sldPredInts, ::coder::array<
+    cell_wrap_10, 1U> &bayesResults_predlims_refXdata, ::coder::array<
+    cell_wrap_10, 2U> &bayesResults_predlims_sldXdata, real_T
     bayesResults_predlims_sampleChi_data[], int32_T
     *bayesResults_predlims_sampleChi_size, ::coder::array<real_T, 2U>
     &bayesResults_parConfInts_par95, ::coder::array<real_T, 2U>
     &bayesResults_parConfInts_par65, ::coder::array<real_T, 2U>
     &bayesResults_parConfInts_mean, ::coder::array<real_T, 2U>
-    &bayesResults_bestPars, c_struct_T *bayesResults_bayesRes, ::coder::array<
+    &bayesResults_bestPars, e_struct_T *bayesResults_bayesRes, ::coder::array<
     real_T, 2U> &bayesResults_chain)
   {
-    ::coder::array<cell_wrap_8, 2U> b_f1;
-    ::coder::array<cell_wrap_8, 2U> e_f1;
-    ::coder::array<cell_wrap_8, 2U> g_f1;
-    ::coder::array<cell_wrap_8, 1U> c_f1;
-    ::coder::array<cell_wrap_8, 1U> d_f1;
-    ::coder::array<cell_wrap_8, 1U> f1;
-    ::coder::array<cell_wrap_8, 1U> f_f1;
-    ::coder::array<real_T, 2U> t16_AR;
-    ::coder::array<real_T, 2U> t16_CR;
-    ::coder::array<real_T, 2U> t16_R_stat;
-    ::coder::array<real_T, 2U> t16_outlier;
+    ::coder::array<cell_wrap_10, 2U> b_f1;
+    ::coder::array<cell_wrap_10, 2U> e_f1;
+    ::coder::array<cell_wrap_10, 2U> g_f1;
+    ::coder::array<cell_wrap_10, 1U> c_f1;
+    ::coder::array<cell_wrap_10, 1U> d_f1;
+    ::coder::array<cell_wrap_10, 1U> f1;
+    ::coder::array<cell_wrap_10, 1U> f_f1;
+    ::coder::array<real_T, 2U> t17_AR;
+    ::coder::array<real_T, 2U> t17_CR;
+    ::coder::array<real_T, 2U> t17_R_stat;
+    ::coder::array<real_T, 2U> t17_outlier;
     ::coder::array<real_T, 1U> h_f1;
-    ::coder::array<int8_T, 2U> t16_DREAMPar_R;
-    cell_wrap_12 r;
-    cell_wrap_12 r2;
-    cell_wrap_14 r4;
-    cell_wrap_9 r1;
-    cell_wrap_9 r3;
-    struct13_T expl_temp;
-    struct14_T b_expl_temp;
-    real_T t17_par65_data[2000];
-    real_T t17_par95_data[2000];
-    real_T t17_mean_data[1000];
-    int32_T t17_mean_size[2];
-    int32_T t17_par65_size[2];
-    int32_T t17_par95_size[2];
+    ::coder::array<int8_T, 2U> t17_DREAMPar_R;
+    cell_wrap_14 r1;
+    cell_wrap_14 r3;
+    cell_wrap_19 r;
+    cell_wrap_19 r2;
+    cell_wrap_21 r4;
+    struct14_T expl_temp;
+    struct15_T b_expl_temp;
+    real_T t18_par65_data[2000];
+    real_T t18_par95_data[2000];
+    real_T t18_mean_data[1000];
+    int32_T t18_mean_size[2];
+    int32_T t18_par65_size[2];
+    int32_T t18_par95_size[2];
     int32_T b_i;
     int32_T i;
     int32_T i1;
@@ -576,49 +577,49 @@ namespace RAT
 
     //  ------------------------------------------------------------------
     //  (3) bayesResults.parConfInts
-    t17_par95_size[0] = 2;
-    t17_par95_size[1] = 1;
-    t17_par65_size[0] = 2;
-    t17_par65_size[1] = 1;
-    t17_mean_size[0] = 1;
-    t17_mean_size[1] = 1;
-    t17_mean_data[0] = 0.0;
+    t18_par95_size[0] = 2;
+    t18_par95_size[1] = 1;
+    t18_par65_size[0] = 2;
+    t18_par65_size[1] = 1;
+    t18_mean_size[0] = 1;
+    t18_mean_size[1] = 1;
+    t18_mean_data[0] = 0.0;
 
     //  -------------------------------------------------------------------
     //  (4) bayesResults.bestPars
     //  -------------------------------------------------------------------
     //  (5) bayesResults.bayesRes
-    t16_outlier.set_size(1, 2);
-    t17_par95_data[0] = 0.0;
-    t17_par65_data[0] = 0.0;
-    t16_outlier[0] = 1.0;
-    t17_par95_data[1] = 0.0;
-    t17_par65_data[1] = 0.0;
-    t16_outlier[t16_outlier.size(0)] = 1.0;
+    t17_outlier.set_size(1, 2);
+    t18_par95_data[0] = 0.0;
+    t18_par65_data[0] = 0.0;
+    t17_outlier[0] = 1.0;
+    t18_par95_data[1] = 0.0;
+    t18_par65_data[1] = 0.0;
+    t17_outlier[t17_outlier.size(0)] = 1.0;
     loop_ub_tmp = static_cast<int32_T>(nChains);
-    t16_DREAMPar_R.set_size(loop_ub_tmp, loop_ub_tmp);
+    t17_DREAMPar_R.set_size(loop_ub_tmp, loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
       for (i1 = 0; i1 < loop_ub_tmp; i1++) {
-        t16_DREAMPar_R[i1 + t16_DREAMPar_R.size(0) * i] = 0;
+        t17_DREAMPar_R[i1 + t17_DREAMPar_R.size(0) * i] = 0;
       }
     }
 
-    t16_AR.set_size(1, 2);
-    t16_R_stat.set_size(1, 2);
-    t16_CR.set_size(1, 2);
+    t17_AR.set_size(1, 2);
+    t17_R_stat.set_size(1, 2);
+    t17_CR.set_size(1, 2);
 
     //  Nested Sampler
-    t16_AR[0] = 0.0;
-    t16_R_stat[0] = 0.0;
-    t16_CR[0] = 0.0;
-    t16_AR[t16_AR.size(0)] = 0.0;
-    t16_R_stat[t16_R_stat.size(0)] = 0.0;
-    t16_CR[t16_CR.size(0)] = 0.0;
-    expl_temp.R.set_size(t16_DREAMPar_R.size(0), t16_DREAMPar_R.size(1));
-    loop_ub_tmp = t16_DREAMPar_R.size(1);
+    t17_AR[0] = 0.0;
+    t17_R_stat[0] = 0.0;
+    t17_CR[0] = 0.0;
+    t17_AR[t17_AR.size(0)] = 0.0;
+    t17_R_stat[t17_R_stat.size(0)] = 0.0;
+    t17_CR[t17_CR.size(0)] = 0.0;
+    expl_temp.R.set_size(t17_DREAMPar_R.size(0), t17_DREAMPar_R.size(1));
+    loop_ub_tmp = t17_DREAMPar_R.size(1);
     for (i = 0; i < loop_ub_tmp; i++) {
       int32_T loop_ub;
-      loop_ub = t16_DREAMPar_R.size(0);
+      loop_ub = t17_DREAMPar_R.size(0);
       for (i1 = 0; i1 < loop_ub; i1++) {
         expl_temp.R[i1 + expl_temp.R.size(0) * i] = 0.0;
       }
@@ -648,8 +649,9 @@ namespace RAT
     expl_temp.d = 17.0;
     b_expl_temp.N = 0.0;
     b_expl_temp.Y = 0.0;
-    cast(t16_outlier, 100.0, &expl_temp, b_expl_temp, 0.0, 0.0, 0.0, t16_AR,
-         t16_R_stat, t16_CR, &bayesResults_bayesRes->dreamOutput);
+    cast(t17_outlier, 100.0, &expl_temp, b_expl_temp, static_cast<real_T>(0.0),
+         static_cast<real_T>(0.0), static_cast<real_T>(0.0), t17_AR, t17_R_stat,
+         t17_CR, &bayesResults_bayesRes->dreamOutput);
 
     //  ------------------------------------------------------------------
     //  (6) chain
@@ -672,8 +674,8 @@ namespace RAT
       bayesResults_predlims_refPredInts, bayesResults_predlims_sldPredInts,
       bayesResults_predlims_refXdata, bayesResults_predlims_sldXdata,
       bayesResults_predlims_sampleChi_data, bayesResults_predlims_sampleChi_size);
-    cast(t17_par95_data, t17_par95_size, t17_par65_data, t17_par65_size,
-         t17_mean_data, t17_mean_size, bayesResults_parConfInts_par95,
+    cast(t18_par95_data, t18_par95_size, t18_par65_data, t18_par65_size,
+         t18_mean_data, t18_mean_size, bayesResults_parConfInts_par95,
          bayesResults_parConfInts_par65, bayesResults_parConfInts_mean);
     bayesResults_bestPars.set_size(1, 1);
     bayesResults_bestPars[0] = 1.0;

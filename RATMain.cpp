@@ -13,10 +13,11 @@
 #include "RATMain_data.h"
 #include "RATMain_internal_types.h"
 #include "RATMain_types.h"
+#include "length.h"
 #include "lower.h"
 #include "makeEmptyBayesResultsStruct.h"
+#include "makeEmptyResultStruct.h"
 #include "reflectivityCalculation.h"
-#include "repmat.h"
 #include "rt_nonfinite.h"
 #include "runDE.h"
 #include "runDREAM.h"
@@ -31,15 +32,24 @@
 // Function Declarations
 namespace RAT
 {
-  static void cast(const d_struct_T *b, struct0_T *c);
-  static void cast(const struct0_T *b, d_struct_T *c);
+  static void cast(const ::coder::array<cell_wrap_8, 1U> &t13_reflectivity,
+                   const ::coder::array<cell_wrap_8, 1U> &t13_simulation, const ::
+                   coder::array<cell_wrap_24, 1U> &t13_shiftedData, const ::
+                   coder::array<cell_wrap_10, 2U> &t13_layerSlds, const ::coder::
+                   array<cell_wrap_10, 2U> &t13_sldProfiles, const ::coder::
+                   array<cell_wrap_24, 2U> &t13_allLayers, const struct6_T
+                   *t13_calculationResults, const b_struct_T *t13_contrastParams,
+                   const ::coder::array<real_T, 2U> &t13_bestFitPars, const ::
+                   coder::array<cell_wrap_1, 1U> &t13_fitNames, struct5_T *b);
+  static void cast(const f_struct_T *b, struct0_T *c);
+  static void cast(const struct0_T *b, f_struct_T *c);
   static void cast(const cell_7 *b, cell_11 *c);
   static void cast(const ::coder::array<cell_wrap_5, 1U> &b, ::coder::array<
-                   cell_wrap_8, 1U> &c);
+                   cell_wrap_10, 1U> &c);
   static void cast(const ::coder::array<cell_wrap_3, 2U> &b, ::coder::array<
-                   cell_wrap_8, 2U> &c);
+                   cell_wrap_10, 2U> &c);
   static void cast(const ::coder::array<cell_wrap_4, 2U> &b, ::coder::array<
-                   cell_wrap_8, 2U> &c);
+                   cell_wrap_10, 2U> &c);
   static void cast(const ::coder::array<cell_wrap_6, 2U> &b, ::coder::array<
                    cell_wrap_1, 2U> &c);
 }
@@ -47,7 +57,144 @@ namespace RAT
 // Function Definitions
 namespace RAT
 {
-  static void cast(const d_struct_T *b, struct0_T *c)
+  static void cast(const ::coder::array<cell_wrap_8, 1U> &t13_reflectivity,
+                   const ::coder::array<cell_wrap_8, 1U> &t13_simulation, const ::
+                   coder::array<cell_wrap_24, 1U> &t13_shiftedData, const ::
+                   coder::array<cell_wrap_10, 2U> &t13_layerSlds, const ::coder::
+                   array<cell_wrap_10, 2U> &t13_sldProfiles, const ::coder::
+                   array<cell_wrap_24, 2U> &t13_allLayers, const struct6_T
+                   *t13_calculationResults, const b_struct_T *t13_contrastParams,
+                   const ::coder::array<real_T, 2U> &t13_bestFitPars, const ::
+                   coder::array<cell_wrap_1, 1U> &t13_fitNames, struct5_T *b)
+  {
+    int32_T b_loop_ub;
+    int32_T i;
+    int32_T i1;
+    int32_T loop_ub;
+    b->reflectivity.set_size(t13_reflectivity.size(0));
+    loop_ub = t13_reflectivity.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      b->reflectivity[i] = t13_reflectivity[i];
+    }
+
+    b->simulation.set_size(t13_simulation.size(0));
+    loop_ub = t13_simulation.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      b->simulation[i] = t13_simulation[i];
+    }
+
+    b->shiftedData.set_size(t13_shiftedData.size(0));
+    loop_ub = t13_shiftedData.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      b->shiftedData[i] = t13_shiftedData[i];
+    }
+
+    b->layerSlds.set_size(t13_layerSlds.size(0), t13_layerSlds.size(1));
+    loop_ub = t13_layerSlds.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_loop_ub = t13_layerSlds.size(0);
+      for (i1 = 0; i1 < b_loop_ub; i1++) {
+        b->layerSlds[i1 + b->layerSlds.size(0) * i] = t13_layerSlds[i1 +
+          t13_layerSlds.size(0) * i];
+      }
+    }
+
+    b->sldProfiles.set_size(t13_sldProfiles.size(0), t13_sldProfiles.size(1));
+    loop_ub = t13_sldProfiles.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_loop_ub = t13_sldProfiles.size(0);
+      for (i1 = 0; i1 < b_loop_ub; i1++) {
+        b->sldProfiles[i1 + b->sldProfiles.size(0) * i] = t13_sldProfiles[i1 +
+          t13_sldProfiles.size(0) * i];
+      }
+    }
+
+    b->allLayers.set_size(t13_allLayers.size(0), t13_allLayers.size(1));
+    loop_ub = t13_allLayers.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_loop_ub = t13_allLayers.size(0);
+      for (i1 = 0; i1 < b_loop_ub; i1++) {
+        b->allLayers[i1 + b->allLayers.size(0) * i] = t13_allLayers[i1 +
+          t13_allLayers.size(0) * i];
+      }
+    }
+
+    b->calculationResults = *t13_calculationResults;
+    b->contrastParams.ssubs.set_size(t13_contrastParams->ssubs.size(0));
+    loop_ub = t13_contrastParams->ssubs.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      b->contrastParams.ssubs[i] = t13_contrastParams->ssubs[i];
+    }
+
+    b->contrastParams.backgroundParams.set_size
+      (t13_contrastParams->backgroundParams.size(0));
+    loop_ub = t13_contrastParams->backgroundParams.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      b->contrastParams.backgroundParams[i] =
+        t13_contrastParams->backgroundParams[i];
+    }
+
+    b->contrastParams.qzshifts.set_size(t13_contrastParams->qzshifts.size(0));
+    loop_ub = t13_contrastParams->qzshifts.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      b->contrastParams.qzshifts[i] = t13_contrastParams->qzshifts[i];
+    }
+
+    b->contrastParams.scalefactors.set_size
+      (t13_contrastParams->scalefactors.size(0));
+    loop_ub = t13_contrastParams->scalefactors.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      b->contrastParams.scalefactors[i] = t13_contrastParams->scalefactors[i];
+    }
+
+    b->contrastParams.bulkIn.set_size(t13_contrastParams->bulkIn.size(0));
+    loop_ub = t13_contrastParams->bulkIn.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      b->contrastParams.bulkIn[i] = t13_contrastParams->bulkIn[i];
+    }
+
+    b->contrastParams.bulkOut.set_size(t13_contrastParams->bulkOut.size(0));
+    loop_ub = t13_contrastParams->bulkOut.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      b->contrastParams.bulkOut[i] = t13_contrastParams->bulkOut[i];
+    }
+
+    b->contrastParams.resolutionParams.set_size
+      (t13_contrastParams->resolutionParams.size(0));
+    loop_ub = t13_contrastParams->resolutionParams.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      b->contrastParams.resolutionParams[i] =
+        t13_contrastParams->resolutionParams[i];
+    }
+
+    b->contrastParams.allSubRough.set_size(t13_contrastParams->allSubRough.size
+      (0));
+    loop_ub = t13_contrastParams->allSubRough.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      b->contrastParams.allSubRough[i] = t13_contrastParams->allSubRough[i];
+    }
+
+    b->contrastParams.resample.set_size(1, t13_contrastParams->resample.size(1));
+    loop_ub = t13_contrastParams->resample.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b->contrastParams.resample[b->contrastParams.resample.size(0) * i] =
+        t13_contrastParams->resample[i];
+    }
+
+    b->bestFitPars.set_size(1, t13_bestFitPars.size(1));
+    loop_ub = t13_bestFitPars.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b->bestFitPars[b->bestFitPars.size(0) * i] = t13_bestFitPars[i];
+    }
+
+    b->fitNames.set_size(t13_fitNames.size(0));
+    loop_ub = t13_fitNames.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      b->fitNames[i] = t13_fitNames[i];
+    }
+  }
+
+  static void cast(const f_struct_T *b, struct0_T *c)
   {
     int32_T b_loop_ub;
     int32_T i;
@@ -241,7 +388,7 @@ namespace RAT
     }
   }
 
-  static void cast(const struct0_T *b, d_struct_T *c)
+  static void cast(const struct0_T *b, f_struct_T *c)
   {
     int32_T b_loop_ub;
     int32_T i;
@@ -482,7 +629,7 @@ namespace RAT
   }
 
   static void cast(const ::coder::array<cell_wrap_5, 1U> &b, ::coder::array<
-                   cell_wrap_8, 1U> &c)
+                   cell_wrap_10, 1U> &c)
   {
     int32_T i;
     c.set_size(b.size(0));
@@ -502,7 +649,7 @@ namespace RAT
   }
 
   static void cast(const ::coder::array<cell_wrap_3, 2U> &b, ::coder::array<
-                   cell_wrap_8, 2U> &c)
+                   cell_wrap_10, 2U> &c)
   {
     int32_T i;
     c.set_size(1, b.size(1));
@@ -524,7 +671,7 @@ namespace RAT
   }
 
   static void cast(const ::coder::array<cell_wrap_4, 2U> &b, ::coder::array<
-                   cell_wrap_8, 2U> &c)
+                   cell_wrap_10, 2U> &c)
   {
     int32_T i;
     c.set_size(1, b.size(1));
@@ -562,69 +709,45 @@ namespace RAT
 
   void RATMain(struct0_T *problemStruct, const cell_7 *problemCells, const
                struct1_T *problemLimits, struct2_T *controls, const struct4_T
-               *priors, struct5_T *contrastParams, cell_wrap_9 resultCells[6],
-               struct7_T *bayesResults)
+               *priors, struct5_T *result, struct8_T *bayesResults)
   {
-    static c_struct_T bayesResults_bayesRes;
-    static d_struct_T b_problemStruct;
-    static d_struct_T r;
-    static h_struct_T b_bayesResults;
-    ::coder::array<int8_T, 1U> t19_calculations_allChis;
+    static e_struct_T bayesResults_bayesRes;
+    static f_struct_T b_problemStruct;
+    static f_struct_T r;
+    static j_struct_T b_bayesResults;
+    ::coder::array<cell_wrap_1, 1U> t22_fitNames;
+    ::coder::array<cell_wrap_10, 2U> t22_layerSlds;
+    ::coder::array<cell_wrap_10, 2U> t22_sldProfiles;
+    ::coder::array<cell_wrap_24, 2U> t22_allLayers;
+    ::coder::array<cell_wrap_24, 1U> t22_shiftedData;
+    ::coder::array<cell_wrap_8, 1U> t22_reflectivity;
+    ::coder::array<cell_wrap_8, 1U> t22_simulation;
+    ::coder::array<real_T, 2U> t22_bestFitPars;
+    b_struct_T t22_contrastParams;
     cell_11 r1;
-    e_struct_T b_contrastParams;
-    e_struct_T c_contrastParams;
+    struct6_T t22_calculationResults;
     int32_T switch_expression_size[2];
     int32_T b_loop_ub;
+    int32_T c_loop_ub;
     int32_T i;
     int32_T i1;
     int32_T i2;
     int32_T loop_ub;
-    int32_T problemStruct_idx_0_tmp;
     char_T switch_expression_data[10000];
-    coder::repmat(resultCells);
-    problemStruct_idx_0_tmp = static_cast<int32_T>
-      (problemStruct->numberOfContrasts);
-    t19_calculations_allChis.set_size(problemStruct_idx_0_tmp);
-    contrastParams->ssubs.set_size(problemStruct_idx_0_tmp);
-    contrastParams->backgroundParams.set_size(problemStruct_idx_0_tmp);
-    contrastParams->qzshifts.set_size(problemStruct_idx_0_tmp);
-    contrastParams->scalefactors.set_size(problemStruct_idx_0_tmp);
-    contrastParams->bulkIn.set_size(problemStruct_idx_0_tmp);
-    contrastParams->bulkOut.set_size(problemStruct_idx_0_tmp);
-    contrastParams->resolutionParams.set_size(problemStruct_idx_0_tmp);
-    for (i = 0; i < problemStruct_idx_0_tmp; i++) {
-      t19_calculations_allChis[i] = 0;
-      contrastParams->ssubs[i] = 0.0;
-      contrastParams->backgroundParams[i] = 0.0;
-      contrastParams->qzshifts[i] = 0.0;
-      contrastParams->scalefactors[i] = 0.0;
-      contrastParams->bulkIn[i] = 0.0;
-      contrastParams->bulkOut[i] = 0.0;
-      contrastParams->resolutionParams[i] = 0.0;
-    }
-
-    contrastParams->calculations.allChis.set_size(t19_calculations_allChis.size
-      (0));
-    loop_ub = t19_calculations_allChis.size(0);
-    for (i = 0; i < loop_ub; i++) {
-      contrastParams->calculations.allChis[i] = 0.0;
-    }
-
-    contrastParams->calculations.sumChi = 0.0;
-    contrastParams->allSubRough.set_size(problemStruct_idx_0_tmp);
-    for (i = 0; i < problemStruct_idx_0_tmp; i++) {
-      contrastParams->allSubRough[i] = 0.0;
-    }
-
-    contrastParams->resample.set_size(problemStruct_idx_0_tmp, 1);
-    for (i = 0; i < 1; i++) {
-      for (i1 = 0; i1 < problemStruct_idx_0_tmp; i1++) {
-        contrastParams->resample[i1] = 0.0;
-      }
-    }
-
-    makeEmptyBayesResultsStruct(problemStruct->numberOfContrasts, coder::
-      internal::b_strcmp(problemStruct->TF.data, problemStruct->TF.size),
+    boolean_T domains;
+    domains = coder::internal::b_strcmp(problemStruct->TF.data,
+      problemStruct->TF.size);
+    makeEmptyResultStruct(problemStruct->numberOfContrasts, static_cast<real_T>
+                          (coder::internal::intlength
+      (problemStruct->fitParams.size(0), problemStruct->fitParams.size(1))),
+                          domains, t22_reflectivity, t22_simulation,
+                          t22_shiftedData, t22_layerSlds, t22_sldProfiles,
+                          t22_allLayers, &t22_calculationResults,
+                          &t22_contrastParams, t22_bestFitPars, t22_fitNames);
+    cast(t22_reflectivity, t22_simulation, t22_shiftedData, t22_layerSlds,
+         t22_sldProfiles, t22_allLayers, &t22_calculationResults,
+         &t22_contrastParams, t22_bestFitPars, t22_fitNames, result);
+    makeEmptyBayesResultsStruct(problemStruct->numberOfContrasts, domains,
       controls->nChains, bayesResults->bestFitsMean.ref,
       bayesResults->bestFitsMean.sld, &bayesResults->bestFitsMean.chi,
       bayesResults->bestFitsMean.data, bayesResults->predlims.refPredInts,
@@ -639,10 +762,10 @@ namespace RAT
        bayesResults_bayesRes.allChains.size(2));
     loop_ub = bayesResults_bayesRes.allChains.size(2);
     for (i = 0; i < loop_ub; i++) {
-      problemStruct_idx_0_tmp = bayesResults_bayesRes.allChains.size(1);
-      for (i1 = 0; i1 < problemStruct_idx_0_tmp; i1++) {
-        b_loop_ub = bayesResults_bayesRes.allChains.size(0);
-        for (i2 = 0; i2 < b_loop_ub; i2++) {
+      b_loop_ub = bayesResults_bayesRes.allChains.size(1);
+      for (i1 = 0; i1 < b_loop_ub; i1++) {
+        c_loop_ub = bayesResults_bayesRes.allChains.size(0);
+        for (i2 = 0; i2 < c_loop_ub; i2++) {
           bayesResults->bayesRes.allChains[(i2 +
             bayesResults->bayesRes.allChains.size(0) * i1) +
             bayesResults->bayesRes.allChains.size(0) *
@@ -671,93 +794,34 @@ namespace RAT
       [bayesResults->bayesRes.nestOutput.postSamples.size(0)] =
       bayesResults_bayesRes.nestOutput.postSamples.data[1];
 
-    // Decide what we are doing....
+    //  Decide what we are doing....
     coder::lower(controls->procedure.data, controls->procedure.size,
                  switch_expression_data, switch_expression_size);
     if (coder::internal::c_strcmp(switch_expression_data, switch_expression_size))
     {
-      problemStruct_idx_0_tmp = 0;
+      loop_ub = 0;
     } else if (coder::internal::d_strcmp(switch_expression_data,
                 switch_expression_size)) {
-      problemStruct_idx_0_tmp = 1;
+      loop_ub = 1;
     } else if (coder::internal::e_strcmp(switch_expression_data,
                 switch_expression_size)) {
-      problemStruct_idx_0_tmp = 2;
+      loop_ub = 2;
     } else if (coder::internal::f_strcmp(switch_expression_data,
                 switch_expression_size)) {
-      problemStruct_idx_0_tmp = 3;
+      loop_ub = 3;
     } else if (coder::internal::g_strcmp(switch_expression_data,
                 switch_expression_size)) {
-      problemStruct_idx_0_tmp = 4;
+      loop_ub = 4;
     } else {
-      problemStruct_idx_0_tmp = -1;
+      loop_ub = -1;
     }
 
-    switch (problemStruct_idx_0_tmp) {
+    switch (loop_ub) {
      case 0:
-      // Just a single reflectivity calculation
+      //  Just a single reflectivity calculation
       cast(problemStruct, &r);
       cast(problemCells, &r1);
-      reflectivityCalculation(&r, &r1, controls, &b_contrastParams, resultCells);
-      contrastParams->ssubs.set_size(b_contrastParams.ssubs.size(0));
-      loop_ub = b_contrastParams.ssubs.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->ssubs[i] = b_contrastParams.ssubs[i];
-      }
-
-      contrastParams->backgroundParams.set_size
-        (b_contrastParams.backgroundParams.size(0));
-      loop_ub = b_contrastParams.backgroundParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->backgroundParams[i] =
-          b_contrastParams.backgroundParams[i];
-      }
-
-      contrastParams->qzshifts.set_size(b_contrastParams.qzshifts.size(0));
-      loop_ub = b_contrastParams.qzshifts.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->qzshifts[i] = b_contrastParams.qzshifts[i];
-      }
-
-      contrastParams->scalefactors.set_size(b_contrastParams.scalefactors.size(0));
-      loop_ub = b_contrastParams.scalefactors.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->scalefactors[i] = b_contrastParams.scalefactors[i];
-      }
-
-      contrastParams->bulkIn.set_size(b_contrastParams.bulkIn.size(0));
-      loop_ub = b_contrastParams.bulkIn.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->bulkIn[i] = b_contrastParams.bulkIn[i];
-      }
-
-      contrastParams->bulkOut.set_size(b_contrastParams.bulkOut.size(0));
-      loop_ub = b_contrastParams.bulkOut.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->bulkOut[i] = b_contrastParams.bulkOut[i];
-      }
-
-      contrastParams->resolutionParams.set_size
-        (b_contrastParams.resolutionParams.size(0));
-      loop_ub = b_contrastParams.resolutionParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->resolutionParams[i] =
-          b_contrastParams.resolutionParams[i];
-      }
-
-      contrastParams->calculations = b_contrastParams.calculations;
-      contrastParams->allSubRough.set_size(b_contrastParams.allSubRough.size(0));
-      loop_ub = b_contrastParams.allSubRough.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->allSubRough[i] = b_contrastParams.allSubRough[i];
-      }
-
-      contrastParams->resample.set_size(1, b_contrastParams.resample.size(1));
-      loop_ub = b_contrastParams.resample.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->resample[contrastParams->resample.size(0) * i] =
-          b_contrastParams.resample[i];
-      }
+      reflectivityCalculation(&r, &r1, problemLimits, controls, result);
       break;
 
      case 1:
@@ -769,127 +833,8 @@ namespace RAT
 
       cast(problemStruct, &b_problemStruct);
       cast(problemCells, &r1);
-      runSimplex(&b_problemStruct, &r1, problemLimits, controls,
-                 &c_contrastParams, resultCells);
-      b_contrastParams.ssubs.set_size(c_contrastParams.ssubs.size(0));
-      loop_ub = c_contrastParams.ssubs.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.ssubs[i] = c_contrastParams.ssubs[i];
-      }
-
-      b_contrastParams.backgroundParams.set_size
-        (c_contrastParams.backgroundParams.size(0));
-      loop_ub = c_contrastParams.backgroundParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.backgroundParams[i] =
-          c_contrastParams.backgroundParams[i];
-      }
-
-      b_contrastParams.qzshifts.set_size(c_contrastParams.qzshifts.size(0));
-      loop_ub = c_contrastParams.qzshifts.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.qzshifts[i] = c_contrastParams.qzshifts[i];
-      }
-
-      b_contrastParams.scalefactors.set_size(c_contrastParams.scalefactors.size
-        (0));
-      loop_ub = c_contrastParams.scalefactors.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.scalefactors[i] = c_contrastParams.scalefactors[i];
-      }
-
-      b_contrastParams.bulkIn.set_size(c_contrastParams.bulkIn.size(0));
-      loop_ub = c_contrastParams.bulkIn.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.bulkIn[i] = c_contrastParams.bulkIn[i];
-      }
-
-      b_contrastParams.bulkOut.set_size(c_contrastParams.bulkOut.size(0));
-      loop_ub = c_contrastParams.bulkOut.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.bulkOut[i] = c_contrastParams.bulkOut[i];
-      }
-
-      b_contrastParams.resolutionParams.set_size
-        (c_contrastParams.resolutionParams.size(0));
-      loop_ub = c_contrastParams.resolutionParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.resolutionParams[i] =
-          c_contrastParams.resolutionParams[i];
-      }
-
-      b_contrastParams.allSubRough.set_size(c_contrastParams.allSubRough.size(0));
-      loop_ub = c_contrastParams.allSubRough.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.allSubRough[i] = c_contrastParams.allSubRough[i];
-      }
-
-      b_contrastParams.resample.set_size(1, c_contrastParams.resample.size(1));
-      loop_ub = c_contrastParams.resample.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.resample[i] = c_contrastParams.resample[i];
-      }
-
+      runSimplex(&b_problemStruct, &r1, problemLimits, controls, result);
       cast(&b_problemStruct, problemStruct);
-      contrastParams->ssubs.set_size(b_contrastParams.ssubs.size(0));
-      loop_ub = b_contrastParams.ssubs.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->ssubs[i] = b_contrastParams.ssubs[i];
-      }
-
-      contrastParams->backgroundParams.set_size
-        (b_contrastParams.backgroundParams.size(0));
-      loop_ub = b_contrastParams.backgroundParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->backgroundParams[i] =
-          b_contrastParams.backgroundParams[i];
-      }
-
-      contrastParams->qzshifts.set_size(b_contrastParams.qzshifts.size(0));
-      loop_ub = b_contrastParams.qzshifts.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->qzshifts[i] = b_contrastParams.qzshifts[i];
-      }
-
-      contrastParams->scalefactors.set_size(b_contrastParams.scalefactors.size(0));
-      loop_ub = b_contrastParams.scalefactors.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->scalefactors[i] = b_contrastParams.scalefactors[i];
-      }
-
-      contrastParams->bulkIn.set_size(b_contrastParams.bulkIn.size(0));
-      loop_ub = b_contrastParams.bulkIn.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->bulkIn[i] = b_contrastParams.bulkIn[i];
-      }
-
-      contrastParams->bulkOut.set_size(b_contrastParams.bulkOut.size(0));
-      loop_ub = b_contrastParams.bulkOut.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->bulkOut[i] = b_contrastParams.bulkOut[i];
-      }
-
-      contrastParams->resolutionParams.set_size
-        (b_contrastParams.resolutionParams.size(0));
-      loop_ub = b_contrastParams.resolutionParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->resolutionParams[i] =
-          b_contrastParams.resolutionParams[i];
-      }
-
-      contrastParams->calculations = c_contrastParams.calculations;
-      contrastParams->allSubRough.set_size(b_contrastParams.allSubRough.size(0));
-      loop_ub = b_contrastParams.allSubRough.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->allSubRough[i] = b_contrastParams.allSubRough[i];
-      }
-
-      contrastParams->resample.set_size(1, b_contrastParams.resample.size(1));
-      loop_ub = b_contrastParams.resample.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->resample[contrastParams->resample.size(0) * i] =
-          b_contrastParams.resample[i];
-      }
       break;
 
      case 2:
@@ -901,127 +846,8 @@ namespace RAT
 
       cast(problemStruct, &b_problemStruct);
       cast(problemCells, &r1);
-      runDE(&b_problemStruct, &r1, problemLimits, controls, &c_contrastParams,
-            resultCells);
-      b_contrastParams.ssubs.set_size(c_contrastParams.ssubs.size(0));
-      loop_ub = c_contrastParams.ssubs.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.ssubs[i] = c_contrastParams.ssubs[i];
-      }
-
-      b_contrastParams.backgroundParams.set_size
-        (c_contrastParams.backgroundParams.size(0));
-      loop_ub = c_contrastParams.backgroundParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.backgroundParams[i] =
-          c_contrastParams.backgroundParams[i];
-      }
-
-      b_contrastParams.qzshifts.set_size(c_contrastParams.qzshifts.size(0));
-      loop_ub = c_contrastParams.qzshifts.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.qzshifts[i] = c_contrastParams.qzshifts[i];
-      }
-
-      b_contrastParams.scalefactors.set_size(c_contrastParams.scalefactors.size
-        (0));
-      loop_ub = c_contrastParams.scalefactors.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.scalefactors[i] = c_contrastParams.scalefactors[i];
-      }
-
-      b_contrastParams.bulkIn.set_size(c_contrastParams.bulkIn.size(0));
-      loop_ub = c_contrastParams.bulkIn.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.bulkIn[i] = c_contrastParams.bulkIn[i];
-      }
-
-      b_contrastParams.bulkOut.set_size(c_contrastParams.bulkOut.size(0));
-      loop_ub = c_contrastParams.bulkOut.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.bulkOut[i] = c_contrastParams.bulkOut[i];
-      }
-
-      b_contrastParams.resolutionParams.set_size
-        (c_contrastParams.resolutionParams.size(0));
-      loop_ub = c_contrastParams.resolutionParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.resolutionParams[i] =
-          c_contrastParams.resolutionParams[i];
-      }
-
-      b_contrastParams.allSubRough.set_size(c_contrastParams.allSubRough.size(0));
-      loop_ub = c_contrastParams.allSubRough.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.allSubRough[i] = c_contrastParams.allSubRough[i];
-      }
-
-      b_contrastParams.resample.set_size(1, c_contrastParams.resample.size(1));
-      loop_ub = c_contrastParams.resample.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.resample[i] = c_contrastParams.resample[i];
-      }
-
+      runDE(&b_problemStruct, &r1, problemLimits, controls, result);
       cast(&b_problemStruct, problemStruct);
-      contrastParams->ssubs.set_size(b_contrastParams.ssubs.size(0));
-      loop_ub = b_contrastParams.ssubs.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->ssubs[i] = b_contrastParams.ssubs[i];
-      }
-
-      contrastParams->backgroundParams.set_size
-        (b_contrastParams.backgroundParams.size(0));
-      loop_ub = b_contrastParams.backgroundParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->backgroundParams[i] =
-          b_contrastParams.backgroundParams[i];
-      }
-
-      contrastParams->qzshifts.set_size(b_contrastParams.qzshifts.size(0));
-      loop_ub = b_contrastParams.qzshifts.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->qzshifts[i] = b_contrastParams.qzshifts[i];
-      }
-
-      contrastParams->scalefactors.set_size(b_contrastParams.scalefactors.size(0));
-      loop_ub = b_contrastParams.scalefactors.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->scalefactors[i] = b_contrastParams.scalefactors[i];
-      }
-
-      contrastParams->bulkIn.set_size(b_contrastParams.bulkIn.size(0));
-      loop_ub = b_contrastParams.bulkIn.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->bulkIn[i] = b_contrastParams.bulkIn[i];
-      }
-
-      contrastParams->bulkOut.set_size(b_contrastParams.bulkOut.size(0));
-      loop_ub = b_contrastParams.bulkOut.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->bulkOut[i] = b_contrastParams.bulkOut[i];
-      }
-
-      contrastParams->resolutionParams.set_size
-        (b_contrastParams.resolutionParams.size(0));
-      loop_ub = b_contrastParams.resolutionParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->resolutionParams[i] =
-          b_contrastParams.resolutionParams[i];
-      }
-
-      contrastParams->calculations = c_contrastParams.calculations;
-      contrastParams->allSubRough.set_size(b_contrastParams.allSubRough.size(0));
-      loop_ub = b_contrastParams.allSubRough.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->allSubRough[i] = b_contrastParams.allSubRough[i];
-      }
-
-      contrastParams->resample.set_size(1, b_contrastParams.resample.size(1));
-      loop_ub = b_contrastParams.resample.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->resample[contrastParams->resample.size(0) * i] =
-          b_contrastParams.resample[i];
-      }
       break;
 
      case 3:
@@ -1034,126 +860,8 @@ namespace RAT
       cast(problemStruct, &b_problemStruct);
       cast(problemCells, &r1);
       runNestedSampler(&b_problemStruct, &r1, problemLimits, controls, priors,
-                       &c_contrastParams, resultCells, bayesResults);
-      b_contrastParams.ssubs.set_size(c_contrastParams.ssubs.size(0));
-      loop_ub = c_contrastParams.ssubs.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.ssubs[i] = c_contrastParams.ssubs[i];
-      }
-
-      b_contrastParams.backgroundParams.set_size
-        (c_contrastParams.backgroundParams.size(0));
-      loop_ub = c_contrastParams.backgroundParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.backgroundParams[i] =
-          c_contrastParams.backgroundParams[i];
-      }
-
-      b_contrastParams.qzshifts.set_size(c_contrastParams.qzshifts.size(0));
-      loop_ub = c_contrastParams.qzshifts.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.qzshifts[i] = c_contrastParams.qzshifts[i];
-      }
-
-      b_contrastParams.scalefactors.set_size(c_contrastParams.scalefactors.size
-        (0));
-      loop_ub = c_contrastParams.scalefactors.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.scalefactors[i] = c_contrastParams.scalefactors[i];
-      }
-
-      b_contrastParams.bulkIn.set_size(c_contrastParams.bulkIn.size(0));
-      loop_ub = c_contrastParams.bulkIn.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.bulkIn[i] = c_contrastParams.bulkIn[i];
-      }
-
-      b_contrastParams.bulkOut.set_size(c_contrastParams.bulkOut.size(0));
-      loop_ub = c_contrastParams.bulkOut.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.bulkOut[i] = c_contrastParams.bulkOut[i];
-      }
-
-      b_contrastParams.resolutionParams.set_size
-        (c_contrastParams.resolutionParams.size(0));
-      loop_ub = c_contrastParams.resolutionParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.resolutionParams[i] =
-          c_contrastParams.resolutionParams[i];
-      }
-
-      b_contrastParams.allSubRough.set_size(c_contrastParams.allSubRough.size(0));
-      loop_ub = c_contrastParams.allSubRough.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.allSubRough[i] = c_contrastParams.allSubRough[i];
-      }
-
-      b_contrastParams.resample.set_size(1, c_contrastParams.resample.size(1));
-      loop_ub = c_contrastParams.resample.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.resample[i] = c_contrastParams.resample[i];
-      }
-
+                       result, bayesResults);
       cast(&b_problemStruct, problemStruct);
-      contrastParams->ssubs.set_size(b_contrastParams.ssubs.size(0));
-      loop_ub = b_contrastParams.ssubs.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->ssubs[i] = b_contrastParams.ssubs[i];
-      }
-
-      contrastParams->backgroundParams.set_size
-        (b_contrastParams.backgroundParams.size(0));
-      loop_ub = b_contrastParams.backgroundParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->backgroundParams[i] =
-          b_contrastParams.backgroundParams[i];
-      }
-
-      contrastParams->qzshifts.set_size(b_contrastParams.qzshifts.size(0));
-      loop_ub = b_contrastParams.qzshifts.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->qzshifts[i] = b_contrastParams.qzshifts[i];
-      }
-
-      contrastParams->scalefactors.set_size(b_contrastParams.scalefactors.size(0));
-      loop_ub = b_contrastParams.scalefactors.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->scalefactors[i] = b_contrastParams.scalefactors[i];
-      }
-
-      contrastParams->bulkIn.set_size(b_contrastParams.bulkIn.size(0));
-      loop_ub = b_contrastParams.bulkIn.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->bulkIn[i] = b_contrastParams.bulkIn[i];
-      }
-
-      contrastParams->bulkOut.set_size(b_contrastParams.bulkOut.size(0));
-      loop_ub = b_contrastParams.bulkOut.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->bulkOut[i] = b_contrastParams.bulkOut[i];
-      }
-
-      contrastParams->resolutionParams.set_size
-        (b_contrastParams.resolutionParams.size(0));
-      loop_ub = b_contrastParams.resolutionParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->resolutionParams[i] =
-          b_contrastParams.resolutionParams[i];
-      }
-
-      contrastParams->calculations = c_contrastParams.calculations;
-      contrastParams->allSubRough.set_size(b_contrastParams.allSubRough.size(0));
-      loop_ub = b_contrastParams.allSubRough.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->allSubRough[i] = b_contrastParams.allSubRough[i];
-      }
-
-      contrastParams->resample.set_size(1, b_contrastParams.resample.size(1));
-      loop_ub = b_contrastParams.resample.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->resample[contrastParams->resample.size(0) * i] =
-          b_contrastParams.resample[i];
-      }
       break;
 
      case 4:
@@ -1166,7 +874,7 @@ namespace RAT
       cast(problemStruct, &r);
       cast(problemCells, &r1);
       runDREAM(&r, &r1, problemLimits, controls, priors, &b_problemStruct,
-               &c_contrastParams, resultCells, &b_bayesResults);
+               result, &b_bayesResults);
       bayesResults->bestFitsMean = b_bayesResults.bestFitsMean;
       bayesResults->predlims = b_bayesResults.predlims;
       bayesResults->parConfInts = b_bayesResults.parConfInts;
@@ -1182,10 +890,10 @@ namespace RAT
          b_bayesResults.bayesRes.allChains.size(2));
       loop_ub = b_bayesResults.bayesRes.allChains.size(2);
       for (i = 0; i < loop_ub; i++) {
-        problemStruct_idx_0_tmp = b_bayesResults.bayesRes.allChains.size(1);
-        for (i1 = 0; i1 < problemStruct_idx_0_tmp; i1++) {
-          b_loop_ub = b_bayesResults.bayesRes.allChains.size(0);
-          for (i2 = 0; i2 < b_loop_ub; i2++) {
+        b_loop_ub = b_bayesResults.bayesRes.allChains.size(1);
+        for (i1 = 0; i1 < b_loop_ub; i1++) {
+          c_loop_ub = b_bayesResults.bayesRes.allChains.size(0);
+          for (i2 = 0; i2 < c_loop_ub; i2++) {
             bayesResults_bayesRes.allChains[(i2 +
               bayesResults_bayesRes.allChains.size(0) * i1) +
               bayesResults_bayesRes.allChains.size(0) *
@@ -1214,143 +922,24 @@ namespace RAT
         b_bayesResults.chain.size(1));
       loop_ub = b_bayesResults.chain.size(1);
       for (i = 0; i < loop_ub; i++) {
-        problemStruct_idx_0_tmp = b_bayesResults.chain.size(0);
-        for (i1 = 0; i1 < problemStruct_idx_0_tmp; i1++) {
+        b_loop_ub = b_bayesResults.chain.size(0);
+        for (i1 = 0; i1 < b_loop_ub; i1++) {
           bayesResults->chain[i1 + bayesResults->chain.size(0) * i] =
             b_bayesResults.chain[i1 + b_bayesResults.chain.size(0) * i];
         }
       }
 
-      b_contrastParams.ssubs.set_size(c_contrastParams.ssubs.size(0));
-      loop_ub = c_contrastParams.ssubs.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.ssubs[i] = c_contrastParams.ssubs[i];
-      }
-
-      b_contrastParams.backgroundParams.set_size
-        (c_contrastParams.backgroundParams.size(0));
-      loop_ub = c_contrastParams.backgroundParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.backgroundParams[i] =
-          c_contrastParams.backgroundParams[i];
-      }
-
-      b_contrastParams.qzshifts.set_size(c_contrastParams.qzshifts.size(0));
-      loop_ub = c_contrastParams.qzshifts.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.qzshifts[i] = c_contrastParams.qzshifts[i];
-      }
-
-      b_contrastParams.scalefactors.set_size(c_contrastParams.scalefactors.size
-        (0));
-      loop_ub = c_contrastParams.scalefactors.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.scalefactors[i] = c_contrastParams.scalefactors[i];
-      }
-
-      b_contrastParams.bulkIn.set_size(c_contrastParams.bulkIn.size(0));
-      loop_ub = c_contrastParams.bulkIn.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.bulkIn[i] = c_contrastParams.bulkIn[i];
-      }
-
-      b_contrastParams.bulkOut.set_size(c_contrastParams.bulkOut.size(0));
-      loop_ub = c_contrastParams.bulkOut.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.bulkOut[i] = c_contrastParams.bulkOut[i];
-      }
-
-      b_contrastParams.resolutionParams.set_size
-        (c_contrastParams.resolutionParams.size(0));
-      loop_ub = c_contrastParams.resolutionParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.resolutionParams[i] =
-          c_contrastParams.resolutionParams[i];
-      }
-
-      b_contrastParams.allSubRough.set_size(c_contrastParams.allSubRough.size(0));
-      loop_ub = c_contrastParams.allSubRough.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.allSubRough[i] = c_contrastParams.allSubRough[i];
-      }
-
-      b_contrastParams.resample.set_size(1, c_contrastParams.resample.size(1));
-      loop_ub = c_contrastParams.resample.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.resample[i] = c_contrastParams.resample[i];
-      }
-
       cast(&b_problemStruct, problemStruct);
-      contrastParams->ssubs.set_size(b_contrastParams.ssubs.size(0));
-      loop_ub = b_contrastParams.ssubs.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->ssubs[i] = b_contrastParams.ssubs[i];
-      }
-
-      contrastParams->backgroundParams.set_size
-        (b_contrastParams.backgroundParams.size(0));
-      loop_ub = b_contrastParams.backgroundParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->backgroundParams[i] =
-          b_contrastParams.backgroundParams[i];
-      }
-
-      contrastParams->qzshifts.set_size(b_contrastParams.qzshifts.size(0));
-      loop_ub = b_contrastParams.qzshifts.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->qzshifts[i] = b_contrastParams.qzshifts[i];
-      }
-
-      contrastParams->scalefactors.set_size(b_contrastParams.scalefactors.size(0));
-      loop_ub = b_contrastParams.scalefactors.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->scalefactors[i] = b_contrastParams.scalefactors[i];
-      }
-
-      contrastParams->bulkIn.set_size(b_contrastParams.bulkIn.size(0));
-      loop_ub = b_contrastParams.bulkIn.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->bulkIn[i] = b_contrastParams.bulkIn[i];
-      }
-
-      contrastParams->bulkOut.set_size(b_contrastParams.bulkOut.size(0));
-      loop_ub = b_contrastParams.bulkOut.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->bulkOut[i] = b_contrastParams.bulkOut[i];
-      }
-
-      contrastParams->resolutionParams.set_size
-        (b_contrastParams.resolutionParams.size(0));
-      loop_ub = b_contrastParams.resolutionParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->resolutionParams[i] =
-          b_contrastParams.resolutionParams[i];
-      }
-
-      contrastParams->calculations = c_contrastParams.calculations;
-      contrastParams->allSubRough.set_size(b_contrastParams.allSubRough.size(0));
-      loop_ub = b_contrastParams.allSubRough.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->allSubRough[i] = b_contrastParams.allSubRough[i];
-      }
-
-      contrastParams->resample.set_size(1, b_contrastParams.resample.size(1));
-      loop_ub = b_contrastParams.resample.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->resample[contrastParams->resample.size(0) * i] =
-          b_contrastParams.resample[i];
-      }
-
       bayesResults->bayesRes.allChains.set_size
         (bayesResults_bayesRes.allChains.size(0),
          bayesResults_bayesRes.allChains.size(1),
          bayesResults_bayesRes.allChains.size(2));
       loop_ub = bayesResults_bayesRes.allChains.size(2);
       for (i = 0; i < loop_ub; i++) {
-        problemStruct_idx_0_tmp = bayesResults_bayesRes.allChains.size(1);
-        for (i1 = 0; i1 < problemStruct_idx_0_tmp; i1++) {
-          b_loop_ub = bayesResults_bayesRes.allChains.size(0);
-          for (i2 = 0; i2 < b_loop_ub; i2++) {
+        b_loop_ub = bayesResults_bayesRes.allChains.size(1);
+        for (i1 = 0; i1 < b_loop_ub; i1++) {
+          c_loop_ub = bayesResults_bayesRes.allChains.size(0);
+          for (i2 = 0; i2 < c_loop_ub; i2++) {
             bayesResults->bayesRes.allChains[(i2 +
               bayesResults->bayesRes.allChains.size(0) * i1) +
               bayesResults->bayesRes.allChains.size(0) *
@@ -1393,125 +982,7 @@ namespace RAT
 
       cast(problemStruct, &r);
       cast(problemCells, &r1);
-      reflectivityCalculation(&r, &r1, controls, &c_contrastParams, resultCells);
-      b_contrastParams.ssubs.set_size(c_contrastParams.ssubs.size(0));
-      loop_ub = c_contrastParams.ssubs.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.ssubs[i] = c_contrastParams.ssubs[i];
-      }
-
-      b_contrastParams.backgroundParams.set_size
-        (c_contrastParams.backgroundParams.size(0));
-      loop_ub = c_contrastParams.backgroundParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.backgroundParams[i] =
-          c_contrastParams.backgroundParams[i];
-      }
-
-      b_contrastParams.qzshifts.set_size(c_contrastParams.qzshifts.size(0));
-      loop_ub = c_contrastParams.qzshifts.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.qzshifts[i] = c_contrastParams.qzshifts[i];
-      }
-
-      b_contrastParams.scalefactors.set_size(c_contrastParams.scalefactors.size
-        (0));
-      loop_ub = c_contrastParams.scalefactors.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.scalefactors[i] = c_contrastParams.scalefactors[i];
-      }
-
-      b_contrastParams.bulkIn.set_size(c_contrastParams.bulkIn.size(0));
-      loop_ub = c_contrastParams.bulkIn.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.bulkIn[i] = c_contrastParams.bulkIn[i];
-      }
-
-      b_contrastParams.bulkOut.set_size(c_contrastParams.bulkOut.size(0));
-      loop_ub = c_contrastParams.bulkOut.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.bulkOut[i] = c_contrastParams.bulkOut[i];
-      }
-
-      b_contrastParams.resolutionParams.set_size
-        (c_contrastParams.resolutionParams.size(0));
-      loop_ub = c_contrastParams.resolutionParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.resolutionParams[i] =
-          c_contrastParams.resolutionParams[i];
-      }
-
-      b_contrastParams.allSubRough.set_size(c_contrastParams.allSubRough.size(0));
-      loop_ub = c_contrastParams.allSubRough.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.allSubRough[i] = c_contrastParams.allSubRough[i];
-      }
-
-      b_contrastParams.resample.set_size(1, c_contrastParams.resample.size(1));
-      loop_ub = c_contrastParams.resample.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        b_contrastParams.resample[i] = c_contrastParams.resample[i];
-      }
-
-      contrastParams->ssubs.set_size(b_contrastParams.ssubs.size(0));
-      loop_ub = b_contrastParams.ssubs.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->ssubs[i] = b_contrastParams.ssubs[i];
-      }
-
-      contrastParams->backgroundParams.set_size
-        (b_contrastParams.backgroundParams.size(0));
-      loop_ub = b_contrastParams.backgroundParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->backgroundParams[i] =
-          b_contrastParams.backgroundParams[i];
-      }
-
-      contrastParams->qzshifts.set_size(b_contrastParams.qzshifts.size(0));
-      loop_ub = b_contrastParams.qzshifts.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->qzshifts[i] = b_contrastParams.qzshifts[i];
-      }
-
-      contrastParams->scalefactors.set_size(b_contrastParams.scalefactors.size(0));
-      loop_ub = b_contrastParams.scalefactors.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->scalefactors[i] = b_contrastParams.scalefactors[i];
-      }
-
-      contrastParams->bulkIn.set_size(b_contrastParams.bulkIn.size(0));
-      loop_ub = b_contrastParams.bulkIn.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->bulkIn[i] = b_contrastParams.bulkIn[i];
-      }
-
-      contrastParams->bulkOut.set_size(b_contrastParams.bulkOut.size(0));
-      loop_ub = b_contrastParams.bulkOut.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->bulkOut[i] = b_contrastParams.bulkOut[i];
-      }
-
-      contrastParams->resolutionParams.set_size
-        (b_contrastParams.resolutionParams.size(0));
-      loop_ub = b_contrastParams.resolutionParams.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->resolutionParams[i] =
-          b_contrastParams.resolutionParams[i];
-      }
-
-      contrastParams->calculations = c_contrastParams.calculations;
-      contrastParams->allSubRough.set_size(b_contrastParams.allSubRough.size(0));
-      loop_ub = b_contrastParams.allSubRough.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->allSubRough[i] = b_contrastParams.allSubRough[i];
-      }
-
-      contrastParams->resample.set_size(1, b_contrastParams.resample.size(1));
-      loop_ub = b_contrastParams.resample.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams->resample[contrastParams->resample.size(0) * i] =
-          b_contrastParams.resample[i];
-      }
+      reflectivityCalculation(&r, &r1, problemLimits, controls, result);
     }
   }
 }

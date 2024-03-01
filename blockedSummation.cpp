@@ -260,58 +260,6 @@ namespace RAT
       return y;
     }
 
-    real_T nestedIter(const ::coder::array<real_T, 2U> &x, int32_T vlen)
-    {
-      real_T y;
-      int32_T firstBlockLength;
-      int32_T k;
-      int32_T lastBlockLength;
-      int32_T nblocks;
-      if (vlen <= 1024) {
-        firstBlockLength = vlen;
-        lastBlockLength = 0;
-        nblocks = 1;
-      } else {
-        firstBlockLength = 1024;
-        nblocks = vlen / 1024;
-        lastBlockLength = vlen - (nblocks << 10);
-        if (lastBlockLength > 0) {
-          nblocks++;
-        } else {
-          lastBlockLength = 1024;
-        }
-      }
-
-      y = x[0];
-      for (k = 2; k <= firstBlockLength; k++) {
-        if (vlen >= 2) {
-          y += x[k - 1];
-        }
-      }
-
-      for (int32_T ib{2}; ib <= nblocks; ib++) {
-        real_T bsum;
-        int32_T hi;
-        firstBlockLength = (ib - 1) << 10;
-        bsum = x[firstBlockLength];
-        if (ib == nblocks) {
-          hi = lastBlockLength;
-        } else {
-          hi = 1024;
-        }
-
-        for (k = 2; k <= hi; k++) {
-          if (vlen >= 2) {
-            bsum += x[(firstBlockLength + k) - 1];
-          }
-        }
-
-        y += bsum;
-      }
-
-      return y;
-    }
-
     void nestedIter(const ::coder::array<real_T, 3U> &x, int32_T vlen, ::coder::
                     array<real_T, 3U> &y)
     {
@@ -437,6 +385,58 @@ namespace RAT
     }
 
     real_T nestedIter(const ::coder::array<real_T, 1U> &x, int32_T vlen)
+    {
+      real_T y;
+      int32_T firstBlockLength;
+      int32_T k;
+      int32_T lastBlockLength;
+      int32_T nblocks;
+      if (vlen <= 1024) {
+        firstBlockLength = vlen;
+        lastBlockLength = 0;
+        nblocks = 1;
+      } else {
+        firstBlockLength = 1024;
+        nblocks = vlen / 1024;
+        lastBlockLength = vlen - (nblocks << 10);
+        if (lastBlockLength > 0) {
+          nblocks++;
+        } else {
+          lastBlockLength = 1024;
+        }
+      }
+
+      y = x[0];
+      for (k = 2; k <= firstBlockLength; k++) {
+        if (vlen >= 2) {
+          y += x[k - 1];
+        }
+      }
+
+      for (int32_T ib{2}; ib <= nblocks; ib++) {
+        real_T bsum;
+        int32_T hi;
+        firstBlockLength = (ib - 1) << 10;
+        bsum = x[firstBlockLength];
+        if (ib == nblocks) {
+          hi = lastBlockLength;
+        } else {
+          hi = 1024;
+        }
+
+        for (k = 2; k <= hi; k++) {
+          if (vlen >= 2) {
+            bsum += x[(firstBlockLength + k) - 1];
+          }
+        }
+
+        y += bsum;
+      }
+
+      return y;
+    }
+
+    real_T nestedIter(const ::coder::array<real_T, 2U> &x, int32_T vlen)
     {
       real_T y;
       int32_T firstBlockLength;

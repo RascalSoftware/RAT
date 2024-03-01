@@ -44,7 +44,7 @@
 // Type Definitions
 namespace RAT
 {
-  struct i_struct_T
+  struct k_struct_T
   {
     char_T prior[7];
     ::coder::array<real_T, 2U> min;
@@ -63,11 +63,12 @@ namespace RAT
                 const ::coder::array<real_T, 2U> &Par_info_min, const ::coder::
                 array<real_T, 2U> &Par_info_max, const char_T
                 Par_info_boundhandling_data[], const int32_T
-                Par_info_boundhandling_size[2], const d_struct_T
+                Par_info_boundhandling_size[2], const f_struct_T
                 *ratInputs_problemStruct, const cell_11 *ratInputs_problemCells,
-                const struct2_T *ratInputs_controls, const ::coder::array<real_T,
-                2U> &ratInputs_priors, ::coder::array<real_T, 3U> &chain,
-                struct12_T *output, ::coder::array<real_T, 2U> &fx)
+                const struct1_T *ratInputs_problemLimits, const struct2_T
+                *ratInputs_controls, const ::coder::array<real_T, 2U>
+                &ratInputs_priors, ::coder::array<real_T, 3U> &chain, struct13_T
+                *output, ::coder::array<real_T, 2U> &fx)
   {
     ::coder::array<real_T, 3U> b_chain;
     ::coder::array<real_T, 2U> CR;
@@ -91,9 +92,9 @@ namespace RAT
     ::coder::array<int32_T, 1U> r2;
     ::coder::array<boolean_T, 1U> CR_data;
     ::coder::array<boolean_T, 1U> accept;
-    i_struct_T Par_info;
-    struct13_T DREAMPar;
-    struct14_T Meas_info;
+    k_struct_T Par_info;
+    struct14_T DREAMPar;
+    struct15_T Meas_info;
     real_T tmp_data[100];
     real_T b_lCR_data[3];
     real_T delta_tot_data[3];
@@ -335,9 +336,9 @@ namespace RAT
     initializeDREAM(&DREAMPar, Par_info.min, Par_info.max,
                     Par_info.boundhandling.data, Par_info.boundhandling.size,
                     chain, output, log_L, ratInputs_problemStruct,
-                    ratInputs_problemCells, ratInputs_controls, ratInputs_priors,
-                    X, fx, CR, pCR_data, pCR_size, lCR_data, lCR_size,
-                    delta_tot_data, delta_tot_size);
+                    ratInputs_problemCells, ratInputs_problemLimits,
+                    ratInputs_controls, ratInputs_priors, X, fx, CR, pCR_data,
+                    pCR_size, lCR_data, lCR_size, delta_tot_data, delta_tot_size);
 
     //  elseif DREAMPar.restart
     //
@@ -412,7 +413,8 @@ namespace RAT
 
       //  Now evaluate the model ( = pdf ) and return fx
       evaluateModel(xnew, &DREAMPar, ratInputs_problemStruct,
-                    ratInputs_problemCells, ratInputs_controls, fx_new);
+                    ratInputs_problemCells, ratInputs_problemLimits,
+                    ratInputs_controls, fx_new);
 
       //  Calculate the log-likelihood and log-prior of x (fx)
       calcDensity(xnew, fx_new, &DREAMPar, ratInputs_problemStruct->fitLimits,

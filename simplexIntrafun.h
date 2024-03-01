@@ -20,31 +20,21 @@
 // Type Declarations
 namespace RAT
 {
-  struct d_struct_T;
-  struct cell_wrap_2;
-  struct cell_wrap_8;
-  struct cell_wrap_1;
+  struct f_struct_T;
+  struct cell_11;
+  struct struct1_T;
   struct struct2_T;
-  struct l_struct_T;
-  struct e_struct_T;
-  struct cell_wrap_9;
+  struct n_struct_T;
+  struct struct5_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void simplexIntrafun(const ::coder::array<real_T, 1U> &x, const d_struct_T
-                       *problemStruct, const ::coder::array<cell_wrap_2, 2U>
-                       &problemCells_f1, const ::coder::array<cell_wrap_8, 2U>
-                       &problemCells_f2, const ::coder::array<cell_wrap_2, 2U>
-                       &problemCells_f3, const ::coder::array<cell_wrap_2, 2U>
-                       &problemCells_f4, const ::coder::array<cell_wrap_8, 2U>
-                       &problemCells_f5, const ::coder::array<cell_wrap_8, 1U>
-                       &problemCells_f6, const ::coder::array<cell_wrap_1, 2U>
-                       &problemCells_f14, const ::coder::array<cell_wrap_8, 2U>
-                       &problemCells_f19, const struct2_T *controls, const
-                       l_struct_T *params, real_T *fval, e_struct_T
-                       *b_problemStruct, cell_wrap_9 result[6]);
+  void simplexIntrafun(const ::coder::array<real_T, 1U> &x, f_struct_T
+                       *problemStruct, const cell_11 *problemCells, const
+                       struct1_T *problemLimits, const struct2_T *controls,
+                       const n_struct_T *params, real_T *fval, struct5_T *result);
 }
 
 #endif

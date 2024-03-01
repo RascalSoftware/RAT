@@ -28,12 +28,12 @@ namespace RAT
     void blockedSummation(const ::coder::array<real_T, 2U> &x, int32_T vlen, ::
                           coder::array<real_T, 1U> &y);
     creal_T nestedIter(const ::coder::array<creal_T, 2U> &x, int32_T vlen);
-    real_T nestedIter(const ::coder::array<real_T, 2U> &x, int32_T vlen);
     void nestedIter(const ::coder::array<real_T, 3U> &x, int32_T vlen, ::coder::
                     array<real_T, 3U> &y);
     void nestedIter(const ::coder::array<real_T, 2U> &x, int32_T vlen, ::coder::
                     array<real_T, 2U> &y);
     real_T nestedIter(const ::coder::array<real_T, 1U> &x, int32_T vlen);
+    real_T nestedIter(const ::coder::array<real_T, 2U> &x, int32_T vlen);
   }
 }
 

@@ -20,14 +20,12 @@
 // Type Declarations
 namespace RAT
 {
-  struct d_struct_T;
-  struct struct2_T;
-  struct cell_11;
-  struct e_struct_T;
-  struct cell_wrap_9;
   struct f_struct_T;
-  struct g_struct_T;
-  struct struct10_T;
+  struct struct2_T;
+  struct struct1_T;
+  struct cell_11;
+  struct struct5_T;
+  struct i_struct_T;
 }
 
 // Function Declarations
@@ -35,19 +33,16 @@ namespace RAT
 {
   void processBayes(const real_T bayesOutputs_bestPars_data[], const int32_T
                     bayesOutputs_bestPars_size[2], const ::coder::array<real_T,
-                    2U> &bayesOutputs_chain, const d_struct_T *allProblem_f1,
-                    const struct2_T *allProblem_f2, const cell_11 *allProblem_f4,
-                    d_struct_T *problemStruct, e_struct_T *contrastParams,
-                    cell_wrap_9 result[6], f_struct_T *bayesResults_bestFitsMean,
-                    g_struct_T *bayesResults_predlims, struct10_T
-                    *bayesResults_parConfInts);
+                    2U> &bayesOutputs_chain, const f_struct_T *allProblem_f1,
+                    const struct2_T *allProblem_f2, const struct1_T
+                    *allProblem_f3, const cell_11 *allProblem_f4, f_struct_T
+                    *problemStruct, struct5_T *result, i_struct_T *bayesResults);
   void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestPars,
                     const ::coder::array<real_T, 2U> &bayesOutputs_chain, const
-                    d_struct_T *allProblem_f1, const struct2_T *allProblem_f2,
-                    const cell_11 *allProblem_f4, d_struct_T *problemStruct,
-                    e_struct_T *contrastParams, cell_wrap_9 result[6],
-                    f_struct_T *bayesResults_bestFitsMean, g_struct_T
-                    *bayesResults_predlims, struct10_T *bayesResults_parConfInts);
+                    f_struct_T *allProblem_f1, const struct2_T *allProblem_f2,
+                    const struct1_T *allProblem_f3, const cell_11 *allProblem_f4,
+                    f_struct_T *problemStruct, struct5_T *result, i_struct_T
+                    *bayesResults);
 }
 
 #endif

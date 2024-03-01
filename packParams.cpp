@@ -19,7 +19,7 @@
 // Function Definitions
 namespace RAT
 {
-  void packParams(d_struct_T *problemStruct, const ::coder::array<cell_wrap_1,
+  void packParams(f_struct_T *problemStruct, const ::coder::array<cell_wrap_1,
                   2U> &problemCells_f7, const ::coder::array<cell_wrap_1, 2U>
                   &problemCells_f8, const ::coder::array<cell_wrap_1, 2U>
                   &problemCells_f9, const ::coder::array<cell_wrap_1, 2U>
@@ -31,7 +31,6 @@ namespace RAT
                   *checks, ::coder::array<cell_wrap_1, 1U> &fitNames)
   {
     ::coder::array<real_T, 2U> fitLimits;
-    ::coder::array<real_T, 2U> fitParams;
     ::coder::array<real_T, 2U> otherLimits;
     ::coder::array<real_T, 1U> otherParams;
     real_T b_y;
@@ -43,14 +42,14 @@ namespace RAT
     real_T h_y;
     real_T numberOfFitted;
     real_T y;
-    int32_T b_loop_ub;
-    int32_T fitCounter;
     int32_T i;
     int32_T i1;
-    int32_T loop_ub;
+    int32_T loop_ub_tmp;
     int32_T n;
     int32_T numberOfTotal;
+    int32_T numberOfTotal_idx_0_tmp;
     int32_T otherCounter;
+    uint32_T fitCounter;
 
     // We need to pack the parameters into separate vectors
     // of those that are being fitted, and those that are
@@ -116,58 +115,50 @@ namespace RAT
                       problemStruct->bulkOut.size(1)) +
                      problemStruct->resolutionParams.size(1)) +
       problemStruct->domainRatio.size(1);
-    fitParams.set_size(problemStruct->fitParams.size(0),
-                       problemStruct->fitParams.size(1));
-    loop_ub = problemStruct->fitParams.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = problemStruct->fitParams.size(0);
-      for (i1 = 0; i1 < b_loop_ub; i1++) {
-        fitParams[i1 + fitParams.size(0) * i] = problemStruct->fitParams[i1 +
-          problemStruct->fitParams.size(0) * i];
-      }
-    }
 
     // zeros(numberOfFitted,1);
-    b_loop_ub = static_cast<int32_T>(static_cast<real_T>(numberOfTotal) -
-      numberOfFitted);
-    otherParams.set_size(b_loop_ub);
-    for (i = 0; i < b_loop_ub; i++) {
+    numberOfTotal_idx_0_tmp = static_cast<int32_T>(static_cast<real_T>
+      (numberOfTotal) - numberOfFitted);
+    otherParams.set_size(numberOfTotal_idx_0_tmp);
+    for (i = 0; i < numberOfTotal_idx_0_tmp; i++) {
       otherParams[i] = 0.0;
     }
 
-    loop_ub = static_cast<int32_T>(numberOfFitted);
-    fitLimits.set_size(loop_ub, 2);
-    otherLimits.set_size(b_loop_ub, 2);
+    loop_ub_tmp = static_cast<int32_T>(numberOfFitted);
+    fitLimits.set_size(loop_ub_tmp, 2);
+    otherLimits.set_size(numberOfTotal_idx_0_tmp, 2);
     for (i = 0; i < 2; i++) {
-      for (i1 = 0; i1 < loop_ub; i1++) {
+      for (i1 = 0; i1 < loop_ub_tmp; i1++) {
         fitLimits[i1 + fitLimits.size(0) * i] = 0.0;
       }
 
-      for (i1 = 0; i1 < b_loop_ub; i1++) {
+      for (i1 = 0; i1 < numberOfTotal_idx_0_tmp; i1++) {
         otherLimits[i1 + otherLimits.size(0) * i] = 0.0;
       }
     }
 
     // limits = problemStruct.limits;
-    fitNames.set_size(loop_ub);
-    for (int32_T b_i{0}; b_i < loop_ub; b_i++) {
+    fitNames.set_size(loop_ub_tmp);
+    for (int32_T b_i{0}; b_i < loop_ub_tmp; b_i++) {
       fitNames[b_i].f1.set_size(1, 0);
     }
 
-    fitCounter = 0;
+    fitCounter = 1U;
     otherCounter = 0;
     i = checks->fitParam.size(1);
     for (n = 0; n < i; n++) {
       if (checks->fitParam[n] == 1.0) {
-        fitParams[fitCounter] = problemStruct->params[n];
-        fitLimits[fitCounter] = limits->param[n];
-        fitLimits[fitCounter + fitLimits.size(0)] = limits->param[n +
-          limits->param.size(0)];
-        loop_ub = problemCells_f7[n].f1.size(1);
-        fitNames[fitCounter].f1.set_size(1, problemCells_f7[problemCells_f7.size
-          (0) * n].f1.size(1));
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          fitNames[fitCounter].f1[i1] = problemCells_f7[n].f1[i1];
+        problemStruct->fitParams[static_cast<int32_T>(fitCounter) - 1] =
+          problemStruct->params[n];
+        fitLimits[static_cast<int32_T>(fitCounter) - 1] = limits->param[n];
+        fitLimits[(static_cast<int32_T>(fitCounter) + fitLimits.size(0)) - 1] =
+          limits->param[n + limits->param.size(0)];
+        loop_ub_tmp = problemCells_f7[n].f1.size(1);
+        fitNames[static_cast<int32_T>(fitCounter) - 1].f1.set_size(1,
+          problemCells_f7[problemCells_f7.size(0) * n].f1.size(1));
+        for (i1 = 0; i1 < loop_ub_tmp; i1++) {
+          fitNames[static_cast<int32_T>(fitCounter) - 1].f1[i1] =
+            problemCells_f7[n].f1[i1];
         }
 
         fitCounter++;
@@ -184,15 +175,18 @@ namespace RAT
     i = checks->fitBackgroundParam.size(1);
     for (n = 0; n < i; n++) {
       if (checks->fitBackgroundParam[n] == 1.0) {
-        fitParams[fitCounter] = problemStruct->backgroundParams[n];
-        fitLimits[fitCounter] = limits->backgroundParam[n];
-        fitLimits[fitCounter + fitLimits.size(0)] = limits->backgroundParam[n +
-          limits->backgroundParam.size(0)];
-        loop_ub = problemCells_f8[n].f1.size(1);
-        fitNames[fitCounter].f1.set_size(1, problemCells_f8[problemCells_f8.size
-          (0) * n].f1.size(1));
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          fitNames[fitCounter].f1[i1] = problemCells_f8[n].f1[i1];
+        problemStruct->fitParams[static_cast<int32_T>(fitCounter) - 1] =
+          problemStruct->backgroundParams[n];
+        fitLimits[static_cast<int32_T>(fitCounter) - 1] =
+          limits->backgroundParam[n];
+        fitLimits[(static_cast<int32_T>(fitCounter) + fitLimits.size(0)) - 1] =
+          limits->backgroundParam[n + limits->backgroundParam.size(0)];
+        loop_ub_tmp = problemCells_f8[n].f1.size(1);
+        fitNames[static_cast<int32_T>(fitCounter) - 1].f1.set_size(1,
+          problemCells_f8[problemCells_f8.size(0) * n].f1.size(1));
+        for (i1 = 0; i1 < loop_ub_tmp; i1++) {
+          fitNames[static_cast<int32_T>(fitCounter) - 1].f1[i1] =
+            problemCells_f8[n].f1[i1];
         }
 
         fitCounter++;
@@ -209,15 +203,17 @@ namespace RAT
     i = checks->fitScalefactor.size(1);
     for (n = 0; n < i; n++) {
       if (checks->fitScalefactor[n] == 1.0) {
-        fitParams[fitCounter] = problemStruct->scalefactors[n];
-        fitLimits[fitCounter] = limits->scalefactor[n];
-        fitLimits[fitCounter + fitLimits.size(0)] = limits->scalefactor[n +
-          limits->scalefactor.size(0)];
-        loop_ub = problemCells_f9[n].f1.size(1);
-        fitNames[fitCounter].f1.set_size(1, problemCells_f9[problemCells_f9.size
-          (0) * n].f1.size(1));
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          fitNames[fitCounter].f1[i1] = problemCells_f9[n].f1[i1];
+        problemStruct->fitParams[static_cast<int32_T>(fitCounter) - 1] =
+          problemStruct->scalefactors[n];
+        fitLimits[static_cast<int32_T>(fitCounter) - 1] = limits->scalefactor[n];
+        fitLimits[(static_cast<int32_T>(fitCounter) + fitLimits.size(0)) - 1] =
+          limits->scalefactor[n + limits->scalefactor.size(0)];
+        loop_ub_tmp = problemCells_f9[n].f1.size(1);
+        fitNames[static_cast<int32_T>(fitCounter) - 1].f1.set_size(1,
+          problemCells_f9[problemCells_f9.size(0) * n].f1.size(1));
+        for (i1 = 0; i1 < loop_ub_tmp; i1++) {
+          fitNames[static_cast<int32_T>(fitCounter) - 1].f1[i1] =
+            problemCells_f9[n].f1[i1];
         }
 
         fitCounter++;
@@ -234,15 +230,17 @@ namespace RAT
     i = checks->fitQzshift.size(1);
     for (n = 0; n < i; n++) {
       if (checks->fitQzshift[n] == 1.0) {
-        fitParams[fitCounter] = problemStruct->qzshifts[n];
-        fitLimits[fitCounter] = limits->qzshift[n];
-        fitLimits[fitCounter + fitLimits.size(0)] = limits->qzshift[n +
-          limits->qzshift.size(0)];
-        loop_ub = problemCells_f10[n].f1.size(1);
-        fitNames[fitCounter].f1.set_size(1,
+        problemStruct->fitParams[static_cast<int32_T>(fitCounter) - 1] =
+          problemStruct->qzshifts[n];
+        fitLimits[static_cast<int32_T>(fitCounter) - 1] = limits->qzshift[n];
+        fitLimits[(static_cast<int32_T>(fitCounter) + fitLimits.size(0)) - 1] =
+          limits->qzshift[n + limits->qzshift.size(0)];
+        loop_ub_tmp = problemCells_f10[n].f1.size(1);
+        fitNames[static_cast<int32_T>(fitCounter) - 1].f1.set_size(1,
           problemCells_f10[problemCells_f10.size(0) * n].f1.size(1));
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          fitNames[fitCounter].f1[i1] = problemCells_f10[n].f1[i1];
+        for (i1 = 0; i1 < loop_ub_tmp; i1++) {
+          fitNames[static_cast<int32_T>(fitCounter) - 1].f1[i1] =
+            problemCells_f10[n].f1[i1];
         }
 
         fitCounter++;
@@ -259,15 +257,17 @@ namespace RAT
     i = checks->fitBulkIn.size(1);
     for (n = 0; n < i; n++) {
       if (checks->fitBulkIn[n] == 1.0) {
-        fitParams[fitCounter] = problemStruct->bulkIn[n];
-        fitLimits[fitCounter] = limits->bulkIn[n];
-        fitLimits[fitCounter + fitLimits.size(0)] = limits->bulkIn[n +
-          limits->bulkIn.size(0)];
-        loop_ub = problemCells_f11[n].f1.size(1);
-        fitNames[fitCounter].f1.set_size(1,
+        problemStruct->fitParams[static_cast<int32_T>(fitCounter) - 1] =
+          problemStruct->bulkIn[n];
+        fitLimits[static_cast<int32_T>(fitCounter) - 1] = limits->bulkIn[n];
+        fitLimits[(static_cast<int32_T>(fitCounter) + fitLimits.size(0)) - 1] =
+          limits->bulkIn[n + limits->bulkIn.size(0)];
+        loop_ub_tmp = problemCells_f11[n].f1.size(1);
+        fitNames[static_cast<int32_T>(fitCounter) - 1].f1.set_size(1,
           problemCells_f11[problemCells_f11.size(0) * n].f1.size(1));
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          fitNames[fitCounter].f1[i1] = problemCells_f11[n].f1[i1];
+        for (i1 = 0; i1 < loop_ub_tmp; i1++) {
+          fitNames[static_cast<int32_T>(fitCounter) - 1].f1[i1] =
+            problemCells_f11[n].f1[i1];
         }
 
         fitCounter++;
@@ -284,15 +284,17 @@ namespace RAT
     i = checks->fitBulkOut.size(1);
     for (n = 0; n < i; n++) {
       if (checks->fitBulkOut[n] == 1.0) {
-        fitParams[fitCounter] = problemStruct->bulkOut[n];
-        fitLimits[fitCounter] = limits->bulkOut[n];
-        fitLimits[fitCounter + fitLimits.size(0)] = limits->bulkOut[n +
-          limits->bulkOut.size(0)];
-        loop_ub = problemCells_f12[n].f1.size(1);
-        fitNames[fitCounter].f1.set_size(1,
+        problemStruct->fitParams[static_cast<int32_T>(fitCounter) - 1] =
+          problemStruct->bulkOut[n];
+        fitLimits[static_cast<int32_T>(fitCounter) - 1] = limits->bulkOut[n];
+        fitLimits[(static_cast<int32_T>(fitCounter) + fitLimits.size(0)) - 1] =
+          limits->bulkOut[n + limits->bulkOut.size(0)];
+        loop_ub_tmp = problemCells_f12[n].f1.size(1);
+        fitNames[static_cast<int32_T>(fitCounter) - 1].f1.set_size(1,
           problemCells_f12[problemCells_f12.size(0) * n].f1.size(1));
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          fitNames[fitCounter].f1[i1] = problemCells_f12[n].f1[i1];
+        for (i1 = 0; i1 < loop_ub_tmp; i1++) {
+          fitNames[static_cast<int32_T>(fitCounter) - 1].f1[i1] =
+            problemCells_f12[n].f1[i1];
         }
 
         fitCounter++;
@@ -309,15 +311,18 @@ namespace RAT
     i = checks->fitResolutionParam.size(1);
     for (n = 0; n < i; n++) {
       if (checks->fitResolutionParam[n] == 1.0) {
-        fitParams[fitCounter] = problemStruct->resolutionParams[n];
-        fitLimits[fitCounter] = limits->resolutionParam[n];
-        fitLimits[fitCounter + fitLimits.size(0)] = limits->resolutionParam[n +
-          limits->resolutionParam.size(0)];
-        loop_ub = problemCells_f13[n].f1.size(1);
-        fitNames[fitCounter].f1.set_size(1,
+        problemStruct->fitParams[static_cast<int32_T>(fitCounter) - 1] =
+          problemStruct->resolutionParams[n];
+        fitLimits[static_cast<int32_T>(fitCounter) - 1] =
+          limits->resolutionParam[n];
+        fitLimits[(static_cast<int32_T>(fitCounter) + fitLimits.size(0)) - 1] =
+          limits->resolutionParam[n + limits->resolutionParam.size(0)];
+        loop_ub_tmp = problemCells_f13[n].f1.size(1);
+        fitNames[static_cast<int32_T>(fitCounter) - 1].f1.set_size(1,
           problemCells_f13[problemCells_f13.size(0) * n].f1.size(1));
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          fitNames[fitCounter].f1[i1] = problemCells_f13[n].f1[i1];
+        for (i1 = 0; i1 < loop_ub_tmp; i1++) {
+          fitNames[static_cast<int32_T>(fitCounter) - 1].f1[i1] =
+            problemCells_f13[n].f1[i1];
         }
 
         fitCounter++;
@@ -334,15 +339,17 @@ namespace RAT
     i = checks->fitDomainRatio.size(1);
     for (n = 0; n < i; n++) {
       if (checks->fitDomainRatio[n] == 1.0) {
-        fitParams[fitCounter] = problemStruct->domainRatio[n];
-        fitLimits[fitCounter] = limits->domainRatio[n];
-        fitLimits[fitCounter + fitLimits.size(0)] = limits->domainRatio[n +
-          limits->domainRatio.size(0)];
-        loop_ub = problemCells_f20[n].f1.size(1);
-        fitNames[fitCounter].f1.set_size(1,
+        problemStruct->fitParams[static_cast<int32_T>(fitCounter) - 1] =
+          problemStruct->domainRatio[n];
+        fitLimits[static_cast<int32_T>(fitCounter) - 1] = limits->domainRatio[n];
+        fitLimits[(static_cast<int32_T>(fitCounter) + fitLimits.size(0)) - 1] =
+          limits->domainRatio[n + limits->domainRatio.size(0)];
+        loop_ub_tmp = problemCells_f20[n].f1.size(1);
+        fitNames[static_cast<int32_T>(fitCounter) - 1].f1.set_size(1,
           problemCells_f20[problemCells_f20.size(0) * n].f1.size(1));
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          fitNames[fitCounter].f1[i1] = problemCells_f20[n].f1[i1];
+        for (i1 = 0; i1 < loop_ub_tmp; i1++) {
+          fitNames[static_cast<int32_T>(fitCounter) - 1].f1[i1] =
+            problemCells_f20[n].f1[i1];
         }
 
         fitCounter++;
@@ -355,35 +362,25 @@ namespace RAT
       }
     }
 
-    problemStruct->fitParams.set_size(fitParams.size(0), fitParams.size(1));
-    loop_ub = fitParams.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = fitParams.size(0);
-      for (i1 = 0; i1 < b_loop_ub; i1++) {
-        problemStruct->fitParams[i1 + problemStruct->fitParams.size(0) * i] =
-          fitParams[i1 + fitParams.size(0) * i];
-      }
-    }
-
-    b_loop_ub = otherParams.size(0);
+    numberOfTotal_idx_0_tmp = otherParams.size(0);
     problemStruct->otherParams.set_size(otherParams.size(0), 1);
     for (i = 0; i < 1; i++) {
-      for (i1 = 0; i1 < b_loop_ub; i1++) {
+      for (i1 = 0; i1 < numberOfTotal_idx_0_tmp; i1++) {
         problemStruct->otherParams[i1] = otherParams[i1];
       }
     }
 
     problemStruct->fitLimits.set_size(fitLimits.size(0), 2);
     problemStruct->otherLimits.set_size(otherLimits.size(0), 2);
-    loop_ub = fitLimits.size(0);
-    b_loop_ub = otherLimits.size(0);
+    loop_ub_tmp = fitLimits.size(0);
+    numberOfTotal_idx_0_tmp = otherLimits.size(0);
     for (i = 0; i < 2; i++) {
-      for (i1 = 0; i1 < loop_ub; i1++) {
+      for (i1 = 0; i1 < loop_ub_tmp; i1++) {
         problemStruct->fitLimits[i1 + problemStruct->fitLimits.size(0) * i] =
           fitLimits[i1 + fitLimits.size(0) * i];
       }
 
-      for (i1 = 0; i1 < b_loop_ub; i1++) {
+      for (i1 = 0; i1 < numberOfTotal_idx_0_tmp; i1++) {
         problemStruct->otherLimits[i1 + problemStruct->otherLimits.size(0) * i] =
           otherLimits[i1 + otherLimits.size(0) * i];
       }

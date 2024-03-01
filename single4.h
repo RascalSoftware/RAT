@@ -20,11 +20,11 @@
 // Type Declarations
 namespace RAT
 {
-  struct d_struct_T;
+  struct f_struct_T;
   struct cell_11;
   struct struct2_T;
-  struct cell_wrap_20;
   struct cell_wrap_8;
+  struct cell_wrap_10;
 }
 
 // Function Declarations
@@ -34,19 +34,19 @@ namespace RAT
   {
     namespace customLayers
     {
-      void b_single(const d_struct_T *problemStruct, const cell_11 *problemCells,
+      void b_single(const f_struct_T *problemStruct, const cell_11 *problemCells,
                     const struct2_T *controls, ::coder::array<real_T, 1U>
                     &outSsubs, ::coder::array<real_T, 1U> &backgroundParams, ::
                     coder::array<real_T, 1U> &qzshifts, ::coder::array<real_T,
                     1U> &scalefactors, ::coder::array<real_T, 1U> &bulkIns, ::
                     coder::array<real_T, 1U> &bulkOuts, ::coder::array<real_T,
                     1U> &resolutionParams, ::coder::array<real_T, 1U> &chis, ::
-                    coder::array<cell_wrap_20, 1U> &reflectivity, ::coder::array<
-                    cell_wrap_20, 1U> &simulation, ::coder::array<cell_wrap_8,
-                    1U> &shiftedData, ::coder::array<cell_wrap_8, 2U> &layerSlds,
-                    ::coder::array<cell_wrap_8, 2U> &domainSldProfiles, ::coder::
-                    array<cell_wrap_8, 2U> &allLayers, ::coder::array<real_T, 1U>
-                    &allRoughs);
+                    coder::array<cell_wrap_8, 1U> &reflectivity, ::coder::array<
+                    cell_wrap_8, 1U> &simulation, ::coder::array<cell_wrap_10,
+                    1U> &shiftedData, ::coder::array<cell_wrap_10, 2U>
+                    &layerSlds, ::coder::array<cell_wrap_10, 2U>
+                    &domainSldProfiles, ::coder::array<cell_wrap_10, 2U>
+                    &allLayers, ::coder::array<real_T, 1U> &allRoughs);
     }
   }
 }

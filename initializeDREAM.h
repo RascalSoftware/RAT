@@ -20,24 +20,26 @@
 // Type Declarations
 namespace RAT
 {
+  struct struct14_T;
   struct struct13_T;
-  struct struct12_T;
-  struct d_struct_T;
+  struct f_struct_T;
   struct cell_11;
+  struct struct1_T;
   struct struct2_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void initializeDREAM(const struct13_T *DREAMPar, const ::coder::array<real_T,
+  void initializeDREAM(const struct14_T *DREAMPar, const ::coder::array<real_T,
                        2U> &Par_info_min, const ::coder::array<real_T, 2U>
                        &Par_info_max, const char_T Par_info_boundhandling_data[],
                        const int32_T Par_info_boundhandling_size[2], ::coder::
-                       array<real_T, 3U> &chain, struct12_T *output, ::coder::
-                       array<real_T, 2U> &log_L, const d_struct_T
+                       array<real_T, 3U> &chain, struct13_T *output, ::coder::
+                       array<real_T, 2U> &log_L, const f_struct_T
                        *ratInputs_problemStruct, const cell_11
-                       *ratInputs_problemCells, const struct2_T
+                       *ratInputs_problemCells, const struct1_T
+                       *ratInputs_problemLimits, const struct2_T
                        *ratInputs_controls, const ::coder::array<real_T, 2U>
                        &ratInputs_priors, ::coder::array<real_T, 2U> &X, ::coder::
                        array<real_T, 2U> &fx, ::coder::array<real_T, 2U> &CR,

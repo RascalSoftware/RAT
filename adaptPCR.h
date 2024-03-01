@@ -20,13 +20,13 @@
 // Type Declarations
 namespace RAT
 {
-  struct struct13_T;
+  struct struct14_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void adaptPCR(const struct13_T *DREAMPar, const ::coder::array<real_T, 2U> &CR,
+  void adaptPCR(const struct14_T *DREAMPar, const ::coder::array<real_T, 2U> &CR,
                 const real_T delta_tot_data[], const real_T lCRold_data[],
                 real_T pCR_data[], int32_T pCR_size[2], real_T lCR_data[],
                 int32_T lCR_size[2]);

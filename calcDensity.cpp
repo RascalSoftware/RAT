@@ -19,7 +19,7 @@
 namespace RAT
 {
   void calcDensity(const ::coder::array<real_T, 2U> &x, const ::coder::array<
-                   real_T, 2U> &fx, const struct13_T *DREAMPar, const ::coder::
+                   real_T, 2U> &fx, const struct14_T *DREAMPar, const ::coder::
                    array<real_T, 2U> &ratInputs_problemStruct_fitLimits, const ::
                    coder::array<real_T, 2U> &ratInputs_priors, ::coder::array<
                    real_T, 1U> &log_L, ::coder::array<real_T, 1U> &log_PR)

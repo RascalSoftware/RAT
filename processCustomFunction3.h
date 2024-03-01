@@ -21,7 +21,7 @@
 namespace RAT
 {
   struct cell_wrap_1;
-  struct cell_wrap_8;
+  struct cell_wrap_10;
 }
 
 // Function Declarations
@@ -36,8 +36,8 @@ namespace RAT
         const ::coder::array<real_T, 2U> &bulkIn, const ::coder::array<real_T,
         2U> &bulkOut, const ::coder::array<real_T, 2U> &cCustFiles, real_T
         numberOfContrasts, const ::coder::array<cell_wrap_1, 2U> &customFiles,
-        const ::coder::array<real_T, 2U> &params, ::coder::array<cell_wrap_8, 2U>
-        &allSLDs, ::coder::array<real_T, 1U> &allRoughs);
+        const ::coder::array<real_T, 2U> &params, ::coder::array<cell_wrap_10,
+        2U> &allSLDs, ::coder::array<real_T, 1U> &allRoughs);
     }
   }
 }

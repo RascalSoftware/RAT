@@ -20,12 +20,12 @@
 // Function Definitions
 namespace RAT
 {
-  real_T nsIntraFun(const d_struct_T *data_f1, const struct2_T *data_f2, const
-                    cell_11 *data_f4, const ::coder::array<real_T, 2U> &p)
+  real_T nsIntraFun(const f_struct_T *data_f1, const struct2_T *data_f2, const
+                    struct1_T *data_f3, const cell_11 *data_f4, const ::coder::
+                    array<real_T, 2U> &p)
   {
-    cell_wrap_9 a__1[6];
-    d_struct_T problemStruct;
-    e_struct_T b_problemStruct;
+    f_struct_T problemStruct;
+    struct5_T expl_temp;
     int32_T loop_ub;
     problemStruct = *data_f1;
 
@@ -41,17 +41,17 @@ namespace RAT
                  data_f2->checks.fitScalefactor, data_f2->checks.fitBulkIn,
                  data_f2->checks.fitBulkOut, data_f2->checks.fitResolutionParam,
                  data_f2->checks.fitDomainRatio);
-    reflectivityCalculation(&problemStruct, data_f4, data_f2, &b_problemStruct,
-      a__1);
-    return -b_problemStruct.calculations.sumChi / 2.0;
+    reflectivityCalculation(&problemStruct, data_f4, data_f3, data_f2,
+      &expl_temp);
+    return -expl_temp.calculationResults.sumChi / 2.0;
   }
 
-  real_T nsIntraFun(const d_struct_T *data_f1, const struct2_T *data_f2, const
-                    cell_11 *data_f4, const ::coder::array<real_T, 1U> &p)
+  real_T nsIntraFun(const f_struct_T *data_f1, const struct2_T *data_f2, const
+                    struct1_T *data_f3, const cell_11 *data_f4, const ::coder::
+                    array<real_T, 1U> &p)
   {
-    cell_wrap_9 a__1[6];
-    d_struct_T problemStruct;
-    e_struct_T b_problemStruct;
+    f_struct_T problemStruct;
+    struct5_T expl_temp;
     int32_T p_idx_0;
     problemStruct = *data_f1;
 
@@ -69,9 +69,9 @@ namespace RAT
                  data_f2->checks.fitScalefactor, data_f2->checks.fitBulkIn,
                  data_f2->checks.fitBulkOut, data_f2->checks.fitResolutionParam,
                  data_f2->checks.fitDomainRatio);
-    reflectivityCalculation(&problemStruct, data_f4, data_f2, &b_problemStruct,
-      a__1);
-    return -b_problemStruct.calculations.sumChi / 2.0;
+    reflectivityCalculation(&problemStruct, data_f4, data_f3, data_f2,
+      &expl_temp);
+    return -expl_temp.calculationResults.sumChi / 2.0;
   }
 }
 

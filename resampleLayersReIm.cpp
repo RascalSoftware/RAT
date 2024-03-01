@@ -27,7 +27,7 @@ namespace RAT
     ::coder::array<real_T, 1U> b_sldProfileIm;
     ::coder::array<real_T, 1U> c_sldProfileIm;
     ::coder::array<real_T, 1U> newYIm;
-    cell_25 expl_temp;
+    cell_30 expl_temp;
     real_T b_sldProfile[2];
     int32_T i;
     int32_T loop_ub;
@@ -111,7 +111,7 @@ namespace RAT
     ::coder::array<real_T, 1U> b_sldProfileIm;
     ::coder::array<real_T, 1U> c_sldProfileIm;
     ::coder::array<real_T, 1U> newYIm;
-    cell_25 expl_temp;
+    cell_30 expl_temp;
     real_T b_sldProfile[2];
     int32_T i;
     int32_T loop_ub;

@@ -20,8 +20,9 @@
 // Type Declarations
 namespace RAT
 {
-  struct d_struct_T;
+  struct f_struct_T;
   struct struct2_T;
+  struct struct1_T;
   struct cell_11;
 }
 
@@ -30,9 +31,9 @@ namespace RAT
 {
   void drawMCMC(const ::coder::array<real_T, 2U> &livepoints, const ::coder::
                 array<real_T, 2U> &cholmat, real_T logLmin, const ::coder::array<
-                real_T, 2U> &prior, const d_struct_T *data_f1, const struct2_T
-                *data_f2, const cell_11 *data_f4, real_T Nmcmc, ::coder::array<
-                real_T, 2U> &sample, real_T *logL);
+                real_T, 2U> &prior, const f_struct_T *data_f1, const struct2_T
+                *data_f2, const struct1_T *data_f3, const cell_11 *data_f4,
+                real_T Nmcmc, ::coder::array<real_T, 2U> &sample, real_T *logL);
 }
 
 #endif

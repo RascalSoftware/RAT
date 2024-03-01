@@ -30,8 +30,8 @@ namespace RAT
 // Function Definitions
 namespace RAT
 {
-  void cast(const ::coder::array<cell_wrap_47, 1U> &b, ::coder::array<
-            cell_wrap_8, 1U> &c)
+  void cast(const ::coder::array<cell_wrap_52, 1U> &b, ::coder::array<
+            cell_wrap_10, 1U> &c)
   {
     int32_T i;
     c.set_size(b.size(0));
@@ -48,8 +48,8 @@ namespace RAT
     }
   }
 
-  void cast(const ::coder::array<cell_wrap_47, 2U> &b, ::coder::array<
-            cell_wrap_8, 2U> &c)
+  void cast(const ::coder::array<cell_wrap_52, 2U> &b, ::coder::array<
+            cell_wrap_10, 2U> &c)
   {
     int32_T i;
     c.set_size(b.size(0), b.size(1));
@@ -66,8 +66,8 @@ namespace RAT
     }
   }
 
-  void cast(const ::coder::array<cell_wrap_22, 2U> &b, ::coder::array<
-            cell_wrap_8, 2U> &c)
+  void cast(const ::coder::array<cell_wrap_17, 2U> &b, ::coder::array<
+            cell_wrap_10, 2U> &c)
   {
     int32_T i;
     c.set_size(b.size(0), b.size(1));
@@ -82,8 +82,46 @@ namespace RAT
     }
   }
 
-  void cast(const ::coder::array<cell_wrap_18, 2U> &b, ::coder::array<
-            cell_wrap_8, 2U> &c)
+  void cast(const ::coder::array<cell_wrap_8, 1U> &b, ::coder::array<
+            cell_wrap_10, 1U> &c)
+  {
+    int32_T i;
+    c.set_size(b.size(0));
+    i = b.size(0);
+    for (int32_T i1{0}; i1 < i; i1++) {
+      int32_T loop_ub;
+      loop_ub = b[i1].f1.size(0);
+      c[i1].f1.set_size(b[i1].f1.size(0), 2);
+      for (int32_T i2{0}; i2 < 2; i2++) {
+        for (int32_T i3{0}; i3 < loop_ub; i3++) {
+          c[i1].f1[i3 + c[i1].f1.size(0) * i2] = b[i1].f1[i3 + b[i1].f1.size(0) *
+            i2];
+        }
+      }
+    }
+  }
+
+  void cast(const ::coder::array<cell_wrap_24, 1U> &b, ::coder::array<
+            cell_wrap_10, 1U> &c)
+  {
+    int32_T i;
+    c.set_size(b.size(0));
+    i = b.size(0);
+    for (int32_T i1{0}; i1 < i; i1++) {
+      int32_T loop_ub;
+      loop_ub = b[i1].f1.size(0);
+      c[i1].f1.set_size(b[i1].f1.size(0), 3);
+      for (int32_T i2{0}; i2 < 3; i2++) {
+        for (int32_T i3{0}; i3 < loop_ub; i3++) {
+          c[i1].f1[i3 + c[i1].f1.size(0) * i2] = b[i1].f1[i3 + b[i1].f1.size(0) *
+            i2];
+        }
+      }
+    }
+  }
+
+  void cast(const ::coder::array<cell_wrap_25, 2U> &b, ::coder::array<
+            cell_wrap_10, 2U> &c)
   {
     int32_T i;
     c.set_size(b.size(0), 2);

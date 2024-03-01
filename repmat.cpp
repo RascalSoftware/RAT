@@ -11,7 +11,6 @@
 // Include files
 #include "repmat.h"
 #include "RATMain_internal_types.h"
-#include "RATMain_types.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 
@@ -27,17 +26,6 @@ namespace RAT
       b.set_size(1, loop_ub_tmp);
       for (int32_T i{0}; i < loop_ub_tmp; i++) {
         b[i] = '.';
-      }
-    }
-
-    void repmat(cell_wrap_9 b[6])
-    {
-      cell_wrap_8 r;
-      r.f1.set_size(1, 1);
-      r.f1[0] = 1.0;
-      for (int32_T jtilecol{0}; jtilecol < 6; jtilecol++) {
-        b[jtilecol].f1.set_size(1, 1);
-        b[jtilecol].f1[0] = r;
       }
     }
 

@@ -21,7 +21,7 @@
 namespace RAT
 {
   void allocateParamsToLayers(const ::coder::array<real_T, 2U> &params, const ::
-    coder::array<cell_wrap_8, 1U> &layersDetails, ::coder::array<cell_wrap_22,
+    coder::array<cell_wrap_10, 1U> &layersDetails, ::coder::array<cell_wrap_17,
     2U> &outLayers)
   {
     real_T thisOutLayer_data[10];

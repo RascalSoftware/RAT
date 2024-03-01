@@ -44,9 +44,9 @@ pars = unscalePars(pars,constr);
 
 problemStruct.fitParams = pars;
 problemStruct = unpackParams(problemStruct,controls);
-[problem,result] = reflectivityCalculation(problemStruct,problemCells,controls);
+result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 
-ySim = result{1}{contrast};
+ySim = result.reflectivity{contrast};
 
 % Need to correct the simulation for the scalefactor (i.e. move the sim to
 % the data, unlike what we normally do)

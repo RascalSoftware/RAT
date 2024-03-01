@@ -44,19 +44,10 @@ bayesOutputs.sschain = [];
 bayesOutputs.data = problemCells{2};
 bayesOutputs.results.mean = mean(unscaledChain);
 
-[problemStruct,outProblemStruct,result,bayesResults] = processBayes(bayesOutputs,allProblem);
+[problemStruct,result,bayesResults] = processBayes(bayesOutputs,allProblem);
 bayesResults.chain = unscaledChain;
 
-result = parseResultToStruct(outProblemStruct,result);
-
-if isfield(problemStruct,'fitParams')
-    result.bestFitPars = problemStruct.fitParams;
-end
-
 result = mergeStructs(result,bayesResults);
-
-[~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
-result.fitNames = fitNames;
 
 outProblemDef = parseOutToProjectClass(problem,problemStruct);
 

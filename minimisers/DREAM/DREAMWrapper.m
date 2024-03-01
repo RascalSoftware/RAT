@@ -5,6 +5,7 @@ function Lik = DREAMWrapper(pars,ratInputs)
 problemStruct = ratInputs.problemStruct;
 control = ratInputs.controls;
 cells = ratInputs.problemCells;
+limits = ratInputs.problemLimits;
 
 % Put the current parameters into problem
 problemStruct.fitParams = pars;
@@ -13,10 +14,10 @@ problemStruct.fitParams = pars;
 problemStruct = unpackParams(problemStruct,control);
 
 % Calculate....
-[contrastParams,~] = reflectivityCalculation(problemStruct,cells,control);
+result = reflectivityCalculation(problemStruct,cells,limits,control);
 
 % Function value is chi-squared....
-chiSquared = contrastParams.calculations.sumChi;
+chiSquared = result.calculationResults.sumChi;
 
 Lik = -chiSquared/2;
 

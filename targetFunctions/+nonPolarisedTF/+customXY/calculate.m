@@ -1,4 +1,4 @@
-function [contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemStruct,problemCells,controls)
+function [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemStruct,problemCells,controls)
 
 % Custom XP profile reflectivity calculation for nonPolarisedTF
 
@@ -78,9 +78,10 @@ contrastParams.scalefactors = scalefactors;
 contrastParams.bulkIn = bulkIns;
 contrastParams.bulkOut = bulkOuts;
 contrastParams.resolutionParams = resolutionParams;
-contrastParams.calculations.allChis = chis;
-contrastParams.calculations.sumChi = sum(chis);
 contrastParams.allSubRough = allRoughs;
 contrastParams.resample = ones(1,length(allRoughs));
+
+calculationResults.allChis = chis;
+calculationResults.sumChi = sum(chis);
 
 end

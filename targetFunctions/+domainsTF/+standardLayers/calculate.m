@@ -1,4 +1,4 @@
-function [contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemStruct,problemCells,controls)
+function [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemStruct,problemCells,controls)
 
 % Standard layers reflectivity calculation for nonPolarisedTF
 % This function decides on parallelisation options before calling the
@@ -80,9 +80,10 @@ contrastParams.scalefactors = scalefactors;
 contrastParams.bulkIn = bulkIns;
 contrastParams.bulkOut = bulkOuts;
 contrastParams.resolutionParams = resolutionParams;
-contrastParams.calculations.allChis = chis;
-contrastParams.calculations.sumChi = sum(chis);
 contrastParams.allSubRough = allRoughs;
 contrastParams.resample = problemStruct.resample;
+
+calculationResults.allChis = chis;
+calculationResults.sumChi = sum(chis);
 
 end

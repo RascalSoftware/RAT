@@ -1,4 +1,4 @@
-function  [problemStruct,contrastParams,result,bayesResults] = runNestedSampler(problemStruct,problemCells,problemLimits,controls,inPriors)
+function  [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,problemCells,problemLimits,controls,inPriors)
 
 checks = controls.checks;
 [problemStruct,fitNames] = packParams(problemStruct,problemCells,problemLimits,checks);
@@ -14,7 +14,6 @@ H = 0;
 
 % Make an empty struct for bayesResults to hold the outputs of the
 % calculation
-nPars = 1e3;
 numberOfContrasts = problemStruct.numberOfContrasts;
 numberOfChains = 1;
 
@@ -23,7 +22,7 @@ if strcmpi(problemStruct.TF,'domains')
 else
     domains = false;
 end
-bayesResults = makeEmptyBayesResultsStruct(nPars, numberOfContrasts, domains, numberOfChains);
+bayesResults = makeEmptyBayesResultsStruct(numberOfContrasts, domains, numberOfChains);
       
 %Deal with priors.
 priorList = getFittedPriors(fitNames,inPriors,problemStruct.fitLimits);
@@ -58,7 +57,7 @@ allProblem{2} = controls;
 allProblem{3} = problemLimits;
 allProblem{4} = problemCells;
 
-[problemStruct,contrastParams,result,nestResults] = processBayes(bayesOutputs,allProblem);
+[problemStruct,result,nestResults] = processBayes(bayesOutputs,allProblem);
 
 bayesResults.predlims = nestResults.predlims;
 bayesResults.bestFitsMean = nestResults.bestFitsMean;

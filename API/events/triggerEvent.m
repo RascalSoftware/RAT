@@ -1,8 +1,7 @@
 function triggerEvent(eventType, data)
     % Triggers the event type with the given data. The supported event types are
     % 'message' and 'plot'. The data for message is a char array while for
-    % the plot it is a cell array containing the result cell,
-    % contrastParams.ssubs and problemStruct
+    % the plot it is a cell array containing the result and problem structs
     % 
     % triggerEvent('message', 'Hello world');
     persistent notified;
@@ -42,25 +41,24 @@ function triggerEvent(eventType, data)
                     return;
                 end
                 result = data{1};
-                problemStruct = data{3};
-                nContrast = length(result{1});
-                [reflect, nReflect] = packCellArray(result{1}, 1); % reflectivity
-                [shiftedData, nShiftedData] = packCellArray(result{3}, 1);  
-                [sldProfiles, nSldProfiles] = packCellArray(result{5}, 1);
-                [layers, nLayers] = packCellArray(result{6}, 1);
+                problemStruct = data{2};
+                ssubs = result.contrastParams.ssubs;
+                nContrast = length(result.reflectivity);
+                [reflect, nReflect] = packCellArray(result.reflectivity, 1);
+                [shiftedData, nShiftedData] = packCellArray(result.shiftedData, 1);
+                [sldProfiles, nSldProfiles] = packCellArray(result.sldProfiles, 1);
+                [layers, nLayers] = packCellArray(result.allLayers, 1);
                 
                 switch problemStruct.TF
                     case 'domains'
-                        [sldProfiles2, nSldProfiles2] = packCellArray(result{5}, 2);
-                        [layers2, nLayers2] = packCellArray(result{6}, 2);
+                        [sldProfiles2, nSldProfiles2] = packCellArray(result.sldProfiles, 2);
+                        [layers2, nLayers2] = packCellArray(result.allLayers, 2);
                     otherwise 
                         sldProfiles2 = coder.nullcopy(zeros(0));
                         nSldProfiles2 =  coder.nullcopy(zeros(0));
                         layers2 =  coder.nullcopy(zeros(0));
                         nLayers2 = coder.nullcopy(zeros(0));
                 end
-
-                ssubs = data{2}; % ssubs
    
                 modelType = [problemStruct.modelType, 0];
                 resample = problemStruct.resample;

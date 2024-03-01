@@ -16,8 +16,8 @@ pars = unscalePars(pars,constr);
 problemStruct.fitParams = pars;
 problemStruct = unpackParams(problemStruct,controls);
 
-[contrastParams,~] = reflectivityCalculation(problemStruct,problemCells,controls);
+result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 
-ss = contrastParams.calculations.sumChi;
+ss = result.calculationResults.sumChi;
 
 end

@@ -91,9 +91,9 @@ output.data = data;
 % 
 % problemStruct.fitParams = output.bestPars;
 % problemStruct = unpackParams(problemStruct,controls);
-% [problem,result] = reflectivityCalculation(problemStruct,problemCells,controls);
+% result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 % 
-% output.bestFits = result{1};
+% output.bestFits = result.reflectivity;
 % output.shiftedData = problemCells{2};
 % output.predlims = out;
 

@@ -24,21 +24,15 @@ inputs.controls = controls;
 save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customLayersInputs'],'inputs');
 
 % (b) Outputs
-[contrastParams,resultCells] = reflectivityCalculation(problemStruct,problemCells,controls);
-
-outputs.contrastParams = contrastParams;
-outputs.resultCells = resultCells;
-
-[problemStruct,contrastParamsMain,resultCellsMain,bayesResults] = RATMain(problemStruct,problemCells,problemLimits,controls,priors);
-
-outputs.problemStruct = problemStruct;
-outputs.contrastParamsMain = contrastParamsMain;
-outputs.resultCellsMain = resultCellsMain;
-outputs.bayesResults = bayesResults;
-
-resultStruct = parseResultToStruct(contrastParamsMain,resultCellsMain);
+resultStruct = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 
 outputs.resultStruct = resultStruct;
+
+[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemCells,problemLimits,controls,priors);
+
+outputs.problemStruct = problemStruct;
+outputs.resultStructMain = resultStructMain;
+outputs.bayesResults = bayesResults;
 
 [project, result] = RAT(customLayersProblem,controlsInput);
 
@@ -48,9 +42,10 @@ outputs.result = result;
 save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customLayersOutputs'],'outputs');
 
 % (c) TF Parameters
-[contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
+[contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
 
 TFParams.contrastParams = contrastParams;
+TFParams.calculationResults = calculationResults;
 TFParams.reflectivity = reflectivity;
 TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;
@@ -58,9 +53,9 @@ TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.allLayers = allLayers;
 
-[outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
- simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
- allRoughs] = nonPolarisedTF.customLayers.single(problemStruct,problemCells,controls);
+[outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,...
+ resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,...
+ sldProfiles,allLayers,allRoughs] = nonPolarisedTF.customLayers.single(problemStruct,problemCells,controls);
 
 TFParams.outSsubs = outSsubs;
 TFParams.backgroundParams = backgroundParams;
@@ -95,21 +90,15 @@ inputs.controls = controls;
 save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customXYInputs'],'inputs');
 
 % (b) Outputs
-[contrastParams,resultCells] = reflectivityCalculation(problemStruct,problemCells,controls);
-
-outputs.contrastParams = contrastParams;
-outputs.resultCells = resultCells;
-
-[problemStruct,contrastParamsMain,resultCellsMain,bayesResults] = RATMain(problemStruct,problemCells,problemLimits,controls,priors);
-
-outputs.problemStruct = problemStruct;
-outputs.contrastParamsMain = contrastParamsMain;
-outputs.resultCellsMain = resultCellsMain;
-outputs.bayesResults = bayesResults;
-
-resultStruct = parseResultToStruct(contrastParamsMain,resultCellsMain);
+resultStruct = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 
 outputs.resultStruct = resultStruct;
+
+[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemCells,problemLimits,controls,priors);
+
+outputs.problemStruct = problemStruct;
+outputs.resultStructMain = resultStructMain;
+outputs.bayesResults = bayesResults;
 
 [project, result] = RAT(customXYProblem,controlsInput);
 
@@ -119,9 +108,10 @@ outputs.result = result;
 save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customXYOutputs'],'outputs');
 
 % (c) TF Parameters
-[contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
+[contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
 
 TFParams.contrastParams = contrastParams;
+TFParams.calculationResults = calculationResults;
 TFParams.reflectivity = reflectivity;
 TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;
@@ -130,8 +120,8 @@ TFParams.sldProfiles = sldProfiles;
 TFParams.allLayers = allLayers;
 
 [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,...
- resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
- allRoughs] = nonPolarisedTF.customXY.single(problemStruct,problemCells,controls);
+ resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,...
+ sldProfiles,allLayers, allRoughs] = nonPolarisedTF.customXY.single(problemStruct,problemCells,controls);
 
 TFParams.outSsubs = outSsubs;
 TFParams.backgroundParams = backgroundParams;
@@ -154,6 +144,7 @@ controlsInput = controlsClass();
 controlsInput.display = 'off';
 
 [problemStruct,problemCells,problemLimits,priors,controls] = parseClassToStructs(standardProblem,controlsInput);
+[problemStruct,~] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
 
 inputs.project = standardProblem;
 inputs.problemStruct = problemStruct;
@@ -166,21 +157,15 @@ inputs.controls = controls;
 save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'standardLayersInputs'],'inputs');
 
 % (b) Outputs
-[contrastParams,resultCells] = reflectivityCalculation(problemStruct,problemCells,controls);
-
-outputs.contrastParams = contrastParams;
-outputs.resultCells = resultCells;
-
-[problemStruct,contrastParamsMain,resultCellsMain,bayesResults] = RATMain(problemStruct,problemCells,problemLimits,controls,priors);
-
-outputs.problemStruct = problemStruct;
-outputs.contrastParamsMain = contrastParamsMain;
-outputs.resultCellsMain = resultCellsMain;
-outputs.bayesResults = bayesResults;
-
-resultStruct = parseResultToStruct(contrastParamsMain,resultCellsMain);
+resultStruct = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 
 outputs.resultStruct = resultStruct;
+
+[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemCells,problemLimits,controls,priors);
+
+outputs.problemStruct = problemStruct;
+outputs.resultStructMain = resultStructMain;
+outputs.bayesResults = bayesResults;
 
 [project, result] = RAT(standardProblem,controlsInput);
 
@@ -190,9 +175,10 @@ outputs.result = result;
 save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'standardLayersOutputs'],'outputs');
 
 % (c) TF Parameters
-[contrastParams,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
+[contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
 
 TFParams.contrastParams = contrastParams;
+TFParams.calculationResults = calculationResults;
 TFParams.reflectivity = reflectivity;
 TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;
@@ -201,8 +187,8 @@ TFParams.sldProfiles = sldProfiles;
 TFParams.allLayers = allLayers;
 
 [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,...
- resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
- allRoughs] = nonPolarisedTF.standardLayers.single(problemStruct,problemCells,controls);
+ resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,...
+ sldProfiles,allLayers,allRoughs] = nonPolarisedTF.standardLayers.single(problemStruct,problemCells,controls);
 
 TFParams.outSsubs = outSsubs;
 TFParams.backgroundParams = backgroundParams;

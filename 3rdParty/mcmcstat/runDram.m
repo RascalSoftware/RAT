@@ -153,7 +153,7 @@ problem = {problemStruct ; controls ; problemLimits ; problemCells};
 
 output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 
-[problemStruct,outProblem,result,bayesResults] = processBayes(output,problem);
+[problemStruct,result,bayesResults] = processBayes(output,problem);
 
 % problemStruct.fitParams = bayesResults.bestPars_Mean;
 
@@ -172,18 +172,18 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 % % Calulate Max best fit curves
 % problemStruct.fitParams = bestPars_max;
 % problemStruct = unpackParams(problemStruct,controls);
-% [outProblem,result] = reflectivityCalculation(problemStruct,problemCells,controls);
-% bestFitMax_Ref = result(1);
-% bestFitMax_Sld = result(5);
-% bestFitMax_chi = outProblem.calculations.sumChi;
+% result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+% bestFitMax_Ref = result.reflectivity;
+% bestFitMax_Sld = result.sldProfiles;
+% bestFitMax_chi = result.calculationResultss.sumChi;
 % 
 % % Calculate 'mean' best fit curves
 % problemStruct.fitParams = bestPars_mean;
 % problemStruct = unpackParams(problemStruct,controls);
-% [outProblem,result] = reflectivityCalculation(problemStruct,problemCells,controls);
-% bestFitMean_Ref = result(1);
-% bestFitMean_Sld = result(5);
-% bestFitMean_chi = outProblem.calculations.sumChi;
+% result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+% bestFitMean_Ref = result.reflectivity;
+% bestFitMean_Sld = result.sldProfiles;
+% bestFitMean_chi = result.calculationResultss.sumChi;
 % 
 % % 2. Reflectivity and SLD shading
 % predIntRef = mcmcpred_compile(output.results,output.chain,[],output.data,problem,500);

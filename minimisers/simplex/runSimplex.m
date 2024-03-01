@@ -1,20 +1,4 @@
-function [problemStruct,contrastParams,result] = runSimplex(problemStruct,problemCells,problemLimits,controls)
-
-numberOfContrasts = problemStruct.numberOfContrasts;
-preAlloc = zeros(numberOfContrasts,1);
-
-result = cell(6,1);
-
-contrastParams = struct('ssubs',preAlloc,...
-                        'backgroundParams',preAlloc,...
-                        'qzshifts',preAlloc,...
-                        'scalefactors',preAlloc,...
-                        'bulkIn',preAlloc,...
-                        'bulkOut',preAlloc,...
-                        'resolutionParams',preAlloc,...
-                        'calculations',struct('allChis',preAlloc,'sumChi',0),...
-                        'allSubRough',preAlloc);
-
+function [problemStruct,result] = runSimplex(problemStruct,problemCells,problemLimits,controls)
 
 [problemStruct,~] = fitsetup(problemStruct,problemCells,problemLimits,controls);
 
@@ -54,7 +38,7 @@ else
   LB = LB(:);
 end
 if isempty(UB)
-  UB = repmat(inf,n,1);
+  UB = inf(n,1);
 else
   UB = UB(:);
 end
@@ -119,7 +103,7 @@ end
 % now we can call fminsearch, but with our own
 % intra-objective function.
 
-[xu,~,~,~] = fMinSearch(@simplexIntrafun,x0u,options,dis,problemStruct,problemCells,controls,params);
+[xu,~,~,~] = fMinSearch(@simplexIntrafun,x0u,options,dis,problemStruct,problemCells,problemLimits,controls,params);
 
 %[xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemStruct,problemCells,problemLimits,controls,options,params,300);
 
@@ -131,6 +115,6 @@ x = simplexXTransform(xu,params);
 
 problemStruct.fitParams = x;
 problemStruct = unpackParams(problemStruct,controls);
-[contrastParams,result] = reflectivityCalculation(problemStruct,problemCells,controls);
+result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 
 end

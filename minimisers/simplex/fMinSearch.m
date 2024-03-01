@@ -181,7 +181,7 @@ header = ' Iteration   Func-count     min f(x)         Procedure';
 % Convert to function handle as needed.
 % funfcn = fcnchk(funfcn,length(varargin));
 % Add a wrapper function to check for Inf/NaN/complex values
-controls = varargin{3};
+controls = varargin{4};
 problemStruct = varargin{1};
 if funValCheck
     % Add a wrapper function, CHECKFUN, to check for NaN/complex values without
@@ -208,7 +208,7 @@ xin = x(:); % Force xin to be a column vector
 v = zeros(n,n+1); fv = zeros(1,n+1);
 v(:,1) = xin;    % Place input guess in the simplex! (credit L.Pfeffer at Stanford)
 x(:) = xin;    % Change x to the form expected by funfcn
-[fv(:,1), problem, result] = funfcn(x,varargin{:});
+[fv(:,1), result] = funfcn(x,varargin{:});
 func_evals = 1;
 itercount = 0;
 coder.varsize('how',[1 Inf],[0 1]);
@@ -259,7 +259,7 @@ if prnt == 3
 %     fprintf('%g \n', func_evals)
 end
 
-triggerEvent('plot', {result, problem.ssubs, problemStruct});
+triggerEvent('plot', {result, problemStruct});
 
 % OutputFcn and PlotFcns call
 % if haveoutputfcn || haveplotfcn
@@ -286,7 +286,7 @@ for j = 1:n
         y(j) = zero_term_delta;
     end
     v(:,j+1) = y;
-    x(:) = y; [f, problem, result] = funfcn(x,varargin{:});
+    x(:) = y; [f, result] = funfcn(x,varargin{:});
     fv(1,j+1) = f;
 end
 
@@ -310,7 +310,7 @@ if prnt == 3
 %     fprintf('%g \n', func_evals)
 end
 if rem(itercount, controls.updatePlotFreq) == 0
-    triggerEvent('plot', {result, problem.ssubs, problemStruct});
+    triggerEvent('plot', {result, problemStruct});
 end
 % OutputFcn and PlotFcns call
 % if haveoutputfcn || haveplotfcn
@@ -347,13 +347,13 @@ while func_evals < maxfun && itercount < maxiter
     % xbar = average of the n (NOT n+1) best points
     xbar = sum(v(:,1:n), 2)/n;
     xr = (1 + rho)*xbar - rho*v(:,end);
-    x(:) = xr; [fxr, problem, result] = funfcn(x,varargin{:});
+    x(:) = xr; [fxr, result] = funfcn(x,varargin{:});
     func_evals = func_evals+1;
     
     if fxr < fv(:,1)
         % Calculate the expansion point
         xe = (1 + rho*chi)*xbar - rho*chi*v(:,end);
-        x(:) = xe; [fxe, problem, result] = funfcn(x,varargin{:});
+        x(:) = xe; [fxe, result] = funfcn(x,varargin{:});
         func_evals = func_evals+1;
         if fxe < fxr
             v(:,end) = xe;
@@ -374,7 +374,7 @@ while func_evals < maxfun && itercount < maxiter
             if fxr < fv(:,end)
                 % Perform an outside contraction
                 xc = (1 + psi*rho)*xbar - psi*rho*v(:,end);
-                x(:) = xc; [fxc, problem, result] = funfcn(x,varargin{:});
+                x(:) = xc; [fxc, result] = funfcn(x,varargin{:});
                 func_evals = func_evals+1;
                 
                 if fxc <= fxr
@@ -388,7 +388,7 @@ while func_evals < maxfun && itercount < maxiter
             else
                 % Perform an inside contraction
                 xcc = (1-psi)*xbar + psi*v(:,end);
-                x(:) = xcc; [fxcc, problem, result] = funfcn(x,varargin{:});
+                x(:) = xcc; [fxcc, result] = funfcn(x,varargin{:});
                 func_evals = func_evals+1;
                 
                 if fxcc < fv(:,end)
@@ -403,7 +403,7 @@ while func_evals < maxfun && itercount < maxiter
             if strcmp(how,'shrink')
                 for j=2:n+1
                     v(:,j)=v(:,1)+sigma*(v(:,j) - v(:,1));
-                    x(:) = v(:,j); [fv(:,j), problem, result] = funfcn(x,varargin{:});
+                    x(:) = v(:,j); [fv(:,j), result] = funfcn(x,varargin{:});
                 end
                 func_evals = func_evals + n;
             end
@@ -425,7 +425,7 @@ while func_evals < maxfun && itercount < maxiter
 %         fprintf('%s \n', num2str(func_evals))
     end
     if rem(itercount, controls.updatePlotFreq) == 0   
-        triggerEvent('plot', {result, problem.ssubs, problemStruct});
+        triggerEvent('plot', {result, problemStruct});
     end
     % OutputFcn and PlotFcns call
 %     if haveoutputfcn || haveplotfcn

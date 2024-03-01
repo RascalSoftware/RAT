@@ -1,7 +1,6 @@
-
-function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-    simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
-    allRoughs] = single(problemStruct,problemCells,controls)
+function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
+    resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,...
+    sldProfiles,allLayers,allRoughs] = single(problemStruct,problemCells,controls)
 % Single threaded version of the Standard Layers calculation 
 % This is the main reflectivity calculation of the standard layers
 % calculation type. It extracts the required parameters for the contrasts
@@ -65,6 +64,9 @@ outParameterisedLayers = allocateParamsToLayers(params, layersDetails);
 % Resample params if requiired
 resamPars = controls.resamPars;
 
+% Substrate roughness is always first parameter for standard layers
+thisRough = params(1);
+
 % Loop over all the contrasts
 for i = 1:numberOfContrasts
     
@@ -81,7 +83,6 @@ for i = 1:numberOfContrasts
     
     % For the other parameters, we extract the correct ones from the input
     % arrays
-    thisRough = params(1);      % Substrate roughness is always first parameter for standard layers
     thisRepeatLayers = repeatLayers{i};
     thisResample = resample(i);
     thisData = allData{i};

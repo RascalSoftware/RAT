@@ -185,8 +185,8 @@ namespace RAT
                    cell_wrap_25, 2U> &c)
   {
     int32_T i;
-    c.set_size(b.size(0), b.size(1));
-    i = b.size(0) * b.size(1);
+    c.set_size(b.size(0), 2);
+    i = b.size(0) << 1;
     for (int32_T i1{0}; i1 < i; i1++) {
       int32_T loop_ub;
       loop_ub = b[i1].f1.size(1);
@@ -206,8 +206,8 @@ namespace RAT
                    cell_wrap_38, 2U> &c)
   {
     int32_T i;
-    c.set_size(b.size(0), b.size(1));
-    i = b.size(0) * b.size(1);
+    c.set_size(b.size(0), 2);
+    i = b.size(0) << 1;
     for (int32_T i1{0}; i1 < i; i1++) {
       int32_T loop_ub;
       loop_ub = b[i1].f1.size(1);
@@ -227,8 +227,8 @@ namespace RAT
                    cell_wrap_24, 2U> &c)
   {
     int32_T i;
-    c.set_size(b.size(0), b.size(1));
-    i = b.size(0) * b.size(1);
+    c.set_size(b.size(0), 2);
+    i = b.size(0) << 1;
     for (int32_T i1{0}; i1 < i; i1++) {
       int32_T loop_ub;
       loop_ub = b[i1].f1.size(1);
@@ -291,6 +291,7 @@ namespace RAT
     b_struct_T b_contrastParams;
     b_struct_T contrastParams;
     f_struct_T a__1;
+    int32_T b_loop_ub;
     int32_T i;
     int32_T i1;
     int32_T loop_ub;
@@ -431,8 +432,8 @@ namespace RAT
         controls, &contrastParams, &result->calculationResults, b_reflectivity,
         b_simulation, shiftedData, b_layerSlds, b_sldProfiles, b_allLayers);
       result->contrastParams.resample.set_size(1, contrastParams.resample.size(1));
-      loop_ub_tmp = contrastParams.resample.size(1);
-      for (i = 0; i < loop_ub_tmp; i++) {
+      loop_ub = contrastParams.resample.size(1);
+      for (i = 0; i < loop_ub; i++) {
         result->contrastParams.resample[result->contrastParams.resample.size(0) *
           i] = contrastParams.resample[i];
       }
@@ -456,64 +457,64 @@ namespace RAT
         b_simulation, shiftedData, b_domainLayerSlds, b_domainSldProfiles,
         b_domainAllLayers);
       contrastParams.ssubs.set_size(b_contrastParams.ssubs.size(0));
-      loop_ub_tmp = b_contrastParams.ssubs.size(0);
-      for (i = 0; i < loop_ub_tmp; i++) {
+      loop_ub = b_contrastParams.ssubs.size(0);
+      for (i = 0; i < loop_ub; i++) {
         contrastParams.ssubs[i] = b_contrastParams.ssubs[i];
       }
 
       contrastParams.backgroundParams.set_size
         (b_contrastParams.backgroundParams.size(0));
-      loop_ub_tmp = b_contrastParams.backgroundParams.size(0);
-      for (i = 0; i < loop_ub_tmp; i++) {
+      loop_ub = b_contrastParams.backgroundParams.size(0);
+      for (i = 0; i < loop_ub; i++) {
         contrastParams.backgroundParams[i] = b_contrastParams.backgroundParams[i];
       }
 
       contrastParams.qzshifts.set_size(b_contrastParams.qzshifts.size(0));
-      loop_ub_tmp = b_contrastParams.qzshifts.size(0);
-      for (i = 0; i < loop_ub_tmp; i++) {
+      loop_ub = b_contrastParams.qzshifts.size(0);
+      for (i = 0; i < loop_ub; i++) {
         contrastParams.qzshifts[i] = b_contrastParams.qzshifts[i];
       }
 
       contrastParams.scalefactors.set_size(b_contrastParams.scalefactors.size(0));
-      loop_ub_tmp = b_contrastParams.scalefactors.size(0);
-      for (i = 0; i < loop_ub_tmp; i++) {
+      loop_ub = b_contrastParams.scalefactors.size(0);
+      for (i = 0; i < loop_ub; i++) {
         contrastParams.scalefactors[i] = b_contrastParams.scalefactors[i];
       }
 
       contrastParams.bulkIn.set_size(b_contrastParams.bulkIn.size(0));
-      loop_ub_tmp = b_contrastParams.bulkIn.size(0);
-      for (i = 0; i < loop_ub_tmp; i++) {
+      loop_ub = b_contrastParams.bulkIn.size(0);
+      for (i = 0; i < loop_ub; i++) {
         contrastParams.bulkIn[i] = b_contrastParams.bulkIn[i];
       }
 
       contrastParams.bulkOut.set_size(b_contrastParams.bulkOut.size(0));
-      loop_ub_tmp = b_contrastParams.bulkOut.size(0);
-      for (i = 0; i < loop_ub_tmp; i++) {
+      loop_ub = b_contrastParams.bulkOut.size(0);
+      for (i = 0; i < loop_ub; i++) {
         contrastParams.bulkOut[i] = b_contrastParams.bulkOut[i];
       }
 
       contrastParams.resolutionParams.set_size
         (b_contrastParams.resolutionParams.size(0));
-      loop_ub_tmp = b_contrastParams.resolutionParams.size(0);
-      for (i = 0; i < loop_ub_tmp; i++) {
+      loop_ub = b_contrastParams.resolutionParams.size(0);
+      for (i = 0; i < loop_ub; i++) {
         contrastParams.resolutionParams[i] = b_contrastParams.resolutionParams[i];
       }
 
       contrastParams.allSubRough.set_size(b_contrastParams.allSubRough.size(0));
-      loop_ub_tmp = b_contrastParams.allSubRough.size(0);
-      for (i = 0; i < loop_ub_tmp; i++) {
+      loop_ub = b_contrastParams.allSubRough.size(0);
+      for (i = 0; i < loop_ub; i++) {
         contrastParams.allSubRough[i] = b_contrastParams.allSubRough[i];
       }
 
       contrastParams.resample.set_size(1, b_contrastParams.resample.size(1));
-      loop_ub_tmp = b_contrastParams.resample.size(1);
-      for (i = 0; i < loop_ub_tmp; i++) {
+      loop_ub = b_contrastParams.resample.size(1);
+      for (i = 0; i < loop_ub; i++) {
         contrastParams.resample[i] = b_contrastParams.resample[i];
       }
 
       result->contrastParams.resample.set_size(1, contrastParams.resample.size(1));
-      loop_ub_tmp = contrastParams.resample.size(1);
-      for (i = 0; i < loop_ub_tmp; i++) {
+      loop_ub = contrastParams.resample.size(1);
+      for (i = 0; i < loop_ub; i++) {
         result->contrastParams.resample[result->contrastParams.resample.size(0) *
           i] = contrastParams.resample[i];
       }
@@ -522,33 +523,26 @@ namespace RAT
       cast(b_simulation, simulation);
       cast(shiftedData, result->shiftedData);
       cast(b_domainLayerSlds, r1);
-      domainLayerSlds.set_size(r1.size(0), r1.size(1));
-      loop_ub_tmp = r1.size(1);
-      for (i = 0; i < loop_ub_tmp; i++) {
-        loop_ub = r1.size(0);
+      domainLayerSlds.set_size(r1.size(0), 2);
+      cast(b_domainSldProfiles, r2);
+      domainSldProfiles.set_size(r2.size(0), 2);
+      cast(b_domainAllLayers, r3);
+      domainAllLayers.set_size(r3.size(0), 2);
+      loop_ub = r1.size(0);
+      b_loop_ub = r2.size(0);
+      loop_ub_tmp = r3.size(0);
+      for (i = 0; i < 2; i++) {
         for (i1 = 0; i1 < loop_ub; i1++) {
           domainLayerSlds[i1 + domainLayerSlds.size(0) * i] = r1[i1 + r1.size(0)
             * i];
         }
-      }
 
-      cast(b_domainSldProfiles, r2);
-      domainSldProfiles.set_size(r2.size(0), r2.size(1));
-      loop_ub_tmp = r2.size(1);
-      for (i = 0; i < loop_ub_tmp; i++) {
-        loop_ub = r2.size(0);
-        for (i1 = 0; i1 < loop_ub; i1++) {
+        for (i1 = 0; i1 < b_loop_ub; i1++) {
           domainSldProfiles[i1 + domainSldProfiles.size(0) * i] = r2[i1 +
             r2.size(0) * i];
         }
-      }
 
-      cast(b_domainAllLayers, r3);
-      domainAllLayers.set_size(r3.size(0), r3.size(1));
-      loop_ub_tmp = r3.size(1);
-      for (i = 0; i < loop_ub_tmp; i++) {
-        loop_ub = r3.size(0);
-        for (i1 = 0; i1 < loop_ub; i1++) {
+        for (i1 = 0; i1 < loop_ub_tmp; i1++) {
           domainAllLayers[i1 + domainAllLayers.size(0) * i] = r3[i1 + r3.size(0)
             * i];
         }
@@ -575,10 +569,10 @@ namespace RAT
      case 0:
       b_cast(domainLayerSlds, r);
       result->layerSlds.set_size(r.size(0), r.size(1));
-      loop_ub_tmp = r.size(1);
-      for (i = 0; i < loop_ub_tmp; i++) {
-        loop_ub = r.size(0);
-        for (i1 = 0; i1 < loop_ub; i1++) {
+      loop_ub = r.size(1);
+      for (i = 0; i < loop_ub; i++) {
+        b_loop_ub = r.size(0);
+        for (i1 = 0; i1 < b_loop_ub; i1++) {
           result->layerSlds[i1 + result->layerSlds.size(0) * i] = r[i1 + r.size
             (0) * i];
         }
@@ -586,18 +580,17 @@ namespace RAT
 
       b_cast(domainSldProfiles, r);
       result->sldProfiles.set_size(r.size(0), r.size(1));
-      loop_ub_tmp = r.size(1);
-      for (i = 0; i < loop_ub_tmp; i++) {
-        loop_ub = r.size(0);
-        for (i1 = 0; i1 < loop_ub; i1++) {
+      loop_ub = r.size(1);
+      for (i = 0; i < loop_ub; i++) {
+        b_loop_ub = r.size(0);
+        for (i1 = 0; i1 < b_loop_ub; i1++) {
           result->sldProfiles[i1 + result->sldProfiles.size(0) * i] = r[i1 +
             r.size(0) * i];
         }
       }
 
-      result->allLayers.set_size(domainAllLayers.size(0), domainAllLayers.size(1));
-      loop_ub_tmp = domainAllLayers.size(1);
-      for (i = 0; i < loop_ub_tmp; i++) {
+      result->allLayers.set_size(domainAllLayers.size(0), 2);
+      for (i = 0; i < 2; i++) {
         loop_ub = domainAllLayers.size(0);
         for (i1 = 0; i1 < loop_ub; i1++) {
           result->allLayers[i1 + result->allLayers.size(0) * i] =
@@ -607,43 +600,41 @@ namespace RAT
       break;
 
      default:
-      {
-        int32_T i2;
-        result->layerSlds.set_size(layerSlds.size(0), 1);
-        for (i = 0; i < layerSlds.size(0); i++) {
-          result->layerSlds[i].f1.set_size(layerSlds[i].f1.size(0), layerSlds[i]
-            .f1.size(1));
-          loop_ub_tmp = layerSlds[i].f1.size(1);
-          for (i1 = 0; i1 < loop_ub_tmp; i1++) {
-            loop_ub = layerSlds[i].f1.size(0);
-            for (i2 = 0; i2 < loop_ub; i2++) {
-              result->layerSlds[i].f1[i2 + result->layerSlds[i].f1.size(0) * i1]
-                = layerSlds[i].f1[i2 + layerSlds[i].f1.size(0) * i1];
-            }
+      result->layerSlds.set_size(layerSlds.size(0), 1);
+      for (i = 0; i < layerSlds.size(0); i++) {
+        result->layerSlds[i].f1.set_size(layerSlds[i].f1.size(0), layerSlds[i].
+          f1.size(1));
+        loop_ub = layerSlds[i].f1.size(1);
+        for (i1 = 0; i1 < loop_ub; i1++) {
+          b_loop_ub = layerSlds[i].f1.size(0);
+          for (loop_ub_tmp = 0; loop_ub_tmp < b_loop_ub; loop_ub_tmp++) {
+            result->layerSlds[i].f1[loop_ub_tmp + result->layerSlds[i].f1.size(0)
+              * i1] = layerSlds[i].f1[loop_ub_tmp + layerSlds[i].f1.size(0) * i1];
           }
         }
+      }
 
-        result->sldProfiles.set_size(sldProfiles.size(0), 1);
-        for (i = 0; i < sldProfiles.size(0); i++) {
-          result->sldProfiles[i].f1.set_size(sldProfiles[i].f1.size(0), 2);
-          loop_ub_tmp = sldProfiles[i].f1.size(0);
-          for (i1 = 0; i1 < 2; i1++) {
-            for (i2 = 0; i2 < loop_ub_tmp; i2++) {
-              result->sldProfiles[i].f1[i2 + result->sldProfiles[i].f1.size(0) *
-                i1] = sldProfiles[i].f1[i2 + sldProfiles[i].f1.size(0) * i1];
-            }
+      result->sldProfiles.set_size(sldProfiles.size(0), 1);
+      for (i = 0; i < sldProfiles.size(0); i++) {
+        result->sldProfiles[i].f1.set_size(sldProfiles[i].f1.size(0), 2);
+        loop_ub = sldProfiles[i].f1.size(0);
+        for (i1 = 0; i1 < 2; i1++) {
+          for (loop_ub_tmp = 0; loop_ub_tmp < loop_ub; loop_ub_tmp++) {
+            result->sldProfiles[i].f1[loop_ub_tmp + result->sldProfiles[i].
+              f1.size(0) * i1] = sldProfiles[i].f1[loop_ub_tmp + sldProfiles[i].
+              f1.size(0) * i1];
           }
         }
+      }
 
-        result->allLayers.set_size(allLayers.size(0), 1);
-        for (i = 0; i < allLayers.size(0); i++) {
-          result->allLayers[i].f1.set_size(allLayers[i].f1.size(0), 3);
-          loop_ub_tmp = allLayers[i].f1.size(0);
-          for (i1 = 0; i1 < 3; i1++) {
-            for (i2 = 0; i2 < loop_ub_tmp; i2++) {
-              result->allLayers[i].f1[i2 + result->allLayers[i].f1.size(0) * i1]
-                = allLayers[i].f1[i2 + allLayers[i].f1.size(0) * i1];
-            }
+      result->allLayers.set_size(allLayers.size(0), 1);
+      for (i = 0; i < allLayers.size(0); i++) {
+        result->allLayers[i].f1.set_size(allLayers[i].f1.size(0), 3);
+        loop_ub = allLayers[i].f1.size(0);
+        for (i1 = 0; i1 < 3; i1++) {
+          for (loop_ub_tmp = 0; loop_ub_tmp < loop_ub; loop_ub_tmp++) {
+            result->allLayers[i].f1[loop_ub_tmp + result->allLayers[i].f1.size(0)
+              * i1] = allLayers[i].f1[loop_ub_tmp + allLayers[i].f1.size(0) * i1];
           }
         }
       }
@@ -657,65 +648,65 @@ namespace RAT
                problemCells->f13, problemCells->f20, problemLimits,
                &controls->checks, result->fitNames);
     result->contrastParams.ssubs.set_size(contrastParams.ssubs.size(0));
-    loop_ub_tmp = contrastParams.ssubs.size(0);
-    for (i = 0; i < loop_ub_tmp; i++) {
+    loop_ub = contrastParams.ssubs.size(0);
+    for (i = 0; i < loop_ub; i++) {
       result->contrastParams.ssubs[i] = contrastParams.ssubs[i];
     }
 
     result->contrastParams.backgroundParams.set_size
       (contrastParams.backgroundParams.size(0));
-    loop_ub_tmp = contrastParams.backgroundParams.size(0);
-    for (i = 0; i < loop_ub_tmp; i++) {
+    loop_ub = contrastParams.backgroundParams.size(0);
+    for (i = 0; i < loop_ub; i++) {
       result->contrastParams.backgroundParams[i] =
         contrastParams.backgroundParams[i];
     }
 
     result->contrastParams.qzshifts.set_size(contrastParams.qzshifts.size(0));
-    loop_ub_tmp = contrastParams.qzshifts.size(0);
-    for (i = 0; i < loop_ub_tmp; i++) {
+    loop_ub = contrastParams.qzshifts.size(0);
+    for (i = 0; i < loop_ub; i++) {
       result->contrastParams.qzshifts[i] = contrastParams.qzshifts[i];
     }
 
     result->contrastParams.scalefactors.set_size
       (contrastParams.scalefactors.size(0));
-    loop_ub_tmp = contrastParams.scalefactors.size(0);
-    for (i = 0; i < loop_ub_tmp; i++) {
+    loop_ub = contrastParams.scalefactors.size(0);
+    for (i = 0; i < loop_ub; i++) {
       result->contrastParams.scalefactors[i] = contrastParams.scalefactors[i];
     }
 
     result->contrastParams.bulkIn.set_size(contrastParams.bulkIn.size(0));
-    loop_ub_tmp = contrastParams.bulkIn.size(0);
-    for (i = 0; i < loop_ub_tmp; i++) {
+    loop_ub = contrastParams.bulkIn.size(0);
+    for (i = 0; i < loop_ub; i++) {
       result->contrastParams.bulkIn[i] = contrastParams.bulkIn[i];
     }
 
     result->contrastParams.bulkOut.set_size(contrastParams.bulkOut.size(0));
-    loop_ub_tmp = contrastParams.bulkOut.size(0);
-    for (i = 0; i < loop_ub_tmp; i++) {
+    loop_ub = contrastParams.bulkOut.size(0);
+    for (i = 0; i < loop_ub; i++) {
       result->contrastParams.bulkOut[i] = contrastParams.bulkOut[i];
     }
 
     result->contrastParams.resolutionParams.set_size
       (contrastParams.resolutionParams.size(0));
-    loop_ub_tmp = contrastParams.resolutionParams.size(0);
-    for (i = 0; i < loop_ub_tmp; i++) {
+    loop_ub = contrastParams.resolutionParams.size(0);
+    for (i = 0; i < loop_ub; i++) {
       result->contrastParams.resolutionParams[i] =
         contrastParams.resolutionParams[i];
     }
 
     result->contrastParams.allSubRough.set_size(contrastParams.allSubRough.size
       (0));
-    loop_ub_tmp = contrastParams.allSubRough.size(0);
-    for (i = 0; i < loop_ub_tmp; i++) {
+    loop_ub = contrastParams.allSubRough.size(0);
+    for (i = 0; i < loop_ub; i++) {
       result->contrastParams.allSubRough[i] = contrastParams.allSubRough[i];
     }
 
     result->bestFitPars.set_size(problemStruct->fitParams.size(0),
       problemStruct->fitParams.size(1));
-    loop_ub_tmp = problemStruct->fitParams.size(1);
-    for (i = 0; i < loop_ub_tmp; i++) {
-      loop_ub = problemStruct->fitParams.size(0);
-      for (i1 = 0; i1 < loop_ub; i1++) {
+    loop_ub = problemStruct->fitParams.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_loop_ub = problemStruct->fitParams.size(0);
+      for (i1 = 0; i1 < b_loop_ub; i1++) {
         result->bestFitPars[i1 + result->bestFitPars.size(0) * i] =
           problemStruct->fitParams[i1 + problemStruct->fitParams.size(0) * i];
       }

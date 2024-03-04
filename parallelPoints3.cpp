@@ -76,6 +76,7 @@ namespace RAT
         real_T thisBulkOut;
         real_T thisQzshift;
         real_T thisResol;
+        real_T thisRough;
         real_T thisScalefactor;
         int32_T thisContrastLayers1_size[2];
         int32_T thisContrastLayers2_size[2];
@@ -129,6 +130,9 @@ namespace RAT
           outParameterisedLayers);
 
         //  Resample params if requiired
+        //  Substrate roughness is always first parameter for standard layers
+        thisRough = problemStruct->params[0];
+
         //  Loop over all the contrasts
         outSsubs.set_size(i);
         tempSldProfiles.set_size(i);
@@ -176,7 +180,6 @@ namespace RAT
 
           //  For the other parameters, we extract the correct ones from the input
           //  arrays
-          //  Substrate roughness is always first parameter for standard layers
           //  Now call the core layers reflectivity calculation
           //  In this case we are single cored, so we do not parallelise over
           //  points
@@ -185,7 +188,7 @@ namespace RAT
           b_thisContrastLayers1_data.set(&thisContrastLayers1_data[0],
             thisContrastLayers1_size[0], thisContrastLayers1_size[1]);
           nonPolarisedTF::b_coreLayersCalculation(b_thisContrastLayers1_data,
-            problemStruct->params[0], problemStruct->geometry.data,
+            thisRough, problemStruct->geometry.data,
             problemStruct->geometry.size, thisBulkIn, thisBulkOut,
             problemStruct->resample[b_i], calcSld, thisScalefactor, thisQzshift,
             problemStruct->dataPresent[b_i], problemCells->f2[b_i].f1,
@@ -197,7 +200,7 @@ namespace RAT
           b_thisContrastLayers2_data.set(&thisContrastLayers2_data[0],
             thisContrastLayers2_size[0], thisContrastLayers2_size[1]);
           nonPolarisedTF::b_coreLayersCalculation(b_thisContrastLayers2_data,
-            problemStruct->params[0], problemStruct->geometry.data,
+            thisRough, problemStruct->geometry.data,
             problemStruct->geometry.size, thisBulkIn, thisBulkOut,
             problemStruct->resample[b_i], calcSld, thisScalefactor, thisQzshift,
             problemStruct->dataPresent[b_i], problemCells->f2[b_i].f1,
@@ -272,7 +275,7 @@ namespace RAT
           bulkIns[b_i] = thisBulkIn;
           bulkOuts[b_i] = thisBulkOut;
           resolutionParams[b_i] = thisResol;
-          allRoughs[b_i] = problemStruct->params[0];
+          allRoughs[b_i] = thisRough;
         }
 
         allLayers.set_size(i, 2);

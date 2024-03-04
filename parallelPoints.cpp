@@ -53,12 +53,13 @@ namespace RAT
         real_T thisBulkOut;
         real_T thisQzshift;
         real_T thisResol;
+        real_T thisRough;
         real_T thisScalefactor;
         int32_T thisContrastLayers_size[2];
         int32_T i;
         boolean_T useImaginary;
 
-        //  Standard Layers calculation paralelised over the inner loop
+        //  Standard Layers calculation paralelised over the inner loop.
         //  This is the main reflectivity calculation of the standard layers
         //  calculation type. It extracts the required parameters for the contrasts
         //  from the input arrays, then passes the main calculation to
@@ -94,6 +95,9 @@ namespace RAT
           outParameterisedLayers);
 
         //  Resample params if requiired
+        //  Substrate roughness is always first parameter for standard layers
+        thisRough = problemStruct->params[0];
+
         //  Loop over all the contrasts
         outSsubs.set_size(i);
         sldProfiles.set_size(i);
@@ -140,20 +144,19 @@ namespace RAT
 
           //  For the other parameters, we extract the correct ones from the input
           //  arrays
-          //  Substrate roughness is always first parameter for standard layers
           //  Now call the core layers reflectivity calculation
           //  In this case we are single cored, so we do not parallelise over
           //  points
           //  Call the core layers calculation
           b_thisContrastLayers_data.set(&thisContrastLayers_data[0],
             thisContrastLayers_size[0], thisContrastLayers_size[1]);
-          b_coreLayersCalculation(b_thisContrastLayers_data,
-            problemStruct->params[0], problemStruct->geometry.data,
-            problemStruct->geometry.size, thisBulkIn, thisBulkOut,
-            problemStruct->resample[b_i], controls->calcSldDuringFit,
-            thisScalefactor, thisQzshift, problemStruct->dataPresent[b_i],
-            problemCells->f2[b_i].f1, problemCells->f3[b_i].f1, problemCells->
-            f4[b_i].f1, problemCells->f1[b_i].f1, thisBackground, thisResol,
+          b_coreLayersCalculation(b_thisContrastLayers_data, thisRough,
+            problemStruct->geometry.data, problemStruct->geometry.size,
+            thisBulkIn, thisBulkOut, problemStruct->resample[b_i],
+            controls->calcSldDuringFit, thisScalefactor, thisQzshift,
+            problemStruct->dataPresent[b_i], problemCells->f2[b_i].f1,
+            problemCells->f3[b_i].f1, problemCells->f4[b_i].f1, problemCells->
+            f1[b_i].f1, thisBackground, thisResol,
             problemStruct->contrastBackgroundsType[b_i], static_cast<real_T>
             (problemStruct->params.size(1)), controls->resamPars, useImaginary,
             sldProfile, reflectivity[b_i].f1, simulation[b_i].f1, shiftedDat,
@@ -189,7 +192,7 @@ namespace RAT
           bulkIns[b_i] = thisBulkIn;
           bulkOuts[b_i] = thisBulkOut;
           resolutionParams[b_i] = thisResol;
-          allRoughs[b_i] = problemStruct->params[0];
+          allRoughs[b_i] = thisRough;
         }
       }
     }

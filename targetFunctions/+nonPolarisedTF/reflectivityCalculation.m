@@ -68,14 +68,8 @@ for i = 1:numberOfContrasts
 end
 
 allLayers = cell(numberOfContrasts,1);
-if strcmpi(type, 'custom xy')
-    for i = 1:numberOfContrasts
-        allLayers{i} = [1 ; 1];
-    end
-else
-    for i = 1:numberOfContrasts
-        allLayers{i} = [1 1 1 ; 1 1 1];
-    end
+for i = 1:numberOfContrasts
+    allLayers{i} = [1 1 1 ; 1 1 1];
 end
            
 switch lower(type)
@@ -153,12 +147,7 @@ contrastParams.bulkIn = bulkIns;
 contrastParams.bulkOut = bulkOuts;
 contrastParams.resolutionParams = resolutionParams;
 contrastParams.allSubRough = allRoughs;
-
-if strcmpi(type, 'custom xy')
-    contrastParams.resample = ones(1,length(allRoughs));
-else
-    contrastParams.resample = problemStruct.resample;
-end
+contrastParams.resample = problemStruct.resample;
 
 calculationResults.allChis = chis;
 calculationResults.sumChi = sum(chis);

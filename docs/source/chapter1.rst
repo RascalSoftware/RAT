@@ -27,7 +27,7 @@ So, an input into RAT always conforms to this picture: a model definition class 
 .. image:: images/userManual/chapter1/ratInput.png
     :alt: RAT input model
 
-The outputs are always another *problemDef* class, and a results block. The new *problemDef* class is identical to the inputted one, except with updated values of the fitted parameters (e.g. after running a fit). The results block as a set of arrays containing the results of the calculations, such as simulated reflectivities, SLD profiles or parameter distributions. We will discuss more about these in the next chapter where we look at the outputs in more detail. Similarly, we will look in more detail at the input classes in Chapter 2.
+The outputs are always another *problemDef* class, and a results block. The new *problemDef* class is identical to the inputted one, except with updated values of the fitted parameters (e.g. after running a fit). The results block as a set of arrays containing the results of the calculations, such as simulated reflectivities, SLD profiles or parameter distributions. We will discuss more about these in the next chapter where we look at the outputs in more detail. Similarly, we will look in more detail at the input classes in the next section.
 
 In the next section, we will look at an example calculation, in order to introduce the basics of the RAT toolbox. Before we proceed, it's useful to keep a couple of things in mind:
 
@@ -98,6 +98,7 @@ SLD values for the layers, depending on whether they are deuterated or not. In t
 and their allowed ranges, and specify if they are included in the fit:-
 
 .. image:: images/userManual/chapter1/parameterGroup.png
+    :width: 400
     :alt: The parameter group
 
 2. **The Layers Group -** Once we have our parameters, we then need to group these into layers, in traditional RasCAL style.
@@ -107,10 +108,8 @@ For our model, we always have two layers - a headgroup and the associated tails.
 .. image:: images/userManual/chapter1/layersGroup.png
     :alt: The layers group
 
-3. **'Instrument' Parameters: (Backgrounds, scalefactors and resolutions) -** These are necessary to specify our model, and are specified in much the same way as the parameters. The background and resolutions blocks have a more complicated format to allow flexibility in how these are specified, which will be discussed further in chapter 2. These are the parameters that appear in the *experimental Parameters* tab of the RasCAL model builder, and are subsequently included in the definitions of the contrasts at the end of the worksheet.
+3. **'Instrument' Parameters: (Backgrounds, scalefactors and resolutions) -** These are necessary to specify our model, and are specified in much the same way as the parameters. The background and resolutions blocks have a more complicated format to allow flexibility in how these are specified, which will be discussed further in a later section. These are the parameters that appear in the *experimental Parameters* tab of the RasCAL model builder, and are subsequently included in the definitions of the contrasts at the end of the worksheet.
 
-|
- 
 4. **Data -** Each contrast has to have a dataset associated with it, whether or not it contains data or not. An empty data object (i.e. containing no data and just simulation ranges), means RAT will calculate the reflectivity only. When data is present, chi-squared will also be calculated. For our problem, we have two datasets and these are coded in to the data block ready to be incorporated into contrasts:
 
 .. image:: images/userManual/chapter1/dataGroup.png
@@ -126,6 +125,7 @@ For our model, we always have two layers - a headgroup and the associated tails.
 As implied from figure (1), running RAT requires not only our input model specification, but also a controls block telling RAT what to do. We will discuss the controls block in more detail in Chapter 4, but for this demo we will just make an instance of the controls block and modify a few parameters to run the demo:
 
 .. image:: images/userManual/chapter1/controlsClass.png
+    :width: 400
     :alt: Control class
 
 This makes an instance of the *controlsClass* we have called **controls**. The various properties of the class allow the type of calculation to be specified, in terms of parallelisation, choice of algorithm to be applied and so on. Here we are specifying a single threaded calculation of our reflectivities only (the default) - in other words we are not asking RAT to do any kind of fit with our parameters. We can now send our problem definition and controls classes to the RAT toolbox:
@@ -137,7 +137,7 @@ It is worth noticing here that this is always the general format for calling RAT
 
 The problem that returns is a copy of our input, except that the parameter values will be changed by any procedure done. So, if we run a simple fit, then the output *problemDef* will have the values of the best-fit parameters. Here, we are not doing any fitting yet, and so the output is an exact copy. Also, we overwrite our original input class with the output by using the same name ('problem') as an input and an output, but you don’t have to do it this way.
 
-Once we've run our model through RAT, then the second output (we call *results* here) is an array which contains the output of the calculation (we will discuss this in more detail in chapter 4) :
+Once we've run our model through RAT, then the second output (we call *results* here) is an array which contains the output of the calculation :
 
 .. image:: images/userManual/chapter1/dispResults.png
     :alt: disp(results)

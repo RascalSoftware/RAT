@@ -3,7 +3,9 @@
 
 The Problem Definition Input Class
 ..................................
-In the previous chapter, we saw an example of how we set up and run an analysis using the RAT toolbox. Every call to the toolbox has two parts: the **problem definition** class, where we define the model, add the data and define our contrasts, and the **controls class** where we tell the toolbox what type of analysis we would like to do. The reason for splitting things up in this way is that once our model is defined, we can interact with it in various ways without needing to modify the model. So, we can experiment with our data, trying out different types of analysis (more of that in chapter 4), and explore the landscape of solutions by simply modifying the *controls* class, leaving the *problem* class alone. 
+In the previous section, we saw an example of how we set up and run an analysis using the RAT toolbox. Every call to the toolbox has two parts: the **problem definition** class, where we define the model, add the data and define our contrasts, and the **controls class** where we
+tell the toolbox what type of analysis we would like to do. The reason for splitting things up in this way is that once our model is defined, we can interact with it in various ways without needing to modify the model. So, we can experiment with our data, trying out different types of analysis, and explore the
+landscape of solutions by simply modifying the *controls* class, leaving the *problem* class alone.
 
 As well as having two inputs, RAT always provides two outputs, so the call to the toolbox is always of this form:-
 
@@ -35,15 +37,20 @@ We can see that the class has a number of attributes, defining all we need for o
 .. image:: images/userManual/chapter2/projectClassMethods.png
     :alt: Project Class Methods
 
-It's clear from the method names (i.e. *addData*) that these methods are going to be useful to us for building our model. In the following sections, we will look at each of these methods and see how they can be used to define our reflectivity analysis problem. (There is also a utility which will convert a RasCAL model into a *projectClass* for use in RAT, which we will look at the end of the chapter. This means that you can use the RasCAL GUI to set up your model if you like and then use the speed of RAT to conduct your analysis.)
+It's clear from the method names (i.e. *addData*) that these methods are going to be useful to us for building our model. In the following sections,
+we will look at each of these methods and see how they can be used to define our reflectivity analysis problem. (There is also a utility which will convert a RasCAL model into a *projectClass* for use in RAT.
+This means that you can use the RasCAL GUI to set up your model if you like and then use the speed of RAT to conduct your analysis.)
 
-In terms of the outputs, note that we have called the first output *problem*, but we don't need to do that. The first of the two outputs is another **projectClass**, but updated with the results of the calculation. So, if we run a fit, the fitted parameters will be updated with the best fit values of our procedure. In giving the output the same name as the input, we're overwriting our input with best fit values, but if you don't want to do this, you can give the inputs and outputs different names (e.g. '[outProblem,results] = RAT(problem,controls)'' or whatever you like). The second output can also be called whatever you like, and this is a struct containing the simulated reflectivities, SLD's and so on from whatever procedure you have asked RAT to do:
+In terms of the outputs, note that we have called the first output *problem*, but we don't need to do that. The first of the two outputs is another **projectClass**, but updated with the results of the calculation.
+So, if we run a fit, the fitted parameters will be updated with the best fit values of our procedure. In giving the output the same name as the input, we're overwriting our input with best fit values, but if you don't
+want to do this, you can give the inputs and outputs different names (e.g. '[outProblem,results] = RAT(problem,controls)'' or whatever you like). The second output can also be called whatever you like, and this is a struct
+containing the simulated reflectivities, SLD's and so on from whatever procedure you have asked RAT to do:
 
 .. image:: images/userManual/chapter2/reflectivitiesStruct.png
     :width: 300
     :alt: Reflectivities Struct
 
-We will look at this struct in more detail in a later chapter. In the next sections, we'll discuss the methods of the **projectClass**, and see how they allow us to build up a model by populating the various sections.
+In the next sections, we'll discuss the methods of the **projectClass**, and see how they allow us to build up a model by populating the various sections.
 
 Class Methods for the projectClass
 ==================================
@@ -68,7 +75,12 @@ The first part of the created *problem* has two other settable fields: *modelTyp
     >> problem.setGeometry('air/substrate');
     >> problem.setGeometry('substrate/liquid');
 
-The effect of this parameter is in the numbering of roughness's in layer models. In any model for n-layers, there are always n+1 associated interfaces, and hence n+1 roughness parameters required. In RAT, the bulk interface roughness is a protected parameter and always exists (see next section), and this parameter controls where this roughness is placed in the layer stack. So, for two layers defined with thickness, SLD and roughness as [d\ :sub:`1`, :math:`\rho_\mathrm{1}`, r\ :sub:`1`] and [d\ :sub:`2`, :math:`\rho_\mathrm{2}`, r\ :sub:`2`], then for the *substrate/liquid* geometry the substrate roughness is placed as the first roughness the beam meets, and the layer roughness's refer to the interface after the particular layer. For the *air/substrate* case, the opposite is true, and the substrate roughness is the last roughness in the stack, with the layer roughness referring to the interface before each layer, as shown.
+The effect of this parameter is in the numbering of roughness's in layer models. In any model for n-layers,
+there are always n+1 associated interfaces, and hence n+1 roughness parameters required. In RAT, the bulk interface roughness
+is a protected parameter and always exists, and this parameter controls where this roughness is placed in the layer stack. So, for two layers defined with thickness,
+SLD and roughness as [d\ :sub:`1`, :math:`\rho_\mathrm{1}`, r\ :sub:`1`] and [d\ :sub:`2`, :math:`\rho_\mathrm{2}`, r\ :sub:`2`], then for the *substrate/liquid* geometry
+the substrate roughness is placed as the first roughness the beam meets, and the layer roughness's refer to the interface after the particular layer.
+or the *air/substrate* case, the opposite is true, and the substrate roughness is the last roughness in the stack, with the layer roughness referring to the interface before each layer.
 
 ModelType - As is the case for RasCAL, there are three ways of defining models in RAT:-
 
@@ -84,7 +96,7 @@ The model type is set using the **setModelType** method:
     >> problem.setModelType('custom layers');
     >> problem.setModelType('custom XY');
 
-Custom modelling is described in more depth in Chapter 3.
+Custom modelling is described in more depth in a later section.
 
 **The ‘Parameters’ Block**
 ++++++++++++++++++++++++++
@@ -101,8 +113,8 @@ To add a parameter, you can use the **addParam** method, either by just specifyi
 
 .. code:: MATLAB
 
-    >> problem.addParam('My new param');
-    >> problem.addParam('My other new param',10,20,30,false);
+    >> problem.addParameter('My new param');
+    >> problem.addParameter('My other new param',10,20,30,false);
 
 To avoid having to make a whole load of **addParam** statements for large projects with many parameters, you can define them at once in a cell array, and add them using the **addParamGroup** method (again notice the curly brackets syntax - this is a {cell array of {cell arrays}} : 
 
@@ -112,25 +124,26 @@ To avoid having to make a whole load of **addParam** statements for large projec
               {'Layer SLD', 1e-6, 3e-6 5e-6, true};
               {'Layer rough', 5, 7, 10, true}};
         
-    >> problem.addParamGroup(pGroup)
+    >> problem.addParameterGroup(pGroup)
 
 The resulting parameters block looks like this:
 
 .. image:: images/userManual/chapter2/resultingParameterBlock1.png
-    :width: 600
+    :width: 400
     :alt: Parameter Block after adding param group
 
 .. note::
-    Parameters can't have duplicate names. Attempting to duplicate a name will throw an error.
+    Parameters can't have duplicate names. Attempting to duplicate a name will throw an error. This can cause problems when loading in RasCAL1 projects
+    where duplicate names are allowed.
 
 To subsequently change the values of the parameters (including names), there are a few methods you can use. For each of the methods, you can refer to the parameter by its name or its number. There are dedicated methods for each of the attributes of the parameters:
 
 .. code:: MATLAB
 
-    problem.setParamName('My new param', 'My changed param');
-    problem.setParamConstr(2,0.96,3.62);
-    problem.setParamValue(4,20.22);
-    problem.setParamFit('Layer rough',false);
+    problem.setParameterName('My new param', 'My changed param');
+    problem.setParameterConstr(2,0.96,3.62);
+    problem.setParameterValue(4,20.22);
+    problem.setParameterFit('Layer rough',false);
 
 .. image:: images/userManual/chapter2/resultingParameterBlock2.png
     :width: 600
@@ -150,7 +163,7 @@ You can remove a parameter from the block using its name or number. Note that if
 
 .. code:: MATLAB
 
-    problem.removeParam(4);
+    problem.removeParameter(4);
 
 .. image:: images/userManual/chapter2/resultingParameterBlock4.png
     :width: 600
@@ -179,7 +192,7 @@ Start by making a new project, and adding the parameters we will need:
               {'Layer rough', 3, 5, 7, true};
               {'Layer hydr', 0, 10, 20, true}};
         
-    problem.addParamGroup(params);
+    problem.addParameterGroup(params);
 
 A layer is defined in terms of a name, thickness, SLD, roughness and (optional) hydration, along with details of which bulk phase is hydrating the layer. The easiest way to define these is to group the parameters into cell arrays, and then add them to the project as a layers group:
 
@@ -220,7 +233,7 @@ changes parameter 2 (Thickness) of Layer 1 (H Layer) to the 3rd Parameter of the
     :alt: Layers after changing thickness
 
 .. note::
-    This will soon be changed to allow the use of names rather than numbers if required because numbers are not very intuitive.
+    SetLayer Value allows the use of names rather than numbers if required because numbers are not very intuitive.
 
 The layers are then used to set up the contrasts as usual with a standard layers model.
 
@@ -256,6 +269,8 @@ The *scalefactors* are another parameters block like the bulk phases. You can ad
 **Backgrounds**
 +++++++++++++++
 
+
+
 **Resolutions**
 +++++++++++++++
 
@@ -273,8 +288,8 @@ As is the case for RasCAL, once we have defined the various aspects of our proje
                         'background', 'Background D2O',...
                         'resolution', 'Resolution 1',...
                         'scalefactor', 'Scalefactor 1',...
-                        'nbs', 'SLD D2O',...
-                        'nba', 'SLD air',...
+                        'BulkOut', 'SLD D2O',...
+                        'BulkIn', 'SLD air',...
                         'data', 'D-tail / H-head / D2O');
 
 The values which we add must refer to names within the other blocks of the project. So, if you try to add a *scalefactor* called 'scalefactor1' when this name doesn't exist in the *scalefactors* block, then an error will result.
@@ -315,7 +330,7 @@ Then we need to define the parameters we need. We'll do this by making a paramet
         {'Heads Hydration',         0,      0.3,     0.5,    true};
         };
 
-    problem.addParamGroup(Parameters);
+    problem.addParameterGroup(Parameters);
 
 Next we need to group the parameters into our layers. We need four layers in all, representing deuterated and hydrogenated versions of the heads and tails:
 
@@ -358,9 +373,9 @@ We are using two different subphases: D2O and ACMW. We need a different constant
 
 .. code:: MATLAB
 
-    problem.setBacksParName(1, 'Backs value ACMW'); % Use existing backsPar
-    problem.setBacksParValue(1, 5.5e-6);
-    problem.addBacksPar('Backs Value D2O', 1e-8, 2.8e-6, 1e-5);
+    problem.setBackgroundParamName(1, 'Backs value ACMW'); % Use existing backsPar
+    problem.setBackgroundParamValue(1, 5.5e-6);
+    problem.addBackgroundParam('Backs Value D2O', 1e-8, 2.8e-6, 1e-5);
 
 Use these parameters to define two constant backgrounds, again using the existing default for one of them:
 
@@ -392,16 +407,16 @@ We have everything we need to now build our contrasts. We have two contrasts in 
                         'background', 'Background D2O',...
                         'resolution', 'Resolution 1',...
                         'scalefactor', 'Scalefactor 1',...
-                        'nbs', 'SLD D2O',...
-                        'nba', 'SLD air',...
+                        'BulkOut', 'SLD D2O',...
+                        'BulkIn', 'SLD air',...
                         'data', 'D-tail / H-head / D2O'); 
 
     problem.addContrast('name', 'H-tail/D-Head/ACMW',...
                         'background', 'Background ACMW',...
                         'resolution', 'Resolution 1',...
                         'scalefactor', 'Scalefactor 1',...
-                        'nbs', 'SLD ACMW',...
-                        'nba', 'SLD air',...
+                        'BulkOut', 'SLD ACMW',...
+                        'BulkIn', 'SLD air',...
                         'data', 'H-tail / D-head / ACMW');
 
 To define the models for each contrast, we add the relevant layers as appropriate:
@@ -415,8 +430,8 @@ We need to make sure that we are fitting the relevant backgrounds, scalefactors 
 
 .. code:: MATLAB
 
-    problem.setBacksPar(1,'fit', true);
-    problem.setBacksPar(2,'fit', true);
+    problem.setBackgroundParam(1,'fit', true);
+    problem.setBackgroundParam(2,'fit', true);
     problem.setScalefactor(1,'fit', true);
     problem.setBulkOut(1,'fit', true);
 
@@ -466,7 +481,7 @@ This looks sensible, but clearly our guess values for the parameters are slightl
 
 .. code:: MATLAB
 
-    controls.procedure = procedures.Simplex;
+    controls.procedure = 'simplex';
 
 .. image:: images/userManual/chapter2/controlsProcedure.png
     :width: 300

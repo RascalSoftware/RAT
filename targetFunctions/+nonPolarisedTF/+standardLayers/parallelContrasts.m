@@ -1,8 +1,7 @@
-
-function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-    simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
-    allRoughs] = parallelContrasts(problemStruct,problemCells,controls)
-% Standard Layers calculation paralelised over the outer loop
+function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
+    resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,...
+    sldProfiles,allLayers,allRoughs] = parallelContrasts(problemStruct,problemCells,controls)
+% Standard Layers calculation parallelised over the outer loop.
 % This is the main reflectivity calculation of the standard layers
 % calculation type. It extracts the required parameters for the contrasts
 % from the input arrays, then passes the main calculation to
@@ -64,6 +63,9 @@ outParameterisedLayers = allocateParamsToLayers(params, layersDetails);
 % Resample parameters if required
 resamPars = controls.resamPars;
 
+% Substrate roughness is always first parameter for standard layers
+thisRough = params(1);
+
 % Loop over all the contrasts
 parfor i = 1:numberOfContrasts
     
@@ -80,7 +82,6 @@ parfor i = 1:numberOfContrasts
     
     % For the other parameters, we extract the correct ones from the input
     % arrays
-    thisRough = params(1);      % Substrate roughness is always first parameter for standard layers
     thisRepeatLayers = repeatLayers{i};
     thisResample = resample(i);
     thisData = allData{i};

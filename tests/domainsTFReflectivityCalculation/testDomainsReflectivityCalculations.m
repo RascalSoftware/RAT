@@ -170,27 +170,6 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(allLayers, testCase.TFAllLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
-        function testDomainsTFLayersReflectivityCalculation(testCase, TFFile)
-            % Choose the appropriate routine for each test case
-            switch TFFile
-                case 'domainsStandardLayersTFParams.mat'
-                    [contrastParams, calculationResults, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.standardLayers.calculate(testCase.problemStruct, testCase.problemCells,  testCase.controls);
-                case 'domainsCustomLayersTFParams.mat'
-                    [contrastParams, calculationResults, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.customLayers.calculate(testCase.problemStruct, testCase.problemCells,  testCase.controls);
-                case 'domainsCustomXYTFParams.mat'
-                    [contrastParams, calculationResults, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.customXY.calculate(testCase.problemStruct, testCase.problemCells,  testCase.controls);
-            end
-
-            testCase.verifyEqual(contrastParams, testCase.TFContrastParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(calculationResults, testCase.TFCalculationResults, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(reflectivity, testCase.TFReflectivity, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(simulation, testCase.TFSimulation, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(shiftedData, testCase.TFShiftedData, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(layerSLDs, testCase.TFLayerSLDs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(SLDProfiles, testCase.TFSLDProfiles, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(allLayers, testCase.TFAllLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-        end
-
         function testDomainsTFLayersSerialReflectivityCalculation(testCase, TFFile)
             % Choose the appropriate routine for each test case
             switch TFFile

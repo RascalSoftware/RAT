@@ -44,12 +44,12 @@ jobs:
         overwrite: true
         file: '../${{ runner.os }}.zip'
         asset_name: '${{ runner.os }}.zip'
-    - name: Create cppDelopy
+    - name: Create cppDeploy
       if: runner.os == 'Linux'
       uses: matlab-actions/run-command@v2
       with:
         command: cppDeploy  
-    - name: Upload cppDelopy
+    - name: Upload cppDeploy
       if: runner.os == 'Linux'
       uses: actions/upload-artifact@v4
       with:

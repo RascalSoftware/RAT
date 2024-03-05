@@ -183,7 +183,7 @@ Meas_info.Y = 0;
 %end
 
 % Initialize waitbar. 
-textProgressBar('init',0);
+triggerEvent(coderEnums.eventTypes.Progress, 'init', 0);
 % h = waitbar(0,'Running DREAM - Please wait...');  
 totaccept = 0; tic;
 
@@ -242,7 +242,7 @@ for t = T_start : DREAMPar.T
     
     % Update the waitbar. TJP Edit to check for graphical enviro
     % waitbar(t/DREAMPar.T,h);
-    textProgressBar('DREAM: ',t/DREAMPar.T);
+    triggerEvent(coderEnums.eventTypes.Progress, 'DREAM: ', t/DREAMPar.T);
    
     % If t equal to MCMC.steps then convergence checks and updates
     if mod(t,DREAMPar.steps) == 0
@@ -301,6 +301,6 @@ output.iloc = iloc;
 
 
 % Close the waitbar
-textProgressBar('end',1);
+triggerEvent(coderEnums.eventTypes.Progress, 'end', 1);
 %close(h);
 

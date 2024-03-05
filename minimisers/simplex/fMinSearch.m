@@ -259,7 +259,7 @@ if prnt == 3
 %     fprintf('%g \n', func_evals)
 end
 
-triggerEvent('plot', {result, problemStruct});
+triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
 
 % OutputFcn and PlotFcns call
 % if haveoutputfcn || haveplotfcn
@@ -310,7 +310,7 @@ if prnt == 3
 %     fprintf('%g \n', func_evals)
 end
 if rem(itercount, controls.updatePlotFreq) == 0
-    triggerEvent('plot', {result, problemStruct});
+    triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
 end
 % OutputFcn and PlotFcns call
 % if haveoutputfcn || haveplotfcn
@@ -425,7 +425,7 @@ while func_evals < maxfun && itercount < maxiter
 %         fprintf('%s \n', num2str(func_evals))
     end
     if rem(itercount, controls.updatePlotFreq) == 0   
-        triggerEvent('plot', {result, problemStruct});
+        triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     end
     % OutputFcn and PlotFcns call
 %     if haveoutputfcn || haveplotfcn

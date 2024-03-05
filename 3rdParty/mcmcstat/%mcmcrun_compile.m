@@ -502,7 +502,7 @@ end
 
 rej=0; reju=0; ii=1; rejl = 0;
 %% setup waitbar
-if (wbarupd && display); textProgressBar('init',0); end
+if (wbarupd && display); triggerEvent(coderEnums.eventTypes.Progress, 'init', 0); end
 
 % covariance update uses these to store previous values
 covchain = []; meanchain = []; wsum = initqcovn; lasti = 0;
@@ -914,7 +914,7 @@ if dostats && (saveit == 1 || savesize >= nsimu)
   end
 end
 
-textProgressBar('end',1);
+triggerEvent(coderEnums.eventTypes.Progress, 'end', 1);
 
 
 
@@ -1058,8 +1058,7 @@ end
 function status=wbar(i,nsimu)
     
     pct = i/nsimu;
-    textProgressBar('Bayes:',pct);
-%    simpleTextProgressBar('Bayes:',pct);
+    triggerEvent(coderEnums.eventTypes.Progress, 'Bayes:', pct);
     status = 1;
     
     
@@ -1073,7 +1072,7 @@ function status=wbar(i,nsimu)
 %  case 'init'
 % %   hdl=waitbar(0,'Generating chain...','CreateCancelBtn','delete(gcbf)');
 % %   set(hdl,'Name','MCMC status');
-%   textProgressBar('Bayes:',0);
+%   triggerEvent(coderEnums.eventTypes.Progress, 'Bayes:', 0);
 % 
 % 
 % 

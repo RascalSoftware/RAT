@@ -1,5 +1,9 @@
 classdef eventTypes < customEnum
     methods (Static)
+        function s = toStruct()
+            s = customEnum.toStruct('eventTypes');
+        end
+        
         function v = values()
             v = customEnum.values('eventTypes');
         end
@@ -12,5 +16,6 @@ classdef eventTypes < customEnum
     enumeration
         Message (0)
         Plot (1)
+        Progress (2)
     end
 end

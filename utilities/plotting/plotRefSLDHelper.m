@@ -7,22 +7,15 @@ function plotRefSLDHelper(data, noDelay)
         data
         noDelay {logical} = true
     end
+    numberOfContrasts = length(data.reflectivity);
     
-    modelType = data.modelType;
-    reflectivity = data.reflectivity;
-    shiftedData = data.shiftedData;
-    slds = data.sldProfiles;
-    allLayers = data.allLayers;
-    dataPresent = data.dataPresent;
-    numberOfContrasts = length(reflectivity);
-    
-    % Plot the reflectivity
+    % Plot the data.reflectivity
     subplot(1,2,1);
     set(gca,'YScale','log','XScale','log');
     hold on
     for i = 1:numberOfContrasts
-        thisRef = reflectivity{i};
-        thisData = shiftedData{i};
+        thisRef = data.reflectivity{i};
+        thisData = data.shiftedData{i};
         if i == 1
             mult = 1;
         else
@@ -30,9 +23,9 @@ function plotRefSLDHelper(data, noDelay)
         end
     
         % If there is data present
-        % plot it - size of shiftedData
+        % plot it - size of data.shiftedData
         % will be [n x 3] if so
-        if dataPresent(i)
+        if data.dataPresent(i)
             errorbar(thisData(:,1),thisData(:,2)./mult,thisData(:,3)./mult,'.','MarkerSize',2.5);
         end
     
@@ -45,21 +38,21 @@ function plotRefSLDHelper(data, noDelay)
     hold on
     
     for i = 1:numberOfContrasts
-        for j=1:size(slds, 2)
-           sld = slds{i, j};
+        for j=1:size(data.sldProfiles, 2)
+           sld = data.sldProfiles{i, j};
            plot(sld(:, 1), sld(:, 2), '-'); 
         end
     
         % If there is resampling, plot the resampled layers also
         % TODO for domains...
-        if (data.resample(i) == 1) || (strcmpi(modelType, 'custom xy'))
+        if (data.resample(i) == 1) || (strcmpi(data.modelType, 'custom xy'))
             ssub = data.ssubs(i); 
-            layers = allLayers{i, 1};
+            layers = data.allLayers{i, 1};
             bulkIn = layers(1, 2);
             bulkOut = layers(end, 2);
 
-            for j=1:size(allLayers, 2)
-                layer = allLayers{i, j};                          
+            for j=1:size(data.allLayers, 2)
+                layer = data.allLayers{i, j};                          
                 numberOfLayers = size(layer, 1);
                 nrepeats = 1;
                 newProf = makeSLDProfileXY(bulkIn,bulkOut,ssub,layer,numberOfLayers,nrepeats);

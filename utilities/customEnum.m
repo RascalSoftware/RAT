@@ -12,7 +12,15 @@ classdef customEnum
       end
    end
    methods (Static)
-       function v = values(name)
+       function s = toStruct(name)
+         % Returns a structure containing all the enumeration names and
+         % values. Expects the name of the enumeration class
+         %
+         % structure = enum.toStruct('priorTypes')
+         s = cell2struct(customEnum.values(name), string(enumeration(name)));
+      end
+       
+      function v = values(name)
          % Returns a cell array containing all the values of the
          % given enumeration class. Expects the name of the 
          % enumeration class

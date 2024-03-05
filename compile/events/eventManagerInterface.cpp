@@ -58,10 +58,21 @@ mxArray* unpackDataToCell(int rows, int cols, double* data, double* nData,
 void eventCallback(const baseEvent& event)
 {   
     mxArray *prhs[2];
+    const mwSize structDims[2] = {1, 1};
     prhs[0] = mxCreateDoubleScalar((double)event.type);
     if (event.type == EventTypes::Message) {
         messageEvent* mEvent = (messageEvent*)&event; 
         prhs[1] = mxCreateString(mEvent->msg);
+    } else if (event.type == EventTypes::Progress){
+        progressEvent* pEvent = (progressEvent*)&event;
+        const char* field_names[] = {"message", "percent"};
+        prhs[1] = mxCreateStructArray(2, structDims, 2, field_names);
+        
+        auto array = mxCreateDoubleMatrix(1, 1, mxREAL);
+        memcpy(mxGetPr(array), &pEvent->percent, mxGetElementSize(array));
+        
+        mxSetFieldByNumber(prhs[1], 0, 0, mxCreateString(pEvent->msg));
+        mxSetFieldByNumber(prhs[1], 0, 1, array);
     } else if (event.type == EventTypes::Plot){
         plotEvent* pEvent = (plotEvent*)&event; 
 
@@ -92,7 +103,6 @@ void eventCallback(const baseEvent& event)
         
         const char* field_names[] = {"reflectivity", "shiftedData", "sldProfiles", "allLayers", "ssubs", 
                                      "resample", "dataPresent", "modelType"};
-        const mwSize structDims[2] = {1, 1};
         prhs[1] = mxCreateStructArray(2, structDims, 8, field_names);
 
         mxSetFieldByNumber(prhs[1], 0, 0, reflect);
@@ -137,7 +147,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     // register
     if (!strcmp("register", cmd)) {
-       if (eventType < 0 || eventType > static_cast<int>(EventTypes::Plot)) {
+       if (eventType < 0 || eventType > static_cast<int>(EventTypes::Progress)) {
           mexErrMsgTxt("Event type not recognized.");
        }
     

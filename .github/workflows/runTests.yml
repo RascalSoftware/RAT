@@ -23,7 +23,7 @@ jobs:
     - name: Build Mex
       uses: matlab-actions/run-command@v2
       with:
-        command: buildScript, cppDeploy  
+        command: buildScript  
     - name: Run tests
       uses: matlab-actions/run-command@v2
       with:
@@ -33,9 +33,7 @@ jobs:
       run:  tar --exclude="**/-lang:c++.zip" --exclude=".git*/" --exclude="htmlcov/" -acvf ../${{ runner.os }}.zip *
     - name: Create build archive (Linux)
       if: runner.os == 'Linux'
-      run: |
-        rm -rf ../${{ runner.os }}.zip
-        zip -r ../${{ runner.os }}.zip * -x "**/-lang:c++.zip" ".git*/" "htmlcov/"
+      run: zip -r ../${{ runner.os }}.zip * -x "**/-lang:c++.zip" ".git*/" "htmlcov/*"
     - name: Upload release
       if: github.ref == 'refs/heads/master'
       uses: svenstaro/upload-release-action@v2
@@ -46,6 +44,19 @@ jobs:
         overwrite: true
         file: '../${{ runner.os }}.zip'
         asset_name: '${{ runner.os }}.zip'
+    - name: Create cppDeploy
+      if: runner.os == 'Linux'
+      uses: matlab-actions/run-command@v2
+      with:
+        command: cppDeploy  
+    - name: Upload cppDeploy
+      if: runner.os == 'Linux'
+      uses: actions/upload-artifact@v4
+      with:
+        name: cppDeploy
+        path: compile/fullCompile/cppDeploy/ 
+    - name: Remove build archive
+      run: rm ../${{ runner.os }}.zip
   
   cpp-deploy:
     if: github.ref == 'refs/heads/master'
@@ -57,12 +68,15 @@ jobs:
       with:
         ref: generated_source
         path: rat_source
+    - name: Get cppDeploy
+      uses: actions/download-artifact@v4
+      with:
+        name: cppDeploy
+        path: cppDeploy/
     - name: Deploy Source
       run: |
-        wget https://github.com/RascalSoftware/RAT/releases/download/nightly/Linux.zip
-        unzip Linux.zip
         rm -rf rat_source/*.c rat_source/*.cpp rat_source/*.h rat_source/*.hpp
-        rsync -av compile/fullCompile/cppDeploy/ rat_source/
+        rsync -av cppDeploy/ rat_source/
         cd rat_source
         git config user.name github-actions
         git config user.email github-actions@github.com

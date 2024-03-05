@@ -11,4 +11,5 @@ copyfile('compile/events/eventManager.h', 'compile/fullCompile/cppDeploy/events/
 copyfile('compile/events/eventManagerImpl.hpp', 'compile/fullCompile/cppDeploy/events/eventManagerImpl.hpp');
 
 % Clean up
-delete 'compile/fullCompile/deploy.zip' 'compile/fullCompile/cppDeploy/buildInfo.mat' 'compile/fullCompile/cppDeploy/rtw_proj.tmw';
+delete 'compile/fullCompile/deploy.zip' 'compile/fullCompile/cppDeploy/buildInfo.mat'...
+       'compile/fullCompile/cppDeploy/rtw_proj.tmw' 'compile/fullCompile/cppDeploy/defines.txt';

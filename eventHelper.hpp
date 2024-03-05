@@ -60,12 +60,17 @@ class eventHelper
             return sendMessage(msg);   
 
         };
+
+        void updateProgress(const char* msg, double percent)
+        {                              
+            auto updateProgress = library->get_function<void(const char*, double)>("updateProgress");
+            return updateProgress(msg, percent);   
+
+        };
         
         bool hasPlotHandler(void)
         {                              
             auto hasPlotHandler = library->get_function<bool(void)>("hasPlotHandler");
-            
-            // pass the arguments to the function
             return hasPlotHandler();   
         };
 
@@ -79,7 +84,6 @@ class eventHelper
                                                          double*, double*, double*, double*,
                                                          double*, double*, const char*)>("updatePlot");
             
-            // pass the arguments to the function
             return updatePlot(nContrast, reflect, nReflect, shiftedData, nShiftedData, sldProfiles, nSldProfiles, 
                               layers, nLayers, sldProfiles2, nSldProfiles2, layers2, nLayers2, ssubs, resample, 
                               dataPresent, modelType);   

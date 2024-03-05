@@ -152,11 +152,11 @@ namespace RAT
     ::coder::array<real_T, 2U> t5_R_stat;
     ::coder::array<real_T, 2U> t5_outlier;
     ::coder::array<real_T, 1U> h_f1;
-    cell_wrap_14 r1;
-    cell_wrap_14 r3;
-    cell_wrap_19 r;
-    cell_wrap_19 r2;
-    cell_wrap_21 r4;
+    cell_wrap_16 r1;
+    cell_wrap_16 r3;
+    cell_wrap_21 r;
+    cell_wrap_21 r2;
+    cell_wrap_23 r4;
     struct14_T expl_temp;
     struct15_T b_expl_temp;
     real_T t6_par65_data[2000];
@@ -428,25 +428,25 @@ namespace RAT
     ::coder::array<cell_wrap_10, 1U> d_f1;
     ::coder::array<cell_wrap_10, 1U> f1;
     ::coder::array<cell_wrap_10, 1U> f_f1;
-    ::coder::array<real_T, 2U> t17_AR;
-    ::coder::array<real_T, 2U> t17_CR;
-    ::coder::array<real_T, 2U> t17_R_stat;
-    ::coder::array<real_T, 2U> t17_outlier;
+    ::coder::array<real_T, 2U> t14_AR;
+    ::coder::array<real_T, 2U> t14_CR;
+    ::coder::array<real_T, 2U> t14_R_stat;
+    ::coder::array<real_T, 2U> t14_outlier;
     ::coder::array<real_T, 1U> h_f1;
-    ::coder::array<int8_T, 2U> t17_DREAMPar_R;
-    cell_wrap_14 r1;
-    cell_wrap_14 r3;
-    cell_wrap_19 r;
-    cell_wrap_19 r2;
-    cell_wrap_21 r4;
+    ::coder::array<int8_T, 2U> t14_DREAMPar_R;
+    cell_wrap_16 r1;
+    cell_wrap_16 r3;
+    cell_wrap_21 r;
+    cell_wrap_21 r2;
+    cell_wrap_23 r4;
     struct14_T expl_temp;
     struct15_T b_expl_temp;
-    real_T t18_par65_data[2000];
-    real_T t18_par95_data[2000];
-    real_T t18_mean_data[1000];
-    int32_T t18_mean_size[2];
-    int32_T t18_par65_size[2];
-    int32_T t18_par95_size[2];
+    real_T t15_par65_data[2000];
+    real_T t15_par95_data[2000];
+    real_T t15_mean_data[1000];
+    int32_T t15_mean_size[2];
+    int32_T t15_par65_size[2];
+    int32_T t15_par95_size[2];
     int32_T b_i;
     int32_T i;
     int32_T i1;
@@ -577,49 +577,49 @@ namespace RAT
 
     //  ------------------------------------------------------------------
     //  (3) bayesResults.parConfInts
-    t18_par95_size[0] = 2;
-    t18_par95_size[1] = 1;
-    t18_par65_size[0] = 2;
-    t18_par65_size[1] = 1;
-    t18_mean_size[0] = 1;
-    t18_mean_size[1] = 1;
-    t18_mean_data[0] = 0.0;
+    t15_par95_size[0] = 2;
+    t15_par95_size[1] = 1;
+    t15_par65_size[0] = 2;
+    t15_par65_size[1] = 1;
+    t15_mean_size[0] = 1;
+    t15_mean_size[1] = 1;
+    t15_mean_data[0] = 0.0;
 
     //  -------------------------------------------------------------------
     //  (4) bayesResults.bestPars
     //  -------------------------------------------------------------------
     //  (5) bayesResults.bayesRes
-    t17_outlier.set_size(1, 2);
-    t18_par95_data[0] = 0.0;
-    t18_par65_data[0] = 0.0;
-    t17_outlier[0] = 1.0;
-    t18_par95_data[1] = 0.0;
-    t18_par65_data[1] = 0.0;
-    t17_outlier[t17_outlier.size(0)] = 1.0;
+    t14_outlier.set_size(1, 2);
+    t15_par95_data[0] = 0.0;
+    t15_par65_data[0] = 0.0;
+    t14_outlier[0] = 1.0;
+    t15_par95_data[1] = 0.0;
+    t15_par65_data[1] = 0.0;
+    t14_outlier[t14_outlier.size(0)] = 1.0;
     loop_ub_tmp = static_cast<int32_T>(nChains);
-    t17_DREAMPar_R.set_size(loop_ub_tmp, loop_ub_tmp);
+    t14_DREAMPar_R.set_size(loop_ub_tmp, loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
       for (i1 = 0; i1 < loop_ub_tmp; i1++) {
-        t17_DREAMPar_R[i1 + t17_DREAMPar_R.size(0) * i] = 0;
+        t14_DREAMPar_R[i1 + t14_DREAMPar_R.size(0) * i] = 0;
       }
     }
 
-    t17_AR.set_size(1, 2);
-    t17_R_stat.set_size(1, 2);
-    t17_CR.set_size(1, 2);
+    t14_AR.set_size(1, 2);
+    t14_R_stat.set_size(1, 2);
+    t14_CR.set_size(1, 2);
 
     //  Nested Sampler
-    t17_AR[0] = 0.0;
-    t17_R_stat[0] = 0.0;
-    t17_CR[0] = 0.0;
-    t17_AR[t17_AR.size(0)] = 0.0;
-    t17_R_stat[t17_R_stat.size(0)] = 0.0;
-    t17_CR[t17_CR.size(0)] = 0.0;
-    expl_temp.R.set_size(t17_DREAMPar_R.size(0), t17_DREAMPar_R.size(1));
-    loop_ub_tmp = t17_DREAMPar_R.size(1);
+    t14_AR[0] = 0.0;
+    t14_R_stat[0] = 0.0;
+    t14_CR[0] = 0.0;
+    t14_AR[t14_AR.size(0)] = 0.0;
+    t14_R_stat[t14_R_stat.size(0)] = 0.0;
+    t14_CR[t14_CR.size(0)] = 0.0;
+    expl_temp.R.set_size(t14_DREAMPar_R.size(0), t14_DREAMPar_R.size(1));
+    loop_ub_tmp = t14_DREAMPar_R.size(1);
     for (i = 0; i < loop_ub_tmp; i++) {
       int32_T loop_ub;
-      loop_ub = t17_DREAMPar_R.size(0);
+      loop_ub = t14_DREAMPar_R.size(0);
       for (i1 = 0; i1 < loop_ub; i1++) {
         expl_temp.R[i1 + expl_temp.R.size(0) * i] = 0.0;
       }
@@ -649,9 +649,9 @@ namespace RAT
     expl_temp.d = 17.0;
     b_expl_temp.N = 0.0;
     b_expl_temp.Y = 0.0;
-    cast(t17_outlier, 100.0, &expl_temp, b_expl_temp, static_cast<real_T>(0.0),
-         static_cast<real_T>(0.0), static_cast<real_T>(0.0), t17_AR, t17_R_stat,
-         t17_CR, &bayesResults_bayesRes->dreamOutput);
+    cast(t14_outlier, 100.0, &expl_temp, b_expl_temp, static_cast<real_T>(0.0),
+         static_cast<real_T>(0.0), static_cast<real_T>(0.0), t14_AR, t14_R_stat,
+         t14_CR, &bayesResults_bayesRes->dreamOutput);
 
     //  ------------------------------------------------------------------
     //  (6) chain
@@ -674,8 +674,8 @@ namespace RAT
       bayesResults_predlims_refPredInts, bayesResults_predlims_sldPredInts,
       bayesResults_predlims_refXdata, bayesResults_predlims_sldXdata,
       bayesResults_predlims_sampleChi_data, bayesResults_predlims_sampleChi_size);
-    cast(t18_par95_data, t18_par95_size, t18_par65_data, t18_par65_size,
-         t18_mean_data, t18_mean_size, bayesResults_parConfInts_par95,
+    cast(t15_par95_data, t15_par95_size, t15_par65_data, t15_par65_size,
+         t15_mean_data, t15_mean_size, bayesResults_parConfInts_par95,
          bayesResults_parConfInts_par65, bayesResults_parConfInts_mean);
     bayesResults_bestPars.set_size(1, 1);
     bayesResults_bestPars[0] = 1.0;

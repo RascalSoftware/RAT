@@ -22,7 +22,7 @@ namespace RAT
   void resampleLayers(const ::coder::array<real_T, 2U> &sldProfile, const real_T
                       resamPars[2], ::coder::array<real_T, 2U> &newSLD)
   {
-    cell_30 expl_temp;
+    cell_32 expl_temp;
     real_T b_sldProfile[2];
     int32_T i;
     int32_T n;

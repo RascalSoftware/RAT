@@ -19,16 +19,6 @@ namespace RAT
 {
   namespace coder
   {
-    void b_repmat(real_T varargin_2, ::coder::array<char_T, 2U> &b)
-    {
-      int32_T loop_ub_tmp;
-      loop_ub_tmp = static_cast<int32_T>(varargin_2);
-      b.set_size(1, loop_ub_tmp);
-      for (int32_T i{0}; i < loop_ub_tmp; i++) {
-        b[i] = '.';
-      }
-    }
-
     void repmat(real_T varargin_1, ::coder::array<struct_T, 1U> &b)
     {
       int32_T loop_ub_tmp;
@@ -56,16 +46,6 @@ namespace RAT
             b[t + b.size(0) * k] = a[k];
           }
         }
-      }
-    }
-
-    void repmat(real_T varargin_2, ::coder::array<char_T, 2U> &b)
-    {
-      int32_T loop_ub_tmp;
-      loop_ub_tmp = static_cast<int32_T>(varargin_2);
-      b.set_size(1, loop_ub_tmp);
-      for (int32_T i{0}; i < loop_ub_tmp; i++) {
-        b[i] = '*';
       }
     }
 

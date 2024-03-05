@@ -85,7 +85,6 @@ namespace RAT
     ::coder::array<int32_T, 2U> iidx;
     ::coder::array<char_T, 2U> c_varargin_1;
     f_struct_T b_varargin_1;
-    struct5_T b_result;
     struct5_T result;
     real_T func_evals;
     real_T fxc;
@@ -97,7 +96,6 @@ namespace RAT
     int32_T b_index;
     int32_T i;
     int32_T i1;
-    int32_T i2;
     int32_T j;
     int32_T n;
     int32_T prnt;
@@ -368,11 +366,9 @@ namespace RAT
       //      fprintf('%g \n', func_evals)
     }
 
-    triggerEvent(result.reflectivity, result.shiftedData, result.sldProfiles,
-                 result.allLayers, result.contrastParams.ssubs,
-                 varargin_1->TF.data, varargin_1->TF.size, varargin_1->resample,
-                 varargin_1->dataPresent, varargin_1->modelType.data,
-                 varargin_1->modelType.size);
+    triggerEvent(&result, varargin_1->TF.data, varargin_1->TF.size,
+                 varargin_1->resample, varargin_1->dataPresent,
+                 varargin_1->modelType.data, varargin_1->modelType.size);
 
     //  OutputFcn and PlotFcns call
     //  if haveoutputfcn || haveplotfcn
@@ -411,46 +407,7 @@ namespace RAT
 
       b_varargin_1 = *varargin_1;
       simplexIntrafun(y, &b_varargin_1, varargin_2, varargin_3, varargin_4,
-                      varargin_5, &fv[j + 1], &b_result);
-      x_idx_1 = b_result.reflectivity.size(0);
-      result.reflectivity.set_size(b_result.reflectivity.size(0));
-      for (i1 = 0; i1 < x_idx_1; i1++) {
-        result.reflectivity[i1] = b_result.reflectivity[i1];
-      }
-
-      x_idx_1 = b_result.shiftedData.size(0);
-      result.shiftedData.set_size(b_result.shiftedData.size(0));
-      for (i1 = 0; i1 < x_idx_1; i1++) {
-        result.shiftedData[i1] = b_result.shiftedData[i1];
-      }
-
-      result.sldProfiles.set_size(b_result.sldProfiles.size(0),
-        b_result.sldProfiles.size(1));
-      x_idx_1 = b_result.sldProfiles.size(1);
-      for (i1 = 0; i1 < x_idx_1; i1++) {
-        b_index = b_result.sldProfiles.size(0);
-        for (i2 = 0; i2 < b_index; i2++) {
-          result.sldProfiles[i2 + result.sldProfiles.size(0) * i1] =
-            b_result.sldProfiles[i2 + b_result.sldProfiles.size(0) * i1];
-        }
-      }
-
-      result.allLayers.set_size(b_result.allLayers.size(0),
-        b_result.allLayers.size(1));
-      x_idx_1 = b_result.allLayers.size(1);
-      for (i1 = 0; i1 < x_idx_1; i1++) {
-        b_index = b_result.allLayers.size(0);
-        for (i2 = 0; i2 < b_index; i2++) {
-          result.allLayers[i2 + result.allLayers.size(0) * i1] =
-            b_result.allLayers[i2 + b_result.allLayers.size(0) * i1];
-        }
-      }
-
-      x_idx_1 = b_result.contrastParams.ssubs.size(0);
-      result.contrastParams.ssubs.set_size(b_result.contrastParams.ssubs.size(0));
-      for (i1 = 0; i1 < x_idx_1; i1++) {
-        result.contrastParams.ssubs[i1] = b_result.contrastParams.ssubs[i1];
-      }
+                      varargin_5, &fv[j + 1], &result);
     }
 
     //  sort so v(1,:) has the lowest function value
@@ -485,8 +442,8 @@ namespace RAT
       }
 
       varargin_4_data[15] = '\x00';
-      printf(" %5.0f        %5.0f     %12.6g         %s\n", 1.0, static_cast<
-             real_T>(x.size(0)) + 1.0, fv[0], &varargin_4_data[0]);
+      printf(" %5.0f        %5.0f     %12.6g         %s\n", 1.0,
+             static_cast<real_T>(x.size(0)) + 1.0, fv[0], &varargin_4_data[0]);
       fflush(stdout);
 
       //  elseif prnt == 4
@@ -501,9 +458,7 @@ namespace RAT
     }
 
     if (rt_remd_snf(1.0, varargin_4->updatePlotFreq) == 0.0) {
-      triggerEvent(result.reflectivity, result.shiftedData, result.sldProfiles,
-                   result.allLayers, result.contrastParams.ssubs,
-                   varargin_1->TF.data, varargin_1->TF.size,
+      triggerEvent(&result, varargin_1->TF.data, varargin_1->TF.size,
                    varargin_1->resample, varargin_1->dataPresent,
                    varargin_1->modelType.data, varargin_1->modelType.size);
     }
@@ -557,6 +512,7 @@ namespace RAT
       coder::b_abs(c_fv, r);
       guard1 = false;
       if (coder::internal::maximum(r) <= std::fmax(options_TolFun, b_y)) {
+        int32_T i2;
         if (2.0 > static_cast<real_T>(n) + 1.0) {
           i = 0;
           i1 = -1;
@@ -624,48 +580,7 @@ namespace RAT
 
         b_varargin_1 = *varargin_1;
         simplexIntrafun(xr, &b_varargin_1, varargin_2, varargin_3, varargin_4,
-                        varargin_5, &fxr, &b_result);
-        result.reflectivity.set_size(b_result.reflectivity.size(0));
-        x_idx_1 = b_result.reflectivity.size(0);
-        for (i = 0; i < x_idx_1; i++) {
-          result.reflectivity[i] = b_result.reflectivity[i];
-        }
-
-        result.shiftedData.set_size(b_result.shiftedData.size(0));
-        x_idx_1 = b_result.shiftedData.size(0);
-        for (i = 0; i < x_idx_1; i++) {
-          result.shiftedData[i] = b_result.shiftedData[i];
-        }
-
-        result.sldProfiles.set_size(b_result.sldProfiles.size(0),
-          b_result.sldProfiles.size(1));
-        x_idx_1 = b_result.sldProfiles.size(1);
-        for (i = 0; i < x_idx_1; i++) {
-          b_index = b_result.sldProfiles.size(0);
-          for (i1 = 0; i1 < b_index; i1++) {
-            result.sldProfiles[i1 + result.sldProfiles.size(0) * i] =
-              b_result.sldProfiles[i1 + b_result.sldProfiles.size(0) * i];
-          }
-        }
-
-        result.allLayers.set_size(b_result.allLayers.size(0),
-          b_result.allLayers.size(1));
-        x_idx_1 = b_result.allLayers.size(1);
-        for (i = 0; i < x_idx_1; i++) {
-          b_index = b_result.allLayers.size(0);
-          for (i1 = 0; i1 < b_index; i1++) {
-            result.allLayers[i1 + result.allLayers.size(0) * i] =
-              b_result.allLayers[i1 + b_result.allLayers.size(0) * i];
-          }
-        }
-
-        result.contrastParams.ssubs.set_size(b_result.contrastParams.ssubs.size
-          (0));
-        x_idx_1 = b_result.contrastParams.ssubs.size(0);
-        for (i = 0; i < x_idx_1; i++) {
-          result.contrastParams.ssubs[i] = b_result.contrastParams.ssubs[i];
-        }
-
+                        varargin_5, &fxr, &result);
         func_evals++;
         if (fxr < fv[0]) {
           //  Calculate the expansion point
@@ -677,48 +592,7 @@ namespace RAT
 
           b_varargin_1 = *varargin_1;
           simplexIntrafun(xe, &b_varargin_1, varargin_2, varargin_3, varargin_4,
-                          varargin_5, &fxe, &b_result);
-          result.reflectivity.set_size(b_result.reflectivity.size(0));
-          x_idx_1 = b_result.reflectivity.size(0);
-          for (i = 0; i < x_idx_1; i++) {
-            result.reflectivity[i] = b_result.reflectivity[i];
-          }
-
-          result.shiftedData.set_size(b_result.shiftedData.size(0));
-          x_idx_1 = b_result.shiftedData.size(0);
-          for (i = 0; i < x_idx_1; i++) {
-            result.shiftedData[i] = b_result.shiftedData[i];
-          }
-
-          result.sldProfiles.set_size(b_result.sldProfiles.size(0),
-            b_result.sldProfiles.size(1));
-          x_idx_1 = b_result.sldProfiles.size(1);
-          for (i = 0; i < x_idx_1; i++) {
-            b_index = b_result.sldProfiles.size(0);
-            for (i1 = 0; i1 < b_index; i1++) {
-              result.sldProfiles[i1 + result.sldProfiles.size(0) * i] =
-                b_result.sldProfiles[i1 + b_result.sldProfiles.size(0) * i];
-            }
-          }
-
-          result.allLayers.set_size(b_result.allLayers.size(0),
-            b_result.allLayers.size(1));
-          x_idx_1 = b_result.allLayers.size(1);
-          for (i = 0; i < x_idx_1; i++) {
-            b_index = b_result.allLayers.size(0);
-            for (i1 = 0; i1 < b_index; i1++) {
-              result.allLayers[i1 + result.allLayers.size(0) * i] =
-                b_result.allLayers[i1 + b_result.allLayers.size(0) * i];
-            }
-          }
-
-          result.contrastParams.ssubs.set_size
-            (b_result.contrastParams.ssubs.size(0));
-          x_idx_1 = b_result.contrastParams.ssubs.size(0);
-          for (i = 0; i < x_idx_1; i++) {
-            result.contrastParams.ssubs[i] = b_result.contrastParams.ssubs[i];
-          }
-
+                          varargin_5, &fxe, &result);
           func_evals++;
           if (fxe < fxr) {
             b_index = v.size(1) - 1;
@@ -772,48 +646,7 @@ namespace RAT
 
             b_varargin_1 = *varargin_1;
             simplexIntrafun(xc, &b_varargin_1, varargin_2, varargin_3,
-                            varargin_4, varargin_5, &fxc, &b_result);
-            result.reflectivity.set_size(b_result.reflectivity.size(0));
-            x_idx_1 = b_result.reflectivity.size(0);
-            for (i = 0; i < x_idx_1; i++) {
-              result.reflectivity[i] = b_result.reflectivity[i];
-            }
-
-            result.shiftedData.set_size(b_result.shiftedData.size(0));
-            x_idx_1 = b_result.shiftedData.size(0);
-            for (i = 0; i < x_idx_1; i++) {
-              result.shiftedData[i] = b_result.shiftedData[i];
-            }
-
-            result.sldProfiles.set_size(b_result.sldProfiles.size(0),
-              b_result.sldProfiles.size(1));
-            x_idx_1 = b_result.sldProfiles.size(1);
-            for (i = 0; i < x_idx_1; i++) {
-              b_index = b_result.sldProfiles.size(0);
-              for (i1 = 0; i1 < b_index; i1++) {
-                result.sldProfiles[i1 + result.sldProfiles.size(0) * i] =
-                  b_result.sldProfiles[i1 + b_result.sldProfiles.size(0) * i];
-              }
-            }
-
-            result.allLayers.set_size(b_result.allLayers.size(0),
-              b_result.allLayers.size(1));
-            x_idx_1 = b_result.allLayers.size(1);
-            for (i = 0; i < x_idx_1; i++) {
-              b_index = b_result.allLayers.size(0);
-              for (i1 = 0; i1 < b_index; i1++) {
-                result.allLayers[i1 + result.allLayers.size(0) * i] =
-                  b_result.allLayers[i1 + b_result.allLayers.size(0) * i];
-              }
-            }
-
-            result.contrastParams.ssubs.set_size
-              (b_result.contrastParams.ssubs.size(0));
-            x_idx_1 = b_result.contrastParams.ssubs.size(0);
-            for (i = 0; i < x_idx_1; i++) {
-              result.contrastParams.ssubs[i] = b_result.contrastParams.ssubs[i];
-            }
-
+                            varargin_4, varargin_5, &fxc, &result);
             func_evals++;
             if (fxc <= fxr) {
               b_index = v.size(1) - 1;
@@ -846,48 +679,7 @@ namespace RAT
 
             b_varargin_1 = *varargin_1;
             simplexIntrafun(xcc, &b_varargin_1, varargin_2, varargin_3,
-                            varargin_4, varargin_5, &fxcc, &b_result);
-            result.reflectivity.set_size(b_result.reflectivity.size(0));
-            x_idx_1 = b_result.reflectivity.size(0);
-            for (i = 0; i < x_idx_1; i++) {
-              result.reflectivity[i] = b_result.reflectivity[i];
-            }
-
-            result.shiftedData.set_size(b_result.shiftedData.size(0));
-            x_idx_1 = b_result.shiftedData.size(0);
-            for (i = 0; i < x_idx_1; i++) {
-              result.shiftedData[i] = b_result.shiftedData[i];
-            }
-
-            result.sldProfiles.set_size(b_result.sldProfiles.size(0),
-              b_result.sldProfiles.size(1));
-            x_idx_1 = b_result.sldProfiles.size(1);
-            for (i = 0; i < x_idx_1; i++) {
-              b_index = b_result.sldProfiles.size(0);
-              for (i1 = 0; i1 < b_index; i1++) {
-                result.sldProfiles[i1 + result.sldProfiles.size(0) * i] =
-                  b_result.sldProfiles[i1 + b_result.sldProfiles.size(0) * i];
-              }
-            }
-
-            result.allLayers.set_size(b_result.allLayers.size(0),
-              b_result.allLayers.size(1));
-            x_idx_1 = b_result.allLayers.size(1);
-            for (i = 0; i < x_idx_1; i++) {
-              b_index = b_result.allLayers.size(0);
-              for (i1 = 0; i1 < b_index; i1++) {
-                result.allLayers[i1 + result.allLayers.size(0) * i] =
-                  b_result.allLayers[i1 + b_result.allLayers.size(0) * i];
-              }
-            }
-
-            result.contrastParams.ssubs.set_size
-              (b_result.contrastParams.ssubs.size(0));
-            x_idx_1 = b_result.contrastParams.ssubs.size(0);
-            for (i = 0; i < x_idx_1; i++) {
-              result.contrastParams.ssubs[i] = b_result.contrastParams.ssubs[i];
-            }
-
+                            varargin_4, varargin_5, &fxcc, &result);
             func_evals++;
             if (fxcc < fv[fv.size(1) - 1]) {
               b_index = v.size(1) - 1;
@@ -935,48 +727,7 @@ namespace RAT
 
               b_varargin_1 = *varargin_1;
               simplexIntrafun(c_v, &b_varargin_1, varargin_2, varargin_3,
-                              varargin_4, varargin_5, &fv[j + 1], &b_result);
-              x_idx_1 = b_result.reflectivity.size(0);
-              result.reflectivity.set_size(b_result.reflectivity.size(0));
-              for (i1 = 0; i1 < x_idx_1; i1++) {
-                result.reflectivity[i1] = b_result.reflectivity[i1];
-              }
-
-              x_idx_1 = b_result.shiftedData.size(0);
-              result.shiftedData.set_size(b_result.shiftedData.size(0));
-              for (i1 = 0; i1 < x_idx_1; i1++) {
-                result.shiftedData[i1] = b_result.shiftedData[i1];
-              }
-
-              result.sldProfiles.set_size(b_result.sldProfiles.size(0),
-                b_result.sldProfiles.size(1));
-              x_idx_1 = b_result.sldProfiles.size(1);
-              for (i1 = 0; i1 < x_idx_1; i1++) {
-                b_index = b_result.sldProfiles.size(0);
-                for (i2 = 0; i2 < b_index; i2++) {
-                  result.sldProfiles[i2 + result.sldProfiles.size(0) * i1] =
-                    b_result.sldProfiles[i2 + b_result.sldProfiles.size(0) * i1];
-                }
-              }
-
-              result.allLayers.set_size(b_result.allLayers.size(0),
-                b_result.allLayers.size(1));
-              x_idx_1 = b_result.allLayers.size(1);
-              for (i1 = 0; i1 < x_idx_1; i1++) {
-                b_index = b_result.allLayers.size(0);
-                for (i2 = 0; i2 < b_index; i2++) {
-                  result.allLayers[i2 + result.allLayers.size(0) * i1] =
-                    b_result.allLayers[i2 + b_result.allLayers.size(0) * i1];
-                }
-              }
-
-              x_idx_1 = b_result.contrastParams.ssubs.size(0);
-              result.contrastParams.ssubs.set_size
-                (b_result.contrastParams.ssubs.size(0));
-              for (i1 = 0; i1 < x_idx_1; i1++) {
-                result.contrastParams.ssubs[i1] =
-                  b_result.contrastParams.ssubs[i1];
-              }
+                              varargin_4, varargin_5, &fv[j + 1], &result);
             }
 
             func_evals += static_cast<real_T>(n);
@@ -1026,12 +777,9 @@ namespace RAT
         }
 
         if (rt_remd_snf(itercount, varargin_4->updatePlotFreq) == 0.0) {
-          triggerEvent(result.reflectivity, result.shiftedData,
-                       result.sldProfiles, result.allLayers,
-                       result.contrastParams.ssubs, varargin_1->TF.data,
-                       varargin_1->TF.size, varargin_1->resample,
-                       varargin_1->dataPresent, varargin_1->modelType.data,
-                       varargin_1->modelType.size);
+          triggerEvent(&result, varargin_1->TF.data, varargin_1->TF.size,
+                       varargin_1->resample, varargin_1->dataPresent,
+                       varargin_1->modelType.data, varargin_1->modelType.size);
         }
 
         //  OutputFcn and PlotFcns call

@@ -40,7 +40,7 @@ namespace RAT
         array<cell_wrap_10, 1U> &sldProfiles, ::coder::array<cell_wrap_10, 1U>
         &allLayers, ::coder::array<real_T, 1U> &allRoughs)
       {
-        ::coder::array<cell_wrap_17, 2U> outParameterisedLayers;
+        ::coder::array<cell_wrap_19, 2U> outParameterisedLayers;
         ::coder::array<real_T, 2U> reflect;
         ::coder::array<real_T, 2U> resampledLayers;
         ::coder::array<real_T, 2U> shiftedDat;

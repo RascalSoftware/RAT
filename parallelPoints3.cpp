@@ -47,10 +47,10 @@ namespace RAT
       {
         static real_T thisContrastLayers1_data[6000];
         static real_T thisContrastLayers2_data[6000];
-        ::coder::array<cell_wrap_17, 2U> outParameterisedLayers;
-        ::coder::array<cell_wrap_39, 1U> tempAllLayers;
-        ::coder::array<cell_wrap_39, 1U> tempLayerSlds;
-        ::coder::array<cell_wrap_39, 1U> tempSldProfiles;
+        ::coder::array<cell_wrap_19, 2U> outParameterisedLayers;
+        ::coder::array<cell_wrap_41, 1U> tempAllLayers;
+        ::coder::array<cell_wrap_41, 1U> tempLayerSlds;
+        ::coder::array<cell_wrap_41, 1U> tempSldProfiles;
         ::coder::array<real_T, 2U> a__6;
         ::coder::array<real_T, 2U> b_thisContrastLayers1_data;
         ::coder::array<real_T, 2U> b_thisContrastLayers2_data;

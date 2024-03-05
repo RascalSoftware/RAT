@@ -24,8 +24,6 @@ namespace RAT
   {
     void b_sprintf(real_T varargin_1, real_T varargin_2, ::coder::array<char_T,
                    2U> &str);
-    void b_sprintf(real_T varargin_2, const ::coder::array<char_T, 2U>
-                   &varargin_3, ::coder::array<char_T, 2U> &str);
   }
 }
 

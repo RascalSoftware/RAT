@@ -40,27 +40,27 @@ namespace RAT
     ::coder::array<real_T, 2U> resample;
   };
 
-  struct cell_wrap_12
+  struct cell_wrap_14
   {
     ::coder::array<cell_wrap_8, 1U> f1;
   };
 
-  struct cell_wrap_13
+  struct cell_wrap_15
   {
-    ::coder::array<cell_wrap_24, 1U> f1;
+    ::coder::array<cell_wrap_26, 1U> f1;
   };
 
-  struct cell_wrap_14
+  struct cell_wrap_16
   {
     ::coder::array<cell_wrap_10, 2U> f1;
   };
 
-  struct cell_wrap_15
+  struct cell_wrap_17
   {
-    ::coder::array<cell_wrap_24, 2U> f1;
+    ::coder::array<cell_wrap_26, 2U> f1;
   };
 
-  struct cell_wrap_16
+  struct cell_wrap_18
   {
     ::coder::array<cell_wrap_1, 1U> f1;
   };
@@ -69,10 +69,10 @@ namespace RAT
   {
     ::coder::array<cell_wrap_8, 1U> reflectivity;
     ::coder::array<cell_wrap_8, 1U> simulation;
-    ::coder::array<cell_wrap_24, 1U> shiftedData;
+    ::coder::array<cell_wrap_26, 1U> shiftedData;
     ::coder::array<cell_wrap_10, 2U> layerSlds;
     ::coder::array<cell_wrap_10, 2U> sldProfiles;
-    ::coder::array<cell_wrap_24, 2U> allLayers;
+    ::coder::array<cell_wrap_26, 2U> allLayers;
     struct6_T calculationResults;
     b_struct_T contrastParams;
     ::coder::array<real_T, 2U> bestFitPars;
@@ -93,12 +93,12 @@ namespace RAT
     d_struct_T nestOutput;
   };
 
-  struct cell_wrap_19
+  struct cell_wrap_21
   {
     ::coder::array<cell_wrap_10, 1U> f1;
   };
 
-  struct cell_wrap_21
+  struct cell_wrap_23
   {
     ::coder::array<real_T, 1U> f1;
   };
@@ -162,12 +162,12 @@ namespace RAT
     ::coder::array<cell_wrap_1, 2U> f20;
   };
 
-  struct cell_wrap_38
+  struct cell_wrap_40
   {
     ::coder::array<real_T, 2U> f1;
   };
 
-  struct cell_wrap_39
+  struct cell_wrap_41
   {
     cell_wrap_10 f1[2];
   };
@@ -177,15 +177,15 @@ namespace RAT
     ::coder::array<cell_wrap_8, 1U> ref;
     ::coder::array<cell_wrap_10, 2U> sld;
     real_T chi;
-    ::coder::array<cell_wrap_24, 1U> data;
+    ::coder::array<cell_wrap_26, 1U> data;
   };
 
   struct h_struct_T
   {
-    ::coder::array<cell_wrap_52, 1U> refPredInts;
-    ::coder::array<cell_wrap_52, 2U> sldPredInts;
-    ::coder::array<cell_wrap_17, 2U> refXdata;
-    ::coder::array<cell_wrap_17, 2U> sldXdata;
+    ::coder::array<cell_wrap_53, 1U> refPredInts;
+    ::coder::array<cell_wrap_53, 2U> sldPredInts;
+    ::coder::array<cell_wrap_19, 2U> refXdata;
+    ::coder::array<cell_wrap_19, 2U> sldXdata;
     real_T sampleChi[1000];
   };
 
@@ -236,7 +236,7 @@ namespace RAT
     ::coder::array<real_T, 2U> FVr_bestmem;
   };
 
-  struct cell_30
+  struct cell_32
   {
     ::coder::array<real_T, 2U> f1;
   };

@@ -45,9 +45,9 @@ namespace RAT
                     &domainSldProfiles, ::coder::array<cell_wrap_10, 2U>
                     &allLayers, ::coder::array<real_T, 1U> &allRoughs)
       {
-        ::coder::array<cell_wrap_39, 1U> tempAllLayers;
-        ::coder::array<cell_wrap_39, 1U> tempLayerSlds;
-        ::coder::array<cell_wrap_39, 1U> tempSldProfiles;
+        ::coder::array<cell_wrap_41, 1U> tempAllLayers;
+        ::coder::array<cell_wrap_41, 1U> tempLayerSlds;
+        ::coder::array<cell_wrap_41, 1U> tempSldProfiles;
         ::coder::array<real_T, 2U> b_domainSldProfiles;
         ::coder::array<real_T, 2U> b_problemCells;
         ::coder::array<real_T, 2U> c_domainSldProfiles;

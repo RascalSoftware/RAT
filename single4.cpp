@@ -44,10 +44,10 @@ namespace RAT
                     &allLayers, ::coder::array<real_T, 1U> &allRoughs)
       {
         ::coder::array<cell_wrap_10, 2U> calcAllLayers;
-        ::coder::array<cell_wrap_25, 2U> r;
-        ::coder::array<cell_wrap_39, 1U> tempAllLayers;
-        ::coder::array<cell_wrap_39, 1U> tempLayerSlds;
-        ::coder::array<cell_wrap_39, 1U> tempSldProfiles;
+        ::coder::array<cell_wrap_27, 2U> r;
+        ::coder::array<cell_wrap_41, 1U> tempAllLayers;
+        ::coder::array<cell_wrap_41, 1U> tempLayerSlds;
+        ::coder::array<cell_wrap_41, 1U> tempSldProfiles;
         ::coder::array<real_T, 2U> a__5;
         ::coder::array<real_T, 2U> reflect1;
         ::coder::array<real_T, 2U> reflect2;

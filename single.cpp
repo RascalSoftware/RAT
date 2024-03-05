@@ -42,7 +42,7 @@ namespace RAT
                     real_T, 1U> &allRoughs)
       {
         static real_T thisContrastLayers_data[6000];
-        ::coder::array<cell_wrap_17, 2U> outParameterisedLayers;
+        ::coder::array<cell_wrap_19, 2U> outParameterisedLayers;
         ::coder::array<real_T, 2U> b_thisContrastLayers_data;
         ::coder::array<real_T, 2U> shiftedDat;
         ::coder::array<real_T, 2U> sldProfile;

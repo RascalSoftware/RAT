@@ -18,8 +18,6 @@ namespace RAT
   uint32_T state[625];
   real_T verbose;
   real_T DEBUG;
-  real_T lastNchar;
-  boolean_T lastNchar_not_empty;
   real_T freq;
   boolean_T freq_not_empty;
   omp_nest_lock_t emlrtNestLockGlobal;

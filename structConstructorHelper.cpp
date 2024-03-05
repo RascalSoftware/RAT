@@ -22,12 +22,12 @@ namespace RAT
   {
     namespace internal
     {
-      void structConstructorHelper(const cell_wrap_12 *varargin_2, const
-        cell_wrap_12 *varargin_4, const cell_wrap_13 *varargin_6, const
-        cell_wrap_14 *varargin_8, const cell_wrap_14 *varargin_10, const
-        cell_wrap_15 *varargin_12, const struct6_T *varargin_14, const
+      void structConstructorHelper(const cell_wrap_14 *varargin_2, const
+        cell_wrap_14 *varargin_4, const cell_wrap_15 *varargin_6, const
+        cell_wrap_16 *varargin_8, const cell_wrap_16 *varargin_10, const
+        cell_wrap_17 *varargin_12, const struct6_T *varargin_14, const
         b_struct_T *varargin_16, const ::coder::array<real_T, 2U> &varargin_18,
-        const cell_wrap_16 *varargin_20, c_struct_T *s)
+        const cell_wrap_18 *varargin_20, c_struct_T *s)
       {
         ::coder::array<real_T, 2U> f1;
         int32_T b_loop_ub;
@@ -103,8 +103,8 @@ namespace RAT
         }
       }
 
-      void structConstructorHelper(const cell_wrap_19 *varargin_2, const
-        cell_wrap_14 *varargin_4, const cell_wrap_19 *varargin_8, ::coder::array<
+      void structConstructorHelper(const cell_wrap_21 *varargin_2, const
+        cell_wrap_16 *varargin_4, const cell_wrap_21 *varargin_8, ::coder::array<
         cell_wrap_10, 1U> &s_ref, ::coder::array<cell_wrap_10, 2U> &s_sld,
         real_T *s_chi, ::coder::array<cell_wrap_10, 1U> &s_data)
       {
@@ -136,9 +136,9 @@ namespace RAT
         *s_chi = 0.0;
       }
 
-      void structConstructorHelper(const cell_wrap_19 *varargin_2, const
-        cell_wrap_14 *varargin_4, const cell_wrap_19 *varargin_6, const
-        cell_wrap_14 *varargin_8, const cell_wrap_21 *varargin_10, ::coder::
+      void structConstructorHelper(const cell_wrap_21 *varargin_2, const
+        cell_wrap_16 *varargin_4, const cell_wrap_21 *varargin_6, const
+        cell_wrap_16 *varargin_8, const cell_wrap_23 *varargin_10, ::coder::
         array<cell_wrap_10, 1U> &s_refPredInts, ::coder::array<cell_wrap_10, 2U>
         &s_sldPredInts, ::coder::array<cell_wrap_10, 1U> &s_refXdata, ::coder::
         array<cell_wrap_10, 2U> &s_sldXdata, real_T s_sampleChi_data[], int32_T *

@@ -21,7 +21,7 @@
 namespace RAT
 {
   struct cell_wrap_8;
-  struct cell_wrap_24;
+  struct cell_wrap_26;
   struct cell_wrap_10;
   struct struct6_T;
   struct b_struct_T;
@@ -33,10 +33,10 @@ namespace RAT
 {
   void makeEmptyResultStruct(real_T nContrasts, real_T nPars, boolean_T domains,
     ::coder::array<cell_wrap_8, 1U> &result_reflectivity, ::coder::array<
-    cell_wrap_8, 1U> &result_simulation, ::coder::array<cell_wrap_24, 1U>
+    cell_wrap_8, 1U> &result_simulation, ::coder::array<cell_wrap_26, 1U>
     &result_shiftedData, ::coder::array<cell_wrap_10, 2U> &result_layerSlds, ::
     coder::array<cell_wrap_10, 2U> &result_sldProfiles, ::coder::array<
-    cell_wrap_24, 2U> &result_allLayers, struct6_T *result_calculationResults,
+    cell_wrap_26, 2U> &result_allLayers, struct6_T *result_calculationResults,
     b_struct_T *result_contrastParams, ::coder::array<real_T, 2U>
     &result_bestFitPars, ::coder::array<cell_wrap_1, 1U> &result_fitNames);
 }

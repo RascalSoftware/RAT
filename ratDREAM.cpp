@@ -10,7 +10,6 @@
 
 // Include files
 #include "ratDREAM.h"
-#include "RATMain_data.h"
 #include "RATMain_internal_types.h"
 #include "RATMain_types.h"
 #include "adaptPCR.h"
@@ -32,14 +31,13 @@
 #include "rt_nonfinite.h"
 #include "setupDREAM.h"
 #include "std.h"
-#include "textProgressBar.h"
 #include "tic.h"
 #include "toc.h"
+#include "triggerEvent.h"
 #include "coder_array.h"
 #include "coder_bounded_array.h"
 #include <algorithm>
 #include <cmath>
-#include <stdio.h>
 
 // Type Definitions
 namespace RAT
@@ -352,9 +350,7 @@ namespace RAT
     //      fid = fopen('warning_file.txt','a+'); T_start = t + 1;
     // end
     //  Initialize waitbar.
-    // fprintf('\n');
-    lastNchar = 0.0;
-    lastNchar_not_empty = true;
+    triggerEvent();
 
     //  h = waitbar(0,'Running DREAM - Please wait...');
     totaccept = 0.0;
@@ -658,7 +654,7 @@ namespace RAT
 
       //  Update the waitbar. TJP Edit to check for graphical enviro
       //  waitbar(t/DREAMPar.T,h);
-      textProgressBar((static_cast<real_T>(t) + 2.0) / DREAMPar.T);
+      triggerEvent((static_cast<real_T>(t) + 2.0) / DREAMPar.T);
 
       //  If t equal to MCMC.steps then convergence checks and updates
       if (coder::b_mod(static_cast<real_T>(t) + 2.0, DREAMPar.steps) == 0.0) {
@@ -805,8 +801,7 @@ namespace RAT
     output->iloc = iloc;
 
     //  Close the waitbar
-    printf("\n");
-    fflush(stdout);
+    b_triggerEvent();
 
     // close(h);
   }

@@ -35,7 +35,7 @@ namespace RAT
     ::coder::array<cell_wrap_10, 2U> r1;
     ::coder::array<cell_wrap_10, 2U> refYVals;
     ::coder::array<cell_wrap_10, 2U> sldYVals;
-    ::coder::array<cell_wrap_17, 2U> r;
+    ::coder::array<cell_wrap_19, 2U> r;
     ::coder::array<real_T, 2U> r2;
     ::coder::array<real_T, 2U> refArray;
     ::coder::array<real_T, 2U> rowVals;

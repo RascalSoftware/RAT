@@ -16,7 +16,6 @@
 #include "eml_rand_mt19937ar_stateful.h"
 #include "fileManager.h"
 #include "rt_nonfinite.h"
-#include "textProgressBar.h"
 #include "timeKeeper.h"
 #include "triggerEvent.h"
 
@@ -28,7 +27,6 @@ namespace RAT
     omp_init_nest_lock(&emlrtNestLockGlobal);
     savedTime_not_empty_init();
     freq_not_empty_init();
-    lastNchar_not_empty_init();
     DEBUG = 0.0;
     verbose = 1.0;
     helper_not_empty_init();

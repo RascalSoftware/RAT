@@ -11,7 +11,8 @@
 */
 enum class EventTypes {
   Message,
-  Plot
+  Plot,
+  Progress
 }; 
 
 
@@ -45,6 +46,12 @@ struct baseEvent {
 struct messageEvent : baseEvent {
     const char* msg;
     messageEvent(const char* msg) : baseEvent(EventTypes::Message), msg(msg) {}
+};
+
+struct progressEvent : baseEvent {
+    const char* msg;
+    double percent;
+    progressEvent(const char* msg, double percent) : baseEvent(EventTypes::Progress), msg(msg), percent(percent) {}
 };
 
 struct plotEvent : baseEvent {

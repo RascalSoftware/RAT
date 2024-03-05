@@ -42,10 +42,10 @@ namespace RAT
         array<cell_wrap_10, 2U> &domainSldProfiles, ::coder::array<cell_wrap_10,
         2U> &allLayers, ::coder::array<real_T, 1U> &allRoughs)
       {
-        ::coder::array<cell_wrap_17, 2U> outParameterisedLayers;
-        ::coder::array<cell_wrap_39, 1U> tempAllLayers;
-        ::coder::array<cell_wrap_39, 1U> tempLayerSlds;
-        ::coder::array<cell_wrap_39, 1U> tempSldProfiles;
+        ::coder::array<cell_wrap_19, 2U> outParameterisedLayers;
+        ::coder::array<cell_wrap_41, 1U> tempAllLayers;
+        ::coder::array<cell_wrap_41, 1U> tempLayerSlds;
+        ::coder::array<cell_wrap_41, 1U> tempSldProfiles;
         ::coder::array<real_T, 2U> a__6;
         ::coder::array<real_T, 2U> reflect1;
         ::coder::array<real_T, 2U> reflect2;

@@ -32,15 +32,15 @@
 // Function Declarations
 namespace RAT
 {
-  static void cast(const ::coder::array<cell_wrap_8, 1U> &t13_reflectivity,
-                   const ::coder::array<cell_wrap_8, 1U> &t13_simulation, const ::
-                   coder::array<cell_wrap_24, 1U> &t13_shiftedData, const ::
-                   coder::array<cell_wrap_10, 2U> &t13_layerSlds, const ::coder::
-                   array<cell_wrap_10, 2U> &t13_sldProfiles, const ::coder::
-                   array<cell_wrap_24, 2U> &t13_allLayers, const struct6_T
-                   *t13_calculationResults, const b_struct_T *t13_contrastParams,
-                   const ::coder::array<real_T, 2U> &t13_bestFitPars, const ::
-                   coder::array<cell_wrap_1, 1U> &t13_fitNames, struct5_T *b);
+  static void cast(const ::coder::array<cell_wrap_8, 1U> &t10_reflectivity,
+                   const ::coder::array<cell_wrap_8, 1U> &t10_simulation, const ::
+                   coder::array<cell_wrap_26, 1U> &t10_shiftedData, const ::
+                   coder::array<cell_wrap_10, 2U> &t10_layerSlds, const ::coder::
+                   array<cell_wrap_10, 2U> &t10_sldProfiles, const ::coder::
+                   array<cell_wrap_26, 2U> &t10_allLayers, const struct6_T
+                   *t10_calculationResults, const b_struct_T *t10_contrastParams,
+                   const ::coder::array<real_T, 2U> &t10_bestFitPars, const ::
+                   coder::array<cell_wrap_1, 1U> &t10_fitNames, struct5_T *b);
   static void cast(const f_struct_T *b, struct0_T *c);
   static void cast(const struct0_T *b, f_struct_T *c);
   static void cast(const cell_7 *b, cell_11 *c);
@@ -57,140 +57,140 @@ namespace RAT
 // Function Definitions
 namespace RAT
 {
-  static void cast(const ::coder::array<cell_wrap_8, 1U> &t13_reflectivity,
-                   const ::coder::array<cell_wrap_8, 1U> &t13_simulation, const ::
-                   coder::array<cell_wrap_24, 1U> &t13_shiftedData, const ::
-                   coder::array<cell_wrap_10, 2U> &t13_layerSlds, const ::coder::
-                   array<cell_wrap_10, 2U> &t13_sldProfiles, const ::coder::
-                   array<cell_wrap_24, 2U> &t13_allLayers, const struct6_T
-                   *t13_calculationResults, const b_struct_T *t13_contrastParams,
-                   const ::coder::array<real_T, 2U> &t13_bestFitPars, const ::
-                   coder::array<cell_wrap_1, 1U> &t13_fitNames, struct5_T *b)
+  static void cast(const ::coder::array<cell_wrap_8, 1U> &t10_reflectivity,
+                   const ::coder::array<cell_wrap_8, 1U> &t10_simulation, const ::
+                   coder::array<cell_wrap_26, 1U> &t10_shiftedData, const ::
+                   coder::array<cell_wrap_10, 2U> &t10_layerSlds, const ::coder::
+                   array<cell_wrap_10, 2U> &t10_sldProfiles, const ::coder::
+                   array<cell_wrap_26, 2U> &t10_allLayers, const struct6_T
+                   *t10_calculationResults, const b_struct_T *t10_contrastParams,
+                   const ::coder::array<real_T, 2U> &t10_bestFitPars, const ::
+                   coder::array<cell_wrap_1, 1U> &t10_fitNames, struct5_T *b)
   {
     int32_T b_loop_ub;
     int32_T i;
     int32_T i1;
     int32_T loop_ub;
-    b->reflectivity.set_size(t13_reflectivity.size(0));
-    loop_ub = t13_reflectivity.size(0);
+    b->reflectivity.set_size(t10_reflectivity.size(0));
+    loop_ub = t10_reflectivity.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->reflectivity[i] = t13_reflectivity[i];
+      b->reflectivity[i] = t10_reflectivity[i];
     }
 
-    b->simulation.set_size(t13_simulation.size(0));
-    loop_ub = t13_simulation.size(0);
+    b->simulation.set_size(t10_simulation.size(0));
+    loop_ub = t10_simulation.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->simulation[i] = t13_simulation[i];
+      b->simulation[i] = t10_simulation[i];
     }
 
-    b->shiftedData.set_size(t13_shiftedData.size(0));
-    loop_ub = t13_shiftedData.size(0);
+    b->shiftedData.set_size(t10_shiftedData.size(0));
+    loop_ub = t10_shiftedData.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->shiftedData[i] = t13_shiftedData[i];
+      b->shiftedData[i] = t10_shiftedData[i];
     }
 
-    b->layerSlds.set_size(t13_layerSlds.size(0), t13_layerSlds.size(1));
-    loop_ub = t13_layerSlds.size(1);
+    b->layerSlds.set_size(t10_layerSlds.size(0), t10_layerSlds.size(1));
+    loop_ub = t10_layerSlds.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = t13_layerSlds.size(0);
+      b_loop_ub = t10_layerSlds.size(0);
       for (i1 = 0; i1 < b_loop_ub; i1++) {
-        b->layerSlds[i1 + b->layerSlds.size(0) * i] = t13_layerSlds[i1 +
-          t13_layerSlds.size(0) * i];
+        b->layerSlds[i1 + b->layerSlds.size(0) * i] = t10_layerSlds[i1 +
+          t10_layerSlds.size(0) * i];
       }
     }
 
-    b->sldProfiles.set_size(t13_sldProfiles.size(0), t13_sldProfiles.size(1));
-    loop_ub = t13_sldProfiles.size(1);
+    b->sldProfiles.set_size(t10_sldProfiles.size(0), t10_sldProfiles.size(1));
+    loop_ub = t10_sldProfiles.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = t13_sldProfiles.size(0);
+      b_loop_ub = t10_sldProfiles.size(0);
       for (i1 = 0; i1 < b_loop_ub; i1++) {
-        b->sldProfiles[i1 + b->sldProfiles.size(0) * i] = t13_sldProfiles[i1 +
-          t13_sldProfiles.size(0) * i];
+        b->sldProfiles[i1 + b->sldProfiles.size(0) * i] = t10_sldProfiles[i1 +
+          t10_sldProfiles.size(0) * i];
       }
     }
 
-    b->allLayers.set_size(t13_allLayers.size(0), t13_allLayers.size(1));
-    loop_ub = t13_allLayers.size(1);
+    b->allLayers.set_size(t10_allLayers.size(0), t10_allLayers.size(1));
+    loop_ub = t10_allLayers.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = t13_allLayers.size(0);
+      b_loop_ub = t10_allLayers.size(0);
       for (i1 = 0; i1 < b_loop_ub; i1++) {
-        b->allLayers[i1 + b->allLayers.size(0) * i] = t13_allLayers[i1 +
-          t13_allLayers.size(0) * i];
+        b->allLayers[i1 + b->allLayers.size(0) * i] = t10_allLayers[i1 +
+          t10_allLayers.size(0) * i];
       }
     }
 
-    b->calculationResults = *t13_calculationResults;
-    b->contrastParams.ssubs.set_size(t13_contrastParams->ssubs.size(0));
-    loop_ub = t13_contrastParams->ssubs.size(0);
+    b->calculationResults = *t10_calculationResults;
+    b->contrastParams.ssubs.set_size(t10_contrastParams->ssubs.size(0));
+    loop_ub = t10_contrastParams->ssubs.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->contrastParams.ssubs[i] = t13_contrastParams->ssubs[i];
+      b->contrastParams.ssubs[i] = t10_contrastParams->ssubs[i];
     }
 
     b->contrastParams.backgroundParams.set_size
-      (t13_contrastParams->backgroundParams.size(0));
-    loop_ub = t13_contrastParams->backgroundParams.size(0);
+      (t10_contrastParams->backgroundParams.size(0));
+    loop_ub = t10_contrastParams->backgroundParams.size(0);
     for (i = 0; i < loop_ub; i++) {
       b->contrastParams.backgroundParams[i] =
-        t13_contrastParams->backgroundParams[i];
+        t10_contrastParams->backgroundParams[i];
     }
 
-    b->contrastParams.qzshifts.set_size(t13_contrastParams->qzshifts.size(0));
-    loop_ub = t13_contrastParams->qzshifts.size(0);
+    b->contrastParams.qzshifts.set_size(t10_contrastParams->qzshifts.size(0));
+    loop_ub = t10_contrastParams->qzshifts.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->contrastParams.qzshifts[i] = t13_contrastParams->qzshifts[i];
+      b->contrastParams.qzshifts[i] = t10_contrastParams->qzshifts[i];
     }
 
     b->contrastParams.scalefactors.set_size
-      (t13_contrastParams->scalefactors.size(0));
-    loop_ub = t13_contrastParams->scalefactors.size(0);
+      (t10_contrastParams->scalefactors.size(0));
+    loop_ub = t10_contrastParams->scalefactors.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->contrastParams.scalefactors[i] = t13_contrastParams->scalefactors[i];
+      b->contrastParams.scalefactors[i] = t10_contrastParams->scalefactors[i];
     }
 
-    b->contrastParams.bulkIn.set_size(t13_contrastParams->bulkIn.size(0));
-    loop_ub = t13_contrastParams->bulkIn.size(0);
+    b->contrastParams.bulkIn.set_size(t10_contrastParams->bulkIn.size(0));
+    loop_ub = t10_contrastParams->bulkIn.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->contrastParams.bulkIn[i] = t13_contrastParams->bulkIn[i];
+      b->contrastParams.bulkIn[i] = t10_contrastParams->bulkIn[i];
     }
 
-    b->contrastParams.bulkOut.set_size(t13_contrastParams->bulkOut.size(0));
-    loop_ub = t13_contrastParams->bulkOut.size(0);
+    b->contrastParams.bulkOut.set_size(t10_contrastParams->bulkOut.size(0));
+    loop_ub = t10_contrastParams->bulkOut.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->contrastParams.bulkOut[i] = t13_contrastParams->bulkOut[i];
+      b->contrastParams.bulkOut[i] = t10_contrastParams->bulkOut[i];
     }
 
     b->contrastParams.resolutionParams.set_size
-      (t13_contrastParams->resolutionParams.size(0));
-    loop_ub = t13_contrastParams->resolutionParams.size(0);
+      (t10_contrastParams->resolutionParams.size(0));
+    loop_ub = t10_contrastParams->resolutionParams.size(0);
     for (i = 0; i < loop_ub; i++) {
       b->contrastParams.resolutionParams[i] =
-        t13_contrastParams->resolutionParams[i];
+        t10_contrastParams->resolutionParams[i];
     }
 
-    b->contrastParams.allSubRough.set_size(t13_contrastParams->allSubRough.size
+    b->contrastParams.allSubRough.set_size(t10_contrastParams->allSubRough.size
       (0));
-    loop_ub = t13_contrastParams->allSubRough.size(0);
+    loop_ub = t10_contrastParams->allSubRough.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->contrastParams.allSubRough[i] = t13_contrastParams->allSubRough[i];
+      b->contrastParams.allSubRough[i] = t10_contrastParams->allSubRough[i];
     }
 
-    b->contrastParams.resample.set_size(1, t13_contrastParams->resample.size(1));
-    loop_ub = t13_contrastParams->resample.size(1);
+    b->contrastParams.resample.set_size(1, t10_contrastParams->resample.size(1));
+    loop_ub = t10_contrastParams->resample.size(1);
     for (i = 0; i < loop_ub; i++) {
       b->contrastParams.resample[b->contrastParams.resample.size(0) * i] =
-        t13_contrastParams->resample[i];
+        t10_contrastParams->resample[i];
     }
 
-    b->bestFitPars.set_size(1, t13_bestFitPars.size(1));
-    loop_ub = t13_bestFitPars.size(1);
+    b->bestFitPars.set_size(1, t10_bestFitPars.size(1));
+    loop_ub = t10_bestFitPars.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b->bestFitPars[b->bestFitPars.size(0) * i] = t13_bestFitPars[i];
+      b->bestFitPars[b->bestFitPars.size(0) * i] = t10_bestFitPars[i];
     }
 
-    b->fitNames.set_size(t13_fitNames.size(0));
-    loop_ub = t13_fitNames.size(0);
+    b->fitNames.set_size(t10_fitNames.size(0));
+    loop_ub = t10_fitNames.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->fitNames[i] = t13_fitNames[i];
+      b->fitNames[i] = t10_fitNames[i];
     }
   }
 
@@ -715,17 +715,17 @@ namespace RAT
     static f_struct_T b_problemStruct;
     static f_struct_T r;
     static j_struct_T b_bayesResults;
-    ::coder::array<cell_wrap_1, 1U> t22_fitNames;
-    ::coder::array<cell_wrap_10, 2U> t22_layerSlds;
-    ::coder::array<cell_wrap_10, 2U> t22_sldProfiles;
-    ::coder::array<cell_wrap_24, 2U> t22_allLayers;
-    ::coder::array<cell_wrap_24, 1U> t22_shiftedData;
-    ::coder::array<cell_wrap_8, 1U> t22_reflectivity;
-    ::coder::array<cell_wrap_8, 1U> t22_simulation;
-    ::coder::array<real_T, 2U> t22_bestFitPars;
-    b_struct_T t22_contrastParams;
+    ::coder::array<cell_wrap_1, 1U> t19_fitNames;
+    ::coder::array<cell_wrap_10, 2U> t19_layerSlds;
+    ::coder::array<cell_wrap_10, 2U> t19_sldProfiles;
+    ::coder::array<cell_wrap_26, 2U> t19_allLayers;
+    ::coder::array<cell_wrap_26, 1U> t19_shiftedData;
+    ::coder::array<cell_wrap_8, 1U> t19_reflectivity;
+    ::coder::array<cell_wrap_8, 1U> t19_simulation;
+    ::coder::array<real_T, 2U> t19_bestFitPars;
+    b_struct_T t19_contrastParams;
     cell_11 r1;
-    struct6_T t22_calculationResults;
+    struct6_T t19_calculationResults;
     int32_T switch_expression_size[2];
     int32_T b_loop_ub;
     int32_T c_loop_ub;
@@ -740,13 +740,13 @@ namespace RAT
     makeEmptyResultStruct(problemStruct->numberOfContrasts, static_cast<real_T>
                           (coder::internal::intlength
       (problemStruct->fitParams.size(0), problemStruct->fitParams.size(1))),
-                          domains, t22_reflectivity, t22_simulation,
-                          t22_shiftedData, t22_layerSlds, t22_sldProfiles,
-                          t22_allLayers, &t22_calculationResults,
-                          &t22_contrastParams, t22_bestFitPars, t22_fitNames);
-    cast(t22_reflectivity, t22_simulation, t22_shiftedData, t22_layerSlds,
-         t22_sldProfiles, t22_allLayers, &t22_calculationResults,
-         &t22_contrastParams, t22_bestFitPars, t22_fitNames, result);
+                          domains, t19_reflectivity, t19_simulation,
+                          t19_shiftedData, t19_layerSlds, t19_sldProfiles,
+                          t19_allLayers, &t19_calculationResults,
+                          &t19_contrastParams, t19_bestFitPars, t19_fitNames);
+    cast(t19_reflectivity, t19_simulation, t19_shiftedData, t19_layerSlds,
+         t19_sldProfiles, t19_allLayers, &t19_calculationResults,
+         &t19_contrastParams, t19_bestFitPars, t19_fitNames, result);
     makeEmptyBayesResultsStruct(problemStruct->numberOfContrasts, domains,
       controls->nChains, bayesResults->bestFitsMean.ref,
       bayesResults->bestFitsMean.sld, &bayesResults->bestFitsMean.chi,

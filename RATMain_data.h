@@ -22,8 +22,6 @@ namespace RAT
   extern uint32_T state[625];
   extern real_T verbose;
   extern real_T DEBUG;
-  extern real_T lastNchar;
-  extern boolean_T lastNchar_not_empty;
   extern real_T freq;
   extern boolean_T freq_not_empty;
   extern omp_nest_lock_t emlrtNestLockGlobal;

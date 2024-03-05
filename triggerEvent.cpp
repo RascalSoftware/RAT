@@ -23,6 +23,7 @@
 namespace RAT
 {
   static boolean_T notified;
+  static eventHelper helper;
   static boolean_T helper_not_empty;
 }
 
@@ -31,15 +32,15 @@ namespace RAT
 {
   static void b_packCellArray(const ::coder::array<cell_wrap_10, 2U> &cellArray,
     ::coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &counts);
-  static void b_packCellArray(const ::coder::array<cell_wrap_24, 2U> &cellArray,
+  static void b_packCellArray(const ::coder::array<cell_wrap_26, 2U> &cellArray,
     ::coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &counts);
   static void packCellArray(const ::coder::array<cell_wrap_8, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &counts);
-  static void packCellArray(const ::coder::array<cell_wrap_24, 1U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_26, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &counts);
   static void packCellArray(const ::coder::array<cell_wrap_10, 2U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &counts);
-  static void packCellArray(const ::coder::array<cell_wrap_24, 2U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_26, 2U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &counts);
 }
 
@@ -99,7 +100,7 @@ namespace RAT
     }
   }
 
-  static void b_packCellArray(const ::coder::array<cell_wrap_24, 2U> &cellArray,
+  static void b_packCellArray(const ::coder::array<cell_wrap_26, 2U> &cellArray,
     ::coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &counts)
   {
     real_T rowSize;
@@ -202,7 +203,7 @@ namespace RAT
     }
   }
 
-  static void packCellArray(const ::coder::array<cell_wrap_24, 1U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_26, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &counts)
   {
     real_T rowSize;
@@ -305,7 +306,7 @@ namespace RAT
     }
   }
 
-  static void packCellArray(const ::coder::array<cell_wrap_24, 2U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_26, 2U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &counts)
   {
     real_T rowSize;
@@ -356,24 +357,72 @@ namespace RAT
     }
   }
 
+  void b_triggerEvent()
+  {
+    ::coder::array<char_T, 2U> path;
+    ::coder::array<char_T, 2U> r;
+    char_T b_cv[4];
+    boolean_T initialised;
+
+    //  Triggers the event type with the given varargin. The supported event types are
+    //  0, 1, and 2.
+    //  * The input for the message event is a char array,
+    //  * The input for the plot event are the result struct and problem struct
+    //  * The input for progress events are the message (char array) and
+    //    percentage progress expressed as a decimal (i.e., between 0 and 1).
+    //
+    //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
+    //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
+    if (!helper_not_empty) {
+      int32_T loop_ub;
+
+      //  Declaration for coder
+      helper_not_empty = true;
+
+      //  Make an instance
+      helper = eventHelper();
+      coder::b_getenv(r);
+      path.set_size(1, r.size(1) + 1);
+      loop_ub = r.size(1);
+      for (int32_T i{0}; i < loop_ub; i++) {
+        path[i] = r[i];
+      }
+
+      path[r.size(1)] = '\x00';
+      std::mem_fn(&eventHelper::init)(helper, &path[0]);
+    }
+
+    initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
+    if (initialised) {
+      b_cv[0] = 'e';
+      b_cv[1] = 'n';
+      b_cv[2] = 'd';
+      b_cv[3] = '\x00';
+      std::mem_fn(&eventHelper::updateProgress)(helper, &b_cv[0], 1.0);
+      notified = false;
+
+      //  This avoids printing the error message multiple times during the optimization.
+    } else if (!notified) {
+      fprintf(stderr,
+              "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+      fflush(stderr);
+      notified = true;
+    }
+  }
+
   void helper_not_empty_init()
   {
     helper_not_empty = false;
   }
 
-  void triggerEvent(const ::coder::array<cell_wrap_8, 1U> &data_f1_reflectivity,
-                    const ::coder::array<cell_wrap_24, 1U> &data_f1_shiftedData,
-                    const ::coder::array<cell_wrap_10, 2U> &data_f1_sldProfiles,
-                    const ::coder::array<cell_wrap_24, 2U> &data_f1_allLayers,
-                    const ::coder::array<real_T, 1U>
-                    &data_f1_contrastParams_ssubs, const char_T data_f2_TF_data[],
-                    const int32_T data_f2_TF_size[2], const ::coder::array<
-                    real_T, 2U> &data_f2_resample, const ::coder::array<real_T,
-                    2U> &data_f2_dataPresent, const char_T
-                    data_f2_modelType_data[], const int32_T
-                    data_f2_modelType_size[2])
+  void triggerEvent(const struct5_T *varargin_1, const char_T
+                    varargin_2_TF_data[], const int32_T varargin_2_TF_size[2],
+                    const ::coder::array<real_T, 2U> &varargin_2_resample, const
+                    ::coder::array<real_T, 2U> &varargin_2_dataPresent, const
+                    char_T varargin_2_modelType_data[], const int32_T
+                    varargin_2_modelType_size[2])
   {
-    static eventHelper helper;
     ::coder::array<real_T, 2U> b_nSldProfiles2;
     ::coder::array<real_T, 2U> dataPresent;
     ::coder::array<real_T, 2U> layers2;
@@ -398,11 +447,16 @@ namespace RAT
     char_T modelType_data[10001];
     boolean_T initialised;
 
-    //  Triggers the event type with the given data. The supported event types are
-    //  'message' and 'plot'. The data for message is a char array while for
-    //  the plot it is a cell array containing the result and problem structs
+    //  Triggers the event type with the given varargin. The supported event types are
+    //  0, 1, and 2.
+    //  * The input for the message event is a char array,
+    //  * The input for the plot event are the result struct and problem struct
+    //  * The input for progress events are the message (char array) and
+    //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
-    //  triggerEvent('message', 'Hello world');
+    //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
+    //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       //  Declaration for coder
       helper_not_empty = true;
@@ -425,17 +479,17 @@ namespace RAT
       boolean_T hasPlotHandler;
       hasPlotHandler = std::mem_fn(&eventHelper::hasPlotHandler)(helper);
       if (hasPlotHandler) {
-        ssubs.set_size(data_f1_contrastParams_ssubs.size(0));
-        loop_ub = data_f1_contrastParams_ssubs.size(0);
+        ssubs.set_size(varargin_1->contrastParams.ssubs.size(0));
+        loop_ub = varargin_1->contrastParams.ssubs.size(0);
         for (i = 0; i < loop_ub; i++) {
-          ssubs[i] = data_f1_contrastParams_ssubs[i];
+          ssubs[i] = varargin_1->contrastParams.ssubs[i];
         }
 
-        packCellArray(data_f1_reflectivity, reflect, nReflect);
-        packCellArray(data_f1_shiftedData, shiftedData, nShiftedData);
-        packCellArray(data_f1_sldProfiles, sldProfiles, nSldProfiles);
-        packCellArray(data_f1_allLayers, layers, nLayers);
-        if (coder::internal::i_strcmp(data_f2_TF_data, data_f2_TF_size)) {
+        packCellArray(varargin_1->reflectivity, reflect, nReflect);
+        packCellArray(varargin_1->shiftedData, shiftedData, nShiftedData);
+        packCellArray(varargin_1->sldProfiles, sldProfiles, nSldProfiles);
+        packCellArray(varargin_1->allLayers, layers, nLayers);
+        if (coder::internal::i_strcmp(varargin_2_TF_data, varargin_2_TF_size)) {
           i = 0;
         } else {
           i = -1;
@@ -445,7 +499,8 @@ namespace RAT
          case 0:
           {
             int32_T i1;
-            b_packCellArray(data_f1_sldProfiles, b_sldProfiles2, nSldProfiles2);
+            b_packCellArray(varargin_1->sldProfiles, b_sldProfiles2,
+                            nSldProfiles2);
             loop_ub = b_sldProfiles2.size(0);
             sldProfiles2.set_size(b_sldProfiles2.size(0), 1);
             for (i = 0; i < 1; i++) {
@@ -462,7 +517,7 @@ namespace RAT
               }
             }
 
-            b_packCellArray(data_f1_allLayers, b_sldProfiles2, nSldProfiles2);
+            b_packCellArray(varargin_1->allLayers, b_sldProfiles2, nSldProfiles2);
             loop_ub = b_sldProfiles2.size(0);
             layers2.set_size(b_sldProfiles2.size(0), 1);
             for (i = 0; i < 1; i++) {
@@ -489,34 +544,148 @@ namespace RAT
           break;
         }
 
-        loop_ub = data_f2_modelType_size[1];
+        loop_ub = varargin_2_modelType_size[1];
         if (0 <= loop_ub - 1) {
-          std::copy(&data_f2_modelType_data[0], &data_f2_modelType_data[loop_ub],
-                    &modelType_data[0]);
+          std::copy(&varargin_2_modelType_data[0],
+                    &varargin_2_modelType_data[loop_ub], &modelType_data[0]);
         }
 
-        modelType_data[data_f2_modelType_size[1]] = '\x00';
-        resample.set_size(1, data_f2_resample.size(1));
-        loop_ub = data_f2_resample.size(1);
+        modelType_data[varargin_2_modelType_size[1]] = '\x00';
+        resample.set_size(1, varargin_2_resample.size(1));
+        loop_ub = varargin_2_resample.size(1);
         for (i = 0; i < loop_ub; i++) {
-          resample[i] = data_f2_resample[i];
+          resample[i] = varargin_2_resample[i];
         }
 
-        dataPresent.set_size(1, data_f2_dataPresent.size(1));
-        loop_ub = data_f2_dataPresent.size(1);
+        dataPresent.set_size(1, varargin_2_dataPresent.size(1));
+        loop_ub = varargin_2_dataPresent.size(1);
         for (i = 0; i < loop_ub; i++) {
-          dataPresent[i] = data_f2_dataPresent[i];
+          dataPresent[i] = varargin_2_dataPresent[i];
         }
 
         std::mem_fn(&eventHelper::updatePlot)(helper, static_cast<real_T>
-          (data_f1_reflectivity.size(0)), &(reflect.data())[0], &(nReflect.data())
-          [0], &(shiftedData.data())[0], &(nShiftedData.data())[0],
-          &(sldProfiles.data())[0], &(nSldProfiles.data())[0], &(layers.data())
-          [0], &(nLayers.data())[0], &sldProfiles2[0], &b_nSldProfiles2[0],
-          &layers2[0], &nLayers2[0], &(ssubs.data())[0], &resample[0],
-          &dataPresent[0], &modelType_data[0]);
+          (varargin_1->reflectivity.size(0)), &(reflect.data())[0],
+          &(nReflect.data())[0], &(shiftedData.data())[0], &(nShiftedData.data())
+          [0], &(sldProfiles.data())[0], &(nSldProfiles.data())[0],
+          &(layers.data())[0], &(nLayers.data())[0], &sldProfiles2[0],
+          &b_nSldProfiles2[0], &layers2[0], &nLayers2[0], &(ssubs.data())[0],
+          &resample[0], &dataPresent[0], &modelType_data[0]);
         notified = false;
       }
+
+      //  This avoids printing the error message multiple times during the optimization.
+    } else if (!notified) {
+      fprintf(stderr,
+              "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+      fflush(stderr);
+      notified = true;
+    }
+  }
+
+  void triggerEvent()
+  {
+    static const char_T b_cv1[5]{ "init" };
+
+    ::coder::array<char_T, 2U> path;
+    ::coder::array<char_T, 2U> r;
+    int32_T i;
+    char_T b_cv[5];
+    boolean_T initialised;
+
+    //  Triggers the event type with the given varargin. The supported event types are
+    //  0, 1, and 2.
+    //  * The input for the message event is a char array,
+    //  * The input for the plot event are the result struct and problem struct
+    //  * The input for progress events are the message (char array) and
+    //    percentage progress expressed as a decimal (i.e., between 0 and 1).
+    //
+    //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
+    //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
+    if (!helper_not_empty) {
+      int32_T loop_ub;
+
+      //  Declaration for coder
+      helper_not_empty = true;
+
+      //  Make an instance
+      helper = eventHelper();
+      coder::b_getenv(r);
+      path.set_size(1, r.size(1) + 1);
+      loop_ub = r.size(1);
+      for (i = 0; i < loop_ub; i++) {
+        path[i] = r[i];
+      }
+
+      path[r.size(1)] = '\x00';
+      std::mem_fn(&eventHelper::init)(helper, &path[0]);
+    }
+
+    initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
+    if (initialised) {
+      for (i = 0; i < 5; i++) {
+        b_cv[i] = b_cv1[i];
+      }
+
+      std::mem_fn(&eventHelper::updateProgress)(helper, &b_cv[0], 0.0);
+      notified = false;
+
+      //  This avoids printing the error message multiple times during the optimization.
+    } else if (!notified) {
+      fprintf(stderr,
+              "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+      fflush(stderr);
+      notified = true;
+    }
+  }
+
+  void triggerEvent(real_T varargin_2)
+  {
+    static const char_T b_cv1[8]{ "DREAM: " };
+
+    ::coder::array<char_T, 2U> path;
+    ::coder::array<char_T, 2U> r;
+    int32_T i;
+    char_T b_cv[8];
+    boolean_T initialised;
+
+    //  Triggers the event type with the given varargin. The supported event types are
+    //  0, 1, and 2.
+    //  * The input for the message event is a char array,
+    //  * The input for the plot event are the result struct and problem struct
+    //  * The input for progress events are the message (char array) and
+    //    percentage progress expressed as a decimal (i.e., between 0 and 1).
+    //
+    //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
+    //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
+    if (!helper_not_empty) {
+      int32_T loop_ub;
+
+      //  Declaration for coder
+      helper_not_empty = true;
+
+      //  Make an instance
+      helper = eventHelper();
+      coder::b_getenv(r);
+      path.set_size(1, r.size(1) + 1);
+      loop_ub = r.size(1);
+      for (i = 0; i < loop_ub; i++) {
+        path[i] = r[i];
+      }
+
+      path[r.size(1)] = '\x00';
+      std::mem_fn(&eventHelper::init)(helper, &path[0]);
+    }
+
+    initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
+    if (initialised) {
+      for (i = 0; i < 8; i++) {
+        b_cv[i] = b_cv1[i];
+      }
+
+      std::mem_fn(&eventHelper::updateProgress)(helper, &b_cv[0], varargin_2);
+      notified = false;
 
       //  This avoids printing the error message multiple times during the optimization.
     } else if (!notified) {

@@ -57,12 +57,12 @@ bayesResults.res = output.results;
 bayesResults.chain = output.chain;
 bayesResults.s2chain = output.s2chain;
 bayesResults.sschain = output.sschain;
-bayesResults.bestPars = output.bestPars;
+bayesResults.bestParams = output.bestParams;
 bayesResults.bayesData = output.data;
 bayesResults.bestFits = output.bestFits;
-bayesResults.predlims = output.predlims;
+bayesResults.predictionIntervals = output.predictionIntervals;
 
-problemStruct.fitParams = output.bestPars;
+problemStruct.fitParams = output.bestParams;
 problemStruct = unpackParams(problemStruct,controls);
 result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 

@@ -9,25 +9,25 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     % 
     %   struct with fields:
     % 
-    %     bestFitsMean: [1×1 struct]
-    %         predlims: [1×1 struct]
-    %      parConfInts: [1×1 struct]
-    %         bestPars: [1xnParams double]
-    %        allChains: [1×1 struct]
-    %      dreamParams: [1×1 struct]
-    %      dreamOutput: [1×1 struct]
-    %       nestOutput: [1×1 struct]
-    %            chain: [1000000xnParams double]
+    %         bestFitMean: [1×1 struct]
+    % predictionIntervals: [1×1 struct]
+    % confidenceIntervals: [1×1 struct]
+    %          bestParams: [1xnParams double]
+    %           allChains: [1×1 struct]
+    %         dreamParams: [1×1 struct]
+    %         dreamOutput: [1×1 struct]
+    % nestedSamplerOutput: [1×1 struct]
+    %               chain: [1000000xnParams double]
     
     % -----------------------------------------------------------
     % Make the individual structs....
-    % (1) bayesResults.bestFitsMean
+    % (1) bayesResults.bestFitMean
     
-    ref = cell(nContrasts, 1);
-    refCell = [1 1 1];
-    coder.varsize('refCell',[1e7 4],[1 1]);
+    reflectivity = cell(nContrasts, 1);
+    reflectivityCell = [1 1 1];
+    coder.varsize('reflectivityCell',[1e7 4],[1 1]);
     for i = 1:nContrasts
-        ref{i} = refCell;
+        reflectivity{i} = reflectivityCell;
     end
     
     if isDomains
@@ -56,84 +56,86 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
         data{i} = dataCell;
     end
     
-    bestFitsMean = struct('ref',{ref},'sld',{sld},'chi',chi,'data',{data});
+    bestFitMean = struct('reflectivity',{reflectivity},'sld',{sld},'chi',chi,'data',{data});
     
     % --------------------------------------------------------------------
-    % (2) bayesResults.predlims
+    % (2) bayesResults.predictionIntervals
     
-    refPredInts = cell(nContrasts,1);
-    refPredIntsCell = [1 1 1];
-    coder.varsize('refPredIntsCell',[5 1e4],[1 1]);
+    reflectivityIntervals = cell(nContrasts,1);
+    reflectivityIntervalsCell = [1 1 1];
+    coder.varsize('reflectivityIntervalsCell',[5 1e4],[1 1]);
     for i = 1:nContrasts
-        refPredInts{i} = refPredIntsCell;
+        reflectivityIntervals{i} = reflectivityIntervalsCell;
     end
 
     if isDomains
-        sldPredInts = cell(nContrasts,2);
-        sldPredIntsCell = [1 1 1];
-        coder.varsize('sldPredIntsCell',[5 1e4],[1 1]);
+        sldIntervals = cell(nContrasts,2);
+        sldIntervalsCell = [1 1 1];
+        coder.varsize('sldIntervalsCell',[5 1e4],[1 1]);
         for i = 1:nContrasts
-            sldPredInts{i,1} = sldPredIntsCell;
-            sldPredInts{i,2} = sldPredIntsCell;
+            sldIntervals{i,1} = sldIntervalsCell;
+            sldIntervals{i,2} = sldIntervalsCell;
         end
     else
-        sldPredInts = cell(nContrasts,1);
-        sldPredIntsCell = [1 1 1];
-        coder.varsize('sldPredIntsCell',[5 1e4],[1 1]);
+        sldIntervals = cell(nContrasts,1);
+        sldIntervalsCell = [1 1 1];
+        coder.varsize('sldIntervalsCell',[5 1e4],[1 1]);
         for i = 1:nContrasts
-            sldPredInts{i} = sldPredIntsCell;
+            sldIntervals{i} = sldIntervalsCell;
         end
     end
     
-    refXdata = cell(nContrasts,1);
+    reflectivityXData = cell(nContrasts,1);
     xDataCell = [1 1 1];
     coder.varsize('xDataCell',[1e4 1e4],[1 1]);
     for i = 1:nContrasts
-        refXdata{i} = xDataCell;
+        reflectivityXData{i} = xDataCell;
     end
     
     if isDomains
-        sldXdata = cell(nContrasts,2);
-        sldDataCell = [1 1 1; 1 1 1];
-        coder.varsize('sldDataCell',[2 1e4],[1 1]); 
+        sldXData = cell(nContrasts,2);
+        sldXDataCell = [1 1 1; 1 1 1];
+        coder.varsize('sldXDataCell',[2 1e4],[1 1]); 
         for i = 1:nContrasts
-            sldXdata{i,1} = sldDataCell;
-            sldXdata{i,2} = sldDataCell;
+            sldXData{i,1} = sldXDataCell;
+            sldXData{i,2} = sldXDataCell;
         end
     else
-        sldXdata = cell(nContrasts,1);
-        sldDataCell = [1 1 1];
-        coder.varsize('sldDataCell',[2 1e4],[1 1]);
+        sldXData = cell(nContrasts,1);
+        sldXDataCell = [1 1 1];
+        coder.varsize('sldXDataCell',[2 1e4],[1 1]);
         for i = 1:nContrasts
-            sldXdata{i} = sldDataCell;
+            sldXData{i} = sldXDataCell;
         end
     end
     
     sampleChi = zeros(1,1);
     coder.varsize('sampleChi',[1e7 1],[1 0]);
     
-    predlims = struct('refPredInts',{refPredInts},'sldPredInts',{sldPredInts},...
-        'refXdata',{refXdata},'sldXdata',{sldXdata},'sampleChi',sampleChi);
+    predictionIntervals = struct('reflectivity',{reflectivityIntervals}, ...
+        'sld',{sldIntervals},'reflectivityXData',{reflectivityXData}, ...
+        'sldXData',{sldXData},'sampleChi',sampleChi);
     
     % ------------------------------------------------------------------
-    % (3) bayesResults.parConfInts
+    % (3) bayesResults.confidenceIntervals
     
-    par95 = zeros(2,1);
-    coder.varsize('par95',[2 1e3],[0 1]);
+    percentile95 = zeros(2,1);
+    coder.varsize('percentile95',[2 1e3],[0 1]);
     
-    par65 = zeros(2,1);
-    coder.varsize('par65',[2 1e3],[0 1]);
+    percentile65 = zeros(2,1);
+    coder.varsize('percentile65',[2 1e3],[0 1]);
     
     mean = zeros(1,1);
     coder.varsize('mean',[1 1e3],[0 1]);
     
-    parConfInts = struct('par95',par95,'par65',par65,'mean',mean);
+    confidenceIntervals = struct('percentile95',percentile95, ...
+        'percentile65',percentile65,'mean',mean);
     
     % -------------------------------------------------------------------
-    % (4) bayesResults.bestPars
+    % (4) bayesResults.bestParams
     
-    bestPars = 1;
-    coder.varsize('bestPars',[1 1e3],[0 1]);
+    bestParams = 1;
+    coder.varsize('bestParams',[1 1e3],[0 1]);
 
     % -------------------------------------------------------------------
     % (5) bayesResults.allChains
@@ -188,7 +190,7 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     coder.varsize('CR',[1e3 1e3],[1 1]);
     
     dreamOutput = struct('outlier', outlier,...
-                         'RunTime', 100,...
+                         'runtime', 100,...
                        'iteration', iteration,...
                             'iloc', iloc,...
                               'fx', 0,...
@@ -197,7 +199,7 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
                               'CR', CR);
     
     % -------------------------------------------------------------------
-    % (8) bayesResults.nestOutput
+    % (8) bayesResults.nestedSamplerOutput
     
     % Nested Sampler
     LogZ = 0;
@@ -208,7 +210,7 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     postSamples = [0 0];
     coder.varsize('postSamples');
     
-    nestOutput = struct('LogZ',LogZ,'nestSamples',...
+    nestedSamplerOutput = struct('LogZ',LogZ,'nestSamples',...
         nestSamples,'postSamples',postSamples);
     
     % ------------------------------------------------------------------
@@ -219,14 +221,14 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     
     % -------------------------------------------------------------------
     % Make the final structure...
-    bayesResults = struct('bestFitsMean',bestFitsMean,...
-                          'predlims', predlims,...
-                          'parConfInts', parConfInts,...
-                          'bestPars', bestPars,...
+    bayesResults = struct('bestFitMean',bestFitMean,...
+                          'predictionIntervals', predictionIntervals,...
+                          'confidenceIntervals', confidenceIntervals,...
+                          'bestParams', bestParams,...
                           'allChains', allChains,...
                           'dreamParams', dreamParams,...
                           'dreamOutput', dreamOutput,...
-                          'nestOutput', nestOutput,...
+                          'nestedSamplerOutput', nestedSamplerOutput,...
                           'chain',chain);
 
 end

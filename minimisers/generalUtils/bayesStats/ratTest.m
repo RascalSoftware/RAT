@@ -14,7 +14,7 @@ results = testProb.results;
 bayesResults = testProb.bayesResults;
 controls = testProb.controls;
 
-fitParams = bayesResults.bestPars;
+fitParams = bayesResults.bestParams;
 
 problemCells = ratInputs.problemCells;
 problemLimits = ratInputs.problemLimits;

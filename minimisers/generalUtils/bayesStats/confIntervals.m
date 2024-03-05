@@ -1,4 +1,4 @@
-function paramIntervals = confIntervals(chain, bestPars, predInt)
+function paramIntervals = confIntervals(chain, bestParams, predInt)
 
 numberOfParams = size(chain,2);
 type = 'iter';
@@ -7,10 +7,10 @@ type = 'iter';
 switch type
     case 'CDF'
         % (1) Use the CDF
-        paramIntervals = calcLimits(chain,numberOfParams,bestPars,predInt);
+        paramIntervals = calcLimits(chain,numberOfParams,bestParams,predInt);
     case 'iter'
         % (2) Use an iterative shortest interval
-        paramIntervals = iterShortest(chain,numberOfParams,bestPars,predInt);
+        paramIntervals = iterShortest(chain,numberOfParams,bestParams,predInt);
 end
 
 

@@ -1,13 +1,13 @@
-function parConfInts = prctileConfInts(chain)
+function confidenceIntervals = prctileConfInts(chain)
 
 CIFn = @(x,p)prctile(x,abs([0,100]-(100-p)/2));
 
-parInts_95 = CIFn(chain,95);
-parInts_65 = CIFn(chain,65);
-parInts_mean = mean(chain);
+percentile95 = CIFn(chain,95);
+percentile65 = CIFn(chain,65);
+meanValues = mean(chain);
 
-parConfInts.par95 = parInts_95;
-parConfInts.par65 = parInts_65;
-parConfInts.mean = parInts_mean;
+confidenceIntervals.percentile95 = percentile95;
+confidenceIntervals.percentile65 = percentile65;
+confidenceIntervals.mean = meanValues;
 
 end

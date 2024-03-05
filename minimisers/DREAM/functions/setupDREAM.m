@@ -79,7 +79,7 @@ outlier = [0 0];
 coder.varsize('outlier',[1e3 1e3],[1 1]);
 output.outlier = outlier;
 % ..also run time
-output.RunTime = 0;
+output.runtime = 0;
 output.DREAMPar = outDREAMPar; 
 output.Meas_info = Meas_info;
 output.iteration = 1;

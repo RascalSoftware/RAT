@@ -33,7 +33,7 @@ for i = 1:rows
     unscaledChain(i,:) = unscaledPars';
 end
 
-bayesOutputs.bestPars = mean(unscaledChain);
+bayesOutputs.bestParams = mean(unscaledChain);
 bayesOutputs.chain = unscaledChain;
 bayesOutputs.fitNames = fitNames;
 bayesOutputs.s2chain = [];

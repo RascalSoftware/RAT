@@ -42,9 +42,9 @@ data = {problemStruct ; controls ; problemLimits ; problemCells};
 nPars = length(fitNames);
 % chain = nest_samples(:,1:end-1);
 chain = postSamples(:,1:nPars);
-bestPars = mean(chain,1);
+bestParams = mean(chain,1);
 
-bayesOutputs.bestPars = mean(chain);
+bayesOutputs.bestParams = mean(chain);
 bayesOutputs.chain = chain;
 bayesOutputs.fitNames = fitNames;
 bayesOutputs.s2chain = [];
@@ -53,13 +53,13 @@ bayesOutputs.data = problemCells{2};
 
 [problemStruct,result,nestResults] = processBayes(bayesOutputs,problemStruct,problemCells,problemLimits,controls);
 
-bayesResults.predlims = nestResults.predlims;
-bayesResults.bestFitsMean = nestResults.bestFitsMean;
-bayesResults.parConfInts = nestResults.parConfInts;
-bayesResults.bestPars = bestPars;
+bayesResults.predictionIntervals = nestResults.predictionIntervals;
+bayesResults.bestFitMean = nestResults.bestFitMean;
+bayesResults.confidenceIntervals = nestResults.confidenceIntervals;
+bayesResults.bestParams = bestParams;
 bayesResults.chain = chain;
-bayesResults.nestOutput.LogZ = logZ;
-bayesResults.nestOutput.nestSamples = nestSamples;
-bayesResults.nestOutput.postSamples = postSamples;
+bayesResults.nestedSamplerOutput.LogZ = logZ;
+bayesResults.nestedSamplerOutput.nestSamples = nestSamples;
+bayesResults.nestedSamplerOutput.postSamples = postSamples;
 
 end

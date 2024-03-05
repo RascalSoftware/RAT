@@ -266,7 +266,7 @@ end
 % -------------------------------------------------------------------------
 
 % Determine total run time
-output.RunTime = toc;
+output.runtime = toc;
 
 % Variables have been pre-allocated --> need to remove zeros at end
 [chain,output,fx] = DREAMEnd(DREAMPar,Meas_info,chain,output,iteration,iloc,fid);

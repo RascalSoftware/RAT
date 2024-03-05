@@ -91,22 +91,22 @@ for i = 1:nChains
     collectChains = [collectChains ; thisChain];
 end
 
-bestPars = mean(collectChains);
+bestParams = mean(collectChains);
 output.results.outputDream = dreamOutput;
-output.bestPars = bestPars;
+output.bestParams = bestParams;
 output.chain = collectChains;
 
 [outProblemStruct,result,dreamResults] = processBayes(output,problemStruct,problemCells,problemLimits,controls);
 
 % Populate the output struct
-bayesResults.bestFitsMean = dreamResults.bestFitsMean;
-bayesResults.predlims = dreamResults.predlims;
-bayesResults.parConfInts = dreamResults.parConfInts;
-bayesResults.bestPars = bestPars;
+bayesResults.bestFitMean = dreamResults.bestFitMean;
+bayesResults.predictionIntervals = dreamResults.predictionIntervals;
+bayesResults.confidenceIntervals = dreamResults.confidenceIntervals;
+bayesResults.bestParams = bestParams;
 bayesResults.allChains = chain;
 bayesResults.dreamParams = dreamOutput.DREAMPar;
 
-fieldNames = {'outlier','RunTime','iteration','iloc','fx','AR','R_stat','CR'};
+fieldNames = {'outlier','runtime','iteration','iloc','fx','AR','R_stat','CR'};
 for i = 1:length(fieldNames)
     thisFieldName = fieldNames{i};
     bayesResults.dreamOutput.(thisFieldName) = dreamOutput.(thisFieldName);

@@ -2,7 +2,7 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     % A function to make an empty container to hold the results of bayes
     % calculations. The struct has the following format:
     %
-    % nPar = number of fitted parameters
+    % nParams = number of fitted parameters
     % nContrasts = number of contrasts
     %
     % bayesResults = 
@@ -12,9 +12,11 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     %     bestFitsMean: [1×1 struct]
     %         predlims: [1×1 struct]
     %      parConfInts: [1×1 struct]
-    %         bestPars: [1xnPars double]
-    %         bayesRes: [1×1 struct]
-    %            chain: [1000000xnPars double]
+    %         bestPars: [1xnParams double]
+    %        allChains: [1×1 struct]
+    %      dreamOutput: [1×1 struct]
+    %       nestOutput: [1×1 struct]
+    %            chain: [1000000xnParams double]
     
     % -----------------------------------------------------------
     % Make the individual structs....
@@ -133,7 +135,7 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     coder.varsize('bestPars',[1 1e3],[0 1]);
     
     % -------------------------------------------------------------------
-    % (5) bayesResults.bayesRes
+    % (5) bayesResults.dreamOutput
     
     outlier = [1 1];
     coder.varsize('outlier',[1e3 1e3],[1 1]);
@@ -146,7 +148,7 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
                  'T', 1000,...
           'parallel', false,...
                'CPU', 1,...
-            'lambda', 0.5000,...
+   'jumpProbability', 0.5000,...
         'pUnitGamma', 0.2000,...
                'nCR', 3,...
              'delta', 3,...
@@ -188,9 +190,14 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
             'R_stat', R_stat,...
             'CR',CR);
     
+    % -------------------------------------------------------------------
+    % (5) bayesResults.dreamOutput
     
     allChains = [1 1 1];
     coder.varsize('allChains',[1e4 50 50],[1 1 1]);
+
+    % -------------------------------------------------------------------
+    % (5) bayesResults.dreamOutput
     
     % Nested Sampler
     LogZ = 0;
@@ -204,10 +211,6 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     nestOutput = struct('LogZ',LogZ,'nestSamples',...
         nestSamples,'postSamples',postSamples);
     
-    bayesRes = struct('allChains', allChains,...
-                      'dreamOutput', dreamOutput,...
-                      'nestOutput', nestOutput);
-    
     % ------------------------------------------------------------------
     % (6) chain
     
@@ -220,6 +223,9 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
                           'predlims', predlims,...
                           'parConfInts', parConfInts,...
                           'bestPars', bestPars,...
-                          'bayesRes', bayesRes,...
+                          'allChains', allChains,...
+                          'dreamOutput', dreamOutput,...
+                          'nestOutput', nestOutput,...
                           'chain',chain);
+
 end

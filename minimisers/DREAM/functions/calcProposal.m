@@ -14,7 +14,7 @@ function [x_new,CR] = calcProposal(X,CR,DREAMPar,Table_gamma,Par_info)
 % % % D = rand(DREAMPar.N,DREAMPar.d);
 % % % 
 % % % % Ergodicity for each individual chain
-% % % noise_x = DREAMPar.lambda * (2 * rand(DREAMPar.N,DREAMPar.d) - 1);
+% % % noise_x = DREAMPar.jumpProbability * (2 * rand(DREAMPar.N,DREAMPar.d) - 1);
 % % % 
 % % % % Initialize the delta update to zero
 % % % delta_x = zeros(DREAMPar.N,DREAMPar.d);
@@ -106,8 +106,8 @@ DE_pairs = randsample( [1:DREAMPar.delta ] , DREAMPar.N , true , [ 1/DREAMPar.de
 rnd_cr = rand(DREAMPar.N,DREAMPar.d);
 
 % Ergodicity for each individual chain
-rnd_jump = DREAMPar.lambda * (2 * rand(DREAMPar.N,DREAMPar.d) - 1);
-%rnd_jump = DREAMPar.lambda * (2 * rand(DREAMPar.N,1) - 1);
+rnd_jump = DREAMPar.jumpProbability * (2 * rand(DREAMPar.N,DREAMPar.d) - 1);
+%rnd_jump = DREAMPar.jumpProbability * (2 * rand(DREAMPar.N,1) - 1);
 
 % Randomly permute numbers [1,...,N-1] N times
 [~,draw] = sort(rand(DREAMPar.N-1,DREAMPar.N));             

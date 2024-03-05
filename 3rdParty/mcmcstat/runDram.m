@@ -149,11 +149,9 @@ nsimu =  controls.nsimu;
 burnin = controls.burnin;
 adaptint = 100;%controls.adaptint;
 
-problem = {problemStruct ; controls ; problemLimits ; problemCells};
-
 output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 
-[problemStruct,result,bayesResults] = processBayes(output,problem);
+[problemStruct,result,bayesResults] = processBayes(output,problemStruct,problemCells,problemLimits,controls);
 
 % problemStruct.fitParams = bayesResults.bestPars_Mean;
 

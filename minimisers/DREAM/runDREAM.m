@@ -57,27 +57,26 @@ DREAMPar.parallel = false;
 DREAMPar.CPU = 1;
 
 % Jump probabilities...
-DREAMPar.lambda = controls.jumpProbability;
+DREAMPar.jumpProbability = controls.jumpProbability;
 DREAMPar.pUnitGamma = controls.pUnitGamma;
 DREAMPar.adaptPCR = controls.adaptPCR;
 
 % This will change...
 % Initial sampling and parameter range
-Par_info.prior = coderEnums.priorTypes.Uniform;           
-
-Par_info.min = problemStruct.fitLimits(:,1)';
-Par_info.max = problemStruct.fitLimits(:,2)';
-Par_info.boundhandling = controls.boundHandling;
+Par_info.prior = coderEnums.priorTypes.Uniform;
+ParInfo.min = problemStruct.fitLimits(:,1)';
+ParInfo.max = problemStruct.fitLimits(:,2)';
+ParInfo.boundhandling = controls.boundHandling;
 
 %if dreamC.prior
-    Par_info.mvnpdf = true;
+    ParInfo.mvnpdf = true;
 %end
 
 % Run the sampler....
 %[chain,output,fx] = rat_DREAM(DREAMPar,Par_info,[],ratInputs);
 %Func_name = @DREAMWrapper;
 Meas_info = struct('Y',0,'N',0);
-[chain,dreamOutput,~] = ratDREAM(DREAMPar,Par_info,Meas_info,ratInputs);
+[chain,dreamOutput,~] = ratDREAM(DREAMPar,ParInfo,Meas_info,ratInputs);
 
 % Combine all chains....
 nChains = DREAMPar.N;
@@ -97,34 +96,21 @@ for i = 1:nChains
     collectChains = [collectChains ; thisChain];
 end
 
-allProblem = cell(4,1);
-allProblem{1} = problemStruct;
-allProblem{2} = controls;
-allProblem{3} = problemLimits;
-allProblem{4} = problemCells;
-
 bestPars = mean(collectChains);
 output.results.outputDream = dreamOutput;
 output.bestPars = bestPars;
 output.chain = collectChains;
 
-[outProblemStruct,result,dreamResults] = processBayes(output,allProblem);
+[outProblemStruct,result,dreamResults] = processBayes(output,problemStruct,problemCells,problemLimits,controls);
 
 % Populate the output struct
-bayesResults.bayesRes.allChains = chain;
-bayesResults.bayesRes.dreamOutput = dreamOutput;
+bayesResults.allChains = chain;
+bayesResults.dreamOutput = dreamOutput;
 bayesResults.chain = collectChains;
 bayesResults.bestPars = bestPars;
 bayesResults.chain = collectChains;
-% bayesResults.bayesRes.allChains = chain;
 bayesResults.predlims = dreamResults.predlims;
 bayesResults.parConfInts = dreamResults.parConfInts;
 bayesResults.bestFitsMean = dreamResults.bestFitsMean;
-
-% These are not defined in makeEmptyBayesResultsStruct
-
-% bayesResults.bayesRes.DREAMPar = DREAMPar;
-% bayesResults.bayesRes.Meas_info = Meas_info;
-% bayesResults.bayesRes.dreamOutput = output;
 
 end

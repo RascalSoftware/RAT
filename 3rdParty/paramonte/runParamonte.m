@@ -110,10 +110,6 @@ pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective functi
 %     unscaledChain(i,:) = unscaledPars';
 % end
 % 
-% 
-% % problemStruct,problemCells,problemLimits,priors,controls
-% outProblem = {problemStruct ; controls ; problemLimits ; problemCells};
-% 
 % numberOfContrasts = problemStruct.numberOfContrasts;
 % data = cell(1,numberOfContrasts);
 % for i = 1:numberOfContrasts
@@ -130,7 +126,7 @@ pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective functi
 % output.bestPars = mean(unscaledChain);
 % output.data = data;
 % 
-% [problemStruct,result,bayesResults] = processBayes(output,outProblem);
+% [problemStruct,result,bayesResults] = processBayes(output,problemStruct,problemCells,problemLimits,controls);
 
 % pmpdOut = pmpd;
 

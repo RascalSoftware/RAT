@@ -203,10 +203,10 @@ else
     end
 end
 
-allPredInts.refPredInts = refErrors;
-allPredInts.sldPredInts = sldErrors;
-allPredInts.refXdata = refXVals;
-allPredInts.sldXdata = sldXVals;
+allPredInts.reflectivity = refErrors;
+allPredInts.sld = sldErrors;
+allPredInts.reflectivityXData = refXVals;
+allPredInts.sldXData = sldXVals;
 allPredInts.sampleChi = sampleChi;
 
 end

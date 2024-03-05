@@ -67,20 +67,15 @@ Par_info.prior = coderEnums.priorTypes.Uniform;
 ParInfo.min = problemStruct.fitLimits(:,1)';
 ParInfo.max = problemStruct.fitLimits(:,2)';
 ParInfo.boundhandling = controls.boundHandling;
+ParInfo.mvnpdf = true;
 
-%if dreamC.prior
-    ParInfo.mvnpdf = true;
-%end
 
 % Run the sampler....
-%[chain,output,fx] = rat_DREAM(DREAMPar,Par_info,[],ratInputs);
-%Func_name = @DREAMWrapper;
 Meas_info = struct('Y',0,'N',0);
 [chain,dreamOutput,~] = ratDREAM(DREAMPar,ParInfo,Meas_info,ratInputs);
 
 % Combine all chains....
 nChains = DREAMPar.N;
-lChains = DREAMPar.T;
 nPars = DREAMPar.d;
 
 collectChains = [];
@@ -104,13 +99,19 @@ output.chain = collectChains;
 [outProblemStruct,result,dreamResults] = processBayes(output,problemStruct,problemCells,problemLimits,controls);
 
 % Populate the output struct
-bayesResults.allChains = chain;
-bayesResults.dreamOutput = dreamOutput;
-bayesResults.chain = collectChains;
-bayesResults.bestPars = bestPars;
-bayesResults.chain = collectChains;
+bayesResults.bestFitsMean = dreamResults.bestFitsMean;
 bayesResults.predlims = dreamResults.predlims;
 bayesResults.parConfInts = dreamResults.parConfInts;
-bayesResults.bestFitsMean = dreamResults.bestFitsMean;
+bayesResults.bestPars = bestPars;
+bayesResults.allChains = chain;
+bayesResults.dreamParams = dreamOutput.DREAMPar;
+
+fieldNames = {'outlier','RunTime','iteration','iloc','fx','AR','R_stat','CR'};
+for i = 1:length(fieldNames)
+    thisFieldName = fieldNames{i};
+    bayesResults.dreamOutput.(thisFieldName) = dreamOutput.(thisFieldName);
+end
+
+bayesResults.chain = collectChains;
 
 end

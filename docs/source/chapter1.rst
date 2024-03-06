@@ -35,14 +35,22 @@ In the next section, we will look at an example calculation, in order to introdu
 * **Different model types?** - There are many possible types of model, and this is done by having more than one version of
     the *problemDef* class. These are (those in italics not initial release):
 
-    * Standard Problem: Problem types which are well described by a non-polarised beam, with no absorption (i.e., real refractive index only). 
-    * Standard Problem with Absorption
-    * Domains Problem Type
-    * *Oil/Water problem type*
-    * *Polarised problem type*
+    * Standard Problem: Problem types which are well described by a non-polarised beam, with no absorption (i.e., real refractive index only).
+    * Standard Problem with imaginary refractive index.
+    * Domains Problem Type ('incoherent summing').
+    * *Oil/Water problem type (phase 2)*
+    * *Polarised problem type (phase 2)*
 
 Within each problem class, there is the option of *Custom Layer* or *Custom XY* model definitions. These will be discussed in
 more detail in a later section.
+
+In this section we'll look at the project definition class in more detail, we'll see how we can use the class methods to build and modify a model, and how to carry out the analysis.
+
+.. note::
+    If you are a RasCAL1 user, you probably have existing RasCAL models that you would like to analyse using RAT. If so, there is no need to re-make the model from scratch. Instead, there are
+    conversion utilities (:ref:`conversionFuncs`). In fact, for those who prefer a graphical model builder, using the RasCAL1 GUI to build a basic model and then converting to RAT is a viable workflow.
+
+
 
 An example - A simple model of a lipid layer
 ============================================
@@ -84,8 +92,10 @@ discussed in chapter 2, but for now, we'll look at a pre-prepared example.
 
 
 .. image:: images/userManual/chapter1/lipidModel-1.png
+    :width: 700
     :alt: The lipid monolayer model output display (first half)
 .. image:: images/userManual/chapter1/lipidModel-2.png
+    :width: 700
     :alt: The lipid monolayer model output display (second half)
 
 This may initially look quite complicated, but it is fairly self-explanatory in terms of representing a typical RasCAL
@@ -98,7 +108,7 @@ SLD values for the layers, depending on whether they are deuterated or not. In t
 and their allowed ranges, and specify if they are included in the fit:-
 
 .. image:: images/userManual/chapter1/parameterGroup.png
-    :width: 400
+    :width: 500
     :alt: The parameter group
 
 2. **The Layers Group -** Once we have our parameters, we then need to group these into layers, in traditional RasCAL style.
@@ -106,6 +116,7 @@ For our model, we always have two layers - a headgroup and the associated tails.
 4 layers in total, sharing the parameters between the layers as necessary:
 
 .. image:: images/userManual/chapter1/layersGroup.png
+    :width: 900
     :alt: The layers group
 
 3. **'Instrument' Parameters: (Backgrounds, scalefactors and resolutions) -** These are necessary to specify our model, and are specified in much the same way as the parameters. The background and resolutions blocks have a more complicated format to allow flexibility in how these are specified, which will be discussed further in a later section. These are the parameters that appear in the *experimental Parameters* tab of the RasCAL model builder, and are subsequently included in the definitions of the contrasts at the end of the worksheet.
@@ -113,11 +124,13 @@ For our model, we always have two layers - a headgroup and the associated tails.
 4. **Data -** Each contrast has to have a dataset associated with it, whether or not it contains data or not. An empty data object (i.e. containing no data and just simulation ranges), means RAT will calculate the reflectivity only. When data is present, chi-squared will also be calculated. For our problem, we have two datasets and these are coded in to the data block ready to be incorporated into contrasts:
 
 .. image:: images/userManual/chapter1/dataGroup.png
+    :width: 900
     :alt: The data group
 
 5. **Contrasts -** Once we have defined all the components of our model, we need to group them together into contrasts. We have two datasets we want to consider, so two contrasts. We have the relevant instrument parameters, and also we specify which layers are included in each contrast (*model*). 
 
 .. image:: images/userManual/chapter1/contrastGroup.png
+    :width: 900
     :alt: The contrast group
 
 **(b) Running our Model.**
@@ -154,4 +167,8 @@ This contains the results of our calculations, so for us including the SLD profi
 
 We can see that our model is looking fairly sensible, but that our guess values for the parameters are pretty wide off the mark.
 
-To do something more than just simulating the reflectivity, we change the procedure we specify in the *controlsClass* class. At the moment, controls.procedure is set to **calculate**, which does a one-time calculation of the reflectivity given the current parameters only. To do a fit, we can just change the *procedure* attribute of our *controlsClass* from **calculate** to **simplex**, which reveals a new set of parameters in the *controlsClass* block.
+
+
+
+
+

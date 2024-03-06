@@ -293,7 +293,7 @@ The rest of the custom model is defined in the same way as the standard layers m
 
 .. code:: MATLAB
 
-    % Change bulk in from air to silicon....
+   % Change bulk in from air to silicon....
     problem.setBulkIn(1,'name','Silicon','min',2.07e-6,'value',2.073e-6,'max',2.08e-6,'fit',false);
 
     % Add two more values for bulk out....
@@ -317,11 +317,11 @@ The rest of the custom model is defined in the same way as the standard layers m
     problem.setData(4,'dataRange',[0.013 0.37]);
 
     % Change the name of the existing parameters to refer to D2O
-    problem.setBacksPar(1,'name','Backs par D2O','fit',true,'min',1e-10,'max',1e-5,'val',1e-6);
+    problem.setBackgroundParam(1,'name','Backs par D2O','fit',true,'min',1e-10,'max',1e-5,'val',1e-6);
 
     % Add two new backs parameters for the other two..
-    problem.addBacksPar('Backs par SMW',1e-10,1e-6,1e-5,true);
-    problem.addBacksPar('Backs par H2O',1e-10,1e-6,1e-5,true);
+    problem.addBackgroundParam('Backs par SMW',1e-10,1e-6,1e-5,true);
+    problem.addBackgroundParam('Backs par H2O',1e-10,1e-6,1e-5,true);
 
     % And add the two new constant backgrounds..
     problem.addBackground('Background SMW','constant','Backs par SMW');
@@ -384,8 +384,7 @@ To run this, we make a controls block as before, and pass this to RAT. This time
 .. code:: MATLAB
 
     controls = controlsClass();
-    controls.calcSldDuringFit = true;
-    controls.parallel = parallelOptions.Points;
+    controls.parallel = 'contrasts';
 
     disp(controls)
 
@@ -401,6 +400,8 @@ To run this, we make a controls block as before, and pass this to RAT. This time
     :alt: Displays RAT executing calculations
 
 
+
+
 Custom XY Profile Models
 ========================
 
@@ -409,9 +410,6 @@ Although many systems can be well described by layers, sometimes these are not t
 (tbc)
 
 
-
-Custom Models in Python or C++
-===============================
 
 
 

@@ -1,7 +1,7 @@
 .. _conversionFuncs:
 
 
-Converting between RAT and RasCAL1
-..................................
+Convert between RAT and RasCAL1
+...............................
 
 TODO

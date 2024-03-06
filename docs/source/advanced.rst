@@ -11,4 +11,6 @@ In this section we discuss some of the advanced features of the toolbox:-
 
    resampling
    parallelisation
+   customLanguages
+
 

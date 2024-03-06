@@ -52,8 +52,8 @@ containing the simulated reflectivities, SLD's and so on from whatever procedure
 
 In the next sections, we'll discuss the methods of the **projectClass**, and see how they allow us to build up a model by populating the various sections.
 
-Class Methods for the projectClass
-==================================
+The Components of ProjectClass
+==============================
 
 **Project Defining Methods**
 ++++++++++++++++++++++++++++
@@ -255,7 +255,7 @@ There are no individual methods for each parameter of these, but the values can 
 
 .. code:: MATLAB
 
-    pproblem.setBulkOut(1, 'value', 5.9e-6, 'fit', true);
+    problem.setBulkOut(1, 'value', 5.9e-6, 'fit', true);
 
 **Scalefactors**
 ++++++++++++++++
@@ -268,11 +268,89 @@ The *scalefactors* are another parameters block like the bulk phases. You can ad
 
 **Backgrounds**
 +++++++++++++++
+The backgrounds block is used to define the type of background applied to each contrast, and the parameters used to define the backgrounds themselves. The fittable parameters are in the
+'Background Params' block, and the backgrounds themselves are in the 'Backgrounds' block:
 
+.. image:: images/userManual/chapter2/basicBackground.png
+    :width: 800
+    :alt: basic background
 
+The 'Background Parameters' is in fact another instance of the parametersClass, and there are corresponding methods to fit, set limits and so on for these.
+
+The backgrounds can be one of three types: 'constant', 'function' or 'data'. The three types are discussed in more detail below:
+
+.. note::
+    Only 'constant' and 'data' are allowed in phase 1, and 'function' will be introduced in phase 2.
+
+* **Constant** - This is the normal background type from RasCAL1. Each background requires one *and only one* Background Parameter associated with it, as follows:
+
+.. code:: MATLAB
+
+    problem.addBackgroundParam('My New Backpar',1e-8,1e-7,1e-6,true);
+    problem.addBackground('My New Background','constant','My New BackPar');
+
+With this code snippet we've made a new background, with the value taken from the (fittable) parameter called 'My New Backpar':
+
+.. image:: images/userManual/chapter2/constBackgroundAdd.png
+    :width: 800
+    :alt: basic background
+
+This is then available to be used by any of our contrasts (see later).
+
+* **Data** - This option is used when a measured data background is available. Suppose our measured data is in a datafile loaded into the data block (see later), and called 'My Background Data'. To define a data background, we simply specify this datafile in our background specification:
+
+.. code:: MATLAB
+
+    problem.addBackground('Data Background 1','data','My Data Background')
+
+.. image:: images/userManual/chapter2/dataBackground.png
+    :width: 800
+    :alt: data background
+
+This is then used in the reflectivity calculation for any contrast in which it is specified.
+
+.. note::
+    No 'Background Parameters' are associated with data backgrounds. Also, take care to make sure that the background and data with which it is intended to be used *have the same q values*, otherwise an interpolation will be carried out which will be slower.
 
 **Resolutions**
 +++++++++++++++
+As is the case for the backgrounds, the resolutions block is also splot into two parts: a parameters block which defines the fittable parameters, and then the main Resolutions block which groups these as required into actual resolutions.
+The three types are:
+
+*   **Constant**:   The default type. A resolutionParameter defines the width of a sliding Gaussian window convolution applied to the data.
+*   **Function**:   Convolution of the data with an arbitrary, user defined function (not yet implemented).
+*   **Data**:   Convolution with a sliding Gaussian defined by a fourth column of a datafile.
+
+
+.. note::
+    Only 'Constant' and 'Data' are implemented in phase 1. Convolution with an arbitrary function will be introduced in phase 2.
+
+To define a resolution parameter, we use the addResolutionParam method:
+
+.. code:: MATLAB
+
+    problem.addResolutionParam('My Resolution Param',0.02,0.05,0.08,true)
+
+.. image:: images/userManual/chapter2/resolClass.png
+    :width: 800
+    :alt: resolution class
+
+
+Then, we make the actual resolution referring to whichever one of the resolution parameters:
+
+.. code:: MATLAB
+
+    problem.addResolution('My new resolution','constant','My Resolution Param')
+    problem.addResolution('My Data Resolution','data')
+
+.. image:: images/userManual/chapter2/resolClassModified.png
+    :width: 800
+    :alt: resolution class with parameters added
+
+.. note::
+    There are no parameters with Data resolution. Instead this tells RAT to expect a fourth column in the datafile. If no fourth column exists in the data to which this is applied, RAT will throw an error at runtime.
+
+
 
 **Data**
 ++++++++
@@ -302,8 +380,8 @@ Once we have added the contrasts, then we need to set the model, either by addin
 
 The data can be either a datafile or the simulation object in the data block. Once we have defined our contrasts they appear in the *contrasts* block at the end of the project when it is displayed.
 
-A complete example
-..................
+The Monolayer Example In Full
+.............................
 In the previous sections, we showed an example of a pre-loaded problem definition class, which we used to analyse data from two contrasts of a lipid monolayer. Now, rather than loading in a pre-defined version of this problem we can use our class methods to build this from scratch, and do the same analysis as we did there, but this time from a script.
 
 To start, we first make an instance of the project class:
@@ -451,11 +529,10 @@ Now we'll calculate this to check the agreement with the data. We need an instan
 .. code:: MATLAB
 
     controls = controlsClass();
-    controls.parallel = parallelOptions.Points;
 
     disp(controls)
 
-.. image:: images/userManual/chapter2/dispControls.png
+.. image:: images/userManual/chapter1/controlsClass.png
     :width: 400
     :alt: Displays Controls
 
@@ -477,35 +554,27 @@ We then send all of this to RAT, and plot the output:
 .. image:: images/userManual/chapter2/plot1.png
     :alt: Displays reflectivity and SLD plot
 
-This looks sensible, but clearly our guess values for the parameters are slightly wide of the mark. To do a fit, we change the *procedure* attribute of the controls class to **simplex** (we will look at the controls class in more detail in chapter 4):
+To do a fit,  we change the *procedure* attribute of the controls class to **simplex** . We will also change the 'parallel' option to 'contrasts', so that each contrast gets it's own calculation thread, and modify the output to only display the final result (rather than each iteration):
 
 .. code:: MATLAB
 
     controls.procedure = 'simplex';
+    controls.parallel = 'contrasts';
+    controls.display = 'final';
 
-.. image:: images/userManual/chapter2/controlsProcedure.png
-    :width: 300
-    :alt: Displays control def with properties
+.. image:: images/userManual/chapter1/simplexControls.png
+    :width: 500
+    :alt: simplex controls class
 
-Now when we send our classes to RAT, we will run a **simplex** fit on our model:
+..and then run our fit and plot the results...
 
-.. code:: MATLAB
+.. image:: images/userManual/chapter1/simplexRun.png
+    :width: 800
+    :alt: running simplex
 
-    [out,results] = RAT(problem,controls);
-
-.. image:: images/userManual/chapter2/ratRun2.png
-    :alt: Displays the RAT processing time and chi squared
-
-We have two output parameters, 'out' and 'result'. The first is an instance of our project class, but with the parameters values updated to the best fit values, and *results* contains the best fit curves and some other details, which we will look at in more depth in chapter 5.
-
-.. code:: MATLAB
-
-    disp(out)
-
-.. image:: images/userManual/chapter2/dispOut1.png
-    :alt: Displays Out (first half)
-.. image:: images/userManual/chapter2/dispOut2.png
-    :alt: Displays Out (second half)
+.. image:: images/userManual/chapter1/simplexFit.png
+    :width: 600
+    :alt: simplex results
 
 .. code:: MATLAB
 

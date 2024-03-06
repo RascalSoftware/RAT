@@ -11,4 +11,3 @@ Tutorial
    chapter2
    controlsInfo
    customModelsExamples
-   customLanguages

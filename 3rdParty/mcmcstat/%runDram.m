@@ -57,7 +57,6 @@ bayesResults.res = output.results;
 bayesResults.chain = output.chain;
 bayesResults.s2chain = output.s2chain;
 bayesResults.sschain = output.sschain;
-bayesResults.bestParams = output.bestParams;
 bayesResults.bayesData = output.data;
 bayesResults.bestFits = output.bestFits;
 bayesResults.predictionIntervals = output.predictionIntervals;

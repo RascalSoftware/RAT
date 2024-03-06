@@ -22,15 +22,7 @@ predInts = refPrctileConfInts(bayesOutputs,problemStruct,problemCells,problemLim
 
 
 % bayesResults.chain = bayesOutputs.chain;
-%bayesResults.bestParams_Max = bestParams_max;
-%bayesResults.bayesData = bayesOutputs.data;
-% bayesResults.bestFitsMax = {bestFitMax_Ref, bestFitMax_Sld, bestFitMax_chi};
 bayesResults = struct('bestFitMean',bestFitMean,'predictionIntervals',predInts,...
                       'confidenceIntervals',confidenceIntervals);
-
-% bayesResults.bestFitMean = bestFitMean;
-% bayesResults.predictionIntervals = allPredInts;
-% bayesResults.confidenceIntervals = confidenceIntervals;
-% bayesResults.bestParams = bayesOutputs.bestParams;
 
 end

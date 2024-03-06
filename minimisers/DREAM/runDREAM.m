@@ -102,7 +102,6 @@ output.chain = collectChains;
 bayesResults.bestFitMean = dreamResults.bestFitMean;
 bayesResults.predictionIntervals = dreamResults.predictionIntervals;
 bayesResults.confidenceIntervals = dreamResults.confidenceIntervals;
-bayesResults.bestParams = bestParams;
 bayesResults.allChains = chain;
 bayesResults.dreamParams = dreamOutput.DREAMPar;
 

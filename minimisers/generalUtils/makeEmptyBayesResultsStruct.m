@@ -131,17 +131,8 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
         'percentile65',percentile65,'mean',mean);
     
     % -------------------------------------------------------------------
-    % (4) bayesResults.allChains
-    
-    allChains = [1 1 1];
-    coder.varsize('allChains',[1e4 50 50],[1 1 1]);
-    
-    % -------------------------------------------------------------------
-    % (5) bayesResults.dreamParams
-    
-    outlier = [1 1];
-    coder.varsize('outlier',[1e3 1e3],[1 1]);
-    
+    % (4) bayesResults.dreamParams
+        
     R = zeros(nChains,nChains);
     coder.varsize('R',[1e4 1e4],[1 1]);
     
@@ -168,7 +159,13 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
                          'R', R);
 
     % -------------------------------------------------------------------
-    % (6) bayesResults.dreamOutput
+    % (5) bayesResults.dreamOutput
+
+    allChains = [1 1 1];
+    coder.varsize('allChains',[1e4 50 50],[1 1 1]);
+
+    outlier = [1 1];
+    coder.varsize('outlier',[1e3 1e3],[1 1]);
     
     iteration = 0;
     iloc = 0;
@@ -182,17 +179,18 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     CR = [0 0];
     coder.varsize('CR',[1e3 1e3],[1 1]);
     
-    dreamOutput = struct('outlier', outlier,...
-                         'runtime', 100,...
-                       'iteration', iteration,...
-                            'iloc', iloc,...
-                              'fx', 0,...
-                              'AR', AR,...
-                          'R_stat', R_stat,...
-                              'CR', CR);
+    dreamOutput = struct('allChains', allChains, ...
+                           'outlier', outlier,...
+                           'runtime', 100,...
+                         'iteration', iteration,...
+                              'iloc', iloc,...
+                                'fx', 0,...
+                                'AR', AR,...
+                            'R_stat', R_stat,...
+                                'CR', CR);
     
     % -------------------------------------------------------------------
-    % (7) bayesResults.nestedSamplerOutput
+    % (6) bayesResults.nestedSamplerOutput
     
     % Nested Sampler
     LogZ = 0;
@@ -207,7 +205,7 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
         nestSamples,'postSamples',postSamples);
     
     % ------------------------------------------------------------------
-    % (8) chain
+    % (7) chain
     
     chain = [0 0];
     coder.varsize('chain',[1e6 1e3],[1 1]);
@@ -217,7 +215,6 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     bayesResults = struct('bestFitMean',bestFitMean,...
                           'predictionIntervals', predictionIntervals,...
                           'confidenceIntervals', confidenceIntervals,...
-                          'allChains', allChains,...
                           'dreamParams', dreamParams,...
                           'dreamOutput', dreamOutput,...
                           'nestedSamplerOutput', nestedSamplerOutput,...

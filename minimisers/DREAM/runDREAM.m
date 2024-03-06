@@ -102,8 +102,8 @@ output.chain = collectChains;
 bayesResults.bestFitMean = dreamResults.bestFitMean;
 bayesResults.predictionIntervals = dreamResults.predictionIntervals;
 bayesResults.confidenceIntervals = dreamResults.confidenceIntervals;
-bayesResults.allChains = chain;
 bayesResults.dreamParams = dreamOutput.DREAMPar;
+bayesResults.dreamOutput.allChains = chain;
 
 fieldNames = {'outlier','runtime','iteration','iloc','fx','AR','R_stat','CR'};
 for i = 1:length(fieldNames)

@@ -47,9 +47,9 @@ totalGen = controls.nSamples;                   % Total number of generations
 nChains = controls.nChains;                     % Number of chains
 
 % Set the relevant parameters for the DREAM sampler....
-DREAMPar.d = length(fitParamNames);             % Dimension of the problem
-DREAMPar.N = nChains;                           % Number of Markov Chains
-DREAMPar.T = ceil(totalGen / nChains);          % Number of generations per chain
+DREAMPar.nParams = length(fitParamNames);             % Dimension of the problem
+DREAMPar.nChains = nChains;                           % Number of Markov Chains
+DREAMPar.nGenerations = ceil(totalGen / nChains);          % Number of generations per chain
 %DREAMPar.lik = 1;                              % Model output is likelihood
 
 % Parallel or not...
@@ -75,8 +75,8 @@ Meas_info = struct('Y',0,'N',0);
 [chain,dreamOutput,~] = ratDREAM(DREAMPar,ParInfo,Meas_info,ratInputs);
 
 % Combine all chains....
-nChains = DREAMPar.N;
-nPars = DREAMPar.d;
+nChains = DREAMPar.nChains;
+nPars = DREAMPar.nParams;
 
 collectChains = [];
 for i = 1:nChains

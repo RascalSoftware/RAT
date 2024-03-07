@@ -18,11 +18,11 @@
 % ------------------------------------------------------------------------------------------------------------
 
 % First assemble all chain in one matrix
-ParSet = genParSet(chain); DREAMPar.N = size(chain,3);
+ParSet = genParSet(chain); DREAMPar.nChains = size(chain,3);
 
 % Take the last 25% of the posterior samples -- assume that these samples
 % are posterior samples (double check that R_stat < 1.2 for all parameters)
-Pars = ParSet ( floor ( 0.75 * size(ParSet,1) ) : size(ParSet,1), 1 : DREAMPar.d );
+Pars = ParSet ( floor ( 0.75 * size(ParSet,1) ) : size(ParSet,1), 1 : DREAMPar.nParams );
 
 % How many posterior parameter samples?
 N_Pars = size(Pars,1);
@@ -49,7 +49,7 @@ if exist('Meas_info')
             h = waitbar(0,'Running posterior simulations - Please wait...');
             % Loop over each sample
             for qq = 1 : N_Pars
-                sim_out(qq,1:Meas_info.N) = f_handle(Pars(qq,1:DREAMPar.d));
+                sim_out(qq,1:Meas_info.N) = f_handle(Pars(qq,1:DREAMPar.nParams));
                 % Update the waitbar --> to see simulation progress on screen
                 waitbar(qq/N_Pars,h);
             end
@@ -103,7 +103,7 @@ Meas_info.N = size(fx_post,2);
 [~,idx] = max(ParSet(:,end)); idx = idx(1);
 
 % Print those to screen
-MAP = ParSet(idx,1:DREAMPar.d);
+MAP = ParSet(idx,1:DREAMPar.nParams);
 
 % Calculate the mean posterior value of each parameter
 MEAN = mean(Pars);
@@ -111,7 +111,7 @@ MEAN = mean(Pars);
 % Calculate the posterior standard deviation of the parameters
 STD = std(Pars);
 
-% Calculate the DREAMPar.d-dimensional parameter correlation matrix (R-values)
+% Calculate the DREAMPar.nParams-dimensional parameter correlation matrix (R-values)
 CORR = corrcoef(Pars);
 
 % Set figure number
@@ -126,7 +126,7 @@ figure(fig_number),
 % Update figure number
 fig_number = fig_number + 1;
 % First print the R-statistic of Gelman and Rubin (each parameter a different color)
-plot(output.R_stat(:,1),output.R_stat(:,2:DREAMPar.d+1)); hold on;
+plot(output.R_stat(:,1),output.R_stat(:,2:DREAMPar.nParams+1)); hold on;
 % Add labels
 xlabel('Number of generations','fontsize',14,'fontweight','bold','fontname','Times');
 ylabel('R_{stat}','fontsize',14,'fontweight','bold','fontname','Times');
@@ -139,7 +139,7 @@ axis([0 output.R_stat(end,1) 0.8 5]);
 % Add a legend
 evalstr = strcat('legend(''par.1''');
 % Each parameter a different color
-for j = 2:DREAMPar.d
+for j = 2:DREAMPar.nParams
     % Add the other parameters
     evalstr = strcat(evalstr,',''par. ',num2str(j),'''');
 end
@@ -156,11 +156,11 @@ eval(evalstr);
 % What lay out of marginal distributions is desired subplot(r,t)
 r = 3; t = 2;
 % How many figures do we need to create with this layout?
-N_fig = ceil( DREAMPar.d / (r * t) ); counter = 1; j = 1;
+N_fig = ceil( DREAMPar.nParams / (r * t) ); counter = 1; j = 1;
 % Open new figure
 figure(fig_number);
 % Now plot each parameter
-while counter <= DREAMPar.d
+while counter <= DREAMPar.nParams
     % Check whether to open a new figure?
     if j == (r * t) + 1
         % Update fig_number
@@ -219,11 +219,11 @@ fig_number = fig_number + 1;
 % What lay out of marginal distributions is desired subplot(r,t)
 r = 3; t = 2;
 % How many figures do we need to create with this layout?
-N_fig = ceil( DREAMPar.d / (r * t) ); counter = 1; j = 1;
+N_fig = ceil( DREAMPar.nParams / (r * t) ); counter = 1; j = 1;
 % Open new figure
 figure(fig_number);
 % Now plot each parameter
-while counter <= DREAMPar.d
+while counter <= DREAMPar.nParams
     % Check whether to open a new figure?
     if j == (r * t) + 1
         % Update fig_number
@@ -279,7 +279,7 @@ fig_number = fig_number + 1;
 % ------------------------------------------------------------------------------------------------------------
 
 % Only plot this matrix if less or equal to 30 parameters
-if ( DREAMPar.d <= 30 )
+if ( DREAMPar.nParams <= 30 )
     % Open a new plot
     figure(fig_number); fig_number = fig_number + 1;
     % Plot a matrix (includes unscaled marginals on main diagonal!
@@ -297,7 +297,7 @@ end
 % What lay out of marginl distributions is desired subplot(r,t)
 r = 3; t = 1;
 % How many figures do we need to create with this layout?
-N_fig = ceil( DREAMPar.d / (r * t) ); counter = 1; j = 1;
+N_fig = ceil( DREAMPar.nParams / (r * t) ); counter = 1; j = 1;
 % Open new figure
 figure(fig_number);
 % Calculate the ACF for each individual chain
@@ -305,7 +305,7 @@ N = size(chain,1); color = {'r','b','g'};
 % Now determine maxlag
 maxlag = min(250,N);
 % Now plot each parameter
-while counter <= DREAMPar.d
+while counter <= DREAMPar.nParams
     % Check whether to open a new figure?
     if j == (r * t) + 1
         % Update fig_number
@@ -317,7 +317,7 @@ while counter <= DREAMPar.d
     end
     
     % Plot the ACF of each parameter
-    for z = 1:min(3,DREAMPar.N)
+    for z = 1:min(3,DREAMPar.nChains)
         % Plot the ACF
         subplot(r,t,j),plot(acf(chain(1:N,j,z),maxlag),char(color(z))); hold on;
         % Adjust axis
@@ -457,7 +457,7 @@ end
 symbol = {'ys','rx','g+','ko','c<'};
 
 % Now loop over each parameter
-for j = 1:DREAMPar.d
+for j = 1:DREAMPar.nParams
     % Open new figures
     figure(fig_number);
     % Update fig_number
@@ -465,7 +465,7 @@ for j = 1:DREAMPar.d
     % How many elements does the chain have
     Nseq = size(chain,1)-1;
     % Now plot a number of chains
-    for i = 1:min(DREAMPar.N,5)
+    for i = 1:min(DREAMPar.nChains,5)
         plot([0:Nseq],chain(1:end,j,i),char(symbol(i)),'markersize',3,'linewidth',3); if i == 1; hold on; end;
     end
     % Add an axis
@@ -494,7 +494,7 @@ for j = 1:DREAMPar.d
     % Add a legend
     evalstr = strcat('legend(''chain. 1''');
     % Each parameter a different color
-    for jj = 2:min(DREAMPar.N,5)
+    for jj = 2:min(DREAMPar.nChains,5)
         % Add the other parameters
         evalstr = strcat(evalstr,',''chain.',{' '},num2str(jj),'''');
     end

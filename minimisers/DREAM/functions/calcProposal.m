@@ -2,37 +2,37 @@ function [x_new,CR] = calcProposal(X,CR,DREAMPar,Table_gamma,Par_info)
 % Calculate candidate points using discrete proposal distribution
 
 % % % % Calculate the ergodicity perturbation
-% % % eps = DREAMPar.zeta * randn(DREAMPar.N,DREAMPar.d);
+% % % eps = DREAMPar.zeta * randn(DREAMPar.nChains,DREAMPar.nParams);
 % % % 
 % % % % Determine which sequences to evolve with what DE strategy
-% % % DE_pairs = randsample( [1:DREAMPar.delta ] , DREAMPar.N , true , [ 1/DREAMPar.delta*ones(1,DREAMPar.delta) ])';
+% % % DE_pairs = randsample( [1:DREAMPar.delta ] , DREAMPar.nChains , true , [ 1/DREAMPar.delta*ones(1,DREAMPar.delta) ])';
 % % % 
 % % % % Generate series of permutations of chains
-% % % [dummy,tt] = sort(rand(DREAMPar.N-1,DREAMPar.N));
+% % % [dummy,tt] = sort(rand(DREAMPar.nChains-1,DREAMPar.nChains));
 % % % 
 % % % % Generate uniform random numbers for each chain to determine which dimension to update
-% % % D = rand(DREAMPar.N,DREAMPar.d);
+% % % D = rand(DREAMPar.nChains,DREAMPar.nParams);
 % % % 
 % % % % Ergodicity for each individual chain
-% % % noise_x = DREAMPar.jumpProbability * (2 * rand(DREAMPar.N,DREAMPar.d) - 1);
+% % % noise_x = DREAMPar.jumpProbability * (2 * rand(DREAMPar.nChains,DREAMPar.nParams) - 1);
 % % % 
 % % % % Initialize the delta update to zero
-% % % delta_x = zeros(DREAMPar.N,DREAMPar.d);
+% % % delta_x = zeros(DREAMPar.nChains,DREAMPar.nParams);
 % % % 
 % % % % Each chain evolves using information from other chains to create offspring
-% % % for qq = 1:DREAMPar.N,
+% % % for qq = 1:DREAMPar.nChains,
 % % %     
 % % %     % Define ii and remove current member as an option
-% % %     ii = ones(DREAMPar.N,1); ii(qq) = 0; idx = find(ii > 0);
+% % %     ii = ones(DREAMPar.nChains,1); ii(qq) = 0; idx = find(ii > 0);
 % % %     
 % % %     % randomly select two members of ii that have value == 1
 % % %     rr = idx(tt(1:2*DE_pairs(qq,1),qq));
 % % %     
 % % %     % --- WHICH DIMENSIONS TO UPDATE? DO SOMETHING WITH CROSSOVER ----
-% % %     [i] = find(D(qq,1:DREAMPar.d) > (1-CR(qq,1)));
+% % %     [i] = find(D(qq,1:DREAMPar.nParams) > (1-CR(qq,1)));
 % % %     
 % % %     % Update at least one dimension
-% % %     if isempty(i), i = randperm(DREAMPar.d); i = i(1); end;
+% % %     if isempty(i), i = randperm(DREAMPar.nParams); i = i(1); end;
 % % %     % ----------------------------------------------------------------
 % % %     
 % % %     % Determine the associated JumpRate and compute the jump
@@ -53,7 +53,7 @@ function [x_new,CR] = calcProposal(X,CR,DREAMPar,Table_gamma,Par_info)
 % % %         %        end;
 % % %         
 % % %         % Produce the difference of the pairs used for population evolution
-% % %         delta = sum(X(rr(1:DE_pairs(qq,1)),1:DREAMPar.d) - X(rr(DE_pairs(qq,1)+1:2*DE_pairs(qq,1)),1:DREAMPar.d),1);
+% % %         delta = sum(X(rr(1:DE_pairs(qq,1)),1:DREAMPar.nParams) - X(rr(DE_pairs(qq,1)+1:2*DE_pairs(qq,1)),1:DREAMPar.nParams),1);
 % % %         
 % % %         % Then fill update the dimension
 % % %         delta_x(qq,i) = (1 + noise_x(qq,i)) * JumpRate.*delta(1,i);
@@ -64,21 +64,21 @@ function [x_new,CR] = calcProposal(X,CR,DREAMPar,Table_gamma,Par_info)
 % % %         JumpRate = 1; CR(qq,1) = -1;
 % % %         
 % % %         % Compute delta from one pair
-% % %         delta = X(rr(1),1:DREAMPar.d) - X(rr(2),1:DREAMPar.d);
+% % %         delta = X(rr(1),1:DREAMPar.nParams) - X(rr(2),1:DREAMPar.nParams);
 % % %         
 % % %         % Now jumprate to facilitate jumping from one mode to the other in all dimensions
-% % %         delta_x(qq,1:DREAMPar.d) = JumpRate * delta;
+% % %         delta_x(qq,1:DREAMPar.nParams) = JumpRate * delta;
 % % %         
 % % %     end;
 % % %     
 % % %     % Check this line to avoid that jump = 0 and x_new is similar to X
-% % %     if (sum(delta_x(qq,1:DREAMPar.d).^2,2) == 0),
+% % %     if (sum(delta_x(qq,1:DREAMPar.nParams).^2,2) == 0),
 % % %         
 % % %         % Compute the Cholesky Decomposition of X
-% % %         R = (2.38/sqrt(DREAMPar.d)) * chol(cov(X(1:end,1:DREAMPar.d)) + 1e-5*eye(DREAMPar.d));
+% % %         R = (2.38/sqrt(DREAMPar.nParams)) * chol(cov(X(1:end,1:DREAMPar.nParams)) + 1e-5*eye(DREAMPar.nParams));
 % % %         
 % % %         % Generate jump using multinormal distribution
-% % %         delta_x(qq,1:DREAMPar.d) = randn(1,DREAMPar.d) * R;
+% % %         delta_x(qq,1:DREAMPar.nParams) = randn(1,DREAMPar.nParams) * R;
 % % %         disp('hello');
 % % %     end;
 % % %     
@@ -97,46 +97,46 @@ function [x_new,CR] = calcProposal(X,CR,DREAMPar,Table_gamma,Par_info)
 % ##################################################
 
 % Calculate the ergodicity perturbation
-eps = DREAMPar.zeta * randn(DREAMPar.N,DREAMPar.d);
+eps = DREAMPar.zeta * randn(DREAMPar.nChains,DREAMPar.nParams);
 
 % Determine how many chain pairs to use for each individual chain
-DE_pairs = randsample( [1:DREAMPar.delta ] , DREAMPar.N , true , [ 1/DREAMPar.delta*ones(1,DREAMPar.delta) ])';
+DE_pairs = randsample( [1:DREAMPar.delta ] , DREAMPar.nChains , true , [ 1/DREAMPar.delta*ones(1,DREAMPar.delta) ])';
 
 % Generate uniform random numbers for each chain to determine which dimension to update
-rnd_cr = rand(DREAMPar.N,DREAMPar.d);
+rnd_cr = rand(DREAMPar.nChains,DREAMPar.nParams);
 
 % Ergodicity for each individual chain
-rnd_jump = DREAMPar.jumpProbability * (2 * rand(DREAMPar.N,DREAMPar.d) - 1);
-%rnd_jump = DREAMPar.jumpProbability * (2 * rand(DREAMPar.N,1) - 1);
+rnd_jump = DREAMPar.jumpProbability * (2 * rand(DREAMPar.nChains,DREAMPar.nParams) - 1);
+%rnd_jump = DREAMPar.jumpProbability * (2 * rand(DREAMPar.nChains,1) - 1);
 
 % Randomly permute numbers [1,...,N-1] N times
-[~,draw] = sort(rand(DREAMPar.N-1,DREAMPar.N));             
+[~,draw] = sort(rand(DREAMPar.nChains-1,DREAMPar.nChains));             
 
 % Set jump vectors equal to zero
-dx = zeros(DREAMPar.N,DREAMPar.d);               
+dx = zeros(DREAMPar.nChains,DREAMPar.nParams);               
 
 % Determine when jumprate is 1
-gamma = randsample([0 1],DREAMPar.N,true,[ 1 - DREAMPar.pUnitGamma DREAMPar.pUnitGamma ]);   
+gamma = randsample([0 1],DREAMPar.nChains,true,[ 1 - DREAMPar.pUnitGamma DREAMPar.pUnitGamma ]);   
 
 % Create N proposals
-for i = 1:DREAMPar.N               
+for i = 1:DREAMPar.nChains               
     % Derive vector r1
     r1 = DREAMPar.R(i,draw(1:DE_pairs(i),i)); 
     % Derive vector r2
     r2 = DREAMPar.R(i,draw(DE_pairs(i)+1:2*DE_pairs(i),i));
     % Derive subset A with dimensions to sample
-    A = find( rnd_cr(i,1:DREAMPar.d) < CR(i,1));
+    A = find( rnd_cr(i,1:DREAMPar.nParams) < CR(i,1));
     % How many dimensions are sampled?
     D = numel(A);                
     % Make sure that at least one dimension is selected!
     if ( D == 0 )
-        a = randperm(DREAMPar.d); A = a(1); D = 1;
+        a = randperm(DREAMPar.nParams); A = a(1); D = 1;
     end
     % Which gamma to use?
     if ( gamma(i) == 1 )
         % Calculate direct jump
-        dx(i,1:DREAMPar.d) = ( 1 + rnd_jump(i,1:DREAMPar.d) ) .* sum( X(r1,1:DREAMPar.d) - X(r2,1:DREAMPar.d) , 1 ) ...
-            + eps(i,1:DREAMPar.d); 
+        dx(i,1:DREAMPar.nParams) = ( 1 + rnd_jump(i,1:DREAMPar.nParams) ) .* sum( X(r1,1:DREAMPar.nParams) - X(r2,1:DREAMPar.nParams) , 1 ) ...
+            + eps(i,1:DREAMPar.nParams); 
         % Set CR to -1 so that this jump does not count for calculation of pCR
         CR(i,1) = -1;
     else

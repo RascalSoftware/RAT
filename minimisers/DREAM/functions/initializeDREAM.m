@@ -7,25 +7,25 @@ function [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMP
 %     case {'uniform'}
         
         % Random sampling
-        [x] = repmat(Par_info.min,DREAMPar.N,1) + rand(DREAMPar.N,DREAMPar.d) .* ( repmat(Par_info.max - Par_info.min,DREAMPar.N,1) );
+        [x] = repmat(Par_info.min,DREAMPar.nChains,1) + rand(DREAMPar.nChains,DREAMPar.nParams) .* ( repmat(Par_info.max - Par_info.min,DREAMPar.nChains,1) );
         
 %     case {'latin'}
 %         % Initialize chains with latinHypercubeSampling hypercube sampling
 %         if isfield(Par_info,'min_initial') && isfield(Par_info,'max_initial')
-%             [x] = latinHypercubeSampling(Par_info.min_initial,Par_info.max_initial,DREAMPar.N);
+%             [x] = latinHypercubeSampling(Par_info.min_initial,Par_info.max_initial,DREAMPar.nChains);
 %         else            
-%             [x] = latinHypercubeSampling(Par_info.min,Par_info.max,DREAMPar.N);
+%             [x] = latinHypercubeSampling(Par_info.min,Par_info.max,DREAMPar.nChains);
 %         end
 %     case {'normal'}
 %         
 %         % Initialize chains with (multi)-normal distribution
-%         [x] = repmat(Par_info.mu,DREAMPar.N,1) + randn(DREAMPar.N,DREAMPar.d) * chol(Par_info.cov);
+%         [x] = repmat(Par_info.mu,DREAMPar.nChains,1) + randn(DREAMPar.nChains,DREAMPar.nParams) * chol(Par_info.cov);
 %         
 %     case {'prior'}
 %         
 %         % Create the initial position of each chain by drawing each parameter individually from the prior
-%         for qq = 1:DREAMPar.d
-%             for zz = 1:DREAMPar.N
+%         for qq = 1:DREAMPar.nParams
+%             for zz = 1:DREAMPar.nChains
 %                 x(zz,qq) = eval(char(Par_info.prior_marginal(qq)));
 %             end
 %         end
@@ -52,8 +52,8 @@ X = [x log_PR_x(:) log_L_x];
 % Store the model simulations (if appropriate)
 % storeDREAMResults(DREAMPar,fx,Meas_info,'w+');
 
-% Set the first point of each of the DREAMPar.N chain equal to the initial X values
-chain(1,1:DREAMPar.d+2,1:DREAMPar.N) = reshape(X',1,DREAMPar.d+2,DREAMPar.N);
+% Set the first point of each of the DREAMPar.nChains chain equal to the initial X values
+chain(1,1:DREAMPar.nParams+2,1:DREAMPar.nChains) = reshape(X',1,DREAMPar.nParams+2,DREAMPar.nChains);
 
 % Define selection probability of each crossover
 pCR = (1/DREAMPar.nCR) * ones(1,DREAMPar.nCR);
@@ -66,10 +66,10 @@ lCR = zeros(1,DREAMPar.nCR);
 delta_tot = zeros(1,DREAMPar.nCR);
 
 % Save pCR values in memory
-output.CR(1,1:DREAMPar.nCR+1) = [ DREAMPar.N pCR ]; 
+output.CR(1,1:DREAMPar.nCR+1) = [ DREAMPar.nChains pCR ]; 
 
 % Save history log density of individual chains
-log_L(1,1:DREAMPar.N+1) = [ DREAMPar.N log_L_x' ];
+log_L(1,1:DREAMPar.nChains+1) = [ DREAMPar.nChains log_L_x' ];
 
 % Compute the R-statistic
-[output.R_stat(1,1:DREAMPar.d+1)] = [ DREAMPar.N gelman(chain(1,1:DREAMPar.d,1:DREAMPar.N),DREAMPar) ];
+[output.R_stat(1,1:DREAMPar.nParams+1)] = [ DREAMPar.nChains gelman(chain(1,1:DREAMPar.nParams,1:DREAMPar.nChains),DREAMPar) ];

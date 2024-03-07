@@ -31,7 +31,7 @@ else
     %         a = strcat('copy "');
     %
     %         % Create the directories
-    %         for ii = 1:min(DREAMPar.CPU,DREAMPar.N),
+    %         for ii = 1:min(DREAMPar.CPU,DREAMPar.nChains),
     %
     %             % Create the directories
     %             mkdir(strcat(num2str(ii)));

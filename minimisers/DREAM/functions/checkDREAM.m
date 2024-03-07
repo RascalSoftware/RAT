@@ -15,16 +15,16 @@ fclose('all');
 % ------------------------------------------------
 
 % Check number of chains
-if DREAMPar.N < (2 * DREAMPar.delta) + 1
+if DREAMPar.nChains < (2 * DREAMPar.delta) + 1
     % Error -- not enough chains to do sampling -- increase number of chains!
     stop = true;
-    error('DREAM ERROR: Insufficient number of chains -> Use at least DREAMPar.N = %1g chains \n',((2 * DREAMPar.delta) + 1));
+    error('DREAM ERROR: Insufficient number of chains -> Use at least DREAMPar.nChains = %1g chains \n',((2 * DREAMPar.delta) + 1));
 end
 
 % Check parameter ranges
 if strcmp(Par_info,'latin')
     % Error -- if lhs is used -> requires explicit parameter ranges
-    if ( sum(isinf(Par_info.min)) == DREAMPar.d )
+    if ( sum(isinf(Par_info.min)) == DREAMPar.nParams )
         stop = true;
         error('DREAM ERROR: latinHypercubeSampling hypercube sampling selected but parameter ranges not defined -> Set Par_info.min and Par_info.max!!\n');
     end

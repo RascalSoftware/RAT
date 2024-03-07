@@ -10,10 +10,10 @@ function [log_L,log_PR] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs
 % if Meas_info.N > 0
 %     
 %     % Initialize "res" (residual matrix)
-%     res = NaN(Meas_info.N,DREAMPar.N);
+%     res = NaN(Meas_info.N,DREAMPar.nChains);
 %     
 %     % Loop over each model realization
-%     for ii = 1 : DREAMPar.N
+%     for ii = 1 : DREAMPar.nChains
 %         
 %         % We now calculate the error residual
 %         res(:,ii) = (Meas_info.Y(:) - fx(1:Meas_info.N,ii));
@@ -35,8 +35,8 @@ function [log_L,log_PR] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs
 %     if isfield(Par_info,'prior_marginal')
 %         
 %         % Compute prior densities for each parameter in each sequence
-%         for qq = 1 : DREAMPar.d
-%             for zz = 1 : DREAMPar.N
+%         for qq = 1 : DREAMPar.nParams
+%             for zz = 1 : DREAMPar.nChains
 %                 % Compute prior density of proposal
 %                 PR(zz,qq) = max ( eval(char(strrep(Par_info.prior_marginal(qq),'rnd(','pdf(x(zz,qq),'))) , 1e-299 );
 %             end
@@ -48,13 +48,13 @@ function [log_L,log_PR] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs
 %     elseif isfield(Par_info,'mvnpdf')
 
         % RAT specific prior funtion (mvnpdf)
-        PR = zeros(1,DREAMPar.N);
-        for i = 1:DREAMPar.N                                  % Loop over all the chains..
+        PR = zeros(1,DREAMPar.nChains);
+        for i = 1:DREAMPar.nChains                                  % Loop over all the chains..
             PR(i) = scaledGaussPrior(x(i,:),ratInputs);          % mvnpdf automatically goes over all pars
         end
         
         % Take log of any non-zero values..
-        log_PR = zeros(DREAMPar.N,1);
+        log_PR = zeros(DREAMPar.nChains,1);
         for i = 1:length(PR)
             if PR(i) ~= 0
                 log_PR(i) = PR(i);%log(PR(i));     % Does it even need to be log?
@@ -68,7 +68,7 @@ function [log_L,log_PR] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs
     
 %    else
 %         No use of prior --> set log-prior to zero (no effect in Metropolis)
-%         log_PR = zeros ( DREAMPar.N , 1 );
+%         log_PR = zeros ( DREAMPar.nChains , 1 );
 %         
 %     end
 %     
@@ -79,7 +79,7 @@ function [log_L,log_PR] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs
 %     if isfield(DREAMPar,'prior_handle')
 %     
 %         Evaluate distance between observed and simulated summary metrics
-%         for ii = 1 : DREAMPar.N
+%         for ii = 1 : DREAMPar.nChains
 %         
 %             Calculate summary metrics for "fx"
 %             S_sim = DREAMPar.prior_handle ( fx(:,ii) );
@@ -92,7 +92,7 @@ function [log_L,log_PR] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs
 %     Regular ABC with summary metrics as likelihood function
 %     else
 %     
-%         log_PR = zeros ( DREAMPar.N , 1 );
+%         log_PR = zeros ( DREAMPar.nChains , 1 );
 %         
 %     end
 %                 
@@ -104,8 +104,8 @@ function [log_L,log_PR] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs
 % -------------------- Calculate log-likelihood ---------------------------
 
 % Loop over each model realization and calculate log-likelihood of each fx
-log_L  = zeros(DREAMPar.N,1);
-for ii = 1 : DREAMPar.N
+log_L  = zeros(DREAMPar.nChains,1);
+for ii = 1 : DREAMPar.nChains
     log_L(ii,1) =  fx(1,ii) ;
 end
 

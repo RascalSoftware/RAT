@@ -14,7 +14,7 @@ if ~DREAMPar.ABC
     alfa = alfa_L .* alfa_PR;
     
     % Generate random numbers
-    Z = rand ( DREAMPar.N , 1 );
+    Z = rand ( DREAMPar.nChains , 1 );
     
     % Find which alfa's are greater than Z
     accept = ( alfa > Z );
@@ -26,10 +26,10 @@ else
     if isfield(DREAMPar,'prior_handle')
         
         % Preallocate vector accept
-        accept = zeros(DREAMPar.N,1);
+        accept = zeros(DREAMPar.nChains,1);
         
         % Check pairwise
-        for z = 1 : DREAMPar.N
+        for z = 1 : DREAMPar.nChains
             
             % If proposal closer to observed summary metrics
             if ( log_PR_xnew(z) < log_PR_xold(z) )

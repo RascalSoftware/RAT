@@ -9,17 +9,17 @@ function [fx] = evaluateModel(x,DREAMPar,Meas_info,ratInputs)
 % Check whether to store the output of each model evaluation (function call)
 % if DREAMPar.modout && ( Meas_info.N > 0 )
 %     
-%     % Create initial fx of size model output by DREAMPar.N
-%     fx = NaN(Meas_info.N,DREAMPar.N);
+%     % Create initial fx of size model output by DREAMPar.nChains
+%     fx = NaN(Meas_info.N,DREAMPar.nChains);
 %     
 % end
 
 % Now evaluate the model
-fx = zeros(1,DREAMPar.N);
+fx = zeros(1,DREAMPar.nChains);
 if ( DREAMPar.CPU == 1 )         % Sequential evaluation
 
     % Loop over each d-vector of parameter values of x using 1 worker
-    for ii = 1:DREAMPar.N
+    for ii = 1:DREAMPar.nChains
         % Execute the model and return the model simulation
         %fx(:,ii) = f_handle(x(ii,:), ratInputs);
         fx(:,ii) = DREAMWrapper(x(ii,:),ratInputs);
@@ -34,7 +34,7 @@ else     % Parallel evaluation
     %         if ~isempty(EXAMPLE_dir)
     %
     %             % Loop over each d-vector of parameter values of x using N workers
-    %             parfor ii = 1:DREAMPar.N
+    %             parfor ii = 1:DREAMPar.nChains
     %                 % Determine work ID
     %                 t = getCurrentTask();
     %
@@ -48,7 +48,7 @@ else     % Parallel evaluation
     %
     %         else
     %             % Loop over each d-vector of parameter values of x using N workers
-    %             parfor ii = 1:DREAMPar.N
+    %             parfor ii = 1:DREAMPar.nChains
     %                 % Execute the model and return the model simulation
     %                 %fx(:,ii) = f_handle( [ x(ii,:) t.id ], ratInputs );
     %                 fx(:,ii) = DREAMWrapper( [ x(ii,:) t.id ],ratInputs );
@@ -58,7 +58,7 @@ else     % Parallel evaluation
     %     else
 
     % Loop over each d-vector of parameter values of x using N workers
-    parfor ii = 1:DREAMPar.N
+    parfor ii = 1:DREAMPar.nChains
         % Execute the model and return the model simulation
         %fx(:,ii) = f_handle(x(ii,:), ratInputs);
         fx(:,ii) = DREAMWrapper(x(ii,:),ratInputs);

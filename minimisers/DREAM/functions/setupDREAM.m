@@ -2,8 +2,8 @@ function [outDREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,ite
         gen] = setupDREAM(DREAMPar,Par_info,Meas_info)
 % Initializes the main variables used in DREAM
 % To keep coder happy, we have to define the full version of DREAMPar here
-% fieldNames = {'d','N','T','parallel','CPU','jumpProbability','pUnitGamma','nCR','delta','steps',...
-%     'zeta','outlier','adaptPCR','thinning','epsilon','ABC','IO','modout','restart','save','R'};
+% fieldNames = {'nParams','nChains','nGenerations','parallel','CPU','jumpProbability','pUnitGamma','nCR','delta','steps',...
+%     'zeta','outlier','adaptPCR','thinning','ABC','ABCCutoff','IO','storeOutput','restart','save','R'};
 % values = cell(length(fieldNames),1);
 % outDREAMPar = cell2struct(values,fieldNames);
 
@@ -12,7 +12,7 @@ coder.varsize('Rr',[1e4 1e4],[1 1]);
 
 outDREAMPar = struct('nParams',0,'nChains',0,'nGenerations',0,'parallel',false,'CPU',0,'jumpProbability',0,...
     'pUnitGamma',0,'nCR',0,'delta',0,'steps',0,'zeta',0,'outlier','iqr',...
-    'adaptPCR',false,'thinning',0,'epsilon',0,'ABC',false,'IO',false,'modout',false,...
+    'adaptPCR',false,'thinning',0,'ABC',false,'ABCCutoff',0,'IO',false,'storeOutput',false,...
     'restart',false,'save',false,'R',Rr);
 
 
@@ -40,7 +40,7 @@ end
 % Set default values algorithmic variables DREAM - if not specified
 value = {3,3,max(max(floor(DREAMPar.nGenerations/50),1),50),0.01,1e-12,'iqr',0.04,false,1,0.025};
 % Name variable
-name = {'nCR','delta','steps','jumpProbability','zeta','outlier','pUnitGamma','adaptPCR','thinning','epsilon'};
+name = {'nCR','delta','steps','jumpProbability','zeta','outlier','pUnitGamma','adaptPCR','thinning','ABCCutoff'};
 for j = 1 : numel(name)
     if ~isfield(DREAMPar,name{j})
         % Set variable of DREAMPar to "No"
@@ -52,7 +52,7 @@ for j = 1 : numel(name)
 end
 
 % Set default value to 'No' if not specified
-default = {'ABC','parallel','IO','modout','restart','save'};
+default = {'ABC','parallel','IO','storeOutput','restart','save'};
 for j = 1 : numel(default)
     if ~isfield(DREAMPar,default{j})
         % Set variable of DREAMPar to false

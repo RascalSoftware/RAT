@@ -34,7 +34,7 @@ else
             % If proposal closer to observed summary metrics
             if ( log_PR_xnew(z) < log_PR_xold(z) )
                 % If current state outside epsilon
-                if log_PR_xold(z) > DREAMPar.epsilon
+                if log_PR_xold(z) > DREAMPar.ABCCutoff
                     % Always accept proposal
                     accept(z,1) = 1;
                 else
@@ -45,7 +45,7 @@ else
                 end
             else
                 % If proposal worse and outside epsilon
-                if log_PR_xnew(z) > DREAMPar.epsilon
+                if log_PR_xnew(z) > DREAMPar.ABCCutoff
                     % Always reject proposal
                     %accept(z,1) = 0;
                 else
@@ -62,7 +62,7 @@ else
     else
         
         % Now determine which proposal to accept
-        accept = ( log_L_xnew <= log_L_xold ) | ( log_L_xnew <= DREAMPar.epsilon );
+        accept = ( log_L_xnew <= log_L_xold ) | ( log_L_xnew <= DREAMPar.ABCCutoff );
         
     end
 end

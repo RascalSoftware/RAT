@@ -7,7 +7,7 @@ function [fx] = evaluateModel(x,DREAMPar,Meas_info,ratInputs)
 % Written by Jasper A. Vrugt
 
 % Check whether to store the output of each model evaluation (function call)
-% if DREAMPar.modout && ( Meas_info.N > 0 )
+% if DREAMPar.storeOutput && ( Meas_info.N > 0 )
 %     
 %     % Create initial fx of size model output by DREAMPar.nChains
 %     fx = NaN(Meas_info.N,DREAMPar.nChains);

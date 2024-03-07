@@ -25,7 +25,7 @@ end
 fclose(fid);
 
 % Check whether output simulations are requested
-if ~DREAMPar.modout
+if ~DREAMPar.storeOutput
     % Return an empty matrix
     fx = [];
 else

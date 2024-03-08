@@ -29,13 +29,13 @@ priorList = getFittedPriors(fitNames,inPriors,problemStruct.fitLimits);
 
 %Tuning Parameters
 model.ssfun = @nsIntraFun;
-Nlive = controls.Nlive;
+nLive = controls.nLive;
 tolerance = controls.nsTolerance;
 likelihood = @nsIntraFun;
-Nmcmc = controls.Nmcmc;
+nMCMC = controls.nMCMC;
 data = {problemStruct ; controls ; problemLimits ; problemCells};
 
-[logZ, nest_samples, post_samples, H] = nestedSampler(data, Nlive, Nmcmc, ...
+[logZ, nest_samples, post_samples, H] = nestedSampler(data, nLive, nMCMC, ...
     tolerance, likelihood, model, priorList, fitNames);
 
 % Process the results...

@@ -127,6 +127,6 @@ end
 
 % Now make a controls block....
 controls = controlsClass();
-controls.resamPars(2) = 150;
+controls.resampleParams(2) = 150;
 controls.parallel = 'contrasts';
 

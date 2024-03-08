@@ -1,8 +1,8 @@
-function post_samples = nest2pos(nest_samples, Nlive)
+function post_samples = nest2pos(nest_samples, nLive)
 %
-% post_samples = nest2pos(nest_samples, Nlive)
+% post_samples = nest2pos(nest_samples, nLive)
 % 
-% Convert nested samples with Nlive livepoints
+% Convert nested samples with nLive livepoints
 % to samples from the posterior distribution
 % (logL values in last column of nest_samples)
 %
@@ -12,9 +12,9 @@ function post_samples = nest2pos(nest_samples, Nlive)
 N=size(nest_samples, 1);
 Ncol=size(nest_samples, 2);
 
-% calculate logWt = log(L*w) = logL + logw = logL - i/Nlive
+% calculate logWt = log(L*w) = logL + logw = logL - i/nLive
 logL = nest_samples(:,end);
-logw = -[(1:N-Nlive)' ; (N-Nlive)*ones(Nlive,1)]/Nlive;
+logw = -[(1:N-nLive)' ; (N-nLive)*ones(nLive,1)]/nLive;
 logWt = logL + logw; 
 
 % posterior samples are given by the normalized weight

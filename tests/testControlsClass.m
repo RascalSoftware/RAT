@@ -59,20 +59,20 @@ classdef testControlsClass < matlab.unittest.TestCase
             end
         end
 
-        function testResamPars(testCase)
-            % Test if set.resamPars method is working
-            testCase.controls.resamPars = [0, 100];
-            testCase.verifyEqual(testCase.controls.resamPars, [0, 100], 'set.resamPars method is not working')
-            testCase.controls.resamPars = [0.9, 10.2];
-            testCase.verifyEqual(testCase.controls.resamPars, [0.9, 10.2], 'set.resamPars method is not working')            
+        function testResampleParams(testCase)
+            % Test if set.resampleParams method is working
+            testCase.controls.resampleParams = [0, 100];
+            testCase.verifyEqual(testCase.controls.resampleParams, [0, 100], 'set.resampleParams method is not working')
+            testCase.controls.resampleParams = [0.9, 10.2];
+            testCase.verifyEqual(testCase.controls.resampleParams, [0.9, 10.2], 'set.resampleParams method is not working')            
             % bad resamPar option 
-            testCase.verifyError(@() setResamPars('ab'), exceptions.invalidType.errorID);
-            testCase.verifyError(@() setResamPars([0.5, 6, 7]), exceptions.invalidValue.errorID);            
-            testCase.verifyError(@() setResamPars([-1, 4]), exceptions.invalidValue.errorID);
-            testCase.verifyError(@() setResamPars([0, 0]), exceptions.invalidValue.errorID);
-            testCase.verifyError(@() setResamPars([12, 13]), exceptions.invalidValue.errorID);
-            function setResamPars(value)
-                testCase.controls.resamPars = value;
+            testCase.verifyError(@() setResampleParams('ab'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setResampleParams([0.5, 6, 7]), exceptions.invalidValue.errorID);            
+            testCase.verifyError(@() setResampleParams([-1, 4]), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setResampleParams([0, 0]), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setResampleParams([12, 13]), exceptions.invalidValue.errorID);
+            function setResampleParams(value)
+                testCase.controls.resampleParams = value;
             end
         end
 
@@ -102,32 +102,32 @@ classdef testControlsClass < matlab.unittest.TestCase
 
         function testSimplexArguments(testCase)
             % Test if Simplex property setters are working
-            testCase.controls.tolX = 5;
-            testCase.verifyEqual(testCase.controls.tolX, 5, 'set.tolX method is not working')
-            testCase.verifyError(@setTolX, exceptions.invalidType.errorID);  % bad tolX type 
-            function setTolX
-                testCase.controls.tolX = 'a';
+            testCase.controls.xTolerance = 5;
+            testCase.verifyEqual(testCase.controls.xTolerance, 5, 'set.xTolerance method is not working')
+            testCase.verifyError(@setXTolerance, exceptions.invalidType.errorID);  % bad xTolerance type 
+            function setXTolerance
+                testCase.controls.xTolerance = 'a';
             end
 
-            testCase.controls.tolFun = 2;
-            testCase.verifyEqual(testCase.controls.tolFun, 2, 'set.tolFun method is not working')
-            testCase.verifyError(@setTolFun, exceptions.invalidType.errorID);  % bad tolFun type 
-            function setTolFun
-                testCase.controls.tolFun = 'a';
+            testCase.controls.funcTolerance = 2;
+            testCase.verifyEqual(testCase.controls.funcTolerance, 2, 'set.funcTolerance method is not working')
+            testCase.verifyError(@setFuncTolerance, exceptions.invalidType.errorID);  % bad funcTolerance type 
+            function setFuncTolerance
+                testCase.controls.funcTolerance = 'a';
             end
 
-            testCase.controls.maxFunEvals = 123;
-            testCase.verifyEqual(testCase.controls.maxFunEvals, 123, 'set.maxFunEvals method is not working')
-            testCase.verifyError(@setMaxFunEvals, exceptions.invalidType.errorID);  % bad maxFunEvals type 
-            function setMaxFunEvals
-                testCase.controls.maxFunEvals = 'a';
+            testCase.controls.maxFuncEvals = 123;
+            testCase.verifyEqual(testCase.controls.maxFuncEvals, 123, 'set.maxFuncEvals method is not working')
+            testCase.verifyError(@setMaxFuncEvals, exceptions.invalidType.errorID);  % bad maxFuncEvals type 
+            function setMaxFuncEvals
+                testCase.controls.maxFuncEvals = 'a';
             end
 
-            testCase.controls.maxIter = 456;
-            testCase.verifyEqual(testCase.controls.maxIter, 456, 'set.maxIter method is not working')
-            testCase.verifyError(@setMaxIter, exceptions.invalidType.errorID);  % bad maxIter type 
-            function setMaxIter
-                testCase.controls.maxIter = 'a';
+            testCase.controls.maxIterations = 456;
+            testCase.verifyEqual(testCase.controls.maxIterations, 456, 'set.maxIterations method is not working')
+            testCase.verifyError(@setMaxIterations, exceptions.invalidType.errorID);  % bad maxIterations type 
+            function setMaxIterations
+                testCase.controls.maxIterations = 'a';
             end
         end
 
@@ -193,22 +193,22 @@ classdef testControlsClass < matlab.unittest.TestCase
 
         function testNSArguments(testCase)   
             % Test if NS property setters are working
-            testCase.controls.Nlive = 5;
-            testCase.verifyEqual(testCase.controls.Nlive, 5, 'set.Nlive method is not working')
-            % bad Nlive type
-            testCase.verifyError(@() setNlive('a'), exceptions.invalidType.errorID);
-            testCase.verifyError(@() setNlive(0), exceptions.invalidValue.errorID);
-            function setNlive(value)
-                testCase.controls.Nlive = value;
+            testCase.controls.nLive = 5;
+            testCase.verifyEqual(testCase.controls.nLive, 5, 'set.nLive method is not working')
+            % bad nLive type
+            testCase.verifyError(@() setnLive('a'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setnLive(0), exceptions.invalidValue.errorID);
+            function setnLive(value)
+                testCase.controls.nLive = value;
             end
 
-            testCase.controls.Nmcmc = 5;
-            testCase.verifyEqual(testCase.controls.Nmcmc, 5, 'set.Nmcmc method is not working')
-            % bad Nmcmc type
-            testCase.verifyError(@() setNmcmc('a'), exceptions.invalidType.errorID);
-            testCase.verifyError(@() setNmcmc(-1), exceptions.invalidValue.errorID);
-            function setNmcmc(value)
-                testCase.controls.Nmcmc = value;
+            testCase.controls.nMCMC = 5;
+            testCase.verifyEqual(testCase.controls.nMCMC, 5, 'set.nMCMC method is not working')
+            % bad nMCMC type
+            testCase.verifyError(@() setnMCMC('a'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setnMCMC(-1), exceptions.invalidValue.errorID);
+            function setnMCMC(value)
+                testCase.controls.nMCMC = value;
             end
 
             testCase.controls.propScale = 0.1;
@@ -313,7 +313,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyNotEmpty(display, 'getPropertyGroups method not working');
             testCase.verifySubstring(display, 'parallel: ''single''', 'getPropertyGroups method not working');
             testCase.verifySubstring(display, 'procedure: ''calculate''', 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring('tolX'), 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('xTolerance'), 'getPropertyGroups method not working');
             testCase.verifyThat(display, ~ContainsSubstring('method'), 'getPropertyGroups method not working');
             testCase.verifyThat(display, ~ContainsSubstring('propScale'), 'getPropertyGroups method not working');
             testCase.verifyThat(display, ~ContainsSubstring('strategy'), 'getPropertyGroups method not working');
@@ -323,17 +323,17 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifySubstring(display, 'parallel: ''single''', 'getPropertyGroups method not working');
             testCase.verifySubstring(display, 'procedure: ''dream''', 'getPropertyGroups method not working');
             testCase.verifySubstring(display, 'nChains', 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring('tolX'), 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('xTolerance'), 'getPropertyGroups method not working');
             testCase.verifyThat(display, ~ContainsSubstring('propScale'), 'getPropertyGroups method not working');
             testCase.verifyThat(display, ~ContainsSubstring('strategy'), 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring('tolX'), 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('xTolerance'), 'getPropertyGroups method not working');
             
             testCase.controls.procedure = procedures.NS;
             display = evalc('disp(testCase.controls)');
             testCase.verifySubstring(display, 'parallel: ''single''', 'getPropertyGroups method not working');
             testCase.verifySubstring(display, 'procedure: ''ns''', 'getPropertyGroups method not working');
             testCase.verifySubstring(display, 'propScale', 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring('tolX'), 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('xTolerance'), 'getPropertyGroups method not working');
             testCase.verifyThat(display, ~ContainsSubstring('method'), 'getPropertyGroups method not working');
             testCase.verifyThat(display, ~ContainsSubstring('strategy'), 'getPropertyGroups method not working');
             
@@ -343,7 +343,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifySubstring(display, 'parallel: ''contrasts''', 'getPropertyGroups method not working');
             testCase.verifySubstring(display, 'procedure: ''de''', 'getPropertyGroups method not working');
             testCase.verifySubstring(display, 'strategy', 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring('tolX'), 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('xTolerance'), 'getPropertyGroups method not working');
             testCase.verifyThat(display, ~ContainsSubstring('method'), 'getPropertyGroups method not working');
             testCase.verifyThat(display, ~ContainsSubstring('propScale'), 'getPropertyGroups method not working');
             
@@ -352,7 +352,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             display = evalc('disp(testCase.controls)');
             testCase.verifySubstring(display, 'parallel: ''contrasts''', 'getPropertyGroups method not working');
             testCase.verifySubstring(display, 'procedure: ''simplex''', 'getPropertyGroups method not working');
-            testCase.verifySubstring(display, 'tolX', 'getPropertyGroups method not working');
+            testCase.verifySubstring(display, 'xTolerance', 'getPropertyGroups method not working');
             testCase.verifyThat(display, ~ContainsSubstring('method'), 'getPropertyGroups method not working');
             testCase.verifyThat(display, ~ContainsSubstring('propScale'), 'getPropertyGroups method not working');
             testCase.verifyThat(display, ~ContainsSubstring('strategy'), 'getPropertyGroups method not working');
@@ -374,7 +374,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.boundHandling, boundHandlingOptions.Fold.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resamPars, [0.9 50], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleParams, [0.9 50], 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Iter.value, 'setProcedure method is not working');
 
             % Test passing valid parameter values for dream procedure
@@ -387,7 +387,7 @@ classdef testControlsClass < matlab.unittest.TestCase
                 'adaptPCR', true,...
                 'parallel', parallelOptions.Contrasts.value,...
                 'calcSldDuringFit', true,...
-                'resamPars', [0 10],...
+                'resampleParams', [0 10],...
                 'display', displayOptions.Notify.value});
             testCase.verifyEqual(testCase.controls.procedure, procedures.Dream.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.nSamples, 70000, 'setProcedure method is not working');
@@ -398,7 +398,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyTrue(testCase.controls.adaptPCR, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Contrasts.value, 'setProcedure method is not working');
             testCase.verifyTrue(testCase.controls.calcSldDuringFit, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resamPars, [0 10], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleParams, [0 10], 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'setProcedure method is not working');
 
             % Test passing invalid parameter values for dream procedure
@@ -407,11 +407,11 @@ classdef testControlsClass < matlab.unittest.TestCase
             
             % Test passing wrong parameter for dream procedure
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
-                {'tolX', 1e-6}), exceptions.invalidOption.errorID); % Simplex Parameter
+                {'xTolerance', 1e-6}), exceptions.invalidOption.errorID); % Simplex Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
                 {'populationSize', 100000}), exceptions.invalidOption.errorID); % DE Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
-                {'Nlive', 10}), exceptions.invalidOption.errorID); % NS Parameter
+                {'nLive', 10}), exceptions.invalidOption.errorID); % NS Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
                 {'nChains', '0.5'}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
         end
@@ -420,38 +420,38 @@ classdef testControlsClass < matlab.unittest.TestCase
             % Test default values for NS procedure
             testCase.controls = testCase.controls.setProcedure(procedures.NS.value);
             testCase.verifyEqual(testCase.controls.procedure, procedures.NS.value, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.Nlive, 150, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.Nmcmc, 0, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.nLive, 150, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.nMCMC, 0, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.propScale, 0.1, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.nsTolerance, 0.1, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resamPars, [0.9 50], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleParams, [0.9 50], 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Iter.value, 'setProcedure method is not working');
 
             % Test passing valid parameter values for NS procedure
             testCase.controls = testCase.controls.setProcedure(procedures.NS.value,...
-                {'Nlive', 700,...
-                'Nmcmc', 5,...
+                {'nLive', 700,...
+                'nMCMC', 5,...
                 'propScale', 0.8,...
                 'nsTolerance', 0.5,...
                 'parallel', parallelOptions.Contrasts.value,...
                 'calcSldDuringFit', true,...
-                'resamPars', [0 10],...
+                'resampleParams', [0 10],...
                 'display', displayOptions.Notify.value});
             testCase.verifyEqual(testCase.controls.procedure, procedures.NS.value, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.Nlive, 700, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.Nmcmc, 5, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.nLive, 700, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.nMCMC, 5, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.propScale, 0.8, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.nsTolerance, 0.5, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Contrasts.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, true, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resamPars, [0 10], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleParams, [0 10], 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'setProcedure method is not working');
 
             % Test passing wrong parameter for NS procedure
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.NS.value,...
-                {'tolFun', 1e-6}), exceptions.invalidOption.errorID); % Simplex Parameter
+                {'funcTolerance', 1e-6}), exceptions.invalidOption.errorID); % Simplex Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.NS.value,...
                 {'fWeight', 1}), exceptions.invalidOption.errorID); % DE Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.NS.value,...
@@ -472,7 +472,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.numGenerations, 500, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resamPars, [0.9 50], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleParams, [0.9 50], 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Iter.value, 'setProcedure method is not working');
 
             % Test passing valid parameter values for DE procedure
@@ -485,7 +485,7 @@ classdef testControlsClass < matlab.unittest.TestCase
                 'numGenerations', 3,...
                 'parallel', parallelOptions.Contrasts.value,...
                 'calcSldDuringFit', true,...
-                'resamPars', [0 10],...
+                'resampleParams', [0 10],...
                 'display', displayOptions.Notify.value});
             testCase.verifyEqual(testCase.controls.procedure, procedures.DE.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.populationSize, 30, 'setProcedure method is not working');
@@ -496,14 +496,14 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.numGenerations, 3, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Contrasts.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, true, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resamPars, [0 10], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleParams, [0 10], 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'setProcedure method is not working');
 
             % Test passing wrong parameter for DE procedure
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.DE.value,...
-                {'tolFun', 1e-6}), exceptions.invalidOption.errorID); % Simplex Parameter
+                {'funcTolerance', 1e-6}), exceptions.invalidOption.errorID); % Simplex Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.DE.value,...
-                {'Nmcmc', 1}), exceptions.invalidOption.errorID); % NS Parameter
+                {'nMCMC', 1}), exceptions.invalidOption.errorID); % NS Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.DE.value,...
                 {'nSamples', 10}), exceptions.invalidOption.errorID); % Dream Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.DE.value,...
@@ -514,50 +514,50 @@ classdef testControlsClass < matlab.unittest.TestCase
             % Test default values for Simplex procedure
             testCase.controls = testCase.controls.setProcedure(procedures.Simplex.value);
             testCase.verifyEqual(testCase.controls.procedure, procedures.Simplex.value, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.tolX, 1e-6, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.tolFun, 1e-6, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.maxFunEvals, 10000, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.maxIter, 1000, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.xTolerance, 1e-6, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.funcTolerance, 1e-6, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.maxFuncEvals, 10000, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.maxIterations, 1000, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.updateFreq, -1, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.updatePlotFreq, 1, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resamPars, [0.9 50], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleParams, [0.9 50], 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Iter.value, 'setProcedure method is not working');
 
             % Test passing valid parameter values for Simplex procedure
             testCase.controls = testCase.controls.setProcedure(procedures.Simplex.value,...
-                {'tolX', 3e-6,...
-                'tolFun', 4e-6,...
-                'maxFunEvals', 1000,...
-                'maxIter', 100,...
+                {'xTolerance', 3e-6,...
+                'funcTolerance', 4e-6,...
+                'maxFuncEvals', 1000,...
+                'maxIterations', 100,...
                 'updateFreq', 1,...
                 'updatePlotFreq', 4, ...
                 'parallel', parallelOptions.Contrasts.value,...
                 'calcSldDuringFit', true,...
-                'resamPars', [0 10],...
+                'resampleParams', [0 10],...
                 'display', displayOptions.Notify.value});
             testCase.verifyEqual(testCase.controls.procedure, procedures.Simplex.value, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.tolX, 3e-6, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.tolFun, 4e-6, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.maxFunEvals, 1000, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.maxIter, 100, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.xTolerance, 3e-6, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.funcTolerance, 4e-6, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.maxFuncEvals, 1000, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.maxIterations, 100, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.updateFreq, 1, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.updatePlotFreq, 4, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Contrasts.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, true, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resamPars, [0 10], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleParams, [0 10], 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'setProcedure method is not working');
 
             % Test passing wrong parameter for Simplex procedure
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Simplex.value,...
                 {'crossoverProbability', 0.7}), exceptions.invalidOption.errorID); % DE Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Simplex.value,...
-                {'Nmcmc', 1}), exceptions.invalidOption.errorID); % NS Parameter
+                {'nMCMC', 1}), exceptions.invalidOption.errorID); % NS Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Simplex.value,...
                 {'nSamples', 10}), exceptions.invalidOption.errorID); % Dream Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Simplex.value,...
-                {'maxIter', '1'}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
+                {'maxIterations', '1'}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
         end
 
         function testSetProcedureWithCalculate(testCase) 
@@ -566,28 +566,28 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.procedure, procedures.Calculate.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resamPars, [0.9 50], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleParams, [0.9 50], 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Iter.value, 'setProcedure method is not working');
             
             % Test passing valid parameter values for Calculate procedure
             testCase.controls = testCase.controls.setProcedure(procedures.Calculate.value,...
                 {'parallel', parallelOptions.Contrasts.value,...
                 'calcSldDuringFit', true,...
-                'resamPars', [0 10],...
+                'resampleParams', [0 10],...
                 'display', displayOptions.Notify.value});
             testCase.verifyEqual(testCase.controls.procedure, procedures.Calculate.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Contrasts.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, true, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resamPars, [0 10], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleParams, [0 10], 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'setProcedure method is not working');
 
             % Test passing wrong parameter for Calculate procedure
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
-                {'maxIter', 100}), exceptions.invalidOption.errorID); % Simplex Parameter
+                {'maxIterations', 100}), exceptions.invalidOption.errorID); % Simplex Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
                 {'crossoverProbability', 0.7}), exceptions.invalidOption.errorID); % DE Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
-                {'Nmcmc', 1}), exceptions.invalidOption.errorID); % NS Parameter
+                {'nMCMC', 1}), exceptions.invalidOption.errorID); % NS Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
                 {'nSamples', 10}), exceptions.invalidOption.errorID); % Dream Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...

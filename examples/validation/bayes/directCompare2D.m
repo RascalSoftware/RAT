@@ -7,7 +7,7 @@ clear
 [d2oproblem,controls] = r1ToProblemDef('defaultProject.mat');
 controls.calcSldDuringFit = true;
 controls.nsTolerance = 1;
-controls.Nlive = 500;
+controls.nLive = 500;
 d2oProblem.fitScalefactor = 0;
 
 

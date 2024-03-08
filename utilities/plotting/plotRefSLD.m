@@ -7,7 +7,7 @@ function plotRefSLD(problem, result)
     data.reflectivity = result.reflectivity;
     data.shiftedData = result.shiftedData;
     data.sldProfiles = result.sldProfiles;
-    data.allLayers = result.allLayers;
+    data.resampledLayers = result.resampledLayers;
     data.dataPresent = problemStruct.dataPresent;
     data.ssubs = result.contrastParams.ssubs;
     data.resample = problemStruct.resample;

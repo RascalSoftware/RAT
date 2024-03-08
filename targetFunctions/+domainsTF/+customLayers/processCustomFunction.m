@@ -1,4 +1,4 @@
-function [allLayers,allRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
+function [resampledLayers,allRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
     bulkIn,bulkOut,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)
 
     % Top-level function for processing custom layers for all the
@@ -6,18 +6,18 @@ function [allLayers,allRoughs] = processCustomFunction(contrastBulkIns,contrastB
 
     % Do some pre-definitions to keep the compiler happy...
     %totNumCalcs = numberOfContrasts * 2;
-    tempAllLayers = cell(numberOfContrasts,2);
-    allLayers = cell(numberOfContrasts,2);
+    tempResampledLayers = cell(numberOfContrasts,2);
+    resampledLayers = cell(numberOfContrasts,2);
     allRoughs = zeros(numberOfContrasts,1);
 
     for i = 1:numberOfContrasts
-        allLayers{i,1} = [1, 1];    % Type def as double (size not important)
-        allLayers{i,2} = [1, 1];
-        tempAllLayers{i,1} = [0 0 0 0 0];
-        tempAllLayers{i,2} = [0 0 0 0 0];
+        resampledLayers{i,1} = [1, 1];    % Type def as double (size not important)
+        resampledLayers{i,2} = [1, 1];
+        tempResampledLayers{i,1} = [0 0 0 0 0];
+        tempResampledLayers{i,2} = [0 0 0 0 0];
     end
-    coder.varsize('tempAllLayers{:}',[10000 6],[1 1]);
-    coder.varsize('allLayers{:}',[10000 6],[1 1]);
+    coder.varsize('tempResampledLayers{:}',[10000 6],[1 1]);
+    coder.varsize('resampledLayers{:}',[10000 6],[1 1]);
     
     allBulkOuts = bulkOut(contrastBulkOuts);
     for i = 1:numberOfContrasts
@@ -55,10 +55,10 @@ function [allLayers,allRoughs] = processCustomFunction(contrastBulkIns,contrastB
            thisContrastLayers2 = applyHydrationImag(thisContrastLayers2,thisBulkIn,thisBulkOut);
         end
 
-        tempAllLayers{i,1} = thisContrastLayers1;
-        tempAllLayers{i,2} = thisContrastLayers2;
+        tempResampledLayers{i,1} = thisContrastLayers1;
+        tempResampledLayers{i,2} = thisContrastLayers2;
     end
 
-    allLayers = tempAllLayers;
+    resampledLayers = tempResampledLayers;
 
 end

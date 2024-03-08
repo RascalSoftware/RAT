@@ -31,7 +31,7 @@ function triggerEvent(eventType, varargin)
             plotData.reflectivity = result.reflectivity;
             plotData.shiftedData = result.shiftedData;
             plotData.sldProfiles = result.sldProfiles;
-            plotData.allLayers = result.allLayers;
+            plotData.resampledLayers = result.resampledLayers;
             plotData.ssubs = result.contrastParams.ssubs;
             plotData.resample = problemStruct.resample;
             plotData.dataPresent = problemStruct.dataPresent;
@@ -71,12 +71,12 @@ function triggerEvent(eventType, varargin)
                 [reflect, nReflect] = packCellArray(result.reflectivity, 1);
                 [shiftedData, nShiftedData] = packCellArray(result.shiftedData, 1);
                 [sldProfiles, nSldProfiles] = packCellArray(result.sldProfiles, 1);
-                [layers, nLayers] = packCellArray(result.allLayers, 1);
+                [layers, nLayers] = packCellArray(result.resampledLayers, 1);
                 
                 switch problemStruct.TF
                     case coderEnums.calculationTypes.Domains
                         [sldProfiles2, nSldProfiles2] = packCellArray(result.sldProfiles, 2);
-                        [layers2, nLayers2] = packCellArray(result.allLayers, 2);
+                        [layers2, nLayers2] = packCellArray(result.resampledLayers, 2);
                     otherwise 
                         sldProfiles2 = coder.nullcopy(zeros(0));
                         nSldProfiles2 = coder.nullcopy(zeros(0));

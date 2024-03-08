@@ -1,4 +1,4 @@
-function [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,domainSldProfiles,allLayers] = reflectivityCalculation(problemStruct,problemCells,controls)
+function [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,domainSldProfiles,resampledLayers] = reflectivityCalculation(problemStruct,problemCells,controls)
 
 % Main function for the domainsTF reflectivity calculation.
 % This function decides what type of model is being analysed and branches
@@ -69,30 +69,29 @@ for i = 1:numberOfContrasts
     domainSldProfiles{i,2} = [1 1 ; 1 1];
 end
 
-allLayers = cell(numberOfContrasts,2);
+resampledLayers = cell(numberOfContrasts,2);
 for i = 1:numberOfContrasts
-    allLayers{i,1} = [1 1 1 ; 1 1 1];
-    allLayers{i,2} = [1 1 1 ; 1 1 1];
+    resampledLayers{i,1} = [1 1 1 ; 1 1 1];
+    resampledLayers{i,2} = [1 1 1 ; 1 1 1];
 end
            
 switch lower(type)
     case coderEnums.modelTypes.StandardLayers
 
         [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-         simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
+         simulation,shiftedData,layerSlds,domainSldProfiles,resampledLayers,...
          allRoughs] = domainsTF.standardLayers(problemStruct,problemCells,controls);        
 
     case coderEnums.modelTypes.CustomLayers
 
         [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-         simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
+         simulation,shiftedData,layerSlds,domainSldProfiles,resampledLayers,...
          allRoughs] = domainsTF.customLayers(problemStruct,problemCells,controls);
 
     case coderEnums.modelTypes.CustomXY
 
-        % Custom SLD profile with user defined model file
         [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-         simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
+         simulation,shiftedData,layerSlds,domainSldProfiles,resampledLayers,...
          allRoughs] = domainsTF.customXY(problemStruct,problemCells,controls);
 
 end

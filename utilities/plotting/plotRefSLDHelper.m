@@ -47,12 +47,12 @@ function plotRefSLDHelper(data, noDelay)
         % TODO for domains...
         if (data.resample(i) == 1) || (strcmpi(data.modelType, 'custom xy'))
             ssub = data.ssubs(i); 
-            layers = data.allLayers{i, 1};
+            layers = data.resampledLayers{i, 1};
             bulkIn = layers(1, 2);
             bulkOut = layers(end, 2);
 
-            for j=1:size(data.allLayers, 2)
-                layer = data.allLayers{i, j};                          
+            for j=1:size(data.resampledLayers, 2)
+                layer = data.resampledLayers{i, j};                          
                 numberOfLayers = size(layer, 1);
                 nrepeats = 1;
                 newProf = makeSLDProfileXY(bulkIn,bulkOut,ssub,layer,numberOfLayers,nrepeats);

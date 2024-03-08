@@ -14,7 +14,7 @@ function result = makeEmptyResultStruct(nContrasts,nPars,domains)
     %        shiftedData: [nContrastsx1 cell]
     %          layerSlds: [nContrastsx1 cell]
     %        sldProfiles: [nContrastsx1 cell]
-    %          allLayers: [nContrastsx1 cell]
+    %    resampledLayers: [nContrastsx1 cell]
     % calculationResults: [1x1 struct]
     %     contrastParams: [1x1 struct]
     %        bestFitPars: [1xnPars double]
@@ -123,19 +123,19 @@ function result = makeEmptyResultStruct(nContrasts,nPars,domains)
     end   
 
     if domains
-        allLayers = cell(nContrasts,2);
-        domainAllLayersCell = [1 1 1; 1 1 1];
-        coder.varsize('domainAllLayersCell',[10000 3],[1 0]);
+        resampledLayers = cell(nContrasts,2);
+        domainResampledLayersCell = [1 1 1; 1 1 1];
+        coder.varsize('domainResampledLayersCell',[10000 3],[1 0]);
         for i = 1:nContrasts
-            allLayers{i,1} = domainAllLayersCell;
-            allLayers{i,2} = domainAllLayersCell;
+            resampledLayers{i,1} = domainResampledLayersCell;
+            resampledLayers{i,2} = domainResampledLayersCell;
         end
     else
-        allLayers = cell(nContrasts,1);
-        allLayersCell = [1 1 1; 1 1 1];
-        coder.varsize('allLayersCell',[10000 3],[1 0]);
+        resampledLayers = cell(nContrasts,1);
+        resampledLayersCell = [1 1 1; 1 1 1];
+        coder.varsize('resampledLayersCell',[10000 3],[1 0]);
         for i = 1:nContrasts
-            allLayers{i} = allLayersCell;
+            resampledLayers{i} = resampledLayersCell;
         end
     end
     
@@ -154,7 +154,7 @@ function result = makeEmptyResultStruct(nContrasts,nPars,domains)
                     'shiftedData', {shiftedData}, ...
                     'layerSlds', {layerSlds}, ...
                     'sldProfiles', {sldProfiles}, ...
-                    'allLayers', {allLayers}, ...
+                    'resampledLayers', {resampledLayers}, ...
                     'calculationResults', calculationResults, ...
                     'contrastParams', contrastParams, ...
                     'bestFitPars', bestFitPars, ...

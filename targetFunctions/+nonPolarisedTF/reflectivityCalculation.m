@@ -1,4 +1,4 @@
-function [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = reflectivityCalculation(problemStruct,problemCells,controls)
+function [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = reflectivityCalculation(problemStruct,problemCells,controls)
 
 % Main function for the nonPolarisedTF reflectivity calculation.
 % This function decides what type of model is being analysed and branches
@@ -67,9 +67,9 @@ for i = 1:numberOfContrasts
     sldProfiles{i} = [1 1 ; 1 1];
 end
 
-allLayers = cell(numberOfContrasts,1);
+resampledLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    allLayers{i} = [1 1 1 ; 1 1 1];
+    resampledLayers{i} = [1 1 1 ; 1 1 1];
 end
            
 switch lower(type)
@@ -77,21 +77,21 @@ switch lower(type)
 
         [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,...
          bulkOuts,resolutionParams,chis,reflectivity,simulation,...
-         shiftedData,layerSlds,sldProfiles,allLayers,...
+         shiftedData,layerSlds,sldProfiles,resampledLayers,...
          allRoughs] = nonPolarisedTF.standardLayers(problemStruct,problemCells,controls);
 
     case coderEnums.modelTypes.CustomLayers
 
         [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,...
          bulkOuts,resolutionParams,chis,reflectivity,simulation,...
-         shiftedData,layerSlds,sldProfiles,allLayers,...
+         shiftedData,layerSlds,sldProfiles,resampledLayers,...
          allRoughs] = nonPolarisedTF.customLayers(problemStruct,problemCells,controls);
 
     case coderEnums.modelTypes.CustomXY
         
         [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,...
          bulkOuts,resolutionParams,chis,reflectivity,simulation,...
-         shiftedData,layerSlds,sldProfiles,allLayers,...
+         shiftedData,layerSlds,sldProfiles,resampledLayers,...
          allRoughs] = nonPolarisedTF.customXY(problemStruct,problemCells,controls);
 
 end

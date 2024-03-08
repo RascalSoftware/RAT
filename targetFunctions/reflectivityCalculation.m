@@ -79,31 +79,31 @@ end
 coder.varsize('domainSldProfiles',[10000 2],[1 1]);
 coder.varsize('domainSldProfiles{:}',[10000 Inf],[1 1]);
 
-allLayers = cell(numberOfContrasts,1);
+resampledLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    allLayers{i} = [1 1 1; 1 1 1];
+    resampledLayers{i} = [1 1 1; 1 1 1];
 end
-coder.varsize('allLayers{:}',[10000 3],[1 0]);
+coder.varsize('resampledLayers{:}',[10000 3],[1 0]);
 
-domainAllLayers = cell(numberOfContrasts,2);
+domainResampledLayers = cell(numberOfContrasts,2);
 for i = 1:numberOfContrasts
-    domainAllLayers{i,1} = [1 1 1; 1 1 1];
-    domainAllLayers{i,2} = [1 1 1; 1 1 1];
+    domainResampledLayers{i,1} = [1 1 1; 1 1 1];
+    domainResampledLayers{i,2} = [1 1 1; 1 1 1];
 end
-coder.varsize('domainAllLayers',[10000 2],[1 1]);
-coder.varsize('domainAllLayers{:}',[10000 3],[1 0]);
+coder.varsize('domainResampledLayers',[10000 2],[1 1]);
+coder.varsize('domainResampledLayers{:}',[10000 3],[1 0]);
 
 % Decide which target function we are calling and call the relevant routines
 whichTF = problemStruct.TF;
 switch whichTF
     case coderEnums.calculationTypes.NonPolarised
-        [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
+        [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
     %case coderEnums.calculationTypes.OilWater
         %contrastParams = oilWaterTFReflectivityCalculation(problemStruct,problemCells,controls);    
     %case coderEnums.calculationTypes.Magnetic
         %contrastParams = polarisedTFReflectivityCalculation(problemStruct,problemCells,controls);
     case coderEnums.calculationTypes.Domains
-        [contrastParams,calculationResults,reflectivity,simulation,shiftedData,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
+        [contrastParams,calculationResults,reflectivity,simulation,shiftedData,domainLayerSlds,domainSldProfiles,domainResampledLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
 %     otherwise
 %         error('The calculation type "%s" is not supported', whichTF);
 
@@ -120,13 +120,13 @@ switch whichTF
 
         result.layerSlds = domainLayerSlds;
         result.sldProfiles = domainSldProfiles;
-        result.allLayers = domainAllLayers;
+        result.resampledLayers = domainResampledLayers;
 
     otherwise
 
         result.layerSlds = layerSlds;
         result.sldProfiles = sldProfiles;
-        result.allLayers = allLayers;
+        result.resampledLayers = resampledLayers;
 
 end
 

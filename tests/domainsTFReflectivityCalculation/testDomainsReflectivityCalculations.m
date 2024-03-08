@@ -46,7 +46,7 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
         TFShiftedData
         TFLayerSLDs
         TFSLDProfiles
-        TFAllLayers
+        TFResampledLayers
         TFOutSsubs
         TFBackgroundParams
         TFQzshifts
@@ -97,7 +97,7 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             testCase.TFShiftedData = testCase.TFParams.TFParams.shiftedData;
             testCase.TFLayerSLDs = testCase.TFParams.TFParams.layerSlds;
             testCase.TFSLDProfiles = testCase.TFParams.TFParams.sldProfiles;
-            testCase.TFAllLayers = testCase.TFParams.TFParams.allLayers;
+            testCase.TFResampledLayers = testCase.TFParams.TFParams.resampledLayers;
 
             testCase.TFOutSsubs = testCase.TFParams.TFParams.outSsubs;
             testCase.TFBackgroundParams = testCase.TFParams.TFParams.backgroundParams;
@@ -158,7 +158,7 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testDomainsTFReflectivityCalculation(testCase)
-            [contrastParams, calculationResults, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.reflectivityCalculation(testCase.problemStruct, testCase.problemCells, testCase.controls);
+            [contrastParams, calculationResults, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, resampledLayers] = domainsTF.reflectivityCalculation(testCase.problemStruct, testCase.problemCells, testCase.controls);
 
             testCase.verifyEqual(contrastParams, testCase.TFContrastParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(calculationResults, testCase.TFCalculationResults, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -167,7 +167,7 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(shiftedData, testCase.TFShiftedData, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(layerSLDs, testCase.TFLayerSLDs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(SLDProfiles, testCase.TFSLDProfiles, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(allLayers, testCase.TFAllLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(resampledLayers, testCase.TFResampledLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
         function testDomainsTFLayersReflectivityCalculation(testCase, whichParallel, TFFile)
@@ -178,17 +178,17 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             switch TFFile
                 case 'domainsStandardLayersTFParams.mat'
                     [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
-                    simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
+                    simulation,shiftedData,layerSLDs,SLDProfiles,resampledLayers,...
                     allRoughs] = domainsTF.standardLayers(testCase.problemStruct,testCase.problemCells,...
                     testCase.controls);
                 case 'domainsCustomLayersTFParams.mat'
                     [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
-                    simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
+                    simulation,shiftedData,layerSLDs,SLDProfiles,resampledLayers,...
                     allRoughs] = domainsTF.customLayers(testCase.problemStruct,testCase.problemCells,...
                     testCase.controls);
                 case 'domainsCustomXYTFParams.mat'
                     [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
-                    simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
+                    simulation,shiftedData,layerSLDs,SLDProfiles,resampledLayers,...
                     allRoughs] = domainsTF.customXY(testCase.problemStruct,testCase.problemCells,...
                     testCase.controls);
             end
@@ -206,7 +206,7 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(shiftedData, testCase.TFShiftedData, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(layerSLDs, testCase.TFLayerSLDs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(SLDProfiles, testCase.TFSLDProfiles, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(allLayers, testCase.TFAllLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(resampledLayers, testCase.TFResampledLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(allRoughs, testCase.TFAllRoughs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 

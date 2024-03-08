@@ -1,19 +1,19 @@
-function [allLayers,allRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
+function [resampledLayers,allRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
     bulkIn,bulkOut,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)
 
     % Top-level function for processing custom layers for all the
     % contrasts.
 
     % Do some pre-definitions to keep the compiler happy...
-    tempAllLayers = cell(numberOfContrasts,1);
-    allLayers = cell(numberOfContrasts,1);
+    tempResampledLayers = cell(numberOfContrasts,1);
+    resampledLayers = cell(numberOfContrasts,1);
     allRoughs = zeros(numberOfContrasts,1);
 
     for i = 1:numberOfContrasts
-        allLayers{i} = [1 , 1];    % Type def as double (size not important)
-        tempAllLayers{i} = [0 0 0 0 0];
+        resampledLayers{i} = [1 , 1];    % Type def as double (size not important)
+        tempResampledLayers{i} = [0 0 0 0 0];
     end
-    coder.varsize('tempAllLayers{:}',[10000 6],[1 1]);
+    coder.varsize('tempResampledLayers{:}',[10000 6],[1 1]);
 
     allBulkOuts = bulkOut(contrastBulkOuts);
     for i = 1:numberOfContrasts     % TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..
@@ -43,9 +43,9 @@ function [allLayers,allRoughs] = processCustomFunction(contrastBulkIns,contrastB
            thisContrastLayers = applyHydrationImag(thisContrastLayers,thisBulkIn,thisBulkOut);
         end
 
-        tempAllLayers{i} = thisContrastLayers;
+        tempResampledLayers{i} = thisContrastLayers;
     end
 
-    allLayers = tempAllLayers;
+    resampledLayers = tempResampledLayers;
 
 end

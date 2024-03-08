@@ -118,8 +118,8 @@ for i = 1:numberOfContrasts
     shiftedData{i} = shiftedDat;
     
     reflectivityType = 'standardAbeles';
-    [reflect1,simul1] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shiftedDat,layerSld1,allRoughs(i),resolutionParams(i),'single',reflectivityType,useImaginary);
-    [reflect2,simul2] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shiftedDat,layerSld2,allRoughs(i),resolutionParams(i),'single',reflectivityType,useImaginary);
+    [reflect1,simul1] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shiftedDat,layerSld1,allRoughs(i),resolutionParams(i),controls.parallel,reflectivityType,useImaginary);
+    [reflect2,simul2] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shiftedDat,layerSld2,allRoughs(i),resolutionParams(i),controls.parallel,reflectivityType,useImaginary);
 
     [reflect1,simul1,shiftedDat] = applyBackgroundCorrection(reflect1,simul1,shiftedDat,backgroundParams(i),contrastBackgroundsType(i));
     [reflect2,simul2,shiftedDat] = applyBackgroundCorrection(reflect2,simul2,shiftedDat,backgroundParams(i),contrastBackgroundsType(i));

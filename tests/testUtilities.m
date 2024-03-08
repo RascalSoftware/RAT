@@ -52,7 +52,10 @@ classdef testUtilities < matlab.unittest.TestCase
             testCase.verifyEqual(enum.values('eventTypes'), eventTypes.values(), 'customEnum.values is not working');
             testCase.verifyEmpty(enum.fromValue('eventTypes', -1), 'customEnum.fromValue is not working');
             testCase.verifyEqual(customEnum.toStruct('eventTypes'), struct('Message', 0, 'Plot', 1, 'Progress', 2), 'customEnum.toStruct is not working')
-            testCase.verifyEqual(coderEnums.eventTypes, customEnum.toStruct('eventTypes'), 'customEnum.toStruct is not working')
+            props = properties(coderEnums);
+            for i = 1:length(props)
+                testCase.verifyEqual(coderEnums.(props{i}), eval([props{i},'.toStruct()']), 'customEnum.toStruct is not working')
+            end
         end
 
         function testCopyProperties(testCase)

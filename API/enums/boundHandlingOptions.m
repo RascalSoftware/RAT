@@ -1,18 +1,22 @@
 classdef boundHandlingOptions < customEnum
-   methods (Static)
-      function v = values()
-         v = customEnum.values('boundHandlingOptions');
-      end
-         
-      function e = fromValue(value)
-         e = customEnum.fromValue('boundHandlingOptions', value);
-      end
-   end
+    methods (Static)
+        function s = toStruct()
+            s = customEnum.toStruct(mfilename('class'));
+        end
+        
+        function v = values()
+            v = customEnum.values(mfilename('class'));
+        end
+        
+        function e = fromValue(value)
+            e = customEnum.fromValue(mfilename('class'), value);
+        end
+    end
 
-   enumeration
-      None ('none')
-      Reflect ('reflect')
-      Bound ('bound')
-      Fold ('fold')
-   end
+    enumeration
+        None ('none')
+        Reflect ('reflect')
+        Bound ('bound')
+        Fold ('fold')
+    end
 end

@@ -119,12 +119,7 @@ for i = 1:numberOfContrasts
     thisDataLimits = dataLimits{i};
     thisSimLimits = simLimits{i};
     thisBacksType = contrastBackgroundsType(i);
-    
-    % Now call the core layers reflectivity calculation
-    % In this case we are single cored, so we do not parallelise over
-    % points
-    parallelPoints = 'points';
-    
+
     % Call the reflectivity calculation for each domain
     % Domain 1
     [sldProfile1,reflect1,simul1,shiftedDat,layerSld1,resamLayers1,~,thisSsubs] = ...
@@ -132,7 +127,7 @@ for i = 1:numberOfContrasts
     (thisContrastLayers1, thisRough, ...
     geometry, thisBulkIn, thisBulkOut, thisResample, calcSld, thisScalefactor, thisQzshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
-    thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
+    thisBackground,thisResol,thisBacksType,nParams,controls.parallel,resamPars,useImaginary);
 
     % Domain 2
     [sldProfile2,reflect2,simul2,~,layerSld2,resamLayers2,~,~] = ...
@@ -140,7 +135,7 @@ for i = 1:numberOfContrasts
     (thisContrastLayers2, thisRough, ...
     geometry, thisBulkIn, thisBulkOut, thisResample, calcSld, thisScalefactor, thisQzshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
-    thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
+    thisBackground,thisResol,thisBacksType,nParams,controls.parallel,resamPars,useImaginary);
 
     % Calculate the average reflectivities....
     [totReflect,totSimul] = domainsTF.averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio);

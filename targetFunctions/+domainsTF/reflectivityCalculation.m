@@ -76,55 +76,55 @@ for i = 1:numberOfContrasts
 end
            
 switch lower(type)
-    case 'standard layers'
+    case coderEnums.modelTypes.StandardLayers
 
         % Standard layers calculation
         switch controls.parallel
-            case 'single'
+            case coderEnums.parallelOptions.Single
                   [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
                      simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
                      allRoughs] = domainsTF.standardLayers.single(problemStruct,problemCells,controls);
-             case 'points'
+             case coderEnums.parallelOptions.Points
                   [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
                      simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
                      allRoughs] = domainsTF.standardLayers.parallelPoints(problemStruct,problemCells,controls);
-            case 'contrasts'
+            case coderEnums.parallelOptions.Contrasts
                   [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
                      simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
                      allRoughs] = domainsTF.standardLayers.parallelContrasts(problemStruct,problemCells,controls);        
         end
 
-    case 'custom layers'
+    case coderEnums.modelTypes.CustomLayers
 
         % Custom layers with user supplied custom model file
         switch controls.parallel
-            case 'single'
+            case coderEnums.parallelOptions.Single
                   [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
                      simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
                      allRoughs] = domainsTF.customLayers.single(problemStruct,problemCells,controls);
-            case 'points'
+            case coderEnums.parallelOptions.Points
                   [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
                      simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
                      allRoughs] = domainsTF.customLayers.parallelPoints(problemStruct,problemCells,controls);    
-            case 'contrasts'
+            case coderEnums.parallelOptions.Contrasts
                   [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
                      simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
                      allRoughs] = domainsTF.customLayers.parallelContrasts(problemStruct,problemCells,controls);
         end
 
-    case 'custom xy'
+    case coderEnums.modelTypes.CustomXY
 
         % Custom SLD profile with user defined model file
         switch controls.parallel
-            case 'single'
+            case coderEnums.parallelOptions.Single
                   [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
                      simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
                      allRoughs] = domainsTF.customXY.single(problemStruct,problemCells,controls);
-            case 'points'
+            case coderEnums.parallelOptions.Points
                   [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
                      simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
                      allRoughs] = domainsTF.customXY.parallelPoints(problemStruct,problemCells,controls);
-            case 'contrasts'
+            case coderEnums.parallelOptions.Contrasts
                   [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
                      simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
                      allRoughs] = domainsTF.customXY.parallelContrasts(problemStruct,problemCells,controls);

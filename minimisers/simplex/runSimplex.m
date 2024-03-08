@@ -9,13 +9,13 @@ maxFunEvals = controls.maxFunEvals;
 display = controls.display;
 
 switch display
-    case 'off'
+    case coderEnums.displayOptions.Off
         dis = 'none';
-    case 'iter'
+    case coderEnums.displayOptions.Iter'
         dis = 'iter';
-    case 'notify'
+    case coderEnums.displayOptions.Notify'
         dis = 'notify';
-    case 'final'
+    case coderEnums.displayOptions.Final'
         dis = 'final';
     otherwise
         dis = 'final';

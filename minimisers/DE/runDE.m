@@ -103,7 +103,7 @@ function [problemStruct,result] = runDE(problemStruct,problemCells,problemLimits
     problemStruct = unpackParams(problemStruct,controls);
     result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
     
-    if ~strcmpi(controls.display,'off')
+    if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
         fprintf('Final chi squared is %g\n',result.calculationResults.sumChi);
     end
 

@@ -36,11 +36,11 @@ end
 %     p4 = prior{i,4};
 %     
 %     % currently only handles uniform or Gaussian priors
-%     if strcmp(priortype, 'uniform')
+%     if strcmp(priortype, coderEnums.priorTypes.Uniform)
 %         scaled(i) = (params(i) - p3)/(p4 - p3);
-%     elseif strcmp(priortype, 'gaussian')
+%     elseif strcmp(priortype, coderEnums.priorTypes.Gaussian)
 %         scaled(i) = (params(i) - p3)/p4;
-%     elseif strcmp(priortype, 'jeffreys')
+%     elseif strcmp(priortype, coderEnums.priorTypes.Jeffreys)
 %         scaled(i) = (log10(params(i)) - log10(p3))/(log10(p4) - log10(p3));
 %     end
 end

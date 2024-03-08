@@ -1,7 +1,19 @@
 % This allow enums to be used by coder without redefinition or hardcoding
 classdef coderEnums
     properties (Constant)
+        allowedTypes = allowedTypes.toStruct()
+        boundHandlingOptions = boundHandlingOptions.toStruct()
+        calculationTypes = calculationTypes.toStruct()
+        displayOptions = displayOptions.toStruct()
         eventTypes = eventTypes.toStruct()
+        geometryOptions = geometryOptions.toStruct()
+        hydrationTypes = hydrationTypes.toStruct()
+        modelTypes = modelTypes.toStruct()
+        parallelOptions = parallelOptions.toStruct()
+        priorTypes = priorTypes.toStruct()
+        procedures = procedures.toStruct()
+        searchStrategy = searchStrategy.toStruct()
+        supportedLanguages = supportedLanguages.toStruct()
     end
     methods (Static)
         function initialize() 

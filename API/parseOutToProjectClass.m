@@ -46,7 +46,7 @@ for i = 1:length(resolutionParams)
 end
 
 % (8) Domain ratio
-if strcmpi(problemStruct.TF,'domains')
+if strcmpi(problemStruct.TF, calculationTypes.Domains.value)
     domainRatios = problemStruct.domainRatio;
     for i = 1:length(domainRatios)
         project.setDomainRatio(i,'value',domainRatios(i));

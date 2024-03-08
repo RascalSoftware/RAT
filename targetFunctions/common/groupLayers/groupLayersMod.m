@@ -31,7 +31,7 @@ coder.varsize('layers',[Inf,6],[1 1]);
     s_sub = allRoughs;
     layers = zeros(size(output));
     if ~isempty(output)
-        if strcmpi(geometry,'air/substrate')
+        if strcmpi(geometry, coderEnums.geometryOptions.AirSubstrate)
                 layers = output;
                 %s_sub = rsub;
         else

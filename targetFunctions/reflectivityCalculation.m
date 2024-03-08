@@ -30,7 +30,7 @@ contrastParams = struct('ssubs',preAlloc, ...
                         'allSubRough',preAlloc,...
                         'resample',preAlloc);
 
-calculationResults = struct('allChis',preAlloc,'sumChi',0);
+calculationResults = struct('allChi',preAlloc,'sumChi',0);
 
 % We also fill the results arrays to define their type and size.
 reflectivity = cell(numberOfContrasts,1);
@@ -135,7 +135,7 @@ end
 
 result.calculationResults = calculationResults;
 result.contrastParams = contrastParams;
-result.bestFitPars = problemStruct.fitParams;
+result.fitParams = problemStruct.fitParams;
 result.fitNames = fitNames;
 
 end

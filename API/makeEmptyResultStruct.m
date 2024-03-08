@@ -17,19 +17,19 @@ function result = makeEmptyResultStruct(nContrasts,nPars,domains)
     %    resampledLayers: [nContrastsx1 cell]
     % calculationResults: [1x1 struct]
     %     contrastParams: [1x1 struct]
-    %        bestFitPars: [1xnPars double]
+    %          fitParams: [1xnPars double]
     %           fitNames: [nParsx1 cell]
     
     % -----------------------------------------------------------
     % Make the individual structs....
     % (1) result.calculationResults
 
-    allChis = zeros(nContrasts,1);
-    coder.varsize('allChis',[1e7 1],[1 0]);
+    allChi = zeros(nContrasts,1);
+    coder.varsize('allChi',[1e7 1],[1 0]);
     
     sumChi = 0;
         
-    calculationResults = struct('allChis', allChis, 'sumChi', sumChi);
+    calculationResults = struct('allChi', allChi, 'sumChi', sumChi);
     
     % --------------------------------------------------------------------
     % (2) result.contrastParams
@@ -139,8 +139,8 @@ function result = makeEmptyResultStruct(nContrasts,nPars,domains)
         end
     end
     
-    bestFitPars = zeros(1,nPars);
-    coder.varsize('bestFitPars',[1 10000],[0 1]);
+    fitParams = zeros(1,nPars);
+    coder.varsize('fitParams',[1 10000],[0 1]);
     
     fitNames = cell(nPars,1);
     fitNamesChar = '';
@@ -157,7 +157,7 @@ function result = makeEmptyResultStruct(nContrasts,nPars,domains)
                     'resampledLayers', {resampledLayers}, ...
                     'calculationResults', calculationResults, ...
                     'contrastParams', contrastParams, ...
-                    'bestFitPars', bestFitPars, ...
+                    'fitParams', fitParams, ...
                     'fitNames', {fitNames});
 
 end

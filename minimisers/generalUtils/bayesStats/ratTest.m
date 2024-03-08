@@ -14,13 +14,13 @@ results = testProb.results;
 bayesResults = testProb.bayesResults;
 controls = testProb.controls;
 
-bestFitPars = bayesResults.bestPars;
+fitParams = bayesResults.bestPars;
 
 problemCells = ratInputs.problemCells;
 problemLimits = ratInputs.problemLimits;
 
 
-problemStruct.fitParams = bestFitPars;
+problemStruct.fitParams = fitParams;
 problemStruct = unpackParams(problemStruct,controls);
 result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 

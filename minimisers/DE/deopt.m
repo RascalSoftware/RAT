@@ -304,7 +304,7 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
 %----Output section----------------------------------------------------------
 
   if (I_refresh > 0)
-     if ((rem(I_iter,I_refresh) == 0) || I_iter == 1) && strcmpi(controls.display,'iter')
+     if ((rem(I_iter,I_refresh) == 0) || I_iter == 1) && strcmpi(controls.display, coderEnums.displayOptions.Iter)
        fprintf('Iteration: %g,  Best: %f,  fWeight: %f,  F_CR: %f,  I_NP: %g\n\n', I_iter,S_bestval.FVr_oa(1),fWeight,F_CR,I_NP);
 
        %disp(S_bestval);

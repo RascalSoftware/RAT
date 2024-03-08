@@ -74,7 +74,7 @@ function triggerEvent(eventType, varargin)
                 [layers, nLayers] = packCellArray(result.allLayers, 1);
                 
                 switch problemStruct.TF
-                    case 'domains'
+                    case coderEnums.calculationTypes.Domains
                         [sldProfiles2, nSldProfiles2] = packCellArray(result.sldProfiles, 2);
                         [layers2, nLayers2] = packCellArray(result.allLayers, 2);
                     otherwise 

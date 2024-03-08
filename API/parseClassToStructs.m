@@ -206,9 +206,9 @@ for i=1:length(priorFields)
         % Check prior type.....
         thisType = priors.(currentPrior){j}{2};
 
-        if strcmpi(thisType,'uniform')
+        if strcmpi(thisType, priorTypes.Uniform.value)
             priorType = 1;
-        elseif strcmpi(thisType,'gaussian')
+        elseif strcmpi(thisType, priorTypes.Gaussian.value)
             priorType = 2;
         else
             priorType = 3;

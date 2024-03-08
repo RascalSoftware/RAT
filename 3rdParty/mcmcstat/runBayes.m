@@ -67,14 +67,14 @@ options.drscale = [3 2 1];
 results = [];
 loop = int32(loop);
 for i = 1:loop
-    if ~ strcmpi(display,'off')
+    if ~strcmpi(display, coderEnums.displayOptions.Off)
         fprintf('Running loop %d of %d ',i,loop);
     end
 
     %[results,chain,s2chain,sschain] = mcmcrun_compile(model, data, problem, params, options, results, display);
     [results,chain,s2chain,sschain] = mcmcrun(model, data, params, options, results);
     
-    if ~ strcmpi(display,'off')
+    if ~strcmpi(display, coderEnums.displayOptions.Off)
         fprintf('\n');
     end
 end

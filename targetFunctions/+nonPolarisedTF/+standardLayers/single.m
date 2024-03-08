@@ -91,17 +91,12 @@ for i = 1:numberOfContrasts
     thisSimLimits = simLimits{i};
     thisBacksType = contrastBackgroundsType(i);
     
-    % Now call the core layers reflectivity calculation
-    % In this case we are single cored, so we do not parallelise over
-    % points
-    parallelPoints = 'single';
-    
     % Call the core layers calculation
     [sldProfile,reflect,simul,shiftedDat,layerSld,resampledLayers,...
         thisChiSquared,thisSsubs] = nonPolarisedTF.coreLayersCalculation(thisContrastLayers, thisRough, ...
     geometry, thisBulkIn, thisBulkOut, thisResample, calcSld, thisScalefactor, thisQzshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
-    thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
+    thisBackground,thisResol,thisBacksType,nParams,controls.parallel,resamPars,useImaginary);
    
     % Store returned values for this contrast in the output arrays.
     % As well as the calculated profiles, we also store a record of 

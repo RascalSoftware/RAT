@@ -17,7 +17,7 @@ H = 0;
 numberOfContrasts = problemStruct.numberOfContrasts;
 numberOfChains = 1;
 
-if strcmpi(problemStruct.TF,'domains')
+if strcmpi(problemStruct.TF, coderEnums.calculationTypes.Domains)
     domains = true;
 else
     domains = false;

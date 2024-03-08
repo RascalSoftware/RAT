@@ -98,7 +98,7 @@ end
 switch refType
     case 'standardAbeles'
         switch parallel
-            case 'points'
+            case coderEnums.parallelOptions.Points
                 % Parallelise over points
                 
                 % Calculate reflectivity....

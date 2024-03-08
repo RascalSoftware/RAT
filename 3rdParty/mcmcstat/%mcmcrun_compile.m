@@ -91,7 +91,7 @@ A_count = 0; % alphafun count
 
 %% check input structs
 
-if strcmpi(display,'off')
+if strcmpi(display, coderEnums.displayOptions.Off)
     display = 0;
 else
     display = 1;

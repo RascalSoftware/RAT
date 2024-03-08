@@ -96,13 +96,13 @@ coder.varsize('domainAllLayers{:}',[10000 3],[1 0]);
 % Decide which target function we are calling and call the relevant routines
 whichTF = problemStruct.TF;
 switch whichTF
-    case 'non polarised'
+    case coderEnums.calculationTypes.NonPolarised
         [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
-    %case 'oil water'
+    %case coderEnums.calculationTypes.OilWater
         %contrastParams = oilWaterTFReflectivityCalculation(problemStruct,problemCells,controls);    
-    %case 'magnetic'
+    %case coderEnums.calculationTypes.Magnetic
         %contrastParams = polarisedTFReflectivityCalculation(problemStruct,problemCells,controls);
-    case 'domains'
+    case coderEnums.calculationTypes.Domains
         [contrastParams,calculationResults,reflectivity,simulation,shiftedData,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
 %     otherwise
 %         error('The calculation type "%s" is not supported', whichTF);
@@ -116,7 +116,7 @@ result.shiftedData = shiftedData;
 
 % The size of this array now varies depending on TF
 switch whichTF
-    case 'domains'
+    case coderEnums.calculationTypes.Domains
 
         result.layerSlds = domainLayerSlds;
         result.sldProfiles = domainSldProfiles;

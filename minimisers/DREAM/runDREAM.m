@@ -6,7 +6,7 @@ function [outProblemStruct,result,bayesResults] = runDREAM(problemStruct,problem
 numberOfContrasts = problemStruct.numberOfContrasts;
 numberOfChains = controls.nChains;
 
-if strcmpi(problemStruct.TF,'domains')
+if strcmpi(problemStruct.TF, coderEnums.calculationTypes.Domains)
     domains = true;
 else
     domains = false;
@@ -63,7 +63,7 @@ DREAMPar.adaptPCR = controls.adaptPCR;
 
 % This will change...
 % Initial sampling and parameter range
-Par_info.prior = 'uniform';           
+Par_info.prior = coderEnums.priorTypes.Uniform;           
 
 Par_info.min = problemStruct.fitLimits(:,1)';
 Par_info.max = problemStruct.fitLimits(:,2)';

@@ -99,7 +99,7 @@ end
 n = numel(x);
 numberOfVariables = n;
 
-printtype = 'iter';%optimget(options,'Display',defaultopt,'iter');
+printtype = coderEnums.displayOptions.Iter;%optimget(options,'Display',defaultopt,'iter');
 tolx = optimget(options,'TolX',defaultopt,'fast');
 tolf = optimget(options,'TolFun',defaultopt,'fast');
 maxfun = optimget(options,'MaxFunEvals',defaultopt,'fast');

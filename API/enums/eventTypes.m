@@ -1,15 +1,15 @@
 classdef eventTypes < customEnum
-    methods (Static)
+   methods (Static)
         function s = toStruct()
-            s = customEnum.toStruct('eventTypes');
+            s = customEnum.toStruct(mfilename('class'));
         end
         
         function v = values()
-            v = customEnum.values('eventTypes');
+            v = customEnum.values(mfilename('class'));
         end
         
         function e = fromValue(value)
-            e = customEnum.fromValue('eventTypes', value);
+            e = customEnum.fromValue(mfilename('class'), value);
         end
     end
 

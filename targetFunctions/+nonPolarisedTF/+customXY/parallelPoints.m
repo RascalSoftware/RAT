@@ -79,7 +79,7 @@ for i = 1:numberOfContrasts
     shiftedData{i} = shiftedDat;
     
     reflectivityType = 'standardAbeles';
-    [reflect,simul] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shiftedDat,layerSld,outSsubs(i),resolutionParams(i),'points',reflectivityType,useImaginary);
+    [reflect,simul] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shiftedDat,layerSld,outSsubs(i),resolutionParams(i),controls.parallel,reflectivityType,useImaginary);
     
     [reflect,simul,shiftedDat] = applyBackgroundCorrection(reflect,simul,shiftedDat,backgroundParams(i),contrastBackgroundsType(i));
     

@@ -117,12 +117,7 @@ for i = 1:numberOfContrasts
     thisDataLimits = dataLimits{i};
     thisSimLimits = simLimits{i};
     thisBacksType = contrastBackgroundsType(i);
-    
-    % Now call the core layers reflectivity calculation
-    % In this case we are single cored, so we do not parallelise over
-    % points
-    parallelPoints = coderEnums.parallelOptions.Single;
-    
+       
     % Call the reflectivity calculation for each domain
     % Domain 1
     [sldProfile1,reflect1,simul1,shiftedDat,layerSld1,resamLayers1,~,thisSsubs] = ...

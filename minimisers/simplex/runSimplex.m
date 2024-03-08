@@ -11,11 +11,11 @@ display = controls.display;
 switch display
     case coderEnums.displayOptions.Off
         dis = 'none';
-    case coderEnums.displayOptions.Iter'
+    case coderEnums.displayOptions.Iter
         dis = 'iter';
-    case coderEnums.displayOptions.Notify'
+    case coderEnums.displayOptions.Notify
         dis = 'notify';
-    case coderEnums.displayOptions.Final'
+    case coderEnums.displayOptions.Final
         dis = 'final';
     otherwise
         dis = 'final';

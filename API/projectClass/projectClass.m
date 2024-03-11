@@ -1,6 +1,6 @@
 classdef projectClass < handle & matlab.mixin.CustomDisplay
     
-    % Class definition for Standard Layers with no absorption.
+    % Class definition for Standard Layers with or without absorption.
     % Layers defined in terms of thickness, roughness, real SLD and
     % hydration.
     %

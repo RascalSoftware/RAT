@@ -4,7 +4,7 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
 % This is the main reflectivity calculation of the standard layers
 % calculation type. It extracts the required parameters for the contrasts
 % from the input arrays, then passes the main calculation to
-% 'standardLayersCore', which carries out the calculation itself. 
+% 'coreLayersCalculation', which carries out the calculation itself. 
 % The core calculation is common for both standard and custom layers.
 
 % Extract individual cell arrays
@@ -20,7 +20,7 @@ domainContrastLayers = problemCells{19};
 % Extract individual parameters from problemStruct
 [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
 contrastResolutions, backgroundParam, qzshift, scalefactor, bulkIn, bulkOut, resolutionParam, dataPresent, nParams, params,...
-~, resample, contrastBackgroundsType, ~] =  extractProblemParams(problemStruct);
+~, resample, contrastBackgroundsType, ~] = extractProblemParams(problemStruct);
 
 calcSld = controls.calcSldDuringFit;
 parallel = controls.parallel;
@@ -109,62 +109,40 @@ if strcmpi(parallel, coderEnums.parallelOptions.Contrasts)
         % from the input arrays.
         % First need to decide which values of the backgrounds, scalefactors
         % data shifts and bulk contrasts are associated with this contrast
-        [thisBackground,thisQzshift,thisScalefactor,thisBulkIn,thisBulkOut,thisResol] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParam,qzshift,scalefactor,bulkIn,bulkOut,resolutionParam);
+        [backgroundParams(i),qzshifts(i),scalefactors(i),bulkIns(i),bulkOuts(i),resolutionParams(i)] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParam,qzshift,scalefactor,bulkIn,bulkOut,resolutionParam);
         
         % Also need to determine which layers from the overall layers list
         % are required for this contrast, and put them in the correct order 
         % according to geometry. We run it twice, once for each domain...
         thisContrastLayers1 = allocateLayersForContrast(domainContrastLayers{1},outParameterisedLayers,useImaginary);
         thisContrastLayers2 = allocateLayersForContrast(domainContrastLayers{2},outParameterisedLayers,useImaginary);
-        
-        % For the other parameters, we extract the correct ones from the input
-        % arrays
-        thisRepeatLayers = repeatLayers{i};
-        thisResample = resample(i);
-        thisData = allData{i};
-        thisDataPresent = dataPresent(i);
-        thisDataLimits = dataLimits{i};
-        thisSimLimits = simLimits{i};
-        thisBacksType = contrastBackgroundsType(i);    
        
         % Call the core layers calculation - need to do this once for each
         % domain
-        [sldProfile1,reflect1,simul1,shiftedDat,layerSld1,resamLayers1,~,thisSsubs]= nonPolarisedTF.coreLayersCalculation(thisContrastLayers1, thisRough, ...
-        geometry, thisBulkIn, thisBulkOut, thisResample, calcSld, thisScalefactor, thisQzshift,...
-        thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
-        thisBackground,thisResol,thisBacksType,nParams,parallel,resamPars,useImaginary);
+        [sldProfile1,reflect1,simul1,shiftedDat,layerSld1,resamLayers1,~,outSsubs(i)] = nonPolarisedTF.coreLayersCalculation(thisContrastLayers1, thisRough, ...
+        geometry, bulkIns(i), bulkOuts(i), resample(i), calcSld, scalefactors(i), qzshifts(i),...
+        dataPresent(i), allData{i}, dataLimits{i}, simLimits{i}, repeatLayers{i},...
+        backgroundParams(i),resolutionParams(i),contrastBackgroundsType(i),nParams,parallel,resamPars,useImaginary);
     
         [sldProfile2,reflect2,simul2,~,layerSld2,resamLayers2,~,~] = nonPolarisedTF.coreLayersCalculation(thisContrastLayers2, thisRough, ...
-        geometry, thisBulkIn, thisBulkOut, thisResample, calcSld, thisScalefactor, thisQzshift,...
-        thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
-        thisBackground,thisResol,thisBacksType,nParams,parallel,resamPars,useImaginary);
+        geometry, bulkIns(i), bulkOuts(i), resample(i), calcSld, scalefactors(i), qzshifts(i),...
+        dataPresent(i), allData{i}, dataLimits{i}, simLimits{i}, repeatLayers{i},...
+        backgroundParams(i),resolutionParams(i),contrastBackgroundsType(i),nParams,parallel,resamPars,useImaginary);
     
         % Calculate the average reflectivities....
-        [totReflect,totSimul] = domainsTF.averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio);
+        [reflectivity{i},simulation{i}] = domainsTF.averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio);
     
         % Get an overall chi-squared for the new averaged curve..
-        thisChiSquared = chiSquared(shiftedDat,totReflect,length(params));
+        chis(i) = chiSquared(shiftedDat,reflectivity{i},length(params));
     
         % Store returned values for this contrast in the output arrays.
-        % As well as the calculated profiles, we also store a record of 
-        % the other values (background, scalefactors etc) for each contrast
-        % for future use.
-        outSsubs(i) = thisSsubs;
         tempSldProfiles{i} = {sldProfile1, sldProfile2};
-        reflectivity{i} = totReflect;
-        simulation{i} = totSimul;
-        shiftedData{i} = shiftedDat;
         tempLayerSlds{i} = {layerSld1, layerSld2};
         tempAllLayers{i} = {resamLayers1, resamLayers2};
-        
-        chis(i) = thisChiSquared;
-        backgroundParams(i) = thisBackground;
-        qzshifts(i) = thisQzshift;
-        scalefactors(i) = thisScalefactor;
-        bulkIns(i) = thisBulkIn;
-        bulkOuts(i) = thisBulkOut;
-        resolutionParams(i) = thisResol;
+
+        shiftedData{i} = shiftedDat;
         allRoughs(i) = thisRough;
+
     end
 
 else
@@ -183,77 +161,55 @@ else
         % from the input arrays.
         % First need to decide which values of the backgrounds, scalefactors
         % data shifts and bulk contrasts are associated with this contrast
-        [thisBackground,thisQzshift,thisScalefactor,thisBulkIn,thisBulkOut,thisResol] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParam,qzshift,scalefactor,bulkIn,bulkOut,resolutionParam);
+        [backgroundParams(i),qzshifts(i),scalefactors(i),bulkIns(i),bulkOuts(i),resolutionParams(i)] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParam,qzshift,scalefactor,bulkIn,bulkOut,resolutionParam);
         
         % Also need to determine which layers from the overall layers list
         % are required for this contrast, and put them in the correct order 
         % according to geometry. We run it twice, once for each domain...
         thisContrastLayers1 = allocateLayersForContrast(domainContrastLayers{1},outParameterisedLayers,useImaginary);
         thisContrastLayers2 = allocateLayersForContrast(domainContrastLayers{2},outParameterisedLayers,useImaginary);
-        
-        % For the other parameters, we extract the correct ones from the input
-        % arrays
-        thisRepeatLayers = repeatLayers{i};
-        thisResample = resample(i);
-        thisData = allData{i};
-        thisDataPresent = dataPresent(i);
-        thisDataLimits = dataLimits{i};
-        thisSimLimits = simLimits{i};
-        thisBacksType = contrastBackgroundsType(i);
            
         % Call the core layers calculation - need to do this once for each
         % domain
-        [sldProfile1,reflect1,simul1,shiftedDat,layerSld1,resamLayers1,~,thisSsubs]= nonPolarisedTF.coreLayersCalculation(thisContrastLayers1, thisRough, ...
-        geometry, thisBulkIn, thisBulkOut, thisResample, calcSld, thisScalefactor, thisQzshift,...
-        thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
-        thisBackground,thisResol,thisBacksType,nParams,parallel,resamPars,useImaginary);
+        [sldProfile1,reflect1,simul1,shiftedDat,layerSld1,resamLayers1,~,outSsubs(i)] = nonPolarisedTF.coreLayersCalculation(thisContrastLayers1, thisRough, ...
+        geometry, bulkIns(i), bulkOuts(i), resample(i), calcSld, scalefactors(i), qzshifts(i),...
+        dataPresent(i), allData{i}, dataLimits{i}, simLimits{i}, repeatLayers{i},...
+        backgroundParams(i),resolutionParams(i),contrastBackgroundsType(i),nParams,parallel,resamPars,useImaginary);
     
         [sldProfile2,reflect2,simul2,~,layerSld2,resamLayers2,~,~] = nonPolarisedTF.coreLayersCalculation(thisContrastLayers2, thisRough, ...
-        geometry, thisBulkIn, thisBulkOut, thisResample, calcSld, thisScalefactor, thisQzshift,...
-        thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
-        thisBackground,thisResol,thisBacksType,nParams,parallel,resamPars,useImaginary);
+        geometry, bulkIns(i), bulkOuts(i), resample(i), calcSld, scalefactors(i), qzshifts(i),...
+        dataPresent(i), allData{i}, dataLimits{i}, simLimits{i}, repeatLayers{i},...
+        backgroundParams(i),resolutionParams(i),contrastBackgroundsType(i),nParams,parallel,resamPars,useImaginary);
     
         % Calculate the average reflectivities....
-        [totReflect,totSimul] = domainsTF.averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio);
+        [reflectivity{i},simulation{i}] = domainsTF.averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio);
     
         % Get an overall chi-squared for the new averaged curve..
-        thisChiSquared = chiSquared(shiftedDat,totReflect,length(params));
+        chis(i) = chiSquared(shiftedDat,reflectivity{i},length(params));
     
         % Store returned values for this contrast in the output arrays.
-        % As well as the calculated profiles, we also store a record of 
-        % the other values (background, scalefactors etc) for each contrast
-        % for future use.
-        outSsubs(i) = thisSsubs;
         tempSldProfiles{i} = {sldProfile1, sldProfile2};
-        reflectivity{i} = totReflect;
-        simulation{i} = totSimul;
-        shiftedData{i} = shiftedDat;
         tempLayerSlds{i} = {layerSld1, layerSld2};
         tempAllLayers{i} = {resamLayers1, resamLayers2};
         
-        chis(i) = thisChiSquared;
-        backgroundParams(i) = thisBackground;
-        qzshifts(i) = thisQzshift;
-        scalefactors(i) = thisScalefactor;
-        bulkIns(i) = thisBulkIn;
-        bulkOuts(i) = thisBulkOut;
-        resolutionParams(i) = thisResol;
+        shiftedData{i} = shiftedDat;
         allRoughs(i) = thisRough;
+
     end
 
 end
 
 for i = 1:numberOfContrasts
-    theseDomainSLDs = tempSldProfiles{i};
-    domainSldProfiles{i,1} = theseDomainSLDs{1};
-    domainSldProfiles{i,2} = theseDomainSLDs{2};
 
-    theseAllLayers = tempAllLayers{i};
-    allLayers{i,1} = theseAllLayers{1};
-    allLayers{i,2} = theseAllLayers{2};
+    domainSldProfiles{i,1} = tempSldProfiles{i}{1};
+    domainSldProfiles{i,2} = tempSldProfiles{i}{2};
 
-    theseLayerSlds = tempLayerSlds{i};
-    layerSlds{i,1} = theseLayerSlds{1};
-    layerSlds{i,2} = theseLayerSlds{2};
+    layerSlds{i,1} = tempLayerSlds{i}{1};
+    layerSlds{i,2} = tempLayerSlds{i}{2};
+
+    allLayers{i,1} = tempAllLayers{i}{1};
+    allLayers{i,2} = tempAllLayers{i}{2};
+
 end
+
 end

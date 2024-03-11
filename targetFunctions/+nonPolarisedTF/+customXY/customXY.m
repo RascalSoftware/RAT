@@ -62,12 +62,12 @@ if strcmpi(parallel, coderEnums.parallelOptions.Contrasts)
         [backgroundParams(i),qzshifts(i),scalefactors(i),bulkIns(i),bulkOuts(i),resolutionParams(i)] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParam,qzshift,scalefactor,bulkIn,bulkOut,resolutionParam);
     
         % Resample the layers
-        thisSld = sldProfiles{i};
+        sld = sldProfiles{i};
         if ~useImaginary
-            layerSld = resampleLayers(thisSld,resamPars);
+            layerSld = resampleLayers(sld,resamPars);
         else
-            reSLD = thisSld(:,1:2);
-            imSLD = [thisSld(:,1),thisSld(:,3)];
+            reSLD = sld(:,1:2);
+            imSLD = [sld(:,1),sld(:,3)];
             layerSld = resampleLayersReIm(reSLD,imSLD,resamPars);
         end
         
@@ -76,14 +76,11 @@ if strcmpi(parallel, coderEnums.parallelOptions.Contrasts)
     
         shiftedDat =  shiftData(scalefactors(i),qzshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
         shiftedData{i} = shiftedDat;
-        
+
         reflectivityType = 'standardAbeles';
         [reflect,simul] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shiftedDat,layerSld,outSsubs(i),resolutionParams(i),parallel,reflectivityType,useImaginary);
         
-        [reflect,simul,shiftedDat] = applyBackgroundCorrection(reflect,simul,shiftedDat,backgroundParams(i),contrastBackgroundsType(i));
-        
-        reflectivity{i} = reflect;
-        simulation{i} = simul;
+        [reflectivity{i},simulation{i},shiftedDat] = applyBackgroundCorrection(reflect,simul,shiftedDat,backgroundParams(i),contrastBackgroundsType(i));
         
         if dataPresent(i)
             chis(i) = chiSquared(shiftedDat,reflect,nParams);
@@ -98,12 +95,12 @@ else
         [backgroundParams(i),qzshifts(i),scalefactors(i),bulkIns(i),bulkOuts(i),resolutionParams(i)] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParam,qzshift,scalefactor,bulkIn,bulkOut,resolutionParam);
     
         % Resample the layers
-        thisSld = sldProfiles{i};
+        sld = sldProfiles{i};
         if ~useImaginary
-            layerSld = resampleLayers(thisSld,resamPars);
+            layerSld = resampleLayers(sld,resamPars);
         else
-            reSLD = thisSld(:,1:2);
-            imSLD = [thisSld(:,1),thisSld(:,3)];
+            reSLD = sld(:,1:2);
+            imSLD = [sld(:,1),sld(:,3)];
             layerSld = resampleLayersReIm(reSLD,imSLD,resamPars);
         end
         
@@ -112,14 +109,11 @@ else
     
         shiftedDat =  shiftData(scalefactors(i),qzshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
         shiftedData{i} = shiftedDat;
-        
+
         reflectivityType = 'standardAbeles';
         [reflect,simul] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shiftedDat,layerSld,outSsubs(i),resolutionParams(i),parallel,reflectivityType,useImaginary);
         
-        [reflect,simul,shiftedDat] = applyBackgroundCorrection(reflect,simul,shiftedDat,backgroundParams(i),contrastBackgroundsType(i));
-        
-        reflectivity{i} = reflect;
-        simulation{i} = simul;
+        [reflectivity{i},simulation{i},shiftedDat] = applyBackgroundCorrection(reflect,simul,shiftedDat,backgroundParams(i),contrastBackgroundsType(i));
         
         if dataPresent(i)
             chis(i) = chiSquared(shiftedDat,reflect,nParams);

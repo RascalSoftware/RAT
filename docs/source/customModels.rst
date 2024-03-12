@@ -440,7 +440,145 @@ The inputs into customXY are the same as for Custom Layers, but the output is no
                Xn  Yn];
 
 
-In other
+In other words, as the name suggests, a customXY model outputs a continuous SLD profile rather than a list of layers. THis makes it easy to incorporate information
+such as protein volume fractions from simulations, or to make interfaces that are not describes as error functions, for example.
+
+As an example, we will do a simulation of a metal layer on Silicon, with a surface roughness that is governed by a tanh function rather than an error function.
+
+Because we are making the full SLD profile, if we want layers in it then we have to define our own. This is quite easy since a layer is just two error functions back-to-back.
+I the following code snippet we'll make an example of a simple layer....
+
+.. code:: MATLAB
+
+        % Make a range for our simulation....
+        z = 0:100;
+
+        % Define fome layer patameters....
+        height = 1;
+        roughLeft = 3;
+        roughRight = 8;
+        centre = 50;
+        width = 50;
+
+        r = centre + (width/2);
+        l = centre - (width/2);
+
+        a = (z-l)./((2^0.5) * roughLeft);
+        b = (z-r)./((2^0.5) * roughRight);
+
+        f = (height/2)*(erf(a)-erf(b));
+
+        figure(1); clf
+        plot(z,f);
+        axis([0 100 0 1.5]);
+
+.. image:: images/userManual/chapter3/simpleLayer.png
+
+
+
+A simple stack of such layers covers any regions of your model that are intended to be simple layers. For our tanh layer, we will do a similar thing, but replace one side with a tanh distribution...
+
+
+.. code:: MATLAB
+
+        function [SLD,subRough] = tanhLayer(params,bulkIn,bulkOut,contrast)
+
+        % Flag to control whether we do a debug plot....
+        debugPlot = true;
+
+        % Make the z array.....
+        z = 0:150;
+
+        % Split up the parameters...
+        subRough = params(1);
+        layerThick = params(2);
+        layerSLD = params(3);
+        layerRough = params(4);
+
+        % Make a layer for the silicon..
+        width = 50;
+        [silicon,siSurface] = erfLayer(z,width,0,subRough,subRough,2.073e-6);
+
+        % Make the tanh layer....
+        centre = siSurface + layerThick/2;
+        layer = tanh(z,layerThick,centre,subRough,layerRough,layerSLD);
+
+        % Our total SLD is just the sum of the functions representing our model,
+        % but we flip it so that the substrate is on the fight side of the model
+        silicon = fliplr(silicon);
+        layer = fliplr(layer);
+        SLD = silicon + layer;
+
+        % Do a debug plot...
+        if debugPlot
+        figure(1); clf;
+        plot(z,silicon);
+        hold on
+        plot(z,layer);
+        plot(z,SLD,'k-','LineWidth',2.0);
+
+        end
+
+        end
+
+        function [f,layerSurface] = erfLayer(x,xw,xcen,s1,s2,h);
+        % Produces a step function convoluted with differnt error functions
+        % on each side.
+        % Convstep (x,xw,xcen,s1,s2,h)
+        %       x = vector of x values
+        %      xw = Width of step function
+        %    xcen = Centre point of step function
+        %       s1 = Roughness parameter of left side
+        %       s2 = Roughness parameter of right side
+        %       h = Height of step function.
+
+        r = xcen + (xw/2);
+        l = xcen - (xw/2);
+
+        a = (x-l)./((2^0.5)*s1);
+        b = (x-r)./((2^0.5)*s2);
+
+        f = (h/2)*(erf(a)-erf(b));
+
+        layerSurface = r;
+
+        end
+
+        function [f,layerSurface] = tanh(x,xw,xcen,s1,s2,h);
+
+        % tanhlayer (x,xw,xcen,s1,s2,h)
+        %       x = vector of x values
+        %      xw = Width of step function
+        %    xcen = Centre point of step function
+        %       s1 = Roughness parameter of left side
+        %       s2 = Roughness parameter of right side
+        %       h = Height of step function.
+
+        r = xcen + (xw/2);
+        l = xcen - (xw/2);
+
+        a = (x-l)./((2^0.5)*s1);
+        b = (x-r)./((2^0.5)*s2);
+
+        f = (h/2)*(erf(a)-erf(b));
+
+        layerSurface = r;
+
+        end
+
+
+
+.. note::
+
+    Since we want this to be an air-liquid sample, we flip the model once we have created it to leave the substrate on the right of the plot. Broadly speaking,
+    you can imagine the neutrons travelling left to right, with the lsft side of the plot being Bulk In, and Bulk Out on the right..
+
+
+To run our simulation, we make a RAT model as normal:
+
+
+
+
 
 
 

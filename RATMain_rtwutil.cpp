@@ -30,7 +30,7 @@ namespace RAT
 // Function Definitions
 namespace RAT
 {
-  void cast(const ::coder::array<cell_wrap_53, 1U> &b, ::coder::array<
+  void cast(const ::coder::array<cell_wrap_65, 1U> &b, ::coder::array<
             cell_wrap_10, 1U> &c)
   {
     int32_T i;
@@ -48,7 +48,7 @@ namespace RAT
     }
   }
 
-  void cast(const ::coder::array<cell_wrap_53, 2U> &b, ::coder::array<
+  void cast(const ::coder::array<cell_wrap_65, 2U> &b, ::coder::array<
             cell_wrap_10, 2U> &c)
   {
     int32_T i;
@@ -66,7 +66,7 @@ namespace RAT
     }
   }
 
-  void cast(const ::coder::array<cell_wrap_19, 2U> &b, ::coder::array<
+  void cast(const ::coder::array<cell_wrap_31, 2U> &b, ::coder::array<
             cell_wrap_10, 2U> &c)
   {
     int32_T i;
@@ -101,7 +101,7 @@ namespace RAT
     }
   }
 
-  void cast(const ::coder::array<cell_wrap_26, 1U> &b, ::coder::array<
+  void cast(const ::coder::array<cell_wrap_38, 1U> &b, ::coder::array<
             cell_wrap_10, 1U> &c)
   {
     int32_T i;
@@ -120,7 +120,7 @@ namespace RAT
     }
   }
 
-  void cast(const ::coder::array<cell_wrap_27, 2U> &b, ::coder::array<
+  void cast(const ::coder::array<cell_wrap_39, 2U> &b, ::coder::array<
             cell_wrap_10, 2U> &c)
   {
     int32_T i;

@@ -18,7 +18,7 @@
 namespace RAT
 {
   void b_makeCell(real_T m, const real_T vals_data[], ::coder::array<
-                  cell_wrap_19, 2U> &x)
+                  cell_wrap_31, 2U> &x)
   {
     int32_T i;
 
@@ -169,7 +169,7 @@ namespace RAT
     x[49].f1[0] = 1.0;
   }
 
-  void makeCell(real_T m, const real_T vals_data[], ::coder::array<cell_wrap_19,
+  void makeCell(real_T m, const real_T vals_data[], ::coder::array<cell_wrap_31,
                 2U> &x)
   {
     int32_T i;

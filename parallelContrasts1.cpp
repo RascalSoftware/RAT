@@ -147,9 +147,6 @@ namespace RAT
           //  Get the custom layers output for this contrast
           //  For the other parameters, we extract the correct ones from the input
           //  arrays
-          //  Now call the core layers reflectivity calculation
-          //  In this case we are single cored, so we do not parallelise over
-          //  points
           //  Call the reflectivity calculation
           coreLayersCalculation(allLayers[i].f1, allRoughs[i],
                                 problemStruct->geometry.data,
@@ -162,6 +159,7 @@ namespace RAT
                                 thisBackground, thisResol,
                                 problemStruct->contrastBackgroundsType[i],
                                 static_cast<real_T>(nParams),
+                                controls->parallel.data, controls->parallel.size,
                                 controls->resamPars, useImaginary, sldProfile,
                                 reflect, simul, shiftedDat, layerSld,
                                 resamLayers, &thisChiSquared, &thisSsubs);

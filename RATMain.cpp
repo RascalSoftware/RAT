@@ -14,7 +14,6 @@
 #include "RATMain_internal_types.h"
 #include "RATMain_types.h"
 #include "length.h"
-#include "lower.h"
 #include "makeEmptyBayesResultsStruct.h"
 #include "makeEmptyResultStruct.h"
 #include "reflectivityCalculation.h"
@@ -34,10 +33,10 @@ namespace RAT
 {
   static void cast(const ::coder::array<cell_wrap_8, 1U> &t10_reflectivity,
                    const ::coder::array<cell_wrap_8, 1U> &t10_simulation, const ::
-                   coder::array<cell_wrap_26, 1U> &t10_shiftedData, const ::
+                   coder::array<cell_wrap_38, 1U> &t10_shiftedData, const ::
                    coder::array<cell_wrap_10, 2U> &t10_layerSlds, const ::coder::
                    array<cell_wrap_10, 2U> &t10_sldProfiles, const ::coder::
-                   array<cell_wrap_26, 2U> &t10_allLayers, const struct6_T
+                   array<cell_wrap_38, 2U> &t10_allLayers, const struct6_T
                    *t10_calculationResults, const b_struct_T *t10_contrastParams,
                    const ::coder::array<real_T, 2U> &t10_bestFitPars, const ::
                    coder::array<cell_wrap_1, 1U> &t10_fitNames, struct5_T *b);
@@ -59,10 +58,10 @@ namespace RAT
 {
   static void cast(const ::coder::array<cell_wrap_8, 1U> &t10_reflectivity,
                    const ::coder::array<cell_wrap_8, 1U> &t10_simulation, const ::
-                   coder::array<cell_wrap_26, 1U> &t10_shiftedData, const ::
+                   coder::array<cell_wrap_38, 1U> &t10_shiftedData, const ::
                    coder::array<cell_wrap_10, 2U> &t10_layerSlds, const ::coder::
                    array<cell_wrap_10, 2U> &t10_sldProfiles, const ::coder::
-                   array<cell_wrap_26, 2U> &t10_allLayers, const struct6_T
+                   array<cell_wrap_38, 2U> &t10_allLayers, const struct6_T
                    *t10_calculationResults, const b_struct_T *t10_contrastParams,
                    const ::coder::array<real_T, 2U> &t10_bestFitPars, const ::
                    coder::array<cell_wrap_1, 1U> &t10_fitNames, struct5_T *b)
@@ -718,22 +717,20 @@ namespace RAT
     ::coder::array<cell_wrap_1, 1U> t19_fitNames;
     ::coder::array<cell_wrap_10, 2U> t19_layerSlds;
     ::coder::array<cell_wrap_10, 2U> t19_sldProfiles;
-    ::coder::array<cell_wrap_26, 2U> t19_allLayers;
-    ::coder::array<cell_wrap_26, 1U> t19_shiftedData;
+    ::coder::array<cell_wrap_38, 2U> t19_allLayers;
+    ::coder::array<cell_wrap_38, 1U> t19_shiftedData;
     ::coder::array<cell_wrap_8, 1U> t19_reflectivity;
     ::coder::array<cell_wrap_8, 1U> t19_simulation;
     ::coder::array<real_T, 2U> t19_bestFitPars;
     b_struct_T t19_contrastParams;
     cell_11 r1;
     struct6_T t19_calculationResults;
-    int32_T switch_expression_size[2];
     int32_T b_loop_ub;
     int32_T c_loop_ub;
     int32_T i;
     int32_T i1;
     int32_T i2;
     int32_T loop_ub;
-    char_T switch_expression_data[10000];
     boolean_T domains;
     domains = coder::internal::b_strcmp(problemStruct->TF.data,
       problemStruct->TF.size);
@@ -795,22 +792,17 @@ namespace RAT
       bayesResults_bayesRes.nestOutput.postSamples.data[1];
 
     //  Decide what we are doing....
-    coder::lower(controls->procedure.data, controls->procedure.size,
-                 switch_expression_data, switch_expression_size);
-    if (coder::internal::c_strcmp(switch_expression_data, switch_expression_size))
-    {
+    if (coder::internal::c_strcmp(controls->procedure.data,
+         controls->procedure.size)) {
       loop_ub = 0;
-    } else if (coder::internal::d_strcmp(switch_expression_data,
-                switch_expression_size)) {
-      loop_ub = 1;
-    } else if (coder::internal::e_strcmp(switch_expression_data,
-                switch_expression_size)) {
+    } else if (coder::internal::d_strcmp(controls->procedure.data,
+                controls->procedure.size)) {
       loop_ub = 2;
-    } else if (coder::internal::f_strcmp(switch_expression_data,
-                switch_expression_size)) {
+    } else if (coder::internal::e_strcmp(controls->procedure.data,
+                controls->procedure.size)) {
       loop_ub = 3;
-    } else if (coder::internal::g_strcmp(switch_expression_data,
-                switch_expression_size)) {
+    } else if (coder::internal::f_strcmp(controls->procedure.data,
+                controls->procedure.size)) {
       loop_ub = 4;
     } else {
       loop_ub = -1;
@@ -825,7 +817,7 @@ namespace RAT
       break;
 
      case 1:
-      if (!coder::internal::q_strcmp(controls->display.data,
+      if (!coder::internal::p_strcmp(controls->display.data,
            controls->display.size)) {
         printf("\nRunning simplex\n\n");
         fflush(stdout);
@@ -838,7 +830,7 @@ namespace RAT
       break;
 
      case 2:
-      if (!coder::internal::q_strcmp(controls->display.data,
+      if (!coder::internal::p_strcmp(controls->display.data,
            controls->display.size)) {
         printf("\nRunning Differential Evolution\n\n");
         fflush(stdout);
@@ -851,7 +843,7 @@ namespace RAT
       break;
 
      case 3:
-      if (!coder::internal::q_strcmp(controls->display.data,
+      if (!coder::internal::p_strcmp(controls->display.data,
            controls->display.size)) {
         printf("\nRunning Nested Sampler\n\n");
         fflush(stdout);
@@ -865,7 +857,7 @@ namespace RAT
       break;
 
      case 4:
-      if (!coder::internal::q_strcmp(controls->display.data,
+      if (!coder::internal::p_strcmp(controls->display.data,
            controls->display.size)) {
         printf("\nRunning DREAM\n\n");
         fflush(stdout);

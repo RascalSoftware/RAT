@@ -125,9 +125,6 @@ namespace RAT
           //  Get the custom layers output for this contrast
           //  For the other parameters, we extract the correct ones from the input
           //  arrays
-          //  Now call the core layers reflectivity calculation
-          //  In this case we are single cored, so we do not parallelise over
-          //  points
           //  Call the reflectivity calculation
           b_allLayers.set_size(allLayers[b_i].f1.size(0), allLayers[b_i].f1.size
                                (1));
@@ -151,6 +148,7 @@ namespace RAT
                                 f1[b_i].f1, thisBackground, thisResol,
                                 problemStruct->contrastBackgroundsType[b_i],
                                 static_cast<real_T>(problemStruct->params.size(1)),
+                                controls->parallel.data, controls->parallel.size,
                                 controls->resamPars, problemStruct->useImaginary,
                                 sldProfile, reflectivity[b_i].f1, simulation[b_i]
                                 .f1, shiftedDat, layerSlds[b_i].f1,

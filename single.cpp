@@ -42,7 +42,7 @@ namespace RAT
                     real_T, 1U> &allRoughs)
       {
         static real_T thisContrastLayers_data[6000];
-        ::coder::array<cell_wrap_19, 2U> outParameterisedLayers;
+        ::coder::array<cell_wrap_31, 2U> outParameterisedLayers;
         ::coder::array<real_T, 2U> b_thisContrastLayers_data;
         ::coder::array<real_T, 2U> shiftedDat;
         ::coder::array<real_T, 2U> sldProfile;
@@ -142,9 +142,6 @@ namespace RAT
 
           //  For the other parameters, we extract the correct ones from the input
           //  arrays
-          //  Now call the core layers reflectivity calculation
-          //  In this case we are single cored, so we do not parallelise over
-          //  points
           //  Call the core layers calculation
           b_thisContrastLayers_data.set(&thisContrastLayers_data[0],
             thisContrastLayers_size[0], thisContrastLayers_size[1]);
@@ -159,6 +156,7 @@ namespace RAT
                                 f1[b_i].f1, thisBackground, thisResol,
                                 problemStruct->contrastBackgroundsType[b_i],
                                 static_cast<real_T>(problemStruct->params.size(1)),
+                                controls->parallel.data, controls->parallel.size,
                                 controls->resamPars, useImaginary, sldProfile,
                                 reflectivity[b_i].f1, simulation[b_i].f1,
                                 shiftedDat, layerSlds[b_i].f1, allLayers[b_i].f1,

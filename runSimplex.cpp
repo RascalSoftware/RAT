@@ -50,16 +50,16 @@ namespace RAT
                problemCells->f9, problemCells->f10, problemCells->f11,
                problemCells->f12, problemCells->f13, problemCells->f20,
                problemLimits, &controls->checks, b_problemStruct);
-    if (coder::internal::r_strcmp(controls->display.data, controls->display.size))
+    if (coder::internal::q_strcmp(controls->display.data, controls->display.size))
     {
       outsize_idx_0 = 0;
-    } else if (coder::internal::s_strcmp(controls->display.data,
+    } else if (coder::internal::r_strcmp(controls->display.data,
                 controls->display.size)) {
       outsize_idx_0 = 1;
-    } else if (coder::internal::t_strcmp(controls->display.data,
+    } else if (coder::internal::s_strcmp(controls->display.data,
                 controls->display.size)) {
       outsize_idx_0 = 2;
-    } else if (coder::internal::u_strcmp(controls->display.data,
+    } else if (coder::internal::t_strcmp(controls->display.data,
                 controls->display.size)) {
       outsize_idx_0 = 3;
     } else {

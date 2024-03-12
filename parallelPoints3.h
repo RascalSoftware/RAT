@@ -32,7 +32,7 @@ namespace RAT
 {
   namespace domainsTF
   {
-    namespace standardLayers
+    namespace customLayers
     {
       void parallelPoints(const f_struct_T *problemStruct, const cell_11
                           *problemCells, const struct2_T *controls, ::coder::

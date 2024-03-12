@@ -32,7 +32,7 @@ namespace RAT
         2U> &bulkOut, const ::coder::array<real_T, 2U> &cCustFiles, real_T
         numberOfContrasts, const ::coder::array<cell_wrap_1, 2U> &customFiles,
         const ::coder::array<real_T, 2U> &params, boolean_T useImaginary, ::
-        coder::array<cell_wrap_27, 2U> &allLayers, ::coder::array<real_T, 1U>
+        coder::array<cell_wrap_39, 2U> &allLayers, ::coder::array<real_T, 1U>
         &allRoughs)
       {
         ::coder::array<real_T, 2U> allBulkOuts;

@@ -22,6 +22,7 @@
 #include "rt_nonfinite.h"
 #include "shiftData.h"
 #include "coder_array.h"
+#include "coder_bounded_array.h"
 
 // Function Definitions
 namespace RAT
@@ -223,7 +224,8 @@ namespace RAT
 
           callReflectivity(bulkIns[b_i], bulkOuts[b_i], problemCells->f4[b_i].f1,
                            problemCells->f1[b_i].f1, shiftedDat, layerSld, 0.0,
-                           resolutionParams[b_i], useImaginary, reflect, simul);
+                           resolutionParams[b_i], controls->parallel.data,
+                           controls->parallel.size, useImaginary, reflect, simul);
           applyBackgroundCorrection(reflect, simul, shiftedDat,
             backgroundParams[b_i], problemStruct->contrastBackgroundsType[b_i]);
           loop_ub = reflect.size(0);

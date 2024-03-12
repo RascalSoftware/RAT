@@ -16,10 +16,9 @@
 #include "lower.h"
 #include "parallelContrasts3.h"
 #include "parallelContrasts4.h"
-#include "parallelContrasts5.h"
+#include "parallelPoints2.h"
 #include "parallelPoints3.h"
 #include "parallelPoints4.h"
-#include "parallelPoints5.h"
 #include "rt_nonfinite.h"
 #include "single3.h"
 #include "single4.h"
@@ -157,13 +156,13 @@ namespace RAT
 
       coder::lower(problemStruct->modelType.data, problemStruct->modelType.size,
                    switch_expression_data, switch_expression_size);
-      if (coder::internal::j_strcmp(switch_expression_data,
+      if (coder::internal::i_strcmp(switch_expression_data,
            switch_expression_size)) {
         loop_ub_tmp = 0;
-      } else if (coder::internal::k_strcmp(switch_expression_data,
+      } else if (coder::internal::j_strcmp(switch_expression_data,
                   switch_expression_size)) {
         loop_ub_tmp = 1;
-      } else if (coder::internal::l_strcmp(switch_expression_data,
+      } else if (coder::internal::k_strcmp(switch_expression_data,
                   switch_expression_size)) {
         loop_ub_tmp = 2;
       } else {
@@ -173,13 +172,13 @@ namespace RAT
       switch (loop_ub_tmp) {
        case 0:
         //  Standard layers calculation
-        if (coder::internal::m_strcmp(controls->parallel.data,
+        if (coder::internal::l_strcmp(controls->parallel.data,
              controls->parallel.size)) {
           loop_ub_tmp = 0;
-        } else if (coder::internal::n_strcmp(controls->parallel.data,
+        } else if (coder::internal::m_strcmp(controls->parallel.data,
                     controls->parallel.size)) {
           loop_ub_tmp = 1;
-        } else if (coder::internal::o_strcmp(controls->parallel.data,
+        } else if (coder::internal::n_strcmp(controls->parallel.data,
                     controls->parallel.size)) {
           loop_ub_tmp = 2;
         } else {
@@ -221,13 +220,13 @@ namespace RAT
 
        case 1:
         //  Custom layers with user supplied custom model file
-        if (coder::internal::m_strcmp(controls->parallel.data,
+        if (coder::internal::l_strcmp(controls->parallel.data,
              controls->parallel.size)) {
           loop_ub_tmp = 0;
-        } else if (coder::internal::n_strcmp(controls->parallel.data,
+        } else if (coder::internal::m_strcmp(controls->parallel.data,
                     controls->parallel.size)) {
           loop_ub_tmp = 1;
-        } else if (coder::internal::o_strcmp(controls->parallel.data,
+        } else if (coder::internal::n_strcmp(controls->parallel.data,
                     controls->parallel.size)) {
           loop_ub_tmp = 2;
         } else {
@@ -269,13 +268,13 @@ namespace RAT
 
        case 2:
         //  Custom SLD profile with user defined model file
-        if (coder::internal::m_strcmp(controls->parallel.data,
+        if (coder::internal::l_strcmp(controls->parallel.data,
              controls->parallel.size)) {
           loop_ub_tmp = 0;
-        } else if (coder::internal::n_strcmp(controls->parallel.data,
+        } else if (coder::internal::m_strcmp(controls->parallel.data,
                     controls->parallel.size)) {
           loop_ub_tmp = 1;
-        } else if (coder::internal::o_strcmp(controls->parallel.data,
+        } else if (coder::internal::n_strcmp(controls->parallel.data,
                     controls->parallel.size)) {
           loop_ub_tmp = 2;
         } else {
@@ -308,7 +307,7 @@ namespace RAT
           break;
 
          case 2:
-          customXY::parallelContrasts(problemStruct, problemCells, controls,
+          customXY::parallelPoints(problemStruct, problemCells, controls,
             contrastParams->ssubs, contrastParams->backgroundParams,
             contrastParams->qzshifts, contrastParams->scalefactors,
             contrastParams->bulkIn, contrastParams->bulkOut,

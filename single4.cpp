@@ -44,10 +44,10 @@ namespace RAT
                     &allLayers, ::coder::array<real_T, 1U> &allRoughs)
       {
         ::coder::array<cell_wrap_10, 2U> calcAllLayers;
-        ::coder::array<cell_wrap_27, 2U> r;
-        ::coder::array<cell_wrap_41, 1U> tempAllLayers;
-        ::coder::array<cell_wrap_41, 1U> tempLayerSlds;
-        ::coder::array<cell_wrap_41, 1U> tempSldProfiles;
+        ::coder::array<cell_wrap_39, 2U> r;
+        ::coder::array<cell_wrap_53, 1U> tempAllLayers;
+        ::coder::array<cell_wrap_53, 1U> tempLayerSlds;
+        ::coder::array<cell_wrap_53, 1U> tempSldProfiles;
         ::coder::array<real_T, 2U> a__5;
         ::coder::array<real_T, 2U> reflect1;
         ::coder::array<real_T, 2U> reflect2;
@@ -162,9 +162,6 @@ namespace RAT
           //  We have two for each contrast - one for each domain
           //  For the other parameters, we extract the correct ones from the input
           //  arrays
-          //  Now call the core layers reflectivity calculation
-          //  In this case we are single cored, so we do not parallelise over
-          //  points
           //  Call the reflectivity calculation for each domain
           //  Domain 1
           nonPolarisedTF::coreLayersCalculation(calcAllLayers[b_i].f1,
@@ -175,8 +172,9 @@ namespace RAT
             problemCells->f3[b_i].f1, problemCells->f4[b_i].f1, problemCells->
             f1[b_i].f1, thisBackground, thisResol,
             problemStruct->contrastBackgroundsType[b_i], static_cast<real_T>
-            (nParams), controls->resamPars, useImaginary, sldProfile1, reflect1,
-            simul1, shiftedDat, r1.f1, r2.f1, &a__4, &outSsubs[b_i]);
+            (nParams), controls->parallel.data, controls->parallel.size,
+            controls->resamPars, useImaginary, sldProfile1, reflect1, simul1,
+            shiftedDat, r1.f1, r2.f1, &a__4, &outSsubs[b_i]);
 
           //  Domain 2
           nonPolarisedTF::coreLayersCalculation(calcAllLayers[b_i +
@@ -187,8 +185,9 @@ namespace RAT
             problemCells->f2[b_i].f1, problemCells->f3[b_i].f1, problemCells->
             f4[b_i].f1, problemCells->f1[b_i].f1, thisBackground, thisResol,
             problemStruct->contrastBackgroundsType[b_i], static_cast<real_T>
-            (nParams), controls->resamPars, useImaginary, sldProfile2, reflect2,
-            simul2, a__5, r3.f1, r4.f1, &a__6, &a__7);
+            (nParams), controls->parallel.data, controls->parallel.size,
+            controls->resamPars, useImaginary, sldProfile2, reflect2, simul2,
+            a__5, r3.f1, r4.f1, &a__6, &a__7);
 
           //  Calculate the average reflectivities....
           averageReflectivity(reflect1, reflect2, simul1, simul2,

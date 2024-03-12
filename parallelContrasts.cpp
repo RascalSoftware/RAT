@@ -40,7 +40,7 @@ namespace RAT
         array<cell_wrap_10, 1U> &sldProfiles, ::coder::array<cell_wrap_10, 1U>
         &allLayers, ::coder::array<real_T, 1U> &allRoughs)
       {
-        ::coder::array<cell_wrap_19, 2U> outParameterisedLayers;
+        ::coder::array<cell_wrap_31, 2U> outParameterisedLayers;
         ::coder::array<real_T, 2U> reflect;
         ::coder::array<real_T, 2U> resampledLayers;
         ::coder::array<real_T, 2U> shiftedDat;
@@ -170,9 +170,6 @@ namespace RAT
 
             //  For the other parameters, we extract the correct ones from the input
             //  arrays
-            //  Now call the core layers reflectivity calculation
-            //  In this case we are single cored, so we do not parallelise over
-            //  points
             //  Call the core layers calculation
             thisContrastLayers_data.set
               (&RATMainTLSThread->f2.thisContrastLayers_data[0],
@@ -188,9 +185,11 @@ namespace RAT
                                   thisBackground, thisResol,
                                   problemStruct->contrastBackgroundsType[i],
                                   static_cast<real_T>(nParams),
-                                  controls->resamPars, useImaginary, sldProfile,
-                                  reflect, simul, shiftedDat, layerSlds[i].f1,
-                                  resampledLayers, &thisChiSquared, &thisSsubs);
+                                  controls->parallel.data,
+                                  controls->parallel.size, controls->resamPars,
+                                  useImaginary, sldProfile, reflect, simul,
+                                  shiftedDat, layerSlds[i].f1, resampledLayers,
+                                  &thisChiSquared, &thisSsubs);
 
             //  Store returned values for this contrast in the output arrays.
             //  As well as the calculated profiles, we also store a record of

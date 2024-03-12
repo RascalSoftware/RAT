@@ -35,7 +35,7 @@ namespace RAT
     ::coder::array<real_T, 2U> f1;
   };
 
-  struct cell_wrap_26
+  struct cell_wrap_38
   {
     ::coder::array<real_T, 2U> f1;
   };
@@ -56,7 +56,7 @@ namespace RAT
     ::coder::array<char_T, 2U> f1;
   };
 
-  struct cell_wrap_19
+  struct cell_wrap_31
   {
     ::coder::array<real_T, 2U> f1;
   };
@@ -173,22 +173,22 @@ namespace RAT
   {
     ::coder::array<cell_wrap_8, 1U> reflectivity;
     ::coder::array<cell_wrap_8, 1U> simulation;
-    ::coder::array<cell_wrap_26, 1U> shiftedData;
+    ::coder::array<cell_wrap_38, 1U> shiftedData;
     ::coder::array<cell_wrap_10, 2U> layerSlds;
     ::coder::array<cell_wrap_10, 2U> sldProfiles;
-    ::coder::array<cell_wrap_26, 2U> allLayers;
+    ::coder::array<cell_wrap_38, 2U> allLayers;
     struct6_T calculationResults;
     struct7_T contrastParams;
     ::coder::array<real_T, 2U> bestFitPars;
     ::coder::array<cell_wrap_1, 1U> fitNames;
   };
 
-  struct cell_wrap_27
+  struct cell_wrap_39
   {
     ::coder::array<real_T, 2U> f1;
   };
 
-  struct cell_wrap_53
+  struct cell_wrap_65
   {
     ::coder::array<real_T, 2U> f1;
   };

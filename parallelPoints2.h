@@ -30,9 +30,9 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  namespace nonPolarisedTF
+  namespace domainsTF
   {
-    namespace customXY
+    namespace standardLayers
     {
       void parallelPoints(const f_struct_T *problemStruct, const cell_11
                           *problemCells, const struct2_T *controls, ::coder::
@@ -45,9 +45,9 @@ namespace RAT
                           coder::array<cell_wrap_8, 1U> &reflectivity, ::coder::
                           array<cell_wrap_8, 1U> &simulation, ::coder::array<
                           cell_wrap_10, 1U> &shiftedData, ::coder::array<
-                          cell_wrap_10, 1U> &layerSlds, ::coder::array<
-                          cell_wrap_10, 1U> &sldProfiles, ::coder::array<
-                          cell_wrap_10, 1U> &allLayers, ::coder::array<real_T,
+                          cell_wrap_10, 2U> &layerSlds, ::coder::array<
+                          cell_wrap_10, 2U> &domainSldProfiles, ::coder::array<
+                          cell_wrap_10, 2U> &allLayers, ::coder::array<real_T,
                           1U> &allRoughs);
     }
   }

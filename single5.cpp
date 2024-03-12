@@ -23,6 +23,7 @@
 #include "rt_nonfinite.h"
 #include "shiftData.h"
 #include "coder_array.h"
+#include "coder_bounded_array.h"
 
 // Function Definitions
 namespace RAT
@@ -45,9 +46,9 @@ namespace RAT
                     &domainSldProfiles, ::coder::array<cell_wrap_10, 2U>
                     &allLayers, ::coder::array<real_T, 1U> &allRoughs)
       {
-        ::coder::array<cell_wrap_41, 1U> tempAllLayers;
-        ::coder::array<cell_wrap_41, 1U> tempLayerSlds;
-        ::coder::array<cell_wrap_41, 1U> tempSldProfiles;
+        ::coder::array<cell_wrap_53, 1U> tempAllLayers;
+        ::coder::array<cell_wrap_53, 1U> tempLayerSlds;
+        ::coder::array<cell_wrap_53, 1U> tempSldProfiles;
         ::coder::array<real_T, 2U> b_domainSldProfiles;
         ::coder::array<real_T, 2U> b_problemCells;
         ::coder::array<real_T, 2U> c_domainSldProfiles;
@@ -308,8 +309,9 @@ namespace RAT
 
           callReflectivity(bulkIns[b_i], bulkOuts[b_i], problemCells->f4[b_i].f1,
                            problemCells->f1[b_i].f1, shiftedDat, r8,
-                           allRoughs[b_i], resolutionParams[b_i], useImaginary,
-                           reflect1, simul1);
+                           allRoughs[b_i], resolutionParams[b_i],
+                           controls->parallel.data, controls->parallel.size,
+                           useImaginary, reflect1, simul1);
           r8.set_size(r2.f1.size(0), r2.f1.size(1));
           loop_ub = r2.f1.size(1) - 1;
           for (i1 = 0; i1 <= loop_ub; i1++) {
@@ -321,8 +323,9 @@ namespace RAT
 
           callReflectivity(bulkIns[b_i], bulkOuts[b_i], problemCells->f4[b_i].f1,
                            problemCells->f1[b_i].f1, shiftedDat, r8,
-                           allRoughs[b_i], resolutionParams[b_i], useImaginary,
-                           reflect2, simul2);
+                           allRoughs[b_i], resolutionParams[b_i],
+                           controls->parallel.data, controls->parallel.size,
+                           useImaginary, reflect2, simul2);
           applyBackgroundCorrection(reflect1, simul1, shiftedDat,
             backgroundParams[b_i], problemStruct->contrastBackgroundsType[b_i]);
           applyBackgroundCorrection(reflect2, simul2, shiftedDat,

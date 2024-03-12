@@ -45,10 +45,10 @@ namespace RAT
       {
         static real_T thisContrastLayers1_data[6000];
         static real_T thisContrastLayers2_data[6000];
-        ::coder::array<cell_wrap_19, 2U> outParameterisedLayers;
-        ::coder::array<cell_wrap_41, 1U> tempAllLayers;
-        ::coder::array<cell_wrap_41, 1U> tempLayerSlds;
-        ::coder::array<cell_wrap_41, 1U> tempSldProfiles;
+        ::coder::array<cell_wrap_31, 2U> outParameterisedLayers;
+        ::coder::array<cell_wrap_53, 1U> tempAllLayers;
+        ::coder::array<cell_wrap_53, 1U> tempLayerSlds;
+        ::coder::array<cell_wrap_53, 1U> tempSldProfiles;
         ::coder::array<real_T, 2U> a__6;
         ::coder::array<real_T, 2U> b_thisContrastLayers1_data;
         ::coder::array<real_T, 2U> b_thisContrastLayers2_data;
@@ -193,8 +193,9 @@ namespace RAT
             problemCells->f3[b_i].f1, problemCells->f4[b_i].f1, problemCells->
             f1[b_i].f1, thisBackground, thisResol,
             problemStruct->contrastBackgroundsType[b_i], static_cast<real_T>
-            (nParams), controls->resamPars, useImaginary, sldProfile1, reflect1,
-            simul1, shiftedDat, r.f1, r1.f1, &a__5, &outSsubs[b_i]);
+            (nParams), controls->parallel.data, controls->parallel.size,
+            controls->resamPars, useImaginary, sldProfile1, reflect1, simul1,
+            shiftedDat, r.f1, r1.f1, &a__5, &outSsubs[b_i]);
           b_thisContrastLayers2_data.set(&thisContrastLayers2_data[0],
             thisContrastLayers2_size[0], thisContrastLayers2_size[1]);
           nonPolarisedTF::coreLayersCalculation(b_thisContrastLayers2_data,
@@ -205,8 +206,9 @@ namespace RAT
             problemCells->f3[b_i].f1, problemCells->f4[b_i].f1, problemCells->
             f1[b_i].f1, thisBackground, thisResol,
             problemStruct->contrastBackgroundsType[b_i], static_cast<real_T>
-            (nParams), controls->resamPars, useImaginary, sldProfile2, reflect2,
-            simul2, a__6, r2.f1, r3.f1, &a__7, &a__8);
+            (nParams), controls->parallel.data, controls->parallel.size,
+            controls->resamPars, useImaginary, sldProfile2, reflect2, simul2,
+            a__6, r2.f1, r3.f1, &a__7, &a__8);
 
           //  Calculate the average reflectivities....
           averageReflectivity(reflect1, reflect2, simul1, simul2,

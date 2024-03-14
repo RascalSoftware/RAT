@@ -114,8 +114,8 @@ if strcmpi(parallel, coderEnums.parallelOptions.Contrasts)
         % Also need to determine which layers from the overall layers list
         % are required for this contrast, and put them in the correct order 
         % according to geometry. We run it twice, once for each domain...
-        thisContrastLayers1 = allocateLayersForContrast(domainContrastLayers{1},outParameterisedLayers,useImaginary);
-        thisContrastLayers2 = allocateLayersForContrast(domainContrastLayers{2},outParameterisedLayers,useImaginary);
+        thisContrastLayers1 = allocateLayersForContrast(domainContrastLayers{i,1},outParameterisedLayers,useImaginary);
+        thisContrastLayers2 = allocateLayersForContrast(domainContrastLayers{i,2},outParameterisedLayers,useImaginary);
        
         % Call the core layers calculation - need to do this once for each
         % domain

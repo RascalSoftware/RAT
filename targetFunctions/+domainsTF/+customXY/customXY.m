@@ -206,14 +206,17 @@ end
 
 for i = 1:numberOfContrasts
 
-    domainSldProfiles{i,1} = tempSldProfiles{i}{1};
-    domainSldProfiles{i,2} = tempSldProfiles{i}{2};
+    contrastDomainSLDProfiles = tempSldProfiles{i};
+    domainSldProfiles{i,1} = contrastDomainSLDProfiles{1};
+    domainSldProfiles{i,2} = contrastDomainSLDProfiles{2};
 
-    layerSlds{i,1} = tempLayerSlds{i}{1};
-    layerSlds{i,2} = tempLayerSlds{i}{2};
+    contrastLayersSlds = tempLayerSlds{i};
+    layerSlds{i,1} = contrastLayersSlds{1};
+    layerSlds{i,2} = contrastLayersSlds{2};
 
-    allLayers{i,1} = tempAllLayers{i}{1};
-    allLayers{i,2} = tempAllLayers{i}{2};
+    contrastAllLayers = tempAllLayers{i};
+    allLayers{i,1} = contrastAllLayers{1};
+    allLayers{i,2} = contrastAllLayers{2};
 
 end
 

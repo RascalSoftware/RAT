@@ -53,8 +53,8 @@ resamPars = controls.resamPars;
 parallel = controls.parallel;
 useImaginary = problemStruct.useImaginary;
 
-[sldProfiles,allRoughs] = nonPolarisedTF.customXY.processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backgroundParam, ...
-    qzshift,scalefactor,bulkIn,bulkOut,resolutionParam,cCustFiles,numberOfContrasts,customFiles,params);
+[sldProfiles,allRoughs] = nonPolarisedTF.customXY.processCustomFunction(contrastBulkIns,contrastBulkOuts,...
+    bulkIn,bulkOut,cCustFiles,numberOfContrasts,customFiles,params);
 
 if strcmpi(parallel, coderEnums.parallelOptions.Contrasts)
 

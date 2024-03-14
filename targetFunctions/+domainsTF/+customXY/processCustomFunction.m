@@ -1,5 +1,5 @@
-function [allSLDs,allRoughs] = processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backgroundParams, ...
-    qzshifts,scalefactor,bulkIn,bulkOut,res,cCustFiles,numberOfContrasts,customFiles,params)
+function [allSLDs,allRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
+    bulkIn,bulkOut,cCustFiles,numberOfContrasts,customFiles,params)
 
     % Top-level function for processing custom XY profiles for all the
     % contrasts.

@@ -92,8 +92,8 @@ end
 resamPars = controls.resamPars;
 
 % Process the custom models....
-[calcAllLayers,allRoughs] = domainsTF.customLayers.processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backgroundParam, ...
-    qzshift,scalefactor,bulkIn,bulkOut,resolutionParam,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
+[calcAllLayers,allRoughs] = domainsTF.customLayers.processCustomFunction(contrastBulkIns,contrastBulkOuts,...
+    bulkIn,bulkOut,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
 
 for i = 1:size(calcAllLayers,1)
     calcAllLayers1{i} = calcAllLayers{i,1};

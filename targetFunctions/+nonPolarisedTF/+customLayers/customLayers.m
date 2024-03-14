@@ -58,8 +58,8 @@ end
 resamPars = controls.resamPars;
 
 % Process the custom models....
-[allLayers,allRoughs] = nonPolarisedTF.customLayers.processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backgroundParam, ...
-    qzshift,scalefactor,bulkIn,bulkOut,resolutionParam,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
+[allLayers,allRoughs] = nonPolarisedTF.customLayers.processCustomFunction(contrastBulkIns,contrastBulkOuts,...
+    bulkIn,bulkOut,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
 
 if strcmpi(parallel, coderEnums.parallelOptions.Contrasts)
 

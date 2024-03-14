@@ -85,8 +85,8 @@ contrastDomainRatios = problemStruct.contrastDomainRatios;
 
 domainRatio = 1;    % Default for compile.
 
-[domainSldProfiles,allRoughs] = domainsTF.customXY.processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backgroundParam, ...
-    qzshift,scalefactor,bulkIn,bulkOut,resolutionParam,cCustFiles,numberOfContrasts,customFiles,params);
+[domainSldProfiles,allRoughs] = domainsTF.customXY.processCustomFunction(contrastBulkIns,contrastBulkOuts,...
+    bulkIn,bulkOut,cCustFiles,numberOfContrasts,customFiles,params);
 
 for i = 1:size(domainSldProfiles,1)
     domainSldProfiles1{i} = domainSldProfiles{i,1};

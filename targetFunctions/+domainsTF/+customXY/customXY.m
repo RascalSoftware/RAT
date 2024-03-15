@@ -1,223 +1,215 @@
 function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
-    resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,...
-    domainSldProfiles,allLayers,allRoughs] = customXY(problemStruct,problemCells,controls)
+    resolutionParams,chis,reflectivity,simulation,shiftedData,domainLayerSlds,...
+    domainSldProfiles,domainAllLayers,allRoughs] = customXY(problemStruct,problemCells,controls)
 
-% Extract individual cell arrays
-[repeatLayers,...
- allData,...
- dataLimits,...
- simLimits,...
- ~,~,...        % Layers details N/A
- customFiles] = parseCells(problemCells);
-
-% Extract individual parameters from problemStruct
-[numberOfContrasts, ~, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
-contrastResolutions, backgroundParam, qzshift, scalefactor, bulkIn, bulkOut, resolutionParam, dataPresent, nParams, params,...
-~, ~, contrastBackgroundsType, cCustFiles] = extractProblemParams(problemStruct);      
-            
-%Pre-Allocation...
-backgroundParams = zeros(numberOfContrasts,1);
-qzshifts = zeros(numberOfContrasts,1);
-scalefactors = zeros(numberOfContrasts,1);
-bulkIns = zeros(numberOfContrasts,1);
-bulkOuts = zeros(numberOfContrasts,1);
-resolutionParams = zeros(numberOfContrasts,1);
-allRoughs = zeros(numberOfContrasts,1);
-outSsubs = zeros(numberOfContrasts,1);
-chis =  zeros(numberOfContrasts,1);
-layerSlds = cell(numberOfContrasts,2);
-shiftedData = cell(numberOfContrasts,1);
-
-reflectivity = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    reflectivity{i} = [1 1 ; 1 1];
-end
-
-simulation = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    simulation{i} = [1 1 ; 1 1];
-end
-
-allLayers = cell(numberOfContrasts,2);
-for i = 1:numberOfContrasts
-    allLayers{i,1} = [1 1 1; 1 1 1];
-    allLayers{i,2} = [1 1 1; 1 1 1];
-end
-
-domainSldProfiles = cell(numberOfContrasts,2);
-for i = 1:numberOfContrasts
-    domainSldProfiles{i,1} = [1 ; 1];
-    domainSldProfiles{i,2} = [1 ; 1];
-end
-
-domainSldProfiles1 = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    domainSldProfiles1{i} = [1 ; 1];
-end
-
-domainSldProfiles2 = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    domainSldProfiles2{i} = [1 ; 1];
-end
-
-
-tempSldProfiles = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    tempSldProfiles{i} = {[1 1 ; 1 1],[1 1 ; 1 1]};
-end
-
-tempAllLayers = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    tempAllLayers{i} = {[1 1 1;1 1 1],[1 1 1;1 1 1]};
-end
-
-tempLayerSlds = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    tempLayerSlds{i} = {[1 1 1;1 1 1],[1 1 1;1 1 1]};
-end
-
-% Resampling parameters
-resamPars = controls.resamPars;
-parallel = controls.parallel;
-useImaginary = problemStruct.useImaginary;
-allDomainRatios = problemStruct.domainRatio;
-contrastDomainRatios = problemStruct.contrastDomainRatios;
-
-domainRatio = 1;    % Default for compile.
-
-[domainSldProfiles,allRoughs] = domainsTF.customXY.processCustomFunction(contrastBulkIns,contrastBulkOuts,...
-    bulkIn,bulkOut,cCustFiles,numberOfContrasts,customFiles,params);
-
-for i = 1:size(domainSldProfiles,1)
-    domainSldProfiles1{i} = domainSldProfiles{i,1};
-    domainSldProfiles2{i} = domainSldProfiles{i,2};
-end
-
-if strcmpi(parallel, coderEnums.parallelOptions.Contrasts)
-
-    parfor i = 1:numberOfContrasts
-
-        outSsubs(i) = allRoughs(i);
-        [backgroundParams(i),qzshifts(i),scalefactors(i),bulkIns(i),bulkOuts(i),resolutionParams(i)] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParam,qzshift,scalefactor,bulkIn,bulkOut,resolutionParam);
+    % Extract individual cell arrays
+    [repeatLayers,...
+     allData,...
+     dataLimits,...
+     simLimits,...
+     ~,~,...        % Layers details N/A
+     customFiles] = parseCells(problemCells);
     
-        % Get the domain ratio for this contrast
-        thisContrastDR = contrastDomainRatios(i);
-        if isempty(thisContrastDR)
-            thisContrastDR = 1;
-        end
-        domainRatio = allDomainRatios(thisContrastDR);
+    % Extract individual parameters from problemStruct
+    [numberOfContrasts, ~, contrastBackgroundIndices, contrastQzshiftIndices, contrastScalefactorIndices, contrastBulkInIndices, contrastBulkOutIndices,...
+    contrastResolutionIndices, backgroundParamArray, qzshiftArray, scalefactorArray, bulkInArray, bulkOutArray, resolutionParamArray, dataPresent, nParams, params,...
+    ~, ~, contrastBackgroundsType, cCustFiles] = extractProblemParams(problemStruct);
+
+    parallel = controls.parallel;
+    resamPars = controls.resamPars;
+    useImaginary = problemStruct.useImaginary;
+    allDomainRatios = problemStruct.domainRatio;
+    contrastDomainRatios = problemStruct.contrastDomainRatios;
+
+    %Pre-Allocation...
+    backgroundParams = zeros(numberOfContrasts,1);
+    qzshifts = zeros(numberOfContrasts,1);
+    scalefactors = zeros(numberOfContrasts,1);
+    bulkIns = zeros(numberOfContrasts,1);
+    bulkOuts = zeros(numberOfContrasts,1);
+    resolutionParams = zeros(numberOfContrasts,1);
+    allRoughs = zeros(numberOfContrasts,1);
+    outSsubs = zeros(numberOfContrasts,1);
+    chis =  zeros(numberOfContrasts,1);
+    domainLayerSlds = cell(numberOfContrasts,2);
+    shiftedData = cell(numberOfContrasts,1);
     
-        % Resample the sld profiles
-        thisSld1 = domainSldProfiles1{i};
-        thisSld2 = domainSldProfiles2{i};
-        if ~useImaginary
-            layerSld1 = resampleLayers(thisSld1,resamPars);
-            layerSld2 = resampleLayers(thisSld2,resamPars);
-        else
-            reSLD1 = thisSld1(:,1:2);
-            imSLD1 = [thisSld1(:,1),thisSld1(:,3)];
-    
-            reSLD2 = thisSld2(:,1:2);
-            imSLD2 = [thisSld2(:,1),thisSld2(:,3)];
-    
-            layerSld1 = resampleLayersReIm(reSLD1,imSLD1,resamPars);
-            layerSld2 = resampleLayersReIm(reSLD2,imSLD2,resamPars);
-        end
-        
-        tempLayerSlds{i} = {layerSld1, layerSld2};
-        tempAllLayers{i} = {layerSld1, layerSld2};
-        tempSldProfiles{i} = {thisSld1, thisSld2};
-    
-        shiftedDat =  shiftData(scalefactors(i),qzshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
-        shiftedData{i} = shiftedDat;
-        
-        reflectivityType = 'standardAbeles';
-        [reflect1,simul1] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shiftedDat,layerSld1,allRoughs(i),resolutionParams(i),parallel,reflectivityType,useImaginary);
-        [reflect2,simul2] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shiftedDat,layerSld2,allRoughs(i),resolutionParams(i),parallel,reflectivityType,useImaginary);
-    
-        [reflect1,simul1,shiftedDat] = applyBackgroundCorrection(reflect1,simul1,shiftedDat,backgroundParams(i),contrastBackgroundsType(i));
-        [reflect2,simul2,shiftedDat] = applyBackgroundCorrection(reflect2,simul2,shiftedDat,backgroundParams(i),contrastBackgroundsType(i));
-    
-         % Calculate the average reflectivities....
-        [reflectivity{i},simulation{i}] = domainsTF.averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio);
-        
-        if dataPresent(i)
-            chis(i) = chiSquared(shiftedDat,reflectivity{i},nParams);
-        else
-            chis(i) = 0;
-        end
+    reflectivity = cell(numberOfContrasts,1);
+    for i = 1:numberOfContrasts
+        reflectivity{i} = [1 1 ; 1 1];
     end
+    
+    simulation = cell(numberOfContrasts,1);
+    for i = 1:numberOfContrasts
+        simulation{i} = [1 1 ; 1 1];
+    end
+    
+    domainAllLayers = cell(numberOfContrasts,2);
+    for i = 1:numberOfContrasts
+        domainAllLayers{i,1} = [1 1 1; 1 1 1];
+        domainAllLayers{i,2} = [1 1 1; 1 1 1];
+    end
+    
+    domainSldProfiles = cell(numberOfContrasts,2);
+    for i = 1:numberOfContrasts
+        domainSldProfiles{i,1} = [1 ; 1];
+        domainSldProfiles{i,2} = [1 ; 1];
+    end
+    
+    inputSldProfiles1 = cell(numberOfContrasts,1);
+    for i = 1:numberOfContrasts
+        inputSldProfiles1{i} = [1 ; 1];
+    end
+    
+    inputSldProfiles2 = cell(numberOfContrasts,1);
+    for i = 1:numberOfContrasts
+        inputSldProfiles2{i} = [1 ; 1];
+    end
+    
+    
+    sldProfiles = cell(numberOfContrasts,1);
+    for i = 1:numberOfContrasts
+        sldProfiles{i} = {[1 1 ; 1 1],[1 1 ; 1 1]};
+    end
+    
+    allLayers = cell(numberOfContrasts,1);
+    for i = 1:numberOfContrasts
+        allLayers{i} = {[1 1 1;1 1 1],[1 1 1;1 1 1]};
+    end
+    
+    layerSlds = cell(numberOfContrasts,1);
+    for i = 1:numberOfContrasts
+        layerSlds{i} = {[1 1 1;1 1 1],[1 1 1;1 1 1]};
+    end
+        
+    domainRatio = 1;    % Default for compile.
+    
+    [inputSldProfiles,allRoughs] = domainsTF.customXY.processCustomFunction(contrastBulkInIndices,contrastBulkOutIndices,...
+        bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params);
+    
+    for i = 1:size(inputSldProfiles,1)
+        inputSldProfiles1{i} = inputSldProfiles{i,1};
+        inputSldProfiles2{i} = inputSldProfiles{i,2};
+    end
+    
+    if strcmpi(parallel, coderEnums.parallelOptions.Contrasts)
+    
+        parfor i = 1:numberOfContrasts
+    
+            [backgroundParams(i),qzshifts(i),scalefactors(i),bulkIns(i),...
+             bulkOuts(i),resolutionParams(i),reflectivity{i},simulation{i},...
+             shiftedData{i},layerSlds{i},sldProfiles{i},allLayers{i},...
+             chis(i)] = contrastCalculation(contrastBackgroundIndices(i),...
+            contrastQzshiftIndices(i),contrastScalefactorIndices(i),contrastBulkInIndices(i),...
+            contrastBulkOutIndices(i),contrastResolutionIndices(i),...
+            backgroundParamArray,qzshiftArray,scalefactorArray,bulkInArray, ...
+            bulkOutArray,resolutionParamArray,dataPresent(i),allData{i},...
+            dataLimits{i},simLimits{i},repeatLayers{i},contrastBackgroundsType(i),...
+            nParams,parallel,resamPars,useImaginary,allRoughs(i),inputSldProfiles1{i},...
+            inputSldProfiles2{i},outSsubs(i),contrastDomainRatios(i),allDomainRatios);
 
-else
+        end
+    
+    else
+        
+        for i = 1:numberOfContrasts
+            
+            [backgroundParams(i),qzshifts(i),scalefactors(i),bulkIns(i),...
+             bulkOuts(i),resolutionParams(i),reflectivity{i},simulation{i},...
+             shiftedData{i},layerSlds{i},sldProfiles{i},allLayers{i},...
+             chis(i)] = contrastCalculation(contrastBackgroundIndices(i),...
+            contrastQzshiftIndices(i),contrastScalefactorIndices(i),contrastBulkInIndices(i),...
+            contrastBulkOutIndices(i),contrastResolutionIndices(i),...
+            backgroundParamArray,qzshiftArray,scalefactorArray,bulkInArray, ...
+            bulkOutArray,resolutionParamArray,dataPresent(i),allData{i},...
+            dataLimits{i},simLimits{i},repeatLayers{i},contrastBackgroundsType(i),...
+            nParams,parallel,resamPars,useImaginary,allRoughs(i),inputSldProfiles1{i},...
+            inputSldProfiles2{i},outSsubs(i),contrastDomainRatios(i),allDomainRatios);
+
+        end
+    
+    end
     
     for i = 1:numberOfContrasts
+
         outSsubs(i) = allRoughs(i);
-        [backgroundParams(i),qzshifts(i),scalefactors(i),bulkIns(i),bulkOuts(i),resolutionParams(i)] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParam,qzshift,scalefactor,bulkIn,bulkOut,resolutionParam);
     
-        % Get the domain ratio for this contrast
-        thisContrastDR = contrastDomainRatios(i);
-        if isempty(thisContrastDR)
-            thisContrastDR = 1;
-        end
-        domainRatio = allDomainRatios(thisContrastDR);
+        contrastDomainSLDProfiles = sldProfiles{i};
+        domainSldProfiles{i,1} = contrastDomainSLDProfiles{1};
+        domainSldProfiles{i,2} = contrastDomainSLDProfiles{2};
     
-        % Resample the sld profiles
-        thisSld1 = domainSldProfiles1{i};
-        thisSld2 = domainSldProfiles2{i};
-        if ~useImaginary
-            layerSld1 = resampleLayers(thisSld1,resamPars);
-            layerSld2 = resampleLayers(thisSld2,resamPars);
-        else
-            reSLD1 = thisSld1(:,1:2);
-            imSLD1 = [thisSld1(:,1),thisSld1(:,3)];
+        contrastLayersSlds = layerSlds{i};
+        domainLayerSlds{i,1} = contrastLayersSlds{1};
+        domainLayerSlds{i,2} = contrastLayersSlds{2};
     
-            reSLD2 = thisSld2(:,1:2);
-            imSLD2 = [thisSld2(:,1),thisSld2(:,3)];
+        contrastAllLayers = allLayers{i};
+        domainAllLayers{i,1} = contrastAllLayers{1};
+        domainAllLayers{i,2} = contrastAllLayers{2};
     
-            layerSld1 = resampleLayersReIm(reSLD1,imSLD1,resamPars);
-            layerSld2 = resampleLayersReIm(reSLD2,imSLD2,resamPars);
-        end
-        
-        tempLayerSlds{i} = {layerSld1, layerSld2};
-        tempAllLayers{i} = {layerSld1, layerSld2};
-        tempSldProfiles{i} = {thisSld1, thisSld2};
-
-        shiftedDat =  shiftData(scalefactors(i),qzshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
-        shiftedData{i} = shiftedDat;
-        
-        reflectivityType = 'standardAbeles';
-        [reflect1,simul1] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shiftedDat,layerSld1,allRoughs(i),resolutionParams(i),parallel,reflectivityType,useImaginary);
-        [reflect2,simul2] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shiftedDat,layerSld2,allRoughs(i),resolutionParams(i),parallel,reflectivityType,useImaginary);
-    
-        [reflect1,simul1,shiftedDat] = applyBackgroundCorrection(reflect1,simul1,shiftedDat,backgroundParams(i),contrastBackgroundsType(i));
-        [reflect2,simul2,shiftedDat] = applyBackgroundCorrection(reflect2,simul2,shiftedDat,backgroundParams(i),contrastBackgroundsType(i));
-    
-         % Calculate the average reflectivities....
-        [reflectivity{i},simulation{i}] = domainsTF.averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio);
-
-        if dataPresent(i)
-            chis(i) = chiSquared(shiftedDat,reflectivity{i},nParams);
-        else
-            chis(i) = 0;
-        end
     end
 
 end
 
-for i = 1:numberOfContrasts
 
-    contrastDomainSLDProfiles = tempSldProfiles{i};
-    domainSldProfiles{i,1} = contrastDomainSLDProfiles{1};
-    domainSldProfiles{i,2} = contrastDomainSLDProfiles{2};
+function [backgroundParamValue,qzshiftValue,scalefactorValue,bulkInValue,...
+    bulkOutValue,resolutionParamValue,reflectivity,simulation,shiftedData,...
+    layerSld,sldProfile,allLayer,chi] = contrastCalculation(backgroundParamIndex,...
+    qzshiftIndex,scalefactorIndex,bulkInIndex,bulkOutIndex,resolutionParamIndex,...
+    backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,...
+    dataPresent,allData,dataLimits,simLimits,repeatLayers,contrastBackgroundsType,...
+    nParams,parallel,resamPars,useImaginary,roughness,sldProfile1,sldProfile2,ssub,contrastDomainRatio,allDomainRatios)
 
-    contrastLayersSlds = tempLayerSlds{i};
-    layerSlds{i,1} = contrastLayersSlds{1};
-    layerSlds{i,2} = contrastLayersSlds{2};
+    % Get the domain ratio for this contrast
+    if isempty(contrastDomainRatio)
+        contrastDomainRatio = 1;
+    end
+    domainRatio = allDomainRatios(contrastDomainRatio);
 
-    contrastAllLayers = tempAllLayers{i};
-    allLayers{i,1} = contrastAllLayers{1};
-    allLayers{i,2} = contrastAllLayers{2};
+    % Extract the relevant parameter values for this contrast
+    % from the input arrays.
+    % First need to decide which values of the backgrounds, scalefactors
+    % data shifts and bulk contrasts are associated with this contrast
+    [backgroundParamValue,qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue,...
+     resolutionParamValue] = backSort(backgroundParamIndex,qzshiftIndex,...
+     scalefactorIndex,bulkInIndex,bulkOutIndex,resolutionParamIndex,...
+     backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams);
+     
+    % Resample the sld profiles
+    if ~useImaginary
+        layerSld1 = resampleLayers(sldProfile1,resamPars);
+        layerSld2 = resampleLayers(sldProfile2,resamPars);
+    else
+        reSLD1 = sldProfile1(:,1:2);
+        imSLD1 = [sldProfile1(:,1),sldProfile1(:,3)];
 
-end
+        reSLD2 = sldProfile2(:,1:2);
+        imSLD2 = [sldProfile2(:,1),sldProfile2(:,3)];
+
+        layerSld1 = resampleLayersReIm(reSLD1,imSLD1,resamPars);
+        layerSld2 = resampleLayersReIm(reSLD2,imSLD2,resamPars);
+    end
+
+    layerSld = {layerSld1, layerSld2};
+    allLayer = {layerSld1, layerSld2};
+    sldProfile = {sldProfile1, sldProfile2};
+
+    shiftedDat =  shiftData(scalefactorValue,qzshiftValue,dataPresent,allData,dataLimits,simLimits);
+    shiftedData = shiftedDat;
+
+    reflectivityType = 'standardAbeles';
+    [reflect1,simul1] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedDat,layerSld1,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
+    [reflect2,simul2] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedDat,layerSld2,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
+    
+    [reflect1,simul1,shiftedDat] = applyBackgroundCorrection(reflect1,simul1,shiftedDat,backgroundParamValue,contrastBackgroundsType);
+    [reflect2,simul2,shiftedDat] = applyBackgroundCorrection(reflect2,simul2,shiftedDat,backgroundParamValue,contrastBackgroundsType);
+
+     % Calculate the average reflectivities....
+    [reflectivity,simulation] = domainsTF.averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio);
+
+    if dataPresent
+        chi = chiSquared(shiftedDat,reflectivity,nParams);
+    else
+        chi = 0;
+    end
 
 end

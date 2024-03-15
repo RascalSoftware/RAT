@@ -473,6 +473,8 @@ I the following code snippet we'll make an example of a simple layer....
         axis([0 100 0 1.5]);
 
 .. image:: images/userManual/chapter3/simpleLayer.png
+    :width: 800
+    :alt: simple layer
 
 
 
@@ -616,7 +618,17 @@ To run our simulation, we make a RAT model as normal:
 
 
 
-.. image:: images/userManual/chapter3/ratSimpleLayer.png
+.. image:: images/userManual/chapter3/customTwoLayerFig.png
+    :width: 500
+    :alt: Dtwo layers XY
+
+
+When sent to RAT, customXY SLD profiles are automatically resampled into layers with adaptive resampling:
+
+.. image:: images/userManual/chapter3/twoLayerRAT.png
+    :width: 800
+    :alt: Displays the final customXY result
+
 
 
 

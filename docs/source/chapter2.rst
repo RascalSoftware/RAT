@@ -354,6 +354,34 @@ Then, we make the actual resolution referring to whichever one of the resolution
 
 **Data**
 ++++++++
+The data block contains the data which defines at which points in q the reflectivity is calculated at each contrast. By default, it initialises with a single 'Simulation' entry:
+
+.. image:: images/userManual/chapter2/defaultData.png
+    :width: 800
+    :alt: default Data class
+
+For each entry in the table there are four fields:
+
+*   **Name** : The name you choose to give the datafile (for reference in the contrasts block)
+*   **Data** : An array containing the data itself (empty for Simulation).
+*   **Data Range** : The min / max range of the data you wish to include in the fit. As is the case for RasCAL, you do not have to include all the data in the calculation of chi-squared. This range cannot lie outside the range of any data added to the second column.
+*   **Simulation Range** : The total range of the simulation to be calculated. This can lie outside the range of the data to allow for extrapolation, but must be >= the overall data range.
+
+To add data, we first load it into Matlab, then create a new data entry containing it:
+
+.. code:: MATLAB
+
+    >> myData = dlmread('c_PLP0016596.dat');
+    >> problem.addData('My new datafile',myData)
+
+and out new dataset appears in the table:
+
+.. image:: images/userManual/chapter2/dataAdded.png
+    :width: 800
+    :alt: data added to class
+
+Note that we did not specify data or simulation ranges, and so these default to the min / max values of the data added. To change these (or anything else about the data entry)
+use the *'setData'* method. Also note that this data has a fourth column, and so can be used as a data resolution if you wish.
 
 **Putting it all together – defining contrasts**
 ++++++++++++++++++++++++++++++++++++++++++++++++

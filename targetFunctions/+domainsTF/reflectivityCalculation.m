@@ -80,20 +80,20 @@ switch lower(type)
 
         [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
          simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
-         allRoughs] = domainsTF.standardLayers.standardLayers(problemStruct,problemCells,controls);        
+         allRoughs] = domainsTF.standardLayers(problemStruct,problemCells,controls);        
 
     case coderEnums.modelTypes.CustomLayers
 
         [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
          simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
-         allRoughs] = domainsTF.customLayers.customLayers(problemStruct,problemCells,controls);
+         allRoughs] = domainsTF.customLayers(problemStruct,problemCells,controls);
 
     case coderEnums.modelTypes.CustomXY
 
         % Custom SLD profile with user defined model file
         [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
          simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
-         allRoughs] = domainsTF.customXY.customXY(problemStruct,problemCells,controls);
+         allRoughs] = domainsTF.customXY(problemStruct,problemCells,controls);
 
 end
 

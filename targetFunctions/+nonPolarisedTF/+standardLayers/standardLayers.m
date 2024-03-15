@@ -17,13 +17,12 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
     
     % Extract individual parameters from problemStruct
     [numberOfContrasts, geometry, contrastBackgroundIndices, contrastQzshiftIndices, contrastScalefactorIndices, contrastBulkInIndices, contrastBulkOutIndices,...
-    contrastResolutionIndices, backgroundParamArray, qzshiftArray, scalefactorArray, bulkInArray, bulkOutArray, resolutionParamArray, dataPresent, nParams, params,...
-    ~, resample, contrastBackgroundsType, ~] =  extractProblemParams(problemStruct);
+    contrastResolutionIndices, ~, backgroundParamArray, qzshiftArray, scalefactorArray, bulkInArray, bulkOutArray, resolutionParamArray, ~, dataPresent, nParams, params,...
+    ~, resample, contrastBackgroundsType, ~, useImaginary] =  extractProblemParams(problemStruct);
     
     calcSld = controls.calcSldDuringFit;
     parallel = controls.parallel;
     resamPars = controls.resamPars;
-    useImaginary = problemStruct.useImaginary;
     
     % Allocate the memory for the output arrays before the main loop
     backgroundParams = zeros(numberOfContrasts,1);

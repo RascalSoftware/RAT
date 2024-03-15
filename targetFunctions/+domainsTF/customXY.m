@@ -12,8 +12,8 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
     
     % Extract individual parameters from problemStruct
     [numberOfContrasts, ~, contrastBackgroundIndices, contrastQzshiftIndices, contrastScalefactorIndices, contrastBulkInIndices, contrastBulkOutIndices,...
-    contrastResolutionIndices, contrastDomainRatioIndices, backgroundParamArray, qzshiftArray, scalefactorArray, bulkInArray, bulkOutArray, resolutionParamArray, domainRatioArray, dataPresent, nParams, params,...  
-    ~, ~, contrastBackgroundsType, cCustFiles, useImaginary] = extractProblemParams(problemStruct);
+    contrastResolutionIndices, contrastDomainRatioIndices, backgroundParamArray, qzshiftArray, scalefactorArray, bulkInArray, bulkOutArray, resolutionParamArray, domainRatioArray,...
+    dataPresent, nParams, params, ~, ~, contrastBackgroundsType, cCustFiles, useImaginary] = extractProblemParams(problemStruct);
 
     parallel = controls.parallel;
     resamPars = controls.resamPars;
@@ -27,7 +27,7 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
     resolutionParams = zeros(numberOfContrasts,1);
     allRoughs = zeros(numberOfContrasts,1);
     outSsubs = zeros(numberOfContrasts,1);
-    chis =  zeros(numberOfContrasts,1);
+    chis = zeros(numberOfContrasts,1);
     domainLayerSlds = cell(numberOfContrasts,2);
     shiftedData = cell(numberOfContrasts,1);
     
@@ -62,7 +62,6 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
     for i = 1:numberOfContrasts
         inputSldProfiles2{i} = [1 ; 1];
     end
-    
     
     sldProfiles = cell(numberOfContrasts,1);
     for i = 1:numberOfContrasts
@@ -190,7 +189,7 @@ function [backgroundParamValue,qzshiftValue,scalefactorValue,bulkInValue,...
     allLayer = {layerSld1, layerSld2};
     sldProfile = {sldProfile1, sldProfile2};
 
-    shiftedDat =  shiftData(scalefactorValue,qzshiftValue,dataPresent,allData,dataLimits,simLimits);
+    shiftedDat = shiftData(scalefactorValue,qzshiftValue,dataPresent,allData,dataLimits,simLimits);
     shiftedData = shiftedDat;
 
     reflectivityType = 'standardAbeles';

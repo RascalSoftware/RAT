@@ -117,7 +117,7 @@ classdef contrastsClass < baseContrasts
                     contrastDomainRatios(i) = find(strcmpi(thisContrast.domainRatio,allowedNames.domainRatioNames));
                 end
 
-                contrastBackgrounds{i} =  [find(strcmpi(thisContrast.background,allowedNames.backgroundNames)), 1];
+                contrastBackgrounds{i} = [find(strcmpi(thisContrast.background,allowedNames.backgroundNames)), 1];
                 contrastBulkIns(i) = find(strcmpi(thisContrast.bulkIn,allowedNames.bulkInNames));
                 contrastBulkOuts(i) = find(strcmpi(thisContrast.bulkOut,allowedNames.bulkOutNames));
                 contrastQzshifts(i) = 1;  %Todo

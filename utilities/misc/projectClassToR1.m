@@ -327,7 +327,8 @@ end
 
 function names = getR1FieldNames()
 
-names =     {'path'          ;        
+names = {
+    'path'                   ;        
     'name'                   ;
     'numberOfContrasts'      ;
     'module'                 ;

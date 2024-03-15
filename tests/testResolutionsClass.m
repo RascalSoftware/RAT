@@ -193,7 +193,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             
         function testToStruct(testCase)
             % Checks that class to struct works correctly
-            expected.resolutionParamNames =  {'Resolution par 1'};
+            expected.resolutionParamNames = {'Resolution par 1'};
             expected.resolutionParamLimits = {[0.0100 0.0500]};
             expected.resolutionParamValues = 0.0300;
             expected.fitResolutionParam = 0;
@@ -206,7 +206,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             testCase.resolution.resolutions.varTable = [testCase.resolution.resolutions.varTable; vertcat(testCase.resolutions(2:3, :))];
             testCase.resolution.resolutionParams.varTable = [testCase.resolution.resolutionParams.varTable; vertcat(testCase.parameters(2:3, :))];
 
-            expected.resolutionParamNames =  {'Resolution par 1', 'Resolution par 2', 'Resolution par 3'};
+            expected.resolutionParamNames = {'Resolution par 1', 'Resolution par 2', 'Resolution par 3'};
             expected.resolutionParamLimits = {[0.0100 0.0500], [0.1000 1], [0.2000 1.1000]};
             expected.resolutionParamValues = [0.0300, 0.1900, 0.1700];
             expected.fitResolutionParam = [0, 1, 0];

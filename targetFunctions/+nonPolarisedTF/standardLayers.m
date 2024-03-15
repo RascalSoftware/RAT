@@ -17,8 +17,8 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
     
     % Extract individual parameters from problemStruct
     [numberOfContrasts, geometry, contrastBackgroundIndices, contrastQzshiftIndices, contrastScalefactorIndices, contrastBulkInIndices, contrastBulkOutIndices,...
-    contrastResolutionIndices, ~, backgroundParamArray, qzshiftArray, scalefactorArray, bulkInArray, bulkOutArray, resolutionParamArray, ~, dataPresent, nParams, params,...
-    ~, resample, contrastBackgroundsType, ~, useImaginary] =  extractProblemParams(problemStruct);
+    contrastResolutionIndices, ~, backgroundParamArray, qzshiftArray, scalefactorArray, bulkInArray, bulkOutArray, resolutionParamArray, ~,...
+    dataPresent, nParams, params, ~, resample, contrastBackgroundsType, ~, useImaginary] = extractProblemParams(problemStruct);
     
     calcSld = controls.calcSldDuringFit;
     parallel = controls.parallel;
@@ -33,7 +33,7 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
     resolutionParams = zeros(numberOfContrasts,1);
     allRoughs = zeros(numberOfContrasts,1);
     outSsubs = zeros(numberOfContrasts,1);
-    chis =  zeros(numberOfContrasts,1);
+    chis = zeros(numberOfContrasts,1);
     layerSlds = cell(numberOfContrasts,1);
     sldProfiles = cell(numberOfContrasts,1);
     shiftedData = cell(numberOfContrasts,1);

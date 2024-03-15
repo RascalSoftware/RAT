@@ -12,8 +12,8 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
     
     % Extract individual parameters from problemStruct
     [numberOfContrasts, ~, contrastBackgroundIndices, contrastQzshiftIndices, contrastScalefactorIndices, contrastBulkInIndices, contrastBulkOutIndices,...
-    contrastResolutionIndices, ~, backgroundParamArray, qzshiftArray, scalefactorArray, bulkInArray, bulkOutArray, resolutionParamArray, ~, dataPresent, nParams, params,...  
-    ~, ~, contrastBackgroundsType, cCustFiles, useImaginary] = extractProblemParams(problemStruct);
+    contrastResolutionIndices, ~, backgroundParamArray, qzshiftArray, scalefactorArray, bulkInArray, bulkOutArray, resolutionParamArray, ~,...
+    dataPresent, nParams, params, ~, ~, contrastBackgroundsType, cCustFiles, useImaginary] = extractProblemParams(problemStruct);
 
     parallel = controls.parallel;
     resamPars = controls.resamPars;
@@ -122,7 +122,7 @@ function [backgroundParamValue,qzshiftValue,scalefactorValue,bulkInValue,...
     
     allLayer = layerSld;
 
-    shiftedDat =  shiftData(scalefactorValue,qzshiftValue,dataPresent,allData,dataLimits,simLimits);
+    shiftedDat = shiftData(scalefactorValue,qzshiftValue,dataPresent,allData,dataLimits,simLimits);
     shiftedData = shiftedDat;
 
     reflectivityType = 'standardAbeles';

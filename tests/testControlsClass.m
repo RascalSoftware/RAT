@@ -80,7 +80,7 @@ classdef testControlsClass < matlab.unittest.TestCase
 
         function testCalcSldDuringFit(testCase)
             % Test if set.calcSldDuringFit method is working
-            testCase.controls.calcSldDuringFit =  true;
+            testCase.controls.calcSldDuringFit = true;
             testCase.verifyTrue(testCase.controls.calcSldDuringFit, 'set.calcSldDuringFit method is not working')
             testCase.controls.calcSldDuringFit = false;
             testCase.verifyFalse(testCase.controls.calcSldDuringFit, 'set.calcSldDuringFit method is not working')

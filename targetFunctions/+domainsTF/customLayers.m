@@ -16,8 +16,8 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
     
     % Extract individual parameters from problemStruct
     [numberOfContrasts, geometry, contrastBackgroundIndices, contrastQzshiftIndices, contrastScalefactorIndices, contrastBulkInIndices, contrastBulkOutIndices,...
-    contrastResolutionIndices, contrastDomainRatioIndices, backgroundParamArray, qzshiftArray, scalefactorArray, bulkInArray, bulkOutArray, resolutionParamArray, domainRatioArray, dataPresent, nParams, params,...
-    ~, resample, contrastBackgroundsType, cCustFiles, useImaginary] =  extractProblemParams(problemStruct);
+    contrastResolutionIndices, contrastDomainRatioIndices, backgroundParamArray, qzshiftArray, scalefactorArray, bulkInArray, bulkOutArray, resolutionParamArray, domainRatioArray,...
+    dataPresent, nParams, params, ~, resample, contrastBackgroundsType, cCustFiles, useImaginary] = extractProblemParams(problemStruct);
     
     calcSld = controls.calcSldDuringFit;
     parallel = controls.parallel;
@@ -34,7 +34,7 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
     resolutionParams = zeros(numberOfContrasts,1);
     allRoughs = zeros(numberOfContrasts,1);
     outSsubs = zeros(numberOfContrasts,1);
-    chis =  zeros(numberOfContrasts,1);
+    chis = zeros(numberOfContrasts,1);
     domainLayerSlds = cell(numberOfContrasts,2);
     domainSldProfiles = cell(numberOfContrasts,2);
     shiftedData = cell(numberOfContrasts,1);
@@ -54,12 +54,7 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
         domainAllLayers{i,1} = [1 1 1; 1 1 1];
         domainAllLayers{i,2} = [1 1 1; 1 1 1];
     end
-    
-    sldProfiles = cell(numberOfContrasts,1);
-    for i = 1:numberOfContrasts
-        sldProfiles{i} = {[1 1 ; 1 1],[1 1 ; 1 1]};
-    end
-    
+
     calcAllLayers = cell(numberOfContrasts,2);
     for i = 1:numberOfContrasts
         calcAllLayers{i,1} = [1 ; 1];
@@ -75,7 +70,12 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
     for i = 1:numberOfContrasts
         calcAllLayers2{i} = [1 ; 1];
     end
-    
+
+    sldProfiles = cell(numberOfContrasts,1);
+    for i = 1:numberOfContrasts
+        sldProfiles{i} = {[1 1 ; 1 1],[1 1 ; 1 1]};
+    end
+        
     allLayers = cell(numberOfContrasts,1);
     for i = 1:numberOfContrasts
         allLayers{i} = {[1 1 1;1 1 1],[1 1 1;1 1 1]};

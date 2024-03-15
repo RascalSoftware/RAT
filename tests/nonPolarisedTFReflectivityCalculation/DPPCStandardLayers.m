@@ -29,12 +29,12 @@ Parameters = {
 
     project.addParameterGroup(Parameters);
     % Now make the oxide layer
-    Oxide =     {'Oxide Layer',...          % Name of the layer
-                'Oxide thick',...           % Layer thickness
-                'Oxide SLD',...             % Layer SLD
-                'Substrate Roughness',...   % Layer roughness
-                'Oxide Hydration',...       % Oxide hydration (precent)
-                'bulk out' };               % Which bulk phase is hydrating the layer
+    Oxide = {'Oxide Layer',...          % Name of the layer
+             'Oxide thick',...           % Layer thickness
+             'Oxide SLD',...             % Layer SLD
+             'Substrate Roughness',...   % Layer roughness
+             'Oxide Hydration',...       % Oxide hydration (precent)
+             'bulk out' };               % Which bulk phase is hydrating the layer
             
     % Add this to the project...
     project.addLayer(Oxide);

@@ -152,7 +152,7 @@ maxArea = 5e-4; % units normalized to data range
 % The test mode is activated by calling 'adaptive.m' with no input.
 
 % if nargin==0
-%   initialDomain =  -10:10;
+%   initialDomain = -10:10;
 %   input_func = @(x) 100*exp(-(x+5.2).^2) + 50*exp(-5*(x-0.5).^2)+ 20*exp(-10*(x-5.8).^2);
 %   thresholdingAngles = true;
 %   minAngle = 0.8*pi;
@@ -239,7 +239,7 @@ maxArea = 5e-4; % units normalized to data range
 % array with 'nPoints' points.
 if numel(startDomain) == 2
   newDomain = linspace(startDomain(1),startDomain(end),nPoints).';
-  initialDomain =  newDomain;
+  initialDomain = newDomain;
 end
 % Normalize the input function: This step allows to use the same syntax for
 % functions with single or multiple output parameters.

@@ -107,7 +107,7 @@ contrastParams.resolutionParams = resolutionParams;
 contrastParams.allSubRough = allRoughs;
 contrastParams.resample = problemStruct.resample;
 
-calculationResults.allChi = chis;
+calculationResults.chiValues = chis;
 calculationResults.sumChi = sum(chis);
 
 end

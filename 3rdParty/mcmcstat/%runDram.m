@@ -75,7 +75,7 @@ coder.varsize('problem.bulkIn',[Inf 1],[1 0]);
 coder.varsize('problem.bulkOut',[Inf 1],[1 0]);
 coder.varsize('problem.resolutionParams',[Inf 1],[1 0]);
 coder.varsize('problem.ssubs',[Inf 1],[1 0]);
-coder.varsize('problem.calculations.allChi',[Inf 1],[1 0]);
+coder.varsize('problem.calculations.chiValues',[Inf 1],[1 0]);
 coder.varsize('problem.calculations.sumChi',[1 1],[0 0]);
 coder.varsize('problem.allSubRough',[Inf 1],[1 0]);
 

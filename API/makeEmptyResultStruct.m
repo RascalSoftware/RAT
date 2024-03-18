@@ -24,12 +24,12 @@ function result = makeEmptyResultStruct(nContrasts,nPars,domains)
     % Make the individual structs....
     % (1) result.calculationResults
 
-    allChi = zeros(nContrasts,1);
-    coder.varsize('allChi',[1e7 1],[1 0]);
+    chiValues = zeros(nContrasts,1);
+    coder.varsize('chiValues',[1e7 1],[1 0]);
     
     sumChi = 0;
         
-    calculationResults = struct('allChi', allChi, 'sumChi', sumChi);
+    calculationResults = struct('chiValues', chiValues, 'sumChi', sumChi);
     
     % --------------------------------------------------------------------
     % (2) result.contrastParams

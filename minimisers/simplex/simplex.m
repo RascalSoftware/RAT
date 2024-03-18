@@ -100,27 +100,27 @@ n = numel(x);
 numberOfVariables = n;
 
 printtype = coderEnums.displayOptions.Iter;%optimget(options,'Display',defaultopt,'iter');
-tolx = optimget(options,'TolX',defaultopt,'fast');
-tolf = optimget(options,'TolFun',defaultopt,'fast');
-maxfun = optimget(options,'MaxFunEvals',defaultopt,'fast');
-maxiter = optimget(options,'MaxIter',defaultopt,'fast');
+tolX = optimget(options,'XTolerance',defaultopt,'fast');
+tolFun = optimget(options,'FuncTolerance',defaultopt,'fast');
+maxFunEvals = optimget(options,'MaxFuncEvals',defaultopt,'fast');
+maxIter = optimget(options,'MaxIterations',defaultopt,'fast');
 funValCheck = strcmp(optimget(options,'FunValCheck',defaultopt,'fast'),'on');
 
 %*******************************
 stopflag = 0;
 
 % In case the defaults were gathered from calling: optimset('fminsearch'):
-if ischar(maxfun)
-    if isequal(lower(maxfun),'200*numberofvariables')
-        maxfun = 200*numberOfVariables;
+if ischar(maxFunEvals)
+    if isequal(lower(maxFunEvals),'200*numberofvariables')
+        maxFunEvals = 200*numberOfVariables;
     else
         error('MATLAB:fminsearch:OptMaxFuncEvalsNotInteger',...
             'Option ''MaxFuncEvals'' must be an integer value if not the default.')
     end
 end
-if ischar(maxiter)
-    if isequal(lower(maxiter),'200*numberofvariables')
-        maxiter = 200*numberOfVariables;
+if ischar(maxIter)
+    if isequal(lower(maxIter),'200*numberofvariables')
+        maxIter = 200*numberOfVariables;
     else
         error('MATLAB:fminsearch:OptMaxIterationsNotInteger',...
             'Option ''MaxIterations'' must be an integer value if not the default.')
@@ -282,7 +282,7 @@ exitflag = 1;
 %   or the max function evaluations are exceeded. (Cannot use OR instead of
 %   AND.)
 
-while func_evals < maxfun && itercount < maxiter && stopflag == 0
+while func_evals < maxFunEvals && itercount < maxIter && stopflag == 0
     
     if rem(itercount,20)==0
         stopflag = 0;
@@ -293,8 +293,8 @@ while func_evals < maxfun && itercount < maxiter && stopflag == 0
         end
     end
     
-    if max(abs(fv(1)-fv(two2np1))) <= tolf && ...
-            max(max(abs(v(:,two2np1)-v(:,onesn)))) <= tolx
+    if max(abs(fv(1)-fv(two2np1))) <= tolFun && ...
+            max(max(abs(v(:,two2np1)-v(:,onesn)))) <= tolX
         break
     end
     
@@ -408,7 +408,7 @@ if haveoutputfcn
     callOutputFcn(outputfcn,x,xOutputfcn,'done',itercount, func_evals, how, f, varargin{:});
 end
 
-if func_evals >= maxfun
+if func_evals >= maxFunEvals
     msg = fprintf(['Exiting: Maximum number of function evaluations has been exceeded\n' ...
                    '         - increase MaxFuncEvals option.\n' ...
                    '         Current function value: %f \n'], fval);
@@ -417,7 +417,7 @@ if func_evals >= maxfun
         disp(msg)
     end
     exitflag = 0;
-elseif itercount >= maxiter
+elseif itercount >= maxIter
     msg = fprintf(['Exiting: Maximum number of iterations has been exceeded\n' ... 
                    '         - increase MaxIterations option.\n' ...
                    '         Current function value: %f \n'], fval);
@@ -431,7 +431,7 @@ else
       fprintf(['Optimization terminated:\n', ...
                ' the current x satisfies the termination criteria using OPTIONS.XTolerance of %e \n' ...
                ' and F(X) satisfies the convergence criteria using OPTIONS.FuncTolerance of %e \n'], ...
-               tolx, tolf);
+               tolX, tolFun);
     if prnt > 1
         disp(' ')
         disp(msg)

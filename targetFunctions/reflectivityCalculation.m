@@ -20,8 +20,7 @@ function result = reflectivityCalculation(problemStruct,problemCells,problemLimi
 numberOfContrasts = problemStruct.numberOfContrasts;
 preAlloc = zeros(numberOfContrasts,1);
 
-contrastParams = struct('ssubs',preAlloc, ...
-                        'backgroundParams',preAlloc,...
+contrastParams = struct('backgroundParams',preAlloc,...
                         'qzshifts',preAlloc,...
                         'scalefactors',preAlloc,...
                         'bulkIn',preAlloc,...
@@ -35,46 +34,46 @@ calculationResults = struct('chiValues',preAlloc,'sumChi',0);
 % We also fill the results arrays to define their type and size.
 reflectivity = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    reflectivity{i} = [1 1 ; 1 1];
+    reflectivity{i} = [1 1; 1 1];
 end
 coder.varsize('reflectivity{:}',[10000 2],[1 0]);
 
 simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    simulation{i} = [1 1 ; 1 1];
+    simulation{i} = [1 1; 1 1];
 end
 coder.varsize('simulation{:}',[10000 2],[1 0]);
 
 shiftedData = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    shiftedData{i} = [1 1 1 ; 1 1 1];
+    shiftedData{i} = [1 1 1; 1 1 1];
 end
 coder.varsize('shiftedData{:}',[10000 3],[1 0]);
 
 layerSlds = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    layerSlds{i} = [1 1 1 ; 1 1 1];
+    layerSlds{i} = [1 1 1; 1 1 1];
 end
 coder.varsize('layerSlds{:}',[10000 6],[1 1]);
 
 domainLayerSlds = cell(numberOfContrasts,2);
 for i = 1:numberOfContrasts
-    domainLayerSlds{i,1} = [1 1 1 ; 1 1 1];
-    domainLayerSlds{i,2} = [1 1 1 ; 1 1 1];
+    domainLayerSlds{i,1} = [1 1 1; 1 1 1];
+    domainLayerSlds{i,2} = [1 1 1; 1 1 1];
 end
 coder.varsize('domainLayerSlds',[10000 2],[1 1]);
 coder.varsize('domainLayerSlds{:}',[10000 6],[1 1]);
 
 sldProfiles = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    sldProfiles{i,1} = [1 1 ; 1 1];
+    sldProfiles{i,1} = [1 1; 1 1];
 end
 coder.varsize('sldProfiles{:}',[10000 2],[1 0]);
 
 domainSldProfiles = cell(numberOfContrasts,2);
 for i = 1:numberOfContrasts
-    domainSldProfiles{i,1} = [1 1 ; 1 1];
-    domainSldProfiles{i,2} = [1 1 ; 1 1];
+    domainSldProfiles{i,1} = [1 1; 1 1];
+    domainSldProfiles{i,2} = [1 1; 1 1];
 end
 coder.varsize('domainSldProfiles',[10000 2],[1 1]);
 coder.varsize('domainSldProfiles{:}',[10000 Inf],[1 1]);

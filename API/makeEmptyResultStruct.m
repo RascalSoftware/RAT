@@ -34,8 +34,6 @@ function result = makeEmptyResultStruct(nContrasts,nPars,domains)
     % --------------------------------------------------------------------
     % (2) result.contrastParams
 
-    ssubs = zeros(nContrasts,1);
-    coder.varsize('ssubs',[10000 1],[1 0]);
     backgroundParams = zeros(nContrasts,1);
     coder.varsize('backgroundParams',[10000 1],[1 0]);
     qzshifts = zeros(nContrasts,1);
@@ -53,8 +51,7 @@ function result = makeEmptyResultStruct(nContrasts,nPars,domains)
     resample = zeros(1, nContrasts);
     coder.varsize('resample',[1 10000],[0 1]);
         
-    contrastParams = struct('ssubs',ssubs, ...
-                            'backgroundParams', backgroundParams, ...
+    contrastParams = struct('backgroundParams', backgroundParams, ...
                             'qzshifts', qzshifts, ...
                             'scalefactors', scalefactors, ...
                             'bulkIn', bulkIn, ...
@@ -67,21 +64,21 @@ function result = makeEmptyResultStruct(nContrasts,nPars,domains)
     % Make the final structure...
 
     reflectivity = cell(nContrasts,1);
-    refCell = [1 1 ; 1 1];
+    refCell = [1 1; 1 1];
     coder.varsize('refCell',[10000 2],[1 0]);
     for i = 1:nContrasts
         reflectivity{i} = refCell;
     end
     
     simulation = cell(nContrasts,1);
-    simCell = [1 1 ; 1 1];
+    simCell = [1 1; 1 1];
     coder.varsize('simCell',[10000 2],[1 0]);
     for i = 1:nContrasts
         simulation{i} = simCell;
     end
     
     shiftedData = cell(nContrasts,1);
-    shiftCell = [1 1 1 ; 1 1 1];
+    shiftCell = [1 1 1; 1 1 1];
     coder.varsize('shiftCell',[10000 3],[1 0]);
     for i = 1:nContrasts
         shiftedData{i} = shiftCell;
@@ -89,7 +86,7 @@ function result = makeEmptyResultStruct(nContrasts,nPars,domains)
     
     if domains
         layerSlds = cell(nContrasts,2);
-        domainLayerSldCell = [1 1 1 ; 1 1 1];
+        domainLayerSldCell = [1 1 1; 1 1 1];
         coder.varsize('domainLayerSldCell',[10000 6],[1 1]);
         for i = 1:nContrasts
             layerSlds{i,1} = domainLayerSldCell;
@@ -97,7 +94,7 @@ function result = makeEmptyResultStruct(nContrasts,nPars,domains)
         end
     else
         layerSlds = cell(nContrasts,1);
-        layerSldCell = [1 1 1 ; 1 1 1];
+        layerSldCell = [1 1 1; 1 1 1];
         coder.varsize('layerSldCell',[10000 6],[1 1]);
         for i = 1:nContrasts
             layerSlds{i} = layerSldCell;
@@ -107,7 +104,7 @@ function result = makeEmptyResultStruct(nContrasts,nPars,domains)
 
     if domains
         sldProfiles = cell(nContrasts,2);
-        domainSldProfileCell = [1 1 ; 1 1];
+        domainSldProfileCell = [1 1; 1 1];
         coder.varsize('domainSldProfileCell',[10000 inf],[1 1]);
         for i = 1:nContrasts
             sldProfiles{i,1} = domainSldProfileCell;
@@ -115,7 +112,7 @@ function result = makeEmptyResultStruct(nContrasts,nPars,domains)
         end
     else
         sldProfiles = cell(nContrasts,1);
-        sldProfileCell = [1 1 ; 1 1];
+        sldProfileCell = [1 1; 1 1];
         coder.varsize('sldProfileCell',[10000 2],[1 0]);
         for i = 1:nContrasts
             sldProfiles{i,1} = sldProfileCell;

@@ -1,6 +1,6 @@
-function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
+function [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
     resolutionParams,chis,reflectivity,simulation,shiftedData,domainLayerSlds,...
-    domainSldProfiles,domainAllLayers,allRoughs] = customXY(problemStruct,problemCells,controls)
+    domainSldProfiles,domainResampledLayers,allRoughs] = customXY(problemStruct,problemCells,controls)
 
     % Extract individual cell arrays
     [repeatLayers,...
@@ -11,12 +11,15 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
      customFiles] = parseCells(problemCells);
     
     % Extract individual parameters from problemStruct
-    [numberOfContrasts, ~, contrastBackgroundIndices, contrastQzshiftIndices, contrastScalefactorIndices, contrastBulkInIndices, contrastBulkOutIndices,...
-    contrastResolutionIndices, contrastDomainRatioIndices, backgroundParamArray, qzshiftArray, scalefactorArray, bulkInArray, bulkOutArray, resolutionParamArray, domainRatioArray,...
-    dataPresent, nParams, params, ~, ~, contrastBackgroundsType, cCustFiles, useImaginary] = extractProblemParams(problemStruct);
+    [numberOfContrasts, ~, contrastBackgroundIndices, contrastQzshiftIndices,...
+     contrastScalefactorIndices, contrastBulkInIndices, contrastBulkOutIndices,...
+     contrastResolutionIndices, contrastDomainRatioIndices, backgroundParamArray,...
+     qzshiftArray, scalefactorArray, bulkInArray, bulkOutArray, resolutionParamArray,...
+     domainRatioArray, dataPresent, nParams, params, ~, ~, contrastBackgroundsType,...
+     cCustFiles, useImaginary] = extractProblemParams(problemStruct);
 
     parallel = controls.parallel;
-    resamPars = controls.resamPars;
+    resampleParams = controls.resampleParams;
 
     %Pre-Allocation...
     backgroundParams = zeros(numberOfContrasts,1);
@@ -26,56 +29,55 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
     bulkOuts = zeros(numberOfContrasts,1);
     resolutionParams = zeros(numberOfContrasts,1);
     allRoughs = zeros(numberOfContrasts,1);
-    outSsubs = zeros(numberOfContrasts,1);
     chis = zeros(numberOfContrasts,1);
     domainLayerSlds = cell(numberOfContrasts,2);
     shiftedData = cell(numberOfContrasts,1);
     
     reflectivity = cell(numberOfContrasts,1);
     for i = 1:numberOfContrasts
-        reflectivity{i} = [1 1 ; 1 1];
+        reflectivity{i} = [1 1; 1 1];
     end
     
     simulation = cell(numberOfContrasts,1);
     for i = 1:numberOfContrasts
-        simulation{i} = [1 1 ; 1 1];
+        simulation{i} = [1 1; 1 1];
     end
     
-    domainAllLayers = cell(numberOfContrasts,2);
+    domainResampledLayers = cell(numberOfContrasts,2);
     for i = 1:numberOfContrasts
-        domainAllLayers{i,1} = [1 1 1; 1 1 1];
-        domainAllLayers{i,2} = [1 1 1; 1 1 1];
+        domainResampledLayers{i,1} = [1 1 1; 1 1 1];
+        domainResampledLayers{i,2} = [1 1 1; 1 1 1];
     end
     
     domainSldProfiles = cell(numberOfContrasts,2);
     for i = 1:numberOfContrasts
-        domainSldProfiles{i,1} = [1 ; 1];
-        domainSldProfiles{i,2} = [1 ; 1];
+        domainSldProfiles{i,1} = [1; 1];
+        domainSldProfiles{i,2} = [1; 1];
     end
     
     inputSldProfiles1 = cell(numberOfContrasts,1);
     for i = 1:numberOfContrasts
-        inputSldProfiles1{i} = [1 ; 1];
+        inputSldProfiles1{i} = [1; 1];
     end
     
     inputSldProfiles2 = cell(numberOfContrasts,1);
     for i = 1:numberOfContrasts
-        inputSldProfiles2{i} = [1 ; 1];
+        inputSldProfiles2{i} = [1; 1];
     end
     
     sldProfiles = cell(numberOfContrasts,1);
     for i = 1:numberOfContrasts
-        sldProfiles{i} = {[1 1 ; 1 1],[1 1 ; 1 1]};
+        sldProfiles{i} = {[1 1; 1 1],[1 1; 1 1]};
     end
     
-    allLayers = cell(numberOfContrasts,1);
+    resampledLayers = cell(numberOfContrasts,1);
     for i = 1:numberOfContrasts
-        allLayers{i} = {[1 1 1;1 1 1],[1 1 1;1 1 1]};
+        resampledLayers{i} = {[1 1 1; 1 1 1],[1 1 1; 1 1 1]};
     end
     
     layerSlds = cell(numberOfContrasts,1);
     for i = 1:numberOfContrasts
-        layerSlds{i} = {[1 1 1;1 1 1],[1 1 1;1 1 1]};
+        layerSlds{i} = {[1 1 1; 1 1 1],[1 1 1; 1 1 1]};
     end
 
     [inputSldProfiles,allRoughs] = domainsTF.customXY.processCustomFunction(contrastBulkInIndices,contrastBulkOutIndices,...
@@ -93,7 +95,7 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
             [backgroundParams(i),qzshifts(i),scalefactors(i),bulkIns(i),...
              bulkOuts(i),resolutionParams(i),chis(i),reflectivity{i},...
              simulation{i},shiftedData{i},layerSlds{i},sldProfiles{i},...
-             allLayers{i}...
+             resampledLayers{i}...
              ] = contrastCalculation(contrastBackgroundIndices(i),...
              contrastQzshiftIndices(i),contrastScalefactorIndices(i),...
              contrastBulkInIndices(i),contrastBulkOutIndices(i),...
@@ -101,8 +103,8 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
              backgroundParamArray,qzshiftArray,scalefactorArray,bulkInArray,...
              bulkOutArray,resolutionParamArray,domainRatioArray,dataPresent(i),...
              allData{i},dataLimits{i},simLimits{i},repeatLayers{i},...
-             contrastBackgroundsType(i),nParams,parallel,resamPars,useImaginary,...
-             allRoughs(i),inputSldProfiles1{i},inputSldProfiles2{i});
+             contrastBackgroundsType(i),nParams,parallel,resampleParams,...
+             useImaginary,allRoughs(i),inputSldProfiles1{i},inputSldProfiles2{i});
 
         end
     
@@ -113,7 +115,7 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
             [backgroundParams(i),qzshifts(i),scalefactors(i),bulkIns(i),...
              bulkOuts(i),resolutionParams(i),chis(i),reflectivity{i},...
              simulation{i},shiftedData{i},layerSlds{i},sldProfiles{i},...
-             allLayers{i}...
+             resampledLayers{i}...
              ] = contrastCalculation(contrastBackgroundIndices(i),...
              contrastQzshiftIndices(i),contrastScalefactorIndices(i),...
              contrastBulkInIndices(i),contrastBulkOutIndices(i),...
@@ -121,8 +123,8 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
              backgroundParamArray,qzshiftArray,scalefactorArray,bulkInArray,...
              bulkOutArray,resolutionParamArray,domainRatioArray,dataPresent(i),...
              allData{i},dataLimits{i},simLimits{i},repeatLayers{i},...
-             contrastBackgroundsType(i),nParams,parallel,resamPars,useImaginary,...
-             allRoughs(i),inputSldProfiles1{i},inputSldProfiles2{i});
+             contrastBackgroundsType(i),nParams,parallel,resampleParams,...
+             useImaginary,allRoughs(i),inputSldProfiles1{i},inputSldProfiles2{i});
 
         end
     
@@ -130,19 +132,17 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
     
     for i = 1:numberOfContrasts
 
-        outSsubs(i) = allRoughs(i);
-    
-        contrastDomainSLDProfiles = sldProfiles{i};
-        domainSldProfiles{i,1} = contrastDomainSLDProfiles{1};
-        domainSldProfiles{i,2} = contrastDomainSLDProfiles{2};
+        contrastSLDProfiles = sldProfiles{i};
+        domainSldProfiles{i,1} = contrastSLDProfiles{1};
+        domainSldProfiles{i,2} = contrastSLDProfiles{2};
     
         contrastLayersSlds = layerSlds{i};
         domainLayerSlds{i,1} = contrastLayersSlds{1};
         domainLayerSlds{i,2} = contrastLayersSlds{2};
     
-        contrastAllLayers = allLayers{i};
-        domainAllLayers{i,1} = contrastAllLayers{1};
-        domainAllLayers{i,2} = contrastAllLayers{2};
+        contrastResampledLayers = resampledLayers{i};
+        domainResampledLayers{i,1} = contrastResampledLayers{1};
+        domainResampledLayers{i,2} = contrastResampledLayers{2};
     
     end
 
@@ -151,11 +151,12 @@ end
 
 function [backgroundParamValue,qzshiftValue,scalefactorValue,bulkInValue,...
     bulkOutValue,resolutionParamValue,chi,reflectivity,simulation,shiftedData,...
-    layerSld,sldProfile,allLayer] = contrastCalculation(backgroundParamIndex,...
-    qzshiftIndex,scalefactorIndex,bulkInIndex,bulkOutIndex,resolutionParamIndex,domainRatioIndex,...
-    backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,domainRatios,...
-    dataPresent,allData,dataLimits,simLimits,repeatLayers,contrastBackgroundsType,...
-    nParams,parallel,resamPars,useImaginary,roughness,sldProfile1,sldProfile2)
+    layerSld,sldProfile,resampledLayer] = contrastCalculation(backgroundParamIndex,...
+    qzshiftIndex,scalefactorIndex,bulkInIndex,bulkOutIndex,resolutionParamIndex,...
+    domainRatioIndex,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
+    resolutionParams,domainRatios,dataPresent,allData,dataLimits,simLimits,...
+    repeatLayers,contrastBackgroundsType,nParams,parallel,resampleParams,...
+    useImaginary,roughness,sldProfile1,sldProfile2)
 
     % Get the domain ratio for this contrast
     if isempty(domainRatioIndex)
@@ -174,8 +175,8 @@ function [backgroundParamValue,qzshiftValue,scalefactorValue,bulkInValue,...
      
     % Resample the sld profiles
     if ~useImaginary
-        layerSld1 = resampleLayers(sldProfile1,resamPars);
-        layerSld2 = resampleLayers(sldProfile2,resamPars);
+        layerSld1 = resampleLayers(sldProfile1,resampleParams);
+        layerSld2 = resampleLayers(sldProfile2,resampleParams);
     else
         reSLD1 = sldProfile1(:,1:2);
         imSLD1 = [sldProfile1(:,1),sldProfile1(:,3)];
@@ -183,12 +184,12 @@ function [backgroundParamValue,qzshiftValue,scalefactorValue,bulkInValue,...
         reSLD2 = sldProfile2(:,1:2);
         imSLD2 = [sldProfile2(:,1),sldProfile2(:,3)];
 
-        layerSld1 = resampleLayersReIm(reSLD1,imSLD1,resamPars);
-        layerSld2 = resampleLayersReIm(reSLD2,imSLD2,resamPars);
+        layerSld1 = resampleLayersReIm(reSLD1,imSLD1,resampleParams);
+        layerSld2 = resampleLayersReIm(reSLD2,imSLD2,resampleParams);
     end
 
     layerSld = {layerSld1, layerSld2};
-    allLayer = {layerSld1, layerSld2};
+    resampledLayer = {layerSld1, layerSld2};
     sldProfile = {sldProfile1, sldProfile2};
 
     shiftedDat = shiftData(scalefactorValue,qzshiftValue,dataPresent,allData,dataLimits,simLimits);

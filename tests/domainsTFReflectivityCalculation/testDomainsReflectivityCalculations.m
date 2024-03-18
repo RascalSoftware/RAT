@@ -47,7 +47,6 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
         TFLayerSLDs
         TFSLDProfiles
         TFResampledLayers
-        TFOutSsubs
         TFBackgroundParams
         TFQzshifts
         TFScalefactors
@@ -99,7 +98,6 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             testCase.TFSLDProfiles = testCase.TFParams.TFParams.sldProfiles;
             testCase.TFResampledLayers = testCase.TFParams.TFParams.resampledLayers;
 
-            testCase.TFOutSsubs = testCase.TFParams.TFParams.outSsubs;
             testCase.TFBackgroundParams = testCase.TFParams.TFParams.backgroundParams;
             testCase.TFQzshifts = testCase.TFParams.TFParams.qzshifts;
             testCase.TFScalefactors = testCase.TFParams.TFParams.scalefactors;
@@ -177,23 +175,22 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             % Choose the appropriate routine for each test case
             switch TFFile
                 case 'domainsStandardLayersTFParams.mat'
-                    [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
+                    [backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,resampledLayers,...
                     allRoughs] = domainsTF.standardLayers(testCase.problemStruct,testCase.problemCells,...
                     testCase.controls);
                 case 'domainsCustomLayersTFParams.mat'
-                    [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
+                    [backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,resampledLayers,...
                     allRoughs] = domainsTF.customLayers(testCase.problemStruct,testCase.problemCells,...
                     testCase.controls);
                 case 'domainsCustomXYTFParams.mat'
-                    [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
+                    [backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,resampledLayers,...
                     allRoughs] = domainsTF.customXY(testCase.problemStruct,testCase.problemCells,...
                     testCase.controls);
             end
 
-            testCase.verifyEqual(outSsubs, testCase.TFOutSsubs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(backgroundParams, testCase.TFBackgroundParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(qzshifts, testCase.TFQzshifts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(scalefactors, testCase.TFScalefactors, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);

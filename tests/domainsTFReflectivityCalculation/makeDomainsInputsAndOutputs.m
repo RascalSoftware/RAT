@@ -53,11 +53,10 @@ TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.resampledLayers = resampledLayers;
 
-[outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,...
- resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,...
- sldProfiles,resampledLayers,allRoughs] = domainsTF.standardLayers.single(problemStruct,problemCells,controls);
+[backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
+ chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,...
+ resampledLayers,allRoughs] = domainsTF.standardLayers(problemStruct,problemCells,controls);
 
-TFParams.outSsubs = outSsubs;
 TFParams.backgroundParams = backgroundParams;
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
@@ -119,11 +118,10 @@ TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.resampledLayers = resampledLayers;
 
-[outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,...
- resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,...
- sldProfiles,resampledLayers,allRoughs] = domainsTF.customXY.single(problemStruct,problemCells,controls);
+[backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
+ chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,...
+ resampledLayers,allRoughs] = domainsTF.customXY(problemStruct,problemCells,controls);
 
-TFParams.outSsubs = outSsubs;
 TFParams.backgroundParams = backgroundParams;
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
@@ -185,11 +183,10 @@ TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.resampledLayers = resampledLayers;
 
-[outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,...
- resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,...
- sldProfiles,resampledLayers,allRoughs] = domainsTF.customLayers.single(problemStruct,problemCells,controls);
+[backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
+ chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,...
+ resampledLayers,allRoughs] = domainsTF.customLayers(problemStruct,problemCells,controls);
 
-TFParams.outSsubs = outSsubs;
 TFParams.backgrounds = backgroundParams;
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;

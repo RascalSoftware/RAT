@@ -53,11 +53,10 @@ TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.resampledLayers = resampledLayers;
 
-[outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,...
- resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,...
- sldProfiles,resampledLayers,allRoughs] = nonPolarisedTF.customLayers.single(problemStruct,problemCells,controls);
+[backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
+ chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,...
+ resampledLayers,allRoughs] = nonPolarisedTF.customLayers(problemStruct,problemCells,controls);
 
-TFParams.outSsubs = outSsubs;
 TFParams.backgroundParams = backgroundParams;
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
@@ -119,11 +118,10 @@ TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.resampledLayers = resampledLayers;
 
-[outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,...
- resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,...
- sldProfiles,resampledLayers, allRoughs] = nonPolarisedTF.customXY.single(problemStruct,problemCells,controls);
+[backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
+ chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,...
+ resampledLayers, allRoughs] = nonPolarisedTF.customXY(problemStruct,problemCells,controls);
 
-TFParams.outSsubs = outSsubs;
 TFParams.backgroundParams = backgroundParams;
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
@@ -186,11 +184,10 @@ TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.resampledLayers = resampledLayers;
 
-[outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,...
- resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,...
- sldProfiles,resampledLayers,allRoughs] = nonPolarisedTF.standardLayers.single(problemStruct,problemCells,controls);
+[backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
+ chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,...
+ resampledLayers,allRoughs] = nonPolarisedTF.standardLayers(problemStruct,problemCells,controls);
 
-TFParams.outSsubs = outSsubs;
 TFParams.backgroundParams = backgroundParams;
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;

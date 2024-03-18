@@ -29,7 +29,6 @@ numberOfContrasts = problemStruct.numberOfContrasts;
 
 % Pre-allocation - It's necessary to pre-define the types for all the
 % arrays for compilation, so do this in this block.
-outSsubs = zeros(numberOfContrasts,1);
 backgroundParams = zeros(numberOfContrasts,1);
 qzshifts = zeros(numberOfContrasts,1);
 scalefactors = zeros(numberOfContrasts,1);
@@ -44,60 +43,59 @@ allRoughs = zeros(numberOfContrasts,1);
 % execution paths' error.
 reflectivity = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    reflectivity{i} = [1 1 ; 1 1];
+    reflectivity{i} = [1 1; 1 1];
 end
 
 simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    simulation{i} = [1 1 ; 1 1];
+    simulation{i} = [1 1; 1 1];
 end
 
 shiftedData = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    shiftedData{i} = [1 1 1 ; 1 1 1];
+    shiftedData{i} = [1 1 1; 1 1 1];
 end
 
 layerSlds = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    layerSlds{i} = [1 1 1 ; 1 1 1];
+    layerSlds{i} = [1 1 1; 1 1 1];
 end
 
 sldProfiles = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    sldProfiles{i} = [1 1 ; 1 1];
+    sldProfiles{i} = [1 1; 1 1];
 end
 
 resampledLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    resampledLayers{i} = [1 1 1 ; 1 1 1];
+    resampledLayers{i} = [1 1 1; 1 1 1];
 end
            
 switch lower(type)
     case coderEnums.modelTypes.StandardLayers
 
-        [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,...
-         bulkOuts,resolutionParams,chis,reflectivity,simulation,...
-         shiftedData,layerSlds,sldProfiles,resampledLayers,...
+        [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
+         resolutionParams,chis,reflectivity,simulation,shiftedData,...
+         layerSlds,sldProfiles,resampledLayers,...
          allRoughs] = nonPolarisedTF.standardLayers(problemStruct,problemCells,controls);
 
     case coderEnums.modelTypes.CustomLayers
 
-        [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,...
-         bulkOuts,resolutionParams,chis,reflectivity,simulation,...
-         shiftedData,layerSlds,sldProfiles,resampledLayers,...
+        [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
+         resolutionParams,chis,reflectivity,simulation,shiftedData,...
+         layerSlds,sldProfiles,resampledLayers,...
          allRoughs] = nonPolarisedTF.customLayers(problemStruct,problemCells,controls);
 
     case coderEnums.modelTypes.CustomXY
         
-        [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,...
-         bulkOuts,resolutionParams,chis,reflectivity,simulation,...
-         shiftedData,layerSlds,sldProfiles,resampledLayers,...
+        [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
+         resolutionParams,chis,reflectivity,simulation,shiftedData,...
+         layerSlds,sldProfiles,resampledLayers,...
          allRoughs] = nonPolarisedTF.customXY(problemStruct,problemCells,controls);
 
 end
 
 % Package everything into structs for tidy output
-contrastParams.ssubs = outSsubs;
 contrastParams.backgroundParams = backgroundParams;
 contrastParams.qzshifts = qzshifts;
 contrastParams.scalefactors = scalefactors;

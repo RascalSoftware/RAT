@@ -91,9 +91,6 @@ void eventCallback(const baseEvent& event)
                                                   pEvent->data->layers2, pEvent->data->nLayers, 2);
 
         mwSize dims[2] = {(mwSize)pEvent->data->nContrast, 1};
-        mxArray* ssubs = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
-        memcpy(mxGetPr(ssubs), pEvent->data->ssubs, dims[0] * mxGetElementSize(ssubs));
-
         mxArray* resample = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
         memcpy(mxGetPr(resample), pEvent->data->resample, dims[0] * mxGetElementSize(resample));
 
@@ -101,7 +98,7 @@ void eventCallback(const baseEvent& event)
         memcpy(mxGetPr(dataPresent), pEvent->data->dataPresent, dims[0] * mxGetElementSize(dataPresent));
 
         
-        const char* field_names[] = {"reflectivity", "shiftedData", "sldProfiles", "allLayers", "ssubs", 
+        const char* field_names[] = {"reflectivity", "shiftedData", "sldProfiles", "allLayers",
                                      "resample", "dataPresent", "modelType"};
         prhs[1] = mxCreateStructArray(2, structDims, 8, field_names);
 
@@ -109,7 +106,6 @@ void eventCallback(const baseEvent& event)
         mxSetFieldByNumber(prhs[1], 0, 1, shifted);
         mxSetFieldByNumber(prhs[1], 0, 2, slds);
         mxSetFieldByNumber(prhs[1], 0, 3, layers);
-        mxSetFieldByNumber(prhs[1], 0, 4, ssubs);
         mxSetFieldByNumber(prhs[1], 0, 5, resample);
         mxSetFieldByNumber(prhs[1], 0, 6, dataPresent);
         mxSetFieldByNumber(prhs[1], 0, 7, mxCreateString(pEvent->data->modelType));

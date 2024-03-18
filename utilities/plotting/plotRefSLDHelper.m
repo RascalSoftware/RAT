@@ -46,7 +46,7 @@ function plotRefSLDHelper(data, noDelay)
         % If there is resampling, plot the resampled layers also
         % TODO for domains...
         if (data.resample(i) == 1) || (strcmpi(data.modelType, 'custom xy'))
-            ssub = data.ssubs(i); 
+            roughness = data.allSubRough(i); 
             layers = data.resampledLayers{i, 1};
             bulkIn = layers(1, 2);
             bulkOut = layers(end, 2);
@@ -55,7 +55,7 @@ function plotRefSLDHelper(data, noDelay)
                 layer = data.resampledLayers{i, j};                          
                 numberOfLayers = size(layer, 1);
                 nrepeats = 1;
-                newProf = makeSLDProfileXY(bulkIn,bulkOut,ssub,layer,numberOfLayers,nrepeats);
+                newProf = makeSLDProfileXY(bulkIn,bulkOut,roughness,layer,numberOfLayers,nrepeats);
                 plot(newProf(:,1)-49,newProf(:,2));
             end
         end

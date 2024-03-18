@@ -26,8 +26,6 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
     parallel = controls.parallel;
     resamPars = controls.resamPars;
     
-    domainRatio = 1;    % Default for compile.
-    
     % Allocate the memory for the output arrays before the main loop
     backgroundParams = zeros(numberOfContrasts,1);
     qzshifts = zeros(numberOfContrasts,1);

@@ -29,7 +29,7 @@ Parameters = {
 
     project.addParameterGroup(Parameters);
     % Now make the oxide layer
-    Oxide = {'Oxide Layer',...          % Name of the layer
+    Oxide = {'Oxide Layer',...           % Name of the layer
              'Oxide thick',...           % Layer thickness
              'Oxide SLD',...             % Layer SLD
              'Substrate Roughness',...   % Layer roughness

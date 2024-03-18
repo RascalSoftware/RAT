@@ -22,8 +22,6 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
     calcSld = controls.calcSldDuringFit;
     parallel = controls.parallel;
     resamPars = controls.resamPars;
-    
-    domainRatio = 1;    % Default for compile.
              
     % Pre-Allocation of output arrays...
     backgroundParams = zeros(numberOfContrasts,1);

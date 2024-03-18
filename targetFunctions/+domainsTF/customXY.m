@@ -77,9 +77,7 @@ function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
     for i = 1:numberOfContrasts
         layerSlds{i} = {[1 1 1;1 1 1],[1 1 1;1 1 1]};
     end
-        
-    domainRatio = 1;    % Default for compile.
-    
+
     [inputSldProfiles,allRoughs] = domainsTF.customXY.processCustomFunction(contrastBulkInIndices,contrastBulkOutIndices,...
         bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params);
     

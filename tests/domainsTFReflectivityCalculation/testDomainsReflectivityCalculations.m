@@ -220,10 +220,10 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testParseCells(testCase)
-            [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(testCase.problemCells);
+            [repeatLayers,data,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(testCase.problemCells);
 
             testCase.verifyEqual(repeatLayers, testCase.problemCells{1}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(allData, testCase.problemCells{2}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(data, testCase.problemCells{2}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(dataLimits, testCase.problemCells{3}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(simLimits, testCase.problemCells{4}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastLayers, testCase.problemCells{5}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);

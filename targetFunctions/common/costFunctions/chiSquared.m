@@ -4,7 +4,7 @@ function chi2 = chiSquared(thisData,thisFit,P)
 
 %chiValues = zeros(1,numberOfContrasts);
 
-%     thisData = allData{i};
+%     thisData = data{i};
 %     thisFit = allFits{i};
     y = thisData(:,2);
     eb = thisData(:,3);

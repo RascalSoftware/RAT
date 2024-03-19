@@ -5,83 +5,83 @@ function [problemStruct,problemCells,problemLimits,priors,controls] = parseClass
 % Put the extracted fields into a cell array...
 % Structure of problemCells array.
 %
-% {1} - inputProblemDef.contrastRepeatSLDs
+% {1} - inputProblem.contrastRepeatSLDs
 %       {1 x nContrasts} array of cells
 %       Each cell is {1 x 2 double}.
 %
-% {2} - inputProblemDef.allData
+% {2} - inputProblem.data
 %       {1 x nContrasts} array of cells
 %       Each cell is {Inf x 3 double}
 %
-% {3} - inputProblemDef.dataLimits
+% {3} - inputProblem.dataLimits
 %       {1 x nContrasts} array of cells
 %       Each cell is {1 x 2 double}
 %
-% {4} - inputProblemDef.simLimits
+% {4} - inputProblem.simLimits
 %       {1 x nContrasts} array of cells
 %       Each cell is {1 x 2 double}
 %
-% {5} - inputProblemDef.contrastLayers
+% {5} - inputProblem.contrastLayers
 %       {1 x nContrasts} array of cells
 %       Each cell is {1 x Inf double}
 %
-% {6} - inputProblemDef.layerDetails
+% {6} - inputProblem.layerDetails
 %       {n x 1} array of cells
 %       Each cell is (1 x 5 double}
 %
-% {7} - inputProblemDef.paramNames
+% {7} - inputProblem.paramNames
 %       {1 x nParams} array of cells
 %       Each cell is {1 x Inf char}
 %
-% {8} - inputProblemDef.backgroundParamNames
+% {8} - inputProblem.backgroundParamNames
 %       {1 x nBackgroundParams} array of cells
 %       Each cell is {1 x Inf char}
 % 
-% {9} - inputProblemDef.scalefactorNames
+% {9} - inputProblem.scalefactorNames
 %       {1 x nScalefactors} array of cells
 %       Each cell is {1 x Inf char}
 % 
-% {10}- inputProblemDef.qzshiftNames
+% {10}- inputProblem.qzshiftNames
 %       {1 x nQzshifts} array of cells
 %       Each cell is {1 x Inf char}
 % 
-% {11}- inputProblemDef.bulkInNames
+% {11}- inputProblem.bulkInNames
 %       {1 x nBulkIn} array of cells
 %       Each cell is {1 x Inf char}
 % 
-% {12}- inputProblemDef.bulkOutNames
+% {12}- inputProblem.bulkOutNames
 %       {1 x nBulkOut} array of cells
 %       Each cell is {1 x Inf char}
 % 
-% {13}- inputProblemDef.resolutionParamNames
+% {13}- inputProblem.resolutionParamNames
 %       {1 x nResolutionParams} array of cells
 %       Each cell is {1 x Inf char}
 %
-% {14} - inputProblemDef.customFiles
+% {14} - inputProblem.customFiles
 %        {1 x nCustomFiles} array of cells
 %        Each cell is {1 x Inf char}
 %
-% {15} - inputProblemDef.backgroundTypes
+% {15} - inputProblem.backgroundTypes
 %        {1 x nBackgrounds} array of cells
 %        Each cell is {1 x Inf char}
 %
-% {16} - inputProblemDef.resolutionTypes
+% {16} - inputProblem.resolutionTypes
 %        {1 x nResolutions} array of cells
 %        Each cell is {1 x Inf char}
 %
-% {17} - inputProblemDef.allOilChiData
+% {17} - inputProblem.oilChiData
 %        {1 x nContrasts} array of cells
 %        Each cell is {Inf x 3 double}
 %
-% {18} - inputProblemDef.domainContrastRepeatSLDs
+% {18} - inputProblem.domainContrastRepeatSLDs
 %        {1 x nDomainContrasts} array of cells
 %        Each cell is {1 x 2 double}.
 %
-% {19} - inputProblemDef.domainContrastLayers
+% {19} - inputProblem.domainContrastLayers
 %        {1 x nDomainContrasts} array of cells
 %        Each cell is {1 x Inf double}
 % 
-% {20} - inputProblemDef.domainRatioNames
+% {20} - inputProblem.domainRatioNames
 %        {1 x nDomainRatios} array of cells
 %        Each cell is {1 x Inf char}
 
@@ -109,7 +109,7 @@ end
 
 % Pull out all the cell arrays (except priors) into one array
 problemCells{1} = inputStruct.contrastRepeatSLDs;
-problemCells{2} = inputStruct.allData;
+problemCells{2} = inputStruct.data;
 problemCells{3} = inputStruct.dataLimits;
 problemCells{4} = inputStruct.simLimits;
 problemCells{5} = contrastLayers;
@@ -124,7 +124,7 @@ problemCells{13} = inputStruct.resolutionParamNames;
 problemCells{14} = inputStruct.files;
 problemCells{15} = cellstr(inputStruct.backgroundTypes');
 problemCells{16} = cellstr(inputStruct.resolutionTypes');
-problemCells{17} = inputStruct.allOilChiData;
+problemCells{17} = inputStruct.oilChiData;
 
 % Now deal with domains cell arrays
 if isa(project, 'domainsClass') && isa(project.domainContrasts, 'domainContrastsClass')

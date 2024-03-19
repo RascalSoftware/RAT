@@ -36,7 +36,7 @@ bulkIns = zeros(numberOfContrasts,1);
 bulkOuts = zeros(numberOfContrasts,1);
 chis = zeros(numberOfContrasts,1);
 resolutionParams = zeros(numberOfContrasts,1);
-allRoughs = zeros(numberOfContrasts,1);
+subRoughs = zeros(numberOfContrasts,1);
 
 % Pre-allocate the output arrays.. this is necessary because otherwise the
 % compiler complains with 'Output argument <....> is not assigned on some
@@ -80,21 +80,21 @@ switch lower(type)
         [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
          resolutionParams,chis,reflectivity,simulation,shiftedData,...
          layerSlds,sldProfiles,resampledLayers,...
-         allRoughs] = domainsTF.standardLayers(problemStruct,problemCells,controls);        
+         subRoughs] = domainsTF.standardLayers(problemStruct,problemCells,controls);        
 
     case coderEnums.modelTypes.CustomLayers
 
         [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
          resolutionParams,chis,reflectivity,simulation,shiftedData,...
          layerSlds,sldProfiles,resampledLayers,...
-         allRoughs] = domainsTF.customLayers(problemStruct,problemCells,controls);
+         subRoughs] = domainsTF.customLayers(problemStruct,problemCells,controls);
 
     case coderEnums.modelTypes.CustomXY
 
         [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
          resolutionParams,chis,reflectivity,simulation,shiftedData,...
          layerSlds,sldProfiles,resampledLayers,...
-         allRoughs] = domainsTF.customXY(problemStruct,problemCells,controls);
+         subRoughs] = domainsTF.customXY(problemStruct,problemCells,controls);
 
 end
 
@@ -105,7 +105,7 @@ contrastParams.scalefactors = scalefactors;
 contrastParams.bulkIn = bulkIns;
 contrastParams.bulkOut = bulkOuts;
 contrastParams.resolutionParams = resolutionParams;
-contrastParams.allSubRough = allRoughs;
+contrastParams.subRoughs = subRoughs;
 contrastParams.resample = problemStruct.resample;
 
 calculationResults.chiValues = chis;

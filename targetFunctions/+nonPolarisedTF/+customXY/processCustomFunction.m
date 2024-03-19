@@ -1,4 +1,4 @@
-function [allSLDs,allRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
+function [allSLDs,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
         bulkIn,bulkOut,cCustFiles,numberOfContrasts,customFiles,params)
 
     % Top-level function for processing custom XY profiles for all the
@@ -7,7 +7,7 @@ function [allSLDs,allRoughs] = processCustomFunction(contrastBulkIns,contrastBul
     % Do some pre-definitions to keep the compiler happy...
     tempAllSLDs = cell(numberOfContrasts,1);
     allSLDs = cell(numberOfContrasts,1);
-    allRoughs = zeros(numberOfContrasts,1);
+    subRoughs = zeros(numberOfContrasts,1);
 
     for i = 1:numberOfContrasts
         allSLDs{i} = [1,1];    % Type def as double (size not important)
@@ -26,9 +26,9 @@ function [allSLDs,allRoughs] = processCustomFunction(contrastBulkIns,contrastBul
         thisBulkIn = bulkIn(contrastBulkIns(i));
         
         if isnan(str2double(functionHandle))
-            [tempAllSLDs{i}, allRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, allBulkOuts, i, 0);
+            [tempAllSLDs{i}, subRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, allBulkOuts, i, 0);
         else
-            [tempAllSLDs{i}, allRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, allBulkOuts, i-1, -1);
+            [tempAllSLDs{i}, subRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, allBulkOuts, i-1, -1);
         end
     end
 

@@ -65,7 +65,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.resampleParams, [0, 100], 'set.resampleParams method is not working')
             testCase.controls.resampleParams = [0.9, 10.2];
             testCase.verifyEqual(testCase.controls.resampleParams, [0.9, 10.2], 'set.resampleParams method is not working')            
-            % bad resamPar option 
+            % bad resampleParams option 
             testCase.verifyError(@() setResampleParams('ab'), exceptions.invalidType.errorID);
             testCase.verifyError(@() setResampleParams([0.5, 6, 7]), exceptions.invalidValue.errorID);            
             testCase.verifyError(@() setResampleParams([-1, 4]), exceptions.invalidValue.errorID);

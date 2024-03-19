@@ -1,4 +1,4 @@
-function [outLayers, outSsubs] = groupLayersModImaginary(resampledLayers,allRoughs,geometry,bulkIns,bulkOuts)
+function [outLayers, outSsubs] = groupLayersModImaginary(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)
 % Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the 
 % z,rho,rough stack, and the parameter 'ssub' in callParatt is the final roughness encountered. 
 %
@@ -7,11 +7,11 @@ function [outLayers, outSsubs] = groupLayersModImaginary(resampledLayers,allRoug
 %
 % USAGE::
 %
-%     [outLayers, outSsubs] = groupLayersModImaginary(resampledLayers,allRoughs,geometry,bulkIns,bulkOuts)
+%     [outLayers, outSsubs] = groupLayersModImaginary(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)
 %
 % INPUTS:
 %     * resampledLayers: cell array, one for each contrast. Each cell is the list of layer values for each contrast.
-%     * allRoughs:  Double of substrate roughness for each contrast.
+%     * subRoughs:  Double of substrate roughness for each contrast.
 %     * geometry: 'Air / Liquid (or solid)' or 'Solid / Liquid'
 %     * bulkIns: vector of bulkIn values.
 %     * bulkOuts: vector of bulkOut values.
@@ -28,7 +28,7 @@ coder.varsize('layers',[Inf,6],[1 1]);
 
 %for i = 1:numberOfContrasts
     output = resampledLayers;
-    s_sub = allRoughs;
+    s_sub = subRoughs;
     layers = zeros(size(output));
     if ~isempty(output)
         if strcmpi(geometry, coderEnums.geometryOptions.AirSubstrate)

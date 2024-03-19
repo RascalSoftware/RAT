@@ -46,8 +46,8 @@ function result = makeEmptyResultStruct(nContrasts,nPars,domains)
     coder.varsize('bulkOut',[10000 1],[1 0]);
     resolutionParams = zeros(nContrasts,1);
     coder.varsize('resolutionParams',[10000 1],[1 0]);
-    allSubRough = zeros(nContrasts,1);
-    coder.varsize('allSubRough',[10000 1],[1 0]);
+    subRoughs = zeros(nContrasts,1);
+    coder.varsize('subRoughs',[10000 1],[1 0]);
     resample = zeros(1, nContrasts);
     coder.varsize('resample',[1 10000],[0 1]);
         
@@ -57,7 +57,7 @@ function result = makeEmptyResultStruct(nContrasts,nPars,domains)
                             'bulkIn', bulkIn, ...
                             'bulkOut', bulkOut, ...
                             'resolutionParams', resolutionParams, ...
-                            'allSubRough', allSubRough, ...
+                            'subRoughs', subRoughs, ...
                             'resample', resample);
     
     % -------------------------------------------------------------------

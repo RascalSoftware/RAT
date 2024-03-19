@@ -54,7 +54,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         TFBulkOut
         TFResolutionParams
         TFChis
-        TFAllRoughs
+        TFSubRoughs
         tolerance = 1.0e-12     % Relative tolerance for equality of floats
         absTolerance = 1.0e-5   % Absolute tolerance for equality of floats
     end
@@ -105,7 +105,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.TFBulkOut = testCase.TFParams.TFParams.bulkOut;
             testCase.TFResolutionParams = testCase.TFParams.TFParams.resolutionParams;
             testCase.TFChis = testCase.TFParams.TFParams.chis;
-            testCase.TFAllRoughs = testCase.TFParams.TFParams.allRoughs;
+            testCase.TFSubRoughs = testCase.TFParams.TFParams.subRoughs;
         end
         
     end
@@ -177,17 +177,17 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
                 case 'standardLayersTFParams.mat'
                     [backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,resampledLayers,...
-                    allRoughs] = nonPolarisedTF.standardLayers(testCase.problemStruct,testCase.problemCells,...
+                    subRoughs] = nonPolarisedTF.standardLayers(testCase.problemStruct,testCase.problemCells,...
                     testCase.controls);
                 case 'customLayersTFParams.mat'
                     [backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,resampledLayers,...
-                    allRoughs] = nonPolarisedTF.customLayers(testCase.problemStruct,testCase.problemCells,...
+                    subRoughs] = nonPolarisedTF.customLayers(testCase.problemStruct,testCase.problemCells,...
                     testCase.controls);
                 case 'customXYTFParams.mat'
                     [backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,resampledLayers,...
-                    allRoughs] = nonPolarisedTF.customXY(testCase.problemStruct,testCase.problemCells,...
+                    subRoughs] = nonPolarisedTF.customXY(testCase.problemStruct,testCase.problemCells,...
                     testCase.controls);
             end
 
@@ -204,7 +204,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(layerSLDs, testCase.TFLayerSLDs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(SLDProfiles, testCase.TFSLDProfiles, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(resampledLayers, testCase.TFResampledLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(allRoughs, testCase.TFAllRoughs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(subRoughs, testCase.TFSubRoughs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
 %% Test Pre- and Post-Processing Routines

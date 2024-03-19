@@ -55,7 +55,7 @@ TFParams.resampledLayers = resampledLayers;
 
 [backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
  chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,...
- resampledLayers,allRoughs] = nonPolarisedTF.customLayers(problemStruct,problemCells,controls);
+ resampledLayers,subRoughs] = nonPolarisedTF.customLayers(problemStruct,problemCells,controls);
 
 TFParams.backgroundParams = backgroundParams;
 TFParams.qzshifts = qzshifts;
@@ -64,7 +64,7 @@ TFParams.bulkIn = bulkIn;
 TFParams.bulkOut = bulkOut;
 TFParams.resolutionParams = resolutionParams;
 TFParams.chis = chis;
-TFParams.allRoughs = allRoughs;
+TFParams.subRoughs = subRoughs;
 
 save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customLayersTFParams'],'TFParams');
 
@@ -120,7 +120,7 @@ TFParams.resampledLayers = resampledLayers;
 
 [backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
  chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,...
- resampledLayers, allRoughs] = nonPolarisedTF.customXY(problemStruct,problemCells,controls);
+ resampledLayers, subRoughs] = nonPolarisedTF.customXY(problemStruct,problemCells,controls);
 
 TFParams.backgroundParams = backgroundParams;
 TFParams.qzshifts = qzshifts;
@@ -129,7 +129,7 @@ TFParams.bulkIn = bulkIn;
 TFParams.bulkOut = bulkOut;
 TFParams.resolutionParams = resolutionParams;
 TFParams.chis = chis;
-TFParams.allRoughs = allRoughs;
+TFParams.subRoughs = subRoughs;
 
 save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customXYTFParams'],'TFParams');
 
@@ -186,7 +186,7 @@ TFParams.resampledLayers = resampledLayers;
 
 [backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
  chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,...
- resampledLayers,allRoughs] = nonPolarisedTF.standardLayers(problemStruct,problemCells,controls);
+ resampledLayers,subRoughs] = nonPolarisedTF.standardLayers(problemStruct,problemCells,controls);
 
 TFParams.backgroundParams = backgroundParams;
 TFParams.qzshifts = qzshifts;
@@ -195,7 +195,7 @@ TFParams.bulkIn = bulkIn;
 TFParams.bulkOut = bulkOut;
 TFParams.resolutionParams = resolutionParams;
 TFParams.chis = chis;
-TFParams.allRoughs = allRoughs;
+TFParams.subRoughs = subRoughs;
 
 save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'standardLayersTFParams'],'TFParams');
 

@@ -46,7 +46,7 @@ function plotRefSLDHelper(data, noDelay)
         % If there is resampling, plot the resampled layers also
         % TODO for domains...
         if (data.resample(i) == 1) || (strcmpi(data.modelType, 'custom xy'))
-            roughness = data.allSubRough(i); 
+            roughness = data.subRoughs(i); 
             layers = data.resampledLayers{i, 1};
             bulkIn = layers(1, 2);
             bulkOut = layers(end, 2);

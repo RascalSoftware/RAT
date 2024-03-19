@@ -9,7 +9,7 @@ function plotRefSLD(problem, result)
     data.sldProfiles = result.sldProfiles;
     data.resampledLayers = result.resampledLayers;
     data.dataPresent = problemStruct.dataPresent;
-    data.allSubRough = result.contrastParams.allSubRough;
+    data.subRoughs = result.contrastParams.subRoughs;
     data.resample = problemStruct.resample;
     
     plotRefSLDHelper(data, false);

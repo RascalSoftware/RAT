@@ -1,4 +1,4 @@
-function [resampledLayers,allRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
+function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
     bulkIn,bulkOut,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)
 
     % Top-level function for processing custom layers for all the
@@ -8,7 +8,7 @@ function [resampledLayers,allRoughs] = processCustomFunction(contrastBulkIns,con
     %totNumCalcs = numberOfContrasts * 2;
     tempResampledLayers = cell(numberOfContrasts,2);
     resampledLayers = cell(numberOfContrasts,2);
-    allRoughs = zeros(numberOfContrasts,1);
+    subRoughs = zeros(numberOfContrasts,1);
 
     for i = 1:numberOfContrasts
         resampledLayers{i,1} = [1, 1];    % Type def as double (size not important)
@@ -37,10 +37,10 @@ function [resampledLayers,allRoughs] = processCustomFunction(contrastBulkIns,con
         thisBulkOut = allBulkOuts(i);
 
         if isnan(str2double(functionHandle))
-            [thisContrastLayers1, allRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, allBulkOuts, i, 1);
+            [thisContrastLayers1, subRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, allBulkOuts, i, 1);
             [thisContrastLayers2, ~] = callMatlabFunction(functionHandle, params, thisBulkIn, allBulkOuts, i, 2);
         else
-            [thisContrastLayers1, allRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, allBulkOuts, i-1, 0);
+            [thisContrastLayers1, subRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, allBulkOuts, i-1, 0);
             [thisContrastLayers2, ~] = callCppFunction(functionHandle, params, thisBulkIn, allBulkOuts, i-1, 1);
         end
 

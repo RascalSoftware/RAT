@@ -1,4 +1,4 @@
-function [resampledLayers,allRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
+function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
     bulkIn,bulkOut,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)
 
     % Top-level function for processing custom layers for all the
@@ -7,7 +7,7 @@ function [resampledLayers,allRoughs] = processCustomFunction(contrastBulkIns,con
     % Do some pre-definitions to keep the compiler happy...
     tempResampledLayers = cell(numberOfContrasts,1);
     resampledLayers = cell(numberOfContrasts,1);
-    allRoughs = zeros(numberOfContrasts,1);
+    subRoughs = zeros(numberOfContrasts,1);
 
     for i = 1:numberOfContrasts
         resampledLayers{i} = [1 , 1];    % Type def as double (size not important)
@@ -29,9 +29,9 @@ function [resampledLayers,allRoughs] = processCustomFunction(contrastBulkIns,con
         thisContrastLayers = [1 1 1]; % typeDef
         coder.varsize('thisContrastLayers',[10000, 6],[1 1]);
         if isnan(str2double(functionHandle))
-            [thisContrastLayers,allRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, allBulkOuts, i, 0);
+            [thisContrastLayers,subRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, allBulkOuts, i, 0);
         else
-            [thisContrastLayers, allRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, allBulkOuts, i-1, -1);
+            [thisContrastLayers, subRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, allBulkOuts, i-1, -1);
         end
 
         % If the output layers has 5 columns, then we need to do

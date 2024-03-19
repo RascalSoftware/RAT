@@ -1,5 +1,5 @@
 function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
-    bulkIn,bulkOut,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)
+    bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)
 
     % Top-level function for processing custom layers for all the
     % contrasts.
@@ -15,7 +15,7 @@ function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,con
     end
     coder.varsize('tempResampledLayers{:}',[10000 6],[1 1]);
 
-    allBulkOuts = bulkOut(contrastBulkOuts);
+    bulkOuts = bulkOutArray(contrastBulkOuts);
     for i = 1:numberOfContrasts     % TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..
 
         % Choose which custom file is associated with this contrast
@@ -23,15 +23,15 @@ function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,con
 
         % Find values of 'bulkIn' and 'bulkOut' for this
         % contrast...
-        thisBulkIn = bulkIn(contrastBulkIns(i));
-        thisBulkOut = allBulkOuts(i);
+        thisBulkIn = bulkInArray(contrastBulkIns(i));
+        thisBulkOut = bulkOuts(i);
 
         thisContrastLayers = [1 1 1]; % typeDef
         coder.varsize('thisContrastLayers',[10000, 6],[1 1]);
         if isnan(str2double(functionHandle))
-            [thisContrastLayers,subRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, allBulkOuts, i, 0);
+            [thisContrastLayers,subRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOuts, i, 0);
         else
-            [thisContrastLayers, subRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, allBulkOuts, i-1, -1);
+            [thisContrastLayers, subRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, bulkOuts, i-1, -1);
         end
 
         % If the output layers has 5 columns, then we need to do

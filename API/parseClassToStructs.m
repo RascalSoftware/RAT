@@ -195,13 +195,13 @@ for i=1:length(priorFields)
     totalNumber = totalNumber + size(priors.(priorFields{i}), 1);
 end
 
-allPriors = cell(totalNumber,4);
+priorsCell = cell(totalNumber,4);
 cellCount = 1;
 
 for i=1:length(priorFields)
     currentPrior = priorFields{i};
     for j = 1:size(priors.(currentPrior), 1)
-        allPriors{cellCount,1} = priors.(currentPrior){j}{1};
+        priorsCell{cellCount,1} = priors.(currentPrior){j}{1};
        
         % Check prior type.....
         thisType = priors.(currentPrior){j}{2};
@@ -213,16 +213,16 @@ for i=1:length(priorFields)
         else
             priorType = 3;
         end
-        allPriors{cellCount,2} = priorType;
+        priorsCell{cellCount,2} = priorType;
 
-        allPriors{cellCount,3} = priors.(currentPrior){j}{3};
-        allPriors{cellCount,4} = priors.(currentPrior){j}{4};
+        priorsCell{cellCount,3} = priors.(currentPrior){j}{3};
+        priorsCell{cellCount,4} = priors.(currentPrior){j}{4};
         cellCount = cellCount + 1;
     end
 end
 
-priors.priorNames = allPriors(:, 1);
-priors.priorValues = cell2mat(allPriors(:, 2:end));
+priors.priorNames = priorsCell(:, 1);
+priors.priorValues = cell2mat(priorsCell(:, 2:end));
 
 
 %% Split up the contrastBackgrounds array

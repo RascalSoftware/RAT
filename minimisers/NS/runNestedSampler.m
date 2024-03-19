@@ -51,13 +51,13 @@ bayesOutputs.s2chain = [];
 bayesOutputs.sschain = [];
 bayesOutputs.data = problemCells{2};
 
-allProblem = cell(4,1);
-allProblem{1} = problemStruct;
-allProblem{2} = controls;
-allProblem{3} = problemLimits;
-allProblem{4} = problemCells;
+problem = cell(4,1);
+problem{1} = problemStruct;
+problem{2} = controls;
+problem{3} = problemLimits;
+problem{4} = problemCells;
 
-[problemStruct,result,nestResults] = processBayes(bayesOutputs,allProblem);
+[problemStruct,result,nestResults] = processBayes(bayesOutputs,problem);
 
 bayesResults.predlims = nestResults.predlims;
 bayesResults.bestFitsMean = nestResults.bestFitsMean;

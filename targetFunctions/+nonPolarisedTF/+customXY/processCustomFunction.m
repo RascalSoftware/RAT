@@ -1,21 +1,21 @@
-function [allSLDs,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
-        bulkIn,bulkOut,cCustFiles,numberOfContrasts,customFiles,params)
+function [slds,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
+        bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params)
 
     % Top-level function for processing custom XY profiles for all the
     % contrasts.
 
     % Do some pre-definitions to keep the compiler happy...
-    tempAllSLDs = cell(numberOfContrasts,1);
-    allSLDs = cell(numberOfContrasts,1);
+    tempSLDs = cell(numberOfContrasts,1);
+    slds = cell(numberOfContrasts,1);
     subRoughs = zeros(numberOfContrasts,1);
 
     for i = 1:numberOfContrasts
-        allSLDs{i} = [1,1];    % Type def as double (size not important)
-        tempAllSLDs{i} = [0 0];
+        slds{i} = [1,1];    % Type def as double (size not important)
+        tempSLDs{i} = [0 0];
     end
-    coder.varsize('tempAllSLDs{:}',[10000 3],[1 1]);    % 3 columns to allow for potential imaginary curve
+    coder.varsize('tempSLDs{:}',[10000 3],[1 1]);    % 3 columns to allow for potential imaginary curve
     
-    allBulkOuts = bulkOut(contrastBulkOuts);
+    bulkOuts = bulkOutArray(contrastBulkOuts);
     for i = 1:numberOfContrasts     % TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..
 
         % Choose which custom file is associated with this contrast
@@ -23,14 +23,14 @@ function [allSLDs,subRoughs] = processCustomFunction(contrastBulkIns,contrastBul
 
         % Find values of 'bulkIn' and 'bulkOut' for this
         % contrast...
-        thisBulkIn = bulkIn(contrastBulkIns(i));
+        thisBulkIn = bulkInArray(contrastBulkIns(i));
         
         if isnan(str2double(functionHandle))
-            [tempAllSLDs{i}, subRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, allBulkOuts, i, 0);
+            [tempSLDs{i}, subRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOuts, i, 0);
         else
-            [tempAllSLDs{i}, subRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, allBulkOuts, i-1, -1);
+            [tempSLDs{i}, subRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, bulkOuts, i-1, -1);
         end
     end
 
-    allSLDs = tempAllSLDs;
+    slds = tempSLDs;
 end

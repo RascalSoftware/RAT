@@ -79,8 +79,8 @@ function triggerEvent(eventType, varargin)
                         [layers2, nLayers2] = packCellArray(result.allLayers, 2);
                     otherwise 
                         sldProfiles2 = coder.nullcopy(zeros(0));
-                        nSldProfiles2 =  coder.nullcopy(zeros(0));
-                        layers2 =  coder.nullcopy(zeros(0));
+                        nSldProfiles2 = coder.nullcopy(zeros(0));
+                        layers2 = coder.nullcopy(zeros(0));
                         nLayers2 = coder.nullcopy(zeros(0));
                 end
    

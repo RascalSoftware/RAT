@@ -17,9 +17,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Points.value, 'set.parallel method is not working')
             testCase.controls.parallel = parallelOptions.Contrasts;
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Contrasts.value, 'set.parallel method is not working')
-            testCase.controls.parallel = upper(parallelOptions.All.value);
-            testCase.verifyEqual(testCase.controls.parallel, parallelOptions.All.value, 'set.parallel method is not working')
-            testCase.controls.parallel = parallelOptions.Single.value;
+            testCase.controls.parallel = upper(parallelOptions.Single.value);
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'set.parallel method is not working')
             testCase.verifyError(@setParallel, exceptions.invalidOption.errorID);  % bad parallel option 
             function setParallel
@@ -80,7 +78,7 @@ classdef testControlsClass < matlab.unittest.TestCase
 
         function testCalcSldDuringFit(testCase)
             % Test if set.calcSldDuringFit method is working
-            testCase.controls.calcSldDuringFit =  true;
+            testCase.controls.calcSldDuringFit = true;
             testCase.verifyTrue(testCase.controls.calcSldDuringFit, 'set.calcSldDuringFit method is not working')
             testCase.controls.calcSldDuringFit = false;
             testCase.verifyFalse(testCase.controls.calcSldDuringFit, 'set.calcSldDuringFit method is not working')

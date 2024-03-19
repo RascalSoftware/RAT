@@ -17,6 +17,5 @@ classdef parallelOptions < customEnum
         Single ('single')
         Points ('points')
         Contrasts ('contrasts')
-        All ('all')
     end
 end

@@ -209,7 +209,7 @@ classdef testParametersClass < matlab.unittest.TestCase
         function testToStruct(testCase)
             % Checks that class to struct works correctly
             params = parametersClass(testCase.parameters{1, :});
-            paramsStruct =   params.toStruct();
+            paramsStruct = params.toStruct();
             
             testCase.verifyEqual(paramsStruct.names, testCase.parameters(1, 1), 'toStruct method not working');
             testCase.verifyEqual(paramsStruct.limits, {[10 30]}, 'toStruct method not working');

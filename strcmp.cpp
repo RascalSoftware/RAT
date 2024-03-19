@@ -22,34 +22,6 @@ namespace RAT
   {
     namespace internal
     {
-      boolean_T ab_strcmp(const char_T a_data[], const int32_T a_size[2])
-      {
-        static const char_T b_cv[4]{ 'f', 'o', 'l', 'd' };
-
-        boolean_T b_bool;
-        b_bool = false;
-        if (a_size[1] == 4) {
-          int32_T kstr;
-          kstr = 0;
-          int32_T exitg1;
-          do {
-            exitg1 = 0;
-            if (kstr < 4) {
-              if (a_data[kstr] != b_cv[kstr]) {
-                exitg1 = 1;
-              } else {
-                kstr++;
-              }
-            } else {
-              b_bool = true;
-              exitg1 = 1;
-            }
-          } while (exitg1 == 0);
-        }
-
-        return b_bool;
-      }
-
       boolean_T b_strcmp(const char_T a_data[], const int32_T a_size[2])
       {
         static const char_T b_cv[7]{ 'd', 'o', 'm', 'a', 'i', 'n', 's' };
@@ -443,18 +415,20 @@ namespace RAT
 
       boolean_T l_strcmp(const char_T a_data[], const int32_T a_size[2])
       {
-        static const char_T b_cv[6]{ 's', 'i', 'n', 'g', 'l', 'e' };
+        static const char_T b_cv[9]{ 'c', 'o', 'n', 't', 'r', 'a', 's', 't', 's'
+        };
 
         boolean_T b_bool;
         b_bool = false;
-        if (a_size[1] == 6) {
+        if (a_size[1] == 9) {
           int32_T kstr;
           kstr = 0;
           int32_T exitg1;
           do {
             exitg1 = 0;
-            if (kstr < 6) {
-              if (a_data[kstr] != b_cv[kstr]) {
+            if (kstr < 9) {
+              if (cv[static_cast<uint8_T>(a_data[kstr]) & 127] != cv[
+                  static_cast<int32_T>(b_cv[kstr])]) {
                 exitg1 = 1;
               } else {
                 kstr++;
@@ -470,63 +444,6 @@ namespace RAT
       }
 
       boolean_T m_strcmp(const char_T a_data[], const int32_T a_size[2])
-      {
-        static const char_T b_cv[6]{ 'p', 'o', 'i', 'n', 't', 's' };
-
-        boolean_T b_bool;
-        b_bool = false;
-        if (a_size[1] == 6) {
-          int32_T kstr;
-          kstr = 0;
-          int32_T exitg1;
-          do {
-            exitg1 = 0;
-            if (kstr < 6) {
-              if (a_data[kstr] != b_cv[kstr]) {
-                exitg1 = 1;
-              } else {
-                kstr++;
-              }
-            } else {
-              b_bool = true;
-              exitg1 = 1;
-            }
-          } while (exitg1 == 0);
-        }
-
-        return b_bool;
-      }
-
-      boolean_T n_strcmp(const char_T a_data[], const int32_T a_size[2])
-      {
-        static const char_T b_cv[9]{ 'c', 'o', 'n', 't', 'r', 'a', 's', 't', 's'
-        };
-
-        boolean_T b_bool;
-        b_bool = false;
-        if (a_size[1] == 9) {
-          int32_T kstr;
-          kstr = 0;
-          int32_T exitg1;
-          do {
-            exitg1 = 0;
-            if (kstr < 9) {
-              if (a_data[kstr] != b_cv[kstr]) {
-                exitg1 = 1;
-              } else {
-                kstr++;
-              }
-            } else {
-              b_bool = true;
-              exitg1 = 1;
-            }
-          } while (exitg1 == 0);
-        }
-
-        return b_bool;
-      }
-
-      boolean_T o_strcmp(const char_T a_data[], const int32_T a_size[2])
       {
         static const char_T b_cv[13]{ 'a', 'i', 'r', '/', 's', 'u', 'b', 's',
           't', 'r', 'a', 't', 'e' };
@@ -556,7 +473,35 @@ namespace RAT
         return b_bool;
       }
 
-      boolean_T p_strcmp(const char_T a_data[], const int32_T a_size[2])
+      boolean_T n_strcmp(const char_T a_data[], const int32_T a_size[2])
+      {
+        static const char_T b_cv[6]{ 'p', 'o', 'i', 'n', 't', 's' };
+
+        boolean_T b_bool;
+        b_bool = false;
+        if (a_size[1] == 6) {
+          int32_T kstr;
+          kstr = 0;
+          int32_T exitg1;
+          do {
+            exitg1 = 0;
+            if (kstr < 6) {
+              if (a_data[kstr] != b_cv[kstr]) {
+                exitg1 = 1;
+              } else {
+                kstr++;
+              }
+            } else {
+              b_bool = true;
+              exitg1 = 1;
+            }
+          } while (exitg1 == 0);
+        }
+
+        return b_bool;
+      }
+
+      boolean_T o_strcmp(const char_T a_data[], const int32_T a_size[2])
       {
         static const char_T b_cv[3]{ 'o', 'f', 'f' };
 
@@ -585,7 +530,7 @@ namespace RAT
         return b_bool;
       }
 
-      boolean_T q_strcmp(const char_T a_data[], const int32_T a_size[2])
+      boolean_T p_strcmp(const char_T a_data[], const int32_T a_size[2])
       {
         static const char_T b_cv[3]{ 'o', 'f', 'f' };
 
@@ -613,7 +558,7 @@ namespace RAT
         return b_bool;
       }
 
-      boolean_T r_strcmp(const char_T a_data[], const int32_T a_size[2])
+      boolean_T q_strcmp(const char_T a_data[], const int32_T a_size[2])
       {
         static const char_T b_cv[4]{ 'i', 't', 'e', 'r' };
 
@@ -641,7 +586,7 @@ namespace RAT
         return b_bool;
       }
 
-      boolean_T s_strcmp(const char_T a_data[], const int32_T a_size[2])
+      boolean_T r_strcmp(const char_T a_data[], const int32_T a_size[2])
       {
         static const char_T b_cv[6]{ 'n', 'o', 't', 'i', 'f', 'y' };
 
@@ -669,7 +614,7 @@ namespace RAT
         return b_bool;
       }
 
-      boolean_T t_strcmp(const char_T a_data[], const int32_T a_size[2])
+      boolean_T s_strcmp(const char_T a_data[], const int32_T a_size[2])
       {
         static const char_T b_cv[5]{ 'f', 'i', 'n', 'a', 'l' };
 
@@ -697,7 +642,7 @@ namespace RAT
         return b_bool;
       }
 
-      boolean_T u_strcmp(const char_T a_data[], const int32_T a_size[2])
+      boolean_T t_strcmp(const char_T a_data[], const int32_T a_size[2])
       {
         static const char_T b_cv[6]{ 's', 'h', 'r', 'i', 'n', 'k' };
 
@@ -725,7 +670,7 @@ namespace RAT
         return b_bool;
       }
 
-      boolean_T v_strcmp(const char_T a_data[], const int32_T a_size[2])
+      boolean_T u_strcmp(const char_T a_data[], const int32_T a_size[2])
       {
         static const char_T b_cv[4]{ 'i', 't', 'e', 'r' };
 
@@ -754,7 +699,7 @@ namespace RAT
         return b_bool;
       }
 
-      void w_strcmp(const cell_wrap_1 *a, const ::coder::array<cell_wrap_1, 1U>
+      void v_strcmp(const cell_wrap_1 *a, const ::coder::array<cell_wrap_1, 1U>
                     &b, ::coder::array<boolean_T, 1U> &b_bool)
       {
         int32_T nb;
@@ -784,7 +729,7 @@ namespace RAT
         }
       }
 
-      boolean_T x_strcmp(const char_T a_data[], const int32_T a_size[2])
+      boolean_T w_strcmp(const char_T a_data[], const int32_T a_size[2])
       {
         static const char_T b_cv[7]{ 'r', 'e', 'f', 'l', 'e', 'c', 't' };
 
@@ -812,7 +757,7 @@ namespace RAT
         return b_bool;
       }
 
-      boolean_T y_strcmp(const char_T a_data[], const int32_T a_size[2])
+      boolean_T x_strcmp(const char_T a_data[], const int32_T a_size[2])
       {
         static const char_T b_cv[5]{ 'b', 'o', 'u', 'n', 'd' };
 
@@ -825,6 +770,34 @@ namespace RAT
           do {
             exitg1 = 0;
             if (kstr < 5) {
+              if (a_data[kstr] != b_cv[kstr]) {
+                exitg1 = 1;
+              } else {
+                kstr++;
+              }
+            } else {
+              b_bool = true;
+              exitg1 = 1;
+            }
+          } while (exitg1 == 0);
+        }
+
+        return b_bool;
+      }
+
+      boolean_T y_strcmp(const char_T a_data[], const int32_T a_size[2])
+      {
+        static const char_T b_cv[4]{ 'f', 'o', 'l', 'd' };
+
+        boolean_T b_bool;
+        b_bool = false;
+        if (a_size[1] == 4) {
+          int32_T kstr;
+          kstr = 0;
+          int32_T exitg1;
+          do {
+            exitg1 = 0;
+            if (kstr < 4) {
               if (a_data[kstr] != b_cv[kstr]) {
                 exitg1 = 1;
               } else {

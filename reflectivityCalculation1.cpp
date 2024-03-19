@@ -13,16 +13,11 @@
 #include "RATMain_internal_types.h"
 #include "RATMain_types.h"
 #include "blockedSummation.h"
+#include "customLayers.h"
+#include "customXY.h"
 #include "lower.h"
-#include "parallelContrasts.h"
-#include "parallelContrasts1.h"
-#include "parallelContrasts2.h"
-#include "parallelPoints.h"
-#include "parallelPoints1.h"
 #include "rt_nonfinite.h"
-#include "single.h"
-#include "single1.h"
-#include "single2.h"
+#include "standardLayers.h"
 #include "strcmp.h"
 #include "coder_array.h"
 #include "coder_bounded_array.h"
@@ -152,150 +147,35 @@ namespace RAT
 
       switch (loop_ub_tmp) {
        case 0:
-        //  Standard layers calculation
-        if (coder::internal::l_strcmp(controls->parallel.data,
-             controls->parallel.size)) {
-          loop_ub_tmp = 0;
-        } else if (coder::internal::m_strcmp(controls->parallel.data,
-                    controls->parallel.size)) {
-          loop_ub_tmp = 1;
-        } else if (coder::internal::n_strcmp(controls->parallel.data,
-                    controls->parallel.size)) {
-          loop_ub_tmp = 2;
-        } else {
-          loop_ub_tmp = -1;
-        }
-
-        switch (loop_ub_tmp) {
-         case 0:
-          standardLayers::b_single(problemStruct, problemCells, controls,
-            contrastParams->ssubs, contrastParams->backgroundParams,
-            contrastParams->qzshifts, contrastParams->scalefactors,
-            contrastParams->bulkIn, contrastParams->bulkOut,
-            contrastParams->resolutionParams, calculationResults->allChis,
-            reflectivity, simulation, shiftedData, layerSlds, sldProfiles,
-            allLayers, contrastParams->allSubRough);
-          break;
-
-         case 1:
-          standardLayers::b_single(problemStruct, problemCells, controls,
-            contrastParams->ssubs, contrastParams->backgroundParams,
-            contrastParams->qzshifts, contrastParams->scalefactors,
-            contrastParams->bulkIn, contrastParams->bulkOut,
-            contrastParams->resolutionParams, calculationResults->allChis,
-            reflectivity, simulation, shiftedData, layerSlds, sldProfiles,
-            allLayers, contrastParams->allSubRough);
-          break;
-
-         case 2:
-          standardLayers::parallelContrasts(problemStruct, problemCells,
-            controls, contrastParams->ssubs, contrastParams->backgroundParams,
-            contrastParams->qzshifts, contrastParams->scalefactors,
-            contrastParams->bulkIn, contrastParams->bulkOut,
-            contrastParams->resolutionParams, calculationResults->allChis,
-            reflectivity, simulation, shiftedData, layerSlds, sldProfiles,
-            allLayers, contrastParams->allSubRough);
-          break;
-        }
+        standardLayers(problemStruct, problemCells, controls,
+                       contrastParams->ssubs, contrastParams->backgroundParams,
+                       contrastParams->qzshifts, contrastParams->scalefactors,
+                       contrastParams->bulkIn, contrastParams->bulkOut,
+                       contrastParams->resolutionParams,
+                       calculationResults->allChis, reflectivity, simulation,
+                       shiftedData, layerSlds, sldProfiles, allLayers,
+                       contrastParams->allSubRough);
         break;
 
        case 1:
-        //  Custom layers with user supplied custom model file
-        if (coder::internal::l_strcmp(controls->parallel.data,
-             controls->parallel.size)) {
-          loop_ub_tmp = 0;
-        } else if (coder::internal::m_strcmp(controls->parallel.data,
-                    controls->parallel.size)) {
-          loop_ub_tmp = 1;
-        } else if (coder::internal::n_strcmp(controls->parallel.data,
-                    controls->parallel.size)) {
-          loop_ub_tmp = 2;
-        } else {
-          loop_ub_tmp = -1;
-        }
-
-        switch (loop_ub_tmp) {
-         case 0:
-          customLayers::b_single(problemStruct, problemCells, controls,
-            contrastParams->ssubs, contrastParams->backgroundParams,
-            contrastParams->qzshifts, contrastParams->scalefactors,
-            contrastParams->bulkIn, contrastParams->bulkOut,
-            contrastParams->resolutionParams, calculationResults->allChis,
-            reflectivity, simulation, shiftedData, layerSlds, sldProfiles,
-            allLayers, contrastParams->allSubRough);
-          break;
-
-         case 1:
-          customLayers::parallelPoints(problemStruct, problemCells, controls,
-            contrastParams->ssubs, contrastParams->backgroundParams,
-            contrastParams->qzshifts, contrastParams->scalefactors,
-            contrastParams->bulkIn, contrastParams->bulkOut,
-            contrastParams->resolutionParams, calculationResults->allChis,
-            reflectivity, simulation, shiftedData, layerSlds, sldProfiles,
-            allLayers, contrastParams->allSubRough);
-          break;
-
-         case 2:
-          customLayers::parallelContrasts(problemStruct, problemCells, controls,
-            contrastParams->ssubs, contrastParams->backgroundParams,
-            contrastParams->qzshifts, contrastParams->scalefactors,
-            contrastParams->bulkIn, contrastParams->bulkOut,
-            contrastParams->resolutionParams, calculationResults->allChis,
-            reflectivity, simulation, shiftedData, layerSlds, sldProfiles,
-            allLayers, contrastParams->allSubRough);
-          break;
-        }
+        b_customLayers(problemStruct, problemCells, controls,
+                       contrastParams->ssubs, contrastParams->backgroundParams,
+                       contrastParams->qzshifts, contrastParams->scalefactors,
+                       contrastParams->bulkIn, contrastParams->bulkOut,
+                       contrastParams->resolutionParams,
+                       calculationResults->allChis, reflectivity, simulation,
+                       shiftedData, layerSlds, sldProfiles, allLayers,
+                       contrastParams->allSubRough);
         break;
 
        case 2:
-        //  Custom SLD profile with user defined model file
-        if (coder::internal::l_strcmp(controls->parallel.data,
-             controls->parallel.size)) {
-          loop_ub_tmp = 0;
-        } else if (coder::internal::m_strcmp(controls->parallel.data,
-                    controls->parallel.size)) {
-          loop_ub_tmp = 1;
-        } else if (coder::internal::n_strcmp(controls->parallel.data,
-                    controls->parallel.size)) {
-          loop_ub_tmp = 2;
-        } else {
-          loop_ub_tmp = -1;
-        }
-
-        switch (loop_ub_tmp) {
-         case 0:
-          customXY::b_single(problemStruct, problemCells, controls,
-                             contrastParams->ssubs,
-                             contrastParams->backgroundParams,
-                             contrastParams->qzshifts,
-                             contrastParams->scalefactors,
-                             contrastParams->bulkIn, contrastParams->bulkOut,
-                             contrastParams->resolutionParams,
-                             calculationResults->allChis, reflectivity,
-                             simulation, shiftedData, layerSlds, sldProfiles,
-                             allLayers, contrastParams->allSubRough);
-          break;
-
-         case 1:
-          customXY::parallelPoints(problemStruct, problemCells, controls,
-            contrastParams->ssubs, contrastParams->backgroundParams,
-            contrastParams->qzshifts, contrastParams->scalefactors,
-            contrastParams->bulkIn, contrastParams->bulkOut,
-            contrastParams->resolutionParams, calculationResults->allChis,
-            reflectivity, simulation, shiftedData, layerSlds, sldProfiles,
-            allLayers, contrastParams->allSubRough);
-          break;
-
-         case 2:
-          customXY::parallelContrasts(problemStruct, problemCells, controls,
-            contrastParams->ssubs, contrastParams->backgroundParams,
-            contrastParams->qzshifts, contrastParams->scalefactors,
-            contrastParams->bulkIn, contrastParams->bulkOut,
-            contrastParams->resolutionParams, calculationResults->allChis,
-            reflectivity, simulation, shiftedData, layerSlds, sldProfiles,
-            allLayers, contrastParams->allSubRough);
-          break;
-        }
+        b_customXY(problemStruct, problemCells, controls, contrastParams->ssubs,
+                   contrastParams->backgroundParams, contrastParams->qzshifts,
+                   contrastParams->scalefactors, contrastParams->bulkIn,
+                   contrastParams->bulkOut, contrastParams->resolutionParams,
+                   calculationResults->allChis, reflectivity, simulation,
+                   shiftedData, layerSlds, sldProfiles, allLayers,
+                   contrastParams->allSubRough);
         break;
       }
 

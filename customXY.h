@@ -3,12 +3,12 @@
 // granting, nonprofit, educational organizations only. Not for
 // government, commercial, or other organizational use.
 //
-// single2.h
+// customXY.h
 //
-// Code generation for function 'single2'
+// Code generation for function 'customXY'
 //
-#ifndef SINGLE2_H
-#define SINGLE2_H
+#ifndef CUSTOMXY_H
+#define CUSTOMXY_H
 
 // Include files
 #include "rtwtypes.h"
@@ -32,9 +32,7 @@ namespace RAT
 {
   namespace nonPolarisedTF
   {
-    namespace customXY
-    {
-      void b_single(const f_struct_T *problemStruct, const cell_11 *problemCells,
+    void b_customXY(const f_struct_T *problemStruct, const cell_11 *problemCells,
                     const struct2_T *controls, ::coder::array<real_T, 1U>
                     &outSsubs, ::coder::array<real_T, 1U> &backgroundParams, ::
                     coder::array<real_T, 1U> &qzshifts, ::coder::array<real_T,
@@ -47,10 +45,9 @@ namespace RAT
                     &layerSlds, ::coder::array<cell_wrap_10, 1U> &sldProfiles, ::
                     coder::array<cell_wrap_10, 1U> &allLayers, ::coder::array<
                     real_T, 1U> &allRoughs);
-    }
   }
 }
 
 #endif
 
-// End of code generation (single2.h)
+// End of code generation (customXY.h)

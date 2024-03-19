@@ -29,8 +29,8 @@ namespace RAT
                     *allProblem_f3, const cell_11 *allProblem_f4, f_struct_T
                     *problemStruct, struct5_T *result, i_struct_T *bayesResults)
   {
+    static f_struct_T b_problemStruct;
     static struct2_T controlsStruct;
-    f_struct_T b_problemStruct;
     int32_T i;
     int32_T loop_ub;
 

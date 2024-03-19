@@ -579,7 +579,7 @@ namespace RAT
     //  Test-mode
     //  The test mode is activated by calling 'adaptive.m' with no input.
     //  if nargin==0
-    //    initialDomain =  -10:10;
+    //    initialDomain = -10:10;
     //    input_func = @(x) 100*exp(-(x+5.2).^2) + 50*exp(-5*(x-0.5).^2)+ 20*exp(-10*(x-5.8).^2);
     //    thresholdingAngles = true;
     //    minAngle = 0.8*pi;

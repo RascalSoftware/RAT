@@ -10,6 +10,7 @@
 
 // Include files
 #include "processCustomFunction2.h"
+#include "RATMain_internal_types.h"
 #include "RATMain_types.h"
 #include "applyHydrationImag.h"
 #include "applyHydrationReal.h"

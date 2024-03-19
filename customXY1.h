@@ -3,12 +3,12 @@
 // granting, nonprofit, educational organizations only. Not for
 // government, commercial, or other organizational use.
 //
-// single1.h
+// customXY1.h
 //
-// Code generation for function 'single1'
+// Code generation for function 'customXY1'
 //
-#ifndef SINGLE1_H
-#define SINGLE1_H
+#ifndef CUSTOMXY1_H
+#define CUSTOMXY1_H
 
 // Include files
 #include "rtwtypes.h"
@@ -30,11 +30,9 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  namespace nonPolarisedTF
+  namespace domainsTF
   {
-    namespace customLayers
-    {
-      void b_single(const f_struct_T *problemStruct, const cell_11 *problemCells,
+    void b_customXY(const f_struct_T *problemStruct, const cell_11 *problemCells,
                     const struct2_T *controls, ::coder::array<real_T, 1U>
                     &outSsubs, ::coder::array<real_T, 1U> &backgroundParams, ::
                     coder::array<real_T, 1U> &qzshifts, ::coder::array<real_T,
@@ -43,14 +41,13 @@ namespace RAT
                     1U> &resolutionParams, ::coder::array<real_T, 1U> &chis, ::
                     coder::array<cell_wrap_8, 1U> &reflectivity, ::coder::array<
                     cell_wrap_8, 1U> &simulation, ::coder::array<cell_wrap_10,
-                    1U> &shiftedData, ::coder::array<cell_wrap_10, 1U>
-                    &layerSlds, ::coder::array<cell_wrap_10, 1U> &sldProfiles, ::
-                    coder::array<cell_wrap_10, 1U> &allLayers, ::coder::array<
-                    real_T, 1U> &allRoughs);
-    }
+                    1U> &shiftedData, ::coder::array<cell_wrap_10, 2U>
+                    &domainLayerSlds, ::coder::array<cell_wrap_10, 2U>
+                    &domainSldProfiles, ::coder::array<cell_wrap_10, 2U>
+                    &domainAllLayers, ::coder::array<real_T, 1U> &allRoughs);
   }
 }
 
 #endif
 
-// End of code generation (single1.h)
+// End of code generation (customXY1.h)

@@ -162,6 +162,11 @@ namespace RAT
     ::coder::array<cell_wrap_1, 2U> f20;
   };
 
+  struct cell_wrap_39
+  {
+    ::coder::array<real_T, 2U> f1;
+  };
+
   struct cell_wrap_52
   {
     ::coder::array<real_T, 2U> f1;
@@ -182,8 +187,8 @@ namespace RAT
 
   struct h_struct_T
   {
-    ::coder::array<cell_wrap_65, 1U> refPredInts;
-    ::coder::array<cell_wrap_65, 2U> sldPredInts;
+    ::coder::array<cell_wrap_64, 1U> refPredInts;
+    ::coder::array<cell_wrap_64, 2U> sldPredInts;
     ::coder::array<cell_wrap_31, 2U> refXdata;
     ::coder::array<cell_wrap_31, 2U> sldXdata;
     real_T sampleChi[1000];

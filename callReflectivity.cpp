@@ -238,7 +238,7 @@ namespace RAT
       }
     }
 
-    if (coder::internal::m_strcmp(parallel_data, parallel_size)) {
+    if (coder::internal::n_strcmp(parallel_data, parallel_size)) {
       i = 0;
     } else {
       i = -1;

@@ -817,7 +817,7 @@ namespace RAT
       break;
 
      case 1:
-      if (!coder::internal::p_strcmp(controls->display.data,
+      if (!coder::internal::o_strcmp(controls->display.data,
            controls->display.size)) {
         printf("\nRunning simplex\n\n");
         fflush(stdout);
@@ -830,7 +830,7 @@ namespace RAT
       break;
 
      case 2:
-      if (!coder::internal::p_strcmp(controls->display.data,
+      if (!coder::internal::o_strcmp(controls->display.data,
            controls->display.size)) {
         printf("\nRunning Differential Evolution\n\n");
         fflush(stdout);
@@ -843,7 +843,7 @@ namespace RAT
       break;
 
      case 3:
-      if (!coder::internal::p_strcmp(controls->display.data,
+      if (!coder::internal::o_strcmp(controls->display.data,
            controls->display.size)) {
         printf("\nRunning Nested Sampler\n\n");
         fflush(stdout);
@@ -857,7 +857,7 @@ namespace RAT
       break;
 
      case 4:
-      if (!coder::internal::p_strcmp(controls->display.data,
+      if (!coder::internal::o_strcmp(controls->display.data,
            controls->display.size)) {
         printf("\nRunning DREAM\n\n");
         fflush(stdout);

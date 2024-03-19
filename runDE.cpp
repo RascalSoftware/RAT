@@ -201,7 +201,7 @@ namespace RAT
                  controls->checks.fitDomainRatio);
     reflectivityCalculation(problemStruct, problemCells, problemLimits, controls,
       result);
-    if (!coder::internal::p_strcmp(controls->display.data,
+    if (!coder::internal::o_strcmp(controls->display.data,
          controls->display.size)) {
       printf("Final chi squared is %g\n", result->calculationResults.sumChi);
       fflush(stdout);

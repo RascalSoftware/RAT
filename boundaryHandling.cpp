@@ -77,7 +77,7 @@ namespace RAT
     coder::c_eml_find(b_x, ii_up);
 
     //  Reflection
-    if (coder::internal::x_strcmp(Par_info_boundhandling_data,
+    if (coder::internal::w_strcmp(Par_info_boundhandling_data,
          Par_info_boundhandling_size)) {
       //  reflect in min
       b_max_d.set_size(ii_low.size(0));
@@ -105,7 +105,7 @@ namespace RAT
     }
 
     //  Bound
-    if (coder::internal::y_strcmp(Par_info_boundhandling_data,
+    if (coder::internal::x_strcmp(Par_info_boundhandling_data,
          Par_info_boundhandling_size)) {
       //  set lower values to min
       loop_ub = ii_low.size(0);
@@ -121,7 +121,7 @@ namespace RAT
     }
 
     //  Folding
-    if (coder::internal::ab_strcmp(Par_info_boundhandling_data,
+    if (coder::internal::y_strcmp(Par_info_boundhandling_data,
          Par_info_boundhandling_size)) {
       //  Fold parameter space lower values
       b_max_d.set_size(ii_low.size(0));

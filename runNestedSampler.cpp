@@ -35,6 +35,7 @@ namespace RAT
                         struct8_T *bayesResults)
   {
     static e_struct_T t8_bayesRes;
+    static f_struct_T b_problemStruct;
     ::coder::array<cell_wrap_1, 1U> fitNames;
     ::coder::array<cell_wrap_10, 2U> expl_temp_sld;
     ::coder::array<cell_wrap_10, 2U> t8_predlims_sldPredInts;
@@ -52,7 +53,6 @@ namespace RAT
     ::coder::array<real_T, 2U> expl_temp_par95;
     ::coder::array<real_T, 2U> r;
     ::coder::array<real_T, 2U> r1;
-    f_struct_T b_problemStruct;
     i_struct_T nestResults;
     real_T t8_predlims_sampleChi_data[1000];
     real_T bayesOutputs_bestPars_data[51];

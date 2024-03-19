@@ -69,7 +69,7 @@ namespace RAT
     }
 
     if ((allLayers.size(0) != 0) && (allLayers.size(1) != 0)) {
-      if (coder::internal::o_strcmp(geometry_data, geometry_size)) {
+      if (coder::internal::m_strcmp(geometry_data, geometry_size)) {
         layers.set_size(allLayers.size(0), allLayers.size(1));
         loop_ub = allLayers.size(1);
         for (i = 0; i < loop_ub; i++) {

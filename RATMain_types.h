@@ -183,12 +183,7 @@ namespace RAT
     ::coder::array<cell_wrap_1, 1U> fitNames;
   };
 
-  struct cell_wrap_39
-  {
-    ::coder::array<real_T, 2U> f1;
-  };
-
-  struct cell_wrap_65
+  struct cell_wrap_64
   {
     ::coder::array<real_T, 2U> f1;
   };
@@ -350,8 +345,8 @@ namespace RAT
     } f0;
 
     struct {
-      real_T thisContrastLayers2_data[6000];
       real_T thisContrastLayers1_data[6000];
+      real_T thisContrastLayers2_data[6000];
     } f1;
 
     struct {

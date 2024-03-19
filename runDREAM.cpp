@@ -34,6 +34,7 @@ namespace RAT
                 struct4_T *priors, f_struct_T *outProblemStruct, struct5_T
                 *result, j_struct_T *bayesResults)
   {
+    static f_struct_T b_problemStruct;
     ::coder::array<cell_wrap_1, 1U> fitParamNames;
     ::coder::array<real_T, 2U> Par_info_max;
     ::coder::array<real_T, 2U> Par_info_min;
@@ -41,7 +42,6 @@ namespace RAT
     ::coder::array<real_T, 2U> b_bayesResults;
     ::coder::array<real_T, 2U> c_bayesResults;
     ::coder::array<real_T, 2U> r;
-    f_struct_T b_problemStruct;
     i_struct_T dreamResults;
     int32_T b_loop_ub;
     int32_T i;

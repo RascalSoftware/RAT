@@ -14,4 +14,3 @@ domain that the 'domainClass' is used. As with 'normal reflectivity', we can han
 
    domainsStanlay
    domainsCustomLayers
-   domainsCustomXY

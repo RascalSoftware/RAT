@@ -19,16 +19,16 @@ into jupyter notebooks and so on.
 
 RAT contains a number of enhancements as compared to legacy rascal, including:
 
-*   Automatic paralellisation (MPI) either over contrasts or points using a simple flag
-*   Advanced interface microslicing using adaptive resampling
-*   Option to write custom models in Matlab, Python or C++
-*   Custom models for background and resolution functions (not yet functional)
-*   Fast Bayesian analysis using DREAM or the external Paramonte Sampler
-*   Parallel Bayes using Paramonte via 'mpiexcec'
-*   An integrated Nested sampler for Bayesian model selection
-*   Fully validated against ORSO examples
-*   Ability to load and run RasCAL1 projects (usually) without modification
-*   Plotting routines for easy visualisation of data and fits
+* Automatic paralellisation (MPI) either over contrasts or points using a simple flag
+* Advanced interface microslicing using adaptive resampling
+* Option to write custom models in Matlab, Python or C++
+* Custom models for background and resolution functions (not yet functional)
+* Fast Bayesian analysis using DREAM or the external Paramonte Sampler
+* Parallel Bayes using Paramonte via 'mpiexcec'
+* An integrated Nested sampler for Bayesian model selection
+* Fully validated against ORSO examples
+* Ability to load and run RasCAL1 projects (usually) without modification
+* Plotting routines for easy visualisation of data and fits
 
 …. and more!
 

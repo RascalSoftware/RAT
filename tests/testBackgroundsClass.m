@@ -206,7 +206,7 @@
 
       function testToStruct(testCase)
          % Checks that class to struct works correctly
-         expected.backgroundParamNames =  {'background param 1'};
+         expected.backgroundParamNames = {'background param 1'};
          expected.backgroundParamLimits = {[0.0100 0.0500]};
          expected.backgroundParamValues = 0.0300;
          expected.fitBackgroundParam = 0;
@@ -219,7 +219,7 @@
          testCase.background.backgrounds.varTable = [testCase.background.backgrounds.varTable; vertcat(testCase.backgrounds(2:3, :))];
          testCase.background.backgroundParams.varTable = [testCase.background.backgroundParams.varTable; vertcat(testCase.parameters(2:3, :))];
 
-         expected.backgroundParamNames =  {'background param 1', 'background param 2', 'background param 3'};
+         expected.backgroundParamNames = {'background param 1', 'background param 2', 'background param 3'};
          expected.backgroundParamLimits = {[0.0100 0.0500], [0.1000 1], [0.2000 1.1000]};
          expected.backgroundParamValues = [0.0300, 0.1900, 0.1700];
          expected.fitBackgroundParam = [0, 1, 0];

@@ -1,5 +1,5 @@
-function [allLayers,allRoughs] = processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backgroundParams, ...
-    qzshifts,scalefactor,bulkIn,bulkOut,resolutionParams,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)
+function [allLayers,allRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
+    bulkIn,bulkOut,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)
 
     % Top-level function for processing custom layers for all the
     % contrasts.

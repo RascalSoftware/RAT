@@ -1,10 +1,10 @@
 function [sample, logL] = drawMCMC(livepoints, cholmat, logLmin, ...
-    prior, data, likelihood, model, Nmcmc, parnames, extraparvals)
+    prior, data, likelihood, model, nMCMC, parnames, extraparvals)
 % This function will draw a multi-dimensional sample from the prior volume
 % for use in the nested sampling algorithm. The new point will have a
 % likelihood greater than the value logLmin. The new point will be found by
 % evolving a random multi-dimensional sample from within the sample array,
-% livepoints, using an MCMC with Nmcmc iterations. The MCMC will use a 
+% livepoints, using an MCMC with nMCMC iterations. The MCMC will use a 
 % Students-t (with N=2 degrees of freedom) proposal distribution based on
 % the Cholesky decomposed covariance matrix of the array, cholmat. 10% of 
 % the samples will actually be drawn using differential evolution by taking
@@ -19,7 +19,7 @@ logL = logLmin;
 mcmcfrac = 0.9; 
 l2p = 0.5*log(2*pi); % useful constant
 
-Nlive = size(livepoints,1);
+nLive = size(livepoints,1);
 Npars = size(livepoints,2);
 
 Ndegs = 2; % degrees of freedom of Students't distribution
@@ -32,7 +32,7 @@ while 1
     acc = 0;
     
     % get random point from live point array
-    sampidx = ceil(rand*Nlive);
+    sampidx = ceil(rand*nLive);
     sample = livepoints(sampidx, :);
     
     % get the sample prior
@@ -61,7 +61,7 @@ while 1
         end
     end
         
-    for i=1:Nmcmc        
+    for i=1:nMCMC        
         if rand < mcmcfrac % use Students-t proposal
             % draw points from mulitvariate Gaussian distribution 
             gasdevs = randn(Npars,1);
@@ -75,10 +75,10 @@ while 1
         else % use differential evolution
             % draw two random (different points) A and B and add (B-A) to
             % the current sample
-            idx1 = ceil(rand*Nlive);
+            idx1 = ceil(rand*nLive);
             idx2 = idx1;
             while idx2 == idx1
-                idx2 = ceil(rand*Nlive);
+                idx2 = ceil(rand*nLive);
             end
             
             A = livepoints(idx1, :);
@@ -184,7 +184,7 @@ end
 
 % print out acceptance ratio
 if verbose
-    fprintf('Acceptance ratio: %1.4f, \n\n', acctot/(Ntimes*Nmcmc));
+    fprintf('Acceptance ratio: %1.4f, \n\n', acctot/(Ntimes*nMCMC));
 end
 
 return

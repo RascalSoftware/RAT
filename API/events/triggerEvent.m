@@ -31,8 +31,8 @@ function triggerEvent(eventType, varargin)
             plotData.reflectivity = result.reflectivity;
             plotData.shiftedData = result.shiftedData;
             plotData.sldProfiles = result.sldProfiles;
-            plotData.allLayers = result.allLayers;
-            plotData.ssubs = result.contrastParams.ssubs;
+            plotData.resampledLayers = result.resampledLayers;
+            plotData.subRoughs = result.contrastParams.subRoughs;
             plotData.resample = problemStruct.resample;
             plotData.dataPresent = problemStruct.dataPresent;
             plotData.modelType = problemStruct.modelType;
@@ -66,17 +66,17 @@ function triggerEvent(eventType, varargin)
 
                 result = varargin{1};
                 problemStruct = varargin{2};
-                ssubs = result.contrastParams.ssubs;
+                subRoughs = result.contrastParams.subRoughs;
                 nContrast = length(result.reflectivity);
                 [reflect, nReflect] = packCellArray(result.reflectivity, 1);
                 [shiftedData, nShiftedData] = packCellArray(result.shiftedData, 1);
                 [sldProfiles, nSldProfiles] = packCellArray(result.sldProfiles, 1);
-                [layers, nLayers] = packCellArray(result.allLayers, 1);
+                [layers, nLayers] = packCellArray(result.resampledLayers, 1);
                 
                 switch problemStruct.TF
                     case coderEnums.calculationTypes.Domains
                         [sldProfiles2, nSldProfiles2] = packCellArray(result.sldProfiles, 2);
-                        [layers2, nLayers2] = packCellArray(result.allLayers, 2);
+                        [layers2, nLayers2] = packCellArray(result.resampledLayers, 2);
                     otherwise 
                         sldProfiles2 = coder.nullcopy(zeros(0));
                         nSldProfiles2 = coder.nullcopy(zeros(0));
@@ -90,7 +90,7 @@ function triggerEvent(eventType, varargin)
                 
                 coder.ceval('std::mem_fn(&eventHelper::updatePlot)', helper, nContrast, reflect, nReflect, shiftedData, ...
                             nShiftedData, sldProfiles, nSldProfiles, layers, nLayers, sldProfiles2, nSldProfiles2, layers2, ...
-                            nLayers2, ssubs, resample, dataPresent, modelType);
+                            nLayers2, subRoughs, resample, dataPresent, modelType);
             end
             notified = false;
         else

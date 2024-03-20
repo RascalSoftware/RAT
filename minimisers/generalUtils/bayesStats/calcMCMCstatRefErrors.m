@@ -24,14 +24,14 @@ type = 'max';
 
 switch type
     case 'max'
-        bestFitPars = bestFitMax;
+        fitParams = bestFitMax;
     otherwise
-        bestFitPars = bayesResults.res.mean;
+        fitParams = bayesResults.res.mean;
 end
 
 controls.procedure = 'calculate';
 controls.calcSldDuringFit = true;
-problemStruct.fitParams = bestFitPars;
+problemStruct.fitParams = fitParams;
 problemStruct = unpackParams(problemStruct,controls);
 result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 
@@ -41,15 +41,15 @@ ref.bestRefs = result.reflectivity;
 % Work out the confidence intervals of
 % each of the distributions 
 predInt = 0.95; %95% confidence intervals
-intervals_95 = confIntervals(chain,bestFitPars,predInt);
+intervals_95 = confIntervals(chain,fitParams,predInt);
 
 
 % predInt = 0.65; %65% confidence intervals
-% intervals_65 = confIntervals(chain,bestFitPars,predInt);
+% intervals_65 = confIntervals(chain,fitParams,predInt);
 % 
 % 
 % predInt = 0.25; %25% confidence intervals
-% intervals_25 = confIntervals(chain,bestFitPars,predInt);
+% intervals_25 = confIntervals(chain,fitParams,predInt);
 
 
 % Now calculate the shaded prediction intervals

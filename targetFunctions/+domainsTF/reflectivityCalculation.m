@@ -1,4 +1,4 @@
-function [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,domainSldProfiles,allLayers] = reflectivityCalculation(problemStruct,problemCells,controls)
+function [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = reflectivityCalculation(problemStruct,problemCells,controls)
 
 % Main function for the domainsTF reflectivity calculation.
 % This function decides what type of model is being analysed and branches
@@ -29,7 +29,6 @@ numberOfContrasts = problemStruct.numberOfContrasts;
 
 % Pre-allocation - It's necessary to pre-define the types for all the
 % arrays for compilation, so do this in this block.
-outSsubs = zeros(numberOfContrasts,1);
 backgroundParams = zeros(numberOfContrasts,1);
 qzshifts = zeros(numberOfContrasts,1);
 scalefactors = zeros(numberOfContrasts,1);
@@ -37,78 +36,79 @@ bulkIns = zeros(numberOfContrasts,1);
 bulkOuts = zeros(numberOfContrasts,1);
 chis = zeros(numberOfContrasts,1);
 resolutionParams = zeros(numberOfContrasts,1);
-allRoughs = zeros(numberOfContrasts,1);
+subRoughs = zeros(numberOfContrasts,1);
 
 % Pre-allocate the output arrays.. this is necessary because otherwise the
 % compiler complains with 'Output argument <....> is not assigned on some
 % execution paths' error.
 reflectivity = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    reflectivity{i} = [1 1 ; 1 1];
+    reflectivity{i} = [1 1; 1 1];
 end
 
 simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    simulation{i} = [1 1 ; 1 1];
+    simulation{i} = [1 1; 1 1];
 end
 
 shiftedData = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    shiftedData{i} = [1 1 1 ; 1 1 1];
+    shiftedData{i} = [1 1 1; 1 1 1];
 end
 
 layerSlds = cell(numberOfContrasts,2);
 for i = 1:numberOfContrasts
-    layerSlds{i,1} = [1 1 1 ; 1 1 1];
-    layerSlds{i,2} = [1 1 1 ; 1 1 1];
+    layerSlds{i,1} = [1 1 1; 1 1 1];
+    layerSlds{i,2} = [1 1 1; 1 1 1];
 end
 
-domainSldProfiles = cell(numberOfContrasts,2);
+sldProfiles = cell(numberOfContrasts,2);
 for i = 1:numberOfContrasts
-    domainSldProfiles{i,1} = [1 1 ; 1 1];
-    domainSldProfiles{i,2} = [1 1 ; 1 1];
+    sldProfiles{i,1} = [1 1; 1 1];
+    sldProfiles{i,2} = [1 1; 1 1];
 end
 
-allLayers = cell(numberOfContrasts,2);
+resampledLayers = cell(numberOfContrasts,2);
 for i = 1:numberOfContrasts
-    allLayers{i,1} = [1 1 1 ; 1 1 1];
-    allLayers{i,2} = [1 1 1 ; 1 1 1];
+    resampledLayers{i,1} = [1 1 1; 1 1 1];
+    resampledLayers{i,2} = [1 1 1; 1 1 1];
 end
            
 switch lower(type)
     case coderEnums.modelTypes.StandardLayers
 
-        [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-         simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
-         allRoughs] = domainsTF.standardLayers(problemStruct,problemCells,controls);        
+        [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
+         resolutionParams,chis,reflectivity,simulation,shiftedData,...
+         layerSlds,sldProfiles,resampledLayers,...
+         subRoughs] = domainsTF.standardLayers(problemStruct,problemCells,controls);        
 
     case coderEnums.modelTypes.CustomLayers
 
-        [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-         simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
-         allRoughs] = domainsTF.customLayers(problemStruct,problemCells,controls);
+        [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
+         resolutionParams,chis,reflectivity,simulation,shiftedData,...
+         layerSlds,sldProfiles,resampledLayers,...
+         subRoughs] = domainsTF.customLayers(problemStruct,problemCells,controls);
 
     case coderEnums.modelTypes.CustomXY
 
-        % Custom SLD profile with user defined model file
-        [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-         simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
-         allRoughs] = domainsTF.customXY(problemStruct,problemCells,controls);
+        [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
+         resolutionParams,chis,reflectivity,simulation,shiftedData,...
+         layerSlds,sldProfiles,resampledLayers,...
+         subRoughs] = domainsTF.customXY(problemStruct,problemCells,controls);
 
 end
 
 % Package everything into one array for tidy output
-contrastParams.ssubs = outSsubs;
 contrastParams.backgroundParams = backgroundParams;
 contrastParams.qzshifts = qzshifts;
 contrastParams.scalefactors = scalefactors;
 contrastParams.bulkIn = bulkIns;
 contrastParams.bulkOut = bulkOuts;
 contrastParams.resolutionParams = resolutionParams;
-contrastParams.allSubRough = allRoughs;
+contrastParams.subRoughs = subRoughs;
 contrastParams.resample = problemStruct.resample;
 
-calculationResults.allChis = chis;
+calculationResults.chiValues = chis;
 calculationResults.sumChi = sum(chis);
 
 end

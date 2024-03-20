@@ -46,8 +46,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         TFShiftedData
         TFLayerSLDs
         TFSLDProfiles
-        TFAllLayers
-        TFOutSsubs
+        TFResampledLayers
         TFBackgroundParams
         TFQzshifts
         TFScalefactors
@@ -55,7 +54,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         TFBulkOut
         TFResolutionParams
         TFChis
-        TFAllRoughs
+        TFSubRoughs
         tolerance = 1.0e-12     % Relative tolerance for equality of floats
         absTolerance = 1.0e-5   % Absolute tolerance for equality of floats
     end
@@ -97,9 +96,8 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.TFShiftedData = testCase.TFParams.TFParams.shiftedData;
             testCase.TFLayerSLDs = testCase.TFParams.TFParams.layerSlds;
             testCase.TFSLDProfiles = testCase.TFParams.TFParams.sldProfiles;
-            testCase.TFAllLayers = testCase.TFParams.TFParams.allLayers;
+            testCase.TFResampledLayers = testCase.TFParams.TFParams.resampledLayers;
 
-            testCase.TFOutSsubs = testCase.TFParams.TFParams.outSsubs;
             testCase.TFBackgroundParams = testCase.TFParams.TFParams.backgroundParams;
             testCase.TFQzshifts = testCase.TFParams.TFParams.qzshifts;
             testCase.TFScalefactors = testCase.TFParams.TFParams.scalefactors;
@@ -107,7 +105,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.TFBulkOut = testCase.TFParams.TFParams.bulkOut;
             testCase.TFResolutionParams = testCase.TFParams.TFParams.resolutionParams;
             testCase.TFChis = testCase.TFParams.TFParams.chis;
-            testCase.TFAllRoughs = testCase.TFParams.TFParams.allRoughs;
+            testCase.TFSubRoughs = testCase.TFParams.TFParams.subRoughs;
         end
         
     end
@@ -158,7 +156,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testNonPolarisedTFReflectivityCalculation(testCase)
-            [contrastParams, calculationResults, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = nonPolarisedTF.reflectivityCalculation(testCase.problemStruct, testCase.problemCells, testCase.controls);
+            [contrastParams, calculationResults, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, resampledLayers] = nonPolarisedTF.reflectivityCalculation(testCase.problemStruct, testCase.problemCells, testCase.controls);
 
             testCase.verifyEqual(contrastParams, testCase.TFContrastParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(calculationResults, testCase.TFCalculationResults, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -167,7 +165,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(shiftedData, testCase.TFShiftedData, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(layerSLDs, testCase.TFLayerSLDs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(SLDProfiles, testCase.TFSLDProfiles, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(allLayers, testCase.TFAllLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(resampledLayers, testCase.TFResampledLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
         function testNonPolarisedTFLayersReflectivityCalc(testCase, whichParallel, TFFile)
@@ -177,23 +175,22 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             % Choose the appropriate routine for each test case
             switch TFFile
                 case 'standardLayersTFParams.mat'
-                    [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
-                    simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = nonPolarisedTF.standardLayers(testCase.problemStruct,testCase.problemCells,...
+                    [backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
+                    simulation,shiftedData,layerSLDs,SLDProfiles,resampledLayers,...
+                    subRoughs] = nonPolarisedTF.standardLayers(testCase.problemStruct,testCase.problemCells,...
                     testCase.controls);
                 case 'customLayersTFParams.mat'
-                    [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
-                    simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = nonPolarisedTF.customLayers(testCase.problemStruct,testCase.problemCells,...
+                    [backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
+                    simulation,shiftedData,layerSLDs,SLDProfiles,resampledLayers,...
+                    subRoughs] = nonPolarisedTF.customLayers(testCase.problemStruct,testCase.problemCells,...
                     testCase.controls);
                 case 'customXYTFParams.mat'
-                    [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
-                    simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = nonPolarisedTF.customXY(testCase.problemStruct,testCase.problemCells,...
+                    [backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
+                    simulation,shiftedData,layerSLDs,SLDProfiles,resampledLayers,...
+                    subRoughs] = nonPolarisedTF.customXY(testCase.problemStruct,testCase.problemCells,...
                     testCase.controls);
             end
 
-            testCase.verifyEqual(outSsubs, testCase.TFOutSsubs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(backgroundParams, testCase.TFBackgroundParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(qzshifts, testCase.TFQzshifts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(scalefactors, testCase.TFScalefactors, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -206,8 +203,8 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(shiftedData, testCase.TFShiftedData, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(layerSLDs, testCase.TFLayerSLDs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(SLDProfiles, testCase.TFSLDProfiles, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(allLayers, testCase.TFAllLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(allRoughs, testCase.TFAllRoughs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(resampledLayers, testCase.TFResampledLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(subRoughs, testCase.TFSubRoughs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
 %% Test Pre- and Post-Processing Routines
@@ -223,10 +220,10 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testParseCells(testCase)
-            [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(testCase.problemCells);
+            [repeatLayers,data,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(testCase.problemCells);
 
             testCase.verifyEqual(repeatLayers, testCase.problemCells{1}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(allData, testCase.problemCells{2}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(data, testCase.problemCells{2}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(dataLimits, testCase.problemCells{3}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(simLimits, testCase.problemCells{4}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastLayers, testCase.problemCells{5}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);

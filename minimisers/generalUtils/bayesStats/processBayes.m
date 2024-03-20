@@ -1,10 +1,10 @@
-function [problemStruct,result,bayesResults] = processBayes(bayesOutputs,allProblem)
+function [problemStruct,result,bayesResults] = processBayes(bayesOutputs,problem)
 
 %problem = {problemStruct ; controls ; problemLimits ; problemCells};
-problemStruct = allProblem{1};
-controlsStruct = allProblem{2};
-problemLimits = allProblem{3};
-problemCells = allProblem{4};
+problemStruct = problem{1};
+controlsStruct = problem{2};
+problemLimits = problem{3};
+problemCells = problem{4};
 
 % Need to impose that we calculate the SLD..
 controlsStruct.calcSldDuringFit = true;
@@ -22,7 +22,7 @@ bestFitMean.chi = result.calculationResults.sumChi;
 bestFitMean.data = result.shiftedData;
 
 % 2. Reflectivity and SLD shading
-allPredInts = refPrctileConfInts(bayesOutputs,problemStruct,problemCells,problemLimits,controlsStruct,result,parConfInts);
+predInts = refPrctileConfInts(bayesOutputs,problemStruct,problemCells,problemLimits,controlsStruct,result,parConfInts);
 
 
 % ---------------------------------
@@ -32,7 +32,7 @@ allPredInts = refPrctileConfInts(bayesOutputs,problemStruct,problemCells,problem
 %bayesResults.bestPars_Max = bestPars_max;
 %bayesResults.bayesData = bayesOutputs.data;
 % bayesResults.bestFitsMax = {bestFitMax_Ref, bestFitMax_Sld, bestFitMax_chi};
-bayesResults = struct('bestFitsMean',bestFitMean,'predlims',allPredInts,...
+bayesResults = struct('bestFitsMean',bestFitMean,'predlims',predInts,...
                       'parConfInts',parConfInts);
 
 % bayesResults.bestFitsMean = bestFitMean;

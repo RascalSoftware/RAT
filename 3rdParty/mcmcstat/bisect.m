@@ -2,16 +2,16 @@ function [x,y]=bisect(fun,a,b,options,varargin)
 %BISECT find zero by bisection
 % Usage: x0 = bisect(fun,a,b,options,varargin)
 % Function must change signs between a and b.
-% Use options field 'TolX' to set the 'x' tolerance.
+% Use options field 'XTolerance' to set the 'x' tolerance.
 
 % Marko Laine <marko.laine@fmi.fi>
 % $Revision: 1.3 $  $Date: 2012/09/27 11:47:34 $
 
 if nargin < 4, options=[]; end
 
-tolf   = optimget(options,'TolFun',1e-12);
-tolx   = optimget(options,'TolX',1e-6);
-maxiter = optimget(options,'MaxIter',40);
+tolf   = optimget(options,'FuncTolerance',1e-12);
+tolx   = optimget(options,'XTolerance',1e-6);
+maxiter = optimget(options,'MaxIterations',40);
 
 
 fa = feval(fun,a,varargin{:});

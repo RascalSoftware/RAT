@@ -7,17 +7,17 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         procedure = procedures.Calculate.value
         % Indicates if SLD should be calculated (Default: false)
         calcSldDuringFit = false
-        resamPars = [0.9 50]
+        resampleParams = [0.9 50]
         % Display Option (Default: displayOptions.Iter)
         display = displayOptions.Iter.value
 
         % optimization tolerance for simplex (Default: 1e-6)
-        tolX = 1e-6    
-        tolFun = 1e-6
+        xTolerance = 1e-6    
+        funcTolerance = 1e-6
         % Maximum number of function evaluations for simplex  (Default: 10000)
-        maxFunEvals = 10000
+        maxFuncEvals = 10000
         % Maximum number of iterations for simplex  (Default: 1000)
-        maxIter = 1000
+        maxIterations = 1000
         updateFreq = -1
         updatePlotFreq = 1
         
@@ -35,8 +35,8 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         numGenerations = 500
 
         % Number of live points for Nested Sampler (Default: 150)
-        Nlive = 150
-        Nmcmc = 0
+        nLive = 150
+        nMCMC = 0
         propScale = 0.1     % Used if MCMC is used
         % Target stopping tolerance for Nested Sampler (Default: 0.1)
         nsTolerance = 0.1   
@@ -87,37 +87,37 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.updatePlotFreq = val;
         end
 
-        function obj = set.resamPars(obj,val)
+        function obj = set.resampleParams(obj,val)
             if length(val) ~= 2
-                throw(exceptions.invalidValue('resamPars must have length of 2'));
+                throw(exceptions.invalidValue('resampleParams must have length of 2'));
             end
 
-            validateNumber(val, 'resamPars must be a number array');
+            validateNumber(val, 'resampleParams must be a number array');
 
             if (val(1) < 0 || val(1) > 1)
-                throw(exceptions.invalidValue('resamPars(0) must be between 0 and 1'));
+                throw(exceptions.invalidValue('resampleParams(0) must be between 0 and 1'));
             end
             if val(2) <= 0
-                throw(exceptions.invalidValue('resamPars(1) must be greater than 0'));
+                throw(exceptions.invalidValue('resampleParams(1) must be greater than 0'));
             end
-            obj.resamPars = val;
+            obj.resampleParams = val;
         end
 
         % Simplex control methods
-        function obj = set.tolX(obj, val)
-            obj.tolX = validateNumber(val, 'tolX must be a number');
+        function obj = set.xTolerance(obj, val)
+            obj.xTolerance = validateNumber(val, 'xTolerance must be a number');
         end
 
-        function obj = set.tolFun(obj, val)
-            obj.tolFun = validateNumber(val, 'tolFun must be a number');
+        function obj = set.funcTolerance(obj, val)
+            obj.funcTolerance = validateNumber(val, 'funcTolerance must be a number');
         end
 
-        function obj = set.maxFunEvals(obj, val)
-            obj.maxFunEvals = validateNumber(val, 'maxFunEvals must be a number');
+        function obj = set.maxFuncEvals(obj, val)
+            obj.maxFuncEvals = validateNumber(val, 'maxFuncEvals must be a number');
         end
 
-        function obj = set.maxIter(obj, val)
-            obj.maxIter = validateNumber(val, 'maxIter must be a number');
+        function obj = set.maxIterations(obj, val)
+            obj.maxIterations = validateNumber(val, 'maxIterations must be a number');
         end
 
         % DE controls methods
@@ -165,20 +165,20 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         end
 
         % NS control methods
-        function obj = set.Nlive(obj, val)
-            validateNumber(val, 'Nlive must be a number');
+        function obj = set.nLive(obj, val)
+            validateNumber(val, 'nLive must be a number');
             if val < 1
-                throw(exceptions.invalidValue('Nlive must be greater or equal to 1'));
+                throw(exceptions.invalidValue('nLive must be greater or equal to 1'));
             end
-            obj.Nlive = val;
+            obj.nLive = val;
         end
 
-        function obj = set.Nmcmc(obj, val)
-            validateNumber(val, 'Nmcmc must be a number');
+        function obj = set.nMCMC(obj, val)
+            validateNumber(val, 'nMCMC must be a number');
             if val < 0
-                throw(exceptions.invalidValue('Nmcmc must be greater or equal than 0'));
+                throw(exceptions.invalidValue('nMCMC must be greater or equal than 0'));
             end
-            obj.Nmcmc = val;
+            obj.nMCMC = val;
         end
 
         function obj = set.propScale(obj, val)
@@ -249,9 +249,9 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             %     obj.setProcedure(procedure, varargin)
             %
             % EXAMPLE: 
-            %     * obj.setProcedure('simplex', {'tolX', 1e-6, 'tolFun', 1e-6,'maxFunEvals', 1000})
+            %     * obj.setProcedure('simplex', {'xTolerance', 1e-6, 'funcTolerance', 1e-6,'maxFuncEvals', 1000})
             %     * obj.setProcedure('dream')
-            %     * obj.setProcedure('ns', {'Nlive', 150,'Nmcmc', 0, 'propScale', 0.1, 'nsTolerance', 0.1})
+            %     * obj.setProcedure('ns', {'nLive', 150,'nMCMC', 0, 'propScale', 0.1, 'nsTolerance', 0.1})
 
             switch procedure
 
@@ -311,10 +311,10 @@ classdef controlsClass < matlab.mixin.CustomDisplay
                 'procedure', {obj.procedure},...
                 'calcSldDuringFit', {obj.calcSldDuringFit},...
                 'display', {obj.display},...
-                'tolX', {obj.tolX},...
-                'tolFun', {obj.tolFun},...
-                'maxFunEvals', {obj.maxFunEvals},...
-                'maxIter', {obj.maxIter},...
+                'xTolerance', {obj.xTolerance},...
+                'funcTolerance', {obj.funcTolerance},...
+                'maxFuncEvals', {obj.maxFuncEvals},...
+                'maxIterations', {obj.maxIterations},...
                 'updateFreq', {obj.updateFreq},...
                 'updatePlotFreq', {obj.updatePlotFreq},...
                 'populationSize', {obj.populationSize},...
@@ -323,11 +323,11 @@ classdef controlsClass < matlab.mixin.CustomDisplay
                 'strategy', {obj.strategy},...
                 'targetValue', {obj.targetValue},...
                 'numGenerations', {obj.numGenerations},...
-                'Nlive', {obj.Nlive},...
-                'Nmcmc', {obj.Nmcmc},...
+                'nLive', {obj.nLive},...
+                'nMCMC', {obj.nMCMC},...
                 'propScale', {obj.propScale},...
                 'nsTolerance', {obj.nsTolerance},...
-                'resamPars', {obj.resamPars},...
+                'resampleParams', {obj.resampleParams},...
                 'nSamples', {obj.nSamples},...
                 'nChains', {obj.nChains},...
                 'jumpProbability', {obj.jumpProbability},...
@@ -335,10 +335,10 @@ classdef controlsClass < matlab.mixin.CustomDisplay
                 'boundHandling', {obj.boundHandling},...
                 'adaptPCR', {obj.adaptPCR});
 
-            simplexCell = {'tolX',...
-                'tolFun',...
-                'maxFunEvals',...
-                'maxIter',...
+            simplexCell = {'xTolerance',...
+                'funcTolerance',...
+                'maxFuncEvals',...
+                'maxIterations',...
                 'updateFreq',...
                 'updatePlotFreq'};
 
@@ -349,8 +349,8 @@ classdef controlsClass < matlab.mixin.CustomDisplay
                 'targetValue',...
                 'numGenerations'};
 
-            nsCell = {'Nlive',...
-                'Nmcmc',...
+            nsCell = {'nLive',...
+                'nMCMC',...
                 'propScale',...
                 'nsTolerance'};
 
@@ -392,31 +392,31 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             % The parameters that can be set when using calculate procedure are
             % 1) parallel
             % 2) calcSldDuringFit
-            % 3) resamPars
+            % 3) resampleParams
             % 4) display
 
             % The default values for Calculate
             defaultParallel = parallelOptions.Single.value;
             defaultCalcSldDuringFit = false;
-            defaultResamPars = [0.9 50];
+            defaultResampleParams = [0.9 50];
             defaultDisplay = displayOptions.Iter.value;
 
             % Creates the input parser for the calculate parameters
             p = inputParser;
             addParameter(p,'parallel',  defaultParallel,   @(x) isText(x) || isenum(x));
             addParameter(p,'calcSldDuringFit',   defaultCalcSldDuringFit,    @islogical);
-            addParameter(p,'resamPars', defaultResamPars,  @isnumeric);
+            addParameter(p,'resampleParams', defaultResampleParams,  @isnumeric);
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
             properties = varargin{:};
 
             % Parses the input or raises invalidOption error
-            errorMsg = 'Only parallel, calcSldDuringFit, resamPars and display can be set while using the Calculate procedure';
+            errorMsg = 'Only parallel, calcSldDuringFit, resampleParams and display can be set while using the Calculate procedure';
             inputBlock = obj.parseInputs(p, properties, errorMsg);
 
             % Sets the values the for Calculate parameters
             obj.parallel = inputBlock.parallel;
             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-            obj.resamPars = inputBlock.resamPars;
+            obj.resampleParams = inputBlock.resampleParams;
             obj.display = inputBlock.display;
         end
 
@@ -426,57 +426,57 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             % obj.parseSimplexInput('param', 'value')
             %
             % The parameters that can be set when using simplex procedure are
-            % 1) tolX
-            % 2) tolFun
-            % 3) maxFunEvals
-            % 4) maxIter
+            % 1) xTolerance
+            % 2) funcTolerance
+            % 3) maxFuncEvals
+            % 4) maxIterations
             % 5) updateFreq
             % 6) updatePlotFreq
             % 7) parallel
             % 8) calcSldDuringFit
-            % 9) resamPars
+            % 9) resampleParams
             % 10) display
 
             % The simplex default values
-            defaultTolX = 1e-6;
-            defaultTolFun = 1e-6;
-            defaultMaxFunEvals = 10000;
-            defaultMaxIter = 1000;
+            defaultXTolerance = 1e-6;
+            defaultFuncTolerance = 1e-6;
+            defaultMaxFuncEvals = 10000;
+            defaultMaxIterations = 1000;
             defaultUpdateFreq = -1;
             defaultUpdatePlotFreq = 1;
             defaultParallel = parallelOptions.Single.value;
             defaultCalcSldDuringFit = false;
-            defaultResamPars = [0.9 50];
+            defaultResampleParams = [0.9 50];
             defaultDisplay = displayOptions.Iter.value;
 
             % Parses the input for simplex parameters
             p = inputParser;
-            addParameter(p,'tolX',  defaultTolX,   @isnumeric);
-            addParameter(p,'tolFun',   defaultTolFun,    @isnumeric);
-            addParameter(p,'maxFunEvals', defaultMaxFunEvals,  @isnumeric);
-            addParameter(p,'maxIter',   defaultMaxIter,    @isnumeric);
+            addParameter(p,'xTolerance',  defaultXTolerance,   @isnumeric);
+            addParameter(p,'funcTolerance',   defaultFuncTolerance,    @isnumeric);
+            addParameter(p,'maxFuncEvals', defaultMaxFuncEvals,  @isnumeric);
+            addParameter(p,'maxIterations',   defaultMaxIterations,    @isnumeric);
             addParameter(p,'updateFreq',   defaultUpdateFreq,    @isnumeric);
             addParameter(p,'updatePlotFreq',   defaultUpdatePlotFreq,    @isnumeric);
             addParameter(p,'parallel',  defaultParallel,   @(x) isText(x) || isenum(x));
             addParameter(p,'calcSldDuringFit',   defaultCalcSldDuringFit,    @islogical);
-            addParameter(p,'resamPars', defaultResamPars,  @isnumeric);
+            addParameter(p,'resampleParams', defaultResampleParams,  @isnumeric);
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
             properties = varargin{:};
 
             % Parses the input or raises invalidOption error
-            errorMsg = 'Only tolX, tolFun, maxFunEvals, maxIter, updateFreq, updatePlotFreq, parallel, calcSldDuringFit, resamPars and display can be set while using the Simplex procedure.';
+            errorMsg = 'Only xTolerance, funcTolerance, maxFuncEvals, maxIterations, updateFreq, updatePlotFreq, parallel, calcSldDuringFit, resampleParams and display can be set while using the Simplex procedure.';
             inputBlock = obj.parseInputs(p, properties, errorMsg);
 
             % Sets the values the for simplex parameters
-            obj.tolX = inputBlock.tolX;
-            obj.tolFun = inputBlock.tolFun;
-            obj.maxFunEvals = inputBlock.maxFunEvals;
-            obj.maxIter = inputBlock.maxIter;
+            obj.xTolerance = inputBlock.xTolerance;
+            obj.funcTolerance = inputBlock.funcTolerance;
+            obj.maxFuncEvals = inputBlock.maxFuncEvals;
+            obj.maxIterations = inputBlock.maxIterations;
             obj.updateFreq = inputBlock.updateFreq;
             obj.updatePlotFreq = inputBlock.updatePlotFreq;
             obj.parallel = inputBlock.parallel;
             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-            obj.resamPars = inputBlock.resamPars;
+            obj.resampleParams = inputBlock.resampleParams;
             obj.display = inputBlock.display;
         end
 
@@ -494,7 +494,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             % 6) numGenerations
             % 7) parallel
             % 8) calcSldDuringFit
-            % 9) resamPars
+            % 9) resampleParams
             % 10) display
 
             % The default values for DE
@@ -506,7 +506,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             defaultNumGenerations = 500;
             defaultParallel = parallelOptions.Single.value;
             defaultCalcSldDuringFit = false;
-            defaultResamPars = [0.9 50];
+            defaultResampleParams = [0.9 50];
             defaultDisplay = displayOptions.Iter.value;
 
             % Creates the input parser for the DE parameters
@@ -519,12 +519,12 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             addParameter(p,'numGenerations',   defaultNumGenerations,    @isnumeric);
             addParameter(p,'parallel',  defaultParallel,   @(x) isText(x) || isenum(x));
             addParameter(p,'calcSldDuringFit',   defaultCalcSldDuringFit,    @islogical);
-            addParameter(p,'resamPars', defaultResamPars,  @isnumeric);
+            addParameter(p,'resampleParams', defaultResampleParams,  @isnumeric);
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
             properties = varargin{:};
 
             % Parses the input or raises invalidOption error
-            errorMsg = 'Only populationSize, fWeight, crossoverProbability, strategy, targetValue, numGenerations, parallel, calcSldDuringFit, resamPars and display can be set while using the Differential Evolution procedure';
+            errorMsg = 'Only populationSize, fWeight, crossoverProbability, strategy, targetValue, numGenerations, parallel, calcSldDuringFit, resampleParams and display can be set while using the Differential Evolution procedure';
             inputBlock = obj.parseInputs(p, properties, errorMsg);
 
             % Sets the values the for DE parameters
@@ -536,7 +536,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.numGenerations = inputBlock.numGenerations;
             obj.parallel = inputBlock.parallel;
             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-            obj.resamPars = inputBlock.resamPars;
+            obj.resampleParams = inputBlock.resampleParams;
             obj.display = inputBlock.display;
         end
 
@@ -546,49 +546,49 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             % obj.processNSInput('param', 'value')
             %
             % The parameters that can be set when using nested sampler procedure are
-            % 1) Nlive
-            % 2) Nmcmc
+            % 1) nLive
+            % 2) nMCMC
             % 3) propScale
             % 4) nsTolerance
             % 5) parallel
             % 6) calcSldDuringFit
-            % 7) resamPars
+            % 7) resampleParams
             % 8) display
 
             % The default values for NS
-            defaultNlive = 150;
-            defaultNmcmc = 0;
+            defaultnLive = 150;
+            defaultnMCMC = 0;
             defaultPropScale = 0.1;
             defaultNsTolerance = 0.1;
             defaultParallel = parallelOptions.Single.value;
             defaultCalcSldDuringFit = false;
-            defaultResamPars = [0.9 50];
+            defaultResampleParams = [0.9 50];
             defaultDisplay = displayOptions.Iter.value;
 
             % Creates the input parser for the NS parameters
             p = inputParser;
-            addParameter(p,'Nlive',  defaultNlive,   @isnumeric);
-            addParameter(p,'Nmcmc',   defaultNmcmc,    @isnumeric);
+            addParameter(p,'nLive',  defaultnLive,   @isnumeric);
+            addParameter(p,'nMCMC',   defaultnMCMC,    @isnumeric);
             addParameter(p,'propScale', defaultPropScale,  @isnumeric);
             addParameter(p,'nsTolerance',   defaultNsTolerance,    @isnumeric);
             addParameter(p,'parallel',  defaultParallel,   @(x) isText(x) || isenum(x));
             addParameter(p,'calcSldDuringFit',   defaultCalcSldDuringFit,    @islogical);
-            addParameter(p,'resamPars', defaultResamPars,  @isnumeric);
+            addParameter(p,'resampleParams', defaultResampleParams,  @isnumeric);
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
             properties = varargin{:};
 
             % Parses the input or raises invalidOption error
-            errorMsg = 'Only Nlive, Nmcmc, propScale, nsTolerance, parallel, calcSldDuringFit, resamPars and display can be set while using the Nested Sampler procedure';
+            errorMsg = 'Only nLive, nMCMC, propScale, nsTolerance, parallel, calcSldDuringFit, resampleParams and display can be set while using the Nested Sampler procedure';
             inputBlock = obj.parseInputs(p, properties, errorMsg);
 
             % Sets the values the for NS parameters
-            obj.Nlive = inputBlock.Nlive;
-            obj.Nmcmc = inputBlock.Nmcmc;
+            obj.nLive = inputBlock.nLive;
+            obj.nMCMC = inputBlock.nMCMC;
             obj.propScale = inputBlock.propScale;
             obj.nsTolerance = inputBlock.nsTolerance;
             obj.parallel = inputBlock.parallel;
             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-            obj.resamPars = inputBlock.resamPars;
+            obj.resampleParams = inputBlock.resampleParams;
             obj.display = inputBlock.display;
         end
 
@@ -606,7 +606,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             % 6) adaptPCR
             % 7) parallel
             % 8) calcSldDuringFit
-            % 9) resamPars
+            % 9) resampleParams
             % 10) display
 
             % The default values for Dream
@@ -618,7 +618,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             defaultAdaptPCR = false;
             defaultParallel = parallelOptions.Single.value;
             defaultCalcSldDuringFit = false;
-            defaultResamPars = [0.9 50];
+            defaultResampleParams = [0.9 50];
             defaultDisplay = displayOptions.Iter.value;
 
             % Creates the input parser for the Dream parameters
@@ -631,12 +631,12 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             addParameter(p,'adaptPCR', defaultAdaptPCR, @islogical);
             addParameter(p,'parallel',  defaultParallel,   @(x) isText(x) || isenum(x));
             addParameter(p,'calcSldDuringFit',   defaultCalcSldDuringFit,    @islogical);
-            addParameter(p,'resamPars', defaultResamPars,  @isnumeric);
+            addParameter(p,'resampleParams', defaultResampleParams,  @isnumeric);
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
             properties = varargin{:};
 
             % Parses the input or raises invalidOption error
-            errorMsg = 'Only nSamples, nChains, jumpProbability, pUnitGamma, boundHandling, adaptPCR, parallel, calcSldDuringFit, resamPars and display can be set while using the DREAM procedure';
+            errorMsg = 'Only nSamples, nChains, jumpProbability, pUnitGamma, boundHandling, adaptPCR, parallel, calcSldDuringFit, resampleParams and display can be set while using the DREAM procedure';
             inputBlock = obj.parseInputs(p, properties, errorMsg);
 
             % Sets the values the for Dream parameters
@@ -648,7 +648,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.adaptPCR = inputBlock.adaptPCR;
             obj.parallel = inputBlock.parallel;
             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-            obj.resamPars = inputBlock.resamPars;
+            obj.resampleParams = inputBlock.resampleParams;
             obj.display = inputBlock.display;
         end
 

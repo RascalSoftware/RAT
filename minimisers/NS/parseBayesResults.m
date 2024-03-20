@@ -68,14 +68,14 @@ end
 
 %calculate the reflectivity and SLD for all the in-range fits.
 numCalcs = size(chain,1);
-allRefs = cell(numCalcs,1);
-allSLDs = cell(numCalcs,1);
+refs = cell(numCalcs,1);
+slds = cell(numCalcs,1);
 for i = 1:numCalcs
     problemStruct.fitParams = chain(i,1:end-1);
     problemStruct = unpackParams(problemStruct,controls);
     result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
-    allRefs{i} = result.reflectivity;
-    allSLDs{i} = result.sldProfiles;
+    refs{i} = result.reflectivity;
+    slds{i} = result.sldProfiles;
 end
 
 %Also calculate the best fit
@@ -90,7 +90,7 @@ for n = 1:numCalcs
     for i = 1:problemStruct.numberOfContrasts
         %Since array size may vary if qz-shift is fitted
         %interpolate all curves onto the x-range of the first
-        thisRef = allRefs{n}{i};
+        thisRef = refs{n}{i};
 %         if n == 1
 %             referenceRef = thisRef;
 %             groupRefs{i}(:,n) = referenceRef(:,2);

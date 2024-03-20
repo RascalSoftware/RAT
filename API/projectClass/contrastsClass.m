@@ -79,10 +79,10 @@ classdef contrastsClass < baseContrasts
             dataPresent = zeros(1,nContrasts);
             dataLimits = cell(1,nContrasts);
             simLimits = cell(1,nContrasts);
-            allData = cell(1,nContrasts);
+            data = cell(1,nContrasts);
 
             oilChiDataPresent = zeros(1,nContrasts);
-            allOilChiData = cell(1,nContrasts);
+            oilChiData = cell(1,nContrasts);
 
             for i = 1:nContrasts
 
@@ -137,11 +137,11 @@ classdef contrastsClass < baseContrasts
                     end
                     dataLimits{i} = thisDataLimit;
                     simLimits{i} = dataTable{thisDataVal,4}{:};
-                    allData{i} = dataTable{thisDataVal,2}{:};
+                    data{i} = dataTable{thisDataVal,2}{:};
                 else
                     dataLimits{i} = [0 0];
                     simLimits{i} = [0 0];
-                    allData{i} = [0 0 0];
+                    data{i} = [0 0 0];
                 end
             end
 
@@ -154,9 +154,9 @@ classdef contrastsClass < baseContrasts
                         if ~isempty(actualOilChiData)
                             oilChiDataPresent(i) = 1;
                         end
-                        allOilChiData{i} = dataTable{thisOilChiDataVal,2}{:};
+                        oilChiData{i} = dataTable{thisOilChiDataVal,2}{:};
                     else
-                        allOilChiData{i} = [0 0 0];
+                        oilChiData{i} = [0 0 0];
                     end
                 end
             end
@@ -174,9 +174,9 @@ classdef contrastsClass < baseContrasts
             contrastStruct.dataPresent = dataPresent;
             contrastStruct.dataLimits = dataLimits;
             contrastStruct.simLimits = simLimits;
-            contrastStruct.allData = allData;
+            contrastStruct.data = data;
             contrastStruct.oilChiDataPresent = oilChiDataPresent;
-            contrastStruct.allOilChiData = allOilChiData;
+            contrastStruct.oilChiData = oilChiData;
 
         end
 

@@ -1,19 +1,19 @@
 function [logZ, nest_samples, post_samples,H] = nestedSampler(data, ...
-          Nlive, Nmcmc, tolerance, flike, model, prior, parnames)
+          nLive, nMCMC, tolerance, flike, model, prior, parnames)
 
 % function [logZ, nest_samples, post_samples] = nestedSampler(data, ...
-%           Nlive, Nmcmc, tolerance, likelihood, model, prior, extraparams)
+%           nLive, nMCMC, tolerance, likelihood, model, prior, extraparams)
 %
 % This function performs nested sampling of the likelihood function from
 % the given prior (given a set of data, a model, and a set of extra model 
 % parameters).
 % 
-% If Nmcmc > 0, new samples will be drawn from a proposal using an MCMC 
+% If nMCMC > 0, new samples will be drawn from a proposal using an MCMC 
 % and differential evolution. The sampling will stop once the 
 % tolerance critereon has been reached. This method is that of Veitch & 
 % Vecchio.
 %
-% If Nmcmc = 0, new samples will be drawn from a set of bounding ellipsoids 
+% If nMCMC = 0, new samples will be drawn from a set of bounding ellipsoids 
 % constructed using the MultiNest algorithm for partitioning live points.
 %
 % The likelihood should be the function handle of a likelihood function to
@@ -75,7 +75,7 @@ nest_samples = zeros(1,D+1);
 coder.varsize('nest_samples',[1e5 50],[1 1]);
     
 % draw the set of initial live points from the prior
-livepoints = zeros(Nlive, D);
+livepoints = zeros(nLive, D);
 
 for i=1:D
     priortype = prior(i,1);
@@ -83,24 +83,24 @@ for i=1:D
     if priortype == 1      %uniform
         p3 = prior(i,4);
         p4 = prior(i,5);
-        livepoints(:,i) = p3 + (p4-p3)*rand(Nlive,1);
+        livepoints(:,i) = p3 + (p4-p3)*rand(nLive,1);
     elseif priortype == 2  %gaussian
         p3 = prior(i,2);
         p4 = prior(i,3);
-        livepoints(:,i) = p3 + p4*randn(Nlive,1);
+        livepoints(:,i) = p3 + p4*randn(nLive,1);
     elseif priortype == 3   %jeffreys
         p3 = prior(i,2);
         p4 = prior(i,3);
-        livepoints(:,i) = 10.^(log10(p3) + (log10(p4)-log10(p3))*rand(Nlive,1));
+        livepoints(:,i) = 10.^(log10(p3) + (log10(p4)-log10(p3))*rand(nLive,1));
     else
         error('Unrecognised prior for param %d', int32(i));
     end
 end
 
 % calculate the log likelihood of all the live points
-logL = zeros(Nlive,1);
+logL = zeros(nLive,1);
 extraparvals = [];
-for i=1:Nlive
+for i=1:nLive
     %parvals = loopCell(livepoints(i,:));
     parvals = livepoints(i,:);
     logL(i) = flike(data,parvals);
@@ -108,7 +108,7 @@ end
 
 % now scale the parameters, so that uniform parameters range from 0->1, 
 % and Gaussian parameters have a mean of zero and unit standard deviation
-for i=1:Nlive
+for i=1:nLive
     livepoints(i,:) = scaleParameters(prior, livepoints(i,:));
 end
 
@@ -116,7 +116,7 @@ end
 tol = inf;
 
 % initial width of prior volume (from X_0=1 to X_1=exp(-1/N))
-logw = log(1 - exp(-1/Nlive));
+logw = log(1 - exp(-1/nLive));
 
 % initial log evidence (Z=0)
 logZ = -inf; 
@@ -147,10 +147,10 @@ j = 1;
 
 
 % MAIN LOOP
-while tol > tolerance || j <= Nlive
+while tol > tolerance || j <= nLive
 
     % expected value of true remaining prior volume X
-    VS = exp(-j/Nlive);
+    VS = exp(-j/nLive);
 
     % find minimum of likelihoods
     [logLmin, idx] = min(logL);
@@ -180,11 +180,11 @@ while tol > tolerance || j <= Nlive
     logZ = logPlus(logZ, logWt);
     H = exp(logWt - logZ)*logLmin + ...
         exp(logZold - logZ)*(Hold + logZold) - logZ;
-    %logw = logw - logt(Nlive);
-    logw = logw - 1/Nlive;
+    %logw = logw - logt(nLive);
+    logw = logw - 1/nLive;
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    if Nmcmc > 0
+    if nMCMC > 0
  
         % do MCMC nested sampling
  
@@ -210,7 +210,7 @@ while tol > tolerance || j <= Nlive
     
         % draw a new sample using mcmc algorithm
         [livepoints(idx, :), logL(idx)] = drawMCMC(livepoints, cholmat, ...
-              logLmin, prior, data, flike, model, Nmcmc, parnames, extraparvals);
+              logLmin, prior, data, flike, model, nMCMC, parnames, extraparvals);
 
     else 
 
@@ -227,7 +227,7 @@ while tol > tolerance || j <= Nlive
         else
             % simply rescale the bounding ellipsoids
             for k=1:K
-                scalefac = max([1 (exp(-(j+1)/Nlive)*ns(k)/Nlive)/VEs(k)]);
+                scalefac = max([1 (exp(-(j+1)/nLive)*ns(k)/nLive)/VEs(k)]);
  
                 % scale bounding matrix and volume
                 if scalefac ~= 1
@@ -258,7 +258,7 @@ while tol > tolerance || j <= Nlive
     end
     
     % work out tolerance for stopping criterion
-    tol = logPlus(logZ, logLmax - (j/Nlive)) - logZ;
+    tol = logPlus(logZ, logLmax - (j/nLive)) - logZ;
     
     % display progress (optional)
     if verbose
@@ -275,7 +275,7 @@ end
 [logL_sorted, isort] = sort(logL);
 livepoints_sorted = livepoints(isort, :);
 
-for i=1:Nlive
+for i=1:nLive
     logZ = logPlus(logZ, logL_sorted(i) + logw);
 end
 
@@ -290,6 +290,6 @@ end
 
 % convert nested samples into posterior samples - nest2pos assumes that the
 % final column in the sample chain is the log likelihood
-post_samples = nest2pos(nest_samples, Nlive);
+post_samples = nest2pos(nest_samples, nLive);
 
 return

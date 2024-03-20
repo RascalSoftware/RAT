@@ -16,7 +16,7 @@ bestFitMean.chi = result.calculationResults.sumChi;
 bestFitMean.data = result.shiftedData;
 
 % 2. Reflectivity and SLD shading
-predInts = refPrctileConfInts(bayesOutputs,problemStruct,problemCells,problemLimits,controlsStruct,result,parConfInts);
+predInts = refPrctileConfInts(bayesOutputs,problemStruct,problemCells,problemLimits,controls,result,confidenceIntervals);
 
 % ---------------------------------
 

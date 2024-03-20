@@ -33,16 +33,15 @@ namespace RAT
 {
   void processBayes(const real_T bayesOutputs_bestPars_data[], const int32_T
                     bayesOutputs_bestPars_size[2], const ::coder::array<real_T,
-                    2U> &bayesOutputs_chain, const f_struct_T *allProblem_f1,
-                    const struct2_T *allProblem_f2, const struct1_T
-                    *allProblem_f3, const cell_11 *allProblem_f4, f_struct_T
-                    *problemStruct, struct5_T *result, i_struct_T *bayesResults);
+                    2U> &bayesOutputs_chain, const f_struct_T *problem_f1, const
+                    struct2_T *problem_f2, const struct1_T *problem_f3, const
+                    cell_11 *problem_f4, f_struct_T *problemStruct, struct5_T
+                    *result, i_struct_T *bayesResults);
   void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestPars,
                     const ::coder::array<real_T, 2U> &bayesOutputs_chain, const
-                    f_struct_T *allProblem_f1, const struct2_T *allProblem_f2,
-                    const struct1_T *allProblem_f3, const cell_11 *allProblem_f4,
-                    f_struct_T *problemStruct, struct5_T *result, i_struct_T
-                    *bayesResults);
+                    f_struct_T *problem_f1, const struct2_T *problem_f2, const
+                    struct1_T *problem_f3, const cell_11 *problem_f4, f_struct_T
+                    *problemStruct, struct5_T *result, i_struct_T *bayesResults);
 }
 
 #endif

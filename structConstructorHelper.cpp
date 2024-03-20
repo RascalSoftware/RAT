@@ -78,22 +78,23 @@ namespace RAT
           }
         }
 
-        s->allLayers.set_size(varargin_12->f1.size(0), varargin_12->f1.size(1));
+        s->resampledLayers.set_size(varargin_12->f1.size(0),
+          varargin_12->f1.size(1));
         loop_ub = varargin_12->f1.size(1);
         for (i = 0; i < loop_ub; i++) {
           b_loop_ub = varargin_12->f1.size(0);
           for (i1 = 0; i1 < b_loop_ub; i1++) {
-            s->allLayers[i1 + s->allLayers.size(0) * i] = varargin_12->f1[i1 +
-              varargin_12->f1.size(0) * i];
+            s->resampledLayers[i1 + s->resampledLayers.size(0) * i] =
+              varargin_12->f1[i1 + varargin_12->f1.size(0) * i];
           }
         }
 
         s->calculationResults = *varargin_14;
         s->contrastParams = *varargin_16;
-        s->bestFitPars.set_size(1, f1.size(1));
+        s->fitParams.set_size(1, f1.size(1));
         loop_ub = f1.size(1);
         for (i = 0; i < loop_ub; i++) {
-          s->bestFitPars[i] = f1[i];
+          s->fitParams[i] = f1[i];
         }
 
         s->fitNames.set_size(varargin_20->f1.size(0));

@@ -267,20 +267,20 @@ namespace RAT
     *problemCells, const struct1_T *problemLimits, const struct2_T *controls,
     struct5_T *result)
   {
-    ::coder::array<cell_wrap_10, 2U> b_domainAllLayers;
     ::coder::array<cell_wrap_10, 2U> b_domainLayerSlds;
+    ::coder::array<cell_wrap_10, 2U> b_domainResampledLayers;
     ::coder::array<cell_wrap_10, 2U> b_domainSldProfiles;
     ::coder::array<cell_wrap_10, 2U> r;
-    ::coder::array<cell_wrap_10, 1U> b_allLayers;
     ::coder::array<cell_wrap_10, 1U> b_layerSlds;
+    ::coder::array<cell_wrap_10, 1U> b_resampledLayers;
     ::coder::array<cell_wrap_10, 1U> b_sldProfiles;
     ::coder::array<cell_wrap_10, 1U> shiftedData;
     ::coder::array<cell_wrap_37, 1U> reflectivity;
     ::coder::array<cell_wrap_37, 1U> simulation;
     ::coder::array<cell_wrap_37, 1U> sldProfiles;
-    ::coder::array<cell_wrap_38, 2U> domainAllLayers;
+    ::coder::array<cell_wrap_38, 2U> domainResampledLayers;
     ::coder::array<cell_wrap_38, 2U> r3;
-    ::coder::array<cell_wrap_38, 1U> allLayers;
+    ::coder::array<cell_wrap_38, 1U> resampledLayers;
     ::coder::array<cell_wrap_39, 2U> domainLayerSlds;
     ::coder::array<cell_wrap_39, 2U> r1;
     ::coder::array<cell_wrap_39, 1U> layerSlds;
@@ -315,23 +315,21 @@ namespace RAT
     //
     //  For compilation, we have to preallocate memory for the output structs
     loop_ub_tmp = static_cast<int32_T>(problemStruct->numberOfContrasts);
-    contrastParams.ssubs.set_size(loop_ub_tmp);
     contrastParams.backgroundParams.set_size(loop_ub_tmp);
     contrastParams.qzshifts.set_size(loop_ub_tmp);
     contrastParams.scalefactors.set_size(loop_ub_tmp);
     contrastParams.bulkIn.set_size(loop_ub_tmp);
     contrastParams.bulkOut.set_size(loop_ub_tmp);
     contrastParams.resolutionParams.set_size(loop_ub_tmp);
-    contrastParams.allSubRough.set_size(loop_ub_tmp);
+    contrastParams.subRoughs.set_size(loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
-      contrastParams.ssubs[i] = 0.0;
       contrastParams.backgroundParams[i] = 0.0;
       contrastParams.qzshifts[i] = 0.0;
       contrastParams.scalefactors[i] = 0.0;
       contrastParams.bulkIn[i] = 0.0;
       contrastParams.bulkOut[i] = 0.0;
       contrastParams.resolutionParams[i] = 0.0;
-      contrastParams.allSubRough[i] = 0.0;
+      contrastParams.subRoughs[i] = 0.0;
     }
 
     result->contrastParams.resample.set_size(loop_ub_tmp, 1);
@@ -341,7 +339,7 @@ namespace RAT
       }
     }
 
-    result->calculationResults.allChis.set_size(loop_ub_tmp);
+    result->calculationResults.chiValues.set_size(loop_ub_tmp);
     result->calculationResults.sumChi = 0.0;
 
     //  We also fill the results arrays to define their type and size.
@@ -352,10 +350,10 @@ namespace RAT
     domainLayerSlds.set_size(loop_ub_tmp, 2);
     sldProfiles.set_size(loop_ub_tmp);
     domainSldProfiles.set_size(loop_ub_tmp, 2);
-    allLayers.set_size(loop_ub_tmp);
-    domainAllLayers.set_size(loop_ub_tmp, 2);
+    resampledLayers.set_size(loop_ub_tmp);
+    domainResampledLayers.set_size(loop_ub_tmp, 2);
     for (int32_T b_i{0}; b_i < loop_ub_tmp; b_i++) {
-      result->calculationResults.allChis[b_i] = 0.0;
+      result->calculationResults.chiValues[b_i] = 0.0;
       reflectivity[b_i].f1.set_size(2, 2);
       reflectivity[b_i].f1[0] = 1.0;
       reflectivity[b_i].f1[1] = 1.0;
@@ -388,9 +386,10 @@ namespace RAT
       domainSldProfiles[b_i + domainSldProfiles.size(0)]
         .f1[domainSldProfiles[b_i + domainSldProfiles.size(0)].f1.size(0) + 1] =
         1.0;
-      allLayers[b_i].f1.set_size(2, 3);
-      domainAllLayers[b_i].f1.set_size(2, 3);
-      domainAllLayers[b_i + domainAllLayers.size(0)].f1.set_size(2, 3);
+      resampledLayers[b_i].f1.set_size(2, 3);
+      domainResampledLayers[b_i].f1.set_size(2, 3);
+      domainResampledLayers[b_i + domainResampledLayers.size(0)].f1.set_size(2,
+        3);
       for (i = 0; i < 3; i++) {
         result->shiftedData[b_i].f1[result->shiftedData[b_i].f1.size(0) * i] =
           1.0;
@@ -404,22 +403,26 @@ namespace RAT
         domainLayerSlds[b_i].f1[domainLayerSlds[b_i].f1.size(0) * i + 1] = 1.0;
         domainLayerSlds[b_i + domainLayerSlds.size(0)].f1[domainLayerSlds[b_i +
           domainLayerSlds.size(0)].f1.size(0) * i + 1] = 1.0;
-        allLayers[b_i].f1[allLayers[b_i].f1.size(0) * i] = 1.0;
-        allLayers[b_i].f1[allLayers[b_i].f1.size(0) * i + 1] = 1.0;
-        domainAllLayers[b_i].f1[domainAllLayers[b_i].f1.size(0) * i] = 1.0;
-        domainAllLayers[b_i + domainAllLayers.size(0)].f1[domainAllLayers[b_i +
-          domainAllLayers.size(0)].f1.size(0) * i] = 1.0;
-        domainAllLayers[b_i].f1[domainAllLayers[b_i].f1.size(0) * i + 1] = 1.0;
-        domainAllLayers[b_i + domainAllLayers.size(0)].f1[domainAllLayers[b_i +
-          domainAllLayers.size(0)].f1.size(0) * i + 1] = 1.0;
+        resampledLayers[b_i].f1[resampledLayers[b_i].f1.size(0) * i] = 1.0;
+        resampledLayers[b_i].f1[resampledLayers[b_i].f1.size(0) * i + 1] = 1.0;
+        domainResampledLayers[b_i].f1[domainResampledLayers[b_i].f1.size(0) * i]
+          = 1.0;
+        domainResampledLayers[b_i + domainResampledLayers.size(0)]
+          .f1[domainResampledLayers[b_i + domainResampledLayers.size(0)].f1.size
+          (0) * i] = 1.0;
+        domainResampledLayers[b_i].f1[domainResampledLayers[b_i].f1.size(0) * i
+          + 1] = 1.0;
+        domainResampledLayers[b_i + domainResampledLayers.size(0)]
+          .f1[domainResampledLayers[b_i + domainResampledLayers.size(0)].f1.size
+          (0) * i + 1] = 1.0;
       }
     }
 
     //  Decide which target function we are calling and call the relevant routines
-    if (coder::internal::g_strcmp(problemStruct->TF.data, problemStruct->TF.size))
+    if (coder::internal::h_strcmp(problemStruct->TF.data, problemStruct->TF.size))
     {
       loop_ub_tmp = 0;
-    } else if (coder::internal::h_strcmp(problemStruct->TF.data,
+    } else if (coder::internal::i_strcmp(problemStruct->TF.data,
                 problemStruct->TF.size)) {
       loop_ub_tmp = 1;
     } else {
@@ -430,7 +433,7 @@ namespace RAT
      case 0:
       nonPolarisedTF::b_reflectivityCalculation(problemStruct, problemCells,
         controls, &contrastParams, &result->calculationResults, b_reflectivity,
-        b_simulation, shiftedData, b_layerSlds, b_sldProfiles, b_allLayers);
+        b_simulation, shiftedData, b_layerSlds, b_sldProfiles, b_resampledLayers);
       result->contrastParams.resample.set_size(1, contrastParams.resample.size(1));
       loop_ub = contrastParams.resample.size(1);
       for (i = 0; i < loop_ub; i++) {
@@ -443,7 +446,7 @@ namespace RAT
       cast(shiftedData, result->shiftedData);
       cast(b_layerSlds, layerSlds);
       cast(b_sldProfiles, sldProfiles);
-      cast(b_allLayers, allLayers);
+      cast(b_resampledLayers, resampledLayers);
 
       // case coderEnums.calculationTypes.OilWater
       // contrastParams = oilWaterTFReflectivityCalculation(problemStruct,problemCells,controls);
@@ -455,13 +458,7 @@ namespace RAT
       domainsTF::b_reflectivityCalculation(problemStruct, problemCells, controls,
         &b_contrastParams, &result->calculationResults, b_reflectivity,
         b_simulation, shiftedData, b_domainLayerSlds, b_domainSldProfiles,
-        b_domainAllLayers);
-      contrastParams.ssubs.set_size(b_contrastParams.ssubs.size(0));
-      loop_ub = b_contrastParams.ssubs.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams.ssubs[i] = b_contrastParams.ssubs[i];
-      }
-
+        b_domainResampledLayers);
       contrastParams.backgroundParams.set_size
         (b_contrastParams.backgroundParams.size(0));
       loop_ub = b_contrastParams.backgroundParams.size(0);
@@ -500,10 +497,10 @@ namespace RAT
         contrastParams.resolutionParams[i] = b_contrastParams.resolutionParams[i];
       }
 
-      contrastParams.allSubRough.set_size(b_contrastParams.allSubRough.size(0));
-      loop_ub = b_contrastParams.allSubRough.size(0);
+      contrastParams.subRoughs.set_size(b_contrastParams.subRoughs.size(0));
+      loop_ub = b_contrastParams.subRoughs.size(0);
       for (i = 0; i < loop_ub; i++) {
-        contrastParams.allSubRough[i] = b_contrastParams.allSubRough[i];
+        contrastParams.subRoughs[i] = b_contrastParams.subRoughs[i];
       }
 
       contrastParams.resample.set_size(1, b_contrastParams.resample.size(1));
@@ -526,8 +523,8 @@ namespace RAT
       domainLayerSlds.set_size(r1.size(0), 2);
       cast(b_domainSldProfiles, r2);
       domainSldProfiles.set_size(r2.size(0), 2);
-      cast(b_domainAllLayers, r3);
-      domainAllLayers.set_size(r3.size(0), 2);
+      cast(b_domainResampledLayers, r3);
+      domainResampledLayers.set_size(r3.size(0), 2);
       loop_ub = r1.size(0);
       b_loop_ub = r2.size(0);
       loop_ub_tmp = r3.size(0);
@@ -543,8 +540,8 @@ namespace RAT
         }
 
         for (i1 = 0; i1 < loop_ub_tmp; i1++) {
-          domainAllLayers[i1 + domainAllLayers.size(0) * i] = r3[i1 + r3.size(0)
-            * i];
+          domainResampledLayers[i1 + domainResampledLayers.size(0) * i] = r3[i1
+            + r3.size(0) * i];
         }
       }
 
@@ -558,7 +555,7 @@ namespace RAT
     cast(simulation, result->simulation);
 
     //  The size of this array now varies depending on TF
-    if (coder::internal::h_strcmp(problemStruct->TF.data, problemStruct->TF.size))
+    if (coder::internal::i_strcmp(problemStruct->TF.data, problemStruct->TF.size))
     {
       i = 0;
     } else {
@@ -589,12 +586,12 @@ namespace RAT
         }
       }
 
-      result->allLayers.set_size(domainAllLayers.size(0), 2);
+      result->resampledLayers.set_size(domainResampledLayers.size(0), 2);
       for (i = 0; i < 2; i++) {
-        loop_ub = domainAllLayers.size(0);
+        loop_ub = domainResampledLayers.size(0);
         for (i1 = 0; i1 < loop_ub; i1++) {
-          result->allLayers[i1 + result->allLayers.size(0) * i] =
-            domainAllLayers[i1 + domainAllLayers.size(0) * i];
+          result->resampledLayers[i1 + result->resampledLayers.size(0) * i] =
+            domainResampledLayers[i1 + domainResampledLayers.size(0) * i];
         }
       }
       break;
@@ -627,14 +624,15 @@ namespace RAT
         }
       }
 
-      result->allLayers.set_size(allLayers.size(0), 1);
-      for (i = 0; i < allLayers.size(0); i++) {
-        result->allLayers[i].f1.set_size(allLayers[i].f1.size(0), 3);
-        loop_ub = allLayers[i].f1.size(0);
+      result->resampledLayers.set_size(resampledLayers.size(0), 1);
+      for (i = 0; i < resampledLayers.size(0); i++) {
+        result->resampledLayers[i].f1.set_size(resampledLayers[i].f1.size(0), 3);
+        loop_ub = resampledLayers[i].f1.size(0);
         for (i1 = 0; i1 < 3; i1++) {
           for (loop_ub_tmp = 0; loop_ub_tmp < loop_ub; loop_ub_tmp++) {
-            result->allLayers[i].f1[loop_ub_tmp + result->allLayers[i].f1.size(0)
-              * i1] = allLayers[i].f1[loop_ub_tmp + allLayers[i].f1.size(0) * i1];
+            result->resampledLayers[i].f1[loop_ub_tmp + result->
+              resampledLayers[i].f1.size(0) * i1] = resampledLayers[i]
+              .f1[loop_ub_tmp + resampledLayers[i].f1.size(0) * i1];
           }
         }
       }
@@ -647,12 +645,6 @@ namespace RAT
                problemCells->f10, problemCells->f11, problemCells->f12,
                problemCells->f13, problemCells->f20, problemLimits,
                &controls->checks, result->fitNames);
-    result->contrastParams.ssubs.set_size(contrastParams.ssubs.size(0));
-    loop_ub = contrastParams.ssubs.size(0);
-    for (i = 0; i < loop_ub; i++) {
-      result->contrastParams.ssubs[i] = contrastParams.ssubs[i];
-    }
-
     result->contrastParams.backgroundParams.set_size
       (contrastParams.backgroundParams.size(0));
     loop_ub = contrastParams.backgroundParams.size(0);
@@ -694,20 +686,19 @@ namespace RAT
         contrastParams.resolutionParams[i];
     }
 
-    result->contrastParams.allSubRough.set_size(contrastParams.allSubRough.size
-      (0));
-    loop_ub = contrastParams.allSubRough.size(0);
+    result->contrastParams.subRoughs.set_size(contrastParams.subRoughs.size(0));
+    loop_ub = contrastParams.subRoughs.size(0);
     for (i = 0; i < loop_ub; i++) {
-      result->contrastParams.allSubRough[i] = contrastParams.allSubRough[i];
+      result->contrastParams.subRoughs[i] = contrastParams.subRoughs[i];
     }
 
-    result->bestFitPars.set_size(problemStruct->fitParams.size(0),
+    result->fitParams.set_size(problemStruct->fitParams.size(0),
       problemStruct->fitParams.size(1));
     loop_ub = problemStruct->fitParams.size(1);
     for (i = 0; i < loop_ub; i++) {
       b_loop_ub = problemStruct->fitParams.size(0);
       for (i1 = 0; i1 < b_loop_ub; i1++) {
-        result->bestFitPars[i1 + result->bestFitPars.size(0) * i] =
+        result->fitParams[i1 + result->fitParams.size(0) * i] =
           problemStruct->fitParams[i1 + problemStruct->fitParams.size(0) * i];
       }
     }

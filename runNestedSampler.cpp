@@ -104,7 +104,7 @@ namespace RAT
     getFittedPriors(fitNames, inPriors->priorNames, inPriors->priorValues,
                     problemStruct->fitLimits, r);
     nestedSampler(problemStruct, controls, problemLimits, problemCells,
-                  controls->Nlive, controls->Nmcmc, controls->nsTolerance, r,
+                  controls->nLive, controls->nMCMC, controls->nsTolerance, r,
                   &logZ, bayesResults->bayesRes.nestOutput.nestSamples,
                   bayesResults->bayesRes.nestOutput.postSamples, &H);
 

@@ -55,16 +55,16 @@ namespace RAT
     {
       void processCustomFunction(const ::coder::array<real_T, 2U>
         &contrastBulkIns, const ::coder::array<real_T, 2U> &contrastBulkOuts,
-        const ::coder::array<real_T, 2U> &bulkIn, const ::coder::array<real_T,
-        2U> &bulkOut, const ::coder::array<real_T, 2U> &cCustFiles, real_T
-        numberOfContrasts, const ::coder::array<cell_wrap_1, 2U> &customFiles,
-        const ::coder::array<real_T, 2U> &params, ::coder::array<cell_wrap_10,
-        2U> &allSLDs, ::coder::array<real_T, 1U> &allRoughs)
+        const ::coder::array<real_T, 2U> &bulkInArray, const ::coder::array<
+        real_T, 2U> &bulkOutArray, const ::coder::array<real_T, 2U> &cCustFiles,
+        real_T numberOfContrasts, const ::coder::array<cell_wrap_1, 2U>
+        &customFiles, const ::coder::array<real_T, 2U> &params, ::coder::array<
+        cell_wrap_10, 2U> &slds, ::coder::array<real_T, 1U> &subRoughs)
       {
-        ::coder::array<cell_wrap_52, 2U> tempAllSLDs;
-        ::coder::array<real_T, 2U> allBulkOuts;
-        ::coder::array<real_T, 2U> b_allBulkOuts;
+        ::coder::array<cell_wrap_52, 2U> tempSLDs;
+        ::coder::array<real_T, 2U> b_bulkOuts;
         ::coder::array<real_T, 2U> b_params;
+        ::coder::array<real_T, 2U> bulkOuts;
         ::coder::array<real_T, 2U> r;
         real_T a__2;
         int32_T iv[2];
@@ -76,17 +76,17 @@ namespace RAT
         //  contrasts.
         //  Do some pre-definitions to keep the compiler happy...
         i = static_cast<int32_T>(numberOfContrasts);
-        allRoughs.set_size(i);
+        subRoughs.set_size(i);
 
         //  3 columns to allow for potential imaginary curve
-        allBulkOuts.set_size(1, contrastBulkOuts.size(1));
+        bulkOuts.set_size(1, contrastBulkOuts.size(1));
         loop_ub = contrastBulkOuts.size(1);
         for (i1 = 0; i1 < loop_ub; i1++) {
-          allBulkOuts[i1] = bulkOut[static_cast<int32_T>(contrastBulkOuts[i1]) -
-            1];
+          bulkOuts[i1] = bulkOutArray[static_cast<int32_T>(contrastBulkOuts[i1])
+            - 1];
         }
 
-        tempAllSLDs.set_size(i, 2);
+        tempSLDs.set_size(i, 2);
         for (int32_T b_i{0}; b_i < i; b_i++) {
           creal_T x;
           real_T d;
@@ -110,10 +110,10 @@ namespace RAT
               b_params[i1] = params[i1];
             }
 
-            b_allBulkOuts.set_size(1, allBulkOuts.size(1));
-            loop_ub = allBulkOuts.size(1) - 1;
+            b_bulkOuts.set_size(1, bulkOuts.size(1));
+            loop_ub = bulkOuts.size(1) - 1;
             for (i1 = 0; i1 <= loop_ub; i1++) {
-              b_allBulkOuts[i1] = allBulkOuts[i1];
+              b_bulkOuts[i1] = bulkOuts[i1];
             }
 
             iv[0] = (*(int32_T (*)[2])((::coder::array<char_T, 2U> *)
@@ -122,16 +122,16 @@ namespace RAT
                       &customFiles[static_cast<int32_T>(d) - 1].f1)->size())[1];
             b_callCppFunction((const char_T *)((::coder::array<char_T, 2U> *)
               &customFiles[static_cast<int32_T>(d) - 1].f1)->data(), iv,
-                              b_params, bulkIn[static_cast<int32_T>
-                              (contrastBulkIns[b_i]) - 1], b_allBulkOuts, (
-              static_cast<real_T>(b_i) + 1.0) - 1.0, r, &allRoughs[b_i]);
+                              b_params, bulkInArray[static_cast<int32_T>
+                              (contrastBulkIns[b_i]) - 1], b_bulkOuts, (
+              static_cast<real_T>(b_i) + 1.0) - 1.0, r, &subRoughs[b_i]);
             loop_ub = r.size(1);
-            tempAllSLDs[b_i].f1.set_size(r.size(0), r.size(1));
+            tempSLDs[b_i].f1.set_size(r.size(0), r.size(1));
             for (i1 = 0; i1 < loop_ub; i1++) {
               b_loop_ub = r.size(0);
               for (i2 = 0; i2 < b_loop_ub; i2++) {
-                tempAllSLDs[b_i].f1[i2 + tempAllSLDs[b_i].f1.size(0) * i1] =
-                  r[i2 + r.size(0) * i1];
+                tempSLDs[b_i].f1[i2 + tempSLDs[b_i].f1.size(0) * i1] = r[i2 +
+                  r.size(0) * i1];
               }
             }
 
@@ -141,10 +141,10 @@ namespace RAT
               b_params[i1] = params[i1];
             }
 
-            b_allBulkOuts.set_size(1, allBulkOuts.size(1));
-            loop_ub = allBulkOuts.size(1) - 1;
+            b_bulkOuts.set_size(1, bulkOuts.size(1));
+            loop_ub = bulkOuts.size(1) - 1;
             for (i1 = 0; i1 <= loop_ub; i1++) {
-              b_allBulkOuts[i1] = allBulkOuts[i1];
+              b_bulkOuts[i1] = bulkOuts[i1];
             }
 
             iv[0] = (*(int32_T (*)[2])((::coder::array<char_T, 2U> *)
@@ -155,23 +155,22 @@ namespace RAT
                      ->size())[1];
             c_callCppFunction((const char_T *)((::coder::array<char_T, 2U> *)
               &customFiles[static_cast<int32_T>(cCustFiles[b_i]) - 1].f1)->data(),
-                              iv, b_params, bulkIn[static_cast<int32_T>
-                              (contrastBulkIns[b_i]) - 1], b_allBulkOuts, (
+                              iv, b_params, bulkInArray[static_cast<int32_T>
+                              (contrastBulkIns[b_i]) - 1], b_bulkOuts, (
               static_cast<real_T>(b_i) + 1.0) - 1.0, r, &a__2);
             loop_ub = r.size(1);
-            tempAllSLDs[b_i + tempAllSLDs.size(0)].f1.set_size(r.size(0), r.size
-              (1));
+            tempSLDs[b_i + tempSLDs.size(0)].f1.set_size(r.size(0), r.size(1));
             for (i1 = 0; i1 < loop_ub; i1++) {
               b_loop_ub = r.size(0);
               for (i2 = 0; i2 < b_loop_ub; i2++) {
-                tempAllSLDs[b_i + tempAllSLDs.size(0)].f1[i2 + tempAllSLDs[b_i +
-                  tempAllSLDs.size(0)].f1.size(0) * i1] = r[i2 + r.size(0) * i1];
+                tempSLDs[b_i + tempSLDs.size(0)].f1[i2 + tempSLDs[b_i +
+                  tempSLDs.size(0)].f1.size(0) * i1] = r[i2 + r.size(0) * i1];
               }
             }
           }
         }
 
-        cast(tempAllSLDs, allSLDs);
+        cast(tempSLDs, slds);
       }
     }
   }

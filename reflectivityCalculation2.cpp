@@ -32,8 +32,8 @@ namespace RAT
       *contrastParams, struct6_T *calculationResults, ::coder::array<cell_wrap_8,
       1U> &reflectivity, ::coder::array<cell_wrap_8, 1U> &simulation, ::coder::
       array<cell_wrap_10, 1U> &shiftedData, ::coder::array<cell_wrap_10, 2U>
-      &layerSlds, ::coder::array<cell_wrap_10, 2U> &domainSldProfiles, ::coder::
-      array<cell_wrap_10, 2U> &allLayers)
+      &layerSlds, ::coder::array<cell_wrap_10, 2U> &sldProfiles, ::coder::array<
+      cell_wrap_10, 2U> &resampledLayers)
     {
       real_T y;
       int32_T switch_expression_size[2];
@@ -67,14 +67,12 @@ namespace RAT
       //  Pre-allocation - It's necessary to pre-define the types for all the
       //  arrays for compilation, so do this in this block.
       loop_ub_tmp = static_cast<int32_T>(problemStruct->numberOfContrasts);
-      contrastParams->ssubs.set_size(loop_ub_tmp);
       contrastParams->backgroundParams.set_size(loop_ub_tmp);
       contrastParams->qzshifts.set_size(loop_ub_tmp);
       contrastParams->scalefactors.set_size(loop_ub_tmp);
       contrastParams->bulkIn.set_size(loop_ub_tmp);
       contrastParams->bulkOut.set_size(loop_ub_tmp);
       for (i = 0; i < loop_ub_tmp; i++) {
-        contrastParams->ssubs[i] = 0.0;
         contrastParams->backgroundParams[i] = 0.0;
         contrastParams->qzshifts[i] = 0.0;
         contrastParams->scalefactors[i] = 0.0;
@@ -82,13 +80,13 @@ namespace RAT
         contrastParams->bulkOut[i] = 0.0;
       }
 
-      calculationResults->allChis.set_size(loop_ub_tmp);
+      calculationResults->chiValues.set_size(loop_ub_tmp);
       for (i = 0; i < loop_ub_tmp; i++) {
-        calculationResults->allChis[i] = 0.0;
+        calculationResults->chiValues[i] = 0.0;
       }
 
       contrastParams->resolutionParams.set_size(loop_ub_tmp);
-      contrastParams->allSubRough.set_size(loop_ub_tmp);
+      contrastParams->subRoughs.set_size(loop_ub_tmp);
 
       //  Pre-allocate the output arrays.. this is necessary because otherwise the
       //  compiler complains with 'Output argument <....> is not assigned on some
@@ -97,11 +95,11 @@ namespace RAT
       simulation.set_size(loop_ub_tmp);
       shiftedData.set_size(loop_ub_tmp);
       layerSlds.set_size(loop_ub_tmp, 2);
-      domainSldProfiles.set_size(loop_ub_tmp, 2);
-      allLayers.set_size(loop_ub_tmp, 2);
+      sldProfiles.set_size(loop_ub_tmp, 2);
+      resampledLayers.set_size(loop_ub_tmp, 2);
       for (int32_T b_i{0}; b_i < loop_ub_tmp; b_i++) {
         contrastParams->resolutionParams[b_i] = 0.0;
-        contrastParams->allSubRough[b_i] = 0.0;
+        contrastParams->subRoughs[b_i] = 0.0;
         reflectivity[b_i].f1.set_size(2, 2);
         reflectivity[b_i].f1[0] = 1.0;
         reflectivity[b_i].f1[1] = 1.0;
@@ -115,22 +113,20 @@ namespace RAT
         shiftedData[b_i].f1.set_size(2, 3);
         layerSlds[b_i].f1.set_size(2, 3);
         layerSlds[b_i + layerSlds.size(0)].f1.set_size(2, 3);
-        domainSldProfiles[b_i].f1.set_size(2, 2);
-        domainSldProfiles[b_i + domainSldProfiles.size(0)].f1.set_size(2, 2);
-        domainSldProfiles[b_i].f1[0] = 1.0;
-        domainSldProfiles[b_i + domainSldProfiles.size(0)].f1[0] = 1.0;
-        domainSldProfiles[b_i].f1[1] = 1.0;
-        domainSldProfiles[b_i + domainSldProfiles.size(0)].f1[1] = 1.0;
-        domainSldProfiles[b_i].f1[domainSldProfiles[b_i].f1.size(0)] = 1.0;
-        domainSldProfiles[b_i + domainSldProfiles.size(0)]
-          .f1[domainSldProfiles[b_i + domainSldProfiles.size(0)].f1.size(0)] =
-          1.0;
-        domainSldProfiles[b_i].f1[domainSldProfiles[b_i].f1.size(0) + 1] = 1.0;
-        domainSldProfiles[b_i + domainSldProfiles.size(0)]
-          .f1[domainSldProfiles[b_i + domainSldProfiles.size(0)].f1.size(0) + 1]
-          = 1.0;
-        allLayers[b_i].f1.set_size(2, 3);
-        allLayers[b_i + allLayers.size(0)].f1.set_size(2, 3);
+        sldProfiles[b_i].f1.set_size(2, 2);
+        sldProfiles[b_i + sldProfiles.size(0)].f1.set_size(2, 2);
+        sldProfiles[b_i].f1[0] = 1.0;
+        sldProfiles[b_i + sldProfiles.size(0)].f1[0] = 1.0;
+        sldProfiles[b_i].f1[1] = 1.0;
+        sldProfiles[b_i + sldProfiles.size(0)].f1[1] = 1.0;
+        sldProfiles[b_i].f1[sldProfiles[b_i].f1.size(0)] = 1.0;
+        sldProfiles[b_i + sldProfiles.size(0)].f1[sldProfiles[b_i +
+          sldProfiles.size(0)].f1.size(0)] = 1.0;
+        sldProfiles[b_i].f1[sldProfiles[b_i].f1.size(0) + 1] = 1.0;
+        sldProfiles[b_i + sldProfiles.size(0)].f1[sldProfiles[b_i +
+          sldProfiles.size(0)].f1.size(0) + 1] = 1.0;
+        resampledLayers[b_i].f1.set_size(2, 3);
+        resampledLayers[b_i + resampledLayers.size(0)].f1.set_size(2, 3);
         for (i = 0; i < 3; i++) {
           shiftedData[b_i].f1[shiftedData[b_i].f1.size(0) * i] = 1.0;
           shiftedData[b_i].f1[shiftedData[b_i].f1.size(0) * i + 1] = 1.0;
@@ -140,24 +136,24 @@ namespace RAT
           layerSlds[b_i].f1[layerSlds[b_i].f1.size(0) * i + 1] = 1.0;
           layerSlds[b_i + layerSlds.size(0)].f1[layerSlds[b_i + layerSlds.size(0)]
             .f1.size(0) * i + 1] = 1.0;
-          allLayers[b_i].f1[allLayers[b_i].f1.size(0) * i] = 1.0;
-          allLayers[b_i + allLayers.size(0)].f1[allLayers[b_i + allLayers.size(0)]
-            .f1.size(0) * i] = 1.0;
-          allLayers[b_i].f1[allLayers[b_i].f1.size(0) * i + 1] = 1.0;
-          allLayers[b_i + allLayers.size(0)].f1[allLayers[b_i + allLayers.size(0)]
-            .f1.size(0) * i + 1] = 1.0;
+          resampledLayers[b_i].f1[resampledLayers[b_i].f1.size(0) * i] = 1.0;
+          resampledLayers[b_i + resampledLayers.size(0)].f1[resampledLayers[b_i
+            + resampledLayers.size(0)].f1.size(0) * i] = 1.0;
+          resampledLayers[b_i].f1[resampledLayers[b_i].f1.size(0) * i + 1] = 1.0;
+          resampledLayers[b_i + resampledLayers.size(0)].f1[resampledLayers[b_i
+            + resampledLayers.size(0)].f1.size(0) * i + 1] = 1.0;
         }
       }
 
       coder::lower(problemStruct->modelType.data, problemStruct->modelType.size,
                    switch_expression_data, switch_expression_size);
-      if (coder::internal::i_strcmp(switch_expression_data,
+      if (coder::internal::j_strcmp(switch_expression_data,
            switch_expression_size)) {
         loop_ub_tmp = 0;
-      } else if (coder::internal::j_strcmp(switch_expression_data,
+      } else if (coder::internal::k_strcmp(switch_expression_data,
                   switch_expression_size)) {
         loop_ub_tmp = 1;
-      } else if (coder::internal::k_strcmp(switch_expression_data,
+      } else if (coder::internal::l_strcmp(switch_expression_data,
                   switch_expression_size)) {
         loop_ub_tmp = 2;
       } else {
@@ -167,35 +163,34 @@ namespace RAT
       switch (loop_ub_tmp) {
        case 0:
         standardLayers(problemStruct, problemCells, controls,
-                       contrastParams->ssubs, contrastParams->backgroundParams,
+                       contrastParams->backgroundParams,
                        contrastParams->qzshifts, contrastParams->scalefactors,
                        contrastParams->bulkIn, contrastParams->bulkOut,
                        contrastParams->resolutionParams,
-                       calculationResults->allChis, reflectivity, simulation,
-                       shiftedData, layerSlds, domainSldProfiles, allLayers,
-                       contrastParams->allSubRough);
+                       calculationResults->chiValues, reflectivity, simulation,
+                       shiftedData, layerSlds, sldProfiles, resampledLayers,
+                       contrastParams->subRoughs);
         break;
 
        case 1:
         b_customLayers(problemStruct, problemCells, controls,
-                       contrastParams->ssubs, contrastParams->backgroundParams,
+                       contrastParams->backgroundParams,
                        contrastParams->qzshifts, contrastParams->scalefactors,
                        contrastParams->bulkIn, contrastParams->bulkOut,
                        contrastParams->resolutionParams,
-                       calculationResults->allChis, reflectivity, simulation,
-                       shiftedData, layerSlds, domainSldProfiles, allLayers,
-                       contrastParams->allSubRough);
+                       calculationResults->chiValues, reflectivity, simulation,
+                       shiftedData, layerSlds, sldProfiles, resampledLayers,
+                       contrastParams->subRoughs);
         break;
 
        case 2:
-        //  Custom SLD profile with user defined model file
-        b_customXY(problemStruct, problemCells, controls, contrastParams->ssubs,
+        b_customXY(problemStruct, problemCells, controls,
                    contrastParams->backgroundParams, contrastParams->qzshifts,
                    contrastParams->scalefactors, contrastParams->bulkIn,
                    contrastParams->bulkOut, contrastParams->resolutionParams,
-                   calculationResults->allChis, reflectivity, simulation,
-                   shiftedData, layerSlds, domainSldProfiles, allLayers,
-                   contrastParams->allSubRough);
+                   calculationResults->chiValues, reflectivity, simulation,
+                   shiftedData, layerSlds, sldProfiles, resampledLayers,
+                   contrastParams->subRoughs);
         break;
       }
 
@@ -206,11 +201,11 @@ namespace RAT
         contrastParams->resample[i] = problemStruct->resample[i];
       }
 
-      if (calculationResults->allChis.size(0) == 0) {
+      if (calculationResults->chiValues.size(0) == 0) {
         y = 0.0;
       } else {
-        y = coder::nestedIter(calculationResults->allChis,
-                              calculationResults->allChis.size(0));
+        y = coder::nestedIter(calculationResults->chiValues,
+                              calculationResults->chiValues.size(0));
       }
 
       calculationResults->sumChi = y;

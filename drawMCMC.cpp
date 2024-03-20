@@ -32,7 +32,7 @@ namespace RAT
                 array<real_T, 2U> &cholmat, real_T logLmin, const ::coder::array<
                 real_T, 2U> &prior, const f_struct_T *data_f1, const struct2_T
                 *data_f2, const struct1_T *data_f3, const cell_11 *data_f4,
-                real_T Nmcmc, ::coder::array<real_T, 2U> &sample, real_T *logL)
+                real_T nMCMC, ::coder::array<real_T, 2U> &sample, real_T *logL)
   {
     ::coder::array<real_T, 2U> sampletmp;
     ::coder::array<real_T, 1U> gasdevs;
@@ -40,16 +40,16 @@ namespace RAT
     real_T a[2];
     real_T Ntimes;
     real_T acc;
-    int32_T Nlive;
     int32_T Npars;
     int32_T i;
     int32_T loop_ub;
+    int32_T nLive;
 
     //  This function will draw a multi-dimensional sample from the prior volume
     //  for use in the nested sampling algorithm. The new point will have a
     //  likelihood greater than the value logLmin. The new point will be found by
     //  evolving a random multi-dimensional sample from within the sample array,
-    //  livepoints, using an MCMC with Nmcmc iterations. The MCMC will use a
+    //  livepoints, using an MCMC with nMCMC iterations. The MCMC will use a
     //  Students-t (with N=2 degrees of freedom) proposal distribution based on
     //  the Cholesky decomposed covariance matrix of the array, cholmat. 10% of
     //  the samples will actually be drawn using differential evolution by taking
@@ -60,14 +60,14 @@ namespace RAT
     *logL = logLmin;
 
     //  useful constant
-    Nlive = livepoints.size(0);
+    nLive = livepoints.size(0);
     Npars = livepoints.size(1) - 1;
 
     //  degrees of freedom of Students't distribution
     //  initialize counters
     Ntimes = 1.0;
     loop_ub = livepoints.size(1);
-    i = static_cast<int32_T>(Nmcmc);
+    i = static_cast<int32_T>(nMCMC);
     real_T sampidx;
     int32_T exitg1;
     do {
@@ -80,7 +80,7 @@ namespace RAT
       acc = 0.0;
 
       //  get random point from live point array
-      sampidx = coder::b_rand() * static_cast<real_T>(Nlive);
+      sampidx = coder::b_rand() * static_cast<real_T>(nLive);
       sampidx = std::ceil(sampidx);
       sample.set_size(1, loop_ub);
       for (i1 = 0; i1 < loop_ub; i1++) {
@@ -140,11 +140,11 @@ namespace RAT
           //  use differential evolution
           //  draw two random (different points) A and B and add (B-A) to
           //  the current sample
-          idx1 = coder::b_rand() * static_cast<real_T>(Nlive);
+          idx1 = coder::b_rand() * static_cast<real_T>(nLive);
           idx1 = std::ceil(idx1);
           idx2 = idx1;
           while (idx2 == idx1) {
-            idx2 = coder::b_rand() * static_cast<real_T>(Nlive);
+            idx2 = coder::b_rand() * static_cast<real_T>(nLive);
             idx2 = std::ceil(idx2);
           }
 
@@ -246,7 +246,7 @@ namespace RAT
 
     //  print out acceptance ratio
     if (verbose != 0.0) {
-      printf("Acceptance ratio: %1.4f, \n\n", acc / (Ntimes * Nmcmc));
+      printf("Acceptance ratio: %1.4f, \n\n", acc / (Ntimes * nMCMC));
       fflush(stdout);
     }
   }

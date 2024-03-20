@@ -29,14 +29,13 @@ namespace RAT
 
   struct b_struct_T
   {
-    ::coder::array<real_T, 1U> ssubs;
     ::coder::array<real_T, 1U> backgroundParams;
     ::coder::array<real_T, 1U> qzshifts;
     ::coder::array<real_T, 1U> scalefactors;
     ::coder::array<real_T, 1U> bulkIn;
     ::coder::array<real_T, 1U> bulkOut;
     ::coder::array<real_T, 1U> resolutionParams;
-    ::coder::array<real_T, 1U> allSubRough;
+    ::coder::array<real_T, 1U> subRoughs;
     ::coder::array<real_T, 2U> resample;
   };
 
@@ -72,10 +71,10 @@ namespace RAT
     ::coder::array<cell_wrap_38, 1U> shiftedData;
     ::coder::array<cell_wrap_10, 2U> layerSlds;
     ::coder::array<cell_wrap_10, 2U> sldProfiles;
-    ::coder::array<cell_wrap_38, 2U> allLayers;
+    ::coder::array<cell_wrap_38, 2U> resampledLayers;
     struct6_T calculationResults;
     b_struct_T contrastParams;
-    ::coder::array<real_T, 2U> bestFitPars;
+    ::coder::array<real_T, 2U> fitParams;
     ::coder::array<cell_wrap_1, 1U> fitNames;
   };
 

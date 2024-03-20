@@ -24,10 +24,10 @@ namespace RAT
 {
   void processBayes(const real_T bayesOutputs_bestPars_data[], const int32_T
                     bayesOutputs_bestPars_size[2], const ::coder::array<real_T,
-                    2U> &bayesOutputs_chain, const f_struct_T *allProblem_f1,
-                    const struct2_T *allProblem_f2, const struct1_T
-                    *allProblem_f3, const cell_11 *allProblem_f4, f_struct_T
-                    *problemStruct, struct5_T *result, i_struct_T *bayesResults)
+                    2U> &bayesOutputs_chain, const f_struct_T *problem_f1, const
+                    struct2_T *problem_f2, const struct1_T *problem_f3, const
+                    cell_11 *problem_f4, f_struct_T *problemStruct, struct5_T
+                    *result, i_struct_T *bayesResults)
   {
     static f_struct_T b_problemStruct;
     static struct2_T controlsStruct;
@@ -35,8 +35,8 @@ namespace RAT
     int32_T loop_ub;
 
     // problem = {problemStruct ; controls ; problemLimits ; problemCells};
-    *problemStruct = *allProblem_f1;
-    controlsStruct = *allProblem_f2;
+    *problemStruct = *problem_f1;
+    controlsStruct = *problem_f2;
 
     //  Need to impose that we calculate the SLD..
     controlsStruct.calcSldDuringFit = true;
@@ -63,7 +63,7 @@ namespace RAT
 
     // iterShortest(output.chain,length(fitNames),[],0.95);
     //  Calculate 'mean' best fit curves
-    reflectivityCalculation(problemStruct, allProblem_f4, allProblem_f3,
+    reflectivityCalculation(problemStruct, problem_f4, problem_f3,
       &controlsStruct, result);
     bayesResults->bestFitsMean.ref.set_size(result->reflectivity.size(0));
     loop_ub = result->reflectivity.size(0);
@@ -92,8 +92,8 @@ namespace RAT
 
     //  2. Reflectivity and SLD shading
     b_problemStruct = *problemStruct;
-    refPrctileConfInts(bayesOutputs_chain, &b_problemStruct, allProblem_f4,
-                       allProblem_f3, &controlsStruct, &bayesResults->predlims);
+    refPrctileConfInts(bayesOutputs_chain, &b_problemStruct, problem_f4,
+                       problem_f3, &controlsStruct, &bayesResults->predlims);
 
     //  ---------------------------------
     //  bayesResults.chain = bayesOutputs.chain;
@@ -108,10 +108,9 @@ namespace RAT
 
   void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestPars,
                     const ::coder::array<real_T, 2U> &bayesOutputs_chain, const
-                    f_struct_T *allProblem_f1, const struct2_T *allProblem_f2,
-                    const struct1_T *allProblem_f3, const cell_11 *allProblem_f4,
-                    f_struct_T *problemStruct, struct5_T *result, i_struct_T
-                    *bayesResults)
+                    f_struct_T *problem_f1, const struct2_T *problem_f2, const
+                    struct1_T *problem_f3, const cell_11 *problem_f4, f_struct_T
+                    *problemStruct, struct5_T *result, i_struct_T *bayesResults)
   {
     static struct2_T controlsStruct;
     f_struct_T b_problemStruct;
@@ -119,8 +118,8 @@ namespace RAT
     int32_T loop_ub;
 
     // problem = {problemStruct ; controls ; problemLimits ; problemCells};
-    *problemStruct = *allProblem_f1;
-    controlsStruct = *allProblem_f2;
+    *problemStruct = *problem_f1;
+    controlsStruct = *problem_f2;
 
     //  Need to impose that we calculate the SLD..
     controlsStruct.calcSldDuringFit = true;
@@ -147,7 +146,7 @@ namespace RAT
 
     // iterShortest(output.chain,length(fitNames),[],0.95);
     //  Calculate 'mean' best fit curves
-    reflectivityCalculation(problemStruct, allProblem_f4, allProblem_f3,
+    reflectivityCalculation(problemStruct, problem_f4, problem_f3,
       &controlsStruct, result);
     bayesResults->bestFitsMean.ref.set_size(result->reflectivity.size(0));
     loop_ub = result->reflectivity.size(0);
@@ -176,8 +175,8 @@ namespace RAT
 
     //  2. Reflectivity and SLD shading
     b_problemStruct = *problemStruct;
-    refPrctileConfInts(bayesOutputs_chain, &b_problemStruct, allProblem_f4,
-                       allProblem_f3, &controlsStruct, &bayesResults->predlims);
+    refPrctileConfInts(bayesOutputs_chain, &b_problemStruct, problem_f4,
+                       problem_f3, &controlsStruct, &bayesResults->predlims);
 
     //  ---------------------------------
     //  bayesResults.chain = bayesOutputs.chain;

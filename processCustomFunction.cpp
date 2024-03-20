@@ -57,18 +57,18 @@ namespace RAT
     {
       void processCustomFunction(const ::coder::array<real_T, 2U>
         &contrastBulkIns, const ::coder::array<real_T, 2U> &contrastBulkOuts,
-        const ::coder::array<real_T, 2U> &bulkIn, const ::coder::array<real_T,
-        2U> &bulkOut, const ::coder::array<real_T, 2U> &cCustFiles, real_T
-        numberOfContrasts, const ::coder::array<cell_wrap_1, 2U> &customFiles,
-        const ::coder::array<real_T, 2U> &params, boolean_T useImaginary, ::
-        coder::array<cell_wrap_10, 1U> &allLayers, ::coder::array<real_T, 1U>
-        &allRoughs)
+        const ::coder::array<real_T, 2U> &bulkInArray, const ::coder::array<
+        real_T, 2U> &bulkOutArray, const ::coder::array<real_T, 2U> &cCustFiles,
+        real_T numberOfContrasts, const ::coder::array<cell_wrap_1, 2U>
+        &customFiles, const ::coder::array<real_T, 2U> &params, boolean_T
+        useImaginary, ::coder::array<cell_wrap_10, 1U> &resampledLayers, ::coder::
+        array<real_T, 1U> &subRoughs)
       {
-        ::coder::array<cell_wrap_39, 1U> tempAllLayers;
-        ::coder::array<real_T, 2U> allBulkOuts;
-        ::coder::array<real_T, 2U> b_allBulkOuts;
+        ::coder::array<cell_wrap_39, 1U> tempResampledLayers;
+        ::coder::array<real_T, 2U> b_bulkOuts;
         ::coder::array<real_T, 2U> b_params;
         ::coder::array<real_T, 2U> b_thisContrastLayers;
+        ::coder::array<real_T, 2U> bulkOuts;
         ::coder::array<real_T, 2U> thisContrastLayers;
         int32_T iv[2];
         int32_T i;
@@ -79,15 +79,15 @@ namespace RAT
         //  contrasts.
         //  Do some pre-definitions to keep the compiler happy...
         i = static_cast<int32_T>(numberOfContrasts);
-        allRoughs.set_size(i);
-        allBulkOuts.set_size(1, contrastBulkOuts.size(1));
+        subRoughs.set_size(i);
+        bulkOuts.set_size(1, contrastBulkOuts.size(1));
         loop_ub = contrastBulkOuts.size(1);
         for (i1 = 0; i1 < loop_ub; i1++) {
-          allBulkOuts[i1] = bulkOut[static_cast<int32_T>(contrastBulkOuts[i1]) -
-            1];
+          bulkOuts[i1] = bulkOutArray[static_cast<int32_T>(contrastBulkOuts[i1])
+            - 1];
         }
 
-        tempAllLayers.set_size(i);
+        tempResampledLayers.set_size(i);
         for (int32_T b_i{0}; b_i < i; b_i++) {
           creal_T x;
           real_T d;
@@ -113,10 +113,10 @@ namespace RAT
               b_params[i1] = params[i1];
             }
 
-            b_allBulkOuts.set_size(1, allBulkOuts.size(1));
-            loop_ub = allBulkOuts.size(1) - 1;
+            b_bulkOuts.set_size(1, bulkOuts.size(1));
+            loop_ub = bulkOuts.size(1) - 1;
             for (i1 = 0; i1 <= loop_ub; i1++) {
-              b_allBulkOuts[i1] = allBulkOuts[i1];
+              b_bulkOuts[i1] = bulkOuts[i1];
             }
 
             iv[0] = (*(int32_T (*)[2])((::coder::array<char_T, 2U> *)
@@ -125,10 +125,10 @@ namespace RAT
                       &customFiles[static_cast<int32_T>(d) - 1].f1)->size())[1];
             callCppFunction((const char_T *)((::coder::array<char_T, 2U> *)
               &customFiles[static_cast<int32_T>(d) - 1].f1)->data(), iv,
-                            b_params, bulkIn[static_cast<int32_T>
-                            (contrastBulkIns[b_i]) - 1], b_allBulkOuts, (
+                            b_params, bulkInArray[static_cast<int32_T>
+                            (contrastBulkIns[b_i]) - 1], b_bulkOuts, (
               static_cast<real_T>(b_i) + 1.0) - 1.0, b_thisContrastLayers,
-                            &allRoughs[b_i]);
+                            &subRoughs[b_i]);
             loop_ub = b_thisContrastLayers.size(1);
             thisContrastLayers.set_size(b_thisContrastLayers.size(0),
               b_thisContrastLayers.size(1));
@@ -145,26 +145,29 @@ namespace RAT
           //  the hydration correction (the user has not done it in the
           //  custom function). Do that here....
           if (!useImaginary) {
-            applyHydrationReal(thisContrastLayers, bulkIn[static_cast<int32_T>
-                               (contrastBulkIns[b_i]) - 1], allBulkOuts[b_i]);
+            applyHydrationReal(thisContrastLayers, bulkInArray
+                               [static_cast<int32_T>(contrastBulkIns[b_i]) - 1],
+                               bulkOuts[b_i]);
           } else {
-            applyHydrationImag(thisContrastLayers, bulkIn[static_cast<int32_T>
-                               (contrastBulkIns[b_i]) - 1], allBulkOuts[b_i]);
+            applyHydrationImag(thisContrastLayers, bulkInArray
+                               [static_cast<int32_T>(contrastBulkIns[b_i]) - 1],
+                               bulkOuts[b_i]);
           }
 
-          tempAllLayers[b_i].f1.set_size(thisContrastLayers.size(0),
+          tempResampledLayers[b_i].f1.set_size(thisContrastLayers.size(0),
             thisContrastLayers.size(1));
           loop_ub = thisContrastLayers.size(1);
           for (i1 = 0; i1 < loop_ub; i1++) {
             b_loop_ub = thisContrastLayers.size(0);
             for (i2 = 0; i2 < b_loop_ub; i2++) {
-              tempAllLayers[b_i].f1[i2 + tempAllLayers[b_i].f1.size(0) * i1] =
-                thisContrastLayers[i2 + thisContrastLayers.size(0) * i1];
+              tempResampledLayers[b_i].f1[i2 + tempResampledLayers[b_i].f1.size
+                (0) * i1] = thisContrastLayers[i2 + thisContrastLayers.size(0) *
+                i1];
             }
           }
         }
 
-        cast(tempAllLayers, allLayers);
+        cast(tempResampledLayers, resampledLayers);
       }
     }
   }

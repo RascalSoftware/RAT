@@ -20,8 +20,8 @@
 namespace RAT
 {
   void resampleLayersReIm(const ::coder::array<real_T, 2U> &sldProfile, const ::
-    coder::array<real_T, 2U> &sldProfileIm, const real_T resamPars[2], ::coder::
-    array<real_T, 2U> &newSLD)
+    coder::array<real_T, 2U> &sldProfileIm, const real_T resampleParams[2], ::
+    coder::array<real_T, 2U> &newSLD)
   {
     ::coder::array<real_T, 1U> b_expl_temp;
     ::coder::array<real_T, 1U> b_sldProfileIm;
@@ -42,8 +42,8 @@ namespace RAT
     // newX = linspace(xstart,xend,100);
     b_sldProfile[0] = sldProfile[0];
     b_sldProfile[1] = sldProfile[sldProfile.size(0) - 1];
-    adaptive(sldProfile, b_sldProfile, resamPars[0] * 3.1415926535897931,
-             resamPars[1], &expl_temp);
+    adaptive(sldProfile, b_sldProfile, resampleParams[0] * 3.1415926535897931,
+             resampleParams[1], &expl_temp);
 
     //  Now interpolate the imaginary profile so that it is on the same x points
     //  as the resampled real one....

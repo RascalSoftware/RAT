@@ -33,12 +33,12 @@ namespace RAT
     {
       void processCustomFunction(const ::coder::array<real_T, 2U>
         &contrastBulkIns, const ::coder::array<real_T, 2U> &contrastBulkOuts,
-        const ::coder::array<real_T, 2U> &bulkIn, const ::coder::array<real_T,
-        2U> &bulkOut, const ::coder::array<real_T, 2U> &cCustFiles, real_T
-        numberOfContrasts, const ::coder::array<cell_wrap_1, 2U> &customFiles,
-        const ::coder::array<real_T, 2U> &params, boolean_T useImaginary, ::
-        coder::array<cell_wrap_39, 2U> &allLayers, ::coder::array<real_T, 1U>
-        &allRoughs);
+        const ::coder::array<real_T, 2U> &bulkInArray, const ::coder::array<
+        real_T, 2U> &bulkOutArray, const ::coder::array<real_T, 2U> &cCustFiles,
+        real_T numberOfContrasts, const ::coder::array<cell_wrap_1, 2U>
+        &customFiles, const ::coder::array<real_T, 2U> &params, boolean_T
+        useImaginary, ::coder::array<cell_wrap_39, 2U> &resampledLayers, ::coder::
+        array<real_T, 1U> &subRoughs);
     }
   }
 }

@@ -40,7 +40,7 @@ namespace RAT
       1U> &reflectivity, ::coder::array<cell_wrap_8, 1U> &simulation, ::coder::
       array<cell_wrap_10, 1U> &shiftedData, ::coder::array<cell_wrap_10, 1U>
       &layerSlds, ::coder::array<cell_wrap_10, 1U> &sldProfiles, ::coder::array<
-      cell_wrap_10, 1U> &allLayers);
+      cell_wrap_10, 1U> &resampledLayers);
   }
 }
 

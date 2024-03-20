@@ -50,16 +50,16 @@ namespace RAT
                problemCells->f9, problemCells->f10, problemCells->f11,
                problemCells->f12, problemCells->f13, problemCells->f20,
                problemLimits, &controls->checks, b_problemStruct);
-    if (coder::internal::p_strcmp(controls->display.data, controls->display.size))
+    if (coder::internal::q_strcmp(controls->display.data, controls->display.size))
     {
       outsize_idx_0 = 0;
-    } else if (coder::internal::q_strcmp(controls->display.data,
-                controls->display.size)) {
-      outsize_idx_0 = 1;
     } else if (coder::internal::r_strcmp(controls->display.data,
                 controls->display.size)) {
-      outsize_idx_0 = 2;
+      outsize_idx_0 = 1;
     } else if (coder::internal::s_strcmp(controls->display.data,
+                controls->display.size)) {
+      outsize_idx_0 = 2;
+    } else if (coder::internal::t_strcmp(controls->display.data,
                 controls->display.size)) {
       outsize_idx_0 = 3;
     } else {
@@ -219,9 +219,10 @@ namespace RAT
 
     //  now we can call fminsearch, but with our own
     //  intra-objective function.
-    fMinSearch(x0u, controls->maxIter, controls->maxFunEvals, controls->tolX,
-               controls->tolFun, dis_data, dis_size, problemStruct, problemCells,
-               problemLimits, controls, &expl_temp, &a__2, &a__3, &a__4);
+    fMinSearch(x0u, controls->maxIterations, controls->maxFuncEvals,
+               controls->xTolerance, controls->funcTolerance, dis_data, dis_size,
+               problemStruct, problemCells, problemLimits, controls, &expl_temp,
+               &a__2, &a__3, &a__4);
 
     // [xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemStruct,problemCells,problemLimits,controls,options,params,300);
     //  undo the variable transformations into the original space

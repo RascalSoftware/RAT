@@ -76,16 +76,16 @@ class eventHelper
 
         void updatePlot(int nContrast, double* reflect, double* nReflect, double* shiftedData, double* nShiftedData, 
                         double* sldProfiles, double* nSldProfiles, double* layers, double* nLayers, 
-                        double* sldProfiles2, double* nSldProfiles2, double* layers2, double* nLayers2, double* ssubs, 
+                        double* sldProfiles2, double* nSldProfiles2, double* layers2, double* nLayers2, double* subRoughs,
                         double* resample, double* dataPresent, const char* modelType)
         {                              
             auto updatePlot = library->get_function<void(int, double*, double*, double*, double*, 
-                                                         double*, double*, double*, double*, double*, 
+                                                         double*, double*, double*, double*, double*,
                                                          double*, double*, double*, double*,
                                                          double*, double*, const char*)>("updatePlot");
             
             return updatePlot(nContrast, reflect, nReflect, shiftedData, nShiftedData, sldProfiles, nSldProfiles, 
-                              layers, nLayers, sldProfiles2, nSldProfiles2, layers2, nLayers2, ssubs, resample, 
+                              layers, nLayers, sldProfiles2, nSldProfiles2, layers2, nLayers2, subRoughs, resample, 
                               dataPresent, modelType);   
 
         };

@@ -18,8 +18,8 @@
 // Function Definitions
 namespace RAT
 {
-  void groupLayersMod(const ::coder::array<real_T, 2U> &allLayers, real_T
-                      allRoughs, const char_T geometry_data[], const int32_T
+  void groupLayersMod(const ::coder::array<real_T, 2U> &resampledLayers, real_T
+                      subRoughs, const char_T geometry_data[], const int32_T
                       geometry_size[2], real_T bulkIns, real_T bulkOuts, ::coder::
                       array<real_T, 2U> &outLayers, real_T *outSsubs)
   {
@@ -39,11 +39,11 @@ namespace RAT
     //
     //  USAGE::
     //
-    //      [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,geometry,bulkIns,bulkOuts)
+    //      [outLayers, outSsubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)
     //
     //  INPUTS:
-    //      * allLayers: cell array, one for each contrast. Each cell is the list of layer values for each contrast.
-    //      * allRoughs:  Double of substrate roughness for each contrast.
+    //      * resampledLayers: cell array, one for each contrast. Each cell is the list of layer values for each contrast.
+    //      * subRoughs:  Double of substrate roughness for each contrast.
     //      * geometry: 'Air / Liquid (or solid)' or 'Solid / Liquid'
     //      * bulkIns: vector of bulkIn values.
     //      * bulkOuts: vector of bulkOut values.
@@ -54,10 +54,10 @@ namespace RAT
     // outLayers = cell(1,numberOfContrasts);
     // outSsubs = zeros(1,numberOfContrasts);
     // for i = 1:numberOfContrasts
-    *outSsubs = allRoughs;
-    unnamed_idx_0 = static_cast<uint32_T>(allLayers.size(0));
-    layers.set_size(allLayers.size(0), allLayers.size(1));
-    loop_ub = allLayers.size(1);
+    *outSsubs = subRoughs;
+    unnamed_idx_0 = static_cast<uint32_T>(resampledLayers.size(0));
+    layers.set_size(resampledLayers.size(0), resampledLayers.size(1));
+    loop_ub = resampledLayers.size(1);
     for (i = 0; i < loop_ub; i++) {
       b_loop_ub = static_cast<int32_T>(unnamed_idx_0);
       for (c_loop_ub = 0; c_loop_ub < b_loop_ub; c_loop_ub++) {
@@ -65,44 +65,46 @@ namespace RAT
       }
     }
 
-    if ((allLayers.size(0) != 0) && (allLayers.size(1) != 0)) {
-      if (coder::internal::m_strcmp(geometry_data, geometry_size)) {
-        layers.set_size(allLayers.size(0), allLayers.size(1));
-        loop_ub = allLayers.size(1);
+    if ((resampledLayers.size(0) != 0) && (resampledLayers.size(1) != 0)) {
+      if (coder::internal::n_strcmp(geometry_data, geometry_size)) {
+        layers.set_size(resampledLayers.size(0), resampledLayers.size(1));
+        loop_ub = resampledLayers.size(1);
         for (i = 0; i < loop_ub; i++) {
-          b_loop_ub = allLayers.size(0);
+          b_loop_ub = resampledLayers.size(0);
           for (c_loop_ub = 0; c_loop_ub < b_loop_ub; c_loop_ub++) {
-            layers[c_loop_ub + layers.size(0) * i] = allLayers[c_loop_ub +
-              allLayers.size(0) * i];
+            layers[c_loop_ub + layers.size(0) * i] = resampledLayers[c_loop_ub +
+              resampledLayers.size(0) * i];
           }
         }
 
-        // s_sub = rsub;
+        // ssub = rsub;
       } else {
-        *outSsubs = allLayers[(allLayers.size(0) + allLayers.size(0) * 2) - 1];
-        if (allLayers.size(0) > 1) {
-          loop_ub = allLayers.size(0);
-          roughs.set_size(allLayers.size(0));
-          roughs[0] = allRoughs;
+        *outSsubs = resampledLayers[(resampledLayers.size(0) +
+          resampledLayers.size(0) * 2) - 1];
+        if (resampledLayers.size(0) > 1) {
+          loop_ub = resampledLayers.size(0);
+          roughs.set_size(resampledLayers.size(0));
+          roughs[0] = subRoughs;
           for (i = 0; i <= loop_ub - 2; i++) {
-            roughs[i + 1] = allLayers[i + allLayers.size(0) * 2];
+            roughs[i + 1] = resampledLayers[i + resampledLayers.size(0) * 2];
           }
         } else {
           roughs.set_size(1);
-          roughs[0] = allRoughs;
+          roughs[0] = subRoughs;
         }
 
-        if (allLayers.size(1) == 5) {
-          loop_ub = allLayers.size(0);
-          b_loop_ub = allLayers.size(0);
-          c_loop_ub = allLayers.size(0);
-          layers.set_size(allLayers.size(0), 4);
+        if (resampledLayers.size(1) == 5) {
+          loop_ub = resampledLayers.size(0);
+          b_loop_ub = resampledLayers.size(0);
+          c_loop_ub = resampledLayers.size(0);
+          layers.set_size(resampledLayers.size(0), 4);
           for (i = 0; i < loop_ub; i++) {
-            layers[i] = allLayers[i];
+            layers[i] = resampledLayers[i];
           }
 
           for (i = 0; i < b_loop_ub; i++) {
-            layers[i + layers.size(0)] = allLayers[i + allLayers.size(0)];
+            layers[i + layers.size(0)] = resampledLayers[i +
+              resampledLayers.size(0)];
           }
 
           loop_ub = roughs.size(0);
@@ -111,18 +113,20 @@ namespace RAT
           }
 
           for (i = 0; i < c_loop_ub; i++) {
-            layers[i + layers.size(0) * 3] = allLayers[i + allLayers.size(0) * 3];
+            layers[i + layers.size(0) * 3] = resampledLayers[i +
+              resampledLayers.size(0) * 3];
           }
         } else {
-          loop_ub = allLayers.size(0);
-          b_loop_ub = allLayers.size(0);
-          layers.set_size(allLayers.size(0), 3);
+          loop_ub = resampledLayers.size(0);
+          b_loop_ub = resampledLayers.size(0);
+          layers.set_size(resampledLayers.size(0), 3);
           for (i = 0; i < loop_ub; i++) {
-            layers[i] = allLayers[i];
+            layers[i] = resampledLayers[i];
           }
 
           for (i = 0; i < b_loop_ub; i++) {
-            layers[i + layers.size(0)] = allLayers[i + allLayers.size(0)];
+            layers[i + layers.size(0)] = resampledLayers[i +
+              resampledLayers.size(0)];
           }
 
           loop_ub = roughs.size(0);
@@ -133,13 +137,13 @@ namespace RAT
       }
 
       // Deal with the %coverage if present
-      if (allLayers.size(1) == 5) {
-        i = allLayers.size(0);
+      if (resampledLayers.size(1) == 5) {
+        i = resampledLayers.size(0);
         for (int32_T j{0}; j < i; j++) {
           real_T pc_add;
           real_T this_pcw;
-          this_pcw = allLayers[j + allLayers.size(0) * 3];
-          if (allLayers[j + allLayers.size(0) * 4] == 1.0) {
+          this_pcw = resampledLayers[j + resampledLayers.size(0) * 3];
+          if (resampledLayers[j + resampledLayers.size(0) * 4] == 1.0) {
             pc_add = bulkIns;
           } else {
             pc_add = bulkOuts;

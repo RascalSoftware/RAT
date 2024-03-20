@@ -20,7 +20,7 @@
 namespace RAT
 {
   void resampleLayers(const ::coder::array<real_T, 2U> &sldProfile, const real_T
-                      resamPars[2], ::coder::array<real_T, 2U> &newSLD)
+                      resampleParams[2], ::coder::array<real_T, 2U> &newSLD)
   {
     cell_44 expl_temp;
     real_T b_sldProfile[2];
@@ -34,8 +34,8 @@ namespace RAT
     //  will fix later
     b_sldProfile[0] = sldProfile[0];
     b_sldProfile[1] = sldProfile[sldProfile.size(0) - 1];
-    adaptive(sldProfile, b_sldProfile, resamPars[0] * 3.1415926535897931,
-             resamPars[1], &expl_temp);
+    adaptive(sldProfile, b_sldProfile, resampleParams[0] * 3.1415926535897931,
+             resampleParams[1], &expl_temp);
     n = coder::internal::intlength(expl_temp.f1.size(0), 1);
     newSLD.set_size(n - 1, 3);
     n--;

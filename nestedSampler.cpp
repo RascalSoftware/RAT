@@ -47,8 +47,8 @@
 namespace RAT
 {
   void nestedSampler(const f_struct_T *data_f1, const struct2_T *data_f2, const
-                     struct1_T *data_f3, const cell_11 *data_f4, real_T Nlive,
-                     real_T Nmcmc, real_T tolerance, const ::coder::array<real_T,
+                     struct1_T *data_f3, const cell_11 *data_f4, real_T nLive,
+                     real_T nMCMC, real_T tolerance, const ::coder::array<real_T,
                      2U> &prior, real_T *logZ, ::coder::array<real_T, 2U>
                      &nest_samples, ::coder::array<real_T, 2U> &post_samples,
                      real_T *H)
@@ -100,18 +100,18 @@ namespace RAT
     boolean_T empty_non_axis_sizes;
 
     //  function [logZ, nest_samples, post_samples] = nestedSampler(data, ...
-    //            Nlive, Nmcmc, tolerance, likelihood, model, prior, extraparams)
+    //            nLive, nMCMC, tolerance, likelihood, model, prior, extraparams)
     //
     //  This function performs nested sampling of the likelihood function from
     //  the given prior (given a set of data, a model, and a set of extra model
     //  parameters).
     //
-    //  If Nmcmc > 0, new samples will be drawn from a proposal using an MCMC
+    //  If nMCMC > 0, new samples will be drawn from a proposal using an MCMC
     //  and differential evolution. The sampling will stop once the
     //  tolerance critereon has been reached. This method is that of Veitch &
     //  Vecchio.
     //
-    //  If Nmcmc = 0, new samples will be drawn from a set of bounding ellipsoids
+    //  If nMCMC = 0, new samples will be drawn from a set of bounding ellipsoids
     //  constructed using the MultiNest algorithm for partitioning live points.
     //
     //  The likelihood should be the function handle of a likelihood function to
@@ -170,7 +170,7 @@ namespace RAT
     }
 
     //  draw the set of initial live points from the prior
-    loop_ub_tmp = static_cast<int32_T>(Nlive);
+    loop_ub_tmp = static_cast<int32_T>(nLive);
     livepoints.set_size(loop_ub_tmp, prior.size(0));
     sizes_idx_1 = prior.size(0);
     for (i = 0; i < sizes_idx_1; i++) {
@@ -189,7 +189,7 @@ namespace RAT
         // uniform
         p3 = prior[b_i + prior.size(0) * 3];
         a = prior[b_i + prior.size(0) * 4] - p3;
-        coder::b_rand(Nlive, b);
+        coder::b_rand(nLive, b);
         sizes_idx_1 = b.size(0);
         for (i1 = 0; i1 < sizes_idx_1; i1++) {
           livepoints[i1 + livepoints.size(0) * b_i] = p3 + a * b[i1];
@@ -200,7 +200,7 @@ namespace RAT
         // gaussian
         p3 = prior[b_i + prior.size(0)];
         a = prior[b_i + prior.size(0) * 2];
-        coder::randn(Nlive, b);
+        coder::randn(nLive, b);
         sizes_idx_1 = b.size(0);
         for (i1 = 0; i1 < sizes_idx_1; i1++) {
           livepoints[i1 + livepoints.size(0) * b_i] = p3 + a * b[i1];
@@ -209,7 +209,7 @@ namespace RAT
         // jeffreys
         a_tmp = std::log10(prior[b_i + prior.size(0)]);
         a = std::log10(prior[b_i + prior.size(0) * 2]) - a_tmp;
-        coder::b_rand(Nlive, b);
+        coder::b_rand(nLive, b);
         sizes_idx_1 = b.size(0);
         for (i1 = 0; i1 < sizes_idx_1; i1++) {
           b[i1] = a_tmp + a * b[i1];
@@ -256,7 +256,7 @@ namespace RAT
     tol = rtInf;
 
     //  initial width of prior volume (from X_0=1 to X_1=exp(-1/N))
-    logw = std::log(1.0 - std::exp(-1.0 / Nlive));
+    logw = std::log(1.0 - std::exp(-1.0 / nLive));
 
     //  initial log evidence (Z=0)
     *logZ = rtMinusInf;
@@ -301,13 +301,13 @@ namespace RAT
     j = 1.0;
 
     //  MAIN LOOP
-    while ((tol > tolerance) || (j <= Nlive)) {
+    while ((tol > tolerance) || (j <= nLive)) {
       real_T VS;
       real_T logWt;
       real_T logZold;
 
       //  expected value of true remaining prior volume X
-      VS = std::exp(-j / Nlive);
+      VS = std::exp(-j / nLive);
 
       //  find minimum of likelihoods
       coder::internal::minimum(logL, &logLmin, &iindx);
@@ -390,11 +390,11 @@ namespace RAT
       *H = (std::exp(logWt - *logZ) * logLmin + std::exp(logZold - *logZ) *
             (a_tmp + logZold)) - *logZ;
 
-      // logw = logw - logt(Nlive);
-      logw -= 1.0 / Nlive;
+      // logw = logw - logt(nLive);
+      logw -= 1.0 / nLive;
 
       // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-      if (Nmcmc > 0.0) {
+      if (nMCMC > 0.0) {
         //  do MCMC nested sampling
         //  get the Cholesky decomposed covariance of the live points
         //  (do every 100th iteration - CAN CHANGE THIS IF REQUIRED)
@@ -427,7 +427,7 @@ namespace RAT
 
         //  draw a new sample using mcmc algorithm
         drawMCMC(livepoints, cholmat, logLmin, prior, data_f1, data_f2, data_f3,
-                 data_f4, Nmcmc, b_livepoints, &logL[iindx - 1]);
+                 data_f4, nMCMC, b_livepoints, &logL[iindx - 1]);
         sizes_idx_1 = b_livepoints.size(1);
         for (i = 0; i < sizes_idx_1; i++) {
           livepoints[(iindx + livepoints.size(0) * i) - 1] = b_livepoints[i];
@@ -461,13 +461,13 @@ namespace RAT
         } else {
           //  simply rescale the bounding ellipsoids
           if (0 <= K - 1) {
-            d = std::exp(-(j + 1.0) / Nlive);
+            d = std::exp(-(j + 1.0) / nLive);
             b_dv[0] = 1.0;
           }
 
           for (int32_T k{0}; k < K; k++) {
             real_T scalefac;
-            b_dv[1] = d * ns[k] / Nlive / VEs[k];
+            b_dv[1] = d * ns[k] / nLive / VEs[k];
             scalefac = coder::internal::maximum(b_dv);
 
             //  scale bounding matrix and volume
@@ -550,7 +550,7 @@ namespace RAT
       }
 
       //  work out tolerance for stopping criterion
-      tol = logPlus(*logZ, logLmax - j / Nlive) - *logZ;
+      tol = logPlus(*logZ, logLmax - j / nLive) - *logZ;
 
       //  display progress (optional)
       if (verbose != 0.0) {
@@ -707,7 +707,7 @@ namespace RAT
 
     //  convert nested samples into posterior samples - nest2pos assumes that the
     //  final column in the sample chain is the log likelihood
-    nest2pos(nest_samples, Nlive, post_samples);
+    nest2pos(nest_samples, nLive, post_samples);
   }
 }
 

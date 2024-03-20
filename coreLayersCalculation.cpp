@@ -34,11 +34,11 @@ namespace RAT
       real_T, 2U> &data, const real_T dataLimits[2], const real_T simLimits[2],
       const real_T repeatLayers[2], real_T background, real_T resolution, real_T
       contrastBackgroundsType, real_T params, const char_T parallelPoints_data[],
-      const int32_T parallelPoints_size[2], const real_T resamPars[2], boolean_T
-      useImaginary, ::coder::array<real_T, 2U> &sldProfile, ::coder::array<
-      real_T, 2U> &reflect, ::coder::array<real_T, 2U> &simulation, ::coder::
-      array<real_T, 2U> &shiftedData, ::coder::array<real_T, 2U> &theseLayers, ::
-      coder::array<real_T, 2U> &resamLayers, real_T *chiSq, real_T *ssubs)
+      const int32_T parallelPoints_size[2], const real_T resampleParams[2],
+      boolean_T useImaginary, ::coder::array<real_T, 2U> &sldProfile, ::coder::
+      array<real_T, 2U> &reflect, ::coder::array<real_T, 2U> &simulation, ::
+      coder::array<real_T, 2U> &shiftedData, ::coder::array<real_T, 2U>
+      &theseLayers, ::coder::array<real_T, 2U> &resamLayers, real_T *chiSq)
     {
       ::coder::array<real_T, 2U> b_data;
       ::coder::array<real_T, 2U> b_theseLayers;
@@ -50,6 +50,7 @@ namespace RAT
       ::coder::array<real_T, 2U> thisSldLays;
       ::coder::array<real_T, 2U> thisSldLaysIm;
       ::coder::array<real_T, 1U> f_theseLayers;
+      real_T ssubs;
       int32_T b_loop_ub;
       int32_T i;
       int32_T i1;
@@ -115,7 +116,7 @@ namespace RAT
       //  Bulid up the layers matrix for this contrast
       if (!useImaginary) {
         groupLayersMod(contrastLayers, rough, geometry_data, geometry_size,
-                       bulkIn, bulkOut, c_theseLayers, ssubs);
+                       bulkIn, bulkOut, c_theseLayers, &ssubs);
         theseLayers.set_size(c_theseLayers.size(0), 3);
         loop_ub = c_theseLayers.size(0);
         for (i = 0; i < 3; i++) {
@@ -126,7 +127,7 @@ namespace RAT
         }
       } else {
         groupLayersModImaginary(contrastLayers, rough, geometry_data,
-          geometry_size, bulkIn, bulkOut, b_theseLayers, ssubs);
+          geometry_size, bulkIn, bulkOut, b_theseLayers, &ssubs);
         theseLayers.set_size(b_theseLayers.size(0), 4);
         loop_ub = b_theseLayers.size(0);
         for (i = 0; i < 4; i++) {
@@ -280,7 +281,7 @@ namespace RAT
           }
         }
 
-        makeSLDProfiles(bulkIn, bulkOut, thisSldLays, *ssubs, repeatLayers,
+        makeSLDProfiles(bulkIn, bulkOut, thisSldLays, ssubs, repeatLayers,
                         d_theseLayers);
         sldProfile.set_size(d_theseLayers.size(0), 2);
         loop_ub = d_theseLayers.size(0);
@@ -296,7 +297,7 @@ namespace RAT
         if (useImaginary) {
           //  Note bulkIn and bulkOut = 0 since there is never any imaginary part for
           //  the bulk phases..
-          makeSLDProfiles(thisSldLaysIm, *ssubs, repeatLayers, d_theseLayers);
+          makeSLDProfiles(thisSldLaysIm, ssubs, repeatLayers, d_theseLayers);
           sldProfileIm.set_size(d_theseLayers.size(0), 2);
           loop_ub = d_theseLayers.size(0);
           for (i = 0; i < 2; i++) {
@@ -315,7 +316,7 @@ namespace RAT
       //  If required, then resample the SLD
       if (resample == 1.0) {
         if (!useImaginary) {
-          resampleLayers(sldProfile, resamPars, c_theseLayers);
+          resampleLayers(sldProfile, resampleParams, c_theseLayers);
           layerSld.set_size(c_theseLayers.size(0), 3);
           loop_ub = c_theseLayers.size(0);
           for (i = 0; i < 3; i++) {
@@ -325,7 +326,8 @@ namespace RAT
             }
           }
         } else {
-          resampleLayersReIm(sldProfile, sldProfileIm, resamPars, b_theseLayers);
+          resampleLayersReIm(sldProfile, sldProfileIm, resampleParams,
+                             b_theseLayers);
           layerSld.set_size(b_theseLayers.size(0), 4);
           loop_ub = b_theseLayers.size(0);
           for (i = 0; i < 4; i++) {
@@ -377,7 +379,7 @@ namespace RAT
 
       //  Calculate the reflectivity
       callReflectivity(bulkIn, bulkOut, simLimits, repeatLayers, shiftedData,
-                       layerSld, *ssubs, resolution, parallelPoints_data,
+                       layerSld, ssubs, resolution, parallelPoints_data,
                        parallelPoints_size, useImaginary, reflect, simulation);
 
       //  Apply background correction, either to the simulation or the data

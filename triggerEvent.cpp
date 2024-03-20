@@ -439,7 +439,7 @@ namespace RAT
     ::coder::array<real_T, 1U> reflect;
     ::coder::array<real_T, 1U> shiftedData;
     ::coder::array<real_T, 1U> sldProfiles;
-    ::coder::array<real_T, 1U> ssubs;
+    ::coder::array<real_T, 1U> subRoughs;
     ::coder::array<char_T, 2U> path;
     ::coder::array<char_T, 2U> r;
     int32_T i;
@@ -479,17 +479,17 @@ namespace RAT
       boolean_T hasPlotHandler;
       hasPlotHandler = std::mem_fn(&eventHelper::hasPlotHandler)(helper);
       if (hasPlotHandler) {
-        ssubs.set_size(varargin_1->contrastParams.ssubs.size(0));
-        loop_ub = varargin_1->contrastParams.ssubs.size(0);
+        subRoughs.set_size(varargin_1->contrastParams.subRoughs.size(0));
+        loop_ub = varargin_1->contrastParams.subRoughs.size(0);
         for (i = 0; i < loop_ub; i++) {
-          ssubs[i] = varargin_1->contrastParams.ssubs[i];
+          subRoughs[i] = varargin_1->contrastParams.subRoughs[i];
         }
 
         packCellArray(varargin_1->reflectivity, reflect, nReflect);
         packCellArray(varargin_1->shiftedData, shiftedData, nShiftedData);
         packCellArray(varargin_1->sldProfiles, sldProfiles, nSldProfiles);
-        packCellArray(varargin_1->allLayers, layers, nLayers);
-        if (coder::internal::h_strcmp(varargin_2_TF_data, varargin_2_TF_size)) {
+        packCellArray(varargin_1->resampledLayers, layers, nLayers);
+        if (coder::internal::i_strcmp(varargin_2_TF_data, varargin_2_TF_size)) {
           i = 0;
         } else {
           i = -1;
@@ -517,7 +517,8 @@ namespace RAT
               }
             }
 
-            b_packCellArray(varargin_1->allLayers, b_sldProfiles2, nSldProfiles2);
+            b_packCellArray(varargin_1->resampledLayers, b_sldProfiles2,
+                            nSldProfiles2);
             loop_ub = b_sldProfiles2.size(0);
             layers2.set_size(b_sldProfiles2.size(0), 1);
             for (i = 0; i < 1; i++) {
@@ -568,7 +569,7 @@ namespace RAT
           &(nReflect.data())[0], &(shiftedData.data())[0], &(nShiftedData.data())
           [0], &(sldProfiles.data())[0], &(nSldProfiles.data())[0],
           &(layers.data())[0], &(nLayers.data())[0], &sldProfiles2[0],
-          &b_nSldProfiles2[0], &layers2[0], &nLayers2[0], &(ssubs.data())[0],
+          &b_nSldProfiles2[0], &layers2[0], &nLayers2[0], &(subRoughs.data())[0],
           &resample[0], &dataPresent[0], &modelType_data[0]);
         notified = false;
       }

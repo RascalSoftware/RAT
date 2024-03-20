@@ -20,7 +20,7 @@
 // Function Definitions
 namespace RAT
 {
-  void nest2pos(const ::coder::array<real_T, 2U> &nest_samples, real_T Nlive, ::
+  void nest2pos(const ::coder::array<real_T, 2U> &nest_samples, real_T nLive, ::
                 coder::array<real_T, 2U> &post_samples)
   {
     ::coder::array<real_T, 2U> b_nest_samples;
@@ -44,16 +44,16 @@ namespace RAT
     boolean_T empty_non_axis_sizes;
 
     //
-    //  post_samples = nest2pos(nest_samples, Nlive)
+    //  post_samples = nest2pos(nest_samples, nLive)
     //
-    //  Convert nested samples with Nlive livepoints
+    //  Convert nested samples with nLive livepoints
     //  to samples from the posterior distribution
     //  (logL values in last column of nest_samples)
     //
     //  John Veitch 2009 (modified by J. Romano 2012)
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    //  calculate logWt = log(L*w) = logL + logw = logL - i/Nlive
-    b = static_cast<real_T>(nest_samples.size(0)) - Nlive;
+    //  calculate logWt = log(L*w) = logL + logw = logL - i/nLive
+    b = static_cast<real_T>(nest_samples.size(0)) - nLive;
     if (std::isnan(b)) {
       y.set_size(1, 1);
       y[0] = rtNaN;
@@ -70,19 +70,19 @@ namespace RAT
       }
     }
 
-    b = static_cast<real_T>(nest_samples.size(0)) - Nlive;
+    b = static_cast<real_T>(nest_samples.size(0)) - nLive;
     k = y.size(1);
-    i = static_cast<int32_T>(Nlive) + y.size(1);
+    i = static_cast<int32_T>(nLive) + y.size(1);
     logWt.set_size(i);
     for (i1 = 0; i1 < k; i1++) {
       logWt[i1] = nest_samples[i1 + nest_samples.size(0) * (nest_samples.size(1)
-        - 1)] + -y[i1] / Nlive;
+        - 1)] + -y[i1] / nLive;
     }
 
     loop_ub = i - y.size(1);
     for (i = 0; i < loop_ub; i++) {
       logWt[i + k] = nest_samples[(y.size(1) + i) + nest_samples.size(0) *
-        (nest_samples.size(1) - 1)] + -b / Nlive;
+        (nest_samples.size(1) - 1)] + -b / nLive;
     }
 
     //  posterior samples are given by the normalized weight

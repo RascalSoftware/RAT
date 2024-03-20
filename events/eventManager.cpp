@@ -12,7 +12,7 @@ LIB_EXPORT void updateProgress(const char* msg, double percent)
 
 LIB_EXPORT void updatePlot(int nContrast, double* reflect, double* nReflect, double* shiftedData, double* nShiftedData, 
                            double* sldProfiles, double* nSldProfiles, double* layers, double* nLayers,  
-                           double* sldProfiles2, double* nSldProfiles2, double* layers2, double* nLayers2, double* ssubs, 
+                           double* sldProfiles2, double* nSldProfiles2, double* layers2, double* nLayers2, double* subRoughs,
                            double* resample, double* dataPresent, const char* modelType)
 {
     plotData data;
@@ -29,7 +29,7 @@ LIB_EXPORT void updatePlot(int nContrast, double* reflect, double* nReflect, dou
     data.nSldProfiles2 = nSldProfiles2;
     data.layers2 = layers2;
     data.nLayers2 = nLayers2;
-    data.ssubs = ssubs;
+    data.subRoughs = subRoughs;
     data.resample = resample;
     data.dataPresent = dataPresent;
     data.modelType = modelType;

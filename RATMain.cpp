@@ -36,9 +36,9 @@ namespace RAT
                    coder::array<cell_wrap_38, 1U> &t10_shiftedData, const ::
                    coder::array<cell_wrap_10, 2U> &t10_layerSlds, const ::coder::
                    array<cell_wrap_10, 2U> &t10_sldProfiles, const ::coder::
-                   array<cell_wrap_38, 2U> &t10_allLayers, const struct6_T
+                   array<cell_wrap_38, 2U> &t10_resampledLayers, const struct6_T
                    *t10_calculationResults, const b_struct_T *t10_contrastParams,
-                   const ::coder::array<real_T, 2U> &t10_bestFitPars, const ::
+                   const ::coder::array<real_T, 2U> &t10_fitParams, const ::
                    coder::array<cell_wrap_1, 1U> &t10_fitNames, struct5_T *b);
   static void cast(const f_struct_T *b, struct0_T *c);
   static void cast(const struct0_T *b, f_struct_T *c);
@@ -61,9 +61,9 @@ namespace RAT
                    coder::array<cell_wrap_38, 1U> &t10_shiftedData, const ::
                    coder::array<cell_wrap_10, 2U> &t10_layerSlds, const ::coder::
                    array<cell_wrap_10, 2U> &t10_sldProfiles, const ::coder::
-                   array<cell_wrap_38, 2U> &t10_allLayers, const struct6_T
+                   array<cell_wrap_38, 2U> &t10_resampledLayers, const struct6_T
                    *t10_calculationResults, const b_struct_T *t10_contrastParams,
-                   const ::coder::array<real_T, 2U> &t10_bestFitPars, const ::
+                   const ::coder::array<real_T, 2U> &t10_fitParams, const ::
                    coder::array<cell_wrap_1, 1U> &t10_fitNames, struct5_T *b)
   {
     int32_T b_loop_ub;
@@ -108,23 +108,18 @@ namespace RAT
       }
     }
 
-    b->allLayers.set_size(t10_allLayers.size(0), t10_allLayers.size(1));
-    loop_ub = t10_allLayers.size(1);
+    b->resampledLayers.set_size(t10_resampledLayers.size(0),
+      t10_resampledLayers.size(1));
+    loop_ub = t10_resampledLayers.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = t10_allLayers.size(0);
+      b_loop_ub = t10_resampledLayers.size(0);
       for (i1 = 0; i1 < b_loop_ub; i1++) {
-        b->allLayers[i1 + b->allLayers.size(0) * i] = t10_allLayers[i1 +
-          t10_allLayers.size(0) * i];
+        b->resampledLayers[i1 + b->resampledLayers.size(0) * i] =
+          t10_resampledLayers[i1 + t10_resampledLayers.size(0) * i];
       }
     }
 
     b->calculationResults = *t10_calculationResults;
-    b->contrastParams.ssubs.set_size(t10_contrastParams->ssubs.size(0));
-    loop_ub = t10_contrastParams->ssubs.size(0);
-    for (i = 0; i < loop_ub; i++) {
-      b->contrastParams.ssubs[i] = t10_contrastParams->ssubs[i];
-    }
-
     b->contrastParams.backgroundParams.set_size
       (t10_contrastParams->backgroundParams.size(0));
     loop_ub = t10_contrastParams->backgroundParams.size(0);
@@ -166,11 +161,10 @@ namespace RAT
         t10_contrastParams->resolutionParams[i];
     }
 
-    b->contrastParams.allSubRough.set_size(t10_contrastParams->allSubRough.size
-      (0));
-    loop_ub = t10_contrastParams->allSubRough.size(0);
+    b->contrastParams.subRoughs.set_size(t10_contrastParams->subRoughs.size(0));
+    loop_ub = t10_contrastParams->subRoughs.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->contrastParams.allSubRough[i] = t10_contrastParams->allSubRough[i];
+      b->contrastParams.subRoughs[i] = t10_contrastParams->subRoughs[i];
     }
 
     b->contrastParams.resample.set_size(1, t10_contrastParams->resample.size(1));
@@ -180,10 +174,10 @@ namespace RAT
         t10_contrastParams->resample[i];
     }
 
-    b->bestFitPars.set_size(1, t10_bestFitPars.size(1));
-    loop_ub = t10_bestFitPars.size(1);
+    b->fitParams.set_size(1, t10_fitParams.size(1));
+    loop_ub = t10_fitParams.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b->bestFitPars[b->bestFitPars.size(0) * i] = t10_bestFitPars[i];
+      b->fitParams[b->fitParams.size(0) * i] = t10_fitParams[i];
     }
 
     b->fitNames.set_size(t10_fitNames.size(0));
@@ -714,17 +708,17 @@ namespace RAT
     static f_struct_T b_problemStruct;
     static f_struct_T r;
     static j_struct_T b_bayesResults;
-    ::coder::array<cell_wrap_1, 1U> t19_fitNames;
-    ::coder::array<cell_wrap_10, 2U> t19_layerSlds;
-    ::coder::array<cell_wrap_10, 2U> t19_sldProfiles;
-    ::coder::array<cell_wrap_38, 2U> t19_allLayers;
-    ::coder::array<cell_wrap_38, 1U> t19_shiftedData;
-    ::coder::array<cell_wrap_8, 1U> t19_reflectivity;
-    ::coder::array<cell_wrap_8, 1U> t19_simulation;
-    ::coder::array<real_T, 2U> t19_bestFitPars;
-    b_struct_T t19_contrastParams;
+    ::coder::array<cell_wrap_1, 1U> t21_fitNames;
+    ::coder::array<cell_wrap_10, 2U> t21_layerSlds;
+    ::coder::array<cell_wrap_10, 2U> t21_sldProfiles;
+    ::coder::array<cell_wrap_38, 2U> t21_resampledLayers;
+    ::coder::array<cell_wrap_38, 1U> t21_shiftedData;
+    ::coder::array<cell_wrap_8, 1U> t21_reflectivity;
+    ::coder::array<cell_wrap_8, 1U> t21_simulation;
+    ::coder::array<real_T, 2U> t21_fitParams;
+    b_struct_T t21_contrastParams;
     cell_11 r1;
-    struct6_T t19_calculationResults;
+    struct6_T t21_calculationResults;
     int32_T b_loop_ub;
     int32_T c_loop_ub;
     int32_T i;
@@ -737,13 +731,13 @@ namespace RAT
     makeEmptyResultStruct(problemStruct->numberOfContrasts, static_cast<real_T>
                           (coder::internal::intlength
       (problemStruct->fitParams.size(0), problemStruct->fitParams.size(1))),
-                          domains, t19_reflectivity, t19_simulation,
-                          t19_shiftedData, t19_layerSlds, t19_sldProfiles,
-                          t19_allLayers, &t19_calculationResults,
-                          &t19_contrastParams, t19_bestFitPars, t19_fitNames);
-    cast(t19_reflectivity, t19_simulation, t19_shiftedData, t19_layerSlds,
-         t19_sldProfiles, t19_allLayers, &t19_calculationResults,
-         &t19_contrastParams, t19_bestFitPars, t19_fitNames, result);
+                          domains, t21_reflectivity, t21_simulation,
+                          t21_shiftedData, t21_layerSlds, t21_sldProfiles,
+                          t21_resampledLayers, &t21_calculationResults,
+                          &t21_contrastParams, t21_fitParams, t21_fitNames);
+    cast(t21_reflectivity, t21_simulation, t21_shiftedData, t21_layerSlds,
+         t21_sldProfiles, t21_resampledLayers, &t21_calculationResults,
+         &t21_contrastParams, t21_fitParams, t21_fitNames, result);
     makeEmptyBayesResultsStruct(problemStruct->numberOfContrasts, domains,
       controls->nChains, bayesResults->bestFitsMean.ref,
       bayesResults->bestFitsMean.sld, &bayesResults->bestFitsMean.chi,
@@ -797,11 +791,14 @@ namespace RAT
       loop_ub = 0;
     } else if (coder::internal::d_strcmp(controls->procedure.data,
                 controls->procedure.size)) {
-      loop_ub = 2;
+      loop_ub = 1;
     } else if (coder::internal::e_strcmp(controls->procedure.data,
                 controls->procedure.size)) {
-      loop_ub = 3;
+      loop_ub = 2;
     } else if (coder::internal::f_strcmp(controls->procedure.data,
+                controls->procedure.size)) {
+      loop_ub = 3;
+    } else if (coder::internal::g_strcmp(controls->procedure.data,
                 controls->procedure.size)) {
       loop_ub = 4;
     } else {
@@ -817,7 +814,7 @@ namespace RAT
       break;
 
      case 1:
-      if (!coder::internal::o_strcmp(controls->display.data,
+      if (!coder::internal::p_strcmp(controls->display.data,
            controls->display.size)) {
         printf("\nRunning simplex\n\n");
         fflush(stdout);
@@ -830,7 +827,7 @@ namespace RAT
       break;
 
      case 2:
-      if (!coder::internal::o_strcmp(controls->display.data,
+      if (!coder::internal::p_strcmp(controls->display.data,
            controls->display.size)) {
         printf("\nRunning Differential Evolution\n\n");
         fflush(stdout);
@@ -843,7 +840,7 @@ namespace RAT
       break;
 
      case 3:
-      if (!coder::internal::o_strcmp(controls->display.data,
+      if (!coder::internal::p_strcmp(controls->display.data,
            controls->display.size)) {
         printf("\nRunning Nested Sampler\n\n");
         fflush(stdout);
@@ -857,7 +854,7 @@ namespace RAT
       break;
 
      case 4:
-      if (!coder::internal::o_strcmp(controls->display.data,
+      if (!coder::internal::p_strcmp(controls->display.data,
            controls->display.size)) {
         printf("\nRunning DREAM\n\n");
         fflush(stdout);

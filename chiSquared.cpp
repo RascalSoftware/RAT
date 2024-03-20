@@ -39,8 +39,8 @@ namespace RAT
 
     //  Chi-squared function is used to evaluate the goodness of fit.
     //  It is a measure of the difference between the observed and expected.
-    // allChis = zeros(1,numberOfContrasts);
-    //      thisData = allData{i};
+    // chiValues = zeros(1,numberOfContrasts);
+    //      thisData = data{i};
     //      thisFit = allFits{i};
     b_dv[0] = thisData.size(0);
     b_dv[1] = 1.0;
@@ -97,7 +97,7 @@ namespace RAT
 
     return 1.0 / (N - P) * y;
 
-    // allChis(i) = chi2;
+    // chiValues(i) = chi2;
   }
 }
 

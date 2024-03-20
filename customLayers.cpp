@@ -32,18 +32,18 @@ namespace RAT
       coder::array<real_T, 2U> &scalefactors, const ::coder::array<real_T, 2U>
       &bulkIns, const ::coder::array<real_T, 2U> &bulkOuts, const ::coder::array<
       real_T, 2U> &resolutionParams, real_T dataPresent, const ::coder::array<
-      real_T, 2U> &allData, const real_T dataLimits[2], const real_T simLimits[2],
+      real_T, 2U> &data, const real_T dataLimits[2], const real_T simLimits[2],
       const real_T repeatLayers[2], real_T contrastBackgroundsType, real_T
       nParams, const char_T parallel_data[], const int32_T parallel_size[2],
-      const real_T resamPars[2], boolean_T useImaginary, real_T resample, const
-      char_T geometry_data[], const int32_T geometry_size[2], real_T roughness,
-      boolean_T calcSld, const ::coder::array<real_T, 2U> &layer, real_T
-      *backgroundParamValue, real_T *qzshiftValue, real_T *scalefactorValue,
-      real_T *bulkInValue, real_T *bulkOutValue, real_T *resolutionParamValue,
-      real_T *chi, ::coder::array<real_T, 2U> &reflectivity, ::coder::array<
-      real_T, 2U> &simulation, ::coder::array<real_T, 2U> &shiftedData, ::coder::
-      array<real_T, 2U> &layerSld, ::coder::array<real_T, 2U> &sldProfile, ::
-      coder::array<real_T, 2U> &allLayer, real_T *ssub);
+      const real_T resampleParams[2], boolean_T useImaginary, real_T resample,
+      const char_T geometry_data[], const int32_T geometry_size[2], real_T
+      roughness, boolean_T calcSld, const ::coder::array<real_T, 2U> &layer,
+      real_T *backgroundParamValue, real_T *qzshiftValue, real_T
+      *scalefactorValue, real_T *bulkInValue, real_T *bulkOutValue, real_T
+      *resolutionParamValue, real_T *chi, ::coder::array<real_T, 2U>
+      &reflectivity, ::coder::array<real_T, 2U> &simulation, ::coder::array<
+      real_T, 2U> &shiftedData, ::coder::array<real_T, 2U> &layerSld, ::coder::
+      array<real_T, 2U> &sldProfile, ::coder::array<real_T, 2U> &resampledLayer);
   }
 }
 
@@ -59,18 +59,18 @@ namespace RAT
       coder::array<real_T, 2U> &scalefactors, const ::coder::array<real_T, 2U>
       &bulkIns, const ::coder::array<real_T, 2U> &bulkOuts, const ::coder::array<
       real_T, 2U> &resolutionParams, real_T dataPresent, const ::coder::array<
-      real_T, 2U> &allData, const real_T dataLimits[2], const real_T simLimits[2],
+      real_T, 2U> &data, const real_T dataLimits[2], const real_T simLimits[2],
       const real_T repeatLayers[2], real_T contrastBackgroundsType, real_T
       nParams, const char_T parallel_data[], const int32_T parallel_size[2],
-      const real_T resamPars[2], boolean_T useImaginary, real_T resample, const
-      char_T geometry_data[], const int32_T geometry_size[2], real_T roughness,
-      boolean_T calcSld, const ::coder::array<real_T, 2U> &layer, real_T
-      *backgroundParamValue, real_T *qzshiftValue, real_T *scalefactorValue,
-      real_T *bulkInValue, real_T *bulkOutValue, real_T *resolutionParamValue,
-      real_T *chi, ::coder::array<real_T, 2U> &reflectivity, ::coder::array<
-      real_T, 2U> &simulation, ::coder::array<real_T, 2U> &shiftedData, ::coder::
-      array<real_T, 2U> &layerSld, ::coder::array<real_T, 2U> &sldProfile, ::
-      coder::array<real_T, 2U> &allLayer, real_T *ssub)
+      const real_T resampleParams[2], boolean_T useImaginary, real_T resample,
+      const char_T geometry_data[], const int32_T geometry_size[2], real_T
+      roughness, boolean_T calcSld, const ::coder::array<real_T, 2U> &layer,
+      real_T *backgroundParamValue, real_T *qzshiftValue, real_T
+      *scalefactorValue, real_T *bulkInValue, real_T *bulkOutValue, real_T
+      *resolutionParamValue, real_T *chi, ::coder::array<real_T, 2U>
+      &reflectivity, ::coder::array<real_T, 2U> &simulation, ::coder::array<
+      real_T, 2U> &shiftedData, ::coder::array<real_T, 2U> &layerSld, ::coder::
+      array<real_T, 2U> &sldProfile, ::coder::array<real_T, 2U> &resampledLayer)
     {
       ::coder::array<real_T, 2U> b_sldProfile;
       int32_T loop_ub;
@@ -88,13 +88,13 @@ namespace RAT
       //  Call the core layers calculation
       coreLayersCalculation(layer, roughness, geometry_data, geometry_size,
                             *bulkInValue, *bulkOutValue, resample, calcSld,
-                            *scalefactorValue, *qzshiftValue, dataPresent,
-                            allData, dataLimits, simLimits, repeatLayers,
+                            *scalefactorValue, *qzshiftValue, dataPresent, data,
+                            dataLimits, simLimits, repeatLayers,
                             *backgroundParamValue, *resolutionParamValue,
                             contrastBackgroundsType, nParams, parallel_data,
-                            parallel_size, resamPars, useImaginary, b_sldProfile,
-                            reflectivity, simulation, shiftedData, layerSld,
-                            allLayer, chi, ssub);
+                            parallel_size, resampleParams, useImaginary,
+                            b_sldProfile, reflectivity, simulation, shiftedData,
+                            layerSld, resampledLayer, chi);
       sldProfile.set_size(b_sldProfile.size(0), b_sldProfile.size(1));
       loop_ub = b_sldProfile.size(1);
       for (int32_T i{0}; i < loop_ub; i++) {
@@ -109,22 +109,21 @@ namespace RAT
 
     void b_customLayers(const f_struct_T *problemStruct, const cell_11
                         *problemCells, const struct2_T *controls, ::coder::array<
-                        real_T, 1U> &outSsubs, ::coder::array<real_T, 1U>
-                        &backgroundParams, ::coder::array<real_T, 1U> &qzshifts,
-                        ::coder::array<real_T, 1U> &scalefactors, ::coder::array<
-                        real_T, 1U> &bulkIns, ::coder::array<real_T, 1U>
-                        &bulkOuts, ::coder::array<real_T, 1U> &resolutionParams,
-                        ::coder::array<real_T, 1U> &chis, ::coder::array<
-                        cell_wrap_8, 1U> &reflectivity, ::coder::array<
-                        cell_wrap_8, 1U> &simulation, ::coder::array<
+                        real_T, 1U> &backgroundParams, ::coder::array<real_T, 1U>
+                        &qzshifts, ::coder::array<real_T, 1U> &scalefactors, ::
+                        coder::array<real_T, 1U> &bulkIns, ::coder::array<real_T,
+                        1U> &bulkOuts, ::coder::array<real_T, 1U>
+                        &resolutionParams, ::coder::array<real_T, 1U> &chis, ::
+                        coder::array<cell_wrap_8, 1U> &reflectivity, ::coder::
+                        array<cell_wrap_8, 1U> &simulation, ::coder::array<
                         cell_wrap_10, 1U> &shiftedData, ::coder::array<
                         cell_wrap_10, 1U> &layerSlds, ::coder::array<
                         cell_wrap_10, 1U> &sldProfiles, ::coder::array<
-                        cell_wrap_10, 1U> &allLayers, ::coder::array<real_T, 1U>
-                        &allRoughs)
+                        cell_wrap_10, 1U> &resampledLayers, ::coder::array<
+                        real_T, 1U> &subRoughs)
     {
-      ::coder::array<real_T, 2U> b_allLayers;
-      ::coder::array<real_T, 2U> c_allLayers;
+      ::coder::array<real_T, 2U> b_resampledLayers;
+      ::coder::array<real_T, 2U> c_resampledLayers;
       ::coder::array<real_T, 2U> r;
       ::coder::array<real_T, 2U> r1;
       ::coder::array<real_T, 2U> r2;
@@ -136,7 +135,6 @@ namespace RAT
       real_T d4;
       real_T d5;
       real_T d6;
-      real_T d7;
       int32_T b_i;
       int32_T c_loop_ub;
       int32_T d_loop_ub;
@@ -159,7 +157,7 @@ namespace RAT
       //
       //  OUTPUTS:
       //      * repeatLayers: controls repeating of the layers stack.
-      //      * allData: Array of all the data arrays.
+      //      * data: Array of all the data arrays.
       //      * dataLimits: Min max limits in q for the data arrays.
       //      * simLimits: Limits in Q for the reflectivity simulations.
       //      * layersDetails: Master array of all available layers.
@@ -178,8 +176,9 @@ namespace RAT
         problemStruct->contrastBulkOuts, problemStruct->bulkIn,
         problemStruct->bulkOut, problemStruct->contrastCustomFiles,
         problemStruct->numberOfContrasts, problemCells->f14,
-        problemStruct->params, problemStruct->useImaginary, allLayers, allRoughs);
-      if (coder::internal::l_strcmp(controls->parallel.data,
+        problemStruct->params, problemStruct->useImaginary, resampledLayers,
+        subRoughs);
+      if (coder::internal::m_strcmp(controls->parallel.data,
            controls->parallel.size)) {
         int32_T ub_loop;
 
@@ -203,22 +202,22 @@ namespace RAT
         resolutionParams.set_size(static_cast<int32_T>
           (problemStruct->numberOfContrasts));
         chis.set_size(static_cast<int32_T>(problemStruct->numberOfContrasts));
-        outSsubs.set_size(static_cast<int32_T>(problemStruct->numberOfContrasts));
         ub_loop = static_cast<int32_T>(problemStruct->numberOfContrasts) - 1;
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
- private(r,r1,c_allLayers,d,d1,d2,d3,d4,d5,d6,d7,b_i,c_loop_ub,i2,d_loop_ub,i3)
+ private(r,r1,c_resampledLayers,d,d1,d2,d3,d4,d5,d6,b_i,c_loop_ub,i2,d_loop_ub,i3)
 
         for (b_i = 0; b_i <= ub_loop; b_i++) {
-          c_allLayers.set_size(allLayers[b_i].f1.size(0), allLayers[b_i].f1.size
-                               (1));
-          c_loop_ub = allLayers[b_i].f1.size(1) - 1;
+          c_resampledLayers.set_size(resampledLayers[b_i].f1.size(0),
+            resampledLayers[b_i].f1.size(1));
+          c_loop_ub = resampledLayers[b_i].f1.size(1) - 1;
           for (i2 = 0; i2 <= c_loop_ub; i2++) {
-            d_loop_ub = allLayers[b_i].f1.size(0) - 1;
+            d_loop_ub = resampledLayers[b_i].f1.size(0) - 1;
             for (i3 = 0; i3 <= d_loop_ub; i3++) {
-              c_allLayers[i3 + c_allLayers.size(0) * i2] = allLayers[b_i].f1[i3
-                + allLayers[b_i].f1.size(0) * i2];
+              c_resampledLayers[i3 + c_resampledLayers.size(0) * i2] =
+                resampledLayers[b_i].f1[i3 + resampledLayers[b_i].f1.size(0) *
+                i2];
             }
           }
 
@@ -240,14 +239,14 @@ namespace RAT
                                 problemStruct->contrastBackgroundsType[b_i],
                                 static_cast<real_T>(nParams),
                                 controls->parallel.data, controls->parallel.size,
-                                controls->resamPars, useImaginary,
+                                controls->resampleParams, useImaginary,
                                 problemStruct->resample[b_i],
                                 problemStruct->geometry.data,
-                                problemStruct->geometry.size, allRoughs[b_i],
-                                calcSld, c_allLayers, &d7, &d6, &d5, &d4, &d3,
-                                &d2, &d1, reflectivity[b_i].f1, simulation[b_i].
-                                f1, r1, layerSlds[b_i].f1, r, allLayers[b_i].f1,
-                                &d);
+                                problemStruct->geometry.size, subRoughs[b_i],
+                                calcSld, c_resampledLayers, &d6, &d5, &d4, &d3,
+                                &d2, &d1, &d, reflectivity[b_i].f1,
+                                simulation[b_i].f1, r1, layerSlds[b_i].f1, r,
+                                resampledLayers[b_i].f1);
           c_loop_ub = r1.size(1);
           shiftedData[b_i].f1.set_size(r1.size(0), r1.size(1));
           for (i2 = 0; i2 < c_loop_ub; i2++) {
@@ -267,14 +266,13 @@ namespace RAT
             }
           }
 
-          backgroundParams[b_i] = d7;
-          qzshifts[b_i] = d6;
-          scalefactors[b_i] = d5;
-          bulkIns[b_i] = d4;
-          bulkOuts[b_i] = d3;
-          resolutionParams[b_i] = d2;
-          chis[b_i] = d1;
-          outSsubs[b_i] = d;
+          backgroundParams[b_i] = d6;
+          qzshifts[b_i] = d5;
+          scalefactors[b_i] = d4;
+          bulkIns[b_i] = d3;
+          bulkOuts[b_i] = d2;
+          resolutionParams[b_i] = d1;
+          chis[b_i] = d;
         }
       } else {
         int32_T ub_loop;
@@ -293,19 +291,19 @@ namespace RAT
         bulkOuts.set_size(ub_loop);
         resolutionParams.set_size(ub_loop);
         chis.set_size(ub_loop);
-        outSsubs.set_size(ub_loop);
         for (int32_T i{0}; i < ub_loop; i++) {
           int32_T b_loop_ub;
           int32_T c_i;
           int32_T i1;
           int32_T loop_ub;
-          b_allLayers.set_size(allLayers[i].f1.size(0), allLayers[i].f1.size(1));
-          loop_ub = allLayers[i].f1.size(1) - 1;
+          b_resampledLayers.set_size(resampledLayers[i].f1.size(0),
+            resampledLayers[i].f1.size(1));
+          loop_ub = resampledLayers[i].f1.size(1) - 1;
           for (c_i = 0; c_i <= loop_ub; c_i++) {
-            b_loop_ub = allLayers[i].f1.size(0) - 1;
+            b_loop_ub = resampledLayers[i].f1.size(0) - 1;
             for (i1 = 0; i1 <= b_loop_ub; i1++) {
-              b_allLayers[i1 + b_allLayers.size(0) * c_i] = allLayers[i].f1[i1 +
-                allLayers[i].f1.size(0) * c_i];
+              b_resampledLayers[i1 + b_resampledLayers.size(0) * c_i] =
+                resampledLayers[i].f1[i1 + resampledLayers[i].f1.size(0) * c_i];
             }
           }
 
@@ -326,16 +324,16 @@ namespace RAT
                                 problemStruct->contrastBackgroundsType[i],
                                 static_cast<real_T>(problemStruct->params.size(1)),
                                 controls->parallel.data, controls->parallel.size,
-                                controls->resamPars, problemStruct->useImaginary,
+                                controls->resampleParams,
+                                problemStruct->useImaginary,
                                 problemStruct->resample[i],
                                 problemStruct->geometry.data,
-                                problemStruct->geometry.size, allRoughs[i],
-                                calcSld, b_allLayers, &backgroundParams[i],
+                                problemStruct->geometry.size, subRoughs[i],
+                                calcSld, b_resampledLayers, &backgroundParams[i],
                                 &qzshifts[i], &scalefactors[i], &bulkIns[i],
                                 &bulkOuts[i], &resolutionParams[i], &chis[i],
                                 reflectivity[i].f1, simulation[i].f1, r2,
-                                layerSlds[i].f1, r3, allLayers[i].f1,
-                                &outSsubs[i]);
+                                layerSlds[i].f1, r3, resampledLayers[i].f1);
           loop_ub = r2.size(1);
           shiftedData[i].f1.set_size(r2.size(0), r2.size(1));
           for (c_i = 0; c_i < loop_ub; c_i++) {

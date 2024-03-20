@@ -36,9 +36,10 @@ namespace RAT
     cell_wrap_8, 1U> &result_simulation, ::coder::array<cell_wrap_38, 1U>
     &result_shiftedData, ::coder::array<cell_wrap_10, 2U> &result_layerSlds, ::
     coder::array<cell_wrap_10, 2U> &result_sldProfiles, ::coder::array<
-    cell_wrap_38, 2U> &result_allLayers, struct6_T *result_calculationResults,
-    b_struct_T *result_contrastParams, ::coder::array<real_T, 2U>
-    &result_bestFitPars, ::coder::array<cell_wrap_1, 1U> &result_fitNames);
+    cell_wrap_38, 2U> &result_resampledLayers, struct6_T
+    *result_calculationResults, b_struct_T *result_contrastParams, ::coder::
+    array<real_T, 2U> &result_fitParams, ::coder::array<cell_wrap_1, 1U>
+    &result_fitNames);
 }
 
 #endif

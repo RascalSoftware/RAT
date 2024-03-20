@@ -47,7 +47,7 @@ namespace RAT
 
   struct struct6_T
   {
-    ::coder::array<real_T, 1U> allChis;
+    ::coder::array<real_T, 1U> chiValues;
     real_T sumChi;
   };
 
@@ -128,13 +128,13 @@ namespace RAT
   {
     ::coder::bounded_array<char_T, 10000U, 2U> procedure;
     ::coder::bounded_array<char_T, 10000U, 2U> parallel;
-    real_T resamPars[2];
+    real_T resampleParams[2];
     boolean_T calcSldDuringFit;
     ::coder::bounded_array<char_T, 10000U, 2U> display;
-    real_T tolX;
-    real_T tolFun;
-    real_T maxFunEvals;
-    real_T maxIter;
+    real_T xTolerance;
+    real_T funcTolerance;
+    real_T maxFuncEvals;
+    real_T maxIterations;
     real_T updateFreq;
     real_T updatePlotFreq;
     real_T populationSize;
@@ -143,8 +143,8 @@ namespace RAT
     real_T strategy;
     real_T targetValue;
     real_T numGenerations;
-    real_T Nlive;
-    real_T Nmcmc;
+    real_T nLive;
+    real_T nMCMC;
     real_T propScale;
     real_T nsTolerance;
     real_T nSamples;
@@ -158,14 +158,13 @@ namespace RAT
 
   struct struct7_T
   {
-    ::coder::array<real_T, 1U> ssubs;
     ::coder::array<real_T, 1U> backgroundParams;
     ::coder::array<real_T, 1U> qzshifts;
     ::coder::array<real_T, 1U> scalefactors;
     ::coder::array<real_T, 1U> bulkIn;
     ::coder::array<real_T, 1U> bulkOut;
     ::coder::array<real_T, 1U> resolutionParams;
-    ::coder::array<real_T, 1U> allSubRough;
+    ::coder::array<real_T, 1U> subRoughs;
     ::coder::array<real_T, 2U> resample;
   };
 
@@ -176,10 +175,10 @@ namespace RAT
     ::coder::array<cell_wrap_38, 1U> shiftedData;
     ::coder::array<cell_wrap_10, 2U> layerSlds;
     ::coder::array<cell_wrap_10, 2U> sldProfiles;
-    ::coder::array<cell_wrap_38, 2U> allLayers;
+    ::coder::array<cell_wrap_38, 2U> resampledLayers;
     struct6_T calculationResults;
     struct7_T contrastParams;
-    ::coder::array<real_T, 2U> bestFitPars;
+    ::coder::array<real_T, 2U> fitParams;
     ::coder::array<cell_wrap_1, 1U> fitNames;
   };
 

@@ -30,6 +30,7 @@ struct plotData {
     double* nSldProfiles2;
     double* layers2;
     double* nLayers2;
+    double* subRoughs;
     double* resample;
     double* dataPresent;
     const char* modelType;

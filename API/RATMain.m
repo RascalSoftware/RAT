@@ -14,7 +14,7 @@ bayesResults = makeEmptyBayesResultsStruct(problemStruct.numberOfContrasts, doma
 switch controls.procedure
     case coderEnums.procedures.Calculate % Just a single reflectivity calculation
         result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
-    case coderEnums.procedures.Simplex'
+    case coderEnums.procedures.Simplex
         if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
             fprintf('\nRunning simplex\n\n');
         end

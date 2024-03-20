@@ -28,21 +28,21 @@ coder.varsize('layers',[Inf,6],[1 1]);
 
 %for i = 1:numberOfContrasts
     output = resampledLayers;
-    s_sub = subRoughs;
+    ssub = subRoughs;
     layers = zeros(size(output));
     if ~isempty(output)
         if strcmpi(geometry, coderEnums.geometryOptions.AirSubstrate)
                 layers = output;
-                %s_sub = rsub;
+                %ssub = rsub;
         else
                 roughs = output(:,3);
                 sldss = output(:,2);
                 thicks = output(:,1);
                 rsub = roughs(end);
                 if length(roughs) > 1
-                    roughs = [s_sub ; roughs(1:end-1)];
+                    roughs = [ssub ; roughs(1:end-1)];
                 else
-                    roughs = s_sub;
+                    roughs = ssub;
                 end
                 n = size(output,2);
                 if n == 5
@@ -51,7 +51,7 @@ coder.varsize('layers',[Inf,6],[1 1]);
                 else
                     layers = [thicks(:) sldss(:) roughs(:)];
                 end
-                s_sub = rsub;
+                ssub = rsub;
         end
         
         %Deal with the %coverage if present
@@ -77,7 +77,7 @@ if ~isempty(layers)
 else
     outLayers = zeros(1,3);
 end
-outSsubs = s_sub;
+outSsubs = ssub;
 
 
 end

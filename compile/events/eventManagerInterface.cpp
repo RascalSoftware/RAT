@@ -91,21 +91,24 @@ void eventCallback(const baseEvent& event)
                                                   pEvent->data->layers2, pEvent->data->nLayers, 2);
 
         mwSize dims[2] = {(mwSize)pEvent->data->nContrast, 1};
+        mxArray* subRoughs = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
+        memcpy(mxGetPr(subRoughs), pEvent->data->subRoughs, dims[0] * mxGetElementSize(subRoughs));
+
         mxArray* resample = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
         memcpy(mxGetPr(resample), pEvent->data->resample, dims[0] * mxGetElementSize(resample));
 
         mxArray* dataPresent = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
         memcpy(mxGetPr(dataPresent), pEvent->data->dataPresent, dims[0] * mxGetElementSize(dataPresent));
 
-        
-        const char* field_names[] = {"reflectivity", "shiftedData", "sldProfiles", "allLayers",
-                                     "resample", "dataPresent", "modelType"};
+        const char* field_names[] = {"reflectivity", "shiftedData", "sldProfiles", "resampledLayers",
+                                     "subRoughs", "resample", "dataPresent", "modelType"};
         prhs[1] = mxCreateStructArray(2, structDims, 8, field_names);
 
         mxSetFieldByNumber(prhs[1], 0, 0, reflect);
         mxSetFieldByNumber(prhs[1], 0, 1, shifted);
         mxSetFieldByNumber(prhs[1], 0, 2, slds);
         mxSetFieldByNumber(prhs[1], 0, 3, layers);
+        mxSetFieldByNumber(prhs[1], 0, 4, subRoughs);
         mxSetFieldByNumber(prhs[1], 0, 5, resample);
         mxSetFieldByNumber(prhs[1], 0, 6, dataPresent);
         mxSetFieldByNumber(prhs[1], 0, 7, mxCreateString(pEvent->data->modelType));

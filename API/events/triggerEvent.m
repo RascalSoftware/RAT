@@ -32,6 +32,7 @@ function triggerEvent(eventType, varargin)
             plotData.shiftedData = result.shiftedData;
             plotData.sldProfiles = result.sldProfiles;
             plotData.resampledLayers = result.resampledLayers;
+            plotData.subRoughs = result.contrastParams.subRoughs;
             plotData.resample = problemStruct.resample;
             plotData.dataPresent = problemStruct.dataPresent;
             plotData.modelType = problemStruct.modelType;
@@ -65,6 +66,7 @@ function triggerEvent(eventType, varargin)
 
                 result = varargin{1};
                 problemStruct = varargin{2};
+                subRoughs = result.contrastParams.subRoughs;
                 nContrast = length(result.reflectivity);
                 [reflect, nReflect] = packCellArray(result.reflectivity, 1);
                 [shiftedData, nShiftedData] = packCellArray(result.shiftedData, 1);
@@ -88,7 +90,7 @@ function triggerEvent(eventType, varargin)
                 
                 coder.ceval('std::mem_fn(&eventHelper::updatePlot)', helper, nContrast, reflect, nReflect, shiftedData, ...
                             nShiftedData, sldProfiles, nSldProfiles, layers, nLayers, sldProfiles2, nSldProfiles2, layers2, ...
-                            nLayers2, resample, dataPresent, modelType);
+                            nLayers2, subRoughs, resample, dataPresent, modelType);
             end
             notified = false;
         else

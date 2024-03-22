@@ -256,7 +256,7 @@ r1Problem.shifted_data = results.shiftedData;
 r1Problem.calculations.Simulation = results.simulation;
 r1Problem.calculations.reflectivity = results.reflectivity;
 r1Problem.calculations.slds = results.sldProfiles;
-r1Problem.calculations.all_chis = results.calculationResults.allChis;
+r1Problem.calculations.all_chis = results.calculationResults.chiValues;
 r1Problem.calculations.sum_chi = results.calculationResults.sumChi;
 
 newR1Problem = r1Problem;

@@ -15,7 +15,7 @@ extern "C" {
 
 LIB_EXPORT void updatePlot(int nContrast, double* reflect, double* nReflect, double* shiftedData, double* nShiftedData, 
                            double* sldProfiles, double* nSldProfiles, double* layers, double* nLayers, 
-                           double* sldProfiles2, double* nSldProfiles2, double* layers2, double* nLayers2, double* ssubs, 
+                           double* sldProfiles2, double* nSldProfiles2, double* layers2, double* nLayers2, double* subRoughs,
                            double* resample, double* dataPresent, const char* modelType);
 
 LIB_EXPORT void sendMessage(const char* msg);

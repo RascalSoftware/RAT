@@ -1,4 +1,4 @@
-function [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,geometry,bulkIns,bulkOuts)
+function [outLayers, outSsubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)
 % Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the 
 % z,rho,rough stack, and the parameter 'ssub' in callParatt is the final roughness encountered. 
 %
@@ -7,11 +7,11 @@ function [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,geometry,bul
 %
 % USAGE::
 %
-%     [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,geometry,bulkIns,bulkOuts)
+%     [outLayers, outSsubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)
 %
 % INPUTS:
-%     * allLayers: cell array, one for each contrast. Each cell is the list of layer values for each contrast.
-%     * allRoughs:  Double of substrate roughness for each contrast.
+%     * resampledLayers: cell array, one for each contrast. Each cell is the list of layer values for each contrast.
+%     * subRoughs:  Double of substrate roughness for each contrast.
 %     * geometry: 'Air / Liquid (or solid)' or 'Solid / Liquid'
 %     * bulkIns: vector of bulkIn values.
 %     * bulkOuts: vector of bulkOut values.
@@ -27,22 +27,22 @@ function [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,geometry,bul
 coder.varsize('layers',[Inf,6],[1 1]);
 
 %for i = 1:numberOfContrasts
-    output = allLayers;
-    s_sub = allRoughs;
+    output = resampledLayers;
+    ssub = subRoughs;
     layers = zeros(size(output));
     if ~isempty(output)
         if strcmpi(geometry, coderEnums.geometryOptions.AirSubstrate)
                 layers = output;
-                %s_sub = rsub;
+                %ssub = rsub;
         else
                 roughs = output(:,3);
                 sldss = output(:,2);
                 thicks = output(:,1);
                 rsub = roughs(end);
                 if length(roughs) > 1
-                    roughs = [s_sub ; roughs(1:end-1)];
+                    roughs = [ssub ; roughs(1:end-1)];
                 else
-                    roughs = s_sub;
+                    roughs = ssub;
                 end
                 n = size(output,2);
                 if n == 5
@@ -51,7 +51,7 @@ coder.varsize('layers',[Inf,6],[1 1]);
                 else
                     layers = [thicks(:) sldss(:) roughs(:)];
                 end
-                s_sub = rsub;
+                ssub = rsub;
         end
         
         %Deal with the %coverage if present
@@ -77,7 +77,7 @@ if ~isempty(layers)
 else
     outLayers = zeros(1,3);
 end
-outSsubs = s_sub;
+outSsubs = ssub;
 
 
 end

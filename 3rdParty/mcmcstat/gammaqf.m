@@ -45,7 +45,7 @@ while zfun(x0,p,a,b)>=0
 end
 
 % use fzero for zero
-y = fzero(@zfun,[0,x0],optimset('tolx',1e-6,'display','none'),p,a,b);
+y = fzero(@zfun,[0,x0],optimset('TolX',1e-6,'Display','none'),p,a,b);
 
 function z = zfun(x,p,a,b)
 % zero function for gamaqf

@@ -2,10 +2,10 @@ function [problemStruct,result] = runSimplex(problemStruct,problemCells,problemL
 
 [problemStruct,~] = fitsetup(problemStruct,problemCells,problemLimits,controls);
 
-maxIter = controls.maxIter;
-tolFun = controls.tolFun;
-tolX = controls.tolX;
-maxFunEvals = controls.maxFunEvals;
+maxIter = controls.maxIterations;
+tolFun = controls.funcTolerance;
+tolX = controls.xTolerance;
+maxFunEvals = controls.maxFuncEvals;
 display = controls.display;
 
 switch display

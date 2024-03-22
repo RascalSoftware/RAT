@@ -1,4 +1,4 @@
-function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemCells)
+function [repeatLayers,data,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemCells)
 % Splits up the master input list of all arrays into separate arrays
 % 
 % INPUTS:
@@ -6,7 +6,7 @@ function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails
 %
 % OUTPUTS:
 %     * repeatLayers: controls repeating of the layers stack.
-%     * allData: Array of all the data arrays.
+%     * data: Array of all the data arrays.
 %     * dataLimits: Min max limits in q for the data arrays.
 %     * simLimits: Limits in Q for the reflectivity simulations.
 %     * layersDetails: Master array of all available layers.
@@ -15,7 +15,7 @@ function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails
 
 
 repeatLayers = problemCells{1};
-allData = problemCells{2};
+data = problemCells{2};
 dataLimits = problemCells{3};
 simLimits = problemCells{4};
 contrastLayers = problemCells{5};

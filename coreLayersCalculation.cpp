@@ -98,13 +98,6 @@ namespace RAT
       //
       //
       //
-      //  ------------------------------------------------------------------------
-      //
-      //        (c) Arwel Hughes  -   12/1/21
-      //
-      //        Last Modified: 12/1/21 by Arwel Hughes.
-      //
-      //  ------------------------------------------------------------------------
       //  Pre-definition for Coder
       thisSldLaysIm.set_size(1, 2);
       sldProfileIm.set_size(1, 2);
@@ -382,7 +375,7 @@ namespace RAT
                        layerSld, ssubs, resolution, parallelPoints_data,
                        parallelPoints_size, useImaginary, reflect, simulation);
 
-      //  Apply background correction, either to the simulation or the data
+      //  Apply background correction
       applyBackgroundCorrection(reflect, simulation, shiftedData, background,
         contrastBackgroundsType);
 

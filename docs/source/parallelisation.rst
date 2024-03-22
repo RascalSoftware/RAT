@@ -15,7 +15,7 @@ The controls class allows selection of parallel calculations for all algorithms.
 
 The parallelisation scheme is chosen from the controls class:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     controls = controlsClass()
 

@@ -7,7 +7,7 @@ Adding the Imaginary Refractive Index
 In contrast to RasCAL1, RAT allows the inclusion of the imaginary part of the refractive index to the project. The exact method of doing this varies according to the calculation type,
 but at the project top-level, the method of enabling it is always the same. If the project is called 'problem', then:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.absorption = true;
 
@@ -30,7 +30,7 @@ For custom models, an extra column is also required in the output from the custo
 So, for example, in the */examples/miscellaneous/absorption* folder, there is a Custom Layers example including absorption. In this example (a bilayer on a gold surface)
 an imaginary SLD is required for the metal layers:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     GOLD = [goldThick goldSLD goldISLD goldRough];
     alloyUp = [alloyThick alloySLDUp alloyISLDUp alloyRough];
@@ -38,7 +38,7 @@ an imaginary SLD is required for the metal layers:
 
 but there is no imaginary component expected for the organic layers (but the extra column is still necessary).
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     BILTAILS = [thickTail sldTail 0 bilayerRough];
     BILHEAD = [thickHead sldHead 0 bilayerRough];
@@ -47,7 +47,7 @@ but there is no imaginary component expected for the organic layers (but the ext
 
 For custom XY models, it is necessary to construct a profile which represents the imaginary SLD across the sample, and this then appears as am extra column in the output:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     output = [X1    SLD1    SLD_im_1
               X2    SLD2    SLD_im_2

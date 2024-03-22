@@ -8,7 +8,7 @@ class which, as it's name suggests, tells RAT what we want to do with the projec
 
 Making an instance of the controls class is quite simple:-
 
-.. code:: MATLAB
+.. code-block:: MATLAB
         
     controls = controlsClass()
 

@@ -116,7 +116,7 @@ classdef backgroundsClass < handle
                        % of a data file. We don't have access to the
                        % data files at this point so this (i.e. that data is
                        % [n x 4] ) will be checked downstream
-                       thisRow = {in{1}, in{2}, in{3}, '', '', '', ''};
+                       thisRow = {in{1}, in{2}, '', '', '', '', ''};
                 end
             end
             obj.backgrounds.addRow(thisRow{:});   

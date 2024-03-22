@@ -18,7 +18,7 @@ suppose we have defined a Model Definition block which contains the data and mod
 then decide that we would like to optimise this first using a genetic algorithm, and then run a Bayesian analysis to
 obtain the parameter posterior distributions. To do all this we only need to define our model once, and run it twice
 whilst simply modifying the Controls Block to tweak the algorithm that is run in each case. Also, once we are satisfied with
-our model, we can save it or export it, and re-use this basic pattern for subsequent analyses with different,
+our model, we can save it or export it, and re-use this basic pattern for subsequent analysis with different,
 related data sets. Keeping the Model and Controls separate gives a high degree of flexibility as to how tasks can be
 formulated and run.
 
@@ -81,7 +81,7 @@ The problem definition in RAT is done by making an instance of a *projectClass* 
 set up the parameters, layers and so on this instance. The details of setting up a *projectClass* object is
 discussed in chapter 2, but for now, we'll look at a pre-prepared example.
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     % Load in a pre-made problem Definition class
     problem = load('twoContrastExample.mat');
@@ -157,7 +157,7 @@ Once we've run our model through RAT, then the second output (we call *results* 
 
 This contains the results of our calculations, so for us including the SLD profiles and reflectivities calculated from our *problemDef* class. We can now plot the output, either manually (by taking the relevant parts from the *results* array), or using one of the supplied plotting utilities:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     fig(1); clf;
     plotRefSLD(problem, results)

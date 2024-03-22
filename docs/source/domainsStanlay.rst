@@ -5,11 +5,11 @@ Standard Layers Domains
 .......................
 
 .. note::
-    See the */examples/domains/standardLayers/ folder for an example of standard layers with domains.
+    See the */examples/domains/standardLayers/* folder for an example of standard layers with domains.
 
 In order to use domains, we create a project of the correct type....
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem = createProject(calcType="domains")
 
@@ -20,7 +20,7 @@ The principle of setting up these calculations relies on firstly grouping the la
 
 The example (in the examples folder), we define the layers as for conventional Standard Layers projects:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     Layer1 = {'Layer 1',...         % Name of the layer
         'L1 thick',...              % Layer thickness

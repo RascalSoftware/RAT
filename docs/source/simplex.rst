@@ -21,7 +21,7 @@ are really Global Minimisers, and can be slow to converge locally).
 
 To selct the simplex in RAT, we use the 'procedure' attribute of the controls block:-
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     controls = controlsClass();
     controls.procedure = 'simplex'

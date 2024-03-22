@@ -9,7 +9,7 @@ landscape of solutions by simply modifying the *controls* class, leaving the *pr
 
 As well as having two inputs, RAT always provides two outputs, so the call to the toolbox is always of this form:-
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     [problem, results] = RAT(problem, controls)
 
@@ -17,7 +17,7 @@ In this case we have called our inputs *problem* and *controls*, but they can be
 
 The first input, *problem*, is an instance of a class called *projectClass*:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     >>> problem = projectClass('my project');
     >>> class(problem)
@@ -60,7 +60,7 @@ The Components of ProjectClass
 
 The first step is always to create an instance of the **projectClass** to hold our model. This is always done by assigning **projectClass** to our variable name (we will mostly use *problem* in this manual, but it can be anything), which always requires a name for our project as an input:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem = projectClass('My Problem');
     
@@ -70,7 +70,7 @@ The first part of the created *problem* has two other settable fields: *modelTyp
 
 **Geometry -** This can be set to either *air/substrate* or *substrate/liquid* using the **setGeometry** method. It can take the values of *air/substrate* or *substrate/liquid*. 
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     >> problem.setGeometry('air/substrate');
     >> problem.setGeometry('substrate/liquid');
@@ -90,7 +90,7 @@ ModelType - As is the case for RasCAL, there are three ways of defining models i
 
 The model type is set using the **setModelType** method:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     >> problem.setModelType('standard layers');
     >> problem.setModelType('custom layers');
@@ -111,14 +111,14 @@ The substrate roughness is a protected parameter in all cases (it defines the Fr
 
 To add a parameter, you can use the **addParam** method, either by just specifying a name, in which case the parameter takes on default values, or by specifying the whole parameter at once (note the Matlab cell array curly brackets syntax for the latter):
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     >> problem.addParameter('My new param');
     >> problem.addParameter('My other new param',10,20,30,false);
 
 To avoid having to make a whole load of **addParam** statements for large projects with many parameters, you can define them at once in a cell array, and add them using the **addParamGroup** method (again notice the curly brackets syntax - this is a {cell array of {cell arrays}} : 
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     pGroup = {{'Layer thick', 10, 20, 30, true};
               {'Layer SLD', 1e-6, 3e-6 5e-6, true};
@@ -138,7 +138,7 @@ The resulting parameters block looks like this:
 
 To subsequently change the values of the parameters (including names), there are a few methods you can use. For each of the methods, you can refer to the parameter by its name or its number. There are dedicated methods for each of the attributes of the parameters:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.setParameterName('My new param', 'My changed param');
     problem.setParameterConstr(2,0.96,3.62);
@@ -151,7 +151,7 @@ To subsequently change the values of the parameters (including names), there are
 
 Alternatively, you can set a number of properties of a given parameter at once using name / value pairs.
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.setParameter(4,'name','thick','min',15,'max',33,'fit',false)
 
@@ -161,7 +161,7 @@ Alternatively, you can set a number of properties of a given parameter at once u
 
 You can remove a parameter from the block using its name or number. Note that if you remove a parameter from the middle of the block, subsequent parameter numbers will change. Also, if you try to remove the substrate roughness you will get an error:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.removeParameter(4);
 
@@ -182,7 +182,7 @@ For this example, we will make two layers representing a deuterated and hydrogen
 
 Start by making a new project, and adding the parameters we will need:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem = projectClass('Layers Example');
  
@@ -196,7 +196,7 @@ Start by making a new project, and adding the parameters we will need:
 
 A layer is defined in terms of a name, thickness, SLD, roughness and (optional) hydration, along with details of which bulk phase is hydrating the layer. The easiest way to define these is to group the parameters into cell arrays, and then add them to the project as a layers group:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     % Make the layers
     H_layer = {'H Layer','Layer Thickness','H SLD','Layer rough','Layer hydr','bulk out'};
@@ -212,7 +212,7 @@ Our two layers now appear in the Layers block of the project:
 
 Note that in RAT, hydration is percent hydration between 0 and 100. It is not necessary to define a hydration at all, and we can also make layers without this parameter:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     % Non hydrated layer
     Dry_Layer = {'Dry Layer', 'Layer Thickness', 'D SLD', 'Layer rough'};
@@ -223,7 +223,7 @@ Note that in RAT, hydration is percent hydration between 0 and 100. It is not ne
 
 To set the value of an existing layer, you can use the 'setLayerValue' method, at the moment using numbers for the layer number, layer parameter and parameter to be changed. So for example:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.setLayerValue(1,2,3);
 
@@ -242,7 +242,7 @@ The layers are then used to set up the contrasts as usual with a standard layers
 
 These are treated in the same way as parameters e.g.
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.addBulkIn('Silicon',2.0e-6,2.07e-6,2.1e-6,false);
     problem.addBulkOut('H2O',-0.6e-6,-0.56e-6,-0.5e-6,false);
@@ -253,7 +253,7 @@ These are treated in the same way as parameters e.g.
 
 There are no individual methods for each parameter of these, but the values can be modified using name / value pairs as is the case for parameters, using the **setBulkIn** and **setBulkOut** methods e.g.
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.setBulkOut(1, 'value', 5.9e-6, 'fit', true);
 
@@ -261,7 +261,7 @@ There are no individual methods for each parameter of these, but the values can 
 ++++++++++++++++
 The *scalefactors* are another parameters block like the bulk phases. You can add *scalefactors* with the **addScalefactor** method. Similarly, you can set the values with the **setScalefactor** method as with the previous blocks.
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.addScalefactor('New Scalefactor',0.9,1.0,1.1,true);
     problem.setScalefactor(1,'value',1.01);
@@ -284,7 +284,7 @@ The backgrounds can be one of three types: 'constant', 'function' or 'data'. The
 
 * **Constant** - This is the normal background type from RasCAL1. Each background requires one *and only one* Background Parameter associated with it, as follows:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.addBackgroundParam('My New Backpar',1e-8,1e-7,1e-6,true);
     problem.addBackground('My New Background','constant','My New BackPar');
@@ -299,7 +299,7 @@ This is then available to be used by any of our contrasts (see later).
 
 * **Data** - This option is used when a measured data background is available. Suppose our measured data is in a datafile loaded into the data block (see later), and called 'My Background Data'. To define a data background, we simply specify this datafile in our background specification:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.addBackground('Data Background 1','data','My Data Background')
 
@@ -327,7 +327,7 @@ The three types are:
 
 To define a resolution parameter, we use the addResolutionParam method:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.addResolutionParam('My Resolution Param',0.02,0.05,0.08,true)
 
@@ -338,7 +338,7 @@ To define a resolution parameter, we use the addResolutionParam method:
 
 Then, we make the actual resolution referring to whichever one of the resolution parameters:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.addResolution('My new resolution','constant','My Resolution Param')
     problem.addResolution('My Data Resolution','data')
@@ -369,7 +369,7 @@ For each entry in the table there are four fields:
 
 To add data, we first load it into Matlab, then create a new data entry containing it:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     >> myData = dlmread('c_PLP0016596.dat');
     >> problem.addData('My new datafile',myData)
@@ -388,7 +388,7 @@ use the *'setData'* method. Also note that this data has a fourth column, and so
 
 As is the case for RasCAL, once we have defined the various aspects of our project i.e. backgrounds, data and so on, we group these together into contrasts to make out fitting project. We can add a contrast using just it's name, and edit it later, or we can specify which parts of our project we want to add to the contrast using name value pairs:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.addContrast('name', 'D-tail/H-Head/D2O',...
                         'background', 'Background D2O',...
@@ -402,7 +402,7 @@ The values which we add must refer to names within the other blocks of the proje
 
 Once we have added the contrasts, then we need to set the model, either by adding layers for a *standard layers* project, or a custom model file (we will discuss these in chapter 3). To add either layers or a custom file, we use the **setModel** method. In the case of layers, we give a list of layer names, in order from bulk in to bulk out. So for a monolayer for example, we would specify tails and then heads in a cell array:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.setContrastModel(1,{'Deuterated tails','Hydrogenated heads'});
 
@@ -414,13 +414,13 @@ In the previous sections, we showed an example of a pre-loaded problem definitio
 
 To start, we first make an instance of the project class:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem = projectClass('DSPC monolayers');
 
 Then we need to define the parameters we need. We'll do this by making a parameters block, and adding these to project class with the **addParamGroup** method:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     % Define the parameters:
     Parameters = {
@@ -440,7 +440,7 @@ Then we need to define the parameters we need. We'll do this by making a paramet
 
 Next we need to group the parameters into our layers. We need four layers in all, representing deuterated and hydrogenated versions of the heads and tails:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     H_Heads = {'Hydrogenated Heads',...
                'Heads Thickness',...
@@ -471,13 +471,13 @@ Next we need to group the parameters into our layers. We need four layers in all
 
 We add our layers to the project using the **addLayerGroup** method:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.addLayerGroup({H_Heads; D_Heads; H_Tails; D_Tails});
 
 We are using two different subphases: D2O and ACMW. We need a different constant background for each, so we need two 'backPar' parameters. There is already one background parameter in the project as a default, so we rename this and add a second one:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.setBackgroundParamName(1, 'Backs value ACMW'); % Use existing backsPar
     problem.setBackgroundParamValue(1, 5.5e-6);
@@ -485,20 +485,20 @@ We are using two different subphases: D2O and ACMW. We need a different constant
 
 Use these parameters to define two constant backgrounds, again using the existing default for one of them:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.addBackground('Background D2O', 'constant', 'Backs Value D2O');
     problem.setBackground(1, 'name', 'Background ACMW', 'value1', 'Backs Value ACMW');
 
 We need two subphases for our project. D2O is already in the project as a default, so we only need to add the bulk out for ACMW
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.addBulkOut('SLD ACMW', -1e-6, 0.0, 1e-6, true);
 
 Now we need to add the data. We read in the two files into MATLAB, and put the data into the data block with appropriate names:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     d13ACM = dlmread('d13acmw20.dat');
     d70d2O = dlmread('d70d2o20.dat');
@@ -507,7 +507,7 @@ Now we need to add the data. We read in the two files into MATLAB, and put the d
 
 We have everything we need to now build our contrasts. We have two contrasts in all, and we build them using name / value pairs for all the different parts of the contrasts (i.e. selecting which background and bulk phases etc we need using the names we have given them.)
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.addContrast('name', 'D-tail/H-Head/D2O',...
                         'background', 'Background D2O',...
@@ -527,14 +527,14 @@ We have everything we need to now build our contrasts. We have two contrasts in 
 
 To define the models for each contrast, we add the relevant layers as appropriate:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.setContrastModel(1, {'Deuterated tails','Hydrogenated heads'});
     problem.setContrastModel(2, {'hydrogenated tails','deuterated heads'});
 
 We need to make sure that we are fitting the relevant backgrounds, scalefactors and bulk phase values:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.setBackgroundParam(1,'fit', true);
     problem.setBackgroundParam(2,'fit', true);
@@ -543,7 +543,7 @@ We need to make sure that we are fitting the relevant backgrounds, scalefactors 
 
 Now have a look at our project, to make sure it all looks reasonable
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     disp(problem)
 
@@ -554,7 +554,7 @@ Now have a look at our project, to make sure it all looks reasonable
 
 Now we'll calculate this to check the agreement with the data. We need an instance of the controls class, with the procedure attribute set to *calculate* (the default):
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     controls = controlsClass();
 
@@ -566,14 +566,14 @@ Now we'll calculate this to check the agreement with the data. We need an instan
 
 We then send all of this to RAT, and plot the output:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     [problem,results] = RAT(problem,controls);
 
 .. image:: images/userManual/chapter2/ratRun1.png
     :alt: Displays the RAT processing and chi squared
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     figure(1); clf;
     plotRefSLD(problem, results)
@@ -584,7 +584,7 @@ We then send all of this to RAT, and plot the output:
 
 To do a fit,  we change the *procedure* attribute of the controls class to **simplex** . We will also change the 'parallel' option to 'contrasts', so that each contrast gets it's own calculation thread, and modify the output to only display the final result (rather than each iteration):
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     controls.procedure = 'simplex';
     controls.parallel = 'contrasts';
@@ -604,7 +604,7 @@ To do a fit,  we change the *procedure* attribute of the controls class to **sim
     :width: 600
     :alt: simplex results
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     disp(results)
 
@@ -614,7 +614,7 @@ To do a fit,  we change the *procedure* attribute of the controls class to **sim
 
 We can now plot the results of our fit:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     figure; clf
     plotRefSLD(out,results)

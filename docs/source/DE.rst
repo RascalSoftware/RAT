@@ -15,7 +15,7 @@ that merely provides a measure of quality given a candidate solution and the gra
 
 As with all the RAT algorithms, DE is selected using the 'procedure' attribute of the controls block:-
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     controls = controlsClass();
     controls.procedure = 'DE'
@@ -30,7 +30,7 @@ This reveals the DE specific parameters in controls:-
 For all the algorithms in the RAT implementation of DE (see below), the parameters have the following meanings:-
 
 populationSize - For DE a number of sets of parameters (population) evolve using random mutation, or exchange of
-                 parameters (analogous to genes!) between the members of the poulation.
+                 parameters (analogous to genes!) between the members of the population.
 
 numGenerations - How many iterations of DE to run.
 
@@ -47,7 +47,7 @@ DE is also somewhat sensitive to
 the choice of the stepsize fWeight. A good initial guess is to
 choose fWeight from interval [0.5, 1], e.g. 0.8. The crossover
 probability (between 0 -1) helps to maintain
-the diversity of the population but should be close to 1 for most. 
+the diversity of the population but should be close to 1 for most 
 practical cases. Only separable problems do better with CR close to 0.
 If the parameters are correlated, high values of F_CR work better.
 The reverse is true for no correlation.

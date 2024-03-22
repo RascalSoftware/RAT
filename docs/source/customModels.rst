@@ -20,7 +20,7 @@ The general principle of custom layers models is that we take the defined parame
 way of defining your model, since you have the freedom to parameterise and define your model however you wish. So rather than beong restricted to just simple [d, rho, sigma] combinations as parameters, you can
 define your model in terms of more scientifically useful parameters, such are Area per molecule or density for example. The basic structure of any custom layers script always has the same format:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
         function [layers,subRough] = myCustomModel(problems,bulkIn,bulkOut,contrast)
 
@@ -72,7 +72,7 @@ These are the parameters that we will define in the parameters block.
 
 We start in the usual way by making in instance of the **projectClass**, but this time we change the project type to *custom layers*, and also change the geometry to *solid/liquid*:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem = projectClass('Orso lipid example - custom layers');
     problem.setModelType('custom layers');
@@ -82,7 +82,7 @@ If you look at the class, you will see that the *layers* block is no longer visi
 
 First, we add our seven parameters (remember that Substrate Roughness is always there as the first parameter), which we do as before using the **addParamGroup** method:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     Parameters = {
             %  Name                min          val         max     fit? 
@@ -99,7 +99,7 @@ First, we add our seven parameters (remember that Substrate Roughness is always 
 
 The custom file that we are going to use is called *customBilayer.m*. This is a MATLAB (or Octave - both are identical) function, which takes our input parameters and translates them into a list of layers. To add the file, we use the **addCustomFile** method:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     % name filename language path
     problem.addCustomFile('DSPC Model', 'customBilayer.m' ,'matlab',  pwd);
@@ -118,7 +118,7 @@ The custom files are in exactly the same format at those in RasCAL. To add it to
 
 At this point it's useful to look at *customBilayer.m* and then go through it section by section:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     function [output,sub_rough] = customBilayer(params,bulk_in,bulk_out,contrast)
     %CUSTOMBILAYER  RASCAL Custom Layer Model File.
@@ -208,13 +208,13 @@ At this point it's useful to look at *customBilayer.m* and then go through it se
 
 The standard format for a custom layers file always has 4 inputs:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     (params, bulk_in, bulk_out, contrast)
 
 Params is a list of parameter values for the layers, which appear in the same order that we defined them in our parameters block, so is always a [1 x nParams] array of doubles. It's useful to split this array into its individual parameters at the start of the custom file, although you don't have to do this:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     sub_rough = params(1);
     oxide_thick = params(2);
@@ -231,14 +231,14 @@ The next two inputs are arrays of all the bulk in and bulk out values for all th
 
 The input parameter *bulk_in* is an array which is a list of the current SLD's for all the contrasts, so the current SLD of the water (which may be being fitted) is given by bulk_out(contrast). Therefore, the effective SLD of the oxide layer at a particular contrast is given by:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     oxide_SLD = 3.41e-6;
     oxSLD = (oxide_hydration * bulk_out(contrast)) + ((1 - oxide_hydration) * oxide_SLD);
 
 To work out the thickness of the lipid layers, we use literature values for the head and tails volumes, and divide these by the APM (parameter 4 in our list):
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     % We need volumes for each.
     % Use literature values:
@@ -252,7 +252,7 @@ To work out the thickness of the lipid layers, we use literature values for the 
 
 For the SLD's, we again make use of these volumes, but we need to work out the sum of the scattering lengths from the layers compositions:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     % define all the neutron b's.
     bc = 0.6646e-4;     %Carbon
@@ -280,14 +280,14 @@ For the SLD's, we again make use of these volumes, but we need to work out the s
 
 We also do the coverage correction as we did for the Oxide:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     headSLD = (headHydration * bulk_out(contrast)) + ((1 - headHydration) * SLDhead);
     tailSLD = (bilayerHydration * bulk_out(contrast)) + ((1 - bilayerHydration) * SLDtail);
 
 This gives us all the parameters we need to define our layers. In other words, we have a thickness, SLD and roughness for each:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     % Make the layers
     oxide = [oxide_thick oxSLD sub_rough];
@@ -297,7 +297,7 @@ This gives us all the parameters we need to define our layers. In other words, w
 
 We then put these together to make our stack:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     output = [oxide; water; head; tail; tail; head];
 
@@ -311,7 +311,7 @@ In other words, the entire purpose of our custom layer file is to take our param
 
 The rest of the custom model is defined in the same way as the standard layers model, using the same class methods as in the last chapter. So, since we want to analyse three contrasts simultaneously, we need the following:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
    % Change bulk in from air to silicon....
     problem.setBulkIn(1,'name','Silicon','min',2.07e-6,'value',2.073e-6,'max',2.08e-6,'fit',false);
@@ -382,7 +382,7 @@ The rest of the custom model is defined in the same way as the standard layers m
 
 Finally, we add the model, again using the **setContrastModel** method, but in this case we give the name of our custom model from the custom files block (rather than a list of layers):
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.setContrastModel(1,'DSPC Model');
     problem.setContrastModel(2,'DSPC Model');
@@ -390,7 +390,7 @@ Finally, we add the model, again using the **setContrastModel** method, but in t
 
 Our final projectClass looks like this:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     disp(problem)
 
@@ -401,7 +401,7 @@ Our final projectClass looks like this:
 
 To run this, we make a controls block as before, and pass this to RAT. This time we will do a DREAM analysis (we will discuss the controls block and available algorithms in more detail in Chapter 4).
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     controls = controlsClass();
     controls.parallel = 'contrasts';
@@ -412,7 +412,7 @@ To run this, we make a controls block as before, and pass this to RAT. This time
     :width: 300
     :alt: Displays the controls
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     [problem,results] = RAT(problem,controls);
 
@@ -428,7 +428,7 @@ Custom XY Profile Models
 Although many systems can be well described by layers, sometimes these are not the most appropriate. So for example, we may want to incorporate SLD profiles from molecular simulations, or use interfaces that are not error functions. In these cases, a second type of custom model can be used, where instead of the custom model function outputting a list of layers, it builds a continuous SLD profile, which is then automatically microsliced by RAT to calculate the reflectivity. This gives a high degree of flexibility for the type of model that can be generated.
 The inputs into customXY are the same as for Custom Layers, but the output is now always an [n x 2] array defining a continuous SLD:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
         function [SLD,subRough] = myCustomXY(problems,bulkIn,bulkOut,contrast)
 
@@ -448,7 +448,7 @@ As an example, we will do a simulation of a metal layer on Silicon, with a surfa
 Because we are making the full SLD profile, if we want layers in it then we have to define our own. This is quite easy since a layer is just two error functions back-to-back.
 I the following code snippet we'll make an example of a simple layer....
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
         % Make a range for our simulation....
         z = 0:100;
@@ -481,7 +481,7 @@ I the following code snippet we'll make an example of a simple layer....
 A simple stack of such layers covers any regions of your model that are intended to be simple layers. For our tanh layer, we will do a similar thing, but replace one side with a tanh distribution...
 
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
         function [SLD,subRough] = tanhLayer(params,bulkIn,bulkOut,contrast)
 
@@ -573,12 +573,12 @@ A simple stack of such layers covers any regions of your model that are intended
 .. note::
 
     Since we want this to be an air-liquid sample, we flip the model once we have created it to leave the substrate on the right of the plot. Broadly speaking,
-    you can imagine the neutrons travelling left to right, with the lsft side of the plot being Bulk In, and Bulk Out on the right..
+    you can imagine the neutrons travelling left to right, with the left side of the plot being Bulk In, and Bulk Out on the right..
 
 
 To run our simulation, we make a RAT model as normal:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem = createProject(model = 'custom XY', geometry = 'Air/substrate');
 
@@ -609,7 +609,7 @@ To run our simulation, we make a RAT model as normal:
 
 ..run it and plot the results...
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     [problem,resuts] = RAT(problem,controls);
 
@@ -628,13 +628,4 @@ When sent to RAT, customXY SLD profiles are automatically resampled into layers 
 .. image:: images/userManual/chapter3/twoLayerRAT.png
     :width: 800
     :alt: Displays the final customXY result
-
-
-
-
-
-
-
-
-
 

@@ -1,4 +1,4 @@
-.. _magnetic
+.. _magnetic:
 
 
 Reflectivity from Magnetic Samples

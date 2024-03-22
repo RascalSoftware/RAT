@@ -14,7 +14,7 @@ because the engine is in C++ it can be called from other languages other than ju
 (although not yet functional).
 
 The Matlab Interface described in this documentation means that for the first time RasCAL projects are fully scriptable,
-meaning that full analyses can be provided via a script for publications for example, or analyses using RAT incorporated
+meaning that full analysis can be provided via a script for publications for example, or analysis performed using RAT incorporated
 into jupyter notebooks and so on.
 
 RAT contains a number of enhancements as compared to legacy rascal, including:

@@ -19,7 +19,7 @@ Python Custom Models
 
 Custom models in Python and Matlab are very similar in structure. The following Matlab custom model can easily be translated to the Python version:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     %customBilayer.m
     function [output,sub_rough] = customBilayer(params,bulk_in,bulk_out,contrast)
@@ -92,7 +92,7 @@ Custom models in Python and Matlab are very similar in structure. The following 
 
 A straight Python translation (into a Python module) is as follows:
 
-.. code:: Python
+.. code-block:: Python
 
     # customBilayer.py
     import numpy as np
@@ -171,7 +171,7 @@ A straight Python translation (into a Python module) is as follows:
 
 In order to use this custom model, we need a couple of extra steps. Firstly we need to ensure that the current folder is on the pythonpath. You can do this from the Matlab prompt..
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     if count(py.sys.path,pwd) == 0
         insert(py.sys.path,int32(0),pwd);
@@ -180,7 +180,7 @@ In order to use this custom model, we need a couple of extra steps. Firstly we n
 
 To use this model from RAT, you need to add it to the current project, taking care to specify the language correctly..
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.addCustomFile('myModel','customBilayer.py','python',pwd);
 
@@ -188,7 +188,7 @@ You can then use this in your calculations in the same way as a normal, Matlab c
 
 .. note::
     Remember if you change your Python module, the changes will not automatically be registered by Python and you will need to reload the module into Python. You can do this using the following Matlab function (call this after any edits to your module)..
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     function reloadPy(name)
 
@@ -218,7 +218,7 @@ If Matlab or Python custom models are too slow, you also have the option of prov
 
 Following on from our custom bilayer examples, the equivalent C++ custom model should follow this format..
 
-.. code:: C++
+.. code-block:: C++
 
     //customBilayer.cpp
 
@@ -334,14 +334,14 @@ Before you can use this file, you need to compile and build it into a shared lib
 
 * Clang on Apple (OSX)
 
-.. code:: Bash
+.. code-block:: Bash
 
     clang -c customBilayer.cpp -o customBilayer.o -std=c++11 -arch x86_64
     clang -shared customBilayer.o -o customBilayer.dylib -arch x86_64 -lc++
 
 * GCC on Linux:
 
-.. code:: Bash
+.. code-block:: Bash
 
     g++ -fPIC -c customBilayer.cpp -o customBilayer.o -std=c++11
     g++ -shared customBilayer.o -o customBilayer.so
@@ -354,7 +354,7 @@ This will create either customBilayer.dylib (OSX), customBilayer.dll (Windows) o
 
 To use this, we just add the relevant model to out project, in the same way as for Matlab and Python models:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.addCustomFile('DSPC Model','customBilayer.dylib','cpp',pwd);
 

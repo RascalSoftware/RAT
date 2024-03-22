@@ -45,7 +45,7 @@ distance between neighbouring points. So, for an SLD profile of a floating bilay
 **Using Resampling in RAT**
 Using resampling on a contrast in RAT is very simple. For any contrast that you want to reample, then simply set the 'resample' flag for that contrast to 'true'
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     problem.setContrast(1,'resample',true)
 

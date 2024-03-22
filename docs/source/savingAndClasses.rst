@@ -22,7 +22,7 @@ just a matter of saving these to file. It's good practice to keep everything tog
 
 Then, you only need to save the struct to a file to save all of your work:
 
-.. code:: MATLAB
+.. code-block:: MATLAB
 
     save('myResultsFile','myResults');
 
@@ -66,14 +66,14 @@ Exporting as a Script
 Although saving a binary version of the class is useful, sometimes it would be better to have a script version which will reproduce the class. This is done using the
 'toScript' method of projectClass:
 
-.. code:: MATLAB:
+.. code-block:: MATLAB
 
     problem = projectClass();
     problem.writeScript(script = "myProjectScript");
 
 Then, RAT will create a file containing all the statements needed to re-create your project:
 
-.. code:: MATLAB:
+.. code-block:: MATLAB
 
     % THIS FILE IS GENERATED FROM RAT VIA THE "WRITESCRIPT" ROUTINE. IT IS NOT PART OF THE RAT CODE.
 

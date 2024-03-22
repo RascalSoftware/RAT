@@ -1,4 +1,4 @@
-.. _simplePlotting
+.. _simplePlotting:
 
 
 Basic Plotting Functions.

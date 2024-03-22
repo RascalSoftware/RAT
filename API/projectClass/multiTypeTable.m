@@ -4,7 +4,6 @@ classdef multiTypeTable < tableUtilities
     % tables.
     
     properties
-        allowedActions = {'add', 'subtract'}
         typesAutoNameString = 'Row'
     end
 

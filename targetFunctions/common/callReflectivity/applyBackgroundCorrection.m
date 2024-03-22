@@ -1,4 +1,4 @@
-function    [reflect,simul,shiftedData] = applyBackgroundCorrection(reflect,simul,shiftedData,backgroundParams,contrastBackgroundsType)
+function [reflect,simul,shiftedData] = applyBackgroundCorrection(reflect,simul,shiftedData,backgroundParams,contrastBackgroundsType)
 
 switch contrastBackgroundsType
     case 1

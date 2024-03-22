@@ -241,7 +241,7 @@ for i = 1:length(contrastResolutions)
     % Check the type of the resolution that each contrast is pointing to.
     % If it is a constant, point to the number of the corresponding
     % resolution par. If it's data, then set it to zero
-    thisResol = contrastResolutions(i);      % Which reolution
+    thisResol = contrastResolutions(i);      % Which resolution
     thisType = resolutionTypes{thisResol};   % What type is it?
     
     if strcmpi(thisType,'data')
@@ -313,7 +313,6 @@ problemStruct.oilChiDataPresent = inputStruct.oilChiDataPresent;
 problemStruct.numberOfContrasts = inputStruct.numberOfContrasts;
 problemStruct.geometry = inputStruct.geometry;
 problemStruct.useImaginary = inputStruct.useImaginary;
-%problemStruct.contrastBackgrounds = contrastBackgrounds;
 problemStruct.contrastQzshifts = inputStruct.contrastQzshifts;
 problemStruct.contrastScalefactors = inputStruct.contrastScalefactors;
 problemStruct.contrastBulkIns = inputStruct.contrastBulkIns;

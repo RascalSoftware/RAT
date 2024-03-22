@@ -105,7 +105,7 @@ bayesResults.confidenceIntervals = dreamResults.confidenceIntervals;
 bayesResults.dreamParams = dreamOutput.DREAMPar;
 bayesResults.dreamOutput.allChains = chain;
 
-fieldNames = {'outlierChains','runtime','iteration','iloc','fx','AR','R_stat','CR'};
+fieldNames = {'outlierChains','runtime','iteration','fx','AR','R_stat','CR'};
 for i = 1:length(fieldNames)
     thisFieldName = fieldNames{i};
     bayesResults.dreamOutput.(thisFieldName) = dreamOutput.(thisFieldName);

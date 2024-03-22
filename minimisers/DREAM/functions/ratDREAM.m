@@ -299,7 +299,6 @@ output.Meas_info = Meas_info;
 output.iteration = iteration;
 output.iloc = iloc;
 
-
 % Close the waitbar
 triggerEvent(coderEnums.eventTypes.Progress, 'end', 1);
 %close(h);

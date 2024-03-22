@@ -28,6 +28,7 @@ cppDeploy/
 *.mexa64
 *.mexw64
 *.mexmaci64
+*.mexmaca64
 *.mlappinstall
 *.mltbx
 _build/

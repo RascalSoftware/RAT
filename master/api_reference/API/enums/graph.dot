@@ -3,6 +3,20 @@ digraph m2html {
   allowedTypes -> allowedTypes;
   boundHandlingOptions -> boundHandlingOptions;
   calculationTypes -> calculationTypes;
+  coderEnums -> allowedTypes;
+  coderEnums -> boundHandlingOptions;
+  coderEnums -> calculationTypes;
+  coderEnums -> coderEnums;
+  coderEnums -> displayOptions;
+  coderEnums -> eventTypes;
+  coderEnums -> geometryOptions;
+  coderEnums -> hydrationTypes;
+  coderEnums -> modelTypes;
+  coderEnums -> parallelOptions;
+  coderEnums -> priorTypes;
+  coderEnums -> procedures;
+  coderEnums -> searchStrategy;
+  coderEnums -> supportedLanguages;
   displayOptions -> displayOptions;
   eventTypes -> eventTypes;
   geometryOptions -> geometryOptions;
@@ -17,6 +31,7 @@ digraph m2html {
   allowedTypes [URL="allowedTypes.html"];
   boundHandlingOptions [URL="boundHandlingOptions.html"];
   calculationTypes [URL="calculationTypes.html"];
+  coderEnums [URL="coderEnums.html"];
   displayOptions [URL="displayOptions.html"];
   eventTypes [URL="eventTypes.html"];
   geometryOptions [URL="geometryOptions.html"];

@@ -24,7 +24,7 @@
 <div class="box"><strong></strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>function [outProblemDef,result] = RAT(problemDefInput,controls) </strong></div>
+<div class="box"><strong>function [project,result] = RAT(project,controls) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 <div class="fragment"><pre class="comment"></pre></div>
@@ -34,9 +34,8 @@
 This function calls:
 <ul style="list-style-image:url(../matlabicon.gif)">
 <li><a href="mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>	</li>
-<li><a href="parseClassToStructs.html" class="code" title="function [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(inputProblemDef,inputControls)">parseClassToStructs</a>	Breaks up the classes into the relevant structures for inputting into C</li>
-<li><a href="parseOutToProjectClass.html" class="code" title="function outProblemDef = parseOutToProjectClass(problemDefInput,outProblemStruct)">parseOutToProjectClass</a>	Reconstruct the problemDef class as an output</li>
-<li><a href="parseResultToStruct.html" class="code" title="function result = parseResultToStruct(problem,results)">parseResultToStruct</a>	</li>
+<li><a href="parseClassToStructs.html" class="code" title="function [problemStruct,problemCells,problemLimits,priors,controls] = parseClassToStructs(project,inputControls)">parseClassToStructs</a>	Breaks up the classes into the relevant structures for inputting into C</li>
+<li><a href="parseOutToProjectClass.html" class="code" title="function project = parseOutToProjectClass(project,problemStruct)">parseOutToProjectClass</a>	Reconstruct the project class as an output</li>
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../matlabicon.gif)">
@@ -46,65 +45,43 @@ This function is called by:
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [outProblemDef,result] = RAT(problemDefInput,controls)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [project,result] = RAT(project,controls)</a>
 0002 
-0003 [problemDef,problemDefCells,problemDefLimits,priors,controls] = <a href="parseClassToStructs.html" class="code" title="function [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(inputProblemDef,inputControls)">parseClassToStructs</a>(problemDefInput,controls);
-0004 [problemDef,~] = packParams(problemDef,problemDefCells,problemDefLimits,controls.checks);
-0005 
-0006 <span class="comment">% Set controls.calCls always to 1</span>
-0007 <span class="comment">% if we are doing customXY</span>
-0008 <span class="keyword">switch</span> lower(problemDef.modelType)
-0009     <span class="keyword">case</span> <span class="string">'custom xy'</span>
-0010         controls.calcSldDuringFit = true;
-0011 <span class="keyword">end</span>
+0003 [problemStruct,problemCells,problemLimits,priors,controls] = <a href="parseClassToStructs.html" class="code" title="function [problemStruct,problemCells,problemLimits,priors,controls] = parseClassToStructs(project,inputControls)">parseClassToStructs</a>(project,controls);
+0004 
+0005 <span class="comment">% Set controls.calcSLD to 1 if we are doing customXY</span>
+0006 <span class="keyword">switch</span> lower(problemStruct.modelType)
+0007     <span class="keyword">case</span> modelTypes.CustomXY.value
+0008         controls.calcSldDuringFit = true;
+0009 <span class="keyword">end</span>
+0010 
+0011 <span class="comment">% Call the main RAT routine...</span>
 0012 
-0013 <span class="comment">%Call the main RAT routine...</span>
-0014     
-0015 <span class="comment">% If display is not silent print a</span>
-0016 <span class="comment">% line confirminf RAT is starting</span>
-0017 <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
-0018     fprintf(<span class="string">'Starting RAT ________________________________________________________________________________________________\n\n'</span>);
-0019 <span class="keyword">end</span>
+0013 <span class="comment">% If display is not silent print a line confirming RAT is starting</span>
+0014 <span class="keyword">if</span> ~strcmpi(controls.display, displayOptions.Off.value)
+0015     fprintf(<span class="string">'Starting RAT ________________________________________________________________________________________________\n\n'</span>);
+0016 <span class="keyword">end</span>
+0017 
+0018 tic
+0019 [problemStruct,result,bayesResults] = RATMain_mex(problemStruct,problemCells,problemLimits,controls,priors);
 0020 
-0021 tic
-0022 [outProblemStruct,problem,result,bayesResults] = RATMain_mex(problemDef,problemDefCells,problemDefLimits,controls,priors);
-0023 
-0024 <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
-0025     toc
-0026 <span class="keyword">end</span>
-0027 
-0028 <span class="comment">% Then just do a final calculation to fill in SLD if necessary (i.e. if</span>
-0029 <span class="comment">% calSLD is no for fit)</span>
-0030 <span class="keyword">if</span> ~controls.calcSldDuringFit
-0031     originalProcedure = controls.procedure;
-0032     controls.calcSldDuringFit = true;
-0033     controls.procedure = <span class="string">'calculate'</span>;
-0034     [outProblemStruct,problem,result,~] = RATMain_mex(outProblemStruct,problemDefCells,problemDefLimits,controls,priors);
-0035     controls.procedure = originalProcedure;
-0036 <span class="keyword">end</span>
-0037 
-0038 result = <a href="parseResultToStruct.html" class="code" title="function result = parseResultToStruct(problem,results)">parseResultToStruct</a>(problem,result);
-0039 
-0040 <span class="keyword">if</span> isfield(outProblemStruct,<span class="string">'fitpars'</span>)
-0041     result.bestFitPars = outProblemStruct.fitpars;
-0042 <span class="keyword">end</span>
-0043 
-0044 <span class="keyword">if</span> any((strcmpi(controls.procedure,{<span class="string">'bayes'</span>,<span class="string">'NS'</span>,<span class="string">'dream'</span>})))
-0045     result = <a href="mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>(result,bayesResults);
-0046 <span class="keyword">end</span>
-0047 
-0048 [~,fitNames] = packParams(problemDef,problemDefCells,problemDefLimits,controls.checks);
-0049 result.fitNames = fitNames;
-0050 
-0051 outProblemDef = <a href="parseOutToProjectClass.html" class="code" title="function outProblemDef = parseOutToProjectClass(problemDefInput,outProblemStruct)">parseOutToProjectClass</a>(problemDefInput,outProblemStruct);
-0052 
-0053 <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
-0054    fprintf(<span class="string">'\nFinished RAT ______________________________________________________________________________________________ \n\n'</span>);
-0055 <span class="keyword">end</span>
-0056 
-0057 <span class="keyword">end</span>
+0021 <span class="keyword">if</span> ~strcmpi(controls.display, displayOptions.Off.value)
+0022     toc
+0023 <span class="keyword">end</span>
+0024 
+0025 <span class="keyword">if</span> any(strcmpi(controls.procedure, {procedures.NS.value, procedures.Dream.value}))
+0026     result = <a href="mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>(result, bayesResults);
+0027 <span class="keyword">end</span>
+0028 
+0029 project = <a href="parseOutToProjectClass.html" class="code" title="function project = parseOutToProjectClass(project,problemStruct)">parseOutToProjectClass</a>(project,problemStruct);
+0030 
+0031 <span class="keyword">if</span> ~strcmpi(controls.display, displayOptions.Off.value)
+0032    fprintf(<span class="string">'\nFinished RAT ______________________________________________________________________________________________ \n\n'</span>);
+0033 <span class="keyword">end</span>
+0034 
+0035 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Mon 04-Dec-2023 13:09:56 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

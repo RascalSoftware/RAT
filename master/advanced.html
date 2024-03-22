@@ -23,8 +23,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Support" href="support.html" />
-    <link rel="prev" title="Utility Functions" href="utilityFunctions.html" /> 
+    <link rel="next" title="Profile Resampling (‘microslicing’)" href="resampling.html" />
+    <link rel="prev" title="The Paramonte Sampler" href="paramonte.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,8 +50,17 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced Topics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="resampling.html">Profile Resampling (‘microslicing’)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parallelisation.html">Parallelising Calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customLanguages.html">Custom Models in Python or C++</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Handling Events During Calculations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="calcTypes.html">Different Calculation Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utility Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced Topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 </ul>
 
@@ -80,22 +89,39 @@
            <div itemprop="articleBody">
              
   <section id="advanced-topics">
-<h1>Advanced Topics<a class="headerlink" href="#advanced-topics" title="Permalink to this heading"></a></h1>
-<p>In the next sections you will see advanced features.</p>
+<span id="advanced"></span><h1>Advanced Topics<a class="headerlink" href="#advanced-topics" title="Permalink to this heading"></a></h1>
+<p>In this section we discuss some of the advanced features of the toolbox:-</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="resampling.html">Profile Resampling (‘microslicing’)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallelisation.html">Parallelising Calculations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="parallelisation.html#internal-parallelisation">Internal Parallelisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parallelisation.html#parallel-bayes-with-mipexcec-and-paramonte">Parallel Bayes with MIPEXCEC and Paramonte</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="customLanguages.html">Custom Models in Python or C++</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="customLanguages.html#python-custom-models">Python Custom Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customLanguages.html#c-custom-models">C++ Custom Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customLanguages.html#performance-comparisons">Performance Comparisons</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Handling Events During Calculations</a></li>
+</ul>
+</div>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="utilityFunctions.html" class="btn btn-neutral float-left" title="Utility Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="support.html" class="btn btn-neutral float-right" title="Support" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="paramonte.html" class="btn btn-neutral float-left" title="The Paramonte Sampler" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="resampling.html" class="btn btn-neutral float-right" title="Profile Resampling (‘microslicing’)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2023, ISIS Neutron and Muon Source.</p>
+    <p>&#169; Copyright 2022-2024, ISIS Neutron and Muon Source.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

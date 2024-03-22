@@ -2,5 +2,8 @@
 digraph m2html {
 
   averageReflectivity [URL="averageReflectivity.html"];
+  customLayers [URL="customLayers.html"];
+  customXY [URL="customXY.html"];
   reflectivityCalculation [URL="reflectivityCalculation.html"];
+  standardLayers [URL="standardLayers.html"];
 }

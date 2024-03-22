@@ -26,7 +26,7 @@
 <div class="box"><strong>Top-level function for processing custom XY profiles for all the</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>function [allSLDs,allRoughs] = processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params) </strong></div>
+<div class="box"><strong>function [slds,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment"> Top-level function for processing custom XY profiles for all the
@@ -37,9 +37,8 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../targetFunctions/common/backSort.html" class="code" title="function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolution] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,qzshifts,scalefactor,bulkIn,bulkOut,res)">backSort</a>	Distributes the background and shift values among the different contrasts</li>
-<li><a href="../../../targetFunctions/common/customModelFunctions/callCppFunction.html" class="code" title="function [output,subRough] = callCppFunction(params, bulkIn, bulkOut, contrast, domain, pointer)">callCppFunction</a>	</li>
-<li><a href="../../../targetFunctions/common/customModelFunctions/callMatlabFunction.html" class="code" title="function [output,sRough] = callMatlabFunction(params, contrast, funcName, bulkIn, bulkOut, nContrasts, domainNumber)">callMatlabFunction</a>	Excecute a custom model function in the base Matlab workspace.</li>
+<li><a href="../../../targetFunctions/common/customModelFunctions/callCppFunction.html" class="code" title="function [output,subRough] = callCppFunction(pointer, params, bulkIn, bulkOut, contrast, domain)">callCppFunction</a>	</li>
+<li><a href="../../../targetFunctions/common/customModelFunctions/callMatlabFunction.html" class="code" title="function [output,sRough] = callMatlabFunction(funcName, params, bulkIn, bulkOut, contrast, domainNumber)">callMatlabFunction</a>	Excecute a custom model function in the base Matlab workspace.</li>
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
@@ -53,43 +52,44 @@ This function is called by:
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [allSLDs,allRoughs] = processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,</a><span class="keyword">...</span>
-0002         shifts,scalefactor,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [slds,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,</a><span class="keyword">...</span>
+0002         bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params)
 0003 
 0004     <span class="comment">% Top-level function for processing custom XY profiles for all the</span>
 0005     <span class="comment">% contrasts.</span>
 0006 
 0007     <span class="comment">% Do some pre-definitions to keep the compiler happy...</span>
-0008     tempAllSLDs = cell(numberOfContrasts,1);
-0009     allSLDs = cell(numberOfContrasts,1);
-0010     allRoughs = zeros(numberOfContrasts,1);
+0008     tempSLDs = cell(numberOfContrasts,1);
+0009     slds = cell(numberOfContrasts,1);
+0010     subRoughs = zeros(numberOfContrasts,1);
 0011 
 0012     <span class="keyword">for</span> i = 1:numberOfContrasts
-0013         allSLDs{i} = [1,1];    <span class="comment">% Type def as double (size not important)</span>
-0014         tempAllSLDs{i} = [0 0];
+0013         slds{i} = [1,1];    <span class="comment">% Type def as double (size not important)</span>
+0014         tempSLDs{i} = [0 0];
 0015     <span class="keyword">end</span>
-0016     coder.varsize(<span class="string">'tempAllSLDs{:}'</span>,[10000 3],[1 1]);    <span class="comment">% 3 columns to allow for potential imaginary curve</span>
-0017 
-0018     <span class="keyword">for</span> i = 1:numberOfContrasts     <span class="comment">% TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..</span>
-0019 
-0020         <span class="comment">% Choose which custom file is associated with this contrast</span>
-0021         <a name="_sub1" href="#_subfunctions" class="code">functionHandle = customFiles{cCustFiles(i)};</a>
-0022 
-0023         <span class="comment">% Find values of 'bulkIn' and 'bulkOut' for this</span>
-0024         <span class="comment">% contrast...</span>
-0025         [~,~,~,thisBulkIn,thisBulkOut,~] = <a href="../../../targetFunctions/common/backSort.html" class="code" title="function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolution] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,qzshifts,scalefactor,bulkIn,bulkOut,res)">backSort</a>(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,nba,nbs,res);
-0026 
-0027         <span class="keyword">if</span> isnan(str2double(functionHandle))
-0028             [tempAllSLDs{i}, allRoughs(i)] = <a href="../../../targetFunctions/common/customModelFunctions/callMatlabFunction.html" class="code" title="function [output,sRough] = callMatlabFunction(params, contrast, funcName, bulkIn, bulkOut, nContrasts, domainNumber)">callMatlabFunction</a>(params,i,functionHandle,thisBulkIn,thisBulkOut,numberOfContrasts,0);
-0029         <span class="keyword">else</span>
-0030             [tempAllSLDs{i}, allRoughs(i)] = <a href="../../../targetFunctions/common/customModelFunctions/callCppFunction.html" class="code" title="function [output,subRough] = callCppFunction(params, bulkIn, bulkOut, contrast, domain, pointer)">callCppFunction</a>(params,thisBulkIn,thisBulkOut,i,-1,functionHandle);
-0031         <span class="keyword">end</span>
-0032     <span class="keyword">end</span>
-0033 
-0034     allSLDs = tempAllSLDs;
-0035 <span class="keyword">end</span>
+0016     coder.varsize(<span class="string">'tempSLDs{:}'</span>,[10000 3],[1 1]);    <span class="comment">% 3 columns to allow for potential imaginary curve</span>
+0017     
+0018     bulkOuts = bulkOutArray(contrastBulkOuts);
+0019     <span class="keyword">for</span> i = 1:numberOfContrasts     <span class="comment">% TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..</span>
+0020 
+0021         <span class="comment">% Choose which custom file is associated with this contrast</span>
+0022         <a name="_sub1" href="#_subfunctions" class="code">functionHandle = customFiles{cCustFiles(i)};</a>
+0023 
+0024         <span class="comment">% Find values of 'bulkIn' and 'bulkOut' for this</span>
+0025         <span class="comment">% contrast...</span>
+0026         thisBulkIn = bulkInArray(contrastBulkIns(i));
+0027         
+0028         <span class="keyword">if</span> isnan(str2double(functionHandle))
+0029             [tempSLDs{i}, subRoughs(i)] = <a href="../../../targetFunctions/common/customModelFunctions/callMatlabFunction.html" class="code" title="function [output,sRough] = callMatlabFunction(funcName, params, bulkIn, bulkOut, contrast, domainNumber)">callMatlabFunction</a>(functionHandle, params, thisBulkIn, bulkOuts, i, 0);
+0030         <span class="keyword">else</span>
+0031             [tempSLDs{i}, subRoughs(i)] = <a href="../../../targetFunctions/common/customModelFunctions/callCppFunction.html" class="code" title="function [output,subRough] = callCppFunction(pointer, params, bulkIn, bulkOut, contrast, domain)">callCppFunction</a>(functionHandle, params, thisBulkIn, bulkOuts, i-1, -1);
+0032         <span class="keyword">end</span>
+0033     <span class="keyword">end</span>
+0034 
+0035     slds = tempSLDs;
+0036 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Mon 04-Dec-2023 13:09:56 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

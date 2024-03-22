@@ -138,10 +138,10 @@ This function is called by:
 0079             dataPresent = zeros(1,nContrasts);
 0080             dataLimits = cell(1,nContrasts);
 0081             simLimits = cell(1,nContrasts);
-0082             allData = cell(1,nContrasts);
+0082             data = cell(1,nContrasts);
 0083 
 0084             oilChiDataPresent = zeros(1,nContrasts);
-0085             allOilChiData = cell(1,nContrasts);
+0085             oilChiData = cell(1,nContrasts);
 0086 
 0087             <span class="keyword">for</span> i = 1:nContrasts
 0088 
@@ -176,7 +176,7 @@ This function is called by:
 0117                     contrastDomainRatios(i) = find(strcmpi(thisContrast.domainRatio,allowedNames.domainRatioNames));
 0118                 <span class="keyword">end</span>
 0119 
-0120                 contrastBackgrounds{i} =  [find(strcmpi(thisContrast.background,allowedNames.backgroundNames)), 1];
+0120                 contrastBackgrounds{i} = [find(strcmpi(thisContrast.background,allowedNames.backgroundNames)), 1];
 0121                 contrastBulkIns(i) = find(strcmpi(thisContrast.bulkIn,allowedNames.bulkInNames));
 0122                 contrastBulkOuts(i) = find(strcmpi(thisContrast.bulkOut,allowedNames.bulkOutNames));
 0123                 contrastQzshifts(i) = 1;  <span class="comment">%Todo</span>
@@ -196,11 +196,11 @@ This function is called by:
 0137                     <span class="keyword">end</span>
 0138                     dataLimits{i} = thisDataLimit;
 0139                     simLimits{i} = dataTable{thisDataVal,4}{:};
-0140                     allData{i} = dataTable{thisDataVal,2}{:};
+0140                     data{i} = dataTable{thisDataVal,2}{:};
 0141                 <span class="keyword">else</span>
 0142                     dataLimits{i} = [0 0];
 0143                     simLimits{i} = [0 0];
-0144                     allData{i} = [0 0 0];
+0144                     data{i} = [0 0 0];
 0145                 <span class="keyword">end</span>
 0146             <span class="keyword">end</span>
 0147 
@@ -213,9 +213,9 @@ This function is called by:
 0154                         <span class="keyword">if</span> ~isempty(actualOilChiData)
 0155                             oilChiDataPresent(i) = 1;
 0156                         <span class="keyword">end</span>
-0157                         allOilChiData{i} = dataTable{thisOilChiDataVal,2}{:};
+0157                         oilChiData{i} = dataTable{thisOilChiDataVal,2}{:};
 0158                     <span class="keyword">else</span>
-0159                         allOilChiData{i} = [0 0 0];
+0159                         oilChiData{i} = [0 0 0];
 0160                     <span class="keyword">end</span>
 0161                 <span class="keyword">end</span>
 0162             <span class="keyword">end</span>
@@ -233,9 +233,9 @@ This function is called by:
 0174             contrastStruct.dataPresent = dataPresent;
 0175             contrastStruct.dataLimits = dataLimits;
 0176             contrastStruct.simLimits = simLimits;
-0177             contrastStruct.allData = allData;
+0177             contrastStruct.data = data;
 0178             contrastStruct.oilChiDataPresent = oilChiDataPresent;
-0179             contrastStruct.allOilChiData = allOilChiData;
+0179             contrastStruct.oilChiData = oilChiData;
 0180 
 0181         <span class="keyword">end</span>
 0182 
@@ -294,6 +294,6 @@ This function is called by:
 0235 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Mon 04-Dec-2023 13:09:56 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

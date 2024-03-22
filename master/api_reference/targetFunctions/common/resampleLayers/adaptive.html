@@ -154,8 +154,8 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="resampleLayers.html" class="code" title="function newSLD = resampleLayers(sldProfile,resamPars)">resampleLayers</a>	Function handle for adaptive resampling</li>
-<li><a href="resampleLayersReIm.html" class="code" title="function newSLD = resampleLayersReIm(sldProfile,sldProfileIm,resamPars)">resampleLayersReIm</a>	Resample the SLD profile. In this case we have an imaginary SLD also, and</li>
+<li><a href="resampleLayers.html" class="code" title="function newSLD = resampleLayers(sldProfile,resampleParams)">resampleLayers</a>	Function handle for adaptive resampling</li>
+<li><a href="resampleLayersReIm.html" class="code" title="function newSLD = resampleLayersReIm(sldProfile,sldProfileIm,resampleParams)">resampleLayersReIm</a>	Resample the SLD profile. In this case we have an imaginary SLD also, and</li>
 </ul>
 <!-- crossreference -->
 
@@ -324,7 +324,7 @@ This function is called by:
 0152 <span class="comment">% The test mode is activated by calling 'adaptive.m' with no input.</span>
 0153 
 0154 <span class="comment">% if nargin==0</span>
-0155 <span class="comment">%   initialDomain =  -10:10;</span>
+0155 <span class="comment">%   initialDomain = -10:10;</span>
 0156 <span class="comment">%   input_func = @(x) 100*exp(-(x+5.2).^2) + 50*exp(-5*(x-0.5).^2)+ 20*exp(-10*(x-5.8).^2);</span>
 0157 <span class="comment">%   thresholdingAngles = true;</span>
 0158 <span class="comment">%   minAngle = 0.8*pi;</span>
@@ -411,7 +411,7 @@ This function is called by:
 0239 <span class="comment">% array with 'nPoints' points.</span>
 0240 <span class="keyword">if</span> numel(startDomain) == 2
 0241   newDomain = linspace(startDomain(1),startDomain(end),nPoints).';
-0242   initialDomain =  newDomain;
+0242   initialDomain = newDomain;
 0243 <span class="keyword">end</span>
 0244 <span class="comment">% Normalize the input function: This step allows to use the same syntax for</span>
 0245 <span class="comment">% functions with single or multiple output parameters.</span>
@@ -606,6 +606,6 @@ This function is called by:
 0434 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Mon 04-Dec-2023 13:09:56 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

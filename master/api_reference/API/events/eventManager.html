@@ -169,7 +169,7 @@ This function is called by:
 0110                         funcHandle = str2func(<a href="#_sub6" class="code" title="subfunction value=handlers(op, newValue)">handlers</a>{i});
 0111                         funcHandle(data);
 0112                     <span class="keyword">catch</span> ME
-0113                         fprintf(<span class="string">'EVENTMANAGER: calling %s function failed because: \n\n %s\n'</span>, <a href="#_sub6" class="code" title="subfunction value=handlers(op, newValue)">handlers</a>{i}, ME.message);
+0113                         fprintf(<span class="string">'EVENTMANAGER: calling %s function failed on line %d because: \n\n %s\n'</span>, <a href="#_sub6" class="code" title="subfunction value=handlers(op, newValue)">handlers</a>{i}, ME.stack(1).line, ME.message);
 0114                     <span class="keyword">end</span>
 0115                 <span class="keyword">end</span>
 0116             <span class="keyword">end</span>
@@ -188,6 +188,6 @@ This function is called by:
 0129 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Mon 04-Dec-2023 13:09:56 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

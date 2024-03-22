@@ -38,40 +38,46 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="coderEnums.html" class="code" title="">coderEnums</a>	This allow enums to be used by coder without redefinition or hardcoding</li>
 <li><a href="searchStrategy.html" class="code" title="">searchStrategy</a>	</li>
 </ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="#_sub1" class="code">function v = values()</a></li>
-<li><a href="#_sub2" class="code">function e = fromValue(value)</a></li>
+<li><a href="#_sub1" class="code">function s = toStruct()</a></li>
+<li><a href="#_sub2" class="code">function v = values()</a></li>
+<li><a href="#_sub3" class="code">function e = fromValue(value)</a></li>
 </ul>
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre>0001 classdef <a href="searchStrategy.html" class="code" title="">searchStrategy</a> &lt; customEnum
-0002     methods (Static)
-0003         <a name="_sub0" href="#_subfunctions" class="code">function v = values()</a>
-0004             v = customEnum.values(<span class="string">'searchStrategy'</span>);
+0002    methods (Static)
+0003         <a name="_sub0" href="#_subfunctions" class="code">function s = toStruct()</a>
+0004             s = customEnum.toStruct(mfilename(<span class="string">'class'</span>));
 0005         <span class="keyword">end</span>
-0006             
-0007         <a name="_sub1" href="#_subfunctions" class="code">function e = fromValue(value)</a>
-0008             e = customEnum.fromValue(<span class="string">'searchStrategy'</span>, value);
+0006         
+0007         <a name="_sub1" href="#_subfunctions" class="code">function v = values()</a>
+0008             v = customEnum.values(mfilename(<span class="string">'class'</span>));
 0009         <span class="keyword">end</span>
-0010     <span class="keyword">end</span>
-0011 
-0012     enumeration
-0013         Random (1)
-0014         LocalToBest (2)
-0015         BestWithJitter (3)
-0016         RandomWithPerVectorDither (4)
-0017         RandomWithPerGenerationDither (5)
-0018         RandomEitherOrAlgorithm (6)
-0019     <span class="keyword">end</span>
-0020 <span class="keyword">end</span>
+0010         
+0011         <a name="_sub2" href="#_subfunctions" class="code">function e = fromValue(value)</a>
+0012             e = customEnum.fromValue(mfilename(<span class="string">'class'</span>), value);
+0013         <span class="keyword">end</span>
+0014     <span class="keyword">end</span>
+0015 
+0016     enumeration
+0017         Random (1)
+0018         LocalToBest (2)
+0019         BestWithJitter (3)
+0020         RandomWithPerVectorDither (4)
+0021         RandomWithPerGenerationDither (5)
+0022         RandomEitherOrAlgorithm (6)
+0023     <span class="keyword">end</span>
+0024 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Mon 04-Dec-2023 13:09:56 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

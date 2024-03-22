@@ -48,19 +48,19 @@ This function is called by:
 <li><a href="#_sub3" class="code">function obj = set.calcSldDuringFit(obj,val)</a></li>
 <li><a href="#_sub4" class="code">function obj = set.display(obj,val)</a></li>
 <li><a href="#_sub5" class="code">function obj = set.updatePlotFreq(obj, val)</a></li>
-<li><a href="#_sub6" class="code">function obj = set.resamPars(obj,val)</a></li>
-<li><a href="#_sub7" class="code">function obj = set.tolX(obj, val)</a></li>
-<li><a href="#_sub8" class="code">function obj = set.tolFun(obj, val)</a></li>
-<li><a href="#_sub9" class="code">function obj = set.maxFunEvals(obj, val)</a></li>
-<li><a href="#_sub10" class="code">function obj = set.maxIter(obj, val)</a></li>
+<li><a href="#_sub6" class="code">function obj = set.resampleParams(obj,val)</a></li>
+<li><a href="#_sub7" class="code">function obj = set.xTolerance(obj, val)</a></li>
+<li><a href="#_sub8" class="code">function obj = set.funcTolerance(obj, val)</a></li>
+<li><a href="#_sub9" class="code">function obj = set.maxFuncEvals(obj, val)</a></li>
+<li><a href="#_sub10" class="code">function obj = set.maxIterations(obj, val)</a></li>
 <li><a href="#_sub11" class="code">function obj = set.populationSize(obj, val)</a></li>
 <li><a href="#_sub12" class="code">function obj = set.fWeight(obj,val)</a></li>
 <li><a href="#_sub13" class="code">function obj = set.crossoverProbability(obj,val)</a></li>
 <li><a href="#_sub14" class="code">function obj = set.strategy(obj,val)</a></li>
 <li><a href="#_sub15" class="code">function obj = set.targetValue(obj,val)</a></li>
 <li><a href="#_sub16" class="code">function obj = set.numGenerations(obj, val)</a></li>
-<li><a href="#_sub17" class="code">function obj = set.Nlive(obj, val)</a></li>
-<li><a href="#_sub18" class="code">function obj = set.Nmcmc(obj, val)</a></li>
+<li><a href="#_sub17" class="code">function obj = set.nLive(obj, val)</a></li>
+<li><a href="#_sub18" class="code">function obj = set.nMCMC(obj, val)</a></li>
 <li><a href="#_sub19" class="code">function obj = set.propScale(obj, val)</a></li>
 <li><a href="#_sub20" class="code">function obj = set.nsTolerance(obj,val)</a></li>
 <li><a href="#_sub21" class="code">function obj = set.nSamples(obj,val)</a></li>
@@ -90,17 +90,17 @@ This function is called by:
 0007         procedure = procedures.Calculate.value
 0008         <span class="comment">% Indicates if SLD should be calculated (Default: false)</span>
 0009         calcSldDuringFit = false
-0010         resamPars = [0.9 50]
+0010         resampleParams = [0.9 50]
 0011         <span class="comment">% Display Option (Default: displayOptions.Iter)</span>
 0012         display = displayOptions.Iter.value
 0013 
 0014         <span class="comment">% optimization tolerance for simplex (Default: 1e-6)</span>
-0015         tolX = 1e-6    
-0016         tolFun = 1e-6
+0015         xTolerance = 1e-6    
+0016         funcTolerance = 1e-6
 0017         <span class="comment">% Maximum number of function evaluations for simplex  (Default: 10000)</span>
-0018         maxFunEvals = 10000
+0018         maxFuncEvals = 10000
 0019         <span class="comment">% Maximum number of iterations for simplex  (Default: 1000)</span>
-0020         maxIter = 1000
+0020         maxIterations = 1000
 0021         updateFreq = -1
 0022         updatePlotFreq = 1
 0023         
@@ -118,8 +118,8 @@ This function is called by:
 0035         numGenerations = 500
 0036 
 0037         <span class="comment">% Number of live points for Nested Sampler (Default: 150)</span>
-0038         Nlive = 150
-0039         Nmcmc = 0
+0038         nLive = 150
+0039         nMCMC = 0
 0040         propScale = 0.1     <span class="comment">% Used if MCMC is used</span>
 0041         <span class="comment">% Target stopping tolerance for Nested Sampler (Default: 0.1)</span>
 0042         nsTolerance = 0.1   
@@ -170,37 +170,37 @@ This function is called by:
 0087             obj.updatePlotFreq = val;
 0088         <span class="keyword">end</span>
 0089 
-0090         <a name="_sub5" href="#_subfunctions" class="code">function obj = set.resamPars(obj,val)</a>
+0090         <a name="_sub5" href="#_subfunctions" class="code">function obj = set.resampleParams(obj,val)</a>
 0091             <span class="keyword">if</span> length(val) ~= 2
-0092                 throw(exceptions.invalidValue(<span class="string">'resamPars must have length of 2'</span>));
+0092                 throw(exceptions.invalidValue(<span class="string">'resampleParams must have length of 2'</span>));
 0093             <span class="keyword">end</span>
 0094 
-0095             validateNumber(val, <span class="string">'resamPars must be a number array'</span>);
+0095             validateNumber(val, <span class="string">'resampleParams must be a number array'</span>);
 0096 
 0097             <span class="keyword">if</span> (val(1) &lt; 0 || val(1) &gt; 1)
-0098                 throw(exceptions.invalidValue(<span class="string">'resamPars(0) must be between 0 and 1'</span>));
+0098                 throw(exceptions.invalidValue(<span class="string">'resampleParams(0) must be between 0 and 1'</span>));
 0099             <span class="keyword">end</span>
 0100             <span class="keyword">if</span> val(2) &lt;= 0
-0101                 throw(exceptions.invalidValue(<span class="string">'resamPars(1) must be greater than 0'</span>));
+0101                 throw(exceptions.invalidValue(<span class="string">'resampleParams(1) must be greater than 0'</span>));
 0102             <span class="keyword">end</span>
-0103             obj.resamPars = val;
+0103             obj.resampleParams = val;
 0104         <span class="keyword">end</span>
 0105 
 0106         <span class="comment">% Simplex control methods</span>
-0107         <a name="_sub6" href="#_subfunctions" class="code">function obj = set.tolX(obj, val)</a>
-0108             obj.tolX = validateNumber(val, <span class="string">'tolX must be a number'</span>);
+0107         <a name="_sub6" href="#_subfunctions" class="code">function obj = set.xTolerance(obj, val)</a>
+0108             obj.xTolerance = validateNumber(val, <span class="string">'xTolerance must be a number'</span>);
 0109         <span class="keyword">end</span>
 0110 
-0111         <a name="_sub7" href="#_subfunctions" class="code">function obj = set.tolFun(obj, val)</a>
-0112             obj.tolFun = validateNumber(val, <span class="string">'tolFun must be a number'</span>);
+0111         <a name="_sub7" href="#_subfunctions" class="code">function obj = set.funcTolerance(obj, val)</a>
+0112             obj.funcTolerance = validateNumber(val, <span class="string">'funcTolerance must be a number'</span>);
 0113         <span class="keyword">end</span>
 0114 
-0115         <a name="_sub8" href="#_subfunctions" class="code">function obj = set.maxFunEvals(obj, val)</a>
-0116             obj.maxFunEvals = validateNumber(val, <span class="string">'maxFunEvals must be a number'</span>);
+0115         <a name="_sub8" href="#_subfunctions" class="code">function obj = set.maxFuncEvals(obj, val)</a>
+0116             obj.maxFuncEvals = validateNumber(val, <span class="string">'maxFuncEvals must be a number'</span>);
 0117         <span class="keyword">end</span>
 0118 
-0119         <a name="_sub9" href="#_subfunctions" class="code">function obj = set.maxIter(obj, val)</a>
-0120             obj.maxIter = validateNumber(val, <span class="string">'maxIter must be a number'</span>);
+0119         <a name="_sub9" href="#_subfunctions" class="code">function obj = set.maxIterations(obj, val)</a>
+0120             obj.maxIterations = validateNumber(val, <span class="string">'maxIterations must be a number'</span>);
 0121         <span class="keyword">end</span>
 0122 
 0123         <span class="comment">% DE controls methods</span>
@@ -248,20 +248,20 @@ This function is called by:
 0165         <span class="keyword">end</span>
 0166 
 0167         <span class="comment">% NS control methods</span>
-0168         <a name="_sub16" href="#_subfunctions" class="code">function obj = set.Nlive(obj, val)</a>
-0169             validateNumber(val, <span class="string">'Nlive must be a number'</span>);
+0168         <a name="_sub16" href="#_subfunctions" class="code">function obj = set.nLive(obj, val)</a>
+0169             validateNumber(val, <span class="string">'nLive must be a number'</span>);
 0170             <span class="keyword">if</span> val &lt; 1
-0171                 throw(exceptions.invalidValue(<span class="string">'Nlive must be greater or equal to 1'</span>));
+0171                 throw(exceptions.invalidValue(<span class="string">'nLive must be greater or equal to 1'</span>));
 0172             <span class="keyword">end</span>
-0173             obj.Nlive = val;
+0173             obj.nLive = val;
 0174         <span class="keyword">end</span>
 0175 
-0176         <a name="_sub17" href="#_subfunctions" class="code">function obj = set.Nmcmc(obj, val)</a>
-0177             validateNumber(val, <span class="string">'Nmcmc must be a number'</span>);
+0176         <a name="_sub17" href="#_subfunctions" class="code">function obj = set.nMCMC(obj, val)</a>
+0177             validateNumber(val, <span class="string">'nMCMC must be a number'</span>);
 0178             <span class="keyword">if</span> val &lt; 0
-0179                 throw(exceptions.invalidValue(<span class="string">'Nmcmc must be greater or equal than 0'</span>));
+0179                 throw(exceptions.invalidValue(<span class="string">'nMCMC must be greater or equal than 0'</span>));
 0180             <span class="keyword">end</span>
-0181             obj.Nmcmc = val;
+0181             obj.nMCMC = val;
 0182         <span class="keyword">end</span>
 0183 
 0184         <a name="_sub18" href="#_subfunctions" class="code">function obj = set.propScale(obj, val)</a>
@@ -332,9 +332,9 @@ This function is called by:
 0249             <span class="comment">%     obj.setProcedure(procedure, varargin)</span>
 0250             <span class="comment">%</span>
 0251             <span class="comment">% EXAMPLE:</span>
-0252             <span class="comment">%     * obj.setProcedure('simplex', {'tolX', 1e-6, 'tolFun', 1e-6,'maxFunEvals', 1000})</span>
+0252             <span class="comment">%     * obj.setProcedure('simplex', {'xTolerance', 1e-6, 'funcTolerance', 1e-6,'maxFuncEvals', 1000})</span>
 0253             <span class="comment">%     * obj.setProcedure('dream')</span>
-0254             <span class="comment">%     * obj.setProcedure('ns', {'Nlive', 150,'Nmcmc', 0, 'propScale', 0.1, 'nsTolerance', 0.1})</span>
+0254             <span class="comment">%     * obj.setProcedure('ns', {'nLive', 150,'nMCMC', 0, 'propScale', 0.1, 'nsTolerance', 0.1})</span>
 0255 
 0256             <span class="keyword">switch</span> procedure
 0257 
@@ -394,10 +394,10 @@ This function is called by:
 0311                 <span class="string">'procedure'</span>, {obj.procedure},<span class="keyword">...</span>
 0312                 <span class="string">'calcSldDuringFit'</span>, {obj.calcSldDuringFit},<span class="keyword">...</span>
 0313                 <span class="string">'display'</span>, {obj.display},<span class="keyword">...</span>
-0314                 <span class="string">'tolX'</span>, {obj.tolX},<span class="keyword">...</span>
-0315                 <span class="string">'tolFun'</span>, {obj.tolFun},<span class="keyword">...</span>
-0316                 <span class="string">'maxFunEvals'</span>, {obj.maxFunEvals},<span class="keyword">...</span>
-0317                 <span class="string">'maxIter'</span>, {obj.maxIter},<span class="keyword">...</span>
+0314                 <span class="string">'xTolerance'</span>, {obj.xTolerance},<span class="keyword">...</span>
+0315                 <span class="string">'funcTolerance'</span>, {obj.funcTolerance},<span class="keyword">...</span>
+0316                 <span class="string">'maxFuncEvals'</span>, {obj.maxFuncEvals},<span class="keyword">...</span>
+0317                 <span class="string">'maxIterations'</span>, {obj.maxIterations},<span class="keyword">...</span>
 0318                 <span class="string">'updateFreq'</span>, {obj.updateFreq},<span class="keyword">...</span>
 0319                 <span class="string">'updatePlotFreq'</span>, {obj.updatePlotFreq},<span class="keyword">...</span>
 0320                 <span class="string">'populationSize'</span>, {obj.populationSize},<span class="keyword">...</span>
@@ -406,11 +406,11 @@ This function is called by:
 0323                 <span class="string">'strategy'</span>, {obj.strategy},<span class="keyword">...</span>
 0324                 <span class="string">'targetValue'</span>, {obj.targetValue},<span class="keyword">...</span>
 0325                 <span class="string">'numGenerations'</span>, {obj.numGenerations},<span class="keyword">...</span>
-0326                 <span class="string">'Nlive'</span>, {obj.Nlive},<span class="keyword">...</span>
-0327                 <span class="string">'Nmcmc'</span>, {obj.Nmcmc},<span class="keyword">...</span>
+0326                 <span class="string">'nLive'</span>, {obj.nLive},<span class="keyword">...</span>
+0327                 <span class="string">'nMCMC'</span>, {obj.nMCMC},<span class="keyword">...</span>
 0328                 <span class="string">'propScale'</span>, {obj.propScale},<span class="keyword">...</span>
 0329                 <span class="string">'nsTolerance'</span>, {obj.nsTolerance},<span class="keyword">...</span>
-0330                 <span class="string">'resamPars'</span>, {obj.resamPars},<span class="keyword">...</span>
+0330                 <span class="string">'resampleParams'</span>, {obj.resampleParams},<span class="keyword">...</span>
 0331                 <span class="string">'nSamples'</span>, {obj.nSamples},<span class="keyword">...</span>
 0332                 <span class="string">'nChains'</span>, {obj.nChains},<span class="keyword">...</span>
 0333                 <span class="string">'jumpProbability'</span>, {obj.jumpProbability},<span class="keyword">...</span>
@@ -418,10 +418,10 @@ This function is called by:
 0335                 <span class="string">'boundHandling'</span>, {obj.boundHandling},<span class="keyword">...</span>
 0336                 <span class="string">'adaptPCR'</span>, {obj.adaptPCR});
 0337 
-0338             simplexCell = {<span class="string">'tolX'</span>,<span class="keyword">...</span>
-0339                 <span class="string">'tolFun'</span>,<span class="keyword">...</span>
-0340                 <span class="string">'maxFunEvals'</span>,<span class="keyword">...</span>
-0341                 <span class="string">'maxIter'</span>,<span class="keyword">...</span>
+0338             simplexCell = {<span class="string">'xTolerance'</span>,<span class="keyword">...</span>
+0339                 <span class="string">'funcTolerance'</span>,<span class="keyword">...</span>
+0340                 <span class="string">'maxFuncEvals'</span>,<span class="keyword">...</span>
+0341                 <span class="string">'maxIterations'</span>,<span class="keyword">...</span>
 0342                 <span class="string">'updateFreq'</span>,<span class="keyword">...</span>
 0343                 <span class="string">'updatePlotFreq'</span>};
 0344 
@@ -432,8 +432,8 @@ This function is called by:
 0349                 <span class="string">'targetValue'</span>,<span class="keyword">...</span>
 0350                 <span class="string">'numGenerations'</span>};
 0351 
-0352             nsCell = {<span class="string">'Nlive'</span>,<span class="keyword">...</span>
-0353                 <span class="string">'Nmcmc'</span>,<span class="keyword">...</span>
+0352             nsCell = {<span class="string">'nLive'</span>,<span class="keyword">...</span>
+0353                 <span class="string">'nMCMC'</span>,<span class="keyword">...</span>
 0354                 <span class="string">'propScale'</span>,<span class="keyword">...</span>
 0355                 <span class="string">'nsTolerance'</span>};
 0356 
@@ -475,31 +475,31 @@ This function is called by:
 0392             <span class="comment">% The parameters that can be set when using calculate procedure are</span>
 0393             <span class="comment">% 1) parallel</span>
 0394             <span class="comment">% 2) calcSldDuringFit</span>
-0395             <span class="comment">% 3) resamPars</span>
+0395             <span class="comment">% 3) resampleParams</span>
 0396             <span class="comment">% 4) display</span>
 0397 
 0398             <span class="comment">% The default values for Calculate</span>
 0399             defaultParallel = parallelOptions.Single.value;
 0400             defaultCalcSldDuringFit = false;
-0401             defaultResamPars = [0.9 50];
+0401             defaultResampleParams = [0.9 50];
 0402             defaultDisplay = displayOptions.Iter.value;
 0403 
 0404             <span class="comment">% Creates the input parser for the calculate parameters</span>
 0405             p = inputParser;
 0406             addParameter(p,<span class="string">'parallel'</span>,  defaultParallel,   @(x) isText(x) || isenum(x));
 0407             addParameter(p,<span class="string">'calcSldDuringFit'</span>,   defaultCalcSldDuringFit,    @islogical);
-0408             addParameter(p,<span class="string">'resamPars'</span>, defaultResamPars,  @isnumeric);
+0408             addParameter(p,<span class="string">'resampleParams'</span>, defaultResampleParams,  @isnumeric);
 0409             addParameter(p,<span class="string">'display'</span>,   defaultDisplay,    @(x) isText(x) || isenum(x));
 0410             properties = varargin{:};
 0411 
 0412             <span class="comment">% Parses the input or raises invalidOption error</span>
-0413             errorMsg = <span class="string">'Only parallel, calcSldDuringFit, resamPars and display can be set while using the Calculate procedure'</span>;
+0413             errorMsg = <span class="string">'Only parallel, calcSldDuringFit, resampleParams and display can be set while using the Calculate procedure'</span>;
 0414             inputBlock = obj.parseInputs(p, properties, errorMsg);
 0415 
 0416             <span class="comment">% Sets the values the for Calculate parameters</span>
 0417             obj.parallel = inputBlock.parallel;
 0418             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-0419             obj.resamPars = inputBlock.resamPars;
+0419             obj.resampleParams = inputBlock.resampleParams;
 0420             obj.display = inputBlock.display;
 0421         <span class="keyword">end</span>
 0422 
@@ -509,57 +509,57 @@ This function is called by:
 0426             <span class="comment">% obj.parseSimplexInput('param', 'value')</span>
 0427             <span class="comment">%</span>
 0428             <span class="comment">% The parameters that can be set when using simplex procedure are</span>
-0429             <span class="comment">% 1) tolX</span>
-0430             <span class="comment">% 2) tolFun</span>
-0431             <span class="comment">% 3) maxFunEvals</span>
-0432             <span class="comment">% 4) maxIter</span>
+0429             <span class="comment">% 1) xTolerance</span>
+0430             <span class="comment">% 2) funcTolerance</span>
+0431             <span class="comment">% 3) maxFuncEvals</span>
+0432             <span class="comment">% 4) maxIterations</span>
 0433             <span class="comment">% 5) updateFreq</span>
 0434             <span class="comment">% 6) updatePlotFreq</span>
 0435             <span class="comment">% 7) parallel</span>
 0436             <span class="comment">% 8) calcSldDuringFit</span>
-0437             <span class="comment">% 9) resamPars</span>
+0437             <span class="comment">% 9) resampleParams</span>
 0438             <span class="comment">% 10) display</span>
 0439 
 0440             <span class="comment">% The simplex default values</span>
-0441             defaultTolX = 1e-6;
-0442             defaultTolFun = 1e-6;
-0443             defaultMaxFunEvals = 10000;
-0444             defaultMaxIter = 1000;
+0441             defaultXTolerance = 1e-6;
+0442             defaultFuncTolerance = 1e-6;
+0443             defaultMaxFuncEvals = 10000;
+0444             defaultMaxIterations = 1000;
 0445             defaultUpdateFreq = -1;
 0446             defaultUpdatePlotFreq = 1;
 0447             defaultParallel = parallelOptions.Single.value;
 0448             defaultCalcSldDuringFit = false;
-0449             defaultResamPars = [0.9 50];
+0449             defaultResampleParams = [0.9 50];
 0450             defaultDisplay = displayOptions.Iter.value;
 0451 
 0452             <span class="comment">% Parses the input for simplex parameters</span>
 0453             p = inputParser;
-0454             addParameter(p,<span class="string">'tolX'</span>,  defaultTolX,   @isnumeric);
-0455             addParameter(p,<span class="string">'tolFun'</span>,   defaultTolFun,    @isnumeric);
-0456             addParameter(p,<span class="string">'maxFunEvals'</span>, defaultMaxFunEvals,  @isnumeric);
-0457             addParameter(p,<span class="string">'maxIter'</span>,   defaultMaxIter,    @isnumeric);
+0454             addParameter(p,<span class="string">'xTolerance'</span>,  defaultXTolerance,   @isnumeric);
+0455             addParameter(p,<span class="string">'funcTolerance'</span>,   defaultFuncTolerance,    @isnumeric);
+0456             addParameter(p,<span class="string">'maxFuncEvals'</span>, defaultMaxFuncEvals,  @isnumeric);
+0457             addParameter(p,<span class="string">'maxIterations'</span>,   defaultMaxIterations,    @isnumeric);
 0458             addParameter(p,<span class="string">'updateFreq'</span>,   defaultUpdateFreq,    @isnumeric);
 0459             addParameter(p,<span class="string">'updatePlotFreq'</span>,   defaultUpdatePlotFreq,    @isnumeric);
 0460             addParameter(p,<span class="string">'parallel'</span>,  defaultParallel,   @(x) isText(x) || isenum(x));
 0461             addParameter(p,<span class="string">'calcSldDuringFit'</span>,   defaultCalcSldDuringFit,    @islogical);
-0462             addParameter(p,<span class="string">'resamPars'</span>, defaultResamPars,  @isnumeric);
+0462             addParameter(p,<span class="string">'resampleParams'</span>, defaultResampleParams,  @isnumeric);
 0463             addParameter(p,<span class="string">'display'</span>,   defaultDisplay,    @(x) isText(x) || isenum(x));
 0464             properties = varargin{:};
 0465 
 0466             <span class="comment">% Parses the input or raises invalidOption error</span>
-0467             errorMsg = <span class="string">'Only tolX, tolFun, maxFunEvals, maxIter, updateFreq, updatePlotFreq, parallel, calcSldDuringFit, resamPars and display can be set while using the Simplex procedure.'</span>;
+0467             errorMsg = <span class="string">'Only xTolerance, funcTolerance, maxFuncEvals, maxIterations, updateFreq, updatePlotFreq, parallel, calcSldDuringFit, resampleParams and display can be set while using the Simplex procedure.'</span>;
 0468             inputBlock = obj.parseInputs(p, properties, errorMsg);
 0469 
 0470             <span class="comment">% Sets the values the for simplex parameters</span>
-0471             obj.tolX = inputBlock.tolX;
-0472             obj.tolFun = inputBlock.tolFun;
-0473             obj.maxFunEvals = inputBlock.maxFunEvals;
-0474             obj.maxIter = inputBlock.maxIter;
+0471             obj.xTolerance = inputBlock.xTolerance;
+0472             obj.funcTolerance = inputBlock.funcTolerance;
+0473             obj.maxFuncEvals = inputBlock.maxFuncEvals;
+0474             obj.maxIterations = inputBlock.maxIterations;
 0475             obj.updateFreq = inputBlock.updateFreq;
 0476             obj.updatePlotFreq = inputBlock.updatePlotFreq;
 0477             obj.parallel = inputBlock.parallel;
 0478             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-0479             obj.resamPars = inputBlock.resamPars;
+0479             obj.resampleParams = inputBlock.resampleParams;
 0480             obj.display = inputBlock.display;
 0481         <span class="keyword">end</span>
 0482 
@@ -577,7 +577,7 @@ This function is called by:
 0494             <span class="comment">% 6) numGenerations</span>
 0495             <span class="comment">% 7) parallel</span>
 0496             <span class="comment">% 8) calcSldDuringFit</span>
-0497             <span class="comment">% 9) resamPars</span>
+0497             <span class="comment">% 9) resampleParams</span>
 0498             <span class="comment">% 10) display</span>
 0499 
 0500             <span class="comment">% The default values for DE</span>
@@ -589,7 +589,7 @@ This function is called by:
 0506             defaultNumGenerations = 500;
 0507             defaultParallel = parallelOptions.Single.value;
 0508             defaultCalcSldDuringFit = false;
-0509             defaultResamPars = [0.9 50];
+0509             defaultResampleParams = [0.9 50];
 0510             defaultDisplay = displayOptions.Iter.value;
 0511 
 0512             <span class="comment">% Creates the input parser for the DE parameters</span>
@@ -602,12 +602,12 @@ This function is called by:
 0519             addParameter(p,<span class="string">'numGenerations'</span>,   defaultNumGenerations,    @isnumeric);
 0520             addParameter(p,<span class="string">'parallel'</span>,  defaultParallel,   @(x) isText(x) || isenum(x));
 0521             addParameter(p,<span class="string">'calcSldDuringFit'</span>,   defaultCalcSldDuringFit,    @islogical);
-0522             addParameter(p,<span class="string">'resamPars'</span>, defaultResamPars,  @isnumeric);
+0522             addParameter(p,<span class="string">'resampleParams'</span>, defaultResampleParams,  @isnumeric);
 0523             addParameter(p,<span class="string">'display'</span>,   defaultDisplay,    @(x) isText(x) || isenum(x));
 0524             properties = varargin{:};
 0525 
 0526             <span class="comment">% Parses the input or raises invalidOption error</span>
-0527             errorMsg = <span class="string">'Only populationSize, fWeight, crossoverProbability, strategy, targetValue, numGenerations, parallel, calcSldDuringFit, resamPars and display can be set while using the Differential Evolution procedure'</span>;
+0527             errorMsg = <span class="string">'Only populationSize, fWeight, crossoverProbability, strategy, targetValue, numGenerations, parallel, calcSldDuringFit, resampleParams and display can be set while using the Differential Evolution procedure'</span>;
 0528             inputBlock = obj.parseInputs(p, properties, errorMsg);
 0529 
 0530             <span class="comment">% Sets the values the for DE parameters</span>
@@ -619,7 +619,7 @@ This function is called by:
 0536             obj.numGenerations = inputBlock.numGenerations;
 0537             obj.parallel = inputBlock.parallel;
 0538             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-0539             obj.resamPars = inputBlock.resamPars;
+0539             obj.resampleParams = inputBlock.resampleParams;
 0540             obj.display = inputBlock.display;
 0541         <span class="keyword">end</span>
 0542 
@@ -629,49 +629,49 @@ This function is called by:
 0546             <span class="comment">% obj.processNSInput('param', 'value')</span>
 0547             <span class="comment">%</span>
 0548             <span class="comment">% The parameters that can be set when using nested sampler procedure are</span>
-0549             <span class="comment">% 1) Nlive</span>
-0550             <span class="comment">% 2) Nmcmc</span>
+0549             <span class="comment">% 1) nLive</span>
+0550             <span class="comment">% 2) nMCMC</span>
 0551             <span class="comment">% 3) propScale</span>
 0552             <span class="comment">% 4) nsTolerance</span>
 0553             <span class="comment">% 5) parallel</span>
 0554             <span class="comment">% 6) calcSldDuringFit</span>
-0555             <span class="comment">% 7) resamPars</span>
+0555             <span class="comment">% 7) resampleParams</span>
 0556             <span class="comment">% 8) display</span>
 0557 
 0558             <span class="comment">% The default values for NS</span>
-0559             defaultNlive = 150;
-0560             defaultNmcmc = 0;
+0559             defaultnLive = 150;
+0560             defaultnMCMC = 0;
 0561             defaultPropScale = 0.1;
 0562             defaultNsTolerance = 0.1;
 0563             defaultParallel = parallelOptions.Single.value;
 0564             defaultCalcSldDuringFit = false;
-0565             defaultResamPars = [0.9 50];
+0565             defaultResampleParams = [0.9 50];
 0566             defaultDisplay = displayOptions.Iter.value;
 0567 
 0568             <span class="comment">% Creates the input parser for the NS parameters</span>
 0569             p = inputParser;
-0570             addParameter(p,<span class="string">'Nlive'</span>,  defaultNlive,   @isnumeric);
-0571             addParameter(p,<span class="string">'Nmcmc'</span>,   defaultNmcmc,    @isnumeric);
+0570             addParameter(p,<span class="string">'nLive'</span>,  defaultnLive,   @isnumeric);
+0571             addParameter(p,<span class="string">'nMCMC'</span>,   defaultnMCMC,    @isnumeric);
 0572             addParameter(p,<span class="string">'propScale'</span>, defaultPropScale,  @isnumeric);
 0573             addParameter(p,<span class="string">'nsTolerance'</span>,   defaultNsTolerance,    @isnumeric);
 0574             addParameter(p,<span class="string">'parallel'</span>,  defaultParallel,   @(x) isText(x) || isenum(x));
 0575             addParameter(p,<span class="string">'calcSldDuringFit'</span>,   defaultCalcSldDuringFit,    @islogical);
-0576             addParameter(p,<span class="string">'resamPars'</span>, defaultResamPars,  @isnumeric);
+0576             addParameter(p,<span class="string">'resampleParams'</span>, defaultResampleParams,  @isnumeric);
 0577             addParameter(p,<span class="string">'display'</span>,   defaultDisplay,    @(x) isText(x) || isenum(x));
 0578             properties = varargin{:};
 0579 
 0580             <span class="comment">% Parses the input or raises invalidOption error</span>
-0581             errorMsg = <span class="string">'Only Nlive, Nmcmc, propScale, nsTolerance, parallel, calcSldDuringFit, resamPars and display can be set while using the Nested Sampler procedure'</span>;
+0581             errorMsg = <span class="string">'Only nLive, nMCMC, propScale, nsTolerance, parallel, calcSldDuringFit, resampleParams and display can be set while using the Nested Sampler procedure'</span>;
 0582             inputBlock = obj.parseInputs(p, properties, errorMsg);
 0583 
 0584             <span class="comment">% Sets the values the for NS parameters</span>
-0585             obj.Nlive = inputBlock.Nlive;
-0586             obj.Nmcmc = inputBlock.Nmcmc;
+0585             obj.nLive = inputBlock.nLive;
+0586             obj.nMCMC = inputBlock.nMCMC;
 0587             obj.propScale = inputBlock.propScale;
 0588             obj.nsTolerance = inputBlock.nsTolerance;
 0589             obj.parallel = inputBlock.parallel;
 0590             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-0591             obj.resamPars = inputBlock.resamPars;
+0591             obj.resampleParams = inputBlock.resampleParams;
 0592             obj.display = inputBlock.display;
 0593         <span class="keyword">end</span>
 0594 
@@ -689,7 +689,7 @@ This function is called by:
 0606             <span class="comment">% 6) adaptPCR</span>
 0607             <span class="comment">% 7) parallel</span>
 0608             <span class="comment">% 8) calcSldDuringFit</span>
-0609             <span class="comment">% 9) resamPars</span>
+0609             <span class="comment">% 9) resampleParams</span>
 0610             <span class="comment">% 10) display</span>
 0611 
 0612             <span class="comment">% The default values for Dream</span>
@@ -701,7 +701,7 @@ This function is called by:
 0618             defaultAdaptPCR = false;
 0619             defaultParallel = parallelOptions.Single.value;
 0620             defaultCalcSldDuringFit = false;
-0621             defaultResamPars = [0.9 50];
+0621             defaultResampleParams = [0.9 50];
 0622             defaultDisplay = displayOptions.Iter.value;
 0623 
 0624             <span class="comment">% Creates the input parser for the Dream parameters</span>
@@ -714,12 +714,12 @@ This function is called by:
 0631             addParameter(p,<span class="string">'adaptPCR'</span>, defaultAdaptPCR, @islogical);
 0632             addParameter(p,<span class="string">'parallel'</span>,  defaultParallel,   @(x) isText(x) || isenum(x));
 0633             addParameter(p,<span class="string">'calcSldDuringFit'</span>,   defaultCalcSldDuringFit,    @islogical);
-0634             addParameter(p,<span class="string">'resamPars'</span>, defaultResamPars,  @isnumeric);
+0634             addParameter(p,<span class="string">'resampleParams'</span>, defaultResampleParams,  @isnumeric);
 0635             addParameter(p,<span class="string">'display'</span>,   defaultDisplay,    @(x) isText(x) || isenum(x));
 0636             properties = varargin{:};
 0637 
 0638             <span class="comment">% Parses the input or raises invalidOption error</span>
-0639             errorMsg = <span class="string">'Only nSamples, nChains, jumpProbability, pUnitGamma, boundHandling, adaptPCR, parallel, calcSldDuringFit, resamPars and display can be set while using the DREAM procedure'</span>;
+0639             errorMsg = <span class="string">'Only nSamples, nChains, jumpProbability, pUnitGamma, boundHandling, adaptPCR, parallel, calcSldDuringFit, resampleParams and display can be set while using the DREAM procedure'</span>;
 0640             inputBlock = obj.parseInputs(p, properties, errorMsg);
 0641 
 0642             <span class="comment">% Sets the values the for Dream parameters</span>
@@ -731,7 +731,7 @@ This function is called by:
 0648             obj.adaptPCR = inputBlock.adaptPCR;
 0649             obj.parallel = inputBlock.parallel;
 0650             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-0651             obj.resamPars = inputBlock.resamPars;
+0651             obj.resampleParams = inputBlock.resampleParams;
 0652             obj.display = inputBlock.display;
 0653         <span class="keyword">end</span>
 0654 
@@ -753,6 +753,6 @@ This function is called by:
 0670 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Mon 04-Dec-2023 13:09:56 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

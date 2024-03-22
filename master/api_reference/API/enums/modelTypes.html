@@ -38,37 +38,43 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="coderEnums.html" class="code" title="">coderEnums</a>	This allow enums to be used by coder without redefinition or hardcoding</li>
 <li><a href="modelTypes.html" class="code" title="">modelTypes</a>	</li>
 </ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="#_sub1" class="code">function v = values()</a></li>
-<li><a href="#_sub2" class="code">function e = fromValue(value)</a></li>
+<li><a href="#_sub1" class="code">function s = toStruct()</a></li>
+<li><a href="#_sub2" class="code">function v = values()</a></li>
+<li><a href="#_sub3" class="code">function e = fromValue(value)</a></li>
 </ul>
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre>0001 classdef <a href="modelTypes.html" class="code" title="">modelTypes</a> &lt; customEnum
-0002    methods (Static)
-0003       <a name="_sub0" href="#_subfunctions" class="code">function v = values()</a>
-0004          v = customEnum.values(<span class="string">'modelTypes'</span>);
-0005       <span class="keyword">end</span>
-0006        
-0007       <a name="_sub1" href="#_subfunctions" class="code">function e = fromValue(value)</a>
-0008          e = customEnum.fromValue(<span class="string">'modelTypes'</span>, value);
-0009       <span class="keyword">end</span>
-0010    <span class="keyword">end</span>
-0011 
-0012    enumeration
-0013       CustomLayers (<span class="string">'custom layers'</span>)
-0014       CustomXY (<span class="string">'custom xy'</span>)
-0015       StandardLayers (<span class="string">'standard layers'</span>)
-0016    <span class="keyword">end</span>
-0017 <span class="keyword">end</span>
+0002     methods (Static)
+0003         <a name="_sub0" href="#_subfunctions" class="code">function s = toStruct()</a>
+0004             s = customEnum.toStruct(mfilename(<span class="string">'class'</span>));
+0005         <span class="keyword">end</span>
+0006         
+0007         <a name="_sub1" href="#_subfunctions" class="code">function v = values()</a>
+0008             v = customEnum.values(mfilename(<span class="string">'class'</span>));
+0009         <span class="keyword">end</span>
+0010         
+0011         <a name="_sub2" href="#_subfunctions" class="code">function e = fromValue(value)</a>
+0012             e = customEnum.fromValue(mfilename(<span class="string">'class'</span>), value);
+0013         <span class="keyword">end</span>
+0014     <span class="keyword">end</span>
+0015     
+0016     enumeration
+0017       CustomLayers (<span class="string">'custom layers'</span>)
+0018       CustomXY (<span class="string">'custom xy'</span>)
+0019       StandardLayers (<span class="string">'standard layers'</span>)
+0020     <span class="keyword">end</span>
+0021 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Mon 04-Dec-2023 13:09:56 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

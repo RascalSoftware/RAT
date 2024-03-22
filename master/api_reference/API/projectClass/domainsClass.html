@@ -96,7 +96,7 @@ This function is called by:
 0025             <span class="comment">% refractive index.</span>
 0026             <span class="comment">% All of the arguments are optional.</span>
 0027             <span class="comment">%</span>
-0028             <span class="comment">% problem = domainsClass('New experiment');</span>
+0028             <span class="comment">% project = domainsClass('New experiment');</span>
 0029             arguments
 0030                 experimentName {mustBeTextScalar} = <span class="string">''</span>
 0031                 calculationType = calculationTypes.Domains
@@ -127,7 +127,7 @@ This function is called by:
 0056             <span class="comment">% converts it to a nonPolarised calculation, preserving all</span>
 0057             <span class="comment">% currently defined properties.</span>
 0058             <span class="comment">%</span>
-0059             <span class="comment">% nonPolarisedProblem = problem.toProjectClass();</span>
+0059             <span class="comment">% nonPolarisedProject = project.toProjectClass();</span>
 0060             projectObj = obj.projectClass();
 0061         <span class="keyword">end</span>
 0062 
@@ -136,7 +136,7 @@ This function is called by:
 0065             <span class="comment">% either &quot;standard layers&quot;, &quot;custom layers&quot;, or &quot;custom xy&quot; is</span>
 0066             <span class="comment">% permitted.</span>
 0067             <span class="comment">%</span>
-0068             <span class="comment">% problem.setModelType('Custom Layers');</span>
+0068             <span class="comment">% project.setModelType('Custom Layers');</span>
 0069             <a href="#_sub3" class="code" title="subfunction obj = setModelType(obj, modelType)">setModelType</a>@<a href="projectClass.html" class="code" title="">projectClass</a>(obj, modelType);
 0070 
 0071             <span class="comment">% Also need to define domain contrasts as necessary</span>
@@ -167,7 +167,7 @@ This function is called by:
 0096             <span class="comment">% Edits the model of an existing contrast parameter. Expects</span>
 0097             <span class="comment">% the index of contrast parameter and cell array of layer names</span>
 0098             <span class="comment">%</span>
-0099             <span class="comment">% problem.setContrastModel(1, {'layer 1'})</span>
+0099             <span class="comment">% project.setContrastModel(1, {'layer 1'})</span>
 0100                         
 0101             <span class="comment">% Make a different allowed list depending on whether</span>
 0102             <span class="comment">% it is custom or layers</span>
@@ -190,7 +190,7 @@ This function is called by:
 0119             <span class="comment">% Adds a new domain ratio parameter. Expects the name</span>
 0120             <span class="comment">% of domain ratio, min, value, max, and if fit is off or on</span>
 0121             <span class="comment">%</span>
-0122             <span class="comment">% problem.addDomainRatio('Domain Ratio 2', 0.4, 0.5, 0.6, true);</span>
+0122             <span class="comment">% project.addDomainRatio('Domain Ratio 2', 0.4, 0.5, 0.6, true);</span>
 0123             obj.domainRatio.addParameter(varargin{:});
 0124         <span class="keyword">end</span>
 0125         
@@ -198,7 +198,7 @@ This function is called by:
 0127             <span class="comment">% Removes specified domain ratio parameter. Expects the</span>
 0128             <span class="comment">% name/index of domain ratio to remove</span>
 0129             <span class="comment">%</span>
-0130             <span class="comment">% problem.removeDomainRatio(2);</span>
+0130             <span class="comment">% project.removeDomainRatio(2);</span>
 0131            obj.domainRatio.removeParameter(varargin{:}); 
 0132         <span class="keyword">end</span>
 0133         
@@ -206,7 +206,7 @@ This function is called by:
 0135             <span class="comment">% Edits an existing domain ratio parameter. Expects the</span>
 0136             <span class="comment">% index of domain ratio to edit and key-value pairs</span>
 0137             <span class="comment">%</span>
-0138             <span class="comment">% problem.setDomainRatio(1, 'name','Domain Ratio 1', 'value', 0.55);</span>
+0138             <span class="comment">% project.setDomainRatio(1, 'name','Domain Ratio 1', 'value', 0.55);</span>
 0139             obj.domainRatio.setParameter(varargin{:});
 0140         <span class="keyword">end</span>
 0141     
@@ -219,7 +219,7 @@ This function is called by:
 0148             <span class="comment">% and with key-value pairs with one or more of the following</span>
 0149             <span class="comment">% &quot;bulk in&quot;, &quot;bulk out&quot;, &quot;model&quot;</span>
 0150             <span class="comment">%</span>
-0151             <span class="comment">% problem.addDomainContrast('domainContrast 1', 'bulkIn', 'Silicon');</span>
+0151             <span class="comment">% project.addDomainContrast('domainContrast 1', 'bulkIn', 'Silicon');</span>
 0152             <span class="keyword">if</span> isa(obj.domainContrasts, <span class="string">'domainContrastsClass'</span>)
 0153                 allowedNames = obj.getAllAllowedNames();
 0154                 obj.domainContrasts.addContrast(allowedNames, varargin{:});
@@ -232,7 +232,7 @@ This function is called by:
 0161             <span class="comment">% Removes a specified domainContrast parameter. Expects</span>
 0162             <span class="comment">% index or name of resolution to remove</span>
 0163             <span class="comment">%</span>
-0164             <span class="comment">% problem.removeDomainContrast(1);</span>
+0164             <span class="comment">% project.removeDomainContrast(1);</span>
 0165             <span class="keyword">if</span> isa(obj.domainContrasts, <span class="string">'domainContrastsClass'</span>)
 0166                 obj.domainContrasts.removeContrast(row);
 0167             <span class="keyword">else</span>
@@ -245,7 +245,7 @@ This function is called by:
 0174             <span class="comment">% First input must be domainContrast number or name, subsequent</span>
 0175             <span class="comment">% inputs are name / value pairs for the parts involved</span>
 0176             <span class="comment">%</span>
-0177             <span class="comment">% problem.setContrast(1, 'name', 'domainContrast')</span>
+0177             <span class="comment">% project.setContrast(1, 'name', 'domainContrast')</span>
 0178             <span class="keyword">if</span> isa(obj.domainContrasts, <span class="string">'domainContrastsClass'</span>)
 0179                 <span class="comment">% Get the list of allowed values depending on what is</span>
 0180                 <span class="comment">% set for the other contrasts.</span>
@@ -262,7 +262,7 @@ This function is called by:
 0191             <span class="comment">% Edits the model of an existing contrast parameter. Expects</span>
 0192             <span class="comment">% the index of contrast parameter and cell array of layer names</span>
 0193             <span class="comment">%</span>
-0194             <span class="comment">% problem.setDomainContrastModel(1, {'layer 1'})</span>
+0194             <span class="comment">% project.setDomainContrastModel(1, {'layer 1'})</span>
 0195             <span class="keyword">if</span> isa(obj.domainContrasts, <span class="string">'domainContrastsClass'</span>)
 0196                 allowedValues = obj.layers.getNames();
 0197                 obj.domainContrasts.setContrastModel(row, obj.modelType, allowedValues, model);
@@ -319,7 +319,7 @@ This function is called by:
 0248             <span class="comment">% converts it to a nonPolarised calculation, preserving all</span>
 0249             <span class="comment">% currently defined properties.</span>
 0250             <span class="comment">%</span>
-0251             <span class="comment">% nonPolarisedProblem = problem.projectClass();</span>
+0251             <span class="comment">% nonPolarisedProject = project.projectClass();</span>
 0252             projectObj = <a href="projectClass.html" class="code" title="">projectClass</a>(obj.experimentName, calculationTypes.NonPolarised, obj.modelType, obj.geometry, obj.absorption);
 0253             projectObj = copyProperties(obj, projectObj);
 0254 
@@ -334,6 +334,6 @@ This function is called by:
 0263 
 </pre></div>
 
-<hr><address>Generated on Mon 04-Dec-2023 13:09:56 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

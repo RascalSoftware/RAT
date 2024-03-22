@@ -122,191 +122,190 @@ This function is called by:
 0059             <span class="comment">% in the object.</span>
 0060             <span class="comment">%</span>
 0061             <span class="comment">% names = background.getNames();</span>
-0062             backsTable = obj.backgrounds.varTable;
-0063             names = backsTable{:,1};      
-0064         <span class="keyword">end</span>
-0065                  
-0066         <a name="_sub4" href="#_subfunctions" class="code">function obj = addBackground(obj, varargin)</a>
-0067             <span class="comment">% Adds a new entry to the background table.</span>
-0068             <span class="comment">%</span>
-0069             <span class="comment">% background.addBackground('New Row');</span>
-0070             <span class="comment">% background.addBackground('New Row', 'constant', 'param_name');</span>
-0071             <span class="comment">% background.addBackground('New Row', 'function', 'function_name', 'param_name');</span>
-0072             <span class="comment">% background.addBackground('New Row', 'data');</span>
-0073             in = varargin;
-0074 
-0075             <span class="keyword">if</span> isempty(in)
-0076                 thisRow = {};
-0077             <span class="keyword">else</span>
-0078                 thisRow = {<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
-0079                 <span class="keyword">if</span> length(in) == 1
-0080                     <span class="comment">% Assume the input is just a name</span>
-0081                     thisRow = {in};
-0082                 <span class="keyword">else</span>
-0083                     thisRow{1} = in;
-0084                 <span class="keyword">end</span>
-0085             <span class="keyword">end</span>
-0086  
-0087             <span class="keyword">if</span> length(in) &gt; 1
-0088                <span class="comment">% Check that second param is legal</span>
-0089                typeVal = validateOption(in{2}, <span class="string">'allowedTypes'</span>, obj.invalidTypeMessage).value;
-0090             
-0091                <span class="keyword">if</span> any(strcmpi(typeVal, {allowedTypes.Constant.value, allowedTypes.Function.value})) &amp;&amp; length(in) &lt; 3
-0092                     throw(exceptions.invalidNumberOfInputs(sprintf(<span class="string">'For type ''%s'', at least three inputs are required, but only %d are supplied'</span>, typeVal, length(in))));
-0093                <span class="keyword">end</span>
-0094 
-0095                thisRow{1} = in{1};
-0096                thisRow{2} = in{2};
-0097 
-0098                <span class="comment">% Check that the other params inputted are either valid</span>
-0099                <span class="comment">% background names, or numbers in range..</span>
-0100                <span class="keyword">switch</span> typeVal
-0101                    <span class="keyword">case</span> allowedTypes.Constant.value
-0102                        <span class="comment">% Param 3 must be a valid parameter</span>
-0103                        thisParam = obj.validateParam(in(3));
-0104                        thisRow{3} = thisParam;
-0105 
-0106                    <span class="keyword">case</span> allowedTypes.Function.value
-0107                        <span class="comment">% Param 3 is assumed to be function name</span>
-0108                        <span class="comment">% any other given parameters must be in paramNames</span>
-0109                        <span class="comment">% list or numbers in range</span>
-0110                        thisRow{3} = in{3};
-0111                        <span class="keyword">for</span> i = 4:length(in)
-0112                           thisParam = obj.validateParam(in(i));
-0113                           thisRow{i} = thisParam;
-0114                        <span class="keyword">end</span>
-0115                    <span class="keyword">case</span> allowedTypes.Data.value
-0116                        <span class="comment">% Background is assumed to be given by a 4th column</span>
-0117                        <span class="comment">% of a data file. We don't have access to the</span>
-0118                        <span class="comment">% data files at this point so this (i.e. that data is</span>
-0119                        <span class="comment">% [n x 4] ) will be checked downstream</span>
-0120                        thisRow = {in{1}, in{2}, <span class="string">''</span>, <span class="string">''</span>, <span class="string">''</span>, <span class="string">''</span>, <span class="string">''</span>};
-0121                 <span class="keyword">end</span>
-0122             <span class="keyword">end</span>
-0123             obj.backgrounds.addRow(thisRow{:});   
-0124         <span class="keyword">end</span>
-0125         
-0126         <a name="_sub5" href="#_subfunctions" class="code">function obj = removeBackground(obj, row)</a>
-0127             <span class="comment">% Removes a background entry from the table. Expects the</span>
-0128             <span class="comment">% index or array of indices of background(s) to remove.</span>
-0129             <span class="comment">%</span>
-0130             <span class="comment">% background.removeBackground(2);</span>
-0131             <span class="comment">% background.removeBackground([1, 3]);</span>
-0132             obj.backgrounds.removeRow(row);
-0133         <span class="keyword">end</span>
-0134         
-0135         <a name="_sub6" href="#_subfunctions" class="code">function obj = setBackground(obj, row, varargin)</a>
-0136             <span class="comment">% Changes the value of a given background in the table. Expects the</span>
-0137             <span class="comment">% index or name of background and keyword/value pairs to set.</span>
-0138             <span class="comment">%</span>
-0139             <span class="comment">% background.setBackground(1, 'name', 'back 1', 'type', 'constant', 'value1', 'param_name');</span>
-0140             <span class="keyword">if</span> isText(row)
-0141                 row = obj.backgrounds.findRowIndex(row, obj.getNames(), <span class="string">'Unrecognised background'</span>);
-0142             <span class="keyword">elseif</span> isnumeric(row)
-0143                 count = obj.backgrounds.rowCount;
-0144                 <span class="keyword">if</span> (row &lt; 1) || (row &gt; count)
-0145                     throw(exceptions.indexOutOfRange(sprintf(<span class="string">'The row index %d is not within the range 1 - %d'</span>, row, count)));
-0146                 <span class="keyword">end</span>
-0147             <span class="keyword">else</span>
-0148                 throw(exceptions.invalidType(<span class="string">'Unrecognised row'</span>));
-0149             <span class="keyword">end</span>
-0150             
-0151             p = inputParser;
-0152             addParameter(p, <span class="string">'name'</span>, obj.backgrounds.varTable{row, 1}, @(x) isText(x));
-0153             addParameter(p, <span class="string">'type'</span>, obj.backgrounds.varTable{row, 2}, @(x) isText(x) || isenum(x));
-0154             addParameter(p, <span class="string">'value1'</span>, obj.backgrounds.varTable{row, 3}, @(x) isText(x));
-0155             addParameter(p, <span class="string">'value2'</span>, obj.backgrounds.varTable{row, 4}, @(x) isText(x));
-0156             addParameter(p, <span class="string">'value3'</span>, obj.backgrounds.varTable{row, 5}, @(x) isText(x));
-0157             addParameter(p, <span class="string">'value4'</span>, obj.backgrounds.varTable{row, 6}, @(x) isText(x));
-0158 
-0159             parse(p, varargin{:});
-0160             inputBlock = p.Results;
-0161 
-0162             obj.backgrounds.setValue(row, 1, inputBlock.name);
-0163             
-0164             <span class="keyword">if</span> ~isempty(inputBlock.type)
-0165                 inputBlock.type = validateOption(inputBlock.type, <span class="string">'allowedTypes'</span>, obj.invalidTypeMessage).value;
-0166                 obj.backgrounds.setValue(row, 2, inputBlock.type);
-0167             <span class="keyword">end</span>
-0168             values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4};
-0169             <span class="keyword">for</span> i = 1:4
-0170                 value = convertStringsToChars(values{i});
-0171                 <span class="comment">% for function type, value 1 is the function name so no validation is done</span>
-0172                 <span class="keyword">if</span> ~isempty(value) &amp;&amp; ~(i==1 &amp;&amp; strcmpi(inputBlock.type, allowedTypes.Function.value))
-0173                     value = obj.validateParam(value);
-0174                 <span class="keyword">end</span>
-0175                 obj.backgrounds.setValue(row, i + 2, value);
-0176             <span class="keyword">end</span>
-0177         <span class="keyword">end</span>
-0178          
-0179         <a name="_sub7" href="#_subfunctions" class="code">function obj = setBackgroundName(obj, row, name)</a>
-0180             <span class="comment">% Sets the name of a given background in the table. Expects</span>
-0181             <span class="comment">% an index and the new name.</span>
-0182             <span class="comment">%</span>
-0183             <span class="comment">% background.setBackgroundName(1, 'new_name');</span>
-0184             <span class="keyword">if</span> ~isText(name)
-0185                 throw(exceptions.invalidType(sprintf(<span class="string">'%s must be a character array or string'</span>, name)));
-0186             <span class="keyword">end</span>
-0187             obj.backgrounds.setValue(row, <span class="string">'name'</span>, name);
-0188         <span class="keyword">end</span>
-0189 
-0190         <a name="_sub8" href="#_subfunctions" class="code">function displayBackgroundsObject(obj)</a>
-0191             <span class="comment">% Displays the background parameters and background table.</span>
-0192             fprintf(<span class="string">'    (a) Background Parameters: \n\n'</span>);
-0193             obj.backgroundParams.displayTable;
-0194             
-0195             fprintf(<span class="string">'    (b) Backgrounds:  \n\n'</span>)
-0196             obj.backgrounds.displayTable;
-0197         <span class="keyword">end</span>
-0198         
-0199         <a name="_sub9" href="#_subfunctions" class="code">function backgroundStruct = toStruct(obj)</a>
-0200             <span class="comment">% Converts the class parameters into a structure array</span>
-0201             backgroundParamsStruct = obj.backgroundParams.toStruct();
-0202             
-0203             backgroundStruct.backgroundParamNames = backgroundParamsStruct.names;
-0204             backgroundStruct.backgroundParamLimits = backgroundParamsStruct.limits;
-0205             backgroundStruct.backgroundParamValues = backgroundParamsStruct.values;
-0206             backgroundStruct.fitBackgroundParam = backgroundParamsStruct.fit;
-0207             backgroundStruct.backgroundParamPriors = backgroundParamsStruct.priors;
-0208             
-0209             backgroundNames = obj.backgrounds.varTable{:,1};
-0210             backgroundTypes = obj.backgrounds.varTable{:,2};
-0211             backgroundValues = table2cell(obj.backgrounds.varTable(:,3:7));
-0212             
-0213             backgroundStruct.backgroundNames = backgroundNames;
-0214             backgroundStruct.backgroundTypes = backgroundTypes;
-0215             backgroundStruct.backgroundValues = backgroundValues;
-0216         <span class="keyword">end</span>
-0217     <span class="keyword">end</span>
-0218 
-0219     methods (Access = protected)
-0220         <a name="_sub10" href="#_subfunctions" class="code">function thisPar = validateParam(obj, param)</a>
-0221             <span class="comment">% Checks that given parameter index or name is valid, then returns the</span>
-0222             <span class="comment">% parameter name.</span>
-0223             <span class="comment">%</span>
-0224             <span class="comment">% param = obj.validateParam('param_name');</span>
-0225             <span class="keyword">if</span> iscell(param)
-0226                 param = param{:};
-0227             <span class="keyword">end</span>
-0228             parList = obj.backgroundParams.getNames();
-0229             <span class="keyword">if</span> isnumeric(param)
-0230                 <span class="keyword">if</span> (param &lt; 1) || (param &gt; length(parList))
-0231                     throw(exceptions.indexOutOfRange(sprintf(<span class="string">'Background Parameter %d is out of range'</span>, param)));
-0232                 <span class="keyword">else</span>
-0233                     thisPar = parList(param);
-0234                 <span class="keyword">end</span>
-0235             <span class="keyword">elseif</span> isText(param)
-0236                 <span class="keyword">if</span> ~strcmpi(param, parList)
-0237                     throw(exceptions.nameNotRecognised(sprintf(<span class="string">'Unrecognised parameter name %s'</span>, param)));
-0238                 <span class="keyword">else</span>
-0239                     thisPar = param;
-0240                 <span class="keyword">end</span>
-0241             <span class="keyword">end</span>
-0242         <span class="keyword">end</span>
-0243     <span class="keyword">end</span>
-0244 <span class="keyword">end</span>
+0062             names = obj.backgrounds.varTable{:,1};      
+0063         <span class="keyword">end</span>
+0064                  
+0065         <a name="_sub4" href="#_subfunctions" class="code">function obj = addBackground(obj, varargin)</a>
+0066             <span class="comment">% Adds a new entry to the background table.</span>
+0067             <span class="comment">%</span>
+0068             <span class="comment">% background.addBackground('New Row');</span>
+0069             <span class="comment">% background.addBackground('New Row', 'constant', 'param_name');</span>
+0070             <span class="comment">% background.addBackground('New Row', 'function', 'function_name', 'param_name');</span>
+0071             <span class="comment">% background.addBackground('New Row', 'data');</span>
+0072             in = varargin;
+0073 
+0074             <span class="keyword">if</span> isempty(in)
+0075                 thisRow = {};
+0076             <span class="keyword">else</span>
+0077                 thisRow = {<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
+0078                 <span class="keyword">if</span> length(in) == 1
+0079                     <span class="comment">% Assume the input is just a name</span>
+0080                     thisRow = {in};
+0081                 <span class="keyword">else</span>
+0082                     thisRow{1} = in;
+0083                 <span class="keyword">end</span>
+0084             <span class="keyword">end</span>
+0085  
+0086             <span class="keyword">if</span> length(in) &gt; 1
+0087                <span class="comment">% Check that second param is legal</span>
+0088                typeVal = validateOption(in{2}, <span class="string">'allowedTypes'</span>, obj.invalidTypeMessage).value;
+0089             
+0090                <span class="keyword">if</span> any(strcmpi(typeVal, {allowedTypes.Constant.value, allowedTypes.Function.value})) &amp;&amp; length(in) &lt; 3
+0091                     throw(exceptions.invalidNumberOfInputs(sprintf(<span class="string">'For type ''%s'', at least three inputs are required, but only %d are supplied'</span>, typeVal, length(in))));
+0092                <span class="keyword">end</span>
+0093 
+0094                thisRow{1} = in{1};
+0095                thisRow{2} = in{2};
+0096 
+0097                <span class="comment">% Check that the other params inputted are either valid</span>
+0098                <span class="comment">% background names, or numbers in range..</span>
+0099                <span class="keyword">switch</span> typeVal
+0100                    <span class="keyword">case</span> allowedTypes.Constant.value
+0101                        <span class="comment">% Param 3 must be a valid parameter</span>
+0102                        thisParam = obj.validateParam(in(3));
+0103                        thisRow{3} = thisParam;
+0104 
+0105                    <span class="keyword">case</span> allowedTypes.Function.value
+0106                        <span class="comment">% Param 3 is assumed to be function name</span>
+0107                        <span class="comment">% any other given parameters must be in paramNames</span>
+0108                        <span class="comment">% list or numbers in range</span>
+0109                        thisRow{3} = in{3};
+0110                        <span class="keyword">for</span> i = 4:length(in)
+0111                           thisParam = obj.validateParam(in(i));
+0112                           thisRow{i} = thisParam;
+0113                        <span class="keyword">end</span>
+0114                    <span class="keyword">case</span> allowedTypes.Data.value
+0115                        <span class="comment">% Background is assumed to be given by a 4th column</span>
+0116                        <span class="comment">% of a data file. We don't have access to the</span>
+0117                        <span class="comment">% data files at this point so this (i.e. that data is</span>
+0118                        <span class="comment">% [n x 4] ) will be checked downstream</span>
+0119                        thisRow = {in{1}, in{2}, <span class="string">''</span>, <span class="string">''</span>, <span class="string">''</span>, <span class="string">''</span>, <span class="string">''</span>};
+0120                 <span class="keyword">end</span>
+0121             <span class="keyword">end</span>
+0122             obj.backgrounds.addRow(thisRow{:});   
+0123         <span class="keyword">end</span>
+0124         
+0125         <a name="_sub5" href="#_subfunctions" class="code">function obj = removeBackground(obj, row)</a>
+0126             <span class="comment">% Removes a background entry from the table. Expects the</span>
+0127             <span class="comment">% index or array of indices of background(s) to remove.</span>
+0128             <span class="comment">%</span>
+0129             <span class="comment">% background.removeBackground(2);</span>
+0130             <span class="comment">% background.removeBackground([1, 3]);</span>
+0131             obj.backgrounds.removeRow(row);
+0132         <span class="keyword">end</span>
+0133         
+0134         <a name="_sub6" href="#_subfunctions" class="code">function obj = setBackground(obj, row, varargin)</a>
+0135             <span class="comment">% Changes the value of a given background in the table. Expects the</span>
+0136             <span class="comment">% index or name of background and keyword/value pairs to set.</span>
+0137             <span class="comment">%</span>
+0138             <span class="comment">% background.setBackground(1, 'name', 'back 1', 'type', 'constant', 'value1', 'param_name');</span>
+0139             <span class="keyword">if</span> isText(row)
+0140                 row = obj.backgrounds.findRowIndex(row, obj.getNames(), <span class="string">'Unrecognised background'</span>);
+0141             <span class="keyword">elseif</span> isnumeric(row)
+0142                 count = obj.backgrounds.rowCount;
+0143                 <span class="keyword">if</span> (row &lt; 1) || (row &gt; count)
+0144                     throw(exceptions.indexOutOfRange(sprintf(<span class="string">'The row index %d is not within the range 1 - %d'</span>, row, count)));
+0145                 <span class="keyword">end</span>
+0146             <span class="keyword">else</span>
+0147                 throw(exceptions.invalidType(<span class="string">'Unrecognised row'</span>));
+0148             <span class="keyword">end</span>
+0149             
+0150             p = inputParser;
+0151             addParameter(p, <span class="string">'name'</span>, obj.backgrounds.varTable{row, 1}, @(x) isText(x));
+0152             addParameter(p, <span class="string">'type'</span>, obj.backgrounds.varTable{row, 2}, @(x) isText(x) || isenum(x));
+0153             addParameter(p, <span class="string">'value1'</span>, obj.backgrounds.varTable{row, 3}, @(x) isText(x));
+0154             addParameter(p, <span class="string">'value2'</span>, obj.backgrounds.varTable{row, 4}, @(x) isText(x));
+0155             addParameter(p, <span class="string">'value3'</span>, obj.backgrounds.varTable{row, 5}, @(x) isText(x));
+0156             addParameter(p, <span class="string">'value4'</span>, obj.backgrounds.varTable{row, 6}, @(x) isText(x));
+0157 
+0158             parse(p, varargin{:});
+0159             inputBlock = p.Results;
+0160 
+0161             obj.backgrounds.setValue(row, 1, inputBlock.name);
+0162             
+0163             <span class="keyword">if</span> ~isempty(inputBlock.type)
+0164                 inputBlock.type = validateOption(inputBlock.type, <span class="string">'allowedTypes'</span>, obj.invalidTypeMessage).value;
+0165                 obj.backgrounds.setValue(row, 2, inputBlock.type);
+0166             <span class="keyword">end</span>
+0167             values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4};
+0168             <span class="keyword">for</span> i = 1:4
+0169                 value = convertStringsToChars(values{i});
+0170                 <span class="comment">% for function type, value 1 is the function name so no validation is done</span>
+0171                 <span class="keyword">if</span> ~isempty(value) &amp;&amp; ~(i==1 &amp;&amp; strcmpi(inputBlock.type, allowedTypes.Function.value))
+0172                     value = obj.validateParam(value);
+0173                 <span class="keyword">end</span>
+0174                 obj.backgrounds.setValue(row, i + 2, value);
+0175             <span class="keyword">end</span>
+0176         <span class="keyword">end</span>
+0177          
+0178         <a name="_sub7" href="#_subfunctions" class="code">function obj = setBackgroundName(obj, row, name)</a>
+0179             <span class="comment">% Sets the name of a given background in the table. Expects</span>
+0180             <span class="comment">% an index and the new name.</span>
+0181             <span class="comment">%</span>
+0182             <span class="comment">% background.setBackgroundName(1, 'new_name');</span>
+0183             <span class="keyword">if</span> ~isText(name)
+0184                 throw(exceptions.invalidType(sprintf(<span class="string">'%s must be a character array or string'</span>, name)));
+0185             <span class="keyword">end</span>
+0186             obj.backgrounds.setValue(row, <span class="string">'name'</span>, name);
+0187         <span class="keyword">end</span>
+0188 
+0189         <a name="_sub8" href="#_subfunctions" class="code">function displayBackgroundsObject(obj)</a>
+0190             <span class="comment">% Displays the background parameters and background table.</span>
+0191             fprintf(<span class="string">'    (a) Background Parameters: \n\n'</span>);
+0192             obj.backgroundParams.displayTable;
+0193             
+0194             fprintf(<span class="string">'    (b) Backgrounds:  \n\n'</span>)
+0195             obj.backgrounds.displayTable;
+0196         <span class="keyword">end</span>
+0197         
+0198         <a name="_sub9" href="#_subfunctions" class="code">function backgroundStruct = toStruct(obj)</a>
+0199             <span class="comment">% Converts the class parameters into a structure array</span>
+0200             backgroundParamsStruct = obj.backgroundParams.toStruct();
+0201             
+0202             backgroundStruct.backgroundParamNames = backgroundParamsStruct.names;
+0203             backgroundStruct.backgroundParamLimits = backgroundParamsStruct.limits;
+0204             backgroundStruct.backgroundParamValues = backgroundParamsStruct.values;
+0205             backgroundStruct.fitBackgroundParam = backgroundParamsStruct.fit;
+0206             backgroundStruct.backgroundParamPriors = backgroundParamsStruct.priors;
+0207             
+0208             backgroundNames = obj.backgrounds.varTable{:,1};
+0209             backgroundTypes = obj.backgrounds.varTable{:,2};
+0210             backgroundValues = table2cell(obj.backgrounds.varTable(:,3:7));
+0211             
+0212             backgroundStruct.backgroundNames = backgroundNames;
+0213             backgroundStruct.backgroundTypes = backgroundTypes;
+0214             backgroundStruct.backgroundValues = backgroundValues;
+0215         <span class="keyword">end</span>
+0216     <span class="keyword">end</span>
+0217 
+0218     methods (Access = protected)
+0219         <a name="_sub10" href="#_subfunctions" class="code">function thisPar = validateParam(obj, param)</a>
+0220             <span class="comment">% Checks that given parameter index or name is valid, then returns the</span>
+0221             <span class="comment">% parameter name.</span>
+0222             <span class="comment">%</span>
+0223             <span class="comment">% param = obj.validateParam('param_name');</span>
+0224             <span class="keyword">if</span> iscell(param)
+0225                 param = param{:};
+0226             <span class="keyword">end</span>
+0227             parList = obj.backgroundParams.getNames();
+0228             <span class="keyword">if</span> isnumeric(param)
+0229                 <span class="keyword">if</span> (param &lt; 1) || (param &gt; length(parList))
+0230                     throw(exceptions.indexOutOfRange(sprintf(<span class="string">'Background Parameter %d is out of range'</span>, param)));
+0231                 <span class="keyword">else</span>
+0232                     thisPar = parList(param);
+0233                 <span class="keyword">end</span>
+0234             <span class="keyword">elseif</span> isText(param)
+0235                 <span class="keyword">if</span> ~strcmpi(param, parList)
+0236                     throw(exceptions.nameNotRecognised(sprintf(<span class="string">'Unrecognised parameter name %s'</span>, param)));
+0237                 <span class="keyword">else</span>
+0238                     thisPar = param;
+0239                 <span class="keyword">end</span>
+0240             <span class="keyword">end</span>
+0241         <span class="keyword">end</span>
+0242     <span class="keyword">end</span>
+0243 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Mon 04-Dec-2023 13:09:56 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

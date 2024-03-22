@@ -1,6 +1,10 @@
 /* Created by mdot for Matlab */
 digraph m2html {
+  standardLayers -> standardLayers;
 
   coreLayersCalculation [URL="coreLayersCalculation.html"];
+  customLayers [URL="customLayers.html"];
+  customXY [URL="customXY.html"];
   reflectivityCalculation [URL="reflectivityCalculation.html"];
+  standardLayers [URL="standardLayers.html"];
 }

@@ -50,6 +50,10 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calcTypes.html">Different Calculation Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utility Functions</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="projectClass.html">Project Class</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Controls Class</a><ul>
@@ -61,7 +65,6 @@
 <li class="toctree-l2"><a class="reference internal" href="utilityFunctions.html">Utility Functions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 </ul>
 
@@ -132,12 +135,6 @@ if yes, what to parallelize on. (Single, Points or Contrasts)</p>
 <dt class="sig sig-object mat" id="API.controlsClass">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">controlsClass</span></span><a class="headerlink" href="#API.controlsClass" title="Permalink to this definition"></a></dt>
 <dd><dl class="mat attribute">
-<dt class="sig sig-object mat" id="API.controlsClass.Nlive">
-<span class="sig-name descname"><span class="pre">Nlive</span></span><a class="headerlink" href="#API.controlsClass.Nlive" title="Permalink to this definition"></a></dt>
-<dd><p>Number of live points for Nested Sampler (Default: 150)</p>
-</dd></dl>
-
-<dl class="mat attribute">
 <dt class="sig sig-object mat" id="API.controlsClass.boundHandling">
 <span class="sig-name descname"><span class="pre">boundHandling</span></span><a class="headerlink" href="#API.controlsClass.boundHandling" title="Permalink to this definition"></a></dt>
 <dd><p>Boundary handling</p>
@@ -174,14 +171,14 @@ if yes, what to parallelize on. (Single, Points or Contrasts)</p>
 </dd></dl>
 
 <dl class="mat attribute">
-<dt class="sig sig-object mat" id="API.controlsClass.maxFunEvals">
-<span class="sig-name descname"><span class="pre">maxFunEvals</span></span><a class="headerlink" href="#API.controlsClass.maxFunEvals" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object mat" id="API.controlsClass.maxFuncEvals">
+<span class="sig-name descname"><span class="pre">maxFuncEvals</span></span><a class="headerlink" href="#API.controlsClass.maxFuncEvals" title="Permalink to this definition"></a></dt>
 <dd><p>Maximum number of function evaluations for simplex  (Default: 10000)</p>
 </dd></dl>
 
 <dl class="mat attribute">
-<dt class="sig sig-object mat" id="API.controlsClass.maxIter">
-<span class="sig-name descname"><span class="pre">maxIter</span></span><a class="headerlink" href="#API.controlsClass.maxIter" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object mat" id="API.controlsClass.maxIterations">
+<span class="sig-name descname"><span class="pre">maxIterations</span></span><a class="headerlink" href="#API.controlsClass.maxIterations" title="Permalink to this definition"></a></dt>
 <dd><p>Maximum number of iterations for simplex  (Default: 1000)</p>
 </dd></dl>
 
@@ -189,6 +186,12 @@ if yes, what to parallelize on. (Single, Points or Contrasts)</p>
 <dt class="sig sig-object mat" id="API.controlsClass.nChains">
 <span class="sig-name descname"><span class="pre">nChains</span></span><a class="headerlink" href="#API.controlsClass.nChains" title="Permalink to this definition"></a></dt>
 <dd><p>Number of MCMC chains (Default: 10)</p>
+</dd></dl>
+
+<dl class="mat attribute">
+<dt class="sig sig-object mat" id="API.controlsClass.nLive">
+<span class="sig-name descname"><span class="pre">nLive</span></span><a class="headerlink" href="#API.controlsClass.nLive" title="Permalink to this definition"></a></dt>
+<dd><p>Number of live points for Nested Sampler (Default: 150)</p>
 </dd></dl>
 
 <dl class="mat attribute">
@@ -241,9 +244,9 @@ if yes, what to parallelize on. (Single, Points or Contrasts)</p>
 <dt>USAGE: </dt><dd><p>obj.setProcedure(procedure, varargin)</p>
 </dd>
 <dt>EXAMPLE: </dt><dd><ul class="simple">
-<li><p>obj.setProcedure(‘simplex’, {‘tolX’, 1e-6, ‘tolFun’, 1e-6,’maxFunEvals’, 1000})</p></li>
+<li><p>obj.setProcedure(‘simplex’, {‘xTolerance’, 1e-6, ‘funcTolerance’, 1e-6,’maxFuncEvals’, 1000})</p></li>
 <li><p>obj.setProcedure(‘dream’)</p></li>
-<li><p>obj.setProcedure(‘ns’, {‘Nlive’, 150,’Nmcmc’, 0, ‘propScale’, 0.1, ‘nsTolerance’, 0.1})</p></li>
+<li><p>obj.setProcedure(‘ns’, {‘nLive’, 150,’nMCMC’, 0, ‘propScale’, 0.1, ‘nsTolerance’, 0.1})</p></li>
 </ul>
 </dd>
 </dl>
@@ -262,8 +265,8 @@ if yes, what to parallelize on. (Single, Points or Contrasts)</p>
 </dd></dl>
 
 <dl class="mat attribute">
-<dt class="sig sig-object mat" id="API.controlsClass.tolX">
-<span class="sig-name descname"><span class="pre">tolX</span></span><a class="headerlink" href="#API.controlsClass.tolX" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object mat" id="API.controlsClass.xTolerance">
+<span class="sig-name descname"><span class="pre">xTolerance</span></span><a class="headerlink" href="#API.controlsClass.xTolerance" title="Permalink to this definition"></a></dt>
 <dd><p>optimization tolerance for simplex (Default: 1e-6)</p>
 </dd></dl>
 
@@ -283,7 +286,7 @@ if yes, what to parallelize on. (Single, Points or Contrasts)</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2023, ISIS Neutron and Muon Source.</p>
+    <p>&#169; Copyright 2022-2024, ISIS Neutron and Muon Source.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

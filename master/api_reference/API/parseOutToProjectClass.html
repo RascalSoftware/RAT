@@ -4,7 +4,7 @@
 <head>
   <title>Description of parseOutToProjectClass</title>
   <meta name="keywords" content="parseOutToProjectClass">
-  <meta name="description" content="Reconstruct the problemDef class as an output">
+  <meta name="description" content="Reconstruct the project class as an output">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -21,13 +21,13 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>Reconstruct the problemDef class as an output</strong></div>
+<div class="box"><strong>Reconstruct the project class as an output</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>function outProblemDef = parseOutToProjectClass(problemDefInput,outProblemStruct) </strong></div>
+<div class="box"><strong>function project = parseOutToProjectClass(project,problemStruct) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre class="comment">Reconstruct the problemDef class as an output
+<div class="fragment"><pre class="comment">Reconstruct the project class as an output
 Using the outputs from the calculation(s)
 </pre></div>
 
@@ -38,70 +38,69 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="RAT.html" class="code" title="function [outProblemDef,result] = RAT(problemDefInput,controls)">RAT</a>	</li>
+<li><a href="RAT.html" class="code" title="function [project,result] = RAT(project,controls)">RAT</a>	</li>
 </ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function outProblemDef = parseOutToProjectClass(problemDefInput,outProblemStruct)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function project = parseOutToProjectClass(project,problemStruct)</a>
 0002 
-0003 <span class="comment">%Reconstruct the problemDef class as an output</span>
+0003 <span class="comment">%Reconstruct the project class as an output</span>
 0004 <span class="comment">%Using the outputs from the calculation(s)</span>
-0005 outProblemDef = problemDefInput;
-0006 
-0007 <span class="comment">%(1) Parameters</span>
-0008 params = outProblemStruct.params;
-0009 <span class="keyword">for</span> i = 1:length(params)
-0010     outProblemDef.setParameterValue(i,params(i));
-0011 <span class="keyword">end</span>
-0012 
-0013 <span class="comment">%(2) Backgrounds</span>
-0014 backgroundParams = outProblemStruct.backgroundParams;
-0015 <span class="keyword">for</span> i = 1:length(backgroundParams)
-0016     outProblemDef.setBackgroundParamValue(i,backgroundParams(i));
-0017 <span class="keyword">end</span>
-0018 
-0019 <span class="comment">%(3) Scalefactors</span>
-0020 scalefactors = outProblemStruct.scalefactors;
-0021 <span class="keyword">for</span> i = 1:length(scalefactors)
-0022     outProblemDef.setScalefactor(i,<span class="string">'value'</span>,scalefactors(i));
-0023 <span class="keyword">end</span>
-0024 
-0025 <span class="comment">%(4) Qzshifts</span>
-0026 qzshifts = outProblemStruct.qzshifts;
-0027 <span class="keyword">for</span> i = 1:length(qzshifts)
-0028     outProblemDef.setQzshift(i,<span class="string">'value'</span>,qzshifts(i));
-0029 <span class="keyword">end</span>
-0030 
-0031 <span class="comment">%(5) Bulk In</span>
-0032 bulkIns = outProblemStruct.bulkIn;
-0033 <span class="keyword">for</span> i = 1:length(bulkIns)
-0034     outProblemDef.setBulkIn(i,<span class="string">'value'</span>,bulkIns(i));
-0035 <span class="keyword">end</span>
-0036 
-0037 <span class="comment">%(6) Bulk Out</span>
-0038 bulkOuts = outProblemStruct.bulkOut;
-0039 <span class="keyword">for</span> i = 1:length(bulkOuts)
-0040     outProblemDef.setBulkOut(i,<span class="string">'value'</span>,bulkOuts(i));
-0041 <span class="keyword">end</span>
-0042 
-0043 <span class="comment">%(7) Resolutions</span>
-0044 resolutionParams = outProblemStruct.resolutionParams;
-0045 <span class="keyword">for</span> i = 1:length(resolutionParams)
-0046     outProblemDef.setResolutionParam(i,<span class="string">'value'</span>,resolutionParams(i));
-0047 <span class="keyword">end</span>
-0048 
-0049 <span class="comment">% (8) Domain ratio</span>
-0050 <span class="keyword">if</span> strcmpi(outProblemStruct.TF,<span class="string">'domains'</span>)
-0051     domainRatios = outProblemStruct.domainRatio;
-0052     <span class="keyword">for</span> i = 1:length(domainRatios)
-0053         outProblemDef.setDomainRatio(i,<span class="string">'value'</span>,domainRatios(i));
-0054     <span class="keyword">end</span>
-0055 <span class="keyword">end</span>
+0005 
+0006 <span class="comment">%(1) Parameters</span>
+0007 params = problemStruct.params;
+0008 <span class="keyword">for</span> i = 1:length(params)
+0009     project.setParameterValue(i,params(i));
+0010 <span class="keyword">end</span>
+0011 
+0012 <span class="comment">%(2) Backgrounds</span>
+0013 backgroundParams = problemStruct.backgroundParams;
+0014 <span class="keyword">for</span> i = 1:length(backgroundParams)
+0015     project.setBackgroundParamValue(i,backgroundParams(i));
+0016 <span class="keyword">end</span>
+0017 
+0018 <span class="comment">%(3) Scalefactors</span>
+0019 scalefactors = problemStruct.scalefactors;
+0020 <span class="keyword">for</span> i = 1:length(scalefactors)
+0021     project.setScalefactor(i,<span class="string">'value'</span>,scalefactors(i));
+0022 <span class="keyword">end</span>
+0023 
+0024 <span class="comment">%(4) Qzshifts</span>
+0025 qzshifts = problemStruct.qzshifts;
+0026 <span class="keyword">for</span> i = 1:length(qzshifts)
+0027     project.setQzshift(i,<span class="string">'value'</span>,qzshifts(i));
+0028 <span class="keyword">end</span>
+0029 
+0030 <span class="comment">%(5) Bulk In</span>
+0031 bulkIns = problemStruct.bulkIn;
+0032 <span class="keyword">for</span> i = 1:length(bulkIns)
+0033     project.setBulkIn(i,<span class="string">'value'</span>,bulkIns(i));
+0034 <span class="keyword">end</span>
+0035 
+0036 <span class="comment">%(6) Bulk Out</span>
+0037 bulkOuts = problemStruct.bulkOut;
+0038 <span class="keyword">for</span> i = 1:length(bulkOuts)
+0039     project.setBulkOut(i,<span class="string">'value'</span>,bulkOuts(i));
+0040 <span class="keyword">end</span>
+0041 
+0042 <span class="comment">%(7) Resolutions</span>
+0043 resolutionParams = problemStruct.resolutionParams;
+0044 <span class="keyword">for</span> i = 1:length(resolutionParams)
+0045     project.setResolutionParam(i,<span class="string">'value'</span>,resolutionParams(i));
+0046 <span class="keyword">end</span>
+0047 
+0048 <span class="comment">% (8) Domain ratio</span>
+0049 <span class="keyword">if</span> strcmpi(problemStruct.TF, calculationTypes.Domains.value)
+0050     domainRatios = problemStruct.domainRatio;
+0051     <span class="keyword">for</span> i = 1:length(domainRatios)
+0052         project.setDomainRatio(i,<span class="string">'value'</span>,domainRatios(i));
+0053     <span class="keyword">end</span>
+0054 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Mon 04-Dec-2023 13:09:56 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

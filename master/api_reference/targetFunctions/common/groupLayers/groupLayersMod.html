@@ -26,7 +26,7 @@
 <div class="box"><strong>Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>function [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,geometry,bulkIns,bulkOuts) </strong></div>
+<div class="box"><strong>function [outLayers, outSsubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment"> Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the 
@@ -37,11 +37,11 @@
 
  USAGE::
 
-     [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,geometry,bulkIns,bulkOuts)
+     [outLayers, outSsubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)
 
  INPUTS:
-     * allLayers: cell array, one for each contrast. Each cell is the list of layer values for each contrast.
-     * allRoughs:  Double of substrate roughness for each contrast.
+     * resampledLayers: cell array, one for each contrast. Each cell is the list of layer values for each contrast.
+     * subRoughs:  Double of substrate roughness for each contrast.
      * geometry: 'Air / Liquid (or solid)' or 'Solid / Liquid'
      * bulkIns: vector of bulkIn values.
      * bulkOuts: vector of bulkOut values.
@@ -58,14 +58,14 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../targetFunctions/+nonPolarisedTF/coreLayersCalculation.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =coreLayersCalculation(contrastLayers, rough,geometry, bulkIn, bulkOut, resample, calcSld, scalefactor, qzshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars,useImaginary)">coreLayersCalculation</a>	This is the main reflectivity calculation for all Layers models in the</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/coreLayersCalculation.html" class="code" title="function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiSq] =coreLayersCalculation(contrastLayers, rough,geometry, bulkIn, bulkOut, resample, calcSld, scalefactor, qzshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resolution,contrastBackgroundsType,params,parallelPoints,resampleParams,useImaginary)">coreLayersCalculation</a>	This is the main reflectivity calculation for all Layers models in the</li>
 </ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,geometry,bulkIns,bulkOuts)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [outLayers, outSsubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)</a>
 0002 <span class="comment">% Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the</span>
 0003 <span class="comment">% z,rho,rough stack, and the parameter 'ssub' in callParatt is the final roughness encountered.</span>
 0004 <span class="comment">%</span>
@@ -74,11 +74,11 @@ This function is called by:
 0007 <span class="comment">%</span>
 0008 <span class="comment">% USAGE::</span>
 0009 <span class="comment">%</span>
-0010 <span class="comment">%     [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,geometry,bulkIns,bulkOuts)</span>
+0010 <span class="comment">%     [outLayers, outSsubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)</span>
 0011 <span class="comment">%</span>
 0012 <span class="comment">% INPUTS:</span>
-0013 <span class="comment">%     * allLayers: cell array, one for each contrast. Each cell is the list of layer values for each contrast.</span>
-0014 <span class="comment">%     * allRoughs:  Double of substrate roughness for each contrast.</span>
+0013 <span class="comment">%     * resampledLayers: cell array, one for each contrast. Each cell is the list of layer values for each contrast.</span>
+0014 <span class="comment">%     * subRoughs:  Double of substrate roughness for each contrast.</span>
 0015 <span class="comment">%     * geometry: 'Air / Liquid (or solid)' or 'Solid / Liquid'</span>
 0016 <span class="comment">%     * bulkIns: vector of bulkIn values.</span>
 0017 <span class="comment">%     * bulkOuts: vector of bulkOut values.</span>
@@ -94,22 +94,22 @@ This function is called by:
 0027 coder.varsize(<span class="string">'layers'</span>,[Inf,6],[1 1]);
 0028 
 0029 <span class="comment">%for i = 1:numberOfContrasts</span>
-0030     output = allLayers;
-0031     s_sub = allRoughs;
+0030     output = resampledLayers;
+0031     ssub = subRoughs;
 0032     layers = zeros(size(output));
 0033     <span class="keyword">if</span> ~isempty(output)
-0034         <span class="keyword">if</span> strcmpi(geometry,<span class="string">'air/substrate'</span>)
+0034         <span class="keyword">if</span> strcmpi(geometry, coderEnums.geometryOptions.AirSubstrate)
 0035                 layers = output;
-0036                 <span class="comment">%s_sub = rsub;</span>
+0036                 <span class="comment">%ssub = rsub;</span>
 0037         <span class="keyword">else</span>
 0038                 roughs = output(:,3);
 0039                 sldss = output(:,2);
 0040                 thicks = output(:,1);
 0041                 rsub = roughs(end);
 0042                 <span class="keyword">if</span> length(roughs) &gt; 1
-0043                     roughs = [s_sub ; roughs(1:end-1)];
+0043                     roughs = [ssub ; roughs(1:end-1)];
 0044                 <span class="keyword">else</span>
-0045                     roughs = s_sub;
+0045                     roughs = ssub;
 0046                 <span class="keyword">end</span>
 0047                 n = size(output,2);
 0048                 <span class="keyword">if</span> n == 5
@@ -118,7 +118,7 @@ This function is called by:
 0051                 <span class="keyword">else</span>
 0052                     layers = [thicks(:) sldss(:) roughs(:)];
 0053                 <span class="keyword">end</span>
-0054                 s_sub = rsub;
+0054                 ssub = rsub;
 0055         <span class="keyword">end</span>
 0056         
 0057         <span class="comment">%Deal with the %coverage if present</span>
@@ -138,23 +138,22 @@ This function is called by:
 0071             <span class="keyword">end</span>
 0072         <span class="keyword">end</span> 
 0073     <span class="keyword">end</span>
-0074 <span class="comment">%     problem.layers{i} = layers;</span>
-0075 <span class="comment">%     problem.ssubs(i) = s_sub;</span>
-0076 <span class="keyword">if</span> ~isempty(layers)
-0077     outLayers = layers(:,1:3);
-0078 <span class="keyword">else</span>
-0079     outLayers = zeros(1,3);
-0080 <span class="keyword">end</span>
-0081 outSsubs = s_sub;
+0074 
+0075 <span class="keyword">if</span> ~isempty(layers)
+0076     outLayers = layers(:,1:3);
+0077 <span class="keyword">else</span>
+0078     outLayers = zeros(1,3);
+0079 <span class="keyword">end</span>
+0080 outSsubs = ssub;
+0081 
 0082 
-0083 
-0084 <span class="keyword">end</span>
+0083 <span class="keyword">end</span>
+0084 
 0085 
-0086 
-0087 <span class="comment">%end</span>
-0088     
+0086 <span class="comment">%end</span>
+0087     
 </pre></div>
 
-<hr><address>Generated on Mon 04-Dec-2023 13:09:56 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

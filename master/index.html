@@ -49,8 +49,11 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calcTypes.html">Different Calculation Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 </ul>
 
@@ -79,9 +82,33 @@
            <div itemprop="articleBody">
              
   <p><img alt="RAT banner" src="_images/ratBanner.png" /></p>
-<p id="rat">RAT is an acronym for Reflectivity Algorithms Toolbox for Rascal. This is a MATLAB toolbox for analysing neutron reflectivity data at multiple contrasts.
-This is designed to fit multiple contrast neutron reflectivity data, primarily using the Abeles layer model but user-defined model function are also supported.
-RAT was originally developed by Dr. Arwel Hughes in MATLAB. It is converted to C++/MEX using MATLAB Coder to improve the performance.</p>
+<p id="rat">RAT is an acronym for Reflectivity Algorithms Toolbox, which is the calculation engine for the forthcoming RasCAL2. As
+with the original RasCAL, RAT is a toolbox for analysising neutron reflectivity data at multiple contrasts. It is designed
+to be flexible, allowing analysis using traditional layer models, but also using user defined custom models. These models
+do not assume any prerequisite, but instead allow complete freedom to the user to specify and parameterise their model
+however they wish, either as an array of layers, or as a continuous SLD profile.
+The original RasCAL was written in Matlab, and RAT is too. However RAT is then converted to native C++ using Matlab Coder .
+This has the advantage of the ease of use of Matlab for development, combined with the power and speed of C++. In addition,
+because the engine is in C++ it can be called from other languages other than just Matlab. There is a Python interface under development
+(although not yet functional).</p>
+<p>The Matlab Interface described in this documentation means that for the first time RasCAL projects are fully scriptable,
+meaning that full analysis can be provided via a script for publications for example, or analysis performed using RAT incorporated
+into jupyter notebooks and so on.</p>
+<p>RAT contains a number of enhancements as compared to legacy rascal, including:</p>
+<ul class="simple">
+<li><p>Automatic paralellisation (MPI) either over contrasts or points using a simple flag</p></li>
+<li><p>Advanced interface microslicing using adaptive resampling</p></li>
+<li><p>Option to write custom models in Matlab, Python or C++</p></li>
+<li><p>Custom models for background and resolution functions (not yet functional)</p></li>
+<li><p>Fast Bayesian analysis using DREAM or the external Paramonte Sampler</p></li>
+<li><p>Parallel Bayes using Paramonte via ‘mpiexcec’</p></li>
+<li><p>An integrated Nested sampler for Bayesian model selection</p></li>
+<li><p>Fully validated against ORSO examples</p></li>
+<li><p>Ability to load and run RasCAL1 projects (usually) without modification</p></li>
+<li><p>Plotting routines for easy visualisation of data and fits</p></li>
+</ul>
+<p>…. and more!</p>
+<p>As well as this documentation, there are extensive examples in the RAT/examples folder.</p>
 <section id="index">
 <h1>Index<a class="headerlink" href="#index" title="Permalink to this heading"></a></h1>
 <div class="toctree-wrapper compound">
@@ -93,8 +120,39 @@ RAT was originally developed by Dr. Arwel Hughes in MATLAB. It is converted to C
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="chapter1.html">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter2.html">The Problem Definition Input Class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="chapter2.html#a-complete-example">A complete example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="chapter3.html">Custom Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter2.html#the-monolayer-example-in-full">The Monolayer Example In Full</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controlsInfo.html">A Closer Look at the Controls Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customModels.html">Custom Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="savingAndClasses.html">Saving Your Work (working with classes)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Algorithms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="simplex.html">Nelder-Mead Simplex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DE.html">Differential Evolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DREAM.html">Bayesian Analysis - DREAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nestedSampling.html">Bayesian Model Selection - Nested Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="paramonte.html">The Paramonte Sampler</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Topics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="resampling.html">Profile Resampling (‘microslicing’)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parallelisation.html">Parallelising Calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customLanguages.html">Custom Models in Python or C++</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Handling Events During Calculations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="calcTypes.html">Different Calculation Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="imaginary.html">Adding the Imaginary Refractive Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="incoherent.html">Incoherent Summing (Domains)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oilWater.html">Reflectivity from Oil/Water Samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magnetic.html">Reflectivity from Magnetic Samples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utility Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="simplePlot.html">Basic Plotting Functions.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bayesPlot.html">Bayesian Plotting Functions.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="livePlot.html">Live Updating Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conversionFuncs.html">Convert between RAT and RasCAL1</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a><ul>
@@ -105,7 +163,6 @@ RAT was originally developed by Dr. Arwel Hughes in MATLAB. It is converted to C
 <li class="toctree-l2"><a class="reference internal" href="utilityFunctions.html">Utility Functions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 </ul>
 </div>
@@ -129,7 +186,7 @@ RAT was originally developed by Dr. Arwel Hughes in MATLAB. It is converted to C
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2023, ISIS Neutron and Muon Source.</p>
+    <p>&#169; Copyright 2022-2024, ISIS Neutron and Muon Source.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

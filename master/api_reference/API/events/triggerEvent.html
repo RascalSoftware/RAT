@@ -4,7 +4,7 @@
 <head>
   <title>Description of triggerEvent</title>
   <meta name="keywords" content="triggerEvent">
-  <meta name="description" content="Triggers the event type with the given data. The supported event types are">
+  <meta name="description" content="Triggers the event type with the given varargin. The supported event types are">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -22,18 +22,22 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>Triggers the event type with the given data. The supported event types are</strong></div>
+<div class="box"><strong>Triggers the event type with the given varargin. The supported event types are</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>function triggerEvent(eventType, data) </strong></div>
+<div class="box"><strong>function triggerEvent(eventType, varargin) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="fragment"><pre class="comment"> Triggers the event type with the given data. The supported event types are
- 'message' and 'plot'. The data for message is a char array while for
- the plot it is a cell array containing the result cell, problem.ssubs
- and problemDef
+<div class="fragment"><pre class="comment"> Triggers the event type with the given varargin. The supported event types are
+ 0, 1, and 2. 
+ * The input for the message event is a char array, 
+ * The input for the plot event are the result struct and problem struct 
+ * The input for progress events are the message (char array) and 
+   percentage progress expressed as a decimal (i.e., between 0 and 1).
  
- triggerEvent('message', 'Hello world');
+ triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
+ triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
+ triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
 </pre></div>
 
 <!-- crossreference -->
@@ -53,119 +57,141 @@ This function is called by:
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function triggerEvent(eventType, data)</a>
-0002     <span class="comment">% Triggers the event type with the given data. The supported event types are</span>
-0003     <span class="comment">% 'message' and 'plot'. The data for message is a char array while for</span>
-0004     <span class="comment">% the plot it is a cell array containing the result cell, problem.ssubs</span>
-0005     <span class="comment">% and problemDef</span>
-0006     <span class="comment">%</span>
-0007     <span class="comment">% triggerEvent('message', 'Hello world');</span>
-0008     <span class="keyword">persistent</span> notified;
-0009     <span class="keyword">persistent</span> helper;
-0010 
-0011     initialised = false;
-0012     hasPlotHandler = false;
-0013 
-0014     <span class="keyword">if</span> isempty(notified)
-0015         notified = false;
-0016     <span class="keyword">end</span>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function triggerEvent(eventType, varargin)</a>
+0002     <span class="comment">% Triggers the event type with the given varargin. The supported event types are</span>
+0003     <span class="comment">% 0, 1, and 2.</span>
+0004     <span class="comment">% * The input for the message event is a char array,</span>
+0005     <span class="comment">% * The input for the plot event are the result struct and problem struct</span>
+0006     <span class="comment">% * The input for progress events are the message (char array) and</span>
+0007     <span class="comment">%   percentage progress expressed as a decimal (i.e., between 0 and 1).</span>
+0008     <span class="comment">%</span>
+0009     <span class="comment">% triggerEvent(coderEnums.eventTypes.Message, 'Hello world');</span>
+0010     <span class="comment">% triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);</span>
+0011     <span class="comment">% triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);</span>
+0012     <span class="keyword">persistent</span> notified;
+0013     <span class="keyword">persistent</span> helper;
+0014 
+0015     initialised = false;
+0016     hasPlotHandler = false;
 0017 
-0018     <span class="keyword">if</span> coder.target(<span class="string">'MATLAB'</span>)
-0019          <span class="keyword">if</span> strcmpi(eventType, <span class="string">'message'</span>)
-0020              fprintf(&quot;<span class="comment">%s&quot;, data);</span>
-0021          <span class="keyword">end</span>
-0022     <span class="keyword">else</span>       
-0023         coder.cinclude(<span class="string">'eventHelper.hpp'</span>);
-0024         coder.updateBuildInfo(<span class="string">'addLinkFlags'</span>,<span class="string">'-ldl'</span>);
-0025         <span class="keyword">if</span> isempty(helper)       
-0026             <span class="comment">% Declaration for coder</span>
-0027             helper = coder.opaque(<span class="string">'eventHelper'</span>,<span class="string">'NULL'</span>,<span class="string">'HeaderFile'</span>,<span class="string">'eventHelper.hpp'</span>);
-0028     
-0029             <span class="comment">% Make an instance</span>
-0030             helper = coder.ceval(<span class="string">'eventHelper'</span>);
-0031             path = [getenv(<span class="string">'RAT_PATH'</span>), 0];
-0032             coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::init)'</span>, helper, path);
-0033         <span class="keyword">end</span>
-0034         
-0035         initialised = coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::isInitialised)'</span>, helper);
-0036         <span class="keyword">if</span> initialised
-0037             <span class="keyword">if</span> strcmpi(eventType, <span class="string">'message'</span>)
-0038                 coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::sendMessage)'</span>, helper, [data,0]);
-0039             <span class="keyword">elseif</span> strcmpi(eventType, <span class="string">'plot'</span>)
-0040                 hasPlotHandler = coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::hasPlotHandler)'</span>, helper);
-0041                 <span class="keyword">if</span> ~hasPlotHandler
-0042                     <span class="keyword">return</span>;
-0043                 <span class="keyword">end</span>
-0044                 result = data{1};
-0045                 problemDef = data{3};
-0046                 nContrast = length(result{1});
-0047                 [reflect, nReflect] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result{1}, 1); <span class="comment">% reflectivity</span>
-0048                 [shiftedData, nShiftedData] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result{3}, 1);  
-0049                 [sldProfiles, nSldProfiles] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result{5}, 1);
-0050                 [layers, nLayers] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result{6}, 1);
-0051                 
-0052                 <span class="keyword">switch</span> problemDef.TF
-0053                     <span class="keyword">case</span> <span class="string">'domains'</span>
-0054                         [sldProfiles2, nSldProfiles2] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result{5}, 2);
-0055                         [layers2, nLayers2] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result{6}, 2);
-0056                     <span class="keyword">otherwise</span> 
-0057                         sldProfiles2 = coder.nullcopy(zeros(0));
-0058                         nSldProfiles2 =  coder.nullcopy(zeros(0));
-0059                         layers2 =  coder.nullcopy(zeros(0));
-0060                         nLayers2 = coder.nullcopy(zeros(0));
-0061                 <span class="keyword">end</span>
-0062 
-0063                 ssubs = data{2}; <span class="comment">% ssubs</span>
-0064    
-0065                 modelType = [problemDef.modelType, 0];
-0066                 resample = problemDef.resample;
-0067                 dataPresent = problemDef.dataPresent;
-0068                 
-0069                 coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::updatePlot)'</span>, helper, nContrast, reflect, nReflect, shiftedData, <span class="keyword">...</span>
-0070                             nShiftedData, sldProfiles, nSldProfiles, layers, nLayers, sldProfiles2, nSldProfiles2, layers2, <span class="keyword">...</span>
-0071                             nLayers2, ssubs, resample, dataPresent, modelType);
-0072             <span class="keyword">end</span>
-0073             notified = false;
-0074         <span class="keyword">else</span>
-0075             <span class="comment">% This avoids printing the error message multiple times during the optimization.</span>
-0076             <span class="keyword">if</span> ~notified
-0077                 fprintf(2, &quot;\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n&quot;);
-0078                 notified = true;
-0079             <span class="keyword">end</span>
-0080             
-0081             <span class="keyword">if</span> strcmpi(eventType, <span class="string">'message'</span>)
-0082                 fprintf(&quot;<span class="comment">%s&quot;, data);</span>
-0083             <span class="keyword">end</span>
-0084         <span class="keyword">end</span>
-0085     <span class="keyword">end</span>
-0086 <span class="keyword">end</span>
-0087 
-0088 
-0089 <a name="_sub1" href="#_subfunctions" class="code">function [packedArray, counts] = packCellArray(cellArray, col)</a>
-0090     <span class="comment">% Packs a specified column of a cell array with different sized arrays into a</span>
-0091     <span class="comment">% single row array and an array of counts for each cell. For the example below</span>
-0092     <span class="comment">% reflect will be [1, 2, 3, 4, 5, 6, 7] and nReflect will be [3, 4]</span>
-0093     <span class="comment">%</span>
-0094     <span class="comment">% [reflect, nReflect] = packCellArray({[1; 2; 3], [4; 5; 6; 7]}, 1);</span>
-0095     rowSize = 0;
-0096     nCells = size(cellArray, 1);
-0097     
-0098     counts = zeros(nCells, 1);
-0099     <span class="keyword">for</span> i=1:nCells
-0100         counts(i) = size(cellArray{i, col}, 1) * size(cellArray{i, col}, 2);
-0101         rowSize = rowSize + counts(i);
-0102     <span class="keyword">end</span>
-0103     
-0104     packedArray = zeros(rowSize, 1);
-0105     start = 1;
-0106     <span class="keyword">for</span> i=1:nCells
-0107         stop = start + counts(i);
-0108         packedArray(start:stop-1, :) = reshape(cellArray{i, col}, [], 1);
-0109         start = stop;
-0110     <span class="keyword">end</span>
-0111 <span class="keyword">end</span>
+0018     <span class="keyword">if</span> isempty(notified)
+0019         notified = false;
+0020     <span class="keyword">end</span>
+0021     coder.extrinsic(<span class="string">'textProgressBar'</span>);
+0022     coder.extrinsic(<span class="string">'eventManager.notify'</span>)
+0023     <span class="keyword">if</span> coder.target(<span class="string">'MATLAB'</span>) || coder.target(<span class="string">'MEX'</span>)
+0024         <span class="keyword">if</span> eventType == coderEnums.eventTypes.Message
+0025             fprintf(&quot;<span class="comment">%s&quot;, varargin{1});</span>
+0026         <span class="keyword">elseif</span> eventType == coderEnums.eventTypes.Progress
+0027             textProgressBar(varargin{1}, varargin{2});
+0028         <span class="keyword">elseif</span> eventType == coderEnums.eventTypes.Plot
+0029             result = varargin{1};
+0030             problemStruct = varargin{2};
+0031             plotData.reflectivity = result.reflectivity;
+0032             plotData.shiftedData = result.shiftedData;
+0033             plotData.sldProfiles = result.sldProfiles;
+0034             plotData.resampledLayers = result.resampledLayers;
+0035             plotData.subRoughs = result.contrastParams.subRoughs;
+0036             plotData.resample = problemStruct.resample;
+0037             plotData.dataPresent = problemStruct.dataPresent;
+0038             plotData.modelType = problemStruct.modelType;
+0039              
+0040             eventManager.notify(eventType, plotData);
+0041         <span class="keyword">end</span>
+0042     <span class="keyword">else</span>       
+0043         coder.cinclude(<span class="string">'eventHelper.hpp'</span>);
+0044         coder.updateBuildInfo(<span class="string">'addLinkFlags'</span>,<span class="string">'-ldl'</span>);
+0045         <span class="keyword">if</span> isempty(helper)       
+0046             <span class="comment">% Declaration for coder</span>
+0047             helper = coder.opaque(<span class="string">'eventHelper'</span>,<span class="string">'NULL'</span>,<span class="string">'HeaderFile'</span>,<span class="string">'eventHelper.hpp'</span>);
+0048     
+0049             <span class="comment">% Make an instance</span>
+0050             helper = coder.ceval(<span class="string">'eventHelper'</span>);
+0051             path = [getenv(<span class="string">'RAT_PATH'</span>), 0];
+0052             coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::init)'</span>, helper, path);
+0053         <span class="keyword">end</span>
+0054         
+0055         initialised = coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::isInitialised)'</span>, helper);
+0056         <span class="keyword">if</span> initialised
+0057             <span class="keyword">if</span> eventType == coderEnums.eventTypes.Message
+0058                 coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::sendMessage)'</span>, helper, [varargin{1},0]);
+0059             <span class="keyword">elseif</span> eventType == coderEnums.eventTypes.Progress
+0060                 coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::updateProgress)'</span>, helper, [varargin{1},0], varargin{2});
+0061             <span class="keyword">elseif</span> eventType == coderEnums.eventTypes.Plot
+0062                 hasPlotHandler = coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::hasPlotHandler)'</span>, helper);
+0063                 <span class="keyword">if</span> ~hasPlotHandler
+0064                     <span class="keyword">return</span>;
+0065                 <span class="keyword">end</span>
+0066 
+0067                 result = varargin{1};
+0068                 problemStruct = varargin{2};
+0069                 subRoughs = result.contrastParams.subRoughs;
+0070                 nContrast = length(result.reflectivity);
+0071                 [reflect, nReflect] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result.reflectivity, 1);
+0072                 [shiftedData, nShiftedData] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result.shiftedData, 1);
+0073                 [sldProfiles, nSldProfiles] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result.sldProfiles, 1);
+0074                 [layers, nLayers] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result.resampledLayers, 1);
+0075                 
+0076                 <span class="keyword">switch</span> problemStruct.TF
+0077                     <span class="keyword">case</span> coderEnums.calculationTypes.Domains
+0078                         [sldProfiles2, nSldProfiles2] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result.sldProfiles, 2);
+0079                         [layers2, nLayers2] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result.resampledLayers, 2);
+0080                     <span class="keyword">otherwise</span> 
+0081                         sldProfiles2 = coder.nullcopy(zeros(0));
+0082                         nSldProfiles2 = coder.nullcopy(zeros(0));
+0083                         layers2 = coder.nullcopy(zeros(0));
+0084                         nLayers2 = coder.nullcopy(zeros(0));
+0085                 <span class="keyword">end</span>
+0086    
+0087                 modelType = [problemStruct.modelType, 0];
+0088                 resample = problemStruct.resample;
+0089                 dataPresent = problemStruct.dataPresent;
+0090                 
+0091                 coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::updatePlot)'</span>, helper, nContrast, reflect, nReflect, shiftedData, <span class="keyword">...</span>
+0092                             nShiftedData, sldProfiles, nSldProfiles, layers, nLayers, sldProfiles2, nSldProfiles2, layers2, <span class="keyword">...</span>
+0093                             nLayers2, subRoughs, resample, dataPresent, modelType);
+0094             <span class="keyword">end</span>
+0095             notified = false;
+0096         <span class="keyword">else</span>
+0097             <span class="comment">% This avoids printing the error message multiple times during the optimization.</span>
+0098             <span class="keyword">if</span> ~notified
+0099                 fprintf(2, &quot;\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n&quot;);
+0100                 notified = true;
+0101             <span class="keyword">end</span>
+0102             
+0103             <span class="keyword">if</span> eventType == coderEnums.eventTypes.Message
+0104                 fprintf(&quot;<span class="comment">%s&quot;, varargin{1});</span>
+0105             <span class="keyword">end</span>
+0106         <span class="keyword">end</span>
+0107     <span class="keyword">end</span>
+0108 <span class="keyword">end</span>
+0109 
+0110 
+0111 <a name="_sub1" href="#_subfunctions" class="code">function [packedArray, counts] = packCellArray(cellArray, col)</a>
+0112     <span class="comment">% Packs a specified column of a cell array with different sized arrays into a</span>
+0113     <span class="comment">% single row array and an array of counts for each cell. For the example below</span>
+0114     <span class="comment">% reflect will be [1, 2, 3, 4, 5, 6, 7] and nReflect will be [3, 4]</span>
+0115     <span class="comment">%</span>
+0116     <span class="comment">% [reflect, nReflect] = packCellArray({[1; 2; 3], [4; 5; 6; 7]}, 1);</span>
+0117     rowSize = 0;
+0118     nCells = size(cellArray, 1);
+0119     
+0120     counts = zeros(nCells, 1);
+0121     <span class="keyword">for</span> i=1:nCells
+0122         counts(i) = size(cellArray{i, col}, 1) * size(cellArray{i, col}, 2);
+0123         rowSize = rowSize + counts(i);
+0124     <span class="keyword">end</span>
+0125     
+0126     packedArray = zeros(rowSize, 1);
+0127     start = 1;
+0128     <span class="keyword">for</span> i=1:nCells
+0129         stop = start + counts(i);
+0130         packedArray(start:stop-1, :) = reshape(cellArray{i, col}, [], 1);
+0131         start = stop;
+0132     <span class="keyword">end</span>
+0133 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Mon 04-Dec-2023 13:09:56 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

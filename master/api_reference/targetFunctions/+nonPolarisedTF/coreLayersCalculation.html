@@ -25,7 +25,7 @@
 <div class="box"><strong>This is the main reflectivity calculation for all Layers models in the</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =coreLayersCalculation(contrastLayers, rough,geometry, bulkIn, bulkOut, resample, calcSld, scalefactor, qzshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars,useImaginary) </strong></div>
+<div class="box"><strong>function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiSq] =coreLayersCalculation(contrastLayers, rough,geometry, bulkIn, bulkOut, resample, calcSld, scalefactor, qzshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resolution,contrastBackgroundsType,params,parallelPoints,resampleParams,useImaginary) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">   This is the main reflectivity calculation for all Layers models in the 
@@ -41,7 +41,7 @@
    the shifted datapoints. The main reflectivity calculation is then
    called, including the resolution function. The calculation outputs two
    profiles - 'reflect' which is the same range as the points, and
-   'Simulation' which can be a different range to allow extrapolation.
+   'simulation' which can be a different range to allow extrapolation.
    The background correction is the applied, and finally chi-squared is 
    calculated.
 
@@ -49,12 +49,12 @@
    contrastLayers  :
    rough           :
    geometry        :
-   bulkIn             :
-   bulkOut             :
+   bulkIn          :
+   bulkOut         :
    resample        :
    calcSld         :
-   scalefactor              :
-   qzshift          :
+   scalefactor     :
+   qzshift         :
    dataPresent     :
    data            :
    dataLimits      :
@@ -62,7 +62,7 @@
    repeatLayers    :
    background      :
    resol           :
-   backsType       :
+   contrastBackgroundsType       :
    params          :
    parallelPoints  :
 
@@ -70,33 +70,20 @@
 
 
 
- ------------------------------------------------------------------------
-
-       (c) Arwel Hughes  -   12/1/21
-
-       Last Modified: 12/1/21 by Arwel Hughes.
-
- ------------------------------------------------------------------------
 </pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../targetFunctions/+domainsTF/+customLayers/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Single threaded version of the custom layers, domainsTF reflectivity</li>
-<li><a href="../../targetFunctions/+domainsTF/+customXY/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Extract individual cell arrays</li>
-<li><a href="../../targetFunctions/+domainsTF/+standardLayers/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Single threaded version of the Standard Layers calculation</li>
-<li><a href="../../targetFunctions/+nonPolarisedTF/+customLayers/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Multi threaded version of the custom layers over reflectivity poimnts</li>
-<li><a href="../../targetFunctions/+nonPolarisedTF/+customXY/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Multi threaded version of the custom XY profile over reflectivity points</li>
-<li><a href="../../targetFunctions/+nonPolarisedTF/+standardLayers/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Standard Layers calculation paralelised over the inner loop</li>
-<li><a href="../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)">applyBackgroundCorrection</a>	</li>
-<li><a href="../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(bulkIns,bulkOuts,simLimits,repeatLayers,this_data,layers,ssubs,res,parallel,refType,useImaginary)">callReflectivity</a>	</li>
+<li><a href="../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,simul,shiftedData] = applyBackgroundCorrection(reflect,simul,shiftedData,backgroundParams,contrastBackgroundsType)">applyBackgroundCorrection</a>	</li>
+<li><a href="../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, simulation] = callReflectivity(bulkIns,bulkOuts,simLimits,repeatLayers,thisData,layers,ssubs,resolution,parallel,refType,useImaginary)">callReflectivity</a>	</li>
 <li><a href="../../targetFunctions/common/costFunctions/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>	Chi-squared function is used to evaluate the goodness of fit.</li>
-<li><a href="../../targetFunctions/common/groupLayers/groupLayersMod.html" class="code" title="function [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,geometry,bulkIns,bulkOuts)">groupLayersMod</a>	Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the</li>
-<li><a href="../../targetFunctions/common/groupLayers/groupLayersModImaginary.html" class="code" title="function [outLayers, outSsubs] = groupLayersModImaginary(allLayers,allRoughs,geometry,bulkIns,bulkOuts)">groupLayersModImaginary</a>	Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the</li>
+<li><a href="../../targetFunctions/common/groupLayers/groupLayersMod.html" class="code" title="function [outLayers, outSsubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)">groupLayersMod</a>	Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the</li>
+<li><a href="../../targetFunctions/common/groupLayers/groupLayersModImaginary.html" class="code" title="function [outLayers, outSsubs] = groupLayersModImaginary(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)">groupLayersModImaginary</a>	Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the</li>
 <li><a href="../../targetFunctions/common/makeSLDProfiles/makeSLDProfiles.html" class="code" title="function sldProfile= makeSLDProfiles(bulkIn,bulkOut,sld,ssub,repeats)">makeSLDProfiles</a>	</li>
-<li><a href="../../targetFunctions/common/resampleLayers/resampleLayers.html" class="code" title="function newSLD = resampleLayers(sldProfile,resamPars)">resampleLayers</a>	Function handle for adaptive resampling</li>
-<li><a href="../../targetFunctions/common/resampleLayers/resampleLayersReIm.html" class="code" title="function newSLD = resampleLayersReIm(sldProfile,sldProfileIm,resamPars)">resampleLayersReIm</a>	Resample the SLD profile. In this case we have an imaginary SLD also, and</li>
+<li><a href="../../targetFunctions/common/resampleLayers/resampleLayers.html" class="code" title="function newSLD = resampleLayers(sldProfile,resampleParams)">resampleLayers</a>	Function handle for adaptive resampling</li>
+<li><a href="../../targetFunctions/common/resampleLayers/resampleLayersReIm.html" class="code" title="function newSLD = resampleLayersReIm(sldProfile,sldProfileIm,resampleParams)">resampleLayersReIm</a>	Resample the SLD profile. In this case we have an imaginary SLD also, and</li>
 <li><a href="../../targetFunctions/common/shiftData.html" class="code" title="function shiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simLimits)">shiftData</a>	Shifts the data according to scale factor. If there is no data, makes</li>
 </ul>
 This function is called by:
@@ -107,11 +94,11 @@ This function is called by:
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] = </a><span class="keyword">...</span>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiSq] = </a><span class="keyword">...</span>
 0002     coreLayersCalculation(contrastLayers, rough, <span class="keyword">...</span>
 0003     geometry, bulkIn, bulkOut, resample, calcSld, scalefactor, qzshift,<span class="keyword">...</span>
 0004     dataPresent, data, dataLimits, simLimits, repeatLayers,<span class="keyword">...</span>
-0005     background,resol,backsType,params,<a href="../../targetFunctions/+domainsTF/+customLayers/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>,resamPars,useImaginary)
+0005     background,resolution,contrastBackgroundsType,params,parallelPoints,resampleParams,useImaginary)
 0006 
 0007 <span class="comment">%   This is the main reflectivity calculation for all Layers models in the</span>
 0008 <span class="comment">%   non polarised target function.</span>
@@ -126,7 +113,7 @@ This function is called by:
 0017 <span class="comment">%   the shifted datapoints. The main reflectivity calculation is then</span>
 0018 <span class="comment">%   called, including the resolution function. The calculation outputs two</span>
 0019 <span class="comment">%   profiles - 'reflect' which is the same range as the points, and</span>
-0020 <span class="comment">%   'Simulation' which can be a different range to allow extrapolation.</span>
+0020 <span class="comment">%   'simulation' which can be a different range to allow extrapolation.</span>
 0021 <span class="comment">%   The background correction is the applied, and finally chi-squared is</span>
 0022 <span class="comment">%   calculated.</span>
 0023 <span class="comment">%</span>
@@ -134,12 +121,12 @@ This function is called by:
 0025 <span class="comment">%   contrastLayers  :</span>
 0026 <span class="comment">%   rough           :</span>
 0027 <span class="comment">%   geometry        :</span>
-0028 <span class="comment">%   bulkIn             :</span>
-0029 <span class="comment">%   bulkOut             :</span>
+0028 <span class="comment">%   bulkIn          :</span>
+0029 <span class="comment">%   bulkOut         :</span>
 0030 <span class="comment">%   resample        :</span>
 0031 <span class="comment">%   calcSld         :</span>
-0032 <span class="comment">%   scalefactor              :</span>
-0033 <span class="comment">%   qzshift          :</span>
+0032 <span class="comment">%   scalefactor     :</span>
+0033 <span class="comment">%   qzshift         :</span>
 0034 <span class="comment">%   dataPresent     :</span>
 0035 <span class="comment">%   data            :</span>
 0036 <span class="comment">%   dataLimits      :</span>
@@ -147,7 +134,7 @@ This function is called by:
 0038 <span class="comment">%   repeatLayers    :</span>
 0039 <span class="comment">%   background      :</span>
 0040 <span class="comment">%   resol           :</span>
-0041 <span class="comment">%   backsType       :</span>
+0041 <span class="comment">%   contrastBackgroundsType       :</span>
 0042 <span class="comment">%   params          :</span>
 0043 <span class="comment">%   parallelPoints  :</span>
 0044 <span class="comment">%</span>
@@ -155,91 +142,84 @@ This function is called by:
 0046 <span class="comment">%</span>
 0047 <span class="comment">%</span>
 0048 <span class="comment">%</span>
-0049 <span class="comment">% ------------------------------------------------------------------------</span>
-0050 <span class="comment">%</span>
-0051 <span class="comment">%       (c) Arwel Hughes  -   12/1/21</span>
-0052 <span class="comment">%</span>
-0053 <span class="comment">%       Last Modified: 12/1/21 by Arwel Hughes.</span>
-0054 <span class="comment">%</span>
-0055 <span class="comment">% ------------------------------------------------------------------------</span>
-0056 
-0057 <span class="comment">% Pre-definition for Coder</span>
-0058 thisSldLaysIm = [0 0];
-0059 sldProfileIm = [0 0];
-0060 coder.varsize(<span class="string">'thisSldLays'</span>,[10000 3],[1 1]);
-0061 coder.varsize(<span class="string">'thisSldLaysIm'</span>,[10000 3],[1 1]);
-0062 coder.varsize(<span class="string">'sldProfile'</span>,[10000 3],[1 1]);
-0063 coder.varsize(<span class="string">'sldProfileIm'</span>,[10000 3],[1 1]);
+0049 
+0050 <span class="comment">% Pre-definition for Coder</span>
+0051 thisSldLaysIm = [0 0];
+0052 sldProfileIm = [0 0];
+0053 coder.varsize(<span class="string">'thisSldLays'</span>,[10000 3],[1 1]);
+0054 coder.varsize(<span class="string">'thisSldLaysIm'</span>,[10000 3],[1 1]);
+0055 coder.varsize(<span class="string">'sldProfile'</span>,[10000 3],[1 1]);
+0056 coder.varsize(<span class="string">'sldProfileIm'</span>,[10000 3],[1 1]);
+0057 
+0058 <span class="comment">% Bulid up the layers matrix for this contrast</span>
+0059 <span class="keyword">if</span> ~useImaginary
+0060     [theseLayers, ssubs] = <a href="../../targetFunctions/common/groupLayers/groupLayersMod.html" class="code" title="function [outLayers, outSsubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)">groupLayersMod</a>(contrastLayers,rough,geometry,bulkIn,bulkOut);
+0061 <span class="keyword">else</span>
+0062     [theseLayers, ssubs] = <a href="../../targetFunctions/common/groupLayers/groupLayersModImaginary.html" class="code" title="function [outLayers, outSsubs] = groupLayersModImaginary(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)">groupLayersModImaginary</a>(contrastLayers,rough,geometry,bulkIn,bulkOut);
+0063 <span class="keyword">end</span>
 0064 
-0065 <span class="comment">% Bulid up the layers matrix for this contrast</span>
-0066 <span class="keyword">if</span> ~useImaginary
-0067     [theseLayers, ssubs] = <a href="../../targetFunctions/common/groupLayers/groupLayersMod.html" class="code" title="function [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,geometry,bulkIns,bulkOuts)">groupLayersMod</a>(contrastLayers,rough,geometry,bulkIn,bulkOut);
-0068 <span class="keyword">else</span>
-0069     [theseLayers, ssubs] = <a href="../../targetFunctions/common/groupLayers/groupLayersModImaginary.html" class="code" title="function [outLayers, outSsubs] = groupLayersModImaginary(allLayers,allRoughs,geometry,bulkIns,bulkOuts)">groupLayersModImaginary</a>(contrastLayers,rough,geometry,bulkIn,bulkOut);
+0065 <span class="comment">% Make the SLD profiles.</span>
+0066 <span class="comment">% If resampling is needed, then enforce the calcSLD flag, so as to catch</span>
+0067 <span class="comment">% the error af trying to resample a non-existent profile.</span>
+0068 <span class="keyword">if</span> (resample == 1 &amp;&amp; ~calcSld)
+0069     calcSld = true;
 0070 <span class="keyword">end</span>
 0071 
-0072 <span class="comment">% Make the SLD profiles.</span>
-0073 <span class="comment">% If resampling is needed, then enforce the calcSLD flag, so as to catch</span>
-0074 <span class="comment">% the error af trying to resample a non-existent profile.</span>
-0075 <span class="keyword">if</span> (resample == 1 &amp;&amp; ~calcSld)
-0076     calcSld = true;
-0077 <span class="keyword">end</span>
-0078 
-0079 <span class="comment">% If calc SLD flag is set, then calculate the SLD profile</span>
-0080 <span class="keyword">if</span> calcSld
-0081 
-0082     <span class="comment">% If we need them both, we process real and imaginary parts of the SLD</span>
-0083     <span class="comment">% seperately...</span>
-0084     <span class="keyword">if</span> useImaginary
-0085         thisSldLays = [theseLayers(:,1:2) theseLayers(:,4:end)];
-0086         thisSldLaysIm = [theseLayers(:,1) theseLayers(:,3:end)];
-0087     <span class="keyword">else</span>
-0088         thisSldLays = theseLayers;
-0089     <span class="keyword">end</span>
-0090     
-0091     sldProfile = <a href="../../targetFunctions/common/makeSLDProfiles/makeSLDProfiles.html" class="code" title="function sldProfile= makeSLDProfiles(bulkIn,bulkOut,sld,ssub,repeats)">makeSLDProfiles</a>(bulkIn,bulkOut,thisSldLays,ssubs,repeatLayers);
-0092 
-0093     <span class="comment">% If we have imaginary, we are also</span>
-0094     <span class="comment">% going to need an SLD profile for the imaginary part</span>
-0095     <span class="keyword">if</span> useImaginary
-0096         <span class="comment">% Note bulkIn and bulkOut = 0 since there is never any imaginary part for</span>
-0097         <span class="comment">% the bulk phases..</span>
-0098         sldProfileIm = <a href="../../targetFunctions/common/makeSLDProfiles/makeSLDProfiles.html" class="code" title="function sldProfile= makeSLDProfiles(bulkIn,bulkOut,sld,ssub,repeats)">makeSLDProfiles</a>(0,0,thisSldLaysIm,ssubs,repeatLayers);
-0099     <span class="keyword">end</span>
-0100 
-0101 <span class="keyword">else</span>
-0102     sldProfile = [0 0];
-0103 <span class="keyword">end</span>
-0104 
-0105 <span class="comment">% If required, then resample the SLD</span>
-0106 <span class="keyword">if</span> resample == 1
-0107     <span class="keyword">if</span> ~useImaginary
-0108         layerSld = <a href="../../targetFunctions/common/resampleLayers/resampleLayers.html" class="code" title="function newSLD = resampleLayers(sldProfile,resamPars)">resampleLayers</a>(sldProfile,resamPars);
-0109     <span class="keyword">else</span>
-0110         layerSld = <a href="../../targetFunctions/common/resampleLayers/resampleLayersReIm.html" class="code" title="function newSLD = resampleLayersReIm(sldProfile,sldProfileIm,resamPars)">resampleLayersReIm</a>(sldProfile,sldProfileIm,resamPars);
-0111     <span class="keyword">end</span>
-0112     resamLayers = layerSld;
-0113 <span class="keyword">else</span>
-0114     layerSld = theseLayers;
-0115     resamLayers = [0 0 0];
-0116 <span class="keyword">end</span>
+0072 <span class="comment">% If calc SLD flag is set, then calculate the SLD profile</span>
+0073 <span class="keyword">if</span> calcSld
+0074 
+0075     <span class="comment">% If we need them both, we process real and imaginary parts of the SLD</span>
+0076     <span class="comment">% seperately...</span>
+0077     <span class="keyword">if</span> useImaginary
+0078         thisSldLays = [theseLayers(:,1:2) theseLayers(:,4:end)];
+0079         thisSldLaysIm = [theseLayers(:,1) theseLayers(:,3:end)];
+0080     <span class="keyword">else</span>
+0081         thisSldLays = theseLayers;
+0082     <span class="keyword">end</span>
+0083     
+0084     sldProfile = <a href="../../targetFunctions/common/makeSLDProfiles/makeSLDProfiles.html" class="code" title="function sldProfile= makeSLDProfiles(bulkIn,bulkOut,sld,ssub,repeats)">makeSLDProfiles</a>(bulkIn,bulkOut,thisSldLays,ssubs,repeatLayers);
+0085 
+0086     <span class="comment">% If we have imaginary, we are also</span>
+0087     <span class="comment">% going to need an SLD profile for the imaginary part</span>
+0088     <span class="keyword">if</span> useImaginary
+0089         <span class="comment">% Note bulkIn and bulkOut = 0 since there is never any imaginary part for</span>
+0090         <span class="comment">% the bulk phases..</span>
+0091         sldProfileIm = <a href="../../targetFunctions/common/makeSLDProfiles/makeSLDProfiles.html" class="code" title="function sldProfile= makeSLDProfiles(bulkIn,bulkOut,sld,ssub,repeats)">makeSLDProfiles</a>(0,0,thisSldLaysIm,ssubs,repeatLayers);
+0092     <span class="keyword">end</span>
+0093 
+0094 <span class="keyword">else</span>
+0095     sldProfile = [0 0];
+0096 <span class="keyword">end</span>
+0097 
+0098 <span class="comment">% If required, then resample the SLD</span>
+0099 <span class="keyword">if</span> resample == 1
+0100     <span class="keyword">if</span> ~useImaginary
+0101         layerSld = <a href="../../targetFunctions/common/resampleLayers/resampleLayers.html" class="code" title="function newSLD = resampleLayers(sldProfile,resampleParams)">resampleLayers</a>(sldProfile,resampleParams);
+0102     <span class="keyword">else</span>
+0103         layerSld = <a href="../../targetFunctions/common/resampleLayers/resampleLayersReIm.html" class="code" title="function newSLD = resampleLayersReIm(sldProfile,sldProfileIm,resampleParams)">resampleLayersReIm</a>(sldProfile,sldProfileIm,resampleParams);
+0104     <span class="keyword">end</span>
+0105     resamLayers = layerSld;
+0106 <span class="keyword">else</span>
+0107     layerSld = theseLayers;
+0108     resamLayers = [0 0 0];
+0109 <span class="keyword">end</span>
+0110 
+0111 <span class="comment">% Apply scale factors and q shifts to the data</span>
+0112 shiftedData = <a href="../../targetFunctions/common/shiftData.html" class="code" title="function shiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simLimits)">shiftData</a>(scalefactor,qzshift,dataPresent,data,dataLimits,simLimits);
+0113 
+0114 <span class="comment">% Calculate the reflectivity</span>
+0115 reflectivityType = <span class="string">'standardAbeles'</span>;
+0116 [reflect,simulation] = <a href="../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, simulation] = callReflectivity(bulkIns,bulkOuts,simLimits,repeatLayers,thisData,layers,ssubs,resolution,parallel,refType,useImaginary)">callReflectivity</a>(bulkIn,bulkOut,simLimits,repeatLayers,shiftedData,layerSld,ssubs,resolution,parallelPoints,reflectivityType,useImaginary);
 0117 
-0118 <span class="comment">% Apply scale factors and q shifts to the data</span>
-0119 shifted_dat = <a href="../../targetFunctions/common/shiftData.html" class="code" title="function shiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simLimits)">shiftData</a>(scalefactor,qzshift,dataPresent,data,dataLimits,simLimits);
+0118 <span class="comment">% Apply background correction</span>
+0119 [reflect,simulation,shiftedData] = <a href="../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,simul,shiftedData] = applyBackgroundCorrection(reflect,simul,shiftedData,backgroundParams,contrastBackgroundsType)">applyBackgroundCorrection</a>(reflect,simulation,shiftedData,background,contrastBackgroundsType);
 0120 
-0121 <span class="comment">% Calculate the reflectivity</span>
-0122 reflectivityType = <span class="string">'standardAbeles'</span>;
-0123 [reflect,Simul] = <a href="../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(bulkIns,bulkOuts,simLimits,repeatLayers,this_data,layers,ssubs,res,parallel,refType,useImaginary)">callReflectivity</a>(bulkIn,bulkOut,simLimits,repeatLayers,shifted_dat,layerSld,ssubs,resol,<a href="../../targetFunctions/+domainsTF/+customLayers/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>,reflectivityType,useImaginary);
-0124 
-0125 <span class="comment">% Apply background correction, either to the simulation or the data</span>
-0126 [reflect,Simul,shifted_dat] = <a href="../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)">applyBackgroundCorrection</a>(reflect,Simul,shifted_dat,background,backsType);
-0127 
-0128 <span class="comment">% Calculate chi squared.</span>
-0129 chiSq = <a href="../../targetFunctions/common/costFunctions/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>(shifted_dat,reflect,params);
-0130 
-0131 <span class="keyword">end</span>
+0121 <span class="comment">% Calculate chi squared.</span>
+0122 chiSq = <a href="../../targetFunctions/common/costFunctions/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>(shiftedData,reflect,params);
+0123 
+0124 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Mon 04-Dec-2023 13:09:56 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

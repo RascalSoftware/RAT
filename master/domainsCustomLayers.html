@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Models with Domains &mdash; RAT 1.0.0-beta documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/design-tabs.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Reflectivity from Oil/Water Samples" href="oilWater.html" />
+    <link rel="prev" title="Standard Layers Domains" href="domainsStanlay.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/ratLogo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Topics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="calcTypes.html">Different Calculation Types</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="imaginary.html">Adding the Imaginary Refractive Index</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="incoherent.html">Incoherent Summing (Domains)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="domainsStanlay.html">Standard Layers Domains</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Custom Models with Domains</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="oilWater.html">Reflectivity from Oil/Water Samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="magnetic.html">Reflectivity from Magnetic Samples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RAT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="calcTypes.html">Different Calculation Types</a></li>
+          <li class="breadcrumb-item"><a href="incoherent.html">Incoherent Summing (Domains)</a></li>
+      <li class="breadcrumb-item active">Custom Models with Domains</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/domainsCustomLayers.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="custom-models-with-domains">
+<span id="domainscustomlayers"></span><h1>Custom Models with Domains<a class="headerlink" href="#custom-models-with-domains" title="Permalink to this heading"></a></h1>
+<p>For custom layers models with domains, in the spirit of RAT custom models, all the work regarding domain construction is left to the user from within the custom model.
+In the custom model itself, there is an extra input parameter for the custom model:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span>[output,subRough]<span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nf">myCustomModel</span><span class="p">(</span>params,bulkIN,bulkOut,contrast,domainNumber<span class="p">)</span>
+</pre></div>
+</div>
+<p>The first four parameters are the same as for a normal custom model. The final <em>‘domainNumber’</em> parameter is an integer with a value which is either 1 or 2. Then, it is up
+to the user to build the correct domain. So for example, within the custom model:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="k">switch</span><span class="p">(</span><span class="n">domainNumber</span><span class="p">)</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">        </span><span class="c">% &lt;Build structure for domain 1&gt;</span>
+<span class="w">    </span><span class="k">otherwise</span>
+<span class="w">        </span><span class="c">% &lt;Build structure for domain 2&gt;</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="domainsStanlay.html" class="btn btn-neutral float-left" title="Standard Layers Domains" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="oilWater.html" class="btn btn-neutral float-right" title="Reflectivity from Oil/Water Samples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2024, ISIS Neutron and Muon Source.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -125,7 +125,7 @@ This function is called by:
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre>0001 classdef <a href="projectClass.html" class="code" title="">projectClass</a> &lt; handle &amp; matlab.mixin.CustomDisplay
 0002     
-0003     <span class="comment">% Class definition for Standard Layers with no absorption.</span>
+0003     <span class="comment">% Class definition for Standard Layers with or without absorption.</span>
 0004     <span class="comment">% Layers defined in terms of thickness, roughness, real SLD and</span>
 0005     <span class="comment">% hydration.</span>
 0006     <span class="comment">%</span>
@@ -183,7 +183,7 @@ This function is called by:
 0058             <span class="comment">% absorption terms are included in the refractive index.</span>
 0059             <span class="comment">% All of the arguments are optional.</span>
 0060             <span class="comment">%</span>
-0061             <span class="comment">% problem = projectClass('New experiment');</span>
+0061             <span class="comment">% project = projectClass('New experiment');</span>
 0062             arguments
 0063                 experimentName {mustBeTextScalar} = <span class="string">''</span>
 0064                 calculationType = calculationTypes.NonPolarised
@@ -273,14 +273,14 @@ This function is called by:
 0148             <span class="comment">% converts it to a domains calculation, preserving all</span>
 0149             <span class="comment">% currently defined properties.</span>
 0150             <span class="comment">%</span>
-0151             <span class="comment">% domainsProblem = problem.toDomainsClass();</span>
+0151             <span class="comment">% domainsProject = project.toDomainsClass();</span>
 0152             domainsObj = obj.domainsClass();
 0153         <span class="keyword">end</span>
 0154 
 0155         <a name="_sub3" href="#_subfunctions" class="code">function obj = setUsePriors(obj, showFlag)</a>
 0156             <span class="comment">% Sets the use priors flag. The showFlag should be a boolean/logical.</span>
 0157             <span class="comment">%</span>
-0158             <span class="comment">% problem.setUsePriors(true);</span>
+0158             <span class="comment">% project.setUsePriors(true);</span>
 0159             <span class="keyword">if</span> ~islogical(showFlag)
 0160                 throw(exceptions.invalidType(<span class="string">'usePriors must be logical ''true'' or ''false'''</span>));
 0161             <span class="keyword">end</span>
@@ -316,7 +316,7 @@ This function is called by:
 0191             <span class="comment">% Sets the experiment geometry. The geometry should be a string,</span>
 0192             <span class="comment">% either &quot;Air/Substrate&quot; or &quot;Substrate/Liquid&quot; is permitted.</span>
 0193             <span class="comment">%</span>
-0194             <span class="comment">% problem.setGeometry('Substrate/liquid');</span>
+0194             <span class="comment">% project.setGeometry('Substrate/liquid');</span>
 0195             invalidTypeMessage = sprintf(<span class="string">'Geometry must be a geometryOptions enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
 0196                                          strjoin(geometryOptions.values(), <span class="string">', '</span>));
 0197             obj.geometry = validateOption(geometry, <span class="string">'geometryOptions'</span>, invalidTypeMessage).value;
@@ -327,7 +327,7 @@ This function is called by:
 0202             <span class="comment">% either &quot;standard layers&quot;, &quot;custom layers&quot;, or &quot;custom xy&quot; is</span>
 0203             <span class="comment">% permitted.</span>
 0204             <span class="comment">%</span>
-0205             <span class="comment">% problem.setModelType('Custom Layers');</span>
+0205             <span class="comment">% project.setModelType('Custom Layers');</span>
 0206             oldModel = obj.modelType;
 0207             invalidTypeMessage = sprintf(<span class="string">'Experiment type must be a modelTypes enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
 0208                                          strjoin(modelTypes.values(), <span class="string">', '</span>));
@@ -375,7 +375,7 @@ This function is called by:
 0250             <span class="comment">% Adds a group of parameters to the parameters object.</span>
 0251             <span class="comment">% Expects a cell array of parameter cell arrays.</span>
 0252             <span class="comment">%</span>
-0253             <span class="comment">% problem.addParameterGroup({{'Tails Thickness'}, {'Heads Thickness'}});</span>
+0253             <span class="comment">% project.addParameterGroup({{'Tails Thickness'}, {'Heads Thickness'}});</span>
 0254             <span class="keyword">for</span> i = 1:length(paramGroup)
 0255                 <span class="keyword">if</span> iscell(paramGroup{i})
 0256                     obj = <a href="#_sub9" class="code" title="subfunction obj = addParameter(obj, varargin)">addParameter</a>(obj, paramGroup{i});
@@ -394,7 +394,7 @@ This function is called by:
 0269             <span class="comment">% is optional but if provided should contain 1, 2, 4, 5, or 8</span>
 0270             <span class="comment">% values of the parameter to added.</span>
 0271             <span class="comment">%</span>
-0272             <span class="comment">% problem.addParameter('Tails Roughness');</span>
+0272             <span class="comment">% project.addParameter('Tails Roughness');</span>
 0273             <span class="keyword">if</span> isempty(varargin)
 0274                 obj.parameters.addParameter();
 0275             <span class="keyword">else</span>
@@ -413,7 +413,7 @@ This function is called by:
 0288             <span class="comment">% if it is in use. Expects series of indices or names of</span>
 0289             <span class="comment">% parameters to remove</span>
 0290             <span class="comment">%</span>
-0291             <span class="comment">% problem.removeParameter(2);</span>
+0291             <span class="comment">% project.removeParameter(2);</span>
 0292             <span class="keyword">if</span> isa(row, <span class="string">'double'</span>)
 0293                 row = num2cell(sort(row, <span class="string">'descend'</span>));
 0294             <span class="keyword">elseif</span> isText(row)
@@ -461,7 +461,7 @@ This function is called by:
 0336             <span class="comment">% General purpose set parameter method. Expects</span>
 0337             <span class="comment">% index or name of parameter and keyword/value pairs to set</span>
 0338             <span class="comment">%</span>
-0339             <span class="comment">% problem.setParameter(2, 'value', 50);</span>
+0339             <span class="comment">% project.setParameter(2, 'value', 50);</span>
 0340             obj.parameters.setParameter(row, varargin{:});
 0341         <span class="keyword">end</span>
 0342         
@@ -470,7 +470,7 @@ This function is called by:
 0345             <span class="comment">% Sets the value of a given parameter. Expects</span>
 0346             <span class="comment">% index or name of parameter and new value to set</span>
 0347             <span class="comment">%</span>
-0348             <span class="comment">% problem.setParameterValue(2, 50);</span>
+0348             <span class="comment">% project.setParameterValue(2, 50);</span>
 0349             obj.parameters.setValue(row, value);
 0350         <span class="keyword">end</span>
 0351         
@@ -479,7 +479,7 @@ This function is called by:
 0354             <span class="comment">% Expects index or name of parameter and new min</span>
 0355             <span class="comment">% and max of the parameter's value</span>
 0356             <span class="comment">%</span>
-0357             <span class="comment">% problem.setParameterLimits(2, 0, 100);</span>
+0357             <span class="comment">% project.setParameterLimits(2, 0, 100);</span>
 0358             obj.parameters.setLimits(row, min, max);
 0359         <span class="keyword">end</span>
 0360         
@@ -488,7 +488,7 @@ This function is called by:
 0363             <span class="comment">% Expects index or name of parameter and the</span>
 0364             <span class="comment">% new name</span>
 0365             <span class="comment">%</span>
-0366             <span class="comment">% problem.setParameterName(2, 'new name');</span>
+0366             <span class="comment">% project.setParameterName(2, 'new name');</span>
 0367             <span class="keyword">if</span> (isnumeric(row) &amp;&amp; row &lt;= length(obj.protectedParameters)) || any((strcmpi(row, obj.protectedParameters)))
 0368                 throw(exceptions.invalidOption(<span class="string">'Can''t rename protected parameters'</span>));
 0369             <span class="keyword">end</span>
@@ -500,7 +500,7 @@ This function is called by:
 0375             <span class="comment">% Expects index or name of parameter and</span>
 0376             <span class="comment">% new fit flag</span>
 0377             <span class="comment">%</span>
-0378             <span class="comment">% problem.setParameterFit(2, true);</span>
+0378             <span class="comment">% project.setParameterFit(2, true);</span>
 0379             obj.parameters.setFit(row, fitFlag);
 0380         <span class="keyword">end</span>
 0381         
@@ -509,7 +509,7 @@ This function is called by:
 0384             <span class="comment">% Expects index or name of parameter and</span>
 0385             <span class="comment">% new prior type('uniform','gaussian','jeffreys')</span>
 0386             <span class="comment">%</span>
-0387             <span class="comment">% problem.setParameterPrior(2, 'uniform');</span>
+0387             <span class="comment">% project.setParameterPrior(2, 'uniform');</span>
 0388             obj.parameters.setPrior(row, varargin{:});  
 0389         <span class="keyword">end</span>
 0390         
@@ -520,7 +520,7 @@ This function is called by:
 0395             <span class="comment">% Adds a group of layers to the layers object. Expects</span>
 0396             <span class="comment">% a cell array of layer cell arrays</span>
 0397             <span class="comment">%</span>
-0398             <span class="comment">% problem.addLayerGroup({{'Layer 1'}, {'Layer 2'}});</span>
+0398             <span class="comment">% project.addLayerGroup({{'Layer 1'}, {'Layer 2'}});</span>
 0399             <span class="keyword">if</span> isa(obj.layers, <span class="string">'layersClass'</span>)
 0400                 <span class="keyword">for</span> i = 1:length(layerGroup)
 0401                     <span class="keyword">if</span> iscell(layerGroup{i})
@@ -540,7 +540,7 @@ This function is called by:
 0415             <span class="comment">% hydration, and hydrate with, or provide with no details,</span>
 0416             <span class="comment">% or just a name, to create an empty layer.</span>
 0417             <span class="comment">%</span>
-0418             <span class="comment">% problem.addLayer('New Layer');</span>
+0418             <span class="comment">% project.addLayer('New Layer');</span>
 0419             <span class="keyword">if</span> isa(obj.layers, <span class="string">'layersClass'</span>)
 0420                 <span class="keyword">if</span> isempty(varargin)
 0421                     obj.layers.addLayer(obj.parameters.varTable{:,1});
@@ -563,7 +563,7 @@ This function is called by:
 0438             <span class="comment">% Removes layer(s) from the layers object. Expects</span>
 0439             <span class="comment">% index of layer(s) to remove.</span>
 0440             <span class="comment">%</span>
-0441             <span class="comment">% problem.removeLayer(1);</span>
+0441             <span class="comment">% project.removeLayer(1);</span>
 0442             <span class="keyword">if</span> isa(obj.layers, <span class="string">'layersClass'</span>)
 0443                 obj.layers.removeRow(layer);
 0444             <span class="keyword">else</span>
@@ -576,7 +576,7 @@ This function is called by:
 0451             <span class="comment">% column of layer value to set, then the name/index of the</span>
 0452             <span class="comment">% parameter to set the value to.</span>
 0453             <span class="comment">%</span>
-0454             <span class="comment">% problem.setLayerValue(1, 2, 'Tails Thickness');</span>
+0454             <span class="comment">% project.setLayerValue(1, 2, 'Tails Thickness');</span>
 0455             <span class="keyword">if</span> isa(obj.layers, <span class="string">'layersClass'</span>)
 0456                 obj.layers.setLayerValue(row, col, value, obj.parameters.varTable{:,1});
 0457             <span class="keyword">else</span>
@@ -595,7 +595,7 @@ This function is called by:
 0470             <span class="comment">% of a name, min, value, max, fit flag, prior type', mu,</span>
 0471             <span class="comment">% and sigma</span>
 0472             <span class="comment">%</span>
-0473             <span class="comment">% problem.addBackgroundParam('Backs Value D2O', 1e-8, 2.8e-6, 1e-5);</span>
+0473             <span class="comment">% project.addBackgroundParam('Backs Value D2O', 1e-8, 2.8e-6, 1e-5);</span>
 0474             obj.background.backgroundParams.addParameter(varargin{:});
 0475         <span class="keyword">end</span>
 0476         
@@ -603,7 +603,7 @@ This function is called by:
 0478             <span class="comment">% Removes a given background parameter.</span>
 0479             <span class="comment">% Expects index or name of parameter to remove</span>
 0480             <span class="comment">%</span>
-0481             <span class="comment">% problem.removeBackgroundParam(2);</span>
+0481             <span class="comment">% project.removeBackgroundParam(2);</span>
 0482             obj.background.backgroundParams.removeParameter(varargin{:});
 0483         <span class="keyword">end</span>
 0484         
@@ -612,7 +612,7 @@ This function is called by:
 0487             <span class="comment">% parameter. Expects index or name of parameter</span>
 0488             <span class="comment">% and new value to set</span>
 0489             <span class="comment">%</span>
-0490             <span class="comment">% problem.setBackgroundParamValue(1, 5.5e-6);</span>
+0490             <span class="comment">% project.setBackgroundParamValue(1, 5.5e-6);</span>
 0491             obj.background.backgroundParams.setValue(row, value);
 0492         <span class="keyword">end</span>
 0493         
@@ -621,7 +621,7 @@ This function is called by:
 0496             <span class="comment">% parameter. Expects index or name of parameter</span>
 0497             <span class="comment">% and new min and max of the parameter's value</span>
 0498             <span class="comment">%</span>
-0499             <span class="comment">% problem.setBackgroundParamLimits(1, 0, 1);</span>
+0499             <span class="comment">% project.setBackgroundParamLimits(1, 0, 1);</span>
 0500             obj.background.backgroundParams.setLimits(row, min, max);
 0501         <span class="keyword">end</span>
 0502         
@@ -630,7 +630,7 @@ This function is called by:
 0505             <span class="comment">% parameter. Expects index or name of parameter</span>
 0506             <span class="comment">% and the new name</span>
 0507             <span class="comment">%</span>
-0508             <span class="comment">% problem.setBackgroundParamName(2, 'new name');</span>
+0508             <span class="comment">% project.setBackgroundParamName(2, 'new name');</span>
 0509             obj.background.backgroundParams.setName(row, name);
 0510         <span class="keyword">end</span>
 0511         
@@ -640,7 +640,7 @@ This function is called by:
 0515             <span class="comment">% cell array with background name and type and</span>
 0516             <span class="comment">% up to 4 parameters</span>
 0517             <span class="comment">%</span>
-0518             <span class="comment">% problem.addBackground('name', 'constant', 'par');</span>
+0518             <span class="comment">% project.addBackground('name', 'constant', 'par');</span>
 0519             obj.background.addBackground(varargin{:});
 0520         <span class="keyword">end</span>
 0521         
@@ -649,7 +649,7 @@ This function is called by:
 0524             <span class="comment">% index or array of indices of background(s) of background(s)</span>
 0525             <span class="comment">% to remove</span>
 0526             <span class="comment">%</span>
-0527             <span class="comment">% problem.removeBackground(1);</span>
+0527             <span class="comment">% project.removeBackground(1);</span>
 0528             obj.background.removeBackground(row);
 0529         <span class="keyword">end</span>
 0530         
@@ -657,7 +657,7 @@ This function is called by:
 0532             <span class="comment">% Sets the value of an existing background. Expects</span>
 0533             <span class="comment">% index or name of background and keyword/value pairs to set</span>
 0534             <span class="comment">%</span>
-0535             <span class="comment">% problem.setBackground(1, 'name', 'Background ACMW');</span>
+0535             <span class="comment">% project.setBackground(1, 'name', 'Background ACMW');</span>
 0536             obj.background.setBackground(row, varargin{:});
 0537         <span class="keyword">end</span>
 0538         
@@ -665,7 +665,7 @@ This function is called by:
 0540             <span class="comment">% Sets the name of an existing Background.</span>
 0541             <span class="comment">% Expects index or name of background and the new name</span>
 0542             <span class="comment">%</span>
-0543             <span class="comment">% problem.setBackgroundName(2, 'new name');</span>
+0543             <span class="comment">% project.setBackgroundName(2, 'new name');</span>
 0544             obj.background.setBackgroundName(row, name);
 0545         <span class="keyword">end</span>
 0546         
@@ -673,7 +673,7 @@ This function is called by:
 0548             <span class="comment">% Sets the value of an existing background parameter. Expects</span>
 0549             <span class="comment">% index or name of parameter and keyword/value pairs to set</span>
 0550             <span class="comment">%</span>
-0551             <span class="comment">% problem.setBackgroundParam(1, 'name', 'Backs Value H2O');</span>
+0551             <span class="comment">% project.setBackgroundParam(1, 'name', 'Backs Value H2O');</span>
 0552             obj.background.backgroundParams.setParameter(varargin{:});
 0553         <span class="keyword">end</span>
 0554         
@@ -686,7 +686,7 @@ This function is called by:
 0561             <span class="comment">% parameter. Expects index or name of parameter</span>
 0562             <span class="comment">% and new value to set</span>
 0563             <span class="comment">%</span>
-0564             <span class="comment">% problem.setResolutionParamValue(1, 5.5e-6);</span>
+0564             <span class="comment">% project.setResolutionParamValue(1, 5.5e-6);</span>
 0565             obj.resolution.resolutionParams.setValue(row, value);
 0566         <span class="keyword">end</span>
 0567         
@@ -695,7 +695,7 @@ This function is called by:
 0570             <span class="comment">% of a name, min, value, max, fit flag, prior type', mu,</span>
 0571             <span class="comment">% and sigma</span>
 0572             <span class="comment">%</span>
-0573             <span class="comment">% problem.addResolutionParam('Resolution Param 1', 1e-8, 2.8e-6, 1e-5);</span>
+0573             <span class="comment">% project.addResolutionParam('Resolution Param 1', 1e-8, 2.8e-6, 1e-5);</span>
 0574             obj.resolution.resolutionParams.addParameter(varargin{:});
 0575         <span class="keyword">end</span>
 0576         
@@ -703,7 +703,7 @@ This function is called by:
 0578             <span class="comment">% Sets the value of an existing resolution parameter. Expects</span>
 0579             <span class="comment">% index or name of parameter and keyword/value pairs to set</span>
 0580             <span class="comment">%</span>
-0581             <span class="comment">% problem.setResolutionParam(1, 'name', 'Resolution Param');</span>
+0581             <span class="comment">% project.setResolutionParam(1, 'name', 'Resolution Param');</span>
 0582             obj.resolution.resolutionParams.setParameter(varargin{:});
 0583         <span class="keyword">end</span>
 0584         
@@ -711,7 +711,7 @@ This function is called by:
 0586             <span class="comment">% Removes a given resolution parameter.</span>
 0587             <span class="comment">% Expects index or name of parameter to remove</span>
 0588             <span class="comment">%</span>
-0589             <span class="comment">% problem.removeResolutionParam(2);</span>
+0589             <span class="comment">% project.removeResolutionParam(2);</span>
 0590             obj.resolution.resolutionParams.removeParameter(varargin{:});
 0591         <span class="keyword">end</span>
 0592         
@@ -721,7 +721,7 @@ This function is called by:
 0596             <span class="comment">% cell array with resolution name and type and</span>
 0597             <span class="comment">% up to 4 parameters</span>
 0598             <span class="comment">%</span>
-0599             <span class="comment">% problem.addResolution('name','constant','par');</span>
+0599             <span class="comment">% project.addResolution('name','constant','par');</span>
 0600             obj.resolution.addResolution(varargin{:});
 0601         <span class="keyword">end</span>
 0602         
@@ -729,7 +729,7 @@ This function is called by:
 0604             <span class="comment">% Removes resolution from the project. Expects</span>
 0605             <span class="comment">% index of resolution to remove</span>
 0606             <span class="comment">%</span>
-0607             <span class="comment">% problem.removeResolution(1);</span>
+0607             <span class="comment">% project.removeResolution(1);</span>
 0608             obj.resolution.removeResolution(row);
 0609         <span class="keyword">end</span>
 0610         
@@ -741,7 +741,7 @@ This function is called by:
 0616             <span class="comment">% Adds a new data parameter. Expects the name</span>
 0617             <span class="comment">% of data and the data array</span>
 0618             <span class="comment">%</span>
-0619             <span class="comment">% problem.addData('Sim 2', data);</span>
+0619             <span class="comment">% project.addData('Sim 2', data);</span>
 0620             obj.data.addData(varargin{:});
 0621         <span class="keyword">end</span>
 0622         
@@ -749,7 +749,7 @@ This function is called by:
 0624             <span class="comment">% Removes a dataset. Expects the index or array of</span>
 0625             <span class="comment">% indices of dataset(s) to remove.</span>
 0626             <span class="comment">%</span>
-0627             <span class="comment">% problem.removeData(2);</span>
+0627             <span class="comment">% project.removeData(2);</span>
 0628             obj.data.removeRow(row);
 0629         <span class="keyword">end</span>
 0630         
@@ -757,7 +757,7 @@ This function is called by:
 0632             <span class="comment">% Edits an existing data parameter. Expects the</span>
 0633             <span class="comment">% index of data to edit and key-value pairs</span>
 0634             <span class="comment">%</span>
-0635             <span class="comment">% problem.setData(1, 'name', 'Sim 1', 'data', zeros(4, 3));</span>
+0635             <span class="comment">% project.setData(1, 'name', 'Sim 1', 'data', zeros(4, 3));</span>
 0636             nameChanged = obj.data.setData(varargin{:});
 0637             
 0638             <span class="keyword">if</span> ~isempty(nameChanged)
@@ -773,7 +773,7 @@ This function is called by:
 0648             <span class="comment">% Adds a new bulk-out parameter. Expects the name</span>
 0649             <span class="comment">% of bulk-out, min, value, max, and if fit is off or on</span>
 0650             <span class="comment">%</span>
-0651             <span class="comment">% problem.addBulkOut('SLD ACMW', -1e-6, 0.0, 1e-6, true);</span>
+0651             <span class="comment">% project.addBulkOut('SLD ACMW', -1e-6, 0.0, 1e-6, true);</span>
 0652             obj.bulkOut.addParameter(varargin{:});
 0653         <span class="keyword">end</span>
 0654         
@@ -781,7 +781,7 @@ This function is called by:
 0656             <span class="comment">% Removes specified bulk-out parameter. Expects the name/index</span>
 0657             <span class="comment">% of bulk-out to remove</span>
 0658             <span class="comment">%</span>
-0659             <span class="comment">% problem.removeBulkOut(2);</span>
+0659             <span class="comment">% project.removeBulkOut(2);</span>
 0660             obj.bulkOut.removeParameter(varargin{:});
 0661         <span class="keyword">end</span>
 0662         
@@ -789,7 +789,7 @@ This function is called by:
 0664             <span class="comment">% Edits an existing bulk-out parameter. Expects the</span>
 0665             <span class="comment">% index of bulk-out to edit and key-value pairs</span>
 0666             <span class="comment">%</span>
-0667             <span class="comment">% problem.setBulkOut(1, 'name', 'SLD H2O', 'min', 2.07e-6);</span>
+0667             <span class="comment">% project.setBulkOut(1, 'name', 'SLD H2O', 'min', 2.07e-6);</span>
 0668             obj.bulkOut.setParameter(varargin{:});
 0669         <span class="keyword">end</span>
 0670         
@@ -801,7 +801,7 @@ This function is called by:
 0676             <span class="comment">% Adds a new bulk-in parameter. Expects the name</span>
 0677             <span class="comment">% of bulk-in, min, value, max, and if fit is off or on</span>
 0678             <span class="comment">%</span>
-0679             <span class="comment">% problem.addBulkIn('Silicon', -1e-6, 0.0, 1e-6, true);</span>
+0679             <span class="comment">% project.addBulkIn('Silicon', -1e-6, 0.0, 1e-6, true);</span>
 0680             obj.bulkIn.addParameter(varargin{:});
 0681         <span class="keyword">end</span>
 0682         
@@ -809,7 +809,7 @@ This function is called by:
 0684             <span class="comment">% Removes specified bulk-in parameter. Expects the name/index</span>
 0685             <span class="comment">% of bulk-in to remove</span>
 0686             <span class="comment">%</span>
-0687             <span class="comment">% problem.removeBulkIn(2);</span>
+0687             <span class="comment">% project.removeBulkIn(2);</span>
 0688             obj.bulkIn.removeParameter(varargin{:});
 0689         <span class="keyword">end</span>
 0690         
@@ -817,7 +817,7 @@ This function is called by:
 0692             <span class="comment">% Edits an existing bulk-in parameter. Expects the</span>
 0693             <span class="comment">% index of bulk-in to edit and key-value pairs</span>
 0694             <span class="comment">%</span>
-0695             <span class="comment">% problem.setBulkIn(1, 'name', 'Silicon', 'max', 2.07e-6);</span>
+0695             <span class="comment">% project.setBulkIn(1, 'name', 'Silicon', 'max', 2.07e-6);</span>
 0696             obj.bulkIn.setParameter(varargin{:});
 0697         <span class="keyword">end</span>
 0698         
@@ -828,7 +828,7 @@ This function is called by:
 0703             <span class="comment">% Adds a new scale factor parameter. Expects the name</span>
 0704             <span class="comment">% of scale factor, min, value, max, and if fit is off or on</span>
 0705             <span class="comment">%</span>
-0706             <span class="comment">% problem.addScalefactor('Scalefactor 2', 0.1, 0.19, 1.0, true);</span>
+0706             <span class="comment">% project.addScalefactor('Scalefactor 2', 0.1, 0.19, 1.0, true);</span>
 0707             obj.scalefactors.addParameter(varargin{:});
 0708         <span class="keyword">end</span>
 0709         
@@ -836,7 +836,7 @@ This function is called by:
 0711             <span class="comment">% Removes specified scale factor parameter. Expects the name/index</span>
 0712             <span class="comment">% of scale factor to remove</span>
 0713             <span class="comment">%</span>
-0714             <span class="comment">% problem.removeScalefactor(2);</span>
+0714             <span class="comment">% project.removeScalefactor(2);</span>
 0715            obj.scalefactors.removeParameter(varargin{:}); 
 0716         <span class="keyword">end</span>
 0717         
@@ -844,7 +844,7 @@ This function is called by:
 0719             <span class="comment">% Edits an existing scale factor parameter. Expects the</span>
 0720             <span class="comment">% index of scale factor to edit and key-value pairs</span>
 0721             <span class="comment">%</span>
-0722             <span class="comment">% problem.setScalefactor(1, 'name','Scalefactor 1', 'value', 0.23251);</span>
+0722             <span class="comment">% project.setScalefactor(1, 'name','Scalefactor 1', 'value', 0.23251);</span>
 0723             obj.scalefactors.setParameter(varargin{:});
 0724         <span class="keyword">end</span>
 0725         
@@ -856,7 +856,7 @@ This function is called by:
 0731             <span class="comment">% Adds a new qz shift parameter. Expects the name</span>
 0732             <span class="comment">% of qz shift, min, value, max, and if fit is off or on</span>
 0733             <span class="comment">%</span>
-0734             <span class="comment">% problem.addQzshift('Qz shift 2', -0.2e-4, 0, 2e-4, false);</span>
+0734             <span class="comment">% project.addQzshift('Qz shift 2', -0.2e-4, 0, 2e-4, false);</span>
 0735             obj.qzshifts.addParameter(varargin{:}); 
 0736         <span class="keyword">end</span>
 0737 
@@ -864,7 +864,7 @@ This function is called by:
 0739             <span class="comment">% Removes specified qz shift parameter. Expects the name/index</span>
 0740             <span class="comment">% of qz shift parameter to remove</span>
 0741             <span class="comment">%</span>
-0742             <span class="comment">% problem.removeQzshift(2);</span>
+0742             <span class="comment">% project.removeQzshift(2);</span>
 0743             obj.qzshifts.removeParameter(varargin{:}); 
 0744         <span class="keyword">end</span>
 0745 
@@ -872,7 +872,7 @@ This function is called by:
 0747             <span class="comment">% Edits an existing qz shift parameter. Expects the index of</span>
 0748             <span class="comment">% qz shift parameter to edit and key-value pairs</span>
 0749             <span class="comment">%</span>
-0750             <span class="comment">% problem.setScalefactor(1, 'name','Qz shift 1', 'value', 0.0001);</span>
+0750             <span class="comment">% project.setScalefactor(1, 'name','Qz shift 1', 'value', 0.0001);</span>
 0751             obj.qzshifts.setParameter(varargin{:});
 0752         <span class="keyword">end</span>
 0753 
@@ -884,7 +884,7 @@ This function is called by:
 0759             <span class="comment">% Adds a new custom file parameter. Expects a parameter name, filename,</span>
 0760             <span class="comment">% language (matlab, octave, or cpp), and working directory</span>
 0761             <span class="comment">%</span>
-0762             <span class="comment">% problem.addCustomFile('model 1', 'custom.m', 'matlab', 'pwd');</span>
+0762             <span class="comment">% project.addCustomFile('model 1', 'custom.m', 'matlab', 'pwd');</span>
 0763             obj.customFile.addCustomFile(varargin{:});
 0764         <span class="keyword">end</span>
 0765 
@@ -892,7 +892,7 @@ This function is called by:
 0767             <span class="comment">% Removes custom file entry(ies) from the custom files object.</span>
 0768             <span class="comment">% Expects index of entry(ies) to remove.</span>
 0769             <span class="comment">%</span>
-0770             <span class="comment">% problem.removeCustomFile(1);</span>
+0770             <span class="comment">% project.removeCustomFile(1);</span>
 0771             obj.customFile.removeRow(row);
 0772         <span class="keyword">end</span>
 0773 
@@ -900,7 +900,7 @@ This function is called by:
 0775             <span class="comment">% Edits an existing custom file parameter. Expects the</span>
 0776             <span class="comment">% index of custom file to edit and key-value pairs</span>
 0777             <span class="comment">%</span>
-0778             <span class="comment">% problem.setCustomFile(2, 'filename', 'custom.cpp');</span>
+0778             <span class="comment">% project.setCustomFile(2, 'filename', 'custom.cpp');</span>
 0779             obj.customFile.setCustomFile(row, varargin{:});
 0780         <span class="keyword">end</span>
 0781         
@@ -915,7 +915,7 @@ This function is called by:
 0790             <span class="comment">% &quot;background&quot;, &quot;bulk in&quot;, &quot;bulk out&quot;, &quot;scalefactor&quot;,</span>
 0791             <span class="comment">% &quot;resolution&quot;, &quot;resample&quot;, &quot;model&quot;</span>
 0792             <span class="comment">%</span>
-0793             <span class="comment">% problem.addContrast('contrast 1', 'bulkIn', 'Silicon');</span>
+0793             <span class="comment">% project.addContrast('contrast 1', 'bulkIn', 'Silicon');</span>
 0794             allowedNames = obj.getAllAllowedNames();
 0795             obj.contrasts.addContrast(allowedNames, varargin{:});   
 0796         <span class="keyword">end</span>
@@ -924,7 +924,7 @@ This function is called by:
 0799             <span class="comment">% Removes a specified contrast parameter. Expects</span>
 0800             <span class="comment">% index or name of resolution to remove</span>
 0801             <span class="comment">%</span>
-0802             <span class="comment">% problem.removeContrast(1);</span>
+0802             <span class="comment">% project.removeContrast(1);</span>
 0803             obj.contrasts.removeContrast(row);
 0804         <span class="keyword">end</span>
 0805 
@@ -933,7 +933,7 @@ This function is called by:
 0808             <span class="comment">% First input must be contrast number or name, subsequent</span>
 0809             <span class="comment">% inputs are name / value pairs for the parts involved</span>
 0810             <span class="comment">%</span>
-0811             <span class="comment">% problem.setContrast(1, 'name', 'contrast')</span>
+0811             <span class="comment">% project.setContrast(1, 'name', 'contrast')</span>
 0812                         
 0813             <span class="comment">% Get the list of allowed values depending on what is</span>
 0814             <span class="comment">% set for the other contrasts.</span>
@@ -947,7 +947,7 @@ This function is called by:
 0822             <span class="comment">% Edits the model of an existing contrast parameter. Expects</span>
 0823             <span class="comment">% the index of contrast parameter and cell array of layer names</span>
 0824             <span class="comment">%</span>
-0825             <span class="comment">% problem.setContrastModel(1, {'layer 1'})</span>
+0825             <span class="comment">% project.setContrastModel(1, {'layer 1'})</span>
 0826                         
 0827             <span class="comment">% Make a different allowed list depending on whether</span>
 0828             <span class="comment">% it is custom or layers</span>
@@ -1048,10 +1048,10 @@ This function is called by:
 0923             <span class="comment">% Writes a MATLAB script that can be run to reproduce this</span>
 0924             <span class="comment">% projectClass object.</span>
 0925             <span class="comment">%</span>
-0926             <span class="comment">% problem.writeScript(script = &quot;newScript.m&quot;);</span>
+0926             <span class="comment">% project.writeScript(script = &quot;newScript.m&quot;);</span>
 0927             arguments
 0928                 obj
-0929                 options.objName {mustBeTextScalar} = <span class="string">'problem'</span>
+0929                 options.objName {mustBeTextScalar} = <span class="string">'project'</span>
 0930                 options.script {mustBeTextScalar} = <span class="string">'projectScript.m'</span>
 0931             <span class="keyword">end</span>
 0932 
@@ -1237,14 +1237,14 @@ This function is called by:
 1112 
 1113             <span class="keyword">end</span>
 1114 
-1115             <span class="keyword">if</span> isprop(obj, <span class="string">'domainContrasts'</span>)
+1115             <span class="keyword">if</span> isprop(obj, <span class="string">'domainContrasts'</span>) &amp;&amp; isa(obj.domainContrasts, <span class="string">'domainContrastsClass'</span>)
 1116                 <span class="keyword">for</span> i=1:obj.domainContrasts.numberOfContrasts
 1117                     
 1118                     reducedStruct = rmfield(obj.domainContrasts.contrasts{i}, {<span class="string">'model'</span>});
 1119                     contrastParams = string(namedargs2cell(reducedStruct));
 1120                     contrastSpec = options.objName + &quot;.addDomainContrast(&quot; + join(repmat(&quot;<span class="string">'%s'</span>&quot;, 1, length(contrastParams)), &quot;, &quot;) + &quot;);\n&quot;;
 1121                     fprintf(fileID, contrastSpec, contrastParams);
-1122                     <span class="keyword">if</span> ~isempty(obj.contrasts.contrasts{i}.model)
+1122                     <span class="keyword">if</span> ~isempty(obj.domainContrasts.contrasts{i}.model)
 1123                         fprintf(fileID, options.objName + &quot;.setDomainContrastModel(<span class="comment">%d, {&quot; + join(repmat(&quot;'%s'&quot;, 1, length(obj.domainContrasts.contrasts{i}.model))) +&quot;});\n&quot;, i, obj.domainContrasts.contrasts{i}.model{:});</span>
 1124                     <span class="keyword">end</span>
 1125                     fprintf(fileID, &quot;\n&quot;);
@@ -1372,7 +1372,7 @@ This function is called by:
 1247             <span class="comment">% converts it to a domains calculation, preserving all</span>
 1248             <span class="comment">% currently defined properties.</span>
 1249             <span class="comment">%</span>
-1250             <span class="comment">% domainsProblem = problem.domainsClass();</span>
+1250             <span class="comment">% domainsProject = project.domainsClass();</span>
 1251             domainsObj = <a href="domainsClass.html" class="code" title="">domainsClass</a>(obj.experimentName, calculationTypes.Domains, obj.modelType, obj.geometry, obj.absorption);
 1252             domainsObj = copyProperties(obj, domainsObj);
 1253 
@@ -1389,6 +1389,6 @@ This function is called by:
 1264 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Mon 04-Dec-2023 13:09:56 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

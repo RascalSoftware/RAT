@@ -50,6 +50,10 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calcTypes.html">Different Calculation Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utility Functions</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Project Class</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="parametersClass.html">Parameters Class</a></li>
@@ -69,7 +73,6 @@
 <li class="toctree-l2"><a class="reference internal" href="utilityFunctions.html">Utility Functions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 </ul>
 
@@ -177,7 +180,7 @@ model type, which is a modelTypes enum; the geometry, which is a
 geometryOptions enum; and a logical to state whether or not
 absorption terms are included in the refractive index.
 All of the arguments are optional.</p>
-<p>problem = createProject(name=’New experiment’, calc=’non polarised’);</p>
+<p>project = createProject(name=’New experiment’, calc=’non polarised’);</p>
 </dd></dl>
 
 <dl class="mat class">
@@ -189,7 +192,7 @@ All of the arguments are optional.</p>
 <dd><p>Adds a background to the project. Expects a 
 cell array with background name and type and 
 up to 4 parameters</p>
-<p>problem.addBackground(‘name’, ‘constant’, ‘par’);</p>
+<p>project.addBackground(‘name’, ‘constant’, ‘par’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -198,7 +201,7 @@ up to 4 parameters</p>
 <dd><p>Adds a new background parameter. A parameter consists 
 of a name, min, value, max, fit flag, prior type’, mu,
 and sigma</p>
-<p>problem.addBackgroundParam(‘Backs Value D2O’, 1e-8, 2.8e-6, 1e-5);</p>
+<p>project.addBackgroundParam(‘Backs Value D2O’, 1e-8, 2.8e-6, 1e-5);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -206,7 +209,7 @@ and sigma</p>
 <span class="sig-name descname"><span class="pre">addBulkIn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addBulkIn" title="Permalink to this definition"></a></dt>
 <dd><p>Adds a new bulk-in parameter. Expects the name
 of bulk-in, min, value, max, and if fit is off or on</p>
-<p>problem.addBulkIn(‘Silicon’, -1e-6, 0.0, 1e-6, true);</p>
+<p>project.addBulkIn(‘Silicon’, -1e-6, 0.0, 1e-6, true);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -214,7 +217,7 @@ of bulk-in, min, value, max, and if fit is off or on</p>
 <span class="sig-name descname"><span class="pre">addBulkOut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addBulkOut" title="Permalink to this definition"></a></dt>
 <dd><p>Adds a new bulk-out parameter. Expects the name
 of bulk-out, min, value, max, and if fit is off or on</p>
-<p>problem.addBulkOut(‘SLD ACMW’, -1e-6, 0.0, 1e-6, true);</p>
+<p>project.addBulkOut(‘SLD ACMW’, -1e-6, 0.0, 1e-6, true);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -224,7 +227,7 @@ of bulk-out, min, value, max, and if fit is off or on</p>
 key-value pairs with one or more of the following “data”,
 “background”, “bulk in”, “bulk out”, “scalefactor”,
 “resolution”, “resample”, “model”</p>
-<p>problem.addContrast(‘contrast 1’, ‘bulkIn’, ‘Silicon’);</p>
+<p>project.addContrast(‘contrast 1’, ‘bulkIn’, ‘Silicon’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -232,7 +235,7 @@ key-value pairs with one or more of the following “data”,
 <span class="sig-name descname"><span class="pre">addCustomFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addCustomFile" title="Permalink to this definition"></a></dt>
 <dd><p>Adds a new custom file parameter. Expects a parameter name, filename, 
 language (matlab, octave, or cpp), and working directory</p>
-<p>problem.addCustomFile(‘model 1’, ‘custom.m’, ‘matlab’, ‘pwd’);</p>
+<p>project.addCustomFile(‘model 1’, ‘custom.m’, ‘matlab’, ‘pwd’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -240,7 +243,7 @@ language (matlab, octave, or cpp), and working directory</p>
 <span class="sig-name descname"><span class="pre">addData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addData" title="Permalink to this definition"></a></dt>
 <dd><p>Adds a new data parameter. Expects the name
 of data and the data array</p>
-<p>problem.addData(‘Sim 2’, data);</p>
+<p>project.addData(‘Sim 2’, data);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -250,7 +253,7 @@ of data and the data array</p>
 details which are name, thickness, SLD, roughness,
 hydration, and hydrate with, or provide with no details,
 or just a name, to create an empty layer.</p>
-<p>problem.addLayer(‘New Layer’);</p>
+<p>project.addLayer(‘New Layer’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -258,7 +261,7 @@ or just a name, to create an empty layer.</p>
 <span class="sig-name descname"><span class="pre">addLayerGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">layerGroup</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addLayerGroup" title="Permalink to this definition"></a></dt>
 <dd><p>Adds a group of layers to the layers object. Expects 
 a cell array of layer cell arrays</p>
-<p>problem.addLayerGroup({{‘Layer 1’}, {‘Layer 2’}});</p>
+<p>project.addLayerGroup({{‘Layer 1’}, {‘Layer 2’}});</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -270,7 +273,7 @@ the inputs are cells. A parameter consists of a name, min,
 value, max, fit flag, prior type’, mu, and sigma. The input 
 is optional but if provided should contain 1, 2, 4, 5, or 8 
 values of the parameter to added.</p>
-<p>problem.addParameter(‘Tails Roughness’);</p>
+<p>project.addParameter(‘Tails Roughness’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -278,7 +281,7 @@ values of the parameter to added.</p>
 <span class="sig-name descname"><span class="pre">addParameterGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">paramGroup</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addParameterGroup" title="Permalink to this definition"></a></dt>
 <dd><p>Adds a group of parameters to the parameters object.
 Expects a cell array of parameter cell arrays.</p>
-<p>problem.addParameterGroup({{‘Tails Thickness’}, {‘Heads Thickness’}});</p>
+<p>project.addParameterGroup({{‘Tails Thickness’}, {‘Heads Thickness’}});</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -286,7 +289,7 @@ Expects a cell array of parameter cell arrays.</p>
 <span class="sig-name descname"><span class="pre">addQzshift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addQzshift" title="Permalink to this definition"></a></dt>
 <dd><p>Adds a new qz shift parameter. Expects the name
 of qz shift, min, value, max, and if fit is off or on</p>
-<p>problem.addQzshift(‘Qz shift 2’, -0.2e-4, 0, 2e-4, false);</p>
+<p>project.addQzshift(‘Qz shift 2’, -0.2e-4, 0, 2e-4, false);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -295,7 +298,7 @@ of qz shift, min, value, max, and if fit is off or on</p>
 <dd><p>Adds a resolution to the project. Expects a 
 cell array with resolution name and type and 
 up to 4 parameters</p>
-<p>problem.addResolution(‘name’,’constant’,’par’);</p>
+<p>project.addResolution(‘name’,’constant’,’par’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -304,7 +307,7 @@ up to 4 parameters</p>
 <dd><p>Adds a new resolution parameter. A parameter consists 
 of a name, min, value, max, fit flag, prior type’, mu,
 and sigma</p>
-<p>problem.addResolutionParam(‘Resolution Param 1’, 1e-8, 2.8e-6, 1e-5);</p>
+<p>project.addResolutionParam(‘Resolution Param 1’, 1e-8, 2.8e-6, 1e-5);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -312,7 +315,7 @@ and sigma</p>
 <span class="sig-name descname"><span class="pre">addScalefactor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addScalefactor" title="Permalink to this definition"></a></dt>
 <dd><p>Adds a new scale factor parameter. Expects the name
 of scale factor, min, value, max, and if fit is off or on</p>
-<p>problem.addScalefactor(‘Scalefactor 2’, 0.1, 0.19, 1.0, true);</p>
+<p>project.addScalefactor(‘Scalefactor 2’, 0.1, 0.19, 1.0, true);</p>
 </dd></dl>
 
 <dl class="mat attribute">
@@ -386,7 +389,7 @@ which is a modelTypes enum; the geometry, which is a
 geometryOptions enum; and a logical to state whether or not
 absorption terms are included in the refractive index.
 All of the arguments are optional.</p>
-<p>problem = projectClass(‘New experiment’);</p>
+<p>project = projectClass(‘New experiment’);</p>
 </dd></dl>
 
 <dl class="mat attribute">
@@ -401,7 +404,7 @@ All of the arguments are optional.</p>
 <dd><p>Removes background from the project. Expects
 index or array of indices of background(s) of background(s)
 to remove</p>
-<p>problem.removeBackground(1);</p>
+<p>project.removeBackground(1);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -409,7 +412,7 @@ to remove</p>
 <span class="sig-name descname"><span class="pre">removeBackgroundParam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.removeBackgroundParam" title="Permalink to this definition"></a></dt>
 <dd><p>Removes a given background parameter.
 Expects index or name of parameter to remove</p>
-<p>problem.removeBackgroundParam(2);</p>
+<p>project.removeBackgroundParam(2);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -417,7 +420,7 @@ Expects index or name of parameter to remove</p>
 <span class="sig-name descname"><span class="pre">removeBulkIn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.removeBulkIn" title="Permalink to this definition"></a></dt>
 <dd><p>Removes specified bulk-in parameter. Expects the name/index
 of bulk-in to remove</p>
-<p>problem.removeBulkIn(2);</p>
+<p>project.removeBulkIn(2);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -425,7 +428,7 @@ of bulk-in to remove</p>
 <span class="sig-name descname"><span class="pre">removeBulkOut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.removeBulkOut" title="Permalink to this definition"></a></dt>
 <dd><p>Removes specified bulk-out parameter. Expects the name/index
 of bulk-out to remove</p>
-<p>problem.removeBulkOut(2);</p>
+<p>project.removeBulkOut(2);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -433,7 +436,7 @@ of bulk-out to remove</p>
 <span class="sig-name descname"><span class="pre">removeContrast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">row</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.removeContrast" title="Permalink to this definition"></a></dt>
 <dd><p>Removes a specified contrast parameter. Expects
 index or name of resolution to remove</p>
-<p>problem.removeContrast(1);</p>
+<p>project.removeContrast(1);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -441,7 +444,7 @@ index or name of resolution to remove</p>
 <span class="sig-name descname"><span class="pre">removeCustomFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">row</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.removeCustomFile" title="Permalink to this definition"></a></dt>
 <dd><p>Removes custom file entry(ies) from the custom files object.
 Expects index of entry(ies) to remove.</p>
-<p>problem.removeCustomFile(1);</p>
+<p>project.removeCustomFile(1);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -449,7 +452,7 @@ Expects index of entry(ies) to remove.</p>
 <span class="sig-name descname"><span class="pre">removeData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">row</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.removeData" title="Permalink to this definition"></a></dt>
 <dd><p>Removes a dataset. Expects the index or array of
 indices of dataset(s) to remove.</p>
-<p>problem.removeData(2);</p>
+<p>project.removeData(2);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -457,7 +460,7 @@ indices of dataset(s) to remove.</p>
 <span class="sig-name descname"><span class="pre">removeLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">layer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.removeLayer" title="Permalink to this definition"></a></dt>
 <dd><p>Removes layer(s) from the layers object. Expects
 index of layer(s) to remove.</p>
-<p>problem.removeLayer(1);</p>
+<p>project.removeLayer(1);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -467,7 +470,7 @@ index of layer(s) to remove.</p>
 parameter will also be removed from the layers array 
 if it is in use. Expects series of indices or names of
 parameters to remove</p>
-<p>problem.removeParameter(2);</p>
+<p>project.removeParameter(2);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -475,7 +478,7 @@ parameters to remove</p>
 <span class="sig-name descname"><span class="pre">removeQzshift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.removeQzshift" title="Permalink to this definition"></a></dt>
 <dd><p>Removes specified qz shift parameter. Expects the name/index
 of qz shift parameter to remove</p>
-<p>problem.removeQzshift(2);</p>
+<p>project.removeQzshift(2);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -483,7 +486,7 @@ of qz shift parameter to remove</p>
 <span class="sig-name descname"><span class="pre">removeResolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">row</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.removeResolution" title="Permalink to this definition"></a></dt>
 <dd><p>Removes resolution from the project. Expects
 index of resolution to remove</p>
-<p>problem.removeResolution(1);</p>
+<p>project.removeResolution(1);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -491,7 +494,7 @@ index of resolution to remove</p>
 <span class="sig-name descname"><span class="pre">removeResolutionParam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.removeResolutionParam" title="Permalink to this definition"></a></dt>
 <dd><p>Removes a given resolution parameter.
 Expects index or name of parameter to remove</p>
-<p>problem.removeResolutionParam(2);</p>
+<p>project.removeResolutionParam(2);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -499,7 +502,7 @@ Expects index or name of parameter to remove</p>
 <span class="sig-name descname"><span class="pre">removeScalefactor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.removeScalefactor" title="Permalink to this definition"></a></dt>
 <dd><p>Removes specified scale factor parameter. Expects the name/index
 of scale factor to remove</p>
-<p>problem.removeScalefactor(2);</p>
+<p>project.removeScalefactor(2);</p>
 </dd></dl>
 
 <dl class="mat attribute">
@@ -519,7 +522,7 @@ of scale factor to remove</p>
 <span class="sig-name descname"><span class="pre">setBackground</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">row</span></em>, <em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setBackground" title="Permalink to this definition"></a></dt>
 <dd><p>Sets the value of an existing background. Expects
 index or name of background and keyword/value pairs to set</p>
-<p>problem.setBackground(1, ‘name’, ‘Background ACMW’);</p>
+<p>project.setBackground(1, ‘name’, ‘Background ACMW’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -527,7 +530,7 @@ index or name of background and keyword/value pairs to set</p>
 <span class="sig-name descname"><span class="pre">setBackgroundName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">row</span></em>, <em class="sig-param"><span class="pre">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setBackgroundName" title="Permalink to this definition"></a></dt>
 <dd><p>Sets the name of an existing Background.
 Expects index or name of background and the new name</p>
-<p>problem.setBackgroundName(2, ‘new name’);</p>
+<p>project.setBackgroundName(2, ‘new name’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -535,7 +538,7 @@ Expects index or name of background and the new name</p>
 <span class="sig-name descname"><span class="pre">setBackgroundParam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setBackgroundParam" title="Permalink to this definition"></a></dt>
 <dd><p>Sets the value of an existing background parameter. Expects
 index or name of parameter and keyword/value pairs to set</p>
-<p>problem.setBackgroundParam(1, ‘name’, ‘Backs Value H2O’);</p>
+<p>project.setBackgroundParam(1, ‘name’, ‘Backs Value H2O’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -544,7 +547,7 @@ index or name of parameter and keyword/value pairs to set</p>
 <dd><p>Sets the constraints of existing background
 parameter. Expects index or name of parameter 
 and new min and max of the parameter’s value</p>
-<p>problem.setBackgroundParamLimits(1, 0, 1);</p>
+<p>project.setBackgroundParamLimits(1, 0, 1);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -553,7 +556,7 @@ and new min and max of the parameter’s value</p>
 <dd><p>Sets the name of an existing background 
 parameter. Expects index or name of parameter 
 and the new name</p>
-<p>problem.setBackgroundParamName(2, ‘new name’);</p>
+<p>project.setBackgroundParamName(2, ‘new name’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -562,7 +565,7 @@ and the new name</p>
 <dd><p>Sets the value of existing background            
 parameter. Expects index or name of parameter 
 and new value to set</p>
-<p>problem.setBackgroundParamValue(1, 5.5e-6);</p>
+<p>project.setBackgroundParamValue(1, 5.5e-6);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -570,7 +573,7 @@ and new value to set</p>
 <span class="sig-name descname"><span class="pre">setBulkIn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setBulkIn" title="Permalink to this definition"></a></dt>
 <dd><p>Edits an existing bulk-in parameter. Expects the
 index of bulk-in to edit and key-value pairs</p>
-<p>problem.setBulkIn(1, ‘name’, ‘Silicon’, ‘max’, 2.07e-6);</p>
+<p>project.setBulkIn(1, ‘name’, ‘Silicon’, ‘max’, 2.07e-6);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -578,7 +581,7 @@ index of bulk-in to edit and key-value pairs</p>
 <span class="sig-name descname"><span class="pre">setBulkOut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setBulkOut" title="Permalink to this definition"></a></dt>
 <dd><p>Edits an existing bulk-out parameter. Expects the
 index of bulk-out to edit and key-value pairs</p>
-<p>problem.setBulkOut(1, ‘name’, ‘SLD H2O’, ‘min’, 2.07e-6);</p>
+<p>project.setBulkOut(1, ‘name’, ‘SLD H2O’, ‘min’, 2.07e-6);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -587,7 +590,7 @@ index of bulk-out to edit and key-value pairs</p>
 <dd><p>Allow setting of all parameters in terms of name value pairs.
 First input must be contrast number or name, subsequent
 inputs are name / value pairs for the parts involved</p>
-<p>problem.setContrast(1, ‘name’, ‘contrast’)</p>
+<p>project.setContrast(1, ‘name’, ‘contrast’)</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -595,7 +598,7 @@ inputs are name / value pairs for the parts involved</p>
 <span class="sig-name descname"><span class="pre">setContrastModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">row</span></em>, <em class="sig-param"><span class="pre">model</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setContrastModel" title="Permalink to this definition"></a></dt>
 <dd><p>Edits the model of an existing contrast parameter. Expects
 the index of contrast parameter and cell array of layer names</p>
-<p>problem.setContrastModel(1, {‘layer 1’})</p>
+<p>project.setContrastModel(1, {‘layer 1’})</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -603,7 +606,7 @@ the index of contrast parameter and cell array of layer names</p>
 <span class="sig-name descname"><span class="pre">setCustomFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">row</span></em>, <em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setCustomFile" title="Permalink to this definition"></a></dt>
 <dd><p>Edits an existing custom file parameter. Expects the
 index of custom file to edit and key-value pairs</p>
-<p>problem.setCustomFile(2, ‘filename’, ‘custom.cpp’);</p>
+<p>project.setCustomFile(2, ‘filename’, ‘custom.cpp’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -611,7 +614,7 @@ index of custom file to edit and key-value pairs</p>
 <span class="sig-name descname"><span class="pre">setData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setData" title="Permalink to this definition"></a></dt>
 <dd><p>Edits an existing data parameter. Expects the
 index of data to edit and key-value pairs</p>
-<p>problem.setData(1, ‘name’, ‘Sim 1’, ‘data’, zeros(4, 3));</p>
+<p>project.setData(1, ‘name’, ‘Sim 1’, ‘data’, zeros(4, 3));</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -619,7 +622,7 @@ index of data to edit and key-value pairs</p>
 <span class="sig-name descname"><span class="pre">setGeometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">geometry</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setGeometry" title="Permalink to this definition"></a></dt>
 <dd><p>Sets the experiment geometry. The geometry should be a string,  
 either “Air/Substrate” or “Substrate/Liquid” is permitted.</p>
-<p>problem.setGeometry(‘Substrate/liquid’);</p>
+<p>project.setGeometry(‘Substrate/liquid’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -628,7 +631,7 @@ either “Air/Substrate” or “Substrate/Liquid” is permitted.</p>
 <dd><p>Sets a value of a given layer. Expects the row/name and
 column of layer value to set, then the name/index of the 
 parameter to set the value to.</p>
-<p>problem.setLayerValue(1, 2, ‘Tails Thickness’);</p>
+<p>project.setLayerValue(1, 2, ‘Tails Thickness’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -637,7 +640,7 @@ parameter to set the value to.</p>
 <dd><p>Sets the experiment type. The type should be a string,  
 either “standard layers”, “custom layers”, or “custom xy” is
 permitted.</p>
-<p>problem.setModelType(‘Custom Layers’);</p>
+<p>project.setModelType(‘Custom Layers’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -645,7 +648,7 @@ permitted.</p>
 <span class="sig-name descname"><span class="pre">setParameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">row</span></em>, <em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setParameter" title="Permalink to this definition"></a></dt>
 <dd><p>General purpose set parameter method. Expects
 index or name of parameter and keyword/value pairs to set</p>
-<p>problem.setParameter(2, ‘value’, 50);</p>
+<p>project.setParameter(2, ‘value’, 50);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -654,7 +657,7 @@ index or name of parameter and keyword/value pairs to set</p>
 <dd><p>Sets the ‘fit’ to off or on for parameter.
 Expects index or name of parameter and 
 new fit flag</p>
-<p>problem.setParameterFit(2, true);</p>
+<p>project.setParameterFit(2, true);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -663,7 +666,7 @@ new fit flag</p>
 <dd><p>Sets the limits of an existing parameter.
 Expects index or name of parameter and new min 
 and max of the parameter’s value</p>
-<p>problem.setParameterLimits(2, 0, 100);</p>
+<p>project.setParameterLimits(2, 0, 100);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -672,7 +675,7 @@ and max of the parameter’s value</p>
 <dd><p>Sets the name of an existing parameter
 Expects index or name of parameter and the
 new name</p>
-<p>problem.setParameterName(2, ‘new name’);</p>
+<p>project.setParameterName(2, ‘new name’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -681,7 +684,7 @@ new name</p>
 <dd><p>Sets the prior type of the parameter.
 Expects index or name of parameter and 
 new prior type(‘uniform’,’gaussian’,’jeffreys’)</p>
-<p>problem.setParameterPrior(2, ‘uniform’);</p>
+<p>project.setParameterPrior(2, ‘uniform’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -689,7 +692,7 @@ new prior type(‘uniform’,’gaussian’,’jeffreys’)</p>
 <span class="sig-name descname"><span class="pre">setParameterValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">row</span></em>, <em class="sig-param"><span class="pre">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setParameterValue" title="Permalink to this definition"></a></dt>
 <dd><p>Sets the value of a given parameter. Expects
 index or name of parameter and new value to set</p>
-<p>problem.setParameterValue(2, 50);</p>
+<p>project.setParameterValue(2, 50);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -697,7 +700,7 @@ index or name of parameter and new value to set</p>
 <span class="sig-name descname"><span class="pre">setQzshift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setQzshift" title="Permalink to this definition"></a></dt>
 <dd><p>Edits an existing qz shift parameter. Expects the index of
 qz shift parameter to edit and key-value pairs</p>
-<p>problem.setScalefactor(1, ‘name’,’Qz shift 1’, ‘value’, 0.0001);</p>
+<p>project.setScalefactor(1, ‘name’,’Qz shift 1’, ‘value’, 0.0001);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -705,7 +708,7 @@ qz shift parameter to edit and key-value pairs</p>
 <span class="sig-name descname"><span class="pre">setResolutionParam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setResolutionParam" title="Permalink to this definition"></a></dt>
 <dd><p>Sets the value of an existing resolution parameter. Expects
 index or name of parameter and keyword/value pairs to set</p>
-<p>problem.setResolutionParam(1, ‘name’, ‘Resolution Param’);</p>
+<p>project.setResolutionParam(1, ‘name’, ‘Resolution Param’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -714,7 +717,7 @@ index or name of parameter and keyword/value pairs to set</p>
 <dd><p>Sets the value of existing resolution            
 parameter. Expects index or name of parameter 
 and new value to set</p>
-<p>problem.setResolutionParamValue(1, 5.5e-6);</p>
+<p>project.setResolutionParamValue(1, 5.5e-6);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -722,14 +725,14 @@ and new value to set</p>
 <span class="sig-name descname"><span class="pre">setScalefactor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setScalefactor" title="Permalink to this definition"></a></dt>
 <dd><p>Edits an existing scale factor parameter. Expects the
 index of scale factor to edit and key-value pairs</p>
-<p>problem.setScalefactor(1, ‘name’,’Scalefactor 1’, ‘value’, 0.23251);</p>
+<p>project.setScalefactor(1, ‘name’,’Scalefactor 1’, ‘value’, 0.23251);</p>
 </dd></dl>
 
 <dl class="mat method">
 <dt class="sig sig-object mat" id="API.projectClass.projectClass.setUsePriors">
 <span class="sig-name descname"><span class="pre">setUsePriors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">showFlag</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setUsePriors" title="Permalink to this definition"></a></dt>
 <dd><p>Sets the use priors flag. The showFlag should be a boolean/logical.</p>
-<p>problem.setUsePriors(true);</p>
+<p>project.setUsePriors(true);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -740,7 +743,7 @@ domainsClass.
 This routine takes the currently defined project and
 converts it to a domains calculation, preserving all
 currently defined properties.</p>
-<p>domainsProblem = problem.toDomainsClass();</p>
+<p>domainsProject = project.toDomainsClass();</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -755,7 +758,7 @@ into the RAT toolbox</p>
 <span class="sig-name descname"><span class="pre">writeScript</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">options</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.writeScript" title="Permalink to this definition"></a></dt>
 <dd><p>Writes a MATLAB script that can be run to reproduce this
 projectClass object.</p>
-<p>problem.writeScript(script = “newScript.m”);</p>
+<p>project.writeScript(script = “newScript.m”);</p>
 </dd></dl>
 
 </dd></dl>
@@ -769,7 +772,7 @@ projectClass object.</p>
 <dd><p>Adds a new domainContrast parameter. Expects a parameter name,
 and with key-value pairs with one or more of the following
 “bulk in”, “bulk out”, “model”</p>
-<p>problem.addDomainContrast(‘domainContrast 1’, ‘bulkIn’, ‘Silicon’);</p>
+<p>project.addDomainContrast(‘domainContrast 1’, ‘bulkIn’, ‘Silicon’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -777,7 +780,7 @@ and with key-value pairs with one or more of the following
 <span class="sig-name descname"><span class="pre">addDomainRatio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.domainsClass.addDomainRatio" title="Permalink to this definition"></a></dt>
 <dd><p>Adds a new domain ratio parameter. Expects the name
 of domain ratio, min, value, max, and if fit is off or on</p>
-<p>problem.addDomainRatio(‘Domain Ratio 2’, 0.4, 0.5, 0.6, true);</p>
+<p>project.addDomainRatio(‘Domain Ratio 2’, 0.4, 0.5, 0.6, true);</p>
 </dd></dl>
 
 <dl class="mat attribute">
@@ -803,7 +806,7 @@ geometry, which is a geometryOptions enum; and a logical to
 state whether or not absorption terms are included in the
 refractive index.
 All of the arguments are optional.</p>
-<p>problem = domainsClass(‘New experiment’);</p>
+<p>project = domainsClass(‘New experiment’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -818,7 +821,7 @@ set parameter names for the project.</p>
 <span class="sig-name descname"><span class="pre">removeDomainContrast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">row</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.domainsClass.removeDomainContrast" title="Permalink to this definition"></a></dt>
 <dd><p>Removes a specified domainContrast parameter. Expects
 index or name of resolution to remove</p>
-<p>problem.removeDomainContrast(1);</p>
+<p>project.removeDomainContrast(1);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -826,7 +829,7 @@ index or name of resolution to remove</p>
 <span class="sig-name descname"><span class="pre">removeDomainRatio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.domainsClass.removeDomainRatio" title="Permalink to this definition"></a></dt>
 <dd><p>Removes specified domain ratio parameter. Expects the
 name/index of domain ratio to remove</p>
-<p>problem.removeDomainRatio(2);</p>
+<p>project.removeDomainRatio(2);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -834,7 +837,7 @@ name/index of domain ratio to remove</p>
 <span class="sig-name descname"><span class="pre">setContrastModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">row</span></em>, <em class="sig-param"><span class="pre">model</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.domainsClass.setContrastModel" title="Permalink to this definition"></a></dt>
 <dd><p>Edits the model of an existing contrast parameter. Expects
 the index of contrast parameter and cell array of layer names</p>
-<p>problem.setContrastModel(1, {‘layer 1’})</p>
+<p>project.setContrastModel(1, {‘layer 1’})</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -843,7 +846,7 @@ the index of contrast parameter and cell array of layer names</p>
 <dd><p>Allow setting of all parameters in terms of name value pairs.
 First input must be domainContrast number or name, subsequent
 inputs are name / value pairs for the parts involved</p>
-<p>problem.setContrast(1, ‘name’, ‘domainContrast’)</p>
+<p>project.setContrast(1, ‘name’, ‘domainContrast’)</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -851,7 +854,7 @@ inputs are name / value pairs for the parts involved</p>
 <span class="sig-name descname"><span class="pre">setDomainContrastModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">row</span></em>, <em class="sig-param"><span class="pre">model</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.domainsClass.setDomainContrastModel" title="Permalink to this definition"></a></dt>
 <dd><p>Edits the model of an existing contrast parameter. Expects
 the index of contrast parameter and cell array of layer names</p>
-<p>problem.setDomainContrastModel(1, {‘layer 1’})</p>
+<p>project.setDomainContrastModel(1, {‘layer 1’})</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -859,7 +862,7 @@ the index of contrast parameter and cell array of layer names</p>
 <span class="sig-name descname"><span class="pre">setDomainRatio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.domainsClass.setDomainRatio" title="Permalink to this definition"></a></dt>
 <dd><p>Edits an existing domain ratio parameter. Expects the
 index of domain ratio to edit and key-value pairs</p>
-<p>problem.setDomainRatio(1, ‘name’,’Domain Ratio 1’, ‘value’, 0.55);</p>
+<p>project.setDomainRatio(1, ‘name’,’Domain Ratio 1’, ‘value’, 0.55);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -868,7 +871,7 @@ index of domain ratio to edit and key-value pairs</p>
 <dd><p>Sets the experiment type. The type should be a string,  
 either “standard layers”, “custom layers”, or “custom xy” is
 permitted.</p>
-<p>problem.setModelType(‘Custom Layers’);</p>
+<p>project.setModelType(‘Custom Layers’);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -879,7 +882,7 @@ projectClass.
 This routine takes the currently defined project and
 converts it to a nonPolarised calculation, preserving all
 currently defined properties.</p>
-<p>nonPolarisedProblem = problem.toProjectClass();</p>
+<p>nonPolarisedProject = project.toProjectClass();</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -905,7 +908,7 @@ for input into the RAT toolbox</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2023, ISIS Neutron and Muon Source.</p>
+    <p>&#169; Copyright 2022-2024, ISIS Neutron and Muon Source.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

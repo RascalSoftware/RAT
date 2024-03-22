@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Models in Python or C++ &mdash; RAT 1.0.0-beta documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/design-tabs.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Handling Events During Calculations" href="events.html" />
+    <link rel="prev" title="Parallelising Calculations" href="parallelisation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/ratLogo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="advanced.html">Advanced Topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="resampling.html">Profile Resampling (‘microslicing’)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parallelisation.html">Parallelising Calculations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Custom Models in Python or C++</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python-custom-models">Python Custom Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#c-custom-models">C++ Custom Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#performance-comparisons">Performance Comparisons</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Handling Events During Calculations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="calcTypes.html">Different Calculation Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RAT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="advanced.html">Advanced Topics</a></li>
+      <li class="breadcrumb-item active">Custom Models in Python or C++</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/customLanguages.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="custom-models-in-python-or-c">
+<span id="customlanguages"></span><h1>Custom Models in Python or C++<a class="headerlink" href="#custom-models-in-python-or-c" title="Permalink to this heading"></a></h1>
+<p>Custom models are usually written in Matlab, but RAT allows alternative languages to be used. You can write your custom models either in Python or C++.
+The reason for the Python functionality is mainly since this is the more natural choice when using RAT from Python with pythonRAT, but also because the user might choose to incorporate Python libraries into the custom models that are not available in Matlab.
+The reason for C++ if for pure speed, where very computationally demanding custom models calculations are required. Both optios are easy to use in RAT.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Examples of using Python and C++ custom models can be found in the /examples/miscellaneous/alternativeLanguages folder</p>
+</div>
+<section id="python-custom-models">
+<h2>Python Custom Models<a class="headerlink" href="#python-custom-models" title="Permalink to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Before you use Python from your Matlab session, please ensure that Python is <a class="reference external" href="https://uk.mathworks.com/help/matlab/matlab_external/create-object-from-python-class.html">configured correctly on your system.</a></p>
+</div>
+<p>Custom models in Python and Matlab are very similar in structure. The following Matlab custom model can easily be translated to the Python version:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="c">%customBilayer.m</span>
+<span class="k">function</span><span class="w"> </span>[output,sub_rough]<span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nf">customBilayer</span><span class="p">(</span>params,bulk_in,bulk_out,contrast<span class="p">)</span>
+
+<span class="w">    </span><span class="n">sub_rough</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">params</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">oxide_thick</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">params</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="w">    </span><span class="n">oxide_hydration</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">params</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<span class="w">    </span><span class="n">lipidAPM</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">params</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<span class="w">    </span><span class="n">headHydration</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">params</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="w">    </span><span class="n">bilayerHydration</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">params</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+<span class="w">    </span><span class="n">bilayerRough</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">params</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+<span class="w">    </span><span class="n">waterThick</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">params</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+
+
+<span class="w">    </span><span class="c">% We have a constant SLD for the oxide..</span>
+<span class="w">    </span><span class="n">oxide_SLD</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">3.41e-6</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c">% Now make the lipid layers..</span>
+<span class="w">    </span><span class="c">% Use known lipid volume and compositions</span>
+<span class="w">    </span><span class="c">% to make the layers</span>
+
+<span class="w">    </span><span class="c">% define all the neutron b&#39;s.</span>
+<span class="w">    </span><span class="n">bc</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">0.6646e-4</span><span class="p">;</span><span class="w">     </span><span class="c">%Carbon</span>
+<span class="w">    </span><span class="n">bo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">0.5843e-4</span><span class="p">;</span><span class="w">     </span><span class="c">%Oxygen</span>
+<span class="w">    </span><span class="n">bh</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">-</span><span class="mf">0.3739e-4</span><span class="p">;</span><span class="w">        </span><span class="c">%Hydrogen</span>
+<span class="w">    </span><span class="n">bp</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">0.513e-4</span><span class="p">;</span><span class="w">      </span><span class="c">%Phosphorus</span>
+<span class="w">    </span><span class="n">bn</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">0.936e-4</span><span class="p">;</span><span class="w">      </span><span class="c">%Nitrogen</span>
+<span class="w">    </span><span class="n">bd</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">0.6671e-4</span><span class="p">;</span><span class="w">     </span><span class="c">%Deuterium</span>
+
+<span class="w">    </span><span class="c">% Now make the lipid groups..</span>
+<span class="w">    </span><span class="n">COO</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">bo</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">bc</span><span class="p">);</span>
+<span class="w">    </span><span class="n">GLYC</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">bc</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">bh</span><span class="p">);</span>
+<span class="w">    </span><span class="n">CH3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">bc</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">bh</span><span class="p">);</span>
+<span class="w">    </span><span class="n">PO4</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">bp</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">bo</span><span class="p">);</span>
+<span class="w">    </span><span class="n">CH2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">bc</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">bh</span><span class="p">);</span>
+<span class="w">    </span><span class="n">CHOL</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">bc</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">12</span><span class="o">*</span><span class="n">bh</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">bn</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c">% Group these into heads and tails:</span>
+<span class="w">    </span><span class="n">Head</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">CHOL</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">PO4</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">GLYC</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">COO</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Tails</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="mi">34</span><span class="o">*</span><span class="n">CH2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">CH3</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c">% We need volumes for each.</span>
+<span class="w">    </span><span class="c">% Use literature values:</span>
+<span class="w">    </span><span class="n">vHead</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">319</span><span class="p">;</span>
+<span class="w">    </span><span class="n">vTail</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">782</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c">% we use the volumes to calculate the SLD&#39;s</span>
+<span class="w">    </span><span class="n">SLDhead</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Head</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">vHead</span><span class="p">;</span>
+<span class="w">    </span><span class="n">SLDtail</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Tails</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">vTail</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c">% We calculate the layer thickness&#39; from</span>
+<span class="w">    </span><span class="c">% the volumes and the APM...</span>
+<span class="w">    </span><span class="n">headThick</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">vHead</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">lipidAPM</span><span class="p">;</span>
+<span class="w">    </span><span class="n">tailThick</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">vTail</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">lipidAPM</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c">% Manually deal with hydration for layers in</span>
+<span class="w">    </span><span class="c">% this example.</span>
+<span class="w">    </span><span class="n">oxSLD</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">oxide_hydration</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">bulk_out</span><span class="p">(</span><span class="nb">contrast</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">((</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">oxide_hydration</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">oxide_SLD</span><span class="p">);</span>
+<span class="w">    </span><span class="n">headSLD</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">headHydration</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">bulk_out</span><span class="p">(</span><span class="nb">contrast</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">((</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">headHydration</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SLDhead</span><span class="p">);</span>
+<span class="w">    </span><span class="n">tailSLD</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">bilayerHydration</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">bulk_out</span><span class="p">(</span><span class="nb">contrast</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">((</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">bilayerHydration</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SLDtail</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c">% Make the layers</span>
+<span class="w">    </span><span class="n">oxide</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">oxide_thick</span><span class="w"> </span><span class="n">oxSLD</span><span class="w"> </span><span class="n">sub_rough</span><span class="p">];</span>
+<span class="w">    </span><span class="n">water</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">waterThick</span><span class="w"> </span><span class="n">bulk_out</span><span class="p">(</span><span class="nb">contrast</span><span class="p">)</span><span class="w"> </span><span class="n">bilayerRough</span><span class="p">];</span>
+<span class="w">    </span><span class="nb">head</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">headThick</span><span class="w"> </span><span class="n">headSLD</span><span class="w"> </span><span class="n">bilayerRough</span><span class="p">];</span>
+<span class="w">    </span><span class="nb">tail</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">tailThick</span><span class="w"> </span><span class="n">tailSLD</span><span class="w"> </span><span class="n">bilayerRough</span><span class="p">];</span>
+
+<span class="w">    </span><span class="n">output</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">oxide</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">water</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">tail</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">tail</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="nb">head</span><span class="p">];</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>A straight Python translation (into a Python module) is as follows:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># customBilayer.py</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">customBilayer</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">bulk_in</span><span class="p">,</span> <span class="n">bulk_out</span><span class="p">,</span> <span class="n">contrast</span><span class="p">):</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">params</span><span class="p">);</span>
+    <span class="n">bulk_in</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bulk_in</span><span class="p">);</span>
+    <span class="n">bulk_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bulk_out</span><span class="p">);</span>
+
+    <span class="n">sub_rough</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">oxide_thick</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">oxide_hydration</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">lipidAPM</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">headHydration</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">bilayerHydration</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">bilayerRough</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">waterThick</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+
+    <span class="c1"># We have a constant SLD for the oxide..</span>
+    <span class="n">oxide_SLD</span> <span class="o">=</span> <span class="mf">3.41e-6</span>
+
+    <span class="c1"># Now make the lipid layers..</span>
+    <span class="c1"># Use known lipid volume and compositions</span>
+    <span class="c1"># to make the layers</span>
+
+    <span class="c1"># define all the neutron b&#39;s.</span>
+    <span class="n">bc</span> <span class="o">=</span> <span class="mf">0.6646e-4</span>     <span class="c1"># Carbon</span>
+    <span class="n">bo</span> <span class="o">=</span> <span class="mf">0.5843e-4</span>     <span class="c1"># Oxygen</span>
+    <span class="n">bh</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.3739e-4</span>    <span class="c1"># Hydrogen</span>
+    <span class="n">bp</span> <span class="o">=</span> <span class="mf">0.513e-4</span>      <span class="c1"># Phosphorus</span>
+    <span class="n">bn</span> <span class="o">=</span> <span class="mf">0.936e-4</span>      <span class="c1"># Nitrogen</span>
+    <span class="n">bd</span> <span class="o">=</span> <span class="mf">0.6671e-4</span>     <span class="c1"># Deuterium</span>
+
+    <span class="c1"># Now make the lipid groups..</span>
+    <span class="n">COO</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">bo</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">bc</span><span class="p">)</span>
+    <span class="n">GLYC</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">bc</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">bh</span><span class="p">)</span>
+    <span class="n">CH3</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">bc</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">bh</span><span class="p">)</span>
+    <span class="n">PO4</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">bp</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">bo</span><span class="p">)</span>
+    <span class="n">CH2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">bc</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">bh</span><span class="p">)</span>
+    <span class="n">CHOL</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">bc</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">12</span><span class="o">*</span><span class="n">bh</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">bn</span><span class="p">)</span>
+
+    <span class="c1"># Group these into heads and tails:</span>
+    <span class="n">Head</span> <span class="o">=</span> <span class="n">CHOL</span> <span class="o">+</span> <span class="n">PO4</span> <span class="o">+</span> <span class="n">GLYC</span> <span class="o">+</span> <span class="n">COO</span>
+    <span class="n">Tails</span> <span class="o">=</span> <span class="p">(</span><span class="mi">34</span><span class="o">*</span><span class="n">CH2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">CH3</span><span class="p">)</span>
+
+    <span class="c1"># We need volumes for each.</span>
+    <span class="c1"># Use literature values:</span>
+    <span class="n">vHead</span> <span class="o">=</span> <span class="mi">319</span>
+    <span class="n">vTail</span> <span class="o">=</span> <span class="mi">782</span>
+
+    <span class="c1"># we use the volumes to calculate the SLD&#39;s</span>
+    <span class="n">SLDhead</span> <span class="o">=</span> <span class="n">Head</span> <span class="o">/</span> <span class="n">vHead</span>
+    <span class="n">SLDtail</span> <span class="o">=</span> <span class="n">Tails</span> <span class="o">/</span> <span class="n">vTail</span>
+
+    <span class="c1"># We calculate the layer thickness&#39; from</span>
+    <span class="c1"># the volumes and the APM...</span>
+    <span class="n">headThick</span> <span class="o">=</span> <span class="n">vHead</span> <span class="o">/</span> <span class="n">lipidAPM</span>
+    <span class="n">tailThick</span> <span class="o">=</span> <span class="n">vTail</span> <span class="o">/</span> <span class="n">lipidAPM</span>
+
+    <span class="c1"># Manually deal with hydration for layers in</span>
+    <span class="c1"># this example.</span>
+    <span class="n">oxSLD</span> <span class="o">=</span> <span class="p">(</span><span class="n">oxide_hydration</span> <span class="o">*</span> <span class="n">bulk_out</span><span class="p">[</span><span class="n">contrast</span><span class="p">])</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">oxide_hydration</span><span class="p">)</span> <span class="o">*</span> <span class="n">oxide_SLD</span><span class="p">)</span>
+    <span class="n">headSLD</span> <span class="o">=</span> <span class="p">(</span><span class="n">headHydration</span> <span class="o">*</span> <span class="n">bulk_out</span><span class="p">[</span><span class="n">contrast</span><span class="p">])</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">headHydration</span><span class="p">)</span> <span class="o">*</span> <span class="n">SLDhead</span><span class="p">)</span>
+    <span class="n">tailSLD</span> <span class="o">=</span> <span class="p">(</span><span class="n">bilayerHydration</span> <span class="o">*</span> <span class="n">bulk_out</span><span class="p">[</span><span class="n">contrast</span><span class="p">])</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">bilayerHydration</span><span class="p">)</span> <span class="o">*</span> <span class="n">SLDtail</span><span class="p">)</span>
+
+    <span class="c1"># Make the layers</span>
+    <span class="n">oxide</span> <span class="o">=</span> <span class="p">[</span><span class="n">oxide_thick</span><span class="p">,</span> <span class="n">oxSLD</span><span class="p">,</span> <span class="n">sub_rough</span><span class="p">]</span>
+    <span class="n">water</span> <span class="o">=</span> <span class="p">[</span><span class="n">waterThick</span><span class="p">,</span> <span class="n">bulk_out</span><span class="p">[</span><span class="n">contrast</span><span class="p">],</span> <span class="n">bilayerRough</span><span class="p">]</span>
+    <span class="n">head</span> <span class="o">=</span> <span class="p">[</span><span class="n">headThick</span><span class="p">,</span> <span class="n">headSLD</span><span class="p">,</span> <span class="n">bilayerRough</span><span class="p">]</span>
+    <span class="n">tail</span> <span class="o">=</span> <span class="p">[</span><span class="n">tailThick</span><span class="p">,</span> <span class="n">tailSLD</span><span class="p">,</span> <span class="n">bilayerRough</span><span class="p">]</span>
+
+    <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">oxide</span><span class="p">,</span> <span class="n">water</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">head</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">output</span><span class="p">,</span> <span class="n">sub_rough</span>
+</pre></div>
+</div>
+<p>In order to use this custom model, we need a couple of extra steps. Firstly we need to ensure that the current folder is on the pythonpath. You can do this from the Matlab prompt..</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="nb">count</span><span class="p">(</span><span class="n">py</span><span class="p">.</span><span class="n">sys</span><span class="p">.</span><span class="n">path</span><span class="p">,</span><span class="nb">pwd</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="n">insert</span><span class="p">(</span><span class="n">py</span><span class="p">.</span><span class="n">sys</span><span class="p">.</span><span class="n">path</span><span class="p">,</span><span class="nb">int32</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="nb">pwd</span><span class="p">);</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>To use this model from RAT, you need to add it to the current project, taking care to specify the language correctly..</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addCustomFile</span><span class="p">(</span><span class="s">&#39;myModel&#39;</span><span class="p">,</span><span class="s">&#39;customBilayer.py&#39;</span><span class="p">,</span><span class="s">&#39;python&#39;</span><span class="p">,</span><span class="nb">pwd</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You can then use this in your calculations in the same way as a normal, Matlab custom model.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember if you change your Python module, the changes will not automatically be registered by Python and you will need to reload the module into Python. You can do this using the following Matlab function (call this after any edits to your module)..</p>
+</div>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="nf">reloadPy</span><span class="p">(</span>name<span class="p">)</span>
+
+<span class="w">    </span><span class="c">% Save the module name (so we can reload it after clear..)</span>
+<span class="w">    </span><span class="nb">save</span><span class="p">(</span><span class="s">&#39;tempSave&#39;</span><span class="p">,</span><span class="s">&#39;name&#39;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c">% Clear all classes (scoping means that the base workspace is unaffected)</span>
+<span class="w">    </span><span class="nb">warning</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">,</span><span class="s">&#39;MATLAB:ClassInstanceExists&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">clear</span><span class="w"> </span><span class="n">classes</span>
+
+<span class="w">    </span><span class="c">% Reload the name....</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">load</span><span class="p">(</span><span class="s">&#39;tempSave&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">name</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c">% Now reload the module....</span>
+<span class="w">    </span><span class="nb">mod</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">py</span><span class="p">.</span><span class="n">importlib</span><span class="p">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+<span class="w">    </span><span class="n">py</span><span class="p">.</span><span class="n">importlib</span><span class="p">.</span><span class="n">reload</span><span class="p">(</span><span class="nb">mod</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c">% Get rid of our temporary file...</span>
+<span class="w">    </span><span class="nb">delete</span><span class="p">(</span><span class="s">&#39;tempSave.mat&#39;</span><span class="p">);</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+</section>
+<section id="c-custom-models">
+<h2>C++ Custom Models<a class="headerlink" href="#c-custom-models" title="Permalink to this heading"></a></h2>
+<p>If Matlab or Python custom models are too slow, you also have the option of providing a C++ custom model. You then have to compile and build this into a shared library in order to use it with RAT.</p>
+<p>Following on from our custom bilayer examples, the equivalent C++ custom model should follow this format..</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="c1">//customBilayer.cpp</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+
+<span class="cp">#if defined(_WIN32) || defined(_WIN64)</span>
+<span class="cp">#define LIB_EXPORT __declspec(dllexport)</span>
+<span class="cp">#else</span>
+<span class="cp">#define LIB_EXPORT</span>
+<span class="cp">#endif</span>
+
+<span class="c1">// We user extern &quot;C&quot; decorator to avoid name mangling....</span>
+<span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="n">LIB_EXPORT</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">customBilayer</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">bulkIn</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">bulkOut</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">contrast</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="o">*</span><span class="w"> </span><span class="n">outputSize</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="o">*</span><span class="w"> </span><span class="n">rough</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">subRough</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">oxideThick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">oxideHydration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">lipidAPM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">headHydration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">params</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">bilayerHydration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">params</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">bilayerRough</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">params</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">waterThick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">params</span><span class="p">[</span><span class="mi">7</span><span class="p">];</span>
+
+<span class="w">        </span><span class="c1">// We have a constant SLD for the oxide</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">oxideSLD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.41e-6</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// Now make the lipid layers..</span>
+<span class="w">        </span><span class="c1">// Use known lipid volume and compositions</span>
+<span class="w">        </span><span class="c1">// to make the layers</span>
+
+<span class="w">        </span><span class="c1">// define all the neutron b&#39;s.</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">bc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.6646e-4</span><span class="p">;</span><span class="w">     </span><span class="c1">//Carbon</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">bo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5843e-4</span><span class="p">;</span><span class="w">     </span><span class="c1">//Oxygen</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">bh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">-0.3739e-4</span><span class="p">;</span><span class="w">        </span><span class="c1">//Hydrogen</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">bp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.513e-4</span><span class="p">;</span><span class="w">      </span><span class="c1">//Phosphorus</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">bn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.936e-4</span><span class="p">;</span><span class="w">      </span><span class="c1">//Nitrogen</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">bd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.6671e-4</span><span class="p">;</span><span class="w">     </span><span class="c1">//Deuterium</span>
+
+<span class="w">        </span><span class="c1">// Now make the lipid groups..</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">COO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">bo</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">bc</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">GLYC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">bc</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">bh</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">CH3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">bc</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">bh</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">PO4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">bp</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">bo</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">CH2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">bc</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">bh</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">CHOL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">bc</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">12</span><span class="o">*</span><span class="n">bh</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">bn</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Group these into heads and tails:</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">Head</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CHOL</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">PO4</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">GLYC</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">COO</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">Tails</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">34</span><span class="o">*</span><span class="n">CH2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">CH3</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// We need volumes for each.</span>
+<span class="w">        </span><span class="c1">// Use literature values:</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">vHead</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">319</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">vTail</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">782</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// we use the volumes to calculate the SLD&#39;s</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">SLDhead</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Head</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">vHead</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">SLDtail</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Tails</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">vTail</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// We calculate the layer thickness&#39; from</span>
+<span class="w">        </span><span class="c1">// the volumes and the APM...</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">headThick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vHead</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">lipidAPM</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">tailThick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vTail</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">lipidAPM</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// Manually deal with hydration for layers in</span>
+<span class="w">        </span><span class="c1">// this example.</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">oxSLD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">oxideHydration</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">bulkOut</span><span class="p">[</span><span class="n">contrast</span><span class="p">])</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">((</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">oxideHydration</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">oxideSLD</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">headSLD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">headHydration</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">bulkOut</span><span class="p">[</span><span class="n">contrast</span><span class="p">])</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">((</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">headHydration</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SLDhead</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">tailSLD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">bilayerHydration</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">bulkOut</span><span class="p">[</span><span class="n">contrast</span><span class="p">])</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">((</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">bilayerHydration</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SLDtail</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Make the layers</span>
+<span class="w">        </span><span class="c1">// oxide...</span>
+<span class="w">        </span><span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">oxideThick</span><span class="p">);</span>
+<span class="w">        </span><span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">oxSLD</span><span class="p">);</span>
+<span class="w">        </span><span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">subRough</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Water...</span>
+<span class="w">        </span><span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">waterThick</span><span class="p">);</span>
+<span class="w">        </span><span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">bulkOut</span><span class="p">[</span><span class="n">contrast</span><span class="p">]);</span>
+<span class="w">        </span><span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">bilayerRough</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Heads...</span>
+<span class="w">        </span><span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">headThick</span><span class="p">);</span>
+<span class="w">        </span><span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">headSLD</span><span class="p">);</span>
+<span class="w">        </span><span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">bilayerRough</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Tails...</span>
+<span class="w">        </span><span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">tailThick</span><span class="p">);</span>
+<span class="w">        </span><span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">tailSLD</span><span class="p">);</span>
+<span class="w">        </span><span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">bilayerRough</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Tails...</span>
+<span class="w">        </span><span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">tailThick</span><span class="p">);</span>
+<span class="w">        </span><span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">tailSLD</span><span class="p">);</span>
+<span class="w">        </span><span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">bilayerRough</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Heads...</span>
+<span class="w">        </span><span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">headThick</span><span class="p">);</span>
+<span class="w">        </span><span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">headSLD</span><span class="p">);</span>
+<span class="w">        </span><span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">bilayerRough</span><span class="p">);</span>
+
+<span class="w">        </span><span class="o">*</span><span class="n">rough</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subRough</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">outputSize</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w">     </span><span class="c1">// row - Necessary to output how many layers in stack</span>
+<span class="w">        </span><span class="n">outputSize</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span><span class="w"> </span><span class="c1">// extern &quot;C&quot;</span>
+</pre></div>
+</div>
+<p>Before you can use this file, you need to compile and build it into a shared library. The details will vary according to you system, for example…</p>
+<ul class="simple">
+<li><p>Clang on Apple (OSX)</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>clang<span class="w"> </span>-c<span class="w"> </span>customBilayer.cpp<span class="w"> </span>-o<span class="w"> </span>customBilayer.o<span class="w"> </span>-std<span class="o">=</span>c++11<span class="w"> </span>-arch<span class="w"> </span>x86_64
+clang<span class="w"> </span>-shared<span class="w"> </span>customBilayer.o<span class="w"> </span>-o<span class="w"> </span>customBilayer.dylib<span class="w"> </span>-arch<span class="w"> </span>x86_64<span class="w"> </span>-lc++
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>GCC on Linux:</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>-fPIC<span class="w"> </span>-c<span class="w"> </span>customBilayer.cpp<span class="w"> </span>-o<span class="w"> </span>customBilayer.o<span class="w"> </span>-std<span class="o">=</span>c++11
+g++<span class="w"> </span>-shared<span class="w"> </span>customBilayer.o<span class="w"> </span>-o<span class="w"> </span>customBilayer.so
+</pre></div>
+</div>
+<ul>
+<li><p>Windows (with MSVC):</p>
+<blockquote>
+<div><p>cl /EHsc /LD customBilayer.cpp</p>
+</div></blockquote>
+</li>
+</ul>
+<p>This will create either customBilayer.dylib (OSX), customBilayer.dll (Windows) or customBilayer.so (Linux).</p>
+<p>To use this, we just add the relevant model to out project, in the same way as for Matlab and Python models:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addCustomFile</span><span class="p">(</span><span class="s">&#39;DSPC Model&#39;</span><span class="p">,</span><span class="s">&#39;customBilayer.dylib&#39;</span><span class="p">,</span><span class="s">&#39;cpp&#39;</span><span class="p">,</span><span class="nb">pwd</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You can then use your C++ custom model in your ptoject as normal.</p>
+</section>
+<section id="performance-comparisons">
+<h2>Performance Comparisons<a class="headerlink" href="#performance-comparisons" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="parallelisation.html" class="btn btn-neutral float-left" title="Parallelising Calculations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="events.html" class="btn btn-neutral float-right" title="Handling Events During Calculations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2024, ISIS Neutron and Muon Source.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

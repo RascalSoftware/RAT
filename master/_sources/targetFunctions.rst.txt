@@ -20,9 +20,6 @@ Common Functions
 .. _nonPolarisedTF:
 
 Non-Polarised Target Functions (nonPolarisedTF)
------------------------------------------------
-.. automodule:: targetFunctions.+nonPolarisedTF.+standardLayers
-    :members:
 
 .. automodule:: targetFunctions.+nonPolarisedTF.+customLayers
     :members:
@@ -32,9 +29,6 @@ Non-Polarised Target Functions (nonPolarisedTF)
 
 Domains Target Functions (domainsTF)
 ------------------------------------
-.. automodule:: targetFunctions.+domainsTF.+standardLayers
-    :members:
-
 .. automodule:: targetFunctions.+domainsTF.+customLayers
     :members:
 

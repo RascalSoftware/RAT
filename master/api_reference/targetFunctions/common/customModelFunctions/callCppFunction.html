@@ -26,7 +26,7 @@
 <div class="box"><strong></strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>function [output,subRough] = callCppFunction(params, bulkIn, bulkOut, contrast, domain, pointer) </strong></div>
+<div class="box"><strong>function [output,subRough] = callCppFunction(pointer, params, bulkIn, bulkOut, contrast, domain) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment"></pre></div>
@@ -38,17 +38,17 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../targetFunctions/+domainsTF/+customLayers/processCustomFunction.html" class="code" title="function [allLayers,allRoughs] = processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)">processCustomFunction</a>	Top-level function for processing custom layers for all the</li>
-<li><a href="../../../targetFunctions/+domainsTF/+customXY/processCustomFunction.html" class="code" title="function [allSLDs,allRoughs] = processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)">processCustomFunction</a>	Top-level function for processing custom XY profiles for all the</li>
-<li><a href="../../../targetFunctions/+nonPolarisedTF/+customLayers/processCustomFunction.html" class="code" title="function [allLayers,allRoughs] = processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)">processCustomFunction</a>	Top-level function for processing custom layers for all the</li>
-<li><a href="../../../targetFunctions/+nonPolarisedTF/+customXY/processCustomFunction.html" class="code" title="function [allSLDs,allRoughs] = processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)">processCustomFunction</a>	Top-level function for processing custom XY profiles for all the</li>
+<li><a href="../../../targetFunctions/+domainsTF/+customLayers/processCustomFunction.html" class="code" title="function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)">processCustomFunction</a>	Top-level function for processing custom layers for all the</li>
+<li><a href="../../../targetFunctions/+domainsTF/+customXY/processCustomFunction.html" class="code" title="function [slds,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params)">processCustomFunction</a>	Top-level function for processing custom XY profiles for all the</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/+customLayers/processCustomFunction.html" class="code" title="function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)">processCustomFunction</a>	Top-level function for processing custom layers for all the</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/+customXY/processCustomFunction.html" class="code" title="function [slds,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params)">processCustomFunction</a>	Top-level function for processing custom XY profiles for all the</li>
 </ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [output,subRough] = callCppFunction(params, bulkIn, bulkOut, contrast, domain, pointer)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [output,subRough] = callCppFunction(pointer, params, bulkIn, bulkOut, contrast, domain)</a>
 0002     coder.cinclude(<span class="string">'&lt;functional&gt;'</span>);
 0003     coder.cinclude(<span class="string">'classHandle.hpp'</span>)
 0004     
@@ -58,26 +58,46 @@ This function is called by:
 0008     callback = coder.opaque(<span class="string">'CallbackInterface *'</span>,<span class="string">'NULL'</span>);
 0009     callback = coder.ceval(<span class="string">'std::mem_fn(&amp;ClassHandle&lt;CallbackInterface&gt;::ptr)'</span>, callbackHandle);
 0010        
-0011     tempOutput = zeros(1, 6000); <span class="comment">% This is not ideal, it needs to be fixed</span>
-0012     subRough = 0.0;
-0013     outputSize = [0, 0];
-0014     
-0015     <span class="comment">% domain should either before 0 or 1. A value less than zero indicates no domains</span>
-0016     <span class="keyword">if</span> (domain &lt; 0)
-0017         coder.ceval(<span class="string">'std::mem_fn&lt;void(double*, double*, double*, int, double*, double*, double*)&gt;(&amp;CallbackInterface::invoke)'</span>, <span class="keyword">...</span>
-0018               callback, coder.ref(params), coder.ref(bulkIn), coder.ref(bulkOut), contrast, coder.wref(tempOutput), <span class="keyword">...</span>
-0019               coder.wref(outputSize), coder.wref(subRough));
-0020     <span class="keyword">else</span>
-0021         coder.ceval(<span class="string">'std::mem_fn&lt;void(double*, double*, double*, int, int, double*, double*, double*)&gt;(&amp;CallbackInterface::invoke)'</span>, <span class="keyword">...</span>
-0022             callback, coder.ref(params), coder.ref(bulkIn), coder.ref(bulkOut), contrast, domain, coder.wref(tempOutput), <span class="keyword">...</span>
-0023             coder.wref(outputSize), coder.wref(subRough)); 
-0024     <span class="keyword">end</span>
-0025 
-0026     size = outputSize(1) * outputSize(2);
-0027     output = reshape(tempOutput(1, 1:size), [outputSize(2), outputSize(1)])';
-0028 <span class="keyword">end</span>
+0011     subRough = 0.0;
+0012     outputSize = [0, 0];
+0013     
+0014     paramsArray = coder.opaque(<span class="string">'std::vector&lt;double&gt;'</span>);
+0015     paramsArray = coder.ceval(<span class="string">'convertPtr2Vector'</span>, coder.ref(params), numel(params));
+0016 
+0017     bulkInArray = coder.opaque(<span class="string">'std::vector&lt;double&gt;'</span>);
+0018     bulkInArray = coder.ceval(<span class="string">'convertPtr2Vector'</span>, coder.ref(bulkIn), numel(bulkIn));
+0019  
+0020     bulkOutArray = coder.opaque(<span class="string">'std::vector&lt;double&gt;'</span>);
+0021     bulkOutArray = coder.ceval(<span class="string">'convertPtr2Vector'</span>, coder.ref(bulkOut), numel(bulkOut));
+0022 
+0023     outArray = coder.opaque(<span class="string">'std::vector&lt;double&gt;'</span>, <span class="string">'{}'</span>);
+0024 
+0025     <span class="comment">% domain should either before 0 or 1. A value less than zero indicates no domains</span>
+0026     <span class="keyword">if</span> (domain &lt; 0)
+0027         coder.ceval([<span class="string">'std::mem_fn&lt;void(std::vector&lt;double&gt;&amp;, std::vector&lt;double&gt;&amp;, std::vector&lt;double&gt;&amp;, int, '</span> <span class="keyword">...</span>
+0028                      <span class="string">'std::vector&lt;double&gt;&amp;, double*, double*)&gt;(&amp;CallbackInterface::invoke)'</span>], <span class="keyword">...</span>
+0029                      callback, paramsArray, bulkInArray, bulkOutArray, contrast, outArray, <span class="keyword">...</span>
+0030                      coder.wref(outputSize), coder.wref(subRough));
+0031     <span class="keyword">else</span>
+0032         coder.ceval([<span class="string">'std::mem_fn&lt;void(std::vector&lt;double&gt;&amp;, std::vector&lt;double&gt;&amp;, std::vector&lt;double&gt;&amp;, int, int, '</span> <span class="keyword">...</span>
+0033                      <span class="string">'std::vector&lt;double&gt;&amp;, double*, double*)&gt;(&amp;CallbackInterface::invoke)'</span>], <span class="keyword">...</span>
+0034                      callback, paramsArray, bulkInArray, bulkOutArray, contrast, domain, outArray, <span class="keyword">...</span>
+0035                      coder.wref(outputSize), coder.wref(subRough)); 
+0036     <span class="keyword">end</span>
+0037     
+0038     
+0039     size = int32(outputSize(1) * outputSize(2));
+0040     tempOutput = zeros(1, size);
+0041     actualSize = 0;
+0042     actualSize = coder.ceval(<span class="string">'convertVector2Ptr'</span>, outArray, coder.wref(tempOutput));
+0043 
+0044     <span class="keyword">if</span> size ~= actualSize
+0045         error(<span class="string">'The output of the custom function with size %d does not match the specified size (%d x %d).'</span>, actualSize, outputSize(2), outputSize(1))
+0046     <span class="keyword">end</span>
+0047     output = reshape(tempOutput, [outputSize(2), outputSize(1)])';
+0048 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Mon 04-Dec-2023 13:09:56 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

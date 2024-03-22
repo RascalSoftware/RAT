@@ -25,7 +25,7 @@
 <div class="box"><strong>Calculates the avereaged reflectivity for domains samples (incoherent</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>function [totReflect,totSimul] = averageReflectivity(reflect1,reflect2,Simul1,Simul2,domainRatio) </strong></div>
+<div class="box"><strong>function [totReflect,totSimul] = averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre class="comment"> Calculates the avereaged reflectivity for domains samples (incoherent
@@ -45,7 +45,7 @@ This function is called by:
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [totReflect,totSimul] = averageReflectivity(reflect1,reflect2,Simul1,Simul2,domainRatio)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [totReflect,totSimul] = averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio)</a>
 0002 
 0003 <span class="comment">% Calculates the avereaged reflectivity for domains samples (incoherent</span>
 0004 <span class="comment">% sum)</span>
@@ -53,18 +53,18 @@ This function is called by:
 0006 refY1 = reflect1(:,2);
 0007 refY2 = reflect2(:,2);
 0008 
-0009 simY1 = Simul1(:,2);
-0010 simY2 = Simul2(:,2);
+0009 simY1 = simul1(:,2);
+0010 simY2 = simul2(:,2);
 0011 
 0012 averageRefY = (domainRatio * refY1) + ((1 - domainRatio) * refY2);
 0013 averageSimY = (domainRatio * simY1) + ((1 - domainRatio) * simY2);
 0014 
 0015 totReflect = [reflect1(:,1) averageRefY(:)];
-0016 totSimul = [Simul1(:,1) averageSimY(:)];
+0016 totSimul = [simul1(:,1) averageSimY(:)];
 0017 
 0018 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Mon 04-Dec-2023 13:09:56 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

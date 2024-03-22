@@ -50,6 +50,10 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calcTypes.html">Different Calculation Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utility Functions</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="projectClass.html">Project Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="controlClass.html">Controls Class</a></li>
@@ -58,7 +62,6 @@
 <li class="toctree-l2"><a class="reference internal" href="utilityFunctions.html">Utility Functions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 </ul>
 
@@ -111,17 +114,17 @@ which starts the reflectivity calculation.</p>
 in a field of a struct. So, look at <cite>parseClassToStructs</cite> function to understand how the data is converted.</p>
 <dl class="mat function">
 <dt class="sig sig-object mat" id="API.RAT">
-<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">RAT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">problemDefInput</span></em>, <em class="sig-param"><span class="pre">controls</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.RAT" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">RAT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">project</span></em>, <em class="sig-param"><span class="pre">controls</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.RAT" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="mat function">
 <dt class="sig sig-object mat" id="API.RATMain">
-<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">RATMain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">problemDef</span></em>, <em class="sig-param"><span class="pre">problemDefCells</span></em>, <em class="sig-param"><span class="pre">problemDefLimits</span></em>, <em class="sig-param"><span class="pre">controls</span></em>, <em class="sig-param"><span class="pre">priors</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.RATMain" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">RATMain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">problemStruct</span></em>, <em class="sig-param"><span class="pre">problemCells</span></em>, <em class="sig-param"><span class="pre">problemLimits</span></em>, <em class="sig-param"><span class="pre">controls</span></em>, <em class="sig-param"><span class="pre">priors</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.RATMain" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="mat function">
 <dt class="sig sig-object mat" id="API.parseClassToStructs">
-<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">parseClassToStructs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">inputProblemDef</span></em>, <em class="sig-param"><span class="pre">inputControls</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.parseClassToStructs" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">parseClassToStructs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">project</span></em>, <em class="sig-param"><span class="pre">inputControls</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.parseClassToStructs" title="Permalink to this definition"></a></dt>
 <dd><p>Breaks up the classes into the relevant structures for inputting into C</p>
 </dd></dl>
 
@@ -138,7 +141,7 @@ in a field of a struct. So, look at <cite>parseClassToStructs</cite> function to
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022-2023, ISIS Neutron and Muon Source.</p>
+    <p>&#169; Copyright 2022-2024, ISIS Neutron and Muon Source.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

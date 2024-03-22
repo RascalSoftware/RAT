@@ -46,13 +46,6 @@ function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiS
 %
 %
 %
-% ------------------------------------------------------------------------
-%
-%       (c) Arwel Hughes  -   12/1/21
-%
-%       Last Modified: 12/1/21 by Arwel Hughes.
-%
-% ------------------------------------------------------------------------
 
 % Pre-definition for Coder
 thisSldLaysIm = [0 0];
@@ -122,7 +115,7 @@ shiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simLimit
 reflectivityType = 'standardAbeles';
 [reflect,simulation] = callReflectivity(bulkIn,bulkOut,simLimits,repeatLayers,shiftedData,layerSld,ssubs,resolution,parallelPoints,reflectivityType,useImaginary);
 
-% Apply background correction, either to the simulation or the data
+% Apply background correction
 [reflect,simulation,shiftedData] = applyBackgroundCorrection(reflect,simulation,shiftedData,background,contrastBackgroundsType);
 
 % Calculate chi squared.

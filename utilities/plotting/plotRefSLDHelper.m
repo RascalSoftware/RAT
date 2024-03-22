@@ -52,7 +52,13 @@ function plotRefSLDHelper(data, noDelay)
             bulkOut = layers(end, 2);
 
             for j=1:size(data.resampledLayers, 2)
-                layer = data.resampledLayers{i, j};                          
+                layer = data.resampledLayers{i, j};                                               
+
+                % Because we plot only real SLD, if we have imaginary in
+                % layers then take it out...
+                if size(layers,2) == 4
+                    layer = [layer(:,1:2),layer(:,4)];
+                end
                 numberOfLayers = size(layer, 1);
                 nrepeats = 1;
                 newProf = makeSLDProfileXY(bulkIn,bulkOut,roughness,layer,numberOfLayers,nrepeats);

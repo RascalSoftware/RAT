@@ -84,7 +84,7 @@ output.DREAMPar = outDREAMPar;
 output.Meas_info = Meas_info;
 output.iteration = 1;
 output.iloc = 0;
-output.fx = 0;
+output.modelOutput = 0;
 
 % Initialize matrix with log_likelihood of each chain
 log_L = NaN(outDREAMPar.nGenerations,outDREAMPar.nChains+1);

@@ -332,19 +332,22 @@ Following on from our custom bilayer examples, the equivalent C++ custom model s
 
 Before you can use this file, you need to compile and build it into a shared library. The details will vary according to you system, for example...
 
-* Clang on Apple (OSX):
+* Clang on Apple (OSX)
+
 .. code:: Bash
 
     clang -c customBilayer.cpp -o customBilayer.o -std=c++11 -arch x86_64
     clang -shared customBilayer.o -o customBilayer.dylib -arch x86_64 -lc++
 
 * GCC on Linux:
+
 .. code:: Bash
 
     g++ -fPIC -c customBilayer.cpp -o customBilayer.o -std=c++11
     g++ -shared customBilayer.o -o customBilayer.so
 
 * Windows (with MSVC):
+
     cl /EHsc /LD customBilayer.cpp
 
 This will create either customBilayer.dylib (OSX), customBilayer.dll (Windows) or customBilayer.so (Linux).

@@ -164,8 +164,8 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     allChains = [1 1 1];
     coder.varsize('allChains',[1e4 50 50],[1 1 1]);
 
-    outlier = [1 1];
-    coder.varsize('outlier',[1e3 1e3],[1 1]);
+    outlierChains = [1 1];
+    coder.varsize('outlierChains',[1e3 1e3],[1 1]);
     
     iteration = 0;
     iloc = 0;
@@ -180,7 +180,7 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     coder.varsize('CR',[1e3 1e3],[1 1]);
     
     dreamOutput = struct('allChains', allChains, ...
-                           'outlier', outlier,...
+                     'outlierChains', outlierChains,...
                            'runtime', 100,...
                          'iteration', iteration,...
                               'iloc', iloc,...

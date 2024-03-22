@@ -75,9 +75,9 @@ if ~isfield(Par_info,'min')
 end
 
 % Initialize output information -- Outlier chains
-outlier = [0 0];
-coder.varsize('outlier',[1e3 1e3],[1 1]);
-output.outlier = outlier;
+outlierChains = [0 0];
+coder.varsize('outlierChains',[1e3 1e3],[1 1]);
+output.outlierChains = outlierChains;
 % ..also run time
 output.runtime = 0;
 output.DREAMPar = outDREAMPar; 

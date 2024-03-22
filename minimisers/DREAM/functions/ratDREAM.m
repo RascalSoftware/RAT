@@ -258,7 +258,7 @@ for t = T_start : DREAMPar.nGenerations
             end
         else
             % See whether there are any outlier chains, and remove them to current best value of X
-            [X,log_L(1:t,2:DREAMPar.nChains+1),output.outlier] = removeOutlier(X,log_L(1:t,2:DREAMPar.nChains+1),output.outlier,DREAMPar);
+            [X,log_L(1:t,2:DREAMPar.nChains+1),output.outlierChains] = removeOutlier(X,log_L(1:t,2:DREAMPar.nChains+1),output.outlierChains,DREAMPar);
         end
         
         % Store diagnostic information -- Probability of individual crossover values

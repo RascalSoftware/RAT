@@ -14,7 +14,7 @@ plotRefSLD(problem,results);
 
 
 %% Python
-problem.setCustomFile(1,'filename', 'customBilayer_numba.py');
+problem.setCustomFile(1,'filename', 'customBilayer.py');
 problem.setCustomFile(1,'language','python');
 
 [problem,results] = RAT(problem,controls);

@@ -59,7 +59,6 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             message = sprintf('parallel must be a parallelOptions enum or one of the following strings (%s)', ...
                 strjoin(parallelOptions.values(), ', '));
             obj.parallel = validateOption(val, 'parallelOptions', message).value;
-
         end
 
         function obj = set.procedure(obj,val)

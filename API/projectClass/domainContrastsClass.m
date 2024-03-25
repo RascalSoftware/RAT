@@ -54,4 +54,13 @@ classdef domainContrastsClass < baseContrasts
             inputBlock = p.Results;
         end
     end
+
+    methods(Static)
+
+        function contrast = setDefaultValues(contrast)
+            % Set non-empty default values when adding a contrast.
+            contrast.model = '';
+        end
+    end
+
 end

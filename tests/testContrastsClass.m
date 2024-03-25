@@ -288,6 +288,12 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleClass.contrasts, expectedContrasts, 'addContrast does not work correctly');
         end
 
+        function testAddContrastInvalid(testCase)
+            % Test adding a contrast to the contrasts class.
+            % If the "backgroundAction" input is not a member of the enum
+            % we should raisde an error
+            testCase.verifyError(@() testCase.exampleClass.addContrast(testCase.allowedNames, 'backgroundAction', 'random'), exceptions.invalidOption.errorID);
+        end
 
         function testRemoveContrast(testCase, removeInput)
             % Test removing a contrast from the contrasts class.
@@ -371,6 +377,13 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
             testCase.exampleClass.setContrast(contrastIndex, testCase.allowedNames, testCase.newValues{:});
             testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}, expectedContrast, 'setContrast does not work correctly');
+
+            % Addresses bug where resample was reset due to non-empty
+            % default value
+            checkName = 'Check New Contrast';
+            expectedContrast.name = checkName;
+            testCase.exampleClass.setContrast(contrastIndex, testCase.allowedNames, 'name', checkName);
+            testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}, expectedContrast, 'setContrast does not work correctly');
         end
 
         function testSetContrastNoDomainsNoOil(testCase)
@@ -418,6 +431,9 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.setContrast(0, testCase.allowedNames, testCase.newValues), exceptions.indexOutOfRange.errorID);
             testCase.verifyError(@() testCase.exampleClass.setContrast(testCase.numContrasts+1, testCase.allowedNames, testCase.newValues), exceptions.indexOutOfRange.errorID);
             testCase.verifyError(@() testCase.exampleClass.setContrast('Invalid Contrast', testCase.allowedNames, testCase.newValues), exceptions.nameNotRecognised.errorID);
+
+            % "backgroundAction" should be a value of the "actions" enum
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, 'backgroundAction', 'random'), exceptions.invalidOption.errorID);
         end
 
         function testGetAllContrastNames(testCase)

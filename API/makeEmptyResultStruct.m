@@ -1,4 +1,4 @@
-function result = makeEmptyResultStruct(nContrasts,nPars,domains)
+function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     % A function to make an empty container to hold the results of
     % reflectivity calculations. The struct has the following format:
     %
@@ -17,8 +17,8 @@ function result = makeEmptyResultStruct(nContrasts,nPars,domains)
     %    resampledLayers: [nContrastsx1 cell]
     % calculationResults: [1x1 struct]
     %     contrastParams: [1x1 struct]
-    %          fitParams: [1xnPars double]
-    %           fitNames: [nParsx1 cell]
+    %          fitParams: [1xnParams double]
+    %           fitNames: [nParamsx1 cell]
     
     % -----------------------------------------------------------
     % Make the individual structs....
@@ -136,13 +136,13 @@ function result = makeEmptyResultStruct(nContrasts,nPars,domains)
         end
     end
     
-    fitParams = zeros(1,nPars);
+    fitParams = zeros(1,nParams);
     coder.varsize('fitParams',[1 10000],[0 1]);
     
-    fitNames = cell(nPars,1);
+    fitNames = cell(nParams,1);
     fitNamesChar = '';
     coder.varsize('fitNamesChar',[1 1000],[0 1]);
-    for i = 1:nPars
+    for i = 1:nParams
         fitNames{i} = fitNamesChar;
     end
 

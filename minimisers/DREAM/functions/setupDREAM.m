@@ -1,5 +1,5 @@
-function [outDREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
-        gen] = setupDREAM(DREAMPar,Par_info,Meas_info)
+function [outDREAMPar,paramInfo,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
+        gen] = setupDREAM(DREAMPar,paramInfo,Meas_info)
 % Initializes the main variables used in DREAM
 % To keep coder happy, we have to define the full version of DREAMPar here
 % fieldNames = {'nParams','nChains','nGenerations','parallel','CPU','jumpProbability','pUnitGamma','nCR','delta','steps',...
@@ -69,9 +69,9 @@ for i = 1:outDREAMPar.nChains
 end
 
 % Check whether parameter ranges have been defined or not
-if ~isfield(Par_info,'min')
+if ~isfield(paramInfo,'min')
     % Specify very large initial parameter ranges (minimum and maximum values)
-    Par_info.min = -Inf * ones ( 1 , outDREAMPar.nParams ); Par_info.max = Inf * ones ( 1 , outDREAMPar.nParams );
+    paramInfo.min = -Inf * ones ( 1 , outDREAMPar.nParams ); paramInfo.max = Inf * ones ( 1 , outDREAMPar.nParams );
 end
 
 % Initialize output information -- Outlier chains

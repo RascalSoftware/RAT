@@ -20,7 +20,7 @@ mcmcfrac = 0.9;
 l2p = 0.5*log(2*pi); % useful constant
 
 nLive = size(livepoints,1);
-Npars = size(livepoints,2);
+nParams = size(livepoints,2);
 
 Ndegs = 2; % degrees of freedom of Students't distribution
 
@@ -38,7 +38,7 @@ while 1
     % get the sample prior
     currentPrior = -inf;
     
-    for j=1:Npars
+    for j=1:nParams
         priortype = prior(j,1);
 %         p3 = prior{j,3};
 %         p4 = prior{j,4};
@@ -64,7 +64,7 @@ while 1
     for i=1:nMCMC        
         if rand < mcmcfrac % use Students-t proposal
             % draw points from mulitvariate Gaussian distribution 
-            gasdevs = randn(Npars,1);
+            gasdevs = randn(nParams,1);
             sampletmp = (cholmat*gasdevs)';
             
             % calculate chi-square distributed value
@@ -90,7 +90,7 @@ while 1
         % check sample is within the (scaled) prior
         newPrior = -inf;
         behaviour = 'cyclic';
-        for j=1:Npars
+        for j=1:nParams
             priortype = prior(j,1);
             % p3 = prior{j,3};
             % p4 = prior{j,4};

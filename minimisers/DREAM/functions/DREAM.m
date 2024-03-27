@@ -1,4 +1,4 @@
-function [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,Par_info,Meas_info, varargin)
+function [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,paramInfo,Meas_info, varargin)
 % ----------------------------------------------------------------------------------------------%
 %                                                                                               %
 % DDDDDDDDDDDDDDD    RRRRRRRRRRRRRR     EEEEEEEEEEEEEEEE       AAAAA       MMM             MMM  %
@@ -31,12 +31,12 @@ function [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,Par_info,Meas_info, 
 % --------------------------------------------------------------------------------------------- %
 %                                                                                               %
 % SYNOPSIS: [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar)                                 %
-%           [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,Par_info)                        %
-%           [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,Par_info,Meas_info)              %
+%           [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,paramInfo)                        %
+%           [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,paramInfo,Meas_info)              %
 %                                                                                               %
 % Input:    Func_name = name of the function ( = model ) that returns density of proposal       %
 %           DREAMPar = structure with algorithmic / computatinal settings of DREAM              %
-%           Par_info = structure with parameter ranges, prior distribution, boundary handling   %
+%           paramInfo = structure with parameter ranges, prior distribution, boundary handling   %
 %           Meas_info = optional structure with measurements to be evaluated against            %
 %                                                                                               %
 % Output:   chain = 3D array with chain trajectories, log-prior and log-likelihood values       %
@@ -133,10 +133,10 @@ if isempty(Meas_info), Meas_info.Y = []; end
 
 if ~isfield(DREAMPar,'restart') || ~DREAMPar.restart
     % Initialize the main variables used in DREAM
-    [DREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
-        gen] = setupDREAM(DREAMPar,Par_info,Meas_info);
+    [DREAMPar,paramInfo,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
+        gen] = setupDREAM(DREAMPar,paramInfo,Meas_info);
     % Check for setup errors
-    [stop,fid] = checkDREAM(DREAMPar,Par_info,Meas_info);
+    [stop,fid] = checkDREAM(DREAMPar,paramInfo,Meas_info);
     % Return to main program
     if stop; return; end
     % Create computing environment (depending whether multi-core is used)
@@ -144,7 +144,7 @@ if ~isfield(DREAMPar,'restart') || ~DREAMPar.restart
     % Now check how the measurement sigma is arranged (estimated or defined)
     Meas_info = checkSigma(Meas_info); T_start = 2;
     % Create the initial states of each of the chains (initial population)
-    [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMPar,Par_info,Meas_info,f_handle,chain,output,log_L, varargin{:});
+    [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMPar,paramInfo,Meas_info,f_handle,chain,output,log_L, varargin{:});
 elseif DREAMPar.restart
     % Print to screen restart run
     disp('Restart run');
@@ -169,13 +169,13 @@ for t = T_start : DREAMPar.nGenerations
     [xold,log_PR_xold,log_L_xold] = deal(X(:,1:end-2),X(:,end-1),X(:,end));
     
     % Now generate candidate in each sequence using current point and members of X
-    [xnew,CR(:,gen)] = calcProposal(xold,CR(:,gen),DREAMPar,Table_gamma,Par_info);
+    [xnew,CR(:,gen)] = calcProposal(xold,CR(:,gen),DREAMPar,Table_gamma,paramInfo);
     
     % Now evaluate the model ( = pdf ) and return fx
     [fx_new] = evaluateModel(xnew,DREAMPar,Meas_info,f_handle, varargin{:});
     
     % Calculate the log-likelihood and log-prior of x (fx)
-    [log_L_xnew,log_PR_xnew] = calcDensity(xnew,fx_new,DREAMPar,Par_info,Meas_info);
+    [log_L_xnew,log_PR_xnew] = calcDensity(xnew,fx_new,DREAMPar,paramInfo,Meas_info);
     
     % Calculate the Metropolis ratio
     [accept,idx_ac] = metropolisRule(DREAMPar,log_L_xnew,log_PR_xnew,log_L_xold,log_PR_xold);

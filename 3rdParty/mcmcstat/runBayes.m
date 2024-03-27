@@ -34,9 +34,9 @@ end
 qcov = [];
 fitPars = problemStruct.fitParams;
 fitConstr = problemStruct.fitLimits;
-nPars = length(fitPars);
+nParams = length(fitPars);
 
-for i = 1:nPars
+for i = 1:nParams
     thisConstr = fitConstr(i,:);
     qcov(i) = (abs(thisConstr(2) - thisConstr(1))*0.0001)^2;
 end
@@ -61,7 +61,7 @@ options.stats       = 1;               % save extra statistics in result
 options.burnintime  = burnin;          % burn in time..
 options.ntry = 1;
 options.drscale = [3 2 1];
-%options.adascale = 2.4 / sqrt(nPars) * 0.01;
+%options.adascale = 2.4 / sqrt(nParams) * 0.01;
 
 
 results = [];

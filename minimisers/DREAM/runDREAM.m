@@ -63,7 +63,7 @@ DREAMPar.adaptPCR = controls.adaptPCR;
 
 % This will change...
 % Initial sampling and parameter range
-Par_info.prior = coderEnums.priorTypes.Uniform;
+paramInfo.prior = coderEnums.priorTypes.Uniform;
 ParInfo.min = problemStruct.fitLimits(:,1)';
 ParInfo.max = problemStruct.fitLimits(:,2)';
 ParInfo.boundhandling = controls.boundHandling;
@@ -76,11 +76,11 @@ Meas_info = struct('Y',0,'N',0);
 
 % Combine all chains....
 nChains = DREAMPar.nChains;
-nPars = DREAMPar.nParams;
+nParams = DREAMPar.nParams;
 
 collectChains = [];
 for i = 1:nChains
-    thisChain = chain(:,1:nPars,i);
+    thisChain = chain(:,1:nParams,i);
     
     % Keep only the last 75% of the chain..
     nSamples = size(thisChain,1);

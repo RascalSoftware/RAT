@@ -153,7 +153,7 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 
 [problemStruct,result,bayesResults] = processBayes(output,problemStruct,problemCells,problemLimits,controls);
 
-% problemStruct.fitParams = bayesResults.bestParams_Mean;
+% problemStruct.fitParams = bayesResults.bestParamsMean;
 
 
 % Post processing of Bayes
@@ -164,11 +164,11 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 % 
 % % 2. Find maximum values of posteriors. Store the max and mean posterior 
 % %    values, and calculate the best fit and SLD's from these.
-% [bestParams_max,posteriors] = findPosteriorsMax(output.chain);
-% bestParams_mean = output.results.mean;
+% [bestParamsMax,posteriors] = findPosteriorsMax(output.chain);
+% bestParamsMean = output.results.mean;
 % 
 % % Calulate Max best fit curves
-% problemStruct.fitParams = bestParams_max;
+% problemStruct.fitParams = bestParamsMax;
 % problemStruct = unpackParams(problemStruct,controls);
 % result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 % bestFitMax_Ref = result.reflectivity;
@@ -176,7 +176,7 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 % bestFitMax_chi = result.calculationResultss.sumChi;
 % 
 % % Calculate 'mean' best fit curves
-% problemStruct.fitParams = bestParams_mean;
+% problemStruct.fitParams = bestParamsMean;
 % problemStruct = unpackParams(problemStruct,controls);
 % result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 % bestFitMean_Ref = result.reflectivity;
@@ -198,9 +198,9 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 % bayesResults.chain = output.chain;
 % bayesResults.s2chain = output.s2chain;
 % bayesResults.sschain = output.sschain;
-% bayesResults.bestParams_Mean = output.results.mean;
+% bayesResults.bestParamsMean = output.results.mean;
 
-% bayesResults.bestParams_Max = bestParams_max;
+% bayesResults.bestParamsMax = bestParams_max;
 % bayesResults.bayesData = output.data;
 % bayesResults.bestFitsMax = {bestFitMax_Ref, bestFitMax_Sld, bestFitMax_chi};
 % bayesResults.bestFitMean = {bestFitMean_Ref, bestFitMean_Sld, bestFitMean_chi};

@@ -1,4 +1,4 @@
-function [chain,output,fx,log_L] = ratDREAM(dreamVariables,Par_info,Meas_info,ratInputs)
+function [chain,output,fx,log_L] = ratDREAM(dreamVariables,paramInfo,Meas_info,ratInputs)
 
 % Modified version of Vrugt DREAm algorithm to be specific for RAT....
 
@@ -36,12 +36,12 @@ function [chain,output,fx,log_L] = ratDREAM(dreamVariables,Par_info,Meas_info,ra
 % --------------------------------------------------------------------------------------------- %
 %                                                                                               %
 % SYNOPSIS: [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar)                                 %
-%           [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,Par_info)                        %
-%           [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,Par_info,Meas_info)              %
+%           [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,paramInfo)                        %
+%           [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,paramInfo,Meas_info)              %
 %                                                                                               %
 % Input:    Func_name = name of the function ( = model ) that returns density of proposal       %
 %           DREAMPar = structure with algorithmic / computatinal settings of DREAM              %
-%           Par_info = structure with parameter ranges, prior distribution, boundary handling   %
+%           paramInfo = structure with parameter ranges, prior distribution, boundary handling   %
 %           Meas_info = optional structure with measurements to be evaluated against            %
 %                                                                                               %
 % Output:   chain = 3D array with chain trajectories, log-prior and log-likelihood values       %
@@ -139,48 +139,33 @@ function [chain,output,fx,log_L] = ratDREAM(dreamVariables,Par_info,Meas_info,ra
 % ------------------------------------------------------------------------
 Meas_info.Y = 0;
 
-%if ~isfield(dreamVariables,'restart') || ~dreamVariables.restart
+% Initialize the main variables used in DREAM
+[inDREAMPar,paramInfo,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
+    gen] = setupDREAM(dreamVariables,paramInfo,Meas_info);
 
-    % Initialize the main variables used in DREAM
-    [inDREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
-        gen] = setupDREAM(dreamVariables,Par_info,Meas_info);
+% Check for setup errors
+% [stop,fid] = checkDREAM(DREAMPar,paramInfo,Meas_info);
+% stop = checkDREAM(inDREAMPar,paramInfo,Meas_info);
 
-    % Check for setup errors
-    % [stop,fid] = checkDREAM(DREAMPar,Par_info,Meas_info);
-    stop = checkDREAM(inDREAMPar,Par_info,Meas_info);
+% Return to main program
+% if stop; return; end
 
-    % Return to main program
-%   if stop; return; end
+% Create computing environment (depending whether multi-core is used)
+[DREAMPar] = setDREAMParam(inDREAMPar);
 
-    % Create computing environment (depending whether multi-core is used)
-    [DREAMPar] = setDREAMParam(inDREAMPar);
+% Now check how the measurement sigma is arranged (estimated or defined)
+%
+% -----------------------------------------
+% We do not have user inputted sigma in this form for the RAT 
+% implementation - Measurement Error is dealt with downstream in the 
+% likelihood function. So, we can remove the check for sigma.
+% --------------- AVH -------------------------
+%Meas_info = checkSigma(Meas_info); 
 
-    % Now check how the measurement sigma is arranged (estimated or defined)
-    %
-    % -----------------------------------------
-    % We do not have user inputted sigma in this form for the RAT 
-    % implementation - Measurement Error is dealt with downstream in the 
-    % likelihood function. So, we can remove the check for sigma.
-    % --------------- AVH -------------------------
-    %Meas_info = checkSigma(Meas_info); 
-    
-    T_start = 2;
+T_start = 2;
 
-    % Create the initial states of each of the chains (initial population)
-    [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMPar,Par_info,Meas_info,chain,output,log_L,ratInputs);
-
-% elseif DREAMPar.restart
-% 
-%     % Print to screen restart run
-%     disp('Restart run');
-%     % If a restart run is being done: just load the output from the previous ongoing trial
-%     load DREAM.mat; [CR] = drawCR(DREAMPar,pCR); DREAMPar.nGenerations = 2 * DREAMPar.nGenerations;
-%     % And make sure we add zeros to "chain" array
-%     chain = [chain ; nan(size(chain,1)-1,size(chain,2),size(chain,3))];
-%     % Open warning file and set T_start
-%     fid = fopen('warning_file.txt','a+'); T_start = t + 1;
-
-%end
+% Create the initial states of each of the chains (initial population)
+[chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMPar,paramInfo,Meas_info,chain,output,log_L,ratInputs);
 
 % Initialize waitbar. 
 triggerEvent(coderEnums.eventTypes.Progress, 'init', 0);
@@ -194,13 +179,13 @@ for t = T_start : DREAMPar.nGenerations
     [xold,log_PR_xold,log_L_xold] = deal(X(:,1:end-2),X(:,end-1),X(:,end));
     
     % Now generate candidate in each sequence using current point and members of X
-    [xnew,CR(:,gen)] = calcProposal(xold,CR(:,gen),DREAMPar,Table_gamma,Par_info);
+    [xnew,CR(:,gen)] = calcProposal(xold,CR(:,gen),DREAMPar,Table_gamma,paramInfo);
     
     % Now evaluate the model ( = pdf ) and return fx
     [fx_new] = evaluateModel(xnew,DREAMPar,Meas_info,ratInputs);
     
     % Calculate the log-likelihood and log-prior of x (fx)
-    [log_L_xnew,log_PR_xnew] = calcDensity(xnew,fx_new,DREAMPar,Par_info,Meas_info,ratInputs);
+    [log_L_xnew,log_PR_xnew] = calcDensity(xnew,fx_new,DREAMPar,paramInfo,Meas_info,ratInputs);
     
     % Calculate the Metropolis ratio
     [accept,idx_ac] = metropolisRule(DREAMPar,log_L_xnew,log_PR_xnew,log_L_xold,log_PR_xold);
@@ -276,12 +261,6 @@ for t = T_start : DREAMPar.nGenerations
         % Update the iteration, set gen back to 1 and totaccept to zero
         iteration = iteration + 1;  gen = 1; totaccept = 0;
         
-        % Save the output or not?
-%         if DREAMPar.save
-%             
-%             % Store in memory
-%             save DREAM.mat
-%         end 
     end
 end
 

@@ -469,9 +469,9 @@ for j = 1:DREAMPar.nParams
         plot([0:Nseq],chain(1:end,j,i),char(symbol(i)),'markersize',3,'linewidth',3); if i == 1; hold on; end;
     end
     % Add an axis
-    if isfield(Par_info,'min')
+    if isfield(paramInfo,'min')
         % Use scaling with prior parameter ranges
-        axis([0 Nseq Par_info.min(j) Par_info.max(j)]);
+        axis([0 Nseq paramInfo.min(j) paramInfo.max(j)]);
     else
         % Ranges have not been defined -- need to derive them from ParSet
         min_j = min(ParSet(:,j)); max_j = max(ParSet(:,j));

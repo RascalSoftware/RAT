@@ -1,4 +1,4 @@
-function [log_L,log_PR] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs)
+function [log_L,log_PR] = calcDensity(x,fx,DREAMPar,paramInfo,Meas_info,ratInputs)
 % Now calculate the likelihood (not used) and log-likelihood (used)
 
 % ---------------------------------------
@@ -32,20 +32,20 @@ function [log_L,log_PR] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs
 % if ~DREAMPar.ABC
 %     
 %     % Calculate the log-prior
-%     if isfield(Par_info,'prior_marginal')
+%     if isfield(paramInfo,'prior_marginal')
 %         
 %         % Compute prior densities for each parameter in each sequence
 %         for qq = 1 : DREAMPar.nParams
 %             for zz = 1 : DREAMPar.nChains
 %                 % Compute prior density of proposal
-%                 PR(zz,qq) = max ( eval(char(strrep(Par_info.prior_marginal(qq),'rnd(','pdf(x(zz,qq),'))) , 1e-299 );
+%                 PR(zz,qq) = max ( eval(char(strrep(paramInfo.prior_marginal(qq),'rnd(','pdf(x(zz,qq),'))) , 1e-299 );
 %             end
 %         end
 %         
 %         % Take the log of the densities and their sum
 %         log_PR = sum ( log ( PR ) , 2 );
 % 
-%     elseif isfield(Par_info,'mvnpdf')
+%     elseif isfield(paramInfo,'mvnpdf')
 
         % RAT specific prior funtion (mvnpdf)
         PR = zeros(1,DREAMPar.nChains);

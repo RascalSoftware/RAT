@@ -1,4 +1,4 @@
-function allPredInts = refPrctileConfInts(bayesOutputs,problemStruct,problemCells,problemLimits,controlsStruct,result,parConfInts)
+function allPredInts = percentileConfidenceIntervals(bayesOutputs,problemStruct,problemCells,problemLimits,controlsStruct,result,parConfInts)
 
 % Need to deal slightly differently with SLDs if there are domains
 if strcmpi(problemStruct.TF, coderEnums.calculationTypes.Domains)

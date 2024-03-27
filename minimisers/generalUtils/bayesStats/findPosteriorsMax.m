@@ -1,4 +1,4 @@
-function [bestParams_max,posteriors] = findPosteriorsMax(chain)
+function [bestParamsMax,posteriors] = findPosteriorsMax(chain)
 
 numPars = size(chain,2);
 posteriors = cell(1,numPars);
@@ -13,7 +13,7 @@ for i = 1:numPars
     if length(maxPos) > 1 
         maxPos = maxPos(1); 
     end
-    bestParams_max(i) = edges2(maxPos);  % Now maximum position on posterior fit, rather than mean.
+    bestParamsMax(i) = edges2(maxPos);  % Now maximum position on posterior fit, rather than mean.
     
     % Store the histograms and posteriors for eventual output
     thisPosterior = [];

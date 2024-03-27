@@ -1,4 +1,4 @@
-function confidenceIntervals = prctileConfInts(chain)
+function confidenceIntervals = percentileConfidenceIntervals(chain)
 
 CIFn = @(x,p)prctile(x,abs([0,100]-(100-p)/2));
 

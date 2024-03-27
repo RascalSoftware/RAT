@@ -3,7 +3,7 @@ function [outDREAMPar,paramInfo,Meas_info,chain,output,log_L,Table_gamma,iloc,it
 % Initializes the main variables used in DREAM
 % To keep coder happy, we have to define the full version of DREAMPar here
 % fieldNames = {'nParams','nChains','nGenerations','parallel','CPU','jumpProbability','pUnitGamma','nCR','delta','steps',...
-%     'zeta','outlier','adaptPCR','thinning','ABC','epsilon','IO','storeOutput','restart','save','R'};
+%     'zeta','outlier','adaptPCR','thinning','ABC','epsilon','IO','storeOutput','R'};
 % values = cell(length(fieldNames),1);
 % outDREAMPar = cell2struct(values,fieldNames);
 
@@ -12,8 +12,7 @@ coder.varsize('Rr',[1e4 1e4],[1 1]);
 
 outDREAMPar = struct('nParams',0,'nChains',0,'nGenerations',0,'parallel',false,'CPU',0,'jumpProbability',0,...
     'pUnitGamma',0,'nCR',0,'delta',0,'steps',0,'zeta',0,'outlier','iqr',...
-    'adaptPCR',false,'thinning',0,'ABC',false,'epsilon',0,'IO',false,'storeOutput',false,...
-    'restart',false,'save',false,'R',Rr);
+    'adaptPCR',false,'thinning',0,'ABC',false,'epsilon',0,'IO',false,'storeOutput',false,'R',Rr);
 
 
 % Generate new seed
@@ -52,7 +51,7 @@ for j = 1 : numel(name)
 end
 
 % Set default value to 'No' if not specified
-default = {'ABC','parallel','IO','storeOutput','restart','save'};
+default = {'ABC','parallel','IO','storeOutput'};
 for j = 1 : numel(default)
     if ~isfield(DREAMPar,default{j})
         % Set variable of DREAMPar to false

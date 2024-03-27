@@ -149,28 +149,26 @@ nsimu =  controls.nsimu;
 burnin = controls.burnin;
 adaptint = 100;%controls.adaptint;
 
-problem = {problemStruct ; controls ; problemLimits ; problemCells};
-
 output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 
-[problemStruct,result,bayesResults] = processBayes(output,problem);
+[problemStruct,result,bayesResults] = processBayes(output,problemStruct,problemCells,problemLimits,controls);
 
-% problemStruct.fitParams = bayesResults.bestPars_Mean;
+% problemStruct.fitParams = bayesResults.bestParamsMean;
 
 
 % Post processing of Bayes
 % --------------------------
 %
 % 1. Find the iterative shortest 95% Parameter confidence intervals
-% parConfInts = iterShortest(output.chain,length(fitNames),[],0.95);
+% confidenceIntervals = iterShortest(output.chain,length(fitNames),[],0.95);
 % 
 % % 2. Find maximum values of posteriors. Store the max and mean posterior 
 % %    values, and calculate the best fit and SLD's from these.
-% [bestPars_max,posteriors] = findPosteriorsMax(output.chain);
-% bestPars_mean = output.results.mean;
+% [bestParamsMax,posteriors] = findPosteriorsMax(output.chain);
+% bestParamsMean = output.results.mean;
 % 
 % % Calulate Max best fit curves
-% problemStruct.fitParams = bestPars_max;
+% problemStruct.fitParams = bestParamsMax;
 % problemStruct = unpackParams(problemStruct,controls);
 % result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 % bestFitMax_Ref = result.reflectivity;
@@ -178,7 +176,7 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 % bestFitMax_chi = result.calculationResultss.sumChi;
 % 
 % % Calculate 'mean' best fit curves
-% problemStruct.fitParams = bestPars_mean;
+% problemStruct.fitParams = bestParamsMean;
 % problemStruct = unpackParams(problemStruct,controls);
 % result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 % bestFitMean_Ref = result.reflectivity;
@@ -187,12 +185,12 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 % 
 % % 2. Reflectivity and SLD shading
 % predIntRef = mcmcpred_compile(output.results,output.chain,[],output.data,problem,500);
-% predIntRef = predIntRef.predlims;
+% predIntRef = predIntRef.predictionIntervals;
 % 
 % % Make sure the calc SLD flag is set in controls...
 % problem{2}.calcSldDuringFit = true;
 % predIntSld = mcmcpred_compile_sld(output.results,output.chain,[],output.data,problem,500);
-% predIntSld = predIntSld.predlims;
+% predIntSld = predIntSld.predictionIntervals;
 % 
 % % ---------------------------------
 % 
@@ -200,14 +198,14 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 % bayesResults.chain = output.chain;
 % bayesResults.s2chain = output.s2chain;
 % bayesResults.sschain = output.sschain;
-% bayesResults.bestPars_Mean = output.results.mean;
+% bayesResults.bestParamsMean = output.results.mean;
 
-% bayesResults.bestPars_Max = bestPars_max;
+% bayesResults.bestParamsMax = bestParams_max;
 % bayesResults.bayesData = output.data;
 % bayesResults.bestFitsMax = {bestFitMax_Ref, bestFitMax_Sld, bestFitMax_chi};
-% bayesResults.bestFitsMean = {bestFitMean_Ref, bestFitMean_Sld, bestFitMean_chi};
-% bayesResults.predlims = {predIntRef, predIntSld};
-% bayesResults.parConfInts = parConfInts;
+% bayesResults.bestFitMean = {bestFitMean_Ref, bestFitMean_Sld, bestFitMean_chi};
+% bayesResults.predictionIntervals = {predIntRef, predIntSld};
+% bayesResults.confidenceIntervals = confidenceIntervals;
 
 
 end

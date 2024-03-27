@@ -8,10 +8,10 @@ function CR = drawCR(DREAMPar,pCR)
         
         % If crossover probabilities are updated  
         % How many candidate points for each crossover value?
-        [L] = multrnd(DREAMPar.N * DREAMPar.steps,pCR); L2 = [0 cumsum(L)];
+        [L] = multrnd(DREAMPar.nChains * DREAMPar.steps,pCR); L2 = [0 cumsum(L)];
         
         % Then select which candidate points are selected with what CR
-        r = randperm(DREAMPar.N * DREAMPar.steps);
+        r = randperm(DREAMPar.nChains * DREAMPar.steps);
         
         % Then generate CR values for each chain
         cCR = zeros(1e6,1);
@@ -31,10 +31,10 @@ function CR = drawCR(DREAMPar,pCR)
         end
         
         % Now reshape CR
-        % CR = reshape(cCR,DREAMPar.N,DREAMPar.steps);
-        CR = reshape(cCR,DREAMPar.N,[]);
+        % CR = reshape(cCR,DREAMPar.nChains,DREAMPar.steps);
+        CR = reshape(cCR,DREAMPar.nChains,[]);
     else
         % If crossover probabilities are not updated  
-        CR = reshape(randsample([1:DREAMPar.nCR]/DREAMPar.nCR,DREAMPar.steps*DREAMPar.N,true,pCR),DREAMPar.N,DREAMPar.steps);
+        CR = reshape(randsample([1:DREAMPar.nCR]/DREAMPar.nCR,DREAMPar.steps*DREAMPar.nChains,true,pCR),DREAMPar.nChains,DREAMPar.steps);
     end    
 end

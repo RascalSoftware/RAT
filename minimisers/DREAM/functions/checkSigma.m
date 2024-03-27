@@ -10,7 +10,7 @@ if isfield(Meas_info,'Sigma')
         % Loop over n
         for j = 1:Meas_info.n
             % Define the input variables of the inline function in text
-            evalstr = strcat('Meas_info.a',num2str(j-1),'=','''x(ii,DREAMPar.d - ',num2str(j)-1,' )'';'); 
+            evalstr = strcat('Meas_info.a',num2str(j-1),'=','''x(ii,DREAMPar.nParams - ',num2str(j)-1,' )'';'); 
             % Now evaluate the text
             eval(evalstr); 
             % Now add to str_sigma

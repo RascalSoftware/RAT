@@ -3,10 +3,10 @@ function  [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,p
 checks = controls.checks;
 [problemStruct,fitNames] = packParams(problemStruct,problemCells,problemLimits,checks);
 
-nest_samples = [0 0 ; 0 0];
+nestSamples = [0 0 ; 0 0];
 coder.varsize('nest_samples');
 
-post_samples = [0 0 ; 0 0];
+postSamples = [0 0 ; 0 0];
 coder.varsize('post_samples');
 
 logZ = 0;
@@ -35,37 +35,29 @@ likelihood = @nsIntraFun;
 nMCMC = controls.nMCMC;
 data = {problemStruct ; controls ; problemLimits ; problemCells};
 
-[logZ, nest_samples, post_samples, H] = nestedSampler(data, nLive, nMCMC, ...
+[logZ, nestSamples, postSamples, H] = nestedSampler(data, nLive, nMCMC,...
     tolerance, likelihood, model, priorList, fitNames);
 
 % Process the results...
-nPars = length(fitNames);
+nParams = length(fitNames);
 % chain = nest_samples(:,1:end-1);
-chain = post_samples(:,1:nPars);
-bestPars = mean(chain,1);
+chain = postSamples(:,1:nParams);
 
-bayesOutputs.bestPars = mean(chain);
+bayesOutputs.bestParams = mean(chain);
 bayesOutputs.chain = chain;
 bayesOutputs.fitNames = fitNames;
 bayesOutputs.s2chain = [];
 bayesOutputs.sschain = [];
 bayesOutputs.data = problemCells{2};
 
-problem = cell(4,1);
-problem{1} = problemStruct;
-problem{2} = controls;
-problem{3} = problemLimits;
-problem{4} = problemCells;
+[problemStruct,result,nestResults] = processBayes(bayesOutputs,problemStruct,problemCells,problemLimits,controls);
 
-[problemStruct,result,nestResults] = processBayes(bayesOutputs,problem);
-
-bayesResults.predlims = nestResults.predlims;
-bayesResults.bestFitsMean = nestResults.bestFitsMean;
-bayesResults.parConfInts = nestResults.parConfInts;
-bayesResults.bestPars = bestPars;
+bayesResults.predictionIntervals = nestResults.predictionIntervals;
+bayesResults.bestFitMean = nestResults.bestFitMean;
+bayesResults.confidenceIntervals = nestResults.confidenceIntervals;
 bayesResults.chain = chain;
-bayesResults.bayesRes.nestOutput.LogZ = logZ;
-bayesResults.bayesRes.nestOutput.nestSamples = nest_samples;
-bayesResults.bayesRes.nestOutput.postSamples = post_samples;
+bayesResults.nestedSamplerOutput.LogZ = logZ;
+bayesResults.nestedSamplerOutput.nestSamples = nestSamples;
+bayesResults.nestedSamplerOutput.postSamples = postSamples;
 
 end

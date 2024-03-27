@@ -1,11 +1,11 @@
-function [x] = boundaryHandling(x,Par_info)
+function [x] = boundaryHandling(x,paramInfo)
 % Function to check whether parameter values remain within prior bounds
 
 % First determine the size of new
 [m,n] = size(x);
 
 % Now replicate min and max
-min_d = repmat(Par_info.min,m,1); max_d = repmat(Par_info.max,m,1);
+min_d = repmat(paramInfo.min,m,1); max_d = repmat(paramInfo.max,m,1);
 
 % Now find which elements of x are smaller than their respective bound
 [ii_low] = find(x < min_d); 
@@ -14,7 +14,7 @@ min_d = repmat(Par_info.min,m,1); max_d = repmat(Par_info.max,m,1);
 [ii_up] = find(x > max_d); 
 
 % Reflection
-if strcmp(Par_info.boundhandling,'reflect')
+if strcmp(paramInfo.boundhandling,'reflect')
 
     % reflect in min
     x(ii_low)= 2 * min_d(ii_low) - x(ii_low);     
@@ -25,7 +25,7 @@ if strcmp(Par_info.boundhandling,'reflect')
 end
 
 % Bound
-if strcmp(Par_info.boundhandling,'bound')
+if strcmp(paramInfo.boundhandling,'bound')
 
     % set lower values to min
     x(ii_low)= min_d(ii_low); 
@@ -36,7 +36,7 @@ if strcmp(Par_info.boundhandling,'bound')
 end
 
 % Folding
-if strcmp(Par_info.boundhandling,'fold')
+if strcmp(paramInfo.boundhandling,'fold')
 
     % Fold parameter space lower values
     x(ii_low) = max_d(ii_low) - ( min_d(ii_low) - x(ii_low) );

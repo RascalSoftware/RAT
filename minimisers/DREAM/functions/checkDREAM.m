@@ -1,4 +1,4 @@
-function stop = checkDREAM(DREAMPar,Par_info,Meas_info)
+function stop = checkDREAM(DREAMPar,paramInfo,Meas_info)
 % Check for setup errors
 
 % Assign stop to be No
@@ -15,26 +15,26 @@ fclose('all');
 % ------------------------------------------------
 
 % Check number of chains
-if DREAMPar.N < (2 * DREAMPar.delta) + 1
+if DREAMPar.nChains < (2 * DREAMPar.delta) + 1
     % Error -- not enough chains to do sampling -- increase number of chains!
     stop = true;
-    error('DREAM ERROR: Insufficient number of chains -> Use at least DREAMPar.N = %1g chains \n',((2 * DREAMPar.delta) + 1));
+    error('DREAM ERROR: Insufficient number of chains -> Use at least DREAMPar.nChains = %1g chains \n',((2 * DREAMPar.delta) + 1));
 end
 
 % Check parameter ranges
-if strcmp(Par_info,'latin')
+if strcmp(paramInfo,'latin')
     % Error -- if lhs is used -> requires explicit parameter ranges
-    if ( sum(isinf(Par_info.min)) == DREAMPar.d )
+    if ( sum(isinf(paramInfo.min)) == DREAMPar.nParams )
         stop = true;
-        error('DREAM ERROR: latinHypercubeSampling hypercube sampling selected but parameter ranges not defined -> Set Par_info.min and Par_info.max!!\n');
+        error('DREAM ERROR: latinHypercubeSampling hypercube sampling selected but parameter ranges not defined -> Set paramInfo.min and paramInfo.max!!\n');
     end
 end
 
 % % Check prior distribution
-% if ( strcmp(lower(DREAMPar.prior),'yes') ) || ( strcmp(lower(Par_info),'prior') ),
+% if ( strcmp(lower(DREAMPar.prior),'yes') ) || ( strcmp(lower(paramInfo),'prior') ),
 %     % Error -- if explicit prior is used --> marginals need to be defined
-%     if ~isfield(Par_info,'prior_marginal');
-%         evalstr = char('DREAM ERROR: Prior chosen but no marginal distribution specified to sample from -> Define Par_info.prior_marginal!!\n');
+%     if ~isfield(paramInfo,'prior_marginal');
+%         evalstr = char('DREAM ERROR: Prior chosen but no marginal distribution specified to sample from -> Define paramInfo.prior_marginal!!\n');
 %         % Now print warning to screen and to file
 %         fprintf(evalstr); fprintf(fid,evalstr);
 %         % Stop DREAM

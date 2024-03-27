@@ -1,32 +1,32 @@
-function [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMPar,Par_info,Meas_info,chain,output,log_L,ratInputs)
+function [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMPar,paramInfo,Meas_info,chain,output,log_L,ratInputs)
 % Initializes the starting positions of the Markov chains 
 
 % Create the initial positions of the chains
-% switch Par_info.prior
+% switch paramInfo.prior
 %     
 %     case {'uniform'}
         
         % Random sampling
-        [x] = repmat(Par_info.min,DREAMPar.N,1) + rand(DREAMPar.N,DREAMPar.d) .* ( repmat(Par_info.max - Par_info.min,DREAMPar.N,1) );
+        [x] = repmat(paramInfo.min,DREAMPar.nChains,1) + rand(DREAMPar.nChains,DREAMPar.nParams) .* ( repmat(paramInfo.max - paramInfo.min,DREAMPar.nChains,1) );
         
 %     case {'latin'}
 %         % Initialize chains with latinHypercubeSampling hypercube sampling
-%         if isfield(Par_info,'min_initial') && isfield(Par_info,'max_initial')
-%             [x] = latinHypercubeSampling(Par_info.min_initial,Par_info.max_initial,DREAMPar.N);
+%         if isfield(paramInfo,'min_initial') && isfield(paramInfo,'max_initial')
+%             [x] = latinHypercubeSampling(paramInfo.min_initial,paramInfo.max_initial,DREAMPar.nChains);
 %         else            
-%             [x] = latinHypercubeSampling(Par_info.min,Par_info.max,DREAMPar.N);
+%             [x] = latinHypercubeSampling(paramInfo.min,paramInfo.max,DREAMPar.nChains);
 %         end
 %     case {'normal'}
 %         
 %         % Initialize chains with (multi)-normal distribution
-%         [x] = repmat(Par_info.mu,DREAMPar.N,1) + randn(DREAMPar.N,DREAMPar.d) * chol(Par_info.cov);
+%         [x] = repmat(paramInfo.mu,DREAMPar.nChains,1) + randn(DREAMPar.nChains,DREAMPar.nParams) * chol(paramInfo.cov);
 %         
 %     case {'prior'}
 %         
 %         % Create the initial position of each chain by drawing each parameter individually from the prior
-%         for qq = 1:DREAMPar.d
-%             for zz = 1:DREAMPar.N
-%                 x(zz,qq) = eval(char(Par_info.prior_marginal(qq)));
+%         for qq = 1:DREAMPar.nParams
+%             for zz = 1:DREAMPar.nChains
+%                 x(zz,qq) = eval(char(paramInfo.prior_marginal(qq)));
 %             end
 %         end
 %         
@@ -36,15 +36,15 @@ function [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMP
 % end
 
 % If specified do boundary handling ( "Bound","Reflect","Fold")
-if isfield(Par_info,'boundhandling')
-    [x] = boundaryHandling(x,Par_info);
+if isfield(paramInfo,'boundhandling')
+    [x] = boundaryHandling(x,paramInfo);
 end
 
 % Now evaluate the model ( = pdf ) and return fx
 fx = evaluateModel(x,DREAMPar,Meas_info,ratInputs);
 
 % Calculate the log-likelihood and log-prior of x (fx)
-[log_L_x,log_PR_x] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs);
+[log_L_x,log_PR_x] = calcDensity(x,fx,DREAMPar,paramInfo,Meas_info,ratInputs);
 
 % Define starting x values, corresponding density, log densty and simulations (Xfx)
 X = [x log_PR_x(:) log_L_x];
@@ -52,8 +52,8 @@ X = [x log_PR_x(:) log_L_x];
 % Store the model simulations (if appropriate)
 % storeDREAMResults(DREAMPar,fx,Meas_info,'w+');
 
-% Set the first point of each of the DREAMPar.N chain equal to the initial X values
-chain(1,1:DREAMPar.d+2,1:DREAMPar.N) = reshape(X',1,DREAMPar.d+2,DREAMPar.N);
+% Set the first point of each of the DREAMPar.nChains chain equal to the initial X values
+chain(1,1:DREAMPar.nParams+2,1:DREAMPar.nChains) = reshape(X',1,DREAMPar.nParams+2,DREAMPar.nChains);
 
 % Define selection probability of each crossover
 pCR = (1/DREAMPar.nCR) * ones(1,DREAMPar.nCR);
@@ -66,10 +66,10 @@ lCR = zeros(1,DREAMPar.nCR);
 delta_tot = zeros(1,DREAMPar.nCR);
 
 % Save pCR values in memory
-output.CR(1,1:DREAMPar.nCR+1) = [ DREAMPar.N pCR ]; 
+output.CR(1,1:DREAMPar.nCR+1) = [ DREAMPar.nChains pCR ]; 
 
 % Save history log density of individual chains
-log_L(1,1:DREAMPar.N+1) = [ DREAMPar.N log_L_x' ];
+log_L(1,1:DREAMPar.nChains+1) = [ DREAMPar.nChains log_L_x' ];
 
 % Compute the R-statistic
-[output.R_stat(1,1:DREAMPar.d+1)] = [ DREAMPar.N gelman(chain(1,1:DREAMPar.d,1:DREAMPar.N),DREAMPar) ];
+[output.R_stat(1,1:DREAMPar.nParams+1)] = [ DREAMPar.nChains gelman(chain(1,1:DREAMPar.nParams,1:DREAMPar.nChains),DREAMPar) ];

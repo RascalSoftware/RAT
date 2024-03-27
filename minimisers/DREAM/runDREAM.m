@@ -47,9 +47,9 @@ totalGen = controls.nSamples;                   % Total number of generations
 nChains = controls.nChains;                     % Number of chains
 
 % Set the relevant parameters for the DREAM sampler....
-DREAMPar.d = length(fitParamNames);             % Dimension of the problem
-DREAMPar.N = nChains;                           % Number of Markov Chains
-DREAMPar.T = ceil(totalGen / nChains);          % Number of generations per chain
+DREAMPar.nParams = length(fitParamNames);             % Dimension of the problem
+DREAMPar.nChains = nChains;                           % Number of Markov Chains
+DREAMPar.nGenerations = ceil(totalGen / nChains);          % Number of generations per chain
 %DREAMPar.lik = 1;                              % Model output is likelihood
 
 % Parallel or not...
@@ -57,36 +57,30 @@ DREAMPar.parallel = false;
 DREAMPar.CPU = 1;
 
 % Jump probabilities...
-DREAMPar.lambda = controls.jumpProbability;
+DREAMPar.jumpProbability = controls.jumpProbability;
 DREAMPar.pUnitGamma = controls.pUnitGamma;
 DREAMPar.adaptPCR = controls.adaptPCR;
 
 % This will change...
 % Initial sampling and parameter range
-Par_info.prior = coderEnums.priorTypes.Uniform;           
+paramInfo.prior = coderEnums.priorTypes.Uniform;
+ParInfo.min = problemStruct.fitLimits(:,1)';
+ParInfo.max = problemStruct.fitLimits(:,2)';
+ParInfo.boundhandling = controls.boundHandling;
+ParInfo.mvnpdf = true;
 
-Par_info.min = problemStruct.fitLimits(:,1)';
-Par_info.max = problemStruct.fitLimits(:,2)';
-Par_info.boundhandling = controls.boundHandling;
-
-%if dreamC.prior
-    Par_info.mvnpdf = true;
-%end
 
 % Run the sampler....
-%[chain,output,fx] = rat_DREAM(DREAMPar,Par_info,[],ratInputs);
-%Func_name = @DREAMWrapper;
 Meas_info = struct('Y',0,'N',0);
-[chain,dreamOutput,~] = ratDREAM(DREAMPar,Par_info,Meas_info,ratInputs);
+[chain,dreamOutput,~] = ratDREAM(DREAMPar,ParInfo,Meas_info,ratInputs);
 
 % Combine all chains....
-nChains = DREAMPar.N;
-lChains = DREAMPar.T;
-nPars = DREAMPar.d;
+nChains = DREAMPar.nChains;
+nParams = DREAMPar.nParams;
 
 collectChains = [];
 for i = 1:nChains
-    thisChain = chain(:,1:nPars,i);
+    thisChain = chain(:,1:nParams,i);
     
     % Keep only the last 75% of the chain..
     nSamples = size(thisChain,1);
@@ -97,34 +91,26 @@ for i = 1:nChains
     collectChains = [collectChains ; thisChain];
 end
 
-allProblem = cell(4,1);
-allProblem{1} = problemStruct;
-allProblem{2} = controls;
-allProblem{3} = problemLimits;
-allProblem{4} = problemCells;
-
-bestPars = mean(collectChains);
+bestParams = mean(collectChains);
 output.results.outputDream = dreamOutput;
-output.bestPars = bestPars;
+output.bestParams = bestParams;
 output.chain = collectChains;
 
-[outProblemStruct,result,dreamResults] = processBayes(output,allProblem);
+[outProblemStruct,result,dreamResults] = processBayes(output,problemStruct,problemCells,problemLimits,controls);
 
 % Populate the output struct
-bayesResults.bayesRes.allChains = chain;
-bayesResults.bayesRes.dreamOutput = dreamOutput;
-bayesResults.chain = collectChains;
-bayesResults.bestPars = bestPars;
-bayesResults.chain = collectChains;
-% bayesResults.bayesRes.allChains = chain;
-bayesResults.predlims = dreamResults.predlims;
-bayesResults.parConfInts = dreamResults.parConfInts;
-bayesResults.bestFitsMean = dreamResults.bestFitsMean;
+bayesResults.bestFitMean = dreamResults.bestFitMean;
+bayesResults.predictionIntervals = dreamResults.predictionIntervals;
+bayesResults.confidenceIntervals = dreamResults.confidenceIntervals;
+bayesResults.dreamParams = dreamOutput.DREAMPar;
+bayesResults.dreamOutput.allChains = chain;
 
-% These are not defined in makeEmptyBayesResultsStruct
+fieldNames = {'outlierChains','runtime','iteration','modelOutput','AR','R_stat','CR'};
+for i = 1:length(fieldNames)
+    thisFieldName = fieldNames{i};
+    bayesResults.dreamOutput.(thisFieldName) = dreamOutput.(thisFieldName);
+end
 
-% bayesResults.bayesRes.DREAMPar = DREAMPar;
-% bayesResults.bayesRes.Meas_info = Meas_info;
-% bayesResults.bayesRes.dreamOutput = output;
+bayesResults.chain = collectChains;
 
 end

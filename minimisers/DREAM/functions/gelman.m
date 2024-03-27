@@ -11,19 +11,19 @@ function [R_stat] = gelman(chain,DREAMPar)
 
 % Compute the dimensions of chain
 [n,nrY,m] = size(chain);
-var_chain = zeros(DREAMPar.N,DREAMPar.d);
+var_chain = zeros(DREAMPar.nChains,DREAMPar.nParams);
 if (n < 10)
     % Set the R-statistic to a large value
-    R_stat = NaN(1,DREAMPar.d);
+    R_stat = NaN(1,DREAMPar.nParams);
 else
     % Step 1: Determine the _chainuence means
-    mean_chain = mean(chain); mean_chain = reshape(mean_chain(:),DREAMPar.d,m)';
+    mean_chain = mean(chain); mean_chain = reshape(mean_chain(:),DREAMPar.nParams,m)';
     
     % Step 1: Determine the variance between the _chainuence means 
     B = n * var(mean_chain);
     
     % Step 2: Compute the variance of the various chain
-    for zz = 1:DREAMPar.N
+    for zz = 1:DREAMPar.nChains
         var_chain(zz,:) = var(chain(:,:,zz));
     end
     

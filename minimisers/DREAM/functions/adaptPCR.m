@@ -14,7 +14,7 @@ for zz = 1:DREAMPar.nCR
 end
 
 % Adapt pCR using information from averaged normalized jumping distance
-pCR = DREAMPar.N * (delta_tot./lCR); % / sum(delta_tot);
+pCR = DREAMPar.nChains * (delta_tot./lCR); % / sum(delta_tot);
 
 % Normalize pCR so that selection probabilities add up to 1
 pCR = pCR./sum(pCR);

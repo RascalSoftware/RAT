@@ -55,15 +55,15 @@ if ~ keepAx
     clf; hold on; box on
 end
 
-pLims = result.predlims;
-refPlims = pLims.refPredInts;
-sldPlims = pLims.sldPredInts;
-refXdata = pLims.refXdata;
-sldXdata = pLims.sldXdata;
+pLims = result.predictionIntervals;
+refPlims = pLims.reflectivity;
+sldPlims = pLims.sld;
+refXdata = pLims.reflectivityXData;
+sldXdata = pLims.sldXData;
 
 % Get the reflectivities for mean...
-bestRef_mean = result.bestFitsMean.ref;
-bestSld_mean = result.bestFitsMean.sld;
+bestRefMean = result.bestFitMean.reflectivity;
+bestSldMean = result.bestFitMean.sld;
 
 shiftedData = result.shiftedData;
 numberOfContrasts = length(shiftedData);
@@ -77,7 +77,7 @@ for i = 1:numberOfContrasts
     
     %thisRef = reflect{i};
     thisData = shiftedData{i};
-    thisRefMean = bestRef_mean{i};
+    thisRefMean = bestRefMean{i};
     thisSf = sf(i);
     
     switch q4
@@ -154,7 +154,7 @@ subplot(1,2,2); hold on; box on
 if ~isDomains
     for i = 1:numberOfContrasts
 
-        thisSldMean = bestSld_mean{i};
+        thisSldMean = bestSldMean{i};
         %thisSldMax = bestSld_max{i};
 
         theseLims = sldPlims{i};
@@ -189,7 +189,7 @@ if ~isDomains
 else
     for i = 1:numberOfContrasts
 
-        thisSldMean = bestSld_mean(i,:);
+        thisSldMean = bestSldMean(i,:);
         %thisSldMax = bestSld_max{i};
 
         theseLims = sldPlims(i,:);

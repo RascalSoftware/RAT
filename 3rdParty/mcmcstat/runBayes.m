@@ -34,9 +34,9 @@ end
 qcov = [];
 fitPars = problemStruct.fitParams;
 fitConstr = problemStruct.fitLimits;
-nPars = length(fitPars);
+nParams = length(fitPars);
 
-for i = 1:nPars
+for i = 1:nParams
     thisConstr = fitConstr(i,:);
     qcov(i) = (abs(thisConstr(2) - thisConstr(1))*0.0001)^2;
 end
@@ -61,7 +61,7 @@ options.stats       = 1;               % save extra statistics in result
 options.burnintime  = burnin;          % burn in time..
 options.ntry = 1;
 options.drscale = [3 2 1];
-%options.adascale = 2.4 / sqrt(nPars) * 0.01;
+%options.adascale = 2.4 / sqrt(nParams) * 0.01;
 
 
 results = [];
@@ -83,19 +83,19 @@ output.results = results;
 output.chain = chain;
 output.s2chain = s2chain;
 output.sschain = sschain;
-output.bestPars = results.mean;
+output.bestParams = results.mean;
 output.data = data;
 
 % out = mcmcpred_compile(results,chain,[],data,problem,500);
 % outSld = mcmcpred_compile_sld(results,chain,[],data,problem,500);
 % 
-% problemStruct.fitParams = output.bestPars;
+% problemStruct.fitParams = output.bestParams;
 % problemStruct = unpackParams(problemStruct,controls);
 % result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 % 
 % output.bestFits = result.reflectivity;
 % output.shiftedData = problemCells{2};
-% output.predlims = out;
+% output.predictionIntervals = out;
 
 end
 

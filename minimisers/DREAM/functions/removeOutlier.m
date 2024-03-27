@@ -5,7 +5,7 @@ function [X,log_L,outputOutlier] = removeOutlier(X,log_L,outlier,DREAMPar)
 t = size(log_L,1); t_half = floor(t/2);
 
 % Then determine the mean log density of the active chains
-mean_log_L = mean(log_L(t_half:t,1:DREAMPar.N));
+mean_log_L = mean(log_L(t_half:t,1:DREAMPar.nChains));
 
 
 % ------------------------------
@@ -37,15 +37,15 @@ Nid = numel(chain_id);
 % If at least one outlier chain has been found --> reset its state
 if (Nid > 0)
     % Re-initialize ecah outlier chain to current state random other chain
-    chain_select = [1:DREAMPar.N]; chain_select(chain_id) = [];
+    chain_select = [1:DREAMPar.nChains]; chain_select(chain_id) = [];
     % Randomly permute these available chains
-    r = randperm(DREAMPar.N - Nid); chain_select = chain_select(r);
+    r = randperm(DREAMPar.nChains - Nid); chain_select = chain_select(r);
     % Loop over each outlier chain
     for j = 1:Nid
         % Added -- update log_L -- chain will not be considered as an outlier chain then
         log_L(:,chain_id(j)) = log_L(:,chain_select(j));
         % Jump outlier chain to r_idx -- X
-        X(chain_id(j),1:DREAMPar.d+2) = X(chain_select(j),1:DREAMPar.d+2);
+        X(chain_id(j),1:DREAMPar.nParams+2) = X(chain_select(j),1:DREAMPar.nParams+2);
         % Add to chain_outlier and print to screen
         outputOutlier = [outputOutlier ; t chain_id(j)];
         % Warning -- not enough chains to do sampling -- increase number of chains!
@@ -101,7 +101,7 @@ function [ idx_outlier ] = grubbs( log_L );
 
 % Define alpha
 alpha = 0.05;
-% How many samples ( = DREAMPar.N )
+% How many samples ( = DREAMPar.nChains )
 N = numel(log_L);
 % Calculate Grubbs statistic (for minimum log_L only - one sided)
 G = (mean(log_L) - min(log_L)) / std(log_L);
@@ -194,7 +194,7 @@ peirce_r = [-1,1,2,3,4,5,6,7,8,9;
     59,2.65600000000000,2.39400000000000,2.23000000000000,2.10900000000000,2.01200000000000,1.93100000000000,1.86100000000000,1.80000000000000,1.74500000000000;
     60,2.66300000000000,2.40100000000000,2.23700000000000,2.11600000000000,2.01900000000000,1.93900000000000,1.86900000000000,1.80800000000000,1.75300000000000;];
 
-% How many samples? ( = DREAMPar.N )
+% How many samples? ( = DREAMPar.nChains )
 N = numel(log_L);
 
 % find row index to use in table for this sample
@@ -203,7 +203,7 @@ if ( N < 61 ) && ( N > 2 )
 else
     if N >= 61
         N = 60; n_ind = size(peirce_r,1);
-        fprintf('DREAMPar.N > 60; using Peirce r-values for DREAMPar.N is 60');
+        fprintf('DREAMPar.nChains > 60; using Peirce r-values for DREAMPar.nChains is 60');
     end
     if N < 2
         error('Insufficient number of chains to apply Peirce diagnostic');
@@ -230,7 +230,7 @@ idx_outlier = find ( dev_L < max_neg_dev_allowed );
 % -------------------------------------------------------------------------
 function [ idx_outlier ] = chauvenet( log_L )
 
-% How many samples ( = DREAMPar.N )
+% How many samples ( = DREAMPar.nChains )
 N = numel(log_L);
 % Now calculate deviation from mean
 dev_L_ratio = ( log_L - mean(log_L) )/std(log_L);

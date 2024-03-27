@@ -19,8 +19,8 @@ clf(hFig);
 x = chain;
 y = chain;
 
-nPars = size(chain,2);
-for i = 1:nPars
+nParams = size(chain,2);
+for i = 1:nParams
     
     [N,edges] = histcounts(chain(:,i),25, 'Normalization','pdf');
     edges2 = edges(2:end) - (edges(2)-edges(1))/2;

@@ -24,23 +24,23 @@ namespace RAT
   struct cell_11;
   struct struct1_T;
   struct struct2_T;
-  struct struct13_T;
+  struct k_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void ratDREAM(real_T dreamVariables_d, real_T dreamVariables_N, real_T
-                dreamVariables_T, real_T dreamVariables_lambda, real_T
-                dreamVariables_pUnitGamma, boolean_T dreamVariables_adaptPCR,
-                const ::coder::array<real_T, 2U> &Par_info_min, const ::coder::
-                array<real_T, 2U> &Par_info_max, const char_T
-                Par_info_boundhandling_data[], const int32_T
-                Par_info_boundhandling_size[2], const f_struct_T
-                *ratInputs_problemStruct, const cell_11 *ratInputs_problemCells,
+  void ratDREAM(real_T dreamVariables_nParams, real_T dreamVariables_nChains,
+                real_T dreamVariables_nGenerations, real_T
+                dreamVariables_jumpProbability, real_T dreamVariables_pUnitGamma,
+                boolean_T dreamVariables_adaptPCR, const ::coder::array<real_T,
+                2U> &paramInfo_min, const ::coder::array<real_T, 2U>
+                &paramInfo_max, const char_T paramInfo_boundhandling_data[],
+                const int32_T paramInfo_boundhandling_size[2], const f_struct_T *
+                ratInputs_problemStruct, const cell_11 *ratInputs_problemCells,
                 const struct1_T *ratInputs_problemLimits, const struct2_T
                 *ratInputs_controls, const ::coder::array<real_T, 2U>
-                &ratInputs_priors, ::coder::array<real_T, 3U> &chain, struct13_T
+                &ratInputs_priors, ::coder::array<real_T, 3U> &chain, k_struct_T
                 *output, ::coder::array<real_T, 2U> &fx);
 }
 

@@ -19,7 +19,7 @@
 // Function Definitions
 namespace RAT
 {
-  void adaptPCR(const struct14_T *DREAMPar, const ::coder::array<real_T, 2U> &CR,
+  void adaptPCR(const struct12_T *DREAMPar, const ::coder::array<real_T, 2U> &CR,
                 const real_T delta_tot_data[], const real_T lCRold_data[],
                 real_T pCR_data[], int32_T pCR_size[2], real_T lCR_data[],
                 int32_T lCR_size[2])
@@ -52,7 +52,7 @@ namespace RAT
       coder::eml_find(c_CR, r);
       b_zz = lCRold_data[zz] + static_cast<real_T>(r.size(0));
       lCR_data[zz] = b_zz;
-      y[zz] = DREAMPar->N * (delta_tot_data[zz] / b_zz);
+      y[zz] = DREAMPar->nChains * (delta_tot_data[zz] / b_zz);
     }
 
     //  / sum(delta_tot);

@@ -31,15 +31,15 @@
 // Function Declarations
 namespace RAT
 {
-  static void cast(const ::coder::array<cell_wrap_8, 1U> &t10_reflectivity,
-                   const ::coder::array<cell_wrap_8, 1U> &t10_simulation, const ::
-                   coder::array<cell_wrap_38, 1U> &t10_shiftedData, const ::
-                   coder::array<cell_wrap_10, 2U> &t10_layerSlds, const ::coder::
-                   array<cell_wrap_10, 2U> &t10_sldProfiles, const ::coder::
-                   array<cell_wrap_38, 2U> &t10_resampledLayers, const struct6_T
-                   *t10_calculationResults, const b_struct_T *t10_contrastParams,
-                   const ::coder::array<real_T, 2U> &t10_fitParams, const ::
-                   coder::array<cell_wrap_1, 1U> &t10_fitNames, struct5_T *b);
+  static void cast(const ::coder::array<cell_wrap_8, 1U> &t8_reflectivity, const
+                   ::coder::array<cell_wrap_8, 1U> &t8_simulation, const ::coder::
+                   array<cell_wrap_38, 1U> &t8_shiftedData, const ::coder::array<
+                   cell_wrap_10, 2U> &t8_layerSlds, const ::coder::array<
+                   cell_wrap_10, 2U> &t8_sldProfiles, const ::coder::array<
+                   cell_wrap_38, 2U> &t8_resampledLayers, const struct6_T
+                   *t8_calculationResults, const c_struct_T *t8_contrastParams,
+                   const ::coder::array<real_T, 2U> &t8_fitParams, const ::coder::
+                   array<cell_wrap_1, 1U> &t8_fitNames, struct5_T *b);
   static void cast(const f_struct_T *b, struct0_T *c);
   static void cast(const struct0_T *b, f_struct_T *c);
   static void cast(const cell_7 *b, cell_11 *c);
@@ -56,134 +56,134 @@ namespace RAT
 // Function Definitions
 namespace RAT
 {
-  static void cast(const ::coder::array<cell_wrap_8, 1U> &t10_reflectivity,
-                   const ::coder::array<cell_wrap_8, 1U> &t10_simulation, const ::
-                   coder::array<cell_wrap_38, 1U> &t10_shiftedData, const ::
-                   coder::array<cell_wrap_10, 2U> &t10_layerSlds, const ::coder::
-                   array<cell_wrap_10, 2U> &t10_sldProfiles, const ::coder::
-                   array<cell_wrap_38, 2U> &t10_resampledLayers, const struct6_T
-                   *t10_calculationResults, const b_struct_T *t10_contrastParams,
-                   const ::coder::array<real_T, 2U> &t10_fitParams, const ::
-                   coder::array<cell_wrap_1, 1U> &t10_fitNames, struct5_T *b)
+  static void cast(const ::coder::array<cell_wrap_8, 1U> &t8_reflectivity, const
+                   ::coder::array<cell_wrap_8, 1U> &t8_simulation, const ::coder::
+                   array<cell_wrap_38, 1U> &t8_shiftedData, const ::coder::array<
+                   cell_wrap_10, 2U> &t8_layerSlds, const ::coder::array<
+                   cell_wrap_10, 2U> &t8_sldProfiles, const ::coder::array<
+                   cell_wrap_38, 2U> &t8_resampledLayers, const struct6_T
+                   *t8_calculationResults, const c_struct_T *t8_contrastParams,
+                   const ::coder::array<real_T, 2U> &t8_fitParams, const ::coder::
+                   array<cell_wrap_1, 1U> &t8_fitNames, struct5_T *b)
   {
     int32_T b_loop_ub;
     int32_T i;
     int32_T i1;
     int32_T loop_ub;
-    b->reflectivity.set_size(t10_reflectivity.size(0));
-    loop_ub = t10_reflectivity.size(0);
+    b->reflectivity.set_size(t8_reflectivity.size(0));
+    loop_ub = t8_reflectivity.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->reflectivity[i] = t10_reflectivity[i];
+      b->reflectivity[i] = t8_reflectivity[i];
     }
 
-    b->simulation.set_size(t10_simulation.size(0));
-    loop_ub = t10_simulation.size(0);
+    b->simulation.set_size(t8_simulation.size(0));
+    loop_ub = t8_simulation.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->simulation[i] = t10_simulation[i];
+      b->simulation[i] = t8_simulation[i];
     }
 
-    b->shiftedData.set_size(t10_shiftedData.size(0));
-    loop_ub = t10_shiftedData.size(0);
+    b->shiftedData.set_size(t8_shiftedData.size(0));
+    loop_ub = t8_shiftedData.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->shiftedData[i] = t10_shiftedData[i];
+      b->shiftedData[i] = t8_shiftedData[i];
     }
 
-    b->layerSlds.set_size(t10_layerSlds.size(0), t10_layerSlds.size(1));
-    loop_ub = t10_layerSlds.size(1);
+    b->layerSlds.set_size(t8_layerSlds.size(0), t8_layerSlds.size(1));
+    loop_ub = t8_layerSlds.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = t10_layerSlds.size(0);
+      b_loop_ub = t8_layerSlds.size(0);
       for (i1 = 0; i1 < b_loop_ub; i1++) {
-        b->layerSlds[i1 + b->layerSlds.size(0) * i] = t10_layerSlds[i1 +
-          t10_layerSlds.size(0) * i];
+        b->layerSlds[i1 + b->layerSlds.size(0) * i] = t8_layerSlds[i1 +
+          t8_layerSlds.size(0) * i];
       }
     }
 
-    b->sldProfiles.set_size(t10_sldProfiles.size(0), t10_sldProfiles.size(1));
-    loop_ub = t10_sldProfiles.size(1);
+    b->sldProfiles.set_size(t8_sldProfiles.size(0), t8_sldProfiles.size(1));
+    loop_ub = t8_sldProfiles.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = t10_sldProfiles.size(0);
+      b_loop_ub = t8_sldProfiles.size(0);
       for (i1 = 0; i1 < b_loop_ub; i1++) {
-        b->sldProfiles[i1 + b->sldProfiles.size(0) * i] = t10_sldProfiles[i1 +
-          t10_sldProfiles.size(0) * i];
+        b->sldProfiles[i1 + b->sldProfiles.size(0) * i] = t8_sldProfiles[i1 +
+          t8_sldProfiles.size(0) * i];
       }
     }
 
-    b->resampledLayers.set_size(t10_resampledLayers.size(0),
-      t10_resampledLayers.size(1));
-    loop_ub = t10_resampledLayers.size(1);
+    b->resampledLayers.set_size(t8_resampledLayers.size(0),
+      t8_resampledLayers.size(1));
+    loop_ub = t8_resampledLayers.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = t10_resampledLayers.size(0);
+      b_loop_ub = t8_resampledLayers.size(0);
       for (i1 = 0; i1 < b_loop_ub; i1++) {
         b->resampledLayers[i1 + b->resampledLayers.size(0) * i] =
-          t10_resampledLayers[i1 + t10_resampledLayers.size(0) * i];
+          t8_resampledLayers[i1 + t8_resampledLayers.size(0) * i];
       }
     }
 
-    b->calculationResults = *t10_calculationResults;
+    b->calculationResults = *t8_calculationResults;
     b->contrastParams.backgroundParams.set_size
-      (t10_contrastParams->backgroundParams.size(0));
-    loop_ub = t10_contrastParams->backgroundParams.size(0);
+      (t8_contrastParams->backgroundParams.size(0));
+    loop_ub = t8_contrastParams->backgroundParams.size(0);
     for (i = 0; i < loop_ub; i++) {
       b->contrastParams.backgroundParams[i] =
-        t10_contrastParams->backgroundParams[i];
+        t8_contrastParams->backgroundParams[i];
     }
 
-    b->contrastParams.qzshifts.set_size(t10_contrastParams->qzshifts.size(0));
-    loop_ub = t10_contrastParams->qzshifts.size(0);
+    b->contrastParams.qzshifts.set_size(t8_contrastParams->qzshifts.size(0));
+    loop_ub = t8_contrastParams->qzshifts.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->contrastParams.qzshifts[i] = t10_contrastParams->qzshifts[i];
+      b->contrastParams.qzshifts[i] = t8_contrastParams->qzshifts[i];
     }
 
-    b->contrastParams.scalefactors.set_size
-      (t10_contrastParams->scalefactors.size(0));
-    loop_ub = t10_contrastParams->scalefactors.size(0);
+    b->contrastParams.scalefactors.set_size(t8_contrastParams->scalefactors.size
+      (0));
+    loop_ub = t8_contrastParams->scalefactors.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->contrastParams.scalefactors[i] = t10_contrastParams->scalefactors[i];
+      b->contrastParams.scalefactors[i] = t8_contrastParams->scalefactors[i];
     }
 
-    b->contrastParams.bulkIn.set_size(t10_contrastParams->bulkIn.size(0));
-    loop_ub = t10_contrastParams->bulkIn.size(0);
+    b->contrastParams.bulkIn.set_size(t8_contrastParams->bulkIn.size(0));
+    loop_ub = t8_contrastParams->bulkIn.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->contrastParams.bulkIn[i] = t10_contrastParams->bulkIn[i];
+      b->contrastParams.bulkIn[i] = t8_contrastParams->bulkIn[i];
     }
 
-    b->contrastParams.bulkOut.set_size(t10_contrastParams->bulkOut.size(0));
-    loop_ub = t10_contrastParams->bulkOut.size(0);
+    b->contrastParams.bulkOut.set_size(t8_contrastParams->bulkOut.size(0));
+    loop_ub = t8_contrastParams->bulkOut.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->contrastParams.bulkOut[i] = t10_contrastParams->bulkOut[i];
+      b->contrastParams.bulkOut[i] = t8_contrastParams->bulkOut[i];
     }
 
     b->contrastParams.resolutionParams.set_size
-      (t10_contrastParams->resolutionParams.size(0));
-    loop_ub = t10_contrastParams->resolutionParams.size(0);
+      (t8_contrastParams->resolutionParams.size(0));
+    loop_ub = t8_contrastParams->resolutionParams.size(0);
     for (i = 0; i < loop_ub; i++) {
       b->contrastParams.resolutionParams[i] =
-        t10_contrastParams->resolutionParams[i];
+        t8_contrastParams->resolutionParams[i];
     }
 
-    b->contrastParams.subRoughs.set_size(t10_contrastParams->subRoughs.size(0));
-    loop_ub = t10_contrastParams->subRoughs.size(0);
+    b->contrastParams.subRoughs.set_size(t8_contrastParams->subRoughs.size(0));
+    loop_ub = t8_contrastParams->subRoughs.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->contrastParams.subRoughs[i] = t10_contrastParams->subRoughs[i];
+      b->contrastParams.subRoughs[i] = t8_contrastParams->subRoughs[i];
     }
 
-    b->contrastParams.resample.set_size(1, t10_contrastParams->resample.size(1));
-    loop_ub = t10_contrastParams->resample.size(1);
+    b->contrastParams.resample.set_size(1, t8_contrastParams->resample.size(1));
+    loop_ub = t8_contrastParams->resample.size(1);
     for (i = 0; i < loop_ub; i++) {
       b->contrastParams.resample[b->contrastParams.resample.size(0) * i] =
-        t10_contrastParams->resample[i];
+        t8_contrastParams->resample[i];
     }
 
-    b->fitParams.set_size(1, t10_fitParams.size(1));
-    loop_ub = t10_fitParams.size(1);
+    b->fitParams.set_size(1, t8_fitParams.size(1));
+    loop_ub = t8_fitParams.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b->fitParams[b->fitParams.size(0) * i] = t10_fitParams[i];
+      b->fitParams[b->fitParams.size(0) * i] = t8_fitParams[i];
     }
 
-    b->fitNames.set_size(t10_fitNames.size(0));
-    loop_ub = t10_fitNames.size(0);
+    b->fitNames.set_size(t8_fitNames.size(0));
+    loop_ub = t8_fitNames.size(0);
     for (i = 0; i < loop_ub; i++) {
-      b->fitNames[i] = t10_fitNames[i];
+      b->fitNames[i] = t8_fitNames[i];
     }
   }
 
@@ -704,108 +704,87 @@ namespace RAT
                struct1_T *problemLimits, struct2_T *controls, const struct4_T
                *priors, struct5_T *result, struct8_T *bayesResults)
   {
-    static e_struct_T bayesResults_bayesRes;
     static f_struct_T b_problemStruct;
     static f_struct_T r;
-    static j_struct_T b_bayesResults;
-    ::coder::array<cell_wrap_1, 1U> t21_fitNames;
-    ::coder::array<cell_wrap_10, 2U> t21_layerSlds;
-    ::coder::array<cell_wrap_10, 2U> t21_sldProfiles;
-    ::coder::array<cell_wrap_38, 2U> t21_resampledLayers;
-    ::coder::array<cell_wrap_38, 1U> t21_shiftedData;
-    ::coder::array<cell_wrap_8, 1U> t21_reflectivity;
-    ::coder::array<cell_wrap_8, 1U> t21_simulation;
-    ::coder::array<real_T, 2U> t21_fitParams;
-    b_struct_T t21_contrastParams;
+    static h_struct_T b_bayesResults;
+    ::coder::array<cell_wrap_1, 1U> t16_fitNames;
+    ::coder::array<cell_wrap_10, 2U> t16_layerSlds;
+    ::coder::array<cell_wrap_10, 2U> t16_sldProfiles;
+    ::coder::array<cell_wrap_38, 2U> t16_resampledLayers;
+    ::coder::array<cell_wrap_38, 1U> t16_shiftedData;
+    ::coder::array<cell_wrap_8, 1U> t16_reflectivity;
+    ::coder::array<cell_wrap_8, 1U> t16_simulation;
+    ::coder::array<real_T, 2U> t16_fitParams;
+    c_struct_T t16_contrastParams;
     cell_11 r1;
-    struct6_T t21_calculationResults;
-    int32_T b_loop_ub;
-    int32_T c_loop_ub;
+    e_struct_T bayesResults_nestedSamplerOutput;
+    struct6_T t16_calculationResults;
+    int32_T b_index;
     int32_T i;
-    int32_T i1;
-    int32_T i2;
-    int32_T loop_ub;
     boolean_T domains;
     domains = coder::internal::b_strcmp(problemStruct->TF.data,
       problemStruct->TF.size);
     makeEmptyResultStruct(problemStruct->numberOfContrasts, static_cast<real_T>
                           (coder::internal::intlength
       (problemStruct->fitParams.size(0), problemStruct->fitParams.size(1))),
-                          domains, t21_reflectivity, t21_simulation,
-                          t21_shiftedData, t21_layerSlds, t21_sldProfiles,
-                          t21_resampledLayers, &t21_calculationResults,
-                          &t21_contrastParams, t21_fitParams, t21_fitNames);
-    cast(t21_reflectivity, t21_simulation, t21_shiftedData, t21_layerSlds,
-         t21_sldProfiles, t21_resampledLayers, &t21_calculationResults,
-         &t21_contrastParams, t21_fitParams, t21_fitNames, result);
+                          domains, t16_reflectivity, t16_simulation,
+                          t16_shiftedData, t16_layerSlds, t16_sldProfiles,
+                          t16_resampledLayers, &t16_calculationResults,
+                          &t16_contrastParams, t16_fitParams, t16_fitNames);
+    cast(t16_reflectivity, t16_simulation, t16_shiftedData, t16_layerSlds,
+         t16_sldProfiles, t16_resampledLayers, &t16_calculationResults,
+         &t16_contrastParams, t16_fitParams, t16_fitNames, result);
     makeEmptyBayesResultsStruct(problemStruct->numberOfContrasts, domains,
-      controls->nChains, bayesResults->bestFitsMean.ref,
-      bayesResults->bestFitsMean.sld, &bayesResults->bestFitsMean.chi,
-      bayesResults->bestFitsMean.data, bayesResults->predlims.refPredInts,
-      bayesResults->predlims.sldPredInts, bayesResults->predlims.refXdata,
-      bayesResults->predlims.sldXdata, bayesResults->predlims.sampleChi.data,
-      &bayesResults->predlims.sampleChi.size[0], bayesResults->parConfInts.par95,
-      bayesResults->parConfInts.par65, bayesResults->parConfInts.mean,
-      bayesResults->bestPars, &bayesResults_bayesRes, bayesResults->chain);
-    bayesResults->bayesRes.allChains.set_size
-      (bayesResults_bayesRes.allChains.size(0),
-       bayesResults_bayesRes.allChains.size(1),
-       bayesResults_bayesRes.allChains.size(2));
-    loop_ub = bayesResults_bayesRes.allChains.size(2);
-    for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = bayesResults_bayesRes.allChains.size(1);
-      for (i1 = 0; i1 < b_loop_ub; i1++) {
-        c_loop_ub = bayesResults_bayesRes.allChains.size(0);
-        for (i2 = 0; i2 < c_loop_ub; i2++) {
-          bayesResults->bayesRes.allChains[(i2 +
-            bayesResults->bayesRes.allChains.size(0) * i1) +
-            bayesResults->bayesRes.allChains.size(0) *
-            bayesResults->bayesRes.allChains.size(1) * i] =
-            bayesResults_bayesRes.allChains[(i2 +
-            bayesResults_bayesRes.allChains.size(0) * i1) +
-            bayesResults_bayesRes.allChains.size(0) *
-            bayesResults_bayesRes.allChains.size(1) * i];
-        }
-      }
-    }
-
-    bayesResults->bayesRes.dreamOutput = bayesResults_bayesRes.dreamOutput;
-    bayesResults->bayesRes.nestOutput.LogZ =
-      bayesResults_bayesRes.nestOutput.LogZ;
-    bayesResults->bayesRes.nestOutput.nestSamples.set_size(1, 2);
-    bayesResults->bayesRes.nestOutput.postSamples.set_size(1, 2);
-    bayesResults->bayesRes.nestOutput.nestSamples[0] =
-      bayesResults_bayesRes.nestOutput.nestSamples.data[0];
-    bayesResults->bayesRes.nestOutput.postSamples[0] =
-      bayesResults_bayesRes.nestOutput.postSamples.data[0];
-    bayesResults->bayesRes.nestOutput.nestSamples
-      [bayesResults->bayesRes.nestOutput.nestSamples.size(0)] =
-      bayesResults_bayesRes.nestOutput.nestSamples.data[1];
-    bayesResults->bayesRes.nestOutput.postSamples
-      [bayesResults->bayesRes.nestOutput.postSamples.size(0)] =
-      bayesResults_bayesRes.nestOutput.postSamples.data[1];
+      controls->nChains, bayesResults->bestFitMean.reflectivity,
+      bayesResults->bestFitMean.sld, &bayesResults->bestFitMean.chi,
+      bayesResults->bestFitMean.data,
+      bayesResults->predictionIntervals.reflectivity,
+      bayesResults->predictionIntervals.sld,
+      bayesResults->predictionIntervals.reflectivityXData,
+      bayesResults->predictionIntervals.sldXData,
+      bayesResults->predictionIntervals.sampleChi.data,
+      &bayesResults->predictionIntervals.sampleChi.size[0],
+      bayesResults->confidenceIntervals.percentile95,
+      bayesResults->confidenceIntervals.percentile65,
+      bayesResults->confidenceIntervals.mean, &bayesResults->dreamParams,
+      &bayesResults->dreamOutput, &bayesResults_nestedSamplerOutput,
+      bayesResults->chain);
+    bayesResults->nestedSamplerOutput.LogZ =
+      bayesResults_nestedSamplerOutput.LogZ;
+    bayesResults->nestedSamplerOutput.nestSamples.set_size(1, 2);
+    bayesResults->nestedSamplerOutput.postSamples.set_size(1, 2);
+    bayesResults->nestedSamplerOutput.nestSamples[0] =
+      bayesResults_nestedSamplerOutput.nestSamples.data[0];
+    bayesResults->nestedSamplerOutput.postSamples[0] =
+      bayesResults_nestedSamplerOutput.postSamples.data[0];
+    bayesResults->nestedSamplerOutput.nestSamples
+      [bayesResults->nestedSamplerOutput.nestSamples.size(0)] =
+      bayesResults_nestedSamplerOutput.nestSamples.data[1];
+    bayesResults->nestedSamplerOutput.postSamples
+      [bayesResults->nestedSamplerOutput.postSamples.size(0)] =
+      bayesResults_nestedSamplerOutput.postSamples.data[1];
 
     //  Decide what we are doing....
     if (coder::internal::c_strcmp(controls->procedure.data,
          controls->procedure.size)) {
-      loop_ub = 0;
+      b_index = 0;
     } else if (coder::internal::d_strcmp(controls->procedure.data,
                 controls->procedure.size)) {
-      loop_ub = 1;
+      b_index = 1;
     } else if (coder::internal::e_strcmp(controls->procedure.data,
                 controls->procedure.size)) {
-      loop_ub = 2;
+      b_index = 2;
     } else if (coder::internal::f_strcmp(controls->procedure.data,
                 controls->procedure.size)) {
-      loop_ub = 3;
+      b_index = 3;
     } else if (coder::internal::g_strcmp(controls->procedure.data,
                 controls->procedure.size)) {
-      loop_ub = 4;
+      b_index = 4;
     } else {
-      loop_ub = -1;
+      b_index = -1;
     }
 
-    switch (loop_ub) {
+    switch (b_index) {
      case 0:
       //  Just a single reflectivity calculation
       cast(problemStruct, &r);
@@ -854,108 +833,62 @@ namespace RAT
       break;
 
      case 4:
-      if (!coder::internal::p_strcmp(controls->display.data,
-           controls->display.size)) {
-        printf("\nRunning DREAM\n\n");
-        fflush(stdout);
-      }
+      {
+        if (!coder::internal::p_strcmp(controls->display.data,
+             controls->display.size)) {
+          printf("\nRunning DREAM\n\n");
+          fflush(stdout);
+        }
 
-      cast(problemStruct, &r);
-      cast(problemCells, &r1);
-      runDREAM(&r, &r1, problemLimits, controls, priors, &b_problemStruct,
-               result, &b_bayesResults);
-      bayesResults->bestFitsMean = b_bayesResults.bestFitsMean;
-      bayesResults->predlims = b_bayesResults.predlims;
-      bayesResults->parConfInts = b_bayesResults.parConfInts;
-      bayesResults->bestPars.set_size(1, b_bayesResults.bestPars.size(1));
-      loop_ub = b_bayesResults.bestPars.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        bayesResults->bestPars[i] = b_bayesResults.bestPars[i];
-      }
-
-      bayesResults_bayesRes.allChains.set_size
-        (b_bayesResults.bayesRes.allChains.size(0),
-         b_bayesResults.bayesRes.allChains.size(1),
-         b_bayesResults.bayesRes.allChains.size(2));
-      loop_ub = b_bayesResults.bayesRes.allChains.size(2);
-      for (i = 0; i < loop_ub; i++) {
-        b_loop_ub = b_bayesResults.bayesRes.allChains.size(1);
-        for (i1 = 0; i1 < b_loop_ub; i1++) {
-          c_loop_ub = b_bayesResults.bayesRes.allChains.size(0);
-          for (i2 = 0; i2 < c_loop_ub; i2++) {
-            bayesResults_bayesRes.allChains[(i2 +
-              bayesResults_bayesRes.allChains.size(0) * i1) +
-              bayesResults_bayesRes.allChains.size(0) *
-              bayesResults_bayesRes.allChains.size(1) * i] =
-              b_bayesResults.bayesRes.allChains[(i2 +
-              b_bayesResults.bayesRes.allChains.size(0) * i1) +
-              b_bayesResults.bayesRes.allChains.size(0) *
-              b_bayesResults.bayesRes.allChains.size(1) * i];
+        cast(problemStruct, &r);
+        cast(problemCells, &r1);
+        runDREAM(&r, &r1, problemLimits, controls, priors, &b_problemStruct,
+                 result, &b_bayesResults);
+        bayesResults->bestFitMean = b_bayesResults.bestFitMean;
+        bayesResults->predictionIntervals = b_bayesResults.predictionIntervals;
+        bayesResults->confidenceIntervals = b_bayesResults.confidenceIntervals;
+        bayesResults->dreamParams = b_bayesResults.dreamParams;
+        bayesResults->dreamOutput = b_bayesResults.dreamOutput;
+        bayesResults_nestedSamplerOutput.nestSamples.size[0] = 1;
+        bayesResults_nestedSamplerOutput.nestSamples.size[1] = 2;
+        bayesResults_nestedSamplerOutput.postSamples.size[0] = 1;
+        bayesResults_nestedSamplerOutput.postSamples.size[1] = 2;
+        bayesResults_nestedSamplerOutput.nestSamples.data[0] =
+          b_bayesResults.nestedSamplerOutput.nestSamples.data[0];
+        bayesResults_nestedSamplerOutput.postSamples.data[0] =
+          b_bayesResults.nestedSamplerOutput.postSamples.data[0];
+        bayesResults_nestedSamplerOutput.nestSamples.data[1] =
+          b_bayesResults.nestedSamplerOutput.nestSamples.data[1];
+        bayesResults_nestedSamplerOutput.postSamples.data[1] =
+          b_bayesResults.nestedSamplerOutput.postSamples.data[1];
+        bayesResults->chain.set_size(b_bayesResults.chain.size(0),
+          b_bayesResults.chain.size(1));
+        b_index = b_bayesResults.chain.size(1);
+        for (i = 0; i < b_index; i++) {
+          int32_T loop_ub;
+          loop_ub = b_bayesResults.chain.size(0);
+          for (int32_T i1{0}; i1 < loop_ub; i1++) {
+            bayesResults->chain[i1 + bayesResults->chain.size(0) * i] =
+              b_bayesResults.chain[i1 + b_bayesResults.chain.size(0) * i];
           }
         }
-      }
 
-      bayesResults_bayesRes.nestOutput.nestSamples.size[0] = 1;
-      bayesResults_bayesRes.nestOutput.nestSamples.size[1] = 2;
-      bayesResults_bayesRes.nestOutput.postSamples.size[0] = 1;
-      bayesResults_bayesRes.nestOutput.postSamples.size[1] = 2;
-      bayesResults_bayesRes.nestOutput.nestSamples.data[0] =
-        b_bayesResults.bayesRes.nestOutput.nestSamples.data[0];
-      bayesResults_bayesRes.nestOutput.postSamples.data[0] =
-        b_bayesResults.bayesRes.nestOutput.postSamples.data[0];
-      bayesResults_bayesRes.nestOutput.nestSamples.data[1] =
-        b_bayesResults.bayesRes.nestOutput.nestSamples.data[1];
-      bayesResults_bayesRes.nestOutput.postSamples.data[1] =
-        b_bayesResults.bayesRes.nestOutput.postSamples.data[1];
-      bayesResults->chain.set_size(b_bayesResults.chain.size(0),
-        b_bayesResults.chain.size(1));
-      loop_ub = b_bayesResults.chain.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        b_loop_ub = b_bayesResults.chain.size(0);
-        for (i1 = 0; i1 < b_loop_ub; i1++) {
-          bayesResults->chain[i1 + bayesResults->chain.size(0) * i] =
-            b_bayesResults.chain[i1 + b_bayesResults.chain.size(0) * i];
-        }
+        cast(&b_problemStruct, problemStruct);
+        bayesResults->nestedSamplerOutput.LogZ =
+          b_bayesResults.nestedSamplerOutput.LogZ;
+        bayesResults->nestedSamplerOutput.nestSamples.set_size(1, 2);
+        bayesResults->nestedSamplerOutput.postSamples.set_size(1, 2);
+        bayesResults->nestedSamplerOutput.nestSamples[0] =
+          bayesResults_nestedSamplerOutput.nestSamples.data[0];
+        bayesResults->nestedSamplerOutput.postSamples[0] =
+          bayesResults_nestedSamplerOutput.postSamples.data[0];
+        bayesResults->nestedSamplerOutput.nestSamples
+          [bayesResults->nestedSamplerOutput.nestSamples.size(0)] =
+          bayesResults_nestedSamplerOutput.nestSamples.data[1];
+        bayesResults->nestedSamplerOutput.postSamples
+          [bayesResults->nestedSamplerOutput.postSamples.size(0)] =
+          bayesResults_nestedSamplerOutput.postSamples.data[1];
       }
-
-      cast(&b_problemStruct, problemStruct);
-      bayesResults->bayesRes.allChains.set_size
-        (bayesResults_bayesRes.allChains.size(0),
-         bayesResults_bayesRes.allChains.size(1),
-         bayesResults_bayesRes.allChains.size(2));
-      loop_ub = bayesResults_bayesRes.allChains.size(2);
-      for (i = 0; i < loop_ub; i++) {
-        b_loop_ub = bayesResults_bayesRes.allChains.size(1);
-        for (i1 = 0; i1 < b_loop_ub; i1++) {
-          c_loop_ub = bayesResults_bayesRes.allChains.size(0);
-          for (i2 = 0; i2 < c_loop_ub; i2++) {
-            bayesResults->bayesRes.allChains[(i2 +
-              bayesResults->bayesRes.allChains.size(0) * i1) +
-              bayesResults->bayesRes.allChains.size(0) *
-              bayesResults->bayesRes.allChains.size(1) * i] =
-              bayesResults_bayesRes.allChains[(i2 +
-              bayesResults_bayesRes.allChains.size(0) * i1) +
-              bayesResults_bayesRes.allChains.size(0) *
-              bayesResults_bayesRes.allChains.size(1) * i];
-          }
-        }
-      }
-
-      bayesResults->bayesRes.dreamOutput = b_bayesResults.bayesRes.dreamOutput;
-      bayesResults->bayesRes.nestOutput.LogZ =
-        b_bayesResults.bayesRes.nestOutput.LogZ;
-      bayesResults->bayesRes.nestOutput.nestSamples.set_size(1, 2);
-      bayesResults->bayesRes.nestOutput.postSamples.set_size(1, 2);
-      bayesResults->bayesRes.nestOutput.nestSamples[0] =
-        bayesResults_bayesRes.nestOutput.nestSamples.data[0];
-      bayesResults->bayesRes.nestOutput.postSamples[0] =
-        bayesResults_bayesRes.nestOutput.postSamples.data[0];
-      bayesResults->bayesRes.nestOutput.nestSamples
-        [bayesResults->bayesRes.nestOutput.nestSamples.size(0)] =
-        bayesResults_bayesRes.nestOutput.nestSamples.data[1];
-      bayesResults->bayesRes.nestOutput.postSamples
-        [bayesResults->bayesRes.nestOutput.postSamples.size(0)] =
-        bayesResults_bayesRes.nestOutput.postSamples.data[1];
       break;
     }
 

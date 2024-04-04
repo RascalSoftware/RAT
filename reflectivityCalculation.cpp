@@ -288,8 +288,8 @@ namespace RAT
     ::coder::array<cell_wrap_52, 2U> r2;
     ::coder::array<cell_wrap_8, 1U> b_reflectivity;
     ::coder::array<cell_wrap_8, 1U> b_simulation;
-    b_struct_T b_contrastParams;
-    b_struct_T contrastParams;
+    c_struct_T b_contrastParams;
+    c_struct_T contrastParams;
     f_struct_T a__1;
     int32_T b_loop_ub;
     int32_T i;

@@ -21,10 +21,10 @@
 namespace RAT
 {
   void boundaryHandling(::coder::array<real_T, 2U> &x, const ::coder::array<
-                        real_T, 2U> &Par_info_min, const ::coder::array<real_T,
-                        2U> &Par_info_max, const char_T
-                        Par_info_boundhandling_data[], const int32_T
-                        Par_info_boundhandling_size[2]);
+                        real_T, 2U> &paramInfo_min, const ::coder::array<real_T,
+                        2U> &paramInfo_max, const char_T
+                        paramInfo_boundhandling_data[], const int32_T
+                        paramInfo_boundhandling_size[2]);
 }
 
 #endif

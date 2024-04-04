@@ -25,7 +25,7 @@ namespace RAT
   struct struct2_T;
   struct struct4_T;
   struct struct5_T;
-  struct j_struct_T;
+  struct h_struct_T;
 }
 
 // Function Declarations
@@ -34,7 +34,7 @@ namespace RAT
   void runDREAM(const f_struct_T *problemStruct, const cell_11 *problemCells,
                 const struct1_T *problemLimits, const struct2_T *controls, const
                 struct4_T *priors, f_struct_T *outProblemStruct, struct5_T
-                *result, j_struct_T *bayesResults);
+                *result, h_struct_T *bayesResults);
 }
 
 #endif

@@ -20,7 +20,7 @@
 // Type Declarations
 namespace RAT
 {
-  struct struct14_T;
+  struct struct12_T;
 }
 
 // Function Declarations
@@ -28,7 +28,7 @@ namespace RAT
 {
   void removeOutlier(::coder::array<real_T, 2U> &X, ::coder::array<real_T, 2U>
                      &log_L, const real_T outlier_data[], const int32_T
-                     outlier_size[2], const struct14_T *DREAMPar, ::coder::array<
+                     outlier_size[2], const struct12_T *DREAMPar, ::coder::array<
                      real_T, 2U> &outputOutlier);
 }
 

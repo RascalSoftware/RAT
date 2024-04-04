@@ -29,6 +29,12 @@ namespace RAT
 
   struct b_struct_T
   {
+    real_T Y;
+    real_T N;
+  };
+
+  struct c_struct_T
+  {
     ::coder::array<real_T, 1U> backgroundParams;
     ::coder::array<real_T, 1U> qzshifts;
     ::coder::array<real_T, 1U> scalefactors;
@@ -64,7 +70,7 @@ namespace RAT
     ::coder::array<cell_wrap_1, 1U> f1;
   };
 
-  struct c_struct_T
+  struct d_struct_T
   {
     ::coder::array<cell_wrap_8, 1U> reflectivity;
     ::coder::array<cell_wrap_8, 1U> simulation;
@@ -73,23 +79,16 @@ namespace RAT
     ::coder::array<cell_wrap_10, 2U> sldProfiles;
     ::coder::array<cell_wrap_38, 2U> resampledLayers;
     struct6_T calculationResults;
-    b_struct_T contrastParams;
+    c_struct_T contrastParams;
     ::coder::array<real_T, 2U> fitParams;
     ::coder::array<cell_wrap_1, 1U> fitNames;
   };
 
-  struct d_struct_T
+  struct e_struct_T
   {
     real_T LogZ;
     ::coder::bounded_array<real_T, 2U, 2U> nestSamples;
     ::coder::bounded_array<real_T, 2U, 2U> postSamples;
-  };
-
-  struct e_struct_T
-  {
-    ::coder::array<real_T, 3U> allChains;
-    struct13_T dreamOutput;
-    d_struct_T nestOutput;
   };
 
   struct cell_wrap_33
@@ -178,36 +177,51 @@ namespace RAT
 
   struct g_struct_T
   {
-    ::coder::array<cell_wrap_8, 1U> ref;
+    ::coder::array<cell_wrap_64, 1U> reflectivity;
+    ::coder::array<cell_wrap_64, 2U> sld;
+    ::coder::array<cell_wrap_31, 2U> reflectivityXData;
+    ::coder::array<cell_wrap_31, 2U> sldXData;
+    real_T sampleChi[1000];
+  };
+
+  struct h_struct_T
+  {
+    struct9_T bestFitMean;
+    struct10_T predictionIntervals;
+    struct11_T confidenceIntervals;
+    struct12_T dreamParams;
+    struct13_T dreamOutput;
+    e_struct_T nestedSamplerOutput;
+    ::coder::array<real_T, 2U> chain;
+  };
+
+  struct i_struct_T
+  {
+    ::coder::array<cell_wrap_8, 1U> reflectivity;
     ::coder::array<cell_wrap_10, 2U> sld;
     real_T chi;
     ::coder::array<cell_wrap_38, 1U> data;
   };
 
-  struct h_struct_T
-  {
-    ::coder::array<cell_wrap_64, 1U> refPredInts;
-    ::coder::array<cell_wrap_64, 2U> sldPredInts;
-    ::coder::array<cell_wrap_31, 2U> refXdata;
-    ::coder::array<cell_wrap_31, 2U> sldXdata;
-    real_T sampleChi[1000];
-  };
-
-  struct i_struct_T
-  {
-    g_struct_T bestFitsMean;
-    h_struct_T predlims;
-    struct11_T parConfInts;
-  };
-
   struct j_struct_T
   {
-    struct9_T bestFitsMean;
-    struct10_T predlims;
-    struct11_T parConfInts;
-    ::coder::array<real_T, 2U> bestPars;
-    e_struct_T bayesRes;
-    ::coder::array<real_T, 2U> chain;
+    i_struct_T bestFitMean;
+    g_struct_T predictionIntervals;
+    struct11_T confidenceIntervals;
+  };
+
+  struct k_struct_T
+  {
+    ::coder::bounded_array<real_T, 2000U, 2U> outlierChains;
+    real_T runtime;
+    struct12_T DREAMPar;
+    b_struct_T Meas_info;
+    real_T iteration;
+    real_T iloc;
+    real_T modelOutput;
+    ::coder::bounded_array<real_T, 2000U, 2U> AR;
+    ::coder::array<real_T, 2U> R_stat;
+    ::coder::array<real_T, 2U> CR;
   };
 
   struct l_struct_T

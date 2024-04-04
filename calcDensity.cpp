@@ -19,7 +19,7 @@
 namespace RAT
 {
   void calcDensity(const ::coder::array<real_T, 2U> &x, const ::coder::array<
-                   real_T, 2U> &fx, const struct14_T *DREAMPar, const ::coder::
+                   real_T, 2U> &fx, const struct12_T *DREAMPar, const ::coder::
                    array<real_T, 2U> &ratInputs_problemStruct_fitLimits, const ::
                    coder::array<real_T, 2U> &ratInputs_priors, ::coder::array<
                    real_T, 1U> &log_L, ::coder::array<real_T, 1U> &log_PR)
@@ -41,10 +41,10 @@ namespace RAT
     //  if Meas_info.N > 0
     //
     //      % Initialize "res" (residual matrix)
-    //      res = NaN(Meas_info.N,DREAMPar.N);
+    //      res = NaN(Meas_info.N,DREAMPar.nChains);
     //
     //      % Loop over each model realization
-    //      for ii = 1 : DREAMPar.N
+    //      for ii = 1 : DREAMPar.nChains
     //
     //          % We now calculate the error residual
     //          res(:,ii) = (Meas_info.Y(:) - fx(1:Meas_info.N,ii));
@@ -61,22 +61,22 @@ namespace RAT
     //  if ~DREAMPar.ABC
     //
     //      % Calculate the log-prior
-    //      if isfield(Par_info,'prior_marginal')
+    //      if isfield(paramInfo,'prior_marginal')
     //
     //          % Compute prior densities for each parameter in each sequence
-    //          for qq = 1 : DREAMPar.d
-    //              for zz = 1 : DREAMPar.N
+    //          for qq = 1 : DREAMPar.nParams
+    //              for zz = 1 : DREAMPar.nChains
     //                  % Compute prior density of proposal
-    //                  PR(zz,qq) = max ( eval(char(strrep(Par_info.prior_marginal(qq),'rnd(','pdf(x(zz,qq),'))) , 1e-299 );
+    //                  PR(zz,qq) = max ( eval(char(strrep(paramInfo.prior_marginal(qq),'rnd(','pdf(x(zz,qq),'))) , 1e-299 );
     //              end
     //          end
     //
     //          % Take the log of the densities and their sum
     //          log_PR = sum ( log ( PR ) , 2 );
     //
-    //      elseif isfield(Par_info,'mvnpdf')
+    //      elseif isfield(paramInfo,'mvnpdf')
     //  RAT specific prior funtion (mvnpdf)
-    loop_ub_tmp = static_cast<int32_T>(DREAMPar->N);
+    loop_ub_tmp = static_cast<int32_T>(DREAMPar->nChains);
     PR.set_size(1, loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
       PR[i] = 0.0;
@@ -123,7 +123,7 @@ namespace RAT
     // log_PR = sum(log_PR(:));         % Enforce column vector
     //     else
     //          No use of prior --> set log-prior to zero (no effect in Metropolis)
-    //          log_PR = zeros ( DREAMPar.N , 1 );
+    //          log_PR = zeros ( DREAMPar.nChains , 1 );
     //
     //      end
     //
@@ -134,7 +134,7 @@ namespace RAT
     //      if isfield(DREAMPar,'prior_handle')
     //
     //          Evaluate distance between observed and simulated summary metrics
-    //          for ii = 1 : DREAMPar.N
+    //          for ii = 1 : DREAMPar.nChains
     //
     //              Calculate summary metrics for "fx"
     //              S_sim = DREAMPar.prior_handle ( fx(:,ii) );
@@ -147,7 +147,7 @@ namespace RAT
     //      Regular ABC with summary metrics as likelihood function
     //      else
     //
-    //          log_PR = zeros ( DREAMPar.N , 1 );
+    //          log_PR = zeros ( DREAMPar.nChains , 1 );
     //
     //      end
     //

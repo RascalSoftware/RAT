@@ -26,17 +26,16 @@
 namespace RAT
 {
   void calcProposal(const ::coder::array<real_T, 2U> &X, real_T CR_data[], const
-                    struct14_T *DREAMPar, const ::coder::array<real_T, 2U>
-                    &Table_gamma, const ::coder::array<real_T, 2U> &Par_info_min,
-                    const ::coder::array<real_T, 2U> &Par_info_max, const char_T
-                    Par_info_boundhandling_data[], const int32_T
-                    Par_info_boundhandling_size[2], ::coder::array<real_T, 2U>
-                    &x_new)
+                    struct12_T *DREAMPar, const ::coder::array<real_T, 2U>
+                    &Table_gamma, const ::coder::array<real_T, 2U>
+                    &paramInfo_min, const ::coder::array<real_T, 2U>
+                    &paramInfo_max, const char_T paramInfo_boundhandling_data[],
+                    const int32_T paramInfo_boundhandling_size[2], ::coder::
+                    array<real_T, 2U> &x_new)
   {
     ::coder::array<real_T, 2U> A;
     ::coder::array<real_T, 2U> a;
     ::coder::array<real_T, 2U> b;
-    ::coder::array<real_T, 2U> b_b;
     ::coder::array<real_T, 2U> b_gamma;
     ::coder::array<real_T, 2U> dx;
     ::coder::array<real_T, 2U> eps;
@@ -44,9 +43,9 @@ namespace RAT
     ::coder::array<real_T, 2U> r1;
     ::coder::array<real_T, 2U> r4;
     ::coder::array<real_T, 2U> r5;
-    ::coder::array<real_T, 2U> r6;
     ::coder::array<real_T, 2U> rnd_cr;
     ::coder::array<real_T, 2U> rnd_jump;
+    ::coder::array<real_T, 2U> x;
     ::coder::array<real_T, 1U> DE_pairs;
     ::coder::array<real_T, 1U> r3;
     ::coder::array<int32_T, 2U> iidx;
@@ -65,37 +64,37 @@ namespace RAT
 
     //  Calculate candidate points using discrete proposal distribution
     //  % % % Calculate the ergodicity perturbation
-    //  % % eps = DREAMPar.zeta * randn(DREAMPar.N,DREAMPar.d);
+    //  % % eps = DREAMPar.zeta * randn(DREAMPar.nChains,DREAMPar.nParams);
     //  % %
     //  % % % Determine which sequences to evolve with what DE strategy
-    //  % % DE_pairs = randsample( [1:DREAMPar.delta ] , DREAMPar.N , true , [ 1/DREAMPar.delta*ones(1,DREAMPar.delta) ])';
+    //  % % DE_pairs = randsample( [1:DREAMPar.delta ] , DREAMPar.nChains , true , [ 1/DREAMPar.delta*ones(1,DREAMPar.delta) ])';
     //  % %
     //  % % % Generate series of permutations of chains
-    //  % % [dummy,tt] = sort(rand(DREAMPar.N-1,DREAMPar.N));
+    //  % % [dummy,tt] = sort(rand(DREAMPar.nChains-1,DREAMPar.nChains));
     //  % %
     //  % % % Generate uniform random numbers for each chain to determine which dimension to update
-    //  % % D = rand(DREAMPar.N,DREAMPar.d);
+    //  % % D = rand(DREAMPar.nChains,DREAMPar.nParams);
     //  % %
     //  % % % Ergodicity for each individual chain
-    //  % % noise_x = DREAMPar.lambda * (2 * rand(DREAMPar.N,DREAMPar.d) - 1);
+    //  % % noise_x = DREAMPar.jumpProbability * (2 * rand(DREAMPar.nChains,DREAMPar.nParams) - 1);
     //  % %
     //  % % % Initialize the delta update to zero
-    //  % % delta_x = zeros(DREAMPar.N,DREAMPar.d);
+    //  % % delta_x = zeros(DREAMPar.nChains,DREAMPar.nParams);
     //  % %
     //  % % % Each chain evolves using information from other chains to create offspring
-    //  % % for qq = 1:DREAMPar.N,
+    //  % % for qq = 1:DREAMPar.nChains,
     //  % %
     //  % %     % Define ii and remove current member as an option
-    //  % %     ii = ones(DREAMPar.N,1); ii(qq) = 0; idx = find(ii > 0);
+    //  % %     ii = ones(DREAMPar.nChains,1); ii(qq) = 0; idx = find(ii > 0);
     //  % %
     //  % %     % randomly select two members of ii that have value == 1
     //  % %     rr = idx(tt(1:2*DE_pairs(qq,1),qq));
     //  % %
     //  % %     % --- WHICH DIMENSIONS TO UPDATE? DO SOMETHING WITH CROSSOVER ----
-    //  % %     [i] = find(D(qq,1:DREAMPar.d) > (1-CR(qq,1)));
+    //  % %     [i] = find(D(qq,1:DREAMPar.nParams) > (1-CR(qq,1)));
     //  % %
     //  % %     % Update at least one dimension
-    //  % %     if isempty(i), i = randperm(DREAMPar.d); i = i(1); end;
+    //  % %     if isempty(i), i = randperm(DREAMPar.nParams); i = i(1); end;
     //  % %     % ----------------------------------------------------------------
     //  % %
     //  % %     % Determine the associated JumpRate and compute the jump
@@ -116,7 +115,7 @@ namespace RAT
     //  % %         %        end;
     //  % %
     //  % %         % Produce the difference of the pairs used for population evolution
-    //  % %         delta = sum(X(rr(1:DE_pairs(qq,1)),1:DREAMPar.d) - X(rr(DE_pairs(qq,1)+1:2*DE_pairs(qq,1)),1:DREAMPar.d),1);
+    //  % %         delta = sum(X(rr(1:DE_pairs(qq,1)),1:DREAMPar.nParams) - X(rr(DE_pairs(qq,1)+1:2*DE_pairs(qq,1)),1:DREAMPar.nParams),1);
     //  % %
     //  % %         % Then fill update the dimension
     //  % %         delta_x(qq,i) = (1 + noise_x(qq,i)) * JumpRate.*delta(1,i);
@@ -127,21 +126,21 @@ namespace RAT
     //  % %         JumpRate = 1; CR(qq,1) = -1;
     //  % %
     //  % %         % Compute delta from one pair
-    //  % %         delta = X(rr(1),1:DREAMPar.d) - X(rr(2),1:DREAMPar.d);
+    //  % %         delta = X(rr(1),1:DREAMPar.nParams) - X(rr(2),1:DREAMPar.nParams);
     //  % %
     //  % %         % Now jumprate to facilitate jumping from one mode to the other in all dimensions
-    //  % %         delta_x(qq,1:DREAMPar.d) = JumpRate * delta;
+    //  % %         delta_x(qq,1:DREAMPar.nParams) = JumpRate * delta;
     //  % %
     //  % %     end;
     //  % %
     //  % %     % Check this line to avoid that jump = 0 and x_new is similar to X
-    //  % %     if (sum(delta_x(qq,1:DREAMPar.d).^2,2) == 0),
+    //  % %     if (sum(delta_x(qq,1:DREAMPar.nParams).^2,2) == 0),
     //  % %
     //  % %         % Compute the Cholesky Decomposition of X
-    //  % %         R = (2.38/sqrt(DREAMPar.d)) * chol(cov(X(1:end,1:DREAMPar.d)) + 1e-5*eye(DREAMPar.d));
+    //  % %         R = (2.38/sqrt(DREAMPar.nParams)) * chol(cov(X(1:end,1:DREAMPar.nParams)) + 1e-5*eye(DREAMPar.nParams));
     //  % %
     //  % %         % Generate jump using multinormal distribution
-    //  % %         delta_x(qq,1:DREAMPar.d) = randn(1,DREAMPar.d) * R;
+    //  % %         delta_x(qq,1:DREAMPar.nParams) = randn(1,DREAMPar.nParams) * R;
     //  % %         disp('hello');
     //  % %     end;
     //  % %
@@ -151,13 +150,13 @@ namespace RAT
     //  % % x_new = X + delta_x + eps;
     //  % %
     //  % % % If specified do boundary handling ( "Bound","Reflect","Fold")
-    //  % % if isfield(Par_info,'boundhandling'),
-    //  % %     [x_new] = BoundaryHandling(x_new,Par_info,Par_info.boundhandling);
+    //  % % if isfield(paramInfo,'boundhandling'),
+    //  % %     [x_new] = BoundaryHandling(x_new,paramInfo,paramInfo.boundhandling);
     //  % % end;
     //  % %
     //  ##################################################
     //  Calculate the ergodicity perturbation
-    coder::randn(DREAMPar->N, DREAMPar->d, b);
+    coder::randn(DREAMPar->nChains, DREAMPar->nParams, b);
     eps.set_size(b.size(0), b.size(1));
     loop_ub = b.size(1);
     for (i = 0; i < loop_ub; i++) {
@@ -175,7 +174,7 @@ namespace RAT
     tmp_data[1] = 0.33333333333333331;
     r[2] = 3.0;
     tmp_data[2] = 0.33333333333333331;
-    coder::randsample((const real_T *)r.data(), DREAMPar->N, tmp_data, r1);
+    coder::randsample((const real_T *)r.data(), DREAMPar->nChains, tmp_data, r1);
     DE_pairs.set_size(r1.size(1));
     loop_ub = r1.size(1);
     for (i = 0; i < loop_ub; i++) {
@@ -183,28 +182,28 @@ namespace RAT
     }
 
     //  Generate uniform random numbers for each chain to determine which dimension to update
-    coder::b_rand(DREAMPar->N, DREAMPar->d, rnd_cr);
+    coder::b_rand(DREAMPar->nChains, DREAMPar->nParams, rnd_cr);
 
     //  Ergodicity for each individual chain
-    coder::b_rand(DREAMPar->N, DREAMPar->d, b);
+    coder::b_rand(DREAMPar->nChains, DREAMPar->nParams, b);
     rnd_jump.set_size(b.size(0), b.size(1));
     loop_ub = b.size(1);
     for (i = 0; i < loop_ub; i++) {
       b_loop_ub = b.size(0);
       for (i1 = 0; i1 < b_loop_ub; i1++) {
-        rnd_jump[i1 + rnd_jump.size(0) * i] = DREAMPar->lambda * (2.0 * b[i1 +
-          b.size(0) * i] - 1.0);
+        rnd_jump[i1 + rnd_jump.size(0) * i] = DREAMPar->jumpProbability * (2.0 *
+          b[i1 + b.size(0) * i] - 1.0);
       }
     }
 
-    // rnd_jump = DREAMPar.lambda * (2 * rand(DREAMPar.N,1) - 1);
+    // rnd_jump = DREAMPar.jumpProbability * (2 * rand(DREAMPar.nChains,1) - 1);
     //  Randomly permute numbers [1,...,N-1] N times
-    coder::b_rand(DREAMPar->N - 1.0, DREAMPar->N, b);
+    coder::b_rand(DREAMPar->nChains - 1.0, DREAMPar->nChains, b);
     coder::internal::b_sort(b, iidx);
 
     //  Set jump vectors equal to zero
-    loop_ub_tmp = static_cast<int32_T>(DREAMPar->N);
-    b_loop_ub_tmp = static_cast<int32_T>(DREAMPar->d);
+    loop_ub_tmp = static_cast<int32_T>(DREAMPar->nChains);
+    b_loop_ub_tmp = static_cast<int32_T>(DREAMPar->nParams);
     dx.set_size(loop_ub_tmp, b_loop_ub_tmp);
     for (i = 0; i < b_loop_ub_tmp; i++) {
       for (i1 = 0; i1 < loop_ub_tmp; i1++) {
@@ -215,7 +214,7 @@ namespace RAT
     //  Determine when jumprate is 1
     b_dv[0] = 1.0 - DREAMPar->pUnitGamma;
     b_dv[1] = DREAMPar->pUnitGamma;
-    coder::randsample(DREAMPar->N, b_dv, b_gamma);
+    coder::randsample(DREAMPar->nChains, b_dv, b_gamma);
 
     //  Create N proposals
     for (int32_T b_i{0}; b_i < loop_ub_tmp; b_i++) {
@@ -246,10 +245,10 @@ namespace RAT
       }
 
       //  Derive subset A with dimensions to sample
-      if (1.0 > DREAMPar->d) {
+      if (1.0 > DREAMPar->nParams) {
         b_loop_ub = 0;
       } else {
-        b_loop_ub = static_cast<int32_T>(DREAMPar->d);
+        b_loop_ub = static_cast<int32_T>(DREAMPar->nParams);
       }
 
       CR = CR_data[b_i];
@@ -270,7 +269,7 @@ namespace RAT
 
       //  Make sure that at least one dimension is selected!
       if (A.size(1) == 0) {
-        coder::randperm(DREAMPar->d, a);
+        coder::randperm(DREAMPar->nParams, a);
         A.set_size(1, 1);
         A[0] = a[0];
         D = 1;
@@ -282,14 +281,14 @@ namespace RAT
         int32_T d_loop_ub;
 
         //  Calculate direct jump
-        if (1.0 > DREAMPar->d) {
+        if (1.0 > DREAMPar->nParams) {
           b_loop_ub = 0;
           c_loop_ub = 0;
           d_loop_ub = 0;
         } else {
-          b_loop_ub = static_cast<int32_T>(DREAMPar->d);
-          c_loop_ub = static_cast<int32_T>(DREAMPar->d);
-          d_loop_ub = static_cast<int32_T>(DREAMPar->d);
+          b_loop_ub = static_cast<int32_T>(DREAMPar->nParams);
+          c_loop_ub = static_cast<int32_T>(DREAMPar->nParams);
+          d_loop_ub = static_cast<int32_T>(DREAMPar->nParams);
         }
 
         b.set_size(b_loop_ub_tmp, c_loop_ub);
@@ -300,25 +299,25 @@ namespace RAT
           }
         }
 
-        r5.set_size(loop_ub, d_loop_ub);
+        r4.set_size(loop_ub, d_loop_ub);
         for (i = 0; i < d_loop_ub; i++) {
           for (i1 = 0; i1 < loop_ub; i1++) {
-            r5[i1 + r5.size(0) * i] = X[(static_cast<int32_T>(r2_data[i1]) +
+            r4[i1 + r4.size(0) * i] = X[(static_cast<int32_T>(r2_data[i1]) +
               X.size(0) * i) - 1];
           }
         }
 
-        b_b.set_size(b.size(0), b.size(1));
+        x.set_size(b.size(0), b.size(1));
         loop_ub = b.size(1);
         for (i = 0; i < loop_ub; i++) {
           c_loop_ub = b.size(0);
           for (i1 = 0; i1 < c_loop_ub; i1++) {
-            b_b[i1 + b_b.size(0) * i] = b[i1 + b.size(0) * i] - r5[i1 + r5.size
-              (0) * i];
+            x[i1 + x.size(0) * i] = b[i1 + b.size(0) * i] - r4[i1 + r4.size(0) *
+              i];
           }
         }
 
-        coder::blockedSummation(b_b, b_loop_ub_tmp, r1);
+        coder::blockedSummation(x, x.size(0), r1);
         for (i = 0; i < b_loop_ub; i++) {
           dx[b_i + dx.size(0) * i] = (rnd_jump[b_i + rnd_jump.size(0) * i] + 1.0)
             * r1[i] + eps[b_i + eps.size(0) * i];
@@ -340,35 +339,34 @@ namespace RAT
           r3[i] = A[i];
         }
 
-        r4.set_size(b_loop_ub_tmp, r3.size(0));
+        x.set_size(b_loop_ub_tmp, r3.size(0));
         b_loop_ub = r3.size(0);
         for (i = 0; i < b_loop_ub; i++) {
           for (i1 = 0; i1 < b_loop_ub_tmp; i1++) {
-            r4[i1 + r4.size(0) * i] = X[(static_cast<int32_T>(r1_data[i1]) +
+            x[i1 + x.size(0) * i] = X[(static_cast<int32_T>(r1_data[i1]) +
               X.size(0) * (static_cast<int32_T>(r3[i]) - 1)) - 1];
           }
         }
 
-        r6.set_size(loop_ub, r3.size(0));
+        r5.set_size(loop_ub, r3.size(0));
         b_loop_ub = r3.size(0);
         for (i = 0; i < b_loop_ub; i++) {
           for (i1 = 0; i1 < loop_ub; i1++) {
-            r6[i1 + r6.size(0) * i] = X[(static_cast<int32_T>(r2_data[i1]) +
+            r5[i1 + r5.size(0) * i] = X[(static_cast<int32_T>(r2_data[i1]) +
               X.size(0) * (static_cast<int32_T>(r3[i]) - 1)) - 1];
           }
         }
 
-        b_b.set_size(r4.size(0), r4.size(1));
-        loop_ub = r4.size(1);
+        loop_ub = x.size(1);
         for (i = 0; i < loop_ub; i++) {
-          b_loop_ub = r4.size(0);
+          b_loop_ub = x.size(0);
           for (i1 = 0; i1 < b_loop_ub; i1++) {
-            b_b[i1 + b_b.size(0) * i] = r4[i1 + r4.size(0) * i] - r6[i1 +
-              r6.size(0) * i];
+            x[i1 + x.size(0) * i] = x[i1 + x.size(0) * i] - r5[i1 + r5.size(0) *
+              i];
           }
         }
 
-        coder::blockedSummation(b_b, b_loop_ub_tmp, r1);
+        coder::blockedSummation(x, x.size(0), r1);
         loop_ub = r3.size(0);
         for (i = 0; i < loop_ub; i++) {
           b_loop_ub = static_cast<int32_T>(r3[i]) - 1;
@@ -390,8 +388,8 @@ namespace RAT
       }
     }
 
-    boundaryHandling(b, Par_info_min, Par_info_max, Par_info_boundhandling_data,
-                     Par_info_boundhandling_size);
+    boundaryHandling(b, paramInfo_min, paramInfo_max,
+                     paramInfo_boundhandling_data, paramInfo_boundhandling_size);
     x_new.set_size(b.size(0), b.size(1));
     loop_ub = b.size(1);
     for (i = 0; i < loop_ub; i++) {

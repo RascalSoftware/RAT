@@ -25,9 +25,9 @@ namespace RAT
   struct cell_wrap_28;
   struct cell_wrap_29;
   struct struct6_T;
-  struct b_struct_T;
-  struct cell_wrap_30;
   struct c_struct_T;
+  struct cell_wrap_30;
+  struct d_struct_T;
   struct cell_wrap_33;
   struct cell_wrap_10;
   struct cell_wrap_35;
@@ -44,18 +44,18 @@ namespace RAT
         cell_wrap_26 *varargin_4, const cell_wrap_27 *varargin_6, const
         cell_wrap_28 *varargin_8, const cell_wrap_28 *varargin_10, const
         cell_wrap_29 *varargin_12, const struct6_T *varargin_14, const
-        b_struct_T *varargin_16, const ::coder::array<real_T, 2U> &varargin_18,
-        const cell_wrap_30 *varargin_20, c_struct_T *s);
+        c_struct_T *varargin_16, const ::coder::array<real_T, 2U> &varargin_18,
+        const cell_wrap_30 *varargin_20, d_struct_T *s);
       void structConstructorHelper(const cell_wrap_33 *varargin_2, const
         cell_wrap_28 *varargin_4, const cell_wrap_33 *varargin_8, ::coder::array<
-        cell_wrap_10, 1U> &s_ref, ::coder::array<cell_wrap_10, 2U> &s_sld,
-        real_T *s_chi, ::coder::array<cell_wrap_10, 1U> &s_data);
+        cell_wrap_10, 1U> &s_reflectivity, ::coder::array<cell_wrap_10, 2U>
+        &s_sld, real_T *s_chi, ::coder::array<cell_wrap_10, 1U> &s_data);
       void structConstructorHelper(const cell_wrap_33 *varargin_2, const
         cell_wrap_28 *varargin_4, const cell_wrap_33 *varargin_6, const
         cell_wrap_28 *varargin_8, const cell_wrap_35 *varargin_10, ::coder::
-        array<cell_wrap_10, 1U> &s_refPredInts, ::coder::array<cell_wrap_10, 2U>
-        &s_sldPredInts, ::coder::array<cell_wrap_10, 1U> &s_refXdata, ::coder::
-        array<cell_wrap_10, 2U> &s_sldXdata, real_T s_sampleChi_data[], int32_T *
+        array<cell_wrap_10, 1U> &s_reflectivity, ::coder::array<cell_wrap_10, 2U>
+        &s_sld, ::coder::array<cell_wrap_10, 1U> &s_reflectivityXData, ::coder::
+        array<cell_wrap_10, 2U> &s_sldXData, real_T s_sampleChi_data[], int32_T *
         s_sampleChi_size);
     }
   }

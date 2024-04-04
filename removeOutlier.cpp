@@ -66,7 +66,7 @@ namespace RAT
 
   void removeOutlier(::coder::array<real_T, 2U> &X, ::coder::array<real_T, 2U>
                      &log_L, const real_T outlier_data[], const int32_T
-                     outlier_size[2], const struct14_T *DREAMPar, ::coder::array<
+                     outlier_size[2], const struct12_T *DREAMPar, ::coder::array<
                      real_T, 2U> &outputOutlier)
   {
     ::coder::array<real_T, 2U> b_chain_select;
@@ -100,10 +100,10 @@ namespace RAT
       i1 = log_L.size(0);
     }
 
-    if (1.0 > DREAMPar->N) {
+    if (1.0 > DREAMPar->nChains) {
       loop_ub = 0;
     } else {
-      loop_ub = static_cast<int32_T>(DREAMPar->N);
+      loop_ub = static_cast<int32_T>(DREAMPar->nChains);
     }
 
     //  ------------------------------
@@ -150,16 +150,16 @@ namespace RAT
     //  If at least one outlier chain has been found --> reset its state
     if (chain_id.size(1) > 0) {
       //  Re-initialize ecah outlier chain to current state random other chain
-      if (std::isnan(DREAMPar->N)) {
+      if (std::isnan(DREAMPar->nChains)) {
         b_chain_select.set_size(1, 1);
         b_chain_select[0] = rtNaN;
-      } else if (DREAMPar->N < 1.0) {
+      } else if (DREAMPar->nChains < 1.0) {
         b_chain_select.set_size(1, 0);
-      } else if (std::isinf(DREAMPar->N) && (1.0 == DREAMPar->N)) {
+      } else if (std::isinf(DREAMPar->nChains) && (1.0 == DREAMPar->nChains)) {
         b_chain_select.set_size(1, 1);
         b_chain_select[0] = rtNaN;
       } else {
-        loop_ub = static_cast<int32_T>(std::floor(DREAMPar->N - 1.0));
+        loop_ub = static_cast<int32_T>(std::floor(DREAMPar->nChains - 1.0));
         b_chain_select.set_size(1, loop_ub + 1);
         for (i = 0; i <= loop_ub; i++) {
           b_chain_select[i] = static_cast<real_T>(i) + 1.0;
@@ -175,7 +175,8 @@ namespace RAT
       coder::internal::nullAssignment(b_chain_select, b_chain_id);
 
       //  Randomly permute these available chains
-      coder::randperm(DREAMPar->N - static_cast<real_T>(chain_id.size(1)), r);
+      coder::randperm(DREAMPar->nChains - static_cast<real_T>(chain_id.size(1)),
+                      r);
       chain_select.set_size(1, r.size(1));
       loop_ub = r.size(1);
       for (i = 0; i < loop_ub; i++) {
@@ -190,7 +191,7 @@ namespace RAT
 
       //  Loop over each outlier chain
       i = chain_id.size(1);
-      loop_ub = static_cast<int32_T>(DREAMPar->d + 2.0);
+      loop_ub = static_cast<int32_T>(DREAMPar->nParams + 2.0);
       for (int32_T j{0}; j < i; j++) {
         int32_T chain_id_tmp;
         int16_T i2;

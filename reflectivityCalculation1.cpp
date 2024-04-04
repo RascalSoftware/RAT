@@ -28,7 +28,7 @@ namespace RAT
   namespace nonPolarisedTF
   {
     void b_reflectivityCalculation(const f_struct_T *problemStruct, const
-      cell_11 *problemCells, const struct2_T *controls, b_struct_T
+      cell_11 *problemCells, const struct2_T *controls, c_struct_T
       *contrastParams, struct6_T *calculationResults, ::coder::array<cell_wrap_8,
       1U> &reflectivity, ::coder::array<cell_wrap_8, 1U> &simulation, ::coder::
       array<cell_wrap_10, 1U> &shiftedData, ::coder::array<cell_wrap_10, 1U>

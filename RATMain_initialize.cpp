@@ -14,7 +14,6 @@
 #include "RATMain_data.h"
 #include "RATMain_rtwutil.h"
 #include "eml_rand_mt19937ar_stateful.h"
-#include "fileManager.h"
 #include "rt_nonfinite.h"
 #include "timeKeeper.h"
 #include "triggerEvent.h"
@@ -32,7 +31,6 @@ namespace RAT
     helper_not_empty_init();
     triggerEvent_init();
     eml_rand_mt19937ar_stateful_init();
-    filedata_init();
     emlrtInitThreadStackData();
   }
 }

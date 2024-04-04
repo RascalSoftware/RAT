@@ -20,20 +20,20 @@
 // Type Declarations
 namespace RAT
 {
-  struct struct15_T;
-  struct struct14_T;
-  struct struct13_T;
+  struct b_struct_T;
+  struct struct12_T;
+  struct k_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void setupDREAM(real_T DREAMPar_d, real_T DREAMPar_N, real_T DREAMPar_T,
-                  real_T DREAMPar_lambda, real_T DREAMPar_pUnitGamma, boolean_T
-                  DREAMPar_adaptPCR, struct15_T *Meas_info, struct14_T
-                  *outDREAMPar, ::coder::array<real_T, 3U> &chain, struct13_T
-                  *output, ::coder::array<real_T, 2U> &log_L, ::coder::array<
-                  real_T, 2U> &Table_gamma);
+  void setupDREAM(real_T DREAMPar_nParams, real_T DREAMPar_nChains, real_T
+                  DREAMPar_nGenerations, real_T DREAMPar_jumpProbability, real_T
+                  DREAMPar_pUnitGamma, boolean_T DREAMPar_adaptPCR, b_struct_T
+                  *Meas_info, struct12_T *outDREAMPar, ::coder::array<real_T, 3U>
+                  &chain, k_struct_T *output, ::coder::array<real_T, 2U> &log_L,
+                  ::coder::array<real_T, 2U> &Table_gamma);
 }
 
 #endif

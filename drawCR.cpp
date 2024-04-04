@@ -21,7 +21,7 @@
 // Function Definitions
 namespace RAT
 {
-  void drawCR(const struct14_T *DREAMPar, const real_T pCR_data[], const int32_T
+  void drawCR(const struct12_T *DREAMPar, const real_T pCR_data[], const int32_T
               pCR_size[2], ::coder::array<real_T, 2U> &CR)
   {
     ::coder::array<real_T, 2U> b_r;
@@ -42,7 +42,8 @@ namespace RAT
 
       //  If crossover probabilities are updated
       //  How many candidate points for each crossover value?
-      multrnd(DREAMPar->N * DREAMPar->steps, pCR_data, pCR_size, L_data, L_size);
+      multrnd(DREAMPar->nChains * DREAMPar->steps, pCR_data, pCR_size, L_data,
+              L_size);
       L_data[1] += L_data[0];
       L_data[2] += L_data[1];
       L2_data[0] = 0.0;
@@ -51,7 +52,7 @@ namespace RAT
       L2_data[3] = L_data[2];
 
       //  Then select which candidate points are selected with what CR
-      coder::randperm(DREAMPar->N * DREAMPar->steps, b_r);
+      coder::randperm(DREAMPar->nChains * DREAMPar->steps, b_r);
 
       //  Then generate CR values for each chain
       cCR.set_size(1000000);
@@ -89,9 +90,9 @@ namespace RAT
       }
 
       //  Now reshape CR
-      //  CR = reshape(cCR,DREAMPar.N,DREAMPar.steps);
-      DREAMPar_tmp_tmp = coder::internal::computeDimsData(DREAMPar->N);
-      DREAMPar_idx_0_tmp = static_cast<int32_T>(DREAMPar->N);
+      //  CR = reshape(cCR,DREAMPar.nChains,DREAMPar.steps);
+      DREAMPar_tmp_tmp = coder::internal::computeDimsData(DREAMPar->nChains);
+      DREAMPar_idx_0_tmp = static_cast<int32_T>(DREAMPar->nChains);
       CR.set_size(DREAMPar_idx_0_tmp, DREAMPar_tmp_tmp);
       for (i = 0; i < DREAMPar_tmp_tmp; i++) {
         for (i1 = 0; i1 < DREAMPar_idx_0_tmp; i1++) {
@@ -106,8 +107,9 @@ namespace RAT
       tmp_data[0] = 0.33333333333333331;
       tmp_data[1] = 0.66666666666666663;
       tmp_data[2] = 1.0;
-      coder::randsample(tmp_data, DREAMPar->steps * DREAMPar->N, pCR_data, r);
-      DREAMPar_idx_0_tmp = static_cast<int32_T>(DREAMPar->N);
+      coder::randsample(tmp_data, DREAMPar->steps * DREAMPar->nChains, pCR_data,
+                        r);
+      DREAMPar_idx_0_tmp = static_cast<int32_T>(DREAMPar->nChains);
       DREAMPar_tmp_tmp = static_cast<int32_T>(DREAMPar->steps);
       CR.set_size(DREAMPar_idx_0_tmp, DREAMPar_tmp_tmp);
       for (int32_T i{0}; i < DREAMPar_tmp_tmp; i++) {

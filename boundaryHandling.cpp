@@ -21,10 +21,10 @@
 namespace RAT
 {
   void boundaryHandling(::coder::array<real_T, 2U> &x, const ::coder::array<
-                        real_T, 2U> &Par_info_min, const ::coder::array<real_T,
-                        2U> &Par_info_max, const char_T
-                        Par_info_boundhandling_data[], const int32_T
-                        Par_info_boundhandling_size[2])
+                        real_T, 2U> &paramInfo_min, const ::coder::array<real_T,
+                        2U> &paramInfo_max, const char_T
+                        paramInfo_boundhandling_data[], const int32_T
+                        paramInfo_boundhandling_size[2])
   {
     ::coder::array<real_T, 2U> max_d;
     ::coder::array<real_T, 2U> min_d;
@@ -42,8 +42,8 @@ namespace RAT
     //  Function to check whether parameter values remain within prior bounds
     //  First determine the size of new
     //  Now replicate min and max
-    coder::repmat(Par_info_min, static_cast<real_T>(x.size(0)), min_d);
-    coder::repmat(Par_info_max, static_cast<real_T>(x.size(0)), max_d);
+    coder::repmat(paramInfo_min, static_cast<real_T>(x.size(0)), min_d);
+    coder::repmat(paramInfo_max, static_cast<real_T>(x.size(0)), max_d);
 
     //  Now find which elements of x are smaller than their respective bound
     b_x.set_size(x.size(0), x.size(1));
@@ -77,8 +77,8 @@ namespace RAT
     coder::c_eml_find(b_x, ii_up);
 
     //  Reflection
-    if (coder::internal::x_strcmp(Par_info_boundhandling_data,
-         Par_info_boundhandling_size)) {
+    if (coder::internal::x_strcmp(paramInfo_boundhandling_data,
+         paramInfo_boundhandling_size)) {
       //  reflect in min
       b_max_d.set_size(ii_low.size(0));
       loop_ub = ii_low.size(0);
@@ -105,8 +105,8 @@ namespace RAT
     }
 
     //  Bound
-    if (coder::internal::y_strcmp(Par_info_boundhandling_data,
-         Par_info_boundhandling_size)) {
+    if (coder::internal::y_strcmp(paramInfo_boundhandling_data,
+         paramInfo_boundhandling_size)) {
       //  set lower values to min
       loop_ub = ii_low.size(0);
       for (i = 0; i < loop_ub; i++) {
@@ -121,8 +121,8 @@ namespace RAT
     }
 
     //  Folding
-    if (coder::internal::ab_strcmp(Par_info_boundhandling_data,
-         Par_info_boundhandling_size)) {
+    if (coder::internal::ab_strcmp(paramInfo_boundhandling_data,
+         paramInfo_boundhandling_size)) {
       //  Fold parameter space lower values
       b_max_d.set_size(ii_low.size(0));
       loop_ub = ii_low.size(0);

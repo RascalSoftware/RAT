@@ -19,7 +19,6 @@
 #include "combineVectorElements.h"
 #include "drawCR.h"
 #include "evaluateModel.h"
-#include "fileManager.h"
 #include "find.h"
 #include "gelman.h"
 #include "initializeDREAM.h"
@@ -39,33 +38,20 @@
 #include <algorithm>
 #include <cmath>
 
-// Type Definitions
-namespace RAT
-{
-  struct k_struct_T
-  {
-    char_T prior[7];
-    ::coder::array<real_T, 2U> min;
-    ::coder::array<real_T, 2U> max;
-    ::coder::bounded_array<char_T, 10000U, 2U> boundhandling;
-    boolean_T mvnpdf;
-  };
-}
-
 // Function Definitions
 namespace RAT
 {
-  void ratDREAM(real_T dreamVariables_d, real_T dreamVariables_N, real_T
-                dreamVariables_T, real_T dreamVariables_lambda, real_T
-                dreamVariables_pUnitGamma, boolean_T dreamVariables_adaptPCR,
-                const ::coder::array<real_T, 2U> &Par_info_min, const ::coder::
-                array<real_T, 2U> &Par_info_max, const char_T
-                Par_info_boundhandling_data[], const int32_T
-                Par_info_boundhandling_size[2], const f_struct_T
-                *ratInputs_problemStruct, const cell_11 *ratInputs_problemCells,
+  void ratDREAM(real_T dreamVariables_nParams, real_T dreamVariables_nChains,
+                real_T dreamVariables_nGenerations, real_T
+                dreamVariables_jumpProbability, real_T dreamVariables_pUnitGamma,
+                boolean_T dreamVariables_adaptPCR, const ::coder::array<real_T,
+                2U> &paramInfo_min, const ::coder::array<real_T, 2U>
+                &paramInfo_max, const char_T paramInfo_boundhandling_data[],
+                const int32_T paramInfo_boundhandling_size[2], const f_struct_T *
+                ratInputs_problemStruct, const cell_11 *ratInputs_problemCells,
                 const struct1_T *ratInputs_problemLimits, const struct2_T
                 *ratInputs_controls, const ::coder::array<real_T, 2U>
-                &ratInputs_priors, ::coder::array<real_T, 3U> &chain, struct13_T
+                &ratInputs_priors, ::coder::array<real_T, 3U> &chain, k_struct_T
                 *output, ::coder::array<real_T, 2U> &fx)
   {
     ::coder::array<real_T, 3U> b_chain;
@@ -73,6 +59,8 @@ namespace RAT
     ::coder::array<real_T, 2U> Table_gamma;
     ::coder::array<real_T, 2U> X;
     ::coder::array<real_T, 2U> b_X;
+    ::coder::array<real_T, 2U> b_paramInfo_max;
+    ::coder::array<real_T, 2U> b_paramInfo_min;
     ::coder::array<real_T, 2U> b_r;
     ::coder::array<real_T, 2U> e_X;
     ::coder::array<real_T, 2U> fx_new;
@@ -90,9 +78,9 @@ namespace RAT
     ::coder::array<int32_T, 1U> r2;
     ::coder::array<boolean_T, 1U> CR_data;
     ::coder::array<boolean_T, 1U> accept;
-    k_struct_T Par_info;
-    struct14_T DREAMPar;
-    struct15_T Meas_info;
+    ::coder::bounded_array<char_T, 10000U, 2U> paramInfo_boundhandling;
+    b_struct_T Meas_info;
+    struct12_T DREAMPar;
     real_T tmp_data[100];
     real_T b_lCR_data[3];
     real_T delta_tot_data[3];
@@ -141,12 +129,12 @@ namespace RAT
     //  --------------------------------------------------------------------------------------------- %
     //                                                                                                %
     //  SYNOPSIS: [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar)                                 %
-    //            [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,Par_info)                        %
-    //            [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,Par_info,Meas_info)              %
+    //            [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,paramInfo)                        %
+    //            [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,paramInfo,Meas_info)              %
     //                                                                                                %
     //  Input:    Func_name = name of the function ( = model ) that returns density of proposal       %
     //            DREAMPar = structure with algorithmic / computatinal settings of DREAM              %
-    //            Par_info = structure with parameter ranges, prior distribution, boundary handling   %
+    //            paramInfo = structure with parameter ranges, prior distribution, boundary handling   %
     //            Meas_info = optional structure with measurements to be evaluated against            %
     //                                                                                                %
     //  Output:   chain = 3D array with chain trajectories, log-prior and log-likelihood values       %
@@ -241,72 +229,43 @@ namespace RAT
     //  if nargin < 4, Meas_info.Y = []; end;
     //  if isempty(Meas_info), Meas_info.Y = []; end;
     //  ------------------------------------------------------------------------
-    // if ~isfield(dreamVariables,'restart') || ~dreamVariables.restart
     //  Initialize the main variables used in DREAM
-    Par_info.min.set_size(1, Par_info_min.size(1));
-    loop_ub = Par_info_min.size(1);
+    b_paramInfo_min.set_size(1, paramInfo_min.size(1));
+    loop_ub = paramInfo_min.size(1);
     for (i = 0; i < loop_ub; i++) {
-      Par_info.min[i] = Par_info_min[i];
+      b_paramInfo_min[i] = paramInfo_min[i];
     }
 
-    Par_info.max.set_size(1, Par_info_max.size(1));
-    loop_ub = Par_info_max.size(1);
+    b_paramInfo_max.set_size(1, paramInfo_max.size(1));
+    loop_ub = paramInfo_max.size(1);
     for (i = 0; i < loop_ub; i++) {
-      Par_info.max[i] = Par_info_max[i];
+      b_paramInfo_max[i] = paramInfo_max[i];
     }
 
-    Par_info.boundhandling.size[0] = 1;
-    Par_info.boundhandling.size[1] = Par_info_boundhandling_size[1];
-    loop_ub = Par_info_boundhandling_size[1];
+    paramInfo_boundhandling.size[0] = 1;
+    paramInfo_boundhandling.size[1] = paramInfo_boundhandling_size[1];
+    loop_ub = paramInfo_boundhandling_size[1];
     if (0 <= loop_ub - 1) {
-      std::copy(&Par_info_boundhandling_data[0],
-                &Par_info_boundhandling_data[loop_ub],
-                &Par_info.boundhandling.data[0]);
+      std::copy(&paramInfo_boundhandling_data[0],
+                &paramInfo_boundhandling_data[loop_ub],
+                &paramInfo_boundhandling.data[0]);
     }
 
     Meas_info.Y = 0.0;
     Meas_info.N = 0.0;
-    setupDREAM(dreamVariables_d, dreamVariables_N, dreamVariables_T,
-               dreamVariables_lambda, dreamVariables_pUnitGamma,
-               dreamVariables_adaptPCR, &Meas_info, &DREAMPar, chain, output,
-               log_L, Table_gamma);
+    setupDREAM(dreamVariables_nParams, dreamVariables_nChains,
+               dreamVariables_nGenerations, dreamVariables_jumpProbability,
+               dreamVariables_pUnitGamma, dreamVariables_adaptPCR, &Meas_info,
+               &DREAMPar, chain, output, log_L, Table_gamma);
     iloc = 1U;
     iteration = 1;
     gen = 1;
 
     //  Check for setup errors
-    //  [stop,fid] = checkDREAM(DREAMPar,Par_info,Meas_info);
-    //  Check for setup errors
-    //  Assign stop to be No
-    //  First close all files
-    coder::fileManager();
-
-    //  ----------------------REMOVE warning file - AVH
-    //  open an output file with warnings
-    // fid = fopen('warning_file.txt','w');
-    // fprintf(fid,'-------------- DREAM warning file --------------\n');
-    //  ------------------------------------------------
-    //  Check number of chains
-    //  Check parameter ranges
-    //  % Check prior distribution
-    //  if ( strcmp(lower(DREAMPar.prior),'yes') ) || ( strcmp(lower(Par_info),'prior') ),
-    //      % Error -- if explicit prior is used --> marginals need to be defined
-    //      if ~isfield(Par_info,'prior_marginal');
-    //          evalstr = char('DREAM ERROR: Prior chosen but no marginal distribution specified to sample from -> Define Par_info.prior_marginal!!\n');
-    //          % Now print warning to screen and to file
-    //          fprintf(evalstr); fprintf(fid,evalstr);
-    //          % Stop DREAM
-    //          stop = true;
-    //      end;
-    //  end;
-    //  Check whether we specified measurement sigma correctly
-    //  if ( DREAMPar.lik == 12 || DREAMPar.lik == 13 ) && ( isfield(Meas_info,'Sigma') == 0 )
-    //      % Error -- Meas_info.Sigma needs to be specified!!
-    //      error('DREAM ERROR: Meas_info.Sigma needs to be specified either as inline function or one or multiple numerical values!!\n');
-    //  end
-    //  Check whether the length of the user specified sigma is correct
+    //  [stop,fid] = checkDREAM(DREAMPar,paramInfo,Meas_info);
+    //  stop = checkDREAM(inDREAMPar,paramInfo,Meas_info);
     //  Return to main program
-    //    if stop; return; end
+    //  if stop; return; end
     //  Create computing environment (depending whether multi-core is used)
     //  Sets up sequential / parallel
     //  global DREAM_dir EXAMPLE_dir;
@@ -331,24 +290,13 @@ namespace RAT
     //  --------------- AVH -------------------------
     // Meas_info = checkSigma(Meas_info);
     //  Create the initial states of each of the chains (initial population)
-    initializeDREAM(&DREAMPar, Par_info.min, Par_info.max,
-                    Par_info.boundhandling.data, Par_info.boundhandling.size,
+    initializeDREAM(&DREAMPar, b_paramInfo_min, b_paramInfo_max,
+                    paramInfo_boundhandling.data, paramInfo_boundhandling.size,
                     chain, output, log_L, ratInputs_problemStruct,
                     ratInputs_problemCells, ratInputs_problemLimits,
                     ratInputs_controls, ratInputs_priors, X, fx, CR, pCR_data,
                     pCR_size, lCR_data, lCR_size, delta_tot_data, delta_tot_size);
 
-    //  elseif DREAMPar.restart
-    //
-    //      % Print to screen restart run
-    //      disp('Restart run');
-    //      % If a restart run is being done: just load the output from the previous ongoing trial
-    //      load DREAM.mat; [CR] = drawCR(DREAMPar,pCR); DREAMPar.T = 2 * DREAMPar.T;
-    //      % And make sure we add zeros to "chain" array
-    //      chain = [chain ; nan(size(chain,1)-1,size(chain,2),size(chain,3))];
-    //      % Open warning file and set T_start
-    //      fid = fopen('warning_file.txt','a+'); T_start = t + 1;
-    // end
     //  Initialize waitbar.
     triggerEvent();
 
@@ -357,7 +305,7 @@ namespace RAT
     coder::tic();
 
     //  Now start iteration ...
-    i = static_cast<int32_T>(DREAMPar.T + -1.0);
+    i = static_cast<int32_T>(DREAMPar.nGenerations + -1.0);
     for (int32_T t{0}; t < i; t++) {
       real_T j;
       int32_T b_loop_ub;
@@ -400,9 +348,9 @@ namespace RAT
         }
       }
 
-      calcProposal(b_X, tmp_data, &DREAMPar, Table_gamma, Par_info.min,
-                   Par_info.max, Par_info.boundhandling.data,
-                   Par_info.boundhandling.size, xnew);
+      calcProposal(b_X, tmp_data, &DREAMPar, Table_gamma, b_paramInfo_min,
+                   b_paramInfo_max, paramInfo_boundhandling.data,
+                   paramInfo_boundhandling.size, xnew);
       for (i1 = 0; i1 < tmp_size; i1++) {
         CR[i1 + CR.size(0) * gen] = tmp_data[i1];
       }
@@ -430,10 +378,10 @@ namespace RAT
                      idx_ac);
 
       //  And update X and the model simulation
-      if (1.0 > DREAMPar.d) {
+      if (1.0 > DREAMPar.nParams) {
         loop_ub = 0;
       } else {
-        loop_ub = static_cast<int32_T>(DREAMPar.d);
+        loop_ub = static_cast<int32_T>(DREAMPar.nParams);
       }
 
       if ((idx_ac.size(0) != 0) && (loop_ub != 0)) {
@@ -523,8 +471,8 @@ namespace RAT
           }
         }
 
-        tmp_size = static_cast<int32_T>(DREAMPar.d + 2.0);
-        loop_ub = static_cast<int32_T>(DREAMPar.N);
+        tmp_size = static_cast<int32_T>(DREAMPar.nParams + 2.0);
+        loop_ub = static_cast<int32_T>(DREAMPar.nChains);
         for (i1 = 0; i1 < loop_ub; i1++) {
           for (i2 = 0; i2 < tmp_size; i2++) {
             chain[((static_cast<int32_T>(iloc) + chain.size(0) * i2) +
@@ -542,16 +490,16 @@ namespace RAT
       //  Check whether we update the crossover values
       if (DREAMPar.adaptPCR) {
         //  Calculate the standard deviation of each dimension of X
-        if (1.0 > DREAMPar.N) {
+        if (1.0 > DREAMPar.nChains) {
           loop_ub = 0;
         } else {
-          loop_ub = static_cast<int32_T>(DREAMPar.N);
+          loop_ub = static_cast<int32_T>(DREAMPar.nChains);
         }
 
-        if (1.0 > DREAMPar.d) {
+        if (1.0 > DREAMPar.nParams) {
           b_loop_ub = 0;
         } else {
-          b_loop_ub = static_cast<int32_T>(DREAMPar.d);
+          b_loop_ub = static_cast<int32_T>(DREAMPar.nParams);
         }
 
         e_X.set_size(loop_ub, b_loop_ub);
@@ -562,7 +510,7 @@ namespace RAT
         }
 
         coder::b_std(e_X, r);
-        coder::repmat(r, DREAMPar.N, b_r);
+        coder::repmat(r, DREAMPar.nChains, b_r);
 
         //  Compute the Euclidean distance between new X and old X
         if (1 > xold.size(0)) {
@@ -571,10 +519,10 @@ namespace RAT
           loop_ub = xold.size(0);
         }
 
-        if (1.0 > DREAMPar.d) {
+        if (1.0 > DREAMPar.nParams) {
           b_loop_ub = 0;
         } else {
-          b_loop_ub = static_cast<int32_T>(DREAMPar.d);
+          b_loop_ub = static_cast<int32_T>(DREAMPar.nParams);
         }
 
         for (i1 = 0; i1 < b_loop_ub; i1++) {
@@ -596,10 +544,10 @@ namespace RAT
         }
 
         //  Use this information to update sum_p2 to update N_CR
-        if (1.0 > DREAMPar.N) {
+        if (1.0 > DREAMPar.nChains) {
           loop_ub = 0;
         } else {
-          loop_ub = static_cast<int32_T>(DREAMPar.N);
+          loop_ub = static_cast<int32_T>(DREAMPar.nChains);
         }
 
         coder::blockedSummation(e_X, e_X.size(1), c_X);
@@ -639,22 +587,22 @@ namespace RAT
       totaccept += static_cast<real_T>(coder::c_combineVectorElements(accept));
 
       //  Update log_L
-      if (1.0 > DREAMPar.N) {
+      if (1.0 > DREAMPar.nChains) {
         loop_ub = 0;
       } else {
-        loop_ub = static_cast<int32_T>(DREAMPar.N);
+        loop_ub = static_cast<int32_T>(DREAMPar.nChains);
       }
 
-      j = (static_cast<real_T>(t) + 2.0) * DREAMPar.N;
+      j = (static_cast<real_T>(t) + 2.0) * DREAMPar.nChains;
       log_L[t + 1] = j;
       for (i1 = 0; i1 < loop_ub; i1++) {
         log_L[(t + log_L.size(0) * (i1 + 1)) + 1] = X[i1 + X.size(0) * (
-          static_cast<int32_T>(DREAMPar.d + 2.0) - 1)];
+          static_cast<int32_T>(DREAMPar.nParams + 2.0) - 1)];
       }
 
       //  Update the waitbar. TJP Edit to check for graphical enviro
-      //  waitbar(t/DREAMPar.T,h);
-      triggerEvent((static_cast<real_T>(t) + 2.0) / DREAMPar.T);
+      //  waitbar(t/DREAMPar.nGenerations,h);
+      triggerEvent((static_cast<real_T>(t) + 2.0) / DREAMPar.nGenerations);
 
       //  If t equal to MCMC.steps then convergence checks and updates
       if (coder::b_mod(static_cast<real_T>(t) + 2.0, DREAMPar.steps) == 0.0) {
@@ -663,10 +611,10 @@ namespace RAT
         //  Save some important output -- Acceptance Rate
         output->AR.data[iteration] = j;
         output->AR.data[iteration + output->AR.size[0]] = 100.0 * totaccept /
-          (DREAMPar.N * DREAMPar.steps);
+          (DREAMPar.nChains * DREAMPar.steps);
 
         //  Check whether to update individual pCR values
-        if (static_cast<real_T>(t) + 2.0 <= DREAMPar.T / 10.0) {
+        if (static_cast<real_T>(t) + 2.0 <= DREAMPar.nGenerations / 10.0) {
           if (DREAMPar.adaptPCR) {
             //  Update pCR values
             for (i1 = 0; i1 < 3; i1++) {
@@ -678,12 +626,12 @@ namespace RAT
           }
         } else {
           //  See whether there are any outlier chains, and remove them to current best value of X
-          if (2.0 > DREAMPar.N + 1.0) {
+          if (2.0 > DREAMPar.nChains + 1.0) {
             i1 = 0;
             i2 = 0;
           } else {
             i1 = 1;
-            i2 = static_cast<int32_T>(DREAMPar.N + 1.0);
+            i2 = static_cast<int32_T>(DREAMPar.nChains + 1.0);
           }
 
           loop_ub = i2 - i1;
@@ -695,20 +643,20 @@ namespace RAT
             }
           }
 
-          removeOutlier(X, e_X, output->outlier.data, output->outlier.size,
-                        &DREAMPar, r1);
-          output->outlier.size[0] = r1.size(0);
-          output->outlier.size[1] = r1.size(1);
+          removeOutlier(X, e_X, output->outlierChains.data,
+                        output->outlierChains.size, &DREAMPar, r1);
+          output->outlierChains.size[0] = r1.size(0);
+          output->outlierChains.size[1] = r1.size(1);
           loop_ub = r1.size(1);
           for (i1 = 0; i1 < loop_ub; i1++) {
             b_loop_ub = r1.size(0);
             for (i2 = 0; i2 < b_loop_ub; i2++) {
-              output->outlier.data[i2 + output->outlier.size[0] * i1] = r1[i2 +
-                r1.size(0) * i1];
+              output->outlierChains.data[i2 + output->outlierChains.size[0] * i1]
+                = r1[i2 + r1.size(0) * i1];
             }
           }
 
-          i1 = !(2.0 > DREAMPar.N + 1.0);
+          i1 = !(2.0 > DREAMPar.nChains + 1.0);
           loop_ub = e_X.size(1);
           for (i2 = 0; i2 < loop_ub; i2++) {
             b_loop_ub = e_X.size(0);
@@ -741,16 +689,16 @@ namespace RAT
           i2 = static_cast<int32_T>(iloc);
         }
 
-        if (1.0 > DREAMPar.d) {
+        if (1.0 > DREAMPar.nParams) {
           loop_ub = 0;
         } else {
-          loop_ub = static_cast<int32_T>(DREAMPar.d);
+          loop_ub = static_cast<int32_T>(DREAMPar.nParams);
         }
 
-        if (1.0 > DREAMPar.N) {
+        if (1.0 > DREAMPar.nChains) {
           b_loop_ub = 0;
         } else {
-          b_loop_ub = static_cast<int32_T>(DREAMPar.N);
+          b_loop_ub = static_cast<int32_T>(DREAMPar.nChains);
         }
 
         tmp_size = i2 - i1;
@@ -778,19 +726,12 @@ namespace RAT
         iteration++;
         gen = 0;
         totaccept = 0.0;
-
-        //  Save the output or not?
-        //          if DREAMPar.save
-        //
-        //              % Store in memory
-        //              save DREAM.mat
-        //          end
       }
     }
 
     //  -------------------------------------------------------------------------
     //  Determine total run time
-    output->RunTime = coder::toc();
+    output->runtime = coder::toc();
 
     //  Variables have been pre-allocated --> need to remove zeros at end
     //  [chain,output,fx] = DREAMEnd(DREAMPar,Meas_info,chain,output,iteration,iloc);

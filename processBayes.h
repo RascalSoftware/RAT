@@ -21,27 +21,27 @@
 namespace RAT
 {
   struct f_struct_T;
-  struct struct2_T;
-  struct struct1_T;
   struct cell_11;
+  struct struct1_T;
+  struct struct2_T;
   struct struct5_T;
-  struct i_struct_T;
+  struct j_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void processBayes(const real_T bayesOutputs_bestPars_data[], const int32_T
-                    bayesOutputs_bestPars_size[2], const ::coder::array<real_T,
-                    2U> &bayesOutputs_chain, const f_struct_T *problem_f1, const
-                    struct2_T *problem_f2, const struct1_T *problem_f3, const
-                    cell_11 *problem_f4, f_struct_T *problemStruct, struct5_T
-                    *result, i_struct_T *bayesResults);
-  void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestPars,
-                    const ::coder::array<real_T, 2U> &bayesOutputs_chain, const
-                    f_struct_T *problem_f1, const struct2_T *problem_f2, const
-                    struct1_T *problem_f3, const cell_11 *problem_f4, f_struct_T
-                    *problemStruct, struct5_T *result, i_struct_T *bayesResults);
+  void processBayes(const real_T bayesOutputs_bestParams_data[], const int32_T
+                    bayesOutputs_bestParams_size[2], const ::coder::array<real_T,
+                    2U> &bayesOutputs_chain, f_struct_T *problemStruct, const
+                    cell_11 *problemCells, const struct1_T *problemLimits,
+                    struct2_T *controls, struct5_T *result, j_struct_T
+                    *bayesResults);
+  void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestParams,
+                    const ::coder::array<real_T, 2U> &bayesOutputs_chain,
+                    f_struct_T *problemStruct, const cell_11 *problemCells,
+                    const struct1_T *problemLimits, struct2_T *controls,
+                    struct5_T *result, j_struct_T *bayesResults);
 }
 
 #endif

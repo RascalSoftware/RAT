@@ -19,7 +19,7 @@
 // Function Definitions
 namespace RAT
 {
-  void evaluateModel(const ::coder::array<real_T, 2U> &x, const struct14_T
+  void evaluateModel(const ::coder::array<real_T, 2U> &x, const struct12_T
                      *DREAMPar, const f_struct_T *ratInputs_problemStruct, const
                      cell_11 *ratInputs_problemCells, const struct1_T
                      *ratInputs_problemLimits, const struct2_T
@@ -36,14 +36,14 @@ namespace RAT
     //
     //  Written by Jasper A. Vrugt
     //  Check whether to store the output of each model evaluation (function call)
-    //  if DREAMPar.modout && ( Meas_info.N > 0 )
+    //  if DREAMPar.storeOutput && ( Meas_info.N > 0 )
     //
-    //      % Create initial fx of size model output by DREAMPar.N
-    //      fx = NaN(Meas_info.N,DREAMPar.N);
+    //      % Create initial fx of size model output by DREAMPar.nChains
+    //      fx = NaN(Meas_info.N,DREAMPar.nChains);
     //
     //  end
     //  Now evaluate the model
-    loop_ub_tmp = static_cast<int32_T>(DREAMPar->N);
+    loop_ub_tmp = static_cast<int32_T>(DREAMPar->nChains);
     fx.set_size(1, loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
       fx[i] = 0.0;

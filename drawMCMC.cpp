@@ -40,10 +40,10 @@ namespace RAT
     real_T a[2];
     real_T Ntimes;
     real_T acc;
-    int32_T Npars;
     int32_T i;
     int32_T loop_ub;
     int32_T nLive;
+    int32_T nParams;
 
     //  This function will draw a multi-dimensional sample from the prior volume
     //  for use in the nested sampling algorithm. The new point will have a
@@ -61,7 +61,7 @@ namespace RAT
 
     //  useful constant
     nLive = livepoints.size(0);
-    Npars = livepoints.size(1) - 1;
+    nParams = livepoints.size(1) - 1;
 
     //  degrees of freedom of Students't distribution
     //  initialize counters
@@ -90,7 +90,7 @@ namespace RAT
 
       //  get the sample prior
       currentPrior = rtMinusInf;
-      for (j = 0; j <= Npars; j++) {
+      for (j = 0; j <= nParams; j++) {
         priortype = prior[j];
 
         //          p3 = prior{j,3};
@@ -119,7 +119,7 @@ namespace RAT
         if (coder::b_rand() < 0.9) {
           //  use Students-t proposal
           //  draw points from mulitvariate Gaussian distribution
-          coder::randn(static_cast<real_T>(Npars + 1), gasdevs);
+          coder::randn(static_cast<real_T>(nParams + 1), gasdevs);
 
           //  calculate chi-square distributed value
           coder::randn(a);
@@ -161,7 +161,7 @@ namespace RAT
         newPrior = rtMinusInf;
         j = 0;
         exitg2 = false;
-        while ((!exitg2) && (j <= Npars)) {
+        while ((!exitg2) && (j <= nParams)) {
           priortype = prior[j];
 
           //  p3 = prior{j,3};

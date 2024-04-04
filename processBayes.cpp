@@ -12,8 +12,8 @@
 #include "processBayes.h"
 #include "RATMain_internal_types.h"
 #include "RATMain_types.h"
-#include "prctileConfInts.h"
-#include "refPrctileConfInts.h"
+#include "percentileConfidenceIntervals.h"
+#include "refPercentileConfidenceIntervals.h"
 #include "reflectivityCalculation.h"
 #include "rt_nonfinite.h"
 #include "unpackParams.h"
@@ -22,171 +22,145 @@
 // Function Definitions
 namespace RAT
 {
-  void processBayes(const real_T bayesOutputs_bestPars_data[], const int32_T
-                    bayesOutputs_bestPars_size[2], const ::coder::array<real_T,
-                    2U> &bayesOutputs_chain, const f_struct_T *problem_f1, const
-                    struct2_T *problem_f2, const struct1_T *problem_f3, const
-                    cell_11 *problem_f4, f_struct_T *problemStruct, struct5_T
-                    *result, i_struct_T *bayesResults)
+  void processBayes(const real_T bayesOutputs_bestParams_data[], const int32_T
+                    bayesOutputs_bestParams_size[2], const ::coder::array<real_T,
+                    2U> &bayesOutputs_chain, f_struct_T *problemStruct, const
+                    cell_11 *problemCells, const struct1_T *problemLimits,
+                    struct2_T *controls, struct5_T *result, j_struct_T
+                    *bayesResults)
   {
     static f_struct_T b_problemStruct;
-    static struct2_T controlsStruct;
     int32_T i;
     int32_T loop_ub;
 
-    // problem = {problemStruct ; controls ; problemLimits ; problemCells};
-    *problemStruct = *problem_f1;
-    controlsStruct = *problem_f2;
-
     //  Need to impose that we calculate the SLD..
-    controlsStruct.calcSldDuringFit = true;
+    controls->calcSldDuringFit = true;
 
-    // ... and use the Bayes bestpars
-    problemStruct->fitParams.set_size(1, bayesOutputs_bestPars_size[1]);
-    loop_ub = bayesOutputs_bestPars_size[1];
+    // ... and use the Bayes best params
+    problemStruct->fitParams.set_size(1, bayesOutputs_bestParams_size[1]);
+    loop_ub = bayesOutputs_bestParams_size[1];
     for (i = 0; i < loop_ub; i++) {
       problemStruct->fitParams[problemStruct->fitParams.size(0) * i] =
-        bayesOutputs_bestPars_data[i];
+        bayesOutputs_bestParams_data[i];
     }
 
-    unpackParams(problemStruct, controlsStruct.checks.fitParam,
-                 controlsStruct.checks.fitBackgroundParam,
-                 controlsStruct.checks.fitQzshift,
-                 controlsStruct.checks.fitScalefactor,
-                 controlsStruct.checks.fitBulkIn,
-                 controlsStruct.checks.fitBulkOut,
-                 controlsStruct.checks.fitResolutionParam,
-                 controlsStruct.checks.fitDomainRatio);
-    prctileConfInts(bayesOutputs_chain, bayesResults->parConfInts.par95,
-                    bayesResults->parConfInts.par65,
-                    bayesResults->parConfInts.mean);
+    unpackParams(problemStruct, controls->checks.fitParam,
+                 controls->checks.fitBackgroundParam,
+                 controls->checks.fitQzshift, controls->checks.fitScalefactor,
+                 controls->checks.fitBulkIn, controls->checks.fitBulkOut,
+                 controls->checks.fitResolutionParam,
+                 controls->checks.fitDomainRatio);
+    percentileConfidenceIntervals(bayesOutputs_chain,
+      bayesResults->confidenceIntervals.percentile95,
+      bayesResults->confidenceIntervals.percentile65,
+      bayesResults->confidenceIntervals.mean);
 
     // iterShortest(output.chain,length(fitNames),[],0.95);
     //  Calculate 'mean' best fit curves
-    reflectivityCalculation(problemStruct, problem_f4, problem_f3,
-      &controlsStruct, result);
-    bayesResults->bestFitsMean.ref.set_size(result->reflectivity.size(0));
+    reflectivityCalculation(problemStruct, problemCells, problemLimits, controls,
+      result);
+    bayesResults->bestFitMean.reflectivity.set_size(result->reflectivity.size(0));
     loop_ub = result->reflectivity.size(0);
     for (i = 0; i < loop_ub; i++) {
-      bayesResults->bestFitsMean.ref[i] = result->reflectivity[i];
+      bayesResults->bestFitMean.reflectivity[i] = result->reflectivity[i];
     }
 
-    bayesResults->bestFitsMean.sld.set_size(result->sldProfiles.size(0),
+    bayesResults->bestFitMean.sld.set_size(result->sldProfiles.size(0),
       result->sldProfiles.size(1));
     loop_ub = result->sldProfiles.size(1);
     for (i = 0; i < loop_ub; i++) {
       int32_T b_loop_ub;
       b_loop_ub = result->sldProfiles.size(0);
       for (int32_T i1{0}; i1 < b_loop_ub; i1++) {
-        bayesResults->bestFitsMean.sld[i1 + bayesResults->bestFitsMean.sld.size
-          (0) * i] = result->sldProfiles[i1 + result->sldProfiles.size(0) * i];
+        bayesResults->bestFitMean.sld[i1 + bayesResults->bestFitMean.sld.size(0)
+          * i] = result->sldProfiles[i1 + result->sldProfiles.size(0) * i];
       }
     }
 
-    bayesResults->bestFitsMean.chi = result->calculationResults.sumChi;
-    bayesResults->bestFitsMean.data.set_size(result->shiftedData.size(0));
+    bayesResults->bestFitMean.chi = result->calculationResults.sumChi;
+    bayesResults->bestFitMean.data.set_size(result->shiftedData.size(0));
     loop_ub = result->shiftedData.size(0);
     for (i = 0; i < loop_ub; i++) {
-      bayesResults->bestFitsMean.data[i] = result->shiftedData[i];
+      bayesResults->bestFitMean.data[i] = result->shiftedData[i];
     }
 
     //  2. Reflectivity and SLD shading
     b_problemStruct = *problemStruct;
-    refPrctileConfInts(bayesOutputs_chain, &b_problemStruct, problem_f4,
-                       problem_f3, &controlsStruct, &bayesResults->predlims);
+    refPercentileConfidenceIntervals(bayesOutputs_chain, &b_problemStruct,
+      problemCells, problemLimits, controls, &bayesResults->predictionIntervals);
 
     //  ---------------------------------
     //  bayesResults.chain = bayesOutputs.chain;
-    // bayesResults.bestPars_Max = bestPars_max;
-    // bayesResults.bayesData = bayesOutputs.data;
-    //  bayesResults.bestFitsMax = {bestFitMax_Ref, bestFitMax_Sld, bestFitMax_chi};
-    //  bayesResults.bestFitsMean = bestFitMean;
-    //  bayesResults.predlims = allPredInts;
-    //  bayesResults.parConfInts = parConfInts;
-    //  bayesResults.bestPars = bayesOutputs.bestPars;
   }
 
-  void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestPars,
-                    const ::coder::array<real_T, 2U> &bayesOutputs_chain, const
-                    f_struct_T *problem_f1, const struct2_T *problem_f2, const
-                    struct1_T *problem_f3, const cell_11 *problem_f4, f_struct_T
-                    *problemStruct, struct5_T *result, i_struct_T *bayesResults)
+  void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestParams,
+                    const ::coder::array<real_T, 2U> &bayesOutputs_chain,
+                    f_struct_T *problemStruct, const cell_11 *problemCells,
+                    const struct1_T *problemLimits, struct2_T *controls,
+                    struct5_T *result, j_struct_T *bayesResults)
   {
-    static struct2_T controlsStruct;
     f_struct_T b_problemStruct;
     int32_T i;
     int32_T loop_ub;
 
-    // problem = {problemStruct ; controls ; problemLimits ; problemCells};
-    *problemStruct = *problem_f1;
-    controlsStruct = *problem_f2;
-
     //  Need to impose that we calculate the SLD..
-    controlsStruct.calcSldDuringFit = true;
+    controls->calcSldDuringFit = true;
 
-    // ... and use the Bayes bestpars
-    problemStruct->fitParams.set_size(1, bayesOutputs_bestPars.size(1));
-    loop_ub = bayesOutputs_bestPars.size(1);
+    // ... and use the Bayes best params
+    problemStruct->fitParams.set_size(1, bayesOutputs_bestParams.size(1));
+    loop_ub = bayesOutputs_bestParams.size(1);
     for (i = 0; i < loop_ub; i++) {
       problemStruct->fitParams[problemStruct->fitParams.size(0) * i] =
-        bayesOutputs_bestPars[i];
+        bayesOutputs_bestParams[i];
     }
 
-    unpackParams(problemStruct, controlsStruct.checks.fitParam,
-                 controlsStruct.checks.fitBackgroundParam,
-                 controlsStruct.checks.fitQzshift,
-                 controlsStruct.checks.fitScalefactor,
-                 controlsStruct.checks.fitBulkIn,
-                 controlsStruct.checks.fitBulkOut,
-                 controlsStruct.checks.fitResolutionParam,
-                 controlsStruct.checks.fitDomainRatio);
-    prctileConfInts(bayesOutputs_chain, bayesResults->parConfInts.par95,
-                    bayesResults->parConfInts.par65,
-                    bayesResults->parConfInts.mean);
+    unpackParams(problemStruct, controls->checks.fitParam,
+                 controls->checks.fitBackgroundParam,
+                 controls->checks.fitQzshift, controls->checks.fitScalefactor,
+                 controls->checks.fitBulkIn, controls->checks.fitBulkOut,
+                 controls->checks.fitResolutionParam,
+                 controls->checks.fitDomainRatio);
+    percentileConfidenceIntervals(bayesOutputs_chain,
+      bayesResults->confidenceIntervals.percentile95,
+      bayesResults->confidenceIntervals.percentile65,
+      bayesResults->confidenceIntervals.mean);
 
     // iterShortest(output.chain,length(fitNames),[],0.95);
     //  Calculate 'mean' best fit curves
-    reflectivityCalculation(problemStruct, problem_f4, problem_f3,
-      &controlsStruct, result);
-    bayesResults->bestFitsMean.ref.set_size(result->reflectivity.size(0));
+    reflectivityCalculation(problemStruct, problemCells, problemLimits, controls,
+      result);
+    bayesResults->bestFitMean.reflectivity.set_size(result->reflectivity.size(0));
     loop_ub = result->reflectivity.size(0);
     for (i = 0; i < loop_ub; i++) {
-      bayesResults->bestFitsMean.ref[i] = result->reflectivity[i];
+      bayesResults->bestFitMean.reflectivity[i] = result->reflectivity[i];
     }
 
-    bayesResults->bestFitsMean.sld.set_size(result->sldProfiles.size(0),
+    bayesResults->bestFitMean.sld.set_size(result->sldProfiles.size(0),
       result->sldProfiles.size(1));
     loop_ub = result->sldProfiles.size(1);
     for (i = 0; i < loop_ub; i++) {
       int32_T b_loop_ub;
       b_loop_ub = result->sldProfiles.size(0);
       for (int32_T i1{0}; i1 < b_loop_ub; i1++) {
-        bayesResults->bestFitsMean.sld[i1 + bayesResults->bestFitsMean.sld.size
-          (0) * i] = result->sldProfiles[i1 + result->sldProfiles.size(0) * i];
+        bayesResults->bestFitMean.sld[i1 + bayesResults->bestFitMean.sld.size(0)
+          * i] = result->sldProfiles[i1 + result->sldProfiles.size(0) * i];
       }
     }
 
-    bayesResults->bestFitsMean.chi = result->calculationResults.sumChi;
-    bayesResults->bestFitsMean.data.set_size(result->shiftedData.size(0));
+    bayesResults->bestFitMean.chi = result->calculationResults.sumChi;
+    bayesResults->bestFitMean.data.set_size(result->shiftedData.size(0));
     loop_ub = result->shiftedData.size(0);
     for (i = 0; i < loop_ub; i++) {
-      bayesResults->bestFitsMean.data[i] = result->shiftedData[i];
+      bayesResults->bestFitMean.data[i] = result->shiftedData[i];
     }
 
     //  2. Reflectivity and SLD shading
     b_problemStruct = *problemStruct;
-    refPrctileConfInts(bayesOutputs_chain, &b_problemStruct, problem_f4,
-                       problem_f3, &controlsStruct, &bayesResults->predlims);
+    refPercentileConfidenceIntervals(bayesOutputs_chain, &b_problemStruct,
+      problemCells, problemLimits, controls, &bayesResults->predictionIntervals);
 
     //  ---------------------------------
     //  bayesResults.chain = bayesOutputs.chain;
-    // bayesResults.bestPars_Max = bestPars_max;
-    // bayesResults.bayesData = bayesOutputs.data;
-    //  bayesResults.bestFitsMax = {bestFitMax_Ref, bestFitMax_Sld, bestFitMax_chi};
-    //  bayesResults.bestFitsMean = bestFitMean;
-    //  bayesResults.predlims = allPredInts;
-    //  bayesResults.parConfInts = parConfInts;
-    //  bayesResults.bestPars = bayesOutputs.bestPars;
   }
 }
 

@@ -20,7 +20,7 @@
 // Function Definitions
 namespace RAT
 {
-  void gelman(const ::coder::array<real_T, 3U> &chain, const struct14_T
+  void gelman(const ::coder::array<real_T, 3U> &chain, const struct12_T
               *DREAMPar, ::coder::array<real_T, 2U> &R_stat)
   {
     ::coder::array<real_T, 3U> r1;
@@ -43,8 +43,8 @@ namespace RAT
     //  Los Alamos, August 2007
     //  ----------------------------------------------------
     //  Compute the dimensions of chain
-    loop_ub_tmp = static_cast<int32_T>(DREAMPar->N);
-    b_loop_ub_tmp = static_cast<int32_T>(DREAMPar->d);
+    loop_ub_tmp = static_cast<int32_T>(DREAMPar->nChains);
+    b_loop_ub_tmp = static_cast<int32_T>(DREAMPar->nParams);
     var_chain.set_size(loop_ub_tmp, b_loop_ub_tmp);
     for (i = 0; i < b_loop_ub_tmp; i++) {
       for (i1 = 0; i1 < loop_ub_tmp; i1++) {

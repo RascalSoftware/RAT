@@ -20,7 +20,7 @@
 // Function Definitions
 namespace RAT
 {
-  void metropolisRule(const struct14_T *DREAMPar, const ::coder::array<real_T,
+  void metropolisRule(const struct12_T *DREAMPar, const ::coder::array<real_T,
                       1U> &log_L_xnew, const ::coder::array<real_T, 1U>
                       &log_PR_xnew, const ::coder::array<real_T, 1U> &log_L_xold,
                       const ::coder::array<real_T, 1U> &log_PR_xold, ::coder::
@@ -41,7 +41,7 @@ namespace RAT
     //  Calculate the prior ration
     //  Calculate product of two probabily ratios
     //  Generate random numbers
-    coder::b_rand(DREAMPar->N, Z);
+    coder::b_rand(DREAMPar->nChains, Z);
 
     //  Find which alfa's are greater than Z
     r.set_size(log_L_xnew.size(0));

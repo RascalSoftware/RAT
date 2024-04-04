@@ -21,13 +21,13 @@ if nargin < 3
   adddata = 0; % add data.ydata datapoints to the figures
 end
 
-nbatch = length(out.predlims);
+nbatch = length(out.predictionIntervals);
 
 if ~iscell(data)
   d=data; data=[]; data{1}=d; clear d
 end
 
-np = size(out.predlims{1}{1},1);
+np = size(out.predictionIntervals{1}{1},1);
 nn = (np+1)/2; % median
 np = nn-1;
 
@@ -35,7 +35,7 @@ hh = zeros(nbatch,1);
 
 for i=1:nbatch
   if nbatch > 1; hh(i) = figure;else hh(1)=gcf; end; % create new figures
-  plimi = out.predlims{i};
+  plimi = out.predictionIntervals{i};
   ny = size(plimi,2);
   
   datai = data{i};

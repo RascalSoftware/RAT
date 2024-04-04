@@ -95,7 +95,7 @@ for i=1:nbatch
 end
 
 %out.ysave = ysave;
-out.predlims = plim;
+out.predictionIntervals = plim;
 if ~isempty(s2chain)
   out.obslims = olim;
 else

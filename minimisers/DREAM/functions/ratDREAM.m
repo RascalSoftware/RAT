@@ -1,4 +1,4 @@
-function [chain,output,fx,log_L] = ratDREAM(dreamVariables,Par_info,Meas_info,ratInputs)
+function [chain,output,fx,log_L] = ratDREAM(dreamVariables,paramInfo,Meas_info,ratInputs)
 
 % Modified version of Vrugt DREAm algorithm to be specific for RAT....
 
@@ -36,12 +36,12 @@ function [chain,output,fx,log_L] = ratDREAM(dreamVariables,Par_info,Meas_info,ra
 % --------------------------------------------------------------------------------------------- %
 %                                                                                               %
 % SYNOPSIS: [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar)                                 %
-%           [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,Par_info)                        %
-%           [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,Par_info,Meas_info)              %
+%           [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,paramInfo)                        %
+%           [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,paramInfo,Meas_info)              %
 %                                                                                               %
 % Input:    Func_name = name of the function ( = model ) that returns density of proposal       %
 %           DREAMPar = structure with algorithmic / computatinal settings of DREAM              %
-%           Par_info = structure with parameter ranges, prior distribution, boundary handling   %
+%           paramInfo = structure with parameter ranges, prior distribution, boundary handling   %
 %           Meas_info = optional structure with measurements to be evaluated against            %
 %                                                                                               %
 % Output:   chain = 3D array with chain trajectories, log-prior and log-likelihood values       %
@@ -139,48 +139,33 @@ function [chain,output,fx,log_L] = ratDREAM(dreamVariables,Par_info,Meas_info,ra
 % ------------------------------------------------------------------------
 Meas_info.Y = 0;
 
-%if ~isfield(dreamVariables,'restart') || ~dreamVariables.restart
+% Initialize the main variables used in DREAM
+[inDREAMPar,paramInfo,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
+    gen] = setupDREAM(dreamVariables,paramInfo,Meas_info);
 
-    % Initialize the main variables used in DREAM
-    [inDREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
-        gen] = setupDREAM(dreamVariables,Par_info,Meas_info);
+% Check for setup errors
+% [stop,fid] = checkDREAM(DREAMPar,paramInfo,Meas_info);
+% stop = checkDREAM(inDREAMPar,paramInfo,Meas_info);
 
-    % Check for setup errors
-    % [stop,fid] = checkDREAM(DREAMPar,Par_info,Meas_info);
-    stop = checkDREAM(inDREAMPar,Par_info,Meas_info);
+% Return to main program
+% if stop; return; end
 
-    % Return to main program
-%   if stop; return; end
+% Create computing environment (depending whether multi-core is used)
+[DREAMPar] = setDREAMParam(inDREAMPar);
 
-    % Create computing environment (depending whether multi-core is used)
-    [DREAMPar] = setDREAMParam(inDREAMPar);
+% Now check how the measurement sigma is arranged (estimated or defined)
+%
+% -----------------------------------------
+% We do not have user inputted sigma in this form for the RAT 
+% implementation - Measurement Error is dealt with downstream in the 
+% likelihood function. So, we can remove the check for sigma.
+% --------------- AVH -------------------------
+%Meas_info = checkSigma(Meas_info); 
 
-    % Now check how the measurement sigma is arranged (estimated or defined)
-    %
-    % -----------------------------------------
-    % We do not have user inputted sigma in this form for the RAT 
-    % implementation - Measurement Error is dealt with downstream in the 
-    % likelihood function. So, we can remove the check for sigma.
-    % --------------- AVH -------------------------
-    %Meas_info = checkSigma(Meas_info); 
-    
-    T_start = 2;
+T_start = 2;
 
-    % Create the initial states of each of the chains (initial population)
-    [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMPar,Par_info,Meas_info,chain,output,log_L,ratInputs);
-
-% elseif DREAMPar.restart
-% 
-%     % Print to screen restart run
-%     disp('Restart run');
-%     % If a restart run is being done: just load the output from the previous ongoing trial
-%     load DREAM.mat; [CR] = drawCR(DREAMPar,pCR); DREAMPar.T = 2 * DREAMPar.T;
-%     % And make sure we add zeros to "chain" array
-%     chain = [chain ; nan(size(chain,1)-1,size(chain,2),size(chain,3))];
-%     % Open warning file and set T_start
-%     fid = fopen('warning_file.txt','a+'); T_start = t + 1;
-
-%end
+% Create the initial states of each of the chains (initial population)
+[chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMPar,paramInfo,Meas_info,chain,output,log_L,ratInputs);
 
 % Initialize waitbar. 
 triggerEvent(coderEnums.eventTypes.Progress, 'init', 0);
@@ -188,31 +173,31 @@ triggerEvent(coderEnums.eventTypes.Progress, 'init', 0);
 totaccept = 0; tic;
 
 % Now start iteration ...
-for t = T_start : DREAMPar.T
+for t = T_start : DREAMPar.nGenerations
     
     % Unoack current state of chain and associated log-likelihood and log-prior values
     [xold,log_PR_xold,log_L_xold] = deal(X(:,1:end-2),X(:,end-1),X(:,end));
     
     % Now generate candidate in each sequence using current point and members of X
-    [xnew,CR(:,gen)] = calcProposal(xold,CR(:,gen),DREAMPar,Table_gamma,Par_info);
+    [xnew,CR(:,gen)] = calcProposal(xold,CR(:,gen),DREAMPar,Table_gamma,paramInfo);
     
     % Now evaluate the model ( = pdf ) and return fx
     [fx_new] = evaluateModel(xnew,DREAMPar,Meas_info,ratInputs);
     
     % Calculate the log-likelihood and log-prior of x (fx)
-    [log_L_xnew,log_PR_xnew] = calcDensity(xnew,fx_new,DREAMPar,Par_info,Meas_info,ratInputs);
+    [log_L_xnew,log_PR_xnew] = calcDensity(xnew,fx_new,DREAMPar,paramInfo,Meas_info,ratInputs);
     
     % Calculate the Metropolis ratio
     [accept,idx_ac] = metropolisRule(DREAMPar,log_L_xnew,log_PR_xnew,log_L_xold,log_PR_xold);
     
     % And update X and the model simulation
-    X(idx_ac,1:DREAMPar.d+2) = [xnew(idx_ac,1:DREAMPar.d) log_PR_xnew(idx_ac,1) log_L_xnew(idx_ac,1)]; 
+    X(idx_ac,1:DREAMPar.nParams+2) = [xnew(idx_ac,1:DREAMPar.nParams) log_PR_xnew(idx_ac,1) log_L_xnew(idx_ac,1)]; 
     fx(:,idx_ac) = fx_new(:,idx_ac);
     
     % Check whether to add the current points to the chains or not?
     if mod(t,DREAMPar.thinning) == 0
         % Store the current sample in chain
-        iloc = iloc + 1; chain(iloc,1:DREAMPar.d+2,1:DREAMPar.N) = reshape(X',1,DREAMPar.d+2,DREAMPar.N);
+        iloc = iloc + 1; chain(iloc,1:DREAMPar.nParams+2,1:DREAMPar.nChains) = reshape(X',1,DREAMPar.nParams+2,DREAMPar.nChains);
         
         % kf added 16/10/2015
         % store the distance between the simualted and observed signatures
@@ -224,11 +209,11 @@ for t = T_start : DREAMPar.T
     % Check whether we update the crossover values
     if DREAMPar.adaptPCR
         % Calculate the standard deviation of each dimension of X
-        r = repmat(std(X(1:DREAMPar.N,1:DREAMPar.d)),DREAMPar.N,1);
+        r = repmat(std(X(1:DREAMPar.nChains,1:DREAMPar.nParams)),DREAMPar.nChains,1);
         % Compute the Euclidean distance between new X and old X
-        delta_normX = sum(((xold(1:end,1:DREAMPar.d) - X(1:end,1:DREAMPar.d))./r).^2,2);
+        delta_normX = sum(((xold(1:end,1:DREAMPar.nParams) - X(1:end,1:DREAMPar.nParams))./r).^2,2);
         % Use this information to update sum_p2 to update N_CR
-        delta_tot = calcDelta(DREAMPar,delta_tot,delta_normX,CR(1:DREAMPar.N,gen));
+        delta_tot = calcDelta(DREAMPar,delta_tot,delta_normX,CR(1:DREAMPar.nChains,gen));
     end
 
     % Update gen
@@ -238,31 +223,31 @@ for t = T_start : DREAMPar.T
     totaccept = totaccept + sum(accept);
     
     % Update log_L
-    log_L(t,1:DREAMPar.N+1) = [ t * DREAMPar.N X(1:DREAMPar.N,DREAMPar.d+2)'];
+    log_L(t,1:DREAMPar.nChains+1) = [ t * DREAMPar.nChains X(1:DREAMPar.nChains,DREAMPar.nParams+2)'];
     
     % Update the waitbar. TJP Edit to check for graphical enviro
-    % waitbar(t/DREAMPar.T,h);
-    triggerEvent(coderEnums.eventTypes.Progress, 'DREAM: ', t/DREAMPar.T);
+    % waitbar(t/DREAMPar.nGenerations,h);
+    triggerEvent(coderEnums.eventTypes.Progress, 'DREAM: ', t/DREAMPar.nGenerations);
    
     % If t equal to MCMC.steps then convergence checks and updates
     if mod(t,DREAMPar.steps) == 0
         
         % Save some important output -- Acceptance Rate
-        output.AR(iteration,1:2) = [ t * DREAMPar.N 100 * sum(totaccept) / (DREAMPar.N * DREAMPar.steps)];
+        output.AR(iteration,1:2) = [ t * DREAMPar.nChains 100 * sum(totaccept) / (DREAMPar.nChains * DREAMPar.steps)];
         
         % Check whether to update individual pCR values
-        if ( t <= DREAMPar.T / 10 )
+        if ( t <= DREAMPar.nGenerations / 10 )
             if DREAMPar.adaptPCR
                 % Update pCR values
                 [pCR,lCR] = adaptPCR(DREAMPar,CR,delta_tot,lCR);
             end
         else
             % See whether there are any outlier chains, and remove them to current best value of X
-            [X,log_L(1:t,2:DREAMPar.N+1),output.outlier] = removeOutlier(X,log_L(1:t,2:DREAMPar.N+1),output.outlier,DREAMPar);
+            [X,log_L(1:t,2:DREAMPar.nChains+1),output.outlierChains] = removeOutlier(X,log_L(1:t,2:DREAMPar.nChains+1),output.outlierChains,DREAMPar);
         end
         
         % Store diagnostic information -- Probability of individual crossover values
-        output.CR(iteration,1:DREAMPar.nCR+1) = [ t * DREAMPar.N pCR];
+        output.CR(iteration,1:DREAMPar.nCR+1) = [ t * DREAMPar.nChains pCR];
         
         % Generate new crossover values
         CR = drawCR(DREAMPar,pCR);
@@ -271,24 +256,18 @@ for t = T_start : DREAMPar.T
         start_idx = max(1,floor(iloc/2)); end_idx = iloc;
         
         % Compute the R-statistic using 50% burn-in from chain
-        [output.R_stat(iteration,1:DREAMPar.d+1)] = [ t * DREAMPar.N gelman(chain(start_idx:end_idx,1:DREAMPar.d,1:DREAMPar.N),DREAMPar)];
+        [output.R_stat(iteration,1:DREAMPar.nParams+1)] = [ t * DREAMPar.nChains gelman(chain(start_idx:end_idx,1:DREAMPar.nParams,1:DREAMPar.nChains),DREAMPar)];
         
         % Update the iteration, set gen back to 1 and totaccept to zero
         iteration = iteration + 1;  gen = 1; totaccept = 0;
         
-        % Save the output or not?
-%         if DREAMPar.save
-%             
-%             % Store in memory
-%             save DREAM.mat
-%         end 
     end
 end
 
 % -------------------------------------------------------------------------
 
 % Determine total run time
-output.RunTime = toc;
+output.runtime = toc;
 
 % Variables have been pre-allocated --> need to remove zeros at end
 % [chain,output,fx] = DREAMEnd(DREAMPar,Meas_info,chain,output,iteration,iloc);
@@ -298,7 +277,6 @@ output.DREAMPar = DREAMPar;
 output.Meas_info = Meas_info;
 output.iteration = iteration;
 output.iloc = iloc;
-
 
 % Close the waitbar
 triggerEvent(coderEnums.eventTypes.Progress, 'end', 1);

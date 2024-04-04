@@ -6,18 +6,18 @@ function [ chain , output , fx ] = DREAMEnd(DREAMPar,Meas_info,chain,output,iter
 % Start with CR
 output.CR = output.CR(1:iteration-1,1:DREAMPar.nCR+1);
 % Then R_stat
-output.R_stat = output.R_stat(1:iteration-1,1:DREAMPar.d+1);
+output.R_stat = output.R_stat(1:iteration-1,1:DREAMPar.nParams+1);
 % Then AR
 output.AR = output.AR(1:iteration-1,1:2);
 % Then chain
-chain = chain(1:iloc,1:DREAMPar.d+2,1:DREAMPar.N);
+chain = chain(1:iloc,1:DREAMPar.nParams+2,1:DREAMPar.nChains);
 
 % Now calculate the convergence diagnostics for individual chains using the CODA toolbox
 fid = fopen('DREAM_diagnostics.txt','w');
 % Now loop over each chain
-for j = 1:DREAMPar.N
+for j = 1:DREAMPar.nChains
     % First calculate diagnostics
-    diagnostic{j} = coda(chain(floor(0.5*iloc):iloc,1:DREAMPar.d,j));
+    diagnostic{j} = coda(chain(floor(0.5*iloc):iloc,1:DREAMPar.nParams,j));
     % Now write to file DREAM.out
     diagnostic{j}(1).chain_number = j; prtCoda(diagnostic{j},[],fid);
 end
@@ -25,7 +25,7 @@ end
 fclose(fid);
 
 % Check whether output simulations are requested
-if ~DREAMPar.modout
+if ~DREAMPar.storeOutput
     % Return an empty matrix
     fx = [];
 else
@@ -33,7 +33,7 @@ else
         % Open the binary file with model simulations
         fid_fx = fopen('fx.bin','r','n');
         % Now read the binary file
-        fx = fread(fid_fx, [ Meas_info.N, floor(DREAMPar.T*DREAMPar.N/DREAMPar.thinning)+1 ],'double')';
+        fx = fread(fid_fx, [ Meas_info.N, floor(DREAMPar.nGenerations*DREAMPar.nChains/DREAMPar.thinning)+1 ],'double')';
         % Now close the file again
         fclose(fid_fx);
     else
@@ -48,7 +48,7 @@ end
 %         % Go to directory with problem files
 %         cd(EXAMPLE_dir)
 %         % Remove the directories
-%         for ii = 1:min(DREAMPar.CPU,DREAMPar.N)
+%         for ii = 1:min(DREAMPar.CPU,DREAMPar.nChains)
 %             % Remove each worker directory
 %             rmdir(strcat(num2str(ii)),'s');
 %         end

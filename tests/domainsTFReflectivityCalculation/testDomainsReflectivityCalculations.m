@@ -210,11 +210,11 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
 %% Test Pre- and Post-Processing Routines
 
         function testParseClasstoStructs(testCase)
-            [testProblemDefStruct, testProblemDefCells, testProblemDefLimits, testPriors, testControls] = parseClassToStructs(testCase.project, testCase.controlsInput);
+            [testProblemStruct, testProblemCells, testProblemLimits, testPriors, testControls] = parseClassToStructs(testCase.project, testCase.controlsInput);
 
-            testCase.verifyEqual(testProblemDefStruct, testCase.problemStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(testProblemDefCells, testCase.problemCells, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(testProblemDefLimits, testCase.problemLimits, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(testProblemStruct, testCase.problemStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(testProblemCells, testCase.problemCells, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(testProblemLimits, testCase.problemLimits, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(testPriors, testCase.priors, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(testControls, testCase.controls, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end

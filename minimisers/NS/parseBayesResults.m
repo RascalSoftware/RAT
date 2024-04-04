@@ -128,6 +128,6 @@ end
 results.bestFits = bestFit;
 results.chain = outChain;
 results.ranges = range;
-results.bestPars = values(:,1);
+results.bestParams = values(:,1);
 
 end

@@ -1,4 +1,4 @@
-function [outProblemDef,result,pmpd] = processParamonteRuns(problem,controls,chainName,chainTrim)
+function [outProject,result,pmpd] = processParamonteRuns(problem,controls,chainName,chainTrim)
 
 % problem = load(name);
 % problem = problem.twentyMNProblem;
@@ -33,10 +33,7 @@ for i = 1:rows
     unscaledChain(i,:) = unscaledPars';
 end
 
-
-allProblem = {problemStruct, controls, problemLimits, problemCells};
-
-bayesOutputs.bestPars = mean(unscaledChain);
+bayesOutputs.bestParams = mean(unscaledChain);
 bayesOutputs.chain = unscaledChain;
 bayesOutputs.fitNames = fitNames;
 bayesOutputs.s2chain = [];
@@ -44,11 +41,11 @@ bayesOutputs.sschain = [];
 bayesOutputs.data = problemCells{2};
 bayesOutputs.results.mean = mean(unscaledChain);
 
-[problemStruct,result,bayesResults] = processBayes(bayesOutputs,allProblem);
+[problemStruct,result,bayesResults] = processBayes(bayesOutputs,problemStruct,problemCells,problemLimits,controls);
 bayesResults.chain = unscaledChain;
 
 result = mergeStructs(result,bayesResults);
 
-outProblemDef = parseOutToProjectClass(problem,problemStruct);
+outProject = parseOutToProjectClass(problem,problemStruct);
 
 end

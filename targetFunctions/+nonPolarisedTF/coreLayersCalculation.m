@@ -2,7 +2,7 @@ function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiS
     coreLayersCalculation(contrastLayers, rough, ...
     geometry, bulkIn, bulkOut, resample, calcSld, scalefactor, qzshift,...
     dataPresent, data, dataLimits, simLimits, repeatLayers,...
-    background,resolution,contrastBackgroundsType,params,parallelPoints,resampleParams,useImaginary)
+    background,resolution,contrastBackgroundActions,params,parallelPoints,resampleParams,useImaginary)
 
 %   This is the main reflectivity calculation for all Layers models in the 
 %   non polarised target function. 
@@ -38,7 +38,7 @@ function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiS
 %   repeatLayers    :
 %   background      :
 %   resol           :
-%   contrastBackgroundsType       :
+%   contrastBackgroundActions       :
 %   params          :
 %   parallelPoints  :
 %
@@ -116,7 +116,7 @@ reflectivityType = 'standardAbeles';
 [reflect,simulation] = callReflectivity(bulkIn,bulkOut,simLimits,repeatLayers,shiftedData,layerSld,ssubs,resolution,parallelPoints,reflectivityType,useImaginary);
 
 % Apply background correction
-[reflect,simulation,shiftedData] = applyBackgroundCorrection(reflect,simulation,shiftedData,background,contrastBackgroundsType);
+[reflect,simulation,shiftedData] = applyBackgroundCorrection(reflect,simulation,shiftedData,background,contrastBackgroundActions);
 
 % Calculate chi squared.
 chiSq = chiSquared(shiftedData,reflect,params);

@@ -225,13 +225,18 @@ priors.priorNames = priorsCell(:, 1);
 priors.priorValues = cell2mat(priorsCell(:, 2:end));
 
 
-%% Split up the contrastBackgrounds array
-contrastBackgrounds = inputStruct.contrastBackgrounds;
-for i = 1:length(contrastBackgrounds)
-    problemStruct.contrastBackgrounds(i) = contrastBackgrounds{i}(1);
-    problemStruct.contrastBackgroundsType(i) = contrastBackgrounds{i}(2);
+%% Deal with backgrounds and resolutions
+backgroundActions = zeros(1, length(inputStruct.contrastBackgrounds));
+for i = 1:length(inputStruct.contrastBackgrounds)
+
+    if strcmpi(inputStruct.contrastBackgroundActions{i}, actions.Add)
+        backgroundActions(i) = 1;
+    else
+        backgroundActions(i) = 2;
+    end
+
 end
-    
+
 % Here we need to do the same with the contrastResolutions array
 contrastResolutions = inputStruct.contrastResolutions;
 resolutionNames = inputStruct.resolutionParamNames;
@@ -313,6 +318,8 @@ problemStruct.oilChiDataPresent = inputStruct.oilChiDataPresent;
 problemStruct.numberOfContrasts = inputStruct.numberOfContrasts;
 problemStruct.geometry = inputStruct.geometry;
 problemStruct.useImaginary = inputStruct.useImaginary;
+problemStruct.contrastBackgrounds = inputStruct.contrastBackgrounds;
+problemStruct.contrastBackgroundActions = backgroundActions;
 problemStruct.contrastQzshifts = inputStruct.contrastQzshifts;
 problemStruct.contrastScalefactors = inputStruct.contrastScalefactors;
 problemStruct.contrastBulkIns = inputStruct.contrastBulkIns;

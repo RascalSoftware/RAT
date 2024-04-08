@@ -67,7 +67,8 @@ classdef contrastsClass < baseContrasts
             nContrasts = obj.numberOfContrasts;
             contrastLayers = cell(1,nContrasts);
             contrastCustomFile = ones(1,nContrasts);
-            contrastBackgrounds = cell(1,nContrasts);
+            contrastBackgrounds = ones(1,nContrasts);
+            contrastBackgroundActions = cell(1,nContrasts);
             contrastBulkIns = ones(1,nContrasts);
             contrastBulkOuts = ones(1,nContrasts);
             contrastDomainRatios = zeros(1,nContrasts);
@@ -117,7 +118,8 @@ classdef contrastsClass < baseContrasts
                     contrastDomainRatios(i) = find(strcmpi(thisContrast.domainRatio,allowedNames.domainRatioNames));
                 end
 
-                contrastBackgrounds{i} = [find(strcmpi(thisContrast.background,allowedNames.backgroundNames)), 1];
+                contrastBackgrounds(i) = find(strcmpi(thisContrast.background,allowedNames.backgroundNames));
+                contrastBackgroundActions{i} = thisContrast.backgroundAction;
                 contrastBulkIns(i) = find(strcmpi(thisContrast.bulkIn,allowedNames.bulkInNames));
                 contrastBulkOuts(i) = find(strcmpi(thisContrast.bulkOut,allowedNames.bulkOutNames));
                 contrastQzshifts(i) = 1;  %Todo
@@ -165,6 +167,7 @@ classdef contrastsClass < baseContrasts
             contrastStruct.contrastCustomFile = contrastCustomFile;
             contrastStruct.contrastDomainRatios = contrastDomainRatios;
             contrastStruct.contrastBackgrounds = contrastBackgrounds;
+            contrastStruct.contrastBackgroundActions = contrastBackgroundActions;
             contrastStruct.contrastBulkIns = contrastBulkIns;
             contrastStruct.contrastBulkOuts = contrastBulkOuts;
             contrastStruct.contrastQzshifts = contrastQzshifts;

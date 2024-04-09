@@ -19,9 +19,9 @@ classdef contrastsClass < baseContrasts
 
             obj@baseContrasts(calcType.domains, calcType.oilWater)
         end
-        
+
         function names = getDisplayNames(obj)
-            names = ["Name"; "Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Model"];
+            names = ["Name"; "Data"; "Background"; "Background Action"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Model"];
             if obj.domainsCalc
                 names = [names(1:end-1); "Domain Ratio"; names(end)];
             end
@@ -67,7 +67,8 @@ classdef contrastsClass < baseContrasts
             nContrasts = obj.numberOfContrasts;
             contrastLayers = cell(1,nContrasts);
             contrastCustomFile = ones(1,nContrasts);
-            contrastBackgrounds = cell(1,nContrasts);
+            contrastBackgrounds = ones(1,nContrasts);
+            contrastBackgroundActions = cell(1,nContrasts);
             contrastBulkIns = ones(1,nContrasts);
             contrastBulkOuts = ones(1,nContrasts);
             contrastDomainRatios = zeros(1,nContrasts);
@@ -117,7 +118,8 @@ classdef contrastsClass < baseContrasts
                     contrastDomainRatios(i) = find(strcmpi(thisContrast.domainRatio,allowedNames.domainRatioNames));
                 end
 
-                contrastBackgrounds{i} = [find(strcmpi(thisContrast.background,allowedNames.backgroundNames)), 1];
+                contrastBackgrounds(i) = find(strcmpi(thisContrast.background,allowedNames.backgroundNames));
+                contrastBackgroundActions{i} = thisContrast.backgroundAction;
                 contrastBulkIns(i) = find(strcmpi(thisContrast.bulkIn,allowedNames.bulkInNames));
                 contrastBulkOuts(i) = find(strcmpi(thisContrast.bulkOut,allowedNames.bulkOutNames));
                 contrastQzshifts(i) = 1;  %Todo
@@ -165,6 +167,7 @@ classdef contrastsClass < baseContrasts
             contrastStruct.contrastCustomFile = contrastCustomFile;
             contrastStruct.contrastDomainRatios = contrastDomainRatios;
             contrastStruct.contrastBackgrounds = contrastBackgrounds;
+            contrastStruct.contrastBackgroundActions = contrastBackgroundActions;
             contrastStruct.contrastBulkIns = contrastBulkIns;
             contrastStruct.contrastBulkOuts = contrastBulkOuts;
             contrastStruct.contrastQzshifts = contrastQzshifts;
@@ -191,12 +194,13 @@ classdef contrastsClass < baseContrasts
             %                                   'background', 'Background H2O')        
             defaultName = '';
             defaultBackground = '';
+            defaultBackgroundAction = '';
             defaultData = '';   
             defaultBulkIn = '';
             defaultBulkOut = '';
             defaultScalefactor = '';
             defaultResolution = '';
-            defaultResample = false;
+            defaultResample = [];
         
             expectedBackground = cellstr(allowedNames.backgroundNames);
             expectedData = cellstr(allowedNames.dataNames);
@@ -214,12 +218,13 @@ classdef contrastsClass < baseContrasts
                 addParameter(p,'oilChiData',    defaultOilChiData,  @(x) any(validatestring(x,expectedData)));
             end
 
-            addParameter(p,'background',    defaultBackground,  @(x) any(validatestring(x,expectedBackground)));
-            addParameter(p,'bulkIn',        defaultBulkIn,      @(x) any(validatestring(x,expectedBulkIn)));
-            addParameter(p,'bulkOut',       defaultBulkOut,     @(x) any(validatestring(x,expectedBulkOut)));
-            addParameter(p,'scalefactor',   defaultScalefactor, @(x) any(validatestring(x,expectedScalefactor)));
-            addParameter(p,'resolution',    defaultResolution,  @(x) any(validatestring(x,expectedResolution)));
-            addParameter(p,'resample',      defaultResample,    @islogical);
+            addParameter(p,'background',       defaultBackground,         @(x) any(validatestring(x,expectedBackground)));
+            addParameter(p,'backgroundAction', defaultBackgroundAction,   @(x) isText(x) || isenum(x))
+            addParameter(p,'bulkIn',           defaultBulkIn,             @(x) any(validatestring(x,expectedBulkIn)));
+            addParameter(p,'bulkOut',          defaultBulkOut,            @(x) any(validatestring(x,expectedBulkOut)));
+            addParameter(p,'scalefactor',      defaultScalefactor,        @(x) any(validatestring(x,expectedScalefactor)));
+            addParameter(p,'resolution',       defaultResolution,         @(x) any(validatestring(x,expectedResolution)));
+            addParameter(p,'resample',         defaultResample,           @islogical);
 
             if obj.domainsCalc
                 defaultDomainRatio = '';
@@ -228,8 +233,28 @@ classdef contrastsClass < baseContrasts
             end
 
             parse(p, inputValues{:});
-            inputBlock = p.Results;
-        
+            inputBlock = p.Results;        
         end
+    end
+
+    methods(Static)
+
+        function contrast = setDefaultValues(contrast)
+            % Set non-empty default values when adding a contrast.
+            contrast.model = '';
+
+            if isempty(contrast.backgroundAction)
+                contrast.backgroundAction = actions.Add.value;
+            else
+                contrast.backgroundAction = validateOption(contrast.backgroundAction, 'actions',...
+                        sprintf('backgroundAction must be a actions enum or one of the following strings (%s)', strjoin(actions.values(), ', '))).value;
+            end
+
+            if isempty(contrast.resample)
+                contrast.resample = false;
+            end
+
+        end
+        
     end
 end

@@ -1,13 +1,13 @@
 function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
 contrastResolutions, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, domainRatio,...
-dataPresent, nParams, params, numberOfLayers, resample, contrastBackgroundsType, contrastCustomFiles, useImaginary] = extractProblemParams(problemStruct)
+dataPresent, nParams, params, numberOfLayers, resample, contrastBackgroundActions, contrastCustomFiles, useImaginary] = extractProblemParams(problemStruct)
 
 %Extract individual parameters from problem
 
 numberOfContrasts = problemStruct.numberOfContrasts;
 geometry = problemStruct.geometry;
 contrastBackgrounds = problemStruct.contrastBackgrounds;
-contrastBackgroundsType = problemStruct.contrastBackgroundsType;
+contrastBackgroundActions = problemStruct.contrastBackgroundActions;
 contrastQzshifts = problemStruct.contrastQzshifts;
 contrastScalefactors = problemStruct.contrastScalefactors;
 contrastBulkIns = problemStruct.contrastBulkIns;

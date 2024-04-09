@@ -37,7 +37,6 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
     properties
         exampleTable            % Example Multi-Type Table for testing
         initialTable
-        initialAllowedActions = {'add'  'subtract'}
         initialTypesAutoNameString = 'Row'
         numRows                 % Number of rows in exampleTable
         numCols                 % Number of columns in exampleTable
@@ -68,7 +67,6 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.exampleTable.varTable(1,:) = {'Background D2O', allowedTypes.Constant.value, 'Backs par 1','','','',''};
             testCase.exampleTable.varTable(2,:) = {'Background SMW',allowedTypes.Constant.value,'Backs par SMW','','','',''};
             testCase.exampleTable.varTable(3,:) = {'Background H2O',allowedTypes.Constant.value,'Backs par H2O','','','',''};
-            testCase.exampleTable.allowedActions = {'add','subtract'};
             testCase.exampleTable.typesAutoNameString = 'New background';
 
             testCase.numRows = height(testCase.exampleTable.varTable);
@@ -88,7 +86,6 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifySize(testTable.varTable, [0 7], 'multiTypeTable does not initialise correctly');
 
             testCase.verifyEqual(testTable.varTable, testCase.initialTable, 'multiTypeTable does not initialise correctly');
-            testCase.verifyEqual(testTable.allowedActions, testCase.initialAllowedActions, 'multiTypeTable does not initialise correctly');
             testCase.verifyEqual(testTable.typesAutoNameString, testCase.initialTypesAutoNameString, 'multiTypeTable does not initialise correctly');
         end
 

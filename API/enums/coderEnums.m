@@ -1,6 +1,7 @@
 % This allow enums to be used by coder without redefinition or hardcoding
 classdef coderEnums
     properties (Constant)
+        actions = actions.toStruct()
         allowedTypes = allowedTypes.toStruct()
         boundHandlingOptions = boundHandlingOptions.toStruct()
         calculationTypes = calculationTypes.toStruct()

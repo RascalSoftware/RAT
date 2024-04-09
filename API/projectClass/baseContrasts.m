@@ -24,14 +24,19 @@ classdef (Abstract) baseContrasts < handle
     properties(Access = protected, Constant, Hidden)
         invalidTypeMessage = sprintf('Model type must be a modelTypes enum or one of the following strings (%s)', ...
                                      strjoin(modelTypes.values(), ', '))
-        rowHeaders = struct('key', ["Name"; "Data"; "Oil Chi Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"], ...
-                            'field', ["name"; "data"; "oilChiData"; "background"; "bulkIn"; "bulkOut"; "scalefactor"; "resolution"; "resample"; "domainRatio"; "model"])
+        rowHeaders = struct('key', ["Name"; "Data"; "Oil Chi Data"; "Background"; "Background Action"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"], ...
+                            'field', ["name"; "data"; "oilChiData"; "background"; "backgroundAction"; "bulkIn"; "bulkOut"; "scalefactor"; "resolution"; "resample"; "domainRatio"; "model"])
     end
 
     methods (Abstract)
-        parseContrastInput
         getDisplayNames
+        parseContrastInput
+        setDefaultValues
     end
+
+    % methods (Abstract, Static)
+    %     setDefaultValues
+    % end
 
     methods
         
@@ -97,7 +102,8 @@ classdef (Abstract) baseContrasts < handle
             end
             
             thisContrast = parseContrastInput(obj, allowedNames, inputVals);
-            thisContrast.model = '';
+            thisContrast = obj.setDefaultValues(thisContrast);
+
             obj.contrasts{end+1} = thisContrast;
             obj.contrastAutoNameCounter = obj.contrastAutoNameCounter + 1;
         
@@ -236,6 +242,11 @@ classdef (Abstract) baseContrasts < handle
             
             if isfield(inputBlock, 'background') && ~isempty(inputBlock.background)
                 thisContrast.background = inputBlock.background;
+            end
+
+            if isfield(inputBlock, 'backgroundAction') && ~isempty(inputBlock.backgroundAction)
+                thisContrast.backgroundAction = validateOption(inputBlock.backgroundAction, 'actions',...
+                    sprintf('backgroundAction must be a actions enum or one of the following strings (%s)', strjoin(actions.values(), ', '))).value;
             end
             
             if isfield(inputBlock, 'bulkIn') && ~isempty(inputBlock.bulkIn)

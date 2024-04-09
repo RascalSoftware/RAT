@@ -22,12 +22,12 @@ namespace RAT
   {
     namespace internal
     {
-      void structConstructorHelper(const cell_wrap_26 *varargin_2, const
-        cell_wrap_26 *varargin_4, const cell_wrap_27 *varargin_6, const
-        cell_wrap_28 *varargin_8, const cell_wrap_28 *varargin_10, const
-        cell_wrap_29 *varargin_12, const struct6_T *varargin_14, const
+      void structConstructorHelper(const cell_wrap_27 *varargin_2, const
+        cell_wrap_27 *varargin_4, const cell_wrap_28 *varargin_6, const
+        cell_wrap_29 *varargin_8, const cell_wrap_29 *varargin_10, const
+        cell_wrap_30 *varargin_12, const struct6_T *varargin_14, const
         c_struct_T *varargin_16, const ::coder::array<real_T, 2U> &varargin_18,
-        const cell_wrap_30 *varargin_20, d_struct_T *s)
+        const cell_wrap_31 *varargin_20, d_struct_T *s)
       {
         ::coder::array<real_T, 2U> f1;
         int32_T b_loop_ub;
@@ -104,8 +104,8 @@ namespace RAT
         }
       }
 
-      void structConstructorHelper(const cell_wrap_33 *varargin_2, const
-        cell_wrap_28 *varargin_4, const cell_wrap_33 *varargin_8, ::coder::array<
+      void structConstructorHelper(const cell_wrap_34 *varargin_2, const
+        cell_wrap_29 *varargin_4, const cell_wrap_34 *varargin_8, ::coder::array<
         cell_wrap_10, 1U> &s_reflectivity, ::coder::array<cell_wrap_10, 2U>
         &s_sld, real_T *s_chi, ::coder::array<cell_wrap_10, 1U> &s_data)
       {
@@ -137,9 +137,9 @@ namespace RAT
         *s_chi = 0.0;
       }
 
-      void structConstructorHelper(const cell_wrap_33 *varargin_2, const
-        cell_wrap_28 *varargin_4, const cell_wrap_33 *varargin_6, const
-        cell_wrap_28 *varargin_8, const cell_wrap_35 *varargin_10, ::coder::
+      void structConstructorHelper(const cell_wrap_34 *varargin_2, const
+        cell_wrap_29 *varargin_4, const cell_wrap_34 *varargin_6, const
+        cell_wrap_29 *varargin_8, const cell_wrap_36 *varargin_10, ::coder::
         array<cell_wrap_10, 1U> &s_reflectivity, ::coder::array<cell_wrap_10, 2U>
         &s_sld, ::coder::array<cell_wrap_10, 1U> &s_reflectivityXData, ::coder::
         array<cell_wrap_10, 2U> &s_sldXData, real_T s_sampleChi_data[], int32_T *

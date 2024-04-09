@@ -33,10 +33,10 @@ namespace RAT
 {
   static void cast(const ::coder::array<cell_wrap_8, 1U> &t8_reflectivity, const
                    ::coder::array<cell_wrap_8, 1U> &t8_simulation, const ::coder::
-                   array<cell_wrap_38, 1U> &t8_shiftedData, const ::coder::array<
+                   array<cell_wrap_39, 1U> &t8_shiftedData, const ::coder::array<
                    cell_wrap_10, 2U> &t8_layerSlds, const ::coder::array<
                    cell_wrap_10, 2U> &t8_sldProfiles, const ::coder::array<
-                   cell_wrap_38, 2U> &t8_resampledLayers, const struct6_T
+                   cell_wrap_39, 2U> &t8_resampledLayers, const struct6_T
                    *t8_calculationResults, const c_struct_T *t8_contrastParams,
                    const ::coder::array<real_T, 2U> &t8_fitParams, const ::coder::
                    array<cell_wrap_1, 1U> &t8_fitNames, struct5_T *b);
@@ -58,10 +58,10 @@ namespace RAT
 {
   static void cast(const ::coder::array<cell_wrap_8, 1U> &t8_reflectivity, const
                    ::coder::array<cell_wrap_8, 1U> &t8_simulation, const ::coder::
-                   array<cell_wrap_38, 1U> &t8_shiftedData, const ::coder::array<
+                   array<cell_wrap_39, 1U> &t8_shiftedData, const ::coder::array<
                    cell_wrap_10, 2U> &t8_layerSlds, const ::coder::array<
                    cell_wrap_10, 2U> &t8_sldProfiles, const ::coder::array<
-                   cell_wrap_38, 2U> &t8_resampledLayers, const struct6_T
+                   cell_wrap_39, 2U> &t8_resampledLayers, const struct6_T
                    *t8_calculationResults, const c_struct_T *t8_contrastParams,
                    const ::coder::array<real_T, 2U> &t8_fitParams, const ::coder::
                    array<cell_wrap_1, 1U> &t8_fitNames, struct5_T *b)
@@ -193,18 +193,6 @@ namespace RAT
     int32_T i;
     int32_T i1;
     int32_T loop_ub;
-    c->contrastBackgrounds.set_size(1, b->contrastBackgrounds.size(1));
-    loop_ub = b->contrastBackgrounds.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      c->contrastBackgrounds[i] = b->contrastBackgrounds[i];
-    }
-
-    c->contrastBackgroundsType.set_size(1, b->contrastBackgroundsType.size(1));
-    loop_ub = b->contrastBackgroundsType.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      c->contrastBackgroundsType[i] = b->contrastBackgroundsType[i];
-    }
-
     c->TF.size[0] = 1;
     c->TF.size[1] = b->TF.size[1];
     loop_ub = b->TF.size[1];
@@ -240,6 +228,18 @@ namespace RAT
     }
 
     c->useImaginary = b->useImaginary;
+    c->contrastBackgrounds.set_size(1, b->contrastBackgrounds.size(1));
+    loop_ub = b->contrastBackgrounds.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      c->contrastBackgrounds[i] = b->contrastBackgrounds[i];
+    }
+
+    c->contrastBackgroundActions.set_size(1, b->contrastBackgroundActions.size(1));
+    loop_ub = b->contrastBackgroundActions.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      c->contrastBackgroundActions[i] = b->contrastBackgroundActions[i];
+    }
+
     c->contrastQzshifts.set_size(1, b->contrastQzshifts.size(1));
     loop_ub = b->contrastQzshifts.size(1);
     for (i = 0; i < loop_ub; i++) {
@@ -387,18 +387,6 @@ namespace RAT
     int32_T i;
     int32_T i1;
     int32_T loop_ub;
-    c->contrastBackgrounds.set_size(1, b->contrastBackgrounds.size(1));
-    loop_ub = b->contrastBackgrounds.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      c->contrastBackgrounds[i] = b->contrastBackgrounds[i];
-    }
-
-    c->contrastBackgroundsType.set_size(1, b->contrastBackgroundsType.size(1));
-    loop_ub = b->contrastBackgroundsType.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      c->contrastBackgroundsType[i] = b->contrastBackgroundsType[i];
-    }
-
     c->TF.size[0] = 1;
     c->TF.size[1] = b->TF.size[1];
     loop_ub = b->TF.size[1];
@@ -434,6 +422,18 @@ namespace RAT
     }
 
     c->useImaginary = b->useImaginary;
+    c->contrastBackgrounds.set_size(1, b->contrastBackgrounds.size(1));
+    loop_ub = b->contrastBackgrounds.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      c->contrastBackgrounds[i] = b->contrastBackgrounds[i];
+    }
+
+    c->contrastBackgroundActions.set_size(1, b->contrastBackgroundActions.size(1));
+    loop_ub = b->contrastBackgroundActions.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      c->contrastBackgroundActions[i] = b->contrastBackgroundActions[i];
+    }
+
     c->contrastQzshifts.set_size(1, b->contrastQzshifts.size(1));
     loop_ub = b->contrastQzshifts.size(1);
     for (i = 0; i < loop_ub; i++) {
@@ -710,8 +710,8 @@ namespace RAT
     ::coder::array<cell_wrap_1, 1U> t16_fitNames;
     ::coder::array<cell_wrap_10, 2U> t16_layerSlds;
     ::coder::array<cell_wrap_10, 2U> t16_sldProfiles;
-    ::coder::array<cell_wrap_38, 2U> t16_resampledLayers;
-    ::coder::array<cell_wrap_38, 1U> t16_shiftedData;
+    ::coder::array<cell_wrap_39, 2U> t16_resampledLayers;
+    ::coder::array<cell_wrap_39, 1U> t16_shiftedData;
     ::coder::array<cell_wrap_8, 1U> t16_reflectivity;
     ::coder::array<cell_wrap_8, 1U> t16_simulation;
     ::coder::array<real_T, 2U> t16_fitParams;

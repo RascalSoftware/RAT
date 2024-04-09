@@ -22,7 +22,7 @@ namespace RAT
 {
   void applyBackgroundCorrection(::coder::array<real_T, 2U> &reflect, ::coder::
     array<real_T, 2U> &simul, ::coder::array<real_T, 2U> &shiftedData, real_T
-    backgroundParams, real_T contrastBackgroundsType);
+    backgroundParams, real_T contrastBackgroundActions);
 }
 
 #endif

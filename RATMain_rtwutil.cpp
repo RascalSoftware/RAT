@@ -49,7 +49,7 @@ namespace RAT
     }
   }
 
-  void cast(const ::coder::array<cell_wrap_38, 1U> &b, ::coder::array<
+  void cast(const ::coder::array<cell_wrap_39, 1U> &b, ::coder::array<
             cell_wrap_10, 1U> &c)
   {
     int32_T i;
@@ -104,7 +104,7 @@ namespace RAT
     }
   }
 
-  void cast(const ::coder::array<cell_wrap_31, 2U> &b, ::coder::array<
+  void cast(const ::coder::array<cell_wrap_32, 2U> &b, ::coder::array<
             cell_wrap_10, 2U> &c)
   {
     int32_T i;

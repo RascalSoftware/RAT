@@ -39,16 +39,17 @@ namespace RAT
       &bulkOuts, const ::coder::array<real_T, 2U> &resolutionParams, const ::
       coder::array<real_T, 2U> &domainRatios, real_T dataPresent, const ::coder::
       array<real_T, 2U> &data, const real_T dataLimits[2], const real_T
-      simLimits[2], const real_T repeatLayers[2], real_T contrastBackgroundsType,
-      real_T nParams, const char_T parallel_data[], const int32_T parallel_size
-      [2], const real_T resampleParams[2], boolean_T useImaginary, real_T
-      roughness, const ::coder::array<real_T, 2U> &sldProfile1, const ::coder::
-      array<real_T, 2U> &sldProfile2, real_T *backgroundParamValue, real_T
-      *qzshiftValue, real_T *scalefactorValue, real_T *bulkInValue, real_T
-      *bulkOutValue, real_T *resolutionParamValue, real_T *chi, ::coder::array<
-      real_T, 2U> &reflectivity, ::coder::array<real_T, 2U> &simulation, ::coder::
-      array<real_T, 2U> &shiftedData, cell_wrap_10 layerSld[2], cell_wrap_10
-      sldProfile[2], cell_wrap_10 resampledLayer[2]);
+      simLimits[2], const real_T repeatLayers[2], real_T
+      contrastBackgroundActions, real_T nParams, const char_T parallel_data[],
+      const int32_T parallel_size[2], const real_T resampleParams[2], boolean_T
+      useImaginary, real_T roughness, const ::coder::array<real_T, 2U>
+      &sldProfile1, const ::coder::array<real_T, 2U> &sldProfile2, real_T
+      *backgroundParamValue, real_T *qzshiftValue, real_T *scalefactorValue,
+      real_T *bulkInValue, real_T *bulkOutValue, real_T *resolutionParamValue,
+      real_T *chi, ::coder::array<real_T, 2U> &reflectivity, ::coder::array<
+      real_T, 2U> &simulation, ::coder::array<real_T, 2U> &shiftedData,
+      cell_wrap_10 layerSld[2], cell_wrap_10 sldProfile[2], cell_wrap_10
+      resampledLayer[2]);
   }
 }
 
@@ -66,16 +67,17 @@ namespace RAT
       &bulkOuts, const ::coder::array<real_T, 2U> &resolutionParams, const ::
       coder::array<real_T, 2U> &domainRatios, real_T dataPresent, const ::coder::
       array<real_T, 2U> &data, const real_T dataLimits[2], const real_T
-      simLimits[2], const real_T repeatLayers[2], real_T contrastBackgroundsType,
-      real_T nParams, const char_T parallel_data[], const int32_T parallel_size
-      [2], const real_T resampleParams[2], boolean_T useImaginary, real_T
-      roughness, const ::coder::array<real_T, 2U> &sldProfile1, const ::coder::
-      array<real_T, 2U> &sldProfile2, real_T *backgroundParamValue, real_T
-      *qzshiftValue, real_T *scalefactorValue, real_T *bulkInValue, real_T
-      *bulkOutValue, real_T *resolutionParamValue, real_T *chi, ::coder::array<
-      real_T, 2U> &reflectivity, ::coder::array<real_T, 2U> &simulation, ::coder::
-      array<real_T, 2U> &shiftedData, cell_wrap_10 layerSld[2], cell_wrap_10
-      sldProfile[2], cell_wrap_10 resampledLayer[2])
+      simLimits[2], const real_T repeatLayers[2], real_T
+      contrastBackgroundActions, real_T nParams, const char_T parallel_data[],
+      const int32_T parallel_size[2], const real_T resampleParams[2], boolean_T
+      useImaginary, real_T roughness, const ::coder::array<real_T, 2U>
+      &sldProfile1, const ::coder::array<real_T, 2U> &sldProfile2, real_T
+      *backgroundParamValue, real_T *qzshiftValue, real_T *scalefactorValue,
+      real_T *bulkInValue, real_T *bulkOutValue, real_T *resolutionParamValue,
+      real_T *chi, ::coder::array<real_T, 2U> &reflectivity, ::coder::array<
+      real_T, 2U> &simulation, ::coder::array<real_T, 2U> &shiftedData,
+      cell_wrap_10 layerSld[2], cell_wrap_10 sldProfile[2], cell_wrap_10
+      resampledLayer[2])
     {
       ::coder::array<real_T, 2U> b_data;
       ::coder::array<real_T, 2U> b_sldProfile1;
@@ -264,9 +266,9 @@ namespace RAT
                        parallel_data, parallel_size, useImaginary, reflect2,
                        simul2);
       applyBackgroundCorrection(reflect1, simul1, shiftedDat,
-        *backgroundParamValue, contrastBackgroundsType);
+        *backgroundParamValue, contrastBackgroundActions);
       applyBackgroundCorrection(reflect2, simul2, shiftedDat,
-        *backgroundParamValue, contrastBackgroundsType);
+        *backgroundParamValue, contrastBackgroundActions);
 
       //  Calculate the average reflectivities....
       //  Calculates the avereaged reflectivity for domains samples (incoherent
@@ -457,7 +459,7 @@ namespace RAT
                                 problemCells->f2[c_i].f1, problemCells->f3[c_i].
                                 f1, problemCells->f4[c_i].f1, problemCells->
                                 f1[c_i].f1,
-                                problemStruct->contrastBackgroundsType[c_i],
+                                problemStruct->contrastBackgroundActions[c_i],
                                 static_cast<real_T>(nParams),
                                 controls->parallel.data, controls->parallel.size,
                                 controls->resampleParams, useImaginary,
@@ -518,7 +520,7 @@ namespace RAT
                                 problemStruct->dataPresent[i], problemCells->
                                 f2[i].f1, problemCells->f3[i].f1,
                                 problemCells->f4[i].f1, problemCells->f1[i].f1,
-                                problemStruct->contrastBackgroundsType[i],
+                                problemStruct->contrastBackgroundActions[i],
                                 static_cast<real_T>(problemStruct->params.size(1)),
                                 controls->parallel.data, controls->parallel.size,
                                 controls->resampleParams,

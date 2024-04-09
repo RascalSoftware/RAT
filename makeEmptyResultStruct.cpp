@@ -106,10 +106,10 @@ namespace RAT
 
   void makeEmptyResultStruct(real_T nContrasts, real_T nParams, boolean_T
     domains, ::coder::array<cell_wrap_8, 1U> &result_reflectivity, ::coder::
-    array<cell_wrap_8, 1U> &result_simulation, ::coder::array<cell_wrap_38, 1U>
+    array<cell_wrap_8, 1U> &result_simulation, ::coder::array<cell_wrap_39, 1U>
     &result_shiftedData, ::coder::array<cell_wrap_10, 2U> &result_layerSlds, ::
     coder::array<cell_wrap_10, 2U> &result_sldProfiles, ::coder::array<
-    cell_wrap_38, 2U> &result_resampledLayers, struct6_T
+    cell_wrap_39, 2U> &result_resampledLayers, struct6_T
     *result_calculationResults, c_struct_T *result_contrastParams, ::coder::
     array<real_T, 2U> &result_fitParams, ::coder::array<cell_wrap_1, 1U>
     &result_fitNames)
@@ -117,8 +117,8 @@ namespace RAT
     ::coder::array<cell_wrap_1, 1U> g_f1;
     ::coder::array<cell_wrap_10, 2U> d_f1;
     ::coder::array<cell_wrap_10, 2U> e_f1;
-    ::coder::array<cell_wrap_38, 2U> f_f1;
-    ::coder::array<cell_wrap_38, 1U> c_f1;
+    ::coder::array<cell_wrap_39, 2U> f_f1;
+    ::coder::array<cell_wrap_39, 1U> c_f1;
     ::coder::array<cell_wrap_8, 1U> b_f1;
     ::coder::array<cell_wrap_8, 1U> f1;
     ::coder::array<real_T, 2U> t14_resample;
@@ -131,13 +131,13 @@ namespace RAT
     ::coder::array<real_T, 1U> t14_subRoughs;
     ::coder::array<int8_T, 1U> calculationResults_chiValues;
     c_struct_T expl_temp;
-    cell_wrap_26 r;
-    cell_wrap_26 r1;
-    cell_wrap_27 r2;
-    cell_wrap_28 r3;
-    cell_wrap_28 r4;
-    cell_wrap_29 r5;
-    cell_wrap_30 r6;
+    cell_wrap_27 r;
+    cell_wrap_27 r1;
+    cell_wrap_28 r2;
+    cell_wrap_29 r3;
+    cell_wrap_29 r4;
+    cell_wrap_30 r5;
+    cell_wrap_31 r6;
     d_struct_T c_expl_temp;
     struct6_T b_expl_temp;
     int32_T b_i;

@@ -18,10 +18,10 @@ namespace RAT
 {
   void applyBackgroundCorrection(::coder::array<real_T, 2U> &reflect, ::coder::
     array<real_T, 2U> &simul, ::coder::array<real_T, 2U> &shiftedData, real_T
-    backgroundParams, real_T contrastBackgroundsType)
+    backgroundParams, real_T contrastBackgroundActions)
   {
     ::coder::array<real_T, 1U> c_reflect;
-    switch (static_cast<int32_T>(contrastBackgroundsType)) {
+    switch (static_cast<int32_T>(contrastBackgroundActions)) {
      case 1:
       {
         int32_T b_reflect;

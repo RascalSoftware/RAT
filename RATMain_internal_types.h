@@ -45,27 +45,27 @@ namespace RAT
     ::coder::array<real_T, 2U> resample;
   };
 
-  struct cell_wrap_26
+  struct cell_wrap_27
   {
     ::coder::array<cell_wrap_8, 1U> f1;
   };
 
-  struct cell_wrap_27
-  {
-    ::coder::array<cell_wrap_38, 1U> f1;
-  };
-
   struct cell_wrap_28
   {
-    ::coder::array<cell_wrap_10, 2U> f1;
+    ::coder::array<cell_wrap_39, 1U> f1;
   };
 
   struct cell_wrap_29
   {
-    ::coder::array<cell_wrap_38, 2U> f1;
+    ::coder::array<cell_wrap_10, 2U> f1;
   };
 
   struct cell_wrap_30
+  {
+    ::coder::array<cell_wrap_39, 2U> f1;
+  };
+
+  struct cell_wrap_31
   {
     ::coder::array<cell_wrap_1, 1U> f1;
   };
@@ -74,10 +74,10 @@ namespace RAT
   {
     ::coder::array<cell_wrap_8, 1U> reflectivity;
     ::coder::array<cell_wrap_8, 1U> simulation;
-    ::coder::array<cell_wrap_38, 1U> shiftedData;
+    ::coder::array<cell_wrap_39, 1U> shiftedData;
     ::coder::array<cell_wrap_10, 2U> layerSlds;
     ::coder::array<cell_wrap_10, 2U> sldProfiles;
-    ::coder::array<cell_wrap_38, 2U> resampledLayers;
+    ::coder::array<cell_wrap_39, 2U> resampledLayers;
     struct6_T calculationResults;
     c_struct_T contrastParams;
     ::coder::array<real_T, 2U> fitParams;
@@ -91,20 +91,18 @@ namespace RAT
     ::coder::bounded_array<real_T, 2U, 2U> postSamples;
   };
 
-  struct cell_wrap_33
+  struct cell_wrap_34
   {
     ::coder::array<cell_wrap_10, 1U> f1;
   };
 
-  struct cell_wrap_35
+  struct cell_wrap_36
   {
     ::coder::array<real_T, 1U> f1;
   };
 
   struct f_struct_T
   {
-    ::coder::array<real_T, 2U> contrastBackgrounds;
-    ::coder::array<real_T, 2U> contrastBackgroundsType;
     ::coder::bounded_array<char_T, 10000U, 2U> TF;
     ::coder::array<real_T, 2U> resample;
     ::coder::array<real_T, 2U> dataPresent;
@@ -112,6 +110,8 @@ namespace RAT
     real_T numberOfContrasts;
     ::coder::bounded_array<char_T, 10000U, 2U> geometry;
     boolean_T useImaginary;
+    ::coder::array<real_T, 2U> contrastBackgrounds;
+    ::coder::array<real_T, 2U> contrastBackgroundActions;
     ::coder::array<real_T, 2U> contrastQzshifts;
     ::coder::array<real_T, 2U> contrastScalefactors;
     ::coder::array<real_T, 2U> contrastBulkIns;
@@ -160,7 +160,7 @@ namespace RAT
     ::coder::array<cell_wrap_1, 2U> f20;
   };
 
-  struct cell_wrap_39
+  struct cell_wrap_40
   {
     ::coder::array<real_T, 2U> f1;
   };
@@ -179,8 +179,8 @@ namespace RAT
   {
     ::coder::array<cell_wrap_64, 1U> reflectivity;
     ::coder::array<cell_wrap_64, 2U> sld;
-    ::coder::array<cell_wrap_31, 2U> reflectivityXData;
-    ::coder::array<cell_wrap_31, 2U> sldXData;
+    ::coder::array<cell_wrap_32, 2U> reflectivityXData;
+    ::coder::array<cell_wrap_32, 2U> sldXData;
     real_T sampleChi[1000];
   };
 
@@ -200,7 +200,7 @@ namespace RAT
     ::coder::array<cell_wrap_8, 1U> reflectivity;
     ::coder::array<cell_wrap_10, 2U> sld;
     real_T chi;
-    ::coder::array<cell_wrap_38, 1U> data;
+    ::coder::array<cell_wrap_39, 1U> data;
   };
 
   struct j_struct_T
@@ -254,7 +254,7 @@ namespace RAT
     ::coder::array<real_T, 2U> FVr_bestmem;
   };
 
-  struct cell_44
+  struct cell_45
   {
     ::coder::array<real_T, 2U> f1;
   };

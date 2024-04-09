@@ -38,7 +38,7 @@ namespace RAT
       &bulkIns, const ::coder::array<real_T, 2U> &bulkOuts, const ::coder::array<
       real_T, 2U> &resolutionParams, real_T dataPresent, const ::coder::array<
       real_T, 2U> &data, const real_T dataLimits[2], const real_T simLimits[2],
-      const real_T repeatLayers[2], real_T contrastBackgroundsType, real_T
+      const real_T repeatLayers[2], real_T contrastBackgroundActions, real_T
       nParams, const char_T parallel_data[], const int32_T parallel_size[2],
       const real_T resampleParams[2], boolean_T useImaginary, real_T roughness,
       const ::coder::array<real_T, 2U> &sldProfile, real_T *backgroundParamValue,
@@ -63,7 +63,7 @@ namespace RAT
       &bulkIns, const ::coder::array<real_T, 2U> &bulkOuts, const ::coder::array<
       real_T, 2U> &resolutionParams, real_T dataPresent, const ::coder::array<
       real_T, 2U> &data, const real_T dataLimits[2], const real_T simLimits[2],
-      const real_T repeatLayers[2], real_T contrastBackgroundsType, real_T
+      const real_T repeatLayers[2], real_T contrastBackgroundActions, real_T
       nParams, const char_T parallel_data[], const int32_T parallel_size[2],
       const real_T resampleParams[2], boolean_T useImaginary, real_T roughness,
       const ::coder::array<real_T, 2U> &sldProfile, real_T *backgroundParamValue,
@@ -182,7 +182,7 @@ namespace RAT
                        parallel_data, parallel_size, useImaginary, reflectivity,
                        simulation);
       applyBackgroundCorrection(reflectivity, simulation, shiftedDat,
-        *backgroundParamValue, contrastBackgroundsType);
+        *backgroundParamValue, contrastBackgroundActions);
       if (dataPresent != 0.0) {
         *chi = chiSquared(shiftedDat, reflectivity, nParams);
       } else {
@@ -303,7 +303,7 @@ namespace RAT
                                 problemCells->f2[b_i].f1, problemCells->f3[b_i].
                                 f1, problemCells->f4[b_i].f1, problemCells->
                                 f1[b_i].f1,
-                                problemStruct->contrastBackgroundsType[b_i],
+                                problemStruct->contrastBackgroundActions[b_i],
                                 static_cast<real_T>(nParams),
                                 controls->parallel.data, controls->parallel.size,
                                 controls->resampleParams, useImaginary,
@@ -382,7 +382,7 @@ namespace RAT
                                 problemStruct->dataPresent[i], problemCells->
                                 f2[i].f1, problemCells->f3[i].f1,
                                 problemCells->f4[i].f1, problemCells->f1[i].f1,
-                                problemStruct->contrastBackgroundsType[i],
+                                problemStruct->contrastBackgroundActions[i],
                                 static_cast<real_T>(problemStruct->params.size(1)),
                                 controls->parallel.data, controls->parallel.size,
                                 controls->resampleParams,

@@ -28,12 +28,13 @@ namespace RAT
       scalefactor, real_T qzshift, real_T dataPresent, const ::coder::array<
       real_T, 2U> &data, const real_T dataLimits[2], const real_T simLimits[2],
       const real_T repeatLayers[2], real_T background, real_T resolution, real_T
-      contrastBackgroundsType, real_T params, const char_T parallelPoints_data[],
-      const int32_T parallelPoints_size[2], const real_T resampleParams[2],
-      boolean_T useImaginary, ::coder::array<real_T, 2U> &sldProfile, ::coder::
-      array<real_T, 2U> &reflect, ::coder::array<real_T, 2U> &simulation, ::
-      coder::array<real_T, 2U> &shiftedData, ::coder::array<real_T, 2U>
-      &theseLayers, ::coder::array<real_T, 2U> &resamLayers, real_T *chiSq);
+      contrastBackgroundActions, real_T params, const char_T
+      parallelPoints_data[], const int32_T parallelPoints_size[2], const real_T
+      resampleParams[2], boolean_T useImaginary, ::coder::array<real_T, 2U>
+      &sldProfile, ::coder::array<real_T, 2U> &reflect, ::coder::array<real_T,
+      2U> &simulation, ::coder::array<real_T, 2U> &shiftedData, ::coder::array<
+      real_T, 2U> &theseLayers, ::coder::array<real_T, 2U> &resamLayers, real_T *
+      chiSq);
   }
 }
 

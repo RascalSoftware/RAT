@@ -35,12 +35,12 @@ namespace RAT
       &bulkIns, const ::coder::array<real_T, 2U> &bulkOuts, const ::coder::array<
       real_T, 2U> &resolutionParams, real_T dataPresent, const ::coder::array<
       real_T, 2U> &data, const real_T dataLimits[2], const real_T simLimits[2],
-      const real_T repeatLayers[2], real_T contrastBackgroundsType, real_T
+      const real_T repeatLayers[2], real_T contrastBackgroundActions, real_T
       nParams, const char_T parallel_data[], const int32_T parallel_size[2],
       const real_T resampleParams[2], boolean_T useImaginary, real_T resample,
       const char_T geometry_data[], const int32_T geometry_size[2], real_T
       roughness, boolean_T calcSld, const ::coder::array<real_T, 2U>
-      &contrastLayers, const ::coder::array<cell_wrap_31, 2U>
+      &contrastLayers, const ::coder::array<cell_wrap_32, 2U>
       &outParameterisedLayers, real_T *backgroundParamValue, real_T
       *qzshiftValue, real_T *scalefactorValue, real_T *bulkInValue, real_T
       *bulkOutValue, real_T *resolutionParamValue, real_T *chi, ::coder::array<
@@ -64,12 +64,12 @@ namespace RAT
       &bulkIns, const ::coder::array<real_T, 2U> &bulkOuts, const ::coder::array<
       real_T, 2U> &resolutionParams, real_T dataPresent, const ::coder::array<
       real_T, 2U> &data, const real_T dataLimits[2], const real_T simLimits[2],
-      const real_T repeatLayers[2], real_T contrastBackgroundsType, real_T
+      const real_T repeatLayers[2], real_T contrastBackgroundActions, real_T
       nParams, const char_T parallel_data[], const int32_T parallel_size[2],
       const real_T resampleParams[2], boolean_T useImaginary, real_T resample,
       const char_T geometry_data[], const int32_T geometry_size[2], real_T
       roughness, boolean_T calcSld, const ::coder::array<real_T, 2U>
-      &contrastLayers, const ::coder::array<cell_wrap_31, 2U>
+      &contrastLayers, const ::coder::array<cell_wrap_32, 2U>
       &outParameterisedLayers, real_T *backgroundParamValue, real_T
       *qzshiftValue, real_T *scalefactorValue, real_T *bulkInValue, real_T
       *bulkOutValue, real_T *resolutionParamValue, real_T *chi, ::coder::array<
@@ -114,7 +114,7 @@ namespace RAT
                             calcSld, *scalefactorValue, *qzshiftValue,
                             dataPresent, data, dataLimits, simLimits,
                             repeatLayers, *backgroundParamValue,
-                            *resolutionParamValue, contrastBackgroundsType,
+                            *resolutionParamValue, contrastBackgroundActions,
                             nParams, parallel_data, parallel_size,
                             resampleParams, useImaginary, b_sldProfile,
                             reflectivity, simulation, shiftedData, layerSld,
@@ -156,7 +156,7 @@ namespace RAT
                         cell_wrap_10, 1U> &resampledLayers, ::coder::array<
                         real_T, 1U> &subRoughs)
     {
-      ::coder::array<cell_wrap_31, 2U> outParameterisedLayers;
+      ::coder::array<cell_wrap_32, 2U> outParameterisedLayers;
       ::coder::array<real_T, 2U> r;
       ::coder::array<real_T, 2U> r1;
       ::coder::array<real_T, 2U> r2;
@@ -263,7 +263,7 @@ namespace RAT
                               problemStruct->dataPresent[c_i], problemCells->
                               f2[c_i].f1, problemCells->f3[c_i].f1,
                               problemCells->f4[c_i].f1, problemCells->f1[c_i].f1,
-                              problemStruct->contrastBackgroundsType[c_i],
+                              problemStruct->contrastBackgroundActions[c_i],
                               static_cast<real_T>(nParams),
                               controls->parallel.data, controls->parallel.size,
                               controls->resampleParams, useImaginary,
@@ -346,7 +346,7 @@ namespace RAT
                               problemStruct->dataPresent[b_i], problemCells->
                               f2[b_i].f1, problemCells->f3[b_i].f1,
                               problemCells->f4[b_i].f1, problemCells->f1[b_i].f1,
-                              problemStruct->contrastBackgroundsType[b_i],
+                              problemStruct->contrastBackgroundActions[b_i],
                               static_cast<real_T>(problemStruct->params.size(1)),
                               controls->parallel.data, controls->parallel.size,
                               controls->resampleParams,

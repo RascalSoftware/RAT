@@ -1,72 +1,67 @@
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
-<head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Problem Definition Input Class &mdash; RAT 1.0.0-beta documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script src="_static/design-tabs.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="_static/js/theme.js"></script>
+    <title>The Problem Definition Input Class &#8212; RAT 1.0.0-beta documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/design-tabs.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="icon" href="_static/logo.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="A Closer Look at the Controls Class" href="controlsInfo.html" />
-    <link rel="prev" title="Introduction" href="chapter1.html" /> 
-</head>
+    <link rel="prev" title="Introduction" href="chapter1.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+  
+  
 
-          
-          
-          <a href="index.html">
-            
-              <img src="_static/ratLogo.png" class="logo" alt="Logo"/>
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorial.html">Tutorial</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="chapter1.html">Introduction</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">The Problem Definition Input Class</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#the-components-of-projectclass">The Components of ProjectClass</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#project-defining-methods"><strong>Project Defining Methods</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#the-parameters-block"><strong>The ‘Parameters’ Block</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#the-layers-block-standard-layers-models-only"><strong>The Layers Block (Standard Layers models only)</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#bulk-phases"><strong>Bulk Phases</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#scalefactors"><strong>Scalefactors</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#backgrounds"><strong>Backgrounds</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#resolutions"><strong>Resolutions</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data"><strong>Data</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#putting-it-all-together-defining-contrasts"><strong>Putting it all together – defining contrasts</strong></a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The Problem Definition Input Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-monolayer-example-in-full">The Monolayer Example In Full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="controlsInfo.html">A Closer Look at the Controls Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="customModels.html">Custom Models</a></li>
@@ -81,33 +76,17 @@
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 </ul>
 
+
         </div>
       </div>
-    </nav>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">RAT</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="tutorial.html">Tutorial</a></li>
-      <li class="breadcrumb-item active">The Problem Definition Input Class</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/chapter2.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
+          <div class="body" role="main">
+            
   <section id="the-problem-definition-input-class">
-<span id="chapter2"></span><h1>The Problem Definition Input Class<a class="headerlink" href="#the-problem-definition-input-class" title="Permalink to this heading"></a></h1>
+<span id="chapter2"></span><h1>The Problem Definition Input Class<a class="headerlink" href="#the-problem-definition-input-class" title="Permalink to this heading">¶</a></h1>
 <p>In the previous section, we saw an example of how we set up and run an analysis using the RAT toolbox. Every call to the toolbox has two parts: the <strong>problem definition</strong> class, where we define the model, add the data and define our contrasts, and the <strong>controls class</strong> where we
 tell the toolbox what type of analysis we would like to do. The reason for splitting things up in this way is that once our model is defined, we can interact with it in various ways without needing to modify the model. So, we can experiment with our data, trying out different types of analysis, and explore the
 landscape of solutions by simply modifying the <em>controls</em> class, leaving the <em>problem</em> class alone.</p>
@@ -139,9 +118,9 @@ containing the simulated reflectivities, SLD’s and so on from whatever procedu
 <a class="reference internal image-reference" href="_images/reflectivitiesStruct.png"><img alt="Reflectivities Struct" src="_images/reflectivitiesStruct.png" style="width: 300px;" /></a>
 <p>In the next sections, we’ll discuss the methods of the <strong>projectClass</strong>, and see how they allow us to build up a model by populating the various sections.</p>
 <section id="the-components-of-projectclass">
-<h2>The Components of ProjectClass<a class="headerlink" href="#the-components-of-projectclass" title="Permalink to this heading"></a></h2>
+<h2>The Components of ProjectClass<a class="headerlink" href="#the-components-of-projectclass" title="Permalink to this heading">¶</a></h2>
 <section id="project-defining-methods">
-<h3><strong>Project Defining Methods</strong><a class="headerlink" href="#project-defining-methods" title="Permalink to this heading"></a></h3>
+<h3><strong>Project Defining Methods</strong><a class="headerlink" href="#project-defining-methods" title="Permalink to this heading">¶</a></h3>
 <p>The first step is always to create an instance of the <strong>projectClass</strong> to hold our model. This is always done by assigning <strong>projectClass</strong> to our variable name (we will mostly use <em>problem</em> in this manual, but it can be anything), which always requires a name for our project as an input:</p>
 <div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">projectClass</span><span class="p">(</span><span class="s">&#39;My Problem&#39;</span><span class="p">);</span>
 </pre></div>
@@ -174,7 +153,7 @@ or the <em>air/substrate</em> case, the opposite is true, and the substrate roug
 <p>Custom modelling is described in more depth in a later section.</p>
 </section>
 <section id="the-parameters-block">
-<h3><strong>The ‘Parameters’ Block</strong><a class="headerlink" href="#the-parameters-block" title="Permalink to this heading"></a></h3>
+<h3><strong>The ‘Parameters’ Block</strong><a class="headerlink" href="#the-parameters-block" title="Permalink to this heading">¶</a></h3>
 <p>Any model, where it be layers or anything else is always defined by parameters. These appear in the parameters block and are specified by a name, a value, minimum and maximum ranges and a flag defining whether the parameter is fitted or fixed:</p>
 <a class="reference internal image-reference" href="_images/parameterBlock.png"><img alt="Parameter Block" src="_images/parameterBlock.png" style="width: 500px;" /></a>
 <p>The substrate roughness is a protected parameter in all cases (it defines the Fresnel roughness) and cannot be renamed or deleted. Its values can be set to any numerical values however.</p>
@@ -219,7 +198,7 @@ where duplicate names are allowed.</p>
 <a class="reference internal image-reference" href="_images/parameterRemoveError.png"><img alt="Error when trying to remove Substrate Roughness" src="_images/parameterRemoveError.png" style="width: 600px;" /></a>
 </section>
 <section id="the-layers-block-standard-layers-models-only">
-<h3><strong>The Layers Block (Standard Layers models only)</strong><a class="headerlink" href="#the-layers-block-standard-layers-models-only" title="Permalink to this heading"></a></h3>
+<h3><strong>The Layers Block (Standard Layers models only)</strong><a class="headerlink" href="#the-layers-block-standard-layers-models-only" title="Permalink to this heading">¶</a></h3>
 <p>For each of the custom models cases, the model building is done using a script (discussed in detail in chapter 3). For standard layers models however, model building is done by grouping the parameters into layers, and then into contrasts (as is the case for RasCAL). The layers block is not visible when either of the two custom modes is selected. Again, layers are built using methods of the project class. As an example here, we make a new project class, add some parameters, and create some layers.</p>
 <p>For this example, we will make two layers representing a deuterated and hydrogenated version of the same layer. So, the layers will share all their parameters except for the SLD.</p>
 <p>Start by making a new project, and adding the parameters we will need:</p>
@@ -265,7 +244,7 @@ where duplicate names are allowed.</p>
 <p>The layers are then used to set up the contrasts as usual with a standard layers model.</p>
 </section>
 <section id="bulk-phases">
-<h3><strong>Bulk Phases</strong><a class="headerlink" href="#bulk-phases" title="Permalink to this heading"></a></h3>
+<h3><strong>Bulk Phases</strong><a class="headerlink" href="#bulk-phases" title="Permalink to this heading">¶</a></h3>
 <p>These are treated in the same way as parameters e.g.</p>
 <div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addBulkIn</span><span class="p">(</span><span class="s">&#39;Silicon&#39;</span><span class="p">,</span><span class="mf">2.0e-6</span><span class="p">,</span><span class="mf">2.07e-6</span><span class="p">,</span><span class="mf">2.1e-6</span><span class="p">,</span><span class="nb">false</span><span class="p">);</span>
 <span class="n">problem</span><span class="p">.</span><span class="n">addBulkOut</span><span class="p">(</span><span class="s">&#39;H2O&#39;</span><span class="p">,</span><span class="o">-</span><span class="mf">0.6e-6</span><span class="p">,</span><span class="o">-</span><span class="mf">0.56e-6</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5e-6</span><span class="p">,</span><span class="nb">false</span><span class="p">);</span>
@@ -278,7 +257,7 @@ where duplicate names are allowed.</p>
 </div>
 </section>
 <section id="scalefactors">
-<h3><strong>Scalefactors</strong><a class="headerlink" href="#scalefactors" title="Permalink to this heading"></a></h3>
+<h3><strong>Scalefactors</strong><a class="headerlink" href="#scalefactors" title="Permalink to this heading">¶</a></h3>
 <p>The <em>scalefactors</em> are another parameters block like the bulk phases. You can add <em>scalefactors</em> with the <strong>addScalefactor</strong> method. Similarly, you can set the values with the <strong>setScalefactor</strong> method as with the previous blocks.</p>
 <div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addScalefactor</span><span class="p">(</span><span class="s">&#39;New Scalefactor&#39;</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.1</span><span class="p">,</span><span class="nb">true</span><span class="p">);</span>
 <span class="n">problem</span><span class="p">.</span><span class="n">setScalefactor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;value&#39;</span><span class="p">,</span><span class="mf">1.01</span><span class="p">);</span>
@@ -286,7 +265,7 @@ where duplicate names are allowed.</p>
 </div>
 </section>
 <section id="backgrounds">
-<h3><strong>Backgrounds</strong><a class="headerlink" href="#backgrounds" title="Permalink to this heading"></a></h3>
+<h3><strong>Backgrounds</strong><a class="headerlink" href="#backgrounds" title="Permalink to this heading">¶</a></h3>
 <p>The backgrounds block is used to define the type of background applied to each contrast, and the parameters used to define the backgrounds themselves. The fittable parameters are in the
 ‘Background Params’ block, and the backgrounds themselves are in the ‘Backgrounds’ block:</p>
 <a class="reference internal image-reference" href="_images/basicBackground.png"><img alt="basic background" src="_images/basicBackground.png" style="width: 800px;" /></a>
@@ -320,7 +299,7 @@ where duplicate names are allowed.</p>
 </div>
 </section>
 <section id="resolutions">
-<h3><strong>Resolutions</strong><a class="headerlink" href="#resolutions" title="Permalink to this heading"></a></h3>
+<h3><strong>Resolutions</strong><a class="headerlink" href="#resolutions" title="Permalink to this heading">¶</a></h3>
 <p>As is the case for the backgrounds, the resolutions block is also splot into two parts: a parameters block which defines the fittable parameters, and then the main Resolutions block which groups these as required into actual resolutions.
 The three types are:</p>
 <ul class="simple">
@@ -349,7 +328,7 @@ The three types are:</p>
 </div>
 </section>
 <section id="data">
-<h3><strong>Data</strong><a class="headerlink" href="#data" title="Permalink to this heading"></a></h3>
+<h3><strong>Data</strong><a class="headerlink" href="#data" title="Permalink to this heading">¶</a></h3>
 <p>The data block contains the data which defines at which points in q the reflectivity is calculated at each contrast. By default, it initialises with a single ‘Simulation’ entry:</p>
 <a class="reference internal image-reference" href="_images/defaultData.png"><img alt="default Data class" src="_images/defaultData.png" style="width: 800px;" /></a>
 <p>For each entry in the table there are four fields:</p>
@@ -370,7 +349,7 @@ The three types are:</p>
 use the <em>‘setData’</em> method. Also note that this data has a fourth column, and so can be used as a data resolution if you wish.</p>
 </section>
 <section id="putting-it-all-together-defining-contrasts">
-<h3><strong>Putting it all together – defining contrasts</strong><a class="headerlink" href="#putting-it-all-together-defining-contrasts" title="Permalink to this heading"></a></h3>
+<h3><strong>Putting it all together – defining contrasts</strong><a class="headerlink" href="#putting-it-all-together-defining-contrasts" title="Permalink to this heading">¶</a></h3>
 <p>As is the case for RasCAL, once we have defined the various aspects of our project i.e. backgrounds, data and so on, we group these together into contrasts to make out fitting project. We can add a contrast using just it’s name, and edit it later, or we can specify which parts of our project we want to add to the contrast using name value pairs:</p>
 <div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addContrast</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;D-tail/H-Head/D2O&#39;</span><span class="p">,</span><span class="k">...</span>
 <span class="w">                    </span><span class="s">&#39;background&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Background D2O&#39;</span><span class="p">,</span><span class="k">...</span>
@@ -391,7 +370,7 @@ use the <em>‘setData’</em> method. Also note that this data has a fourth col
 </section>
 </section>
 <section id="the-monolayer-example-in-full">
-<h1>The Monolayer Example In Full<a class="headerlink" href="#the-monolayer-example-in-full" title="Permalink to this heading"></a></h1>
+<h1>The Monolayer Example In Full<a class="headerlink" href="#the-monolayer-example-in-full" title="Permalink to this heading">¶</a></h1>
 <p>In the previous sections, we showed an example of a pre-loaded problem definition class, which we used to analyse data from two contrasts of a lipid monolayer. Now, rather than loading in a pre-defined version of this problem we can use our class methods to build this from scratch, and do the same analysis as we did there, but this time from a script.</p>
 <p>To start, we first make an instance of the project class:</p>
 <div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">projectClass</span><span class="p">(</span><span class="s">&#39;DSPC monolayers&#39;</span><span class="p">);</span>
@@ -547,34 +526,26 @@ use the <em>‘setData’</em> method. Also note that this data has a fourth col
 </section>
 
 
-           </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="chapter1.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="controlsInfo.html" class="btn btn-neutral float-right" title="A Closer Look at the Controls Class" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2022-2024, ISIS Neutron and Muon Source.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
+          
         </div>
       </div>
-    </section>
+    <div class="clearer"></div>
   </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+    <div class="footer">
+      &#169;2022-2024, ISIS Neutron and Muon Source.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 6.2.1</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/chapter2.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
 
-</body>
+    
+
+    
+  </body>
 </html>

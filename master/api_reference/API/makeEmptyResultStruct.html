@@ -24,7 +24,7 @@
 <div class="box"><strong>A function to make an empty container to hold the results of</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>function result = makeEmptyResultStruct(nContrasts,nPars,domains) </strong></div>
+<div class="box"><strong>function result = makeEmptyResultStruct(nContrasts,nParams,domains) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 <div class="fragment"><pre class="comment"> A function to make an empty container to hold the results of
@@ -45,8 +45,8 @@
     resampledLayers: [nContrastsx1 cell]
  calculationResults: [1x1 struct]
      contrastParams: [1x1 struct]
-          fitParams: [1xnPars double]
-           fitNames: [nParsx1 cell]
+          fitParams: [1xnParams double]
+           fitNames: [nParamsx1 cell]
 </pre></div>
 
 <!-- crossreference -->
@@ -63,7 +63,7 @@ This function is called by:
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function result = makeEmptyResultStruct(nContrasts,nPars,domains)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function result = makeEmptyResultStruct(nContrasts,nParams,domains)</a>
 0002     <span class="comment">% A function to make an empty container to hold the results of</span>
 0003     <span class="comment">% reflectivity calculations. The struct has the following format:</span>
 0004     <span class="comment">%</span>
@@ -82,8 +82,8 @@ This function is called by:
 0017     <span class="comment">%    resampledLayers: [nContrastsx1 cell]</span>
 0018     <span class="comment">% calculationResults: [1x1 struct]</span>
 0019     <span class="comment">%     contrastParams: [1x1 struct]</span>
-0020     <span class="comment">%          fitParams: [1xnPars double]</span>
-0021     <span class="comment">%           fitNames: [nParsx1 cell]</span>
+0020     <span class="comment">%          fitParams: [1xnParams double]</span>
+0021     <span class="comment">%           fitNames: [nParamsx1 cell]</span>
 0022     
 0023     <span class="comment">% -----------------------------------------------------------</span>
 0024     <span class="comment">% Make the individual structs....</span>
@@ -201,13 +201,13 @@ This function is called by:
 0136         <span class="keyword">end</span>
 0137     <span class="keyword">end</span>
 0138     
-0139     fitParams = zeros(1,nPars);
+0139     fitParams = zeros(1,nParams);
 0140     coder.varsize(<span class="string">'fitParams'</span>,[1 10000],[0 1]);
 0141     
-0142     fitNames = cell(nPars,1);
+0142     fitNames = cell(nParams,1);
 0143     fitNamesChar = <span class="string">''</span>;
 0144     coder.varsize(<span class="string">'fitNamesChar'</span>,[1 1000],[0 1]);
-0145     <span class="keyword">for</span> i = 1:nPars
+0145     <span class="keyword">for</span> i = 1:nParams
 0146         fitNames{i} = fitNamesChar;
 0147     <span class="keyword">end</span>
 0148 
@@ -225,6 +225,6 @@ This function is called by:
 0160 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 09-Apr-2024 08:31:11 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

@@ -1,65 +1,70 @@
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
-<head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Custom Models &mdash; RAT 1.0.0-beta documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script src="_static/design-tabs.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="_static/js/theme.js"></script>
+    <title>Custom Models &#8212; RAT 1.0.0-beta documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/design-tabs.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="icon" href="_static/logo.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Saving Your Work (working with classes)" href="savingAndClasses.html" />
-    <link rel="prev" title="A Closer Look at the Controls Class" href="controlsInfo.html" /> 
-</head>
+    <link rel="prev" title="A Closer Look at the Controls Class" href="controlsInfo.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+  
+  
 
-          
-          
-          <a href="index.html">
-            
-              <img src="_static/ratLogo.png" class="logo" alt="Logo"/>
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorial.html">Tutorial</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="chapter1.html">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter2.html">The Problem Definition Input Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter2.html#the-monolayer-example-in-full">The Monolayer Example In Full</a></li>
 <li class="toctree-l2"><a class="reference internal" href="controlsInfo.html">A Closer Look at the Controls Class</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Custom Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#custom-layers-models">Custom Layers Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#custom-xy-profile-models">Custom XY Profile Models</a></li>
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Custom Models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="savingAndClasses.html">Saving Your Work (working with classes)</a></li>
 </ul>
 </li>
@@ -71,33 +76,17 @@
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 </ul>
 
+
         </div>
       </div>
-    </nav>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">RAT</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="tutorial.html">Tutorial</a></li>
-      <li class="breadcrumb-item active">Custom Models</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/customModels.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
+          <div class="body" role="main">
+            
   <section id="custom-models">
-<span id="custommodelsexamples"></span><h1>Custom Models<a class="headerlink" href="#custom-models" title="Permalink to this heading"></a></h1>
+<span id="custommodelsexamples"></span><h1>Custom Models<a class="headerlink" href="#custom-models" title="Permalink to this heading">¶</a></h1>
 <p>The Standard Layers approach is useful for quickly setting up simple models, but parameterising models in this way is not always the best way of analysing data. For example, in the case of lipids, it is often natural and intuitive to analyse the data in terms of area per lipid rather than in terms of d, <span class="math notranslate nohighlight">\(\rho\)</span> and roughness. Similarly, for solid state samples thinking in terms of density and composition is often more appropriate than SLD. In common with RasCAL, you can parameterise your model in any way you like, and then rather than building the model in the input class, the model is constructed using a custom model script. This is by far the most powerful method for using RAT for data analysis, as virtually any type of model can be implemented in this way.</p>
 <p>Again in common with RasCAL, there are two main options for custom modelling:</p>
 <ul class="simple">
@@ -105,7 +94,7 @@
 <li><p><strong>Custom XY Profile</strong> - In this method the input parameters are used to create a z (in Angstroms) versus SLD curve, from which the reflectivity is calculated.</p></li>
 </ul>
 <section id="custom-layers-models">
-<h2>Custom Layers Models<a class="headerlink" href="#custom-layers-models" title="Permalink to this heading"></a></h2>
+<h2>Custom Layers Models<a class="headerlink" href="#custom-layers-models" title="Permalink to this heading">¶</a></h2>
 <p>The general principle of custom layers models is that we take the defined parameters, and arrange them into an array layers using some code. This is a very powerful
 way of defining your model, since you have the freedom to parameterise and define your model however you wish. So rather than beong restricted to just simple [d, rho, sigma] combinations as parameters, you can
 define your model in terms of more scientifically useful parameters, such are Area per molecule or density for example. The basic structure of any custom layers script always has the same format:</p>
@@ -455,7 +444,7 @@ In the next section we’ll demonstrate this by making an example to fit a lipi 
 <img alt="Displays RAT executing calculations" src="_images/ratRun2.png" />
 </section>
 <section id="custom-xy-profile-models">
-<h2>Custom XY Profile Models<a class="headerlink" href="#custom-xy-profile-models" title="Permalink to this heading"></a></h2>
+<h2>Custom XY Profile Models<a class="headerlink" href="#custom-xy-profile-models" title="Permalink to this heading">¶</a></h2>
 <p>Although many systems can be well described by layers, sometimes these are not the most appropriate. So for example, we may want to incorporate SLD profiles from molecular simulations, or use interfaces that are not error functions. In these cases, a second type of custom model can be used, where instead of the custom model function outputting a list of layers, it builds a continuous SLD profile, which is then automatically microsliced by RAT to calculate the reflectivity. This gives a high degree of flexibility for the type of model that can be generated.
 The inputs into customXY are the same as for Custom Layers, but the output is now always an [n x 2] array defining a continuous SLD:</p>
 <div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span>[SLD,subRough]<span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nf">myCustomXY</span><span class="p">(</span>problems,bulkIn,bulkOut,contrast<span class="p">)</span>
@@ -632,34 +621,26 @@ you can imagine the neutrons travelling left to right, with the left side of the
 </section>
 
 
-           </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="controlsInfo.html" class="btn btn-neutral float-left" title="A Closer Look at the Controls Class" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="savingAndClasses.html" class="btn btn-neutral float-right" title="Saving Your Work (working with classes)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2022-2024, ISIS Neutron and Muon Source.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
+          
         </div>
       </div>
-    </section>
+    <div class="clearer"></div>
   </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+    <div class="footer">
+      &#169;2022-2024, ISIS Neutron and Muon Source.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 6.2.1</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/customModels.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
 
-</body>
+    
+
+    
+  </body>
 </html>

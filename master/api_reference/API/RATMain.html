@@ -33,7 +33,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="makeEmptyResultStruct.html" class="code" title="function result = makeEmptyResultStruct(nContrasts,nPars,domains)">makeEmptyResultStruct</a>	A function to make an empty container to hold the results of</li>
+<li><a href="makeEmptyResultStruct.html" class="code" title="function result = makeEmptyResultStruct(nContrasts,nParams,domains)">makeEmptyResultStruct</a>	A function to make an empty container to hold the results of</li>
 <li><a href="../targetFunctions/+domainsTF/reflectivityCalculation.html" class="code" title="function [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = reflectivityCalculation(problemStruct,problemCells,controls)">reflectivityCalculation</a>	Main function for the domainsTF reflectivity calculation.</li>
 <li><a href="../targetFunctions/+nonPolarisedTF/reflectivityCalculation.html" class="code" title="function [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = reflectivityCalculation(problemStruct,problemCells,controls)">reflectivityCalculation</a>	Main function for the nonPolarisedTF reflectivity calculation.</li>
 <li><a href="../targetFunctions/reflectivityCalculation.html" class="code" title="function result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls)">reflectivityCalculation</a>	Main entry point into the reflectivity calculation for the toolbox.</li>
@@ -55,7 +55,7 @@ This function is called by:
 0007     domains = false;
 0008 <span class="keyword">end</span>
 0009 
-0010 result = <a href="makeEmptyResultStruct.html" class="code" title="function result = makeEmptyResultStruct(nContrasts,nPars,domains)">makeEmptyResultStruct</a>(problemStruct.numberOfContrasts, length(problemStruct.fitParams), domains);
+0010 result = <a href="makeEmptyResultStruct.html" class="code" title="function result = makeEmptyResultStruct(nContrasts,nParams,domains)">makeEmptyResultStruct</a>(problemStruct.numberOfContrasts, length(problemStruct.fitParams), domains);
 0011 bayesResults = makeEmptyBayesResultsStruct(problemStruct.numberOfContrasts, domains, controls.nChains);
 0012 
 0013 <span class="comment">% Decide what we are doing....</span>
@@ -95,6 +95,6 @@ This function is called by:
 0047 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Fri 22-Mar-2024 15:09:58 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 09-Apr-2024 08:31:11 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

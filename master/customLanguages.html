@@ -1,65 +1,69 @@
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
-<head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Custom Models in Python or C++ &mdash; RAT 1.0.0-beta documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-      <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script src="_static/design-tabs.js"></script>
-    <script src="_static/js/theme.js"></script>
+    <title>Custom Models in Python or C++ &#8212; RAT 1.0.0-beta documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/design-tabs.js"></script>
+    <link rel="icon" href="_static/logo.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Handling Events During Calculations" href="events.html" />
-    <link rel="prev" title="Parallelising Calculations" href="parallelisation.html" /> 
-</head>
+    <link rel="prev" title="Parallelising Calculations" href="parallelisation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+  
+  
 
-          
-          
-          <a href="index.html">
-            
-              <img src="_static/ratLogo.png" class="logo" alt="Logo"/>
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="advanced.html">Advanced Topics</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="resampling.html">Profile Resampling (‘microslicing’)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parallelisation.html">Parallelising Calculations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Custom Models in Python or C++</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#python-custom-models">Python Custom Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#c-custom-models">C++ Custom Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#performance-comparisons">Performance Comparisons</a></li>
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Custom Models in Python or C++</a></li>
 <li class="toctree-l2"><a class="reference internal" href="events.html">Handling Events During Calculations</a></li>
 </ul>
 </li>
@@ -69,33 +73,17 @@
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 </ul>
 
+
         </div>
       </div>
-    </nav>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">RAT</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="advanced.html">Advanced Topics</a></li>
-      <li class="breadcrumb-item active">Custom Models in Python or C++</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/customLanguages.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
+          <div class="body" role="main">
+            
   <section id="custom-models-in-python-or-c">
-<span id="customlanguages"></span><h1>Custom Models in Python or C++<a class="headerlink" href="#custom-models-in-python-or-c" title="Permalink to this heading"></a></h1>
+<span id="customlanguages"></span><h1>Custom Models in Python or C++<a class="headerlink" href="#custom-models-in-python-or-c" title="Permalink to this heading">¶</a></h1>
 <p>Custom models are usually written in Matlab, but RAT allows alternative languages to be used. You can write your custom models either in Python or C++.
 The reason for the Python functionality is mainly since this is the more natural choice when using RAT from Python with pythonRAT, but also because the user might choose to incorporate Python libraries into the custom models that are not available in Matlab.
 The reason for C++ if for pure speed, where very computationally demanding custom models calculations are required. Both optios are easy to use in RAT.</p>
@@ -104,7 +92,7 @@ The reason for C++ if for pure speed, where very computationally demanding custo
 <p>Examples of using Python and C++ custom models can be found in the /examples/miscellaneous/alternativeLanguages folder</p>
 </div>
 <section id="python-custom-models">
-<h2>Python Custom Models<a class="headerlink" href="#python-custom-models" title="Permalink to this heading"></a></h2>
+<h2>Python Custom Models<a class="headerlink" href="#python-custom-models" title="Permalink to this heading">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Before you use Python from your Matlab session, please ensure that Python is <a class="reference external" href="https://uk.mathworks.com/help/matlab/matlab_external/create-object-from-python-class.html">configured correctly on your system.</a></p>
@@ -295,7 +283,7 @@ The reason for C++ if for pure speed, where very computationally demanding custo
 </div>
 </section>
 <section id="c-custom-models">
-<h2>C++ Custom Models<a class="headerlink" href="#c-custom-models" title="Permalink to this heading"></a></h2>
+<h2>C++ Custom Models<a class="headerlink" href="#c-custom-models" title="Permalink to this heading">¶</a></h2>
 <p>If Matlab or Python custom models are too slow, you also have the option of providing a C++ custom model. You then have to compile and build this into a shared library in order to use it with RAT.</p>
 <p>Following on from our custom bilayer examples, the equivalent C++ custom model should follow this format..</p>
 <div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="c1">//customBilayer.cpp</span>
@@ -438,39 +426,31 @@ g++<span class="w"> </span>-shared<span class="w"> </span>customBilayer.o<span c
 <p>You can then use your C++ custom model in your ptoject as normal.</p>
 </section>
 <section id="performance-comparisons">
-<h2>Performance Comparisons<a class="headerlink" href="#performance-comparisons" title="Permalink to this heading"></a></h2>
+<h2>Performance Comparisons<a class="headerlink" href="#performance-comparisons" title="Permalink to this heading">¶</a></h2>
 </section>
 </section>
 
 
-           </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="parallelisation.html" class="btn btn-neutral float-left" title="Parallelising Calculations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="events.html" class="btn btn-neutral float-right" title="Handling Events During Calculations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2022-2024, ISIS Neutron and Muon Source.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
+          
         </div>
       </div>
-    </section>
+    <div class="clearer"></div>
   </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+    <div class="footer">
+      &#169;2022-2024, ISIS Neutron and Muon Source.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 6.2.1</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/customLanguages.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
 
-</body>
+    
+
+    
+  </body>
 </html>

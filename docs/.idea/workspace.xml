@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ff49327-a07d-4587-9489-14256746e173" name="Changes" comment="" />
+    <list default="true" id="0ff49327-a07d-4587-9489-14256746e173" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/source/plotFunsBayes.rst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/bayesPlot.rst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/conversionFuncs.rst" beforeDir="false" afterPath="$PROJECT_DIR$/source/conversionFuncs.rst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/simplePlot.rst" beforeDir="false" afterPath="$PROJECT_DIR$/source/plotFuns.rst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/utilities.rst" beforeDir="false" afterPath="$PROJECT_DIR$/source/utilities.rst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../utilities/plotting/bayesShadedPlot.m" beforeDir="false" afterPath="$PROJECT_DIR$/../utilities/plotting/bayesShadedPlot.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../utilities/plotting/plotBayes.m" beforeDir="false" afterPath="$PROJECT_DIR$/../utilities/plotting/plotBayes.m" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,13 +30,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/arwel.hughes/Documents/coding/RAT_fork/docs&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/Users/arwel/Documents/coding/RAT_fork/docs/source"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/source" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

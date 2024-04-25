@@ -263,17 +263,11 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.project.addLayerGroup(testCase.layers{1}), exceptions.invalidType.errorID);
 
             % Test adding single layer
-            testCase.project.addLayer();  % Adds empty layer
-            testCase.verifySize(testCase.project.layers.varTable, [5, 6], 'Layers has wrong dimension');
-            testCase.verifyEqual(testCase.project.layers.varTable{5, 1}, "Layer 5", 'addLayer method not working');
-            testCase.project.addLayer('New Layer');  % Adds layer with name only
-            testCase.verifySize(testCase.project.layers.varTable, [6, 6], 'Layers has wrong dimension');
-            testCase.verifyEqual(testCase.project.layers.varTable{6, 1}, "New Layer", 'addLayer method not working');
             layer = testCase.layers{1};
             layer{1} = 'Another Layer';
             testCase.project.addLayer(layer{:});  % Adds layer with full set of parameters
-            testCase.verifySize(testCase.project.layers.varTable, [7, 6], 'Layers has wrong dimension');
-            testCase.verifyEqual(testCase.project.layers.varTable{7, 1}, "Another Layer", 'addLayer method not working');
+            testCase.verifySize(testCase.project.layers.varTable, [5, 6], 'Layers has wrong dimension');
+            testCase.verifyEqual(testCase.project.layers.varTable{5, 1}, "Another Layer", 'addLayer method not working');
             % Test setting value in a layer
             testCase.verifyError(@() testCase.project.setLayerValue(1, 2, 'Tail'), exceptions.nameNotRecognised.errorID)  % parameter does not exist
             testCase.verifyError(@() testCase.project.setLayerValue(1, 2, 11), exceptions.indexOutOfRange.errorID)  % index greater than parameter table
@@ -285,14 +279,14 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.layers.varTable{2, 3}, "Substrate Roughness", 'setLayerValue method not working');
             % Check removing a parameter removes it from layer
             testCase.verifyEqual(testCase.project.layers.varTable{2, 2}, "Heads Thickness", 'param not removed from layers');
-            testCase.verifyEqual(testCase.project.layers.varTable{7, 2}, "Heads Thickness", 'param not removed from layers');
+            testCase.verifyEqual(testCase.project.layers.varTable{5, 2}, "Heads Thickness", 'param not removed from layers');
             testCase.project.removeParameter('Heads Thickness');
             testCase.verifyEqual(testCase.project.layers.varTable{2, 2}, "", 'param not removed from layers');
-            testCase.verifyEqual(testCase.project.layers.varTable{7, 2}, "", 'param not removed from layers');
+            testCase.verifyEqual(testCase.project.layers.varTable{5, 2}, "", 'param not removed from layers');
             % Test removing a layer
             testCase.project.removeLayer(1);
-            testCase.verifySize(testCase.project.layers.varTable, [6, 6], 'Layers has wrong dimension');
-            testCase.verifyEqual(testCase.project.layers.varTable{:, 1}, ["Deuterated Heads"; "Deuterated Tails"; "Hydrogenated Tails"; "Layer 5"; "New Layer"; "Another Layer"], 'removeLayer method not working');
+            testCase.verifySize(testCase.project.layers.varTable, [4, 6], 'Layers has wrong dimension');
+            testCase.verifyEqual(testCase.project.layers.varTable{:, 1}, ["Deuterated Heads"; "Deuterated Tails"; "Hydrogenated Tails"; "Another Layer"], 'removeLayer method not working');
         end
 
         function testLayersExceptions(testCase)

@@ -23,7 +23,7 @@ classdef layersClass < tableUtilities
                 SLDValues {mustBeText} = 'SLD'
             end
 
-            varNames = [{'Name', 'Thickness'}, SLDValues, {'Roughness','Hydration','Hydrate with'}];
+            varNames = [{'Name', 'Thickness'}, SLDValues, {'Roughness', 'Hydration', 'Hydrate with'}];
 
             sz = [0 length(varNames)];
             varTypes = repmat({'string'}, 1, length(varNames));
@@ -49,42 +49,29 @@ classdef layersClass < tableUtilities
             % layers.addLayer(parameters.varTable{:, 1}, 'Another layer', 1, 2, 3);
             layerDetails = varargin;
 
-            if isempty(layerDetails)
-                % Add an empty layer
-                layerNum = obj.autoNameCounter;
-                layerName = sprintf('Layer %d',layerNum);
-                newRow = [{layerName}, repmat({''}, 1, obj.varCount - 2), {hydrationTypes.BulkOut.value}];
-                
-            elseif length(layerDetails) == 1 && isText(layerDetails{1})
-                % Add an empty named layer
-                newRow = [layerDetails(1), repmat({''}, 1, obj.varCount - 2), {hydrationTypes.BulkOut.value}];
+            % Layers must be fully defined
+            if length(layerDetails) == (obj.varCount - 2)
+                % No hydration
+                layerDetails = [layerDetails, {'', hydrationTypes.BulkOut.value}];
+            elseif length(layerDetails) ~= obj.varCount
+                throw(exceptions.invalidNumberOfInputs(sprintf('Incorrect number of parameters for layer definition. Either %d or %d inputs are required.', obj.varCount - 2, obj.varCount)));
+            end
             
-            else
-                % Add a layer that is fully defined
-                if length(layerDetails) == (obj.varCount - 2)
-                    % No hydration
-                    layerDetails = [layerDetails, {'', hydrationTypes.BulkOut.value}];
-                elseif length(layerDetails) ~= obj.varCount
-                    throw(exceptions.invalidNumberOfInputs(sprintf('Incorrect number of parameters for layer definition. Either 0, 1, %d, or %d inputs are required.', obj.varCount - 2, obj.varCount)));
-                end
-                
-                name = layerDetails{1};
-                hydration = validateOption(layerDetails{end}, 'hydrationTypes', obj.invalidTypeMessage).value;
-                
-                % Check that the parameter names given are real
-                % parameters or numbers
-                newRow = [name, repmat({''}, 1, obj.varCount - 2), hydration];
-                
-                % Must be a parameter name or number . . .
-                for i = 2:(obj.varCount - 2)
-                    newRow{i} = obj.findParameter(layerDetails{i}, paramNames);
-                end
+            name = layerDetails{1};
+            hydration = validateOption(layerDetails{end}, 'hydrationTypes', obj.invalidTypeMessage).value;
+            
+            % Check that the parameter names given are real
+            % parameters or numbers
+            newRow = [name, repmat({''}, 1, obj.varCount - 2), hydration];
+            
+            % Must be a parameter name or number . . .
+            for i = 2:(obj.varCount - 2)
+                newRow{i} = obj.findParameter(layerDetails{i}, paramNames);
+            end
 
-                %  . . . (apart from the penultimate column which can also be empty or NaN)
-                if ~(strcmpi(layerDetails{obj.varCount - 1}, '') || any(isnan(layerDetails{obj.varCount - 1})))
-                    newRow{obj.varCount - 1} = obj.findParameter(layerDetails{obj.varCount - 1}, paramNames);
-                end
-
+            %  . . . (apart from the penultimate column which can also be empty or NaN)
+            if ~(strcmpi(layerDetails{obj.varCount - 1}, '') || any(isnan(layerDetails{obj.varCount - 1})))
+                newRow{obj.varCount - 1} = obj.findParameter(layerDetails{obj.varCount - 1}, paramNames);
             end
 
             obj.addRow(newRow{:});

@@ -182,7 +182,6 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyTrue(testCase.project.bulkIn.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyTrue(testCase.project.bulkOut.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyTrue(testCase.project.scalefactors.showPriors, 'Parameter show priors not set correctly');
-            testCase.verifyTrue(testCase.project.qzshifts.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyTrue(testCase.project.background.backgroundParams.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyTrue(testCase.project.resolution.resolutionParams.showPriors, 'Parameter show priors not set correctly');
             testCase.project.setUsePriors(false);
@@ -191,7 +190,6 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyFalse(testCase.project.bulkIn.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyFalse(testCase.project.bulkOut.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyFalse(testCase.project.scalefactors.showPriors, 'Parameter show priors not set correctly');
-            testCase.verifyFalse(testCase.project.qzshifts.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyFalse(testCase.project.background.backgroundParams.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyFalse(testCase.project.resolution.resolutionParams.showPriors, 'Parameter show priors not set correctly');
             % Test bad inputs 
@@ -263,17 +261,11 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.project.addLayerGroup(testCase.layers{1}), exceptions.invalidType.errorID);
 
             % Test adding single layer
-            testCase.project.addLayer();  % Adds empty layer
-            testCase.verifySize(testCase.project.layers.varTable, [5, 6], 'Layers has wrong dimension');
-            testCase.verifyEqual(testCase.project.layers.varTable{5, 1}, "Layer 5", 'addLayer method not working');
-            testCase.project.addLayer('New Layer');  % Adds layer with name only
-            testCase.verifySize(testCase.project.layers.varTable, [6, 6], 'Layers has wrong dimension');
-            testCase.verifyEqual(testCase.project.layers.varTable{6, 1}, "New Layer", 'addLayer method not working');
             layer = testCase.layers{1};
             layer{1} = 'Another Layer';
             testCase.project.addLayer(layer{:});  % Adds layer with full set of parameters
-            testCase.verifySize(testCase.project.layers.varTable, [7, 6], 'Layers has wrong dimension');
-            testCase.verifyEqual(testCase.project.layers.varTable{7, 1}, "Another Layer", 'addLayer method not working');
+            testCase.verifySize(testCase.project.layers.varTable, [5, 6], 'Layers has wrong dimension');
+            testCase.verifyEqual(testCase.project.layers.varTable{5, 1}, "Another Layer", 'addLayer method not working');
             % Test setting value in a layer
             testCase.verifyError(@() testCase.project.setLayerValue(1, 2, 'Tail'), exceptions.nameNotRecognised.errorID)  % parameter does not exist
             testCase.verifyError(@() testCase.project.setLayerValue(1, 2, 11), exceptions.indexOutOfRange.errorID)  % index greater than parameter table
@@ -285,14 +277,14 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.layers.varTable{2, 3}, "Substrate Roughness", 'setLayerValue method not working');
             % Check removing a parameter removes it from layer
             testCase.verifyEqual(testCase.project.layers.varTable{2, 2}, "Heads Thickness", 'param not removed from layers');
-            testCase.verifyEqual(testCase.project.layers.varTable{7, 2}, "Heads Thickness", 'param not removed from layers');
+            testCase.verifyEqual(testCase.project.layers.varTable{5, 2}, "Heads Thickness", 'param not removed from layers');
             testCase.project.removeParameter('Heads Thickness');
             testCase.verifyEqual(testCase.project.layers.varTable{2, 2}, "", 'param not removed from layers');
-            testCase.verifyEqual(testCase.project.layers.varTable{7, 2}, "", 'param not removed from layers');
+            testCase.verifyEqual(testCase.project.layers.varTable{5, 2}, "", 'param not removed from layers');
             % Test removing a layer
             testCase.project.removeLayer(1);
-            testCase.verifySize(testCase.project.layers.varTable, [6, 6], 'Layers has wrong dimension');
-            testCase.verifyEqual(testCase.project.layers.varTable{:, 1}, ["Deuterated Heads"; "Deuterated Tails"; "Hydrogenated Tails"; "Layer 5"; "New Layer"; "Another Layer"], 'removeLayer method not working');
+            testCase.verifySize(testCase.project.layers.varTable, [4, 6], 'Layers has wrong dimension');
+            testCase.verifyEqual(testCase.project.layers.varTable{:, 1}, ["Deuterated Heads"; "Deuterated Tails"; "Hydrogenated Tails"; "Another Layer"], 'removeLayer method not working');
         end
 
         function testLayersExceptions(testCase)
@@ -389,27 +381,6 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.project.setScalefactor(1, 'name','Scalefactor 1','min',0.1,'value',0.23251,'max',0.4,'fit',true);
             testCase.verifyEqual(string(testCase.project.scalefactors.varTable{1, :}),...
                                     string({'Scalefactor 1', 0.1, 0.23251, 0.4, true, priorTypes.Uniform.value, 0, Inf}), 'setScalefactor method not working');
-        end
-            
-        function testQzShift(testCase)
-            % Checks the default qzshift
-            testCase.verifySize(testCase.project.qzshifts.varTable, [1, 8], 'qzshifts has wrong dimension');
-            testCase.verifyEqual(string(testCase.project.qzshifts.varTable{1, :}),...
-                                    string({'Qz shift 1', -1e-4, 0, 1e-4, false, priorTypes.Uniform.value, 0, Inf}), 'qzshifts default');
-            % Checks that qzshift can be added
-            testCase.project.addQzshift('Qz shift 2', -2e-4, 0, 2e-4, false);
-            testCase.verifySize(testCase.project.qzshifts.varTable, [2, 8], 'qzshifts has wrong dimension');
-            testCase.verifyEqual(testCase.project.qzshifts.varTable{end, 1}, "Qz shift 2", 'addQzshift method not working');
-
-            % Checks that qzshift can be removed
-            testCase.project.removeQzshift(2);
-            testCase.verifySize(testCase.project.qzshifts.varTable, [1, 8], 'qzshifts has wrong dimension');
-            testCase.verifyEqual(testCase.project.qzshifts.varTable{:, 1}, "Qz shift 1", 'removeQzshift method not working');
-            % Checks that qzshift can be modified
-            testCase.project.setQzshift(1, 'name','Qz shift 1','min',-1e-5,'value',0.001,'max',1e-5,'fit',true);
-            testCase.verifyEqual(string(testCase.project.qzshifts.varTable{1, :}),...
-                                    string({'Qz shift 1', -1e-5, 0.001, 1e-5, true, priorTypes.Uniform.value, 0, Inf}), 'setQzshift method not working');
-
         end
 
         function testResolution(testCase)

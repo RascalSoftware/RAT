@@ -36,7 +36,6 @@ namespace RAT
   struct c_struct_T
   {
     ::coder::array<real_T, 1U> backgroundParams;
-    ::coder::array<real_T, 1U> qzshifts;
     ::coder::array<real_T, 1U> scalefactors;
     ::coder::array<real_T, 1U> bulkIn;
     ::coder::array<real_T, 1U> bulkOut;

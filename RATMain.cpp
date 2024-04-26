@@ -128,12 +128,6 @@ namespace RAT
         t8_contrastParams->backgroundParams[i];
     }
 
-    b->contrastParams.qzshifts.set_size(t8_contrastParams->qzshifts.size(0));
-    loop_ub = t8_contrastParams->qzshifts.size(0);
-    for (i = 0; i < loop_ub; i++) {
-      b->contrastParams.qzshifts[i] = t8_contrastParams->qzshifts[i];
-    }
-
     b->contrastParams.scalefactors.set_size(t8_contrastParams->scalefactors.size
       (0));
     loop_ub = t8_contrastParams->scalefactors.size(0);

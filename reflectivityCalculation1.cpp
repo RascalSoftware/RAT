@@ -35,6 +35,7 @@ namespace RAT
       &layerSlds, ::coder::array<cell_wrap_10, 1U> &sldProfiles, ::coder::array<
       cell_wrap_10, 1U> &resampledLayers)
     {
+      ::coder::array<real_T, 1U> qzshifts;
       real_T y;
       int32_T switch_expression_size[2];
       int32_T i;
@@ -68,13 +69,11 @@ namespace RAT
       //  arrays for compilation, so do this in this block.
       loop_ub_tmp = static_cast<int32_T>(problemStruct->numberOfContrasts);
       contrastParams->backgroundParams.set_size(loop_ub_tmp);
-      contrastParams->qzshifts.set_size(loop_ub_tmp);
       contrastParams->scalefactors.set_size(loop_ub_tmp);
       contrastParams->bulkIn.set_size(loop_ub_tmp);
       contrastParams->bulkOut.set_size(loop_ub_tmp);
       for (i = 0; i < loop_ub_tmp; i++) {
         contrastParams->backgroundParams[i] = 0.0;
-        contrastParams->qzshifts[i] = 0.0;
         contrastParams->scalefactors[i] = 0.0;
         contrastParams->bulkIn[i] = 0.0;
         contrastParams->bulkOut[i] = 0.0;
@@ -146,10 +145,9 @@ namespace RAT
       switch (loop_ub_tmp) {
        case 0:
         standardLayers(problemStruct, problemCells, controls,
-                       contrastParams->backgroundParams,
-                       contrastParams->qzshifts, contrastParams->scalefactors,
-                       contrastParams->bulkIn, contrastParams->bulkOut,
-                       contrastParams->resolutionParams,
+                       contrastParams->backgroundParams, qzshifts,
+                       contrastParams->scalefactors, contrastParams->bulkIn,
+                       contrastParams->bulkOut, contrastParams->resolutionParams,
                        calculationResults->chiValues, reflectivity, simulation,
                        shiftedData, layerSlds, sldProfiles, resampledLayers,
                        contrastParams->subRoughs);
@@ -157,10 +155,9 @@ namespace RAT
 
        case 1:
         b_customLayers(problemStruct, problemCells, controls,
-                       contrastParams->backgroundParams,
-                       contrastParams->qzshifts, contrastParams->scalefactors,
-                       contrastParams->bulkIn, contrastParams->bulkOut,
-                       contrastParams->resolutionParams,
+                       contrastParams->backgroundParams, qzshifts,
+                       contrastParams->scalefactors, contrastParams->bulkIn,
+                       contrastParams->bulkOut, contrastParams->resolutionParams,
                        calculationResults->chiValues, reflectivity, simulation,
                        shiftedData, layerSlds, sldProfiles, resampledLayers,
                        contrastParams->subRoughs);
@@ -168,7 +165,7 @@ namespace RAT
 
        case 2:
         b_customXY(problemStruct, problemCells, controls,
-                   contrastParams->backgroundParams, contrastParams->qzshifts,
+                   contrastParams->backgroundParams, qzshifts,
                    contrastParams->scalefactors, contrastParams->bulkIn,
                    contrastParams->bulkOut, contrastParams->resolutionParams,
                    calculationResults->chiValues, reflectivity, simulation,

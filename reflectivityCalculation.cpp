@@ -316,7 +316,6 @@ namespace RAT
     //  For compilation, we have to preallocate memory for the output structs
     loop_ub_tmp = static_cast<int32_T>(problemStruct->numberOfContrasts);
     contrastParams.backgroundParams.set_size(loop_ub_tmp);
-    contrastParams.qzshifts.set_size(loop_ub_tmp);
     contrastParams.scalefactors.set_size(loop_ub_tmp);
     contrastParams.bulkIn.set_size(loop_ub_tmp);
     contrastParams.bulkOut.set_size(loop_ub_tmp);
@@ -324,7 +323,6 @@ namespace RAT
     contrastParams.subRoughs.set_size(loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
       contrastParams.backgroundParams[i] = 0.0;
-      contrastParams.qzshifts[i] = 0.0;
       contrastParams.scalefactors[i] = 0.0;
       contrastParams.bulkIn[i] = 0.0;
       contrastParams.bulkOut[i] = 0.0;
@@ -464,12 +462,6 @@ namespace RAT
       loop_ub = b_contrastParams.backgroundParams.size(0);
       for (i = 0; i < loop_ub; i++) {
         contrastParams.backgroundParams[i] = b_contrastParams.backgroundParams[i];
-      }
-
-      contrastParams.qzshifts.set_size(b_contrastParams.qzshifts.size(0));
-      loop_ub = b_contrastParams.qzshifts.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        contrastParams.qzshifts[i] = b_contrastParams.qzshifts[i];
       }
 
       contrastParams.scalefactors.set_size(b_contrastParams.scalefactors.size(0));
@@ -651,12 +643,6 @@ namespace RAT
     for (i = 0; i < loop_ub; i++) {
       result->contrastParams.backgroundParams[i] =
         contrastParams.backgroundParams[i];
-    }
-
-    result->contrastParams.qzshifts.set_size(contrastParams.qzshifts.size(0));
-    loop_ub = contrastParams.qzshifts.size(0);
-    for (i = 0; i < loop_ub; i++) {
-      result->contrastParams.qzshifts[i] = contrastParams.qzshifts[i];
     }
 
     result->contrastParams.scalefactors.set_size

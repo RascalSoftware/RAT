@@ -20,18 +20,16 @@
 namespace RAT
 {
   static void cast(const ::coder::array<real_T, 1U> &t12_backgroundParams, const
-                   ::coder::array<real_T, 1U> &t12_qzshifts, const ::coder::
-                   array<real_T, 1U> &t12_scalefactors, const ::coder::array<
-                   real_T, 1U> &t12_bulkIn, const ::coder::array<real_T, 1U>
-                   &t12_bulkOut, const ::coder::array<real_T, 1U>
+                   ::coder::array<real_T, 1U> &t12_scalefactors, const ::coder::
+                   array<real_T, 1U> &t12_bulkIn, const ::coder::array<real_T,
+                   1U> &t12_bulkOut, const ::coder::array<real_T, 1U>
                    &t12_resolutionParams, const ::coder::array<real_T, 1U>
                    &t12_subRoughs, const ::coder::array<real_T, 2U>
                    &t12_resample, ::coder::array<real_T, 1U>
                    &t13_backgroundParams, ::coder::array<real_T, 1U>
-                   &t13_qzshifts, ::coder::array<real_T, 1U> &t13_scalefactors, ::
-                   coder::array<real_T, 1U> &t13_bulkIn, ::coder::array<real_T,
-                   1U> &t13_bulkOut, ::coder::array<real_T, 1U>
-                   &t13_resolutionParams, ::coder::array<real_T, 1U>
+                   &t13_scalefactors, ::coder::array<real_T, 1U> &t13_bulkIn, ::
+                   coder::array<real_T, 1U> &t13_bulkOut, ::coder::array<real_T,
+                   1U> &t13_resolutionParams, ::coder::array<real_T, 1U>
                    &t13_subRoughs, ::coder::array<real_T, 2U> &t13_resample);
 }
 
@@ -39,18 +37,16 @@ namespace RAT
 namespace RAT
 {
   static void cast(const ::coder::array<real_T, 1U> &t12_backgroundParams, const
-                   ::coder::array<real_T, 1U> &t12_qzshifts, const ::coder::
-                   array<real_T, 1U> &t12_scalefactors, const ::coder::array<
-                   real_T, 1U> &t12_bulkIn, const ::coder::array<real_T, 1U>
-                   &t12_bulkOut, const ::coder::array<real_T, 1U>
+                   ::coder::array<real_T, 1U> &t12_scalefactors, const ::coder::
+                   array<real_T, 1U> &t12_bulkIn, const ::coder::array<real_T,
+                   1U> &t12_bulkOut, const ::coder::array<real_T, 1U>
                    &t12_resolutionParams, const ::coder::array<real_T, 1U>
                    &t12_subRoughs, const ::coder::array<real_T, 2U>
                    &t12_resample, ::coder::array<real_T, 1U>
                    &t13_backgroundParams, ::coder::array<real_T, 1U>
-                   &t13_qzshifts, ::coder::array<real_T, 1U> &t13_scalefactors, ::
-                   coder::array<real_T, 1U> &t13_bulkIn, ::coder::array<real_T,
-                   1U> &t13_bulkOut, ::coder::array<real_T, 1U>
-                   &t13_resolutionParams, ::coder::array<real_T, 1U>
+                   &t13_scalefactors, ::coder::array<real_T, 1U> &t13_bulkIn, ::
+                   coder::array<real_T, 1U> &t13_bulkOut, ::coder::array<real_T,
+                   1U> &t13_resolutionParams, ::coder::array<real_T, 1U>
                    &t13_subRoughs, ::coder::array<real_T, 2U> &t13_resample)
   {
     int32_T i;
@@ -59,12 +55,6 @@ namespace RAT
     loop_ub = t12_backgroundParams.size(0);
     for (i = 0; i < loop_ub; i++) {
       t13_backgroundParams[i] = t12_backgroundParams[i];
-    }
-
-    t13_qzshifts.set_size(t12_qzshifts.size(0));
-    loop_ub = t12_qzshifts.size(0);
-    for (i = 0; i < loop_ub; i++) {
-      t13_qzshifts[i] = t12_qzshifts[i];
     }
 
     t13_scalefactors.set_size(t12_scalefactors.size(0));
@@ -125,7 +115,6 @@ namespace RAT
     ::coder::array<real_T, 1U> t14_backgroundParams;
     ::coder::array<real_T, 1U> t14_bulkIn;
     ::coder::array<real_T, 1U> t14_bulkOut;
-    ::coder::array<real_T, 1U> t14_qzshifts;
     ::coder::array<real_T, 1U> t14_resolutionParams;
     ::coder::array<real_T, 1U> t14_scalefactors;
     ::coder::array<real_T, 1U> t14_subRoughs;
@@ -175,7 +164,6 @@ namespace RAT
     //  --------------------------------------------------------------------
     //  (2) result.contrastParams
     t14_backgroundParams.set_size(loop_ub_tmp);
-    t14_qzshifts.set_size(loop_ub_tmp);
     t14_scalefactors.set_size(loop_ub_tmp);
     t14_bulkIn.set_size(loop_ub_tmp);
     t14_bulkOut.set_size(loop_ub_tmp);
@@ -191,7 +179,6 @@ namespace RAT
     for (i = 0; i < loop_ub_tmp; i++) {
       calculationResults_chiValues[i] = 0;
       t14_backgroundParams[i] = 0.0;
-      t14_qzshifts[i] = 0.0;
       t14_scalefactors[i] = 0.0;
       t14_bulkIn[i] = 0.0;
       t14_bulkOut[i] = 0.0;
@@ -276,11 +263,11 @@ namespace RAT
       g_f1[i].f1.set_size(1, 0);
     }
 
-    cast(t14_backgroundParams, t14_qzshifts, t14_scalefactors, t14_bulkIn,
-         t14_bulkOut, t14_resolutionParams, t14_subRoughs, t14_resample,
-         expl_temp.backgroundParams, expl_temp.qzshifts, expl_temp.scalefactors,
-         expl_temp.bulkIn, expl_temp.bulkOut, expl_temp.resolutionParams,
-         expl_temp.subRoughs, expl_temp.resample);
+    cast(t14_backgroundParams, t14_scalefactors, t14_bulkIn, t14_bulkOut,
+         t14_resolutionParams, t14_subRoughs, t14_resample,
+         expl_temp.backgroundParams, expl_temp.scalefactors, expl_temp.bulkIn,
+         expl_temp.bulkOut, expl_temp.resolutionParams, expl_temp.subRoughs,
+         expl_temp.resample);
     b_expl_temp.sumChi = 0.0;
     b_expl_temp.chiValues.set_size(calculationResults_chiValues.size(0));
     loop_ub = calculationResults_chiValues.size(0);

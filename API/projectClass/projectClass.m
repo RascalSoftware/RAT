@@ -22,7 +22,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         bulkOut             % parametersClass object
         background          % backgroundsClass object
         scalefactors        % parametersClass object
-        qzshifts            % parametersClass object
         resolution          % resolutionClass object
         contrasts           % contrastsClass object
         data                % dataClass object
@@ -41,10 +40,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         protectedParameters
     end
 
+    properties (SetAccess = immutable, Hidden)
+        qzshifts = parametersClass('Qz shift 1',-1e-4,0,1e-4,false,priorTypes.Uniform,0,Inf)
+    end
+
     properties(Access = protected, Constant, Hidden)
         classes = struct(name = ["parameters", "bulkIn", "bulkOut", "scalefactors", "qzshifts", "backgroundParams", "resolutionParams", "domainRatio", "layers", "customFile", "backgrounds", "resolutions", "data", "contrast"], ...
                          addRoutine = ["addParameter", "addBulkIn", "addBulkOut", "addScalefactor", "addQzshift", "addBackgroundParam", "addResolutionParam", "addDomainRatio", "addLayer", "addCustomFile", "addBackground", "addResolution", "addData", "addContrast"], ...
-                         removeRoutine = ["removeParameter", "removeBulkIn", "removeBulkOut", "removeScalefactor", "removeQzshift", "removeBackgroundParam", "removeResolutionParam", "removeDomainRatio", "removeLayer", "removeCustomFile", "removeBackground", "removeResolution", "removeData", "removeContrast"]);
+                         removeRoutine = ["removeParameter", "removeBulkIn", "removeBulkOut", "removeScalefactor", "removeQzshift", "removeBackgroundParam", "removeResolutionParam", "removeDomainRatio", "removeLayer", "removeCustomFile", "removeBackground", "removeResolution", "removeData", "removeContrast"])
     end
 
     methods
@@ -112,9 +115,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Initialise scalefactors table
             obj.scalefactors = parametersClass('Scalefactor 1',0.02,0.23,0.25,false,priorTypes.Uniform,0,Inf);
-            
-            % Initialise qzshifts table
-            obj.qzshifts = parametersClass('Qz shift 1',-1e-4,0,1e-4,false,priorTypes.Uniform,0,Inf);
             
             % Initialise backgrounds object
             backgroundParams = parametersClass('Background Param 1',1e-7,1e-6,1e-5,false,priorTypes.Uniform,0,Inf);
@@ -723,37 +723,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.scalefactors.setParameter(varargin{:});
         end
         
-
+       
         % -----------------------------------------------------------------
-        % Editing of qzshifts block
-        
-        function obj = addQzshift(obj, varargin)
-            % Adds a new qz shift parameter. Expects the name
-            % of qz shift, min, value, max, and if fit is off or on
-            % 
-            % project.addQzshift('Qz shift 2', -0.2e-4, 0, 2e-4, false);
-            obj.qzshifts.addParameter(varargin{:}); 
-        end
-
-        function obj = removeQzshift(obj, varargin)
-            % Removes specified qz shift parameter. Expects the name/index
-            % of qz shift parameter to remove
-            % 
-            % project.removeQzshift(2);
-            obj.qzshifts.removeParameter(varargin{:}); 
-        end
-
-        function obj = setQzshift(obj, varargin)
-            % Edits an existing qz shift parameter. Expects the index of
-            % qz shift parameter to edit and key-value pairs
-            %
-            % project.setScalefactor(1, 'name','Qz shift 1', 'value', 0.0001);
-            obj.qzshifts.setParameter(varargin{:});
-        end
-
-        
-        % -----------------------------------------------------------------
-        % editing of custom models block
+        % Editing of custom models block
         
         function obj = addCustomFile(obj, varargin)            
             % Adds a new custom file parameter. Expects a parameter name, filename, 
@@ -990,8 +962,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             fprintf(fileID, "\n");
 
             % Add all parameters based on a parametersClass
-            paramClasses = ["bulkIn", "bulkOut", "scalefactors", "qzshifts", "background", "resolution"];
-            paramSubclasses = ["", "", "", "", "backgroundParams", "resolutionParams"];
+            paramClasses = ["bulkIn", "bulkOut", "scalefactors", "background", "resolution"];
+            paramSubclasses = ["", "", "", "backgroundParams", "resolutionParams"];
 
             if isprop(obj, 'domainRatio')
                 paramClasses(end + 1) = "domainRatio";

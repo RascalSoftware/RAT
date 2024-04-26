@@ -36,8 +36,6 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
 
     backgroundParams = zeros(nContrasts,1);
     coder.varsize('backgroundParams',[10000 1],[1 0]);
-    qzshifts = zeros(nContrasts,1);
-    coder.varsize('qzshifts',[10000 1],[1 0]);
     scalefactors = zeros(nContrasts,1);
     coder.varsize('scalefactors',[10000 1],[1 0]);
     bulkIn = zeros(nContrasts,1);
@@ -52,7 +50,6 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     coder.varsize('resample',[1 10000],[0 1]);
         
     contrastParams = struct('backgroundParams', backgroundParams, ...
-                            'qzshifts', qzshifts, ...
                             'scalefactors', scalefactors, ...
                             'bulkIn', bulkIn, ...
                             'bulkOut', bulkOut, ...

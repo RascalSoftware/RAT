@@ -21,31 +21,25 @@ for i = 1:length(scalefactors)
     project.setScalefactor(i,'value',scalefactors(i));
 end
 
-%(4) Qzshifts
-qzshifts = problemStruct.qzshifts;
-for i = 1:length(qzshifts)
-    project.setQzshift(i,'value',qzshifts(i));
-end
-
-%(5) Bulk In
+%(4) Bulk In
 bulkIns = problemStruct.bulkIn;
 for i = 1:length(bulkIns)
     project.setBulkIn(i,'value',bulkIns(i));
 end
 
-%(6) Bulk Out
+%(5) Bulk Out
 bulkOuts = problemStruct.bulkOut;
 for i = 1:length(bulkOuts)
     project.setBulkOut(i,'value',bulkOuts(i));
 end
 
-%(7) Resolutions
+%(6) Resolutions
 resolutionParams = problemStruct.resolutionParams;
 for i = 1:length(resolutionParams)
     project.setResolutionParam(i,'value',resolutionParams(i));
 end
 
-% (8) Domain ratio
+% (7) Domain ratio
 if strcmpi(problemStruct.TF, calculationTypes.Domains.value)
     domainRatios = problemStruct.domainRatio;
     for i = 1:length(domainRatios)

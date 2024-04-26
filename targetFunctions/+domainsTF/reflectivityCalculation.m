@@ -100,7 +100,6 @@ end
 
 % Package everything into one array for tidy output
 contrastParams.backgroundParams = backgroundParams;
-contrastParams.qzshifts = qzshifts;
 contrastParams.scalefactors = scalefactors;
 contrastParams.bulkIn = bulkIns;
 contrastParams.bulkOut = bulkOuts;

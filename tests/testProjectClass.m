@@ -182,7 +182,6 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyTrue(testCase.project.bulkIn.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyTrue(testCase.project.bulkOut.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyTrue(testCase.project.scalefactors.showPriors, 'Parameter show priors not set correctly');
-            testCase.verifyTrue(testCase.project.qzshifts.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyTrue(testCase.project.background.backgroundParams.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyTrue(testCase.project.resolution.resolutionParams.showPriors, 'Parameter show priors not set correctly');
             testCase.project.setUsePriors(false);
@@ -191,7 +190,6 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyFalse(testCase.project.bulkIn.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyFalse(testCase.project.bulkOut.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyFalse(testCase.project.scalefactors.showPriors, 'Parameter show priors not set correctly');
-            testCase.verifyFalse(testCase.project.qzshifts.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyFalse(testCase.project.background.backgroundParams.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyFalse(testCase.project.resolution.resolutionParams.showPriors, 'Parameter show priors not set correctly');
             % Test bad inputs 

@@ -176,13 +176,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % (4) Scalefactors
             obj.scalefactors.showPriors = showFlag;
             
-            % (5) Qz shifts
-            obj.qzshifts.showPriors = showFlag;
-            
-            % (6) Backgrounds (parameters table)
+            % (5) Backgrounds (parameters table)
             obj.background.backgroundParams.showPriors = showFlag;
             
-            % (7) Resolutions (parameters table)
+            % (6) Resolutions (parameters table)
             obj.resolution.resolutionParams.showPriors = showFlag;
             
         end

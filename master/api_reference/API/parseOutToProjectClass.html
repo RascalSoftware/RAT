@@ -68,39 +68,33 @@ This function is called by:
 0021     project.setScalefactor(i,<span class="string">'value'</span>,scalefactors(i));
 0022 <span class="keyword">end</span>
 0023 
-0024 <span class="comment">%(4) Qzshifts</span>
-0025 qzshifts = problemStruct.qzshifts;
-0026 <span class="keyword">for</span> i = 1:length(qzshifts)
-0027     project.setQzshift(i,<span class="string">'value'</span>,qzshifts(i));
+0024 <span class="comment">%(4) Bulk In</span>
+0025 bulkIns = problemStruct.bulkIn;
+0026 <span class="keyword">for</span> i = 1:length(bulkIns)
+0027     project.setBulkIn(i,<span class="string">'value'</span>,bulkIns(i));
 0028 <span class="keyword">end</span>
 0029 
-0030 <span class="comment">%(5) Bulk In</span>
-0031 bulkIns = problemStruct.bulkIn;
-0032 <span class="keyword">for</span> i = 1:length(bulkIns)
-0033     project.setBulkIn(i,<span class="string">'value'</span>,bulkIns(i));
+0030 <span class="comment">%(5) Bulk Out</span>
+0031 bulkOuts = problemStruct.bulkOut;
+0032 <span class="keyword">for</span> i = 1:length(bulkOuts)
+0033     project.setBulkOut(i,<span class="string">'value'</span>,bulkOuts(i));
 0034 <span class="keyword">end</span>
 0035 
-0036 <span class="comment">%(6) Bulk Out</span>
-0037 bulkOuts = problemStruct.bulkOut;
-0038 <span class="keyword">for</span> i = 1:length(bulkOuts)
-0039     project.setBulkOut(i,<span class="string">'value'</span>,bulkOuts(i));
+0036 <span class="comment">%(6) Resolutions</span>
+0037 resolutionParams = problemStruct.resolutionParams;
+0038 <span class="keyword">for</span> i = 1:length(resolutionParams)
+0039     project.setResolutionParam(i,<span class="string">'value'</span>,resolutionParams(i));
 0040 <span class="keyword">end</span>
 0041 
-0042 <span class="comment">%(7) Resolutions</span>
-0043 resolutionParams = problemStruct.resolutionParams;
-0044 <span class="keyword">for</span> i = 1:length(resolutionParams)
-0045     project.setResolutionParam(i,<span class="string">'value'</span>,resolutionParams(i));
-0046 <span class="keyword">end</span>
-0047 
-0048 <span class="comment">% (8) Domain ratio</span>
-0049 <span class="keyword">if</span> strcmpi(problemStruct.TF, calculationTypes.Domains.value)
-0050     domainRatios = problemStruct.domainRatio;
-0051     <span class="keyword">for</span> i = 1:length(domainRatios)
-0052         project.setDomainRatio(i,<span class="string">'value'</span>,domainRatios(i));
-0053     <span class="keyword">end</span>
-0054 <span class="keyword">end</span>
+0042 <span class="comment">% (7) Domain ratio</span>
+0043 <span class="keyword">if</span> strcmpi(problemStruct.TF, calculationTypes.Domains.value)
+0044     domainRatios = problemStruct.domainRatio;
+0045     <span class="keyword">for</span> i = 1:length(domainRatios)
+0046         project.setDomainRatio(i,<span class="string">'value'</span>,domainRatios(i));
+0047     <span class="keyword">end</span>
+0048 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 09-Apr-2024 08:31:11 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 30-Apr-2024 15:28:34 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

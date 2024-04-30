@@ -25,7 +25,7 @@
 <div class="box"><strong>Extract individual parameters from problem</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,contrastResolutions, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, domainRatio,dataPresent, nParams, params, numberOfLayers, resample, contrastBackgroundsType, contrastCustomFiles, useImaginary] = extractProblemParams(problemStruct) </strong></div>
+<div class="box"><strong>function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,contrastResolutions, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, domainRatio,dataPresent, nParams, params, numberOfLayers, resample, contrastBackgroundActions, contrastCustomFiles, useImaginary] = extractProblemParams(problemStruct) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">Extract individual parameters from problem
@@ -52,14 +52,14 @@ This function is called by:
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,</a><span class="keyword">...</span>
 0002 contrastResolutions, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, domainRatio,<span class="keyword">...</span>
-0003 dataPresent, nParams, params, numberOfLayers, resample, contrastBackgroundsType, contrastCustomFiles, useImaginary] = extractProblemParams(problemStruct)
+0003 dataPresent, nParams, params, numberOfLayers, resample, contrastBackgroundActions, contrastCustomFiles, useImaginary] = extractProblemParams(problemStruct)
 0004 
 0005 <span class="comment">%Extract individual parameters from problem</span>
 0006 
 0007 numberOfContrasts = problemStruct.numberOfContrasts;
 0008 geometry = problemStruct.geometry;
 0009 contrastBackgrounds = problemStruct.contrastBackgrounds;
-0010 contrastBackgroundsType = problemStruct.contrastBackgroundsType;
+0010 contrastBackgroundActions = problemStruct.contrastBackgroundActions;
 0011 contrastQzshifts = problemStruct.contrastQzshifts;
 0012 contrastScalefactors = problemStruct.contrastScalefactors;
 0013 contrastBulkIns = problemStruct.contrastBulkIns;
@@ -84,6 +84,6 @@ This function is called by:
 0032 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 09-Apr-2024 08:31:11 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 30-Apr-2024 15:28:34 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

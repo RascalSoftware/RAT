@@ -267,14 +267,6 @@ Expects a cell array of parameter cell arrays.</p>
 </dd></dl>
 
 <dl class="mat method">
-<dt class="sig sig-object mat" id="API.projectClass.projectClass.addQzshift">
-<span class="sig-name descname"><span class="pre">addQzshift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addQzshift" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a new qz shift parameter. Expects the name
-of qz shift, min, value, max, and if fit is off or on</p>
-<p>project.addQzshift(‘Qz shift 2’, -0.2e-4, 0, 2e-4, false);</p>
-</dd></dl>
-
-<dl class="mat method">
 <dt class="sig sig-object mat" id="API.projectClass.projectClass.addResolution">
 <span class="sig-name descname"><span class="pre">addResolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addResolution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a resolution to the project. Expects a 
@@ -374,12 +366,6 @@ All of the arguments are optional.</p>
 <p>project = projectClass(‘New experiment’);</p>
 </dd></dl>
 
-<dl class="mat attribute">
-<dt class="sig sig-object mat" id="API.projectClass.projectClass.qzshifts">
-<span class="sig-name descname"><span class="pre">qzshifts</span></span><a class="headerlink" href="#API.projectClass.projectClass.qzshifts" title="Permalink to this definition">¶</a></dt>
-<dd><p>parametersClass object</p>
-</dd></dl>
-
 <dl class="mat method">
 <dt class="sig sig-object mat" id="API.projectClass.projectClass.removeBackground">
 <span class="sig-name descname"><span class="pre">removeBackground</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">row</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.removeBackground" title="Permalink to this definition">¶</a></dt>
@@ -453,14 +439,6 @@ parameter will also be removed from the layers array
 if it is in use. Expects series of indices or names of
 parameters to remove</p>
 <p>project.removeParameter(2);</p>
-</dd></dl>
-
-<dl class="mat method">
-<dt class="sig sig-object mat" id="API.projectClass.projectClass.removeQzshift">
-<span class="sig-name descname"><span class="pre">removeQzshift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.removeQzshift" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes specified qz shift parameter. Expects the name/index
-of qz shift parameter to remove</p>
-<p>project.removeQzshift(2);</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -675,14 +653,6 @@ new prior type(‘uniform’,’gaussian’,’jeffreys’)</p>
 <dd><p>Sets the value of a given parameter. Expects
 index or name of parameter and new value to set</p>
 <p>project.setParameterValue(2, 50);</p>
-</dd></dl>
-
-<dl class="mat method">
-<dt class="sig sig-object mat" id="API.projectClass.projectClass.setQzshift">
-<span class="sig-name descname"><span class="pre">setQzshift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setQzshift" title="Permalink to this definition">¶</a></dt>
-<dd><p>Edits an existing qz shift parameter. Expects the index of
-qz shift parameter to edit and key-value pairs</p>
-<p>project.setScalefactor(1, ‘name’,’Qz shift 1’, ‘value’, 0.0001);</p>
 </dd></dl>
 
 <dl class="mat method">

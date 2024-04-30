@@ -101,130 +101,127 @@ This function is called by:
 0036 
 0037     backgroundParams = zeros(nContrasts,1);
 0038     coder.varsize(<span class="string">'backgroundParams'</span>,[10000 1],[1 0]);
-0039     qzshifts = zeros(nContrasts,1);
-0040     coder.varsize(<span class="string">'qzshifts'</span>,[10000 1],[1 0]);
-0041     scalefactors = zeros(nContrasts,1);
-0042     coder.varsize(<span class="string">'scalefactors'</span>,[10000 1],[1 0]);
-0043     bulkIn = zeros(nContrasts,1);
-0044     coder.varsize(<span class="string">'bulkIn'</span>,[10000 1],[1 0]);
-0045     bulkOut = zeros(nContrasts,1);
-0046     coder.varsize(<span class="string">'bulkOut'</span>,[10000 1],[1 0]);
-0047     resolutionParams = zeros(nContrasts,1);
-0048     coder.varsize(<span class="string">'resolutionParams'</span>,[10000 1],[1 0]);
-0049     subRoughs = zeros(nContrasts,1);
-0050     coder.varsize(<span class="string">'subRoughs'</span>,[10000 1],[1 0]);
-0051     resample = zeros(1, nContrasts);
-0052     coder.varsize(<span class="string">'resample'</span>,[1 10000],[0 1]);
-0053         
-0054     contrastParams = struct(<span class="string">'backgroundParams'</span>, backgroundParams, <span class="keyword">...</span>
-0055                             <span class="string">'qzshifts'</span>, qzshifts, <span class="keyword">...</span>
-0056                             <span class="string">'scalefactors'</span>, scalefactors, <span class="keyword">...</span>
-0057                             <span class="string">'bulkIn'</span>, bulkIn, <span class="keyword">...</span>
-0058                             <span class="string">'bulkOut'</span>, bulkOut, <span class="keyword">...</span>
-0059                             <span class="string">'resolutionParams'</span>, resolutionParams, <span class="keyword">...</span>
-0060                             <span class="string">'subRoughs'</span>, subRoughs, <span class="keyword">...</span>
-0061                             <span class="string">'resample'</span>, resample);
-0062     
-0063     <span class="comment">% -------------------------------------------------------------------</span>
-0064     <span class="comment">% Make the final structure...</span>
-0065 
-0066     reflectivity = cell(nContrasts,1);
-0067     refCell = [1 1; 1 1];
-0068     coder.varsize(<span class="string">'refCell'</span>,[10000 2],[1 0]);
-0069     <span class="keyword">for</span> i = 1:nContrasts
-0070         reflectivity{i} = refCell;
-0071     <span class="keyword">end</span>
-0072     
-0073     simulation = cell(nContrasts,1);
-0074     simCell = [1 1; 1 1];
-0075     coder.varsize(<span class="string">'simCell'</span>,[10000 2],[1 0]);
-0076     <span class="keyword">for</span> i = 1:nContrasts
-0077         simulation{i} = simCell;
-0078     <span class="keyword">end</span>
-0079     
-0080     shiftedData = cell(nContrasts,1);
-0081     shiftCell = [1 1 1; 1 1 1];
-0082     coder.varsize(<span class="string">'shiftCell'</span>,[10000 3],[1 0]);
-0083     <span class="keyword">for</span> i = 1:nContrasts
-0084         shiftedData{i} = shiftCell;
-0085     <span class="keyword">end</span>
-0086     
-0087     <span class="keyword">if</span> domains
-0088         layerSlds = cell(nContrasts,2);
-0089         domainLayerSldCell = [1 1 1; 1 1 1];
-0090         coder.varsize(<span class="string">'domainLayerSldCell'</span>,[10000 6],[1 1]);
-0091         <span class="keyword">for</span> i = 1:nContrasts
-0092             layerSlds{i,1} = domainLayerSldCell;
-0093             layerSlds{i,2} = domainLayerSldCell;
-0094         <span class="keyword">end</span>
-0095     <span class="keyword">else</span>
-0096         layerSlds = cell(nContrasts,1);
-0097         layerSldCell = [1 1 1; 1 1 1];
-0098         coder.varsize(<span class="string">'layerSldCell'</span>,[10000 6],[1 1]);
-0099         <span class="keyword">for</span> i = 1:nContrasts
-0100             layerSlds{i} = layerSldCell;
-0101         <span class="keyword">end</span>
-0102     <span class="keyword">end</span>
-0103     
-0104 
-0105     <span class="keyword">if</span> domains
-0106         sldProfiles = cell(nContrasts,2);
-0107         domainSldProfileCell = [1 1; 1 1];
-0108         coder.varsize(<span class="string">'domainSldProfileCell'</span>,[10000 inf],[1 1]);
-0109         <span class="keyword">for</span> i = 1:nContrasts
-0110             sldProfiles{i,1} = domainSldProfileCell;
-0111             sldProfiles{i,2} = domainSldProfileCell;
-0112         <span class="keyword">end</span>
-0113     <span class="keyword">else</span>
-0114         sldProfiles = cell(nContrasts,1);
-0115         sldProfileCell = [1 1; 1 1];
-0116         coder.varsize(<span class="string">'sldProfileCell'</span>,[10000 2],[1 0]);
-0117         <span class="keyword">for</span> i = 1:nContrasts
-0118             sldProfiles{i,1} = sldProfileCell;
-0119         <span class="keyword">end</span>
-0120     <span class="keyword">end</span>   
-0121 
-0122     <span class="keyword">if</span> domains
-0123         resampledLayers = cell(nContrasts,2);
-0124         domainResampledLayersCell = [1 1 1; 1 1 1];
-0125         coder.varsize(<span class="string">'domainResampledLayersCell'</span>,[10000 3],[1 0]);
-0126         <span class="keyword">for</span> i = 1:nContrasts
-0127             resampledLayers{i,1} = domainResampledLayersCell;
-0128             resampledLayers{i,2} = domainResampledLayersCell;
-0129         <span class="keyword">end</span>
-0130     <span class="keyword">else</span>
-0131         resampledLayers = cell(nContrasts,1);
-0132         resampledLayersCell = [1 1 1; 1 1 1];
-0133         coder.varsize(<span class="string">'resampledLayersCell'</span>,[10000 3],[1 0]);
-0134         <span class="keyword">for</span> i = 1:nContrasts
-0135             resampledLayers{i} = resampledLayersCell;
-0136         <span class="keyword">end</span>
-0137     <span class="keyword">end</span>
+0039     scalefactors = zeros(nContrasts,1);
+0040     coder.varsize(<span class="string">'scalefactors'</span>,[10000 1],[1 0]);
+0041     bulkIn = zeros(nContrasts,1);
+0042     coder.varsize(<span class="string">'bulkIn'</span>,[10000 1],[1 0]);
+0043     bulkOut = zeros(nContrasts,1);
+0044     coder.varsize(<span class="string">'bulkOut'</span>,[10000 1],[1 0]);
+0045     resolutionParams = zeros(nContrasts,1);
+0046     coder.varsize(<span class="string">'resolutionParams'</span>,[10000 1],[1 0]);
+0047     subRoughs = zeros(nContrasts,1);
+0048     coder.varsize(<span class="string">'subRoughs'</span>,[10000 1],[1 0]);
+0049     resample = zeros(1, nContrasts);
+0050     coder.varsize(<span class="string">'resample'</span>,[1 10000],[0 1]);
+0051         
+0052     contrastParams = struct(<span class="string">'backgroundParams'</span>, backgroundParams, <span class="keyword">...</span>
+0053                             <span class="string">'scalefactors'</span>, scalefactors, <span class="keyword">...</span>
+0054                             <span class="string">'bulkIn'</span>, bulkIn, <span class="keyword">...</span>
+0055                             <span class="string">'bulkOut'</span>, bulkOut, <span class="keyword">...</span>
+0056                             <span class="string">'resolutionParams'</span>, resolutionParams, <span class="keyword">...</span>
+0057                             <span class="string">'subRoughs'</span>, subRoughs, <span class="keyword">...</span>
+0058                             <span class="string">'resample'</span>, resample);
+0059     
+0060     <span class="comment">% -------------------------------------------------------------------</span>
+0061     <span class="comment">% Make the final structure...</span>
+0062 
+0063     reflectivity = cell(nContrasts,1);
+0064     refCell = [1 1; 1 1];
+0065     coder.varsize(<span class="string">'refCell'</span>,[10000 2],[1 0]);
+0066     <span class="keyword">for</span> i = 1:nContrasts
+0067         reflectivity{i} = refCell;
+0068     <span class="keyword">end</span>
+0069     
+0070     simulation = cell(nContrasts,1);
+0071     simCell = [1 1; 1 1];
+0072     coder.varsize(<span class="string">'simCell'</span>,[10000 2],[1 0]);
+0073     <span class="keyword">for</span> i = 1:nContrasts
+0074         simulation{i} = simCell;
+0075     <span class="keyword">end</span>
+0076     
+0077     shiftedData = cell(nContrasts,1);
+0078     shiftCell = [1 1 1; 1 1 1];
+0079     coder.varsize(<span class="string">'shiftCell'</span>,[10000 3],[1 0]);
+0080     <span class="keyword">for</span> i = 1:nContrasts
+0081         shiftedData{i} = shiftCell;
+0082     <span class="keyword">end</span>
+0083     
+0084     <span class="keyword">if</span> domains
+0085         layerSlds = cell(nContrasts,2);
+0086         domainLayerSldCell = [1 1 1; 1 1 1];
+0087         coder.varsize(<span class="string">'domainLayerSldCell'</span>,[10000 6],[1 1]);
+0088         <span class="keyword">for</span> i = 1:nContrasts
+0089             layerSlds{i,1} = domainLayerSldCell;
+0090             layerSlds{i,2} = domainLayerSldCell;
+0091         <span class="keyword">end</span>
+0092     <span class="keyword">else</span>
+0093         layerSlds = cell(nContrasts,1);
+0094         layerSldCell = [1 1 1; 1 1 1];
+0095         coder.varsize(<span class="string">'layerSldCell'</span>,[10000 6],[1 1]);
+0096         <span class="keyword">for</span> i = 1:nContrasts
+0097             layerSlds{i} = layerSldCell;
+0098         <span class="keyword">end</span>
+0099     <span class="keyword">end</span>
+0100     
+0101 
+0102     <span class="keyword">if</span> domains
+0103         sldProfiles = cell(nContrasts,2);
+0104         domainSldProfileCell = [1 1; 1 1];
+0105         coder.varsize(<span class="string">'domainSldProfileCell'</span>,[10000 inf],[1 1]);
+0106         <span class="keyword">for</span> i = 1:nContrasts
+0107             sldProfiles{i,1} = domainSldProfileCell;
+0108             sldProfiles{i,2} = domainSldProfileCell;
+0109         <span class="keyword">end</span>
+0110     <span class="keyword">else</span>
+0111         sldProfiles = cell(nContrasts,1);
+0112         sldProfileCell = [1 1; 1 1];
+0113         coder.varsize(<span class="string">'sldProfileCell'</span>,[10000 2],[1 0]);
+0114         <span class="keyword">for</span> i = 1:nContrasts
+0115             sldProfiles{i,1} = sldProfileCell;
+0116         <span class="keyword">end</span>
+0117     <span class="keyword">end</span>   
+0118 
+0119     <span class="keyword">if</span> domains
+0120         resampledLayers = cell(nContrasts,2);
+0121         domainResampledLayersCell = [1 1 1; 1 1 1];
+0122         coder.varsize(<span class="string">'domainResampledLayersCell'</span>,[10000 3],[1 0]);
+0123         <span class="keyword">for</span> i = 1:nContrasts
+0124             resampledLayers{i,1} = domainResampledLayersCell;
+0125             resampledLayers{i,2} = domainResampledLayersCell;
+0126         <span class="keyword">end</span>
+0127     <span class="keyword">else</span>
+0128         resampledLayers = cell(nContrasts,1);
+0129         resampledLayersCell = [1 1 1; 1 1 1];
+0130         coder.varsize(<span class="string">'resampledLayersCell'</span>,[10000 3],[1 0]);
+0131         <span class="keyword">for</span> i = 1:nContrasts
+0132             resampledLayers{i} = resampledLayersCell;
+0133         <span class="keyword">end</span>
+0134     <span class="keyword">end</span>
+0135     
+0136     fitParams = zeros(1,nParams);
+0137     coder.varsize(<span class="string">'fitParams'</span>,[1 10000],[0 1]);
 0138     
-0139     fitParams = zeros(1,nParams);
-0140     coder.varsize(<span class="string">'fitParams'</span>,[1 10000],[0 1]);
-0141     
-0142     fitNames = cell(nParams,1);
-0143     fitNamesChar = <span class="string">''</span>;
-0144     coder.varsize(<span class="string">'fitNamesChar'</span>,[1 1000],[0 1]);
-0145     <span class="keyword">for</span> i = 1:nParams
-0146         fitNames{i} = fitNamesChar;
-0147     <span class="keyword">end</span>
-0148 
-0149     result = struct(<span class="string">'reflectivity'</span>, {reflectivity}, <span class="keyword">...</span>
-0150                     <span class="string">'simulation'</span>, {simulation}, <span class="keyword">...</span>
-0151                     <span class="string">'shiftedData'</span>, {shiftedData}, <span class="keyword">...</span>
-0152                     <span class="string">'layerSlds'</span>, {layerSlds}, <span class="keyword">...</span>
-0153                     <span class="string">'sldProfiles'</span>, {sldProfiles}, <span class="keyword">...</span>
-0154                     <span class="string">'resampledLayers'</span>, {resampledLayers}, <span class="keyword">...</span>
-0155                     <span class="string">'calculationResults'</span>, calculationResults, <span class="keyword">...</span>
-0156                     <span class="string">'contrastParams'</span>, contrastParams, <span class="keyword">...</span>
-0157                     <span class="string">'fitParams'</span>, fitParams, <span class="keyword">...</span>
-0158                     <span class="string">'fitNames'</span>, {fitNames});
-0159 
-0160 <span class="keyword">end</span>
+0139     fitNames = cell(nParams,1);
+0140     fitNamesChar = <span class="string">''</span>;
+0141     coder.varsize(<span class="string">'fitNamesChar'</span>,[1 1000],[0 1]);
+0142     <span class="keyword">for</span> i = 1:nParams
+0143         fitNames{i} = fitNamesChar;
+0144     <span class="keyword">end</span>
+0145 
+0146     result = struct(<span class="string">'reflectivity'</span>, {reflectivity}, <span class="keyword">...</span>
+0147                     <span class="string">'simulation'</span>, {simulation}, <span class="keyword">...</span>
+0148                     <span class="string">'shiftedData'</span>, {shiftedData}, <span class="keyword">...</span>
+0149                     <span class="string">'layerSlds'</span>, {layerSlds}, <span class="keyword">...</span>
+0150                     <span class="string">'sldProfiles'</span>, {sldProfiles}, <span class="keyword">...</span>
+0151                     <span class="string">'resampledLayers'</span>, {resampledLayers}, <span class="keyword">...</span>
+0152                     <span class="string">'calculationResults'</span>, calculationResults, <span class="keyword">...</span>
+0153                     <span class="string">'contrastParams'</span>, contrastParams, <span class="keyword">...</span>
+0154                     <span class="string">'fitParams'</span>, fitParams, <span class="keyword">...</span>
+0155                     <span class="string">'fitNames'</span>, {fitNames});
+0156 
+0157 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 09-Apr-2024 08:31:11 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 30-Apr-2024 15:28:34 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

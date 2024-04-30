@@ -49,6 +49,7 @@ This function is called by:
 <li><a href="#_sub1" class="code">function names = getDisplayNames(obj)</a></li>
 <li><a href="#_sub2" class="code">function contrastStruct = toStruct(obj, allowedNames, ~, ~)</a></li>
 <li><a href="#_sub3" class="code">function inputBlock = parseContrastInput(~, ~, inputValues)</a></li>
+<li><a href="#_sub4" class="code">function contrast = setDefaultValues(contrast)</a></li>
 </ul>
 
 
@@ -109,9 +110,18 @@ This function is called by:
 0054             inputBlock = p.Results;
 0055         <span class="keyword">end</span>
 0056     <span class="keyword">end</span>
-0057 <span class="keyword">end</span>
+0057 
+0058     methods(Static)
+0059 
+0060         <a name="_sub3" href="#_subfunctions" class="code">function contrast = setDefaultValues(contrast)</a>
+0061             <span class="comment">% Set non-empty default values when adding a contrast.</span>
+0062             contrast.model = <span class="string">''</span>;
+0063         <span class="keyword">end</span>
+0064     <span class="keyword">end</span>
+0065 
+0066 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 09-Apr-2024 08:31:11 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 30-Apr-2024 15:28:34 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

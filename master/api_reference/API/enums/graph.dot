@@ -1,8 +1,10 @@
 /* Created by mdot for Matlab */
 digraph m2html {
+  actions -> actions;
   allowedTypes -> allowedTypes;
   boundHandlingOptions -> boundHandlingOptions;
   calculationTypes -> calculationTypes;
+  coderEnums -> actions;
   coderEnums -> allowedTypes;
   coderEnums -> boundHandlingOptions;
   coderEnums -> calculationTypes;
@@ -28,6 +30,7 @@ digraph m2html {
   searchStrategy -> searchStrategy;
   supportedLanguages -> supportedLanguages;
 
+  actions [URL="actions.html"];
   allowedTypes [URL="allowedTypes.html"];
   boundHandlingOptions [URL="boundHandlingOptions.html"];
   calculationTypes [URL="calculationTypes.html"];

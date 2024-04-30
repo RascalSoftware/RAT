@@ -12,9 +12,11 @@ digraph m2html {
   createProject -> domainsClass;
   createProject -> layersClass;
   createProject -> projectClass;
+  actions -> actions;
   allowedTypes -> allowedTypes;
   boundHandlingOptions -> boundHandlingOptions;
   calculationTypes -> calculationTypes;
+  coderEnums -> actions;
   coderEnums -> allowedTypes;
   coderEnums -> boundHandlingOptions;
   coderEnums -> calculationTypes;
@@ -149,6 +151,7 @@ digraph m2html {
   RATMain [URL="API/RATMain.html"];
   controlsClass [URL="API/controlsClass.html"];
   createProject [URL="API/createProject.html"];
+  actions [URL="API/enums/actions.html"];
   allowedTypes [URL="API/enums/allowedTypes.html"];
   boundHandlingOptions [URL="API/enums/boundHandlingOptions.html"];
   calculationTypes [URL="API/enums/calculationTypes.html"];

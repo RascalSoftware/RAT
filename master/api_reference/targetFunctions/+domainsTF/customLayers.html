@@ -41,7 +41,7 @@ This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 <li><a href="../../targetFunctions/common/backSort.html" class="code" title="function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolutionParam] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams)">backSort</a>	Distributes the background and shift values among the different contrasts</li>
 <li><a href="../../targetFunctions/common/costFunctions/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>	Chi-squared function is used to evaluate the goodness of fit.</li>
-<li><a href="../../targetFunctions/common/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,contrastResolutions, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, domainRatio,dataPresent, nParams, params, numberOfLayers, resample, contrastBackgroundsType, contrastCustomFiles, useImaginary] = extractProblemParams(problemStruct)">extractProblemParams</a>	Extract individual parameters from problem</li>
+<li><a href="../../targetFunctions/common/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,contrastResolutions, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, domainRatio,dataPresent, nParams, params, numberOfLayers, resample, contrastBackgroundActions, contrastCustomFiles, useImaginary] = extractProblemParams(problemStruct)">extractProblemParams</a>	Extract individual parameters from problem</li>
 <li><a href="../../targetFunctions/common/parseCells.html" class="code" title="function [repeatLayers,data,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemCells)">parseCells</a>	Splits up the master input list of all arrays into separate arrays</li>
 </ul>
 This function is called by:
@@ -78,7 +78,7 @@ This function is called by:
 0020      contrastResolutionIndices, contrastDomainRatioIndices, backgroundParamArray,<span class="keyword">...</span>
 0021      qzshiftArray, scalefactorArray, bulkInArray, bulkOutArray, resolutionParamArray,<span class="keyword">...</span>
 0022      domainRatioArray, dataPresent, nParams, params, ~, resample,<span class="keyword">...</span>
-0023      contrastBackgroundsType, cCustFiles, useImaginary] = <a href="../../targetFunctions/common/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,contrastResolutions, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, domainRatio,dataPresent, nParams, params, numberOfLayers, resample, contrastBackgroundsType, contrastCustomFiles, useImaginary] = extractProblemParams(problemStruct)">extractProblemParams</a>(problemStruct);
+0023      contrastBackgroundActions, cCustFiles, useImaginary] = <a href="../../targetFunctions/common/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,contrastResolutions, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, domainRatio,dataPresent, nParams, params, numberOfLayers, resample, contrastBackgroundActions, contrastCustomFiles, useImaginary] = extractProblemParams(problemStruct)">extractProblemParams</a>(problemStruct);
 0024     
 0025     calcSld = controls.calcSldDuringFit;
 0026     parallel = controls.parallel;
@@ -169,7 +169,7 @@ This function is called by:
 0111              backgroundParamArray,qzshiftArray,scalefactorArray,bulkInArray,<span class="keyword">...</span>
 0112              bulkOutArray,resolutionParamArray,domainRatioArray,dataPresent(i),<span class="keyword">...</span>
 0113              data{i},dataLimits{i},simLimits{i},repeatLayers{i},<span class="keyword">...</span>
-0114              contrastBackgroundsType(i),nParams,parallel,resampleParams,<span class="keyword">...</span>
+0114              contrastBackgroundActions(i),nParams,parallel,resampleParams,<span class="keyword">...</span>
 0115              useImaginary,resample(i),geometry,subRoughs(i),calcSld,<span class="keyword">...</span>
 0116              calcAllLayers1{i},calcAllLayers2{i});
 0117     
@@ -190,7 +190,7 @@ This function is called by:
 0132              backgroundParamArray,qzshiftArray,scalefactorArray,bulkInArray,<span class="keyword">...</span>
 0133              bulkOutArray,resolutionParamArray,domainRatioArray,dataPresent(i),<span class="keyword">...</span>
 0134              data{i},dataLimits{i},simLimits{i},repeatLayers{i},<span class="keyword">...</span>
-0135              contrastBackgroundsType(i),nParams,parallel,resampleParams,<span class="keyword">...</span>
+0135              contrastBackgroundActions(i),nParams,parallel,resampleParams,<span class="keyword">...</span>
 0136              useImaginary,resample(i),geometry,subRoughs(i),calcSld,<span class="keyword">...</span>
 0137              calcAllLayers1{i},calcAllLayers2{i});
 0138 
@@ -223,7 +223,7 @@ This function is called by:
 0165     qzshiftIndex,scalefactorIndex,bulkInIndex,bulkOutIndex,resolutionParamIndex,<span class="keyword">...</span>
 0166     domainRatioIndex,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,<span class="keyword">...</span>
 0167     resolutionParams,domainRatios,dataPresent,data,dataLimits,simLimits,<span class="keyword">...</span>
-0168     repeatLayers,contrastBackgroundsType,nParams,parallel,resampleParams,<span class="keyword">...</span>
+0168     repeatLayers,contrastBackgroundActions,nParams,parallel,resampleParams,<span class="keyword">...</span>
 0169     useImaginary,resample,geometry,roughness,calcSld,calcAllLayers1,calcAllLayers2)
 0170 
 0171     <span class="comment">% Get the domain ratio for this contrast</span>
@@ -246,12 +246,12 @@ This function is called by:
 0188     [sldProfile1,reflect1,simul1,shiftedData,layerSld1,resampledLayer1,~] = nonPolarisedTF.coreLayersCalculation(calcAllLayers1,roughness,<span class="keyword">...</span>
 0189      geometry,bulkInValue,bulkOutValue,resample,calcSld,scalefactorValue,qzshiftValue,<span class="keyword">...</span>
 0190      dataPresent,data,dataLimits,simLimits,repeatLayers,backgroundParamValue,<span class="keyword">...</span>
-0191      resolutionParamValue,contrastBackgroundsType,nParams,parallel,resampleParams,useImaginary);
+0191      resolutionParamValue,contrastBackgroundActions,nParams,parallel,resampleParams,useImaginary);
 0192 
 0193     [sldProfile2,reflect2,simul2,~,layerSld2,resampledLayer2,~] = nonPolarisedTF.coreLayersCalculation(calcAllLayers2,roughness,<span class="keyword">...</span>
 0194      geometry,bulkInValue,bulkOutValue,resample,calcSld,scalefactorValue,qzshiftValue,<span class="keyword">...</span>
 0195      dataPresent,data,dataLimits,simLimits,repeatLayers,backgroundParamValue,<span class="keyword">...</span>
-0196      resolutionParamValue,contrastBackgroundsType,nParams,parallel,resampleParams,useImaginary);
+0196      resolutionParamValue,contrastBackgroundActions,nParams,parallel,resampleParams,useImaginary);
 0197     
 0198     <span class="comment">% Calculate the average reflectivities....</span>
 0199     [reflectivity,simulation] = domainsTF.averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio);
@@ -267,6 +267,6 @@ This function is called by:
 0209 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 09-Apr-2024 08:31:11 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 30-Apr-2024 15:28:34 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

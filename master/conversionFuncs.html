@@ -63,8 +63,11 @@
 <li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calcTypes.html">Different Calculation Types</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="utilities.html">Utility Functions</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="simplePlot.html">Basic Plotting Functions.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bayesPlot.html">Bayesian Plotting Functions.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotFuns.html">Basic Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotFunsBayes.html">Reflectivity and SLD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotFunsBayes.html#posterior-histograms">Posterior Histograms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotFunsBayes.html#corner-plots">Corner Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotFunsBayes.html#chain-view">Chain View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="livePlot.html">Live Updating Plots</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Convert between RAT and RasCAL1</a></li>
 </ul>
@@ -84,7 +87,40 @@
             
   <section id="convert-between-rat-and-rascal1">
 <span id="conversionfuncs"></span><h1>Convert between RAT and RasCAL1<a class="headerlink" href="#convert-between-rat-and-rascal1" title="Permalink to this heading">¶</a></h1>
-<p>TODO</p>
+<p>Two utilities are provided to convert between RasCAL1 and RAT projects:</p>
+<ul class="simple">
+<li><p><strong>Convert from R1 to RAT</strong> : You can convert any R1 project directly to a projectClass and analyse using RAT</p></li>
+<li><p><strong>Convert from RAT to R1</strong> : You can also do the reverse and convert a projectClass back to an R1 project if you wish.</p></li>
+</ul>
+<section id="convert-r1-to-rat">
+<h2>Convert R1 to RAT<a class="headerlink" href="#convert-r1-to-rat" title="Permalink to this heading">¶</a></h2>
+<p>As an example, we can use the <em>‘monolayer_8_contrasts</em> demo example shipped with RasCAl1:</p>
+<a class="reference internal image-reference" href="_images/rascal1.png"><img alt="rascal1" src="_images/rascal1.png" style="width: 800px;" /></a>
+<p>To convert this, simply navigate to the project directory, and convert is as follows:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">r1ToProjectClass</span><span class="p">(</span><span class="s">&#39;monolayer_8_contrasts.mat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This produces a <em>projectClass</em> containing the R1 project, which can then be analysed as normal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">controls</span> <span class="o">=</span> <span class="n">controlsClass</span><span class="p">();</span>
+<span class="n">controls</span><span class="o">.</span><span class="n">procedure</span> <span class="o">=</span> <span class="s1">&#39;de&#39;</span><span class="p">;</span>
+<span class="n">controls</span><span class="o">.</span><span class="n">parallel</span> <span class="o">=</span> <span class="s1">&#39;contrasts&#39;</span><span class="p">;</span>
+<span class="p">[</span><span class="n">problem</span><span class="p">,</span><span class="n">results</span><span class="p">]</span> <span class="o">=</span> <span class="n">RAT</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span><span class="n">controls</span><span class="p">);</span>
+<span class="n">plotRefSLD</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span><span class="n">results</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/r1Converted.png"><img alt="rascal1 converted" src="_images/r1Converted.png" style="width: 800px;" /></a>
+<p>.</p>
+</section>
+<section id="convert-rat-to-a-rascal1-project">
+<h2>Convert RAT to a RasCAL1 Project<a class="headerlink" href="#convert-rat-to-a-rascal1-project" title="Permalink to this heading">¶</a></h2>
+<p>It is also possible to do the opposite conversion, and convert any <em>projectClass</em> back to an R1 project:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">projectClassToR1</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span><span class="s1">&#39;saveproject&#39;</span><span class="p">,</span><span class="n">true</span><span class="p">,</span><span class="s1">&#39;dirName&#39;</span><span class="p">,</span><span class="s1">&#39;testProject&#39;</span><span class="p">,</span><span class="s1">&#39;fileName&#39;</span><span class="p">,</span><span class="s1">&#39;myConvertedProject&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will create the usual RasCAL1 project structure in a directory called <em>testProject</em>, with a filename called <em>myConvertedProject.mat</em>
+This can then be loaded into RasCAL1 as normal.</p>
+<p>.</p>
+</section>
 </section>
 
 

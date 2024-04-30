@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Basic Plotting Functions. &#8212; RAT 1.0.0-beta documentation</title>
+    <title>Basic Plotting &#8212; RAT 1.0.0-beta documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
@@ -17,7 +17,7 @@
     <link rel="icon" href="_static/logo.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Bayesian Plotting Functions." href="bayesPlot.html" />
+    <link rel="next" title="Reflectivity and SLD" href="plotFunsBayes.html" />
     <link rel="prev" title="Utility Functions" href="utilities.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -63,8 +63,11 @@
 <li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="calcTypes.html">Different Calculation Types</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="utilities.html">Utility Functions</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Basic Plotting Functions.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bayesPlot.html">Bayesian Plotting Functions.</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Basic Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotFunsBayes.html">Reflectivity and SLD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotFunsBayes.html#posterior-histograms">Posterior Histograms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotFunsBayes.html#corner-plots">Corner Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotFunsBayes.html#chain-view">Chain View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="livePlot.html">Live Updating Plots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="conversionFuncs.html">Convert between RAT and RasCAL1</a></li>
 </ul>
@@ -82,9 +85,22 @@
 
           <div class="body" role="main">
             
-  <section id="basic-plotting-functions">
-<span id="simpleplotting"></span><h1>Basic Plotting Functions.<a class="headerlink" href="#basic-plotting-functions" title="Permalink to this heading">¶</a></h1>
-<p>TODO</p>
+  <section id="basic-plotting">
+<span id="simpleplotting"></span><h1>Basic Plotting<a class="headerlink" href="#basic-plotting" title="Permalink to this heading">¶</a></h1>
+<p>The simplest plot available is a simple display of the contents of the <em>problem</em> and <em>results</em> blocks.
+This takes the following form:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="nb">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="n">clf</span>
+<span class="s">plotRefSLD(problem,results)</span>
+</pre></div>
+</div>
+<img alt="disp(results)" src="_images/simPlot1.png" />
+<p>This produces a basic plot of the reflectivity and SLD.</p>
+<p>If this plot is not cleared before subsequent plots, then <em>plotRefSLD</em> will overplot allowing the results of calculations to be compared:</p>
+<img alt="run DE" src="_images/runDE.png" />
+<img alt="fit plot" src="_images/simPlot2.png" />
+<p>If you don’t wish to overplot, just clear the figure before re-running plotRefSLD.</p>
+<p>If you are resampling your SLD’s, the <em>plotRefSLD</em> will automatically show the resampled layers for you:</p>
+<img alt="resampled plot" src="_images/resamPlot.png" />
 </section>
 
 
@@ -102,7 +118,7 @@
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
-      <a href="_sources/simplePlot.rst.txt"
+      <a href="_sources/plotFuns.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

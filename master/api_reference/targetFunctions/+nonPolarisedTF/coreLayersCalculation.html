@@ -25,7 +25,7 @@
 <div class="box"><strong>This is the main reflectivity calculation for all Layers models in the</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiSq] =coreLayersCalculation(contrastLayers, rough,geometry, bulkIn, bulkOut, resample, calcSld, scalefactor, qzshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resolution,contrastBackgroundsType,params,parallelPoints,resampleParams,useImaginary) </strong></div>
+<div class="box"><strong>function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiSq] =coreLayersCalculation(contrastLayers, rough,geometry, bulkIn, bulkOut, resample, calcSld, scalefactor, qzshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resolution,contrastBackgroundActions,params,parallelPoints,resampleParams,useImaginary) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">   This is the main reflectivity calculation for all Layers models in the 
@@ -62,7 +62,7 @@
    repeatLayers    :
    background      :
    resol           :
-   contrastBackgroundsType       :
+   contrastBackgroundActions       :
    params          :
    parallelPoints  :
 
@@ -76,7 +76,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,simul,shiftedData] = applyBackgroundCorrection(reflect,simul,shiftedData,backgroundParams,contrastBackgroundsType)">applyBackgroundCorrection</a>	</li>
+<li><a href="../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function [reflect,simul,shiftedData] = applyBackgroundCorrection(reflect,simul,shiftedData,backgroundParams,contrastBackgroundActions)">applyBackgroundCorrection</a>	</li>
 <li><a href="../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, simulation] = callReflectivity(bulkIns,bulkOuts,simLimits,repeatLayers,thisData,layers,ssubs,resolution,parallel,refType,useImaginary)">callReflectivity</a>	</li>
 <li><a href="../../targetFunctions/common/costFunctions/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>	Chi-squared function is used to evaluate the goodness of fit.</li>
 <li><a href="../../targetFunctions/common/groupLayers/groupLayersMod.html" class="code" title="function [outLayers, outSsubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)">groupLayersMod</a>	Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the</li>
@@ -98,7 +98,7 @@ This function is called by:
 0002     coreLayersCalculation(contrastLayers, rough, <span class="keyword">...</span>
 0003     geometry, bulkIn, bulkOut, resample, calcSld, scalefactor, qzshift,<span class="keyword">...</span>
 0004     dataPresent, data, dataLimits, simLimits, repeatLayers,<span class="keyword">...</span>
-0005     background,resolution,contrastBackgroundsType,params,parallelPoints,resampleParams,useImaginary)
+0005     background,resolution,contrastBackgroundActions,params,parallelPoints,resampleParams,useImaginary)
 0006 
 0007 <span class="comment">%   This is the main reflectivity calculation for all Layers models in the</span>
 0008 <span class="comment">%   non polarised target function.</span>
@@ -134,7 +134,7 @@ This function is called by:
 0038 <span class="comment">%   repeatLayers    :</span>
 0039 <span class="comment">%   background      :</span>
 0040 <span class="comment">%   resol           :</span>
-0041 <span class="comment">%   contrastBackgroundsType       :</span>
+0041 <span class="comment">%   contrastBackgroundActions       :</span>
 0042 <span class="comment">%   params          :</span>
 0043 <span class="comment">%   parallelPoints  :</span>
 0044 <span class="comment">%</span>
@@ -212,7 +212,7 @@ This function is called by:
 0116 [reflect,simulation] = <a href="../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, simulation] = callReflectivity(bulkIns,bulkOuts,simLimits,repeatLayers,thisData,layers,ssubs,resolution,parallel,refType,useImaginary)">callReflectivity</a>(bulkIn,bulkOut,simLimits,repeatLayers,shiftedData,layerSld,ssubs,resolution,parallelPoints,reflectivityType,useImaginary);
 0117 
 0118 <span class="comment">% Apply background correction</span>
-0119 [reflect,simulation,shiftedData] = <a href="../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,simul,shiftedData] = applyBackgroundCorrection(reflect,simul,shiftedData,backgroundParams,contrastBackgroundsType)">applyBackgroundCorrection</a>(reflect,simulation,shiftedData,background,contrastBackgroundsType);
+0119 [reflect,simulation,shiftedData] = <a href="../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function [reflect,simul,shiftedData] = applyBackgroundCorrection(reflect,simul,shiftedData,backgroundParams,contrastBackgroundActions)">applyBackgroundCorrection</a>(reflect,simulation,shiftedData,background,contrastBackgroundActions);
 0120 
 0121 <span class="comment">% Calculate chi squared.</span>
 0122 chiSq = <a href="../../targetFunctions/common/costFunctions/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>(shiftedData,reflect,params);
@@ -220,6 +220,6 @@ This function is called by:
 0124 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 09-Apr-2024 08:31:11 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 30-Apr-2024 15:28:34 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

@@ -36,10 +36,10 @@
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 <li><a href="../../targetFunctions/common/backSort.html" class="code" title="function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolutionParam] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams)">backSort</a>	Distributes the background and shift values among the different contrasts</li>
-<li><a href="../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,simul,shiftedData] = applyBackgroundCorrection(reflect,simul,shiftedData,backgroundParams,contrastBackgroundsType)">applyBackgroundCorrection</a>	</li>
+<li><a href="../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function [reflect,simul,shiftedData] = applyBackgroundCorrection(reflect,simul,shiftedData,backgroundParams,contrastBackgroundActions)">applyBackgroundCorrection</a>	</li>
 <li><a href="../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, simulation] = callReflectivity(bulkIns,bulkOuts,simLimits,repeatLayers,thisData,layers,ssubs,resolution,parallel,refType,useImaginary)">callReflectivity</a>	</li>
 <li><a href="../../targetFunctions/common/costFunctions/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>	Chi-squared function is used to evaluate the goodness of fit.</li>
-<li><a href="../../targetFunctions/common/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,contrastResolutions, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, domainRatio,dataPresent, nParams, params, numberOfLayers, resample, contrastBackgroundsType, contrastCustomFiles, useImaginary] = extractProblemParams(problemStruct)">extractProblemParams</a>	Extract individual parameters from problem</li>
+<li><a href="../../targetFunctions/common/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,contrastResolutions, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, domainRatio,dataPresent, nParams, params, numberOfLayers, resample, contrastBackgroundActions, contrastCustomFiles, useImaginary] = extractProblemParams(problemStruct)">extractProblemParams</a>	Extract individual parameters from problem</li>
 <li><a href="../../targetFunctions/common/parseCells.html" class="code" title="function [repeatLayers,data,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemCells)">parseCells</a>	Splits up the master input list of all arrays into separate arrays</li>
 <li><a href="../../targetFunctions/common/resampleLayers/resampleLayers.html" class="code" title="function newSLD = resampleLayers(sldProfile,resampleParams)">resampleLayers</a>	Function handle for adaptive resampling</li>
 <li><a href="../../targetFunctions/common/resampleLayers/resampleLayersReIm.html" class="code" title="function newSLD = resampleLayersReIm(sldProfile,sldProfileIm,resampleParams)">resampleLayersReIm</a>	Resample the SLD profile. In this case we have an imaginary SLD also, and</li>
@@ -74,8 +74,8 @@ This function is called by:
 0015      contrastScalefactorIndices, contrastBulkInIndices, contrastBulkOutIndices,<span class="keyword">...</span>
 0016      contrastResolutionIndices, ~, backgroundParamArray, qzshiftArray,<span class="keyword">...</span>
 0017      scalefactorArray, bulkInArray, bulkOutArray, resolutionParamArray, ~,<span class="keyword">...</span>
-0018      dataPresent, nParams, params, ~, ~, contrastBackgroundsType, cCustFiles,<span class="keyword">...</span>
-0019      useImaginary] = <a href="../../targetFunctions/common/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,contrastResolutions, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, domainRatio,dataPresent, nParams, params, numberOfLayers, resample, contrastBackgroundsType, contrastCustomFiles, useImaginary] = extractProblemParams(problemStruct)">extractProblemParams</a>(problemStruct);
+0018      dataPresent, nParams, params, ~, ~, contrastBackgroundActions, cCustFiles,<span class="keyword">...</span>
+0019      useImaginary] = <a href="../../targetFunctions/common/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,contrastResolutions, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, domainRatio,dataPresent, nParams, params, numberOfLayers, resample, contrastBackgroundActions, contrastCustomFiles, useImaginary] = extractProblemParams(problemStruct)">extractProblemParams</a>(problemStruct);
 0020 
 0021     parallel = controls.parallel;
 0022     resampleParams = controls.resampleParams;
@@ -130,7 +130,7 @@ This function is called by:
 0071              contrastResolutionIndices(i),backgroundParamArray,qzshiftArray,<span class="keyword">...</span>
 0072              scalefactorArray,bulkInArray,bulkOutArray,resolutionParamArray,<span class="keyword">...</span>
 0073              dataPresent(i),data{i},dataLimits{i},simLimits{i},<span class="keyword">...</span>
-0074              repeatLayers{i},contrastBackgroundsType(i),nParams,parallel,<span class="keyword">...</span>
+0074              repeatLayers{i},contrastBackgroundActions(i),nParams,parallel,<span class="keyword">...</span>
 0075              resampleParams,useImaginary,subRoughs(i),sldProfiles{i});
 0076         <span class="keyword">end</span>
 0077     
@@ -148,7 +148,7 @@ This function is called by:
 0089              contrastResolutionIndices(i),backgroundParamArray,qzshiftArray,<span class="keyword">...</span>
 0090              scalefactorArray,bulkInArray,bulkOutArray,resolutionParamArray,<span class="keyword">...</span>
 0091              dataPresent(i),data{i},dataLimits{i},simLimits{i},<span class="keyword">...</span>
-0092              repeatLayers{i},contrastBackgroundsType(i),nParams,parallel,<span class="keyword">...</span>
+0092              repeatLayers{i},contrastBackgroundActions(i),nParams,parallel,<span class="keyword">...</span>
 0093              resampleParams,useImaginary,subRoughs(i),sldProfiles{i});
 0094 
 0095         <span class="keyword">end</span>
@@ -163,7 +163,7 @@ This function is called by:
 0104     layerSld,sldProfile,resampledLayer] = contrastCalculation(backgroundParamIndex,<span class="keyword">...</span>
 0105     qzshiftIndex,scalefactorIndex,bulkInIndex,bulkOutIndex,resolutionParamIndex,<span class="keyword">...</span>
 0106     backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,<span class="keyword">...</span>
-0107     dataPresent,data,dataLimits,simLimits,repeatLayers,contrastBackgroundsType,<span class="keyword">...</span>
+0107     dataPresent,data,dataLimits,simLimits,repeatLayers,contrastBackgroundActions,<span class="keyword">...</span>
 0108     nParams,parallel,resampleParams,useImaginary,roughness,sldProfile)
 0109 
 0110     <span class="comment">% Extract the relevant parameter values for this contrast</span>
@@ -192,7 +192,7 @@ This function is called by:
 0133     reflectivityType = <span class="string">'standardAbeles'</span>;
 0134     [reflect,simul] = <a href="../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, simulation] = callReflectivity(bulkIns,bulkOuts,simLimits,repeatLayers,thisData,layers,ssubs,resolution,parallel,refType,useImaginary)">callReflectivity</a>(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedDat,layerSld,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
 0135     
-0136     [reflectivity,simulation,shiftedDat] = <a href="../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,simul,shiftedData] = applyBackgroundCorrection(reflect,simul,shiftedData,backgroundParams,contrastBackgroundsType)">applyBackgroundCorrection</a>(reflect,simul,shiftedDat,backgroundParamValue,contrastBackgroundsType);
+0136     [reflectivity,simulation,shiftedDat] = <a href="../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function [reflect,simul,shiftedData] = applyBackgroundCorrection(reflect,simul,shiftedData,backgroundParams,contrastBackgroundActions)">applyBackgroundCorrection</a>(reflect,simul,shiftedDat,backgroundParamValue,contrastBackgroundActions);
 0137     
 0138     <span class="keyword">if</span> dataPresent
 0139         chi = <a href="../../targetFunctions/common/costFunctions/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>(shiftedDat,reflectivity,nParams);
@@ -203,6 +203,6 @@ This function is called by:
 0144 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 09-Apr-2024 08:31:11 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 30-Apr-2024 15:28:34 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

@@ -271,185 +271,191 @@ This function is called by:
 0225 priors.priorValues = cell2mat(priorsCell(:, 2:end));
 0226 
 0227 
-0228 <span class="comment">%% Split up the contrastBackgrounds array</span>
-0229 contrastBackgrounds = inputStruct.contrastBackgrounds;
-0230 <span class="keyword">for</span> i = 1:length(contrastBackgrounds)
-0231     problemStruct.contrastBackgrounds(i) = contrastBackgrounds{i}(1);
-0232     problemStruct.contrastBackgroundsType(i) = contrastBackgrounds{i}(2);
-0233 <span class="keyword">end</span>
-0234     
-0235 <span class="comment">% Here we need to do the same with the contrastResolutions array</span>
-0236 contrastResolutions = inputStruct.contrastResolutions;
-0237 resolutionNames = inputStruct.resolutionParamNames;
-0238 resolutionTypes = inputStruct.resolutionTypes;
-0239 contrastRes = zeros(1, length(contrastResolutions));
-0240 <span class="keyword">for</span> i = 1:length(contrastResolutions)
-0241     <span class="comment">% Check the type of the resolution that each contrast is pointing to.</span>
-0242     <span class="comment">% If it is a constant, point to the number of the corresponding</span>
-0243     <span class="comment">% resolution par. If it's data, then set it to zero</span>
-0244     thisResol = contrastResolutions(i);      <span class="comment">% Which reolution</span>
-0245     thisType = resolutionTypes{thisResol};   <span class="comment">% What type is it?</span>
-0246     
-0247     <span class="keyword">if</span> strcmpi(thisType,<span class="string">'data'</span>)
-0248         <span class="comment">% Resolution is in the datafile. Set contrastRes to zero</span>
-0249         contrastRes(i) = -1;
-0250     <span class="keyword">else</span>
-0251         <span class="comment">% Resolution is a resolutionParam, the name of which should</span>
-0252         <span class="comment">% be in the first column of resolutionValues</span>
-0253         whichResolutionParamName = inputStruct.resolutionValues{thisResol,1};
-0254         
-0255         <span class="comment">% Find which resolutionParam this is, and set contrastRes to this number</span>
-0256         resolutionParamNumber = find(strcmpi(whichResolutionParamName,resolutionNames));
-0257         contrastRes(i) = resolutionParamNumber;
-0258     <span class="keyword">end</span>
-0259 <span class="keyword">end</span>
-0260         
-0261 
-0262 <span class="comment">%% Now make the limits array</span>
-0263 <span class="keyword">for</span> i = 1:length(inputStruct.paramLimits)
-0264     problemLimits.param(i,:) = inputStruct.paramLimits{i};
-0265 <span class="keyword">end</span>
+0228 <span class="comment">%% Deal with backgrounds and resolutions</span>
+0229 backgroundActions = zeros(1, length(inputStruct.contrastBackgrounds));
+0230 <span class="keyword">for</span> i = 1:length(inputStruct.contrastBackgrounds)
+0231 
+0232     <span class="keyword">if</span> strcmpi(inputStruct.contrastBackgroundActions{i}, actions.Add)
+0233         backgroundActions(i) = 1;
+0234     <span class="keyword">else</span>
+0235         backgroundActions(i) = 2;
+0236     <span class="keyword">end</span>
+0237 
+0238 <span class="keyword">end</span>
+0239 
+0240 <span class="comment">% Here we need to do the same with the contrastResolutions array</span>
+0241 contrastResolutions = inputStruct.contrastResolutions;
+0242 resolutionNames = inputStruct.resolutionParamNames;
+0243 resolutionTypes = inputStruct.resolutionTypes;
+0244 contrastRes = zeros(1, length(contrastResolutions));
+0245 <span class="keyword">for</span> i = 1:length(contrastResolutions)
+0246     <span class="comment">% Check the type of the resolution that each contrast is pointing to.</span>
+0247     <span class="comment">% If it is a constant, point to the number of the corresponding</span>
+0248     <span class="comment">% resolution par. If it's data, then set it to zero</span>
+0249     thisResol = contrastResolutions(i);      <span class="comment">% Which resolution</span>
+0250     thisType = resolutionTypes{thisResol};   <span class="comment">% What type is it?</span>
+0251     
+0252     <span class="keyword">if</span> strcmpi(thisType,<span class="string">'data'</span>)
+0253         <span class="comment">% Resolution is in the datafile. Set contrastRes to zero</span>
+0254         contrastRes(i) = -1;
+0255     <span class="keyword">else</span>
+0256         <span class="comment">% Resolution is a resolutionParam, the name of which should</span>
+0257         <span class="comment">% be in the first column of resolutionValues</span>
+0258         whichResolutionParamName = inputStruct.resolutionValues{thisResol,1};
+0259         
+0260         <span class="comment">% Find which resolutionParam this is, and set contrastRes to this number</span>
+0261         resolutionParamNumber = find(strcmpi(whichResolutionParamName,resolutionNames));
+0262         contrastRes(i) = resolutionParamNumber;
+0263     <span class="keyword">end</span>
+0264 <span class="keyword">end</span>
+0265         
 0266 
-0267 <span class="keyword">for</span> i = 1:length(inputStruct.backgroundParamLimits)
-0268     problemLimits.backgroundParam(i,:) = inputStruct.backgroundParamLimits{i};
-0269 <span class="keyword">end</span>
-0270 
-0271 <span class="keyword">for</span> i = 1:length(inputStruct.scalefactorLimits)
-0272     problemLimits.scalefactor(i,:) = inputStruct.scalefactorLimits{i};
-0273 <span class="keyword">end</span>
-0274 
-0275 <span class="keyword">for</span> i = 1:length(inputStruct.qzshiftLimits)
-0276     problemLimits.qzshift(i,:) = inputStruct.qzshiftLimits{i};
-0277 <span class="keyword">end</span>
-0278 
-0279 <span class="keyword">for</span> i = 1:length(inputStruct.bulkInLimits)
-0280     problemLimits.bulkIn(i,:) = inputStruct.bulkInLimits{i};
-0281 <span class="keyword">end</span>
-0282 
-0283 <span class="keyword">for</span> i = 1:length(inputStruct.bulkOutLimits)
-0284     problemLimits.bulkOut(i,:) = inputStruct.bulkOutLimits{i};
-0285 <span class="keyword">end</span>
-0286 
-0287 <span class="keyword">for</span> i = 1:length(inputStruct.resolutionParamLimits)
-0288     problemLimits.resolutionParam(i,:) = inputStruct.resolutionParamLimits{i};
-0289 <span class="keyword">end</span>
-0290 
-0291 <span class="keyword">if</span> isa(project, <span class="string">'domainsClass'</span>)
-0292     <span class="keyword">for</span> i = 1:length(inputStruct.domainRatioLimits)
-0293         problemLimits.domainRatio(i,:) = inputStruct.domainRatioLimits{i};
-0294     <span class="keyword">end</span>
-0295 <span class="keyword">else</span>
-0296     problemLimits.domainRatio = ones(0,2);
-0297 <span class="keyword">end</span>
-0298 
-0299 
-0300 <span class="comment">%% Make the problemStruct structure from the remaining inputs</span>
-0301 
-0302 <span class="comment">% *************************************************************************</span>
-0303 <span class="comment">% NOTE - not using the more complicated background and resolution</span>
-0304 <span class="comment">% definitions for now - instead use the background names and</span>
-0305 <span class="comment">% backgroundParam values.... fix this next</span>
-0306 <span class="comment">% *************************************************************************</span>
-0307 
-0308 
-0309 problemStruct.TF = inputStruct.TF;
-0310 problemStruct.resample = inputStruct.resample;
-0311 problemStruct.dataPresent = inputStruct.dataPresent;
-0312 problemStruct.oilChiDataPresent = inputStruct.oilChiDataPresent;
-0313 problemStruct.numberOfContrasts = inputStruct.numberOfContrasts;
-0314 problemStruct.geometry = inputStruct.geometry;
-0315 problemStruct.useImaginary = inputStruct.useImaginary;
-0316 <span class="comment">%problemStruct.contrastBackgrounds = contrastBackgrounds;</span>
-0317 problemStruct.contrastQzshifts = inputStruct.contrastQzshifts;
-0318 problemStruct.contrastScalefactors = inputStruct.contrastScalefactors;
-0319 problemStruct.contrastBulkIns = inputStruct.contrastBulkIns;
-0320 problemStruct.contrastBulkOuts = inputStruct.contrastBulkOuts;
-0321 problemStruct.contrastResolutions = contrastRes;
-0322 problemStruct.backgroundParams = inputStruct.backgroundParamValues; <span class="comment">%inputStruct.backgrounds;       % **** note backPar workaround (todo) ****</span>
-0323 problemStruct.qzshifts = inputStruct.qzshiftValues;
-0324 problemStruct.scalefactors = inputStruct.scalefactorValues;
-0325 problemStruct.bulkIn = inputStruct.bulkInValues;
-0326 problemStruct.bulkOut = inputStruct.bulkOutValues;
-0327 problemStruct.resolutionParams = inputStruct.resolutionParamValues; <span class="comment">%inputStruct.resolutions;           % **** note resolutionParam workaround (todo) ****</span>
-0328 problemStruct.params = inputStruct.paramValues;
-0329 problemStruct.numberOfLayers = inputStruct.numberOfLayers;
-0330 problemStruct.modelType = inputStruct.modelType;
-0331 problemStruct.contrastCustomFiles = inputStruct.contrastCustomFile;
-0332 
-0333 <span class="comment">% Add the domains parameters, using dummy values if this is not a domains</span>
-0334 <span class="comment">% calculation</span>
-0335 problemStruct.contrastDomainRatios = inputStruct.contrastDomainRatios;
-0336 
-0337 <span class="keyword">if</span> isa(project, <span class="string">'domainsClass'</span>)
-0338     problemStruct.domainRatio = inputStruct.domainRatioValues;
-0339 <span class="keyword">else</span>
-0340     problemStruct.domainRatio = ones(1,0);
-0341 <span class="keyword">end</span>
+0267 <span class="comment">%% Now make the limits array</span>
+0268 <span class="keyword">for</span> i = 1:length(inputStruct.paramLimits)
+0269     problemLimits.param(i,:) = inputStruct.paramLimits{i};
+0270 <span class="keyword">end</span>
+0271 
+0272 <span class="keyword">for</span> i = 1:length(inputStruct.backgroundParamLimits)
+0273     problemLimits.backgroundParam(i,:) = inputStruct.backgroundParamLimits{i};
+0274 <span class="keyword">end</span>
+0275 
+0276 <span class="keyword">for</span> i = 1:length(inputStruct.scalefactorLimits)
+0277     problemLimits.scalefactor(i,:) = inputStruct.scalefactorLimits{i};
+0278 <span class="keyword">end</span>
+0279 
+0280 <span class="keyword">for</span> i = 1:length(inputStruct.qzshiftLimits)
+0281     problemLimits.qzshift(i,:) = inputStruct.qzshiftLimits{i};
+0282 <span class="keyword">end</span>
+0283 
+0284 <span class="keyword">for</span> i = 1:length(inputStruct.bulkInLimits)
+0285     problemLimits.bulkIn(i,:) = inputStruct.bulkInLimits{i};
+0286 <span class="keyword">end</span>
+0287 
+0288 <span class="keyword">for</span> i = 1:length(inputStruct.bulkOutLimits)
+0289     problemLimits.bulkOut(i,:) = inputStruct.bulkOutLimits{i};
+0290 <span class="keyword">end</span>
+0291 
+0292 <span class="keyword">for</span> i = 1:length(inputStruct.resolutionParamLimits)
+0293     problemLimits.resolutionParam(i,:) = inputStruct.resolutionParamLimits{i};
+0294 <span class="keyword">end</span>
+0295 
+0296 <span class="keyword">if</span> isa(project, <span class="string">'domainsClass'</span>)
+0297     <span class="keyword">for</span> i = 1:length(inputStruct.domainRatioLimits)
+0298         problemLimits.domainRatio(i,:) = inputStruct.domainRatioLimits{i};
+0299     <span class="keyword">end</span>
+0300 <span class="keyword">else</span>
+0301     problemLimits.domainRatio = ones(0,2);
+0302 <span class="keyword">end</span>
+0303 
+0304 
+0305 <span class="comment">%% Make the problemStruct structure from the remaining inputs</span>
+0306 
+0307 <span class="comment">% *************************************************************************</span>
+0308 <span class="comment">% NOTE - not using the more complicated background and resolution</span>
+0309 <span class="comment">% definitions for now - instead use the background names and</span>
+0310 <span class="comment">% backgroundParam values.... fix this next</span>
+0311 <span class="comment">% *************************************************************************</span>
+0312 
+0313 
+0314 problemStruct.TF = inputStruct.TF;
+0315 problemStruct.resample = inputStruct.resample;
+0316 problemStruct.dataPresent = inputStruct.dataPresent;
+0317 problemStruct.oilChiDataPresent = inputStruct.oilChiDataPresent;
+0318 problemStruct.numberOfContrasts = inputStruct.numberOfContrasts;
+0319 problemStruct.geometry = inputStruct.geometry;
+0320 problemStruct.useImaginary = inputStruct.useImaginary;
+0321 problemStruct.contrastBackgrounds = inputStruct.contrastBackgrounds;
+0322 problemStruct.contrastBackgroundActions = backgroundActions;
+0323 problemStruct.contrastQzshifts = inputStruct.contrastQzshifts;
+0324 problemStruct.contrastScalefactors = inputStruct.contrastScalefactors;
+0325 problemStruct.contrastBulkIns = inputStruct.contrastBulkIns;
+0326 problemStruct.contrastBulkOuts = inputStruct.contrastBulkOuts;
+0327 problemStruct.contrastResolutions = contrastRes;
+0328 problemStruct.backgroundParams = inputStruct.backgroundParamValues; <span class="comment">%inputStruct.backgrounds;       % **** note backPar workaround (todo) ****</span>
+0329 problemStruct.qzshifts = inputStruct.qzshiftValues;
+0330 problemStruct.scalefactors = inputStruct.scalefactorValues;
+0331 problemStruct.bulkIn = inputStruct.bulkInValues;
+0332 problemStruct.bulkOut = inputStruct.bulkOutValues;
+0333 problemStruct.resolutionParams = inputStruct.resolutionParamValues; <span class="comment">%inputStruct.resolutions;           % **** note resolutionParam workaround (todo) ****</span>
+0334 problemStruct.params = inputStruct.paramValues;
+0335 problemStruct.numberOfLayers = inputStruct.numberOfLayers;
+0336 problemStruct.modelType = inputStruct.modelType;
+0337 problemStruct.contrastCustomFiles = inputStruct.contrastCustomFile;
+0338 
+0339 <span class="comment">% Add the domains parameters, using dummy values if this is not a domains</span>
+0340 <span class="comment">% calculation</span>
+0341 problemStruct.contrastDomainRatios = inputStruct.contrastDomainRatios;
 0342 
-0343 <span class="keyword">if</span> isa(project, <span class="string">'domainsClass'</span>) &amp;&amp; isa(project.domainContrasts, <span class="string">'domainContrastsClass'</span>)
-0344     problemStruct.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
+0343 <span class="keyword">if</span> isa(project, <span class="string">'domainsClass'</span>)
+0344     problemStruct.domainRatio = inputStruct.domainRatioValues;
 0345 <span class="keyword">else</span>
-0346     problemStruct.numberOfDomainContrasts = 0;
-0347 <span class="keyword">end</span>    
+0346     problemStruct.domainRatio = ones(1,0);
+0347 <span class="keyword">end</span>
 0348 
-0349 <span class="comment">% Initialise the lists of fitting parameters</span>
-0350 problemStruct.fitParams = [];
-0351 problemStruct.otherParams = [];
-0352 problemStruct.fitLimits = [];
-0353 problemStruct.otherLimits = [];
+0349 <span class="keyword">if</span> isa(project, <span class="string">'domainsClass'</span>) &amp;&amp; isa(project.domainContrasts, <span class="string">'domainContrastsClass'</span>)
+0350     problemStruct.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
+0351 <span class="keyword">else</span>
+0352     problemStruct.numberOfDomainContrasts = 0;
+0353 <span class="keyword">end</span>    
 0354 
-0355 
-0356 <span class="comment">%% Now deal with the controls class</span>
-0357 controls.procedure = inputControls.procedure;
-0358 controls.parallel = inputControls.parallel;
-0359 controls.resampleParams = inputControls.resampleParams;
-0360 controls.calcSldDuringFit = inputControls.calcSldDuringFit;
-0361 controls.display = inputControls.display;
-0362 controls.xTolerance = inputControls.xTolerance;
-0363 controls.funcTolerance = inputControls.funcTolerance;
-0364 controls.maxFuncEvals = inputControls.maxFuncEvals;
-0365 controls.maxIterations = inputControls.maxIterations;
-0366 controls.updateFreq = inputControls.updateFreq;
-0367 controls.updatePlotFreq = inputControls.updatePlotFreq;
-0368 controls.populationSize = inputControls.populationSize;
-0369 controls.fWeight = inputControls.fWeight;
-0370 controls.crossoverProbability = inputControls.crossoverProbability;
-0371 controls.strategy = inputControls.strategy;
-0372 controls.targetValue = inputControls.targetValue;
-0373 controls.numGenerations = inputControls.numGenerations;
-0374 controls.nLive = inputControls.nLive;
-0375 controls.nMCMC = inputControls.nMCMC;
-0376 controls.propScale = inputControls.propScale;
-0377 controls.nsTolerance = inputControls.nsTolerance;
-0378 controls.nSamples = inputControls.nSamples;
-0379 controls.nChains = inputControls.nChains;   
-0380 controls.jumpProbability = inputControls.jumpProbability;      
-0381 controls.pUnitGamma = inputControls.pUnitGamma;
-0382 controls.boundHandling = inputControls.boundHandling;
-0383 controls.adaptPCR = inputControls.adaptPCR;
-0384 
-0385 <span class="comment">% Also need to deal with the checks...</span>
-0386 checks.fitParam = inputStruct.fitParam;
-0387 checks.fitBackgroundParam = inputStruct.fitBackgroundParam;
-0388 checks.fitQzshift = inputStruct.fitQzshift;
-0389 checks.fitScalefactor = inputStruct.fitScalefactor;
-0390 checks.fitBulkIn = inputStruct.fitBulkIn;
-0391 checks.fitBulkOut = inputStruct.fitBulkOut;
-0392 checks.fitResolutionParam = inputStruct.fitResolutionParam;
-0393 <span class="keyword">if</span> isa(project, <span class="string">'domainsClass'</span>)
-0394     checks.fitDomainRatio = inputStruct.fitDomainRatio;
-0395 <span class="keyword">else</span>
-0396     checks.fitDomainRatio = ones(1,0);
-0397 <span class="keyword">end</span>
-0398 
-0399 controls.checks = checks;
-0400 
-0401 <span class="comment">%% Finally, populate the fitParams, otherParams, fitLimits, otherLimits arrays</span>
-0402 [problemStruct,~] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
-0403 
-0404 <span class="keyword">end</span>
+0355 <span class="comment">% Initialise the lists of fitting parameters</span>
+0356 problemStruct.fitParams = [];
+0357 problemStruct.otherParams = [];
+0358 problemStruct.fitLimits = [];
+0359 problemStruct.otherLimits = [];
+0360 
+0361 
+0362 <span class="comment">%% Now deal with the controls class</span>
+0363 controls.procedure = inputControls.procedure;
+0364 controls.parallel = inputControls.parallel;
+0365 controls.resampleParams = inputControls.resampleParams;
+0366 controls.calcSldDuringFit = inputControls.calcSldDuringFit;
+0367 controls.display = inputControls.display;
+0368 controls.xTolerance = inputControls.xTolerance;
+0369 controls.funcTolerance = inputControls.funcTolerance;
+0370 controls.maxFuncEvals = inputControls.maxFuncEvals;
+0371 controls.maxIterations = inputControls.maxIterations;
+0372 controls.updateFreq = inputControls.updateFreq;
+0373 controls.updatePlotFreq = inputControls.updatePlotFreq;
+0374 controls.populationSize = inputControls.populationSize;
+0375 controls.fWeight = inputControls.fWeight;
+0376 controls.crossoverProbability = inputControls.crossoverProbability;
+0377 controls.strategy = inputControls.strategy;
+0378 controls.targetValue = inputControls.targetValue;
+0379 controls.numGenerations = inputControls.numGenerations;
+0380 controls.nLive = inputControls.nLive;
+0381 controls.nMCMC = inputControls.nMCMC;
+0382 controls.propScale = inputControls.propScale;
+0383 controls.nsTolerance = inputControls.nsTolerance;
+0384 controls.nSamples = inputControls.nSamples;
+0385 controls.nChains = inputControls.nChains;   
+0386 controls.jumpProbability = inputControls.jumpProbability;      
+0387 controls.pUnitGamma = inputControls.pUnitGamma;
+0388 controls.boundHandling = inputControls.boundHandling;
+0389 controls.adaptPCR = inputControls.adaptPCR;
+0390 
+0391 <span class="comment">% Also need to deal with the checks...</span>
+0392 checks.fitParam = inputStruct.fitParam;
+0393 checks.fitBackgroundParam = inputStruct.fitBackgroundParam;
+0394 checks.fitQzshift = inputStruct.fitQzshift;
+0395 checks.fitScalefactor = inputStruct.fitScalefactor;
+0396 checks.fitBulkIn = inputStruct.fitBulkIn;
+0397 checks.fitBulkOut = inputStruct.fitBulkOut;
+0398 checks.fitResolutionParam = inputStruct.fitResolutionParam;
+0399 <span class="keyword">if</span> isa(project, <span class="string">'domainsClass'</span>)
+0400     checks.fitDomainRatio = inputStruct.fitDomainRatio;
+0401 <span class="keyword">else</span>
+0402     checks.fitDomainRatio = ones(1,0);
+0403 <span class="keyword">end</span>
+0404 
+0405 controls.checks = checks;
+0406 
+0407 <span class="comment">%% Finally, populate the fitParams, otherParams, fitLimits, otherLimits arrays</span>
+0408 [problemStruct,~] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
+0409 
+0410 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 09-Apr-2024 08:31:11 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 30-Apr-2024 15:28:34 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

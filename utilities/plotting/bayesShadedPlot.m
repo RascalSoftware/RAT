@@ -35,6 +35,9 @@ if ~isempty(varargin)
 
 else
     q4 = false;
+    fit = 'average';
+    keepAx = false;
+    interval = 65;
 end
 
                    %mean  %Average   % All

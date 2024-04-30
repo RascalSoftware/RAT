@@ -9,9 +9,9 @@ These are mainly plotting functions:-
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   simplePlot
-   bayesPlot
+   plotFuns
+   plotFunsBayes
    livePlot
    conversionFuncs

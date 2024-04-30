@@ -1,8 +1,8 @@
 .. _simplePlotting:
 
 
-Basic Plotting.
-...............
+Basic Plotting
+..............
 
 The simplest plot available is a simple display of the contents of the *problem* and *results* blocks.
 This takes the following form:
@@ -18,7 +18,7 @@ This takes the following form:
 
 This produces a basic plot of the reflectivity and SLD.
 
-If this plot is not cleared before subsequent plots, then *potRefSLD* will overplot allowing the results of calculations to be compared:
+If this plot is not cleared before subsequent plots, then *plotRefSLD* will overplot allowing the results of calculations to be compared:
 
 .. image:: images/misc/runDE.png
     :alt: run DE

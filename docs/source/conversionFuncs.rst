@@ -6,8 +6,8 @@ Convert between RAT and RasCAL1
 
 Two utilities are provided to convert between RasCAL1 and RAT projects:
 
-* **Convert from R1 to RAT** : You can convert any R! project directly to a projectClass ana analyse using RAT
-* **Convert from RAT to R1** : you can also do the reverse and convert a projectClass back to an R1 project if you wish.
+* **Convert from R1 to RAT** : You can convert any R1 project directly to a projectClass and analyse using RAT
+* **Convert from RAT to R1** : You can also do the reverse and convert a projectClass back to an R1 project if you wish.
 
 
 

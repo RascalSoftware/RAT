@@ -14,7 +14,7 @@ params = {{'Oxide thick',   10,         20,         50,     true}
 problem.addParameterGroup(params);
 
 % Set the bulk SLD
-problem.setBulkIn(1,'name','Silicon','Value',2.073e-6,'fit',false);
+problem.setBulkIn(1,'name','Silicon','Value',2.073e-6,'max',2.073e-6,'fit',false);
 
 % and scalefactor...
 problem.setScalefactor(1,'min',0.8,'Value',1,'max',1.1,'fit',true);

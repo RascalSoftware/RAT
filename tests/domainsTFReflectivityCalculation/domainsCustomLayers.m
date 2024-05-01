@@ -18,7 +18,7 @@ function project = domainsCustomLayers()
     
     project.addParameterGroup(params);
     
-    project.setBulkIn(1,'name','Silicon','Value',2.073e-6);
+    project.setBulkIn(1,'name','Silicon','Value',2.073e-6,'max',2.073e-6);
     
     project.addCustomFile('Alloy domains','domainsAlloyModel.m','matlab',pwd);
     

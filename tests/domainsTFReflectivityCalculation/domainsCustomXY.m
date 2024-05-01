@@ -4,10 +4,10 @@ function project = domainsCustomXY()
     project.setGeometry('air/substrate');
     
     params = {{'Oxide thick',   10,         20,     50,     true}
-              {'Layer thick',   150,         300,    500,    true}
+              {'Layer thick',   150,        300,    500,    true}
               {'Layer SLD',     1e-6,       2e-6,   4e-6,   true}
               {'Layer rough',   5,          10,     20,     true}
-              {'Domain d L1',   10,         200,     300,     true}
+              {'Domain d L1',   10,         200,     300,   true}
               {'Domain rho l1', 1e-6,       2e-6,   3e-6,   true}
         };
     
@@ -33,7 +33,7 @@ function project = domainsCustomXY()
     
     project.setScalefactor(1,'min',0.8,'Value',1,'max',1.1,'fit',true);
     
-    project.setBulkOut(1,'name','Silicon','value',2.073e-6,'fit',false);
+    project.setBulkOut(1,'name','Silicon','min',2.073e-6,'value',2.073e-6,'fit',false);
     
     project.addCustomFile('DSPC Model','domainsXYModel','matlab',pwd);
     

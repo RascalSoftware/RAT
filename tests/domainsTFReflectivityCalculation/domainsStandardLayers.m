@@ -8,8 +8,8 @@ function project = domainsStandardLayers()
         {'D1 SLD',           3e-6,      4.1e-6,    5e-6,    false  };
         {'D1 rough'          2,          5,         20,     true   };
         {'D1 Hydr'           10,        20,         30,     true   };
-        {'D2 thick',         5,         100,         60,    true   };
-        {'D2 SLD',           3e-6,      2.1e-6,    5e-6,    false  };
+        {'D2 thick',         5,         60,         100,    true   };
+        {'D2 SLD',           2.1e-6,    3e-6,      5e-6,    false  };
         {'D2 rough'          2,          5,         20,     true   };
         {'D2 Hydr'           10,        20,         30,     true   };
         };

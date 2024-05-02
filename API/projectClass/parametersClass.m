@@ -109,6 +109,14 @@ classdef parametersClass < tableUtilities
                     throw(exceptions.invalidType('Expecting numeric values as params 2 - 4'));
                 end
                 
+                if values(1) > values(3)
+                    throw(exceptions.invalidValue(sprintf('Lower limit %f must be less than or equal to upper limit %f', values(1), values(3))));
+                end
+
+                if values(2) < values(1) || values(2) > values(3)
+                    throw(exceptions.invalidValue(sprintf('Parameter value %f must be within the limits %f -- %f', values(2), values(1), values(3))));
+                end
+
                 if ~islogical(fit)
                     throw(exceptions.invalidType('Expecting logical value for param 5'));
                 end
@@ -168,19 +176,53 @@ classdef parametersClass < tableUtilities
 
             row = obj.getValidRow(row);
             inputBlock = parseParameterInput(obj, varargin{:});
-            
+
+            % Check value lies within limits
+            if ~isempty(inputBlock.min)
+                min = inputBlock.min;
+            else
+                min = obj.varTable{row, 2};
+            end
+
+            if ~isempty(inputBlock.max)
+                max = inputBlock.max;
+            else
+                max = obj.varTable{row, 4};
+            end
+
+            if ~isempty(inputBlock.value)
+                value = inputBlock.value;
+            else
+                value = obj.varTable{row, 2};
+            end
+
+            if min > max
+                throw(exceptions.invalidValue(sprintf('Lower limit %f must be less than or equal to upper limit %f', min, max)));
+            end
+
+            if value < min || value > max
+                throw(exceptions.invalidValue(sprintf('Parameter value %f must be within the limits %f -- %f', value, min, max)));
+            end
+
+            % Apply values
             if ~isempty(inputBlock.name)
                 obj.setName(row, inputBlock.name);
             end
             
-            if ~isempty(inputBlock.min)
-                max = obj.varTable{row, 4};
-                obj.setLimits(row, inputBlock.min, max);
-            end
-            
-            if ~isempty(inputBlock.max)
-                min = obj.varTable{row, 2};
-                obj.setLimits(row, min, inputBlock.max);
+            % If both limits are set, apply them together to ensure check
+            % works correctly
+            if ~isempty(inputBlock.min) && ~isempty(inputBlock.max)
+                obj.setLimits(row, inputBlock.min, inputBlock.max);
+            else
+                if ~isempty(inputBlock.min)
+                    max = obj.varTable{row, 4};
+                    obj.setLimits(row, inputBlock.min, max);
+                end
+                
+                if ~isempty(inputBlock.max)
+                    min = obj.varTable{row, 2};
+                    obj.setLimits(row, min, inputBlock.max);
+                end
             end
             
             if ~isempty(inputBlock.value)
@@ -227,9 +269,15 @@ classdef parametersClass < tableUtilities
             % params.setValue(2, 3.4);
             tab = obj.varTable;           
             row = obj.getValidRow(row);
+            min = tab{row, 2};
+            max = tab{row, 4};
 
             if ~isnumeric(value)
                 throw(exceptions.invalidType('Value must be numeric'));
+            end
+
+            if value < min || value > max
+                throw(exceptions.invalidValue(sprintf('Parameter value %f must be within the limits %f -- %f', value, min, max)));
             end
 
             tab(row,3) = {value};
@@ -263,6 +311,10 @@ classdef parametersClass < tableUtilities
 
             if ~(isnumeric(min) && isnumeric(max))
                 throw(exceptions.invalidType('min and max need to be numeric'));
+            end
+
+            if min > max
+                throw(exceptions.invalidValue(sprintf('Lower limit %f must be less than or equal to upper limit %f', min, max)));
             end
             
             tab(row, 2) = {min};

@@ -66,6 +66,9 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyError(@() params.addParameter('c', 1, 6.7), exceptions.invalidNumberOfInputs.errorID);  % 3 values not accepted
             testCase.verifyError(@() params.addParameter('Another Param'), exceptions.duplicateName.errorID);  % duplicate names not accepted
             testCase.verifyError(@() params.addParameter('c', '1', '2', 3), exceptions.invalidType.errorID);  % value 2-4 should be number
+            testCase.verifyError(@() params.addParameter('c', 30, 20, 10), exceptions.invalidValue.errorID);  % lower limit should be less than upper
+            testCase.verifyError(@() params.addParameter('c', 10, 0, 30), exceptions.invalidValue.errorID);  % value outside of limits - too low
+            testCase.verifyError(@() params.addParameter('c', 10, 40, 30), exceptions.invalidValue.errorID);  % value outside of limits - too high
             params.addParameter('Param 5', 0, 6.7, 10);
             testCase.verifyEqual(params.varTable{end, 1}, "Param 5", 'addParameter method not working');
             testCase.verifyEqual(params.varTable{end, 2:4}, [0, 6.7, 10], 'addParameter method not working');
@@ -120,6 +123,10 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyEqual(params.varTable{1, 1}, "Heads", 'setParameter method not working');
             params.setParameter('Tails Roughness', 'name', 'Tails?', 'min', 1, 'value', 1, 'max', 1, 'fit', false);
             testCase.verifyEqual(params.varTable{3, 1:5}, ["Tails?", 1, 1, 1, false], 'setParameter method not working');
+            testCase.verifyError(@() params.setParameter(1, 'min', 30), exceptions.invalidValue.errorID);  % lower limit should be less than upper
+            testCase.verifyError(@() params.setParameter(1, 'max', 0), exceptions.invalidValue.errorID);  % lower limit should be less than upper
+            testCase.verifyError(@() params.setParameter(1, 'value', 0), exceptions.invalidValue.errorID);  % value outside of limits - too low
+            testCase.verifyError(@() params.setParameter(1, 'value', 50), exceptions.invalidValue.errorID);  % value outside of limits - too high
             % Checks that parameter name can be modified
             testCase.verifyError(@() params.setName(1, 2), exceptions.invalidType.errorID);
             params.setName(1, 'Tails');
@@ -132,12 +139,15 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyEqual(params.varTable{1, 3}, 15, 'setParameter method not working');
             params.setValue('Heads', 20);
             testCase.verifyEqual(params.varTable{1, 3}, 20, 'setParameter method not working');
+            testCase.verifyError(@() params.setValue(1, 0), exceptions.invalidValue.errorID);  % value outside of limits - too low
+            testCase.verifyError(@() params.setValue(1, 50), exceptions.invalidValue.errorID);  % value outside of limits - too high            
             % Checks that parameter limits can be modified
             testCase.verifyError(@() params.setLimits(1, '3', '4'), exceptions.invalidType.errorID);
             params.setLimits(1, 1, 45);
             testCase.verifyEqual(params.varTable{1, [2, 4]}, [1, 45], 'setParameter method not working');
             params.setLimits('Heads', 10, 30);
-            testCase.verifyEqual(params.varTable{1, [2, 4]}, [10, 30], 'setParameter method not working');  
+            testCase.verifyEqual(params.varTable{1, [2, 4]}, [10, 30], 'setParameter method not working');
+            testCase.verifyError(@() params.setLimits(1, 30, 10), exceptions.invalidValue.errorID);  % lower limit should be less than upper
             % Checks that parameter fit can be modified
             testCase.verifyError(@() params.setFit(1, '2'), exceptions.invalidType.errorID);
             params.setFit(1, false);

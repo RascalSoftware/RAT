@@ -138,7 +138,7 @@ classdef testDomainsClass < matlab.unittest.TestCase
                                     string({'Domain Ratio 1', 0.4, 0.5, 0.6, false, 'uniform', 0, Inf}), 'default domain ratio is not correct');
             % Checks that domain ratios can be added
             testCase.project.addDomainRatio('Domain Ratio 2', 0.4, 0.69, 1.0, true);
-            testCase.project.addDomainRatio('Domain Ratio 3', 0.2, 0.17, 1.1, false);
+            testCase.project.addDomainRatio('Domain Ratio 3', 0.17, 0.2, 1.1, false);
             testCase.verifySize(testCase.project.domainRatio.varTable, [3, 8], 'domain ratio has wrong dimension');
             testCase.verifyEqual(testCase.project.domainRatio.varTable{end,1}, "Domain Ratio 3", 'addDomainRatio method not working');
             % Checks that domain ratios can be removed

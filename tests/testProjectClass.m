@@ -30,7 +30,7 @@ classdef testProjectClass < matlab.unittest.TestCase
                     {'Hydrogenated Tails SLD', -0.6e-6, -0.4e-6, 0,  true, priorTypes.Uniform.value, 0, Inf};
                     {'Deuterated Heads SLD',    1e-6,   3e-6,   8e-6, true, priorTypes.Uniform.value, 0, Inf};
                     {'Hydrogenated Heads SLD',  0.1e-6,1.4e-6, 3e-6, true, priorTypes.Uniform.value, 0, Inf};
-                    {'Heads Hydration',         0,      10,   0.5,  true, priorTypes.Uniform.value, 0, Inf};
+                    {'Heads Hydration',         0,      0.5,   10,  true, priorTypes.Uniform.value, 0, Inf};
                 };
             testCase.layers = { 
                   {'Hydrogenated Heads', 'Heads Thickness', 'Hydrogenated Heads SLD',...
@@ -227,8 +227,8 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.parameters.varTable{end, 1}, "Heads Hydration", 'removeParameter method not working');
             testCase.verifySize(testCase.project.parameters.varTable, [10, 8], 'Parameters has wrong dimension');
              % Test setting the different parameter properties
-            testCase.project.setParameter(2, 'value', 50);
-            testCase.verifyEqual(testCase.project.parameters.varTable{2, 3}, 50, 'setParameter method not working');
+            testCase.project.setParameter(2, 'value', 15);
+            testCase.verifyEqual(testCase.project.parameters.varTable{2, 3}, 15, 'setParameter method not working');
             testCase.project.setParameterValue(2, 13);
             testCase.verifyEqual(testCase.project.parameters.varTable{2, 3}, 13, 'setParameterValue method not working');
             testCase.project.setParameterLimits('Tails Thickness', 0, 100);
@@ -370,7 +370,7 @@ classdef testProjectClass < matlab.unittest.TestCase
                                     string({'Scalefactor 1', 0.02, 0.23, 0.25, false, priorTypes.Uniform.value, 0, Inf}), 'scalefactors default');
             % Checks that scale factors can be added
             testCase.project.addScalefactor('Scalefactor 2', 0.1, 0.19, 1.0, true);
-            testCase.project.addScalefactor('Scalefactor 3', 0.2, 0.17, 1.1, false);
+            testCase.project.addScalefactor('Scalefactor 3', 0.17, 0.2, 1.1, false);
             testCase.verifySize(testCase.project.scalefactors.varTable, [3, 8], 'scalefactors has wrong dimension');
             testCase.verifyEqual(testCase.project.scalefactors.varTable{end,1}, "Scalefactor 3", 'addScalefactor method not working');
             % Checks that scale factors can be removed
@@ -390,7 +390,7 @@ classdef testProjectClass < matlab.unittest.TestCase
                                     string({'Resolution par 1', 0.01, 0.03, 0.05, false, priorTypes.Uniform.value, 0, Inf}), 'resolution parameter default');
             % Checks that resolution parameter can be added
             testCase.project.addResolutionParam('Resolution par 2', 0.1, 0.19, 1.0, true);
-            testCase.project.addResolutionParam('Resolution par 3', 0.2, 0.17, 1.1, false);
+            testCase.project.addResolutionParam('Resolution par 3', 0.17, 0.2, 1.1, false);
             testCase.verifySize(testCase.project.resolution.resolutionParams.varTable, [3, 8], 'resolution parameter has wrong dimension');
             testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{end, 1}, "Resolution par 3", 'addResolutionParam method not working');
             % Checks that resolution parameter can be removed
@@ -398,8 +398,8 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifySize(testCase.project.resolution.resolutionParams.varTable, [2, 8], 'resolution parameter has wrong dimension');
             testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{:, 1}, ["Resolution par 1"; "Resolution par 3"], 'removeResolutionParam method not working');
             % Checks that resolution parameter can be modified
-            testCase.project.setResolutionParamValue('Resolution par 1', 0.2325);
-            testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{1, 3}, 0.2325, 'setResolutionParamValue method not working with name value pair');
+            testCase.project.setResolutionParamValue('Resolution par 1', 0.02325);
+            testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{1, 3}, 0.02325, 'setResolutionParamValue method not working with name value pair');
             testCase.project.setResolutionParamValue(2, 0.4);
             testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{2, 3}, 0.4, 'setResolutionParamValue method not working with index value pair');
             testCase.project.setResolutionParam(2, 'name', 'ResolutionParam', 'min', 0, 'value', 0.5, 'max', 1,'fit',true);
@@ -437,8 +437,8 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifySize(testCase.project.background.backgroundParams.varTable, [1, 8], 'background has wrong dimension');
             testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{:, 1}, "Backs Value H2O", 'removeBackgroundParam method not working');
             % Checks that background parameter value can be modified
-            testCase.project.setBackgroundParamValue(1, 5.5e-6);
-            testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{1, 3}, 5.5e-6, 'setBackgroundParamValue method not working');
+            testCase.project.setBackgroundParamValue(1, 0.15232);
+            testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{1, 3}, 0.15232, 'setBackgroundParamValue method not working');
             % Checks that background parameter name can be modified
             testCase.project.setBackgroundParamName(1, 'Backs Value D2O');
             testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{1, 1}, "Backs Value D2O", 'setBackgroundParamName method not working');

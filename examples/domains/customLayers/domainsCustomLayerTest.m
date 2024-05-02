@@ -20,7 +20,7 @@ params = {{'Alloy thick',   100,    150,    200,   true}
 problem.addParameterGroup(params);
 
 % Set the bulk SLD
-problem.setBulkIn(1,'name','Silicon','Value',2.073e-6);
+problem.setBulkIn(1,'name','Silicon','Value',2.073e-6,'max',2.073e-6);
 
 % Add the custom file...
 problem.addCustomFile('Alloy domains','alloyDomains.m','matlab',pwd);

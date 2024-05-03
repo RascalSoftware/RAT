@@ -999,8 +999,24 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
 
             % Now deal with classes where all of the fields are strings
-            stringClasses = ["customFile", "background", "resolution"];
-            stringSubclasses = ["", "backgrounds", "resolutions"];
+
+            % First, custom files
+            addRoutine = obj.classes.addRoutine(obj.classes.name == "customFile");
+            numCols = width(obj.customFile.varTable);
+            stringTable = table2array(obj.customFile.varTable)';
+            stringTable = stringTable([1 2 4 5 3],:);  % Needs to switch columns to match argument order
+            
+            % Add parameters if any have been defined
+            if ~isempty(stringTable)
+                stringSpec = options.objName + "." + addRoutine + "(" + join(repmat("'%s'", 1, numCols), ", ") + ");\n";
+                fprintf(fileID, stringSpec, stringTable);
+                fprintf(fileID, "\n");
+            end
+
+            % Now deal with background and resolutions, which have
+            % subclasses
+            stringClasses = ["background", "resolution"];
+            stringSubclasses = ["backgrounds", "resolutions"];
 
             if isa(obj.layers, 'layersClass')
                 stringClasses = ["layers", stringClasses];

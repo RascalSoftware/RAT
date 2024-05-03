@@ -7,29 +7,29 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 % from the example calculations "DPPCCustomXY.m" and
 % "orsoDSPCCustomLayers.m"
 %
-% Paul Sharp 10/02/23
-%
 %% Declare properties and parameters
 
     properties (TestParameter)
         fileInput = {{'New Entry'},...
                      {'Row and file name', 'file.m'},...
-                     {'Full entry', 'otherFile.m', 'python', pwd}
+                     {'Nearly Full entry', 'otherFile.py', 'python', pwd},...
+                     {'Full entry', 'anotherFile.py', 'python', pwd, 'function_name'}
                     }
-        addedRow = {{'New Entry', '', supportedLanguages.Matlab.value, ''},...
-                    {'Row and file name', 'file.m', supportedLanguages.Matlab.value, ''},...
-                    {'Full entry', 'otherFile.m', supportedLanguages.Python.value, pwd}
+        addedRow = {{'New Entry', '', '', supportedLanguages.Matlab.value, ''},...
+                    {'Row and file name', 'file.m', 'file', supportedLanguages.Matlab.value, ''},...
+                    {'Nearly Full entry', 'otherFile.py', 'otherFile', supportedLanguages.Python.value, pwd},...
+                    {'Full entry', 'anotherFile.py', 'function_name', supportedLanguages.Python.value, pwd}
                    }
         testRow = {1, 1, 2, 2}
         inputData = {{'DPPC Model', 'name', 'New Model'},...
                      {1, 'filename', 'model.m'},...
                      {'DSPC Model', 'language', upper(supportedLanguages.Python.value)},...
-                     {2, 'language', supportedLanguages.Python, 'filename', 'model.m', 'name', 'New Model'},...
+                     {2, 'language', supportedLanguages.Python, 'filename', 'model.m', 'functionName', 'modelFunc', 'name', 'New Model'},...
                     }
-        expectedRow = {["New Model", "DPPCCustomXY.m", string(supportedLanguages.Matlab.value), "../../"],...
-                       ["DPPC Model", "model.m", string(supportedLanguages.Matlab.value), "../../"],...
-                       ["DSPC Model", "customBilayer.m", string(supportedLanguages.Python.value), "../../"],...
-                       ["New Model", "model.m", string(supportedLanguages.Python.value), "../../"],...
+        expectedRow = {["New Model", "DPPCCustomXY.m", "DPPCCustomXY", string(supportedLanguages.Matlab.value), "../../"],...
+                       ["DPPC Model", "model.m", "DPPCCustomXY", string(supportedLanguages.Matlab.value), "../../"],...
+                       ["DSPC Model", "customBilayer.m", "customBilayer", string(supportedLanguages.Python.value), "../../"],...
+                       ["New Model", "model.m", "modelFunc", string(supportedLanguages.Python.value), "../../"],...
                       }
         invalidInputData = {{'DPPC Model', 'name', 42},...
                             {1, 'filename', datetime('today')},...
@@ -53,13 +53,13 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
         function initialiseFileTable(testCase)
             % Set up an empty file table and a table with one row
-            tableTypes = {'string', 'string', 'string', 'string'};
-            tableNames = {'Name', 'Filename', 'Language', 'Path'};
+            tableTypes = {'string', 'string', 'string', 'string', 'string'};
+            tableNames = {'Name', 'Filename', 'Function Name', 'Language', 'Path'};
 
-            testCase.initialFileTableEmpty = table('Size',[0 4],'VariableTypes',tableTypes,'VariableNames',tableNames);
+            testCase.initialFileTableEmpty = table('Size',[0 5],'VariableTypes',tableTypes,'VariableNames',tableNames);
 
-            testCase.initialFileTableOneRow = table('Size',[1 4],'VariableTypes',tableTypes,'VariableNames',tableNames);
-            testCase.initialFileTableOneRow{1, :} = {'DPPC Model', 'DPPCCustomXY.m', 'matlab', '../../'};
+            testCase.initialFileTableOneRow = table('Size',[1 5],'VariableTypes',tableTypes,'VariableNames',tableNames);
+            testCase.initialFileTableOneRow{1, :} = {'DPPC Model', 'DPPCCustomXY.m', 'DPPCCustomXY', 'matlab', '../../'};
         end
 
     end
@@ -72,8 +72,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % "DPPCCustomXY.m" and "orsoDSPCCustomLayers.m"
             testCase.exampleClass = customFileClass();
 
-            testCase.exampleClass.varTable(1,:) = {'DPPC Model', 'DPPCCustomXY.m', 'matlab', '../../'};
-            testCase.exampleClass.varTable(2,:) = {'DSPC Model', 'customBilayer.m', 'matlab', '../../'};
+            testCase.exampleClass.varTable(1,:) = {'DPPC Model', 'DPPCCustomXY.m', 'DPPCCustomXY', 'matlab', '../../'};
+            testCase.exampleClass.varTable(2,:) = {'DSPC Model', 'customBilayer.m', 'customBilayer', 'matlab', '../../'};
 
             testCase.numRows = height(testCase.exampleClass.varTable);
             testCase.numCols = width(testCase.exampleClass.varTable);
@@ -90,7 +90,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % either an empty file table, or a table with a single row
             testClass = customFileClass();
 
-            testCase.verifySize(testClass.varTable, [0 4], 'customFileClass does not initialise correctly');
+            testCase.verifySize(testClass.varTable, [0 5], 'customFileClass does not initialise correctly');
             testCase.verifyEqual(testClass.varTable, testCase.initialFileTableEmpty, 'customFileClass does not initialise correctly');
         end
 
@@ -99,7 +99,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % either an empty file table, or a table with a single row
             testClass = customFileClass('DPPC Model', 'DPPCCustomXY.m', 'matlab', '../../');
 
-            testCase.verifySize(testClass.varTable, [1 4], 'customFileClass does not initialise correctly');
+            testCase.verifySize(testClass.varTable, [1 5], 'customFileClass does not initialise correctly');
             testCase.verifyEqual(testClass.varTable, testCase.initialFileTableOneRow, 'customFileClass does not initialise correctly');
         end
 
@@ -122,7 +122,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % custom object name, a custom object name with the filename,
             % and a fully defined custom file entry consisting of: a
             % custom object name, a filename, language and file path.
-            newRow = {'New custom file 1', '', 'matlab', ''};
+            newRow = {'New custom file 1', '', '', 'matlab', ''};
             expectedTable = [testCase.exampleClass.varTable; newRow];
 
             testCase.exampleClass.addCustomFile();
@@ -137,7 +137,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
             % Invalid length for custom file parameters
             testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'matlab', ''), exceptions.invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 'matlab', '', 'other'), exceptions.invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', '', 'matlab', '', 'other'), exceptions.invalidNumberOfInputs.errorID);
 
             % Invalid types
             testCase.verifyError(@() testCase.exampleClass.addCustomFile(42), exceptions.invalidType.errorID);
@@ -251,7 +251,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % Replace multiple spaces in output table with a single
             % space using regular expressions
             outRow = strip(regexprep(displayedTable(3), '\s+', ' '));
-            rowString = """"" """" """" """"";
+            rowString =""""" """" """" """" """"";
             testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
         end
 
@@ -260,7 +260,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % class with empty row entries by capturing the output and
             % comparing with the table headers and data
             emptyRowClass = customFileClass();
-            emptyRowClass.varTable(1, :) = {'Test Row', '', '', ''};
+            emptyRowClass.varTable(1, :) = {'Test Row', '', '', '', ''};
 
             % Capture the standard output and format into string array -
             % one element for each row of the output
@@ -284,7 +284,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % Replace multiple spaces in output table with a single
             % space using regular expressions, and remove '"' characters
             outRow = strip(replace(regexprep(displayedTable(3), '\s+', ' '), '"', ''));
-            rowString = "Test Row No File - pwd";
+            rowString = "Test Row No File - - pwd";
             testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
         end
 
@@ -293,7 +293,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % class with a long file path by capturing the output and
             % comparing with the table headers and data
             longPathClass = customFileClass();
-            longPathClass.varTable(1, :) = {'Test Row', '', '', 'really/long/file/path'};
+            longPathClass.varTable(1, :) = {'Test Row', '', '', '', 'really/long/file/path'};
 
             % Capture the standard output and format into string array -
             % one element for each row of the output
@@ -317,7 +317,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % Replace multiple spaces in output table with a single
             % space using regular expressions, and remove '"' characters
             outRow = strip(replace(regexprep(displayedTable(3), '\s+', ' '), '"', ''));
-            rowString = "Test Row No File - ...g/file/path";
+            rowString = "Test Row No File - - ...g/file/path";
             testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
         end
 
@@ -354,7 +354,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             fakeID = '123456789';
             wrapperMexMock = mockFunction(testCase, 'wrapperMex', 'returnValues', {fakeID});
             rmPathMock = mockFunction(testCase, 'rmpath');
-            customClass.varTable(2,:) = {'DSPC Model', 'customBilayer.dll', 'cpp', ''};
+            customClass.varTable(2,:) = {'DSPC Model', 'customBilayer.dll', '', 'cpp', ''};
             fileStruct = customClass.toStruct();
             wrapper2 = customClass.wrappers{2};
             testCase.verifyEqual(wrapper2.libPath, 'customBilayer.dll');

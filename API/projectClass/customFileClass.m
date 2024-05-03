@@ -51,7 +51,7 @@ classdef customFileClass < tableUtilities
             % customFiles.addCustomFile('New Row')
             % customFiles.addCustomFile('New Row', 'file.m')
             % customFiles.addCustomFile('New Row', 'file.py', 'python', 'C:/stuff')
-            % customFiles.addCustomFile('New Row', 'file.py', 'py_function', 'python', 'C:/stuff')
+            % customFiles.addCustomFile('New Row', 'file.py', 'python', 'C:/stuff', 'py_function')
             if isempty(varargin)
                 
                 % Nothing supplied - add empty data row
@@ -103,9 +103,9 @@ classdef customFileClass < tableUtilities
                         % Five inputs = assume all inputs supplied
                         newName = char(inputs{1});
                         newFile = char(inputs{2});
-                        newFunc = char(inputs{3});
-                        newLang = char(inputs{4});
-                        newPath = char(inputs{5});
+                        newLang = char(inputs{3});
+                        newPath = char(inputs{4});
+                        newFunc = char(inputs{5});
                         
                         newRow = {newName, newFile, newFunc, newLang, newPath};
                         

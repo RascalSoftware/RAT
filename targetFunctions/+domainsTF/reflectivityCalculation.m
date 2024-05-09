@@ -95,7 +95,8 @@ switch lower(type)
          resolutionParams,chis,reflectivity,simulation,shiftedData,...
          layerSlds,sldProfiles,resampledLayers,...
          subRoughs] = domainsTF.customXY(problemStruct,problemCells,controls);
-
+    otherwise
+        error('The model type "%s" is not supported', type);
 end
 
 % Package everything into one array for tidy output

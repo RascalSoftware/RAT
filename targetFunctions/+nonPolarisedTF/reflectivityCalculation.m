@@ -92,7 +92,8 @@ switch lower(type)
          resolutionParams,chis,reflectivity,simulation,shiftedData,...
          layerSlds,sldProfiles,resampledLayers,...
          subRoughs] = nonPolarisedTF.customXY(problemStruct,problemCells,controls);
-
+    otherwise
+        error('The model type "%s" is not supported', type);
 end
 
 % Package everything into structs for tidy output

@@ -223,6 +223,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.parameters.varTable{end, 1}, "new parameter 11", 'removeParameter method not working');
             testCase.verifySize(testCase.project.parameters.varTable, [11, 8], 'Parameters has wrong dimension');
             testCase.verifyError(@() testCase.project.removeParameter('Substrate Roughness'), exceptions.invalidOption.errorID) % can't remove substrate roughness
+            testCase.verifyError(@() testCase.project.removeParameter(true), exceptions.invalidType.errorID) % invalid input
             testCase.project.removeParameter(11);
             testCase.verifyEqual(testCase.project.parameters.varTable{end, 1}, "Heads Hydration", 'removeParameter method not working');
             testCase.verifySize(testCase.project.parameters.varTable, [10, 8], 'Parameters has wrong dimension');
@@ -398,14 +399,22 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifySize(testCase.project.resolution.resolutionParams.varTable, [2, 8], 'resolution parameter has wrong dimension');
             testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{:, 1}, ["Resolution par 1"; "Resolution par 3"], 'removeResolutionParam method not working');
             % Checks that resolution parameter can be modified
-            testCase.project.setResolutionParamValue('Resolution par 1', 0.02325);
-            testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{1, 3}, 0.02325, 'setResolutionParamValue method not working with name value pair');
-            testCase.project.setResolutionParamValue(2, 0.4);
-            testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{2, 3}, 0.4, 'setResolutionParamValue method not working with index value pair');
             testCase.project.setResolutionParam(2, 'name', 'ResolutionParam', 'min', 0, 'value', 0.5, 'max', 1,'fit',true);
             testCase.verifySize(testCase.project.resolution.resolutionParams.varTable, [2, 8], 'resolution parameter has wrong dimension');
             testCase.verifyEqual(string(testCase.project.resolution.resolutionParams.varTable{2, :}),...
                                     string({'ResolutionParam', 0, 0.5, 1, true, priorTypes.Uniform.value, 0, Inf}), 'setResolutionParam method not working');
+            % Checks that resolution parameter value can be modified
+            testCase.project.setResolutionParamValue('Resolution par 1', 0.02325);
+            testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{1, 3}, 0.02325, 'setResolutionParamValue method not working with name value pair');
+            testCase.project.setResolutionParamValue(2, 0.4);
+            testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{2, 3}, 0.4, 'setResolutionParamValue method not working with index value pair');    
+            % Checks that resolution parameter name can be modified
+            testCase.project.setResolutionParamName(2, 'Resolution par 2');
+            testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{2, 1}, "Resolution par 2", 'setResolutionParamName method not working');
+            % Checks that resolution parameter limits can be modified
+            testCase.project.setResolutionParamLimits(1, 0, 1);
+            testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{1, 2}, 0, 'setResolutionParamLimits method not working');
+            testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{1, 4}, 1, 'setResolutionParamLimits method not working');
             % Checks the default resolution parameter 
             testCase.verifySize(testCase.project.resolution.resolutions.varTable, [1, 7], 'resolution has wrong dimension');
             testCase.verifyEqual(string(testCase.project.resolution.resolutions.varTable{1, :}),...
@@ -418,6 +427,12 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.project.removeResolution(1);
             testCase.verifySize(testCase.project.resolution.resolutions.varTable, [1, 7], 'resolution has wrong dimension');
             testCase.verifyEqual(testCase.project.resolution.resolutions.varTable{:, 1}, "Resolution 2", 'addResolution method not working');
+            % Checks that resolution value can be modified
+            testCase.project.setResolution(1, 'name', 'New Resolution Name');
+            testCase.verifyEqual(testCase.project.resolution.resolutions.varTable{1, 1}, "New Resolution Name", 'setResolution method not working');
+            % Checks that resolution name can be modified
+            testCase.project.setResolutionName(1, 'Resolution 1');
+            testCase.verifyEqual(testCase.project.resolution.resolutions.varTable{1, 1}, "Resolution 1", 'setResolutionName method not working');
         end
 
         function testBackground(testCase)
@@ -446,7 +461,6 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.project.setBackgroundParamLimits(1, 0, 1);
             testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{1, 2}, 0, 'setBackgroundParamLimits method not working');
             testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{1, 4}, 1, 'setBackgroundParamLimits method not working');
-
             % Checks the default background parameter 
             testCase.verifySize(testCase.project.background.backgrounds.varTable, [1, 7], 'background has wrong dimension');
             testCase.verifyEqual(string(testCase.project.background.backgrounds.varTable{1, :}),...

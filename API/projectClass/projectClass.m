@@ -414,9 +414,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             %
             % project.addLayer('New Layer');
             if isa(obj.layers, 'layersClass')
-                if isempty(varargin)
-                    obj.layers.addLayer(obj.parameters.varTable{:,1});
-                else
+                if ~isempty(varargin)
                     % If the input is wrapped in a cell (so varargin is a cell of a cell)
                     % need to unwrap one layer of it, otherwise keep varargin as it is
                     if length(varargin) == 1 && iscell(varargin{:})
@@ -470,7 +468,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % project.addBackgroundParam('Backs Value D2O', 1e-8, 2.8e-6, 1e-5);
             obj.background.backgroundParams.addParameter(varargin{:});
         end
-        
+
         function obj = removeBackgroundParam(obj, varargin)
             % Removes a given background parameter.
             % Expects index or name of parameter to remove
@@ -478,7 +476,15 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % project.removeBackgroundParam(2);
             obj.background.backgroundParams.removeParameter(varargin{:});
         end
-        
+
+        function obj = setBackgroundParam(obj, varargin)
+            % Sets the value of an existing background parameter. Expects
+            % index or name of parameter and keyword/value pairs to set
+            %
+            % project.setBackgroundParam(1, 'name', 'Backs Value H2O');
+            obj.background.backgroundParams.setParameter(varargin{:});
+        end
+
         function obj = setBackgroundParamValue(obj, row, value)
             % Sets the value of existing background            
             % parameter. Expects index or name of parameter 
@@ -541,27 +547,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.background.setBackgroundName(row, name);
         end
         
-        function obj = setBackgroundParam(obj, varargin)
-            % Sets the value of an existing background parameter. Expects
-            % index or name of parameter and keyword/value pairs to set
-            %
-            % project.setBackgroundParam(1, 'name', 'Backs Value H2O');
-            obj.background.backgroundParams.setParameter(varargin{:});
-        end
-        
         % -------------------------------------------------------------
         %   Editing of Resolutions block
         
-        % Resol Pars
-        function obj = setResolutionParamValue(obj, row, value)
-            % Sets the value of existing resolution            
-            % parameter. Expects index or name of parameter 
-            % and new value to set
-            %
-            % project.setResolutionParamValue(1, 5.5e-6);
-            obj.resolution.resolutionParams.setValue(row, value);
-        end
-        
+        % Resol Pars       
         function obj = addResolutionParam(obj, varargin)
             % Adds a new resolution parameter. A parameter consists 
             % of a name, min, value, max, fit flag, prior type', mu,
@@ -571,14 +560,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.resolution.resolutionParams.addParameter(varargin{:});
         end
         
-        function obj = setResolutionParam(obj, varargin)
-            % Sets the value of an existing resolution parameter. Expects
-            % index or name of parameter and keyword/value pairs to set
-            %
-            % project.setResolutionParam(1, 'name', 'Resolution Param');
-            obj.resolution.resolutionParams.setParameter(varargin{:});
-        end
-        
         function obj = removeResolutionParam(obj, varargin)
             % Removes a given resolution parameter.
             % Expects index or name of parameter to remove
@@ -586,7 +567,42 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % project.removeResolutionParam(2);
             obj.resolution.resolutionParams.removeParameter(varargin{:});
         end
+
+        function obj = setResolutionParam(obj, varargin)
+            % Sets the value of an existing resolution parameter. Expects
+            % index or name of parameter and keyword/value pairs to set
+            %
+            % project.setResolutionParam(1, 'name', 'Resolution Param');
+            obj.resolution.resolutionParams.setParameter(varargin{:});
+        end
+
+        function obj = setResolutionParamValue(obj, row, value)
+            % Sets the value of existing resolution            
+            % parameter. Expects index or name of parameter 
+            % and new value to set
+            %
+            % project.setResolutionParamValue(1, 5.5e-6);
+            obj.resolution.resolutionParams.setValue(row, value);
+        end
+
+        function obj = setResolutionParamLimits(obj, row, min, max)
+            % Sets the constraints of existing resolution
+            % parameter. Expects index or name of parameter 
+            % and new min and max of the parameter's value
+            %
+            % project.setResolutionParamLimits(1, 0, 1);
+            obj.resolution.resolutionParams.setLimits(row, min, max);
+        end
         
+        function obj = setResolutionParamName(obj, row, name)
+            % Sets the name of an existing resolution 
+            % parameter. Expects index or name of parameter 
+            % and the new name
+            %
+            % project.setResolutionParamName(2, 'new name');
+            obj.resolution.resolutionParams.setName(row, name);
+        end
+
         % Resolutions
         function obj = addResolution(obj, varargin)
             % Adds a resolution to the project. Expects a 
@@ -605,6 +621,21 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.resolution.removeResolution(row);
         end
         
+        function obj = setResolution(obj, row, varargin)
+            % Sets the value of an existing resolution. Expects
+            % index or name of resolution and keyword/value pairs to set
+            %
+            % project.setResolution(1, 'name', 'Resolution ACMW');
+            obj.resolution.setResolution(row, varargin{:});
+        end
+        
+        function obj = setResolutionName(obj, row, name)
+            % Sets the name of an existing resolution.
+            % Expects index or name of resolution and the new name
+            %
+            % project.setResolutionName(2, 'new name');
+            obj.resolution.setResolutionName(row, name);
+        end
         
         % ------------------------------------------------------------
         %   Editing of Data block

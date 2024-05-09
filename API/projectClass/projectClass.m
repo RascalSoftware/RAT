@@ -414,16 +414,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             %
             % project.addLayer('New Layer');
             if isa(obj.layers, 'layersClass')
-                if ~isempty(varargin)
-                    % If the input is wrapped in a cell (so varargin is a cell of a cell)
-                    % need to unwrap one layer of it, otherwise keep varargin as it is
-                    if length(varargin) == 1 && iscell(varargin{:})
-                        thisLayer = varargin{:};
-                    else
-                        thisLayer = varargin;
-                    end
-                    obj.layers.addLayer(obj.parameters.varTable{:,1}, thisLayer{:});
+                % If the input is wrapped in a cell (so varargin is a cell of a cell)
+                % need to unwrap one layer of it, otherwise keep varargin as it is
+                if length(varargin) == 1 && iscell(varargin{:})
+                    thisLayer = varargin{:};
+                else
+                    thisLayer = varargin;
                 end
+                obj.layers.addLayer(obj.parameters.varTable{:,1}, thisLayer{:});
             else
                 throw(exceptions.invalidProperty(sprintf('Layer are not defined for the model type: %s', obj.modelType)));
             end

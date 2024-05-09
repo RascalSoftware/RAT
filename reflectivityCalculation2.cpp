@@ -38,8 +38,8 @@ namespace RAT
       ::coder::array<real_T, 1U> qzshifts;
       real_T y;
       int32_T switch_expression_size[2];
+      int32_T b_index;
       int32_T i;
-      int32_T loop_ub_tmp;
       char_T switch_expression_data[10000];
 
       //  Main function for the domainsTF reflectivity calculation.
@@ -67,38 +67,17 @@ namespace RAT
       //  Find out the model type from the input structs
       //  Pre-allocation - It's necessary to pre-define the types for all the
       //  arrays for compilation, so do this in this block.
-      loop_ub_tmp = static_cast<int32_T>(problemStruct->numberOfContrasts);
-      contrastParams->backgroundParams.set_size(loop_ub_tmp);
-      contrastParams->scalefactors.set_size(loop_ub_tmp);
-      contrastParams->bulkIn.set_size(loop_ub_tmp);
-      contrastParams->bulkOut.set_size(loop_ub_tmp);
-      for (i = 0; i < loop_ub_tmp; i++) {
-        contrastParams->backgroundParams[i] = 0.0;
-        contrastParams->scalefactors[i] = 0.0;
-        contrastParams->bulkIn[i] = 0.0;
-        contrastParams->bulkOut[i] = 0.0;
-      }
-
-      calculationResults->chiValues.set_size(loop_ub_tmp);
-      for (i = 0; i < loop_ub_tmp; i++) {
-        calculationResults->chiValues[i] = 0.0;
-      }
-
-      contrastParams->resolutionParams.set_size(loop_ub_tmp);
-      contrastParams->subRoughs.set_size(loop_ub_tmp);
-
       //  Pre-allocate the output arrays.. this is necessary because otherwise the
       //  compiler complains with 'Output argument <....> is not assigned on some
       //  execution paths' error.
-      reflectivity.set_size(loop_ub_tmp);
-      simulation.set_size(loop_ub_tmp);
-      shiftedData.set_size(loop_ub_tmp);
-      layerSlds.set_size(loop_ub_tmp, 2);
-      sldProfiles.set_size(loop_ub_tmp, 2);
-      resampledLayers.set_size(loop_ub_tmp, 2);
-      for (int32_T b_i{0}; b_i < loop_ub_tmp; b_i++) {
-        contrastParams->resolutionParams[b_i] = 0.0;
-        contrastParams->subRoughs[b_i] = 0.0;
+      i = static_cast<int32_T>(problemStruct->numberOfContrasts);
+      reflectivity.set_size(i);
+      simulation.set_size(i);
+      shiftedData.set_size(i);
+      layerSlds.set_size(i, 2);
+      sldProfiles.set_size(i, 2);
+      resampledLayers.set_size(i, 2);
+      for (int32_T b_i{0}; b_i < i; b_i++) {
         reflectivity[b_i].f1.set_size(2, 2);
         reflectivity[b_i].f1[0] = 1.0;
         reflectivity[b_i].f1[1] = 1.0;
@@ -126,21 +105,23 @@ namespace RAT
           sldProfiles.size(0)].f1.size(0) + 1] = 1.0;
         resampledLayers[b_i].f1.set_size(2, 3);
         resampledLayers[b_i + resampledLayers.size(0)].f1.set_size(2, 3);
-        for (i = 0; i < 3; i++) {
-          shiftedData[b_i].f1[shiftedData[b_i].f1.size(0) * i] = 1.0;
-          shiftedData[b_i].f1[shiftedData[b_i].f1.size(0) * i + 1] = 1.0;
-          layerSlds[b_i].f1[layerSlds[b_i].f1.size(0) * i] = 1.0;
+        for (b_index = 0; b_index < 3; b_index++) {
+          shiftedData[b_i].f1[shiftedData[b_i].f1.size(0) * b_index] = 1.0;
+          shiftedData[b_i].f1[shiftedData[b_i].f1.size(0) * b_index + 1] = 1.0;
+          layerSlds[b_i].f1[layerSlds[b_i].f1.size(0) * b_index] = 1.0;
           layerSlds[b_i + layerSlds.size(0)].f1[layerSlds[b_i + layerSlds.size(0)]
-            .f1.size(0) * i] = 1.0;
-          layerSlds[b_i].f1[layerSlds[b_i].f1.size(0) * i + 1] = 1.0;
+            .f1.size(0) * b_index] = 1.0;
+          layerSlds[b_i].f1[layerSlds[b_i].f1.size(0) * b_index + 1] = 1.0;
           layerSlds[b_i + layerSlds.size(0)].f1[layerSlds[b_i + layerSlds.size(0)]
-            .f1.size(0) * i + 1] = 1.0;
-          resampledLayers[b_i].f1[resampledLayers[b_i].f1.size(0) * i] = 1.0;
+            .f1.size(0) * b_index + 1] = 1.0;
+          resampledLayers[b_i].f1[resampledLayers[b_i].f1.size(0) * b_index] =
+            1.0;
           resampledLayers[b_i + resampledLayers.size(0)].f1[resampledLayers[b_i
-            + resampledLayers.size(0)].f1.size(0) * i] = 1.0;
-          resampledLayers[b_i].f1[resampledLayers[b_i].f1.size(0) * i + 1] = 1.0;
+            + resampledLayers.size(0)].f1.size(0) * b_index] = 1.0;
+          resampledLayers[b_i].f1[resampledLayers[b_i].f1.size(0) * b_index + 1]
+            = 1.0;
           resampledLayers[b_i + resampledLayers.size(0)].f1[resampledLayers[b_i
-            + resampledLayers.size(0)].f1.size(0) * i + 1] = 1.0;
+            + resampledLayers.size(0)].f1.size(0) * b_index + 1] = 1.0;
         }
       }
 
@@ -148,18 +129,18 @@ namespace RAT
                    switch_expression_data, switch_expression_size);
       if (coder::internal::j_strcmp(switch_expression_data,
            switch_expression_size)) {
-        loop_ub_tmp = 0;
+        b_index = 0;
       } else if (coder::internal::k_strcmp(switch_expression_data,
                   switch_expression_size)) {
-        loop_ub_tmp = 1;
+        b_index = 1;
       } else if (coder::internal::l_strcmp(switch_expression_data,
                   switch_expression_size)) {
-        loop_ub_tmp = 2;
+        b_index = 2;
       } else {
-        loop_ub_tmp = -1;
+        b_index = -1;
       }
 
-      switch (loop_ub_tmp) {
+      switch (b_index) {
        case 0:
         standardLayers(problemStruct, problemCells, controls,
                        contrastParams->backgroundParams, qzshifts,
@@ -193,8 +174,8 @@ namespace RAT
 
       //  Package everything into one array for tidy output
       contrastParams->resample.set_size(1, problemStruct->resample.size(1));
-      loop_ub_tmp = problemStruct->resample.size(1);
-      for (i = 0; i < loop_ub_tmp; i++) {
+      b_index = problemStruct->resample.size(1);
+      for (i = 0; i < b_index; i++) {
         contrastParams->resample[i] = problemStruct->resample[i];
       }
 

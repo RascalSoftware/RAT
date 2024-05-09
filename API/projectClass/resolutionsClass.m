@@ -173,6 +173,17 @@ classdef resolutionsClass < handle
                 obj.resolutions.setValue(row, i + 2, value);
             end
         end
+
+        function obj = setResolutionName(obj, row, name)
+            % Sets the name of a given resolution in the table. Expects 
+            % an index and the new name. 
+            %
+            % resolution.setResolutionName(1, 'new_name');
+            if ~isText(name)
+                throw(exceptions.invalidType(sprintf('%s must be a character array or string', name)));
+            end
+            obj.resolutions.setValue(row, 'name', name);
+        end
         
         function resolutionStruct = toStruct(obj)
             % Converts the class parameters into a structure array.

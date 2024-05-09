@@ -9,6 +9,8 @@ switch contrastBackgroundActions
         %Subtract the background from the data..
         shiftedData(:,2) = shiftedData(:,2) - backgroundParams;
         %shiftedData(:,3) = shiftedData(:,3) - backgroundParams;
+    otherwise
+        error('The index "%d" does not represent a valid contrast background action.', contrastBackgroundActions);
 end
         
 end

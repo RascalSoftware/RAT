@@ -128,6 +128,8 @@ switch refType
                     simRef = resolutionPolly(simXdata,simRef,resolution,length(simXdata));
                 end
         end
+    otherwise
+        error('The reflectivity type "%s" is not supported', refType);
 end
 
 simulation(:,2) = simRef(:);

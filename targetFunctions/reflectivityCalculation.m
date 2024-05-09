@@ -102,8 +102,8 @@ switch whichTF
         %contrastParams = polarisedTFReflectivityCalculation(problemStruct,problemCells,controls);
     case coderEnums.calculationTypes.Domains
         [contrastParams,calculationResults,reflectivity,simulation,shiftedData,domainLayerSlds,domainSldProfiles,domainResampledLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
-%     otherwise
-%         error('The calculation type "%s" is not supported', whichTF);
+    otherwise
+        error('The calculation type "%s" is not supported', whichTF);
 
 end
 

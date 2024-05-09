@@ -106,7 +106,19 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             testCase.resolution.removeResolution([1, 3]);
             testCase.verifyEqual(testCase.resolution.resolutions.varTable{:, 1}, "Resolution 2", 'removeResolutionParam method not working');  
         end
-            
+
+        function testSetResolutionName(testCase)
+         % Checks that resolution name can be modified
+         testCase.resolution.resolutions.varTable = [testCase.resolution.resolutions.varTable; vertcat(testCase.resolutions(2:end, :))];
+         testCase.resolution.setResolutionName(1, 'resolution one');
+         testCase.verifyEqual(testCase.resolution.resolutions.varTable{1, 1}, ...
+                              "resolution one", 'setResolutionName method not working');
+         testCase.resolution.setResolutionName(3, 'resolution three');
+         testCase.verifyEqual(testCase.resolution.resolutions.varTable{3, 1}, ...
+                              "resolution three", 'setResolutionName method not working');
+         testCase.verifyError(@() testCase.resolution.setResolutionName(2, 2), exceptions.invalidType.errorID);
+        end   
+
         function testSetResolution(testCase)
             % Checks that resolution can be modified
             testCase.resolution.resolutions.varTable = [testCase.resolution.resolutions.varTable; vertcat(testCase.resolutions(2:end, :))];

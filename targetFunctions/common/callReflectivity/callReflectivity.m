@@ -83,7 +83,7 @@ simulation = zeros(length(simXdata),2);
 simulation(:,1) = simXdata;
 
 % If we are using data resolutions, then we also need to adjust the length
-% of the reolution column. We do thit by just extending with the rosolution
+% of the resolution column. We do this by just extending with the resolution
 % values at the ends of the curve.
 simResolData = 0;
 if resolution == -1
@@ -105,7 +105,7 @@ switch refType
                 simRef = abelesParallelPoints(simXdata,nLayersTot,thicks,slds,roughs);
 
                 % Apply resolution              
-                % Note: paraPoints gives an error during valifation, so use
+                % Note: paraPoints gives an error during validation, so use
                 % single cored resolution as a workaround for now.
                 if resolution == -1
                     %simRef = dataResolutionPollyParallelPoints(simXdata,simRef,simResolData,length(simXdata));

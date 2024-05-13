@@ -65,19 +65,19 @@ problem.setResolutionParam(1,'fit',true);
 % Now add the data we need....
 data_1 = readmatrix('D2O_spin_down.dat');
 problem.addData('D2O_dn', data_1);
-problem.setData(1, 'dataRange', [0.012 0.22],'simRange', [0.012 0.22]);
+problem.setData(2, 'dataRange', [0.012 0.22],'simRange', [0.012 0.22]);
 
 data_2 = readmatrix('D2O_spin_up.dat');
 problem.addData('D2O_up', data_2);
-problem.setData(2, 'dataRange', [0.012 0.22],'simRange', [0.012 0.22]);
+problem.setData(3, 'dataRange', [0.012 0.22],'simRange', [0.012 0.22]);
 
 data_3 = readmatrix('H2O_spin_down.dat');
 problem.addData('H2O_dn', data_3);
-problem.setData(1, 'dataRange', [0.012 0.22],'simRange', [0.012 0.22]);
+problem.setData(4, 'dataRange', [0.012 0.22],'simRange', [0.012 0.22]);
 
 data_4 = readmatrix('H2O_spin_up.dat');
 problem.addData('H2O_up', data_4);
-problem.setData(1, 'dataRange', [0.012 0.22],'simRange', [0.012 0.22]);
+problem.setData(5, 'dataRange', [0.012 0.22],'simRange', [0.012 0.22]);
 
 % ....and the custom file...
 problem.addCustomFile('DPPC absorption', 'volumeThiolBilayer.m', 'matlab', 'pwd');

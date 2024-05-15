@@ -110,7 +110,7 @@ function [problemStruct,result] = runDE(problemStruct,problemCells,problemLimits
 end
 
 
-function S_MSE = intrafun(p,problemStruct,problemCells,problemLimits,controls)
+function [S_MSE,result] = intrafun(p,problemStruct,problemCells,problemLimits,controls)
 
     coder.varsize('S_MSE.I_nc',[1 1],[0 0]);
     coder.varsize('S_MSE.FVr_ca',[1 1],[0 0]);

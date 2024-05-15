@@ -50,64 +50,57 @@ classdef customFileClass < tableUtilities
             % customFiles.addCustomFile()
             % customFiles.addCustomFile('New Row')
             % customFiles.addCustomFile('New Row', 'file.m')
+            % customFiles.addCustomFile('New Row', 'file.m', 'matlab')
             % customFiles.addCustomFile('New Row', 'file.py', 'python', 'C:/stuff')
             % customFiles.addCustomFile('New Row', 'file.py', 'python', 'C:/stuff', 'py_function')
+            newFile = '';
+            newLang = supportedLanguages.Matlab.value;
+            newPath = '';
+            newFunc = '';
             if isempty(varargin)
-                
                 % Nothing supplied - add empty data row
                 nameVal = obj.autoNameCounter();
                 newName = sprintf('New custom file %d', nameVal);
-                
-                newRow = {newName, '', '', supportedLanguages.Matlab.value, ''};
-
             else
-                
                 inputs = varargin;
-
+                newName = inputs{1};
+                
+                if ~isText(newName)
+                    throw(exceptions.invalidType('First value must be unique name identifer (text)'));
+                end
                 % Check length of added data
                 switch length(inputs)
-                    
-                    case 1
-
-                        % One input supplied - assume just name provided
-                        newName = inputs{1};
-                        if ~isText(newName)
-                            throw(exceptions.invalidType('Single input is expected to be a custom object name'));
-                        end
-                        
-                        newRow = {newName, '', '', supportedLanguages.Matlab.value, ''};
-                        
+                    case 1   
                     case 2
+                    
+                        % Two inputs suppled - assume both name and filename supplied;
+                        newName = inputs{1};
+                        newFile = inputs{2};
+                    
+                    case 3
 
-                        % Two inputs suppled - assume both name and
-                        % filename supplied;
-                        newName = char(inputs{1});
-                        newFile = char(inputs{2});
-                        [~, functionName, ~] = fileparts(newFile);
-
-                        newRow = {newName, newFile, functionName, supportedLanguages.Matlab.value, ''};
+                        % Four inputs = assume all inputs except function name supplied
+                        newName = inputs{1};
+                        newFile = inputs{2};
+                        newLang = inputs{3};
                         
                     case 4
 
                         % Four inputs = assume all inputs except function name supplied
-                        newName = char(inputs{1});
-                        newFile = char(inputs{2});
-                        newLang = char(inputs{3});
-                        newPath = char(inputs{4});
-                        [~, functionName, ~] = fileparts(newFile);
+                        newName = inputs{1};
+                        newFile = inputs{2};
+                        newLang = inputs{3};
+                        newPath = inputs{4};
                         
-                        newRow = {newName, newFile, functionName, newLang, newPath};
 
                     case 5
 
                         % Five inputs = assume all inputs supplied
-                        newName = char(inputs{1});
-                        newFile = char(inputs{2});
-                        newLang = char(inputs{3});
-                        newPath = char(inputs{4});
-                        newFunc = char(inputs{5});
-                        
-                        newRow = {newName, newFile, newFunc, newLang, newPath};
+                        newName = inputs{1};
+                        newFile = inputs{2};
+                        newLang = inputs{3};
+                        newPath = inputs{4};
+                        newFunc = inputs{5};
                         
                     otherwise
 
@@ -117,9 +110,24 @@ classdef customFileClass < tableUtilities
                 end
             end
 
+            if ~isText(newFile)
+                throw(exceptions.invalidType('Second argument (Filename) must be text.'));
+            end
+
+            if ~isText(newPath)
+                throw(exceptions.invalidType('Forth argument (Path) must be text.'));
+            end
+
+            if ~isText(newFunc)
+                throw(exceptions.invalidType('Fifth argument (Function name) must be text.'));
+            end
+
+            if isempty(newFunc)
+                [~, newFunc, ~] = fileparts(newFile);
+            end
             % Check language is valid, then add the new entry
-            newRow{4} = validateOption(newRow{4}, 'supportedLanguages', obj.invalidLanguageMessage).value;
-            obj.addRow(newRow{:});            
+            newLang = validateOption(newLang, 'supportedLanguages', obj.invalidLanguageMessage).value;
+            obj.addRow(newName, newFile, newFunc, newLang, newPath) ;            
         end
         
         function obj = setCustomFile(obj, row, varargin)
@@ -153,12 +161,12 @@ classdef customFileClass < tableUtilities
 
             % Make an 'inputParser' object...
             p = inputParser;
-
+            currentPath = obj.varTable{row, 5};
             addParameter(p,'name','', @(x) isText(x))
             addParameter(p,'filename','', @(x) isText(x))
             addParameter(p,'functionName','', @(x) isText(x))
             addParameter(p,'language','', @(x) isText(x) || isenum(x))
-            addParameter(p,'path','', @(x) isText(x)) 
+            addParameter(p,'path', currentPath, @(x) isText(x)) 
             parse(p, varargin{:});
                 
             results = p.Results;
@@ -179,8 +187,7 @@ classdef customFileClass < tableUtilities
                 obj.setCustomLanguage(row, results.language);
             end
             
-            if ~isempty(results.path)
-                % NOT IMPLEMENTED
+            if ~strcmp(results.path, currentPath)
                 obj.setCustomPath(row,results.path);
             end
             
@@ -238,8 +245,8 @@ classdef customFileClass < tableUtilities
                         thisFilePath = 'pwd';
                     else
                         thisFilePath = char(thisFilePath);
-                        if length(thisFilePath) > 10
-                            thisFilePath = ['...' thisFilePath(end-10:end)];
+                        if length(thisFilePath) > 50
+                            thisFilePath = ['...' thisFilePath(end-50:end)];
                         end
                     end
                     newDisplayRow = {nameString, fileNameString, functionNameString, fileLanguageString, thisFilePath};
@@ -265,7 +272,14 @@ classdef customFileClass < tableUtilities
                     functionName = thisRow{3};
                     thisType = thisRow{4};
                     thisPath = thisRow{5};
+                    if isempty(thisPath)
+                        thisPath = pwd;
+                    end
                     libpath = fullfile(thisPath, thisFile);
+                    if ~exist(libpath, 'file') && ~strcmpi(thisType, supportedLanguages.Matlab.value)
+                        msg = 'The custom file (%s) cannot be found. Check that the path and filename is correct (%s).';
+                        throw(exceptions.invalidPath(sprintf(msg, thisFile, strrep(libpath, '\', '/'))));
+                    end
                     wrapper = [];
                     if i <= length(obj.wrappers)
                         wrapper = obj.wrappers{i};                        
@@ -318,8 +332,16 @@ classdef customFileClass < tableUtilities
         end
 
         function obj = setFunctionName(obj,whichCustom,name)
-            % Set a new filename
+            % Set a new funtion name
             obj.varTable{whichCustom,3} = {name};  
+        end
+        
+        function obj = setCustomPath(obj, whichCustom, path)
+            % Set a new path
+            if ~isempty(path) && ~exist(path, 'dir')
+                throw(exceptions.invalidPath(sprintf('The given path (%s) is not a valid directory', path)));
+            end
+            obj.varTable{whichCustom, 5} = {path};
         end
 
     end

@@ -528,14 +528,14 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Checks the default custom file
             testCase.verifySize(testCase.project.customFile.varTable, [0, 5], 'custom file table has wrong dimension');
             % Checks that custom file can be added
-            testCase.project.addCustomFile('model 1', 'custom.m', 'matlab', 'pwd');
+            testCase.project.addCustomFile('model 1', 'custom.m', 'matlab');
             testCase.project.addCustomFile('model 2', 'custom.cpp', 'cpp', 'c:/temp');
             testCase.verifySize(testCase.project.customFile.varTable, [2, 5], 'custom file table has wrong dimension');    
             testCase.verifyEqual(testCase.project.customFile.varTable{:, 1}, ["model 1"; "model 2"], 'addCustomFile method not working');
             testCase.verifyEqual(testCase.project.customFile.varTable{:, 2}, ["custom.m"; "custom.cpp"], 'addCustomFile method not working');
             testCase.verifyEqual(testCase.project.customFile.varTable{:, 3}, ["custom"; "custom"], 'addCustomFile method not working');
             testCase.verifyEqual(testCase.project.customFile.varTable{:, 4}, ["matlab"; "cpp"], 'addCustomFile method not working');
-            testCase.verifyEqual(testCase.project.customFile.varTable{:, 5}, ["pwd"; "c:/temp"], 'addCustomFile method not working');
+            testCase.verifyEqual(testCase.project.customFile.varTable{:, 5}, [""; "c:/temp"], 'addCustomFile method not working');
             % Checks that custom file can be modified
             % Cannot set path due to unimplemented field 'setCustomPath' for class 'customFileClass'.
             testCase.project.setCustomFile(2, 'filename', 'cust.m');  %, 'path', '/home/folder');

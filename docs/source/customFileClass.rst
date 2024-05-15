@@ -22,14 +22,14 @@ properly on terminal.
     :caption: Adding MATLAB custom file.
 
         %                       Row Name   Custom File Name  Language   Path
-        problem.addCustomFile('DSPC Model','customBilayer.m','matlab','pwd');
+        problem.addCustomFile('DSPC Model','customBilayer.m','matlab',pwd);
 
 .. code-block:: MATLAB
     :caption: Adding C++ custom file.
 
             % For C++, function name of the cpp file is supplied
             %                       Row Name        DLL/function Name  Language   Path
-            problem.addCustomFile('DSPC CPP Model','customBilayer','c++','pwd');
+            problem.addCustomFile('DSPC CPP Model','customBilayer','c++',pwd);
 
 
 .. warning::

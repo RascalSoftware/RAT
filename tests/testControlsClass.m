@@ -518,8 +518,8 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.funcTolerance, 1e-6, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.maxFuncEvals, 10000, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.maxIterations, 1000, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.updateFreq, -1, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.updatePlotFreq, 1, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.updateFreq, 1, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.updatePlotFreq, 20, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.resampleParams, [0.9 50], 'setProcedure method is not working');

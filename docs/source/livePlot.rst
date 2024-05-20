@@ -6,14 +6,14 @@ Events and Live Updating Plots
 
 Sometimes it is useful to be able to monitor the progress / success of a fit in real time for long simulations. For Simplex and DE fits, RAT sends out 'events', which send out data concerning the
 reflectivity, SLD's and so on as the fit progresses. By writing functions that 'listen' to these events, you can use this information to build various kinds of graphical updates to suit your needs.
-In this section we'll use this capability to build a live, updating plot of reflectivity and SLD, similar to that of the main RasCAL GUI.
+In this section, we'll use this capability to build a live, updating plot of reflectivity and SLD, similar to that of the main RasCAL GUI.
 
 .. note::
         The code in this section already exists in the repo (utilities / plotting), and you can activate the full updating plot at any time by just typing 'useUpdatePlot()' at the Matlab command window. But we detail it here to illustrate how to interact with events.
 
 **Registering Listeners**
 
-On the matlab side, the interaction with RAT event is via the 'eventManager' class. To register a listener, we use the 'register' method to associate a function with the event.
+On the Matlab side, the interaction with RAT event is via the 'eventManager' class. To register a listener, we use the 'register' method to associate a function with the event.
 
 .. code-block:: MATLAB
 
@@ -42,7 +42,7 @@ We can put a breakpoint in our function to examine the contents of varargin
     :width: 300
     :alt: breakpoint in update function
 
-we see that it's a struct containing everything we need to make our custom plot:
+We see that it's a struct containing everything needed to make our custom plot:
 
 .. image:: images/misc/eventContents.png
     :width: 300
@@ -61,5 +61,5 @@ To control how often the event is triggered, we set the 'updatePlotFreq' paramet
 
 .. note::
     If you set the plot frequency too low (i.e. make the plot update too often), this will slow your fit as Matlab takes time out of the analysis to update the figure.
-    Updating every 20 iterations is a resonable compromise between speed and utility.
+    Updating every 20 iterations is a reasonable compromise between speed and utility.
 

@@ -128,8 +128,8 @@ classdef dataClass < tableUtilities
             % Data needs to be an [n x >3] array
             isDimsData = @(x) size(x,2) >= 3;
 
-            addParameter(p,'name','', @(x) isText(x))
-            addParameter(p,'data',[], @(x) isnumeric(x) && isDimsData(x))
+            addParameter(p,'name', obj.varTable{row, 1}{:}, @(x) isText(x))
+            addParameter(p,'data', obj.varTable{row, 2}{:}, @(x) isnumeric(x) && isDimsData(x))
             addParameter(p,'dataRange', obj.varTable{row, 3}{:}, @(x) isnumeric(x) && isDimsRanges(x))
             addParameter(p,'simRange', obj.varTable{row, 4}{:}, @(x) isnumeric(x) && isDimsRanges(x)) 
             parse(p,varargin{:});
@@ -142,15 +142,13 @@ classdef dataClass < tableUtilities
             
             nameChanged = []; % Flag which is passed up to the calling function (to change contrasts if necessary)
             
-            if ~isempty(results.name)
-                nameChanged = obj.setDataName(row,results.name);
+            if ~strcmp(results.name, obj.varTable{row, 1}{:})
+                nameChanged = obj.setDataName(row, results.name);
             end
             
-            if ~isempty(results.data)
-                obj.varTable{row, 2} = {results.data};
-            end
+            obj.varTable{row, 2} = {results.data};
             
-            newEntry = obj.validateData({obj.varTable{row, 1}{:}, obj.varTable{row, 2}{:}, results.dataRange, results.simRange});
+            newEntry = obj.validateData({results.name, results.data, results.dataRange, results.simRange});
             obj.varTable{row, 3} = newEntry{3};
             obj.varTable{row, 4} = newEntry{4};
         end
@@ -270,15 +268,17 @@ classdef dataClass < tableUtilities
                 end
                 
                 if simRange(1) > realDataRange(1)
-                    warning('simRange(1) must be less than data range - resetting to %d', realDataRange(1));
+                    warning('simRange(1) can''t be greater than min data range - resetting to %d', realDataRange(1));
                     simRange(1) = realDataRange(1);
                 end
                 
                 if simRange(2) < realDataRange(2)
-                    warning('simRange(2) must be greater than data range - resetting to %d', realDataRange(2));
+                    warning('simRange(2) can''t be less than max data range - resetting to %d', realDataRange(2));
                     simRange(2) = realDataRange(2);
                 end
-
+            
+            elseif ~isempty(dataRange)
+                % throw(exceptions.invalidValue('Data range cannot be set when data is empty'));
             end
 
             row = {{name}, {data}, {dataRange}, {simRange}};

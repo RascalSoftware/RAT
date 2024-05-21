@@ -89,14 +89,16 @@ classdef testDataClass < matlab.unittest.TestCase
         function testSetdata(testCase)
             % Checks that data can be modified
             testCase.addDataSets();
-            names = testCase.data.setData(1, 'name', 'Sim 1', 'data', zeros(4, 3), 'dataRange', [0, 1],'simRange', [1, 2]);
+            % testCase.verifyError(@() testCase.data.setData(1, 'dataRange', [2, 4]), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() testCase.data.setData(1, 'name'), exceptions.invalidNumberOfInputs.errorID);
+            names = testCase.data.setData(1, 'name', 'Sim 1', 'data', zeros(4, 3), 'dataRange', [0, 0],'simRange', [0, 2]);
             expected = {"Sim 1", {zeros(4, 3)}, {[0, 0]}, {[0, 2]}};
             for i = 1:4
                 testCase.verifyEqual(testCase.data.varTable{1, i}, expected{i}, 'setData method not working');
             end
             testCase.verifyEqual(names.oldName, "New data 1", 'setData returned incorrect data');
             testCase.verifyEqual(names.newName, 'Sim 1', 'setData returned incorrect data');
-            names = testCase.data.setData('Bilayer / SMW', 'name', 'Sim 2', 'data', ones(4, 3), 'dataRange', [-1, 1],'simRange', [1, 3]);
+            names = testCase.data.setData('Bilayer / SMW', 'name', 'Sim 2', 'data', ones(4, 3), 'dataRange', [1, 1],'simRange', [1, 3]);
             expected = {"Sim 2", {ones(4, 3)}, {[1, 1]}, {[1, 3]}};
             for i = 1:4
                 testCase.verifyEqual(testCase.data.varTable{3, i}, expected{i}, 'setData method not working');

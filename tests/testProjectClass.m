@@ -312,7 +312,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifySize(testCase.project.data.varTable, [2, 4], 'data has wrong dimension');
             testCase.verifyEqual(testCase.project.data.varTable{:, 1}, ["Simulation"; "Sim 2"], 'addData method not working');
             % Test modifying data
-            testCase.project.setData(1, 'name', 'Sim 1', 'data', zeros(4, 3), 'dataRange', [0, 1],'simRange', [1, 2]);
+            testCase.project.setData(1, 'name', 'Sim 1', 'data', zeros(4, 3), 'dataRange', [0, 0],'simRange', [0, 2]);
             expected = {"Sim 1", {zeros(4, 3)}, {[0, 0]}, {[0, 2]}};
             for i = 1:4
                 testCase.verifyEqual(testCase.project.data.varTable{1, i}, expected{i}, 'setData method not working');

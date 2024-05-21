@@ -1,6 +1,6 @@
 function [totReflect,totSimul] = averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio)
 
-% Calculates the avereaged reflectivity for domains samples (incoherent
+% Calculates the averaged reflectivity for domains samples (incoherent
 % sum)
 
 refY1 = reflect1(:,2);

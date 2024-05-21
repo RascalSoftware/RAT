@@ -128,10 +128,10 @@ classdef dataClass < tableUtilities
             % Data needs to be an [n x >3] array
             isDimsData = @(x) size(x,2) >= 3;
 
-            addParameter(p,'name','', @(x) isText(x))
-            addParameter(p,'data',[], @(x) isnumeric(x) && isDimsData(x))
-            addParameter(p,'dataRange',[], @(x) isnumeric(x) && isDimsRanges(x))
-            addParameter(p,'simRange', [], @(x) isnumeric(x) && isDimsRanges(x)) 
+            addParameter(p,'name', obj.varTable{row, 1}{:}, @(x) isText(x))
+            addParameter(p,'data', obj.varTable{row, 2}{:}, @(x) isnumeric(x) && isDimsData(x))
+            addParameter(p,'dataRange', obj.varTable{row, 3}{:}, @(x) isnumeric(x) && isDimsRanges(x))
+            addParameter(p,'simRange', obj.varTable{row, 4}{:}, @(x) isnumeric(x) && isDimsRanges(x)) 
             parse(p,varargin{:});
                 
             results = p.Results;
@@ -142,22 +142,15 @@ classdef dataClass < tableUtilities
             
             nameChanged = []; % Flag which is passed up to the calling function (to change contrasts if necessary)
             
-            if ~isempty(results.name)
-                nameChanged = obj.setDataName(row,results.name);
+            if ~strcmp(results.name, obj.varTable{row, 1}{:})
+                nameChanged = obj.setDataName(row, results.name);
             end
             
-            if ~isempty(results.data)
-                obj.varTable{row, 2} = {results.data};
-            end
+            obj.varTable{row, 2} = {results.data};
             
-            if ~isempty(results.dataRange)
-                obj.varTable{row, 3} = {results.dataRange};
-            end
-            
-            if ~isempty(results.simRange)
-                obj.varTable{row, 4} = {results.simRange};
-            end
-
+            newEntry = obj.validateData({results.name, results.data, results.dataRange, results.simRange});
+            obj.varTable{row, 3} = newEntry{3};
+            obj.varTable{row, 4} = newEntry{4};
         end
         
         function nameChanged = setDataName(obj, whichData, name)
@@ -259,31 +252,33 @@ classdef dataClass < tableUtilities
                 end
     
                 if dataRange(1) < realDataRange(1)
-                    warning('dataRange(1) can''t be less than min data value - resetting');
+                    warning('dataRange(1) can''t be less than min data value - resetting to %d', realDataRange(1));
                     dataRange(1) = realDataRange(1);
                 end
                 
                 if dataRange(2) > realDataRange(2)
-                    warning('dataRange(2) can''t be more than max data value - resetting');
+                    warning('dataRange(2) can''t be more than max data value - resetting to %d', realDataRange(2));
                     dataRange(2) = realDataRange(2);
                 end
                 
                 if dataRange(1) > dataRange(2)
-                    warning('Data range min must not be greater than max - resetting');
+                    warning('Data range min must not be greater than max - resetting to [%d %d]', realDataRange(1), realDataRange(2));
                     dataRange(1) = realDataRange(1);
                     dataRange(2) = realDataRange(2);
                 end
                 
                 if simRange(1) > realDataRange(1)
-                    warning('simRange(1) must be less than data range - resetting');
+                    warning('simRange(1) can''t be greater than min data range - resetting to %d', realDataRange(1));
                     simRange(1) = realDataRange(1);
                 end
                 
                 if simRange(2) < realDataRange(2)
-                    warning('simRange(2) must be greater than data range - resetting');
+                    warning('simRange(2) can''t be less than max data range - resetting to %d', realDataRange(2));
                     simRange(2) = realDataRange(2);
                 end
-
+            
+            elseif ~isempty(dataRange)
+                % throw(exceptions.invalidValue('Data range cannot be set when data is empty'));
             end
 
             row = {{name}, {data}, {dataRange}, {simRange}};

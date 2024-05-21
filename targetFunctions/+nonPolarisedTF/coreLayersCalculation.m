@@ -55,7 +55,7 @@ coder.varsize('thisSldLaysIm',[10000 3],[1 1]);
 coder.varsize('sldProfile',[10000 3],[1 1]);
 coder.varsize('sldProfileIm',[10000 3],[1 1]);
 
-% Bulid up the layers matrix for this contrast
+% Build up the layers matrix for this contrast
 if ~useImaginary
     [theseLayers, ssubs] = groupLayersMod(contrastLayers,rough,geometry,bulkIn,bulkOut);
 else

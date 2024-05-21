@@ -213,7 +213,7 @@ namespace RAT
     }
 
     //  If we are using data resolutions, then we also need to adjust the length
-    //  of the reolution column. We do thit by just extending with the rosolution
+    //  of the resolution column. We do this by just extending with the resolution
     //  values at the ends of the curve.
     simResolData.set_size(1);
     simResolData[0] = 0.0;
@@ -251,7 +251,7 @@ namespace RAT
       abelesParallelPoints(simXdata, nLayersTot, thicks, slds, roughs, simRef);
 
       //  Apply resolution
-      //  Note: paraPoints gives an error during valifation, so use
+      //  Note: paraPoints gives an error during validation, so use
       //  single cored resolution as a workaround for now.
       if (resolution == -1.0) {
         // simRef = dataResolutionPollyParallelPoints(simXdata,simRef,simResolData,length(simXdata));

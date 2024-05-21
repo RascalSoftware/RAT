@@ -107,7 +107,7 @@ namespace RAT
       thisSldLaysIm[thisSldLaysIm.size(0)] = 0.0;
       sldProfileIm[sldProfileIm.size(0)] = 0.0;
 
-      //  Bulid up the layers matrix for this contrast
+      //  Build up the layers matrix for this contrast
       if (!useImaginary) {
         groupLayersMod(contrastLayers, rough, geometry_data, geometry_size,
                        bulkIn, bulkOut, c_theseLayers, &ssubs);

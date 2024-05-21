@@ -150,7 +150,7 @@ namespace RAT
         r3.f1, &a__6);
 
       //  Calculate the average reflectivities....
-      //  Calculates the avereaged reflectivity for domains samples (incoherent
+      //  Calculates the averaged reflectivity for domains samples (incoherent
       //  sum)
       domainRatios_tmp = domainRatios[static_cast<int32_T>(domainRatioIndex) - 1];
       loop_ub = reflect1.size(0);

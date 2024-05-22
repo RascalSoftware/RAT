@@ -20,7 +20,7 @@ function project = domainsCustomLayers()
     
     project.setBulkIn(1,'name','Silicon','Value',2.073e-6,'max',2.073e-6);
     
-    project.addCustomFile('Alloy domains','domainsAlloyModel.m','matlab',pwd);
+    project.addCustomFile('Alloy domains', 'domainsAlloyModel.m', 'matlab', 'tests/domainsTFReflectivityCalculation/');
     
     project.addContrast('name',       'D2O Conrast', ...
                         'Data',       'Simulation',...

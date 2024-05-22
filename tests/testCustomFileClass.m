@@ -27,8 +27,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
                      {2, 'language', supportedLanguages.Python, 'filename', 'model.m', 'functionName', 'modelFunc', 'name', 'New Model', 'path', pwd},...
                     }
         expectedRow = {["New Model", "DPPCCustomXY.m", "DPPCCustomXY", string(supportedLanguages.Matlab.value), "../../"],...
-                       ["DPPC Model", "model.m", "DPPCCustomXY", string(supportedLanguages.Matlab.value), "../../"],...
-                       ["DSPC Model", "customBilayer.m", "customBilayer", string(supportedLanguages.Python.value), "../../"],...
+                       ["DPPC Model", "model.m", "DPPCCustomXY", string(supportedLanguages.Matlab.value), "tests/nonPolarisedTFReflectivityCalculation/"],...
+                       ["DSPC Model", "customBilayer.m", "customBilayer", string(supportedLanguages.Python.value), "tests/nonPolarisedTFReflectivityCalculation/"],...
                        ["New Model", "model.m", "modelFunc", string(supportedLanguages.Python.value), pwd],...
                       }
         invalidInputData = {{'DPPC Model', 'name', 42},...
@@ -72,8 +72,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % "DPPCCustomXY.m" and "orsoDSPCCustomLayers.m"
             testCase.exampleClass = customFileClass();
 
-            testCase.exampleClass.varTable(1,:) = {'DPPC Model', 'DPPCCustomXY.m', 'DPPCCustomXY', 'matlab', '../../'};
-            testCase.exampleClass.varTable(2,:) = {'DSPC Model', 'customBilayer.m', 'customBilayer', 'matlab', '../../'};
+            testCase.exampleClass.varTable(1,:) = {'DPPC Model', 'DPPCCustomXY.m', 'DPPCCustomXY', 'matlab', 'tests/nonPolarisedTFReflectivityCalculation/'};
+            testCase.exampleClass.varTable(2,:) = {'DSPC Model', 'customBilayer.m', 'customBilayer', 'matlab', 'tests/nonPolarisedTFReflectivityCalculation/'};
 
             testCase.numRows = height(testCase.exampleClass.varTable);
             testCase.numCols = width(testCase.exampleClass.varTable);
@@ -335,6 +335,12 @@ classdef testCustomFileClass < matlab.unittest.TestCase
                 [~, handle, ~] = fileparts(testCase.exampleClass.varTable{i, 2});
                 testCase.verifyEqual(string(fileStruct.files{i}), handle);
             end
+            old = testCase.exampleClass.varTable{1, 5};
+            testCase.exampleClass.varTable{1, 5} = {'../..'};
+            testCase.verifyError(@() testCase.exampleClass.toStruct(), exceptions.invalidPath.errorID);
+            testCase.exampleClass.varTable{1, 5} = old;
+            testCase.exampleClass.varTable{1, 3} = {'randomName'};
+            testCase.verifyError(@() testCase.exampleClass.toStruct(), exceptions.invalidPath.errorID);
         end
 
         function testToStructEmpty(testCase)

@@ -79,23 +79,22 @@ classdef customFileClass < tableUtilities
                     
                     case 3
 
-                        % Four inputs = assume all inputs except function name supplied
+                        % Three inputs - assume all inputs except function name and path supplied
                         newName = inputs{1};
                         newFile = inputs{2};
                         newLang = inputs{3};
                         
                     case 4
 
-                        % Four inputs = assume all inputs except function name supplied
+                        % Four inputs - assume all inputs except function name supplied
                         newName = inputs{1};
                         newFile = inputs{2};
                         newLang = inputs{3};
                         newPath = inputs{4};
-                        
 
                     case 5
 
-                        % Five inputs = assume all inputs supplied
+                        % Five inputs - assume all inputs supplied
                         newName = inputs{1};
                         newFile = inputs{2};
                         newLang = inputs{3};
@@ -127,7 +126,7 @@ classdef customFileClass < tableUtilities
             end
             % Check language is valid, then add the new entry
             newLang = validateOption(newLang, 'supportedLanguages', obj.invalidLanguageMessage).value;
-            obj.addRow(newName, newFile, newFunc, newLang, newPath) ;            
+            obj.addRow(newName, newFile, newFunc, newLang, obj.validatePath(newPath));            
         end
         
         function obj = setCustomFile(obj, row, varargin)
@@ -161,40 +160,20 @@ classdef customFileClass < tableUtilities
 
             % Make an 'inputParser' object...
             p = inputParser;
-            currentPath = obj.varTable{row, 5};
-            addParameter(p,'name','', @(x) isText(x))
-            addParameter(p,'filename','', @(x) isText(x))
-            addParameter(p,'functionName','', @(x) isText(x))
-            addParameter(p,'language','', @(x) isText(x) || isenum(x))
-            addParameter(p,'path', currentPath, @(x) isText(x)) 
+            addParameter(p, 'name', obj.varTable{row, 1}{:}, @(x) isText(x))
+            addParameter(p, 'filename', obj.varTable{row, 2}{:}, @(x) isText(x))
+            addParameter(p, 'functionName', obj.varTable{row, 3}{:}, @(x) isText(x))
+            addParameter(p, 'language', obj.varTable{row, 4}{:}, @(x) isText(x) || isenum(x))
+            addParameter(p, 'path', obj.varTable{row, 5}{:}, @(x) isText(x)) 
             parse(p, varargin{:});
                 
             results = p.Results;
             
-            % Any fields in results that are not empty are being set,
-            % so call the relevant set method for these (which will carry
-            % out some additional checks)
-            if ~isempty(results.filename)
-                obj.setFileName(row,results.filename);
-            end
-
-            if ~isempty(results.functionName)
-                obj.setFunctionName(row,results.functionName);
-            end
-            
-            if ~isempty(results.language)
-                results.language = validateOption(results.language, 'supportedLanguages', obj.invalidLanguageMessage).value;
-                obj.setCustomLanguage(row, results.language);
-            end
-            
-            if ~strcmp(results.path, currentPath)
-                obj.setCustomPath(row,results.path);
-            end
-            
-            if ~isempty(results.name)
-                obj.setCustomName(row,results.name);
-            end            
-
+            obj.setCustomName(row, results.name);
+            obj.varTable{row, 2} = {results.filename};
+            obj.varTable{row, 3} = {results.functionName};
+            obj.varTable{row, 4} = {validateOption(results.language, 'supportedLanguages', obj.invalidLanguageMessage).value};
+            obj.varTable{row, 5} = {obj.validatePath(results.path)};
         end
 
         function displayTable(obj)
@@ -275,10 +254,22 @@ classdef customFileClass < tableUtilities
                     if isempty(thisPath)
                         thisPath = pwd;
                     end
-                    libpath = fullfile(thisPath, thisFile);
-                    if ~exist(libpath, 'file') && ~strcmpi(thisType, supportedLanguages.Matlab.value)
-                        msg = 'The custom file (%s) cannot be found. Check that the path and filename is correct (%s).';
-                        throw(exceptions.invalidPath(sprintf(msg, thisFile, strrep(libpath, '\', '/'))));
+            
+                    libpath = fullfile(what(thisPath).path, thisFile);
+                    if strcmpi(thisType, supportedLanguages.Matlab.value)
+                        foundPath = which(functionName);
+                        if isempty(foundPath)
+                            msg = 'The Matlab custom file (%s) is not on the search path. Add the file to path and check using "which(%s)".';
+                            throw(exceptions.invalidPath(sprintf(msg, strrep(libpath, '\', '/'), functionName)));
+                        elseif ~isempty(thisPath) && ~strcmp(foundPath, libpath)                        
+                            msg = 'The Matlab custom file (%s) on the search path does not match the given path (%s).';
+                            throw(exceptions.invalidPath(sprintf(msg, strrep(foundPath, '\', '/'), strrep(libpath, '\', '/'))));
+                        end
+                    else
+                        if ~exist(libpath, 'file')
+                            msg = 'The custom file (%s) cannot be found. Check that the path and filename is correct (%s).';
+                            throw(exceptions.invalidPath(sprintf(msg, thisFile, strrep(libpath, '\', '/'))));
+                        end
                     end
                     wrapper = [];
                     if i <= length(obj.wrappers)
@@ -306,18 +297,13 @@ classdef customFileClass < tableUtilities
     end
 
     methods(Access = protected)
-        function obj = setCustomLanguage(obj, row, language)
-           % Check whether a specified language is supported, and set the
-           % file entry if so.
-           obj.varTable{row, 4} = {validateOption(language, 'supportedLanguages', obj.invalidLanguageMessage).value};
-        end 
-        
         function obj = setCustomName(obj, whichCustom, name) 
             % Check a potential new name is already
             % specified, and set it if not
 
             % Name must not be an existing name
             existingNames = obj.varTable{:,1};
+            existingNames(whichCustom) = [];
             if any(strcmpi(name,existingNames))
                 throw(exceptions.duplicateName('Duplicate custom file names are not allowed'));
             end
@@ -325,25 +311,15 @@ classdef customFileClass < tableUtilities
             % Set the relevant name
             obj.varTable{whichCustom,1} = {name};
         end
-        
-        function obj = setFileName(obj,whichCustom,name)
-            % Set a new filename
-            obj.varTable{whichCustom,2} = {name};  
-        end
+    end
 
-        function obj = setFunctionName(obj,whichCustom,name)
-            % Set a new funtion name
-            obj.varTable{whichCustom,3} = {name};  
-        end
-        
-        function obj = setCustomPath(obj, whichCustom, path)
-            % Set a new path
+    methods(Static)
+        function path = validatePath(path)
+            % Validate a new path exists
             if ~isempty(path) && ~exist(path, 'dir')
                 throw(exceptions.invalidPath(sprintf('The given path (%s) is not a valid directory', path)));
             end
-            obj.varTable{whichCustom, 5} = {path};
         end
-
     end
     
 end

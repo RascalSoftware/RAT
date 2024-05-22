@@ -1,5 +1,5 @@
 
-function [output,subRough] = alloyDomains(params,bulkIn,bulkOut,contrast,domain)
+function [output,subRough] = domainsAlloyModel(params,bulkIn,bulkOut,contrast,domain)
 
 % Simple custom model for testing incoherent summing...
 % Simple two layer of permalloy / gold, with up/down domains..

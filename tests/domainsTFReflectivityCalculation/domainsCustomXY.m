@@ -35,7 +35,7 @@ function project = domainsCustomXY()
     
     project.setBulkOut(1,'name','Silicon','min',2.073e-6,'value',2.073e-6,'fit',false);
     
-    project.addCustomFile('DSPC Model','domainsXYModel','matlab',pwd);
+    project.addCustomFile('DSPC Model', 'domainsXYModel.m', 'matlab', 'tests/domainsTFReflectivityCalculation/');
     
     project.addContrast('name','Test',...
         'background','Background D2O',...

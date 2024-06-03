@@ -80,8 +80,7 @@ switch lower(problem.module.type)
         [~,modelName,~] = fileparts(customFile);
         thisProjectClass.addCustomFile(modelName, ...
             customFile, ...
-            supportedLanguages.Matlab.value, ...
-            'pwd');
+            supportedLanguages.Matlab.value);
 end
 
 % Remove defaults

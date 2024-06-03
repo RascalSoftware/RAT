@@ -34,7 +34,7 @@ project.setBulkOut(1,'fit',true,'min',5e-6);
 
 %%
 % Now add the custom file to the project..
-project.addCustomFile('DPPC Model','DPPCCustomXY.m','matlab','../../');
+project.addCustomFile('DPPC Model','DPPCCustomXY.m','matlab','tests/nonPolarisedTFReflectivityCalculation/');
 
 
 %% 

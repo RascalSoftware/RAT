@@ -757,7 +757,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Adds a new custom file parameter. Expects a parameter name, filename, 
             % language (matlab, octave, or cpp), and working directory
             % 
-            % project.addCustomFile('model 1', 'custom.m', 'matlab', 'pwd');
+            % project.addCustomFile('model 1', 'custom.m', 'matlab', pwd);
             obj.customFile.addCustomFile(varargin{:});
         end
 

@@ -21,15 +21,15 @@ classdef testCustomFileClass < matlab.unittest.TestCase
                     {'Full entry', 'anotherFile.py', 'function_name', supportedLanguages.Python.value, pwd}
                    }
         testRow = {1, 1, 2, 2}
-        inputData = {{'DPPC Model', 'name', 'New Model'},...
+        inputData = {{'DPPC Model', 'name', 'New Model', 'path', '../../'},...
                      {1, 'filename', 'model.m'},...
                      {'DSPC Model', 'language', upper(supportedLanguages.Python.value)},...
-                     {2, 'language', supportedLanguages.Python, 'filename', 'model.m', 'functionName', 'modelFunc', 'name', 'New Model'},...
+                     {2, 'language', supportedLanguages.Python, 'filename', 'model.m', 'functionName', 'modelFunc', 'name', 'New Model', 'path', pwd},...
                     }
         expectedRow = {["New Model", "DPPCCustomXY.m", "DPPCCustomXY", string(supportedLanguages.Matlab.value), "../../"],...
-                       ["DPPC Model", "model.m", "DPPCCustomXY", string(supportedLanguages.Matlab.value), "../../"],...
-                       ["DSPC Model", "customBilayer.m", "customBilayer", string(supportedLanguages.Python.value), "../../"],...
-                       ["New Model", "model.m", "modelFunc", string(supportedLanguages.Python.value), "../../"],...
+                       ["DPPC Model", "model.m", "DPPCCustomXY", string(supportedLanguages.Matlab.value), "tests/nonPolarisedTFReflectivityCalculation/"],...
+                       ["DSPC Model", "customBilayer.m", "customBilayer", string(supportedLanguages.Python.value), "tests/nonPolarisedTFReflectivityCalculation/"],...
+                       ["New Model", "model.m", "modelFunc", string(supportedLanguages.Python.value), pwd],...
                       }
         invalidInputData = {{'DPPC Model', 'name', 42},...
                             {1, 'filename', datetime('today')},...
@@ -72,8 +72,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % "DPPCCustomXY.m" and "orsoDSPCCustomLayers.m"
             testCase.exampleClass = customFileClass();
 
-            testCase.exampleClass.varTable(1,:) = {'DPPC Model', 'DPPCCustomXY.m', 'DPPCCustomXY', 'matlab', '../../'};
-            testCase.exampleClass.varTable(2,:) = {'DSPC Model', 'customBilayer.m', 'customBilayer', 'matlab', '../../'};
+            testCase.exampleClass.varTable(1,:) = {'DPPC Model', 'DPPCCustomXY.m', 'DPPCCustomXY', 'matlab', 'tests/nonPolarisedTFReflectivityCalculation/'};
+            testCase.exampleClass.varTable(2,:) = {'DSPC Model', 'customBilayer.m', 'customBilayer', 'matlab', 'tests/nonPolarisedTFReflectivityCalculation/'};
 
             testCase.numRows = height(testCase.exampleClass.varTable);
             testCase.numCols = width(testCase.exampleClass.varTable);
@@ -136,11 +136,14 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % raise an error
 
             % Invalid length for custom file parameters
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'matlab', ''), exceptions.invalidNumberOfInputs.errorID);
             testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', '', 'matlab', '', 'other'), exceptions.invalidNumberOfInputs.errorID);
-
+           
             % Invalid types
             testCase.verifyError(@() testCase.exampleClass.addCustomFile(42), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 42), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 42), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 'matlab', 42, 'other'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 'matlab', '', 42), exceptions.invalidType.errorID);
 
             % Unrecognised language
             testCase.verifyError(@() testCase.exampleClass.addCustomFile('Unrecognised language', 'file.m', 'fortran', ''), exceptions.invalidOption.errorID);
@@ -166,6 +169,9 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.setCustomFile(0, 'Name', 'Invalid'), exceptions.indexOutOfRange.errorID);
             testCase.verifyError(@() testCase.exampleClass.setCustomFile(testCase.numRows+1, 'Name', 'Invalid'), exceptions.indexOutOfRange.errorID);
             testCase.verifyError(@() testCase.exampleClass.setCustomFile('Undefined row', 'Name', 'Invalid'), exceptions.nameNotRecognised.errorID);
+            
+            % Invalid path
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(1, 'Path', 'Fortran'), exceptions.invalidPath.errorID)
 
             % Unrecognised language
             testCase.verifyError(@() testCase.exampleClass.setCustomFile(1, 'Language', 'Fortran'), exceptions.invalidOption.errorID)
@@ -293,7 +299,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % class with a long file path by capturing the output and
             % comparing with the table headers and data
             longPathClass = customFileClass();
-            longPathClass.varTable(1, :) = {'Test Row', '', '', '', 'really/long/file/path'};
+            longPath = 'C:\Documents\MATLAB\RAT\examples\miscellaneous\alternativeLanguages';
+            longPathClass.varTable(1, :) = {'Test Row', '', '', '', longPath};
 
             % Capture the standard output and format into string array -
             % one element for each row of the output
@@ -317,7 +324,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % Replace multiple spaces in output table with a single
             % space using regular expressions, and remove '"' characters
             outRow = strip(replace(regexprep(displayedTable(3), '\s+', ' '), '"', ''));
-            rowString = "Test Row No File - - ...g/file/path";
+            rowString = "Test Row No File - - ...LAB\RAT\examples\miscellaneous\alternativeLanguages";
             testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
         end
 
@@ -328,6 +335,12 @@ classdef testCustomFileClass < matlab.unittest.TestCase
                 [~, handle, ~] = fileparts(testCase.exampleClass.varTable{i, 2});
                 testCase.verifyEqual(string(fileStruct.files{i}), handle);
             end
+            old = testCase.exampleClass.varTable{1, 5};
+            testCase.exampleClass.varTable{1, 5} = {'../..'};
+            testCase.verifyError(@() testCase.exampleClass.toStruct(), exceptions.invalidPath.errorID);
+            testCase.exampleClass.varTable{1, 5} = old;
+            testCase.exampleClass.varTable{1, 3} = {'randomName'};
+            testCase.verifyError(@() testCase.exampleClass.toStruct(), exceptions.invalidPath.errorID);
         end
 
         function testToStructEmpty(testCase)
@@ -341,23 +354,39 @@ classdef testCustomFileClass < matlab.unittest.TestCase
         function testToStructWrapper(testCase)
             % Test converting an custom file class to a struct correctly
             % interprets the present working directory
-            customClass = customFileClass('Test python', 'file.py', 'python', pwd);
+            import matlab.unittest.fixtures.TemporaryFolderFixture
+            import matlab.unittest.fixtures.CurrentFolderFixture
+            fixture = testCase.applyFixture(TemporaryFolderFixture);
+            
+            filename = fullfile(fixture.Folder, 'file.py');
+            fid = fopen(filename, 'w');
+            testCase.addTeardown(@fclose, fid)
+
+            customClass = customFileClass('Test python', 'file.py', 'python');
+            testCase.verifyError(@() customClass.toStruct(), exceptions.invalidPath.errorID);
+
+            customClass.varTable(1,:) = {'Test python', 'file.py', '', 'python', fixture.Folder};
             addPathMock = mockFunction(testCase, 'addpath');
                         
             fileStruct = customClass.toStruct();
             wrapper = customClass.wrappers{1};
             testCase.verifyClass(fileStruct, 'struct');
-            testCase.verifyEqual(wrapper.libPath, fullfile(pwd, 'file.py'));
+            testCase.verifyEqual(wrapper.libPath, filename);
             testCase.verifyEqual(fileStruct.files{:}, wrapper.getHandle());
             delete(addPathMock)
 
+            filename = fullfile(fixture.Folder, 'customBilayer.dll');
+            fid = fopen(filename, 'w');
+            testCase.addTeardown(@fclose, fid)
+
+            testCase.applyFixture(CurrentFolderFixture(fixture.Folder))
             fakeID = '123456789';
             wrapperMexMock = mockFunction(testCase, 'wrapperMex', 'returnValues', {fakeID});
             rmPathMock = mockFunction(testCase, 'rmpath');
             customClass.varTable(2,:) = {'DSPC Model', 'customBilayer.dll', '', 'cpp', ''};
             fileStruct = customClass.toStruct();
             wrapper2 = customClass.wrappers{2};
-            testCase.verifyEqual(wrapper2.libPath, 'customBilayer.dll');
+            testCase.verifyEqual(wrapper2.libPath, filename);
             testCase.verifyEqual(fileStruct.files, {wrapper.getHandle(); fakeID});
             delete(customClass);
             testCase.assertEqual(wrapperMexMock.callCount, 2);   

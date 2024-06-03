@@ -223,7 +223,7 @@ classdef dataClass < tableUtilities
         end
     end
 
-    methods(Static, Access = protected)  
+    methods(Static)  
     
         function row = validateData(row)
             % Carry out checks of Data type and ranges in a table row.

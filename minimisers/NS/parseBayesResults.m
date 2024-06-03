@@ -35,10 +35,10 @@ for par = 1:numPars
     [csu, iu, ju] = unique(cs);
 
     % get lower bound on the interval
-    values(par,2) = interp1(csu, bins(iu), 0.5-(probarea/2));
+    values(par,2) = interp1(csu, bins(iu), 0.5-(probarea/2),'linear','extrap');
 
     % get upper bound on the interval
-    values(par,3) = interp1(csu, bins(iu), 0.5+(probarea/2));
+    values(par,3) = interp1(csu, bins(iu), 0.5+(probarea/2),'linear','extrap');
     
     %get best value
     %values(par,1) = mean(max(postvals));
@@ -95,7 +95,7 @@ for n = 1:numCalcs
 %             referenceRef = thisRef;
 %             groupRefs{i}(:,n) = referenceRef(:,2);
 %         else
-            newRefy = interp1(thisRef(:,1),thisRef(:,2),bestFit{i}(:,1));
+            newRefy = interp1(thisRef(:,1),thisRef(:,2),bestFit{i}(:,1),'linear','extrap');
             groupRefs{i}(:,n) = newRefy;
         %end
     end

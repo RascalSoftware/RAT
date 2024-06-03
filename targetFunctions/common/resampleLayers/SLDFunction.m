@@ -48,7 +48,4 @@ else
         sldVal = belowY - deltaY;
     end
     
-    %sldVal = interp1(z,rho,x);
 end
-
-

@@ -349,7 +349,8 @@ N=conv2(N,K,'same');
 NN = N/sum(N(:));
 NS = sort(NN(:));
 
-levels = interp1q(cumsum(NS),NS,[0.015 0.1 0.3 0.65 0.9]')';
+[c, ind, ~] = unique(cumsum(NS),'stable');
+levels = interp1(c, NS(ind), [0.015 0.1 0.3 0.65 0.9],'linear','extrap');
 
 contourf(C{1},C{2},NN',levels,'parent',ax);
 

@@ -1,4 +1,4 @@
-function allPredInts = percentileConfidenceIntervals(bayesOutputs,problemStruct,problemCells,problemLimits,controlsStruct,result,parConfInts)
+function allPredInts = refPercentileConfidenceIntervals(bayesOutputs,problemStruct,problemCells,problemLimits,controlsStruct)
 
 % Need to deal slightly differently with SLDs if there are domains
 if strcmpi(problemStruct.TF, coderEnums.calculationTypes.Domains)
@@ -117,12 +117,12 @@ for i = 1:nsample
         
         if ~domains
             thisSldXVal = sldXVals{n};
-            thisSLDYval = interp1(thisSld{n}(:,1),thisSld{n}(:,2),thisSldXVal);
+            thisSLDYval = interp1(thisSld{n}(:,1),thisSld{n}(:,2),thisSldXVal,'linear','extrap');
             sldYVals{n}(i,:) = thisSLDYval;
         else
             for m = 1:2
                 thisSldXVal = sldXVals{n,m};
-                thisSLDYval = interp1(thisSld{n,m}(:,1),thisSld{n,m}(:,2),thisSldXVal);
+                thisSLDYval = interp1(thisSld{n,m}(:,1),thisSld{n,m}(:,2),thisSldXVal,'linear','extrap');
                 sldYVals{n,m}(i,:) = thisSLDYval;
             end
         end

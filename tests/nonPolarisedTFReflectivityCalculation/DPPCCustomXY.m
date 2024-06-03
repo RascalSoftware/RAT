@@ -150,7 +150,7 @@ sld_y = signal(:,2);
 st = sld_x(1);
 en = sld_x(end);
 newSldX = linspace(st,en,length(sld_y));
-newSldY = interp1(sld_x,sld_y,newSldX);
+newSldY = interp1(sld_x,sld_y,newSldX,'linear','extrap');
 new_sld = [newSldX(:) newSldY(:)];
 
 %also filter....
@@ -160,7 +160,7 @@ filt_y = filter(:,2);
 st = filt_x(1);
 en = filt_y(end);
 newFiltX = linspace(st,en,length(filt_y));
-newFiltY = interp1(filt_x,filt_y,newSldX);
+newFiltY = interp1(filt_x,filt_y,newSldX,'linear','extrap');
 new_filt = [newFiltX(:) newFiltY(:)];
 
 %Need to pad the edge of the signal with zeros. Do this by padding out
@@ -261,7 +261,7 @@ extendedX = [xLeftPad(:) ; X(:) ; xRightPad(:)];
 extendedY = [yLeftPad(:) ; Y(:) ; yRightPad(:)];
 
 %Interpolate them onto z....
-newY = interp1(extendedX,extendedY,z);
+newY = interp1(extendedX,extendedY,z,'linear','extrap');
 
 % Debug plot
 if debug == 1

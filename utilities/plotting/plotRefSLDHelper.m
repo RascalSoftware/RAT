@@ -1,12 +1,17 @@
-function plotRefSLDHelper(data, noDelay)
-    % Helper function to make it eaier to plot from event. data is a struct
-    % with the plot data and no delay indicates if draw should be delayed.
+function plotRefSLDHelper(data, noDelay, figureId)
+    % Helper function to make it easier to plot from event. Data is a struct
+    % with the plot data and noDelay indicates if draw should be delayed.
     %
-    % plotRefSLDHelper(data, false);
+    % plotRefSLDHelper(data, false, 1);
     arguments
         data
         noDelay {logical} = true
+        figureId {mustBeInteger} = 0
     end
+    if figureId > 0
+        figure(figureId);
+    end
+
     numberOfContrasts = length(data.reflectivity);
     
     % Plot the data.reflectivity

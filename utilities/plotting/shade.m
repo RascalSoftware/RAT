@@ -156,7 +156,7 @@ for i = 1:nf
     
     % crossings
     x0 = [x(1) zcross(x,y{1} - y{2}) x(end)];
-    y0 = interp1(x,y{1},x0);
+    y0 = interp1(x,y{1},x0,'linear','extrap');
     
     % for each zero-crossing
     for j = 0:length(x0)-2

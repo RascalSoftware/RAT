@@ -79,11 +79,11 @@ for n = 1:numberOfContrasts
 
         % Get the calculated curves
         thisCalcRef = result.reflectivity{n};
-        thisInterpCalc = interp1(thisCalcRef(:,1),thisCalcRef(:,2),xData);
+        thisInterpCalc = interp1(thisCalcRef(:,1),thisCalcRef(:,2),xData,'linear','extrap');
         allCalcsRef(:,i) = thisInterpCalc(:);
         
         thisCalcSld = result.sldProfiles{n};
-        thisInterpCalcSld = interp1(thisCalcSld(:,1),thisCalcSld(:,2),xDataSld);
+        thisInterpCalcSld = interp1(thisCalcSld(:,1),thisCalcSld(:,2),xDataSld,'linear','extrap');
         allCalcsSld(:,i) = thisInterpCalcSld(:);
         
 %         msgBoxTest('update','',currentVal);

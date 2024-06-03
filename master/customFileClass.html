@@ -100,7 +100,7 @@ properly on terminal.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Adding MATLAB custom file.</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
 <div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c">%                       Row Name   Custom File Name  Language   Path</span>
-<span class="w">    </span><span class="n">problem</span><span class="p">.</span><span class="n">addCustomFile</span><span class="p">(</span><span class="s">&#39;DSPC Model&#39;</span><span class="p">,</span><span class="s">&#39;customBilayer.m&#39;</span><span class="p">,</span><span class="s">&#39;matlab&#39;</span><span class="p">,</span><span class="s">&#39;pwd&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">problem</span><span class="p">.</span><span class="n">addCustomFile</span><span class="p">(</span><span class="s">&#39;DSPC Model&#39;</span><span class="p">,</span><span class="s">&#39;customBilayer.m&#39;</span><span class="p">,</span><span class="s">&#39;matlab&#39;</span><span class="p">,</span><span class="nb">pwd</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -108,7 +108,7 @@ properly on terminal.</p>
 <div class="code-block-caption"><span class="caption-text">Adding C++ custom file.</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
 <div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="c">% For C++, function name of the cpp file is supplied</span>
 <span class="w">        </span><span class="c">%                       Row Name        DLL/function Name  Language   Path</span>
-<span class="w">        </span><span class="n">problem</span><span class="p">.</span><span class="n">addCustomFile</span><span class="p">(</span><span class="s">&#39;DSPC CPP Model&#39;</span><span class="p">,</span><span class="s">&#39;customBilayer&#39;</span><span class="p">,</span><span class="s">&#39;c++&#39;</span><span class="p">,</span><span class="s">&#39;pwd&#39;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">problem</span><span class="p">.</span><span class="n">addCustomFile</span><span class="p">(</span><span class="s">&#39;DSPC CPP Model&#39;</span><span class="p">,</span><span class="s">&#39;customBilayer&#39;</span><span class="p">,</span><span class="s">&#39;c++&#39;</span><span class="p">,</span><span class="nb">pwd</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -134,7 +134,9 @@ matlab path</p>
 <p>customFiles.addCustomFile()
 customFiles.addCustomFile(‘New Row’)
 customFiles.addCustomFile(‘New Row’, ‘file.m’)
-customFiles.addCustomFile(‘New Row’, ‘file.py’, ‘python’, ‘C:/stuff’)</p>
+customFiles.addCustomFile(‘New Row’, ‘file.m’, ‘matlab’)
+customFiles.addCustomFile(‘New Row’, ‘file.py’, ‘python’, ‘C:/stuff’)
+customFiles.addCustomFile(‘New Row’, ‘file.py’, ‘python’, ‘C:/stuff’, ‘py_function’)</p>
 </dd></dl>
 
 <dl class="mat method">
@@ -180,6 +182,12 @@ NOTE changing the path using this routine is not implemented</p>
 <span class="sig-name descname"><span class="pre">toStruct</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.customFileClass.toStruct" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert the custom files class to a struct</p>
 <p>customFiles.toStruct()</p>
+</dd></dl>
+
+<dl class="mat staticmethod">
+<dt class="sig sig-object mat" id="API.projectClass.customFileClass.validatePath">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">validatePath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.customFileClass.validatePath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate a new path exists</p>
 </dd></dl>
 
 </dd></dl>

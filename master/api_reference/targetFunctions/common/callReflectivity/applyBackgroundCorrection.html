@@ -58,11 +58,13 @@ This function is called by:
 0009         <span class="comment">%Subtract the background from the data..</span>
 0010         shiftedData(:,2) = shiftedData(:,2) - backgroundParams;
 0011         <span class="comment">%shiftedData(:,3) = shiftedData(:,3) - backgroundParams;</span>
-0012 <span class="keyword">end</span>
-0013         
+0012     <span class="keyword">otherwise</span>
+0013         error(<span class="string">'The index &quot;%d&quot; does not represent a valid contrast background action.'</span>, contrastBackgroundActions);
 0014 <span class="keyword">end</span>
+0015         
+0016 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 30-Apr-2024 15:28:34 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Mon 03-Jun-2024 10:39:54 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

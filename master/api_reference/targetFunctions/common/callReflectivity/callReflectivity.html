@@ -136,7 +136,7 @@ This function is called by:
 0083 simulation(:,1) = simXdata;
 0084 
 0085 <span class="comment">% If we are using data resolutions, then we also need to adjust the length</span>
-0086 <span class="comment">% of the reolution column. We do thit by just extending with the rosolution</span>
+0086 <span class="comment">% of the resolution column. We do this by just extending with the resolution</span>
 0087 <span class="comment">% values at the ends of the curve.</span>
 0088 simResolData = 0;
 0089 <span class="keyword">if</span> resolution == -1
@@ -158,7 +158,7 @@ This function is called by:
 0105                 simRef = <a href="../../../targetFunctions/common/reflectivityCalculations/abeles/abelesParallelPoints.html" class="code" title="function ref = abelesParallelPoints(q,N,layers_thick,layers_rho,layers_sig)">abelesParallelPoints</a>(simXdata,nLayersTot,thicks,slds,roughs);
 0106 
 0107                 <span class="comment">% Apply resolution</span>
-0108                 <span class="comment">% Note: paraPoints gives an error during valifation, so use</span>
+0108                 <span class="comment">% Note: paraPoints gives an error during validation, so use</span>
 0109                 <span class="comment">% single cored resolution as a workaround for now.</span>
 0110                 <span class="keyword">if</span> resolution == -1
 0111                     <span class="comment">%simRef = dataResolutionPollyParallelPoints(simXdata,simRef,simResolData,length(simXdata));</span>
@@ -181,14 +181,16 @@ This function is called by:
 0128                     simRef = <a href="../../../targetFunctions/common/resolutionFunctions/simpleGaussian/resolutionPolly.html" class="code" title="function out = resolutionPolly(xdata,ydata,res,points)">resolutionPolly</a>(simXdata,simRef,resolution,length(simXdata));
 0129                 <span class="keyword">end</span>
 0130         <span class="keyword">end</span>
-0131 <span class="keyword">end</span>
-0132 
-0133 simulation(:,2) = simRef(:);
-0134 reflectivity = simulation(splits(1):splits(2),:);
-0135 
-0136 <span class="keyword">end</span>
+0131     <span class="keyword">otherwise</span>
+0132         error(<span class="string">'The reflectivity type &quot;%s&quot; is not supported'</span>, refType);
+0133 <span class="keyword">end</span>
+0134 
+0135 simulation(:,2) = simRef(:);
+0136 reflectivity = simulation(splits(1):splits(2),:);
+0137 
+0138 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 30-Apr-2024 15:28:34 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Mon 03-Jun-2024 10:39:54 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

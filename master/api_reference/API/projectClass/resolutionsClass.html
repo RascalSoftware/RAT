@@ -53,9 +53,10 @@ This function is called by:
 <li><a href="#_sub5" class="code">function addResolution(obj, varargin)</a></li>
 <li><a href="#_sub6" class="code">function removeResolution(obj, row)</a></li>
 <li><a href="#_sub7" class="code">function setResolution(obj, row, varargin)</a></li>
-<li><a href="#_sub8" class="code">function resolutionStruct = toStruct(obj)</a></li>
-<li><a href="#_sub9" class="code">function displayResolutionsObject(obj)</a></li>
-<li><a href="#_sub10" class="code">function thisPar = validateParam(obj, param)</a></li>
+<li><a href="#_sub8" class="code">function obj = setResolutionName(obj, row, name)</a></li>
+<li><a href="#_sub9" class="code">function resolutionStruct = toStruct(obj)</a></li>
+<li><a href="#_sub10" class="code">function displayResolutionsObject(obj)</a></li>
+<li><a href="#_sub11" class="code">function thisPar = validateParam(obj, param)</a></li>
 </ul>
 
 
@@ -235,62 +236,73 @@ This function is called by:
 0173                 obj.resolutions.setValue(row, i + 2, value);
 0174             <span class="keyword">end</span>
 0175         <span class="keyword">end</span>
-0176         
-0177         <a name="_sub7" href="#_subfunctions" class="code">function resolutionStruct = toStruct(obj)</a>
-0178             <span class="comment">% Converts the class parameters into a structure array.</span>
-0179             resolutionParamsStruct = obj.resolutionParams.toStruct();
-0180             
-0181             resolutionStruct.resolutionParamNames = resolutionParamsStruct.names;
-0182             resolutionStruct.resolutionParamLimits = resolutionParamsStruct.limits;
-0183             resolutionStruct.resolutionParamValues = resolutionParamsStruct.values;
-0184             resolutionStruct.fitResolutionParam = resolutionParamsStruct.fit;
-0185             resolutionStruct.resolutionParamPriors = resolutionParamsStruct.priors;
-0186             
-0187             resolutionNames = obj.resolutions.varTable{:,1};
-0188             resolutionTypes = obj.resolutions.varTable{:,2};
-0189             resolutionValues = table2cell(obj.resolutions.varTable(:,3:7));
-0190             
-0191             resolutionStruct.resolutionNames = resolutionNames;
-0192             resolutionStruct.resolutionTypes = resolutionTypes;
-0193             resolutionStruct.resolutionValues = resolutionValues;  
-0194          <span class="keyword">end</span>
-0195         
-0196         <a name="_sub8" href="#_subfunctions" class="code">function displayResolutionsObject(obj)</a>
-0197             <span class="comment">% Displays the resolution parameters and resolution table.</span>
-0198             fprintf(<span class="string">'    (a) Resolutions Parameters: \n\n'</span>);
-0199             obj.resolutionParams.displayTable;
-0200             
-0201             fprintf(<span class="string">'    (b) Resolutions:  \n\n'</span>)
-0202             obj.resolutions.displayTable;
-0203         <span class="keyword">end</span> 
-0204     <span class="keyword">end</span>
-0205 
-0206     methods (Access = protected)
-0207         <a name="_sub9" href="#_subfunctions" class="code">function thisPar = validateParam(obj, param)</a>
-0208             <span class="comment">% Checks that given parameter index or name is valid, then returns the</span>
-0209             <span class="comment">% parameter name.</span>
-0210             <span class="comment">%</span>
-0211             <span class="comment">% param = obj.validateParam('param_name');</span>
-0212             <span class="keyword">if</span> iscell(param)
-0213                 param = param{:};
-0214             <span class="keyword">end</span>
-0215             parList = obj.resolutionParams.getNames(); 
-0216             <span class="keyword">if</span> isnumeric(param)
-0217                 <span class="keyword">if</span> (param &lt; 1) || (param &gt; length(parList))
-0218                     throw(exceptions.indexOutOfRange(sprintf(<span class="string">'Resolution Parameter %d is out of range'</span>, param)));
-0219                 <span class="keyword">end</span>
-0220                 thisPar = parList(param);
-0221             <span class="keyword">else</span>
-0222                 <span class="keyword">if</span> ~strcmpi(param, parList)
-0223                     throw(exceptions.nameNotRecognised(sprintf(<span class="string">'Unrecognised parameter name %s'</span>, param)));
-0224                 <span class="keyword">end</span>
-0225                 thisPar = param;
-0226             <span class="keyword">end</span>   
-0227         <span class="keyword">end</span>
-0228     <span class="keyword">end</span>
-0229 <span class="keyword">end</span> 
+0176 
+0177         <a name="_sub7" href="#_subfunctions" class="code">function obj = setResolutionName(obj, row, name)</a>
+0178             <span class="comment">% Sets the name of a given resolution in the table. Expects</span>
+0179             <span class="comment">% an index and the new name.</span>
+0180             <span class="comment">%</span>
+0181             <span class="comment">% resolution.setResolutionName(1, 'new_name');</span>
+0182             <span class="keyword">if</span> ~isText(name)
+0183                 throw(exceptions.invalidType(sprintf(<span class="string">'%s must be a character array or string'</span>, name)));
+0184             <span class="keyword">end</span>
+0185             obj.resolutions.setValue(row, <span class="string">'name'</span>, name);
+0186         <span class="keyword">end</span>
+0187         
+0188         <a name="_sub8" href="#_subfunctions" class="code">function resolutionStruct = toStruct(obj)</a>
+0189             <span class="comment">% Converts the class parameters into a structure array.</span>
+0190             resolutionParamsStruct = obj.resolutionParams.toStruct();
+0191             
+0192             resolutionStruct.resolutionParamNames = resolutionParamsStruct.names;
+0193             resolutionStruct.resolutionParamLimits = resolutionParamsStruct.limits;
+0194             resolutionStruct.resolutionParamValues = resolutionParamsStruct.values;
+0195             resolutionStruct.fitResolutionParam = resolutionParamsStruct.fit;
+0196             resolutionStruct.resolutionParamPriors = resolutionParamsStruct.priors;
+0197             
+0198             resolutionNames = obj.resolutions.varTable{:,1};
+0199             resolutionTypes = obj.resolutions.varTable{:,2};
+0200             resolutionValues = table2cell(obj.resolutions.varTable(:,3:7));
+0201             
+0202             resolutionStruct.resolutionNames = resolutionNames;
+0203             resolutionStruct.resolutionTypes = resolutionTypes;
+0204             resolutionStruct.resolutionValues = resolutionValues;  
+0205          <span class="keyword">end</span>
+0206         
+0207         <a name="_sub9" href="#_subfunctions" class="code">function displayResolutionsObject(obj)</a>
+0208             <span class="comment">% Displays the resolution parameters and resolution table.</span>
+0209             fprintf(<span class="string">'    (a) Resolutions Parameters: \n\n'</span>);
+0210             obj.resolutionParams.displayTable;
+0211             
+0212             fprintf(<span class="string">'    (b) Resolutions:  \n\n'</span>)
+0213             obj.resolutions.displayTable;
+0214         <span class="keyword">end</span> 
+0215     <span class="keyword">end</span>
+0216 
+0217     methods (Access = protected)
+0218         <a name="_sub10" href="#_subfunctions" class="code">function thisPar = validateParam(obj, param)</a>
+0219             <span class="comment">% Checks that given parameter index or name is valid, then returns the</span>
+0220             <span class="comment">% parameter name.</span>
+0221             <span class="comment">%</span>
+0222             <span class="comment">% param = obj.validateParam('param_name');</span>
+0223             <span class="keyword">if</span> iscell(param)
+0224                 param = param{:};
+0225             <span class="keyword">end</span>
+0226             parList = obj.resolutionParams.getNames(); 
+0227             <span class="keyword">if</span> isnumeric(param)
+0228                 <span class="keyword">if</span> (param &lt; 1) || (param &gt; length(parList))
+0229                     throw(exceptions.indexOutOfRange(sprintf(<span class="string">'Resolution Parameter %d is out of range'</span>, param)));
+0230                 <span class="keyword">end</span>
+0231                 thisPar = parList(param);
+0232             <span class="keyword">else</span>
+0233                 <span class="keyword">if</span> ~strcmpi(param, parList)
+0234                     throw(exceptions.nameNotRecognised(sprintf(<span class="string">'Unrecognised parameter name %s'</span>, param)));
+0235                 <span class="keyword">end</span>
+0236                 thisPar = param;
+0237             <span class="keyword">end</span>   
+0238         <span class="keyword">end</span>
+0239     <span class="keyword">end</span>
+0240 <span class="keyword">end</span> 
 </pre></div>
 
-<hr><address>Generated on Tue 30-Apr-2024 15:28:34 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Mon 03-Jun-2024 10:39:54 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

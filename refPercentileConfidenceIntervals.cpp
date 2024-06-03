@@ -322,8 +322,8 @@ namespace RAT
               expl_temp.sldProfiles[n].f1.size(0)];
           }
 
-          coder::b_interp1(c_expl_temp, d_expl_temp, allPredInts->sldXData[n].f1,
-                           r2);
+          coder::interp1(c_expl_temp, d_expl_temp, allPredInts->sldXData[n].f1,
+                         r2);
           b_loop_ub = r2.size(1);
           for (i1 = 0; i1 < b_loop_ub; i1++) {
             sldYVals[n].f1[b_i + sldYVals[n].f1.size(0) * i1] = r2[i1];
@@ -350,8 +350,8 @@ namespace RAT
                 f1.size(0)];
             }
 
-            coder::b_interp1(c_expl_temp, d_expl_temp, allPredInts->sldXData[n +
-                             allPredInts->sldXData.size(0) * m].f1, r2);
+            coder::interp1(c_expl_temp, d_expl_temp, allPredInts->sldXData[n +
+                           allPredInts->sldXData.size(0) * m].f1, r2);
             b_loop_ub = r2.size(1);
             for (i1 = 0; i1 < b_loop_ub; i1++) {
               sldYVals[n + sldYVals.size(0) * m].f1[b_i + sldYVals[n +

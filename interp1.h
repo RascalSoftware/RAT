@@ -22,9 +22,6 @@ namespace RAT
 {
   namespace coder
   {
-    void b_interp1(const ::coder::array<real_T, 1U> &varargin_1, const ::coder::
-                   array<real_T, 1U> &varargin_2, const ::coder::array<real_T,
-                   2U> &varargin_3, ::coder::array<real_T, 2U> &Vq);
     void interp1(const ::coder::array<real_T, 1U> &varargin_1, const ::coder::
                  array<real_T, 1U> &varargin_2, const ::coder::array<real_T, 2U>
                  &varargin_3, ::coder::array<real_T, 2U> &Vq);

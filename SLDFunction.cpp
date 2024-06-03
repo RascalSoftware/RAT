@@ -145,8 +145,6 @@ namespace RAT
         sldVal.set_size(1);
         sldVal[0] = SLD[(b_i[b_i.size(0) - 1] + SLD.size(0)) - 1] - deltaY;
       }
-
-      // sldVal = interp1(z,rho,x);
     }
   }
 }

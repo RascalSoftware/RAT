@@ -27,12 +27,10 @@
 // Function Definitions
 namespace RAT
 {
-  struct_T intrafun(const ::coder::array<real_T, 2U> &p, f_struct_T
-                    *problemStruct, const cell_11 *problemCells, const struct1_T
-                    *problemLimits, const struct2_T *controls)
+  void intrafun(const ::coder::array<real_T, 2U> &p, f_struct_T *problemStruct,
+                const cell_11 *problemCells, const struct1_T *problemLimits,
+                const struct2_T *controls, struct_T *S_MSE, struct5_T *result)
   {
-    struct5_T expl_temp;
-    struct_T S_MSE;
     int32_T loop_ub;
     problemStruct->fitParams.set_size(1, p.size(1));
     loop_ub = p.size(1);
@@ -47,18 +45,17 @@ namespace RAT
                  controls->checks.fitResolutionParam,
                  controls->checks.fitDomainRatio);
     reflectivityCalculation(problemStruct, problemCells, problemLimits, controls,
-      &expl_temp);
-    S_MSE.FVr_oa = expl_temp.calculationResults.sumChi;
-    S_MSE.I_nc = 0.0;
+      result);
+    S_MSE->FVr_oa = result->calculationResults.sumChi;
+    S_MSE->I_nc = 0.0;
 
     // no constraints                 THESE FIRST FEW VALS MAY BE WRONG
-    S_MSE.FVr_ca = 0.0;
+    S_MSE->FVr_ca = 0.0;
 
     // no constraint array
-    S_MSE.I_no = 1.0;
+    S_MSE->I_no = 1.0;
 
     // number of objectives (costs)
-    return S_MSE;
   }
 
   void runDE(f_struct_T *problemStruct, const cell_11 *problemCells, const

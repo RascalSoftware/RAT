@@ -23,6 +23,7 @@
 #include "rt_nonfinite.h"
 #include "runDE.h"
 #include "strcmp.h"
+#include "triggerEvent.h"
 #include "coder_array.h"
 #include "coder_bounded_array.h"
 #include <cmath>
@@ -49,6 +50,12 @@ namespace RAT
     ::coder::array<real_T, 2U> r;
     ::coder::array<boolean_T, 2U> FM_mui;
     f_struct_T b_problem;
+    struct5_T a__1;
+    struct5_T a__2;
+    struct5_T a__3;
+    struct5_T result;
+    struct_T S_tempval;
+    struct_T a__4;
     real_T validatedHoleFilling[5];
     real_T p[4];
     real_T F_CR;
@@ -203,15 +210,13 @@ namespace RAT
     }
 
     b_problem = *problem;
-    S_val[0] = intrafun(b_FM_pop, &b_problem, problemCells, problemLimits,
-                        controls);
+    intrafun(b_FM_pop, &b_problem, problemCells, problemLimits, controls,
+             &(S_val.data())[0], &a__1);
     S_bestval_FVr_oa = S_val[0].FVr_oa;
 
     //  best objective function value so far
     i1 = static_cast<int32_T>(I_NP + -1.0);
     for (k = 0; k < i1; k++) {
-      struct_T expl_temp;
-
       //  check the remaining members
       loop_ub = FM_pop.size(1);
       b_FM_pop.set_size(1, FM_pop.size(1));
@@ -220,12 +225,11 @@ namespace RAT
       }
 
       b_problem = *problem;
-      expl_temp = intrafun(b_FM_pop, &b_problem, problemCells, problemLimits,
-                           controls);
-      S_val[k + 1] = expl_temp;
-      if (leftWin(expl_temp.I_no, expl_temp.FVr_oa, S_bestval_FVr_oa) == 1.0) {
+      intrafun(b_FM_pop, &b_problem, problemCells, problemLimits, controls,
+               &S_val[k + 1], &a__2);
+      if (leftWin(S_val[k + 1], S_bestval_FVr_oa) == 1.0) {
         //  save its location
-        S_bestval_FVr_oa = expl_temp.FVr_oa;
+        S_bestval_FVr_oa = S_val[k + 1].FVr_oa;
       }
     }
 
@@ -405,8 +409,6 @@ namespace RAT
       // -----Optional parent+child selection-----------------------------------------
       // -----Select which vectors are allowed to enter the new population------------
       for (k = 0; k < i; k++) {
-        struct_T S_tempval;
-
         // =====Only use this if boundary constraints are needed==================
         for (int32_T j{0}; j < loop_ub_tmp; j++) {
           real_T d;
@@ -434,11 +436,11 @@ namespace RAT
         }
 
         b_problem = *problem;
-        S_tempval = intrafun(b_FM_pop, &b_problem, problemCells, problemLimits,
-                             controls);
+        intrafun(b_FM_pop, &b_problem, problemCells, problemLimits, controls,
+                 &S_tempval, &a__3);
 
         //  check cost of competitor
-        if (leftWin(S_tempval.I_no, S_tempval.FVr_oa, S_val[k].FVr_oa) == 1.0) {
+        if (leftWin(S_tempval, S_val[k].FVr_oa) == 1.0) {
           loop_ub = FM_ui.size(1);
           for (i1 = 0; i1 < loop_ub; i1++) {
             FM_pop[k + FM_pop.size(0) * i1] = FM_ui[k + FM_ui.size(0) * i1];
@@ -449,8 +451,7 @@ namespace RAT
 
           //  save value in "cost array"
           // ----we update S_bestval only in case of success to save time-----------
-          if (leftWin(S_tempval.I_no, S_tempval.FVr_oa, S_bestval_FVr_oa) == 1.0)
-          {
+          if (leftWin(S_tempval, S_bestval_FVr_oa) == 1.0) {
             S_bestval_FVr_oa = S_tempval.FVr_oa;
 
             //  new best value
@@ -488,6 +489,16 @@ namespace RAT
         //          if (I_plotting == 1)
         //             PlotIt(FVr_bestmem,problem);
         //          end
+      }
+
+      //  Trigger the output event...
+      if (rt_remd_snf(I_iter, controls->updatePlotFreq) == 0.0) {
+        b_problem = *problem;
+        intrafun(FVr_bestmem, &b_problem, problemCells, problemLimits, controls,
+                 &a__4, &result);
+        triggerEvent(&result, problem->TF.data, problem->TF.size,
+                     problem->resample, problem->dataPresent,
+                     problem->modelType.data, problem->modelType.size);
       }
 
       I_iter++;

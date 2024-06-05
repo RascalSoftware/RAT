@@ -31,9 +31,9 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  struct_T intrafun(const ::coder::array<real_T, 2U> &p, f_struct_T
-                    *problemStruct, const cell_11 *problemCells, const struct1_T
-                    *problemLimits, const struct2_T *controls);
+  void intrafun(const ::coder::array<real_T, 2U> &p, f_struct_T *problemStruct,
+                const cell_11 *problemCells, const struct1_T *problemLimits,
+                const struct2_T *controls, struct_T *S_MSE, struct5_T *result);
   void runDE(f_struct_T *problemStruct, const cell_11 *problemCells, const
              struct1_T *problemLimits, const struct2_T *controls, struct5_T
              *result);

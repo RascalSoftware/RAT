@@ -10,12 +10,13 @@
 
 // Include files
 #include "leftWin.h"
+#include "RATMain_internal_types.h"
 #include "rt_nonfinite.h"
 
 // Function Definitions
 namespace RAT
 {
-  real_T leftWin(real_T S_x_I_no, real_T S_x_FVr_oa, real_T S_y_FVr_oa)
+  real_T leftWin(const struct_T S_x, real_T S_y_FVr_oa)
   {
     real_T I_z;
 
@@ -39,7 +40,7 @@ namespace RAT
     // start with I_z=1
     // ----deal with the constraints first. If constraints are not met------
     // ----S_x can't win.---------------------------------------------------
-    if ((S_x_I_no > 0.0) && (S_x_FVr_oa > S_y_FVr_oa)) {
+    if ((S_x.I_no > 0.0) && (S_x.FVr_oa > S_y_FVr_oa)) {
       // if just one objective of S_x is less
       I_z = 0.0;
     }

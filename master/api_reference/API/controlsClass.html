@@ -93,16 +93,16 @@ This function is called by:
 0010         resampleParams = [0.9 50]
 0011         <span class="comment">% Display Option (Default: displayOptions.Iter)</span>
 0012         display = displayOptions.Iter.value
-0013 
-0014         <span class="comment">% optimization tolerance for simplex (Default: 1e-6)</span>
-0015         xTolerance = 1e-6    
-0016         funcTolerance = 1e-6
-0017         <span class="comment">% Maximum number of function evaluations for simplex  (Default: 10000)</span>
-0018         maxFuncEvals = 10000
-0019         <span class="comment">% Maximum number of iterations for simplex  (Default: 1000)</span>
-0020         maxIterations = 1000
-0021         updateFreq = -1
-0022         updatePlotFreq = 1
+0013         updateFreq = 1
+0014         updatePlotFreq = 20
+0015 
+0016         <span class="comment">% optimization tolerance for simplex (Default: 1e-6)</span>
+0017         xTolerance = 1e-6    
+0018         funcTolerance = 1e-6
+0019         <span class="comment">% Maximum number of function evaluations for simplex  (Default: 10000)</span>
+0020         maxFuncEvals = 10000
+0021         <span class="comment">% Maximum number of iterations for simplex  (Default: 1000)</span>
+0022         maxIterations = 1000
 0023         
 0024         <span class="comment">% Differential Evolution population size (Default: 20)</span>
 0025         populationSize = 20
@@ -421,40 +421,40 @@ This function is called by:
 0338                 <span class="string">'funcTolerance'</span>,<span class="keyword">...</span>
 0339                 <span class="string">'maxFuncEvals'</span>,<span class="keyword">...</span>
 0340                 <span class="string">'maxIterations'</span>,<span class="keyword">...</span>
-0341                 <span class="string">'updateFreq'</span>,<span class="keyword">...</span>
-0342                 <span class="string">'updatePlotFreq'</span>};
-0343 
-0344             deCell = {<span class="string">'populationSize'</span>,<span class="keyword">...</span>
-0345                 <span class="string">'fWeight'</span>,<span class="keyword">...</span>
-0346                 <span class="string">'crossoverProbability'</span>,<span class="keyword">...</span>
-0347                 <span class="string">'strategy'</span>,<span class="keyword">...</span>
-0348                 <span class="string">'targetValue'</span>,<span class="keyword">...</span>
-0349                 <span class="string">'numGenerations'</span>};
-0350 
-0351             nsCell = {<span class="string">'nLive'</span>,<span class="keyword">...</span>
-0352                 <span class="string">'nMCMC'</span>,<span class="keyword">...</span>
-0353                 <span class="string">'propScale'</span>,<span class="keyword">...</span>
-0354                 <span class="string">'nsTolerance'</span>};
-0355 
-0356             dreamCell = {<span class="string">'nSamples'</span>,<span class="keyword">...</span>
-0357                 <span class="string">'nChains'</span>,<span class="keyword">...</span>
-0358                 <span class="string">'jumpProbability'</span>,<span class="keyword">...</span>
-0359                 <span class="string">'pUnitGamma'</span>,<span class="keyword">...</span>
-0360                 <span class="string">'boundHandling'</span>,<span class="keyword">...</span>
-0361                 <span class="string">'adaptPCR'</span>};
-0362 
-0363             <span class="keyword">if</span> isscalar(obj)
-0364                 dispPropList = masterPropList;
-0365                 <span class="keyword">if</span> strcmpi(obj.procedure, <span class="string">'calculate'</span>)
-0366                     dispPropList = rmfield(masterPropList, [deCell, simplexCell, nsCell, dreamCell]);
-0367                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'simplex'</span>)
-0368                     dispPropList = rmfield(masterPropList, [deCell, nsCell, dreamCell]);
-0369                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'de'</span>)
-0370                     dispPropList = rmfield(masterPropList, [simplexCell, nsCell, dreamCell]);
+0341                 };
+0342 
+0343             deCell = {<span class="string">'populationSize'</span>,<span class="keyword">...</span>
+0344                 <span class="string">'fWeight'</span>,<span class="keyword">...</span>
+0345                 <span class="string">'crossoverProbability'</span>,<span class="keyword">...</span>
+0346                 <span class="string">'strategy'</span>,<span class="keyword">...</span>
+0347                 <span class="string">'targetValue'</span>,<span class="keyword">...</span>
+0348                 <span class="string">'numGenerations'</span>};
+0349 
+0350             nsCell = {<span class="string">'nLive'</span>,<span class="keyword">...</span>
+0351                 <span class="string">'nMCMC'</span>,<span class="keyword">...</span>
+0352                 <span class="string">'propScale'</span>,<span class="keyword">...</span>
+0353                 <span class="string">'nsTolerance'</span>};
+0354 
+0355             dreamCell = {<span class="string">'nSamples'</span>,<span class="keyword">...</span>
+0356                 <span class="string">'nChains'</span>,<span class="keyword">...</span>
+0357                 <span class="string">'jumpProbability'</span>,<span class="keyword">...</span>
+0358                 <span class="string">'pUnitGamma'</span>,<span class="keyword">...</span>
+0359                 <span class="string">'boundHandling'</span>,<span class="keyword">...</span>
+0360                 <span class="string">'adaptPCR'</span>};
+0361 
+0362             <span class="keyword">if</span> isscalar(obj)
+0363                 dispPropList = masterPropList;
+0364                 <span class="keyword">if</span> strcmpi(obj.procedure, <span class="string">'calculate'</span>)
+0365                     dispPropList = rmfield(masterPropList, [deCell, simplexCell, nsCell, dreamCell, {<span class="string">'updatePlotFreq'</span>,<span class="string">'updateFreq'</span>}]);
+0366                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'simplex'</span>)
+0367                     dispPropList = rmfield(masterPropList, [deCell, nsCell, dreamCell]);
+0368                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'de'</span>)
+0369                     dispPropList = rmfield(masterPropList, [simplexCell, nsCell, dreamCell]);
+0370                     <span class="comment">% Add the update back...</span>
 0371                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'ns'</span>)
-0372                     dispPropList = rmfield(masterPropList, [simplexCell, deCell, dreamCell]);
+0372                     dispPropList = rmfield(masterPropList, [simplexCell, deCell, dreamCell, {<span class="string">'updatePlotFreq'</span>,<span class="string">'updateFreq'</span>}]);
 0373                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'dream'</span>)
-0374                     dispPropList = rmfield(masterPropList, [simplexCell, deCell, nsCell]);
+0374                     dispPropList = rmfield(masterPropList, [simplexCell, deCell, nsCell, {<span class="string">'updatePlotFreq'</span>,<span class="string">'updateFreq'</span>}]);
 0375                 <span class="keyword">end</span>
 0376                 groups = matlab.mixin.util.PropertyGroup(dispPropList);
 0377             <span class="keyword">else</span>
@@ -752,6 +752,6 @@ This function is called by:
 0669 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Mon 03-Jun-2024 10:39:54 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Wed 05-Jun-2024 09:06:47 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

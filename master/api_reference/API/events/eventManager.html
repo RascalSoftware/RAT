@@ -47,12 +47,12 @@ This function is called by:
 <li><a href="#_sub1" class="code">function value = getEvents()</a></li>
 <li><a href="#_sub2" class="code">function setEvents(value)</a></li>
 <li><a href="#_sub3" class="code">function value=events(op, newValue)</a></li>
-<li><a href="#_sub4" class="code">function value = getHandlers()</a></li>
-<li><a href="#_sub5" class="code">function setHandlers(value)</a></li>
-<li><a href="#_sub6" class="code">function value=handlers(op, newValue)</a></li>
-<li><a href="#_sub7" class="code">function register(eventType, functionName)</a></li>
-<li><a href="#_sub8" class="code">function notify(eventType, data)</a></li>
-<li><a href="#_sub9" class="code">function clear()</a></li>
+<li><a href="#_sub4" class="code">function funcID = getCallbackID(callback)</a></li>
+<li><a href="#_sub5" class="code">function callback = validateCallback(callback)</a></li>
+<li><a href="#_sub6" class="code">function register(eventType, callback)</a></li>
+<li><a href="#_sub7" class="code">function notify(eventType, data)</a></li>
+<li><a href="#_sub8" class="code">function unregister(eventType, callback)</a></li>
+<li><a href="#_sub9" class="code">function clear(varargin)</a></li>
 </ul>
 
 
@@ -85,7 +85,7 @@ This function is called by:
 0026             <span class="keyword">persistent</span> <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>
 0027             
 0028             <span class="keyword">if</span> isempty(<a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>) 
-0029                 <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a> = {};
+0029                 <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a> =  cell(0, 3);
 0030             <span class="keyword">end</span>
 0031 
 0032             <span class="keyword">switch</span> op
@@ -95,99 +95,115 @@ This function is called by:
 0036             value = <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>;
 0037         <span class="keyword">end</span>
 0038         
-0039         <a name="_sub3" href="#_subfunctions" class="code">function value = getHandlers()</a>
-0040             <span class="comment">% Gets the list of registered callbacks</span>
+0039         <a name="_sub3" href="#_subfunctions" class="code">function funcID = getCallbackID(callback)</a>
+0040             <span class="comment">% Generates a id for a callback handle function</span>
 0041             <span class="comment">%</span>
-0042             <span class="comment">% handlerList = eventManager.getHandlers();</span>
-0043             value = eventManager.handlers(<span class="string">'get'</span>);
-0044         <span class="keyword">end</span>
-0045         
-0046         <a name="_sub4" href="#_subfunctions" class="code">function setHandlers(value)</a>
-0047             <span class="comment">% Sets the list of registered callbacks</span>
-0048             <span class="comment">%</span>
-0049             <span class="comment">% eventManager.setHandlers(handlerList);</span>
-0050             eventManager.handlers(<span class="string">'set'</span>, value);
+0042             <span class="comment">% ID = getCallbackID(@disp)</span>
+0043             funcID = func2str(callback);
+0044             funcDetails = functions(callback);
+0045             <span class="keyword">if</span> strcmp(funcDetails.type, <span class="string">'anonymous'</span>)
+0046                 workspace = functions(callback).workspace{:};
+0047                 <span class="keyword">if</span> isfield(workspace, <span class="string">'obj'</span>) &amp;&amp;  isprop(workspace.obj, <span class="string">'callback'</span>) &amp;&amp; isprop(workspace.obj, <span class="string">'figureId'</span>)
+0048                     funcID = sprintf(<span class="string">'Function ''%s'' on figure %d'</span>, func2str(workspace.obj.callback), workspace.obj.figureId);
+0049                 <span class="keyword">end</span>
+0050             <span class="keyword">end</span>
 0051         <span class="keyword">end</span>
-0052 
-0053         <a name="_sub5" href="#_subfunctions" class="code">function value=handlers(op, newValue)            </a>
-0054             <span class="comment">% Helper to store the list of registered callbacks as static variable</span>
-0055             <span class="comment">%</span>
-0056             <span class="comment">% handlerList = eventManager.handlers('get');</span>
-0057             <span class="comment">% eventManager.handlers('set', handlerList);</span>
-0058             <span class="keyword">persistent</span> <a href="#_sub6" class="code" title="subfunction value=handlers(op, newValue)">handlers</a>
-0059             
-0060             <span class="keyword">if</span> isempty(<a href="#_sub6" class="code" title="subfunction value=handlers(op, newValue)">handlers</a>) 
-0061                 <a href="#_sub6" class="code" title="subfunction value=handlers(op, newValue)">handlers</a> = {};
-0062             <span class="keyword">end</span>
-0063 
-0064             <span class="keyword">switch</span> op
-0065                <span class="keyword">case</span> <span class="string">'set'</span>    
-0066                   <a href="#_sub6" class="code" title="subfunction value=handlers(op, newValue)">handlers</a> = newValue;
-0067             <span class="keyword">end</span>
-0068             value = <a href="#_sub6" class="code" title="subfunction value=handlers(op, newValue)">handlers</a>;
-0069         <span class="keyword">end</span>
-0070 
-0071         <a name="_sub6" href="#_subfunctions" class="code">function register(eventType, functionName)</a>
-0072             <span class="comment">% Register a callback function for the given eventType. eventType</span>
-0073             <span class="comment">% should be an eventTypes enum and functionName should be name of the</span>
-0074             <span class="comment">% callback function.</span>
-0075             <span class="comment">%</span>
-0076             <span class="comment">% eventManager.register(eventTypes.Plot, 'plotRefSLDHelper');</span>
-0077             eventType = validateOption(eventType, <span class="string">'eventTypes'</span>, <span class="string">'Event type must be an eventTypes enum'</span>).value;
-0078 
-0079             <span class="keyword">if</span> ~isText(functionName) || isempty(char(functionName))
-0080                 throw(exceptions.invalidType(<span class="string">'Second value must be function name (text)'</span>));
-0081             <span class="keyword">end</span>
-0082 
-0083             <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a> = eventManager.getEvents();
-0084             <a href="#_sub6" class="code" title="subfunction value=handlers(op, newValue)">handlers</a> = eventManager.getHandlers();
-0085             
-0086             <span class="keyword">if</span> isempty(<a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>) || ~any([<a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>{:}] == eventType)
-0087                 eventManagerInterface(<span class="string">'register'</span>, eventType);
-0088             <span class="keyword">end</span>
-0089 
-0090             <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>{end + 1} = eventType;
-0091             <a href="#_sub6" class="code" title="subfunction value=handlers(op, newValue)">handlers</a>{end + 1} = functionName;
-0092 
-0093             eventManager.setEvents(<a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>)
-0094             eventManager.setHandlers(<a href="#_sub6" class="code" title="subfunction value=handlers(op, newValue)">handlers</a>)           
-0095         <span class="keyword">end</span>
-0096 
-0097         <a name="_sub7" href="#_subfunctions" class="code">function notify(eventType, data)</a>
-0098             <span class="comment">% Sends given data to the callbacks registered for the</span>
-0099             <span class="comment">% eventType. eventType should be an eventTypes enum and</span>
-0100             <span class="comment">% data should be the appropriate data for the event</span>
-0101             <span class="comment">%</span>
-0102             <span class="comment">% eventManager.notify(eventTypes.Message, 'wow');</span>
-0103             <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a> = eventManager.getEvents();
-0104             <a href="#_sub6" class="code" title="subfunction value=handlers(op, newValue)">handlers</a> = eventManager.getHandlers();
-0105 
-0106             eventType = validateOption(eventType, <span class="string">'eventTypes'</span>, <span class="string">'Event type must be an eventTypes enum'</span>).value;
-0107             <span class="keyword">for</span> i=1:length(<a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>)
-0108                 <span class="keyword">if</span> (eventType == <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>{i})
-0109                     <span class="keyword">try</span>
-0110                         funcHandle = str2func(<a href="#_sub6" class="code" title="subfunction value=handlers(op, newValue)">handlers</a>{i});
-0111                         funcHandle(data);
-0112                     <span class="keyword">catch</span> ME
-0113                         fprintf(<span class="string">'EVENTMANAGER: calling %s function failed on line %d because: \n\n %s\n'</span>, <a href="#_sub6" class="code" title="subfunction value=handlers(op, newValue)">handlers</a>{i}, ME.stack(1).line, ME.message);
-0114                     <span class="keyword">end</span>
-0115                 <span class="keyword">end</span>
-0116             <span class="keyword">end</span>
-0117         <span class="keyword">end</span>
-0118 
-0119         <a name="_sub8" href="#_subfunctions" class="code">function clear()</a>
-0120             <span class="comment">% Clear all register event callbacks</span>
-0121             <span class="comment">%</span>
-0122             <span class="comment">% eventManager.clear();</span>
-0123             eventManager.setEvents({})
-0124             eventManager.setHandlers({})
-0125             eventManagerInterface(<span class="string">'clear'</span>);
-0126         <span class="keyword">end</span>
-0127 
-0128     <span class="keyword">end</span>
-0129 <span class="keyword">end</span>
+0052         
+0053         <a name="_sub4" href="#_subfunctions" class="code">function callback = validateCallback(callback)</a>
+0054             <span class="comment">% Validate the given callback and return handle for the</span>
+0055             <span class="comment">% callback</span>
+0056             <span class="comment">%</span>
+0057             <span class="comment">% callback = validateCallback('disp');</span>
+0058             <span class="keyword">if</span> ~isa(callback, <span class="string">'function_handle'</span>) &amp;&amp; (~isText(callback) || isempty(char(callback)))
+0059                 throw(exceptions.invalidType(<span class="string">'callback must be function name (text) or handle'</span>));
+0060             <span class="keyword">end</span>
+0061             
+0062             <span class="keyword">if</span> isText(callback)
+0063                 callback = str2func(callback);
+0064             <span class="keyword">end</span>
+0065         <span class="keyword">end</span>
+0066 
+0067         <a name="_sub5" href="#_subfunctions" class="code">function register(eventType, callback)</a>
+0068             <span class="comment">% Register a callback function for the given eventType. eventType</span>
+0069             <span class="comment">% should be an eventTypes enum and callback should be name or handle of the</span>
+0070             <span class="comment">% callback function.</span>
+0071             <span class="comment">%</span>
+0072             <span class="comment">% eventManager.register(eventTypes.Plot, 'plotRefSLDHelper');</span>
+0073             eventType = validateOption(eventType, <span class="string">'eventTypes'</span>, <span class="string">'Event type must be an eventTypes enum'</span>).value;
+0074             callback = eventManager.validateCallback(callback);
+0075 
+0076             <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a> = eventManager.getEvents();
+0077             funcID = eventManager.getCallbackID(callback);
+0078             
+0079             <span class="keyword">if</span> ~isempty(<a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>) 
+0080                 <span class="keyword">for</span> i=1:size(<a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>, 1)
+0081                     <span class="keyword">if</span> strcmp(<a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>{i, 1}, funcID) &amp;&amp; <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>{i, 2} == eventType
+0082                         <span class="keyword">return</span>
+0083                     <span class="keyword">end</span>
+0084                 <span class="keyword">end</span>
+0085             <span class="keyword">end</span>
+0086 
+0087             <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>(end + 1, :) = {funcID, eventType, callback};
+0088             eventManager.setEvents(<a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>);           
+0089         <span class="keyword">end</span>
+0090 
+0091         <a name="_sub6" href="#_subfunctions" class="code">function notify(eventType, data)</a>
+0092             <span class="comment">% Sends given data to the callbacks registered for the</span>
+0093             <span class="comment">% eventType. eventType should be an eventTypes enum and</span>
+0094             <span class="comment">% data should be the appropriate data for the event</span>
+0095             <span class="comment">%</span>
+0096             <span class="comment">% eventManager.notify(eventTypes.Message, 'wow');</span>
+0097             <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a> = eventManager.getEvents();
+0098             eventType = validateOption(eventType, <span class="string">'eventTypes'</span>, <span class="string">'Event type must be an eventTypes enum'</span>).value;
+0099             <span class="keyword">for</span> i=1:size(<a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>, 1)
+0100                 <span class="keyword">if</span> eventType == <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>{i, 2}
+0101                     <span class="keyword">try</span>
+0102                         funcHandle = <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>{i, 3};
+0103                         funcHandle(data);
+0104                     <span class="keyword">catch</span> ME
+0105                         fprintf(<span class="string">'EVENTMANAGER: calling %s function failed on line %d because: \n\n %s\n'</span>, <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>{i, 1}, ME.stack(1).line, ME.message);
+0106                     <span class="keyword">end</span>
+0107                 <span class="keyword">end</span>
+0108             <span class="keyword">end</span>
+0109         <span class="keyword">end</span>
+0110 
+0111         <a name="_sub7" href="#_subfunctions" class="code">function unregister(eventType, callback)</a>
+0112             <span class="comment">% Remove specific event callbacks</span>
+0113             <span class="comment">%</span>
+0114             <span class="comment">% eventManager.unregister(eventTypes.Plot, 'plotRefSLDHelper');</span>
+0115             eventType = validateOption(eventType, <span class="string">'eventTypes'</span>, <span class="string">'Event type must be an eventTypes enum'</span>).value;
+0116             callback = eventManager.validateCallback(callback);
+0117             <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a> = eventManager.getEvents();
+0118             <span class="keyword">for</span> i=size(<a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>, 1):-1:1
+0119                 <span class="keyword">if</span> (eventType == <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>{i, 2}) &amp;&amp; strcmp(eventManager.getCallbackID(callback), <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>{i, 1})
+0120                     <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>(i, :) = [];
+0121                 <span class="keyword">end</span>
+0122             <span class="keyword">end</span>
+0123             eventManager.setEvents(<a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>);
+0124         <span class="keyword">end</span>
+0125         
+0126         <a name="_sub8" href="#_subfunctions" class="code">function clear(varargin)</a>
+0127             <span class="comment">% Clear all register event callbacks or specific types</span>
+0128             <span class="comment">%</span>
+0129             <span class="comment">% eventManager.clear();</span>
+0130             <span class="comment">% eventManager.clear(eventTypes.Plot);</span>
+0131             <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a> = eventManager.getEvents();
+0132             <span class="keyword">if</span> isempty(<a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>)
+0133                 <span class="keyword">return</span>
+0134             <span class="keyword">end</span>
+0135             <span class="keyword">if</span> nargin == 0
+0136                 <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a> = cell(0, 3);
+0137             <span class="keyword">else</span>
+0138                 eventType = validateOption(varargin{1}, <span class="string">'eventTypes'</span>, <span class="string">'Event type must be an eventTypes enum'</span>).value;
+0139                 <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>(eventType==[<a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>{:, 2}], :) = [];
+0140             <span class="keyword">end</span>
+0141             eventManager.setEvents(<a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a>);
+0142         <span class="keyword">end</span>
+0143 
+0144     <span class="keyword">end</span>
+0145 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Mon 03-Jun-2024 10:39:54 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Wed 05-Jun-2024 09:06:47 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

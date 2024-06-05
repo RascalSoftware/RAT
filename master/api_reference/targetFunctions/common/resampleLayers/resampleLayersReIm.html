@@ -78,7 +78,7 @@ This function is called by:
 0026 
 0027 <span class="comment">% Now interpolate the imaginary profile so that it is on the same x points</span>
 0028 <span class="comment">% as the resampled real one....</span>
-0029 newYIm = interp1(sldProfileIm(:,1),sldProfileIm(:,2),newX);
+0029 newYIm = interp1(sldProfileIm(:,1),sldProfileIm(:,2),newX,<span class="string">'linear'</span>,<span class="string">'extrap'</span>);
 0030 
 0031 layers = zeros(length(newX)-1,4);
 0032 
@@ -112,6 +112,6 @@ This function is called by:
 0060 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Mon 03-Jun-2024 10:39:54 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Wed 05-Jun-2024 09:06:47 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

@@ -18,9 +18,6 @@ classdef useLivePlot < handle
             obj.handle = @(varargin) obj.callback(varargin{:}, true, obj.figureId);
             % Make the figure
             h = figure(obj.figureId);
-            subplot(1,2,1);
-            subplot(1,2,2);
-            
             % Unregister other live plots only one at a time
             eventManager.clear(eventTypes.Plot)
             % Register the event

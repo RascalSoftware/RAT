@@ -56,7 +56,7 @@ classdef eventManager < handle
             %
             % callback = validateCallback('disp');
             if ~isa(callback, 'function_handle') && (~isText(callback) || isempty(char(callback)))
-                throw(exceptions.invalidType('Second value must be function name (text) or handle'));
+                throw(exceptions.invalidType('callback must be function name (text) or handle'));
             end
             
             if isText(callback)

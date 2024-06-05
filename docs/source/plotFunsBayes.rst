@@ -2,7 +2,7 @@
 
 ==========================
 Plotting Bayesian Analysis
-===========================
+==========================
 
 A number of function exist for plotting the results of Bayesian analysis.
 

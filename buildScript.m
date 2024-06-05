@@ -14,11 +14,6 @@ cd(compilePath);
 ratMainCompileScript;
 ratMainCodeGen;
 
-% Finally, change the paths back or the tests might fail...
-compilePath = fullfile(thisPath, 'compile', 'events');
-cd(compilePath);
-eventCompileScript;
-
 compilePath = fullfile(thisPath, 'compile', 'customWrapper');
 cd(compilePath);
 wrapperCompileScript;

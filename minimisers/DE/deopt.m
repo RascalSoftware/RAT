@@ -139,11 +139,11 @@ S_val = repmat(str,I_NP,1);
 
 coder.varsize('I_best_index',[1 1],[0 0]);
 I_best_index   = 1;                   % start with first population member
-S_val(1)       = fname(FM_pop(I_best_index,:),problem,problemCells,problemLimits,controls);
+[S_val(1),~]       = fname(FM_pop(I_best_index,:),problem,problemCells,problemLimits,controls);
 S_bestval = S_val(1);                 % best objective function value so far
 I_nfeval  = I_nfeval + 1;
 for k=2:I_NP                          % check the remaining members
-  S_val(k)  = fname(FM_pop(k,:),problem,problemCells,problemLimits,controls);
+  [S_val(k),~]  = fname(FM_pop(k,:),problem,problemCells,problemLimits,controls);
   I_nfeval  = I_nfeval + 1;
   if (leftWin(S_val(k),S_bestval) == 1)
      I_best_index   = k;              % save its location
@@ -284,7 +284,7 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
       end
       %=====End boundary constraints==========================================
   
-      S_tempval = fname(FM_ui(k,:),problem,problemCells,problemLimits,controls);  % check cost of competitor
+      [S_tempval,~] = fname(FM_ui(k,:),problem,problemCells,problemLimits,controls);  % check cost of competitor
       I_nfeval  = I_nfeval + 1;
       if (leftWin(S_tempval,S_val(k)) == 1)   
          FM_pop(k,:) = FM_ui(k,:);                    % replace old vector with new one (for new iteration)
@@ -318,7 +318,14 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
 %         end
         stopflag = 0;
         
-    end
+     end
+    
+     % Trigger the output event...
+     if rem(I_iter, controls.updatePlotFreq) == 0
+        [~,result] = fname(FVr_bestmem,problem,problemCells,problemLimits,controls);
+        triggerEvent(coderEnums.eventTypes.Plot, result, problem);
+     end
+
   end
   if stopflag == 0
     I_iter = I_iter + 1;

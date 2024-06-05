@@ -10,6 +10,8 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         resampleParams = [0.9 50]
         % Display Option (Default: displayOptions.Iter)
         display = displayOptions.Iter.value
+        updateFreq = 1
+        updatePlotFreq = 20
 
         % optimization tolerance for simplex (Default: 1e-6)
         xTolerance = 1e-6    
@@ -18,8 +20,6 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         maxFuncEvals = 10000
         % Maximum number of iterations for simplex  (Default: 1000)
         maxIterations = 1000
-        updateFreq = -1
-        updatePlotFreq = 1
         
         % Differential Evolution population size (Default: 20)
         populationSize = 20
@@ -338,8 +338,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
                 'funcTolerance',...
                 'maxFuncEvals',...
                 'maxIterations',...
-                'updateFreq',...
-                'updatePlotFreq'};
+                };
 
             deCell = {'populationSize',...
                 'fWeight',...
@@ -363,15 +362,16 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             if isscalar(obj)
                 dispPropList = masterPropList;
                 if strcmpi(obj.procedure, 'calculate')
-                    dispPropList = rmfield(masterPropList, [deCell, simplexCell, nsCell, dreamCell]);
+                    dispPropList = rmfield(masterPropList, [deCell, simplexCell, nsCell, dreamCell, {'updatePlotFreq','updateFreq'}]);
                 elseif strcmpi(obj.procedure, 'simplex')
                     dispPropList = rmfield(masterPropList, [deCell, nsCell, dreamCell]);
                 elseif strcmpi(obj.procedure, 'de')
                     dispPropList = rmfield(masterPropList, [simplexCell, nsCell, dreamCell]);
+                    % Add the update back...
                 elseif strcmpi(obj.procedure, 'ns')
-                    dispPropList = rmfield(masterPropList, [simplexCell, deCell, dreamCell]);
+                    dispPropList = rmfield(masterPropList, [simplexCell, deCell, dreamCell, {'updatePlotFreq','updateFreq'}]);
                 elseif strcmpi(obj.procedure, 'dream')
-                    dispPropList = rmfield(masterPropList, [simplexCell, deCell, nsCell]);
+                    dispPropList = rmfield(masterPropList, [simplexCell, deCell, nsCell, {'updatePlotFreq','updateFreq'}]);
                 end
                 groups = matlab.mixin.util.PropertyGroup(dispPropList);
             else

@@ -9,7 +9,6 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     % 
     %   struct with fields:
     % 
-    %         bestFitMean: [1×1 struct]
     % predictionIntervals: [1×1 struct]
     % confidenceIntervals: [1×1 struct]
     %           allChains: [1×1 struct]
@@ -20,45 +19,7 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     
     % -----------------------------------------------------------
     % Make the individual structs....
-    % (1) bayesResults.bestFitMean
-    
-    reflectivity = cell(nContrasts, 1);
-    reflectivityCell = [1 1 1];
-    coder.varsize('reflectivityCell',[1e7 4],[1 1]);
-    for i = 1:nContrasts
-        reflectivity{i} = reflectivityCell;
-    end
-    
-    if isDomains
-        sld = cell(nContrasts,2);
-        sldCell = [1 1; 1 1];
-        coder.varsize('sldCell',[1e7 3],[1 1]); 
-        for i = 1:nContrasts
-            sld{i,1} = sldCell;
-            sld{i,2} = sldCell;
-        end
-    else
-        sld = cell(nContrasts, 1);
-        sldCell = [1 1];
-        coder.varsize('sldCell',[1e7 3],[1 1]);
-        for i = 1:nContrasts
-            sld{i} = sldCell;
-        end
-    end
-    
-    chi = 0;
-    
-    data = cell(nContrasts, 1);
-    dataCell = [1 1 1];
-    coder.varsize('dataCell',[1e7 5],[1 1]);
-    for i = 1:nContrasts
-        data{i} = dataCell;
-    end
-    
-    bestFitMean = struct('reflectivity',{reflectivity},'sld',{sld},'chi',chi,'data',{data});
-    
-    % --------------------------------------------------------------------
-    % (2) bayesResults.predictionIntervals
+    % (1) bayesResults.predictionIntervals
     
     reflectivityIntervals = cell(nContrasts,1);
     reflectivityIntervalsCell = [1 1 1];
@@ -116,7 +77,7 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
         'sldXData',{sldXData},'sampleChi',sampleChi);
     
     % ------------------------------------------------------------------
-    % (3) bayesResults.confidenceIntervals
+    % (2) bayesResults.confidenceIntervals
     
     percentile95 = zeros(2,1);
     coder.varsize('percentile95',[2 1e3],[0 1]);
@@ -131,7 +92,7 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
         'percentile65',percentile65,'mean',mean);
     
     % -------------------------------------------------------------------
-    % (4) bayesResults.dreamParams
+    % (3) bayesResults.dreamParams
         
     R = zeros(nChains,nChains);
     coder.varsize('R',[1e4 1e4],[1 1]);
@@ -157,7 +118,7 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
                                'R', R);
 
     % -------------------------------------------------------------------
-    % (5) bayesResults.dreamOutput
+    % (4) bayesResults.dreamOutput
 
     allChains = [1 1 1];
     coder.varsize('allChains',[1e4 50 50],[1 1 1]);
@@ -186,7 +147,7 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
                                 'CR', CR);
     
     % -------------------------------------------------------------------
-    % (6) bayesResults.nestedSamplerOutput
+    % (5) bayesResults.nestedSamplerOutput
     
     % Nested Sampler
     LogZ = 0;
@@ -201,15 +162,14 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
         nestSamples,'postSamples',postSamples);
     
     % ------------------------------------------------------------------
-    % (7) chain
+    % (6) chain
     
     chain = [0 0];
     coder.varsize('chain',[1e6 1e3],[1 1]);
     
     % -------------------------------------------------------------------
     % Make the final structure...
-    bayesResults = struct('bestFitMean',bestFitMean,...
-                          'predictionIntervals', predictionIntervals,...
+    bayesResults = struct('predictionIntervals', predictionIntervals,...
                           'confidenceIntervals', confidenceIntervals,...
                           'dreamParams', dreamParams,...
                           'dreamOutput', dreamOutput,...

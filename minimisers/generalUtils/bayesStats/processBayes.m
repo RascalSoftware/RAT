@@ -10,10 +10,6 @@ confidenceIntervals = percentileConfidenceIntervals(bayesOutputs.chain);   %iter
 
 % Calculate 'mean' best fit curves
 result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
-bestFitMean.reflectivity = result.reflectivity;
-bestFitMean.sld = result.sldProfiles;
-bestFitMean.chi = result.calculationResults.sumChi;
-bestFitMean.data = result.shiftedData;
 
 % 2. Reflectivity and SLD shading
 predInts = refPercentileConfidenceIntervals(bayesOutputs,problemStruct,problemCells,problemLimits,controls);
@@ -22,7 +18,7 @@ predInts = refPercentileConfidenceIntervals(bayesOutputs,problemStruct,problemCe
 
 
 % bayesResults.chain = bayesOutputs.chain;
-bayesResults = struct('bestFitMean',bestFitMean,'predictionIntervals',predInts,...
+bayesResults = struct('predictionIntervals',predInts,...
                       'confidenceIntervals',confidenceIntervals);
 
 end

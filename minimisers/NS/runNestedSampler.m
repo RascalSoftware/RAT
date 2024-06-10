@@ -53,7 +53,6 @@ bayesOutputs.data = problemCells{2};
 [problemStruct,result,nestResults] = processBayes(bayesOutputs,problemStruct,problemCells,problemLimits,controls);
 
 bayesResults.predictionIntervals = nestResults.predictionIntervals;
-bayesResults.bestFitMean = nestResults.bestFitMean;
 bayesResults.confidenceIntervals = nestResults.confidenceIntervals;
 bayesResults.chain = chain;
 bayesResults.nestedSamplerOutput.LogZ = logZ;

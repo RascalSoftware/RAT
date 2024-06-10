@@ -65,8 +65,8 @@ refXdata = pLims.reflectivityXData;
 sldXdata = pLims.sldXData;
 
 % Get the reflectivities for mean...
-bestRefMean = result.bestFitMean.reflectivity;
-bestSldMean = result.bestFitMean.sld;
+bestRefMean = result.reflectivity;
+bestSldMean = result.sldProfiles;
 
 shiftedData = result.shiftedData;
 numberOfContrasts = length(shiftedData);

@@ -63,7 +63,7 @@ DREAMPar.adaptPCR = controls.adaptPCR;
 
 % This will change...
 % Initial sampling and parameter range
-paramInfo.prior = coderEnums.priorTypes.Uniform;
+parInfo.prior = coderEnums.priorTypes.Uniform;
 ParInfo.min = problemStruct.fitLimits(:,1)';
 ParInfo.max = problemStruct.fitLimits(:,2)';
 ParInfo.boundhandling = controls.boundHandling;
@@ -99,7 +99,6 @@ output.chain = collectChains;
 [outProblemStruct,result,dreamResults] = processBayes(output,problemStruct,problemCells,problemLimits,controls);
 
 % Populate the output struct
-bayesResults.bestFitMean = dreamResults.bestFitMean;
 bayesResults.predictionIntervals = dreamResults.predictionIntervals;
 bayesResults.confidenceIntervals = dreamResults.confidenceIntervals;
 bayesResults.dreamParams = dreamOutput.DREAMPar;

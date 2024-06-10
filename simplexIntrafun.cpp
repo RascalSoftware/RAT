@@ -24,7 +24,7 @@ namespace RAT
   void simplexIntrafun(const ::coder::array<real_T, 1U> &x, f_struct_T
                        *problemStruct, const cell_11 *problemCells, const
                        struct1_T *problemLimits, const struct2_T *controls,
-                       const n_struct_T *params, real_T *fval, struct5_T *result)
+                       const m_struct_T *params, real_T *fval, struct5_T *result)
   {
     ::coder::array<real_T, 1U> xtrans;
     int32_T xtrans_idx_0;

@@ -34,7 +34,7 @@ namespace RAT
 {
   void deopt(const f_struct_T *problem, const cell_11 *problemCells, const
              struct1_T *problemLimits, const struct2_T *controls, const
-             m_struct_T *S_struct, ::coder::array<real_T, 2U> &FVr_bestmem)
+             l_struct_T *S_struct, ::coder::array<real_T, 2U> &FVr_bestmem)
   {
     ::coder::array<struct_T, 1U> S_val;
     ::coder::array<real_T, 2U> FM_pm3;

@@ -23,7 +23,7 @@
 // Type Definitions
 namespace RAT
 {
-  struct cell_wrap_38
+  struct cell_wrap_37
   {
     ::coder::array<real_T, 2U> f1;
   };
@@ -32,32 +32,32 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  static void b_cast(const ::coder::array<cell_wrap_40, 2U> &b, ::coder::array<
+  static void b_cast(const ::coder::array<cell_wrap_39, 2U> &b, ::coder::array<
                      cell_wrap_10, 2U> &c);
-  static void b_cast(const ::coder::array<cell_wrap_52, 2U> &b, ::coder::array<
+  static void b_cast(const ::coder::array<cell_wrap_51, 2U> &b, ::coder::array<
                      cell_wrap_10, 2U> &c);
-  static void cast(const ::coder::array<cell_wrap_10, 1U> &b, ::coder::array<
-                   cell_wrap_40, 1U> &c);
-  static void cast(const ::coder::array<cell_wrap_10, 1U> &b, ::coder::array<
-                   cell_wrap_38, 1U> &c);
-  static void cast(const ::coder::array<cell_wrap_8, 1U> &b, ::coder::array<
-                   cell_wrap_38, 1U> &c);
   static void cast(const ::coder::array<cell_wrap_10, 1U> &b, ::coder::array<
                    cell_wrap_39, 1U> &c);
-  static void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
-                   cell_wrap_40, 2U> &c);
-  static void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
-                   cell_wrap_52, 2U> &c);
+  static void cast(const ::coder::array<cell_wrap_10, 1U> &b, ::coder::array<
+                   cell_wrap_37, 1U> &c);
+  static void cast(const ::coder::array<cell_wrap_8, 1U> &b, ::coder::array<
+                   cell_wrap_37, 1U> &c);
+  static void cast(const ::coder::array<cell_wrap_10, 1U> &b, ::coder::array<
+                   cell_wrap_38, 1U> &c);
   static void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
                    cell_wrap_39, 2U> &c);
-  static void cast(const ::coder::array<cell_wrap_38, 1U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
+                   cell_wrap_51, 2U> &c);
+  static void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
+                   cell_wrap_38, 2U> &c);
+  static void cast(const ::coder::array<cell_wrap_37, 1U> &b, ::coder::array<
                    cell_wrap_8, 1U> &c);
 }
 
 // Function Definitions
 namespace RAT
 {
-  static void b_cast(const ::coder::array<cell_wrap_40, 2U> &b, ::coder::array<
+  static void b_cast(const ::coder::array<cell_wrap_39, 2U> &b, ::coder::array<
                      cell_wrap_10, 2U> &c)
   {
     int32_T i;
@@ -78,7 +78,7 @@ namespace RAT
     }
   }
 
-  static void b_cast(const ::coder::array<cell_wrap_52, 2U> &b, ::coder::array<
+  static void b_cast(const ::coder::array<cell_wrap_51, 2U> &b, ::coder::array<
                      cell_wrap_10, 2U> &c)
   {
     int32_T i;
@@ -92,67 +92,6 @@ namespace RAT
         int32_T b_loop_ub;
         b_loop_ub = b[i1].f1.size(0);
         for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
-          c[i1].f1[i3 + c[i1].f1.size(0) * i2] = b[i1].f1[i3 + b[i1].f1.size(0) *
-            i2];
-        }
-      }
-    }
-  }
-
-  static void cast(const ::coder::array<cell_wrap_10, 1U> &b, ::coder::array<
-                   cell_wrap_40, 1U> &c)
-  {
-    int32_T i;
-    c.set_size(b.size(0));
-    i = b.size(0);
-    for (int32_T i1{0}; i1 < i; i1++) {
-      int32_T loop_ub;
-      loop_ub = b[i1].f1.size(1);
-      c[i1].f1.set_size(b[i1].f1.size(0), b[i1].f1.size(1));
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
-        int32_T b_loop_ub;
-        b_loop_ub = b[i1].f1.size(0);
-        for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
-          c[i1].f1[i3 + c[i1].f1.size(0) * i2] = b[i1].f1[i3 + b[i1].f1.size(0) *
-            i2];
-        }
-      }
-    }
-  }
-
-  static void cast(const ::coder::array<cell_wrap_10, 1U> &b, ::coder::array<
-                   cell_wrap_38, 1U> &c)
-  {
-    int32_T i;
-    c.set_size(b.size(0));
-    i = b.size(0);
-    for (int32_T i1{0}; i1 < i; i1++) {
-      int32_T loop_ub;
-      loop_ub = b[i1].f1.size(1);
-      c[i1].f1.set_size(b[i1].f1.size(0), b[i1].f1.size(1));
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
-        int32_T b_loop_ub;
-        b_loop_ub = b[i1].f1.size(0);
-        for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
-          c[i1].f1[i3 + c[i1].f1.size(0) * i2] = b[i1].f1[i3 + b[i1].f1.size(0) *
-            i2];
-        }
-      }
-    }
-  }
-
-  static void cast(const ::coder::array<cell_wrap_8, 1U> &b, ::coder::array<
-                   cell_wrap_38, 1U> &c)
-  {
-    int32_T i;
-    c.set_size(b.size(0));
-    i = b.size(0);
-    for (int32_T i1{0}; i1 < i; i1++) {
-      int32_T loop_ub;
-      loop_ub = b[i1].f1.size(0);
-      c[i1].f1.set_size(b[i1].f1.size(0), 2);
-      for (int32_T i2{0}; i2 < 2; i2++) {
-        for (int32_T i3{0}; i3 < loop_ub; i3++) {
           c[i1].f1[i3 + c[i1].f1.size(0) * i2] = b[i1].f1[i3 + b[i1].f1.size(0) *
             i2];
         }
@@ -181,12 +120,12 @@ namespace RAT
     }
   }
 
-  static void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
-                   cell_wrap_40, 2U> &c)
+  static void cast(const ::coder::array<cell_wrap_10, 1U> &b, ::coder::array<
+                   cell_wrap_37, 1U> &c)
   {
     int32_T i;
-    c.set_size(b.size(0), 2);
-    i = b.size(0) << 1;
+    c.set_size(b.size(0));
+    i = b.size(0);
     for (int32_T i1{0}; i1 < i; i1++) {
       int32_T loop_ub;
       loop_ub = b[i1].f1.size(1);
@@ -202,12 +141,31 @@ namespace RAT
     }
   }
 
-  static void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
-                   cell_wrap_52, 2U> &c)
+  static void cast(const ::coder::array<cell_wrap_8, 1U> &b, ::coder::array<
+                   cell_wrap_37, 1U> &c)
   {
     int32_T i;
-    c.set_size(b.size(0), 2);
-    i = b.size(0) << 1;
+    c.set_size(b.size(0));
+    i = b.size(0);
+    for (int32_T i1{0}; i1 < i; i1++) {
+      int32_T loop_ub;
+      loop_ub = b[i1].f1.size(0);
+      c[i1].f1.set_size(b[i1].f1.size(0), 2);
+      for (int32_T i2{0}; i2 < 2; i2++) {
+        for (int32_T i3{0}; i3 < loop_ub; i3++) {
+          c[i1].f1[i3 + c[i1].f1.size(0) * i2] = b[i1].f1[i3 + b[i1].f1.size(0) *
+            i2];
+        }
+      }
+    }
+  }
+
+  static void cast(const ::coder::array<cell_wrap_10, 1U> &b, ::coder::array<
+                   cell_wrap_38, 1U> &c)
+  {
+    int32_T i;
+    c.set_size(b.size(0));
+    i = b.size(0);
     for (int32_T i1{0}; i1 < i; i1++) {
       int32_T loop_ub;
       loop_ub = b[i1].f1.size(1);
@@ -244,7 +202,49 @@ namespace RAT
     }
   }
 
-  static void cast(const ::coder::array<cell_wrap_38, 1U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
+                   cell_wrap_51, 2U> &c)
+  {
+    int32_T i;
+    c.set_size(b.size(0), 2);
+    i = b.size(0) << 1;
+    for (int32_T i1{0}; i1 < i; i1++) {
+      int32_T loop_ub;
+      loop_ub = b[i1].f1.size(1);
+      c[i1].f1.set_size(b[i1].f1.size(0), b[i1].f1.size(1));
+      for (int32_T i2{0}; i2 < loop_ub; i2++) {
+        int32_T b_loop_ub;
+        b_loop_ub = b[i1].f1.size(0);
+        for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
+          c[i1].f1[i3 + c[i1].f1.size(0) * i2] = b[i1].f1[i3 + b[i1].f1.size(0) *
+            i2];
+        }
+      }
+    }
+  }
+
+  static void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
+                   cell_wrap_38, 2U> &c)
+  {
+    int32_T i;
+    c.set_size(b.size(0), 2);
+    i = b.size(0) << 1;
+    for (int32_T i1{0}; i1 < i; i1++) {
+      int32_T loop_ub;
+      loop_ub = b[i1].f1.size(1);
+      c[i1].f1.set_size(b[i1].f1.size(0), b[i1].f1.size(1));
+      for (int32_T i2{0}; i2 < loop_ub; i2++) {
+        int32_T b_loop_ub;
+        b_loop_ub = b[i1].f1.size(0);
+        for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
+          c[i1].f1[i3 + c[i1].f1.size(0) * i2] = b[i1].f1[i3 + b[i1].f1.size(0) *
+            i2];
+        }
+      }
+    }
+  }
+
+  static void cast(const ::coder::array<cell_wrap_37, 1U> &b, ::coder::array<
                    cell_wrap_8, 1U> &c)
   {
     int32_T i;
@@ -275,17 +275,17 @@ namespace RAT
     ::coder::array<cell_wrap_10, 1U> b_resampledLayers;
     ::coder::array<cell_wrap_10, 1U> b_sldProfiles;
     ::coder::array<cell_wrap_10, 1U> shiftedData;
-    ::coder::array<cell_wrap_38, 1U> reflectivity;
-    ::coder::array<cell_wrap_38, 1U> simulation;
-    ::coder::array<cell_wrap_38, 1U> sldProfiles;
-    ::coder::array<cell_wrap_39, 2U> domainResampledLayers;
-    ::coder::array<cell_wrap_39, 2U> r3;
-    ::coder::array<cell_wrap_39, 1U> resampledLayers;
-    ::coder::array<cell_wrap_40, 2U> domainLayerSlds;
-    ::coder::array<cell_wrap_40, 2U> r1;
-    ::coder::array<cell_wrap_40, 1U> layerSlds;
-    ::coder::array<cell_wrap_52, 2U> domainSldProfiles;
-    ::coder::array<cell_wrap_52, 2U> r2;
+    ::coder::array<cell_wrap_37, 1U> reflectivity;
+    ::coder::array<cell_wrap_37, 1U> simulation;
+    ::coder::array<cell_wrap_37, 1U> sldProfiles;
+    ::coder::array<cell_wrap_38, 2U> domainResampledLayers;
+    ::coder::array<cell_wrap_38, 2U> r3;
+    ::coder::array<cell_wrap_38, 1U> resampledLayers;
+    ::coder::array<cell_wrap_39, 2U> domainLayerSlds;
+    ::coder::array<cell_wrap_39, 2U> r1;
+    ::coder::array<cell_wrap_39, 1U> layerSlds;
+    ::coder::array<cell_wrap_51, 2U> domainSldProfiles;
+    ::coder::array<cell_wrap_51, 2U> r2;
     ::coder::array<cell_wrap_8, 1U> b_reflectivity;
     ::coder::array<cell_wrap_8, 1U> b_simulation;
     c_struct_T b_contrastParams;

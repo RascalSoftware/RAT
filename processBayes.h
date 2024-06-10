@@ -25,7 +25,7 @@ namespace RAT
   struct struct1_T;
   struct struct2_T;
   struct struct5_T;
-  struct j_struct_T;
+  struct i_struct_T;
 }
 
 // Function Declarations
@@ -35,13 +35,13 @@ namespace RAT
                     bayesOutputs_bestParams_size[2], const ::coder::array<real_T,
                     2U> &bayesOutputs_chain, f_struct_T *problemStruct, const
                     cell_11 *problemCells, const struct1_T *problemLimits,
-                    struct2_T *controls, struct5_T *result, j_struct_T
+                    struct2_T *controls, struct5_T *result, i_struct_T
                     *bayesResults);
   void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestParams,
                     const ::coder::array<real_T, 2U> &bayesOutputs_chain,
                     f_struct_T *problemStruct, const cell_11 *problemCells,
                     const struct1_T *problemLimits, struct2_T *controls,
-                    struct5_T *result, j_struct_T *bayesResults);
+                    struct5_T *result, i_struct_T *bayesResults);
 }
 
 #endif

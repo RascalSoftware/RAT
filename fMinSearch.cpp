@@ -37,8 +37,8 @@ namespace RAT
                   options_TolFun, const char_T dis_data[], const int32_T
                   dis_size[2], const f_struct_T *varargin_1, const cell_11
                   *varargin_2, const struct1_T *varargin_3, const struct2_T
-                  *varargin_4, const n_struct_T *varargin_5, real_T *fval,
-                  real_T *exitflag, l_struct_T *output)
+                  *varargin_4, const m_struct_T *varargin_5, real_T *fval,
+                  real_T *exitflag, k_struct_T *output)
   {
     static const char_T cv6[33]{ 'N', 'e', 'l', 'd', 'e', 'r', '-', 'M', 'e',
       'a', 'd', ' ', 's', 'i', 'm', 'p', 'l', 'e', 'x', ' ', 'd', 'i', 'r', 'e',

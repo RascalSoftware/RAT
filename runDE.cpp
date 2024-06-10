@@ -83,7 +83,7 @@ namespace RAT
     ::coder::array<cell_wrap_1, 1U> b_problemStruct;
     ::coder::array<real_T, 2U> res;
     ::coder::array<int8_T, 2U> S_struct_FM_pop;
-    m_struct_T expl_temp;
+    l_struct_T expl_temp;
     int32_T i;
     int32_T i1;
     int32_T loop_ub;

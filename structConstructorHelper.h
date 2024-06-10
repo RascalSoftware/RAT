@@ -29,8 +29,8 @@ namespace RAT
   struct cell_wrap_31;
   struct d_struct_T;
   struct cell_wrap_34;
+  struct cell_wrap_35;
   struct cell_wrap_10;
-  struct cell_wrap_36;
 }
 
 // Function Declarations
@@ -47,12 +47,8 @@ namespace RAT
         c_struct_T *varargin_16, const ::coder::array<real_T, 2U> &varargin_18,
         const cell_wrap_31 *varargin_20, d_struct_T *s);
       void structConstructorHelper(const cell_wrap_34 *varargin_2, const
-        cell_wrap_29 *varargin_4, const cell_wrap_34 *varargin_8, ::coder::array<
-        cell_wrap_10, 1U> &s_reflectivity, ::coder::array<cell_wrap_10, 2U>
-        &s_sld, real_T *s_chi, ::coder::array<cell_wrap_10, 1U> &s_data);
-      void structConstructorHelper(const cell_wrap_34 *varargin_2, const
         cell_wrap_29 *varargin_4, const cell_wrap_34 *varargin_6, const
-        cell_wrap_29 *varargin_8, const cell_wrap_36 *varargin_10, ::coder::
+        cell_wrap_29 *varargin_8, const cell_wrap_35 *varargin_10, ::coder::
         array<cell_wrap_10, 1U> &s_reflectivity, ::coder::array<cell_wrap_10, 2U>
         &s_sld, ::coder::array<cell_wrap_10, 1U> &s_reflectivityXData, ::coder::
         array<cell_wrap_10, 2U> &s_sldXData, real_T s_sampleChi_data[], int32_T *

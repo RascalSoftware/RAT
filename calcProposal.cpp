@@ -26,7 +26,7 @@
 namespace RAT
 {
   void calcProposal(const ::coder::array<real_T, 2U> &X, real_T CR_data[], const
-                    struct12_T *DREAMPar, const ::coder::array<real_T, 2U>
+                    struct11_T *DREAMPar, const ::coder::array<real_T, 2U>
                     &Table_gamma, const ::coder::array<real_T, 2U>
                     &paramInfo_min, const ::coder::array<real_T, 2U>
                     &paramInfo_max, const char_T paramInfo_boundhandling_data[],

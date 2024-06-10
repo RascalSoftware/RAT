@@ -37,8 +37,8 @@ namespace RAT
     ::coder::array<cell_wrap_1, 1U> b_problemStruct;
     ::coder::array<real_T, 1U> x;
     ::coder::array<real_T, 1U> x0u;
-    l_struct_T a__4;
-    n_struct_T expl_temp;
+    k_struct_T a__4;
+    m_struct_T expl_temp;
     real_T a__2;
     real_T a__3;
     int32_T dis_size[2];

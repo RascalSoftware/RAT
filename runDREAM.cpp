@@ -34,7 +34,7 @@ namespace RAT
                 struct4_T *priors, f_struct_T *outProblemStruct, struct5_T
                 *result, h_struct_T *bayesResults)
   {
-    static k_struct_T dreamOutput;
+    static j_struct_T dreamOutput;
     static struct2_T b_controls;
     ::coder::array<cell_wrap_1, 1U> fitParamNames;
     ::coder::array<real_T, 2U> ParInfo_max;
@@ -44,7 +44,7 @@ namespace RAT
     ::coder::array<real_T, 2U> c_bayesResults;
     ::coder::array<real_T, 2U> r;
     ::coder::array<real_T, 2U> r1;
-    j_struct_T dreamResults;
+    i_struct_T dreamResults;
     int32_T b_loop_ub;
     int32_T i;
     int32_T i1;
@@ -57,10 +57,7 @@ namespace RAT
     //  calculation
     makeEmptyBayesResultsStruct(problemStruct->numberOfContrasts, coder::
       internal::b_strcmp(problemStruct->TF.data, problemStruct->TF.size),
-      controls->nChains, bayesResults->bestFitMean.reflectivity,
-      bayesResults->bestFitMean.sld, &bayesResults->bestFitMean.chi,
-      bayesResults->bestFitMean.data,
-      bayesResults->predictionIntervals.reflectivity,
+      controls->nChains, bayesResults->predictionIntervals.reflectivity,
       bayesResults->predictionIntervals.sld,
       bayesResults->predictionIntervals.reflectivityXData,
       bayesResults->predictionIntervals.sldXData,
@@ -222,22 +219,6 @@ namespace RAT
                  problemLimits, &b_controls, result, &dreamResults);
 
     //  Populate the output struct
-    cast(dreamResults.bestFitMean.reflectivity,
-         bayesResults->bestFitMean.reflectivity);
-    bayesResults->bestFitMean.sld.set_size(dreamResults.bestFitMean.sld.size(0),
-      dreamResults.bestFitMean.sld.size(1));
-    loop_ub = dreamResults.bestFitMean.sld.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = dreamResults.bestFitMean.sld.size(0);
-      for (i1 = 0; i1 < b_loop_ub; i1++) {
-        bayesResults->bestFitMean.sld[i1 + bayesResults->bestFitMean.sld.size(0)
-          * i] = dreamResults.bestFitMean.sld[i1 +
-          dreamResults.bestFitMean.sld.size(0) * i];
-      }
-    }
-
-    bayesResults->bestFitMean.chi = dreamResults.bestFitMean.chi;
-    cast(dreamResults.bestFitMean.data, bayesResults->bestFitMean.data);
     cast(dreamResults.predictionIntervals.reflectivity,
          bayesResults->predictionIntervals.reflectivity);
     cast(dreamResults.predictionIntervals.sld,

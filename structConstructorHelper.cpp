@@ -105,41 +105,8 @@ namespace RAT
       }
 
       void structConstructorHelper(const cell_wrap_34 *varargin_2, const
-        cell_wrap_29 *varargin_4, const cell_wrap_34 *varargin_8, ::coder::array<
-        cell_wrap_10, 1U> &s_reflectivity, ::coder::array<cell_wrap_10, 2U>
-        &s_sld, real_T *s_chi, ::coder::array<cell_wrap_10, 1U> &s_data)
-      {
-        int32_T i;
-        int32_T loop_ub;
-        s_reflectivity.set_size(varargin_2->f1.size(0));
-        loop_ub = varargin_2->f1.size(0);
-        for (i = 0; i < loop_ub; i++) {
-          s_reflectivity[i] = varargin_2->f1[i];
-        }
-
-        s_sld.set_size(varargin_4->f1.size(0), varargin_4->f1.size(1));
-        loop_ub = varargin_4->f1.size(1);
-        for (i = 0; i < loop_ub; i++) {
-          int32_T b_loop_ub;
-          b_loop_ub = varargin_4->f1.size(0);
-          for (int32_T i1{0}; i1 < b_loop_ub; i1++) {
-            s_sld[i1 + s_sld.size(0) * i] = varargin_4->f1[i1 +
-              varargin_4->f1.size(0) * i];
-          }
-        }
-
-        s_data.set_size(varargin_8->f1.size(0));
-        loop_ub = varargin_8->f1.size(0);
-        for (i = 0; i < loop_ub; i++) {
-          s_data[i] = varargin_8->f1[i];
-        }
-
-        *s_chi = 0.0;
-      }
-
-      void structConstructorHelper(const cell_wrap_34 *varargin_2, const
         cell_wrap_29 *varargin_4, const cell_wrap_34 *varargin_6, const
-        cell_wrap_29 *varargin_8, const cell_wrap_36 *varargin_10, ::coder::
+        cell_wrap_29 *varargin_8, const cell_wrap_35 *varargin_10, ::coder::
         array<cell_wrap_10, 1U> &s_reflectivity, ::coder::array<cell_wrap_10, 2U>
         &s_sld, ::coder::array<cell_wrap_10, 1U> &s_reflectivityXData, ::coder::
         array<cell_wrap_10, 2U> &s_sldXData, real_T s_sampleChi_data[], int32_T *

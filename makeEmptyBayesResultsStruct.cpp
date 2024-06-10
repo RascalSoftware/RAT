@@ -150,10 +150,7 @@ namespace RAT
   }
 
   void b_makeEmptyBayesResultsStruct(real_T nContrasts, boolean_T isDomains, ::
-    coder::array<cell_wrap_10, 1U> &bayesResults_bestFitMean_reflectivity, ::
-    coder::array<cell_wrap_10, 2U> &bayesResults_bestFitMean_sld, real_T
-    *bayesResults_bestFitMean_chi, ::coder::array<cell_wrap_10, 1U>
-    &bayesResults_bestFitMean_data, ::coder::array<cell_wrap_10, 1U>
+    coder::array<cell_wrap_10, 1U>
     &bayesResults_predictionIntervals_reflectivity, ::coder::array<cell_wrap_10,
     2U> &bayesResults_predictionIntervals_sld, ::coder::array<cell_wrap_10, 1U>
     &bayesResults_predictionIntervals_reflectivityXData, ::coder::array<
@@ -162,29 +159,26 @@ namespace RAT
     *bayesResults_predictionIntervals_sampleChi_size, ::coder::array<real_T, 2U>
     &bayesResults_confidenceIntervals_percentile95, ::coder::array<real_T, 2U>
     &bayesResults_confidenceIntervals_percentile65, ::coder::array<real_T, 2U>
-    &bayesResults_confidenceIntervals_mean, struct12_T *bayesResults_dreamParams,
-    struct13_T *bayesResults_dreamOutput, e_struct_T
+    &bayesResults_confidenceIntervals_mean, struct11_T *bayesResults_dreamParams,
+    struct12_T *bayesResults_dreamOutput, e_struct_T
     *bayesResults_nestedSamplerOutput, ::coder::array<real_T, 2U>
     &bayesResults_chain)
   {
     ::coder::array<cell_wrap_10, 2U> b_f1;
-    ::coder::array<cell_wrap_10, 2U> e_f1;
-    ::coder::array<cell_wrap_10, 2U> g_f1;
+    ::coder::array<cell_wrap_10, 2U> d_f1;
     ::coder::array<cell_wrap_10, 1U> c_f1;
-    ::coder::array<cell_wrap_10, 1U> d_f1;
     ::coder::array<cell_wrap_10, 1U> f1;
-    ::coder::array<cell_wrap_10, 1U> f_f1;
     ::coder::array<real_T, 3U> t4_allChains;
     ::coder::array<real_T, 2U> t4_AR;
     ::coder::array<real_T, 2U> t4_CR;
     ::coder::array<real_T, 2U> t4_R_stat;
     ::coder::array<real_T, 2U> t4_outlierChains;
-    ::coder::array<real_T, 1U> h_f1;
+    ::coder::array<real_T, 1U> e_f1;
     cell_wrap_29 r1;
     cell_wrap_29 r3;
     cell_wrap_34 r;
     cell_wrap_34 r2;
-    cell_wrap_36 r4;
+    cell_wrap_35 r4;
     real_T t5_percentile65_data[2000];
     real_T t5_percentile95_data[2000];
     real_T t5_mean_data[1000];
@@ -204,7 +198,6 @@ namespace RAT
     //
     //    struct with fields:
     //
-    //          bestFitMean: [1×1 struct]
     //  predictionIntervals: [1×1 struct]
     //  confidenceIntervals: [1×1 struct]
     //            allChains: [1×1 struct]
@@ -214,7 +207,7 @@ namespace RAT
     //                chain: [1000000xnParams double]
     //  -----------------------------------------------------------
     //  Make the individual structs....
-    //  (1) bayesResults.bestFitMean
+    //  (1) bayesResults.predictionIntervals
     i = static_cast<int32_T>(nContrasts);
     f1.set_size(i);
     for (b_i = 0; b_i < i; b_i++) {
@@ -227,111 +220,65 @@ namespace RAT
     if (isDomains) {
       b_f1.set_size(i, 2);
       for (b_i = 0; b_i < i; b_i++) {
-        b_f1[b_i].f1.set_size(2, 2);
-        b_f1[b_i + b_f1.size(0)].f1.set_size(2, 2);
+        b_f1[b_i].f1.set_size(1, 3);
+        b_f1[b_i + b_f1.size(0)].f1.set_size(1, 3);
         b_f1[b_i].f1[0] = 1.0;
         b_f1[b_i + b_f1.size(0)].f1[0] = 1.0;
-        b_f1[b_i].f1[1] = 1.0;
-        b_f1[b_i + b_f1.size(0)].f1[1] = 1.0;
         b_f1[b_i].f1[b_f1[b_i].f1.size(0)] = 1.0;
         b_f1[b_i + b_f1.size(0)].f1[b_f1[b_i + b_f1.size(0)].f1.size(0)] = 1.0;
-        b_f1[b_i].f1[b_f1[b_i].f1.size(0) + 1] = 1.0;
-        b_f1[b_i + b_f1.size(0)].f1[b_f1[b_i + b_f1.size(0)].f1.size(0) + 1] =
+        b_f1[b_i].f1[b_f1[b_i].f1.size(0) * 2] = 1.0;
+        b_f1[b_i + b_f1.size(0)].f1[b_f1[b_i + b_f1.size(0)].f1.size(0) * 2] =
           1.0;
       }
     } else {
       b_f1.set_size(i, 1);
       for (b_i = 0; b_i < i; b_i++) {
-        b_f1[b_i].f1.set_size(1, 2);
+        b_f1[b_i].f1.set_size(1, 3);
         b_f1[b_i].f1[0] = 1.0;
         b_f1[b_i].f1[b_f1[b_i].f1.size(0)] = 1.0;
+        b_f1[b_i].f1[b_f1[b_i].f1.size(0) * 2] = 1.0;
       }
     }
 
     c_f1.set_size(i);
-    r.f1 = f1;
-    r1.f1 = b_f1;
-
-    //  --------------------------------------------------------------------
-    //  (2) bayesResults.predictionIntervals
-    d_f1.set_size(i);
     for (b_i = 0; b_i < i; b_i++) {
       c_f1[b_i].f1.set_size(1, 3);
       c_f1[b_i].f1[0] = 1.0;
       c_f1[b_i].f1[c_f1[b_i].f1.size(0)] = 1.0;
       c_f1[b_i].f1[c_f1[b_i].f1.size(0) * 2] = 1.0;
-      d_f1[b_i].f1.set_size(1, 3);
-      d_f1[b_i].f1[0] = 1.0;
-      d_f1[b_i].f1[d_f1[b_i].f1.size(0)] = 1.0;
-      d_f1[b_i].f1[d_f1[b_i].f1.size(0) * 2] = 1.0;
-    }
-
-    r2.f1 = c_f1;
-    coder::internal::structConstructorHelper(&r, &r1, &r2,
-      bayesResults_bestFitMean_reflectivity, bayesResults_bestFitMean_sld,
-      bayesResults_bestFitMean_chi, bayesResults_bestFitMean_data);
-    if (isDomains) {
-      e_f1.set_size(i, 2);
-      for (b_i = 0; b_i < i; b_i++) {
-        e_f1[b_i].f1.set_size(1, 3);
-        e_f1[b_i + e_f1.size(0)].f1.set_size(1, 3);
-        e_f1[b_i].f1[0] = 1.0;
-        e_f1[b_i + e_f1.size(0)].f1[0] = 1.0;
-        e_f1[b_i].f1[e_f1[b_i].f1.size(0)] = 1.0;
-        e_f1[b_i + e_f1.size(0)].f1[e_f1[b_i + e_f1.size(0)].f1.size(0)] = 1.0;
-        e_f1[b_i].f1[e_f1[b_i].f1.size(0) * 2] = 1.0;
-        e_f1[b_i + e_f1.size(0)].f1[e_f1[b_i + e_f1.size(0)].f1.size(0) * 2] =
-          1.0;
-      }
-    } else {
-      e_f1.set_size(i, 1);
-      for (b_i = 0; b_i < i; b_i++) {
-        e_f1[b_i].f1.set_size(1, 3);
-        e_f1[b_i].f1[0] = 1.0;
-        e_f1[b_i].f1[e_f1[b_i].f1.size(0)] = 1.0;
-        e_f1[b_i].f1[e_f1[b_i].f1.size(0) * 2] = 1.0;
-      }
-    }
-
-    f_f1.set_size(i);
-    for (b_i = 0; b_i < i; b_i++) {
-      f_f1[b_i].f1.set_size(1, 3);
-      f_f1[b_i].f1[0] = 1.0;
-      f_f1[b_i].f1[f_f1[b_i].f1.size(0)] = 1.0;
-      f_f1[b_i].f1[f_f1[b_i].f1.size(0) * 2] = 1.0;
     }
 
     if (isDomains) {
-      g_f1.set_size(i, 2);
+      d_f1.set_size(i, 2);
       for (b_i = 0; b_i < i; b_i++) {
-        g_f1[b_i].f1.set_size(2, 3);
-        g_f1[b_i + g_f1.size(0)].f1.set_size(2, 3);
+        d_f1[b_i].f1.set_size(2, 3);
+        d_f1[b_i + d_f1.size(0)].f1.set_size(2, 3);
         for (int32_T i1{0}; i1 < 3; i1++) {
-          g_f1[b_i].f1[g_f1[b_i].f1.size(0) * i1] = 1.0;
-          g_f1[b_i + g_f1.size(0)].f1[g_f1[b_i + g_f1.size(0)].f1.size(0) * i1] =
+          d_f1[b_i].f1[d_f1[b_i].f1.size(0) * i1] = 1.0;
+          d_f1[b_i + d_f1.size(0)].f1[d_f1[b_i + d_f1.size(0)].f1.size(0) * i1] =
             1.0;
-          g_f1[b_i].f1[g_f1[b_i].f1.size(0) * i1 + 1] = 1.0;
-          g_f1[b_i + g_f1.size(0)].f1[g_f1[b_i + g_f1.size(0)].f1.size(0) * i1 +
+          d_f1[b_i].f1[d_f1[b_i].f1.size(0) * i1 + 1] = 1.0;
+          d_f1[b_i + d_f1.size(0)].f1[d_f1[b_i + d_f1.size(0)].f1.size(0) * i1 +
             1] = 1.0;
         }
       }
     } else {
-      g_f1.set_size(i, 1);
+      d_f1.set_size(i, 1);
       for (b_i = 0; b_i < i; b_i++) {
-        g_f1[b_i].f1.set_size(1, 3);
-        g_f1[b_i].f1[0] = 1.0;
-        g_f1[b_i].f1[g_f1[b_i].f1.size(0)] = 1.0;
-        g_f1[b_i].f1[g_f1[b_i].f1.size(0) * 2] = 1.0;
+        d_f1[b_i].f1.set_size(1, 3);
+        d_f1[b_i].f1[0] = 1.0;
+        d_f1[b_i].f1[d_f1[b_i].f1.size(0)] = 1.0;
+        d_f1[b_i].f1[d_f1[b_i].f1.size(0) * 2] = 1.0;
       }
     }
 
-    h_f1.set_size(1);
-    h_f1[0] = 0.0;
-    r.f1 = d_f1;
-    r1.f1 = e_f1;
-    r2.f1 = f_f1;
-    r3.f1 = g_f1;
-    r4.f1 = h_f1;
+    e_f1.set_size(1);
+    e_f1[0] = 0.0;
+    r.f1 = f1;
+    r1.f1 = b_f1;
+    r2.f1 = c_f1;
+    r3.f1 = d_f1;
+    r4.f1 = e_f1;
     coder::internal::structConstructorHelper(&r, &r1, &r2, &r3, &r4,
       bayesResults_predictionIntervals_reflectivity,
       bayesResults_predictionIntervals_sld,
@@ -341,7 +288,7 @@ namespace RAT
       bayesResults_predictionIntervals_sampleChi_size);
 
     //  ------------------------------------------------------------------
-    //  (3) bayesResults.confidenceIntervals
+    //  (2) bayesResults.confidenceIntervals
     t5_percentile95_size[0] = 2;
     t5_percentile95_size[1] = 1;
     t5_percentile65_size[0] = 2;
@@ -360,7 +307,7 @@ namespace RAT
          bayesResults_confidenceIntervals_mean);
 
     //  -------------------------------------------------------------------
-    //  (4) bayesResults.dreamParams
+    //  (3) bayesResults.dreamParams
     bayesResults_dreamParams->R.set_size(1, 1);
     bayesResults_dreamParams->R[0] = 0.0;
     bayesResults_dreamParams->nParams = 17.0;
@@ -382,7 +329,7 @@ namespace RAT
     bayesResults_dreamParams->storeOutput = false;
 
     //  -------------------------------------------------------------------
-    //  (5) bayesResults.dreamOutput
+    //  (4) bayesResults.dreamOutput
     t4_allChains.set_size(1, 3, 1);
     bayesResults_dreamParams->outlier[0] = 'i';
     t4_allChains[0] = 1.0;
@@ -396,7 +343,7 @@ namespace RAT
     t4_CR.set_size(1, 2);
 
     //  -------------------------------------------------------------------
-    //  (6) bayesResults.nestedSamplerOutput
+    //  (5) bayesResults.nestedSamplerOutput
     //  Nested Sampler
     bayesResults_nestedSamplerOutput->nestSamples.size[0] = 1;
     bayesResults_nestedSamplerOutput->nestSamples.size[1] = 2;
@@ -426,7 +373,7 @@ namespace RAT
     bayesResults_nestedSamplerOutput->LogZ = 0.0;
 
     //  ------------------------------------------------------------------
-    //  (7) chain
+    //  (6) chain
     bayesResults_chain.set_size(1, 2);
     bayesResults_chain[0] = 0.0;
     bayesResults_chain[bayesResults_chain.size(0)] = 0.0;
@@ -437,40 +384,34 @@ namespace RAT
 
   void makeEmptyBayesResultsStruct(real_T nContrasts, boolean_T isDomains,
     real_T nChains, ::coder::array<cell_wrap_10, 1U>
-    &bayesResults_bestFitMean_reflectivity, ::coder::array<cell_wrap_10, 2U>
-    &bayesResults_bestFitMean_sld, real_T *bayesResults_bestFitMean_chi, ::coder::
-    array<cell_wrap_10, 1U> &bayesResults_bestFitMean_data, ::coder::array<
-    cell_wrap_10, 1U> &bayesResults_predictionIntervals_reflectivity, ::coder::
-    array<cell_wrap_10, 2U> &bayesResults_predictionIntervals_sld, ::coder::
-    array<cell_wrap_10, 1U> &bayesResults_predictionIntervals_reflectivityXData,
-    ::coder::array<cell_wrap_10, 2U> &bayesResults_predictionIntervals_sldXData,
-    real_T bayesResults_predictionIntervals_sampleChi_data[], int32_T
+    &bayesResults_predictionIntervals_reflectivity, ::coder::array<cell_wrap_10,
+    2U> &bayesResults_predictionIntervals_sld, ::coder::array<cell_wrap_10, 1U>
+    &bayesResults_predictionIntervals_reflectivityXData, ::coder::array<
+    cell_wrap_10, 2U> &bayesResults_predictionIntervals_sldXData, real_T
+    bayesResults_predictionIntervals_sampleChi_data[], int32_T
     *bayesResults_predictionIntervals_sampleChi_size, ::coder::array<real_T, 2U>
     &bayesResults_confidenceIntervals_percentile95, ::coder::array<real_T, 2U>
     &bayesResults_confidenceIntervals_percentile65, ::coder::array<real_T, 2U>
-    &bayesResults_confidenceIntervals_mean, struct12_T *bayesResults_dreamParams,
-    struct13_T *bayesResults_dreamOutput, e_struct_T
+    &bayesResults_confidenceIntervals_mean, struct11_T *bayesResults_dreamParams,
+    struct12_T *bayesResults_dreamOutput, e_struct_T
     *bayesResults_nestedSamplerOutput, ::coder::array<real_T, 2U>
     &bayesResults_chain)
   {
     ::coder::array<cell_wrap_10, 2U> b_f1;
-    ::coder::array<cell_wrap_10, 2U> e_f1;
-    ::coder::array<cell_wrap_10, 2U> g_f1;
+    ::coder::array<cell_wrap_10, 2U> d_f1;
     ::coder::array<cell_wrap_10, 1U> c_f1;
-    ::coder::array<cell_wrap_10, 1U> d_f1;
     ::coder::array<cell_wrap_10, 1U> f1;
-    ::coder::array<cell_wrap_10, 1U> f_f1;
     ::coder::array<real_T, 3U> t10_allChains;
     ::coder::array<real_T, 2U> t10_AR;
     ::coder::array<real_T, 2U> t10_CR;
     ::coder::array<real_T, 2U> t10_R_stat;
     ::coder::array<real_T, 2U> t10_outlierChains;
-    ::coder::array<real_T, 1U> h_f1;
+    ::coder::array<real_T, 1U> e_f1;
     cell_wrap_29 r1;
     cell_wrap_29 r3;
     cell_wrap_34 r;
     cell_wrap_34 r2;
-    cell_wrap_36 r4;
+    cell_wrap_35 r4;
     real_T t11_percentile65_data[2000];
     real_T t11_percentile95_data[2000];
     real_T t11_mean_data[1000];
@@ -492,7 +433,6 @@ namespace RAT
     //
     //    struct with fields:
     //
-    //          bestFitMean: [1×1 struct]
     //  predictionIntervals: [1×1 struct]
     //  confidenceIntervals: [1×1 struct]
     //            allChains: [1×1 struct]
@@ -502,7 +442,7 @@ namespace RAT
     //                chain: [1000000xnParams double]
     //  -----------------------------------------------------------
     //  Make the individual structs....
-    //  (1) bayesResults.bestFitMean
+    //  (1) bayesResults.predictionIntervals
     i = static_cast<int32_T>(nContrasts);
     f1.set_size(i);
     for (b_i = 0; b_i < i; b_i++) {
@@ -515,111 +455,65 @@ namespace RAT
     if (isDomains) {
       b_f1.set_size(i, 2);
       for (b_i = 0; b_i < i; b_i++) {
-        b_f1[b_i].f1.set_size(2, 2);
-        b_f1[b_i + b_f1.size(0)].f1.set_size(2, 2);
+        b_f1[b_i].f1.set_size(1, 3);
+        b_f1[b_i + b_f1.size(0)].f1.set_size(1, 3);
         b_f1[b_i].f1[0] = 1.0;
         b_f1[b_i + b_f1.size(0)].f1[0] = 1.0;
-        b_f1[b_i].f1[1] = 1.0;
-        b_f1[b_i + b_f1.size(0)].f1[1] = 1.0;
         b_f1[b_i].f1[b_f1[b_i].f1.size(0)] = 1.0;
         b_f1[b_i + b_f1.size(0)].f1[b_f1[b_i + b_f1.size(0)].f1.size(0)] = 1.0;
-        b_f1[b_i].f1[b_f1[b_i].f1.size(0) + 1] = 1.0;
-        b_f1[b_i + b_f1.size(0)].f1[b_f1[b_i + b_f1.size(0)].f1.size(0) + 1] =
+        b_f1[b_i].f1[b_f1[b_i].f1.size(0) * 2] = 1.0;
+        b_f1[b_i + b_f1.size(0)].f1[b_f1[b_i + b_f1.size(0)].f1.size(0) * 2] =
           1.0;
       }
     } else {
       b_f1.set_size(i, 1);
       for (b_i = 0; b_i < i; b_i++) {
-        b_f1[b_i].f1.set_size(1, 2);
+        b_f1[b_i].f1.set_size(1, 3);
         b_f1[b_i].f1[0] = 1.0;
         b_f1[b_i].f1[b_f1[b_i].f1.size(0)] = 1.0;
+        b_f1[b_i].f1[b_f1[b_i].f1.size(0) * 2] = 1.0;
       }
     }
 
     c_f1.set_size(i);
-    r.f1 = f1;
-    r1.f1 = b_f1;
-
-    //  --------------------------------------------------------------------
-    //  (2) bayesResults.predictionIntervals
-    d_f1.set_size(i);
     for (b_i = 0; b_i < i; b_i++) {
       c_f1[b_i].f1.set_size(1, 3);
       c_f1[b_i].f1[0] = 1.0;
       c_f1[b_i].f1[c_f1[b_i].f1.size(0)] = 1.0;
       c_f1[b_i].f1[c_f1[b_i].f1.size(0) * 2] = 1.0;
-      d_f1[b_i].f1.set_size(1, 3);
-      d_f1[b_i].f1[0] = 1.0;
-      d_f1[b_i].f1[d_f1[b_i].f1.size(0)] = 1.0;
-      d_f1[b_i].f1[d_f1[b_i].f1.size(0) * 2] = 1.0;
-    }
-
-    r2.f1 = c_f1;
-    coder::internal::structConstructorHelper(&r, &r1, &r2,
-      bayesResults_bestFitMean_reflectivity, bayesResults_bestFitMean_sld,
-      bayesResults_bestFitMean_chi, bayesResults_bestFitMean_data);
-    if (isDomains) {
-      e_f1.set_size(i, 2);
-      for (b_i = 0; b_i < i; b_i++) {
-        e_f1[b_i].f1.set_size(1, 3);
-        e_f1[b_i + e_f1.size(0)].f1.set_size(1, 3);
-        e_f1[b_i].f1[0] = 1.0;
-        e_f1[b_i + e_f1.size(0)].f1[0] = 1.0;
-        e_f1[b_i].f1[e_f1[b_i].f1.size(0)] = 1.0;
-        e_f1[b_i + e_f1.size(0)].f1[e_f1[b_i + e_f1.size(0)].f1.size(0)] = 1.0;
-        e_f1[b_i].f1[e_f1[b_i].f1.size(0) * 2] = 1.0;
-        e_f1[b_i + e_f1.size(0)].f1[e_f1[b_i + e_f1.size(0)].f1.size(0) * 2] =
-          1.0;
-      }
-    } else {
-      e_f1.set_size(i, 1);
-      for (b_i = 0; b_i < i; b_i++) {
-        e_f1[b_i].f1.set_size(1, 3);
-        e_f1[b_i].f1[0] = 1.0;
-        e_f1[b_i].f1[e_f1[b_i].f1.size(0)] = 1.0;
-        e_f1[b_i].f1[e_f1[b_i].f1.size(0) * 2] = 1.0;
-      }
-    }
-
-    f_f1.set_size(i);
-    for (b_i = 0; b_i < i; b_i++) {
-      f_f1[b_i].f1.set_size(1, 3);
-      f_f1[b_i].f1[0] = 1.0;
-      f_f1[b_i].f1[f_f1[b_i].f1.size(0)] = 1.0;
-      f_f1[b_i].f1[f_f1[b_i].f1.size(0) * 2] = 1.0;
     }
 
     if (isDomains) {
-      g_f1.set_size(i, 2);
+      d_f1.set_size(i, 2);
       for (b_i = 0; b_i < i; b_i++) {
-        g_f1[b_i].f1.set_size(2, 3);
-        g_f1[b_i + g_f1.size(0)].f1.set_size(2, 3);
+        d_f1[b_i].f1.set_size(2, 3);
+        d_f1[b_i + d_f1.size(0)].f1.set_size(2, 3);
         for (i1 = 0; i1 < 3; i1++) {
-          g_f1[b_i].f1[g_f1[b_i].f1.size(0) * i1] = 1.0;
-          g_f1[b_i + g_f1.size(0)].f1[g_f1[b_i + g_f1.size(0)].f1.size(0) * i1] =
+          d_f1[b_i].f1[d_f1[b_i].f1.size(0) * i1] = 1.0;
+          d_f1[b_i + d_f1.size(0)].f1[d_f1[b_i + d_f1.size(0)].f1.size(0) * i1] =
             1.0;
-          g_f1[b_i].f1[g_f1[b_i].f1.size(0) * i1 + 1] = 1.0;
-          g_f1[b_i + g_f1.size(0)].f1[g_f1[b_i + g_f1.size(0)].f1.size(0) * i1 +
+          d_f1[b_i].f1[d_f1[b_i].f1.size(0) * i1 + 1] = 1.0;
+          d_f1[b_i + d_f1.size(0)].f1[d_f1[b_i + d_f1.size(0)].f1.size(0) * i1 +
             1] = 1.0;
         }
       }
     } else {
-      g_f1.set_size(i, 1);
+      d_f1.set_size(i, 1);
       for (b_i = 0; b_i < i; b_i++) {
-        g_f1[b_i].f1.set_size(1, 3);
-        g_f1[b_i].f1[0] = 1.0;
-        g_f1[b_i].f1[g_f1[b_i].f1.size(0)] = 1.0;
-        g_f1[b_i].f1[g_f1[b_i].f1.size(0) * 2] = 1.0;
+        d_f1[b_i].f1.set_size(1, 3);
+        d_f1[b_i].f1[0] = 1.0;
+        d_f1[b_i].f1[d_f1[b_i].f1.size(0)] = 1.0;
+        d_f1[b_i].f1[d_f1[b_i].f1.size(0) * 2] = 1.0;
       }
     }
 
-    h_f1.set_size(1);
-    h_f1[0] = 0.0;
-    r.f1 = d_f1;
-    r1.f1 = e_f1;
-    r2.f1 = f_f1;
-    r3.f1 = g_f1;
-    r4.f1 = h_f1;
+    e_f1.set_size(1);
+    e_f1[0] = 0.0;
+    r.f1 = f1;
+    r1.f1 = b_f1;
+    r2.f1 = c_f1;
+    r3.f1 = d_f1;
+    r4.f1 = e_f1;
     coder::internal::structConstructorHelper(&r, &r1, &r2, &r3, &r4,
       bayesResults_predictionIntervals_reflectivity,
       bayesResults_predictionIntervals_sld,
@@ -629,7 +523,7 @@ namespace RAT
       bayesResults_predictionIntervals_sampleChi_size);
 
     //  ------------------------------------------------------------------
-    //  (3) bayesResults.confidenceIntervals
+    //  (2) bayesResults.confidenceIntervals
     t11_percentile95_size[0] = 2;
     t11_percentile95_size[1] = 1;
     t11_percentile65_size[0] = 2;
@@ -648,7 +542,7 @@ namespace RAT
          bayesResults_confidenceIntervals_mean);
 
     //  -------------------------------------------------------------------
-    //  (4) bayesResults.dreamParams
+    //  (3) bayesResults.dreamParams
     loop_ub_tmp = static_cast<int32_T>(nChains);
     bayesResults_dreamParams->R.set_size(loop_ub_tmp, loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
@@ -677,7 +571,7 @@ namespace RAT
     bayesResults_dreamParams->storeOutput = false;
 
     //  -------------------------------------------------------------------
-    //  (5) bayesResults.dreamOutput
+    //  (4) bayesResults.dreamOutput
     t10_allChains.set_size(1, 3, 1);
     bayesResults_dreamParams->outlier[0] = 'i';
     t10_allChains[0] = 1.0;
@@ -691,7 +585,7 @@ namespace RAT
     t10_CR.set_size(1, 2);
 
     //  -------------------------------------------------------------------
-    //  (6) bayesResults.nestedSamplerOutput
+    //  (5) bayesResults.nestedSamplerOutput
     //  Nested Sampler
     bayesResults_nestedSamplerOutput->nestSamples.size[0] = 1;
     bayesResults_nestedSamplerOutput->nestSamples.size[1] = 2;
@@ -721,7 +615,7 @@ namespace RAT
     bayesResults_nestedSamplerOutput->LogZ = 0.0;
 
     //  ------------------------------------------------------------------
-    //  (7) chain
+    //  (6) chain
     bayesResults_chain.set_size(1, 2);
     bayesResults_chain[0] = 0.0;
     bayesResults_chain[bayesResults_chain.size(0)] = 0.0;

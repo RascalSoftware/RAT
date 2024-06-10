@@ -24,7 +24,7 @@ namespace RAT
   struct cell_11;
   struct struct1_T;
   struct struct2_T;
-  struct k_struct_T;
+  struct j_struct_T;
 }
 
 // Function Declarations
@@ -40,7 +40,7 @@ namespace RAT
                 ratInputs_problemStruct, const cell_11 *ratInputs_problemCells,
                 const struct1_T *ratInputs_problemLimits, const struct2_T
                 *ratInputs_controls, const ::coder::array<real_T, 2U>
-                &ratInputs_priors, ::coder::array<real_T, 3U> &chain, k_struct_T
+                &ratInputs_priors, ::coder::array<real_T, 3U> &chain, j_struct_T
                 *output, ::coder::array<real_T, 2U> &fx);
 }
 

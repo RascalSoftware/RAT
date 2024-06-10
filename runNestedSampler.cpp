@@ -35,11 +35,8 @@ namespace RAT
   {
     static struct2_T b_controls;
     ::coder::array<cell_wrap_1, 1U> fitNames;
-    ::coder::array<cell_wrap_10, 2U> expl_temp_sld;
     ::coder::array<cell_wrap_10, 2U> t6_predictionIntervals_sld;
     ::coder::array<cell_wrap_10, 2U> t6_predictionIntervals_sldXData;
-    ::coder::array<cell_wrap_10, 1U> expl_temp_data;
-    ::coder::array<cell_wrap_10, 1U> expl_temp_reflectivity;
     ::coder::array<cell_wrap_10, 1U> t6_predictionIntervals_reflectivity;
     ::coder::array<real_T, 2U> b_bayesResults;
     ::coder::array<real_T, 2U> b_expl_temp;
@@ -50,11 +47,10 @@ namespace RAT
     ::coder::array<real_T, 2U> r;
     ::coder::array<real_T, 2U> r1;
     e_struct_T expl_temp;
-    j_struct_T nestResults;
+    i_struct_T nestResults;
     real_T t6_predictionIntervals_sampleChi_data[1000];
     real_T bayesOutputs_bestParams_data[51];
     real_T H;
-    real_T expl_temp_chi;
     real_T logZ;
     int32_T bayesOutputs_bestParams_size[2];
     int32_T i;
@@ -70,7 +66,6 @@ namespace RAT
     //  calculation
     b_makeEmptyBayesResultsStruct(problemStruct->numberOfContrasts, coder::
       internal::b_strcmp(problemStruct->TF.data, problemStruct->TF.size),
-      expl_temp_reflectivity, expl_temp_sld, &expl_temp_chi, expl_temp_data,
       t6_predictionIntervals_reflectivity, t6_predictionIntervals_sld,
       bayesResults->predictionIntervals.reflectivityXData,
       t6_predictionIntervals_sldXData, t6_predictionIntervals_sampleChi_data,
@@ -154,23 +149,6 @@ namespace RAT
     std::copy(&nestResults.predictionIntervals.sampleChi[0],
               &nestResults.predictionIntervals.sampleChi[1000],
               &bayesResults->predictionIntervals.sampleChi.data[0]);
-    cast(nestResults.bestFitMean.reflectivity,
-         bayesResults->bestFitMean.reflectivity);
-    bayesResults->bestFitMean.sld.set_size(nestResults.bestFitMean.sld.size(0),
-      nestResults.bestFitMean.sld.size(1));
-    loop_ub = nestResults.bestFitMean.sld.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      int32_T b_loop_ub;
-      b_loop_ub = nestResults.bestFitMean.sld.size(0);
-      for (i1 = 0; i1 < b_loop_ub; i1++) {
-        bayesResults->bestFitMean.sld[i1 + bayesResults->bestFitMean.sld.size(0)
-          * i] = nestResults.bestFitMean.sld[i1 +
-          nestResults.bestFitMean.sld.size(0) * i];
-      }
-    }
-
-    bayesResults->bestFitMean.chi = nestResults.bestFitMean.chi;
-    cast(nestResults.bestFitMean.data, bayesResults->bestFitMean.data);
     bayesResults->confidenceIntervals = nestResults.confidenceIntervals;
     loop_ub = bayesResults->nestedSamplerOutput.postSamples.size(0);
     bayesResults->chain.set_size

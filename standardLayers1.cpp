@@ -231,9 +231,9 @@ namespace RAT
       ::coder::array<cell_wrap_10, 1U> domainContrastLayers1;
       ::coder::array<cell_wrap_10, 1U> domainContrastLayers2;
       ::coder::array<cell_wrap_32, 2U> outParameterisedLayers;
-      ::coder::array<cell_wrap_53, 1U> layerSlds;
-      ::coder::array<cell_wrap_53, 1U> resampledLayers;
-      ::coder::array<cell_wrap_53, 1U> sldProfiles;
+      ::coder::array<cell_wrap_52, 1U> layerSlds;
+      ::coder::array<cell_wrap_52, 1U> resampledLayers;
+      ::coder::array<cell_wrap_52, 1U> sldProfiles;
       ::coder::array<real_T, 2U> r;
       ::coder::array<real_T, 2U> r1;
       real_T d;

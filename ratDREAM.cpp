@@ -51,7 +51,7 @@ namespace RAT
                 ratInputs_problemStruct, const cell_11 *ratInputs_problemCells,
                 const struct1_T *ratInputs_problemLimits, const struct2_T
                 *ratInputs_controls, const ::coder::array<real_T, 2U>
-                &ratInputs_priors, ::coder::array<real_T, 3U> &chain, k_struct_T
+                &ratInputs_priors, ::coder::array<real_T, 3U> &chain, j_struct_T
                 *output, ::coder::array<real_T, 2U> &fx)
   {
     ::coder::array<real_T, 3U> b_chain;
@@ -80,7 +80,7 @@ namespace RAT
     ::coder::array<boolean_T, 1U> accept;
     ::coder::bounded_array<char_T, 10000U, 2U> paramInfo_boundhandling;
     b_struct_T Meas_info;
-    struct12_T DREAMPar;
+    struct11_T DREAMPar;
     real_T tmp_data[100];
     real_T b_lCR_data[3];
     real_T delta_tot_data[3];

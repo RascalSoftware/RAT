@@ -51,7 +51,7 @@ namespace RAT
 
   struct cell_wrap_28
   {
-    ::coder::array<cell_wrap_39, 1U> f1;
+    ::coder::array<cell_wrap_38, 1U> f1;
   };
 
   struct cell_wrap_29
@@ -61,7 +61,7 @@ namespace RAT
 
   struct cell_wrap_30
   {
-    ::coder::array<cell_wrap_39, 2U> f1;
+    ::coder::array<cell_wrap_38, 2U> f1;
   };
 
   struct cell_wrap_31
@@ -73,10 +73,10 @@ namespace RAT
   {
     ::coder::array<cell_wrap_8, 1U> reflectivity;
     ::coder::array<cell_wrap_8, 1U> simulation;
-    ::coder::array<cell_wrap_39, 1U> shiftedData;
+    ::coder::array<cell_wrap_38, 1U> shiftedData;
     ::coder::array<cell_wrap_10, 2U> layerSlds;
     ::coder::array<cell_wrap_10, 2U> sldProfiles;
-    ::coder::array<cell_wrap_39, 2U> resampledLayers;
+    ::coder::array<cell_wrap_38, 2U> resampledLayers;
     struct6_T calculationResults;
     c_struct_T contrastParams;
     ::coder::array<real_T, 2U> fitParams;
@@ -95,7 +95,7 @@ namespace RAT
     ::coder::array<cell_wrap_10, 1U> f1;
   };
 
-  struct cell_wrap_36
+  struct cell_wrap_35
   {
     ::coder::array<real_T, 1U> f1;
   };
@@ -159,25 +159,25 @@ namespace RAT
     ::coder::array<cell_wrap_1, 2U> f20;
   };
 
-  struct cell_wrap_40
+  struct cell_wrap_39
+  {
+    ::coder::array<real_T, 2U> f1;
+  };
+
+  struct cell_wrap_51
   {
     ::coder::array<real_T, 2U> f1;
   };
 
   struct cell_wrap_52
   {
-    ::coder::array<real_T, 2U> f1;
-  };
-
-  struct cell_wrap_53
-  {
     cell_wrap_10 f1[2];
   };
 
   struct g_struct_T
   {
-    ::coder::array<cell_wrap_64, 1U> reflectivity;
-    ::coder::array<cell_wrap_64, 2U> sld;
+    ::coder::array<cell_wrap_63, 1U> reflectivity;
+    ::coder::array<cell_wrap_63, 2U> sld;
     ::coder::array<cell_wrap_32, 2U> reflectivityXData;
     ::coder::array<cell_wrap_32, 2U> sldXData;
     real_T sampleChi[1000];
@@ -185,35 +185,25 @@ namespace RAT
 
   struct h_struct_T
   {
-    struct9_T bestFitMean;
-    struct10_T predictionIntervals;
-    struct11_T confidenceIntervals;
-    struct12_T dreamParams;
-    struct13_T dreamOutput;
+    struct9_T predictionIntervals;
+    struct10_T confidenceIntervals;
+    struct11_T dreamParams;
+    struct12_T dreamOutput;
     e_struct_T nestedSamplerOutput;
     ::coder::array<real_T, 2U> chain;
   };
 
   struct i_struct_T
   {
-    ::coder::array<cell_wrap_8, 1U> reflectivity;
-    ::coder::array<cell_wrap_10, 2U> sld;
-    real_T chi;
-    ::coder::array<cell_wrap_39, 1U> data;
+    g_struct_T predictionIntervals;
+    struct10_T confidenceIntervals;
   };
 
   struct j_struct_T
   {
-    i_struct_T bestFitMean;
-    g_struct_T predictionIntervals;
-    struct11_T confidenceIntervals;
-  };
-
-  struct k_struct_T
-  {
     ::coder::bounded_array<real_T, 2000U, 2U> outlierChains;
     real_T runtime;
-    struct12_T DREAMPar;
+    struct11_T DREAMPar;
     b_struct_T Meas_info;
     real_T iteration;
     real_T iloc;
@@ -223,7 +213,7 @@ namespace RAT
     ::coder::array<real_T, 2U> CR;
   };
 
-  struct l_struct_T
+  struct k_struct_T
   {
     real_T iterations;
     real_T funcCount;
@@ -231,7 +221,7 @@ namespace RAT
     ::coder::array<char_T, 2U> message;
   };
 
-  struct m_struct_T
+  struct l_struct_T
   {
     ::coder::bounded_array<real_T, 1U, 1U> I_lentol;
     ::coder::bounded_array<real_T, 50U, 2U> FVr_x;
@@ -253,12 +243,12 @@ namespace RAT
     ::coder::array<real_T, 2U> FVr_bestmem;
   };
 
-  struct cell_45
+  struct cell_44
   {
     ::coder::array<real_T, 2U> f1;
   };
 
-  struct n_struct_T
+  struct m_struct_T
   {
     ::coder::array<real_T, 1U> LB;
     ::coder::array<real_T, 1U> UB;

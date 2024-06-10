@@ -33,10 +33,10 @@ namespace RAT
 {
   static void cast(const ::coder::array<cell_wrap_8, 1U> &t8_reflectivity, const
                    ::coder::array<cell_wrap_8, 1U> &t8_simulation, const ::coder::
-                   array<cell_wrap_39, 1U> &t8_shiftedData, const ::coder::array<
+                   array<cell_wrap_38, 1U> &t8_shiftedData, const ::coder::array<
                    cell_wrap_10, 2U> &t8_layerSlds, const ::coder::array<
                    cell_wrap_10, 2U> &t8_sldProfiles, const ::coder::array<
-                   cell_wrap_39, 2U> &t8_resampledLayers, const struct6_T
+                   cell_wrap_38, 2U> &t8_resampledLayers, const struct6_T
                    *t8_calculationResults, const c_struct_T *t8_contrastParams,
                    const ::coder::array<real_T, 2U> &t8_fitParams, const ::coder::
                    array<cell_wrap_1, 1U> &t8_fitNames, struct5_T *b);
@@ -58,10 +58,10 @@ namespace RAT
 {
   static void cast(const ::coder::array<cell_wrap_8, 1U> &t8_reflectivity, const
                    ::coder::array<cell_wrap_8, 1U> &t8_simulation, const ::coder::
-                   array<cell_wrap_39, 1U> &t8_shiftedData, const ::coder::array<
+                   array<cell_wrap_38, 1U> &t8_shiftedData, const ::coder::array<
                    cell_wrap_10, 2U> &t8_layerSlds, const ::coder::array<
                    cell_wrap_10, 2U> &t8_sldProfiles, const ::coder::array<
-                   cell_wrap_39, 2U> &t8_resampledLayers, const struct6_T
+                   cell_wrap_38, 2U> &t8_resampledLayers, const struct6_T
                    *t8_calculationResults, const c_struct_T *t8_contrastParams,
                    const ::coder::array<real_T, 2U> &t8_fitParams, const ::coder::
                    array<cell_wrap_1, 1U> &t8_fitNames, struct5_T *b)
@@ -704,8 +704,8 @@ namespace RAT
     ::coder::array<cell_wrap_1, 1U> t16_fitNames;
     ::coder::array<cell_wrap_10, 2U> t16_layerSlds;
     ::coder::array<cell_wrap_10, 2U> t16_sldProfiles;
-    ::coder::array<cell_wrap_39, 2U> t16_resampledLayers;
-    ::coder::array<cell_wrap_39, 1U> t16_shiftedData;
+    ::coder::array<cell_wrap_38, 2U> t16_resampledLayers;
+    ::coder::array<cell_wrap_38, 1U> t16_shiftedData;
     ::coder::array<cell_wrap_8, 1U> t16_reflectivity;
     ::coder::array<cell_wrap_8, 1U> t16_simulation;
     ::coder::array<real_T, 2U> t16_fitParams;
@@ -729,10 +729,7 @@ namespace RAT
          t16_sldProfiles, t16_resampledLayers, &t16_calculationResults,
          &t16_contrastParams, t16_fitParams, t16_fitNames, result);
     makeEmptyBayesResultsStruct(problemStruct->numberOfContrasts, domains,
-      controls->nChains, bayesResults->bestFitMean.reflectivity,
-      bayesResults->bestFitMean.sld, &bayesResults->bestFitMean.chi,
-      bayesResults->bestFitMean.data,
-      bayesResults->predictionIntervals.reflectivity,
+      controls->nChains, bayesResults->predictionIntervals.reflectivity,
       bayesResults->predictionIntervals.sld,
       bayesResults->predictionIntervals.reflectivityXData,
       bayesResults->predictionIntervals.sldXData,
@@ -838,7 +835,6 @@ namespace RAT
         cast(problemCells, &r1);
         runDREAM(&r, &r1, problemLimits, controls, priors, &b_problemStruct,
                  result, &b_bayesResults);
-        bayesResults->bestFitMean = b_bayesResults.bestFitMean;
         bayesResults->predictionIntervals = b_bayesResults.predictionIntervals;
         bayesResults->confidenceIntervals = b_bayesResults.confidenceIntervals;
         bayesResults->dreamParams = b_bayesResults.dreamParams;

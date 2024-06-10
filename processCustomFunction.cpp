@@ -23,14 +23,14 @@
 // Function Declarations
 namespace RAT
 {
-  static void cast(const ::coder::array<cell_wrap_40, 1U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_39, 1U> &b, ::coder::array<
                    cell_wrap_10, 1U> &c);
 }
 
 // Function Definitions
 namespace RAT
 {
-  static void cast(const ::coder::array<cell_wrap_40, 1U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_39, 1U> &b, ::coder::array<
                    cell_wrap_10, 1U> &c)
   {
     int32_T i;
@@ -64,7 +64,7 @@ namespace RAT
         useImaginary, ::coder::array<cell_wrap_10, 1U> &resampledLayers, ::coder::
         array<real_T, 1U> &subRoughs)
       {
-        ::coder::array<cell_wrap_40, 1U> tempResampledLayers;
+        ::coder::array<cell_wrap_39, 1U> tempResampledLayers;
         ::coder::array<real_T, 2U> b_bulkOuts;
         ::coder::array<real_T, 2U> b_params;
         ::coder::array<real_T, 2U> b_thisContrastLayers;

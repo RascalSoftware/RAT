@@ -24,7 +24,7 @@
 // Function Declarations
 namespace RAT
 {
-  static void cast(const ::coder::array<cell_wrap_40, 2U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_39, 2U> &b, ::coder::array<
                    cell_wrap_10, 2U> &c);
   namespace domainsTF
   {
@@ -55,7 +55,7 @@ namespace RAT
 // Function Definitions
 namespace RAT
 {
-  static void cast(const ::coder::array<cell_wrap_40, 2U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_39, 2U> &b, ::coder::array<
                    cell_wrap_10, 2U> &c)
   {
     int32_T i;
@@ -228,10 +228,10 @@ namespace RAT
       ::coder::array<cell_wrap_10, 2U> calcAllLayers;
       ::coder::array<cell_wrap_10, 1U> calcAllLayers1;
       ::coder::array<cell_wrap_10, 1U> calcAllLayers2;
-      ::coder::array<cell_wrap_40, 2U> r;
-      ::coder::array<cell_wrap_53, 1U> layerSlds;
-      ::coder::array<cell_wrap_53, 1U> resampledLayers;
-      ::coder::array<cell_wrap_53, 1U> sldProfiles;
+      ::coder::array<cell_wrap_39, 2U> r;
+      ::coder::array<cell_wrap_52, 1U> layerSlds;
+      ::coder::array<cell_wrap_52, 1U> resampledLayers;
+      ::coder::array<cell_wrap_52, 1U> sldProfiles;
       ::coder::array<real_T, 2U> r1;
       ::coder::array<real_T, 2U> r2;
       real_T d;

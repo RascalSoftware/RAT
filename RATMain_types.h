@@ -29,7 +29,7 @@ namespace RAT
     ::coder::array<real_T, 2U> f1;
   };
 
-  struct cell_wrap_39
+  struct cell_wrap_38
   {
     ::coder::array<real_T, 2U> f1;
   };
@@ -55,7 +55,7 @@ namespace RAT
     ::coder::array<real_T, 2U> f1;
   };
 
-  struct struct12_T
+  struct struct11_T
   {
     real_T nParams;
     real_T nChains;
@@ -78,7 +78,7 @@ namespace RAT
     ::coder::array<real_T, 2U> R;
   };
 
-  struct struct13_T
+  struct struct12_T
   {
     ::coder::array<real_T, 3U> allChains;
     ::coder::bounded_array<real_T, 2000U, 2U> outlierChains;
@@ -161,17 +161,17 @@ namespace RAT
   {
     ::coder::array<cell_wrap_8, 1U> reflectivity;
     ::coder::array<cell_wrap_8, 1U> simulation;
-    ::coder::array<cell_wrap_39, 1U> shiftedData;
+    ::coder::array<cell_wrap_38, 1U> shiftedData;
     ::coder::array<cell_wrap_10, 2U> layerSlds;
     ::coder::array<cell_wrap_10, 2U> sldProfiles;
-    ::coder::array<cell_wrap_39, 2U> resampledLayers;
+    ::coder::array<cell_wrap_38, 2U> resampledLayers;
     struct6_T calculationResults;
     struct7_T contrastParams;
     ::coder::array<real_T, 2U> fitParams;
     ::coder::array<cell_wrap_1, 1U> fitNames;
   };
 
-  struct cell_wrap_64
+  struct cell_wrap_63
   {
     ::coder::array<real_T, 2U> f1;
   };
@@ -202,20 +202,12 @@ namespace RAT
   {
     ::coder::array<cell_wrap_10, 1U> reflectivity;
     ::coder::array<cell_wrap_10, 2U> sld;
-    real_T chi;
-    ::coder::array<cell_wrap_10, 1U> data;
-  };
-
-  struct struct10_T
-  {
-    ::coder::array<cell_wrap_10, 1U> reflectivity;
-    ::coder::array<cell_wrap_10, 2U> sld;
     ::coder::array<cell_wrap_10, 1U> reflectivityXData;
     ::coder::array<cell_wrap_10, 2U> sldXData;
     ::coder::bounded_array<real_T, 1000U, 1U> sampleChi;
   };
 
-  struct struct11_T
+  struct struct10_T
   {
     ::coder::array<real_T, 2U> percentile95;
     ::coder::array<real_T, 2U> percentile65;
@@ -301,7 +293,7 @@ namespace RAT
     ::coder::array<real_T, 2U> otherLimits;
   };
 
-  struct struct14_T
+  struct struct13_T
   {
     real_T LogZ;
     ::coder::array<real_T, 2U> nestSamples;
@@ -310,12 +302,11 @@ namespace RAT
 
   struct struct8_T
   {
-    struct9_T bestFitMean;
-    struct10_T predictionIntervals;
-    struct11_T confidenceIntervals;
-    struct12_T dreamParams;
-    struct13_T dreamOutput;
-    struct14_T nestedSamplerOutput;
+    struct9_T predictionIntervals;
+    struct10_T confidenceIntervals;
+    struct11_T dreamParams;
+    struct12_T dreamOutput;
+    struct13_T nestedSamplerOutput;
     ::coder::array<real_T, 2U> chain;
   };
 

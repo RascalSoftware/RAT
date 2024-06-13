@@ -24,7 +24,7 @@ problem.addBulkOut('SLD SMW', 2e-6, 2.073e-6, 2.1e-6);
 problem.addBulkOut('SLD H2O', -0.6e-6, -0.56e-6, -0.5e-6);
 
 % Add the custom file...
-problem.addCustomFile('Domain Layer','domainsXY','matlab',pwd);
+problem.addCustomFile('Domain Layer','domainsXY.m','matlab',pwd);
 
 % Make a contrast
 problem.addContrast('name',         'D2O',...

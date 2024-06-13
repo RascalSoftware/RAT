@@ -239,27 +239,29 @@ end
 
 % Here we need to do the same with the contrastResolutions array
 contrastResolutions = inputStruct.contrastResolutions;
-resolutionNames = inputStruct.resolutionParamNames;
 resolutionTypes = inputStruct.resolutionTypes;
-contrastRes = zeros(1, length(contrastResolutions));
+
+resolutionParamNames = inputStruct.resolutionParamNames;
+contrastResolutionParams = zeros(1, length(contrastResolutions));
+
 for i = 1:length(contrastResolutions)
     % Check the type of the resolution that each contrast is pointing to.
     % If it is a constant, point to the number of the corresponding
-    % resolution par. If it's data, then set it to zero
+    % resolution param. If it's data, then set it to -1
     thisResol = contrastResolutions(i);      % Which resolution
     thisType = resolutionTypes{thisResol};   % What type is it?
     
     if strcmpi(thisType,'data')
-        % Resolution is in the datafile. Set contrastRes to zero
-        contrastRes(i) = -1;
+        % Resolution is in the datafile. Set contrastResolutionParams to -1
+        contrastResolutionParams(i) = -1;
     else
         % Resolution is a resolutionParam, the name of which should
         % be in the first column of resolutionValues
         whichResolutionParamName = inputStruct.resolutionValues{thisResol,1};
         
-        % Find which resolutionParam this is, and set contrastRes to this number
-        resolutionParamNumber = find(strcmpi(whichResolutionParamName,resolutionNames));
-        contrastRes(i) = resolutionParamNumber;
+        % Find which resolutionParam this is, and set contrastResolutionParams to this number
+        resolutionParamNumber = find(strcmpi(whichResolutionParamName,resolutionParamNames));
+        contrastResolutionParams(i) = resolutionParamNumber;
     end
 end
         
@@ -324,7 +326,7 @@ problemStruct.contrastQzshifts = inputStruct.contrastQzshifts;
 problemStruct.contrastScalefactors = inputStruct.contrastScalefactors;
 problemStruct.contrastBulkIns = inputStruct.contrastBulkIns;
 problemStruct.contrastBulkOuts = inputStruct.contrastBulkOuts;
-problemStruct.contrastResolutions = contrastRes;
+problemStruct.contrastResolutionParams = contrastResolutionParams;
 problemStruct.backgroundParams = inputStruct.backgroundParamValues; %inputStruct.backgrounds;       % **** note backPar workaround (todo) ****
 problemStruct.qzshifts = inputStruct.qzshiftValues;
 problemStruct.scalefactors = inputStruct.scalefactorValues;

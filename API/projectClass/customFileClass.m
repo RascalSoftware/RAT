@@ -121,11 +121,9 @@ classdef customFileClass < tableUtilities
                 throw(exceptions.invalidType('Fifth argument (Function name) must be text.'));
             end
 
-            if isempty(newFunc)
-                [~, newFunc, ~] = fileparts(newFile);
-            end
             % Check language is valid, then add the new entry
             newLang = validateOption(newLang, 'supportedLanguages', obj.invalidLanguageMessage).value;
+            newFunc = obj.validateFunctionName(newFile, newFunc, newLang);           
             obj.addRow(newName, newFile, newFunc, newLang, obj.validatePath(newPath));            
         end
         
@@ -171,9 +169,9 @@ classdef customFileClass < tableUtilities
             
             obj.setCustomName(row, results.name);
             obj.varTable{row, 2} = {results.filename};
-            obj.varTable{row, 3} = {results.functionName};
             obj.varTable{row, 4} = {validateOption(results.language, 'supportedLanguages', obj.invalidLanguageMessage).value};
             obj.varTable{row, 5} = {obj.validatePath(results.path)};
+            obj.varTable{row, 3} = {obj.validateFunctionName(results.filename, results.functionName, results.language)};
         end
 
         function displayTable(obj)
@@ -206,13 +204,14 @@ classdef customFileClass < tableUtilities
                     end
 
                     thisFunctionName = thisRow{1,3}{:};
-                    if isempty(thisFunctionName)
+                    thisFileLanguage = thisRow{1,4}{:};
+                    if isempty(thisFunctionName) || strcmp(thisFileLanguage, supportedLanguages.Matlab.value)
                         functionNameString = '-';
                     else
                         functionNameString = thisFunctionName;
                     end
 
-                    thisFileLanguage = thisRow{1,4}{:};
+                    
                     if isempty(thisFileLanguage)
                         fileLanguageString = '-';
                     else
@@ -318,6 +317,20 @@ classdef customFileClass < tableUtilities
             % Validate a new path exists
             if ~isempty(path) && ~exist(path, 'dir')
                 throw(exceptions.invalidPath(sprintf('The given path (%s) is not a valid directory', path)));
+            end
+        end
+
+        function newFunctionName = validateFunctionName(filename, functionName, language)
+            % Validate a func
+            [~, newFunctionName, ~] = fileparts(filename);
+            if ~isempty(functionName) 
+                if strcmp(language, supportedLanguages.Matlab.value)
+                    if ~strcmp(functionName, newFunctionName)        
+                        warning('For Matlab custom functions, the function Name must be the same as filename without .m extension.');
+                    end
+                else
+                    newFunctionName = functionName;
+                end 
             end
         end
     end

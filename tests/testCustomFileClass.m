@@ -22,12 +22,12 @@ classdef testCustomFileClass < matlab.unittest.TestCase
                    }
         testRow = {1, 1, 2, 2}
         inputData = {{'DPPC Model', 'name', 'New Model', 'path', '../../'},...
-                     {1, 'filename', 'model.m'},...
+                     {1, 'filename', 'model.m', 'functionName', 'model'},...
                      {'DSPC Model', 'language', upper(supportedLanguages.Python.value)},...
                      {2, 'language', supportedLanguages.Python, 'filename', 'model.m', 'functionName', 'modelFunc', 'name', 'New Model', 'path', pwd},...
                     }
         expectedRow = {["New Model", "DPPCCustomXY.m", "DPPCCustomXY", string(supportedLanguages.Matlab.value), "../../"],...
-                       ["DPPC Model", "model.m", "DPPCCustomXY", string(supportedLanguages.Matlab.value), "tests/nonPolarisedTFReflectivityCalculation/"],...
+                       ["DPPC Model", "model.m", "model", string(supportedLanguages.Matlab.value), "tests/nonPolarisedTFReflectivityCalculation/"],...
                        ["DSPC Model", "customBilayer.m", "customBilayer", string(supportedLanguages.Python.value), "tests/nonPolarisedTFReflectivityCalculation/"],...
                        ["New Model", "model.m", "modelFunc", string(supportedLanguages.Python.value), pwd],...
                       }
@@ -178,6 +178,9 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
             % Duplicate custom object names
             testCase.verifyError(@() testCase.exampleClass.setCustomFile(2, 'Name', 'DPPC Model'), exceptions.duplicateName.errorID)
+            % Bad function name
+            testCase.verifyWarning(@() testCase.exampleClass.setCustomFile(2, 'FunctionName', 'newModel'), '');
+            testCase.verifyEqual(testCase.exampleClass.varTable{2, 3}, "customBilayer", 'setCustomFile does not work correctly');
         end
 
         function testSetCustomFileInvalidNumberOfParams(testCase)
@@ -186,7 +189,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % should raise an error
             testCase.verifyError(@() testCase.exampleClass.setCustomFile(1), exceptions.invalidNumberOfInputs.errorID);
             testCase.verifyError(@() testCase.exampleClass.setCustomFile(1, 1), exceptions.invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile(2, 'Name', 'New Model', 'Language'), exceptions.invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(2, 'Name', 'New Model', 'Language'), exceptions.invalidNumberOfInputs.errorID);      
         end
 
         function testDisplayTable(testCase)
@@ -221,7 +224,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
                 % space using regular expressions, and remove '"'
                 % characters
                 outRow = strip(replace(regexprep(displayedTable(i+2), '\s+', ' '), '"', ''));
-
+                testCase.exampleClass.varTable{i, 3} = {'-'};
                 % Get data from this row and join into a single string
                 rowString = strip(strjoin(testCase.exampleClass.varTable{i,:}));
                 testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');

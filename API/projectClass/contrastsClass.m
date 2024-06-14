@@ -71,7 +71,7 @@ classdef contrastsClass < baseContrasts
             contrastBackgroundActions = cell(1,nContrasts);
             contrastBulkIns = ones(1,nContrasts);
             contrastBulkOuts = ones(1,nContrasts);
-            contrastDomainRatios = zeros(1,nContrasts);
+            contrastDomainRatios = ones(1,nContrasts);
             contrastQzshifts = ones(1,nContrasts);
             contrastScalefactors = ones(1,nContrasts);
             contrastResolutions = ones(1,nContrasts);

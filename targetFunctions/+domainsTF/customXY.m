@@ -18,14 +18,6 @@ function [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
      domainRatioArray, dataPresent, nParams, params, ~, ~, contrastBackgroundActions,...
      cCustFiles, useImaginary] = extractProblemParams(problemStruct);
 
-    numDomainRatios = length(domainRatioArray);
-    for i = 1:length(contrastDomainRatioIndices)
-        index = contrastDomainRatioIndices(i);
-        if index < 1 || index > numDomainRatios
-            error('contrastDomainRatios(%i) is %i, which is outside the range of domainRatios', i, index);
-        end
-    end
-
     parallel = controls.parallel;
     resampleParams = controls.resampleParams;
 

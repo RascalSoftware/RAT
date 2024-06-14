@@ -219,6 +219,70 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(testControls, testCase.controls, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
+        function testCheckIndices(testCase)
+            
+            % Test standard input passes
+            testInput = testCase.problemStruct;
+            checkIndices(testInput);
+
+            % Test Background Param Error
+            testInput = testCase.problemStruct;
+            testInput.contrastBackgrounds(1) = 0;
+            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testInput = testCase.problemStruct;
+            testInput.contrastBackgrounds(1) = 4;
+            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+
+            % Test Qzshift Error
+            testInput = testCase.problemStruct;
+            testInput.contrastQzshifts(1) = 0;
+            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testInput = testCase.problemStruct;
+            testInput.contrastQzshifts(1) = 4;
+            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+
+            % Test Scalefactor Error
+            testInput = testCase.problemStruct;
+            testInput.contrastScalefactors(1) = 0;
+            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testInput = testCase.problemStruct;
+            testInput.contrastScalefactors(1) = 4;
+            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+
+            % Test Bulk In Error
+            testInput = testCase.problemStruct;
+            testInput.contrastBulkIns(1) = 0;
+            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testInput = testCase.problemStruct;
+            testInput.contrastBulkIns(1) = 4;
+            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+
+            % Test Bulk Out Error
+            testInput = testCase.problemStruct;
+            testInput.contrastBulkOuts(1) = 0;
+            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testInput = testCase.problemStruct;
+            testInput.contrastBulkOuts(1) = 4;
+            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+
+            % Test Resolution Param Error
+            testInput = testCase.problemStruct;
+            testInput.contrastResolutionParams(1) = 0;
+            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testInput = testCase.problemStruct;
+            testInput.contrastResolutionParams(1) = 4;
+            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+
+            % Test Domain Ratio Error
+            testInput = testCase.problemStruct;
+            testInput.contrastDomainRatios(1) = 0;
+            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testInput = testCase.problemStruct;
+            testInput.contrastDomainRatios(1) = 4;
+            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+
+        end
+
         function testParseCells(testCase)
             [repeatLayers,data,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(testCase.problemCells);
 
@@ -233,7 +297,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 
         function testExtractProblemParams(testCase)
             [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
-            contrastResolutions, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, domainRatio,...
+            contrastResolutionParams, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, domainRatio,...
             dataPresent, nParams, params, numberOfLayers, resample, backgroundParamsType, contrastCustomFiles, useImaginary] = extractProblemParams(testCase.problemStruct);
 
             testCase.verifyEqual(numberOfContrasts, testCase.problemStruct.numberOfContrasts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -243,7 +307,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(contrastScalefactors, testCase.problemStruct.contrastScalefactors, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastBulkIns, testCase.problemStruct.contrastBulkIns, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastBulkOuts, testCase.problemStruct.contrastBulkOuts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(contrastResolutions, testCase.problemStruct.contrastResolutions, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(contrastResolutionParams, testCase.problemStruct.contrastResolutionParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastDomainRatios, testCase.problemStruct.contrastDomainRatios, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(backgroundParams, testCase.problemStruct.backgroundParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(qzshifts, testCase.problemStruct.qzshifts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);

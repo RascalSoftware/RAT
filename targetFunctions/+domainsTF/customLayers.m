@@ -21,19 +21,6 @@ function [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
      qzshiftArray, scalefactorArray, bulkInArray, bulkOutArray, resolutionParamArray,...
      domainRatioArray, dataPresent, nParams, params, ~, resample,...
      contrastBackgroundActions, cCustFiles, useImaginary] = extractProblemParams(problemStruct);
-    
-    checkIndices(contrastBackgroundIndices, contrastQzshiftIndices,...
-     contrastScalefactorIndices, contrastBulkInIndices, contrastBulkOutIndices,...
-     contrastResolutionParamIndices, backgroundParamArray, qzshiftArray,...
-     scalefactorArray, bulkInArray, bulkOutArray, resolutionParamArray)
-
-    numDomainRatios = length(domainRatioArray);
-    for i = 1:length(contrastDomainRatioIndices)
-        index = contrastDomainRatioIndices(i);
-        if index < 1 || index > numDomainRatios
-            error('contrastDomainRatios(%i) is %i, which is outside the range of domainRatios', i, index);
-        end
-    end
 
     calcSld = controls.calcSldDuringFit;
     parallel = controls.parallel;

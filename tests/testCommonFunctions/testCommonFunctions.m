@@ -218,63 +218,6 @@ classdef testCommonFunctions < matlab.unittest.TestCase
 
     methods(Test)
 
-        function testCheckIndices(testCase)
-            
-            % Test standard input passes
-            testInputs = testCase.backSortInputs;
-            checkIndices(testInputs{1:end});
-
-            % Test Background Param Error
-            testInputs = testCase.backSortInputs;
-            testInputs{1} = 0;
-            testCase.verifyError(@() checkIndices(testInputs{1:end}), ?MException);
-            testInputs = testCase.backSortInputs;
-            testInputs{1} = 4;
-            testCase.verifyError(@() checkIndices(testInputs{1:end}), ?MException);
-
-            % Test Qzshift Error
-            testInputs = testCase.backSortInputs;
-            testInputs{2} = 0;
-            testCase.verifyError(@() checkIndices(testInputs{1:end}), ?MException);
-            testInputs = testCase.backSortInputs;
-            testInputs{2} = 2;
-            testCase.verifyError(@() checkIndices(testInputs{1:end}), ?MException);
-
-            % Test Scalefactor Error
-            testInputs = testCase.backSortInputs;
-            testInputs{3} = 0;
-            testCase.verifyError(@() checkIndices(testInputs{1:end}), ?MException);
-            testInputs = testCase.backSortInputs;
-            testInputs{3} = 2;
-            testCase.verifyError(@() checkIndices(testInputs{1:end}), ?MException);
-
-            % Test Bulk In Error
-            testInputs = testCase.backSortInputs;
-            testInputs{4} = 0;
-            testCase.verifyError(@() checkIndices(testInputs{1:end}), ?MException);
-            testInputs = testCase.backSortInputs;
-            testInputs{4} = 2;
-            testCase.verifyError(@() checkIndices(testInputs{1:end}), ?MException);
-
-            % Test Bulk Out Error
-            testInputs = testCase.backSortInputs;
-            testInputs{5} = 0;
-            testCase.verifyError(@() checkIndices(testInputs{1:end}), ?MException);
-            testInputs = testCase.backSortInputs;
-            testInputs{5} = 2;
-            testCase.verifyError(@() checkIndices(testInputs{1:end}), ?MException);
-
-            % Test Resolution Param Error
-            testInputs = testCase.backSortInputs;
-            testInputs{6} = 0;
-            testCase.verifyError(@() checkIndices(testInputs{1:end}), ?MException);
-            testInputs = testCase.backSortInputs;
-            testInputs{6} = 2;
-            testCase.verifyError(@() checkIndices(testInputs{1:end}), ?MException);
-
-
-        end
-
         function testChiSquared(testCase)
             % testChiSqaured
 

@@ -116,6 +116,8 @@ classdef contrastsClass < baseContrasts
 
                 if isfield(thisContrast, 'domainRatio')
                     contrastDomainRatios(i) = find(strcmpi(thisContrast.domainRatio,allowedNames.domainRatioNames));
+                else
+                    contrastDomainRatios(i) = -1;
                 end
 
                 contrastBackgrounds(i) = find(strcmpi(thisContrast.background,allowedNames.backgroundNames));

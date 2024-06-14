@@ -360,6 +360,8 @@ problemStruct.otherParams = [];
 problemStruct.fitLimits = [];
 problemStruct.otherLimits = [];
 
+% Make sure the indices cannot lie outside of the arrays
+checkIndices(problemStruct)
 
 %% Now deal with the controls class
 controls.procedure = inputControls.procedure;

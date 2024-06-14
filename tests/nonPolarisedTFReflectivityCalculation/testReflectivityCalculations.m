@@ -219,6 +219,70 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(testControls, testCase.controls, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
+        function testCheckIndices(testCase)
+            
+            % Test standard input passes
+            testInput = testCase.problemStruct;
+            checkIndices(testInput);
+
+            % Test Background Param Error
+            testInput = testCase.problemStruct;
+            testInput.contrastBackgrounds(1) = 0;
+            testCase.verifyError(@() checkIndices(testInput), ?MException);
+            testInput = testCase.problemStruct;
+            testInput.contrastBackgrounds(1) = 4;
+            testCase.verifyError(@() checkIndices(testInput), ?MException);
+
+            % Test Qzshift Error
+            testInput = testCase.problemStruct;
+            testInput.contrastQzshifts(1) = 0;
+            testCase.verifyError(@() checkIndices(testInput), ?MException);
+            testInput = testCase.problemStruct;
+            testInput.contrastQzshifts(1) = 4;
+            testCase.verifyError(@() checkIndices(testInput), ?MException);
+
+            % Test Scalefactor Error
+            testInput = testCase.problemStruct;
+            testInput.contrastScalefactors(1) = 0;
+            testCase.verifyError(@() checkIndices(testInput), ?MException);
+            testInput = testCase.problemStruct;
+            testInput.contrastScalefactors(1) = 4;
+            testCase.verifyError(@() checkIndices(testInput), ?MException);
+
+            % Test Bulk In Error
+            testInput = testCase.problemStruct;
+            testInput.contrastBulkIns(1) = 0;
+            testCase.verifyError(@() checkIndices(testInput), ?MException);
+            testInput = testCase.problemStruct;
+            testInput.contrastBulkIns(1) = 4;
+            testCase.verifyError(@() checkIndices(testInput), ?MException);
+
+            % Test Bulk Out Error
+            testInput = testCase.problemStruct;
+            testInput.contrastBulkOuts(1) = 0;
+            testCase.verifyError(@() checkIndices(testInput), ?MException);
+            testInput = testCase.problemStruct;
+            testInput.contrastBulkOuts(1) = 4;
+            testCase.verifyError(@() checkIndices(testInput), ?MException);
+
+            % Test Resolution Param Error
+            testInput = testCase.problemStruct;
+            testInput.contrastResolutionParams(1) = 0;
+            testCase.verifyError(@() checkIndices(testInput), ?MException);
+            testInput = testCase.problemStruct;
+            testInput.contrastResolutionParams(1) = 4;
+            testCase.verifyError(@() checkIndices(testInput), ?MException);
+
+            % Test Domain Ratio Error
+            testInput = testCase.problemStruct;
+            testInput.contrastDomainRatios(1) = 0;
+            testCase.verifyError(@() checkIndices(testInput), ?MException);
+            testInput = testCase.problemStruct;
+            testInput.contrastDomainRatios(1) = 4;
+            testCase.verifyError(@() checkIndices(testInput), ?MException);
+
+        end
+
         function testParseCells(testCase)
             [repeatLayers,data,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(testCase.problemCells);
 

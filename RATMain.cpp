@@ -258,10 +258,10 @@ namespace RAT
       c->contrastBulkOuts[i] = b->contrastBulkOuts[i];
     }
 
-    c->contrastResolutions.set_size(1, b->contrastResolutions.size(1));
-    loop_ub = b->contrastResolutions.size(1);
+    c->contrastResolutionParams.set_size(1, b->contrastResolutionParams.size(1));
+    loop_ub = b->contrastResolutionParams.size(1);
     for (i = 0; i < loop_ub; i++) {
-      c->contrastResolutions[i] = b->contrastResolutions[i];
+      c->contrastResolutionParams[i] = b->contrastResolutionParams[i];
     }
 
     c->backgroundParams.set_size(1, b->backgroundParams.size(1));
@@ -452,10 +452,10 @@ namespace RAT
       c->contrastBulkOuts[i] = b->contrastBulkOuts[i];
     }
 
-    c->contrastResolutions.set_size(1, b->contrastResolutions.size(1));
-    loop_ub = b->contrastResolutions.size(1);
+    c->contrastResolutionParams.set_size(1, b->contrastResolutionParams.size(1));
+    loop_ub = b->contrastResolutionParams.size(1);
     for (i = 0; i < loop_ub; i++) {
-      c->contrastResolutions[i] = b->contrastResolutions[i];
+      c->contrastResolutionParams[i] = b->contrastResolutionParams[i];
     }
 
     c->backgroundParams.set_size(1, b->backgroundParams.size(1));

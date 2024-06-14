@@ -18,7 +18,7 @@ namespace RAT
 {
   void backSort(real_T contrastBackgrounds, real_T contrastQzshifts, real_T
                 contrastScalefactors, real_T contrastBulkIns, real_T
-                contrastBulkOuts, real_T contrastResolutions, const ::coder::
+                contrastBulkOuts, real_T contrastResolutionParams, const ::coder::
                 array<real_T, 2U> &backgroundParams, const ::coder::array<real_T,
                 2U> &qzshifts, const ::coder::array<real_T, 2U> &scalefactors,
                 const ::coder::array<real_T, 2U> &bulkIn, const ::coder::array<
@@ -39,50 +39,36 @@ namespace RAT
     //     * contrastScalefactors: Which scalefactor value is associated with each contrast
     //     * contrastBulkIns: Which BulkIn value is associated with each contrast
     //     * contrastBulkOuts: Which BulkOut value is associated with each contrast
-    //     * contrastResolutions: Which resolution value is associated with each contrast
-    //     * backgroundParams: List of all background values.
+    //     * contrastResolutionParams: Which resolution value is associated with each contrast
+    //     * backgroundParams: List of all background parameter values.
     //     * qzshifts: List of all qzshift values
     //     * scalefactors: List of all scalefactor values
     //     * bulkIn: List of all bulkIn values
     //     * bulkOut: List of all bulkOut values
-    //     * resolutionParams: List of all resolution values
+    //     * resolutionParams: List of all resolution parameter values
     //
     //  OUTPUTS:
-    //     * outBackground: list of actual background values for each contrast
+    //     * outBackground: list of actual background parameter values for each contrast
     //     * outQzshift: list of actual qzshift values for each contrast
     //     * outScalefactor: list of actual scalefactor values for each contrast
     //     * outBulkIn: list of actual bulkIn values for each contrast
     //     * outBulkOut: list of actual bulkOut values for each contrast
-    //     * outResolution: list of actual resolution for each contrast
-    // for i = 1:nc
-    // thisBack = contrastBackgrounds(i);
+    //     * outResolution: list of actual resolution parameter for each contrast
     *outBackgroundParam = backgroundParams[static_cast<int32_T>
       (contrastBackgrounds) - 1];
-
-    // thisShift = contrastQzshifts(i);
     *outQzshift = qzshifts[static_cast<int32_T>(contrastQzshifts) - 1];
-
-    // thisScale = contrastScalefactors(i);
     *outScalefactor = scalefactors[static_cast<int32_T>(contrastScalefactors) -
       1];
-
-    // thisBulkIn = contrastBulkIns(i);
     *outBulkIn = bulkIn[static_cast<int32_T>(contrastBulkIns) - 1];
-
-    // thisBulkOut = contrastBulkOuts(i);
     *outBulkOut = bulkOut[static_cast<int32_T>(contrastBulkOuts) - 1];
-
-    // thisResol = contrastResolutions(i);
-    if (contrastResolutions != -1.0) {
+    if (contrastResolutionParams != -1.0) {
       *outResolutionParam = resolutionParams[static_cast<int32_T>
-        (contrastResolutions) - 1];
+        (contrastResolutionParams) - 1];
     } else {
       *outResolutionParam = -1.0;
 
-      //  Negative value means we have a data resolution..
+      //  Negative value means we have a data resolution.
     }
-
-    // end
   }
 }
 

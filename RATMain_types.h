@@ -273,7 +273,7 @@ namespace RAT
     ::coder::array<real_T, 2U> contrastScalefactors;
     ::coder::array<real_T, 2U> contrastBulkIns;
     ::coder::array<real_T, 2U> contrastBulkOuts;
-    ::coder::array<real_T, 2U> contrastResolutions;
+    ::coder::array<real_T, 2U> contrastResolutionParams;
     ::coder::array<real_T, 2U> backgroundParams;
     ::coder::array<real_T, 2U> qzshifts;
     ::coder::array<real_T, 2U> scalefactors;

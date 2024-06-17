@@ -237,6 +237,33 @@ for i = 1:length(inputStruct.contrastBackgrounds)
 
 end
 
+% Convert contrastBackgrounds to parameter indices
+contrastBackgrounds = inputStruct.contrastBackgrounds;
+backgroundTypes = inputStruct.backgroundTypes;
+
+backgroundParamNames = inputStruct.backgroundParamNames;
+contrastBackgroundParams = zeros(1, length(contrastBackgrounds));
+
+for i = 1:length(contrastBackgrounds)
+    % Check the type of the background that each contrast is pointing to.
+    % If it is a constant, point to the number of the corresponding
+    % background param. If it's data, then set it to -1
+    thisBack = contrastBackgrounds(i);      % Which background
+    thisType = backgroundTypes{thisBack};   % What type is it?
+    
+    if strcmpi(thisType,'data')
+        % Background is in the datafile. Set contrastBackgroundParams to -1
+        contrastBackgroundParams(i) = -1;
+    else
+        % Background is a backgroundParam, the name of which should
+        % be in the first column of backgroundValues
+        whichBackgroundParamName = inputStruct.backgroundValues{thisBack,1};
+        
+        % Find which backgroundParam this is, and set contrastBackgroundParams to this number
+        contrastBackgroundParams(i) = find(strcmpi(whichBackgroundParamName,backgroundParamNames));
+    end
+end
+
 % Here we need to do the same with the contrastResolutions array
 contrastResolutions = inputStruct.contrastResolutions;
 resolutionTypes = inputStruct.resolutionTypes;
@@ -260,8 +287,7 @@ for i = 1:length(contrastResolutions)
         whichResolutionParamName = inputStruct.resolutionValues{thisResol,1};
         
         % Find which resolutionParam this is, and set contrastResolutionParams to this number
-        resolutionParamNumber = find(strcmpi(whichResolutionParamName,resolutionParamNames));
-        contrastResolutionParams(i) = resolutionParamNumber;
+        contrastResolutionParams(i) = find(strcmpi(whichResolutionParamName,resolutionParamNames));
     end
 end
         
@@ -320,7 +346,7 @@ problemStruct.oilChiDataPresent = inputStruct.oilChiDataPresent;
 problemStruct.numberOfContrasts = inputStruct.numberOfContrasts;
 problemStruct.geometry = inputStruct.geometry;
 problemStruct.useImaginary = inputStruct.useImaginary;
-problemStruct.contrastBackgrounds = inputStruct.contrastBackgrounds;
+problemStruct.contrastBackgroundParams = contrastBackgroundParams;
 problemStruct.contrastBackgroundActions = backgroundActions;
 problemStruct.contrastQzshifts = inputStruct.contrastQzshifts;
 problemStruct.contrastScalefactors = inputStruct.contrastScalefactors;

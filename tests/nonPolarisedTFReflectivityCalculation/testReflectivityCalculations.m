@@ -227,10 +227,10 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 
             % Test Background Param Error
             testInput = testCase.problemStruct;
-            testInput.contrastBackgrounds(1) = 0;
+            testInput.contrastBackgroundParams(1) = 0;
             testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
-            testInput.contrastBackgrounds(1) = 4;
+            testInput.contrastBackgroundParams(1) = 4;
             testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
 
             % Test Qzshift Error
@@ -296,13 +296,13 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end        
 
         function testExtractProblemParams(testCase)
-            [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
+            [numberOfContrasts, geometry, contrastBackgroundParams, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
             contrastResolutionParams, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, domainRatio,...
             dataPresent, nParams, params, numberOfLayers, resample, backgroundParamsType, contrastCustomFiles, useImaginary] = extractProblemParams(testCase.problemStruct);
 
             testCase.verifyEqual(numberOfContrasts, testCase.problemStruct.numberOfContrasts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(geometry, testCase.problemStruct.geometry, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(contrastBackgrounds, testCase.problemStruct.contrastBackgrounds, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(contrastBackgroundParams, testCase.problemStruct.contrastBackgroundParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastQzshifts, testCase.problemStruct.contrastQzshifts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastScalefactors, testCase.problemStruct.contrastScalefactors, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastBulkIns, testCase.problemStruct.contrastBulkIns, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);

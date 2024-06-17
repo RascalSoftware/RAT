@@ -1,4 +1,4 @@
-function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolutionParam] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutionParams,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams)
+function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolutionParam] = backSort(contrastBackgroundParams,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutionParams,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams)
     % Distributes the background and shift values among the different contrasts
     %
     % USAGE::
@@ -6,7 +6,7 @@ function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outR
     %    [backgroundParams,qzshift,scalefactor,bulkIn,bulkOut,resolutionParams] = backsort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,qzshifts,scalefactor,bulkIn,bulkOut,res)
     %
     % INPUTS:
-    %    * contrastBackgrounds: Which background value is associated with each contrast
+    %    * contrastBackgroundParams: Which background value is associated with each contrast
     %    * contrastQzshifts: Which qz_shift value is associated with each contrast
     %    * contrastScalefactors: Which scalefactor value is associated with each contrast
     %    * contrastBulkIns: Which BulkIn value is associated with each contrast
@@ -27,8 +27,12 @@ function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outR
     %    * outBulkOut: list of actual bulkOut values for each contrast
     %    * outResolution: list of actual resolution parameter for each contrast  
     
-        outBackgroundParam = backgroundParams(contrastBackgrounds);
-        
+        if contrastBackgroundParams ~= -1
+            outBackgroundParam = backgroundParams(contrastBackgroundParams);
+        else
+            outBackgroundParam = -1;     % Negative value means we have a data background.
+        end
+
         outQzshift = qzshifts(contrastQzshifts);
         
         outScalefactor = scalefactors(contrastScalefactors);

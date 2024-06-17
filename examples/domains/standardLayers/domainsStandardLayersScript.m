@@ -55,10 +55,10 @@ Layer2 = {'Layer 2',...         % Name of the layer
     'bulk out' }; 
 
 Layer3 = {'Layer 3',...         % Name of the layer
-    'L2 thick',...              % Layer thickness
-    'L2 SLD',...                % Layer SLD
-    'L2 Rough',...              % Layer roughness
-    'L2 Hydr',...               % hydration (precent)
+    'L3 thick',...              % Layer thickness
+    'L3 SLD',...                % Layer SLD
+    'L3 Rough',...              % Layer roughness
+    'L3 Hydr',...               % hydration (precent)
     'bulk out' };
 
 problem.addLayerGroup({Layer1, Layer2, Layer3});

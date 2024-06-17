@@ -3,10 +3,10 @@ function checkIndices(problemStruct)
     % corresponding array.
 
     numBackgroundParams = length(problemStruct.backgroundParams);
-    for i = 1:length(problemStruct.contrastBackgrounds)
-        index = problemStruct.contrastBackgrounds(i);
-        if index < 1 || index > numBackgroundParams
-            throw(exceptions.indexOutOfRange(sprintf('contrastBackgrounds(%i) is %i, which is outside the range of backgroundParams', i, index)));
+    for i = 1:length(problemStruct.contrastBackgroundParams)
+        index = problemStruct.contrastBackgroundParams(i);
+        if (index < 1 && index ~= -1) || index > numBackgroundParams
+            throw(exceptions.indexOutOfRange(sprintf('contrastBackgroundParams(%i) is %i, which is outside the range of backgroundParams', i, index)));
         end
     end
 

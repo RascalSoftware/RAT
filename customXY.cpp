@@ -288,7 +288,7 @@ namespace RAT
             }
           }
 
-          c_contrastCalculation(problemStruct->contrastBackgrounds[b_i],
+          c_contrastCalculation(problemStruct->contrastBackgroundParams[b_i],
                                 problemStruct->contrastQzshifts[b_i],
                                 problemStruct->contrastScalefactors[b_i],
                                 problemStruct->contrastBulkIns[b_i],
@@ -368,7 +368,7 @@ namespace RAT
             }
           }
 
-          c_contrastCalculation(problemStruct->contrastBackgrounds[i],
+          c_contrastCalculation(problemStruct->contrastBackgroundParams[i],
                                 problemStruct->contrastQzshifts[i],
                                 problemStruct->contrastScalefactors[i],
                                 problemStruct->contrastBulkIns[i],

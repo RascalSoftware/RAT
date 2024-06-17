@@ -267,7 +267,7 @@ namespace RAT
     real_T numberOfContrasts;
     ::coder::bounded_array<char_T, 10000U, 2U> geometry;
     boolean_T useImaginary;
-    ::coder::array<real_T, 2U> contrastBackgrounds;
+    ::coder::array<real_T, 2U> contrastBackgroundParams;
     ::coder::array<real_T, 2U> contrastBackgroundActions;
     ::coder::array<real_T, 2U> contrastQzshifts;
     ::coder::array<real_T, 2U> contrastScalefactors;

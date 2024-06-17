@@ -442,7 +442,7 @@ namespace RAT
  private(r1,d,d1,d2,d3,d4,d5,d6,c_i,c_loop_ub,i3,d_loop_ub,i4)
 
         for (c_i = 0; c_i <= ub_loop; c_i++) {
-          c_contrastCalculation(problemStruct->contrastBackgrounds[c_i],
+          c_contrastCalculation(problemStruct->contrastBackgroundParams[c_i],
                                 problemStruct->contrastQzshifts[c_i],
                                 problemStruct->contrastScalefactors[c_i],
                                 problemStruct->contrastBulkIns[c_i],
@@ -504,7 +504,7 @@ namespace RAT
         domainLayerSlds.set_size(ub_loop, 2);
         domainSldProfiles.set_size(ub_loop, 2);
         for (i = 0; i < ub_loop; i++) {
-          c_contrastCalculation(problemStruct->contrastBackgrounds[i],
+          c_contrastCalculation(problemStruct->contrastBackgroundParams[i],
                                 problemStruct->contrastQzshifts[i],
                                 problemStruct->contrastScalefactors[i],
                                 problemStruct->contrastBulkIns[i],

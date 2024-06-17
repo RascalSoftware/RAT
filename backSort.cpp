@@ -16,7 +16,7 @@
 // Function Definitions
 namespace RAT
 {
-  void backSort(real_T contrastBackgrounds, real_T contrastQzshifts, real_T
+  void backSort(real_T contrastBackgroundParams, real_T contrastQzshifts, real_T
                 contrastScalefactors, real_T contrastBulkIns, real_T
                 contrastBulkOuts, real_T contrastResolutionParams, const ::coder::
                 array<real_T, 2U> &backgroundParams, const ::coder::array<real_T,
@@ -34,7 +34,7 @@ namespace RAT
     //     [backgroundParams,qzshift,scalefactor,bulkIn,bulkOut,resolutionParams] = backsort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,qzshifts,scalefactor,bulkIn,bulkOut,res)
     //
     //  INPUTS:
-    //     * contrastBackgrounds: Which background value is associated with each contrast
+    //     * contrastBackgroundParams: Which background value is associated with each contrast
     //     * contrastQzshifts: Which qz_shift value is associated with each contrast
     //     * contrastScalefactors: Which scalefactor value is associated with each contrast
     //     * contrastBulkIns: Which BulkIn value is associated with each contrast
@@ -54,8 +54,15 @@ namespace RAT
     //     * outBulkIn: list of actual bulkIn values for each contrast
     //     * outBulkOut: list of actual bulkOut values for each contrast
     //     * outResolution: list of actual resolution parameter for each contrast
-    *outBackgroundParam = backgroundParams[static_cast<int32_T>
-      (contrastBackgrounds) - 1];
+    if (contrastBackgroundParams != -1.0) {
+      *outBackgroundParam = backgroundParams[static_cast<int32_T>
+        (contrastBackgroundParams) - 1];
+    } else {
+      *outBackgroundParam = -1.0;
+
+      //  Negative value means we have a data background.
+    }
+
     *outQzshift = qzshifts[static_cast<int32_T>(contrastQzshifts) - 1];
     *outScalefactor = scalefactors[static_cast<int32_T>(contrastScalefactors) -
       1];

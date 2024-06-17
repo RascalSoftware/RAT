@@ -249,7 +249,7 @@ namespace RAT
  private(r2,r3,d,d1,d2,d3,d4,d5,d6,b_tmp_data,b_tmp_size,c_i,c_loop_ub,i3,d_loop_ub,i4)
 
         for (c_i = 0; c_i <= loop_ub; c_i++) {
-          contrastCalculation(problemStruct->contrastBackgrounds[c_i],
+          contrastCalculation(problemStruct->contrastBackgroundParams[c_i],
                               problemStruct->contrastQzshifts[c_i],
                               problemStruct->contrastScalefactors[c_i],
                               problemStruct->contrastBulkIns[c_i],
@@ -332,7 +332,7 @@ namespace RAT
           int32_T i1;
           int32_T i2;
           int32_T loop_ub;
-          contrastCalculation(problemStruct->contrastBackgrounds[b_i],
+          contrastCalculation(problemStruct->contrastBackgroundParams[b_i],
                               problemStruct->contrastQzshifts[b_i],
                               problemStruct->contrastScalefactors[b_i],
                               problemStruct->contrastBulkIns[b_i],

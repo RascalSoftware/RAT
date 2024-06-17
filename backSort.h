@@ -20,7 +20,7 @@
 // Function Declarations
 namespace RAT
 {
-  void backSort(real_T contrastBackgrounds, real_T contrastQzshifts, real_T
+  void backSort(real_T contrastBackgroundParams, real_T contrastQzshifts, real_T
                 contrastScalefactors, real_T contrastBulkIns, real_T
                 contrastBulkOuts, real_T contrastResolutionParams, const ::coder::
                 array<real_T, 2U> &backgroundParams, const ::coder::array<real_T,

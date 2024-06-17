@@ -222,10 +222,10 @@ namespace RAT
     }
 
     c->useImaginary = b->useImaginary;
-    c->contrastBackgrounds.set_size(1, b->contrastBackgrounds.size(1));
-    loop_ub = b->contrastBackgrounds.size(1);
+    c->contrastBackgroundParams.set_size(1, b->contrastBackgroundParams.size(1));
+    loop_ub = b->contrastBackgroundParams.size(1);
     for (i = 0; i < loop_ub; i++) {
-      c->contrastBackgrounds[i] = b->contrastBackgrounds[i];
+      c->contrastBackgroundParams[i] = b->contrastBackgroundParams[i];
     }
 
     c->contrastBackgroundActions.set_size(1, b->contrastBackgroundActions.size(1));
@@ -416,10 +416,10 @@ namespace RAT
     }
 
     c->useImaginary = b->useImaginary;
-    c->contrastBackgrounds.set_size(1, b->contrastBackgrounds.size(1));
-    loop_ub = b->contrastBackgrounds.size(1);
+    c->contrastBackgroundParams.set_size(1, b->contrastBackgroundParams.size(1));
+    loop_ub = b->contrastBackgroundParams.size(1);
     for (i = 0; i < loop_ub; i++) {
-      c->contrastBackgrounds[i] = b->contrastBackgrounds[i];
+      c->contrastBackgroundParams[i] = b->contrastBackgroundParams[i];
     }
 
     c->contrastBackgroundActions.set_size(1, b->contrastBackgroundActions.size(1));

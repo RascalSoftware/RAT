@@ -139,7 +139,9 @@ classdef testExamples < matlab.unittest.TestCase
             close all;
 
             % Write the script
-            problem.writeScript(objName="scriptProblem", script="projectScript");
+            clonedProblem = problem.clone();
+            testCase.verifyNotEqual(clonedProblem, problem);
+            clonedProblem.writeScript(objName="scriptProblem", script="projectScript");
             run("projectScript.m");
 
             % Test general properties

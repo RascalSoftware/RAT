@@ -90,6 +90,20 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(newProject.calculationType, calculationTypes.NonPolarised.value, 'Calculation Type not set correctly');
             testCase.verifyError(@() projectClass(1), 'MATLAB:validators:mustBeTextScalar')
         end
+        
+        function testClone(testCase)
+            % Tests clone project is different from original
+            newProject = projectClass();
+            clonedProject = newProject.clone();
+            testCase.verifyEqual(newProject.experimentName, clonedProject.experimentName, 'clone not working correctly');
+            clonedProject.experimentName = 'project';
+            testCase.verifyNotEqual(newProject.experimentName, 'project', 'clone not working correctly');
+
+            varTable = newProject.parameters.varTable;
+            newProject.parameters.varTable = [varTable; vertcat(testCase.parameters{:})];
+            testCase.verifySize( newProject.parameters.varTable, [10, 8], 'Parameters has wrong dimension');
+            testCase.verifySize( clonedProject.parameters.varTable, [1, 8], 'Parameters has wrong dimension')  
+        end
 
         function testConversion(testCase)
             % Tests project class can be converted to domains class and

@@ -2,9 +2,9 @@
 import numpy as np
 
 def customBilayer(params, bulk_in, bulk_out, contrast):
-    params = np.array(params);
-    bulk_in = np.array(bulk_in);
-    bulk_out = np.array(bulk_out);
+    params = params
+    bulk_in = bulk_in
+    bulk_out = bulk_out
 
     sub_rough = params[0]
     oxide_thick = params[1]

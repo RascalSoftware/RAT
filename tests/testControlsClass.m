@@ -367,11 +367,12 @@ classdef testControlsClass < matlab.unittest.TestCase
             % Test default values for dream procedure
             testCase.controls = testCase.controls.setProcedure(procedures.Dream.value);
             testCase.verifyEqual(testCase.controls.procedure, procedures.Dream.value, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.nSamples, 50000, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.nSamples, 20000, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.nChains, 10, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.jumpProbability, 0.5, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.pUnitGamma, 0.2, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.boundHandling, boundHandlingOptions.Fold.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.boundHandling, boundHandlingOptions.Reflect.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.adaptPCR, true, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.resampleParams, [0.9 50], 'setProcedure method is not working');

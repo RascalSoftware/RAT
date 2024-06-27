@@ -917,6 +917,16 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
         end
 
+        function problem = clone(obj)
+            % Makes a clone of the project by making a script and using it
+            % to recreate the project
+            %
+            % project.clone();
+            script = obj.toScript(objName='problem');
+            eval(script);
+            problem = eval('problem');
+        end
+
         function writeScript(obj, options)
             % Writes a MATLAB script that can be run to reproduce this
             % projectClass object.
@@ -942,207 +952,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 throw(exceptions.invalidValue(sprintf('The filename chosen for the script has the "%s" extension, rather than a MATLAB ".m" extension', extension)));
             end
 
+            script = obj.toScript(objName=options.objName);
             fileID = fopen(options.script, 'w');
-            fprintf(fileID, "%s\n\n", '% THIS FILE IS GENERATED FROM RAT VIA THE "WRITESCRIPT" ROUTINE. IT IS NOT PART OF THE RAT CODE.');
-
-            % Start by getting input arguments
-            projectSpec = "%s = createProject(name='%s', calcType='%s', model='%s', geometry='%s', absorption=%s);\n\n";
-            fprintf(fileID, projectSpec, options.objName, obj.experimentName, obj.calculationType,  obj.modelType, obj.geometry,  string(obj.absorption));
-            if obj.usePriors
-                fprintf(fileID, "%s.setUsePriors(true);\n\n", options.objName);
-            end
-
-            % Add all parameters, with different actions for protected
-            % parameters
-            paramGroup = cell(sum(~strcmpi(obj.parameters.varTable{:, 1}, obj.protectedParameters)), 1);
-            groupIndex = 1;
-            for i=1:height(obj.parameters.varTable)
-                % Set protected parameters
-                if any(strcmpi(obj.parameters.varTable{i, 1}, obj.protectedParameters))
-                    fprintf(fileID, options.objName + ".setParameterValue(%d, %.15g);\n", i, obj.parameters.varTable{i, 3});
-                    fprintf(fileID, options.objName + ".setParameterLimits(%d, %.15g, %.15g);\n", i, obj.parameters.varTable{i, 2}, obj.parameters.varTable{i, 4});
-                    fprintf(fileID, options.objName + ".setParameterFit(%d, %s);\n", i, string(obj.parameters.varTable{i, 5}));
-                    fprintf(fileID, options.objName + ".setParameterPrior(%d, '%s', %.15g, %.15g);\n", i, obj.parameters.varTable{i, 6}, obj.parameters.varTable{i, 7}, obj.parameters.varTable{i, 8});
-                % Add non-protected parameters to a parameter group
-                else
-                    paramRow = table2cell(obj.parameters.varTable(i, :))';
-                    paramRow{5} = string(paramRow{5});
-                    paramGroup{groupIndex} = paramRow;
-                    groupIndex = groupIndex + 1;
-                end
-            end
-
-            fprintf(fileID, "\n");
-
-            % Write the parameter group to the script
-            if size(paramGroup, 1) > 0
-                fprintf(fileID, "paramGroup = {\n");
-                for i = 1:size(paramGroup, 1)
-                    paramSpec = blanks(14) + "{'%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g};\n";
-                    fprintf(fileID, paramSpec, paramGroup{i}{:});
-                end
-                fprintf(fileID, blanks(14) + "%s\n\n", "};");
-                fprintf(fileID, options.objName + ".addParameterGroup(paramGroup);\n");
-            end
-
-            fprintf(fileID, "\n");
-
-            % Add all parameters based on a parametersClass
-            paramClasses = ["bulkIn", "bulkOut", "scalefactors", "background", "resolution"];
-            paramSubclasses = ["", "", "", "backgroundParams", "resolutionParams"];
-
-            if isprop(obj, 'domainRatio')
-                paramClasses(end + 1) = "domainRatio";
-                paramSubclasses(end + 1) = "";
-            end
-
-            for i=1:length(paramClasses)
-
-                if isprop(obj.(paramClasses(i)), 'varTable')
-
-                    removeRoutine = obj.classes.removeRoutine(obj.classes.name == paramClasses(i));
-                    addRoutine = obj.classes.addRoutine(obj.classes.name == paramClasses(i));
-                    numParams = height(obj.(paramClasses(i)).varTable);
-                    paramTable = table2cell(obj.(paramClasses(i)).varTable)';
-
-                elseif isprop(obj.(paramClasses(i)).(paramSubclasses(i)), 'varTable')
-
-                    removeRoutine = obj.classes.removeRoutine(obj.classes.name == paramSubclasses(i));
-                    addRoutine = obj.classes.addRoutine(obj.classes.name == paramSubclasses(i));
-                    numParams = height(obj.(paramClasses(i)).(paramSubclasses(i)).varTable);
-                    paramTable = table2cell(obj.(paramClasses(i)).(paramSubclasses(i)).varTable)';
-
-                end
-
-                % Remove default parameter
-                fprintf(fileID, options.objName + "." + removeRoutine + "(1);\n");
-                % Convert logical parameter
-                for j=1:numParams
-                    paramTable{5, j} = string(paramTable{5, j});
-                end
-                % Add the parameters that have been defined
-                paramSpec = options.objName + "." + addRoutine + "('%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g);\n";
-                fprintf(fileID, paramSpec, paramTable{:});
-                fprintf(fileID, "\n");
-
-            end
-
-            % Now deal with classes where all of the fields are strings
-
-            % First, custom files
-            addRoutine = obj.classes.addRoutine(obj.classes.name == "customFile");
-            numCols = width(obj.customFile.varTable);
-            stringTable = table2array(obj.customFile.varTable)';
-            stringTable = stringTable([1 2 4 5 3],:);  % Needs to switch columns to match argument order
-            
-            % Add parameters if any have been defined
-            if ~isempty(stringTable)
-                stringSpec = options.objName + "." + addRoutine + "(" + join(repmat("'%s'", 1, numCols), ", ") + ");\n";
-                fprintf(fileID, stringSpec, stringTable);
-                fprintf(fileID, "\n");
-            end
-
-            % Now deal with background and resolutions, which have
-            % subclasses
-            stringClasses = ["background", "resolution"];
-            stringSubclasses = ["backgrounds", "resolutions"];
-
-            if isa(obj.layers, 'layersClass')
-                stringClasses = ["layers", stringClasses];
-                stringSubclasses = ["", stringSubclasses];
-            end
-
-            fprintf(fileID, options.objName + ".removeBackground(1);\n");
-            fprintf(fileID, options.objName + ".removeResolution(1);\n");
-            fprintf(fileID, "\n");
-
-            for i=1:length(stringClasses)
-                stringTable = table();
-
-                if isprop(obj.(stringClasses(i)), 'varTable')
-
-                    addRoutine = obj.classes.addRoutine(obj.classes.name == stringClasses(i));
-                    numCols = width(obj.(stringClasses(i)).varTable);
-                    stringTable = table2array(obj.(stringClasses(i)).varTable)';
-
-                elseif isprop(obj.(stringClasses(i)).(stringSubclasses(i)), 'varTable')
-
-                    addRoutine = obj.classes.addRoutine(obj.classes.name == stringSubclasses(i));
-                    numCols = width(obj.(stringClasses(i)).(stringSubclasses(i)).varTable);
-                    stringTable = table2array(obj.(stringClasses(i)).(stringSubclasses(i)).varTable)';
-
-                end
-
-                % Add parameters if any have been defined
-                if ~isempty(stringTable)
-                    stringSpec = options.objName + "." + addRoutine + "(" + join(repmat("'%s'", 1, numCols), ", ") + ");\n";
-                    fprintf(fileID, stringSpec, stringTable);
-                    fprintf(fileID, "\n");
-                end
-
-            end
-
-            % Data class requires writing and reading the data
-            fprintf(fileID, options.objName + ".removeData(1);\n");
-
-            for i=1:obj.data.rowCount
-
-                % Write and read data if it exists, else add an empty,
-                % named row
-                if isempty(obj.data.varTable{i, 2}{:})
-                    fprintf(fileID, options.objName + ".addData('%s');\n", obj.data.varTable{i, 1});
-                else
-                    writematrix(obj.data.varTable{i, 2}{:}, "data_" + string(i) + ".dat");
-                    fprintf(fileID, "data_%d = readmatrix('%s');\n", i, "data_" + string(i) + ".dat");
-                    fprintf(fileID, options.objName + ".addData('%s', data_%d);\n", obj.data.varTable{i, 1}, i);
-                end
-
-                % Also need to set dataRange and simRange explicitly as they
-                % are optional
-                if ~isempty(obj.data.varTable{i, 3}{:})
-                    fprintf(fileID, options.objName + ".setData(%d, 'dataRange', [%.15g %.15g]);\n", i, obj.data.varTable{i, 3}{:});
-                end
-                if ~isempty(obj.data.varTable{i, 4}{:})
-                    fprintf(fileID, options.objName + ".setData(%d, 'simRange', [%.15g %.15g]);\n", i, obj.data.varTable{i, 4}{:});
-                end
-
-                fprintf(fileID, "\n");
-
-            end
-
-            % Contrasts are a cell array rather than a table
-            % Need to handle resample and model fields separately
-            for i=1:obj.contrasts.numberOfContrasts
-
-                reducedStruct = rmfield(obj.contrasts.contrasts{i}, {'resample', 'model'});
-                contrastParams = string(namedargs2cell(reducedStruct));
-                contrastSpec = options.objName + ".addContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
-                fprintf(fileID, contrastSpec, contrastParams);
-                fprintf(fileID, options.objName + ".setContrast(%d, 'resample', %s);\n", i, string(obj.contrasts.contrasts{i}.resample));
-                if ~isempty(obj.contrasts.contrasts{i}.model)
-                    fprintf(fileID, options.objName + ".setContrastModel(%d, {" + join(repmat("'%s'", 1, length(obj.contrasts.contrasts{i}.model))) +"});\n", i, obj.contrasts.contrasts{i}.model{:});
-                end
-                fprintf(fileID, "\n");
-
-            end
-
-            if isprop(obj, 'domainContrasts') && isa(obj.domainContrasts, 'domainContrastsClass')
-                for i=1:obj.domainContrasts.numberOfContrasts
-                    
-                    reducedStruct = rmfield(obj.domainContrasts.contrasts{i}, {'model'});
-                    contrastParams = string(namedargs2cell(reducedStruct));
-                    contrastSpec = options.objName + ".addDomainContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
-                    fprintf(fileID, contrastSpec, contrastParams);
-                    if ~isempty(obj.domainContrasts.contrasts{i}.model)
-                        fprintf(fileID, options.objName + ".setDomainContrastModel(%d, {" + join(repmat("'%s'", 1, length(obj.domainContrasts.contrasts{i}.model))) +"});\n", i, obj.domainContrasts.contrasts{i}.model{:});
-                    end
-                    fprintf(fileID, "\n");
-                    
-                end
-            end
-            
+            fprintf(fileID, '%s\n', script);
             fclose(fileID);
-
         end
         
     end     % end public methods
@@ -1273,6 +1086,214 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
         end
 
+        function script = toScript(obj, options)
+            % Convert to a MATLAB script that can be run to reproduce this
+            % projectClass object.
+            %
+            % script = project.toScript();
+            arguments
+                obj
+                options.objName {mustBeTextScalar} = 'project'
+            end
+            script = "";
+            script = script + sprintf("%s\n\n", '% THIS FILE IS GENERATED FROM RAT VIA THE "WRITESCRIPT" ROUTINE. IT IS NOT PART OF THE RAT CODE.');
+
+            % Start by getting input arguments
+            projectSpec = "%s = createProject(name='%s', calcType='%s', model='%s', geometry='%s', absorption=%s);\n\n";
+            script = script + sprintf(projectSpec, options.objName, obj.experimentName, obj.calculationType,  obj.modelType, obj.geometry,  string(obj.absorption));
+            if obj.usePriors
+                script = script + sprintf("%s.setUsePriors(true);\n\n", options.objName);
+            end
+
+            % Add all parameters, with different actions for protected
+            % parameters
+            paramGroup = cell(sum(~strcmpi(obj.parameters.varTable{:, 1}, obj.protectedParameters)), 1);
+            groupIndex = 1;
+            for i=1:height(obj.parameters.varTable)
+                % Set protected parameters
+                if any(strcmpi(obj.parameters.varTable{i, 1}, obj.protectedParameters))
+                    script = script + sprintf(options.objName + ".setParameterValue(%d, %.15g);\n", i, obj.parameters.varTable{i, 3});
+                    script = script + sprintf(options.objName + ".setParameterLimits(%d, %.15g, %.15g);\n", i, obj.parameters.varTable{i, 2}, obj.parameters.varTable{i, 4});
+                    script = script + sprintf(options.objName + ".setParameterFit(%d, %s);\n", i, string(obj.parameters.varTable{i, 5}));
+                    script = script + sprintf(options.objName + ".setParameterPrior(%d, '%s', %.15g, %.15g);\n", i, obj.parameters.varTable{i, 6}, obj.parameters.varTable{i, 7}, obj.parameters.varTable{i, 8});
+                % Add non-protected parameters to a parameter group
+                else
+                    paramRow = table2cell(obj.parameters.varTable(i, :))';
+                    paramRow{5} = string(paramRow{5});
+                    paramGroup{groupIndex} = paramRow;
+                    groupIndex = groupIndex + 1;
+                end
+            end
+
+            script = script + newline;
+
+            % Write the parameter group to the script
+            if size(paramGroup, 1) > 0
+                script = script + sprintf("paramGroup = {\n");
+                for i = 1:size(paramGroup, 1)
+                    paramSpec = blanks(14) + "{'%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g};\n";
+                    script = script + sprintf(paramSpec, paramGroup{i}{:});
+                end
+                script = script + sprintf(blanks(14) + "%s\n\n", "};");
+                script = script + sprintf(options.objName + ".addParameterGroup(paramGroup);\n");
+            end
+
+            script = script + newline;
+
+            % Add all parameters based on a parametersClass
+            paramClasses = ["bulkIn", "bulkOut", "scalefactors", "background", "resolution"];
+            paramSubclasses = ["", "", "", "backgroundParams", "resolutionParams"];
+
+            if isprop(obj, 'domainRatio')
+                paramClasses(end + 1) = "domainRatio";
+                paramSubclasses(end + 1) = "";
+            end
+
+            for i=1:length(paramClasses)
+
+                if isprop(obj.(paramClasses(i)), 'varTable')
+
+                    removeRoutine = obj.classes.removeRoutine(obj.classes.name == paramClasses(i));
+                    addRoutine = obj.classes.addRoutine(obj.classes.name == paramClasses(i));
+                    numParams = height(obj.(paramClasses(i)).varTable);
+                    paramTable = table2cell(obj.(paramClasses(i)).varTable)';
+
+                elseif isprop(obj.(paramClasses(i)).(paramSubclasses(i)), 'varTable')
+
+                    removeRoutine = obj.classes.removeRoutine(obj.classes.name == paramSubclasses(i));
+                    addRoutine = obj.classes.addRoutine(obj.classes.name == paramSubclasses(i));
+                    numParams = height(obj.(paramClasses(i)).(paramSubclasses(i)).varTable);
+                    paramTable = table2cell(obj.(paramClasses(i)).(paramSubclasses(i)).varTable)';
+
+                end
+
+                % Remove default parameter
+                script = script + sprintf(options.objName + "." + removeRoutine + "(1);\n");
+                % Convert logical parameter
+                for j=1:numParams
+                    paramTable{5, j} = string(paramTable{5, j});
+                end
+                % Add the parameters that have been defined
+                paramSpec = options.objName + "." + addRoutine + "('%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g);\n";
+                script = script + sprintf(paramSpec, paramTable{:});
+                script = script + newline;
+
+            end
+
+            % Now deal with classes where all of the fields are strings
+
+            % First, custom files
+            addRoutine = obj.classes.addRoutine(obj.classes.name == "customFile");
+            numCols = width(obj.customFile.varTable);
+            stringTable = table2array(obj.customFile.varTable)';
+            stringTable = stringTable([1 2 4 5 3],:);  % Needs to switch columns to match argument order
+            
+            % Add parameters if any have been defined
+            if ~isempty(stringTable)
+                stringSpec = options.objName + "." + addRoutine + "(" + join(repmat("'%s'", 1, numCols), ", ") + ");\n";
+                script = script + sprintf(stringSpec, stringTable);
+                script = script + newline;
+            end
+
+            % Now deal with background and resolutions, which have
+            % subclasses
+            stringClasses = ["background", "resolution"];
+            stringSubclasses = ["backgrounds", "resolutions"];
+
+            if isa(obj.layers, 'layersClass')
+                stringClasses = ["layers", stringClasses];
+                stringSubclasses = ["", stringSubclasses];
+            end
+
+            script = script + sprintf(options.objName + ".removeBackground(1);\n");
+            script = script + sprintf(options.objName + ".removeResolution(1);\n");
+            script = script + newline;
+
+            for i=1:length(stringClasses)
+                stringTable = table();
+
+                if isprop(obj.(stringClasses(i)), 'varTable')
+
+                    addRoutine = obj.classes.addRoutine(obj.classes.name == stringClasses(i));
+                    numCols = width(obj.(stringClasses(i)).varTable);
+                    stringTable = table2array(obj.(stringClasses(i)).varTable)';
+
+                elseif isprop(obj.(stringClasses(i)).(stringSubclasses(i)), 'varTable')
+
+                    addRoutine = obj.classes.addRoutine(obj.classes.name == stringSubclasses(i));
+                    numCols = width(obj.(stringClasses(i)).(stringSubclasses(i)).varTable);
+                    stringTable = table2array(obj.(stringClasses(i)).(stringSubclasses(i)).varTable)';
+
+                end
+
+                % Add parameters if any have been defined
+                if ~isempty(stringTable)
+                    stringSpec = options.objName + "." + addRoutine + "(" + join(repmat("'%s'", 1, numCols), ", ") + ");\n";
+                    script = script + sprintf(stringSpec, stringTable);
+                    script = script + newline;
+                end
+
+            end
+
+            % Data class requires writing and reading the data
+            script = script + sprintf(options.objName + ".removeData(1);\n");
+
+            for i=1:obj.data.rowCount
+
+                % Write and read data if it exists, else add an empty,
+                % named row
+                if isempty(obj.data.varTable{i, 2}{:})
+                    script = script + sprintf(options.objName + ".addData('%s');\n", obj.data.varTable{i, 1});
+                else
+                    writematrix(obj.data.varTable{i, 2}{:}, "data_" + string(i) + ".dat");
+                    script = script + sprintf("data_%d = readmatrix('%s');\n", i, "data_" + string(i) + ".dat");
+                    script = script + sprintf(options.objName + ".addData('%s', data_%d);\n", obj.data.varTable{i, 1}, i);
+                end
+
+                % Also need to set dataRange and simRange explicitly as they
+                % are optional
+                if ~isempty(obj.data.varTable{i, 3}{:})
+                    script = script + sprintf(options.objName + ".setData(%d, 'dataRange', [%.15g %.15g]);\n", i, obj.data.varTable{i, 3}{:});
+                end
+                if ~isempty(obj.data.varTable{i, 4}{:})
+                    script = script + sprintf(options.objName + ".setData(%d, 'simRange', [%.15g %.15g]);\n", i, obj.data.varTable{i, 4}{:});
+                end
+
+                script = script + newline;
+
+            end
+
+            % Contrasts are a cell array rather than a table
+            % Need to handle resample and model fields separately
+            for i=1:obj.contrasts.numberOfContrasts
+
+                reducedStruct = rmfield(obj.contrasts.contrasts{i}, {'resample', 'model'});
+                contrastParams = string(namedargs2cell(reducedStruct));
+                contrastSpec = options.objName + ".addContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
+                script = script + sprintf(contrastSpec, contrastParams);
+                script = script + sprintf(options.objName + ".setContrast(%d, 'resample', %s);\n", i, string(obj.contrasts.contrasts{i}.resample));
+                if ~isempty(obj.contrasts.contrasts{i}.model)
+                    script = script + sprintf(options.objName + ".setContrastModel(%d, {" + join(repmat("'%s'", 1, length(obj.contrasts.contrasts{i}.model))) +"});\n", i, obj.contrasts.contrasts{i}.model{:});
+                end
+                script = script + newline;
+
+            end
+
+            if isprop(obj, 'domainContrasts') && isa(obj.domainContrasts, 'domainContrastsClass')
+                for i=1:obj.domainContrasts.numberOfContrasts
+                    
+                    reducedStruct = rmfield(obj.domainContrasts.contrasts{i}, {'model'});
+                    contrastParams = string(namedargs2cell(reducedStruct));
+                    contrastSpec = options.objName + ".addDomainContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
+                    script = script + sprintf(contrastSpec, contrastParams);
+                    if ~isempty(obj.domainContrasts.contrasts{i}.model)
+                        script = script + sprintf(options.objName + ".setDomainContrastModel(%d, {" + join(repmat("'%s'", 1, length(obj.domainContrasts.contrasts{i}.model))) +"});\n", i, obj.domainContrasts.contrasts{i}.model{:});
+                    end
+                    script = script + newline;
+                    
+                end
+            end
+        end
     end
 
 end

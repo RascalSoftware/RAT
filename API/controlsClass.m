@@ -441,8 +441,8 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             defaultFuncTolerance = 1e-6;
             defaultMaxFuncEvals = 10000;
             defaultMaxIterations = 1000;
-            defaultUpdateFreq = -1;
-            defaultUpdatePlotFreq = 1;
+            defaultUpdateFreq = 1;
+            defaultUpdatePlotFreq = 20;
             defaultParallel = parallelOptions.Single.value;
             defaultCalcSldDuringFit = false;
             defaultResampleParams = [0.9 50];
@@ -509,8 +509,8 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             defaultCalcSldDuringFit = false;
             defaultResampleParams = [0.9 50];
             defaultDisplay = displayOptions.Iter.value;
-            defaultUpdateFreq = -1;
-            defaultUpdatePlotFreq = 1;
+            defaultUpdateFreq = 1;
+            defaultUpdatePlotFreq = 20;
 
             % Creates the input parser for the DE parameters
             p = inputParser;

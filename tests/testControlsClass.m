@@ -475,6 +475,8 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.resampleParams, [0.9 50], 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Iter.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.updateFreq, 1, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.updatePlotFreq, 20, 'setProcedure method is not working');
 
             % Test passing valid parameter values for DE procedure
             testCase.controls = testCase.controls.setProcedure(procedures.DE.value,...
@@ -487,7 +489,9 @@ classdef testControlsClass < matlab.unittest.TestCase
                 'parallel', parallelOptions.Contrasts.value,...
                 'calcSldDuringFit', true,...
                 'resampleParams', [0 10],...
-                'display', displayOptions.Notify.value});
+                'display', displayOptions.Notify.value,...
+                'updateFreq', 1,...
+                'updatePlotFreq', 4});
             testCase.verifyEqual(testCase.controls.procedure, procedures.DE.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.populationSize, 30, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.fWeight, 0.8, 'setProcedure method is not working');
@@ -499,6 +503,8 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, true, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.resampleParams, [0 10], 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.updateFreq, 1, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.updatePlotFreq, 4, 'setProcedure method is not working');
 
             % Test passing wrong parameter for DE procedure
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.DE.value,...

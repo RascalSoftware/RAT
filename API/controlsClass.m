@@ -495,6 +495,8 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             % 8) calcSldDuringFit
             % 9) resampleParams
             % 10) display
+            % 11) updateFreq
+            % 12) updatePlotFreq
 
             % The default values for DE
             defaultPopulationSize = 20;
@@ -507,6 +509,8 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             defaultCalcSldDuringFit = false;
             defaultResampleParams = [0.9 50];
             defaultDisplay = displayOptions.Iter.value;
+            defaultUpdateFreq = -1;
+            defaultUpdatePlotFreq = 1;
 
             % Creates the input parser for the DE parameters
             p = inputParser;
@@ -520,10 +524,12 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             addParameter(p,'calcSldDuringFit',   defaultCalcSldDuringFit,    @islogical);
             addParameter(p,'resampleParams', defaultResampleParams,  @isnumeric);
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
+            addParameter(p,'updateFreq',   defaultUpdateFreq,    @isnumeric);
+            addParameter(p,'updatePlotFreq',   defaultUpdatePlotFreq,    @isnumeric);
             properties = varargin{:};
 
             % Parses the input or raises invalidOption error
-            errorMsg = 'Only populationSize, fWeight, crossoverProbability, strategy, targetValue, numGenerations, parallel, calcSldDuringFit, resampleParams and display can be set while using the Differential Evolution procedure';
+            errorMsg = 'Only populationSize, fWeight, crossoverProbability, strategy, targetValue, numGenerations, parallel, calcSldDuringFit, resampleParams, display, updateFreq, and updatePlotFreq can be set while using the Differential Evolution procedure';
             inputBlock = obj.parseInputs(p, properties, errorMsg);
 
             % Sets the values the for DE parameters
@@ -537,6 +543,8 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
             obj.resampleParams = inputBlock.resampleParams;
             obj.display = inputBlock.display;
+            obj.updateFreq = inputBlock.updateFreq;
+            obj.updatePlotFreq = inputBlock.updatePlotFreq;
         end
 
         function obj = processNSInput(obj, varargin)

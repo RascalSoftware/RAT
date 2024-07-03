@@ -38,7 +38,13 @@ problem.addContrast('name',        'D2O Conrast', ...
 
 problem.setContrastModel(1,'Alloy domains');
 
+% Make a controls class....
+controls = controlsClass();
 
+% Send everything to RAT....
+[problem,results] = RAT(problem,controls);
+
+plotRefSLD(problem,results);
 
 
 

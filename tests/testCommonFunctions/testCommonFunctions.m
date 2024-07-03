@@ -68,7 +68,12 @@ classdef testCommonFunctions < matlab.unittest.TestCase
 %%
 
     methods(TestClassSetup)    
-        
+        function addDataPath(testCase)
+            import matlab.unittest.fixtures.PathFixture
+            path = fullfile(getappdata(0, 'root'), 'tests', 'testCommonFunctions');
+            testCase.applyFixture(PathFixture(path))  
+        end
+
         function loadBackSort(testCase)
             inputs = load('backSortInputs.mat');
             outputs = load('backSortOutputs.mat');

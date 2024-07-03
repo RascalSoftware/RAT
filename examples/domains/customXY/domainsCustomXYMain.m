@@ -59,5 +59,7 @@ for i = 1:3
     problem.setContrastModel(i,'Domain Layer');
 end
 
+controls = controlsClass();
 
-
+[problem,results] = RAT(problem,controls);
+plotRefSLD(problem,results);

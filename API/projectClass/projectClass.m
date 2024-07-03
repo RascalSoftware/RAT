@@ -922,7 +922,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % to recreate the project
             %
             % project.clone();
-            script = obj.toScript(objName='problem');
+            script = obj.toScript(objName='problem', exportData=false);
             eval(script);
             problem = eval('problem');
         end
@@ -1094,6 +1094,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             arguments
                 obj
                 options.objName {mustBeTextScalar} = 'project'
+                options.exportData {mustBeA(options.exportData, 'logical')} = true
             end
             script = "";
             script = script + sprintf("%s\n\n", '% THIS FILE IS GENERATED FROM RAT VIA THE "WRITESCRIPT" ROUTINE. IT IS NOT PART OF THE RAT CODE.');
@@ -1245,9 +1246,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 if isempty(obj.data.varTable{i, 2}{:})
                     script = script + sprintf(options.objName + ".addData('%s');\n", obj.data.varTable{i, 1});
                 else
-                    writematrix(obj.data.varTable{i, 2}{:}, "data_" + string(i) + ".dat");
-                    script = script + sprintf("data_%d = readmatrix('%s');\n", i, "data_" + string(i) + ".dat");
-                    script = script + sprintf(options.objName + ".addData('%s', data_%d);\n", obj.data.varTable{i, 1}, i);
+                    if options.exportData
+                        writematrix(obj.data.varTable{i, 2}{:}, "data_" + string(i) + ".dat");
+                        script = script + sprintf("data_%d = readmatrix('%s');\n", i, "data_" + string(i) + ".dat");
+                        script = script + sprintf(options.objName + ".addData('%s', data_%d);\n", obj.data.varTable{i, 1}, i);
+                    else
+                        script = script + sprintf("data_%d = %s;\n", i, mat2str(obj.data.varTable{i, 2}{:}, 15));
+                        script = script + sprintf(options.objName + ".addData('%s', data_%d);\n", obj.data.varTable{i, 1}, i);
+                    end
                 end
 
                 % Also need to set dataRange and simRange explicitly as they

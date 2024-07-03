@@ -122,7 +122,7 @@ problem.setContrastModel(1,'DSPC Model');
 problem.setContrastModel(2,'DSPC Model');
 problem.setContrastModel(3,'DSPC Model');
 
+controls = controlsClass();
 
-
-
-
+[problem,results] = RAT(problem,controls);
+plotRefSLD(problem,results);

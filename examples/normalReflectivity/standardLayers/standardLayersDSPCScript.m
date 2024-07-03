@@ -103,4 +103,11 @@ stack =  {'Oxide',...
 problem.setContrastModel(1,stack);
 problem.setContrastModel(2,stack);
 
+% Make a controls class....
+controls = controlsClass();
+
+% Send everything to RAT....
+[problem,results] = RAT(problem,controls);
+
+plotRefSLD(problem,results);
 

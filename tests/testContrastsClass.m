@@ -76,8 +76,11 @@ classdef testContrastsClass < matlab.unittest.TestCase
 %% Set up test data
 
     methods (TestClassSetup)
-
-        function readClassData(testCase)
+        function readClassData(testCase)    
+            import matlab.unittest.fixtures.PathFixture
+            path = fullfile(getappdata(0, 'root'), 'tests', 'nonPolarisedTFReflectivityCalculation');
+            testCase.applyFixture(PathFixture(path))
+            
             % Read in the data used in the example calculation
             % "DPPC_standard_layers.m"
             testCase.D2OData = readmatrix('c_PLP0016596.dat');

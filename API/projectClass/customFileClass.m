@@ -44,8 +44,8 @@ classdef customFileClass < tableUtilities
             % name of the custom file entry, the name of the entry
             % alongside a filename, or can be fully defined by specifying
             % the name of the custom file entry, filename, language, 
-            % file path, and. For MATLAB, the provided path must be in the
-            % matlab path
+            % file path, and function name. For MATLAB, the provided path must 
+            % be in the matlab path
             %
             % customFiles.addCustomFile()
             % customFiles.addCustomFile('New Row')

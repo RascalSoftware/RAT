@@ -62,6 +62,11 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 %% Read in test data
 
     methods (TestClassSetup, ParameterCombination='sequential')
+        function addDataPath(testCase)
+            import matlab.unittest.fixtures.PathFixture
+            path = fullfile(getappdata(0, 'root'), 'tests', 'nonPolarisedTFReflectivityCalculation');
+            testCase.applyFixture(PathFixture(path))  
+        end
 
         function loadTestDataInputs(testCase, inputsFile)
             testCase.inputs = load(inputsFile);

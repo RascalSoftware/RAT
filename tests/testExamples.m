@@ -50,25 +50,19 @@ classdef testExamples < matlab.unittest.TestCase
 
     methods(TestClassSetup)
         function addExamplePaths(testCase)
-            root = getappdata(0,'root');
-            for i = 1:length(testCase.exampleFolder)
-                addpath(fullfile(root, 'examples', testCase.exampleFolder{1,i}));
-            end
-        end
-
-        function setWorkingFolder(testCase)
-            % Makes a temporary folder the current working directory so
-            % file written by the example are deleted
             import matlab.unittest.fixtures.WorkingFolderFixture;
             testCase.applyFixture(WorkingFolderFixture);
+            copyfile(fullfile(getappdata(0, 'root'), 'examples'), fullfile(pwd, 'examples'))
+            for i = 1:length(testCase.exampleFolder)
+                addpath(fullfile(pwd, 'examples', testCase.exampleFolder{1,i}));
+            end
         end
     end
 
     methods(TestClassTeardown)
         function testCleanUp(testCase)
-            root = getappdata(0,'root');
             for i = 1:length(testCase.exampleFolder)
-                rmpath(fullfile(root, 'examples', testCase.exampleFolder{1,i}));
+                rmpath(fullfile(pwd, 'examples', testCase.exampleFolder{1,i}));
             end
         end
     end
@@ -87,10 +81,14 @@ classdef testExamples < matlab.unittest.TestCase
                 exampleBackgroundsTypesCount, ...
                 exampleDataCount, ...
                 exampleScalefactorRowCount)
-
+            
             % verifies example exists with .m extension
             testCase.verifyEqual(exist(exampleScriptFile,'file'), 2);
+            import matlab.unittest.fixtures.CurrentFolderFixture
 
+            [pwdPath, ~, ~] = fileparts(which(exampleScriptFile));
+            testCase.applyFixture(CurrentFolderFixture(pwdPath))  
+            
             % runs the example file
             evalc(exampleScriptFile);
 
@@ -128,9 +126,12 @@ classdef testExamples < matlab.unittest.TestCase
         function testWriteScript(testCase, exampleScriptFile)
             % Test that a the example projectClass objects can be written
             % to a script that can regenerate the object
-
             % verifies example exists with .m extension
             testCase.verifyEqual(exist(exampleScriptFile,'file'), 2);
+            import matlab.unittest.fixtures.CurrentFolderFixture
+
+            [pwdPath, ~, ~] = fileparts(which(exampleScriptFile));
+            testCase.applyFixture(CurrentFolderFixture(pwdPath))  
 
             % runs the example file
             evalc(exampleScriptFile);

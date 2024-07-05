@@ -14,6 +14,12 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
     end
 
     methods(TestClassSetup)
+        function addDataPath(testCase)
+            import matlab.unittest.fixtures.PathFixture
+            path = fullfile(getappdata(0, 'root'), 'tests', 'testProjectConversion');
+            testCase.applyFixture(PathFixture(path))  
+        end
+        
         function defineVariables(testCase)
             testCase.inputStandardProjectClass = 'DSPCBilayerProjectClass.mat';
             testCase.inputStandardStruct = 'DSPCBilayerStructInput.mat';

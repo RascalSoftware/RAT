@@ -601,7 +601,7 @@ classdef testControlsClass < matlab.unittest.TestCase
                 {'calcSldDuringFit', 1}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
 
             % Test exception
-            testCase.verifyError(@() testCase.controls.setProcedure('bayes'), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() testCase.controls.setProcedure('bayes'), exceptions.invalidOption.errorID);
 
         end
 

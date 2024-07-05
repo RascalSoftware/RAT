@@ -6,6 +6,12 @@ classdef testR1ToProjectClass < matlab.unittest.TestCase
     end
 
     methods(TestClassSetup)
+        function addDataPath(testCase)
+            import matlab.unittest.fixtures.PathFixture
+            path = fullfile(getappdata(0, 'root'), 'tests', 'testProjectConversion');
+            testCase.applyFixture(PathFixture(path))  
+        end
+
         function defineIO(testCase)
             testCase.input = 'DSPCBilayerStructInput.mat';
             testCase.output = 'DSPCBilayerProjectClass.mat';

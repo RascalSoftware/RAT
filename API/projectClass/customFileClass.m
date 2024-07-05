@@ -43,9 +43,9 @@ classdef customFileClass < tableUtilities
             % A custom file entry can be added with no parameters, just the
             % name of the custom file entry, the name of the entry
             % alongside a filename, or can be fully defined by specifying
-            % the name of the custom file entry, filename, language, and
-            % file path. For MATLAB, the provided path must be in the
-            % matlab path
+            % the name of the custom file entry, filename, language, 
+            % file path, and function name. For MATLAB, the provided path must 
+            % be in the matlab path
             %
             % customFiles.addCustomFile()
             % customFiles.addCustomFile('New Row')
@@ -123,6 +123,7 @@ classdef customFileClass < tableUtilities
 
             % Check language is valid, then add the new entry
             newLang = validateOption(newLang, 'supportedLanguages', obj.invalidLanguageMessage).value;
+            newFile = obj.addFileExtension(newFile, newLang);
             newFunc = obj.validateFunctionName(newFile, newFunc, newLang);           
             obj.addRow(newName, newFile, newFunc, newLang, obj.validatePath(newPath));            
         end
@@ -132,8 +133,8 @@ classdef customFileClass < tableUtilities
             % The expected inputs are the row of the file entry of
             % interest (given either by name of index), and key-value pairs
             % of the parameter(s) to change. The values of the keys are:
-            % "Name", "Filename", "Language", and "Path".
-            % NOTE changing the path using this routine is not implemented
+            % "Name", "Filename", "Language", "Path" and "functionName" if 
+            % applicable.
             %
             % customFiles.setcustomFile(1, 'Name', 'New Name',...
             %                           'Language', 'Octave')
@@ -166,10 +167,10 @@ classdef customFileClass < tableUtilities
             parse(p, varargin{:});
                 
             results = p.Results;
-            
-            obj.setCustomName(row, results.name);
-            obj.varTable{row, 2} = {results.filename};
-            obj.varTable{row, 4} = {validateOption(results.language, 'supportedLanguages', obj.invalidLanguageMessage).value};
+            results.language = validateOption(results.language, 'supportedLanguages', obj.invalidLanguageMessage).value;
+            obj.setCustomName(row, results.name); 
+            obj.varTable{row, 2} = {obj.addFileExtension(results.filename, results.language)};
+            obj.varTable{row, 4} = {results.language};
             obj.varTable{row, 5} = {obj.validatePath(results.path)};
             obj.varTable{row, 3} = {obj.validateFunctionName(results.filename, results.functionName, results.language)};
         end
@@ -319,9 +320,31 @@ classdef customFileClass < tableUtilities
                 throw(exceptions.invalidPath(sprintf('The given path (%s) is not a valid directory', path)));
             end
         end
+        
+        function filename = addFileExtension(filename, language)
+            % Adds a file extension to the matlab and python filename if it is
+            % missing.
+            %
+            % fileWithExt = obj.addFileExtension('file', 'python')
+            if isempty(filename)
+                return
+            end
+            
+            [~, ~, ext] = fileparts(filename);
+            if isempty(ext)
+                if strcmp(language, supportedLanguages.Matlab.value)
+                    filename = [filename, '.m'];
+                elseif strcmp(language, supportedLanguages.Python.value)
+                    filename = [filename, '.py'];
+                end
+            end
+        end
 
         function newFunctionName = validateFunctionName(filename, functionName, language)
-            % Validate a func
+            % Validates a function name is the same as filename for matlab
+            % functions if a function name is provided.
+            %
+            % funcName = obj.validateFunctionName('file.m', 'results', 'matlab')
             [~, newFunctionName, ~] = fileparts(filename);
             if ~isempty(functionName) 
                 if strcmp(language, supportedLanguages.Matlab.value)

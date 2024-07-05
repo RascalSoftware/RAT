@@ -11,7 +11,7 @@ problem.setUsePriors(true);
 % % custom model file, so it's useful to look at this to check which parameters 
 % % we are going to need:
 
-type customBilayer.m
+type customBilayerDSPC.m
 
 %% 
 % We need to add the relevant parameters we are going to need to define the 
@@ -130,8 +130,7 @@ problem.setContrastModel(1,'DSPC Model');
 problem.setContrastModel(2,'DSPC Model');
 problem.setContrastModel(3,'DSPC Model');
 
+controls = controlsClass();
 
-
-
-
-
+[problem,results] = RAT(problem,controls);
+plotRefSLD(problem,results);

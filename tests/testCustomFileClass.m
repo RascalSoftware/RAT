@@ -11,8 +11,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
     properties (TestParameter)
         fileInput = {{'New Entry'},...
-                     {'Row and file name', 'file.m'},...
-                     {'Nearly Full entry', 'otherFile.py', 'python', pwd},...
+                     {'Row and file name', 'file'},...
+                     {'Nearly Full entry', 'otherFile', 'python', pwd},...
                      {'Full entry', 'anotherFile.py', 'python', pwd, 'function_name'}
                     }
         addedRow = {{'New Entry', '', '', supportedLanguages.Matlab.value, ''},...
@@ -50,6 +50,11 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 %% Set up test data
 
     methods (TestClassSetup)
+        function addDataPath(testCase)
+            import matlab.unittest.fixtures.PathFixture
+            path = fullfile(getappdata(0, 'root'), 'tests', 'nonPolarisedTFReflectivityCalculation');
+            testCase.applyFixture(PathFixture(path))  
+        end
 
         function initialiseFileTable(testCase)
             % Set up an empty file table and a table with one row

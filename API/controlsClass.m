@@ -251,7 +251,10 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             %     * obj.setProcedure('simplex', {'xTolerance', 1e-6, 'funcTolerance', 1e-6,'maxFuncEvals', 1000})
             %     * obj.setProcedure('dream')
             %     * obj.setProcedure('ns', {'nLive', 150,'nMCMC', 0, 'propScale', 0.1, 'nsTolerance', 0.1})
-
+            
+            message = sprintf(['%s is not a supported procedure. The procedure must be a procedures enum or one of ' ...
+                               'the following strings (%s)'], procedure, strjoin(procedures.values(), ', '));
+            procedure = validateOption(procedure, 'procedures', message).value;
             switch procedure
 
                 case procedures.Calculate.value
@@ -293,11 +296,6 @@ classdef controlsClass < matlab.mixin.CustomDisplay
                         obj = obj.processDreamInput(varargin{:});
                     end
                     obj.procedure = procedures.Dream.value;
-
-                otherwise
-                    % invalid procedure
-                    throw(exceptions.invalidValue(sprintf('%s is not a supported procedure. The procedure must be a procedures enum or one of the following strings (%s)', procedure, strjoin(procedures.values(), ', '))));
-
             end
 
         end
@@ -441,8 +439,8 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             defaultFuncTolerance = 1e-6;
             defaultMaxFuncEvals = 10000;
             defaultMaxIterations = 1000;
-            defaultUpdateFreq = -1;
-            defaultUpdatePlotFreq = 1;
+            defaultUpdateFreq = 1;
+            defaultUpdatePlotFreq = 20;
             defaultParallel = parallelOptions.Single.value;
             defaultCalcSldDuringFit = false;
             defaultResampleParams = [0.9 50];
@@ -509,8 +507,8 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             defaultCalcSldDuringFit = false;
             defaultResampleParams = [0.9 50];
             defaultDisplay = displayOptions.Iter.value;
-            defaultUpdateFreq = -1;
-            defaultUpdatePlotFreq = 1;
+            defaultUpdateFreq = 1;
+            defaultUpdatePlotFreq = 20;
 
             % Creates the input parser for the DE parameters
             p = inputParser;

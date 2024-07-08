@@ -1,16 +1,19 @@
-function plotRefSLDHelper(data, noDelay, figureId)
+ function plotRefSLDHelper(data, noDelay)
     % Helper function to make it easier to plot from event. Data is a struct
     % with the plot data and noDelay indicates if draw should be delayed.
     %
-    % plotRefSLDHelper(data, false, 1);
+    % plotRefSLDHelper(data, false);
     arguments
         data
         noDelay {logical} = true
-        figureId {mustBeInteger} = 0
     end
-    if figureId > 0
-        figure(figureId);
+    
+    defaultState = 'on';
+    s = warning();
+    if any(strcmp({s.identifier}, 'MATLAB:Axes:NegativeDataInLogAxis'))
+        defaultState = 'off';
     end
+    warning('off','MATLAB:Axes:NegativeDataInLogAxis');
 
     numberOfContrasts = length(data.reflectivity);
     
@@ -76,4 +79,5 @@ function plotRefSLDHelper(data, noDelay, figureId)
     if noDelay
         drawnow limitrate;
     end
+    warning(defaultState, 'MATLAB:Axes:NegativeDataInLogAxis');
 end

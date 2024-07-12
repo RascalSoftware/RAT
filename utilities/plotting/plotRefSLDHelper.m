@@ -1,4 +1,4 @@
- function plotRefSLDHelper(data, noDelay)
+function plotRefSLDHelper(data, noDelay)
     % Helper function to make it easier to plot from event. Data is a struct
     % with the plot data and noDelay indicates if draw should be delayed.
     %

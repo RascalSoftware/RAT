@@ -15,7 +15,7 @@ classdef useLivePlot < handle
                 figureId {mustBePositive, mustBeInteger} = 1000
             end
             obj.figureId = figureId;
-            obj.handle = @(varargin) obj.callback(varargin{:}, true, obj.figureId);
+            obj.handle = @(varargin) obj.updatePlot(varargin{:});
             % Make the figure
             h = figure(obj.figureId);
             % Unregister other live plots only one at a time
@@ -30,12 +30,21 @@ classdef useLivePlot < handle
                      'set controls.calcSldDuringFit = true\n'], figureId);
         end
         
+        function updatePlot(obj, data)
+            % Clears axes and updates plot
+            figure(obj.figureId);
+            subplot(1, 2, 1); cla;
+            subplot(1, 2, 2); cla;
+            obj.callback(data, false);
+        end
+
         function closeFigure(obj)
-            % Safely close the updating figure and clear the event...
-            % Remove all events...
+            % Safely close the updating figure and clear the event.
+            
+            % Removes event for this plot
             eventManager.unregister(eventTypes.Plot, obj.handle);
             
-            % close the figure....
+            % close the figure.
             delete(obj.figureId);
         end
     end

@@ -20,15 +20,15 @@ void initDyLib(void)
 
 // Unpack data to cell array with given row and col size
 mxArray* unpackDataToCell(int rows, int cols, double* data, double* nData, 
-                          double* data2, double* nData2, int dataCol)   
+                          double* data2, double* nData2)   
 {
     mwSize dims[2] = {0, 0};
     int offset = 0;
     size_t bytes_to_copy;
     mxArray* cellArray = mxCreateCellMatrix(rows, cols);
     for ( int i = 0; i < rows; i++){
-        dims[0] = (mwSize)nData[i] / dataCol;
-        dims[1] = dataCol; 
+        dims[0] = (mwSize)nData[2*i];
+        dims[1] = (mwSize)nData[2*i+1]; 
         mxArray* temp = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
         bytes_to_copy = dims[0] * dims[1] * mxGetElementSize(temp);
         memcpy(mxGetPr(temp), data + offset, bytes_to_copy);
@@ -41,8 +41,8 @@ mxArray* unpackDataToCell(int rows, int cols, double* data, double* nData,
         // This is used to unpack the domains data into the second column 
         offset = 0;
         for ( int i = 0; i < rows; i++){
-            dims[0] = (mwSize)nData2[i] / dataCol;
-            dims[1] = dataCol; 
+            dims[0] = (mwSize)nData2[2*i];
+            dims[1] = (mwSize)nData2[2*i+1]; 
             mxArray* temp = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
             bytes_to_copy = dims[0] * dims[1] * mxGetElementSize(temp);
             memcpy(mxGetPr(temp), data2 + offset, bytes_to_copy);
@@ -77,18 +77,18 @@ void eventCallback(const baseEvent& event)
         plotEvent* pEvent = (plotEvent*)&event; 
 
         mxArray *reflect = unpackDataToCell(pEvent->data->nContrast, 1, 
-                                                   pEvent->data->reflect, pEvent->data->nReflect, NULL, NULL, 2);
+                                                   pEvent->data->reflect, pEvent->data->nReflect, NULL, NULL);
 
         mxArray *shifted = unpackDataToCell(pEvent->data->nContrast, 1, 
-                                                   pEvent->data->shiftedData, pEvent->data->nShiftedData, NULL, NULL, 3);
+                                                   pEvent->data->shiftedData, pEvent->data->nShiftedData, NULL, NULL);
         
         mxArray *slds = unpackDataToCell(pEvent->data->nContrast, (pEvent->data->nSldProfiles2 == NULL) ? 1 : 2,
                                                 pEvent->data->sldProfiles, pEvent->data->nSldProfiles, 
-                                                pEvent->data->sldProfiles2, pEvent->data->nSldProfiles2, 2);
+                                                pEvent->data->sldProfiles2, pEvent->data->nSldProfiles2);
 
         mxArray *layers = unpackDataToCell(pEvent->data->nContrast, (pEvent->data->nLayers2 == NULL) ? 1 : 2, 
                                                   pEvent->data->layers, pEvent->data->nLayers, 
-                                                  pEvent->data->layers2, pEvent->data->nLayers, 2);
+                                                  pEvent->data->layers2, pEvent->data->nLayers2);
 
         mwSize dims[2] = {(mwSize)pEvent->data->nContrast, 1};
         mxArray* subRoughs = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);

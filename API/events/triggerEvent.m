@@ -111,9 +111,9 @@ end
 function [packedArray, dims] = packCellArray(cellArray, col)
     % Packs a specified column of a cell array with different sized arrays into a 
     % single row array and an array of the dimensions for each cell. For the example 
-    % below reflect will be [1, 2, 3, 4, 5, 6, 7] and nReflect will be [3, 1, 4, 1]
+    % below packedArray will be [1, 2, 3, 4, 5, 6, 7] and dims will be [3, 1, 4, 1]
     % 
-    % [reflect, nReflect] = packCellArray({[1; 2; 3], [4; 5; 6; 7]}, 1);
+    % [packedArray, dims] = packCellArray({[1; 2; 3], [4; 5; 6; 7]}, 1);
     rowSize = 0; 
     nCells = size(cellArray, 1);
     

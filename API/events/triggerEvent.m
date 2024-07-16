@@ -108,25 +108,28 @@ function triggerEvent(eventType, varargin)
 end
 
 
-function [packedArray, counts] = packCellArray(cellArray, col)
+function [packedArray, dims] = packCellArray(cellArray, col)
     % Packs a specified column of a cell array with different sized arrays into a 
-    % single row array and an array of counts for each cell. For the example below 
-    % reflect will be [1, 2, 3, 4, 5, 6, 7] and nReflect will be [3, 4]
+    % single row array and an array of the dimensions for each cell. For the example 
+    % below packedArray will be [1, 2, 3, 4, 5, 6, 7] and dims will be [3, 1, 4, 1]
     % 
-    % [reflect, nReflect] = packCellArray({[1; 2; 3], [4; 5; 6; 7]}, 1);
-    rowSize = 0;
+    % [packedArray, dims] = packCellArray({[1; 2; 3], [4; 5; 6; 7]}, 1);
+    rowSize = 0; 
     nCells = size(cellArray, 1);
     
-    counts = zeros(nCells, 1);
+    dims = zeros(nCells*2, 1);
     for i=1:nCells
-        counts(i) = size(cellArray{i, col}, 1) * size(cellArray{i, col}, 2);
-        rowSize = rowSize + counts(i);
+        shape = size(cellArray{i, col});
+        index = 2*i-1;
+        dims(index:index+1, :) = shape;
+        rowSize = rowSize + prod(shape);
     end
     
-    packedArray = zeros(rowSize, 1);
     start = 1;
+    packedArray = zeros(rowSize, 1);
     for i=1:nCells
-        stop = start + counts(i);
+        index = 2*i-1;
+        stop = start + prod(dims(index:index+1, 1));
         packedArray(start:stop-1, :) = reshape(cellArray{i, col}, [], 1);
         start = stop;
     end

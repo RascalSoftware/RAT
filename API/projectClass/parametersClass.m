@@ -53,11 +53,17 @@ classdef parametersClass < tableUtilities
             % for 8 inputs, all parameter properties are provided
             %
             % params.addParameter('Tails Roughness');  
+
+            % Set the default parameters
+            values = [0.0, 0.0, 0.0];
+            fit = false;
+            priorType = priorTypes.Uniform.value;
+            priorValues = [0, Inf];
+
             if isempty(varargin)
-                % No input parameter
-                % Add an empty parameter row
+                % No input parameter - create name and add defaults
                 name = sprintf('new parameter %d',obj.autoNameCounter);
-                newRow = {name,0,0,0,false,priorTypes.Uniform.value,0,Inf};
+                newRow = {name, values(1), values(2), values(3), fit, priorType, priorValues(1), priorValues(2)};
                 obj.addRow(newRow{:});
             end
             
@@ -72,10 +78,6 @@ classdef parametersClass < tableUtilities
                 % If length is 1, assume name only
                 % and fill in the rest with defaults
                 name = inputCell{1};
-                values = [1, 2, 3];
-                fit = false;
-                priorType = priorTypes.Uniform.value;
-                priorValues = [0, Inf];
                 
                 switch length(inputCell)
                     case 1                           
@@ -126,9 +128,10 @@ classdef parametersClass < tableUtilities
                 if ~isnumeric(priorValues)
                     throw(exceptions.invalidType('Prior values must be numeric'));
                 end
-                    
+
                 newRow = {name, values(1), values(2), values(3), fit, priorType, priorValues(1), priorValues(2)};
                 obj.addRow(newRow{:});
+
             end
         end
         

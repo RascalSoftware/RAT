@@ -34,16 +34,13 @@ jobs:
     - name: Create build archive (Linux)
       if: runner.os == 'Linux'
       run: zip -r ../${{ runner.os }}.zip * -x "**/-lang:c++.zip" ".git*/" "htmlcov/*"
-    - name: Upload release
-      if: github.ref == 'refs/heads/master'
-      uses: svenstaro/upload-release-action@v2
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
+    - run: mv ../${{ runner.os }}.zip ${{ runner.os }}.zip
+    - name: Upload releases
+      uses: actions/upload-artifact@v4
       with:
-        tag: nightly
-        overwrite: true
-        file: '../${{ runner.os }}.zip'
-        asset_name: '${{ runner.os }}.zip'
+        name: ${{ runner.os }}
+        retention-days: 1
+        path: ${{ runner.os }}.zip
     - name: Create cppDeploy
       if: runner.os == 'Linux'
       uses: matlab-actions/run-command@v2
@@ -54,9 +51,26 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: cppDeploy
-        path: compile/fullCompile/cppDeploy/ 
-    - name: Remove build archive
-      run: rm ../${{ runner.os }}.zip
+        retention-days: 1
+        path: compile/fullCompile/cppDeploy/
+  
+  deploy-nightly:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    needs: [test]
+    permissions:
+      contents: write
+    steps:
+      - name: Get artifacts
+        uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+      - name: Create nightly release
+        run: |
+          output=$(gh release delete nightly --cleanup-tag --yes --repo ${{ github.repository }} 2>&1) || [[ "${output}" == "release not found" ]]
+          gh release create nightly Windows.zip Linux.zip macOS.zip --prerelease --title "Nightly Build" --latest=false --repo ${{ github.repository }}
+        env:
+          GH_TOKEN: ${{ github.token }}
   
   cpp-deploy:
     if: github.ref == 'refs/heads/master'

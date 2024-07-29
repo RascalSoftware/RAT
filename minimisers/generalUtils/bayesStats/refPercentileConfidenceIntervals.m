@@ -188,8 +188,6 @@ end
 
 allPredInts.reflectivity = refErrors;
 allPredInts.sld = sldErrors;
-allPredInts.reflectivityXData = refXVals;
-allPredInts.sldXData = sldXVals;
 allPredInts.sampleChi = sampleChi;
 
 end

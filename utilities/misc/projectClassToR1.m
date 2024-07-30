@@ -85,7 +85,7 @@ r2ResolStruct = r2Problem.resolution.toStruct();
 r1Problem.resolNames = r2ResolStruct.resolutionParamNames;
 r1Problem.resolution = r2ResolStruct.resolutionParamValues;
 r1Problem.numberOfResolutions = length(r2ResolStruct.resolutionParamNames);
-r1Problem.reslution_constr = vertcat(r2ResolStruct.resolutionParamLimits{:});
+r1Problem.resolution_constr = vertcat(r2ResolStruct.resolutionParamLimits{:});
 r1Problem.resolution_fityesno = r2ResolStruct.fitResolutionParam;
 
 % Set Backgrounds

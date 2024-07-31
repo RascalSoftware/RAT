@@ -151,18 +151,10 @@ if isa(project, 'domainsClass') && isa(project.domainContrasts, 'domainContrasts
     
     problemCells{18} = inputStruct.domainContrastRepeatSLDs;
     problemCells{19} = domainContrastLayers;
-    
-% else
- 
-%     problemCells{18} = cell(1,0);
-%     problemCells{19} = cell(1,0);
-
 end
 
 if isa(project, 'domainsClass')
     problemCells{20} = inputStruct.domainRatioNames;
-% else
-%     problemCells{20} = cell(1,0);
 end
 
 % Fix for cell array bug with custom layers - is this needed still??

@@ -5,6 +5,7 @@
 
 %% 1. Standard Layers
 % (a) Inputs
+root = getappdata(0,'root');
 standardProblem = domainsStandardLayers();
 controlsInput = controlsClass();
 
@@ -21,7 +22,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsStandardLayersInputs'],'inputs');
+save([root filesep 'tests/domainsTFReflectivityCalculation/domainsStandardLayersInputs'],'inputs');
 
 % (b) Outputs
 resultStruct = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
@@ -39,7 +40,7 @@ outputs.bayesResults = bayesResults;
 outputs.project = project;
 outputs.result = result;
 
-save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsStandardLayersOutputs'],'outputs');
+save([root filesep 'tests/domainsTFReflectivityCalculation/domainsStandardLayersOutputs'],'outputs');
 
 % (c) TF Parameters
 [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
@@ -66,7 +67,7 @@ TFParams.resolutionParams = resolutionParams;
 TFParams.chis = chis;
 TFParams.subRoughs = subRoughs;
 
-save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsStandardLayersTFParams'],'TFParams');
+save([root filesep 'tests/domainsTFReflectivityCalculation/domainsStandardLayersTFParams'],'TFParams');
 
 %% 2. Custom XY.
 % (a) Inputs
@@ -86,7 +87,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsCustomXYInputs'],'inputs');
+save([root filesep 'tests/domainsTFReflectivityCalculation/domainsCustomXYInputs'],'inputs');
 
 % (b) Outputs
 resultStruct = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
@@ -104,7 +105,7 @@ outputs.bayesResults = bayesResults;
 outputs.project = project;
 outputs.result = result;
 
-save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsCustomXYOutputs'],'outputs');
+save([root filesep 'tests/domainsTFReflectivityCalculation/domainsCustomXYOutputs'],'outputs');
 
 % (c) TF Parameters
 [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
@@ -131,10 +132,9 @@ TFParams.resolutionParams = resolutionParams;
 TFParams.chis = chis;
 TFParams.subRoughs = subRoughs;
 
-save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsCustomXYTFParams'],'TFParams');
+save([root filesep 'tests/domainsTFReflectivityCalculation/domainsCustomXYTFParams'],'TFParams');
 
 %% 3. Custom Layers.
-root = getappdata(0,'root');
 customLayersProblem = domainsCustomLayers();
 controlsInput = controlsClass();
 
@@ -151,7 +151,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsCustomLayersInputs'],'inputs');
+save([root filesep 'tests/domainsTFReflectivityCalculation/domainsCustomLayersInputs'],'inputs');
 
 % (b) Outputs
 resultStruct = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
@@ -169,7 +169,7 @@ outputs.bayesResults = bayesResults;
 outputs.project = project;
 outputs.result = result;
 
-save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsCustomLayersOutputs'],'outputs');
+save([root filesep 'tests/domainsTFReflectivityCalculation/domainsCustomLayersOutputs'],'outputs');
 
 % (c) TF Parameters
 [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
@@ -196,4 +196,4 @@ TFParams.resolutionParams = resolutionParams;
 TFParams.chis = chis;
 TFParams.subRoughs = subRoughs;
 
-save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsCustomLayersTFParams'],'TFParams');
+save([root filesep 'tests/domainsTFReflectivityCalculation/domainsCustomLayersTFParams'],'TFParams');

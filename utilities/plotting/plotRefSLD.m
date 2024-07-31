@@ -2,7 +2,7 @@ function plotRefSLD(problem, result)
     % Convert the problem class to a struct.
     controls = controlsClass();
     data.modelType = problem.modelType;
-    [problemStruct,~,~,~,~] = parseClassToStructs(problem,controls);
+    [problemStruct,cells,~,~,~] = parseClassToStructs(problem,controls);
     
     data.reflectivity = result.reflectivity;
     data.shiftedData = result.shiftedData;
@@ -11,6 +11,7 @@ function plotRefSLD(problem, result)
     data.dataPresent = problemStruct.dataPresent;
     data.subRoughs = result.contrastParams.subRoughs;
     data.resample = problemStruct.resample;
+    data.contrastNames = cells{21};
     
     plotRefSLDHelper(data, false);
 end

@@ -34,6 +34,8 @@ struct plotData {
     double* resample;
     double* dataPresent;
     const char* modelType;
+    const char* contrastNames;
+    const double* nContrastNames;
 };
 
 

@@ -100,9 +100,21 @@ void eventCallback(const baseEvent& event)
         mxArray* dataPresent = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
         memcpy(mxGetPr(dataPresent), pEvent->data->dataPresent, dims[0] * mxGetElementSize(dataPresent));
 
+        mxArray* names = mxCreateCellMatrix(1, pEvent->data->nContrast);
+        int offset = 0;
+        for (int i = 0; i < pEvent->data->nContrast; i++){
+            int size = (int)pEvent->data->nContrastNames[i];
+            char *output_buf = (char*)mxCalloc(size, sizeof(char));
+            for (int j = 0; j < size; j++){
+                *(output_buf + j) = pEvent->data->contrastNames[offset + j];
+            }
+            mxSetCell(names, i, mxCreateString(output_buf));
+            offset += size; 
+        }
+
         const char* field_names[] = {"reflectivity", "shiftedData", "sldProfiles", "resampledLayers",
-                                     "subRoughs", "resample", "dataPresent", "modelType"};
-        prhs[1] = mxCreateStructArray(2, structDims, 8, field_names);
+                                     "subRoughs", "resample", "dataPresent", "modelType", "contrastNames"};
+        prhs[1] = mxCreateStructArray(2, structDims, 9, field_names);
 
         mxSetFieldByNumber(prhs[1], 0, 0, reflect);
         mxSetFieldByNumber(prhs[1], 0, 1, shifted);
@@ -112,6 +124,7 @@ void eventCallback(const baseEvent& event)
         mxSetFieldByNumber(prhs[1], 0, 5, resample);
         mxSetFieldByNumber(prhs[1], 0, 6, dataPresent);
         mxSetFieldByNumber(prhs[1], 0, 7, mxCreateString(pEvent->data->modelType));
+        mxSetFieldByNumber(prhs[1], 0, 8, names);
     }
     else
         return;

@@ -84,6 +84,10 @@ function [problemStruct,problemCells,problemLimits,priors,controls] = parseClass
 % {20} - inputProblem.domainRatioNames
 %        {1 x nDomainRatios} array of cells
 %        Each cell is {1 x Inf char}
+%
+% {21} - inputProblem.contrastNames
+%        {1 x nContrasts} array of cells
+%        Each cell is {1 x Inf char}
 
  
 % First parse the class to a structure variable.
@@ -125,6 +129,11 @@ problemCells{14} = inputStruct.files;
 problemCells{15} = cellstr(inputStruct.backgroundTypes');
 problemCells{16} = cellstr(inputStruct.resolutionTypes');
 problemCells{17} = inputStruct.oilChiData;
+problemCells{18} = cell(1, 0);
+problemCells{19} = cell(1, 0);
+problemCells{20} = cell(1, 0);
+problemCells{20} = cell(1, 0);
+problemCells{21} = inputStruct.contrastNames;
 
 % Now deal with domains cell arrays
 if isa(project, 'domainsClass') && isa(project.domainContrasts, 'domainContrastsClass')
@@ -142,18 +151,10 @@ if isa(project, 'domainsClass') && isa(project.domainContrasts, 'domainContrasts
     
     problemCells{18} = inputStruct.domainContrastRepeatSLDs;
     problemCells{19} = domainContrastLayers;
-    
-else
-
-    problemCells{18} = cell(1,0);
-    problemCells{19} = cell(1,0);
-
 end
 
 if isa(project, 'domainsClass')
     problemCells{20} = inputStruct.domainRatioNames;
-else
-    problemCells{20} = cell(1,0);
 end
 
 % Fix for cell array bug with custom layers - is this needed still??

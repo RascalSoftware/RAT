@@ -21,6 +21,7 @@ function plotRefSLDHelper(data, noDelay)
     subplot(1,2,1);
     set(gca,'YScale','log','XScale','log');
     hold on
+    lines = cell(numberOfContrasts, 1);
     for i = 1:numberOfContrasts
         thisRef = data.reflectivity{i};
         thisData = data.shiftedData{i};
@@ -38,17 +39,27 @@ function plotRefSLDHelper(data, noDelay)
         end
     
         % Plot the fit
-        plot(thisRef(:,1),thisRef(:,2)./mult,'-','LineWidth',2);
+        lines{i} = plot(thisRef(:,1),thisRef(:,2)./mult,'-','LineWidth',2);
+        
     end
-    
+    legend([lines{:}], data.contrastNames{:});
+
     % Plot the SLDs
     subplot(1,2,2);
     hold on
-    
+    nColumns = size(data.sldProfiles, 2);
+    lines = cell(numberOfContrasts * nColumns, 1);
+    names = cell(numberOfContrasts * nColumns, 1);
     for i = 1:numberOfContrasts
-        for j=1:size(data.sldProfiles, 2)
+        for j=1:nColumns
+           index = nColumns*(i-1)+j ;
            sld = data.sldProfiles{i, j};
-           plot(sld(:, 1), sld(:, 2), '-'); 
+           lines{index} = plot(sld(:, 1), sld(:, 2), '-');
+           if nColumns == 2
+               names{index} = sprintf("%s Domain %d", data.contrastNames{i}, j); 
+           else
+               names{index} = data.contrastNames{i};
+           end
         end
     
         % If there is resampling, plot the resampled layers also
@@ -73,9 +84,8 @@ function plotRefSLDHelper(data, noDelay)
                 plot(newProf(:,1)-49,newProf(:,2));
             end
         end
-    
     end
-    
+    legend([lines{:}], names{:});
     if noDelay
         drawnow limitrate;
     end

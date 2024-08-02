@@ -21,7 +21,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customLayersInputs'],'inputs');
+save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/customLayersInputs'],'inputs');
 
 % (b) Outputs
 resultStruct = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
@@ -39,7 +39,7 @@ outputs.bayesResults = bayesResults;
 outputs.project = project;
 outputs.result = result;
 
-save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customLayersOutputs'],'outputs');
+save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/customLayersOutputs'],'outputs');
 
 % (c) TF Parameters
 [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
@@ -66,7 +66,7 @@ TFParams.resolutionParams = resolutionParams;
 TFParams.chis = chis;
 TFParams.subRoughs = subRoughs;
 
-save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customLayersTFParams'],'TFParams');
+save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/customLayersTFParams'],'TFParams');
 
 %% 2. Custom XY.
 % (a) Inputs
@@ -86,7 +86,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customXYInputs'],'inputs');
+save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/customXYInputs'],'inputs');
 
 % (b) Outputs
 resultStruct = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
@@ -104,7 +104,7 @@ outputs.bayesResults = bayesResults;
 outputs.project = project;
 outputs.result = result;
 
-save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customXYOutputs'],'outputs');
+save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/customXYOutputs'],'outputs');
 
 % (c) TF Parameters
 [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
@@ -131,7 +131,7 @@ TFParams.resolutionParams = resolutionParams;
 TFParams.chis = chis;
 TFParams.subRoughs = subRoughs;
 
-save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customXYTFParams'],'TFParams');
+save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/customXYTFParams'],'TFParams');
 
 %% 3. Standard Layers
 % (a) Inputs
@@ -152,7 +152,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'standardLayersInputs'],'inputs');
+save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/standardLayersInputs'],'inputs');
 
 % (b) Outputs
 resultStruct = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
@@ -170,7 +170,7 @@ outputs.bayesResults = bayesResults;
 outputs.project = project;
 outputs.result = result;
 
-save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'standardLayersOutputs'],'outputs');
+save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/standardLayersOutputs'],'outputs');
 
 % (c) TF Parameters
 [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
@@ -197,12 +197,12 @@ TFParams.resolutionParams = resolutionParams;
 TFParams.chis = chis;
 TFParams.subRoughs = subRoughs;
 
-save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'standardLayersTFParams'],'TFParams');
+save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/standardLayersTFParams'],'TFParams');
 
 %% 4. Converting between RAT and RASCAL
 
-thisProjectClass = r1ToProjectClass('DSPCBilayerStructInput.mat');
-save('tests/testProjectConversion/DSPCBilayerProjectClass.mat', 'thisProjectClass');
+thisProjectClass = r1ToProjectClass([root filesep 'tests/testProjectConversion/DSPCBilayerStructInput.mat']);
+save([root filesep 'tests/testProjectConversion/DSPCBilayerProjectClass.mat'], 'thisProjectClass');
 
-thisProjectClass = r1ToProjectClass('monolayerVolumeModel.mat');
-save('tests/testProjectConversion/monolayerVolumeModelProjectClass.mat', 'thisProjectClass');
+thisProjectClass = r1ToProjectClass([root filesep 'tests/testProjectConversion/monolayerVolumeModel.mat']);
+save([root filesep 'tests/testProjectConversion/monolayerVolumeModelProjectClass.mat'], 'thisProjectClass');

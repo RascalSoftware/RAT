@@ -182,6 +182,7 @@ header = ' Iteration   Func-count     min f(x)         Procedure';
 % funfcn = fcnchk(funfcn,length(varargin));
 % Add a wrapper function to check for Inf/NaN/complex values
 controls = varargin{4};
+problemCells = varargin{2};
 problemStruct = varargin{1};
 if funValCheck
     % Add a wrapper function, CHECKFUN, to check for NaN/complex values without
@@ -259,7 +260,7 @@ if prnt == 3
 %     fprintf('%g \n', func_evals)
 end
 
-triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
+triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCells);
 
 % OutputFcn and PlotFcns call
 % if haveoutputfcn || haveplotfcn
@@ -310,7 +311,7 @@ if prnt == 3
 %     fprintf('%g \n', func_evals)
 end
 if rem(itercount, controls.updatePlotFreq) == 0
-    triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
+    triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCells);
 end
 % OutputFcn and PlotFcns call
 % if haveoutputfcn || haveplotfcn
@@ -425,7 +426,7 @@ while func_evals < maxfun && itercount < maxiter
 %         fprintf('%s \n', num2str(func_evals))
     end
     if rem(itercount, controls.updatePlotFreq) == 0   
-        triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
+        triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCells);
     end
     % OutputFcn and PlotFcns call
 %     if haveoutputfcn || haveplotfcn

@@ -2,12 +2,12 @@ function triggerEvent(eventType, varargin)
     % Triggers the event type with the given varargin. The supported event types are
     % 0, 1, and 2. 
     % * The input for the message event is a char array, 
-    % * The input for the plot event are the result struct and problem struct 
-    % * The input for progress events are the message (char array) and 
+    % * The inputs for the plot event are the result struct, problem struct and cell 
+    % * The inputs for progress events are the message (char array) and 
     %   percentage progress expressed as a decimal (i.e., between 0 and 1).
     % 
     % triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    % triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
+    % triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
     % triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     persistent notified;
     persistent helper;
@@ -28,6 +28,7 @@ function triggerEvent(eventType, varargin)
         elseif eventType == coderEnums.eventTypes.Plot
             result = varargin{1};
             problemStruct = varargin{2};
+            problemCell = varargin{3};
             plotData.reflectivity = result.reflectivity;
             plotData.shiftedData = result.shiftedData;
             plotData.sldProfiles = result.sldProfiles;
@@ -36,6 +37,7 @@ function triggerEvent(eventType, varargin)
             plotData.resample = problemStruct.resample;
             plotData.dataPresent = problemStruct.dataPresent;
             plotData.modelType = problemStruct.modelType;
+            plotData.contrastNames = problemCell{21};
              
             eventManager.notify(eventType, plotData);
         end
@@ -66,13 +68,17 @@ function triggerEvent(eventType, varargin)
 
                 result = varargin{1};
                 problemStruct = varargin{2};
+                problemCell = varargin{3};
                 subRoughs = result.contrastParams.subRoughs;
                 nContrast = length(result.reflectivity);
                 [reflect, nReflect] = packCellArray(result.reflectivity, 1);
                 [shiftedData, nShiftedData] = packCellArray(result.shiftedData, 1);
                 [sldProfiles, nSldProfiles] = packCellArray(result.sldProfiles, 1);
                 [layers, nLayers] = packCellArray(result.resampledLayers, 1);
-                
+                names = problemCell{21};
+                contrastNames = strjoin(names, '');
+                nContrastNames = strlength(names);
+
                 switch problemStruct.TF
                     case coderEnums.calculationTypes.Domains
                         [sldProfiles2, nSldProfiles2] = packCellArray(result.sldProfiles, 2);
@@ -90,7 +96,7 @@ function triggerEvent(eventType, varargin)
                 
                 coder.ceval('std::mem_fn(&eventHelper::updatePlot)', helper, nContrast, reflect, nReflect, shiftedData, ...
                             nShiftedData, sldProfiles, nSldProfiles, layers, nLayers, sldProfiles2, nSldProfiles2, layers2, ...
-                            nLayers2, subRoughs, resample, dataPresent, modelType);
+                            nLayers2, subRoughs, resample, dataPresent, modelType, contrastNames, nContrastNames);
             end
             notified = false;
         else

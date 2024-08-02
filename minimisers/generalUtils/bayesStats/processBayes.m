@@ -12,7 +12,7 @@ confidenceIntervals = percentileConfidenceIntervals(bayesOutputs.chain);   %iter
 result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 
 % 2. Reflectivity and SLD shading
-predInts = refPercentileConfidenceIntervals(bayesOutputs,problemStruct,problemCells,problemLimits,controls,result.reflectivity,result.sldProfiles);
+predInts = refPercentileConfidenceIntervals(bayesOutputs,problemStruct,problemCells,problemLimits,controls,result);
 
 % ---------------------------------
 

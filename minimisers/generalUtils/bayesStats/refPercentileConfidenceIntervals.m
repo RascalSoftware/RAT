@@ -1,4 +1,4 @@
-function allPredInts = refPercentileConfidenceIntervals(bayesOutputs,problemStruct,problemCells,problemLimits,controlsStruct,bestRef,bestSld)
+function allPredInts = refPercentileConfidenceIntervals(bayesOutputs,problemStruct,problemCells,problemLimits,controlsStruct,results)
 
 % Need to deal slightly differently with SLDs if there are domains
 if strcmpi(problemStruct.TF, coderEnums.calculationTypes.Domains)
@@ -34,12 +34,12 @@ end
 % to get the 'base' x for ref and SLD, then all following
 % interpolations are onto these x values....
 for i = 1:numberOfContrasts
-    refXVals{i} = bestRef{i}(:,1)';        % Transpose these into rows for storage
+    refXVals{i} = results.reflectivity{i}(:,1)';        % Transpose these into rows for storage
     if ~domains
-        sldXVals{i} = bestSld{i}(:,1)';
+        sldXVals{i} = results.sldProfiles{i}(:,1)';
     else
         for m = 1:2
-            sldXVals{i,m} = bestSld{i,m}(:,1)';
+            sldXVals{i,m} = results.sldProfiles{i,m}(:,1)';
         end
     end
 end
@@ -56,18 +56,18 @@ sampleChi = zeros(nsample,1);
 
 % First, we populate the yVals arrays with zero arrays of the correct size...
 for i = 1:numberOfContrasts
-    ref = bestRef{i};
+    ref = results.reflectivity{i};
     nRefPoints = size(ref,1);
     emptyRefArray = zeros(nsample,nRefPoints);
     refYVals{i} = emptyRefArray;
     if ~domains
-        sld = bestSld{i};
+        sld = results.sldProfiles{i};
         nSldPoints = size(sld,1);
         emptySldArray = zeros(nsample,nSldPoints);
         sldYVals{i} = emptySldArray;
     else
-        sld1 = bestSld{i,1};
-        sld2 = bestSld{i,2};
+        sld1 = results.sldProfiles{i,1};
+        sld2 = results.sldProfiles{i,2};
         nSldPoints1 = size(sld1,1);
         nSldPoints2 = size(sld2,1);
         emptySldArray1 = zeros(nsample,nSldPoints1);
@@ -96,7 +96,7 @@ for i = 1:nsample
 
         thisXval = refXVals{n};
         thisYval = interp1(thisRef{n}(:,1),thisRef{n}(:,2),thisXval,'linear','extrap');
-        refYVals{n}(i,:) = thisYval;   % Automatically comes back as a row from inpterp1
+        refYVals{n}(i,:) = thisYval;   % Automatically comes back as a row from interp1
         
         if ~domains
             thisSldXVal = sldXVals{n};

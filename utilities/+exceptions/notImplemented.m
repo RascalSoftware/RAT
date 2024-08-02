@@ -7,7 +7,7 @@ classdef notImplemented < MException
             arguments
                 message {mustBeTextScalar} = 'This functionality is not yet supported'
             end
-            obj = obj@MException(exceptions.duplicateName.errorID, message);
+            obj = obj@MException(exceptions.notImplemented.errorID, message);
         end
     end
 end

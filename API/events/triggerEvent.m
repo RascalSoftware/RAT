@@ -2,8 +2,8 @@ function triggerEvent(eventType, varargin)
     % Triggers the event type with the given varargin. The supported event types are
     % 0, 1, and 2. 
     % * The input for the message event is a char array, 
-    % * The input for the plot event are the result struct, problem struct and cell 
-    % * The input for progress events are the message (char array) and 
+    % * The inputs for the plot event are the result struct, problem struct and cell 
+    % * The inputs for progress events are the message (char array) and 
     %   percentage progress expressed as a decimal (i.e., between 0 and 1).
     % 
     % triggerEvent(coderEnums.eventTypes.Message, 'Hello world');

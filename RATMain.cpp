@@ -613,6 +613,7 @@ namespace RAT
 
     cast(b->f19, c->f19);
     cast(b->f20, c->f20);
+    cast(b->f21, c->f21);
   }
 
   static void cast(const ::coder::array<cell_wrap_5, 1U> &b, ::coder::array<

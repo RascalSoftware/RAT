@@ -368,7 +368,8 @@ namespace RAT
 
     triggerEvent(&result, varargin_1->TF.data, varargin_1->TF.size,
                  varargin_1->resample, varargin_1->dataPresent,
-                 varargin_1->modelType.data, varargin_1->modelType.size);
+                 varargin_1->modelType.data, varargin_1->modelType.size,
+                 varargin_2->f21);
 
     //  OutputFcn and PlotFcns call
     //  if haveoutputfcn || haveplotfcn
@@ -460,7 +461,8 @@ namespace RAT
     if (rt_remd_snf(1.0, varargin_4->updatePlotFreq) == 0.0) {
       triggerEvent(&result, varargin_1->TF.data, varargin_1->TF.size,
                    varargin_1->resample, varargin_1->dataPresent,
-                   varargin_1->modelType.data, varargin_1->modelType.size);
+                   varargin_1->modelType.data, varargin_1->modelType.size,
+                   varargin_2->f21);
     }
 
     //  OutputFcn and PlotFcns call
@@ -779,7 +781,8 @@ namespace RAT
         if (rt_remd_snf(itercount, varargin_4->updatePlotFreq) == 0.0) {
           triggerEvent(&result, varargin_1->TF.data, varargin_1->TF.size,
                        varargin_1->resample, varargin_1->dataPresent,
-                       varargin_1->modelType.data, varargin_1->modelType.size);
+                       varargin_1->modelType.data, varargin_1->modelType.size,
+                       varargin_2->f21);
         }
 
         //  OutputFcn and PlotFcns call

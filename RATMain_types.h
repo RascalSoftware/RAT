@@ -256,6 +256,7 @@ namespace RAT
     ::coder::array<cell_wrap_2, 2U> f18;
     ::coder::array<cell_wrap_4, 2U> f19;
     ::coder::array<cell_wrap_6, 2U> f20;
+    ::coder::array<cell_wrap_6, 2U> f21;
   };
 
   struct struct0_T

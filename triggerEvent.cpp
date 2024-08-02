@@ -14,6 +14,8 @@
 #include "getenv.h"
 #include "rt_nonfinite.h"
 #include "strcmp.h"
+#include "strjoin.h"
+#include "strlength.h"
 #include "coder_array.h"
 #include "eventHelper.hpp"
 #include <algorithm>
@@ -435,12 +437,12 @@ namespace RAT
     //  Triggers the event type with the given varargin. The supported event types are
     //  0, 1, and 2.
     //  * The input for the message event is a char array,
-    //  * The input for the plot event are the result struct and problem struct
-    //  * The input for progress events are the message (char array) and
+    //  * The inputs for the plot event are the result struct, problem struct and cell
+    //  * The inputs for progress events are the message (char array) and
     //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
     //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       int32_T loop_ub;
@@ -489,11 +491,13 @@ namespace RAT
                     const ::coder::array<real_T, 2U> &varargin_2_resample, const
                     ::coder::array<real_T, 2U> &varargin_2_dataPresent, const
                     char_T varargin_2_modelType_data[], const int32_T
-                    varargin_2_modelType_size[2])
+                    varargin_2_modelType_size[2], const ::coder::array<
+                    cell_wrap_1, 2U> &varargin_3_f21)
   {
     ::coder::array<real_T, 2U> b_nSldProfiles2;
     ::coder::array<real_T, 2U> dataPresent;
     ::coder::array<real_T, 2U> layers2;
+    ::coder::array<real_T, 2U> nContrastNames;
     ::coder::array<real_T, 2U> nLayers2;
     ::coder::array<real_T, 2U> resample;
     ::coder::array<real_T, 2U> sldProfiles2;
@@ -508,8 +512,11 @@ namespace RAT
     ::coder::array<real_T, 1U> shiftedData;
     ::coder::array<real_T, 1U> sldProfiles;
     ::coder::array<real_T, 1U> subRoughs;
+    ::coder::array<char_T, 2U> contrastNames;
     ::coder::array<char_T, 2U> path;
     ::coder::array<char_T, 2U> r;
+    int32_T tmp_data[10000];
+    int32_T tmp_size[2];
     int32_T i;
     int32_T loop_ub;
     char_T modelType_data[10001];
@@ -518,12 +525,12 @@ namespace RAT
     //  Triggers the event type with the given varargin. The supported event types are
     //  0, 1, and 2.
     //  * The input for the message event is a char array,
-    //  * The input for the plot event are the result struct and problem struct
-    //  * The input for progress events are the message (char array) and
+    //  * The inputs for the plot event are the result struct, problem struct and cell
+    //  * The inputs for progress events are the message (char array) and
     //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
     //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       //  Declaration for coder
@@ -557,6 +564,14 @@ namespace RAT
         packCellArray(varargin_1->shiftedData, shiftedData, nShiftedData);
         packCellArray(varargin_1->sldProfiles, sldProfiles, nSldProfiles);
         packCellArray(varargin_1->resampledLayers, layers, nLayers);
+        coder::strjoin(varargin_3_f21, contrastNames);
+        coder::intstrlen(varargin_3_f21, tmp_data, tmp_size);
+        nContrastNames.set_size(1, tmp_size[1]);
+        loop_ub = tmp_size[1];
+        for (i = 0; i < loop_ub; i++) {
+          nContrastNames[i] = tmp_data[i];
+        }
+
         if (coder::internal::i_strcmp(varargin_2_TF_data, varargin_2_TF_size)) {
           i = 0;
         } else {
@@ -638,7 +653,8 @@ namespace RAT
           [0], &(sldProfiles.data())[0], &(nSldProfiles.data())[0],
           &(layers.data())[0], &(nLayers.data())[0], &sldProfiles2[0],
           &b_nSldProfiles2[0], &layers2[0], &nLayers2[0], &(subRoughs.data())[0],
-          &resample[0], &dataPresent[0], &modelType_data[0]);
+          &resample[0], &dataPresent[0], &modelType_data[0], &contrastNames[0],
+          &nContrastNames[0]);
         notified = false;
       }
 
@@ -664,12 +680,12 @@ namespace RAT
     //  Triggers the event type with the given varargin. The supported event types are
     //  0, 1, and 2.
     //  * The input for the message event is a char array,
-    //  * The input for the plot event are the result struct and problem struct
-    //  * The input for progress events are the message (char array) and
+    //  * The inputs for the plot event are the result struct, problem struct and cell
+    //  * The inputs for progress events are the message (char array) and
     //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
     //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       int32_T loop_ub;
@@ -721,12 +737,12 @@ namespace RAT
     //  Triggers the event type with the given varargin. The supported event types are
     //  0, 1, and 2.
     //  * The input for the message event is a char array,
-    //  * The input for the plot event are the result struct and problem struct
-    //  * The input for progress events are the message (char array) and
+    //  * The inputs for the plot event are the result struct, problem struct and cell
+    //  * The inputs for progress events are the message (char array) and
     //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
     //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       int32_T loop_ub;

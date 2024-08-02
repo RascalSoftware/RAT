@@ -498,7 +498,8 @@ namespace RAT
                  &a__4, &result);
         triggerEvent(&result, problem->TF.data, problem->TF.size,
                      problem->resample, problem->dataPresent,
-                     problem->modelType.data, problem->modelType.size);
+                     problem->modelType.data, problem->modelType.size,
+                     problemCells->f21);
       }
 
       I_iter++;

@@ -79,7 +79,7 @@ fa = (2*sig_xi/(xi + 1/xi))*Wb.*exp(-Cb.*(abs(a_xi).^(2/(1+beta))));
 %SIMULATION: generate response variables (SimY)
 switch iflag
     case 'sim'
-        rand('seed',sum(100*clock));    %initialize random number generators
+        rand('seed',sum(100*clock));    %initialise random number generators
         %Generate N i.i.d. errors (a) from skew exponential power distribution, SEP(0,1,xi,beta)
         %Step 1 - Generate N random variates from gamma distribution with shape parameter 1/p and scale parameter 1
         p = 2/(1+beta);

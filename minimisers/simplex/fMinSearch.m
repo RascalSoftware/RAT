@@ -313,6 +313,10 @@ end
 if rem(itercount, controls.updatePlotFreq) == 0
     triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCells);
 end
+if isRATStopped(controls.IPCFilePath)
+    [x, fval, exitflag, output] = cleanUpInterrupt(v(:,1), fv(:,1), itercount, func_evals, prnt);
+    return
+end
 % OutputFcn and PlotFcns call
 % if haveoutputfcn || haveplotfcn
 %     [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,v(:,1),xOutputfcn,'iter',itercount, ...
@@ -428,6 +432,10 @@ while func_evals < maxfun && itercount < maxiter
     if rem(itercount, controls.updatePlotFreq) == 0   
         triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCells);
     end
+    if isRATStopped(controls.IPCFilePath)
+        [x, fval, exitflag, output] = cleanUpInterrupt(v(:,1), fv(:,1), itercount, func_evals, prnt);
+        return
+    end
     % OutputFcn and PlotFcns call
 %     if haveoutputfcn || haveplotfcn
 %         [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,v(:,1),xOutputfcn,'iter',itercount, ...
@@ -455,14 +463,14 @@ if func_evals >= maxfun
     printMsg = prnt > 0;
     if buildOutputStruct || printMsg
         %msg = getString(message('MATLAB:optimfun:fminsearch:ExitingMaxFunctionEvals', sprintf('%f',fval)));
-        sprintf('Exiting: Max function evals reached');
+        msg = sprintf('Exiting: Max function evals reached');
     end
     exitflag = 0;
 elseif itercount >= maxiter
     printMsg = prnt > 0;
     if buildOutputStruct || printMsg
         %msg = getString(message('MATLAB:optimfun:fminsearch:ExitingMaxIterations', sprintf('%f',fval)));
-        sprintf('Exiting: Max iterations reached');
+        msg = sprintf('Exiting: Max iterations reached');
     end
     exitflag = 0;
 else
@@ -484,7 +492,7 @@ end
 if printMsg
     fprintf('\n%s\n', msg);
 end
-
+end
 %--------------------------------------------------------------------------
 % function [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,x,xOutputfcn,state,iter,...
 %     numf,how,f,varargin)
@@ -526,22 +534,18 @@ end
 % -----------------------------------
 
 %--------------------------------------------------------------------------
-% function [x,FVAL,EXITFLAG,OUTPUT] = cleanUpInterrupt(xOutputfcn,optimValues)
-% CLEANUPINTERRUPT updates or sets all the output arguments of FMINBND when the optimization
-% is interrupted.
-
-% Call plot function driver to finalize the plot function figure window. If
-% no plot functions have been specified or the plot function figure no
-% longer exists, this call just returns.
-% callAllOptimPlotFcns('cleanuponstopsignal');
-
-% x = xOutputfcn;
-% FVAL = optimValues.fval;
-% EXITFLAG = -1;
-% OUTPUT.iterations = optimValues.iteration;
-% OUTPUT.funcCount = optimValues.funccount;
-% OUTPUT.algorithm = 'Nelder-Mead simplex direct search';
-% OUTPUT.message = fprintf('Optimisation terminated by user'); %getString(message('MATLAB:optimfun:fminsearch:OptimizationTerminatedPrematurelyByUser'));
+function [x, fval, exitflag, output] = cleanUpInterrupt(optX, optVal, iteration, funccount, display)
+    x = optX;
+    fval = optVal;
+    exitflag = -1;
+    output.iterations = iteration;
+    output.funcCount = funccount;
+    output.algorithm = 'Nelder-Mead simplex direct search';
+    output.message = sprintf('Optimisation terminated by user');
+    if display > 0
+        fprintf('\n%s\n', output.message);
+    end
+end
 
 %--------------------------------------------------------------------------
 % function f = checkfun(x,userfcn,varargin)

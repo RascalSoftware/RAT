@@ -46,13 +46,13 @@ function [logZ, nest_samples, post_samples,H] = nestedSampler(data, ...
 %                      'x', 4};
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global verbose;
+% global verbose;
 global DEBUG;
 
 extraparvals = [];
 
-
-verbose = 1;
+controls = data{2};
+% verbose = 1;
 DEBUG = 0;
 
 % get the number of parameters from the prior array
@@ -70,7 +70,7 @@ coder.varsize('cholmat');
 % get the number of parameters from the prior array
 D = size(prior,1);
 
-% initialize array of samples for posterior
+% initialise array of samples for posterior
 nest_samples = zeros(1,D+1);
 coder.varsize('nest_samples',[1e5 50],[1 1]);
     
@@ -142,7 +142,7 @@ Bs = zeros(D,D);
 VEs = zeros(D,1);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% initialize iteration counter
+% initialise iteration counter
 j = 1;
 
 
@@ -261,11 +261,16 @@ while tol > tolerance || j <= nLive
     tol = logPlus(logZ, logLmax - (j/nLive)) - logZ;
     
     % display progress (optional)
-    if verbose
+    if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
         fprintf('log(Z): %.5e, tol = %.5e, K = %d, iteration = %d, H = %.5e\n', ...
                  logZ, tol, int32(K), int32(j), H);
     end
-
+    if isRATStopped(controls.IPCFilePath)
+        if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
+            fprintf('Optimisation terminated by user\n');
+        end
+        break;
+    end
     % update counter    
     j = j+1;
 end

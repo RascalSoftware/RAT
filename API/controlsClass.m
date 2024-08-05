@@ -1,4 +1,4 @@
-classdef controlsClass < matlab.mixin.CustomDisplay
+classdef controlsClass < handle & matlab.mixin.CustomDisplay
 
     properties
         % Parallelisation Option (Default: parallelOptions.Single)
@@ -53,32 +53,37 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         adaptPCR = true;
     end
 
+
+    properties (SetAccess = private, Hidden = true)
+        IPCFilePath = ''
+    end
+
     %------------------------- Set and Get ------------------------------
     methods
-        function obj = set.parallel(obj,val)
+        function set.parallel(obj,val)
             message = sprintf('parallel must be a parallelOptions enum or one of the following strings (%s)', ...
                 strjoin(parallelOptions.values(), ', '));
             obj.parallel = validateOption(val, 'parallelOptions', message).value;
         end
 
-        function obj = set.procedure(obj,val)
+        function set.procedure(obj,val)
             message = sprintf('procedure must be a procedures enum or one of the following strings (%s)', ...
                 strjoin(procedures.values(), ', '));
             obj.procedure = validateOption(val, 'procedures', message).value;
         end
 
-        function obj = set.calcSldDuringFit(obj,val)
+        function set.calcSldDuringFit(obj,val)
             validateLogical(val, 'calcSldDuringFit must be logical ''true'' or ''false''');
             obj.calcSldDuringFit = val;
         end
 
-        function obj = set.display(obj,val)
+        function set.display(obj,val)
             message = sprintf('display must be a displayOptions enum or one of the following strings (%s)', ...
                 strjoin(displayOptions.values(), ', '));
             obj.display = validateOption(val, 'displayOptions', message).value;
         end
 
-        function obj = set.updatePlotFreq(obj, val)
+        function set.updatePlotFreq(obj, val)
             validateNumber(val, 'updatePlotFreq must be a number');
             if val < 1
                 throw(exceptions.invalidValue('updatePlotFreq must be greater or equal to 1'));
@@ -86,7 +91,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.updatePlotFreq = val;
         end
 
-        function obj = set.resampleParams(obj,val)
+        function set.resampleParams(obj,val)
             if length(val) ~= 2
                 throw(exceptions.invalidValue('resampleParams must have length of 2'));
             end
@@ -103,24 +108,24 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         end
 
         % Simplex control methods
-        function obj = set.xTolerance(obj, val)
+        function set.xTolerance(obj, val)
             obj.xTolerance = validateNumber(val, 'xTolerance must be a number');
         end
 
-        function obj = set.funcTolerance(obj, val)
+        function set.funcTolerance(obj, val)
             obj.funcTolerance = validateNumber(val, 'funcTolerance must be a number');
         end
 
-        function obj = set.maxFuncEvals(obj, val)
+        function set.maxFuncEvals(obj, val)
             obj.maxFuncEvals = validateNumber(val, 'maxFuncEvals must be a number');
         end
 
-        function obj = set.maxIterations(obj, val)
+        function set.maxIterations(obj, val)
             obj.maxIterations = validateNumber(val, 'maxIterations must be a number');
         end
 
         % DE controls methods
-        function obj = set.populationSize(obj, val)
+        function set.populationSize(obj, val)
             validateNumber(val, 'populationSize must be a number');
             if val < 1
                 throw(exceptions.invalidValue('populationSize must be greater or equal to 1'));
@@ -128,11 +133,11 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.populationSize = val;
         end
 
-        function obj = set.fWeight(obj,val)
+        function set.fWeight(obj,val)
             obj.fWeight = validateNumber(val,'fWeight must be a number');
         end
 
-        function obj = set.crossoverProbability(obj,val)
+        function set.crossoverProbability(obj,val)
             validateNumber(val, 'crossoverProbability must be a number');
             if (val < 0 || val > 1)
                 throw(exceptions.invalidValue('crossoverProbability must be between 0 and 1'));
@@ -140,14 +145,14 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.crossoverProbability = val;
         end
 
-        function obj = set.strategy(obj,val)
+        function set.strategy(obj,val)
             message = sprintf('strategy must be a searchStrategy enum or one of the following integers (%s)', ...
                 strjoin(string(searchStrategy.values()), ', '));
 
             obj.strategy = validateOption(val, 'searchStrategy', message).value;
         end
 
-        function obj = set.targetValue(obj,val)
+        function set.targetValue(obj,val)
             validateNumber(val, 'targetValue must be a number');
             if val < 1
                 throw(exceptions.invalidValue('targetValue must be greater or equal to 1'));
@@ -155,7 +160,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.targetValue = val;
         end
 
-        function obj = set.numGenerations(obj, val)
+        function set.numGenerations(obj, val)
             validateNumber(val, 'numGenerations value must be a number');
             if val < 1
                 throw(exceptions.invalidValue('numGenerations must be greater or equal to 1'));
@@ -164,7 +169,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         end
 
         % NS control methods
-        function obj = set.nLive(obj, val)
+        function set.nLive(obj, val)
             validateNumber(val, 'nLive must be a number');
             if val < 1
                 throw(exceptions.invalidValue('nLive must be greater or equal to 1'));
@@ -172,7 +177,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.nLive = val;
         end
 
-        function obj = set.nMCMC(obj, val)
+        function set.nMCMC(obj, val)
             validateNumber(val, 'nMCMC must be a number');
             if val < 0
                 throw(exceptions.invalidValue('nMCMC must be greater or equal than 0'));
@@ -180,7 +185,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.nMCMC = val;
         end
 
-        function obj = set.propScale(obj, val)
+        function set.propScale(obj, val)
             validateNumber(val, 'propScale must be a number');
             if (val < 0 || val > 1)
                 throw(exceptions.invalidValue('propScale must be between 0 and 1'));
@@ -188,7 +193,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.propScale = val;
         end
 
-        function obj = set.nsTolerance(obj,val)
+        function set.nsTolerance(obj,val)
             validateNumber(val, 'nsTolerance must be a number ');
             if val < 0
                 throw(exceptions.invalidValue('nsTolerance must be greater or equal to 0'));
@@ -197,7 +202,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         end
 
         % DREAM methods
-        function obj = set.nSamples(obj,val)
+        function set.nSamples(obj,val)
             validateNumber(val, 'nSample must be a number ');
             if val < 0
                 throw(exceptions.invalidValue('nSample must be greater or equal to 0'));
@@ -205,7 +210,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.nSamples = val;
         end
 
-        function obj = set.nChains(obj,val)
+        function set.nChains(obj,val)
             validateNumber(val, 'nChains must be a number ');
             if (~(round(val) == val) || val <= 0 || isnan(val) || isinf(val))
                 throw(exceptions.invalidValue('nChains must be a finite integer greater than 0'));
@@ -213,7 +218,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.nChains = val;
         end
 
-        function obj = set.jumpProbability(obj,val)
+        function set.jumpProbability(obj,val)
             validateNumber(val, 'jumpProbability must be a number');
             if (val < 0 || val > 1)
                 throw(exceptions.invalidValue('JumpProbability must be a fraction between 0 and 1'));
@@ -221,7 +226,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.jumpProbability = val;
         end
 
-        function obj = set.pUnitGamma(obj,val)
+        function set.pUnitGamma(obj,val)
             validateNumber(val, 'pUnitGamma must be a number');
             if (val < 0 || val > 1)
                 throw(exceptions.invalidValue('pUnitGamma must be a fraction between 0 and 1'));
@@ -229,13 +234,13 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.pUnitGamma = val;
         end
 
-        function obj = set.boundHandling(obj,val)
+        function set.boundHandling(obj,val)
             message = sprintf('boundHandling must be a boundHandlingOptions enum or one of the following strings (%s)', ...
                 strjoin(boundHandlingOptions.values(), ', '));
             obj.boundHandling = validateOption(val, 'boundHandlingOptions', message).value;
         end
 
-        function obj = set.adaptPCR(obj,val)
+        function set.adaptPCR(obj,val)
             validateLogical(val, 'adaptPCR must be logical ''true'' or ''false''');
             obj.adaptPCR = val;
         end
@@ -298,6 +303,38 @@ classdef controlsClass < matlab.mixin.CustomDisplay
                     obj.procedure = procedures.Dream.value;
             end
 
+        end
+        
+        function obj = initialiseIPC(obj)
+            % Method setup the inter-process communication file.
+            %
+            % USAGE:
+            %     obj.initialiseIPC()
+            obj.IPCFilePath = tempname();
+            fileID = fopen(obj.IPCFilePath, 'w');
+            fwrite(fileID, false, 'uchar');
+            fclose(fileID);
+        end
+
+        function path = getIPCFilePath(obj)
+            % Returns the path of the IPC file.
+            %
+            % USAGE:
+            %     path = obj.getIPCFilePath()
+            path = obj.IPCFilePath;
+        end
+        
+        function obj = sendStopEvent(obj)
+            % Sends the stop event via IPC file.
+            %
+            % USAGE:
+            %     obj.sendStopEvent()
+            if isempty(obj.IPCFilePath)
+                return
+            end
+            fileID = fopen(obj.IPCFilePath, 'w');
+            fwrite(fileID, true, 'uchar');
+            fclose(fileID);
         end
     end
 

@@ -140,7 +140,7 @@ function [chain,output,fx,log_L] = ratDREAM(dreamVariables,paramInfo,Meas_info,r
 Meas_info.Y = 0;
 
 % Initialize the main variables used in DREAM
-[inDREAMPar,paramInfo,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
+[DREAMPar,paramInfo,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
     gen] = setupDREAM(dreamVariables,paramInfo,Meas_info);
 
 % Check for setup errors
@@ -151,8 +151,20 @@ Meas_info.Y = 0;
 % if stop; return; end
 
 % Create computing environment (depending whether multi-core is used)
-[DREAMPar] = setDREAMParam(inDREAMPar);
+if ~DREAMPar.parallel
+    % We use 1 CPU (processor)
+    DREAMPar.CPU = 1;
+else
+    DREAMPar.CPU = 0;
+end
 
+% Now print to screen all the settings
+controls = ratInputs.controls;
+if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
+    fprintf('------------------ Summary of the main settings used ------------------');
+    disp(DREAMPar);
+    fprintf('-----------------------------------------------------------------------');
+end
 % Now check how the measurement sigma is arranged (estimated or defined)
 %
 % -----------------------------------------
@@ -169,7 +181,6 @@ T_start = 2;
 
 % Initialize waitbar. 
 triggerEvent(coderEnums.eventTypes.Progress, 'init', 0);
-% h = waitbar(0,'Running DREAM - Please wait...');  
 totaccept = 0; tic;
 
 % Now start iteration ...
@@ -262,6 +273,13 @@ for t = T_start : DREAMPar.nGenerations
         iteration = iteration + 1;  gen = 1; totaccept = 0;
         
     end
+    
+    if isRATStopped(controls.IPCFilePath)
+        if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
+            fprintf('Optimisation terminated by user\n');
+        end
+        break;
+    end
 end
 
 % -------------------------------------------------------------------------
@@ -281,4 +299,4 @@ output.iloc = iloc;
 % Close the waitbar
 triggerEvent(coderEnums.eventTypes.Progress, 'end', 1);
 %close(h);
-
+end

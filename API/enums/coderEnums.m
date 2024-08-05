@@ -17,7 +17,7 @@ classdef coderEnums
         supportedLanguages = supportedLanguages.toStruct()
     end
     methods (Static)
-        function initialize() 
+        function initialise() 
             % initializes enum struct field as a coder const like so 
             % coder.const(coderEnums.procedures.Dream);
             props = properties(coderEnums);

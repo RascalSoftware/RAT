@@ -13,8 +13,8 @@ function [sample, logL] = drawMCMC(livepoints, cholmat, logLmin, ...
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-global verbose;
-
+% global verbose;
+controls = data{2};
 logL = logLmin;
 mcmcfrac = 0.9; 
 l2p = 0.5*log(2*pi); % useful constant
@@ -24,7 +24,7 @@ nParams = size(livepoints,2);
 
 Ndegs = 2; % degrees of freedom of Students't distribution
 
-% initialize counters
+% initialise counters
 acctot = 0;
 Ntimes = 1; 
 
@@ -183,7 +183,7 @@ while 1
 end
 
 % print out acceptance ratio
-if verbose
+if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
     fprintf('Acceptance ratio: %1.4f, \n\n', acctot/(Ntimes*nMCMC));
 end
 

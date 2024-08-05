@@ -54,7 +54,7 @@ max_line = 0;
 ncols = 0;
 
 
-% Finally, we initialize the data to [].
+% Finally, we initialise the data to [].
 data = [];
 
 
@@ -104,7 +104,7 @@ fclose(fid);
 % line is stored in a unique variable using the 'eval' statement 
 % within the loop. Note that, if we knew a priori that the 
 % headers were 10 lines or less, we could use the STR2MAT 
-% function and save some work. First, initialize the header to an
+% function and save some work. First, initialise the header to an
 % array of spaces.
 header = setstr(' '*ones(no_lines, max_line));
 for i = 1:no_lines

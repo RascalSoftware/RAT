@@ -103,6 +103,7 @@ classdef backgroundsClass < handle
                        thisRow{3} = thisParam;
 
                    case allowedTypes.Function.value
+                       throw(exceptions.notImplemented('Function backgrounds are not yet supported.'))
                        % Param 3 is assumed to be function name
                        % any other given parameters must be in paramNames
                        % list or numbers in range
@@ -112,6 +113,7 @@ classdef backgroundsClass < handle
                           thisRow{i} = thisParam;
                        end
                    case allowedTypes.Data.value
+                       throw(exceptions.notImplemented('Data backgrounds are not yet supported.'))
                        % Background is assumed to be given by a 4th column 
                        % of a data file. We don't have access to the
                        % data files at this point so this (i.e. that data is

@@ -9,19 +9,20 @@ switch lower(problemStruct.modelType)
 end
 
 % Call the main RAT routine...
-
+display = ~strcmpi(controls.display, displayOptions.Off.value);
+textProgressBar(0, 0, display);
 % If display is not silent print a line confirming RAT is starting
-if ~strcmpi(controls.display, displayOptions.Off.value)
+if display
     fprintf('Starting RAT ________________________________________________________________________________________________\n\n');
 end
 
 tic
 [problemStruct,result,bayesResults] = RATMain_mex(problemStruct,problemCells,problemLimits,controls,priors);
 
-if ~strcmpi(controls.display, displayOptions.Off.value)
+if display
     toc
 end
-
+textProgressBar(0, 0, true);
 if any(strcmpi(controls.procedure, {procedures.NS.value, procedures.Dream.value}))
     result = mergeStructs(result, bayesResults);
 end

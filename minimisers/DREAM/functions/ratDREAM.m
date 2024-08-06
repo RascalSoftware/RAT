@@ -161,9 +161,9 @@ end
 % Now print to screen all the settings
 controls = ratInputs.controls;
 if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
-    fprintf('------------------ Summary of the main settings used ------------------');
+    fprintf('------------------ Summary of the main settings used ------------------\n');
     disp(DREAMPar);
-    fprintf('-----------------------------------------------------------------------');
+    fprintf('-----------------------------------------------------------------------\n');
 end
 % Now check how the measurement sigma is arranged (estimated or defined)
 %
@@ -180,7 +180,7 @@ T_start = 2;
 [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMPar,paramInfo,Meas_info,chain,output,log_L,ratInputs);
 
 % Initialize waitbar. 
-triggerEvent(coderEnums.eventTypes.Progress, 'init', 0);
+triggerEvent(coderEnums.eventTypes.Progress, 'DREAM', 0);
 totaccept = 0; tic;
 
 % Now start iteration ...
@@ -297,6 +297,6 @@ output.iteration = iteration;
 output.iloc = iloc;
 
 % Close the waitbar
-triggerEvent(coderEnums.eventTypes.Progress, 'end', 1);
+triggerEvent(coderEnums.eventTypes.Progress, 'DREAM', 1);
 %close(h);
 end

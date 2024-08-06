@@ -41,7 +41,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         % Target stopping tolerance for Nested Sampler (Default: 0.1)
         nsTolerance = 0.1   
 
-        % Total number of samples for DREAM (Default: 50000)
+        % Total number of samples for DREAM (Default: 20000)
         nSamples = 20000;
         % Number of MCMC chains (Default: 10)       
         nChains = 10

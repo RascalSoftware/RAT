@@ -24,12 +24,12 @@ namespace RAT
 {
   void processBayes(const real_T bayesOutputs_bestParams_data[], const int32_T
                     bayesOutputs_bestParams_size[2], const ::coder::array<real_T,
-                    2U> &bayesOutputs_chain, f_struct_T *problemStruct, const
+                    2U> &bayesOutputs_chain, d_struct_T *problemStruct, const
                     cell_11 *problemCells, const struct1_T *problemLimits,
-                    struct2_T *controls, struct5_T *result, i_struct_T
+                    struct2_T *controls, struct5_T *result, h_struct_T
                     *bayesResults)
   {
-    static f_struct_T b_problemStruct;
+    static d_struct_T b_problemStruct;
     int32_T loop_ub;
 
     //  Need to impose that we calculate the SLD..
@@ -70,11 +70,11 @@ namespace RAT
 
   void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestParams,
                     const ::coder::array<real_T, 2U> &bayesOutputs_chain,
-                    f_struct_T *problemStruct, const cell_11 *problemCells,
+                    d_struct_T *problemStruct, const cell_11 *problemCells,
                     const struct1_T *problemLimits, struct2_T *controls,
-                    struct5_T *result, i_struct_T *bayesResults)
+                    struct5_T *result, h_struct_T *bayesResults)
   {
-    f_struct_T b_problemStruct;
+    d_struct_T b_problemStruct;
     int32_T loop_ub;
 
     //  Need to impose that we calculate the SLD..

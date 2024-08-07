@@ -160,7 +160,7 @@ namespace RAT
     &bayesResults_confidenceIntervals_percentile95, ::coder::array<real_T, 2U>
     &bayesResults_confidenceIntervals_percentile65, ::coder::array<real_T, 2U>
     &bayesResults_confidenceIntervals_mean, struct11_T *bayesResults_dreamParams,
-    struct12_T *bayesResults_dreamOutput, e_struct_T
+    struct12_T *bayesResults_dreamOutput, c_struct_T
     *bayesResults_nestedSamplerOutput, ::coder::array<real_T, 2U>
     &bayesResults_chain)
   {
@@ -393,7 +393,7 @@ namespace RAT
     &bayesResults_confidenceIntervals_percentile95, ::coder::array<real_T, 2U>
     &bayesResults_confidenceIntervals_percentile65, ::coder::array<real_T, 2U>
     &bayesResults_confidenceIntervals_mean, struct11_T *bayesResults_dreamParams,
-    struct12_T *bayesResults_dreamOutput, e_struct_T
+    struct12_T *bayesResults_dreamOutput, c_struct_T
     *bayesResults_nestedSamplerOutput, ::coder::array<real_T, 2U>
     &bayesResults_chain)
   {
@@ -401,23 +401,23 @@ namespace RAT
     ::coder::array<cell_wrap_10, 2U> d_f1;
     ::coder::array<cell_wrap_10, 1U> c_f1;
     ::coder::array<cell_wrap_10, 1U> f1;
-    ::coder::array<real_T, 3U> t10_allChains;
-    ::coder::array<real_T, 2U> t10_AR;
-    ::coder::array<real_T, 2U> t10_CR;
-    ::coder::array<real_T, 2U> t10_R_stat;
-    ::coder::array<real_T, 2U> t10_outlierChains;
+    ::coder::array<real_T, 3U> t9_allChains;
+    ::coder::array<real_T, 2U> t9_AR;
+    ::coder::array<real_T, 2U> t9_CR;
+    ::coder::array<real_T, 2U> t9_R_stat;
+    ::coder::array<real_T, 2U> t9_outlierChains;
     ::coder::array<real_T, 1U> e_f1;
     cell_wrap_29 r1;
     cell_wrap_29 r3;
     cell_wrap_34 r;
     cell_wrap_34 r2;
     cell_wrap_35 r4;
-    real_T t11_percentile65_data[2000];
-    real_T t11_percentile95_data[2000];
-    real_T t11_mean_data[1000];
-    int32_T t11_mean_size[2];
-    int32_T t11_percentile65_size[2];
-    int32_T t11_percentile95_size[2];
+    real_T t10_percentile65_data[2000];
+    real_T t10_percentile95_data[2000];
+    real_T t10_mean_data[1000];
+    int32_T t10_mean_size[2];
+    int32_T t10_percentile65_size[2];
+    int32_T t10_percentile95_size[2];
     int32_T b_i;
     int32_T i;
     int32_T i1;
@@ -524,19 +524,19 @@ namespace RAT
 
     //  ------------------------------------------------------------------
     //  (2) bayesResults.confidenceIntervals
-    t11_percentile95_size[0] = 2;
-    t11_percentile95_size[1] = 1;
-    t11_percentile65_size[0] = 2;
-    t11_percentile65_size[1] = 1;
-    t11_percentile95_data[0] = 0.0;
-    t11_percentile65_data[0] = 0.0;
-    t11_percentile95_data[1] = 0.0;
-    t11_percentile65_data[1] = 0.0;
-    t11_mean_size[0] = 1;
-    t11_mean_size[1] = 1;
-    t11_mean_data[0] = 0.0;
-    cast(t11_percentile95_data, t11_percentile95_size, t11_percentile65_data,
-         t11_percentile65_size, t11_mean_data, t11_mean_size,
+    t10_percentile95_size[0] = 2;
+    t10_percentile95_size[1] = 1;
+    t10_percentile65_size[0] = 2;
+    t10_percentile65_size[1] = 1;
+    t10_percentile95_data[0] = 0.0;
+    t10_percentile65_data[0] = 0.0;
+    t10_percentile95_data[1] = 0.0;
+    t10_percentile65_data[1] = 0.0;
+    t10_mean_size[0] = 1;
+    t10_mean_size[1] = 1;
+    t10_mean_data[0] = 0.0;
+    cast(t10_percentile95_data, t10_percentile95_size, t10_percentile65_data,
+         t10_percentile65_size, t10_mean_data, t10_mean_size,
          bayesResults_confidenceIntervals_percentile95,
          bayesResults_confidenceIntervals_percentile65,
          bayesResults_confidenceIntervals_mean);
@@ -572,17 +572,17 @@ namespace RAT
 
     //  -------------------------------------------------------------------
     //  (4) bayesResults.dreamOutput
-    t10_allChains.set_size(1, 3, 1);
+    t9_allChains.set_size(1, 3, 1);
     bayesResults_dreamParams->outlier[0] = 'i';
-    t10_allChains[0] = 1.0;
+    t9_allChains[0] = 1.0;
     bayesResults_dreamParams->outlier[1] = 'q';
-    t10_allChains[t10_allChains.size(0)] = 1.0;
+    t9_allChains[t9_allChains.size(0)] = 1.0;
     bayesResults_dreamParams->outlier[2] = 'r';
-    t10_allChains[t10_allChains.size(0) * 2] = 1.0;
-    t10_outlierChains.set_size(1, 2);
-    t10_AR.set_size(1, 2);
-    t10_R_stat.set_size(1, 2);
-    t10_CR.set_size(1, 2);
+    t9_allChains[t9_allChains.size(0) * 2] = 1.0;
+    t9_outlierChains.set_size(1, 2);
+    t9_AR.set_size(1, 2);
+    t9_R_stat.set_size(1, 2);
+    t9_CR.set_size(1, 2);
 
     //  -------------------------------------------------------------------
     //  (5) bayesResults.nestedSamplerOutput
@@ -591,20 +591,20 @@ namespace RAT
     bayesResults_nestedSamplerOutput->nestSamples.size[1] = 2;
     bayesResults_nestedSamplerOutput->postSamples.size[0] = 1;
     bayesResults_nestedSamplerOutput->postSamples.size[1] = 2;
-    t10_outlierChains[0] = 1.0;
-    t10_AR[0] = 0.0;
-    t10_R_stat[0] = 0.0;
-    t10_CR[0] = 0.0;
+    t9_outlierChains[0] = 1.0;
+    t9_AR[0] = 0.0;
+    t9_R_stat[0] = 0.0;
+    t9_CR[0] = 0.0;
     bayesResults_nestedSamplerOutput->nestSamples.data[0] = 0.0;
     bayesResults_nestedSamplerOutput->postSamples.data[0] = 0.0;
-    t10_outlierChains[t10_outlierChains.size(0)] = 1.0;
-    t10_AR[t10_AR.size(0)] = 0.0;
-    t10_R_stat[t10_R_stat.size(0)] = 0.0;
-    t10_CR[t10_CR.size(0)] = 0.0;
+    t9_outlierChains[t9_outlierChains.size(0)] = 1.0;
+    t9_AR[t9_AR.size(0)] = 0.0;
+    t9_R_stat[t9_R_stat.size(0)] = 0.0;
+    t9_CR[t9_CR.size(0)] = 0.0;
     bayesResults_nestedSamplerOutput->nestSamples.data[1] = 0.0;
     bayesResults_nestedSamplerOutput->postSamples.data[1] = 0.0;
-    cast(t10_allChains, t10_outlierChains, 100.0, 0.0, 0.0, t10_AR, t10_R_stat,
-         t10_CR, bayesResults_dreamOutput->allChains,
+    cast(t9_allChains, t9_outlierChains, 100.0, 0.0, 0.0, t9_AR, t9_R_stat,
+         t9_CR, bayesResults_dreamOutput->allChains,
          bayesResults_dreamOutput->outlierChains.data,
          bayesResults_dreamOutput->outlierChains.size,
          &bayesResults_dreamOutput->runtime,

@@ -20,7 +20,7 @@
 // Type Declarations
 namespace RAT
 {
-  struct f_struct_T;
+  struct d_struct_T;
   struct cell_wrap_1;
   struct struct1_T;
   struct struct3_T;
@@ -29,7 +29,7 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void packParams(f_struct_T *problemStruct, const ::coder::array<cell_wrap_1,
+  void packParams(d_struct_T *problemStruct, const ::coder::array<cell_wrap_1,
                   2U> &problemCells_f7, const ::coder::array<cell_wrap_1, 2U>
                   &problemCells_f8, const ::coder::array<cell_wrap_1, 2U>
                   &problemCells_f9, const ::coder::array<cell_wrap_1, 2U>

@@ -20,11 +20,11 @@
 // Type Declarations
 namespace RAT
 {
-  struct f_struct_T;
+  struct d_struct_T;
   struct cell_11;
   struct struct1_T;
   struct struct2_T;
-  struct j_struct_T;
+  struct i_struct_T;
 }
 
 // Function Declarations
@@ -36,11 +36,11 @@ namespace RAT
                 boolean_T dreamVariables_adaptPCR, const ::coder::array<real_T,
                 2U> &paramInfo_min, const ::coder::array<real_T, 2U>
                 &paramInfo_max, const char_T paramInfo_boundhandling_data[],
-                const int32_T paramInfo_boundhandling_size[2], const f_struct_T *
+                const int32_T paramInfo_boundhandling_size[2], const d_struct_T *
                 ratInputs_problemStruct, const cell_11 *ratInputs_problemCells,
                 const struct1_T *ratInputs_problemLimits, const struct2_T
                 *ratInputs_controls, const ::coder::array<real_T, 2U>
-                &ratInputs_priors, ::coder::array<real_T, 3U> &chain, j_struct_T
+                &ratInputs_priors, ::coder::array<real_T, 3U> &chain, i_struct_T
                 *output, ::coder::array<real_T, 2U> &fx);
 }
 

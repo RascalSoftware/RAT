@@ -20,7 +20,7 @@
 // Type Declarations
 namespace RAT
 {
-  struct f_struct_T;
+  struct d_struct_T;
   struct struct2_T;
   struct struct1_T;
   struct cell_11;
@@ -29,10 +29,10 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  real_T nsIntraFun(const f_struct_T *data_f1, const struct2_T *data_f2, const
+  real_T nsIntraFun(const d_struct_T *data_f1, const struct2_T *data_f2, const
                     struct1_T *data_f3, const cell_11 *data_f4, const ::coder::
                     array<real_T, 2U> &p);
-  real_T nsIntraFun(const f_struct_T *data_f1, const struct2_T *data_f2, const
+  real_T nsIntraFun(const d_struct_T *data_f1, const struct2_T *data_f2, const
                     struct1_T *data_f3, const cell_11 *data_f4, const ::coder::
                     array<real_T, 1U> &p);
 }

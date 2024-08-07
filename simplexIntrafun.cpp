@@ -21,10 +21,10 @@
 // Function Definitions
 namespace RAT
 {
-  void simplexIntrafun(const ::coder::array<real_T, 1U> &x, f_struct_T
+  void simplexIntrafun(const ::coder::array<real_T, 1U> &x, d_struct_T
                        *problemStruct, const cell_11 *problemCells, const
                        struct1_T *problemLimits, const struct2_T *controls,
-                       const m_struct_T *params, real_T *fval, struct5_T *result)
+                       const l_struct_T *params, real_T *fval, struct5_T *result)
   {
     ::coder::array<real_T, 1U> xtrans;
     int32_T xtrans_idx_0;

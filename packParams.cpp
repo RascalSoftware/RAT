@@ -19,7 +19,7 @@
 // Function Definitions
 namespace RAT
 {
-  void packParams(f_struct_T *problemStruct, const ::coder::array<cell_wrap_1,
+  void packParams(d_struct_T *problemStruct, const ::coder::array<cell_wrap_1,
                   2U> &problemCells_f7, const ::coder::array<cell_wrap_1, 2U>
                   &problemCells_f8, const ::coder::array<cell_wrap_1, 2U>
                   &problemCells_f9, const ::coder::array<cell_wrap_1, 2U>

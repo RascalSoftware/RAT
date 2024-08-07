@@ -20,13 +20,13 @@
 // Function Definitions
 namespace RAT
 {
-  real_T DREAMWrapper(const ::coder::array<real_T, 2U> &pars, const f_struct_T
+  real_T DREAMWrapper(const ::coder::array<real_T, 2U> &pars, const d_struct_T
                       *ratInputs_problemStruct, const cell_11
                       *ratInputs_problemCells, const struct1_T
                       *ratInputs_problemLimits, const struct2_T
                       *ratInputs_controls)
   {
-    f_struct_T problemStruct;
+    d_struct_T problemStruct;
     struct5_T expl_temp;
     int32_T loop_ub;
 

@@ -20,11 +20,11 @@
 // Function Definitions
 namespace RAT
 {
-  real_T nsIntraFun(const f_struct_T *data_f1, const struct2_T *data_f2, const
+  real_T nsIntraFun(const d_struct_T *data_f1, const struct2_T *data_f2, const
                     struct1_T *data_f3, const cell_11 *data_f4, const ::coder::
                     array<real_T, 2U> &p)
   {
-    f_struct_T problemStruct;
+    d_struct_T problemStruct;
     struct5_T expl_temp;
     int32_T loop_ub;
     problemStruct = *data_f1;
@@ -46,11 +46,11 @@ namespace RAT
     return -expl_temp.calculationResults.sumChi / 2.0;
   }
 
-  real_T nsIntraFun(const f_struct_T *data_f1, const struct2_T *data_f2, const
+  real_T nsIntraFun(const d_struct_T *data_f1, const struct2_T *data_f2, const
                     struct1_T *data_f3, const cell_11 *data_f4, const ::coder::
                     array<real_T, 1U> &p)
   {
-    f_struct_T problemStruct;
+    d_struct_T problemStruct;
     struct5_T expl_temp;
     int32_T p_idx_0;
     problemStruct = *data_f1;

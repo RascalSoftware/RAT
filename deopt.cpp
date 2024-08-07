@@ -32,9 +32,9 @@
 // Function Definitions
 namespace RAT
 {
-  void deopt(const f_struct_T *problem, const cell_11 *problemCells, const
+  void deopt(const d_struct_T *problem, const cell_11 *problemCells, const
              struct1_T *problemLimits, const struct2_T *controls, const
-             l_struct_T *S_struct, ::coder::array<real_T, 2U> &FVr_bestmem)
+             k_struct_T *S_struct, ::coder::array<real_T, 2U> &FVr_bestmem)
   {
     ::coder::array<struct_T, 1U> S_val;
     ::coder::array<real_T, 2U> FM_pm3;
@@ -49,7 +49,7 @@ namespace RAT
     ::coder::array<real_T, 2U> b_FVr_rot;
     ::coder::array<real_T, 2U> r;
     ::coder::array<boolean_T, 2U> FM_mui;
-    f_struct_T b_problem;
+    d_struct_T b_problem;
     struct5_T a__1;
     struct5_T a__2;
     struct5_T a__3;

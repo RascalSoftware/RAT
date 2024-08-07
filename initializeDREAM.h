@@ -21,8 +21,8 @@
 namespace RAT
 {
   struct struct11_T;
-  struct j_struct_T;
-  struct f_struct_T;
+  struct i_struct_T;
+  struct d_struct_T;
   struct cell_11;
   struct struct1_T;
   struct struct2_T;
@@ -36,8 +36,8 @@ namespace RAT
                        &paramInfo_max, const char_T
                        paramInfo_boundhandling_data[], const int32_T
                        paramInfo_boundhandling_size[2], ::coder::array<real_T,
-                       3U> &chain, j_struct_T *output, ::coder::array<real_T, 2U>
-                       &log_L, const f_struct_T *ratInputs_problemStruct, const
+                       3U> &chain, i_struct_T *output, ::coder::array<real_T, 2U>
+                       &log_L, const d_struct_T *ratInputs_problemStruct, const
                        cell_11 *ratInputs_problemCells, const struct1_T
                        *ratInputs_problemLimits, const struct2_T
                        *ratInputs_controls, const ::coder::array<real_T, 2U>

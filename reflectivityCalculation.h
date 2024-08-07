@@ -19,7 +19,7 @@
 // Type Declarations
 namespace RAT
 {
-  struct f_struct_T;
+  struct d_struct_T;
   struct cell_11;
   struct struct1_T;
   struct struct2_T;
@@ -29,7 +29,7 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void reflectivityCalculation(const f_struct_T *problemStruct, const cell_11
+  void reflectivityCalculation(const d_struct_T *problemStruct, const cell_11
     *problemCells, const struct1_T *problemLimits, const struct2_T *controls,
     struct5_T *result);
 }

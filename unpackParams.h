@@ -20,13 +20,13 @@
 // Type Declarations
 namespace RAT
 {
-  struct f_struct_T;
+  struct d_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void unpackParams(f_struct_T *problemStruct, const ::coder::array<real_T, 2U>
+  void unpackParams(d_struct_T *problemStruct, const ::coder::array<real_T, 2U>
                     &controls_checks_fitParam, const ::coder::array<real_T, 2U>
                     &controls_checks_fitBackgroundParam, const ::coder::array<
                     real_T, 2U> &controls_checks_fitQzshift, const ::coder::

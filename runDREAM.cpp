@@ -29,12 +29,12 @@
 // Function Definitions
 namespace RAT
 {
-  void runDREAM(const f_struct_T *problemStruct, const cell_11 *problemCells,
+  void runDREAM(const d_struct_T *problemStruct, const cell_11 *problemCells,
                 const struct1_T *problemLimits, const struct2_T *controls, const
-                struct4_T *priors, f_struct_T *outProblemStruct, struct5_T
-                *result, h_struct_T *bayesResults)
+                struct4_T *priors, d_struct_T *outProblemStruct, struct5_T
+                *result, g_struct_T *bayesResults)
   {
-    static j_struct_T dreamOutput;
+    static i_struct_T dreamOutput;
     static struct2_T b_controls;
     ::coder::array<cell_wrap_1, 1U> fitParamNames;
     ::coder::array<real_T, 2U> ParInfo_max;
@@ -44,7 +44,7 @@ namespace RAT
     ::coder::array<real_T, 2U> c_bayesResults;
     ::coder::array<real_T, 2U> r;
     ::coder::array<real_T, 2U> r1;
-    i_struct_T dreamResults;
+    h_struct_T dreamResults;
     int32_T b_loop_ub;
     int32_T i;
     int32_T i1;

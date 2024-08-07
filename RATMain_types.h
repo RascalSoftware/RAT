@@ -24,33 +24,7 @@ namespace RAT
     real_T f1[2];
   };
 
-  struct cell_wrap_8
-  {
-    ::coder::array<real_T, 2U> f1;
-  };
-
-  struct cell_wrap_38
-  {
-    ::coder::array<real_T, 2U> f1;
-  };
-
   struct cell_wrap_10
-  {
-    ::coder::array<real_T, 2U> f1;
-  };
-
-  struct struct6_T
-  {
-    ::coder::array<real_T, 1U> chiValues;
-    real_T sumChi;
-  };
-
-  struct cell_wrap_1
-  {
-    ::coder::array<char_T, 2U> f1;
-  };
-
-  struct cell_wrap_32
   {
     ::coder::array<real_T, 2U> f1;
   };
@@ -88,6 +62,11 @@ namespace RAT
     ::coder::bounded_array<real_T, 2000U, 2U> AR;
     ::coder::array<real_T, 2U> R_stat;
     ::coder::array<real_T, 2U> CR;
+  };
+
+  struct cell_wrap_1
+  {
+    ::coder::array<char_T, 2U> f1;
   };
 
   struct struct1_T
@@ -146,6 +125,22 @@ namespace RAT
     struct3_T checks;
   };
 
+  struct cell_wrap_8
+  {
+    ::coder::array<real_T, 2U> f1;
+  };
+
+  struct cell_wrap_38
+  {
+    ::coder::array<real_T, 2U> f1;
+  };
+
+  struct struct6_T
+  {
+    ::coder::array<real_T, 1U> chiValues;
+    real_T sumChi;
+  };
+
   struct struct7_T
   {
     ::coder::array<real_T, 1U> backgroundParams;
@@ -169,6 +164,11 @@ namespace RAT
     struct7_T contrastParams;
     ::coder::array<real_T, 2U> fitParams;
     ::coder::array<cell_wrap_1, 1U> fitNames;
+  };
+
+  struct cell_wrap_32
+  {
+    ::coder::array<real_T, 2U> f1;
   };
 
   struct cell_wrap_63

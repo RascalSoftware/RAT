@@ -26,7 +26,7 @@
 // Function Definitions
 namespace RAT
 {
-  void runSimplex(f_struct_T *problemStruct, const cell_11 *problemCells, const
+  void runSimplex(d_struct_T *problemStruct, const cell_11 *problemCells, const
                   struct1_T *problemLimits, const struct2_T *controls, struct5_T
                   *result)
   {
@@ -37,8 +37,8 @@ namespace RAT
     ::coder::array<cell_wrap_1, 1U> b_problemStruct;
     ::coder::array<real_T, 1U> x;
     ::coder::array<real_T, 1U> x0u;
-    k_struct_T a__4;
-    m_struct_T expl_temp;
+    j_struct_T a__4;
+    l_struct_T expl_temp;
     real_T a__2;
     real_T a__3;
     int32_T dis_size[2];

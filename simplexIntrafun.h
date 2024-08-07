@@ -20,21 +20,21 @@
 // Type Declarations
 namespace RAT
 {
-  struct f_struct_T;
+  struct d_struct_T;
   struct cell_11;
   struct struct1_T;
   struct struct2_T;
-  struct m_struct_T;
+  struct l_struct_T;
   struct struct5_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void simplexIntrafun(const ::coder::array<real_T, 1U> &x, f_struct_T
+  void simplexIntrafun(const ::coder::array<real_T, 1U> &x, d_struct_T
                        *problemStruct, const cell_11 *problemCells, const
                        struct1_T *problemLimits, const struct2_T *controls,
-                       const m_struct_T *params, real_T *fval, struct5_T *result);
+                       const l_struct_T *params, real_T *fval, struct5_T *result);
 }
 
 #endif

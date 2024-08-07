@@ -28,7 +28,7 @@
 // Function Definitions
 namespace RAT
 {
-  void runNestedSampler(f_struct_T *problemStruct, const cell_11 *problemCells,
+  void runNestedSampler(d_struct_T *problemStruct, const cell_11 *problemCells,
                         const struct1_T *problemLimits, const struct2_T
                         *controls, const struct4_T *inPriors, struct5_T *result,
                         struct8_T *bayesResults)
@@ -46,8 +46,8 @@ namespace RAT
     ::coder::array<real_T, 2U> expl_temp_percentile95;
     ::coder::array<real_T, 2U> r;
     ::coder::array<real_T, 2U> r1;
-    e_struct_T expl_temp;
-    i_struct_T nestResults;
+    c_struct_T expl_temp;
+    h_struct_T nestResults;
     real_T t6_predictionIntervals_sampleChi_data[1000];
     real_T bayesOutputs_bestParams_data[51];
     real_T H;

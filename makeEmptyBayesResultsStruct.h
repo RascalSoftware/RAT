@@ -23,7 +23,7 @@ namespace RAT
   struct cell_wrap_10;
   struct struct11_T;
   struct struct12_T;
-  struct e_struct_T;
+  struct c_struct_T;
 }
 
 // Function Declarations
@@ -40,7 +40,7 @@ namespace RAT
     &bayesResults_confidenceIntervals_percentile95, ::coder::array<real_T, 2U>
     &bayesResults_confidenceIntervals_percentile65, ::coder::array<real_T, 2U>
     &bayesResults_confidenceIntervals_mean, struct11_T *bayesResults_dreamParams,
-    struct12_T *bayesResults_dreamOutput, e_struct_T
+    struct12_T *bayesResults_dreamOutput, c_struct_T
     *bayesResults_nestedSamplerOutput, ::coder::array<real_T, 2U>
     &bayesResults_chain);
   void makeEmptyBayesResultsStruct(real_T nContrasts, boolean_T isDomains,
@@ -54,7 +54,7 @@ namespace RAT
     &bayesResults_confidenceIntervals_percentile95, ::coder::array<real_T, 2U>
     &bayesResults_confidenceIntervals_percentile65, ::coder::array<real_T, 2U>
     &bayesResults_confidenceIntervals_mean, struct11_T *bayesResults_dreamParams,
-    struct12_T *bayesResults_dreamOutput, e_struct_T
+    struct12_T *bayesResults_dreamOutput, c_struct_T
     *bayesResults_nestedSamplerOutput, ::coder::array<real_T, 2U>
     &bayesResults_chain);
 }

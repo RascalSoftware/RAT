@@ -20,10 +20,10 @@
 // Type Declarations
 namespace RAT
 {
-  struct f_struct_T;
+  struct d_struct_T;
   struct cell_11;
   struct struct2_T;
-  struct c_struct_T;
+  struct e_struct_T;
   struct struct6_T;
   struct cell_wrap_8;
   struct cell_wrap_10;
@@ -34,8 +34,8 @@ namespace RAT
 {
   namespace domainsTF
   {
-    void b_reflectivityCalculation(const f_struct_T *problemStruct, const
-      cell_11 *problemCells, const struct2_T *controls, c_struct_T
+    void b_reflectivityCalculation(const d_struct_T *problemStruct, const
+      cell_11 *problemCells, const struct2_T *controls, e_struct_T
       *contrastParams, struct6_T *calculationResults, ::coder::array<cell_wrap_8,
       1U> &reflectivity, ::coder::array<cell_wrap_8, 1U> &simulation, ::coder::
       array<cell_wrap_10, 1U> &shiftedData, ::coder::array<cell_wrap_10, 2U>

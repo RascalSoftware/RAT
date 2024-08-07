@@ -20,12 +20,12 @@
 // Type Declarations
 namespace RAT
 {
-  struct f_struct_T;
+  struct d_struct_T;
   struct cell_11;
   struct struct1_T;
   struct struct2_T;
   struct struct5_T;
-  struct i_struct_T;
+  struct h_struct_T;
 }
 
 // Function Declarations
@@ -33,15 +33,15 @@ namespace RAT
 {
   void processBayes(const real_T bayesOutputs_bestParams_data[], const int32_T
                     bayesOutputs_bestParams_size[2], const ::coder::array<real_T,
-                    2U> &bayesOutputs_chain, f_struct_T *problemStruct, const
+                    2U> &bayesOutputs_chain, d_struct_T *problemStruct, const
                     cell_11 *problemCells, const struct1_T *problemLimits,
-                    struct2_T *controls, struct5_T *result, i_struct_T
+                    struct2_T *controls, struct5_T *result, h_struct_T
                     *bayesResults);
   void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestParams,
                     const ::coder::array<real_T, 2U> &bayesOutputs_chain,
-                    f_struct_T *problemStruct, const cell_11 *problemCells,
+                    d_struct_T *problemStruct, const cell_11 *problemCells,
                     const struct1_T *problemLimits, struct2_T *controls,
-                    struct5_T *result, i_struct_T *bayesResults);
+                    struct5_T *result, h_struct_T *bayesResults);
 }
 
 #endif

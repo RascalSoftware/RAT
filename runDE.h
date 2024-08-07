@@ -20,7 +20,7 @@
 // Type Declarations
 namespace RAT
 {
-  struct f_struct_T;
+  struct d_struct_T;
   struct cell_11;
   struct struct1_T;
   struct struct2_T;
@@ -31,10 +31,10 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void intrafun(const ::coder::array<real_T, 2U> &p, f_struct_T *problemStruct,
+  void intrafun(const ::coder::array<real_T, 2U> &p, d_struct_T *problemStruct,
                 const cell_11 *problemCells, const struct1_T *problemLimits,
                 const struct2_T *controls, struct_T *S_MSE, struct5_T *result);
-  void runDE(f_struct_T *problemStruct, const cell_11 *problemCells, const
+  void runDE(d_struct_T *problemStruct, const cell_11 *problemCells, const
              struct1_T *problemLimits, const struct2_T *controls, struct5_T
              *result);
 }

@@ -20,7 +20,7 @@
 // Type Declarations
 namespace RAT
 {
-  struct f_struct_T;
+  struct d_struct_T;
   struct cell_11;
   struct struct2_T;
   struct cell_wrap_8;
@@ -32,7 +32,7 @@ namespace RAT
 {
   namespace nonPolarisedTF
   {
-    void b_customLayers(const f_struct_T *problemStruct, const cell_11
+    void b_customLayers(const d_struct_T *problemStruct, const cell_11
                         *problemCells, const struct2_T *controls, ::coder::array<
                         real_T, 1U> &backgroundParams, ::coder::array<real_T, 1U>
                         &qzshifts, ::coder::array<real_T, 1U> &scalefactors, ::

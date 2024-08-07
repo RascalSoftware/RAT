@@ -213,7 +213,7 @@ namespace RAT
       resampledLayer[1] = r3;
     }
 
-    void standardLayers(const f_struct_T *problemStruct, const cell_11
+    void standardLayers(const d_struct_T *problemStruct, const cell_11
                         *problemCells, const struct2_T *controls, ::coder::array<
                         real_T, 1U> &backgroundParams, ::coder::array<real_T, 1U>
                         &qzshifts, ::coder::array<real_T, 1U> &scalefactors, ::

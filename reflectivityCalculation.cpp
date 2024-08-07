@@ -263,7 +263,7 @@ namespace RAT
     }
   }
 
-  void reflectivityCalculation(const f_struct_T *problemStruct, const cell_11
+  void reflectivityCalculation(const d_struct_T *problemStruct, const cell_11
     *problemCells, const struct1_T *problemLimits, const struct2_T *controls,
     struct5_T *result)
   {
@@ -288,9 +288,9 @@ namespace RAT
     ::coder::array<cell_wrap_51, 2U> r2;
     ::coder::array<cell_wrap_8, 1U> b_reflectivity;
     ::coder::array<cell_wrap_8, 1U> b_simulation;
-    c_struct_T b_contrastParams;
-    c_struct_T contrastParams;
-    f_struct_T a__1;
+    d_struct_T a__1;
+    e_struct_T b_contrastParams;
+    e_struct_T contrastParams;
     int32_T b_index;
     int32_T b_loop_ub;
     int32_T i;

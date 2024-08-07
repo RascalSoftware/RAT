@@ -27,7 +27,7 @@
 // Function Definitions
 namespace RAT
 {
-  void intrafun(const ::coder::array<real_T, 2U> &p, f_struct_T *problemStruct,
+  void intrafun(const ::coder::array<real_T, 2U> &p, d_struct_T *problemStruct,
                 const cell_11 *problemCells, const struct1_T *problemLimits,
                 const struct2_T *controls, struct_T *S_MSE, struct5_T *result)
   {
@@ -58,7 +58,7 @@ namespace RAT
     // number of objectives (costs)
   }
 
-  void runDE(f_struct_T *problemStruct, const cell_11 *problemCells, const
+  void runDE(d_struct_T *problemStruct, const cell_11 *problemCells, const
              struct1_T *problemLimits, const struct2_T *controls, struct5_T
              *result)
   {
@@ -83,7 +83,7 @@ namespace RAT
     ::coder::array<cell_wrap_1, 1U> b_problemStruct;
     ::coder::array<real_T, 2U> res;
     ::coder::array<int8_T, 2U> S_struct_FM_pop;
-    l_struct_T expl_temp;
+    k_struct_T expl_temp;
     int32_T i;
     int32_T i1;
     int32_T loop_ub;

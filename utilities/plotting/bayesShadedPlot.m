@@ -61,8 +61,6 @@ end
 pLims = result.predictionIntervals;
 refPlims = pLims.reflectivity;
 sldPlims = pLims.sld;
-refXdata = pLims.reflectivityXData;
-sldXdata = pLims.sldXData;
 
 % Get the reflectivities for mean...
 bestRefMean = result.reflectivity;
@@ -117,7 +115,7 @@ for i = 1:numberOfContrasts
     thisDataY = thisData(:,2)./mult;
     thisDataErr = thisData(:,3)./mult;
     
-    thisSimX = refXdata{i};
+    thisSimX = result.reflectivity{i}(:,1);
     thisSimQ4 = thisSimX.^4;
     
     switch q4
@@ -162,7 +160,7 @@ if ~isDomains
 
         theseLims = sldPlims{i};
 
-        thisSldX = sldXdata{i};
+        thisSldX = result.sldProfiles{i}(:,1);
 
         switch interval
             case 95
@@ -186,7 +184,6 @@ if ~isDomains
             plot(thisSldX,thisSldAvg,'r-');
         end
 
-        thisSldX = sldXdata{i};
         shade(thisSldX,thisMin,thisSldX,thisMax,'FillColor',[0.7 0.7 0.7],'FillType',[1 2;2 1],'FillAlpha',0.3);
     end
 else
@@ -197,7 +194,7 @@ else
 
         theseLims = sldPlims(i,:);
 
-        thisSldX = sldXdata(i,:);
+        thisSldX = result.sldProfiles(i,:);
 
         switch interval
             case 95
@@ -210,6 +207,7 @@ else
             thisMin = theseLims{m}(vals(1),:);
             thisMax = theseLims{m}(vals(2),:);
 
+            thisDomainSldX = thisSldX{m}(:,1);
             thisSldAvg = theseLims{m}(3,:);
 
             if showWhichCurves(1)
@@ -219,11 +217,10 @@ else
 
             if showWhichCurves(2)
                 % Plot the max
-                plot(thisSldX{m},thisSldAvg,'r-');
+                plot(thisDomainSldX,thisSldAvg,'r-');
             end
 
-            %thisSldX = sldXdata{i}{m};
-            shade(thisSldX{m},thisMin,thisSldX{m},thisMax,'FillColor',[0.7 0.7 0.7],'FillType',[1 2;2 1],'FillAlpha',0.3);
+            shade(thisDomainSldX,thisMin,thisDomainSldX,thisMax,'FillColor',[0.7 0.7 0.7],'FillType',[1 2;2 1],'FillAlpha',0.3);
         end
     end
 

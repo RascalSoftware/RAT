@@ -35,8 +35,7 @@ switch controls.procedure
         end
         [problemStruct,result,bayesResults] = runDREAM(problemStruct,problemCells,problemLimits,controls,priors);
     otherwise
-        throw(exceptions.invalidOption(sprintf('procedure must be a procedures enum or one of the following strings (%s)', ...
-            strjoin(coderEnums.procedures.values(), ', '))));
+        error('The procedure "%s" is not supported. The procedure must be one of "calculate", "simplex", "de", "ns", or "dream"', controls.procedure);
 end
 
 % Then just do a final calculation to fill in SLD if necessary

@@ -34,6 +34,8 @@ switch controls.procedure
             fprintf('\nRunning DREAM\n\n');
         end
         [problemStruct,result,bayesResults] = runDREAM(problemStruct,problemCells,problemLimits,controls,priors);
+    otherwise
+        error('The procedure "%s" is not supported. The procedure must be one of "%s"', controls.procedure, strjoin(fieldnames(coderEnums.procedures), '", "'));
 end
 
 % Then just do a final calculation to fill in SLD if necessary

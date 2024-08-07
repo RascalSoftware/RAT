@@ -148,5 +148,17 @@
          s2.closeFigure()
          testCase.verifyEmpty(eventManager.getEvents());
       end
+
+      function testStopEvent(testCase)
+          controls = controlsClass();
+          testCase.assertEmpty(controls.getIPCFilePath(), 'IPC is not working');
+          controls.initialiseIPC();
+          path = controls.getIPCFilePath();
+          testCase.assertNotEmpty(path, 'IPC is not working');
+          testCase.assertFalse(isRATStopped(path), 'IPC is not working');
+          controls.sendStopEvent();
+          testCase.assertTrue(isRATStopped(path), 'IPC is not working');
+          testCase.assertFalse(isRATStopped(''), 'IPC is not working');
+      end
    end
 end

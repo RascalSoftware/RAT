@@ -36,7 +36,7 @@ Nid = numel(chain_id);
 
 % If at least one outlier chain has been found --> reset its state
 if (Nid > 0)
-    % Re-initialize ecah outlier chain to current state random other chain
+    % Re-initialise ecah outlier chain to current state random other chain
     chain_select = [1:DREAMPar.nChains]; chain_select(chain_id) = [];
     % Randomly permute these available chains
     r = randperm(DREAMPar.nChains - Nid); chain_select = chain_select(r);

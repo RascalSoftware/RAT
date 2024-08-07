@@ -1,5 +1,5 @@
 function [problemStruct,result,bayesResults] = RATMain(problemStruct,problemCells,problemLimits,controls,priors)
-coderEnums.initialize()
+coderEnums.initialise()
 
 if strcmpi(problemStruct.TF, coderEnums.calculationTypes.Domains)
     domains = true;

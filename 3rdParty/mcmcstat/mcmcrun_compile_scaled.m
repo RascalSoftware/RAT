@@ -479,7 +479,7 @@ end
 
 rej=0; reju=0; ii=1; rejl = 0;
 %% setup waitbar
-if wbarupd; triggerEvent(coderEnums.eventTypes.Progress, 'init', 0); end
+if wbarupd; triggerEvent(coderEnums.eventTypes.Progress, 'Bayes', 0); end
 
 % covariance update uses these to store previous values
 covchain = []; meanchain = []; wsum = initqcovn; lasti = 0;
@@ -887,7 +887,7 @@ if dostats && (saveit == 1 || savesize >= nsimu)
   end
 end
 
-triggerEvent(coderEnums.eventTypes.Progress, 'end', 1);
+triggerEvent(coderEnums.eventTypes.Progress, 'Bayes', 1);
 
 
 

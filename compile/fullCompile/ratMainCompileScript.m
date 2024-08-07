@@ -5,9 +5,8 @@
 % See also CODER, CODER.CONFIG, CODER.TYPEOF, CODEGEN.
 
 %% Deal with globals
-global verbose DEBUG
+global DEBUG
 DEBUG = 0;
-verbose = 1;
 
 %% Create configuration object of class 'coder.MexCodeConfig'.
 cfg = coder.config('mex');

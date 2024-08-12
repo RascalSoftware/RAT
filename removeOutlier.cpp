@@ -149,7 +149,7 @@ namespace RAT
     //  How many outliers?
     //  If at least one outlier chain has been found --> reset its state
     if (chain_id.size(1) > 0) {
-      //  Re-initialize ecah outlier chain to current state random other chain
+      //  Re-initialise ecah outlier chain to current state random other chain
       if (std::isnan(DREAMPar->nChains)) {
         b_chain_select.set_size(1, 1);
         b_chain_select[0] = rtNaN;

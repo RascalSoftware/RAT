@@ -3,16 +3,15 @@
 // granting, nonprofit, educational organizations only. Not for
 // government, commercial, or other organizational use.
 //
-// ifWhileCond.h
+// fread.h
 //
-// Code generation for function 'ifWhileCond'
+// Code generation for function 'fread'
 //
-#ifndef IFWHILECOND_H
-#define IFWHILECOND_H
+#ifndef FREAD_H
+#define FREAD_H
 
 // Include files
 #include "rtwtypes.h"
-#include "coder_array.h"
 #include "omp.h"
 #include <cstddef>
 #include <cstdlib>
@@ -22,14 +21,10 @@ namespace RAT
 {
   namespace coder
   {
-    namespace internal
-    {
-      boolean_T b_ifWhileCond(const ::coder::array<boolean_T, 2U> &x);
-      boolean_T ifWhileCond(const boolean_T x_data[], int32_T x_size);
-    }
+    void b_fread(real_T fileID, uint8_T A_data[], int32_T *A_size);
   }
 }
 
 #endif
 
-// End of code generation (ifWhileCond.h)
+// End of code generation (fread.h)

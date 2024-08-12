@@ -13,9 +13,9 @@
 #include "RATMain_internal_types.h"
 #include "RATMain_rtwutil.h"
 #include "RATMain_types.h"
+#include "blockedSummation.h"
 #include "getFittedPriors.h"
 #include "makeEmptyBayesResultsStruct.h"
-#include "mean.h"
 #include "nestedSampler.h"
 #include "packParams.h"
 #include "processBayes.h"
@@ -40,6 +40,7 @@ namespace RAT
     ::coder::array<cell_wrap_10, 1U> t6_predictionIntervals_reflectivity;
     ::coder::array<real_T, 2U> b_bayesResults;
     ::coder::array<real_T, 2U> b_expl_temp;
+    ::coder::array<real_T, 2U> bayesOutputs_bestParams;
     ::coder::array<real_T, 2U> bayesOutputs_chain;
     ::coder::array<real_T, 2U> expl_temp_mean;
     ::coder::array<real_T, 2U> expl_temp_percentile65;
@@ -49,10 +50,8 @@ namespace RAT
     c_struct_T expl_temp;
     h_struct_T nestResults;
     real_T t6_predictionIntervals_sampleChi_data[1000];
-    real_T bayesOutputs_bestParams_data[51];
     real_T H;
     real_T logZ;
-    int32_T bayesOutputs_bestParams_size[2];
     int32_T i;
     int32_T i1;
     int32_T loop_ub;
@@ -101,12 +100,13 @@ namespace RAT
       }
     }
 
-    coder::mean(b_bayesResults, r1);
-    bayesOutputs_bestParams_size[0] = 1;
-    bayesOutputs_bestParams_size[1] = r1.size(1);
+    coder::blockedSummation(b_bayesResults,
+      bayesResults->nestedSamplerOutput.postSamples.size(0), r1);
+    bayesOutputs_bestParams.set_size(1, r1.size(1));
     loop_ub = r1.size(1);
     for (i = 0; i < loop_ub; i++) {
-      bayesOutputs_bestParams_data[i] = r1[i];
+      bayesOutputs_bestParams[i] = r1[i] / static_cast<real_T>
+        (bayesResults->nestedSamplerOutput.postSamples.size(0));
     }
 
     loop_ub = bayesResults->nestedSamplerOutput.postSamples.size(0);
@@ -122,9 +122,8 @@ namespace RAT
     }
 
     b_controls = *controls;
-    processBayes(bayesOutputs_bestParams_data, bayesOutputs_bestParams_size,
-                 bayesOutputs_chain, problemStruct, problemCells, problemLimits,
-                 &b_controls, result, &nestResults);
+    processBayes(bayesOutputs_bestParams, bayesOutputs_chain, problemStruct,
+                 problemCells, problemLimits, &b_controls, result, &nestResults);
     cast(nestResults.predictionIntervals.reflectivity,
          bayesResults->predictionIntervals.reflectivity);
     cast(nestResults.predictionIntervals.sld,

@@ -10,7 +10,6 @@
 
 // Include files
 #include "drawMCMC.h"
-#include "RATMain_data.h"
 #include "RATMain_internal_types.h"
 #include "RATMain_rtwutil.h"
 #include "RATMain_types.h"
@@ -21,7 +20,9 @@
 #include "randn.h"
 #include "rescaleParameters.h"
 #include "rt_nonfinite.h"
+#include "strcmp.h"
 #include "coder_array.h"
+#include "coder_bounded_array.h"
 #include <cmath>
 #include <stdio.h>
 
@@ -57,6 +58,7 @@ namespace RAT
     //  of additional parameters needed by the model.
     //
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    //  global verbose;
     *logL = logLmin;
 
     //  useful constant
@@ -64,7 +66,7 @@ namespace RAT
     nParams = livepoints.size(1) - 1;
 
     //  degrees of freedom of Students't distribution
-    //  initialize counters
+    //  initialise counters
     Ntimes = 1.0;
     loop_ub = livepoints.size(1);
     i = static_cast<int32_T>(nMCMC);
@@ -245,7 +247,8 @@ namespace RAT
     } while (exitg1 == 0);
 
     //  print out acceptance ratio
-    if (verbose != 0.0) {
+    if (!coder::internal::p_strcmp(data_f2->display.data, data_f2->display.size))
+    {
       printf("Acceptance ratio: %1.4f, \n\n", acc / (Ntimes * nMCMC));
       fflush(stdout);
     }

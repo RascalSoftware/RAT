@@ -427,11 +427,14 @@ namespace RAT
     }
   }
 
-  void b_triggerEvent()
+  void b_triggerEvent(real_T varargin_2)
   {
+    static const char_T b_cv1[8]{ "DREAM: " };
+
     ::coder::array<char_T, 2U> path;
     ::coder::array<char_T, 2U> r;
-    char_T b_cv[4];
+    int32_T i;
+    char_T b_cv[8];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -455,7 +458,7 @@ namespace RAT
       coder::b_getenv(r);
       path.set_size(1, r.size(1) + 1);
       loop_ub = r.size(1);
-      for (int32_T i{0}; i < loop_ub; i++) {
+      for (i = 0; i < loop_ub; i++) {
         path[i] = r[i];
       }
 
@@ -465,11 +468,11 @@ namespace RAT
 
     initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
     if (initialised) {
-      b_cv[0] = 'e';
-      b_cv[1] = 'n';
-      b_cv[2] = 'd';
-      b_cv[3] = '\x00';
-      std::mem_fn(&eventHelper::updateProgress)(helper, &b_cv[0], 1.0);
+      for (i = 0; i < 8; i++) {
+        b_cv[i] = b_cv1[i];
+      }
+
+      std::mem_fn(&eventHelper::updateProgress)(helper, &b_cv[0], varargin_2);
       notified = false;
 
       //  This avoids printing the error message multiple times during the optimization.
@@ -667,71 +670,14 @@ namespace RAT
     }
   }
 
-  void triggerEvent()
-  {
-    static const char_T b_cv1[5]{ "init" };
-
-    ::coder::array<char_T, 2U> path;
-    ::coder::array<char_T, 2U> r;
-    int32_T i;
-    char_T b_cv[5];
-    boolean_T initialised;
-
-    //  Triggers the event type with the given varargin. The supported event types are
-    //  0, 1, and 2.
-    //  * The input for the message event is a char array,
-    //  * The inputs for the plot event are the result struct, problem struct and cell
-    //  * The inputs for progress events are the message (char array) and
-    //    percentage progress expressed as a decimal (i.e., between 0 and 1).
-    //
-    //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
-    //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
-    if (!helper_not_empty) {
-      int32_T loop_ub;
-
-      //  Declaration for coder
-      helper_not_empty = true;
-
-      //  Make an instance
-      helper = eventHelper();
-      coder::b_getenv(r);
-      path.set_size(1, r.size(1) + 1);
-      loop_ub = r.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        path[i] = r[i];
-      }
-
-      path[r.size(1)] = '\x00';
-      std::mem_fn(&eventHelper::init)(helper, &path[0]);
-    }
-
-    initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
-    if (initialised) {
-      for (i = 0; i < 5; i++) {
-        b_cv[i] = b_cv1[i];
-      }
-
-      std::mem_fn(&eventHelper::updateProgress)(helper, &b_cv[0], 0.0);
-      notified = false;
-
-      //  This avoids printing the error message multiple times during the optimization.
-    } else if (!notified) {
-      fprintf(stderr,
-              "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
-      fflush(stderr);
-      notified = true;
-    }
-  }
-
   void triggerEvent(real_T varargin_2)
   {
-    static const char_T b_cv1[8]{ "DREAM: " };
+    static const char_T b_cv1[6]{ "DREAM" };
 
     ::coder::array<char_T, 2U> path;
     ::coder::array<char_T, 2U> r;
     int32_T i;
-    char_T b_cv[8];
+    char_T b_cv[6];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -765,7 +711,7 @@ namespace RAT
 
     initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
     if (initialised) {
-      for (i = 0; i < 8; i++) {
+      for (i = 0; i < 6; i++) {
         b_cv[i] = b_cv1[i];
       }
 

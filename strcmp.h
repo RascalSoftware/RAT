@@ -34,6 +34,7 @@ namespace RAT
       boolean_T b_strcmp(const char_T a_data[], const int32_T a_size[2]);
       boolean_T b_strcmp(const char_T a_data[], const int32_T a_size[2], const
                          char_T b[6]);
+      boolean_T bb_strcmp(const char_T a_data[], const int32_T a_size[2]);
       boolean_T c_strcmp(const char_T a_data[], const int32_T a_size[2]);
       boolean_T c_strcmp(const char_T a_data[], const int32_T a_size[2], const
                          char_T b[4]);
@@ -60,9 +61,9 @@ namespace RAT
       boolean_T t_strcmp(const char_T a_data[], const int32_T a_size[2]);
       boolean_T u_strcmp(const char_T a_data[], const int32_T a_size[2]);
       boolean_T v_strcmp(const char_T a_data[], const int32_T a_size[2]);
-      void w_strcmp(const cell_wrap_1 *a, const ::coder::array<cell_wrap_1, 1U>
+      boolean_T w_strcmp(const char_T a_data[], const int32_T a_size[2]);
+      void x_strcmp(const cell_wrap_1 *a, const ::coder::array<cell_wrap_1, 1U>
                     &b, ::coder::array<boolean_T, 1U> &b_bool);
-      boolean_T x_strcmp(const char_T a_data[], const int32_T a_size[2]);
       boolean_T y_strcmp(const char_T a_data[], const int32_T a_size[2]);
     }
   }

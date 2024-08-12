@@ -36,6 +36,7 @@ namespace RAT
     ::coder::array<real_T, 2U> A;
     ::coder::array<real_T, 2U> a;
     ::coder::array<real_T, 2U> b;
+    ::coder::array<real_T, 2U> b_b;
     ::coder::array<real_T, 2U> b_gamma;
     ::coder::array<real_T, 2U> dx;
     ::coder::array<real_T, 2U> eps;
@@ -43,9 +44,9 @@ namespace RAT
     ::coder::array<real_T, 2U> r1;
     ::coder::array<real_T, 2U> r4;
     ::coder::array<real_T, 2U> r5;
+    ::coder::array<real_T, 2U> r6;
     ::coder::array<real_T, 2U> rnd_cr;
     ::coder::array<real_T, 2U> rnd_jump;
-    ::coder::array<real_T, 2U> x;
     ::coder::array<real_T, 1U> DE_pairs;
     ::coder::array<real_T, 1U> r3;
     ::coder::array<int32_T, 2U> iidx;
@@ -299,25 +300,25 @@ namespace RAT
           }
         }
 
-        r4.set_size(loop_ub, d_loop_ub);
+        r5.set_size(loop_ub, d_loop_ub);
         for (i = 0; i < d_loop_ub; i++) {
           for (i1 = 0; i1 < loop_ub; i1++) {
-            r4[i1 + r4.size(0) * i] = X[(static_cast<int32_T>(r2_data[i1]) +
+            r5[i1 + r5.size(0) * i] = X[(static_cast<int32_T>(r2_data[i1]) +
               X.size(0) * i) - 1];
           }
         }
 
-        x.set_size(b.size(0), b.size(1));
+        b_b.set_size(b.size(0), b.size(1));
         loop_ub = b.size(1);
         for (i = 0; i < loop_ub; i++) {
           c_loop_ub = b.size(0);
           for (i1 = 0; i1 < c_loop_ub; i1++) {
-            x[i1 + x.size(0) * i] = b[i1 + b.size(0) * i] - r4[i1 + r4.size(0) *
-              i];
+            b_b[i1 + b_b.size(0) * i] = b[i1 + b.size(0) * i] - r5[i1 + r5.size
+              (0) * i];
           }
         }
 
-        coder::blockedSummation(x, x.size(0), r1);
+        coder::blockedSummation(b_b, b_loop_ub_tmp, r1);
         for (i = 0; i < b_loop_ub; i++) {
           dx[b_i + dx.size(0) * i] = (rnd_jump[b_i + rnd_jump.size(0) * i] + 1.0)
             * r1[i] + eps[b_i + eps.size(0) * i];
@@ -339,34 +340,35 @@ namespace RAT
           r3[i] = A[i];
         }
 
-        x.set_size(b_loop_ub_tmp, r3.size(0));
+        r4.set_size(b_loop_ub_tmp, r3.size(0));
         b_loop_ub = r3.size(0);
         for (i = 0; i < b_loop_ub; i++) {
           for (i1 = 0; i1 < b_loop_ub_tmp; i1++) {
-            x[i1 + x.size(0) * i] = X[(static_cast<int32_T>(r1_data[i1]) +
+            r4[i1 + r4.size(0) * i] = X[(static_cast<int32_T>(r1_data[i1]) +
               X.size(0) * (static_cast<int32_T>(r3[i]) - 1)) - 1];
           }
         }
 
-        r5.set_size(loop_ub, r3.size(0));
+        r6.set_size(loop_ub, r3.size(0));
         b_loop_ub = r3.size(0);
         for (i = 0; i < b_loop_ub; i++) {
           for (i1 = 0; i1 < loop_ub; i1++) {
-            r5[i1 + r5.size(0) * i] = X[(static_cast<int32_T>(r2_data[i1]) +
+            r6[i1 + r6.size(0) * i] = X[(static_cast<int32_T>(r2_data[i1]) +
               X.size(0) * (static_cast<int32_T>(r3[i]) - 1)) - 1];
           }
         }
 
-        loop_ub = x.size(1);
+        b_b.set_size(r4.size(0), r4.size(1));
+        loop_ub = r4.size(1);
         for (i = 0; i < loop_ub; i++) {
-          b_loop_ub = x.size(0);
+          b_loop_ub = r4.size(0);
           for (i1 = 0; i1 < b_loop_ub; i1++) {
-            x[i1 + x.size(0) * i] = x[i1 + x.size(0) * i] - r5[i1 + r5.size(0) *
-              i];
+            b_b[i1 + b_b.size(0) * i] = r4[i1 + r4.size(0) * i] - r6[i1 +
+              r6.size(0) * i];
           }
         }
 
-        coder::blockedSummation(x, x.size(0), r1);
+        coder::blockedSummation(b_b, b_loop_ub_tmp, r1);
         loop_ub = r3.size(0);
         for (i = 0; i < loop_ub; i++) {
           b_loop_ub = static_cast<int32_T>(r3[i]) - 1;

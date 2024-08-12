@@ -31,12 +31,6 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void processBayes(const real_T bayesOutputs_bestParams_data[], const int32_T
-                    bayesOutputs_bestParams_size[2], const ::coder::array<real_T,
-                    2U> &bayesOutputs_chain, d_struct_T *problemStruct, const
-                    cell_11 *problemCells, const struct1_T *problemLimits,
-                    struct2_T *controls, struct5_T *result, h_struct_T
-                    *bayesResults);
   void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestParams,
                     const ::coder::array<real_T, 2U> &bayesOutputs_chain,
                     d_struct_T *problemStruct, const cell_11 *problemCells,

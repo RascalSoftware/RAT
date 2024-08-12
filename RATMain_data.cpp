@@ -16,7 +16,6 @@
 namespace RAT
 {
   uint32_T state[625];
-  real_T verbose;
   real_T DEBUG;
   real_T freq;
   boolean_T freq_not_empty;

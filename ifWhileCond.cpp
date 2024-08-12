@@ -20,7 +20,8 @@ namespace RAT
   {
     namespace internal
     {
-      static boolean_T checkNoNaNs(const ::coder::array<boolean_T, 2U> &x);
+      static boolean_T b_checkNoNaNs(const ::coder::array<boolean_T, 2U> &x);
+      static boolean_T checkNoNaNs(const boolean_T x_data[], int32_T x_size);
     }
   }
 }
@@ -32,7 +33,7 @@ namespace RAT
   {
     namespace internal
     {
-      static boolean_T checkNoNaNs(const ::coder::array<boolean_T, 2U> &x)
+      static boolean_T b_checkNoNaNs(const ::coder::array<boolean_T, 2U> &x)
       {
         int32_T i;
         int32_T k;
@@ -54,12 +55,43 @@ namespace RAT
         return y;
       }
 
-      boolean_T ifWhileCond(const ::coder::array<boolean_T, 2U> &x)
+      static boolean_T checkNoNaNs(const boolean_T x_data[], int32_T x_size)
+      {
+        int32_T k;
+        boolean_T exitg1;
+        boolean_T y;
+        y = true;
+        k = 0;
+        exitg1 = false;
+        while ((!exitg1) && (k <= x_size - 1)) {
+          if (!x_data[0]) {
+            y = false;
+            exitg1 = true;
+          } else {
+            k = 1;
+          }
+        }
+
+        return y;
+      }
+
+      boolean_T b_ifWhileCond(const ::coder::array<boolean_T, 2U> &x)
       {
         boolean_T y;
         y = ((x.size(0) != 0) && (x.size(1) != 0));
         if (y) {
-          y = checkNoNaNs(x);
+          y = b_checkNoNaNs(x);
+        }
+
+        return y;
+      }
+
+      boolean_T ifWhileCond(const boolean_T x_data[], int32_T x_size)
+      {
+        boolean_T y;
+        y = (x_size != 0);
+        if (y) {
+          y = checkNoNaNs(x_data, x_size);
         }
 
         return y;

@@ -303,7 +303,7 @@ namespace RAT
               }
 
               b_VE1_data.set(&c_VE1_data, VE1_size[0], VE1_size[1]);
-              if (coder::internal::ifWhileCond(b_VE1_data)) {
+              if (coder::internal::b_ifWhileCond(b_VE1_data)) {
                 m1++;
                 end = u.size(1);
                 for (b_i = 0; b_i < end; b_i++) {

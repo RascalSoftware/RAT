@@ -123,6 +123,7 @@ namespace RAT
     ::coder::bounded_array<char_T, 10000U, 2U> boundHandling;
     boolean_T adaptPCR;
     struct3_T checks;
+    ::coder::bounded_array<char_T, 10000U, 2U> IPCFilePath;
   };
 
   struct cell_wrap_8
@@ -320,7 +321,6 @@ namespace RAT
 
     struct {
       real_T thisContrastLayers1_data[6000];
-      real_T thisContrastLayers2_data[6000];
     } f1;
 
     struct {

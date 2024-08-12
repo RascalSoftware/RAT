@@ -65,7 +65,7 @@ namespace RAT
       }
 
       r.f1 = f1;
-      coder::internal::w_strcmp(&r, priors_priorNames, r1);
+      coder::internal::x_strcmp(&r, priors_priorNames, r1);
       coder::eml_find(r1, indices);
       if (indices.size(0) != 0) {
         priorFitList[b_i] = priors_priorValues[indices[0] - 1];

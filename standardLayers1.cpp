@@ -82,6 +82,7 @@ namespace RAT
       sldProfile[2], cell_wrap_10 resampledLayer[2])
     {
       ::coder::array<real_T, 2U> a__6;
+      ::coder::array<real_T, 2U> b_thisContrastLayers2_data;
       ::coder::array<real_T, 2U> reflect1;
       ::coder::array<real_T, 2U> reflect2;
       ::coder::array<real_T, 2U> simul1;
@@ -89,7 +90,6 @@ namespace RAT
       ::coder::array<real_T, 2U> sldProfile1;
       ::coder::array<real_T, 2U> sldProfile2;
       ::coder::array<real_T, 2U> thisContrastLayers1_data;
-      ::coder::array<real_T, 2U> thisContrastLayers2_data;
       RATMainTLS *RATMainTLSThread;
       cell_wrap_10 r;
       cell_wrap_10 r1;
@@ -97,6 +97,7 @@ namespace RAT
       cell_wrap_10 r3;
       cell_wrap_10 r4;
       cell_wrap_10 r5;
+      real_T thisContrastLayers2_data[6000];
       real_T a__5;
       real_T a__7;
       real_T domainRatios_tmp;
@@ -126,8 +127,7 @@ namespace RAT
         useImaginary, RATMainTLSThread->f1.thisContrastLayers1_data,
         thisContrastLayers1_size);
       allocateLayersForContrast(domainContrastLayers2, outParameterisedLayers,
-        useImaginary, RATMainTLSThread->f1.thisContrastLayers2_data,
-        thisContrastLayers2_size);
+        useImaginary, thisContrastLayers2_data, thisContrastLayers2_size);
 
       //  Call the core layers calculation - need to do this once for each
       //  domain
@@ -141,16 +141,15 @@ namespace RAT
         contrastBackgroundActions, nParams, parallel_data, parallel_size,
         resampleParams, useImaginary, sldProfile1, reflect1, simul1, shiftedData,
         r.f1, r1.f1, &a__5);
-      thisContrastLayers2_data.set
-        (&RATMainTLSThread->f1.thisContrastLayers2_data[0],
-         thisContrastLayers2_size[0], thisContrastLayers2_size[1]);
-      nonPolarisedTF::coreLayersCalculation(thisContrastLayers2_data, roughness,
-        geometry_data, geometry_size, *bulkInValue, *bulkOutValue, resample,
-        calcSld, *scalefactorValue, *qzshiftValue, dataPresent, data, dataLimits,
-        simLimits, repeatLayers, *backgroundParamValue, *resolutionParamValue,
-        contrastBackgroundActions, nParams, parallel_data, parallel_size,
-        resampleParams, useImaginary, sldProfile2, reflect2, simul2, a__6, r2.f1,
-        r3.f1, &a__7);
+      b_thisContrastLayers2_data.set(&thisContrastLayers2_data[0],
+        thisContrastLayers2_size[0], thisContrastLayers2_size[1]);
+      nonPolarisedTF::coreLayersCalculation(b_thisContrastLayers2_data,
+        roughness, geometry_data, geometry_size, *bulkInValue, *bulkOutValue,
+        resample, calcSld, *scalefactorValue, *qzshiftValue, dataPresent, data,
+        dataLimits, simLimits, repeatLayers, *backgroundParamValue,
+        *resolutionParamValue, contrastBackgroundActions, nParams, parallel_data,
+        parallel_size, resampleParams, useImaginary, sldProfile2, reflect2,
+        simul2, a__6, r2.f1, r3.f1, &a__7);
 
       //  Calculate the average reflectivities....
       //  Calculates the averaged reflectivity for domains samples (incoherent

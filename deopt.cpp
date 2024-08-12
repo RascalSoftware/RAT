@@ -13,6 +13,8 @@
 #include "RATMain_internal_types.h"
 #include "RATMain_rtwutil.h"
 #include "RATMain_types.h"
+#include "ifWhileCond.h"
+#include "isRATStopped.h"
 #include "leftWin.h"
 #include "mergesort.h"
 #include "print_processing.h"
@@ -67,12 +69,15 @@ namespace RAT
     real_T b;
     real_T fWeight;
     int32_T iv[4];
+    int32_T b_FVr_a1;
     int32_T i;
     int32_T i1;
     int32_T i2;
     int32_T k;
     int32_T loop_ub;
     int32_T loop_ub_tmp;
+    boolean_T exitg1;
+    boolean_T tmp_data;
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     //  Function:         [FVr_bestmem,S_bestval,I_nfeval] = deopt(fname,S_struct)
@@ -154,6 +159,7 @@ namespace RAT
     //  Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     // -----This is just for notational convenience and to keep the code uncluttered.--------
+    //  stopflag = 0;
     I_NP = S_struct->I_NP;
     fWeight = S_struct->fWeight;
     F_CR = S_struct->F_CR;
@@ -184,7 +190,7 @@ namespace RAT
     loop_ub_tmp = static_cast<int32_T>(S_struct->I_D);
     FM_pop.set_size(i, loop_ub_tmp);
 
-    // initialize FM_pop to gain speed
+    // initialise FM_pop to gain speed
     // ----FM_pop is a matrix of size I_NPx(I_D+1). It will be initialized------
     // ----with random values between the min and max values of the-------------
     // ----parameters-----------------------------------------------------------
@@ -239,12 +245,12 @@ namespace RAT
     // ------FM_popold is the population which has to compete. It is--------
     // ------static through one iteration. FM_pop is the newly--------------
     // ------emerging population.----------------------------------------
-    //  initialize population matrix 1
-    //  initialize population matrix 2
-    //  initialize population matrix 3
-    //  initialize population matrix 4
-    //  initialize population matrix 5
-    //  initialize FVr_bestmember  matrix
+    //  initialise population matrix 1
+    //  initialise population matrix 2
+    //  initialise population matrix 3
+    //  initialise population matrix 4
+    //  initialise population matrix 5
+    //  initialise FVr_bestmember  matrix
     //  intermediate population of perturbed vectors
     //  mask for intermediate population
     //  mask for old population
@@ -279,9 +285,9 @@ namespace RAT
     //
     // FM_pop = zeros(I_NP,2);
     I_iter = 1.0;
-    while ((I_iter < I_itermax) && (S_bestval_FVr_oa > S_struct->F_VTR)) {
-      int32_T b_FVr_a1;
-
+    exitg1 = false;
+    while ((!exitg1) && ((I_iter < I_itermax) && (S_bestval_FVr_oa >
+             S_struct->F_VTR))) {
       //  save the old population
       // S_struct.FM_pop = FM_pop;
       coder::b_rand(p);
@@ -395,13 +401,13 @@ namespace RAT
       for (i1 = 0; i1 < loop_ub; i1++) {
         b_FVr_a1 = FM_pop.size(0);
         for (i2 = 0; i2 < b_FVr_a1; i2++) {
-          boolean_T b_b;
-          b_b = FM_mui[i2 + FM_mui.size(0) * i1];
+          tmp_data = FM_mui[i2 + FM_mui.size(0) * i1];
           FM_ui[i2 + FM_ui.size(0) * i1] = FM_pop[i2 + FM_pop.size(0) * i1] *
-            static_cast<real_T>(static_cast<real_T>(b_b) < 0.5) + (FM_pm3[i2 +
-            FM_pm3.size(0) * i1] + (FM_pop[(static_cast<int32_T>(FVr_a1[i2]) +
-            FM_pop.size(0) * i1) - 1] - FM_pop[(static_cast<int32_T>(FVr_a2[i2])
-            + FM_pop.size(0) * i1) - 1]) * b) * static_cast<real_T>(b_b);
+            static_cast<real_T>(static_cast<real_T>(tmp_data) < 0.5) +
+            (FM_pm3[i2 + FM_pm3.size(0) * i1] + (FM_pop[(static_cast<int32_T>
+               (FVr_a1[i2]) + FM_pop.size(0) * i1) - 1] - FM_pop
+              [(static_cast<int32_T>(FVr_a2[i2]) + FM_pop.size(0) * i1) - 1]) *
+             b) * static_cast<real_T>(tmp_data);
         }
       }
 
@@ -471,7 +477,7 @@ namespace RAT
       //  iteration. This is needed for some of the strategies.
       // ----Output section----------------------------------------------------------
       if (((rt_remd_snf(I_iter, 1.0) == 0.0) || (I_iter == 1.0)) && coder::
-          internal::v_strcmp(controls->display.data, controls->display.size)) {
+          internal::w_strcmp(controls->display.data, controls->display.size)) {
         coder::internal::print_processing(I_iter, S_bestval_FVr_oa, fWeight,
           F_CR, I_NP, validatedHoleFilling);
         printf("Iteration: %g,  Best: %f,  fWeight: %f,  F_CR: %f,  I_NP: %g\n\n",
@@ -489,6 +495,7 @@ namespace RAT
         //          if (I_plotting == 1)
         //             PlotIt(FVr_bestmem,problem);
         //          end
+        //         stopflag = 0;
       }
 
       //  Trigger the output event...
@@ -502,13 +509,28 @@ namespace RAT
                      problemCells->f21);
       }
 
-      I_iter++;
+      isRATStopped(controls->IPCFilePath.data, controls->IPCFilePath.size,
+                   (boolean_T *)&tmp_data, &b_FVr_a1);
+      if (coder::internal::ifWhileCond((const boolean_T *)&tmp_data, b_FVr_a1))
+      {
+        if (!coder::internal::p_strcmp(controls->display.data,
+             controls->display.size)) {
+          printf("Optimisation terminated by user\n");
+          fflush(stdout);
+        }
+
+        exitg1 = true;
+      } else {
+        //    if stopflag == 0
+        I_iter++;
+
+        //    else
+        //        I_iter = I_itermax + 1;
+        //    end
+      }
     }
 
     // ---end while ((I_iter < I_itermax) ...
-    //  problemStruct.fitParams = x;
-    //  problemStruct = unpackParams(problemStruct,controls);
-    //  res = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
   }
 }
 

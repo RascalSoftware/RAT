@@ -152,7 +152,7 @@ namespace RAT
         fV_data = 1.0;
         const_data = (x < VS);
         b_const_data.set(&const_data, 1, 1);
-        if (coder::internal::ifWhileCond(b_const_data)) {
+        if (coder::internal::b_ifWhileCond(b_const_data)) {
           b = 2.0 / static_cast<real_T>(u.size(1));
           if (std::floor(b) == b) {
             x = VS / x;

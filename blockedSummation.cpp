@@ -19,8 +19,6 @@ namespace RAT
   namespace coder
   {
     static real_T b_nestedIter(const ::coder::array<real_T, 2U> &x, int32_T vlen);
-    static void b_nestedIter(const ::coder::array<real_T, 2U> &x, int32_T vlen, ::
-      coder::array<real_T, 2U> &y);
     static void nestedIter(const ::coder::array<real_T, 2U> &x, int32_T vlen, ::
       coder::array<real_T, 1U> &y);
   }
@@ -81,22 +79,6 @@ namespace RAT
       }
 
       return y;
-    }
-
-    static void b_nestedIter(const ::coder::array<real_T, 2U> &x, int32_T vlen, ::
-      coder::array<real_T, 2U> &y)
-    {
-      int32_T i;
-      y.set_size(1, x.size(1));
-      i = x.size(1);
-      for (int32_T k{0}; k < i; k++) {
-        y[k] = x[x.size(0) * k];
-        for (int32_T b_k{2}; b_k <= vlen; b_k++) {
-          if (vlen >= 2) {
-            y[k] = y[k] + x[(b_k + x.size(0) * k) - 1];
-          }
-        }
-      }
     }
 
     static void nestedIter(const ::coder::array<real_T, 2U> &x, int32_T vlen, ::
@@ -192,10 +174,15 @@ namespace RAT
     void blockedSummation(const ::coder::array<real_T, 2U> &x, int32_T vlen, ::
                           coder::array<real_T, 2U> &y)
     {
-      if (x.size(1) == 0) {
-        y.set_size(1, 0);
+      if ((x.size(0) == 0) || (x.size(1) == 0) || (vlen == 0)) {
+        int32_T loop_ub;
+        y.set_size(1, x.size(1));
+        loop_ub = x.size(1);
+        for (int32_T i{0}; i < loop_ub; i++) {
+          y[i] = 0.0;
+        }
       } else {
-        b_nestedIter(x, vlen, y);
+        nestedIter(x, vlen, y);
       }
     }
 

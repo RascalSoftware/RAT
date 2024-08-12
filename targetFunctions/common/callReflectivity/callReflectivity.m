@@ -1,4 +1,4 @@
-function [reflectivity, simulation] = callReflectivity(bulkIns,bulkOuts,simLimits,repeatLayers,thisData,layers,ssubs,resolution,parallel,refType,useImaginary)
+function [reflectivity, simulation] = callReflectivity(bulkIn,bulkOut,simLimits,repeatLayers,thisData,layers,ssubs,resolution,parallel,refType,useImaginary)
 
 xdata = thisData(:,1);
 
@@ -15,7 +15,7 @@ end
  
 if isempty(layers)
     % No layers defined. Make a zeros dummy zero layer 
-    layers = [0 bulkIns 0];
+    layers = [0 bulkIn 0];
 end
 
 nLayers = size(layers,1);
@@ -26,25 +26,19 @@ nLayersTot = (nLayers * nRepeats) + 2;
 % Make arrays for thick, sld, rough
 thicks = zeros(nLayersTot,1);
 sldArray = zeros(nLayersTot,1);
+slds = complex(sldArray,sldArray);
 roughs = zeros(nLayersTot,1);
-
-if useImaginary
-    slds = complex(sldArray,sldArray);
-else
-    slds = sldArray;
-end
 
 % Populate the d,rho,sig arrays...
 layerCount = 2;
 for m = 1:nRepeats
     for n = 1:nLayers
         thisLayer = layers(n,:);
+        thicks(layerCount) = thisLayer(1);
         if ~useImaginary
-            thicks(layerCount) = thisLayer(1);
-            slds(layerCount) = thisLayer(2);
+            slds(layerCount) = complex(thisLayer(2), eps);
             roughs(layerCount) = thisLayer(3);
         else
-            thicks(layerCount) = thisLayer(1);
             slds(layerCount) = complex(thisLayer(2),thisLayer(3));
             roughs(layerCount) = thisLayer(4);
         end
@@ -53,8 +47,8 @@ for m = 1:nRepeats
 end
 
 % Add the air and substrate parameters
-slds(1) = bulkIns;
-slds(end) = bulkOuts;
+slds(1) = complex(bulkIn, eps);
+slds(end) = complex(bulkOut, eps);
 roughs(end) = ssubs;
 
 simXLo = simLimits(1);

@@ -18,12 +18,9 @@ parfor points = 1:length(q)
 
     Q = q(points);
 
-    if isreal(layers_rho_1)
-        bulk_in_SLD = complex(layers_rho_1,tiny);
-    else
-        bulk_in_SLD = layers_rho_1;
-        bulk_in_SLD = bulk_in_SLD + complex(0,tiny);
-    end
+    bulk_in_SLD = layers_rho_1;
+    bulk_in_SLD = bulk_in_SLD + complex(0,tiny);
+
     k0 = Q/2;
 
     % Find k1..
@@ -50,10 +47,6 @@ parfor points = 1:length(q)
         % Find kn and k_n+1 (ex. k1 and k2 for n=1): */
         sld_np1 = layers_rho(n + 1);
         sld_np1 = sld_np1 - bulk_in_SLD;
-    
-        if isreal(sld_np1)  % This check may not be necessary
-            sld_np1 = complex(sld_np1,eps);
-        end
     
         kn = kn_ptr;
         knp1 = findkn(k0, sld_np1);

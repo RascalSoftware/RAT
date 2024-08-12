@@ -434,6 +434,7 @@ else
 end
 
 controls.checks = checks;
+controls.IPCFilePath = inputControls.getIPCFilePath();
 
 %% Finally, populate the fitParams, otherParams, fitLimits, otherLimits arrays
 [problemStruct,~] = packParams(problemStruct,problemCells,problemLimits,controls.checks);

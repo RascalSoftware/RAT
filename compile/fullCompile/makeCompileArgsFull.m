@@ -134,6 +134,7 @@ ARGS_1_4_checks.fitBulkOut = coder.typeof(0,[1 maxArraySize],[0 1]);
 ARGS_1_4_checks.fitResolutionParam = coder.typeof(0,[1 maxArraySize],[0 1]);
 ARGS_1_4_checks.fitDomainRatio = coder.typeof(0,[1 maxArraySize],[0 1]);
 ARGS_1_4.checks = coder.typeof(ARGS_1_4_checks);
+ARGS_1_4.IPCFilePath = coder.typeof('X',[1 maxArraySize],[0 1]);
 ARGS{1}{4} = coder.typeof(ARGS_1_4);
 ARGS_1_5 = struct;
 ARG_20 = cell([1 4]);

@@ -88,7 +88,7 @@ coder.varsize('problemStruct.resample',[Inf,1],[1 0]);
 coder.varsize('FVr_bestmem',[1 Inf],[0 1]);
 coder.varsize('FVr_bestmemit',[1 Inf],[0 1]);
 
-stopflag = 0;
+% stopflag = 0;
 I_best_index = 1;      
 
 I_NP         = S_struct.I_NP;
@@ -120,7 +120,7 @@ end
 I_refresh = floor(I_refresh);
 
 %-----Initialize population and some arrays-------------------------------
-FM_pop = zeros(I_NP,I_D); %initialize FM_pop to gain speed
+FM_pop = zeros(I_NP,I_D); %initialise FM_pop to gain speed
 
 %----FM_pop is a matrix of size I_NPx(I_D+1). It will be initialized------
 %----with random values between the min and max values of the-------------
@@ -160,12 +160,12 @@ FVr_bestmem = FVr_bestmemit;            % best member ever
 %------static through one iteration. FM_pop is the newly--------------
 %------emerging population.----------------------------------------
 
-FM_pm1   = zeros(I_NP,I_D);   % initialize population matrix 1
-FM_pm2   = zeros(I_NP,I_D);   % initialize population matrix 2
-FM_pm3   = zeros(I_NP,I_D);   % initialize population matrix 3
-FM_pm4   = zeros(I_NP,I_D);   % initialize population matrix 4
-FM_pm5   = zeros(I_NP,I_D);   % initialize population matrix 5
-FM_bm    = zeros(I_NP,I_D);   % initialize FVr_bestmember  matrix
+FM_pm1   = zeros(I_NP,I_D);   % initialise population matrix 1
+FM_pm2   = zeros(I_NP,I_D);   % initialise population matrix 2
+FM_pm3   = zeros(I_NP,I_D);   % initialise population matrix 3
+FM_pm4   = zeros(I_NP,I_D);   % initialise population matrix 4
+FM_pm5   = zeros(I_NP,I_D);   % initialise population matrix 5
+FM_bm    = zeros(I_NP,I_D);   % initialise FVr_bestmember  matrix
 FM_ui    = zeros(I_NP,I_D);   % intermediate population of perturbed vectors
 FM_mui   = zeros(I_NP,I_D);   % mask for intermediate population
 FM_mpo   = zeros(I_NP,I_D);   % mask for old population
@@ -187,7 +187,7 @@ FM_meanv = ones(I_NP,I_D);
 %
 %FM_pop = zeros(I_NP,2);
 I_iter = 1;
-while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
+while ((I_iter < I_itermax) && (S_bestval.FVr_oa(1) > F_VTR))
   FM_popold = FM_pop;                  % save the old population
   %S_struct.FM_pop = FM_pop;
   S_struct.FVr_bestmem = FVr_bestmem;
@@ -316,7 +316,7 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
 %         if (I_plotting == 1)
 %            PlotIt(FVr_bestmem,problem); 
 %         end
-        stopflag = 0;
+%        stopflag = 0;
         
      end
     
@@ -325,19 +325,18 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
         [~,result] = fname(FVr_bestmem,problem,problemCells,problemLimits,controls);
         triggerEvent(coderEnums.eventTypes.Plot, result, problem, problemCells);
      end
-
+    
+     if isRATStopped(controls.IPCFilePath)
+        if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
+            fprintf('Optimisation terminated by user\n');
+        end
+        break;
+     end
   end
-  if stopflag == 0
-    I_iter = I_iter + 1;
-  else
-      I_iter = I_itermax + 1;
-  end
+%   if stopflag == 0
+  I_iter = I_iter + 1;
+%   else
+%       I_iter = I_itermax + 1;
+%   end
 end %---end while ((I_iter < I_itermax) ...
-
-
-
-% problemStruct.fitParams = x;
-% problemStruct = unpackParams(problemStruct,controls);
-% res = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
-
-
+end

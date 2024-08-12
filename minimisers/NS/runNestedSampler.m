@@ -43,7 +43,7 @@ nParams = length(fitNames);
 % chain = nest_samples(:,1:end-1);
 chain = postSamples(:,1:nParams);
 
-bayesOutputs.bestParams = mean(chain);
+bayesOutputs.bestParams = mean(chain, 1);
 bayesOutputs.chain = chain;
 bayesOutputs.fitNames = fitNames;
 bayesOutputs.s2chain = [];

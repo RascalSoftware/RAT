@@ -1,6 +1,6 @@
 classdef notImplemented < MException
     properties (Constant, Hidden)    
-        errorID = 'RAT:notImplemented';
+        errorID = 'RAT:NotImplemented';
     end
     methods
         function obj = notImplemented(message)

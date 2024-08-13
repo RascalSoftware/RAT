@@ -35,19 +35,19 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     % (2) result.contrastParams
 
     backgroundParams = zeros(nContrasts,1);
-    coder.varsize('backgroundParams',[10000 1],[1 0]);
+    coder.varsize('backgroundParams',[100 1],[1 0]);
     scalefactors = zeros(nContrasts,1);
-    coder.varsize('scalefactors',[10000 1],[1 0]);
+    coder.varsize('scalefactors',[100 1],[1 0]);
     bulkIn = zeros(nContrasts,1);
-    coder.varsize('bulkIn',[10000 1],[1 0]);
+    coder.varsize('bulkIn',[100 1],[1 0]);
     bulkOut = zeros(nContrasts,1);
-    coder.varsize('bulkOut',[10000 1],[1 0]);
+    coder.varsize('bulkOut',[100 1],[1 0]);
     resolutionParams = zeros(nContrasts,1);
-    coder.varsize('resolutionParams',[10000 1],[1 0]);
+    coder.varsize('resolutionParams',[100 1],[1 0]);
     subRoughs = zeros(nContrasts,1);
-    coder.varsize('subRoughs',[10000 1],[1 0]);
+    coder.varsize('subRoughs',[100 1],[1 0]);
     resample = zeros(1, nContrasts);
-    coder.varsize('resample',[1 10000],[0 1]);
+    coder.varsize('resample',[1 100],[0 1]);
         
     contrastParams = struct('backgroundParams', backgroundParams, ...
                             'scalefactors', scalefactors, ...
@@ -102,7 +102,7 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     if domains
         sldProfiles = cell(nContrasts,2);
         domainSldProfileCell = [1 1; 1 1];
-        coder.varsize('domainSldProfileCell',[10000 inf],[1 1]);
+        coder.varsize('domainSldProfileCell',[10000 2],[1 1]);
         for i = 1:nContrasts
             sldProfiles{i,1} = domainSldProfileCell;
             sldProfiles{i,2} = domainSldProfileCell;
@@ -134,11 +134,11 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     end
     
     fitParams = zeros(1,nParams);
-    coder.varsize('fitParams',[1 10000],[0 1]);
+    coder.varsize('fitParams',[1 100],[0 1]);
     
     fitNames = cell(nParams,1);
     fitNamesChar = '';
-    coder.varsize('fitNamesChar',[1 1000],[0 1]);
+    coder.varsize('fitNamesChar',[1 100],[0 1]);
     for i = 1:nParams
         fitNames{i} = fitNamesChar;
     end

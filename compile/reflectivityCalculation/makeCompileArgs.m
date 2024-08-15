@@ -4,7 +4,8 @@ function ARGS = makeCompileArgs()
 % using codegen.
 
 %% Define argument types for entry-point 'reflectivityCalculation'.
-maxArraySize = 10000;
+maxArraySize = 100;
+maxDataSize = 10000;
 
 ARGS = cell(1,1);
 ARGS{1} = cell(3,1);
@@ -44,7 +45,7 @@ ARGS{1}{1} = coder.typeof(ARGS_1_1);
 ARGS_1_2 = cell([1 21]);
 ARG = coder.typeof(0,[1 2]);
 ARGS_1_2{1} = coder.typeof({ARG}, [1 maxArraySize],[0 1]);
-ARG = coder.typeof(0,[maxArraySize  5],[1 1]);
+ARG = coder.typeof(0,[maxDataSize  5],[1 1]);
 ARGS_1_2{2} = coder.typeof({ARG}, [1 maxArraySize],[0 1]);
 ARG = coder.typeof(0,[1 2]);
 ARGS_1_2{3} = coder.typeof({ARG}, [1 maxArraySize],[0 1]);

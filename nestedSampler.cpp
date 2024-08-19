@@ -176,6 +176,7 @@ namespace RAT
       nest_samples[nest_samples.size(0) * i] = 0.0;
     }
 
+    //  check certain values are positive integers or zero
     //  draw the set of initial live points from the prior
     loop_ub_tmp = static_cast<int32_T>(nLive);
     livepoints.set_size(loop_ub_tmp, prior.size(0));

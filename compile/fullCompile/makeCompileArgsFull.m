@@ -4,7 +4,7 @@ function ARGS = makeCompileArgsFull()
 % using codegen.
 
 %% Define argument types for entry-point 'RATMain'.
-maxArraySize = 100;
+maxArraySize = 10000;
 maxDataSize = 10000;
 
 ARGS = cell(1,1);

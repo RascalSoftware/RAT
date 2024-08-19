@@ -4,7 +4,7 @@ function ARGS = makeCompileArgs()
 % using codegen.
 
 %% Define argument types for entry-point 'reflectivityCalculation'.
-maxArraySize = 100;
+maxArraySize = 10000;
 maxDataSize = 10000;
 
 ARGS = cell(1,1);

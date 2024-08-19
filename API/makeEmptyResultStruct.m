@@ -21,6 +21,8 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     %           fitNames: [nParamsx1 cell]
     
     % -----------------------------------------------------------
+    maxArraySize = 10000;
+
     % Make the individual structs....
     % (1) result.calculationResults
 
@@ -35,19 +37,19 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     % (2) result.contrastParams
 
     backgroundParams = zeros(nContrasts,1);
-    coder.varsize('backgroundParams',[100 1],[1 0]);
+    coder.varsize('backgroundParams',[maxArraySize 1],[1 0]);
     scalefactors = zeros(nContrasts,1);
-    coder.varsize('scalefactors',[100 1],[1 0]);
+    coder.varsize('scalefactors',[maxArraySize 1],[1 0]);
     bulkIn = zeros(nContrasts,1);
-    coder.varsize('bulkIn',[100 1],[1 0]);
+    coder.varsize('bulkIn',[maxArraySize 1],[1 0]);
     bulkOut = zeros(nContrasts,1);
-    coder.varsize('bulkOut',[100 1],[1 0]);
+    coder.varsize('bulkOut',[maxArraySize 1],[1 0]);
     resolutionParams = zeros(nContrasts,1);
-    coder.varsize('resolutionParams',[100 1],[1 0]);
+    coder.varsize('resolutionParams',[maxArraySize 1],[1 0]);
     subRoughs = zeros(nContrasts,1);
-    coder.varsize('subRoughs',[100 1],[1 0]);
+    coder.varsize('subRoughs',[maxArraySize 1],[1 0]);
     resample = zeros(1, nContrasts);
-    coder.varsize('resample',[1 100],[0 1]);
+    coder.varsize('resample',[1 maxArraySize],[0 1]);
         
     contrastParams = struct('backgroundParams', backgroundParams, ...
                             'scalefactors', scalefactors, ...
@@ -62,21 +64,21 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
 
     reflectivity = cell(nContrasts,1);
     refCell = [1 1; 1 1];
-    coder.varsize('refCell',[10000 2],[1 0]);
+    coder.varsize('refCell',[maxArraySize 2],[1 0]);
     for i = 1:nContrasts
         reflectivity{i} = refCell;
     end
     
     simulation = cell(nContrasts,1);
     simCell = [1 1; 1 1];
-    coder.varsize('simCell',[10000 2],[1 0]);
+    coder.varsize('simCell',[maxArraySize 2],[1 0]);
     for i = 1:nContrasts
         simulation{i} = simCell;
     end
     
     shiftedData = cell(nContrasts,1);
     shiftCell = [1 1 1; 1 1 1];
-    coder.varsize('shiftCell',[10000 3],[1 0]);
+    coder.varsize('shiftCell',[maxArraySize 3],[1 0]);
     for i = 1:nContrasts
         shiftedData{i} = shiftCell;
     end
@@ -84,7 +86,7 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     if domains
         layerSlds = cell(nContrasts,2);
         domainLayerSldCell = [1 1 1; 1 1 1];
-        coder.varsize('domainLayerSldCell',[10000 6],[1 1]);
+        coder.varsize('domainLayerSldCell',[maxArraySize 6],[1 1]);
         for i = 1:nContrasts
             layerSlds{i,1} = domainLayerSldCell;
             layerSlds{i,2} = domainLayerSldCell;
@@ -92,7 +94,7 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     else
         layerSlds = cell(nContrasts,1);
         layerSldCell = [1 1 1; 1 1 1];
-        coder.varsize('layerSldCell',[10000 6],[1 1]);
+        coder.varsize('layerSldCell',[maxArraySize 6],[1 1]);
         for i = 1:nContrasts
             layerSlds{i} = layerSldCell;
         end
@@ -102,7 +104,7 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     if domains
         sldProfiles = cell(nContrasts,2);
         domainSldProfileCell = [1 1; 1 1];
-        coder.varsize('domainSldProfileCell',[10000 2],[1 1]);
+        coder.varsize('domainSldProfileCell',[maxArraySize 2],[1 1]);
         for i = 1:nContrasts
             sldProfiles{i,1} = domainSldProfileCell;
             sldProfiles{i,2} = domainSldProfileCell;
@@ -110,7 +112,7 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     else
         sldProfiles = cell(nContrasts,1);
         sldProfileCell = [1 1; 1 1];
-        coder.varsize('sldProfileCell',[10000 2],[1 0]);
+        coder.varsize('sldProfileCell',[maxArraySize 2],[1 0]);
         for i = 1:nContrasts
             sldProfiles{i,1} = sldProfileCell;
         end
@@ -119,7 +121,7 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     if domains
         resampledLayers = cell(nContrasts,2);
         domainResampledLayersCell = [1 1 1; 1 1 1];
-        coder.varsize('domainResampledLayersCell',[10000 3],[1 0]);
+        coder.varsize('domainResampledLayersCell',[maxArraySize 3],[1 0]);
         for i = 1:nContrasts
             resampledLayers{i,1} = domainResampledLayersCell;
             resampledLayers{i,2} = domainResampledLayersCell;
@@ -127,18 +129,18 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     else
         resampledLayers = cell(nContrasts,1);
         resampledLayersCell = [1 1 1; 1 1 1];
-        coder.varsize('resampledLayersCell',[10000 3],[1 0]);
+        coder.varsize('resampledLayersCell',[maxArraySize 3],[1 0]);
         for i = 1:nContrasts
             resampledLayers{i} = resampledLayersCell;
         end
     end
     
     fitParams = zeros(1,nParams);
-    coder.varsize('fitParams',[1 100],[0 1]);
+    coder.varsize('fitParams',[1 maxArraySize],[0 1]);
     
     fitNames = cell(nParams,1);
     fitNamesChar = '';
-    coder.varsize('fitNamesChar',[1 100],[0 1]);
+    coder.varsize('fitNamesChar',[1 maxArraySize],[0 1]);
     for i = 1:nParams
         fitNames{i} = fitNamesChar;
     end

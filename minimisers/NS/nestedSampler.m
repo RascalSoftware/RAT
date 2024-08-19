@@ -73,7 +73,16 @@ D = size(prior,1);
 % initialise array of samples for posterior
 nest_samples = zeros(1,D+1);
 coder.varsize('nest_samples',[1e5 50],[1 1]);
-    
+
+% check certain values are positive integers or zero
+if mod(nMCMC, 1) ~= 0 || nMCMC < 0
+    error('Error... nMCMC must be an integer >= 0')
+end
+
+if mod(nLive, 1) ~= 0 || nLive < 0
+    error('Error... nLive must be an integer >= 0')
+end
+
 % draw the set of initial live points from the prior
 livepoints = zeros(nLive, D);
 

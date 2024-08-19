@@ -7,7 +7,7 @@
 toRun = [0 1 2 3 6 7];
 
 for i = 1:length(toRun)
-    thisFile = sprintf('orso_test%d()',toRun(i));
+    thisFile = sprintf('orsoTest%d()',toRun(i));
     out = eval(thisFile);
     if out < 1e-10
         status = 'passed';

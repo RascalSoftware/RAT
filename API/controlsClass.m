@@ -212,7 +212,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
 
         function set.nChains(obj,val)
             validateNumber(val, 'nChains must be a whole number', true);
-            if (val <= 0 || isnan(val) || isinf(val))
+            if val <= 0
                 throw(exceptions.invalidValue('nChains must be a finite integer greater than 0'));
             end
             obj.nChains = val;

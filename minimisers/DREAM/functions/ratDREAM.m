@@ -161,9 +161,7 @@ end
 % Now print to screen all the settings
 controls = ratInputs.controls;
 if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
-    fprintf('------------------ Summary of the main settings used ------------------\n');
-    disp(DREAMPar);
-    fprintf('-----------------------------------------------------------------------\n');
+    printParameters(DREAMPar);
 end
 % Now check how the measurement sigma is arranged (estimated or defined)
 %
@@ -276,7 +274,7 @@ for t = T_start : DREAMPar.nGenerations
     
     if isRATStopped(controls.IPCFilePath)
         if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
-            fprintf('Optimisation terminated by user\n');
+            triggerEvent(coderEnums.eventTypes.Message, sprintf('Optimisation terminated by user\n'));
         end
         break;
     end
@@ -299,4 +297,31 @@ output.iloc = iloc;
 % Close the waitbar
 triggerEvent(coderEnums.eventTypes.Progress, 'DREAM', 1);
 %close(h);
+end
+
+
+function printParameters(DREAMPar)
+    % Print the dream parameters
+    coder.varsize('setting', [1 Inf], [0 1]);
+    setting = sprintf('------------------ Summary of the main settings used ------------------\n');
+    names = fieldnames(DREAMPar);
+    bools = {'false', 'true'};
+    for k=1:numel(names)
+        setting = strjoin({setting, sprintf('%25s: ', names{k})});
+        value = DREAMPar.(names{k});
+        if isnumeric(value)
+            if numel(value) ~= 1
+                dim = size(value);
+                setting = strjoin({setting, sprintf('[%gx%g %s]\n', dim(1), dim(2), class(value))});
+            else
+                setting = strjoin({setting, sprintf('%.8g\n', value(1))});
+            end
+        elseif islogical(value)
+            setting = strjoin({setting, sprintf('%s\n', bools{double(value) + 1})});
+        else
+            setting = strjoin({setting, sprintf('''%s''\n', value)});
+        end
+    end
+    setting = strjoin({setting, sprintf('-----------------------------------------------------------------------\n')});
+    triggerEvent(coderEnums.eventTypes.Message, setting);
 end

@@ -203,7 +203,7 @@ if ( N < 61 ) && ( N > 2 )
 else
     if N >= 61
         N = 60; n_ind = size(peirce_r,1);
-        fprintf('DREAMPar.nChains > 60; using Peirce r-values for DREAMPar.nChains is 60');
+        triggerEvent(coderEnums.eventTypes.Message, 'DREAMPar.nChains > 60; using Peirce r-values for DREAMPar.nChains is 60');
     end
     if N < 2
         error('Insufficient number of chains to apply Peirce diagnostic');

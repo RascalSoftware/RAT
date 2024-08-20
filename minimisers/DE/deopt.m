@@ -107,15 +107,15 @@ I_plotting   = S_struct.I_plotting;
 %-----Check input variables---------------------------------------------
 if (I_NP < 5)
    I_NP=5;
-   fprintf(1,' I_NP increased to minimal value 5\n');
+   triggerEvent(coderEnums.eventTypes.Message, sprintf('I_NP increased to minimal value 5\n'));
 end
 if ((F_CR < 0) | (F_CR > 1))
    F_CR=0.5;
-   fprintf(1,'F_CR should be from interval [0,1]; set to default value 0.5\n');
+   triggerEvent(coderEnums.eventTypes.Message, sprintf('F_CR should be from interval [0,1]; set to default value 0.5\n'));
 end
 if (I_itermax <= 0)
    I_itermax = 200;
-   fprintf(1,'I_itermax should be > 0; set to default value 200\n');
+   triggerEvent(coderEnums.eventTypes.Message, sprintf('I_itermax should be > 0; set to default value 200\n'));
 end
 I_refresh = floor(I_refresh);
 
@@ -305,7 +305,8 @@ while ((I_iter < I_itermax) && (S_bestval.FVr_oa(1) > F_VTR))
 
   if (I_refresh > 0)
      if ((rem(I_iter,I_refresh) == 0) || I_iter == 1) && strcmpi(controls.display, coderEnums.displayOptions.Iter)
-       fprintf('Iteration: %g,  Best: %f,  fWeight: %f,  F_CR: %f,  I_NP: %g\n\n', I_iter,S_bestval.FVr_oa(1),fWeight,F_CR,I_NP);
+      triggerEvent(coderEnums.eventTypes.Message, ...
+                   sprintf('Iteration: %g,  Best: %f,  fWeight: %f,  F_CR: %f,  I_NP: %g\n\n', I_iter,S_bestval.FVr_oa(1),fWeight,F_CR,I_NP));
 
        %disp(S_bestval);
        %var(FM_pop)
@@ -328,7 +329,7 @@ while ((I_iter < I_itermax) && (S_bestval.FVr_oa(1) > F_VTR))
     
      if isRATStopped(controls.IPCFilePath)
         if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
-            fprintf('Optimisation terminated by user\n');
+            triggerEvent(coderEnums.eventTypes.Message, sprintf('Optimisation terminated by user\n'));
         end
         break;
      end

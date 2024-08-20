@@ -271,12 +271,12 @@ while tol > tolerance || j <= nLive
     
     % display progress (optional)
     if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
-        fprintf('log(Z): %.5e, tol = %.5e, K = %d, iteration = %d, H = %.5e\n', ...
-                 logZ, tol, int32(K), int32(j), H);
+        triggerEvent(coderEnums.eventTypes.Message, sprintf('log(Z): %.5e, tol = %.5e, K = %d, iteration = %d, H = %.5e\n', ...
+                 logZ, tol, int32(K), int32(j), H));
     end
     if isRATStopped(controls.IPCFilePath)
         if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
-            fprintf('Optimisation terminated by user\n');
+            triggerEvent(coderEnums.eventTypes.Message, sprintf('Optimisation terminated by user\n'));
         end
         break;
     end

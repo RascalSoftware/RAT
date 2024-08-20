@@ -84,7 +84,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         end
 
         function set.updatePlotFreq(obj, val)
-            validateNumber(val, 'updatePlotFreq must be a number');
+            validateNumber(val, 'updatePlotFreq must be a whole number', true);
             if val < 1
                 throw(exceptions.invalidValue('updatePlotFreq must be greater or equal to 1'));
             end
@@ -117,16 +117,16 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         end
 
         function set.maxFuncEvals(obj, val)
-            obj.maxFuncEvals = validateNumber(val, 'maxFuncEvals must be a number');
+            obj.maxFuncEvals = validateNumber(val, 'maxFuncEvals must be a whole number', true);
         end
 
         function set.maxIterations(obj, val)
-            obj.maxIterations = validateNumber(val, 'maxIterations must be a number');
+            obj.maxIterations = validateNumber(val, 'maxIterations must be a whole number', true);
         end
 
         % DE controls methods
         function set.populationSize(obj, val)
-            validateNumber(val, 'populationSize must be a number');
+            validateNumber(val, 'populationSize must be a whole number', true);
             if val < 1
                 throw(exceptions.invalidValue('populationSize must be greater or equal to 1'));
             end
@@ -161,7 +161,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         end
 
         function set.numGenerations(obj, val)
-            validateNumber(val, 'numGenerations value must be a number');
+            validateNumber(val, 'numGenerations value must be a whole number', true);
             if val < 1
                 throw(exceptions.invalidValue('numGenerations must be greater or equal to 1'));
             end
@@ -170,7 +170,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
 
         % NS control methods
         function set.nLive(obj, val)
-            validateNumber(val, 'nLive must be a number');
+            validateNumber(val, 'nLive must be a whole number', true);
             if val < 1
                 throw(exceptions.invalidValue('nLive must be greater or equal to 1'));
             end
@@ -178,7 +178,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         end
 
         function set.nMCMC(obj, val)
-            validateNumber(val, 'nMCMC must be a number');
+            validateNumber(val, 'nMCMC must be a whole number', true);
             if val < 0
                 throw(exceptions.invalidValue('nMCMC must be greater or equal than 0'));
             end
@@ -203,7 +203,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
 
         % DREAM methods
         function set.nSamples(obj,val)
-            validateNumber(val, 'nSample must be a number ');
+            validateNumber(val, 'nSamples must be a whole number', true);
             if val < 0
                 throw(exceptions.invalidValue('nSample must be greater or equal to 0'));
             end
@@ -211,8 +211,8 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         end
 
         function set.nChains(obj,val)
-            validateNumber(val, 'nChains must be a number ');
-            if (~(round(val) == val) || val <= 0 || isnan(val) || isinf(val))
+            validateNumber(val, 'nChains must be a whole number', true);
+            if val <= 0
                 throw(exceptions.invalidValue('nChains must be a finite integer greater than 0'));
             end
             obj.nChains = val;

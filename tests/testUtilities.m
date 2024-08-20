@@ -22,6 +22,8 @@ classdef testUtilities < matlab.unittest.TestCase
             testCase.verifyEqual(validateNumber([1, 2, 3]), [1, 2, 3], 'validateNumber function is not working');
             testCase.verifyError(@() validateNumber('a'), exceptions.invalidType.errorID);
             testCase.verifyError(@() validateNumber(false), exceptions.invalidType.errorID);
+            testCase.verifyEqual(validateNumber(-1.6, '', false), -1.6, 'validateNumber function is not working');
+            testCase.verifyError(@() validateNumber(-1.6, '', true), exceptions.invalidValue.errorID);
         end
 
         function testValidateOption(testCase)

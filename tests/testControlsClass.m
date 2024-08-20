@@ -94,6 +94,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.updatePlotFreq, 5, 'set.updatePlotFreq method is not working')
             % bad updatePlotFreq type
             testCase.verifyError(@() setUpdatePlotFreq('a'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setUpdatePlotFreq(1.5), exceptions.invalidValue.errorID);
             testCase.verifyError(@() setUpdatePlotFreq(0), exceptions.invalidValue.errorID);
             function setUpdatePlotFreq(value)
                 testCase.controls.updatePlotFreq = value;
@@ -118,16 +119,18 @@ classdef testControlsClass < matlab.unittest.TestCase
 
             testCase.controls.maxFuncEvals = 123;
             testCase.verifyEqual(testCase.controls.maxFuncEvals, 123, 'set.maxFuncEvals method is not working')
-            testCase.verifyError(@setMaxFuncEvals, exceptions.invalidType.errorID);  % bad maxFuncEvals type 
-            function setMaxFuncEvals
-                testCase.controls.maxFuncEvals = 'a';
+            testCase.verifyError(@() setMaxFuncEvals('a'), exceptions.invalidType.errorID);  % bad maxFuncEvals type 
+            testCase.verifyError(@() setMaxFuncEvals(1.5), exceptions.invalidValue.errorID);
+            function setMaxFuncEvals(value)
+                testCase.controls.maxFuncEvals = value;
             end
 
             testCase.controls.maxIterations = 456;
             testCase.verifyEqual(testCase.controls.maxIterations, 456, 'set.maxIterations method is not working')
-            testCase.verifyError(@setMaxIterations, exceptions.invalidType.errorID);  % bad maxIterations type 
-            function setMaxIterations
-                testCase.controls.maxIterations = 'a';
+            testCase.verifyError(@() setMaxIterations('a'), exceptions.invalidType.errorID);  % bad maxIterations type 
+            testCase.verifyError(@() setMaxIterations(1.5), exceptions.invalidValue.errorID);
+            function setMaxIterations(value)
+                testCase.controls.maxIterations = value;
             end
         end
 
@@ -138,6 +141,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             % bad populationSize type
             testCase.verifyError(@() setPopulationSize('a'), exceptions.invalidType.errorID);
             testCase.verifyError(@() setPopulationSize(0), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setPopulationSize(1.5), exceptions.invalidValue.errorID);
             function setPopulationSize(value)
                 testCase.controls.populationSize = value;
             end
@@ -186,6 +190,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             % bad numGenerations type 
             testCase.verifyError(@() setNumGenerations('a'), exceptions.invalidType.errorID);
             testCase.verifyError(@() setNumGenerations(0), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setNumGenerations(1.5), exceptions.invalidValue.errorID);
             function setNumGenerations(value)
                 testCase.controls.numGenerations = value;
             end
@@ -198,6 +203,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             % bad nLive type
             testCase.verifyError(@() setnLive('a'), exceptions.invalidType.errorID);
             testCase.verifyError(@() setnLive(0), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setnLive(1.5), exceptions.invalidValue.errorID);
             function setnLive(value)
                 testCase.controls.nLive = value;
             end
@@ -207,6 +213,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             % bad nMCMC type
             testCase.verifyError(@() setnMCMC('a'), exceptions.invalidType.errorID);
             testCase.verifyError(@() setnMCMC(-1), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setnMCMC(1.5), exceptions.invalidValue.errorID);
             function setnMCMC(value)
                 testCase.controls.nMCMC = value;
             end
@@ -238,6 +245,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             % bad nSamples type
             testCase.verifyError(@() setNSamples('a'), exceptions.invalidType.errorID);
             testCase.verifyError(@() setNSamples(-1), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setNSamples(1.5), exceptions.invalidValue.errorID);
             function setNSamples(value)
                 testCase.controls.nSamples = value;
             end
@@ -604,7 +612,6 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.controls.setProcedure('bayes'), exceptions.invalidOption.errorID);
 
         end
-
 
     end
 end

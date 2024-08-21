@@ -21,11 +21,11 @@ function [problemStruct,fitNames] = packParams(problemStruct,problemCells,limits
                     length(problemStruct.resolutionParams) + ...
                     length(problemStruct.domainRatio);
        
-    fitParams = problemStruct.fitParams;%zeros(numberOfFitted,1);
-    otherParams = zeros((numberOfTotal-numberOfFitted),1);
+    fitParams = zeros(numberOfFitted, 1);
+    otherParams = zeros((numberOfTotal-numberOfFitted), 1);
     fitLimits = zeros(numberOfFitted,2);
     otherLimits = zeros((numberOfTotal-numberOfFitted),2);
-    %limits = problemStruct.limits;
+
     fitNames = cell(numberOfFitted,1);
     for i = 1:numberOfFitted
         fitNames{i} = '';

@@ -305,8 +305,8 @@ while ((I_iter < I_itermax) && (S_bestval.FVr_oa(1) > F_VTR))
 
   if (I_refresh > 0)
      if ((rem(I_iter,I_refresh) == 0) || I_iter == 1) && strcmpi(controls.display, coderEnums.displayOptions.Iter)
-      triggerEvent(coderEnums.eventTypes.Message, ...
-                   sprintf('Iteration: %g,  Best: %f,  fWeight: %f,  F_CR: %f,  I_NP: %g\n\n', I_iter,S_bestval.FVr_oa(1),fWeight,F_CR,I_NP));
+        triggerEvent(coderEnums.eventTypes.Message, ...
+                     sprintf('Iteration: %g,  Best: %f,  fWeight: %f,  F_CR: %f,  I_NP: %g\n\n', I_iter,S_bestval.FVr_oa(1),fWeight,F_CR,I_NP));
 
        %disp(S_bestval);
        %var(FM_pop)

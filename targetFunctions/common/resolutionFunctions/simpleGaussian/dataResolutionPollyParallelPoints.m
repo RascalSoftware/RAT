@@ -1,7 +1,6 @@
 function out = dataResolutionPollyParallelPoints(xdata,ydata,resData,points)
 
 dummydata = zeros(points,1);
-dummyref = ydata;
 
 parfor j = 1:points
     sumg = 0;
@@ -23,7 +22,7 @@ parfor j = 1:points
     for i = ilow:ihi
         g = exp(-1*((xdata(j+i)-xdata(j))/(res*xdata(j)))^2);
         sumg = sumg + g;
-        dummydata(j) = dummydata(j) + dummyref(i+j) * g;
+        dummydata(j) = dummydata(j) + ydata(i+j) * g;
     end
     if (sumg ~= 0)
         dummydata(j) = dummydata(j) / sumg;

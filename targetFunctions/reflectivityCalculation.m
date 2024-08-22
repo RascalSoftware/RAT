@@ -60,7 +60,7 @@ for i = 1:numberOfContrasts
     domainLayerSlds{i,1} = [1 1 1; 1 1 1];
     domainLayerSlds{i,2} = [1 1 1; 1 1 1];
 end
-coder.varsize('domainLayerSlds',[10000 2],[1 1]);
+coder.varsize('domainLayerSlds',[10000 2],[1 0]);
 coder.varsize('domainLayerSlds{:}',[10000 6],[1 1]);
 
 sldProfiles = cell(numberOfContrasts,1);
@@ -74,8 +74,8 @@ for i = 1:numberOfContrasts
     domainSldProfiles{i,1} = [1 1; 1 1];
     domainSldProfiles{i,2} = [1 1; 1 1];
 end
-coder.varsize('domainSldProfiles',[10000 2],[1 1]);
-coder.varsize('domainSldProfiles{:}',[10000 Inf],[1 1]);
+coder.varsize('domainSldProfiles',[10000 2],[1 0]);
+coder.varsize('domainSldProfiles{:}',[10000 2],[1 0]);
 
 resampledLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
@@ -88,7 +88,7 @@ for i = 1:numberOfContrasts
     domainResampledLayers{i,1} = [1 1 1; 1 1 1];
     domainResampledLayers{i,2} = [1 1 1; 1 1 1];
 end
-coder.varsize('domainResampledLayers',[10000 2],[1 1]);
+coder.varsize('domainResampledLayers',[10000 2],[1 0]);
 coder.varsize('domainResampledLayers{:}',[10000 3],[1 0]);
 
 % Decide which target function we are calling and call the relevant routines

@@ -21,8 +21,8 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,pro
                     length(problemStruct.resolutionParams) + ...
                     length(problemStruct.domainRatio);
        
-    fitParams = problemStruct.fitParams;
-    otherParams = zeros((numberOfTotal-numberOfFitted),1);
+    fitParams = zeros(numberOfFitted, 1);
+    otherParams = zeros((numberOfTotal-numberOfFitted), 1);
     fitLimits = zeros(numberOfFitted,2);
     otherLimits = zeros((numberOfTotal-numberOfFitted),2);
     fitNames = cell(numberOfFitted,1);

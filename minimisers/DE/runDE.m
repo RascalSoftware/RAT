@@ -117,7 +117,7 @@ function [S_MSE,result] = intrafun(p,problemStruct,problemCells,problemLimits,co
     coder.varsize('S_MSE.I_no',[1 1],[0 0]);
     coder.varsize('S_MSE.FVr_oa',[1 1],[0 0]);
     
-    problemStruct.fitParams = p;
+    problemStruct.fitParams = p';
     problemStruct = unpackParams(problemStruct,controls);
     result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
     fval = result.calculationResults.sumChi;

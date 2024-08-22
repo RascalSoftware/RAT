@@ -22,48 +22,44 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     % (1) bayesResults.predictionIntervals
     
     reflectivityIntervals = cell(nContrasts,1);
-    reflectivityIntervalsCell = [1 1 1];
-    coder.varsize('reflectivityIntervalsCell',[5 1e4],[1 1]);
+    reflectivityIntervalsCell = ones(5,1);
+    coder.varsize('reflectivityIntervalsCell',[5 1e4],[0 1]);
     for i = 1:nContrasts
         reflectivityIntervals{i} = reflectivityIntervalsCell;
     end
 
+    sldIntervalsCell = ones(5,1);
+    coder.varsize('sldIntervalsCell',[5 1e4],[0 1]);
     if isDomains
         sldIntervals = cell(nContrasts,2);
-        sldIntervalsCell = [1 1 1];
-        coder.varsize('sldIntervalsCell',[5 1e4],[1 1]);
         for i = 1:nContrasts
             sldIntervals{i,1} = sldIntervalsCell;
             sldIntervals{i,2} = sldIntervalsCell;
         end
     else
         sldIntervals = cell(nContrasts,1);
-        sldIntervalsCell = [1 1 1];
-        coder.varsize('sldIntervalsCell',[5 1e4],[1 1]);
         for i = 1:nContrasts
             sldIntervals{i} = sldIntervalsCell;
         end
     end
     
     reflectivityXData = cell(nContrasts,1);
-    xDataCell = [1 1 1];
-    coder.varsize('xDataCell',[1e4 1e4],[1 1]);
+    xDataCell = ones(1,3);
+    coder.varsize('xDataCell',[1 1e4],[0 1]);
     for i = 1:nContrasts
         reflectivityXData{i} = xDataCell;
     end
-    
+
+    sldXDataCell = ones(1,3);
+    coder.varsize('sldXDataCell',[1 1e4],[0 1]);    
     if isDomains
         sldXData = cell(nContrasts,2);
-        sldXDataCell = [1 1 1; 1 1 1];
-        coder.varsize('sldXDataCell',[2 1e4],[1 1]); 
         for i = 1:nContrasts
             sldXData{i,1} = sldXDataCell;
             sldXData{i,2} = sldXDataCell;
         end
     else
         sldXData = cell(nContrasts,1);
-        sldXDataCell = [1 1 1];
-        coder.varsize('sldXDataCell',[2 1e4],[1 1]);
         for i = 1:nContrasts
             sldXData{i} = sldXDataCell;
         end
@@ -120,21 +116,21 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     % -------------------------------------------------------------------
     % (4) bayesResults.dreamOutput
 
-    allChains = [1 1 1];
+    allChains = ones(1,3);
     coder.varsize('allChains',[1e4 50 50],[1 1 1]);
 
-    outlierChains = [1 1];
+    outlierChains = ones(1,2);
     coder.varsize('outlierChains',[1e3 1e3],[1 1]);
     
     iteration = 0;
     
-    AR = [0 0];
+    AR = zeros(1,2);
     coder.varsize('AR',[1e3 1e3],[1 1]);
     
-    R_stat = [0 0];
+    R_stat = zeros(1,2);
     coder.varsize('R_stat',[1e3 1e3],[1 1]);
     
-    CR = [0 0];
+    CR = zeros(1,2);
     coder.varsize('CR',[1e3 1e3],[1 1]);
     
     dreamOutput = struct('allChains', allChains, ...
@@ -152,10 +148,10 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     % Nested Sampler
     LogZ = 0;
     
-    nestSamples = [0 0];
+    nestSamples = zeros(1,2);
     coder.varsize('nestSamples');
     
-    postSamples = [0 0];
+    postSamples = zeros(1,2);
     coder.varsize('postSamples');
     
     nestedSamplerOutput = struct('LogZ',LogZ,'nestSamples',...
@@ -164,7 +160,7 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     % ------------------------------------------------------------------
     % (6) chain
     
-    chain = [0 0];
+    chain = zeros(1,2);
     coder.varsize('chain',[1e6 1e3],[1 1]);
     
     % -------------------------------------------------------------------

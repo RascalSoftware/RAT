@@ -19,6 +19,23 @@ namespace RAT
 {
   namespace coder
   {
+    void b_strjoin(const ::coder::array<char_T, 2U> &c_f1, const char_T c_f2[72],
+                   ::coder::array<char_T, 2U> &joinedStr)
+    {
+      int32_T i;
+      int32_T j;
+      joinedStr.set_size(1, c_f1.size(1) + 73);
+      i = c_f1.size(1);
+      for (j = 0; j < i; j++) {
+        joinedStr[j] = c_f1[j];
+      }
+
+      joinedStr[c_f1.size(1)] = ' ';
+      for (j = 0; j < 72; j++) {
+        joinedStr[(i + j) + 1] = c_f2[j];
+      }
+    }
+
     void strjoin(const ::coder::array<cell_wrap_1, 2U> &c, ::coder::array<char_T,
                  2U> &joinedStr)
     {
@@ -52,6 +69,57 @@ namespace RAT
         for (j = 0; j < num; j++) {
           joinedStr[outidx + j] = c[c.size(1) - 1].f1[j];
         }
+      }
+    }
+
+    void strjoin(const ::coder::array<char_T, 2U> &c_f1, const char_T c_f2[27],
+                 char_T joinedStr_data[], int32_T joinedStr_size[2])
+    {
+      int32_T j;
+      joinedStr_size[0] = 1;
+      joinedStr_size[1] = 100;
+      for (j = 0; j < 72; j++) {
+        joinedStr_data[j] = c_f1[j];
+      }
+
+      joinedStr_data[72] = ' ';
+      for (j = 0; j < 27; j++) {
+        joinedStr_data[j + 73] = c_f2[j];
+      }
+    }
+
+    void strjoin(const ::coder::array<char_T, 2U> &c_f1, const char_T c_f2[27], ::
+                 coder::array<char_T, 2U> &joinedStr)
+    {
+      int32_T i;
+      int32_T j;
+      joinedStr.set_size(1, c_f1.size(1) + 28);
+      i = c_f1.size(1);
+      for (j = 0; j < i; j++) {
+        joinedStr[j] = c_f1[j];
+      }
+
+      joinedStr[c_f1.size(1)] = ' ';
+      for (j = 0; j < 27; j++) {
+        joinedStr[(i + j) + 1] = c_f2[j];
+      }
+    }
+
+    void strjoin(const cell_wrap_1 c[2], ::coder::array<char_T, 2U> &joinedStr)
+    {
+      int32_T i;
+      int32_T i1;
+      int32_T j;
+      joinedStr.set_size(1, (c[0].f1.size(1) + c[1].f1.size(1)) + 1);
+      i = c[0].f1.size(1);
+      for (j = 0; j < i; j++) {
+        joinedStr[j] = c[0].f1[j];
+      }
+
+      joinedStr[c[0].f1.size(1)] = ' ';
+      i1 = c[1].f1.size(1);
+      for (j = 0; j < i1; j++) {
+        joinedStr[(i + j) + 1] = c[1].f1[j];
       }
     }
   }

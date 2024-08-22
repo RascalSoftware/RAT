@@ -20,11 +20,12 @@
 #include "randn.h"
 #include "rescaleParameters.h"
 #include "rt_nonfinite.h"
+#include "sprintf.h"
 #include "strcmp.h"
+#include "triggerEvent.h"
 #include "coder_array.h"
 #include "coder_bounded_array.h"
 #include <cmath>
-#include <stdio.h>
 
 // Function Definitions
 namespace RAT
@@ -38,6 +39,7 @@ namespace RAT
     ::coder::array<real_T, 2U> sampletmp;
     ::coder::array<real_T, 1U> gasdevs;
     ::coder::array<real_T, 1U> r;
+    ::coder::array<char_T, 2U> charStr;
     real_T a[2];
     real_T Ntimes;
     real_T acc;
@@ -249,8 +251,8 @@ namespace RAT
     //  print out acceptance ratio
     if (!coder::internal::p_strcmp(data_f2->display.data, data_f2->display.size))
     {
-      printf("Acceptance ratio: %1.4f, \n\n", acc / (Ntimes * nMCMC));
-      fflush(stdout);
+      coder::b_snPrint(acc / (Ntimes * nMCMC), charStr);
+      triggerEvent(charStr);
     }
   }
 }

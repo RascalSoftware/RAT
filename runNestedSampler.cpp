@@ -36,9 +36,9 @@ namespace RAT
     static d_struct_T c_problemStruct;
     static struct2_T b_controls;
     ::coder::array<cell_wrap_1, 1U> fitNames;
-    ::coder::array<cell_wrap_11, 2U> t10_predictionIntervals_sld;
-    ::coder::array<cell_wrap_11, 1U> t10_predictionIntervals_reflectivity;
-    ::coder::array<cell_wrap_12, 2U> t10_predictionIntervals_sldXData;
+    ::coder::array<cell_wrap_11, 2U> t30_predictionIntervals_sld;
+    ::coder::array<cell_wrap_11, 1U> t30_predictionIntervals_reflectivity;
+    ::coder::array<cell_wrap_12, 2U> t30_predictionIntervals_sldXData;
     ::coder::array<real_T, 2U> b_bayesResults;
     ::coder::array<real_T, 2U> b_expl_temp;
     ::coder::array<real_T, 2U> bayesOutputs_bestParams;
@@ -50,14 +50,14 @@ namespace RAT
     ::coder::array<real_T, 2U> r1;
     c_struct_T expl_temp;
     j_struct_T nestResults;
-    real_T t10_predictionIntervals_sampleChi_data[1000];
+    real_T t30_predictionIntervals_sampleChi_data[1000];
     real_T H;
     real_T logZ;
     int32_T b_loop_ub;
     int32_T i;
     int32_T i1;
     int32_T loop_ub;
-    int32_T t10_predictionIntervals_sampleChi_size;
+    int32_T t30_predictionIntervals_sampleChi_size;
     c_problemStruct = *problemStruct;
     packParams(&c_problemStruct, problemCells->f7, problemCells->f8,
                problemCells->f9, problemCells->f10, problemCells->f11,
@@ -68,10 +68,10 @@ namespace RAT
     //  calculation
     b_makeEmptyBayesResultsStruct(c_problemStruct.numberOfContrasts, coder::
       internal::b_strcmp(c_problemStruct.TF.data, c_problemStruct.TF.size),
-      t10_predictionIntervals_reflectivity, t10_predictionIntervals_sld,
+      t30_predictionIntervals_reflectivity, t30_predictionIntervals_sld,
       bayesResults->predictionIntervals.reflectivityXData,
-      t10_predictionIntervals_sldXData, t10_predictionIntervals_sampleChi_data,
-      &t10_predictionIntervals_sampleChi_size, expl_temp_percentile95,
+      t30_predictionIntervals_sldXData, t30_predictionIntervals_sampleChi_data,
+      &t30_predictionIntervals_sampleChi_size, expl_temp_percentile95,
       expl_temp_percentile65, expl_temp_mean, &bayesResults->dreamParams,
       &bayesResults->dreamOutput, &expl_temp, b_expl_temp);
 
@@ -87,15 +87,15 @@ namespace RAT
     //  Process the results...
     //  chain = nest_samples(:,1:end-1);
     if (1 > fitNames.size(0)) {
-      t10_predictionIntervals_sampleChi_size = 0;
+      t30_predictionIntervals_sampleChi_size = 0;
     } else {
-      t10_predictionIntervals_sampleChi_size = fitNames.size(0);
+      t30_predictionIntervals_sampleChi_size = fitNames.size(0);
     }
 
     loop_ub = bayesResults->nestedSamplerOutput.postSamples.size(0);
     b_bayesResults.set_size(bayesResults->nestedSamplerOutput.postSamples.size(0),
-      t10_predictionIntervals_sampleChi_size);
-    for (i = 0; i < t10_predictionIntervals_sampleChi_size; i++) {
+      t30_predictionIntervals_sampleChi_size);
+    for (i = 0; i < t30_predictionIntervals_sampleChi_size; i++) {
       for (i1 = 0; i1 < loop_ub; i1++) {
         b_bayesResults[i1 + b_bayesResults.size(0) * i] =
           bayesResults->nestedSamplerOutput.postSamples[i1 +
@@ -115,8 +115,8 @@ namespace RAT
     loop_ub = bayesResults->nestedSamplerOutput.postSamples.size(0);
     bayesOutputs_chain.set_size
       (bayesResults->nestedSamplerOutput.postSamples.size(0),
-       t10_predictionIntervals_sampleChi_size);
-    for (i = 0; i < t10_predictionIntervals_sampleChi_size; i++) {
+       t30_predictionIntervals_sampleChi_size);
+    for (i = 0; i < t30_predictionIntervals_sampleChi_size; i++) {
       for (i1 = 0; i1 < loop_ub; i1++) {
         bayesOutputs_chain[i1 + bayesOutputs_chain.size(0) * i] =
           bayesResults->nestedSamplerOutput.postSamples[i1 +
@@ -185,8 +185,8 @@ namespace RAT
     loop_ub = bayesResults->nestedSamplerOutput.postSamples.size(0);
     bayesResults->chain.set_size
       (bayesResults->nestedSamplerOutput.postSamples.size(0),
-       t10_predictionIntervals_sampleChi_size);
-    for (i = 0; i < t10_predictionIntervals_sampleChi_size; i++) {
+       t30_predictionIntervals_sampleChi_size);
+    for (i = 0; i < t30_predictionIntervals_sampleChi_size; i++) {
       for (i1 = 0; i1 < loop_ub; i1++) {
         bayesResults->chain[i1 + bayesResults->chain.size(0) * i] =
           bayesResults->nestedSamplerOutput.postSamples[i1 +

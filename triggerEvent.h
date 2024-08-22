@@ -27,8 +27,18 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
+  void b_triggerEvent();
   void b_triggerEvent(real_T varargin_2);
+  void c_triggerEvent();
+  void d_triggerEvent();
+  void e_triggerEvent();
+  void f_triggerEvent();
+  void g_triggerEvent();
+  void h_triggerEvent();
   void helper_not_empty_init();
+  void i_triggerEvent();
+  void j_triggerEvent();
+  void triggerEvent();
   void triggerEvent(const e_struct_T *varargin_1, const char_T
                     varargin_2_TF_data[], const int32_T varargin_2_TF_size[2],
                     const ::coder::array<real_T, 2U> &varargin_2_resample, const
@@ -36,6 +46,7 @@ namespace RAT
                     char_T varargin_2_modelType_data[], const int32_T
                     varargin_2_modelType_size[2], const ::coder::array<
                     cell_wrap_1, 2U> &varargin_3_f21);
+  void triggerEvent(const ::coder::array<char_T, 2U> &varargin_1);
   void triggerEvent(real_T varargin_2);
   void triggerEvent_init();
 }

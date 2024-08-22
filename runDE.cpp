@@ -16,12 +16,13 @@
 #include "packParams.h"
 #include "reflectivityCalculation.h"
 #include "rt_nonfinite.h"
+#include "sprintf.h"
 #include "strcmp.h"
+#include "triggerEvent.h"
 #include "unpackParams.h"
 #include "coder_array.h"
 #include "coder_bounded_array.h"
 #include <algorithm>
-#include <stdio.h>
 
 // Function Definitions
 namespace RAT
@@ -82,6 +83,7 @@ namespace RAT
 
     ::coder::array<cell_wrap_1, 1U> d_problemStruct;
     ::coder::array<real_T, 2U> res;
+    ::coder::array<char_T, 2U> charStr;
     ::coder::array<int8_T, 2U> S_struct_FM_pop;
     h_struct_T expl_temp;
     int32_T b_loop_ub;
@@ -396,8 +398,8 @@ namespace RAT
       controls, result);
     if (!coder::internal::p_strcmp(controls->display.data,
          controls->display.size)) {
-      printf("Final chi squared is %g\n", result->calculationResults.sumChi);
-      fflush(stdout);
+      coder::snPrint(result->calculationResults.sumChi, charStr);
+      triggerEvent(charStr);
     }
   }
 }

@@ -29,7 +29,6 @@
 #include "coder_bounded_array.h"
 #include <algorithm>
 #include <cmath>
-#include <stdio.h>
 
 // Variable Definitions
 namespace RAT
@@ -109,8 +108,7 @@ namespace RAT
     }
 
     if (display > 0.0) {
-      printf("\n%s\n", "Optimisation terminated by user");
-      fflush(stdout);
+      c_triggerEvent();
     }
   }
 
@@ -169,7 +167,8 @@ namespace RAT
     ::coder::array<real_T, 1U> xr;
     ::coder::array<real_T, 1U> y;
     ::coder::array<int32_T, 2U> iidx;
-    ::coder::array<char_T, 2U> c_varargin_1;
+    ::coder::array<char_T, 2U> b_output;
+    ::coder::array<char_T, 2U> charStr;
     d_struct_T b_varargin_1;
     e_struct_T result;
     real_T b_fv;
@@ -180,6 +179,7 @@ namespace RAT
     real_T fxe;
     real_T fxr;
     real_T itercount;
+    int32_T b_how_size[2];
     int32_T how_size[2];
     int32_T b_index;
     int32_T i;
@@ -189,8 +189,8 @@ namespace RAT
     int32_T prnt;
     int32_T x_idx_1;
     char_T output_message[31];
-    char_T varargin_4_data[17];
-    char_T how_data[16];
+    char_T how_data[17];
+    char_T b_how_data[16];
     boolean_T tmp_data;
 
     // FMINSEARCH Multidimensional unconstrained nonlinear minimization (Nelder-Mead).
@@ -424,12 +424,12 @@ namespace RAT
     //  end
     //  Print out initial f(x) as 0th iteration
     if (prnt == 3) {
-      printf("\n%s\n", " Iteration   Func-count     min f(x)         Procedure");
-      fflush(stdout);
-      varargin_4_data[0] = '\x00';
-      printf(" %5.0f        %5.0f     %12.6g         %s\n", 0.0, 1.0, fv[0],
-             &varargin_4_data[0]);
-      fflush(stdout);
+      b_triggerEvent();
+      how_size[0] = 1;
+      how_size[1] = 1;
+      how_data[0] = '\x00';
+      coder::snPrint(0.0, 1.0, fv[0], how_data, how_size, charStr);
+      triggerEvent(charStr);
 
       //  elseif prnt == 4
       //  Option never used in RAT
@@ -516,20 +516,22 @@ namespace RAT
     }
 
     for (i = 0; i < 15; i++) {
-      how_data[i] = cv5[i];
+      b_how_data[i] = cv5[i];
     }
 
     itercount = 1.0;
     func_evals = static_cast<real_T>(x.size(0)) + 1.0;
     if (prnt == 3) {
+      how_size[0] = 1;
+      how_size[1] = 16;
       for (i = 0; i < 15; i++) {
-        varargin_4_data[i] = how_data[i];
+        how_data[i] = b_how_data[i];
       }
 
-      varargin_4_data[15] = '\x00';
-      printf(" %5.0f        %5.0f     %12.6g         %s\n", 1.0,
-             static_cast<real_T>(x.size(0)) + 1.0, fv[0], &varargin_4_data[0]);
-      fflush(stdout);
+      how_data[15] = '\x00';
+      coder::snPrint(1.0, static_cast<real_T>(x.size(0)) + 1.0, fv[0], how_data,
+                     how_size, charStr);
+      triggerEvent(charStr);
 
       //  elseif prnt == 4
       //      fprintf('%s \n', ' ')
@@ -712,9 +714,9 @@ namespace RAT
                 }
 
                 fv[fv.size(1) - 1] = fxe;
-                how_size[1] = 6;
+                b_how_size[1] = 6;
                 for (i = 0; i < 6; i++) {
-                  how_data[i] = cv9[i];
+                  b_how_data[i] = cv9[i];
                 }
               } else {
                 b_index = v.size(1) - 1;
@@ -724,9 +726,9 @@ namespace RAT
                 }
 
                 fv[fv.size(1) - 1] = fxr;
-                how_size[1] = 7;
+                b_how_size[1] = 7;
                 for (i = 0; i < 7; i++) {
-                  how_data[i] = cv8[i];
+                  b_how_data[i] = cv8[i];
                 }
               }
 
@@ -739,9 +741,9 @@ namespace RAT
               }
 
               fv[fv.size(1) - 1] = fxr;
-              how_size[1] = 7;
+              b_how_size[1] = 7;
               for (i = 0; i < 7; i++) {
-                how_data[i] = cv8[i];
+                b_how_data[i] = cv8[i];
               }
             } else {
               //  fxr >= fv(:,n)
@@ -766,17 +768,17 @@ namespace RAT
                   }
 
                   fv[fv.size(1) - 1] = fxc;
-                  how_size[0] = 1;
-                  how_size[1] = 16;
+                  b_how_size[0] = 1;
+                  b_how_size[1] = 16;
                   for (i = 0; i < 16; i++) {
-                    how_data[i] = cv12[i];
+                    b_how_data[i] = cv12[i];
                   }
                 } else {
                   //  perform a shrink
-                  how_size[0] = 1;
-                  how_size[1] = 6;
+                  b_how_size[0] = 1;
+                  b_how_size[1] = 6;
                   for (i = 0; i < 6; i++) {
-                    how_data[i] = cv10[i];
+                    b_how_data[i] = cv10[i];
                   }
                 }
               } else {
@@ -800,22 +802,22 @@ namespace RAT
                   }
 
                   fv[fv.size(1) - 1] = fxcc;
-                  how_size[0] = 1;
-                  how_size[1] = 15;
+                  b_how_size[0] = 1;
+                  b_how_size[1] = 15;
                   for (i = 0; i < 15; i++) {
-                    how_data[i] = cv11[i];
+                    b_how_data[i] = cv11[i];
                   }
                 } else {
                   //  perform a shrink
-                  how_size[0] = 1;
-                  how_size[1] = 6;
+                  b_how_size[0] = 1;
+                  b_how_size[1] = 6;
                   for (i = 0; i < 6; i++) {
-                    how_data[i] = cv10[i];
+                    b_how_data[i] = cv10[i];
                   }
                 }
               }
 
-              if (coder::internal::v_strcmp(how_data, how_size)) {
+              if (coder::internal::v_strcmp(b_how_data, b_how_size)) {
                 i = static_cast<int32_T>((static_cast<real_T>(n) + 1.0) + -1.0);
                 for (j = 0; j < i; j++) {
                   b_index = v.size(0) - 1;
@@ -866,15 +868,17 @@ namespace RAT
 
             itercount++;
             if (prnt == 3) {
-              x_idx_1 = how_size[1];
+              how_size[0] = 1;
+              how_size[1] = b_how_size[1] + 1;
+              x_idx_1 = b_how_size[1];
               if (0 <= x_idx_1 - 1) {
-                std::copy(&how_data[0], &how_data[x_idx_1], &varargin_4_data[0]);
+                std::copy(&b_how_data[0], &b_how_data[x_idx_1], &how_data[0]);
               }
 
-              varargin_4_data[how_size[1]] = '\x00';
-              printf(" %5.0f        %5.0f     %12.6g         %s\n", itercount,
-                     func_evals, fv[0], &varargin_4_data[0]);
-              fflush(stdout);
+              how_data[b_how_size[1]] = '\x00';
+              coder::snPrint(itercount, func_evals, fv[0], how_data, how_size,
+                             charStr);
+              triggerEvent(charStr);
 
               //      elseif prnt == 4
               //          fprintf('%s \n', ' ')
@@ -988,15 +992,15 @@ namespace RAT
         }
 
         if (printMsg) {
-          c_varargin_1.set_size(1, output->message.size(1) + 1);
+          b_output.set_size(1, output->message.size(1) + 1);
           x_idx_1 = output->message.size(1);
           for (i = 0; i < x_idx_1; i++) {
-            c_varargin_1[i] = output->message[i];
+            b_output[i] = output->message[i];
           }
 
-          c_varargin_1[output->message.size(1)] = '\x00';
-          printf("\n%s\n", &c_varargin_1[0]);
-          fflush(stdout);
+          b_output[output->message.size(1)] = '\x00';
+          coder::snPrint(b_output, charStr);
+          triggerEvent(charStr);
         }
       }
     }

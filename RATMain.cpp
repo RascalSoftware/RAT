@@ -21,10 +21,10 @@
 #include "runNestedSampler.h"
 #include "runSimplex.h"
 #include "strcmp.h"
+#include "triggerEvent.h"
 #include "coder_array.h"
 #include "coder_bounded_array.h"
 #include <algorithm>
-#include <stdio.h>
 
 // Function Declarations
 namespace RAT
@@ -859,8 +859,7 @@ namespace RAT
      case 1:
       if (!coder::internal::p_strcmp(controls->display.data,
            controls->display.size)) {
-        printf("\nRunning simplex\n\n");
-        fflush(stdout);
+        triggerEvent();
       }
 
       cast(problemStruct, &b_problemStruct);
@@ -1002,8 +1001,7 @@ namespace RAT
      case 2:
       if (!coder::internal::p_strcmp(controls->display.data,
            controls->display.size)) {
-        printf("\nRunning Differential Evolution\n\n");
-        fflush(stdout);
+        d_triggerEvent();
       }
 
       cast(problemStruct, &b_problemStruct);
@@ -1016,8 +1014,7 @@ namespace RAT
      case 3:
       if (!coder::internal::p_strcmp(controls->display.data,
            controls->display.size)) {
-        printf("\nRunning Nested Sampler\n\n");
-        fflush(stdout);
+        i_triggerEvent();
       }
 
       cast(problemStruct, &b_problemStruct);
@@ -1030,8 +1027,7 @@ namespace RAT
      case 4:
       if (!coder::internal::p_strcmp(controls->display.data,
            controls->display.size)) {
-        printf("\nRunning DREAM\n\n");
-        fflush(stdout);
+        j_triggerEvent();
       }
 
       cast(problemStruct, &b_problemStruct);

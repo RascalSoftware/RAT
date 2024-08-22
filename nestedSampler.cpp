@@ -37,14 +37,15 @@
 #include "rt_nonfinite.h"
 #include "scaleParameters.h"
 #include "sort.h"
+#include "sprintf.h"
 #include "sqrt1.h"
 #include "strcmp.h"
 #include "sum.h"
+#include "triggerEvent.h"
 #include "useConstantDim.h"
 #include "coder_array.h"
 #include "coder_bounded_array.h"
 #include <cmath>
-#include <stdio.h>
 
 // Function Definitions
 namespace RAT
@@ -71,14 +72,15 @@ namespace RAT
     ::coder::array<real_T, 2U> mus;
     ::coder::array<real_T, 2U> nest_samples_data;
     ::coder::array<real_T, 2U> ns;
-    ::coder::array<real_T, 2U> r1;
+    ::coder::array<real_T, 2U> r2;
     ::coder::array<real_T, 2U> result;
     ::coder::array<real_T, 2U> toAdd;
     ::coder::array<real_T, 1U> b;
     ::coder::array<real_T, 1U> logL;
     ::coder::array<real_T, 1U> r;
-    ::coder::array<real_T, 1U> r2;
+    ::coder::array<real_T, 1U> r3;
     ::coder::array<int32_T, 1U> iidx;
+    ::coder::array<char_T, 2U> r1;
     ::coder::array<boolean_T, 2U> b_FS;
     real_T b_nest_samples_data[49];
     real_T b_dv[2];
@@ -541,12 +543,12 @@ namespace RAT
           (VEs));
         coder::internal::mrdiv(result, Vtot, r);
         drawMultiNest(r, Bs, mus, logLmin, prior, data_f1, data_f2, data_f3,
-                      data_f4, r1, &logL[iindx - 1]);
-        loop_ub = r1.size(1);
+                      data_f4, r2, &logL[iindx - 1]);
+        loop_ub = r2.size(1);
         for (i = 0; i < loop_ub; i++) {
-          sizes_idx_1 = r1.size(0);
+          sizes_idx_1 = r2.size(0);
           for (i1 = 0; i1 < sizes_idx_1; i1++) {
-            livepoints[(iindx + livepoints.size(0) * i) - 1] = r1[r1.size(0) * i];
+            livepoints[(iindx + livepoints.size(0) * i) - 1] = r2[r2.size(0) * i];
           }
         }
       }
@@ -571,9 +573,8 @@ namespace RAT
           i = MAX_int32_T;
         }
 
-        printf("log(Z): %.5e, tol = %.5e, K = %d, iteration = %d, H = %.5e\n",
-               *logZ, tol, K, i, *H);
-        fflush(stdout);
+        coder::b_sprintf(*logZ, tol, K, i, *H, r1);
+        triggerEvent(r1);
       }
 
       isRATStopped(data_f2->IPCFilePath.data, data_f2->IPCFilePath.size,
@@ -581,8 +582,7 @@ namespace RAT
       if (coder::internal::ifWhileCond((const boolean_T *)&tmp_data, sizes_idx_1))
       {
         if (!empty_non_axis_sizes) {
-          printf("Optimisation terminated by user\n");
-          fflush(stdout);
+          h_triggerEvent();
         }
 
         exitg1 = true;
@@ -712,10 +712,10 @@ namespace RAT
 
       nest_samples_data.set(&b_nest_samples_data[0], 1, loop_ub);
       rescaleParameters(prior, nest_samples_data, b);
-      r2.set_size(b.size(0));
+      r3.set_size(b.size(0));
       loop_ub = b.size(0);
       for (i1 = 0; i1 < loop_ub; i1++) {
-        r2[i1] = b[i1];
+        r3[i1] = b[i1];
       }
 
       if (1 > nest_samples.size(1) - 1) {
@@ -725,7 +725,7 @@ namespace RAT
       }
 
       for (i1 = 0; i1 < loop_ub; i1++) {
-        nest_samples[b_i + nest_samples.size(0) * i1] = r2[i1];
+        nest_samples[b_i + nest_samples.size(0) * i1] = r3[i1];
       }
     }
 

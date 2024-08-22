@@ -24,12 +24,12 @@
 #include "repmat.h"
 #include "rt_nonfinite.h"
 #include "runDE.h"
+#include "sprintf.h"
 #include "strcmp.h"
 #include "triggerEvent.h"
 #include "coder_array.h"
 #include "coder_bounded_array.h"
 #include <cmath>
-#include <stdio.h>
 
 // Function Definitions
 namespace RAT
@@ -50,6 +50,7 @@ namespace RAT
     ::coder::array<real_T, 2U> b_FM_pop;
     ::coder::array<real_T, 2U> b_FVr_rot;
     ::coder::array<real_T, 2U> r;
+    ::coder::array<char_T, 2U> charStr;
     ::coder::array<boolean_T, 2U> FM_mui;
     d_struct_T b_problem;
     e_struct_T a__1;
@@ -169,20 +170,17 @@ namespace RAT
     // -----Check input variables---------------------------------------------
     if (S_struct->I_NP < 5.0) {
       I_NP = 5.0;
-      printf(" I_NP increased to minimal value 5\n");
-      fflush(stdout);
+      e_triggerEvent();
     }
 
     if ((S_struct->F_CR < 0.0) || (S_struct->F_CR > 1.0)) {
       F_CR = 0.5;
-      printf("F_CR should be from interval [0,1]; set to default value 0.5\n");
-      fflush(stdout);
+      f_triggerEvent();
     }
 
     if (S_struct->I_itermax <= 0.0) {
       I_itermax = 200.0;
-      printf("I_itermax should be > 0; set to default value 200\n");
-      fflush(stdout);
+      g_triggerEvent();
     }
 
     // -----Initialize population and some arrays-------------------------------
@@ -480,11 +478,10 @@ namespace RAT
           internal::w_strcmp(controls->display.data, controls->display.size)) {
         coder::internal::print_processing(I_iter, S_bestval_FVr_oa, fWeight,
           F_CR, I_NP, validatedHoleFilling);
-        printf("Iteration: %g,  Best: %f,  fWeight: %f,  F_CR: %f,  I_NP: %g\n\n",
-               validatedHoleFilling[0], validatedHoleFilling[1],
-               validatedHoleFilling[2], validatedHoleFilling[3],
-               validatedHoleFilling[4]);
-        fflush(stdout);
+        coder::snPrint(validatedHoleFilling[0], validatedHoleFilling[1],
+                       validatedHoleFilling[2], validatedHoleFilling[3],
+                       validatedHoleFilling[4], charStr);
+        triggerEvent(charStr);
 
         // disp(S_bestval);
         // var(FM_pop)
@@ -515,8 +512,7 @@ namespace RAT
       {
         if (!coder::internal::p_strcmp(controls->display.data,
              controls->display.size)) {
-          printf("Optimisation terminated by user\n");
-          fflush(stdout);
+          h_triggerEvent();
         }
 
         exitg1 = true;

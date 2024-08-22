@@ -237,8 +237,9 @@ how = '';
 
 % Print out initial f(x) as 0th iteration
 if prnt == 3
-    fprintf('\n%s\n', header);
-    fprintf(' %5.0f        %5.0f     %12.6g         %s\n', itercount, func_evals, fv(1), how);
+    triggerEvent(coderEnums.eventTypes.Message, sprintf('\n%s\n', header));
+    triggerEvent(coderEnums.eventTypes.Message, ...
+                 sprintf(' %5.0f        %5.0f     %12.6g         %s\n', itercount, func_evals, fv(1), how));
 % elseif prnt == 4
     % Option never used in RAT
     
@@ -299,7 +300,8 @@ how = 'initial simplex';
 itercount = itercount + 1;
 func_evals = n+1;
 if prnt == 3
-    fprintf(' %5.0f        %5.0f     %12.6g         %s\n', itercount, func_evals, fv(1), how);
+    triggerEvent(coderEnums.eventTypes.Message, ...
+                 sprintf(' %5.0f        %5.0f     %12.6g         %s\n', itercount, func_evals, fv(1), how));
 % elseif prnt == 4
 %     fprintf('%s \n', ' ')
 %     fprintf('%s \n', how)
@@ -418,7 +420,7 @@ while func_evals < maxfun && itercount < maxiter
     v = v(:,j);
     itercount = itercount + 1;
     if prnt == 3
-        fprintf(' %5.0f        %5.0f     %12.6g         %s\n', itercount, func_evals, fv(1), how);
+        triggerEvent(coderEnums.eventTypes.Message, sprintf(' %5.0f        %5.0f     %12.6g         %s\n', itercount, func_evals, fv(1), how));
 %     elseif prnt == 4
 %         fprintf('%s \n', ' ')
 %         fprintf('%s \n', num2str(how))
@@ -490,7 +492,7 @@ if buildOutputStruct
 end
 
 if printMsg
-    fprintf('\n%s\n', msg);
+    triggerEvent(coderEnums.eventTypes.Message, sprintf('\n%s\n', msg));
 end
 end
 %--------------------------------------------------------------------------
@@ -541,9 +543,9 @@ function [x, fval, exitflag, output] = cleanUpInterrupt(optX, optVal, iteration,
     output.iterations = iteration;
     output.funcCount = funccount;
     output.algorithm = 'Nelder-Mead simplex direct search';
-    output.message = sprintf('Optimisation terminated by user');
+    output.message = 'Optimisation terminated by user';
     if display > 0
-        fprintf('\n%s\n', output.message);
+        triggerEvent(coderEnums.eventTypes.Message, sprintf('\n%s\n', output.message));
     end
 end
 

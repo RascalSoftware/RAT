@@ -104,7 +104,7 @@ function [problemStruct,result] = runDE(problemStruct,problemCells,problemLimits
     result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
     
     if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
-        fprintf('Final chi squared is %g\n',result.calculationResults.sumChi);
+        triggerEvent(coderEnums.eventTypes.Message, sprintf('Final chi squared is %g\n',result.calculationResults.sumChi));
     end
 
 end

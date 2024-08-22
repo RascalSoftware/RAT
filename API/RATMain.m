@@ -16,22 +16,22 @@ switch controls.procedure
         result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
     case coderEnums.procedures.Simplex
         if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
-            fprintf('\nRunning simplex\n\n');
+            triggerEvent(coderEnums.eventTypes.Message, sprintf('\nRunning simplex\n\n'));
         end
         [problemStruct,result] = runSimplex(problemStruct,problemCells,problemLimits,controls);
     case coderEnums.procedures.DE
         if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
-            fprintf('\nRunning Differential Evolution\n\n');
+            triggerEvent(coderEnums.eventTypes.Message, sprintf('\nRunning Differential Evolution\n\n'));
         end
         [problemStruct,result] = runDE(problemStruct,problemCells,problemLimits,controls);
     case coderEnums.procedures.NS
         if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
-            fprintf('\nRunning Nested Sampler\n\n');
+            triggerEvent(coderEnums.eventTypes.Message, sprintf('\nRunning Nested Sampler\n\n'));
         end            
         [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,problemCells,problemLimits,controls,priors);   
     case coderEnums.procedures.Dream
         if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
-            fprintf('\nRunning DREAM\n\n');
+            triggerEvent(coderEnums.eventTypes.Message, sprintf('\nRunning DREAM\n\n'));
         end
         [problemStruct,result,bayesResults] = runDREAM(problemStruct,problemCells,problemLimits,controls,priors);
     otherwise

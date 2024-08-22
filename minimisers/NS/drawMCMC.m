@@ -184,7 +184,7 @@ end
 
 % print out acceptance ratio
 if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
-    fprintf('Acceptance ratio: %1.4f, \n\n', acctot/(Ntimes*nMCMC));
+    triggerEvent(coderEnums.eventTypes.Message, sprintf('Acceptance ratio: %1.4f, \n\n', acctot/(Ntimes*nMCMC)));
 end
 
 return

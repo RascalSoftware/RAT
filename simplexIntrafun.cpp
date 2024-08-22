@@ -22,25 +22,16 @@
 namespace RAT
 {
   void simplexIntrafun(const ::coder::array<real_T, 1U> &x, d_struct_T
-                       *problemStruct, const cell_11 *problemCells, const
+                       *problemStruct, const cell_13 *problemCells, const
                        struct1_T *problemLimits, const struct2_T *controls,
-                       const l_struct_T *params, real_T *fval, struct5_T *result)
+                       const n_struct_T *params, real_T *fval, e_struct_T
+                       *result)
   {
-    ::coder::array<real_T, 1U> xtrans;
-    int32_T xtrans_idx_0;
-
     //  transform variables, then call original function
-    simplexXTransform(x, params->LB, params->UB, params->BoundClass, xtrans);
+    simplexXTransform(x, params->LB, params->UB, params->BoundClass,
+                      problemStruct->fitParams);
 
     // Unpck the params..
-    xtrans_idx_0 = xtrans.size(0);
-    problemStruct->fitParams.set_size(xtrans.size(0), 1);
-    for (int32_T i{0}; i < 1; i++) {
-      for (int32_T i1{0}; i1 < xtrans_idx_0; i1++) {
-        problemStruct->fitParams[i1] = xtrans[i1];
-      }
-    }
-
     unpackParams(problemStruct, controls->checks.fitParam,
                  controls->checks.fitBackgroundParam,
                  controls->checks.fitQzshift, controls->checks.fitScalefactor,

@@ -20,21 +20,22 @@
 namespace RAT
 {
   struct d_struct_T;
-  struct cell_11;
+  struct cell_13;
   struct struct1_T;
   struct struct2_T;
   struct struct4_T;
-  struct struct5_T;
   struct g_struct_T;
+  struct struct5_T;
+  struct k_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void runDREAM(const d_struct_T *problemStruct, const cell_11 *problemCells,
+  void runDREAM(const d_struct_T *problemStruct, const cell_13 *problemCells,
                 const struct1_T *problemLimits, const struct2_T *controls, const
-                struct4_T *priors, d_struct_T *outProblemStruct, struct5_T
-                *result, g_struct_T *bayesResults);
+                struct4_T *priors, g_struct_T *outProblemStruct, struct5_T
+                *result, k_struct_T *bayesResults);
 }
 
 #endif

@@ -18,31 +18,227 @@
 #include "rt_nonfinite.h"
 #include "unpackParams.h"
 #include "coder_array.h"
+#include "coder_bounded_array.h"
+#include <algorithm>
 
 // Function Definitions
 namespace RAT
 {
   void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestParams,
-                    const ::coder::array<real_T, 2U> &bayesOutputs_chain,
-                    d_struct_T *problemStruct, const cell_11 *problemCells,
+                    const ::coder::array<real_T, 2U> &bayesOutputs_chain, const
+                    d_struct_T *problemStruct, const cell_13 *problemCells,
                     const struct1_T *problemLimits, struct2_T *controls,
-                    struct5_T *result, h_struct_T *bayesResults)
+                    g_struct_T *b_problemStruct, struct5_T *result, j_struct_T
+                    *bayesResults)
   {
-    static d_struct_T b_problemStruct;
+    static g_struct_T c_problemStruct;
+    int32_T b_loop_ub;
+    int32_T i;
     int32_T loop_ub;
+    b_problemStruct->TF.size[0] = 1;
+    b_problemStruct->TF.size[1] = problemStruct->TF.size[1];
+    loop_ub = problemStruct->TF.size[1];
+    if (0 <= loop_ub - 1) {
+      std::copy(&problemStruct->TF.data[0], &problemStruct->TF.data[loop_ub],
+                &b_problemStruct->TF.data[0]);
+    }
+
+    b_problemStruct->resample.set_size(1, problemStruct->resample.size(1));
+    loop_ub = problemStruct->resample.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->resample[i] = problemStruct->resample[i];
+    }
+
+    b_problemStruct->dataPresent.set_size(1, problemStruct->dataPresent.size(1));
+    loop_ub = problemStruct->dataPresent.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->dataPresent[i] = problemStruct->dataPresent[i];
+    }
+
+    b_problemStruct->oilChiDataPresent.set_size(1,
+      problemStruct->oilChiDataPresent.size(1));
+    loop_ub = problemStruct->oilChiDataPresent.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->oilChiDataPresent[i] = problemStruct->oilChiDataPresent[i];
+    }
+
+    b_problemStruct->numberOfContrasts = problemStruct->numberOfContrasts;
+    b_problemStruct->geometry.size[0] = 1;
+    b_problemStruct->geometry.size[1] = problemStruct->geometry.size[1];
+    loop_ub = problemStruct->geometry.size[1];
+    if (0 <= loop_ub - 1) {
+      std::copy(&problemStruct->geometry.data[0], &problemStruct->
+                geometry.data[loop_ub], &b_problemStruct->geometry.data[0]);
+    }
+
+    b_problemStruct->useImaginary = problemStruct->useImaginary;
+    b_problemStruct->contrastBackgroundParams.set_size(1,
+      problemStruct->contrastBackgroundParams.size(1));
+    loop_ub = problemStruct->contrastBackgroundParams.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->contrastBackgroundParams[i] =
+        problemStruct->contrastBackgroundParams[i];
+    }
+
+    b_problemStruct->contrastBackgroundActions.set_size(1,
+      problemStruct->contrastBackgroundActions.size(1));
+    loop_ub = problemStruct->contrastBackgroundActions.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->contrastBackgroundActions[i] =
+        problemStruct->contrastBackgroundActions[i];
+    }
+
+    b_problemStruct->contrastQzshifts.set_size(1,
+      problemStruct->contrastQzshifts.size(1));
+    loop_ub = problemStruct->contrastQzshifts.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->contrastQzshifts[i] = problemStruct->contrastQzshifts[i];
+    }
+
+    b_problemStruct->contrastScalefactors.set_size(1,
+      problemStruct->contrastScalefactors.size(1));
+    loop_ub = problemStruct->contrastScalefactors.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->contrastScalefactors[i] =
+        problemStruct->contrastScalefactors[i];
+    }
+
+    b_problemStruct->contrastBulkIns.set_size(1,
+      problemStruct->contrastBulkIns.size(1));
+    loop_ub = problemStruct->contrastBulkIns.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->contrastBulkIns[i] = problemStruct->contrastBulkIns[i];
+    }
+
+    b_problemStruct->contrastBulkOuts.set_size(1,
+      problemStruct->contrastBulkOuts.size(1));
+    loop_ub = problemStruct->contrastBulkOuts.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->contrastBulkOuts[i] = problemStruct->contrastBulkOuts[i];
+    }
+
+    b_problemStruct->contrastResolutionParams.set_size(1,
+      problemStruct->contrastResolutionParams.size(1));
+    loop_ub = problemStruct->contrastResolutionParams.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->contrastResolutionParams[i] =
+        problemStruct->contrastResolutionParams[i];
+    }
+
+    b_problemStruct->backgroundParams.set_size(1,
+      problemStruct->backgroundParams.size(1));
+    loop_ub = problemStruct->backgroundParams.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->backgroundParams[i] = problemStruct->backgroundParams[i];
+    }
+
+    b_problemStruct->qzshifts.set_size(1, problemStruct->qzshifts.size(1));
+    loop_ub = problemStruct->qzshifts.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->qzshifts[i] = problemStruct->qzshifts[i];
+    }
+
+    b_problemStruct->scalefactors.set_size(1, problemStruct->scalefactors.size(1));
+    loop_ub = problemStruct->scalefactors.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->scalefactors[i] = problemStruct->scalefactors[i];
+    }
+
+    b_problemStruct->bulkIn.set_size(1, problemStruct->bulkIn.size(1));
+    loop_ub = problemStruct->bulkIn.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->bulkIn[i] = problemStruct->bulkIn[i];
+    }
+
+    b_problemStruct->bulkOut.set_size(1, problemStruct->bulkOut.size(1));
+    loop_ub = problemStruct->bulkOut.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->bulkOut[i] = problemStruct->bulkOut[i];
+    }
+
+    b_problemStruct->resolutionParams.set_size(1,
+      problemStruct->resolutionParams.size(1));
+    loop_ub = problemStruct->resolutionParams.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->resolutionParams[i] = problemStruct->resolutionParams[i];
+    }
+
+    b_problemStruct->params.set_size(1, problemStruct->params.size(1));
+    loop_ub = problemStruct->params.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->params[i] = problemStruct->params[i];
+    }
+
+    b_problemStruct->numberOfLayers = problemStruct->numberOfLayers;
+    b_problemStruct->modelType.size[0] = 1;
+    b_problemStruct->modelType.size[1] = problemStruct->modelType.size[1];
+    loop_ub = problemStruct->modelType.size[1];
+    if (0 <= loop_ub - 1) {
+      std::copy(&problemStruct->modelType.data[0],
+                &problemStruct->modelType.data[loop_ub],
+                &b_problemStruct->modelType.data[0]);
+    }
+
+    b_problemStruct->contrastCustomFiles.set_size(1,
+      problemStruct->contrastCustomFiles.size(1));
+    loop_ub = problemStruct->contrastCustomFiles.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->contrastCustomFiles[i] =
+        problemStruct->contrastCustomFiles[i];
+    }
+
+    b_problemStruct->contrastDomainRatios.set_size(1,
+      problemStruct->contrastDomainRatios.size(1));
+    loop_ub = problemStruct->contrastDomainRatios.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->contrastDomainRatios[i] =
+        problemStruct->contrastDomainRatios[i];
+    }
+
+    b_problemStruct->domainRatio.set_size(1, problemStruct->domainRatio.size(1));
+    loop_ub = problemStruct->domainRatio.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->domainRatio[i] = problemStruct->domainRatio[i];
+    }
+
+    b_problemStruct->numberOfDomainContrasts =
+      problemStruct->numberOfDomainContrasts;
+    b_problemStruct->otherParams.set_size(problemStruct->otherParams.size(0));
+    loop_ub = problemStruct->otherParams.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->otherParams[i] = problemStruct->otherParams[i];
+    }
+
+    b_problemStruct->fitLimits.set_size(problemStruct->fitLimits.size(0), 2);
+    b_problemStruct->otherLimits.set_size(problemStruct->otherLimits.size(0), 2);
+    loop_ub = problemStruct->fitLimits.size(0);
+    b_loop_ub = problemStruct->otherLimits.size(0);
+    for (i = 0; i < 2; i++) {
+      int32_T i1;
+      for (i1 = 0; i1 < loop_ub; i1++) {
+        b_problemStruct->fitLimits[i1 + b_problemStruct->fitLimits.size(0) * i] =
+          problemStruct->fitLimits[i1 + problemStruct->fitLimits.size(0) * i];
+      }
+
+      for (i1 = 0; i1 < b_loop_ub; i1++) {
+        b_problemStruct->otherLimits[i1 + b_problemStruct->otherLimits.size(0) *
+          i] = problemStruct->otherLimits[i1 + problemStruct->otherLimits.size(0)
+          * i];
+      }
+    }
 
     //  Need to impose that we calculate the SLD..
     controls->calcSldDuringFit = true;
 
     // ... and use the Bayes best params
-    problemStruct->fitParams.set_size(1, bayesOutputs_bestParams.size(1));
+    b_problemStruct->fitParams.set_size(1, bayesOutputs_bestParams.size(1));
     loop_ub = bayesOutputs_bestParams.size(1);
-    for (int32_T i{0}; i < loop_ub; i++) {
-      problemStruct->fitParams[problemStruct->fitParams.size(0) * i] =
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->fitParams[b_problemStruct->fitParams.size(0) * i] =
         bayesOutputs_bestParams[i];
     }
 
-    unpackParams(problemStruct, controls->checks.fitParam,
+    unpackParams(b_problemStruct, controls->checks.fitParam,
                  controls->checks.fitBackgroundParam,
                  controls->checks.fitQzshift, controls->checks.fitScalefactor,
                  controls->checks.fitBulkIn, controls->checks.fitBulkOut,
@@ -55,12 +251,12 @@ namespace RAT
 
     // iterShortest(output.chain,length(fitNames),[],0.95);
     //  Calculate 'mean' best fit curves
-    reflectivityCalculation(problemStruct, problemCells, problemLimits, controls,
-      result);
+    reflectivityCalculation(b_problemStruct, problemCells, problemLimits,
+      controls, result);
 
     //  2. Reflectivity and SLD shading
-    b_problemStruct = *problemStruct;
-    refPercentileConfidenceIntervals(bayesOutputs_chain, &b_problemStruct,
+    c_problemStruct = *b_problemStruct;
+    refPercentileConfidenceIntervals(bayesOutputs_chain, &c_problemStruct,
       problemCells, problemLimits, controls, &bayesResults->predictionIntervals);
 
     //  ---------------------------------

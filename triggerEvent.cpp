@@ -10,6 +10,7 @@
 
 // Include files
 #include "triggerEvent.h"
+#include "RATMain_internal_types.h"
 #include "RATMain_types.h"
 #include "getenv.h"
 #include "rt_nonfinite.h"
@@ -32,25 +33,25 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  static void b_packCellArray(const ::coder::array<cell_wrap_10, 2U> &cellArray,
-    ::coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
-  static void b_packCellArray(const ::coder::array<cell_wrap_38, 2U> &cellArray,
+  static void b_packCellArray(const ::coder::array<cell_wrap_8, 2U> &cellArray, ::
+    coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
+  static void b_packCellArray(const ::coder::array<cell_wrap_44, 2U> &cellArray,
     ::coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
   static void packCellArray(const ::coder::array<cell_wrap_8, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
-  static void packCellArray(const ::coder::array<cell_wrap_38, 1U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_44, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
-  static void packCellArray(const ::coder::array<cell_wrap_10, 2U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_8, 2U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
-  static void packCellArray(const ::coder::array<cell_wrap_38, 2U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_44, 2U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
 }
 
 // Function Definitions
 namespace RAT
 {
-  static void b_packCellArray(const ::coder::array<cell_wrap_10, 2U> &cellArray,
-    ::coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
+  static void b_packCellArray(const ::coder::array<cell_wrap_8, 2U> &cellArray, ::
+    coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
     real_T start;
@@ -76,11 +77,9 @@ namespace RAT
       b_index = (static_cast<uint32_T>(b_i + 1) << 1) + MAX_uint32_T;
       dims[static_cast<int32_T>(b_index) - 1] = static_cast<uint32_T>
         (cellArray[b_i + cellArray.size(0)].f1.size(0));
-      dims[static_cast<int32_T>(b_index)] = static_cast<uint32_T>(cellArray[b_i
-        + cellArray.size(0)].f1.size(1));
+      dims[static_cast<int32_T>(b_index)] = 2.0;
       rowSize += static_cast<real_T>(static_cast<uint32_T>(cellArray[b_i +
-        cellArray.size(0)].f1.size(0))) * static_cast<real_T>
-        (static_cast<uint32_T>(cellArray[b_i + cellArray.size(0)].f1.size(1)));
+        cellArray.size(0)].f1.size(0))) * 2.0;
     }
 
     start = 1.0;
@@ -104,8 +103,7 @@ namespace RAT
         i1 = static_cast<int32_T>(start);
       }
 
-      b_cellArray = cellArray[b_i + cellArray.size(0)].f1.size(0) *
-        cellArray[b_i + cellArray.size(0)].f1.size(1);
+      b_cellArray = cellArray[b_i + cellArray.size(0)].f1.size(0) << 1;
       for (int32_T i2{0}; i2 < b_cellArray; i2++) {
         packedArray[(i1 + i2) - 1] = cellArray[b_i + cellArray.size(0)].f1[i2];
       }
@@ -114,7 +112,7 @@ namespace RAT
     }
   }
 
-  static void b_packCellArray(const ::coder::array<cell_wrap_38, 2U> &cellArray,
+  static void b_packCellArray(const ::coder::array<cell_wrap_44, 2U> &cellArray,
     ::coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
@@ -238,7 +236,7 @@ namespace RAT
     }
   }
 
-  static void packCellArray(const ::coder::array<cell_wrap_38, 1U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_44, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
@@ -300,7 +298,7 @@ namespace RAT
     }
   }
 
-  static void packCellArray(const ::coder::array<cell_wrap_10, 2U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_8, 2U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
@@ -327,11 +325,9 @@ namespace RAT
       b_index = (static_cast<uint32_T>(b_i + 1) << 1) + MAX_uint32_T;
       dims[static_cast<int32_T>(b_index) - 1] = static_cast<uint32_T>
         (cellArray[b_i].f1.size(0));
-      dims[static_cast<int32_T>(b_index)] = static_cast<uint32_T>(cellArray[b_i]
-        .f1.size(1));
+      dims[static_cast<int32_T>(b_index)] = 2.0;
       rowSize += static_cast<real_T>(static_cast<uint32_T>(cellArray[b_i].
-        f1.size(0))) * static_cast<real_T>(static_cast<uint32_T>(cellArray[b_i].
-        f1.size(1)));
+        f1.size(0))) * 2.0;
     }
 
     start = 1.0;
@@ -346,17 +342,16 @@ namespace RAT
       real_T stop;
       int32_T i1;
       b_index = (static_cast<uint32_T>(b_i + 1) << 1) - 1U;
-      stop = start + static_cast<real_T>(static_cast<uint32_T>(dims
-        [static_cast<int32_T>(b_index) - 1])) * static_cast<real_T>
-        (static_cast<uint32_T>(dims[static_cast<int32_T>(static_cast<real_T>
-           (b_index) + 1.0) - 1]));
+      stop = start + static_cast<real_T>(static_cast<uint32_T>(dims[static_cast<
+        int32_T>(b_index) - 1])) * static_cast<real_T>(static_cast<uint32_T>
+        (dims[static_cast<int32_T>(static_cast<real_T>(b_index) + 1.0) - 1]));
       if (start > stop - 1.0) {
         i1 = 1;
       } else {
         i1 = static_cast<int32_T>(start);
       }
 
-      b_cellArray = cellArray[b_i].f1.size(0) * cellArray[b_i].f1.size(1);
+      b_cellArray = cellArray[b_i].f1.size(0) << 1;
       for (int32_T i2{0}; i2 < b_cellArray; i2++) {
         packedArray[(i1 + i2) - 1] = cellArray[b_i].f1[i2];
       }
@@ -365,7 +360,7 @@ namespace RAT
     }
   }
 
-  static void packCellArray(const ::coder::array<cell_wrap_38, 2U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_44, 2U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
@@ -489,7 +484,7 @@ namespace RAT
     helper_not_empty = false;
   }
 
-  void triggerEvent(const struct5_T *varargin_1, const char_T
+  void triggerEvent(const e_struct_T *varargin_1, const char_T
                     varargin_2_TF_data[], const int32_T varargin_2_TF_size[2],
                     const ::coder::array<real_T, 2U> &varargin_2_resample, const
                     ::coder::array<real_T, 2U> &varargin_2_dataPresent, const

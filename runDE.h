@@ -21,22 +21,24 @@
 namespace RAT
 {
   struct d_struct_T;
-  struct cell_11;
+  struct cell_13;
   struct struct1_T;
   struct struct2_T;
-  struct struct_T;
+  struct g_struct_T;
   struct struct5_T;
+  struct struct_T;
+  struct e_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
   void intrafun(const ::coder::array<real_T, 2U> &p, d_struct_T *problemStruct,
-                const cell_11 *problemCells, const struct1_T *problemLimits,
-                const struct2_T *controls, struct_T *S_MSE, struct5_T *result);
-  void runDE(d_struct_T *problemStruct, const cell_11 *problemCells, const
-             struct1_T *problemLimits, const struct2_T *controls, struct5_T
-             *result);
+                const cell_13 *problemCells, const struct1_T *problemLimits,
+                const struct2_T *controls, struct_T *S_MSE, e_struct_T *result);
+  void runDE(const d_struct_T *problemStruct, const cell_13 *problemCells, const
+             struct1_T *problemLimits, const struct2_T *controls, g_struct_T
+             *b_problemStruct, struct5_T *result);
 }
 
 #endif

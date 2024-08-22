@@ -10,7 +10,6 @@
 
 // Include files
 #include "processCustomFunction2.h"
-#include "RATMain_internal_types.h"
 #include "RATMain_types.h"
 #include "applyHydrationImag.h"
 #include "applyHydrationReal.h"
@@ -33,7 +32,7 @@ namespace RAT
         real_T, 2U> &bulkOutArray, const ::coder::array<real_T, 2U> &cCustFiles,
         real_T numberOfContrasts, const ::coder::array<cell_wrap_1, 2U>
         &customFiles, const ::coder::array<real_T, 2U> &params, boolean_T
-        useImaginary, ::coder::array<cell_wrap_39, 2U> &resampledLayers, ::coder::
+        useImaginary, ::coder::array<cell_wrap_45, 2U> &resampledLayers, ::coder::
         array<real_T, 1U> &subRoughs)
       {
         ::coder::array<real_T, 2U> b_bulkOuts;

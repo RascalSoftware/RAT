@@ -812,13 +812,13 @@ namespace RAT
       }
 
       void x_strcmp(const cell_wrap_1 *a, const ::coder::array<cell_wrap_1, 1U>
-                    &b, ::coder::array<boolean_T, 1U> &b_bool)
+                    &b, boolean_T bool_data[], int32_T *bool_size)
       {
         int32_T nb;
-        b_bool.set_size(b.size(0));
+        *bool_size = b.size(0);
         nb = b.size(0);
         for (int32_T k{0}; k < nb; k++) {
-          b_bool[k] = false;
+          bool_data[k] = false;
           if (a->f1.size(1) == b[k].f1.size(1)) {
             int32_T kstr;
             kstr = 0;
@@ -833,7 +833,7 @@ namespace RAT
                   kstr++;
                 }
               } else {
-                b_bool[k] = true;
+                bool_data[k] = true;
                 exitg1 = 1;
               }
             } while (exitg1 == 0);

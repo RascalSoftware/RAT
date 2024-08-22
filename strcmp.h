@@ -63,7 +63,7 @@ namespace RAT
       boolean_T v_strcmp(const char_T a_data[], const int32_T a_size[2]);
       boolean_T w_strcmp(const char_T a_data[], const int32_T a_size[2]);
       void x_strcmp(const cell_wrap_1 *a, const ::coder::array<cell_wrap_1, 1U>
-                    &b, ::coder::array<boolean_T, 1U> &b_bool);
+                    &b, boolean_T bool_data[], int32_T *bool_size);
       boolean_T y_strcmp(const char_T a_data[], const int32_T a_size[2]);
     }
   }

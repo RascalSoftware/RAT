@@ -11,7 +11,6 @@
 // Include files
 #include "runNestedSampler.h"
 #include "RATMain_internal_types.h"
-#include "RATMain_rtwutil.h"
 #include "RATMain_types.h"
 #include "blockedSummation.h"
 #include "getFittedPriors.h"
@@ -28,16 +27,18 @@
 // Function Definitions
 namespace RAT
 {
-  void runNestedSampler(d_struct_T *problemStruct, const cell_11 *problemCells,
-                        const struct1_T *problemLimits, const struct2_T
-                        *controls, const struct4_T *inPriors, struct5_T *result,
+  void runNestedSampler(const d_struct_T *problemStruct, const cell_13
+                        *problemCells, const struct1_T *problemLimits, const
+                        struct2_T *controls, const struct4_T *inPriors,
+                        g_struct_T *b_problemStruct, struct5_T *result,
                         struct8_T *bayesResults)
   {
+    static d_struct_T c_problemStruct;
     static struct2_T b_controls;
     ::coder::array<cell_wrap_1, 1U> fitNames;
-    ::coder::array<cell_wrap_10, 2U> t6_predictionIntervals_sld;
-    ::coder::array<cell_wrap_10, 2U> t6_predictionIntervals_sldXData;
-    ::coder::array<cell_wrap_10, 1U> t6_predictionIntervals_reflectivity;
+    ::coder::array<cell_wrap_11, 2U> t10_predictionIntervals_sld;
+    ::coder::array<cell_wrap_11, 1U> t10_predictionIntervals_reflectivity;
+    ::coder::array<cell_wrap_12, 2U> t10_predictionIntervals_sldXData;
     ::coder::array<real_T, 2U> b_bayesResults;
     ::coder::array<real_T, 2U> b_expl_temp;
     ::coder::array<real_T, 2U> bayesOutputs_bestParams;
@@ -48,35 +49,37 @@ namespace RAT
     ::coder::array<real_T, 2U> r;
     ::coder::array<real_T, 2U> r1;
     c_struct_T expl_temp;
-    h_struct_T nestResults;
-    real_T t6_predictionIntervals_sampleChi_data[1000];
+    j_struct_T nestResults;
+    real_T t10_predictionIntervals_sampleChi_data[1000];
     real_T H;
     real_T logZ;
+    int32_T b_loop_ub;
     int32_T i;
     int32_T i1;
     int32_T loop_ub;
-    int32_T t6_predictionIntervals_sampleChi_size;
-    packParams(problemStruct, problemCells->f7, problemCells->f8,
+    int32_T t10_predictionIntervals_sampleChi_size;
+    c_problemStruct = *problemStruct;
+    packParams(&c_problemStruct, problemCells->f7, problemCells->f8,
                problemCells->f9, problemCells->f10, problemCells->f11,
                problemCells->f12, problemCells->f13, problemCells->f20,
                problemLimits, &controls->checks, fitNames);
 
     //  Make an empty struct for bayesResults to hold the outputs of the
     //  calculation
-    b_makeEmptyBayesResultsStruct(problemStruct->numberOfContrasts, coder::
-      internal::b_strcmp(problemStruct->TF.data, problemStruct->TF.size),
-      t6_predictionIntervals_reflectivity, t6_predictionIntervals_sld,
+    b_makeEmptyBayesResultsStruct(c_problemStruct.numberOfContrasts, coder::
+      internal::b_strcmp(c_problemStruct.TF.data, c_problemStruct.TF.size),
+      t10_predictionIntervals_reflectivity, t10_predictionIntervals_sld,
       bayesResults->predictionIntervals.reflectivityXData,
-      t6_predictionIntervals_sldXData, t6_predictionIntervals_sampleChi_data,
-      &t6_predictionIntervals_sampleChi_size, expl_temp_percentile95,
+      t10_predictionIntervals_sldXData, t10_predictionIntervals_sampleChi_data,
+      &t10_predictionIntervals_sampleChi_size, expl_temp_percentile95,
       expl_temp_percentile65, expl_temp_mean, &bayesResults->dreamParams,
       &bayesResults->dreamOutput, &expl_temp, b_expl_temp);
 
     // Deal with priors.
     // Tuning Parameters
     getFittedPriors(fitNames, inPriors->priorNames, inPriors->priorValues,
-                    problemStruct->fitLimits, r);
-    nestedSampler(problemStruct, controls, problemLimits, problemCells,
+                    c_problemStruct.fitLimits, r);
+    nestedSampler(&c_problemStruct, controls, problemLimits, problemCells,
                   controls->nLive, controls->nMCMC, controls->nsTolerance, r,
                   &logZ, bayesResults->nestedSamplerOutput.nestSamples,
                   bayesResults->nestedSamplerOutput.postSamples, &H);
@@ -84,15 +87,15 @@ namespace RAT
     //  Process the results...
     //  chain = nest_samples(:,1:end-1);
     if (1 > fitNames.size(0)) {
-      t6_predictionIntervals_sampleChi_size = 0;
+      t10_predictionIntervals_sampleChi_size = 0;
     } else {
-      t6_predictionIntervals_sampleChi_size = fitNames.size(0);
+      t10_predictionIntervals_sampleChi_size = fitNames.size(0);
     }
 
     loop_ub = bayesResults->nestedSamplerOutput.postSamples.size(0);
     b_bayesResults.set_size(bayesResults->nestedSamplerOutput.postSamples.size(0),
-      t6_predictionIntervals_sampleChi_size);
-    for (i = 0; i < t6_predictionIntervals_sampleChi_size; i++) {
+      t10_predictionIntervals_sampleChi_size);
+    for (i = 0; i < t10_predictionIntervals_sampleChi_size; i++) {
       for (i1 = 0; i1 < loop_ub; i1++) {
         b_bayesResults[i1 + b_bayesResults.size(0) * i] =
           bayesResults->nestedSamplerOutput.postSamples[i1 +
@@ -112,8 +115,8 @@ namespace RAT
     loop_ub = bayesResults->nestedSamplerOutput.postSamples.size(0);
     bayesOutputs_chain.set_size
       (bayesResults->nestedSamplerOutput.postSamples.size(0),
-       t6_predictionIntervals_sampleChi_size);
-    for (i = 0; i < t6_predictionIntervals_sampleChi_size; i++) {
+       t10_predictionIntervals_sampleChi_size);
+    for (i = 0; i < t10_predictionIntervals_sampleChi_size; i++) {
       for (i1 = 0; i1 < loop_ub; i1++) {
         bayesOutputs_chain[i1 + bayesOutputs_chain.size(0) * i] =
           bayesResults->nestedSamplerOutput.postSamples[i1 +
@@ -122,12 +125,31 @@ namespace RAT
     }
 
     b_controls = *controls;
-    processBayes(bayesOutputs_bestParams, bayesOutputs_chain, problemStruct,
-                 problemCells, problemLimits, &b_controls, result, &nestResults);
-    cast(nestResults.predictionIntervals.reflectivity,
-         bayesResults->predictionIntervals.reflectivity);
-    cast(nestResults.predictionIntervals.sld,
-         bayesResults->predictionIntervals.sld);
+    processBayes(bayesOutputs_bestParams, bayesOutputs_chain, &c_problemStruct,
+                 problemCells, problemLimits, &b_controls, b_problemStruct,
+                 result, &nestResults);
+    bayesResults->predictionIntervals.reflectivity.set_size
+      (nestResults.predictionIntervals.reflectivity.size(0));
+    loop_ub = nestResults.predictionIntervals.reflectivity.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      bayesResults->predictionIntervals.reflectivity[i] =
+        nestResults.predictionIntervals.reflectivity[i];
+    }
+
+    bayesResults->predictionIntervals.sld.set_size
+      (nestResults.predictionIntervals.sld.size(0),
+       nestResults.predictionIntervals.sld.size(1));
+    loop_ub = nestResults.predictionIntervals.sld.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_loop_ub = nestResults.predictionIntervals.sld.size(0);
+      for (i1 = 0; i1 < b_loop_ub; i1++) {
+        bayesResults->predictionIntervals.sld[i1 +
+          bayesResults->predictionIntervals.sld.size(0) * i] =
+          nestResults.predictionIntervals.sld[i1 +
+          nestResults.predictionIntervals.sld.size(0) * i];
+      }
+    }
+
     bayesResults->predictionIntervals.reflectivityXData.set_size
       (nestResults.predictionIntervals.reflectivityXData.size(0));
     for (i = 0; i < nestResults.predictionIntervals.reflectivityXData.size(0); i
@@ -136,14 +158,25 @@ namespace RAT
         nestResults.predictionIntervals.reflectivityXData[i].f1.size(1));
       loop_ub = nestResults.predictionIntervals.reflectivityXData[i].f1.size(1);
       for (i1 = 0; i1 < loop_ub; i1++) {
-        bayesResults->predictionIntervals.reflectivityXData[i].f1
-          [bayesResults->predictionIntervals.reflectivityXData[i].f1.size(0) *
-          i1] = nestResults.predictionIntervals.reflectivityXData[i].f1[i1];
+        bayesResults->predictionIntervals.reflectivityXData[i].f1[i1] =
+          nestResults.predictionIntervals.reflectivityXData[i].f1[i1];
       }
     }
 
-    cast(nestResults.predictionIntervals.sldXData,
-         bayesResults->predictionIntervals.sldXData);
+    bayesResults->predictionIntervals.sldXData.set_size
+      (nestResults.predictionIntervals.sldXData.size(0),
+       nestResults.predictionIntervals.sldXData.size(1));
+    loop_ub = nestResults.predictionIntervals.sldXData.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_loop_ub = nestResults.predictionIntervals.sldXData.size(0);
+      for (i1 = 0; i1 < b_loop_ub; i1++) {
+        bayesResults->predictionIntervals.sldXData[i1 +
+          bayesResults->predictionIntervals.sldXData.size(0) * i] =
+          nestResults.predictionIntervals.sldXData[i1 +
+          nestResults.predictionIntervals.sldXData.size(0) * i];
+      }
+    }
+
     bayesResults->predictionIntervals.sampleChi.size[0] = 1000;
     std::copy(&nestResults.predictionIntervals.sampleChi[0],
               &nestResults.predictionIntervals.sampleChi[1000],
@@ -152,8 +185,8 @@ namespace RAT
     loop_ub = bayesResults->nestedSamplerOutput.postSamples.size(0);
     bayesResults->chain.set_size
       (bayesResults->nestedSamplerOutput.postSamples.size(0),
-       t6_predictionIntervals_sampleChi_size);
-    for (i = 0; i < t6_predictionIntervals_sampleChi_size; i++) {
+       t10_predictionIntervals_sampleChi_size);
+    for (i = 0; i < t10_predictionIntervals_sampleChi_size; i++) {
       for (i1 = 0; i1 < loop_ub; i1++) {
         bayesResults->chain[i1 + bayesResults->chain.size(0) * i] =
           bayesResults->nestedSamplerOutput.postSamples[i1 +

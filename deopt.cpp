@@ -34,9 +34,9 @@
 // Function Definitions
 namespace RAT
 {
-  void deopt(const d_struct_T *problem, const cell_11 *problemCells, const
+  void deopt(const d_struct_T *problem, const cell_13 *problemCells, const
              struct1_T *problemLimits, const struct2_T *controls, const
-             k_struct_T *S_struct, ::coder::array<real_T, 2U> &FVr_bestmem)
+             h_struct_T *S_struct, ::coder::array<real_T, 2U> &FVr_bestmem)
   {
     ::coder::array<struct_T, 1U> S_val;
     ::coder::array<real_T, 2U> FM_pm3;
@@ -52,10 +52,10 @@ namespace RAT
     ::coder::array<real_T, 2U> r;
     ::coder::array<boolean_T, 2U> FM_mui;
     d_struct_T b_problem;
-    struct5_T a__1;
-    struct5_T a__2;
-    struct5_T a__3;
-    struct5_T result;
+    e_struct_T a__1;
+    e_struct_T a__2;
+    e_struct_T a__3;
+    e_struct_T result;
     struct_T S_tempval;
     struct_T a__4;
     real_T validatedHoleFilling[5];

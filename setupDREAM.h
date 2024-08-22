@@ -22,7 +22,7 @@ namespace RAT
 {
   struct b_struct_T;
   struct struct11_T;
-  struct i_struct_T;
+  struct l_struct_T;
 }
 
 // Function Declarations
@@ -32,7 +32,7 @@ namespace RAT
                   DREAMPar_nGenerations, real_T DREAMPar_jumpProbability, real_T
                   DREAMPar_pUnitGamma, boolean_T DREAMPar_adaptPCR, b_struct_T
                   *Meas_info, struct11_T *outDREAMPar, ::coder::array<real_T, 3U>
-                  &chain, i_struct_T *output, ::coder::array<real_T, 2U> &log_L,
+                  &chain, l_struct_T *output, ::coder::array<real_T, 2U> &log_L,
                   ::coder::array<real_T, 2U> &Table_gamma);
 }
 

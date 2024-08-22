@@ -117,10 +117,10 @@ namespace RAT
   void fMinSearch(::coder::array<real_T, 1U> &x, real_T options_MaxIter, real_T
                   options_MaxFunEvals, real_T options_TolX, real_T
                   options_TolFun, const char_T dis_data[], const int32_T
-                  dis_size[2], const d_struct_T *varargin_1, const cell_11
+                  dis_size[2], const d_struct_T *varargin_1, const cell_13
                   *varargin_2, const struct1_T *varargin_3, const struct2_T
-                  *varargin_4, const l_struct_T *varargin_5, real_T *fval,
-                  real_T *exitflag, j_struct_T *output)
+                  *varargin_4, const n_struct_T *varargin_5, real_T *fval,
+                  real_T *exitflag, m_struct_T *output)
   {
     static const char_T cv6[35]{ 'E', 'x', 'i', 't', 'i', 'n', 'g', ':', ' ',
       'M', 'a', 'x', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'e', 'v',
@@ -171,7 +171,7 @@ namespace RAT
     ::coder::array<int32_T, 2U> iidx;
     ::coder::array<char_T, 2U> c_varargin_1;
     d_struct_T b_varargin_1;
-    struct5_T result;
+    e_struct_T result;
     real_T b_fv;
     real_T b_y;
     real_T func_evals;

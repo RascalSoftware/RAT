@@ -24,11 +24,22 @@ namespace RAT
   struct cell_wrap_1;
   struct struct1_T;
   struct struct3_T;
+  struct g_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
+  void packParams(g_struct_T *problemStruct, const ::coder::array<cell_wrap_1,
+                  2U> &problemCells_f7, const ::coder::array<cell_wrap_1, 2U>
+                  &problemCells_f8, const ::coder::array<cell_wrap_1, 2U>
+                  &problemCells_f9, const ::coder::array<cell_wrap_1, 2U>
+                  &problemCells_f10, const ::coder::array<cell_wrap_1, 2U>
+                  &problemCells_f11, const ::coder::array<cell_wrap_1, 2U>
+                  &problemCells_f12, const ::coder::array<cell_wrap_1, 2U>
+                  &problemCells_f13, const ::coder::array<cell_wrap_1, 2U>
+                  &problemCells_f20, const struct1_T *limits, const struct3_T
+                  *checks, ::coder::array<cell_wrap_1, 1U> &fitNames);
   void packParams(d_struct_T *problemStruct, const ::coder::array<cell_wrap_1,
                   2U> &problemCells_f7, const ::coder::array<cell_wrap_1, 2U>
                   &problemCells_f8, const ::coder::array<cell_wrap_1, 2U>

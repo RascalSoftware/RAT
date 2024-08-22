@@ -23,8 +23,8 @@
 // Function Definitions
 namespace RAT
 {
-  void callReflectivity(real_T bulkIns, real_T bulkOuts, const real_T simLimits
-                        [2], const real_T repeatLayers[2], const ::coder::array<
+  void callReflectivity(real_T bulkIn, real_T bulkOut, const real_T simLimits[2],
+                        const real_T repeatLayers[2], const ::coder::array<
                         real_T, 2U> &thisData, ::coder::array<real_T, 2U>
                         &layers, real_T ssubs, real_T resolution, const char_T
                         parallel_data[], const int32_T parallel_size[2],
@@ -61,7 +61,7 @@ namespace RAT
       //  No layers defined. Make a zeros dummy zero layer
       layers.set_size(1, 3);
       layers[0] = 0.0;
-      layers[layers.size(0)] = bulkIns;
+      layers[layers.size(0)] = bulkIn;
       layers[layers.size(0) * 2] = 0.0;
     }
 
@@ -71,24 +71,13 @@ namespace RAT
     //  Make arrays for thick, sld, rough
     loop_ub_tmp = static_cast<int32_T>(nLayersTot);
     thicks.set_size(loop_ub_tmp);
+    slds.set_size(loop_ub_tmp);
     roughs.set_size(loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
       thicks[i] = 0.0;
+      slds[i].re = 0.0;
+      slds[i].im = 0.0;
       roughs[i] = 0.0;
-    }
-
-    if (useImaginary) {
-      slds.set_size(loop_ub_tmp);
-      for (i = 0; i < loop_ub_tmp; i++) {
-        slds[i].re = 0.0;
-        slds[i].im = 0.0;
-      }
-    } else {
-      slds.set_size(loop_ub_tmp);
-      for (i = 0; i < loop_ub_tmp; i++) {
-        slds[i].re = 0.0;
-        slds[i].im = 0.0;
-      }
     }
 
     //  Populate the d,rho,sig arrays...
@@ -97,15 +86,13 @@ namespace RAT
     for (int32_T m{0}; m < i; m++) {
       loop_ub = layers.size(0);
       for (int32_T n{0}; n < loop_ub; n++) {
+        loop_ub_tmp = static_cast<int32_T>(layerCount + n) - 1;
+        thicks[loop_ub_tmp] = layers[n];
         if (!useImaginary) {
-          loop_ub_tmp = static_cast<int32_T>(layerCount + n) - 1;
-          thicks[loop_ub_tmp] = layers[n];
           slds[loop_ub_tmp].re = layers[n + layers.size(0)];
-          slds[loop_ub_tmp].im = 0.0;
+          slds[loop_ub_tmp].im = 2.2204460492503131E-16;
           roughs[loop_ub_tmp] = layers[n + layers.size(0) * 2];
         } else {
-          loop_ub_tmp = static_cast<int32_T>(layerCount + n) - 1;
-          thicks[loop_ub_tmp] = layers[n];
           slds[loop_ub_tmp].re = layers[n + layers.size(0)];
           slds[loop_ub_tmp].im = layers[n + layers.size(0) * 2];
           roughs[loop_ub_tmp] = layers[n + layers.size(0) * 3];
@@ -116,10 +103,10 @@ namespace RAT
     }
 
     //  Add the air and substrate parameters
-    slds[0].re = bulkIns;
-    slds[0].im = 0.0;
-    slds[slds.size(0) - 1].re = bulkOuts;
-    slds[slds.size(0) - 1].im = 0.0;
+    slds[0].re = bulkIn;
+    slds[0].im = 2.2204460492503131E-16;
+    slds[slds.size(0) - 1].re = bulkOut;
+    slds[slds.size(0) - 1].im = 2.2204460492503131E-16;
     roughs[roughs.size(0) - 1] = ssubs;
     if (simLimits[0] < thisData[0]) {
       step = thisData[1] - thisData[0];

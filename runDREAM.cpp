@@ -11,7 +11,6 @@
 // Include files
 #include "runDREAM.h"
 #include "RATMain_internal_types.h"
-#include "RATMain_rtwutil.h"
 #include "RATMain_types.h"
 #include "getFittedPriors.h"
 #include "makeEmptyBayesResultsStruct.h"
@@ -29,12 +28,13 @@
 // Function Definitions
 namespace RAT
 {
-  void runDREAM(const d_struct_T *problemStruct, const cell_11 *problemCells,
+  void runDREAM(const d_struct_T *problemStruct, const cell_13 *problemCells,
                 const struct1_T *problemLimits, const struct2_T *controls, const
-                struct4_T *priors, d_struct_T *outProblemStruct, struct5_T
-                *result, g_struct_T *bayesResults)
+                struct4_T *priors, g_struct_T *outProblemStruct, struct5_T
+                *result, k_struct_T *bayesResults)
   {
-    static i_struct_T dreamOutput;
+    static d_struct_T b_problemStruct;
+    static l_struct_T dreamOutput;
     static struct2_T b_controls;
     ::coder::array<cell_wrap_1, 1U> fitParamNames;
     ::coder::array<real_T, 2U> ParInfo_max;
@@ -44,7 +44,7 @@ namespace RAT
     ::coder::array<real_T, 2U> c_bayesResults;
     ::coder::array<real_T, 2U> r;
     ::coder::array<real_T, 2U> r1;
-    h_struct_T dreamResults;
+    j_struct_T dreamResults;
     int32_T b_loop_ub;
     int32_T i;
     int32_T i1;
@@ -70,8 +70,8 @@ namespace RAT
       bayesResults->chain);
 
     //  Pre-allocation
-    *outProblemStruct = *problemStruct;
-    packParams(outProblemStruct, problemCells->f7, problemCells->f8,
+    b_problemStruct = *problemStruct;
+    packParams(&b_problemStruct, problemCells->f7, problemCells->f8,
                problemCells->f9, problemCells->f10, problemCells->f11,
                problemCells->f12, problemCells->f13, problemCells->f20,
                problemLimits, &controls->checks, fitParamNames);
@@ -90,27 +90,27 @@ namespace RAT
     //  Jump probabilities...
     //  This will change...
     //  Initial sampling and parameter range
-    loop_ub = outProblemStruct->fitLimits.size(0);
-    ParInfo_min.set_size(1, outProblemStruct->fitLimits.size(0));
+    loop_ub = b_problemStruct.fitLimits.size(0);
+    ParInfo_min.set_size(1, b_problemStruct.fitLimits.size(0));
     for (i = 0; i < loop_ub; i++) {
-      ParInfo_min[i] = outProblemStruct->fitLimits[i];
+      ParInfo_min[i] = b_problemStruct.fitLimits[i];
     }
 
-    loop_ub = outProblemStruct->fitLimits.size(0);
-    ParInfo_max.set_size(1, outProblemStruct->fitLimits.size(0));
+    loop_ub = b_problemStruct.fitLimits.size(0);
+    ParInfo_max.set_size(1, b_problemStruct.fitLimits.size(0));
     for (i = 0; i < loop_ub; i++) {
-      ParInfo_max[i] = outProblemStruct->fitLimits[i +
-        outProblemStruct->fitLimits.size(0)];
+      ParInfo_max[i] = b_problemStruct.fitLimits[i +
+        b_problemStruct.fitLimits.size(0)];
     }
 
     //  Run the sampler....
     getFittedPriors(fitParamNames, priors->priorNames, priors->priorValues,
-                    outProblemStruct->fitLimits, r);
+                    b_problemStruct.fitLimits, r);
     ratDREAM(static_cast<real_T>(fitParamNames.size(0)), controls->nChains, std::
              ceil(controls->nSamples / controls->nChains),
              controls->jumpProbability, controls->pUnitGamma, controls->adaptPCR,
              ParInfo_min, ParInfo_max, controls->boundHandling.data,
-             controls->boundHandling.size, outProblemStruct, problemCells,
+             controls->boundHandling.size, &b_problemStruct, problemCells,
              problemLimits, controls, r, bayesResults->dreamOutput.allChains,
              &dreamOutput, a__1);
 
@@ -215,14 +215,33 @@ namespace RAT
 
     coder::mean(bayesResults->chain, r1);
     b_controls = *controls;
-    processBayes(r1, bayesResults->chain, outProblemStruct, problemCells,
-                 problemLimits, &b_controls, result, &dreamResults);
+    processBayes(r1, bayesResults->chain, &b_problemStruct, problemCells,
+                 problemLimits, &b_controls, outProblemStruct, result,
+                 &dreamResults);
 
     //  Populate the output struct
-    cast(dreamResults.predictionIntervals.reflectivity,
-         bayesResults->predictionIntervals.reflectivity);
-    cast(dreamResults.predictionIntervals.sld,
-         bayesResults->predictionIntervals.sld);
+    bayesResults->predictionIntervals.reflectivity.set_size
+      (dreamResults.predictionIntervals.reflectivity.size(0));
+    loop_ub = dreamResults.predictionIntervals.reflectivity.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      bayesResults->predictionIntervals.reflectivity[i] =
+        dreamResults.predictionIntervals.reflectivity[i];
+    }
+
+    bayesResults->predictionIntervals.sld.set_size
+      (dreamResults.predictionIntervals.sld.size(0),
+       dreamResults.predictionIntervals.sld.size(1));
+    loop_ub = dreamResults.predictionIntervals.sld.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_loop_ub = dreamResults.predictionIntervals.sld.size(0);
+      for (i1 = 0; i1 < b_loop_ub; i1++) {
+        bayesResults->predictionIntervals.sld[i1 +
+          bayesResults->predictionIntervals.sld.size(0) * i] =
+          dreamResults.predictionIntervals.sld[i1 +
+          dreamResults.predictionIntervals.sld.size(0) * i];
+      }
+    }
+
     bayesResults->predictionIntervals.reflectivityXData.set_size
       (dreamResults.predictionIntervals.reflectivityXData.size(0));
     for (i = 0; i < dreamResults.predictionIntervals.reflectivityXData.size(0);
@@ -231,14 +250,25 @@ namespace RAT
         dreamResults.predictionIntervals.reflectivityXData[i].f1.size(1));
       loop_ub = dreamResults.predictionIntervals.reflectivityXData[i].f1.size(1);
       for (i1 = 0; i1 < loop_ub; i1++) {
-        bayesResults->predictionIntervals.reflectivityXData[i].f1
-          [bayesResults->predictionIntervals.reflectivityXData[i].f1.size(0) *
-          i1] = dreamResults.predictionIntervals.reflectivityXData[i].f1[i1];
+        bayesResults->predictionIntervals.reflectivityXData[i].f1[i1] =
+          dreamResults.predictionIntervals.reflectivityXData[i].f1[i1];
       }
     }
 
-    cast(dreamResults.predictionIntervals.sldXData,
-         bayesResults->predictionIntervals.sldXData);
+    bayesResults->predictionIntervals.sldXData.set_size
+      (dreamResults.predictionIntervals.sldXData.size(0),
+       dreamResults.predictionIntervals.sldXData.size(1));
+    loop_ub = dreamResults.predictionIntervals.sldXData.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_loop_ub = dreamResults.predictionIntervals.sldXData.size(0);
+      for (i1 = 0; i1 < b_loop_ub; i1++) {
+        bayesResults->predictionIntervals.sldXData[i1 +
+          bayesResults->predictionIntervals.sldXData.size(0) * i] =
+          dreamResults.predictionIntervals.sldXData[i1 +
+          dreamResults.predictionIntervals.sldXData.size(0) * i];
+      }
+    }
+
     bayesResults->predictionIntervals.sampleChi.size[0] = 1000;
     std::copy(&dreamResults.predictionIntervals.sampleChi[0],
               &dreamResults.predictionIntervals.sampleChi[1000],

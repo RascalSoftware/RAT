@@ -20,18 +20,23 @@
 namespace RAT
 {
   struct d_struct_T;
-  struct cell_11;
+  struct cell_13;
   struct struct1_T;
   struct struct2_T;
+  struct e_struct_T;
+  struct g_struct_T;
   struct struct5_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void reflectivityCalculation(const d_struct_T *problemStruct, const cell_11
+  void reflectivityCalculation(const g_struct_T *problemStruct, const cell_13
     *problemCells, const struct1_T *problemLimits, const struct2_T *controls,
     struct5_T *result);
+  void reflectivityCalculation(const d_struct_T *problemStruct, const cell_13
+    *problemCells, const struct1_T *problemLimits, const struct2_T *controls,
+    e_struct_T *result);
 }
 
 #endif

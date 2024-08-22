@@ -21,12 +21,13 @@
 namespace RAT
 {
   struct d_struct_T;
-  struct cell_11;
+  struct cell_13;
   struct struct2_T;
-  struct e_struct_T;
+  struct f_struct_T;
   struct struct6_T;
   struct cell_wrap_8;
   struct cell_wrap_10;
+  struct g_struct_T;
 }
 
 // Function Declarations
@@ -34,8 +35,15 @@ namespace RAT
 {
   namespace domainsTF
   {
+    void b_reflectivityCalculation(const g_struct_T *problemStruct, const
+      cell_13 *problemCells, const struct2_T *controls, f_struct_T
+      *contrastParams, struct6_T *calculationResults, ::coder::array<cell_wrap_8,
+      1U> &reflectivity, ::coder::array<cell_wrap_8, 1U> &simulation, ::coder::
+      array<cell_wrap_10, 1U> &shiftedData, ::coder::array<cell_wrap_10, 2U>
+      &layerSlds, ::coder::array<cell_wrap_10, 2U> &sldProfiles, ::coder::array<
+      cell_wrap_10, 2U> &resampledLayers);
     void b_reflectivityCalculation(const d_struct_T *problemStruct, const
-      cell_11 *problemCells, const struct2_T *controls, e_struct_T
+      cell_13 *problemCells, const struct2_T *controls, f_struct_T
       *contrastParams, struct6_T *calculationResults, ::coder::array<cell_wrap_8,
       1U> &reflectivity, ::coder::array<cell_wrap_8, 1U> &simulation, ::coder::
       array<cell_wrap_10, 1U> &shiftedData, ::coder::array<cell_wrap_10, 2U>

@@ -21,21 +21,23 @@
 namespace RAT
 {
   struct d_struct_T;
-  struct cell_11;
+  struct cell_13;
   struct struct1_T;
   struct struct2_T;
+  struct g_struct_T;
   struct struct5_T;
-  struct h_struct_T;
+  struct j_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
   void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestParams,
-                    const ::coder::array<real_T, 2U> &bayesOutputs_chain,
-                    d_struct_T *problemStruct, const cell_11 *problemCells,
+                    const ::coder::array<real_T, 2U> &bayesOutputs_chain, const
+                    d_struct_T *problemStruct, const cell_13 *problemCells,
                     const struct1_T *problemLimits, struct2_T *controls,
-                    struct5_T *result, h_struct_T *bayesResults);
+                    g_struct_T *b_problemStruct, struct5_T *result, j_struct_T
+                    *bayesResults);
 }
 
 #endif

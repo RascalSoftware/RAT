@@ -20,19 +20,19 @@
 // Type Declarations
 namespace RAT
 {
-  struct d_struct_T;
-  struct cell_11;
+  struct g_struct_T;
+  struct cell_13;
   struct struct1_T;
   struct struct2_T;
-  struct f_struct_T;
+  struct i_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
   void refPercentileConfidenceIntervals(const ::coder::array<real_T, 2U>
-    &bayesOutputs_chain, d_struct_T *problemStruct, const cell_11 *problemCells,
-    const struct1_T *problemLimits, const struct2_T *controlsStruct, f_struct_T *
+    &bayesOutputs_chain, g_struct_T *problemStruct, const cell_13 *problemCells,
+    const struct1_T *problemLimits, const struct2_T *controlsStruct, i_struct_T *
     allPredInts);
 }
 

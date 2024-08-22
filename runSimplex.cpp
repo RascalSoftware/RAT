@@ -26,19 +26,18 @@
 // Function Definitions
 namespace RAT
 {
-  void runSimplex(d_struct_T *problemStruct, const cell_11 *problemCells, const
-                  struct1_T *problemLimits, const struct2_T *controls, struct5_T
-                  *result)
+  void runSimplex(d_struct_T *problemStruct, const cell_13 *problemCells, const
+                  struct1_T *problemLimits, const struct2_T *controls,
+                  e_struct_T *result)
   {
     static const char_T b_cv1[6]{ 'n', 'o', 't', 'i', 'f', 'y' };
 
     static const char_T b_cv[5]{ 'f', 'i', 'n', 'a', 'l' };
 
     ::coder::array<cell_wrap_1, 1U> b_problemStruct;
-    ::coder::array<real_T, 1U> x;
     ::coder::array<real_T, 1U> x0u;
-    j_struct_T a__4;
-    l_struct_T expl_temp;
+    m_struct_T a__4;
+    n_struct_T expl_temp;
     real_T a__2;
     real_T a__3;
     int32_T dis_size[2];
@@ -125,8 +124,7 @@ namespace RAT
 
     //  size checks
     if (problemStruct->fitLimits.size(0) == 0) {
-      outsize_idx_0 = problemStruct->fitParams.size(0) *
-        problemStruct->fitParams.size(1);
+      outsize_idx_0 = problemStruct->fitParams.size(0);
       expl_temp.LB.set_size(outsize_idx_0);
       for (i = 0; i < outsize_idx_0; i++) {
         expl_temp.LB[i] = rtMinusInf;
@@ -134,8 +132,7 @@ namespace RAT
     }
 
     if (problemStruct->fitLimits.size(0) == 0) {
-      outsize_idx_0 = problemStruct->fitParams.size(0) *
-        problemStruct->fitParams.size(1);
+      outsize_idx_0 = problemStruct->fitParams.size(0);
       expl_temp.UB.set_size(outsize_idx_0);
       for (i = 0; i < outsize_idx_0; i++) {
         expl_temp.UB[i] = rtInf;
@@ -149,14 +146,13 @@ namespace RAT
     //  1 --> lower bound only
     //  2 --> upper bound only
     //  3 --> dual finite bounds
-    outsize_idx_0 = problemStruct->fitParams.size(0) *
-      problemStruct->fitParams.size(1);
+    outsize_idx_0 = problemStruct->fitParams.size(0);
     expl_temp.BoundClass.set_size(outsize_idx_0);
     for (i = 0; i < outsize_idx_0; i++) {
       expl_temp.BoundClass[i] = 0.0;
     }
 
-    i = problemStruct->fitParams.size(0) * problemStruct->fitParams.size(1);
+    i = problemStruct->fitParams.size(0);
     for (b_i = 0; b_i < i; b_i++) {
       expl_temp.BoundClass[b_i] = static_cast<real_T>((!std::isinf
         (expl_temp.LB[b_i])) && (!std::isnan(expl_temp.LB[b_i]))) + static_cast<
@@ -166,14 +162,13 @@ namespace RAT
 
     //  transform starting values into their unconstrained
     //  surrogates. Check for infeasible starting guesses.
-    outsize_idx_0 = problemStruct->fitParams.size(0) *
-      problemStruct->fitParams.size(1);
-    x0u.set_size(outsize_idx_0);
+    x0u.set_size(problemStruct->fitParams.size(0));
+    outsize_idx_0 = problemStruct->fitParams.size(0);
     for (i = 0; i < outsize_idx_0; i++) {
       x0u[i] = problemStruct->fitParams[i];
     }
 
-    i = problemStruct->fitParams.size(0) * problemStruct->fitParams.size(1);
+    i = problemStruct->fitParams.size(0);
     for (b_i = 0; b_i < i; b_i++) {
       switch (static_cast<int32_T>(expl_temp.BoundClass[b_i])) {
        case 1:
@@ -226,18 +221,11 @@ namespace RAT
 
     // [xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemStruct,problemCells,problemLimits,controls,options,params,300);
     //  undo the variable transformations into the original space
-    simplexXTransform(x0u, expl_temp.LB, expl_temp.UB, expl_temp.BoundClass, x);
+    simplexXTransform(x0u, expl_temp.LB, expl_temp.UB, expl_temp.BoundClass,
+                      problemStruct->fitParams);
 
     //  final reshape
     // x = reshape(x,xsize);
-    outsize_idx_0 = x.size(0);
-    problemStruct->fitParams.set_size(x.size(0), 1);
-    for (i = 0; i < 1; i++) {
-      for (int32_T i1{0}; i1 < outsize_idx_0; i1++) {
-        problemStruct->fitParams[i1] = x[i1];
-      }
-    }
-
     unpackParams(problemStruct, controls->checks.fitParam,
                  controls->checks.fitBackgroundParam,
                  controls->checks.fitQzshift, controls->checks.fitScalefactor,

@@ -59,20 +59,30 @@ classdef testControlsClass < matlab.unittest.TestCase
             end
         end
 
-        function testResampleParams(testCase)
-            % Test if set.resampleParams method is working
-            testCase.controls.resampleParams = [0, 100];
-            testCase.verifyEqual(testCase.controls.resampleParams, [0, 100], 'set.resampleParams method is not working')
-            testCase.controls.resampleParams = [0.9, 10.2];
-            testCase.verifyEqual(testCase.controls.resampleParams, [0.9, 10.2], 'set.resampleParams method is not working')            
-            % bad resampleParams option 
-            testCase.verifyError(@() setResampleParams('ab'), exceptions.invalidType.errorID);
-            testCase.verifyError(@() setResampleParams([0.5, 6, 7]), exceptions.invalidValue.errorID);            
-            testCase.verifyError(@() setResampleParams([-1, 4]), exceptions.invalidValue.errorID);
-            testCase.verifyError(@() setResampleParams([0, 0]), exceptions.invalidValue.errorID);
-            testCase.verifyError(@() setResampleParams([12, 13]), exceptions.invalidValue.errorID);
-            function setResampleParams(value)
-                testCase.controls.resampleParams = value;
+        function testResampleMinAngle(testCase)
+            % Test if set.resampleMinAngle method is working
+            testCase.controls.resampleMinAngle = 0.9;
+            testCase.verifyEqual(testCase.controls.resampleMinAngle, 0.9, 'set.resampleMinAngle method is not working')            
+            % bad resampleMinAngle option 
+            testCase.verifyError(@() setResampleMinAngle('ab'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setResampleMinAngle(-1), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setResampleMinAngle(0), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setResampleMinAngle(12.3), exceptions.invalidValue.errorID);
+            function setResampleMinAngle(value)
+                testCase.controls.resampleMinAngle = value;
+            end
+        end
+
+        function testResampleNPoints(testCase)
+            % test if set.resampleNPoints is working
+            testcase.controls.resampleNPoints = 10;
+            testcase.verifyEqual(testcase.controls.resampleNPoints, 10, 'set.resampleNPoints method is not working')
+            % bad option
+            testCase.verifyError(@() setResampleMinAngle('ab'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setResampleMinAngle(-1), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setResampleMinAngle(0.5), exceptions.invalidValue.errorID);
+            function setResampleNPoints(value)
+                testCase.controls.resampleNPoints = value;
             end
         end
 
@@ -383,7 +393,8 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.adaptPCR, true, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resampleParams, [0.9 50], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleMinAngle, 0.9, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleNPoints, 50, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Iter.value, 'setProcedure method is not working');
 
             % Test passing valid parameter values for dream procedure
@@ -396,7 +407,8 @@ classdef testControlsClass < matlab.unittest.TestCase
                 'adaptPCR', true,...
                 'parallel', parallelOptions.Contrasts.value,...
                 'calcSldDuringFit', true,...
-                'resampleParams', [0 10],...
+                'resampleMinAngle', 0.1,...
+                'resampleNPoints', 10,...
                 'display', displayOptions.Notify.value});
             testCase.verifyEqual(testCase.controls.procedure, procedures.Dream.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.nSamples, 70000, 'setProcedure method is not working');
@@ -407,7 +419,8 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyTrue(testCase.controls.adaptPCR, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Contrasts.value, 'setProcedure method is not working');
             testCase.verifyTrue(testCase.controls.calcSldDuringFit, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resampleParams, [0 10], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleMinAngle, 0.1, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleNPoints, 50, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'setProcedure method is not working');
 
             % Test passing invalid parameter values for dream procedure
@@ -435,7 +448,8 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.nsTolerance, 0.1, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resampleParams, [0.9 50], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleMinAngle, 0.9, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleNPoints, 50, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Iter.value, 'setProcedure method is not working');
 
             % Test passing valid parameter values for NS procedure
@@ -446,7 +460,8 @@ classdef testControlsClass < matlab.unittest.TestCase
                 'nsTolerance', 0.5,...
                 'parallel', parallelOptions.Contrasts.value,...
                 'calcSldDuringFit', true,...
-                'resampleParams', [0 10],...
+                'resampleMinAngle', 0.1,...
+                'resampleNPoints', 10,...
                 'display', displayOptions.Notify.value});
             testCase.verifyEqual(testCase.controls.procedure, procedures.NS.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.nLive, 700, 'setProcedure method is not working');
@@ -455,7 +470,8 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.nsTolerance, 0.5, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Contrasts.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, true, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resampleParams, [0 10], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleMinAngle, 0.1, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleNPoints, 50, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'setProcedure method is not working');
 
             % Test passing wrong parameter for NS procedure
@@ -481,7 +497,8 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.numGenerations, 500, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resampleParams, [0.9 50], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleMinAngle, 0.9, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleNPoints, 50, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Iter.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.updateFreq, 1, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.updatePlotFreq, 20, 'setProcedure method is not working');
@@ -496,7 +513,8 @@ classdef testControlsClass < matlab.unittest.TestCase
                 'numGenerations', 3,...
                 'parallel', parallelOptions.Contrasts.value,...
                 'calcSldDuringFit', true,...
-                'resampleParams', [0 10],...
+                'resampleMinAngle', 0.1,...
+                'resampleNPoints', 10,...                
                 'display', displayOptions.Notify.value,...
                 'updateFreq', 1,...
                 'updatePlotFreq', 4});
@@ -509,7 +527,8 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.numGenerations, 3, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Contrasts.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, true, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resampleParams, [0 10], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleMinAngle, 0.1, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleNPoints, 50, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.updateFreq, 1, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.updatePlotFreq, 4, 'setProcedure method is not working');
@@ -537,7 +556,8 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.updatePlotFreq, 20, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resampleParams, [0.9 50], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleMinAngle, 0.9, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleNPoints, 50, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Iter.value, 'setProcedure method is not working');
 
             % Test passing valid parameter values for Simplex procedure
@@ -550,7 +570,8 @@ classdef testControlsClass < matlab.unittest.TestCase
                 'updatePlotFreq', 4, ...
                 'parallel', parallelOptions.Contrasts.value,...
                 'calcSldDuringFit', true,...
-                'resampleParams', [0 10],...
+                'resampleMinAngle', 0.1,...
+                'resampleNPoints', 10,...                 
                 'display', displayOptions.Notify.value});
             testCase.verifyEqual(testCase.controls.procedure, procedures.Simplex.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.xTolerance, 3e-6, 'setProcedure method is not working');
@@ -561,7 +582,8 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.updatePlotFreq, 4, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Contrasts.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, true, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resampleParams, [0 10], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleMinAngle, 0.1, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleNPoints, 50, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'setProcedure method is not working');
 
             % Test passing wrong parameter for Simplex procedure
@@ -581,19 +603,22 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.procedure, procedures.Calculate.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resampleParams, [0.9 50], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleMinAngle, 0.9, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleNPoints, 50, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Iter.value, 'setProcedure method is not working');
             
             % Test passing valid parameter values for Calculate procedure
             testCase.controls = testCase.controls.setProcedure(procedures.Calculate.value,...
                 {'parallel', parallelOptions.Contrasts.value,...
                 'calcSldDuringFit', true,...
-                'resampleParams', [0 10],...
+                'resampleMinAngle', 0.1,...
+                'resampleNPoints', 10,...                 
                 'display', displayOptions.Notify.value});
             testCase.verifyEqual(testCase.controls.procedure, procedures.Calculate.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Contrasts.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, true, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.resampleParams, [0 10], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleMinAngle, 0.1, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resampleNPoints, 50, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'setProcedure method is not working');
 
             % Test passing wrong parameter for Calculate procedure

@@ -127,7 +127,7 @@ end
 
 % Now make a controls block....
 controls = controlsClass();
-controls.resampleParams(2) = 150;
+controls.resampleMinAngle = 150;
 controls.parallel = 'contrasts';
 
 [problem,results] = RAT(problem,controls);

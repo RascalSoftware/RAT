@@ -16,21 +16,11 @@ else
     thisContrastLayers = zeros(length(contrastLayers),5);
 end
 
- for i = 1:length(contrastLayers)
+for i = 1:length(contrastLayers)
     if (contrastLayers(i) ~= 0)
-        thisLayer = outParameterisedLayers{contrastLayers(i)};
-        
-%         % Check the length of thisLayer. If it's 6, then we have an
-%         % imaginary SLD defined. Combile them into one complex number at
-%         % this point.
-%         if length(thisLayer) == 6
-%             compSLD = complex(thisLayer(2),thisLayer(3));
-%             thisLayer = [thisLayer(1) compSLD thisLayer(4:end)];
-%         end
-
-        thisContrastLayers(i,:) = thisLayer;
+        thisContrastLayers(i,:) = outParameterisedLayers{contrastLayers(i)};
     else
-        thisContrastLayers(1,:) = [];
+        thisContrastLayers(i,:) = [];
     end
 end
 

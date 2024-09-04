@@ -74,11 +74,11 @@ classdef testControlsClass < matlab.unittest.TestCase
 
         function testResampleNPoints(testCase)
             % test if set.resampleNPoints is working
-            testcase.controls.resampleNPoints = 10;
-            testcase.verifyEqual(testcase.controls.resampleNPoints, 10, 'set.resampleNPoints method is not working')
+            testCase.controls.resampleNPoints = 10;
+            testCase.verifyEqual(testCase.controls.resampleNPoints, 10, 'set.resampleNPoints method is not working')
             % bad option
             testCase.verifyError(@() setResampleNPoints('ab'), exceptions.invalidType.errorID);
-            testCase.verifyError(@() setResampleNPoints(0.5), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setResampleNPoints(0.5), exceptions.invalidValue.errorID);
             testCase.verifyError(@() setResampleNPoints(-1), exceptions.invalidValue.errorID);
             function setResampleNPoints(value)
                 testCase.controls.resampleNPoints = value;

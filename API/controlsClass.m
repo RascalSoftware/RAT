@@ -95,6 +95,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         end
 
         function set.resampleMinAngle(obj,val)
+            validateNumber(val, 'resampleNPoints must be a number');
             if (val < 0 || val > 1) 
                 throw(exceptions.invalidValue('resampleMinAngle must be between 0 and 1'));
             end

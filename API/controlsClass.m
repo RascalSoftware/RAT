@@ -1,5 +1,5 @@
 classdef controlsClass < handle & matlab.mixin.CustomDisplay
-
+    
     properties
         % Parallelisation Option (Default: parallelOptions.Single)
         parallel = parallelOptions.Single.value
@@ -15,9 +15,9 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         display = displayOptions.Iter.value
         updateFreq = 1
         updatePlotFreq = 20
-
+        
         % optimization tolerance for simplex (Default: 1e-6)
-        xTolerance = 1e-6    
+        xTolerance = 1e-6
         funcTolerance = 1e-6
         % Maximum number of function evaluations for simplex  (Default: 10000)
         maxFuncEvals = 10000
@@ -36,31 +36,31 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         targetValue = 1
         % Maximum number of generations (Default: 500)
         numGenerations = 500
-
+        
         % Number of live points for Nested Sampler (Default: 150)
         nLive = 150
         nMCMC = 0
         propScale = 0.1     % Used if MCMC is used
         % Target stopping tolerance for Nested Sampler (Default: 0.1)
-        nsTolerance = 0.1   
-
+        nsTolerance = 0.1
+        
         % Total number of samples for DREAM (Default: 20000)
         nSamples = 20000;
-        % Number of MCMC chains (Default: 10)       
+        % Number of MCMC chains (Default: 10)
         nChains = 10
-        % Jump probabilities (Default: 0.5)          
-        jumpProbability = 0.5      
+        % Jump probabilities (Default: 0.5)
+        jumpProbability = 0.5
         pUnitGamma = 0.2
         % Boundary handling
-        boundHandling = boundHandlingOptions.Reflect.value     
+        boundHandling = boundHandlingOptions.Reflect.value
         adaptPCR = true;
     end
-
-
+    
+    
     properties (SetAccess = private, Hidden = true)
         IPCFilePath = ''
     end
-
+    
     %------------------------- Set and Get ------------------------------
     methods
         function set.parallel(obj,val)
@@ -68,24 +68,24 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
                 strjoin(parallelOptions.values(), ', '));
             obj.parallel = validateOption(val, 'parallelOptions', message).value;
         end
-
+        
         function set.procedure(obj,val)
             message = sprintf('procedure must be a procedures enum or one of the following strings (%s)', ...
                 strjoin(procedures.values(), ', '));
             obj.procedure = validateOption(val, 'procedures', message).value;
         end
-
+        
         function set.calcSldDuringFit(obj,val)
             validateLogical(val, 'calcSldDuringFit must be logical ''true'' or ''false''');
             obj.calcSldDuringFit = val;
         end
-
+        
         function set.display(obj,val)
             message = sprintf('display must be a displayOptions enum or one of the following strings (%s)', ...
                 strjoin(displayOptions.values(), ', '));
             obj.display = validateOption(val, 'displayOptions', message).value;
         end
-
+        
         function set.updatePlotFreq(obj, val)
             validateNumber(val, 'updatePlotFreq must be a whole number', true);
             if val < 1
@@ -93,15 +93,15 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             end
             obj.updatePlotFreq = val;
         end
-
+        
         function set.resampleMinAngle(obj,val)
-            validateNumber(val, 'resampleNPoints must be a number');
-            if (val < 0 || val > 1) 
+            validateNumber(val, 'resampleMinAngle must be a number');
+            if (val <= 0 || val > 1)
                 throw(exceptions.invalidValue('resampleMinAngle must be between 0 and 1'));
             end
             obj.resampleMinAngle = val;
         end
-
+        
         function set.resampleNPoints(obj,val)
             validateNumber(val, 'resampleNPoints must be a whole number', true);
             if (val <= 0)
@@ -109,24 +109,24 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             end
             obj.resampleNPoints = val;
         end
-
+        
         % Simplex control methods
         function set.xTolerance(obj, val)
             obj.xTolerance = validateNumber(val, 'xTolerance must be a number');
         end
-
+        
         function set.funcTolerance(obj, val)
             obj.funcTolerance = validateNumber(val, 'funcTolerance must be a number');
         end
-
+        
         function set.maxFuncEvals(obj, val)
             obj.maxFuncEvals = validateNumber(val, 'maxFuncEvals must be a whole number', true);
         end
-
+        
         function set.maxIterations(obj, val)
             obj.maxIterations = validateNumber(val, 'maxIterations must be a whole number', true);
         end
-
+        
         % DE controls methods
         function set.populationSize(obj, val)
             validateNumber(val, 'populationSize must be a whole number', true);
@@ -135,11 +135,11 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             end
             obj.populationSize = val;
         end
-
+        
         function set.fWeight(obj,val)
             obj.fWeight = validateNumber(val,'fWeight must be a number');
         end
-
+        
         function set.crossoverProbability(obj,val)
             validateNumber(val, 'crossoverProbability must be a number');
             if (val < 0 || val > 1)
@@ -147,14 +147,14 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             end
             obj.crossoverProbability = val;
         end
-
+        
         function set.strategy(obj,val)
             message = sprintf('strategy must be a searchStrategy enum or one of the following integers (%s)', ...
                 strjoin(string(searchStrategy.values()), ', '));
-
+            
             obj.strategy = validateOption(val, 'searchStrategy', message).value;
         end
-
+        
         function set.targetValue(obj,val)
             validateNumber(val, 'targetValue must be a number');
             if val < 1
@@ -162,7 +162,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             end
             obj.targetValue = val;
         end
-
+        
         function set.numGenerations(obj, val)
             validateNumber(val, 'numGenerations value must be a whole number', true);
             if val < 1
@@ -170,7 +170,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             end
             obj.numGenerations = val;
         end
-
+        
         % NS control methods
         function set.nLive(obj, val)
             validateNumber(val, 'nLive must be a whole number', true);
@@ -179,7 +179,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             end
             obj.nLive = val;
         end
-
+        
         function set.nMCMC(obj, val)
             validateNumber(val, 'nMCMC must be a whole number', true);
             if val < 0
@@ -187,7 +187,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             end
             obj.nMCMC = val;
         end
-
+        
         function set.propScale(obj, val)
             validateNumber(val, 'propScale must be a number');
             if (val < 0 || val > 1)
@@ -195,7 +195,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             end
             obj.propScale = val;
         end
-
+        
         function set.nsTolerance(obj,val)
             validateNumber(val, 'nsTolerance must be a number ');
             if val < 0
@@ -203,7 +203,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             end
             obj.nsTolerance = val;
         end
-
+        
         % DREAM methods
         function set.nSamples(obj,val)
             validateNumber(val, 'nSamples must be a whole number', true);
@@ -212,7 +212,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             end
             obj.nSamples = val;
         end
-
+        
         function set.nChains(obj,val)
             validateNumber(val, 'nChains must be a whole number', true);
             if val <= 0
@@ -220,7 +220,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             end
             obj.nChains = val;
         end
-
+        
         function set.jumpProbability(obj,val)
             validateNumber(val, 'jumpProbability must be a number');
             if (val < 0 || val > 1)
@@ -228,7 +228,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             end
             obj.jumpProbability = val;
         end
-
+        
         function set.pUnitGamma(obj,val)
             validateNumber(val, 'pUnitGamma must be a number');
             if (val < 0 || val > 1)
@@ -236,35 +236,35 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             end
             obj.pUnitGamma = val;
         end
-
+        
         function set.boundHandling(obj,val)
             message = sprintf('boundHandling must be a boundHandlingOptions enum or one of the following strings (%s)', ...
                 strjoin(boundHandlingOptions.values(), ', '));
             obj.boundHandling = validateOption(val, 'boundHandlingOptions', message).value;
         end
-
+        
         function set.adaptPCR(obj,val)
             validateLogical(val, 'adaptPCR must be logical ''true'' or ''false''');
             obj.adaptPCR = val;
         end
-
-
+        
+        
         function obj = setProcedure(obj, procedure, varargin)
             % Method sets the properties of the class based on the selected procedures.
             %
-            % USAGE: 
+            % USAGE:
             %     obj.setProcedure(procedure, varargin)
             %
-            % EXAMPLE: 
+            % EXAMPLE:
             %     * obj.setProcedure('simplex', {'xTolerance', 1e-6, 'funcTolerance', 1e-6,'maxFuncEvals', 1000})
             %     * obj.setProcedure('dream')
             %     * obj.setProcedure('ns', {'nLive', 150,'nMCMC', 0, 'propScale', 0.1, 'nsTolerance', 0.1})
             
             message = sprintf(['%s is not a supported procedure. The procedure must be a procedures enum or one of ' ...
-                               'the following strings (%s)'], procedure, strjoin(procedures.values(), ', '));
+                'the following strings (%s)'], procedure, strjoin(procedures.values(), ', '));
             procedure = validateOption(procedure, 'procedures', message).value;
             switch procedure
-
+                
                 case procedures.Calculate.value
                     % Parses the inputs and sets the object properties of
                     % the Calculate procedure
@@ -272,7 +272,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
                         obj = obj.processCalculateInput(varargin{:});
                     end
                     obj.procedure = procedures.Calculate.value;
-
+                    
                 case procedures.Simplex.value
                     % Parses the inputs and sets the object properties of
                     % the Simplex procedure
@@ -280,7 +280,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
                         obj = obj.processSimplexInput(varargin{:});
                     end
                     obj.procedure = procedures.Simplex.value;
-
+                    
                 case procedures.DE.value
                     % Parses the inputs and sets the object properties of
                     % the Differential Evolution procedure
@@ -288,7 +288,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
                         obj = obj.processDEInput(varargin{:});
                     end
                     obj.procedure = procedures.DE.value;
-
+                    
                 case procedures.NS.value
                     % Parses the inputs and sets the object properties of
                     % the Nested Sampler procedure
@@ -296,7 +296,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
                         obj = obj.processNSInput(varargin{:});
                     end
                     obj.procedure = procedures.NS.value;
-
+                    
                 case procedures.Dream.value
                     % Parses the inputs and sets the object properties of
                     % the DREAM procedure
@@ -305,7 +305,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
                     end
                     obj.procedure = procedures.Dream.value;
             end
-
+            
         end
         
         function obj = initialiseIPC(obj)
@@ -318,7 +318,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             fwrite(fileID, false, 'uchar');
             fclose(fileID);
         end
-
+        
         function path = getIPCFilePath(obj)
             % Returns the path of the IPC file.
             %
@@ -340,7 +340,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             fclose(fileID);
         end
     end
-
+    
     %------------------------- Display Methods --------------------------
     methods (Access = protected)
         function groups = getPropertyGroups(obj)
@@ -372,32 +372,32 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
                 'pUnitGamma', {obj.pUnitGamma},...
                 'boundHandling', {obj.boundHandling},...
                 'adaptPCR', {obj.adaptPCR});
-
+            
             simplexCell = {'xTolerance',...
                 'funcTolerance',...
                 'maxFuncEvals',...
                 'maxIterations',...
                 };
-
+            
             deCell = {'populationSize',...
                 'fWeight',...
                 'crossoverProbability',...
                 'strategy',...
                 'targetValue',...
                 'numGenerations'};
-
+            
             nsCell = {'nLive',...
                 'nMCMC',...
                 'propScale',...
                 'nsTolerance'};
-
+            
             dreamCell = {'nSamples',...
                 'nChains',...
                 'jumpProbability',...
                 'pUnitGamma',...
                 'boundHandling',...
                 'adaptPCR'};
-
+            
             if isscalar(obj)
                 dispPropList = masterPropList;
                 if strcmpi(obj.procedure, 'calculate')
@@ -418,10 +418,10 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             end
         end
     end
-
+    
     %------------------------- Parsing Methods --------------------------
     methods (Access = private)
-
+        
         function obj = processCalculateInput(obj, varargin)
             % Parses calculate keyword/value pairs and sets the properties of the class.
             %
@@ -433,14 +433,14 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             % 3) resampleMinAngle
             % 4) resampleNPoints
             % 5) display
-
+            
             % The default values for Calculate
             defaultParallel = parallelOptions.Single.value;
             defaultCalcSldDuringFit = false;
             defaultMinAngle = 0.9;
             defaultNPoints = 50;
             defaultDisplay = displayOptions.Iter.value;
-
+            
             % Creates the input parser for the calculate parameters
             p = inputParser;
             addParameter(p,'parallel',  defaultParallel,   @(x) isText(x) || isenum(x));
@@ -449,11 +449,11 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             addParameter(p,'resampleNPoints', defaultNPoints,  @isnumeric);
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
             properties = varargin{:};
-
+            
             % Parses the input or raises invalidOption error
             errorMsg = 'Only parallel, calcSldDuringFit, resampleMinAngle, resampleNPoints and display can be set while using the Calculate procedure';
             inputBlock = obj.parseInputs(p, properties, errorMsg);
-
+            
             % Sets the values the for Calculate parameters
             obj.parallel = inputBlock.parallel;
             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
@@ -461,7 +461,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             obj.resampleNPoints = inputBlock.resampleNPoints;
             obj.display = inputBlock.display;
         end
-
+        
         function obj = processSimplexInput(obj, varargin)
             % Parses simplex keyword/value pairs and sets the properties of the class.
             %
@@ -479,7 +479,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             % 9) resampleMinAngle
             % 10) resampleNPoints
             % 11) display
-
+            
             % The simplex default values
             defaultXTolerance = 1e-6;
             defaultFuncTolerance = 1e-6;
@@ -492,7 +492,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             defaultMinAngle = 0.9;
             defaultNPoints = 50;
             defaultDisplay = displayOptions.Iter.value;
-
+            
             % Parses the input for simplex parameters
             p = inputParser;
             addParameter(p,'xTolerance',  defaultXTolerance,   @isnumeric);
@@ -507,11 +507,11 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             addParameter(p,'resampleNPoints', defaultNPoints,  @isnumeric);
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
             properties = varargin{:};
-
+            
             % Parses the input or raises invalidOption error
             errorMsg = 'Only xTolerance, funcTolerance, maxFuncEvals, maxIterations, updateFreq, updatePlotFreq, parallel, calcSldDuringFit, resampleMinAngle, resampleNPoints and display can be set while using the Simplex procedure.';
             inputBlock = obj.parseInputs(p, properties, errorMsg);
-
+            
             % Sets the values the for simplex parameters
             obj.xTolerance = inputBlock.xTolerance;
             obj.funcTolerance = inputBlock.funcTolerance;
@@ -525,7 +525,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             obj.resampleNPoints = inputBlock.resampleNPoints;
             obj.display = inputBlock.display;
         end
-
+        
         function obj = processDEInput(obj, varargin)
             % Parses differential evolution keyword/value pairs and sets the properties of the class.
             %
@@ -545,7 +545,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             % 11) display
             % 12) updateFreq
             % 13) updatePlotFreq
-
+            
             % The default values for DE
             defaultPopulationSize = 20;
             defaultFWeight = 0.5;
@@ -560,7 +560,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             defaultDisplay = displayOptions.Iter.value;
             defaultUpdateFreq = 1;
             defaultUpdatePlotFreq = 20;
-
+            
             % Creates the input parser for the DE parameters
             p = inputParser;
             addParameter(p,'populationSize',  defaultPopulationSize,   @isnumeric);
@@ -577,11 +577,11 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             addParameter(p,'updateFreq',   defaultUpdateFreq,    @isnumeric);
             addParameter(p,'updatePlotFreq',   defaultUpdatePlotFreq,    @isnumeric);
             properties = varargin{:};
-
+            
             % Parses the input or raises invalidOption error
             errorMsg = 'Only populationSize, fWeight, crossoverProbability, strategy, targetValue, numGenerations, parallel, calcSldDuringFit, resampleMinAngle, resampleNPoints, display, updateFreq, and updatePlotFreq can be set while using the Differential Evolution procedure';
             inputBlock = obj.parseInputs(p, properties, errorMsg);
-
+            
             % Sets the values the for DE parameters
             obj.populationSize = inputBlock.populationSize;
             obj.fWeight = inputBlock.fWeight;
@@ -597,7 +597,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             obj.updateFreq = inputBlock.updateFreq;
             obj.updatePlotFreq = inputBlock.updatePlotFreq;
         end
-
+        
         function obj = processNSInput(obj, varargin)
             % Parses nested sampler keyword/value pairs and sets the properties of the class.
             %
@@ -613,7 +613,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             % 7) resampleMinAngle
             % 8) resampleNPoints
             % 9) display
-
+            
             % The default values for NS
             defaultnLive = 150;
             defaultnMCMC = 0;
@@ -624,7 +624,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             defaultMinAngle = 0.9;
             defaultNPoints = 50;
             defaultDisplay = displayOptions.Iter.value;
-
+            
             % Creates the input parser for the NS parameters
             p = inputParser;
             addParameter(p,'nLive',  defaultnLive,   @isnumeric);
@@ -637,11 +637,11 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             addParameter(p,'resampleNPoints', defaultNPoints,  @isnumeric);
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
             properties = varargin{:};
-
+            
             % Parses the input or raises invalidOption error
             errorMsg = 'Only nLive, nMCMC, propScale, nsTolerance, parallel, calcSldDuringFit, resampleMinAngle, resampleNPoints and display can be set while using the Nested Sampler procedure';
             inputBlock = obj.parseInputs(p, properties, errorMsg);
-
+            
             % Sets the values the for NS parameters
             obj.nLive = inputBlock.nLive;
             obj.nMCMC = inputBlock.nMCMC;
@@ -653,7 +653,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             obj.resampleNPoints = inputBlock.resampleNPoints;
             obj.display = inputBlock.display;
         end
-
+        
         function obj = processDreamInput(obj, varargin)
             % Parses Dream keyword/value pairs and sets the properties of the class.
             %
@@ -671,7 +671,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             % 9) resampleMinAngle
             % 10) resampleNPoints
             % 11) display
-
+            
             % The default values for Dream
             defaultNSamples = 50000;
             defaultNChains = 10;
@@ -684,7 +684,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             defaultMinAngle = 0.9;
             defaultNPoints = 50;
             defaultDisplay = displayOptions.Iter.value;
-
+            
             % Creates the input parser for the Dream parameters
             p = inputParser;
             addParameter(p,'nSamples',  defaultNSamples,   @isnumeric);
@@ -699,11 +699,11 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             addParameter(p,'resampleNPoints', defaultNPoints,  @isnumeric);
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
             properties = varargin{:};
-
+            
             % Parses the input or raises invalidOption error
             errorMsg = 'Only nSamples, nChains, jumpProbability, pUnitGamma, boundHandling, adaptPCR, parallel, calcSldDuringFit, resampleMinAngle, resampleNPoints and display can be set while using the DREAM procedure';
             inputBlock = obj.parseInputs(p, properties, errorMsg);
-
+            
             % Sets the values the for Dream parameters
             obj.nSamples = inputBlock.nSamples;
             obj.nChains = inputBlock.nChains;
@@ -717,7 +717,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             obj.resampleNPoints = inputBlock.resampleNPoints;
             obj.display = inputBlock.display;
         end
-
+        
         function inputBlock = parseInputs(~, p, properties, errorMsg)
             % Parses the input or raises invalidOption error
             try
@@ -731,6 +731,6 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
                 end
             end
         end
-
+        
     end
 end

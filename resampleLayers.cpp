@@ -19,8 +19,9 @@
 // Function Definitions
 namespace RAT
 {
-  void resampleLayers(const ::coder::array<real_T, 2U> &sldProfile, const real_T
-                      resampleParams[2], ::coder::array<real_T, 2U> &newSLD)
+  void resampleLayers(const ::coder::array<real_T, 2U> &sldProfile, real_T
+                      minAngle, real_T nPoints, ::coder::array<real_T, 2U>
+                      &newSLD)
   {
     cell_49 expl_temp;
     real_T b_sldProfile[2];
@@ -30,12 +31,10 @@ namespace RAT
     //  Function handle for adaptive resampling
     //  f = @(x) SLDFunction(x);
     //
-    //  Keep points and minangle as constants for now
-    //  will fix later
     b_sldProfile[0] = sldProfile[0];
     b_sldProfile[1] = sldProfile[sldProfile.size(0) - 1];
-    adaptive(sldProfile, b_sldProfile, resampleParams[0] * 3.1415926535897931,
-             resampleParams[1], &expl_temp);
+    adaptive(sldProfile, b_sldProfile, minAngle * 3.1415926535897931, nPoints,
+             &expl_temp);
     n = coder::internal::intlength(expl_temp.f1.size(0), 1);
     newSLD.set_size(n - 1, 3);
     n--;

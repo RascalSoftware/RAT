@@ -35,15 +35,16 @@ namespace RAT
       real_T, 2U> &data, const real_T dataLimits[2], const real_T simLimits[2],
       const real_T repeatLayers[2], real_T contrastBackgroundActions, real_T
       nParams, const char_T parallel_data[], const int32_T parallel_size[2],
-      const real_T resampleParams[2], boolean_T useImaginary, real_T resample,
-      const char_T geometry_data[], const int32_T geometry_size[2], real_T
-      roughness, boolean_T calcSld, const ::coder::array<real_T, 2U> &layer,
-      real_T *backgroundParamValue, real_T *qzshiftValue, real_T
-      *scalefactorValue, real_T *bulkInValue, real_T *bulkOutValue, real_T
-      *resolutionParamValue, real_T *chi, ::coder::array<real_T, 2U>
-      &reflectivity, ::coder::array<real_T, 2U> &simulation, ::coder::array<
-      real_T, 2U> &shiftedData, ::coder::array<real_T, 2U> &layerSld, ::coder::
-      array<real_T, 2U> &sldProfile, ::coder::array<real_T, 2U> &resampledLayer);
+      real_T resampleMinAngle, real_T resampleNPoints, boolean_T useImaginary,
+      real_T resample, const char_T geometry_data[], const int32_T
+      geometry_size[2], real_T roughness, boolean_T calcSld, const ::coder::
+      array<real_T, 2U> &layer, real_T *backgroundParamValue, real_T
+      *qzshiftValue, real_T *scalefactorValue, real_T *bulkInValue, real_T
+      *bulkOutValue, real_T *resolutionParamValue, real_T *chi, ::coder::array<
+      real_T, 2U> &reflectivity, ::coder::array<real_T, 2U> &simulation, ::coder::
+      array<real_T, 2U> &shiftedData, ::coder::array<real_T, 2U> &layerSld, ::
+      coder::array<real_T, 2U> &sldProfile, ::coder::array<real_T, 2U>
+      &resampledLayer);
   }
 }
 
@@ -62,15 +63,16 @@ namespace RAT
       real_T, 2U> &data, const real_T dataLimits[2], const real_T simLimits[2],
       const real_T repeatLayers[2], real_T contrastBackgroundActions, real_T
       nParams, const char_T parallel_data[], const int32_T parallel_size[2],
-      const real_T resampleParams[2], boolean_T useImaginary, real_T resample,
-      const char_T geometry_data[], const int32_T geometry_size[2], real_T
-      roughness, boolean_T calcSld, const ::coder::array<real_T, 2U> &layer,
-      real_T *backgroundParamValue, real_T *qzshiftValue, real_T
-      *scalefactorValue, real_T *bulkInValue, real_T *bulkOutValue, real_T
-      *resolutionParamValue, real_T *chi, ::coder::array<real_T, 2U>
-      &reflectivity, ::coder::array<real_T, 2U> &simulation, ::coder::array<
-      real_T, 2U> &shiftedData, ::coder::array<real_T, 2U> &layerSld, ::coder::
-      array<real_T, 2U> &sldProfile, ::coder::array<real_T, 2U> &resampledLayer)
+      real_T resampleMinAngle, real_T resampleNPoints, boolean_T useImaginary,
+      real_T resample, const char_T geometry_data[], const int32_T
+      geometry_size[2], real_T roughness, boolean_T calcSld, const ::coder::
+      array<real_T, 2U> &layer, real_T *backgroundParamValue, real_T
+      *qzshiftValue, real_T *scalefactorValue, real_T *bulkInValue, real_T
+      *bulkOutValue, real_T *resolutionParamValue, real_T *chi, ::coder::array<
+      real_T, 2U> &reflectivity, ::coder::array<real_T, 2U> &simulation, ::coder::
+      array<real_T, 2U> &shiftedData, ::coder::array<real_T, 2U> &layerSld, ::
+      coder::array<real_T, 2U> &sldProfile, ::coder::array<real_T, 2U>
+      &resampledLayer)
     {
       ::coder::array<real_T, 2U> b_sldProfile;
       int32_T loop_ub;
@@ -92,9 +94,9 @@ namespace RAT
                             dataLimits, simLimits, repeatLayers,
                             *backgroundParamValue, *resolutionParamValue,
                             contrastBackgroundActions, nParams, parallel_data,
-                            parallel_size, resampleParams, useImaginary,
-                            b_sldProfile, reflectivity, simulation, shiftedData,
-                            layerSld, resampledLayer, chi);
+                            parallel_size, resampleMinAngle, resampleNPoints,
+                            useImaginary, b_sldProfile, reflectivity, simulation,
+                            shiftedData, layerSld, resampledLayer, chi);
       sldProfile.set_size(b_sldProfile.size(0), b_sldProfile.size(1));
       loop_ub = b_sldProfile.size(1);
       for (int32_T i{0}; i < loop_ub; i++) {
@@ -135,6 +137,8 @@ namespace RAT
       real_T d4;
       real_T d5;
       real_T d6;
+      real_T resampleMinAngle;
+      real_T resampleNPoints;
       int32_T b_i;
       int32_T c_loop_ub;
       int32_T d_loop_ub;
@@ -168,6 +172,8 @@ namespace RAT
       nParams = problemStruct->params.size(1);
       useImaginary = problemStruct->useImaginary;
       calcSld = controls->calcSldDuringFit;
+      resampleMinAngle = controls->resampleMinAngle;
+      resampleNPoints = controls->resampleNPoints;
 
       //  Pre-Allocation of output arrays...
       //    --- End Memory Allocation ---
@@ -239,7 +245,7 @@ namespace RAT
                                 problemStruct->contrastBackgroundActions[b_i],
                                 static_cast<real_T>(nParams),
                                 controls->parallel.data, controls->parallel.size,
-                                controls->resampleParams, useImaginary,
+                                resampleMinAngle, resampleNPoints, useImaginary,
                                 problemStruct->resample[b_i],
                                 problemStruct->geometry.data,
                                 problemStruct->geometry.size, subRoughs[b_i],
@@ -324,7 +330,7 @@ namespace RAT
                                 problemStruct->contrastBackgroundActions[i],
                                 static_cast<real_T>(problemStruct->params.size(1)),
                                 controls->parallel.data, controls->parallel.size,
-                                controls->resampleParams,
+                                resampleMinAngle, resampleNPoints,
                                 problemStruct->useImaginary,
                                 problemStruct->resample[i],
                                 problemStruct->geometry.data,
@@ -384,6 +390,8 @@ namespace RAT
       real_T d4;
       real_T d5;
       real_T d6;
+      real_T resampleMinAngle;
+      real_T resampleNPoints;
       int32_T b_i;
       int32_T c_loop_ub;
       int32_T d_loop_ub;
@@ -417,6 +425,8 @@ namespace RAT
       nParams = problemStruct->params.size(1);
       useImaginary = problemStruct->useImaginary;
       calcSld = controls->calcSldDuringFit;
+      resampleMinAngle = controls->resampleMinAngle;
+      resampleNPoints = controls->resampleNPoints;
 
       //  Pre-Allocation of output arrays...
       //    --- End Memory Allocation ---
@@ -488,7 +498,7 @@ namespace RAT
                                 problemStruct->contrastBackgroundActions[b_i],
                                 static_cast<real_T>(nParams),
                                 controls->parallel.data, controls->parallel.size,
-                                controls->resampleParams, useImaginary,
+                                resampleMinAngle, resampleNPoints, useImaginary,
                                 problemStruct->resample[b_i],
                                 problemStruct->geometry.data,
                                 problemStruct->geometry.size, subRoughs[b_i],
@@ -573,7 +583,7 @@ namespace RAT
                                 problemStruct->contrastBackgroundActions[i],
                                 static_cast<real_T>(problemStruct->params.size(1)),
                                 controls->parallel.data, controls->parallel.size,
-                                controls->resampleParams,
+                                resampleMinAngle, resampleNPoints,
                                 problemStruct->useImaginary,
                                 problemStruct->resample[i],
                                 problemStruct->geometry.data,

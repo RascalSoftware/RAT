@@ -107,7 +107,8 @@ namespace RAT
   {
     ::coder::bounded_array<char_T, 10000U, 2U> procedure;
     ::coder::bounded_array<char_T, 10000U, 2U> parallel;
-    real_T resampleParams[2];
+    real_T resampleMinAngle;
+    real_T resampleNPoints;
     boolean_T calcSldDuringFit;
     ::coder::bounded_array<char_T, 10000U, 2U> display;
     real_T xTolerance;

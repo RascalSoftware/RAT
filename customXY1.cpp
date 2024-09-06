@@ -41,15 +41,15 @@ namespace RAT
       array<real_T, 2U> &data, const real_T dataLimits[2], const real_T
       simLimits[2], const real_T repeatLayers[2], real_T
       contrastBackgroundActions, real_T nParams, const char_T parallel_data[],
-      const int32_T parallel_size[2], const real_T resampleParams[2], boolean_T
-      useImaginary, real_T roughness, const ::coder::array<real_T, 2U>
-      &sldProfile1, const ::coder::array<real_T, 2U> &sldProfile2, real_T
-      *backgroundParamValue, real_T *qzshiftValue, real_T *scalefactorValue,
-      real_T *bulkInValue, real_T *bulkOutValue, real_T *resolutionParamValue,
-      real_T *chi, ::coder::array<real_T, 2U> &reflectivity, ::coder::array<
-      real_T, 2U> &simulation, ::coder::array<real_T, 2U> &shiftedData,
-      cell_wrap_10 layerSld[2], cell_wrap_10 sldProfile[2], cell_wrap_10
-      resampledLayer[2]);
+      const int32_T parallel_size[2], real_T resampleMinAngle, real_T
+      resampleNPoints, boolean_T useImaginary, real_T roughness, const ::coder::
+      array<real_T, 2U> &sldProfile1, const ::coder::array<real_T, 2U>
+      &sldProfile2, real_T *backgroundParamValue, real_T *qzshiftValue, real_T
+      *scalefactorValue, real_T *bulkInValue, real_T *bulkOutValue, real_T
+      *resolutionParamValue, real_T *chi, ::coder::array<real_T, 2U>
+      &reflectivity, ::coder::array<real_T, 2U> &simulation, ::coder::array<
+      real_T, 2U> &shiftedData, cell_wrap_10 layerSld[2], cell_wrap_10
+      sldProfile[2], cell_wrap_10 resampledLayer[2]);
   }
 }
 
@@ -69,15 +69,15 @@ namespace RAT
       array<real_T, 2U> &data, const real_T dataLimits[2], const real_T
       simLimits[2], const real_T repeatLayers[2], real_T
       contrastBackgroundActions, real_T nParams, const char_T parallel_data[],
-      const int32_T parallel_size[2], const real_T resampleParams[2], boolean_T
-      useImaginary, real_T roughness, const ::coder::array<real_T, 2U>
-      &sldProfile1, const ::coder::array<real_T, 2U> &sldProfile2, real_T
-      *backgroundParamValue, real_T *qzshiftValue, real_T *scalefactorValue,
-      real_T *bulkInValue, real_T *bulkOutValue, real_T *resolutionParamValue,
-      real_T *chi, ::coder::array<real_T, 2U> &reflectivity, ::coder::array<
-      real_T, 2U> &simulation, ::coder::array<real_T, 2U> &shiftedData,
-      cell_wrap_10 layerSld[2], cell_wrap_10 sldProfile[2], cell_wrap_10
-      resampledLayer[2])
+      const int32_T parallel_size[2], real_T resampleMinAngle, real_T
+      resampleNPoints, boolean_T useImaginary, real_T roughness, const ::coder::
+      array<real_T, 2U> &sldProfile1, const ::coder::array<real_T, 2U>
+      &sldProfile2, real_T *backgroundParamValue, real_T *qzshiftValue, real_T
+      *scalefactorValue, real_T *bulkInValue, real_T *bulkOutValue, real_T
+      *resolutionParamValue, real_T *chi, ::coder::array<real_T, 2U>
+      &reflectivity, ::coder::array<real_T, 2U> &simulation, ::coder::array<
+      real_T, 2U> &shiftedData, cell_wrap_10 layerSld[2], cell_wrap_10
+      sldProfile[2], cell_wrap_10 resampledLayer[2])
     {
       ::coder::array<real_T, 2U> b_data;
       ::coder::array<real_T, 2U> b_sldProfile1;
@@ -113,7 +113,7 @@ namespace RAT
 
       //  Resample the sld profiles
       if (!useImaginary) {
-        resampleLayers(sldProfile1, resampleParams, r);
+        resampleLayers(sldProfile1, resampleMinAngle, resampleNPoints, r);
         r1.f1.set_size(r.size(0), 3);
         loop_ub = r.size(0);
         for (i = 0; i < 3; i++) {
@@ -122,7 +122,7 @@ namespace RAT
           }
         }
 
-        resampleLayers(sldProfile2, resampleParams, r);
+        resampleLayers(sldProfile2, resampleMinAngle, resampleNPoints, r);
         r2.f1.set_size(r.size(0), 3);
         loop_ub = r.size(0);
         for (i = 0; i < 3; i++) {
@@ -152,7 +152,8 @@ namespace RAT
             sldProfile1.size(0) * 2];
         }
 
-        resampleLayersReIm(b_sldProfile1, c_sldProfile1, resampleParams, r);
+        resampleLayersReIm(b_sldProfile1, c_sldProfile1, resampleMinAngle,
+                           resampleNPoints, r);
         r1.f1.set_size(r.size(0), 4);
         loop_ub = r.size(0);
         for (i = 0; i < 4; i++) {
@@ -182,7 +183,8 @@ namespace RAT
             sldProfile2.size(0) * 2];
         }
 
-        resampleLayersReIm(b_sldProfile1, c_sldProfile1, resampleParams, r);
+        resampleLayersReIm(b_sldProfile1, c_sldProfile1, resampleMinAngle,
+                           resampleNPoints, r);
         r2.f1.set_size(r.size(0), 4);
         loop_ub = r.size(0);
         for (i = 0; i < 4; i++) {
@@ -336,6 +338,8 @@ namespace RAT
       real_T d5;
       real_T d6;
       real_T numberOfContrasts;
+      real_T resampleMinAngle;
+      real_T resampleNPoints;
       int32_T b_i;
       int32_T b_loop_ub;
       int32_T c_i;
@@ -370,6 +374,8 @@ namespace RAT
       numberOfContrasts = problemStruct->numberOfContrasts;
       nParams = problemStruct->params.size(1);
       useImaginary = problemStruct->useImaginary;
+      resampleMinAngle = controls->resampleMinAngle;
+      resampleNPoints = controls->resampleNPoints;
 
       // Pre-Allocation...
       ub_loop = static_cast<int32_T>(problemStruct->numberOfContrasts);
@@ -462,7 +468,7 @@ namespace RAT
                                 problemStruct->contrastBackgroundActions[c_i],
                                 static_cast<real_T>(nParams),
                                 controls->parallel.data, controls->parallel.size,
-                                controls->resampleParams, useImaginary,
+                                resampleMinAngle, resampleNPoints, useImaginary,
                                 subRoughs[c_i], inputSldProfiles1[c_i].f1,
                                 inputSldProfiles2[c_i].f1, &d6, &d5, &d4, &d3,
                                 &d2, &d1, &d, reflectivity[c_i].f1,
@@ -523,7 +529,7 @@ namespace RAT
                                 problemStruct->contrastBackgroundActions[i],
                                 static_cast<real_T>(problemStruct->params.size(1)),
                                 controls->parallel.data, controls->parallel.size,
-                                controls->resampleParams,
+                                resampleMinAngle, resampleNPoints,
                                 problemStruct->useImaginary, subRoughs[i],
                                 inputSldProfiles1[i].f1, inputSldProfiles2[i].f1,
                                 &backgroundParams[i], &qzshifts[i],
@@ -650,6 +656,8 @@ namespace RAT
       real_T d5;
       real_T d6;
       real_T numberOfContrasts;
+      real_T resampleMinAngle;
+      real_T resampleNPoints;
       int32_T b_i;
       int32_T b_loop_ub;
       int32_T c_i;
@@ -684,6 +692,8 @@ namespace RAT
       numberOfContrasts = problemStruct->numberOfContrasts;
       nParams = problemStruct->params.size(1);
       useImaginary = problemStruct->useImaginary;
+      resampleMinAngle = controls->resampleMinAngle;
+      resampleNPoints = controls->resampleNPoints;
 
       // Pre-Allocation...
       ub_loop = static_cast<int32_T>(problemStruct->numberOfContrasts);
@@ -776,7 +786,7 @@ namespace RAT
                                 problemStruct->contrastBackgroundActions[c_i],
                                 static_cast<real_T>(nParams),
                                 controls->parallel.data, controls->parallel.size,
-                                controls->resampleParams, useImaginary,
+                                resampleMinAngle, resampleNPoints, useImaginary,
                                 subRoughs[c_i], inputSldProfiles1[c_i].f1,
                                 inputSldProfiles2[c_i].f1, &d6, &d5, &d4, &d3,
                                 &d2, &d1, &d, reflectivity[c_i].f1,
@@ -837,7 +847,7 @@ namespace RAT
                                 problemStruct->contrastBackgroundActions[i],
                                 static_cast<real_T>(problemStruct->params.size(1)),
                                 controls->parallel.data, controls->parallel.size,
-                                controls->resampleParams,
+                                resampleMinAngle, resampleNPoints,
                                 problemStruct->useImaginary, subRoughs[i],
                                 inputSldProfiles1[i].f1, inputSldProfiles2[i].f1,
                                 &backgroundParams[i], &qzshifts[i],

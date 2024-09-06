@@ -34,12 +34,12 @@ namespace RAT
       real_T, 2U> &data, const real_T dataLimits[2], const real_T simLimits[2],
       const real_T repeatLayers[2], real_T background, real_T resolution, real_T
       contrastBackgroundActions, real_T params, const char_T
-      parallelPoints_data[], const int32_T parallelPoints_size[2], const real_T
-      resampleParams[2], boolean_T useImaginary, ::coder::array<real_T, 2U>
-      &sldProfile, ::coder::array<real_T, 2U> &reflect, ::coder::array<real_T,
-      2U> &simulation, ::coder::array<real_T, 2U> &shiftedData, ::coder::array<
-      real_T, 2U> &theseLayers, ::coder::array<real_T, 2U> &resamLayers, real_T *
-      chiSq)
+      parallelPoints_data[], const int32_T parallelPoints_size[2], real_T
+      resampleMinAngle, real_T resampleNPoints, boolean_T useImaginary, ::coder::
+      array<real_T, 2U> &sldProfile, ::coder::array<real_T, 2U> &reflect, ::
+      coder::array<real_T, 2U> &simulation, ::coder::array<real_T, 2U>
+      &shiftedData, ::coder::array<real_T, 2U> &theseLayers, ::coder::array<
+      real_T, 2U> &resamLayers, real_T *chiSq)
     {
       ::coder::array<real_T, 2U> b_data;
       ::coder::array<real_T, 2U> b_theseLayers;
@@ -310,7 +310,8 @@ namespace RAT
       //  If required, then resample the SLD
       if (resample == 1.0) {
         if (!useImaginary) {
-          resampleLayers(sldProfile, resampleParams, c_theseLayers);
+          resampleLayers(sldProfile, resampleMinAngle, resampleNPoints,
+                         c_theseLayers);
           layerSld.set_size(c_theseLayers.size(0), 3);
           loop_ub = c_theseLayers.size(0);
           for (i = 0; i < 3; i++) {
@@ -320,8 +321,8 @@ namespace RAT
             }
           }
         } else {
-          resampleLayersReIm(sldProfile, sldProfileIm, resampleParams,
-                             b_theseLayers);
+          resampleLayersReIm(sldProfile, sldProfileIm, resampleMinAngle,
+                             resampleNPoints, b_theseLayers);
           layerSld.set_size(b_theseLayers.size(0), 4);
           loop_ub = b_theseLayers.size(0);
           for (i = 0; i < 4; i++) {

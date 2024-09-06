@@ -1,4 +1,4 @@
-function newSLD = resampleLayersReIm(sldProfile,sldProfileIm,resampleParams)
+function newSLD = resampleLayersReIm(sldProfile,sldProfileIm,minAngle, nPoints)
 
 % Resample the SLD profile. In this case we have an imaginary SLD also, and
 % so we resample that onto the same points as the real one.. 
@@ -11,11 +11,6 @@ prof = sldProfile(:,2);
 
 xstart = x(1);
 xend = x(end);
-
-% Keep points and minangle as constants for now
-% will fix later
-minAngle = resampleParams(1);
-nPoints = resampleParams(2);
 
 %newX = linspace(xstart,xend,100);
 out = adaptive(sldProfile, [xstart xend], minAngle*pi, nPoints);

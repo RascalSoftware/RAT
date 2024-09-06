@@ -19,7 +19,8 @@ function [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
      useImaginary] = extractProblemParams(problemStruct);
 
     parallel = controls.parallel;
-    resampleParams = controls.resampleParams;
+    resampleMinAngle = controls.resampleMinAngle;
+    resampleNPoints = controls.resampleNPoints;
                 
     %Pre-Allocation...
     backgroundParams = zeros(numberOfContrasts,1);
@@ -72,7 +73,7 @@ function [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
              scalefactorArray,bulkInArray,bulkOutArray,resolutionParamArray,...
              dataPresent(i),data{i},dataLimits{i},simLimits{i},...
              repeatLayers{i},contrastBackgroundActions(i),nParams,parallel,...
-             resampleParams,useImaginary,subRoughs(i),sldProfiles{i});
+             resampleMinAngle,resampleNPoints,useImaginary,subRoughs(i),sldProfiles{i});
         end
     
     else
@@ -90,7 +91,7 @@ function [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
              scalefactorArray,bulkInArray,bulkOutArray,resolutionParamArray,...
              dataPresent(i),data{i},dataLimits{i},simLimits{i},...
              repeatLayers{i},contrastBackgroundActions(i),nParams,parallel,...
-             resampleParams,useImaginary,subRoughs(i),sldProfiles{i});
+             resampleMinAngle,resampleNPoints,useImaginary,subRoughs(i),sldProfiles{i});
 
         end
     
@@ -105,7 +106,7 @@ function [backgroundParamValue,qzshiftValue,scalefactorValue,bulkInValue,...
     qzshiftIndex,scalefactorIndex,bulkInIndex,bulkOutIndex,resolutionParamIndex,...
     backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,...
     dataPresent,data,dataLimits,simLimits,repeatLayers,contrastBackgroundActions,...
-    nParams,parallel,resampleParams,useImaginary,roughness,sldProfile)
+    nParams,parallel,resampleMinAngle,resampleNPoints,useImaginary,roughness,sldProfile)
 
     % Extract the relevant parameter values for this contrast
     % from the input arrays.
@@ -118,11 +119,11 @@ function [backgroundParamValue,qzshiftValue,scalefactorValue,bulkInValue,...
      
     % Resample the layers
     if ~useImaginary
-        layerSld = resampleLayers(sldProfile,resampleParams);
+        layerSld = resampleLayers(sldProfile,resampleMinAngle,resampleNPoints);
     else
         reSLD = sldProfile(:,1:2);
         imSLD = [sldProfile(:,1),sldProfile(:,3)];
-        layerSld = resampleLayersReIm(reSLD,imSLD,resampleParams);
+        layerSld = resampleLayersReIm(reSLD,imSLD,resampleMinAngle,resampleNPoints);
     end
     
     resampledLayer = layerSld;

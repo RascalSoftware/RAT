@@ -2,7 +2,7 @@ function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiS
     coreLayersCalculation(contrastLayers, rough, ...
     geometry, bulkIn, bulkOut, resample, calcSld, scalefactor, qzshift,...
     dataPresent, data, dataLimits, simLimits, repeatLayers,...
-    background,resolution,contrastBackgroundActions,params,parallelPoints,resampleParams,useImaginary)
+    background,resolution,contrastBackgroundActions,params,parallelPoints,resampleMinAngle,resampleNPoints,useImaginary)
 
 %   This is the main reflectivity calculation for all Layers models in the 
 %   non polarised target function. 
@@ -98,9 +98,9 @@ end
 % If required, then resample the SLD
 if resample == 1
     if ~useImaginary
-        layerSld = resampleLayers(sldProfile,resampleParams);
+        layerSld = resampleLayers(sldProfile,resampleMinAngle,resampleNPoints);
     else
-        layerSld = resampleLayersReIm(sldProfile,sldProfileIm,resampleParams);
+        layerSld = resampleLayersReIm(sldProfile,sldProfileIm,resampleMinAngle,resampleNPoints);
     end
     resamLayers = layerSld;
 else

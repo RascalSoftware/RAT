@@ -393,7 +393,8 @@ checkIndices(problemStruct)
 %% Now deal with the controls class
 controls.procedure = inputControls.procedure;
 controls.parallel = inputControls.parallel;
-controls.resampleParams = inputControls.resampleParams;
+controls.resampleMinAngle = inputControls.resampleMinAngle;
+controls.resampleNPoints = inputControls.resampleNPoints;
 controls.calcSldDuringFit = inputControls.calcSldDuringFit;
 controls.display = inputControls.display;
 controls.xTolerance = inputControls.xTolerance;

@@ -26,11 +26,9 @@ where = find(z == x);
 if ~isempty(where)
     sldVal = rho(where);
 else
-    belowVals = find(x > z);
-    aboveVals = find(x < z);
-    below = belowVals(end);
-    above = aboveVals(1);
-    
+    below = find(x > z, 1, 'last');
+    above = find(x < z, 1);
+
     belowY = rho(below);
     aboveY = rho(above);
     

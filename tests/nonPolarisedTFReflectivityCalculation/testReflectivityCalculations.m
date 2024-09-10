@@ -119,6 +119,19 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
     methods (Test, ParameterCombination='exhaustive')
 %% Test High Level RAT Routines
 
+        function testRATEmpty(testCase)
+            % Test that RAT runs for a project without any layers.
+            emptyProject = projectClass();
+            emptyProject.addContrast('data', 'Simulation',...
+                                     'background', 'Background 1',...
+                                     'bulkIn', 'SLD Air',...
+                                     'bulkOut', 'SLD D2O',...
+                                     'scalefactor', 'Scalefactor 1',...
+                                     'resolution', 'Resolution 1');
+
+            [~, ~] = RAT(emptyProject,testCase.controlsInput);
+        end
+
         function testRAT(testCase)
             [projectOutput, result] = RAT(testCase.project,testCase.controlsInput);
 

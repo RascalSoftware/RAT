@@ -90,34 +90,16 @@ function [problemStruct,problemCells,problemLimits,priors,controls] = parseClass
 %        Each cell is {1 x Inf char}
 
  
-% First parse the class to a structure variable.
+%% First parse the class to a structure variable.
 inputStruct = project.toStruct();
 
-%% Start by removing the cell arrays
-contrastLayers = inputStruct.contrastLayers;
-layerDetails = inputStruct.layerDetails;
-
-% If any of the contrastLayers are empty, replace the empty cells by zero
-% thickness layers
-for i = 1:length(contrastLayers)
-    thisLayer = contrastLayers{i};
-    if isempty(thisLayer)
-        contrastLayers{i} = 0;
-    end
-end
-
-% Do the same for layerDetails
-if isempty(layerDetails)
-    layerDetails = {0};
-end
-
-% Pull out all the cell arrays (except priors) into one array
+%% Pull out all the cell arrays (except priors) into one array
 problemCells{1} = inputStruct.contrastRepeatSLDs;
 problemCells{2} = inputStruct.data;
 problemCells{3} = inputStruct.dataLimits;
 problemCells{4} = inputStruct.simLimits;
-problemCells{5} = contrastLayers;
-problemCells{6} = layerDetails;
+problemCells{5} = inputStruct.contrastLayers;
+problemCells{6} = inputStruct.layerDetails;
 problemCells{7} = inputStruct.paramNames;
 problemCells{8} = inputStruct.backgroundParamNames;
 problemCells{9} = inputStruct.scalefactorNames;
@@ -137,37 +119,13 @@ problemCells{21} = inputStruct.contrastNames;
 
 % Now deal with domains cell arrays
 if isa(project, 'domainsClass') && isa(project.domainContrasts, 'domainContrastsClass')
-
-    domainContrastLayers = inputStruct.domainContrastLayers;
-
-    % If any of the domainContrastLayers are empty, replace the empty
-    % cells by zero thickness layers
-    for i = 1:length(domainContrastLayers)
-        thisLayer = domainContrastLayers{i};
-        if isempty(thisLayer)
-            domainContrastLayers{i} = 0;
-        end
-    end
     
     problemCells{18} = inputStruct.domainContrastRepeatSLDs;
-    problemCells{19} = domainContrastLayers;
+    problemCells{19} = inputStruct.domainContrastLayers;
 end
 
 if isa(project, 'domainsClass')
     problemCells{20} = inputStruct.domainRatioNames;
-end
-
-% Fix for cell array bug with custom layers - is this needed still??
-if strcmpi(inputStruct.modelType,'custom layers') || strcmpi(inputStruct.modelType,'custom xy')
-    for i = 1:length(problemCells{5})
-        problemCells{5}{i} = 0;
-    end
-    for i = 1:length(problemCells{19})
-        problemCells{19}{i} = 0;
-    end
-    
-    problemCells{6} = {0};
-    
 end
 
 % Also the custom files array..

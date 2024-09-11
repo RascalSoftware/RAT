@@ -108,7 +108,7 @@ classdef contrastsClass < baseContrasts
                         contrastLayers{i} = thisArray;
                         contrastCustomFile(i) = NaN;
                     otherwise
-                        contrastLayers{i} = {};
+                        contrastLayers{i} = [];
                         whichFile = thisContrast.model;
                         thisContrastFileNum = find(strcmpi(whichFile, allowedNames.customFileNames));
                         contrastCustomFile(i) = thisContrastFileNum;

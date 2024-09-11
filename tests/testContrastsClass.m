@@ -499,7 +499,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             for i=1:testCase.numContrasts
                 testCase.exampleClass.contrasts{i}.model = {'DSPC Model'};
             end
-            testCase.exampleStruct.contrastLayers = {{} {} {}};
+            testCase.exampleStruct.contrastLayers = {[] [] []};
             testCase.exampleStruct.contrastCustomFile = [1 1 1];
 
             testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'custom layers', testCase.varTable), testCase.exampleStruct);

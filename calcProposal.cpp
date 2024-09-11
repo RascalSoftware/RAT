@@ -258,7 +258,7 @@ namespace RAT
         b_rnd_cr[i] = (rnd_cr[b_i + rnd_cr.size(0) * i] < CR);
       }
 
-      coder::d_eml_find(b_rnd_cr, r2);
+      coder::f_eml_find(b_rnd_cr, r2);
       A.set_size(1, r2.size(1));
       b_loop_ub = r2.size(1);
       for (i = 0; i < b_loop_ub; i++) {

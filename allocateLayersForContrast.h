@@ -28,8 +28,8 @@ namespace RAT
 {
   void allocateLayersForContrast(const ::coder::array<real_T, 2U>
     &contrastLayers, const ::coder::array<cell_wrap_12, 2U>
-    &outParameterisedLayers, boolean_T useImaginary, real_T
-    thisContrastLayers_data[], int32_T thisContrastLayers_size[2]);
+    &outParameterisedLayers, boolean_T useImaginary, ::coder::array<real_T, 2U>
+    &thisContrastLayers);
 }
 
 #endif

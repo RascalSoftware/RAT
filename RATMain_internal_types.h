@@ -107,7 +107,7 @@ namespace RAT
     ::coder::array<cell_wrap_2, 2U> f3;
     ::coder::array<cell_wrap_2, 2U> f4;
     ::coder::array<cell_wrap_10, 2U> f5;
-    ::coder::array<cell_wrap_10, 1U> f6;
+    ::coder::array<cell_wrap_10, 2U> f6;
     ::coder::array<cell_wrap_1, 2U> f7;
     ::coder::array<cell_wrap_1, 2U> f8;
     ::coder::array<cell_wrap_1, 2U> f9;

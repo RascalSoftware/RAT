@@ -26,7 +26,6 @@ namespace RAT
     {
       void nullAssignment(::coder::array<real_T, 2U> &x, const ::coder::array<
                           int32_T, 2U> &idx);
-      void nullAssignment(real_T x_data[], int32_T x_size[2]);
     }
   }
 }

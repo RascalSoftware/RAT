@@ -16,16 +16,6 @@
 #include "rt_defines.h"
 #include <cfloat>
 #include <cmath>
-#include <cstddef>
-
-// Variable Definitions
-namespace RAT
-{
-  static RATMainTLS *RATMainTLSGlobal;
-
-#pragma omp threadprivate (RATMainTLSGlobal)
-
-}
 
 // Function Definitions
 namespace RAT
@@ -48,37 +38,6 @@ namespace RAT
             i2];
         }
       }
-    }
-  }
-
-  void emlrtFreeThreadStackData()
-  {
-    int32_T b;
-    b = omp_get_max_threads();
-
-#pragma omp parallel for schedule(static)\
- num_threads(omp_get_max_threads())
-
-    for (int32_T i = 1; i <= b; i++) {
-      delete RATMainTLSGlobal;
-    }
-  }
-
-  RATMainTLS *emlrtGetThreadStackData()
-  {
-    return RATMainTLSGlobal;
-  }
-
-  void emlrtInitThreadStackData()
-  {
-    int32_T b;
-    b = omp_get_max_threads();
-
-#pragma omp parallel for schedule(static)\
- num_threads(omp_get_max_threads())
-
-    for (int32_T i = 1; i <= b; i++) {
-      RATMainTLSGlobal = new RATMainTLS;
     }
   }
 

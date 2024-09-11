@@ -19,6 +19,8 @@ namespace RAT
   namespace coder
   {
     static real_T b_nestedIter(const ::coder::array<real_T, 2U> &x, int32_T vlen);
+    static void b_nestedIter(const ::coder::array<real_T, 2U> &x, int32_T vlen, ::
+      coder::array<real_T, 2U> &y);
     static void nestedIter(const ::coder::array<real_T, 2U> &x, int32_T vlen, ::
       coder::array<real_T, 1U> &y);
   }
@@ -79,6 +81,64 @@ namespace RAT
       }
 
       return y;
+    }
+
+    static void b_nestedIter(const ::coder::array<real_T, 2U> &x, int32_T vlen, ::
+      coder::array<real_T, 2U> &y)
+    {
+      int32_T firstBlockLength;
+      int32_T i;
+      int32_T lastBlockLength;
+      int32_T nblocks;
+      y.set_size(1, x.size(1));
+      i = x.size(1);
+      if (0 <= x.size(1) - 1) {
+        if (vlen <= 1024) {
+          firstBlockLength = vlen;
+          lastBlockLength = 0;
+          nblocks = 1;
+        } else {
+          firstBlockLength = 1024;
+          nblocks = vlen / 1024;
+          lastBlockLength = vlen - (nblocks << 10);
+          if (lastBlockLength > 0) {
+            nblocks++;
+          } else {
+            lastBlockLength = 1024;
+          }
+        }
+      }
+
+      for (int32_T k{0}; k < i; k++) {
+        int32_T b_k;
+        y[k] = x[x.size(0) * k];
+        for (b_k = 2; b_k <= firstBlockLength; b_k++) {
+          if (vlen >= 2) {
+            y[k] = y[k] + x[(b_k + x.size(0) * k) - 1];
+          }
+        }
+
+        for (int32_T ib{2}; ib <= nblocks; ib++) {
+          real_T bsum;
+          int32_T hi;
+          int32_T offset;
+          offset = (ib - 1) << 10;
+          bsum = x[offset + x.size(0) * k];
+          if (ib == nblocks) {
+            hi = lastBlockLength;
+          } else {
+            hi = 1024;
+          }
+
+          for (b_k = 2; b_k <= hi; b_k++) {
+            if (vlen >= 2) {
+              bsum += x[((offset + b_k) + x.size(0) * k) - 1];
+            }
+          }
+
+          y[k] = y[k] + bsum;
+        }
+      }
     }
 
     static void nestedIter(const ::coder::array<real_T, 2U> &x, int32_T vlen, ::
@@ -182,7 +242,7 @@ namespace RAT
           y[i] = 0.0;
         }
       } else {
-        nestedIter(x, vlen, y);
+        b_nestedIter(x, vlen, y);
       }
     }
 

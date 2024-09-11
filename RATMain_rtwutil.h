@@ -23,9 +23,6 @@ namespace RAT
 {
   extern void cast(const ::coder::array<cell_wrap_45, 2U> &b, ::coder::array<
                    cell_wrap_10, 2U> &c);
-  extern void emlrtFreeThreadStackData();
-  extern RATMainTLS *emlrtGetThreadStackData();
-  extern void emlrtInitThreadStackData();
   extern real_T rt_atan2d_snf(real_T u0, real_T u1);
   extern real_T rt_hypotd_snf(real_T u0, real_T u1);
   extern real_T rt_powd_snf(real_T u0, real_T u1);

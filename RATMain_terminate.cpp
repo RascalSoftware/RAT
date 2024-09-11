@@ -11,7 +11,6 @@
 // Include files
 #include "RATMain_terminate.h"
 #include "RATMain_data.h"
-#include "RATMain_rtwutil.h"
 #include "rt_nonfinite.h"
 
 // Function Definitions
@@ -19,7 +18,6 @@ namespace RAT
 {
   void RATMain_terminate()
   {
-    emlrtFreeThreadStackData();
     omp_destroy_nest_lock(&emlrtNestLockGlobal);
   }
 }

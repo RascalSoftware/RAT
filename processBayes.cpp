@@ -31,7 +31,7 @@ namespace RAT
                     g_struct_T *b_problemStruct, struct5_T *result, j_struct_T
                     *bayesResults)
   {
-    static g_struct_T c_problemStruct;
+    g_struct_T c_problemStruct;
     int32_T b_loop_ub;
     int32_T i;
     int32_T loop_ub;

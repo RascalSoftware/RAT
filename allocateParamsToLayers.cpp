@@ -21,11 +21,11 @@
 namespace RAT
 {
   void allocateParamsToLayers(const ::coder::array<real_T, 2U> &params, const ::
-    coder::array<cell_wrap_10, 1U> &layersDetails, ::coder::array<cell_wrap_12,
+    coder::array<cell_wrap_10, 2U> &layersDetails, ::coder::array<cell_wrap_12,
     2U> &outLayers)
   {
     real_T thisOutLayer_data[10];
-    int32_T i;
+    int32_T numberOfLayers;
 
     //  Allocates parameters from the parameter array to the correct layers
     //
@@ -33,35 +33,35 @@ namespace RAT
     //  then loops over all the layers, putting in the correct
     //  parameter value from the parameters array into each layer in
     //  the 'outLayers' cell array
-    i = layersDetails.size(0);
-    outLayers.set_size(1, static_cast<int32_T>(static_cast<int16_T>
-      (layersDetails.size(0))));
-    for (int32_T b_i{0}; b_i < i; b_i++) {
-      int32_T i1;
+    numberOfLayers = coder::internal::intlength(layersDetails.size(0),
+      layersDetails.size(1));
+    outLayers.set_size(1, numberOfLayers);
+    for (int32_T i{0}; i < numberOfLayers; i++) {
+      int32_T b_i;
       int32_T n;
-      n = coder::internal::intlength(layersDetails[b_i].f1.size(0),
-        layersDetails[b_i].f1.size(1));
+      n = coder::internal::intlength(layersDetails[i].f1.size(0),
+        layersDetails[i].f1.size(1));
       if (0 <= n - 1) {
         std::memset(&thisOutLayer_data[0], 0, n * sizeof(real_T));
       }
 
-      i1 = coder::internal::intlength(layersDetails[b_i].f1.size(0),
-        layersDetails[b_i].f1.size(1));
-      for (int32_T b_n{0}; b_n <= i1 - 2; b_n++) {
-        if (!std::isnan(layersDetails[b_i].f1[b_n])) {
-          thisOutLayer_data[b_n] = params[static_cast<int32_T>(layersDetails[b_i]
-            .f1[b_n]) - 1];
+      b_i = coder::internal::intlength(layersDetails[i].f1.size(0),
+        layersDetails[i].f1.size(1));
+      for (int32_T b_n{0}; b_n <= b_i - 2; b_n++) {
+        if (!std::isnan(layersDetails[i].f1[b_n])) {
+          thisOutLayer_data[b_n] = params[static_cast<int32_T>(layersDetails[i].
+            f1[b_n]) - 1];
         } else {
           thisOutLayer_data[b_n] = rtNaN;
         }
       }
 
-      thisOutLayer_data[coder::internal::intlength(layersDetails[b_i].f1.size(0),
-        layersDetails[b_i].f1.size(1)) - 1] = layersDetails[b_i]
-        .f1[layersDetails[b_i].f1.size(0) * layersDetails[b_i].f1.size(1) - 1];
-      outLayers[outLayers.size(0) * b_i].f1.set_size(1, n);
-      for (i1 = 0; i1 < n; i1++) {
-        outLayers[b_i].f1[i1] = thisOutLayer_data[i1];
+      thisOutLayer_data[coder::internal::intlength(layersDetails[i].f1.size(0),
+        layersDetails[i].f1.size(1)) - 1] = layersDetails[i].f1[layersDetails[i]
+        .f1.size(0) * layersDetails[i].f1.size(1) - 1];
+      outLayers[outLayers.size(0) * i].f1.set_size(1, n);
+      for (b_i = 0; b_i < n; b_i++) {
+        outLayers[i].f1[b_i] = thisOutLayer_data[b_i];
       }
     }
   }

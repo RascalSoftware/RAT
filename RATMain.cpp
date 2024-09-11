@@ -33,8 +33,8 @@ namespace RAT
   static void cast(const g_struct_T *b, struct0_T *c);
   static void cast(const struct0_T *b, d_struct_T *c);
   static void cast(const cell_7 *b, cell_13 *c);
-  static void cast(const ::coder::array<cell_wrap_5, 1U> &b, ::coder::array<
-                   cell_wrap_10, 1U> &c);
+  static void cast(const ::coder::array<cell_wrap_5, 2U> &b, ::coder::array<
+                   cell_wrap_10, 2U> &c);
   static void cast(const ::coder::array<cell_wrap_3, 2U> &b, ::coder::array<
                    cell_wrap_10, 2U> &c);
   static void cast(const ::coder::array<cell_wrap_4, 2U> &b, ::coder::array<
@@ -639,12 +639,12 @@ namespace RAT
     cast(b->f21, c->f21);
   }
 
-  static void cast(const ::coder::array<cell_wrap_5, 1U> &b, ::coder::array<
-                   cell_wrap_10, 1U> &c)
+  static void cast(const ::coder::array<cell_wrap_5, 2U> &b, ::coder::array<
+                   cell_wrap_10, 2U> &c)
   {
     int32_T i;
-    c.set_size(b.size(0));
-    i = b.size(0);
+    c.set_size(b.size(0), b.size(1));
+    i = b.size(0) * b.size(1);
     for (int32_T i1{0}; i1 < i; i1++) {
       int32_T loop_ub;
       loop_ub = b[i1].f1.size[1];

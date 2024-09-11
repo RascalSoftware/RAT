@@ -11,7 +11,6 @@
 // Include files
 #include "standardLayers1.h"
 #include "RATMain_internal_types.h"
-#include "RATMain_rtwutil.h"
 #include "RATMain_types.h"
 #include "allocateLayersForContrast.h"
 #include "allocateParamsToLayers.h"
@@ -84,31 +83,26 @@ namespace RAT
       resampledLayer[2])
     {
       ::coder::array<real_T, 2U> a__6;
+      ::coder::array<real_T, 2U> r;
       ::coder::array<real_T, 2U> reflect1;
       ::coder::array<real_T, 2U> reflect2;
       ::coder::array<real_T, 2U> simul1;
       ::coder::array<real_T, 2U> simul2;
       ::coder::array<real_T, 2U> sldProfile1;
       ::coder::array<real_T, 2U> sldProfile2;
-      ::coder::array<real_T, 2U> thisContrastLayers1_data;
-      ::coder::array<real_T, 2U> thisContrastLayers2_data;
-      RATMainTLS *RATMainTLSThread;
-      cell_wrap_10 r;
       cell_wrap_10 r1;
       cell_wrap_10 r2;
       cell_wrap_10 r3;
       cell_wrap_10 r4;
       cell_wrap_10 r5;
+      cell_wrap_10 r6;
       real_T a__5;
       real_T a__7;
       real_T domainRatios_tmp;
-      int32_T thisContrastLayers1_size[2];
-      int32_T thisContrastLayers2_size[2];
       int32_T b_loop_ub;
       int32_T i;
       int32_T i1;
       int32_T loop_ub;
-      RATMainTLSThread = emlrtGetThreadStackData();
 
       //  Get the domain ratio for this contrast
       //  Extract the relevant parameter values for this contrast
@@ -124,35 +118,26 @@ namespace RAT
       //  Also need to determine which layers from the overall layers list
       //  are required for this contrast, and put them in the correct order
       //  according to geometry. We run it twice, once for each domain...
-      allocateLayersForContrast(domainContrastLayers1, outParameterisedLayers,
-        useImaginary, RATMainTLSThread->f1.thisContrastLayers1_data,
-        thisContrastLayers1_size);
-      allocateLayersForContrast(domainContrastLayers2, outParameterisedLayers,
-        useImaginary, RATMainTLSThread->f1.thisContrastLayers2_data,
-        thisContrastLayers2_size);
-
       //  Call the core layers calculation - need to do this once for each
       //  domain
-      thisContrastLayers1_data.set
-        (&RATMainTLSThread->f1.thisContrastLayers1_data[0],
-         thisContrastLayers1_size[0], thisContrastLayers1_size[1]);
-      nonPolarisedTF::coreLayersCalculation(thisContrastLayers1_data, roughness,
-        geometry_data, geometry_size, *bulkInValue, *bulkOutValue, resample,
-        calcSld, *scalefactorValue, *qzshiftValue, dataPresent, data, dataLimits,
+      allocateLayersForContrast(domainContrastLayers1, outParameterisedLayers,
+        useImaginary, r);
+      nonPolarisedTF::coreLayersCalculation(r, roughness, geometry_data,
+        geometry_size, *bulkInValue, *bulkOutValue, resample, calcSld,
+        *scalefactorValue, *qzshiftValue, dataPresent, data, dataLimits,
         simLimits, repeatLayers, *backgroundParamValue, *resolutionParamValue,
         contrastBackgroundActions, nParams, parallel_data, parallel_size,
         resampleMinAngle, resampleNPoints, useImaginary, sldProfile1, reflect1,
-        simul1, shiftedData, r.f1, r1.f1, &a__5);
-      thisContrastLayers2_data.set
-        (&RATMainTLSThread->f1.thisContrastLayers2_data[0],
-         thisContrastLayers2_size[0], thisContrastLayers2_size[1]);
-      nonPolarisedTF::coreLayersCalculation(thisContrastLayers2_data, roughness,
-        geometry_data, geometry_size, *bulkInValue, *bulkOutValue, resample,
-        calcSld, *scalefactorValue, *qzshiftValue, dataPresent, data, dataLimits,
+        simul1, shiftedData, r1.f1, r2.f1, &a__5);
+      allocateLayersForContrast(domainContrastLayers2, outParameterisedLayers,
+        useImaginary, r);
+      nonPolarisedTF::coreLayersCalculation(r, roughness, geometry_data,
+        geometry_size, *bulkInValue, *bulkOutValue, resample, calcSld,
+        *scalefactorValue, *qzshiftValue, dataPresent, data, dataLimits,
         simLimits, repeatLayers, *backgroundParamValue, *resolutionParamValue,
         contrastBackgroundActions, nParams, parallel_data, parallel_size,
         resampleMinAngle, resampleNPoints, useImaginary, sldProfile2, reflect2,
-        simul2, a__6, r2.f1, r3.f1, &a__7);
+        simul2, a__6, r3.f1, r4.f1, &a__7);
 
       //  Calculate the average reflectivities....
       //  Calculates the averaged reflectivity for domains samples (incoherent
@@ -187,32 +172,32 @@ namespace RAT
       *chi = chiSquared(shiftedData, reflectivity, nParams);
 
       //  Store returned values for this contrast in the output arrays.
-      r4.f1.set_size(sldProfile1.size(0), sldProfile1.size(1));
+      r5.f1.set_size(sldProfile1.size(0), sldProfile1.size(1));
       loop_ub = sldProfile1.size(1);
       for (i = 0; i < loop_ub; i++) {
         b_loop_ub = sldProfile1.size(0);
         for (i1 = 0; i1 < b_loop_ub; i1++) {
-          r4.f1[i1 + r4.f1.size(0) * i] = sldProfile1[i1 + sldProfile1.size(0) *
+          r5.f1[i1 + r5.f1.size(0) * i] = sldProfile1[i1 + sldProfile1.size(0) *
             i];
         }
       }
 
-      r5.f1.set_size(sldProfile2.size(0), sldProfile2.size(1));
+      r6.f1.set_size(sldProfile2.size(0), sldProfile2.size(1));
       loop_ub = sldProfile2.size(1);
       for (i = 0; i < loop_ub; i++) {
         b_loop_ub = sldProfile2.size(0);
         for (i1 = 0; i1 < b_loop_ub; i1++) {
-          r5.f1[i1 + r5.f1.size(0) * i] = sldProfile2[i1 + sldProfile2.size(0) *
+          r6.f1[i1 + r6.f1.size(0) * i] = sldProfile2[i1 + sldProfile2.size(0) *
             i];
         }
       }
 
-      sldProfile[0] = r4;
-      sldProfile[1] = r5;
-      layerSld[0] = r;
-      layerSld[1] = r2;
-      resampledLayer[0] = r1;
-      resampledLayer[1] = r3;
+      sldProfile[0] = r5;
+      sldProfile[1] = r6;
+      layerSld[0] = r1;
+      layerSld[1] = r3;
+      resampledLayer[0] = r2;
+      resampledLayer[1] = r4;
     }
 
     void standardLayers(const g_struct_T *problemStruct, const cell_13

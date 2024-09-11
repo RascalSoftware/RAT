@@ -18,7 +18,78 @@ namespace RAT
 {
   namespace coder
   {
-    void b_eml_find(const boolean_T x[2], int32_T i_data[], int32_T i_size[2])
+    void b_eml_find(const boolean_T x_data[], int32_T x_size, int32_T i_data[],
+                    int32_T *i_size)
+    {
+      int32_T idx;
+      int32_T ii;
+      boolean_T exitg1;
+      *i_size = (1 <= x_size);
+      ii = x_size;
+      idx = 0;
+      exitg1 = false;
+      while ((!exitg1) && (ii > 0)) {
+        if (x_data[ii - 1]) {
+          idx = 1;
+          i_data[0] = ii;
+          exitg1 = true;
+        } else {
+          ii--;
+        }
+      }
+
+      if (*i_size == 1) {
+        if (idx == 0) {
+          *i_size = 0;
+        }
+      } else {
+        *i_size = (1 <= idx);
+      }
+    }
+
+    void c_eml_find(const boolean_T x_data[], int32_T x_size, int32_T i_data[],
+                    int32_T *i_size)
+    {
+      ::coder::array<int16_T, 1U> i;
+      int32_T idx;
+      int32_T ii;
+      int32_T k;
+      boolean_T exitg1;
+      k = (1 <= x_size);
+      idx = 0;
+      i.set_size(k);
+      ii = 0;
+      exitg1 = false;
+      while ((!exitg1) && (ii <= x_size - 1)) {
+        if (x_data[ii]) {
+          idx++;
+          i[idx - 1] = static_cast<int16_T>(ii + 1);
+          if (idx >= k) {
+            exitg1 = true;
+          } else {
+            ii++;
+          }
+        } else {
+          ii++;
+        }
+      }
+
+      if (k == 1) {
+        if (idx == 0) {
+          i.set_size(0);
+        }
+      } else {
+        i.set_size(static_cast<int32_T>(1 <= idx));
+      }
+
+      *i_size = i.size(0);
+      k = i.size(0);
+      if (0 <= k - 1) {
+        i_data[0] = i[0];
+      }
+    }
+
+    void d_eml_find(const boolean_T x[2], int32_T i_data[], int32_T i_size[2])
     {
       int32_T idx;
       int32_T ii;
@@ -48,7 +119,7 @@ namespace RAT
       }
     }
 
-    void c_eml_find(const ::coder::array<boolean_T, 2U> &x, ::coder::array<
+    void e_eml_find(const ::coder::array<boolean_T, 2U> &x, ::coder::array<
                     int32_T, 1U> &i)
     {
       int32_T idx;
@@ -84,45 +155,6 @@ namespace RAT
         }
 
         i.set_size(idx);
-      }
-    }
-
-    void d_eml_find(const ::coder::array<boolean_T, 2U> &x, ::coder::array<
-                    int32_T, 2U> &i)
-    {
-      int32_T idx;
-      int32_T ii;
-      int32_T nx;
-      boolean_T exitg1;
-      nx = x.size(1);
-      idx = 0;
-      i.set_size(1, x.size(1));
-      ii = 0;
-      exitg1 = false;
-      while ((!exitg1) && (ii <= nx - 1)) {
-        if (x[ii]) {
-          idx++;
-          i[idx - 1] = ii + 1;
-          if (idx >= nx) {
-            exitg1 = true;
-          } else {
-            ii++;
-          }
-        } else {
-          ii++;
-        }
-      }
-
-      if (x.size(1) == 1) {
-        if (idx == 0) {
-          i.set_size(1, 0);
-        }
-      } else {
-        if (1 > idx) {
-          idx = 0;
-        }
-
-        i.set_size(i.size(0), idx);
       }
     }
 
@@ -162,6 +194,45 @@ namespace RAT
         }
 
         i.set_size(idx);
+      }
+    }
+
+    void f_eml_find(const ::coder::array<boolean_T, 2U> &x, ::coder::array<
+                    int32_T, 2U> &i)
+    {
+      int32_T idx;
+      int32_T ii;
+      int32_T nx;
+      boolean_T exitg1;
+      nx = x.size(1);
+      idx = 0;
+      i.set_size(1, x.size(1));
+      ii = 0;
+      exitg1 = false;
+      while ((!exitg1) && (ii <= nx - 1)) {
+        if (x[ii]) {
+          idx++;
+          i[idx - 1] = ii + 1;
+          if (idx >= nx) {
+            exitg1 = true;
+          } else {
+            ii++;
+          }
+        } else {
+          ii++;
+        }
+      }
+
+      if (x.size(1) == 1) {
+        if (idx == 0) {
+          i.set_size(1, 0);
+        }
+      } else {
+        if (1 > idx) {
+          idx = 0;
+        }
+
+        i.set_size(i.size(0), idx);
       }
     }
   }

@@ -28,6 +28,8 @@ namespace RAT
                  real_T, 2U> &B, ::coder::array<real_T, 2U> &Y);
       void mrdiv(const ::coder::array<real_T, 2U> &A, const ::coder::array<
                  real_T, 2U> &B, ::coder::array<real_T, 1U> &Y);
+      void mrdiv(const real_T A_data[], int32_T A_size, const real_T B_data[],
+                 int32_T B_size, real_T Y_data[], int32_T Y_size[2]);
     }
   }
 }

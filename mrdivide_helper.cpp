@@ -116,6 +116,27 @@ namespace RAT
           }
         }
       }
+
+      void mrdiv(const real_T A_data[], int32_T A_size, const real_T B_data[],
+                 int32_T B_size, real_T Y_data[], int32_T Y_size[2])
+      {
+        if ((A_size == 0) || (B_size == 0)) {
+          int32_T loop_ub;
+          Y_size[0] = static_cast<int8_T>(A_size);
+          Y_size[1] = static_cast<int8_T>(B_size);
+          loop_ub = static_cast<int8_T>(B_size);
+          if (0 <= loop_ub - 1) {
+            loop_ub = static_cast<int8_T>(A_size);
+            if (0 <= loop_ub - 1) {
+              Y_data[0] = 0.0;
+            }
+          }
+        } else {
+          Y_size[0] = 1;
+          Y_size[1] = 1;
+          Y_data[0] = A_data[0] / B_data[0];
+        }
+      }
     }
   }
 }

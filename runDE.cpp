@@ -62,7 +62,6 @@ namespace RAT
              struct1_T *problemLimits, const struct2_T *controls, g_struct_T
              *b_problemStruct, struct5_T *result)
   {
-    static d_struct_T c_problemStruct;
     static const real_T FVr_x[50]{ -1.0, -0.95918367346938771,
       -0.91836734693877542, -0.87755102040816324, -0.836734693877551,
       -0.79591836734693866, -0.75510204081632648, -0.71428571428571419,
@@ -85,6 +84,7 @@ namespace RAT
     ::coder::array<real_T, 2U> res;
     ::coder::array<char_T, 2U> charStr;
     ::coder::array<int8_T, 2U> S_struct_FM_pop;
+    d_struct_T c_problemStruct;
     h_struct_T expl_temp;
     int32_T b_loop_ub;
     int32_T i;

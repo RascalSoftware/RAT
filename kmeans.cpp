@@ -145,7 +145,7 @@ namespace RAT
         a = coder::internal::minimum(dist);
         b_dist[0] = !(dist[0] - a != 0.0);
         b_dist[1] = !(dist[1] - a != 0.0);
-        coder::b_eml_find(b_dist, index_min_data, index_min_size);
+        coder::d_eml_find(b_dist, index_min_data, index_min_size);
 
         //  If there are multiple min distances, decide randomly
         a = static_cast<real_T>(index_min_size[1]) * coder::b_rand();

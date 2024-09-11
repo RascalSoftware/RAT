@@ -86,38 +86,6 @@ namespace RAT
 
         x.set_size(x.size(0), nxout);
       }
-
-      void nullAssignment(real_T x_data[], int32_T x_size[2])
-      {
-        int32_T b_i;
-        int32_T j;
-        int32_T ncolx;
-        int32_T nrows;
-        ncolx = x_size[1];
-        nrows = x_size[0] - 1;
-        for (j = 0; j < ncolx; j++) {
-          for (int32_T i{0}; i < nrows; i++) {
-            b_i = i + x_size[0] * j;
-            x_data[b_i] = x_data[b_i + 1];
-          }
-        }
-
-        if (1 > nrows) {
-          ncolx = 0;
-        } else {
-          ncolx = x_size[0] - 1;
-        }
-
-        nrows = x_size[1] - 1;
-        for (b_i = 0; b_i <= nrows; b_i++) {
-          for (j = 0; j < ncolx; j++) {
-            x_data[j + ncolx * b_i] = x_data[j + x_size[0] * b_i];
-          }
-        }
-
-        x_size[0] = ncolx;
-        x_size[1] = nrows + 1;
-      }
     }
   }
 }

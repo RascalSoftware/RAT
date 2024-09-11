@@ -145,16 +145,19 @@ namespace RAT
     //  attach log of posterior probabilities as final column of
     //  the posterior samples
     // post_samples(:,Ncol+1) = logWt(idx);
-    if ((idx.size(0) != 0) && (nest_samples.size(1) != 0)) {
-      result = idx.size(0);
+    if ((b_i.size(0) != 0) && (nest_samples.size(1) != 0)) {
+      result = b_i.size(0);
     } else if (b_i.size(0) != 0) {
       result = idx.size(0);
     } else {
-      result = idx.size(0);
+      result = 0;
+      if (idx.size(0) > 0) {
+        result = idx.size(0);
+      }
     }
 
     empty_non_axis_sizes = (result == 0);
-    if (empty_non_axis_sizes || ((idx.size(0) != 0) && (nest_samples.size(1) !=
+    if (empty_non_axis_sizes || ((b_i.size(0) != 0) && (nest_samples.size(1) !=
           0))) {
       input_sizes_idx_1 = static_cast<int8_T>(nest_samples.size(1));
     } else {
@@ -168,13 +171,13 @@ namespace RAT
     }
 
     loop_ub = nest_samples.size(1);
-    b_nest_samples.set_size(b_i.size(0), nest_samples.size(1));
+    b_nest_samples.set_size(idx.size(0), nest_samples.size(1));
     for (i = 0; i < loop_ub; i++) {
       int32_T b_loop_ub;
-      b_loop_ub = b_i.size(0);
+      b_loop_ub = idx.size(0);
       for (i1 = 0; i1 < b_loop_ub; i1++) {
-        b_nest_samples[i1 + b_nest_samples.size(0) * i] = nest_samples[(
-          static_cast<int32_T>(b_i[i1]) + nest_samples.size(0) * i) - 1];
+        b_nest_samples[i1 + b_nest_samples.size(0) * i] = nest_samples[(idx[i1]
+          + nest_samples.size(0) * i) - 1];
       }
     }
 

@@ -56,7 +56,7 @@ namespace RAT
       b_log_L[i] = (log_L[i] < b_Q);
     }
 
-    coder::d_eml_find(b_log_L, r);
+    coder::f_eml_find(b_log_L, r);
     idx_outlier.set_size(1, r.size(1));
     loop_ub = r.size(1);
     for (i = 0; i < loop_ub; i++) {

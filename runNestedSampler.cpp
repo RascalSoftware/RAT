@@ -33,7 +33,6 @@ namespace RAT
                         g_struct_T *b_problemStruct, struct5_T *result,
                         struct8_T *bayesResults)
   {
-    static d_struct_T c_problemStruct;
     static struct2_T b_controls;
     ::coder::array<cell_wrap_1, 1U> fitNames;
     ::coder::array<cell_wrap_11, 2U> t30_predictionIntervals_sld;
@@ -49,6 +48,7 @@ namespace RAT
     ::coder::array<real_T, 2U> r;
     ::coder::array<real_T, 2U> r1;
     c_struct_T expl_temp;
+    d_struct_T c_problemStruct;
     j_struct_T nestResults;
     real_T t30_predictionIntervals_sampleChi_data[1000];
     real_T H;

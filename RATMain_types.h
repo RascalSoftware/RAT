@@ -265,7 +265,7 @@ namespace RAT
     ::coder::array<cell_wrap_2, 2U> f3;
     ::coder::array<cell_wrap_2, 2U> f4;
     ::coder::array<cell_wrap_4, 2U> f5;
-    ::coder::array<cell_wrap_5, 1U> f6;
+    ::coder::array<cell_wrap_5, 2U> f6;
     ::coder::array<cell_wrap_6, 2U> f7;
     ::coder::array<cell_wrap_6, 2U> f8;
     ::coder::array<cell_wrap_6, 2U> f9;
@@ -316,23 +316,6 @@ namespace RAT
     ::coder::array<real_T, 1U> otherParams;
     ::coder::array<real_T, 2U> fitLimits;
     ::coder::array<real_T, 2U> otherLimits;
-  };
-
-  struct RATMainTLS
-  {
-    struct {
-      int32_T belowVals_data[10000];
-      int32_T aboveVals_data[10000];
-    } f0;
-
-    struct {
-      real_T thisContrastLayers1_data[6000];
-      real_T thisContrastLayers2_data[6000];
-    } f1;
-
-    struct {
-      real_T thisContrastLayers_data[6000];
-    } f2;
   };
 }
 

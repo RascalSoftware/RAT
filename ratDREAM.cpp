@@ -402,9 +402,9 @@ namespace RAT
     ::coder::array<real_T, 2U> r1;
     ::coder::array<real_T, 2U> xnew;
     ::coder::array<real_T, 2U> xold;
+    ::coder::array<real_T, 1U> b_delta_normX_data;
     ::coder::array<real_T, 1U> c_X;
     ::coder::array<real_T, 1U> d_X;
-    ::coder::array<real_T, 1U> delta_normX;
     ::coder::array<real_T, 1U> idx_ac;
     ::coder::array<real_T, 1U> log_L_xnew;
     ::coder::array<real_T, 1U> log_PR_xnew;
@@ -414,7 +414,7 @@ namespace RAT
     ::coder::bounded_array<char_T, 10000U, 2U> paramInfo_boundhandling;
     b_struct_T Meas_info;
     struct11_T DREAMPar;
-    real_T tmp_data[100];
+    real_T delta_normX_data[100];
     real_T b_lCR_data[3];
     real_T delta_tot_data[3];
     real_T lCR_data[3];
@@ -423,12 +423,12 @@ namespace RAT
     int32_T delta_tot_size[2];
     int32_T lCR_size[2];
     int32_T pCR_size[2];
+    int32_T delta_normX_size;
     int32_T gen;
     int32_T i;
     int32_T iteration;
     int32_T loop_ub;
     int32_T t;
-    int32_T tmp_size;
     uint32_T iloc;
     boolean_T b_CR_data[100];
     boolean_T b;
@@ -666,9 +666,9 @@ namespace RAT
 
       //  Now generate candidate in each sequence using current point and members of X
       b_loop_ub = CR.size(0);
-      tmp_size = CR.size(0);
+      delta_normX_size = CR.size(0);
       for (i = 0; i < b_loop_ub; i++) {
-        tmp_data[i] = CR[i + CR.size(0) * gen];
+        delta_normX_data[i] = CR[i + CR.size(0) * gen];
       }
 
       b_loop_ub = X.size(0);
@@ -679,11 +679,12 @@ namespace RAT
         }
       }
 
-      calcProposal(b_X, tmp_data, &DREAMPar, Table_gamma, b_paramInfo_min,
-                   b_paramInfo_max, paramInfo_boundhandling.data,
-                   paramInfo_boundhandling.size, xnew);
-      for (i = 0; i < tmp_size; i++) {
-        CR[i + CR.size(0) * gen] = tmp_data[i];
+      calcProposal(b_X, delta_normX_data, &DREAMPar, Table_gamma,
+                   b_paramInfo_min, b_paramInfo_max,
+                   paramInfo_boundhandling.data, paramInfo_boundhandling.size,
+                   xnew);
+      for (i = 0; i < delta_normX_size; i++) {
+        CR[i + CR.size(0) * gen] = delta_normX_data[i];
       }
 
       //  Now evaluate the model ( = pdf ) and return fx
@@ -754,9 +755,9 @@ namespace RAT
       loop_ub = idx_ac.size(0);
       c_X.set_size(idx_ac.size(0));
       for (i = 0; i < loop_ub; i++) {
-        tmp_size = static_cast<int32_T>(idx_ac[i]) - 1;
-        d_X[i] = log_PR_xnew[tmp_size];
-        c_X[i] = log_L_xnew[tmp_size];
+        delta_normX_size = static_cast<int32_T>(idx_ac[i]) - 1;
+        d_X[i] = log_PR_xnew[delta_normX_size];
+        c_X[i] = log_L_xnew[delta_normX_size];
       }
 
       for (i = 0; i < input_sizes_idx_1; i++) {
@@ -784,8 +785,8 @@ namespace RAT
 
       loop_ub = idx_ac.size(0);
       for (i = 0; i < loop_ub; i++) {
-        tmp_size = static_cast<int32_T>(idx_ac[i]) - 1;
-        fx[tmp_size] = fx_new[tmp_size];
+        delta_normX_size = static_cast<int32_T>(idx_ac[i]) - 1;
+        fx[delta_normX_size] = fx_new[delta_normX_size];
       }
 
       //  Check whether to add the current points to the chains or not?
@@ -801,13 +802,13 @@ namespace RAT
           }
         }
 
-        tmp_size = static_cast<int32_T>(DREAMPar.nParams + 2.0);
+        delta_normX_size = static_cast<int32_T>(DREAMPar.nParams + 2.0);
         loop_ub = static_cast<int32_T>(DREAMPar.nChains);
         for (i = 0; i < loop_ub; i++) {
-          for (i1 = 0; i1 < tmp_size; i1++) {
+          for (i1 = 0; i1 < delta_normX_size; i1++) {
             chain[((static_cast<int32_T>(iloc) + chain.size(0) * i1) +
-                   chain.size(0) * chain.size(1) * i) - 1] = e_X[i1 + tmp_size *
-              i];
+                   chain.size(0) * chain.size(1) * i) - 1] = e_X[i1 +
+              delta_normX_size * i];
           }
         }
 
@@ -894,16 +895,17 @@ namespace RAT
 
           CR_data.set(&b_CR_data[0], loop_ub);
           coder::eml_find(CR_data, r2);
-          delta_normX.set_size(r2.size(0));
+          delta_normX_size = r2.size(0);
           b_loop_ub = r2.size(0);
           for (i = 0; i < b_loop_ub; i++) {
-            delta_normX[i] = c_X[r2[i] - 1];
+            delta_normX_data[i] = c_X[r2[i] - 1];
           }
 
-          if (delta_normX.size(0) == 0) {
+          b_delta_normX_data.set(&delta_normX_data[0], delta_normX_size);
+          if (b_delta_normX_data.size(0) == 0) {
             j = 0.0;
           } else {
-            j = coder::nestedIter(delta_normX, delta_normX.size(0));
+            j = coder::nestedIter(b_delta_normX_data, b_delta_normX_data.size(0));
           }
 
           delta_tot_data[b_j] += j;
@@ -1031,11 +1033,11 @@ namespace RAT
           b_loop_ub = static_cast<int32_T>(DREAMPar.nChains);
         }
 
-        tmp_size = i1 - i;
-        b_chain.set_size(tmp_size, loop_ub, b_loop_ub);
+        delta_normX_size = i1 - i;
+        b_chain.set_size(delta_normX_size, loop_ub, b_loop_ub);
         for (i1 = 0; i1 < b_loop_ub; i1++) {
           for (result = 0; result < loop_ub; result++) {
-            for (input_sizes_idx_1 = 0; input_sizes_idx_1 < tmp_size;
+            for (input_sizes_idx_1 = 0; input_sizes_idx_1 < delta_normX_size;
                  input_sizes_idx_1++) {
               b_chain[(input_sizes_idx_1 + b_chain.size(0) * result) +
                 b_chain.size(0) * b_chain.size(1) * i1] = chain[((i +
@@ -1060,9 +1062,9 @@ namespace RAT
 
       isRATStopped(ratInputs_controls->IPCFilePath.data,
                    ratInputs_controls->IPCFilePath.size, (boolean_T *)
-                   &empty_non_axis_sizes, &tmp_size);
+                   &empty_non_axis_sizes, &delta_normX_size);
       if (coder::internal::ifWhileCond((const boolean_T *)&empty_non_axis_sizes,
-           tmp_size)) {
+           delta_normX_size)) {
         if (!b) {
           h_triggerEvent();
         }

@@ -29,10 +29,7 @@ thisSld = calcResult.sldProfiles;
 numberOfContrasts = problemStruct.numberOfContrasts;
 
 vals = zeros(1,3);
-coder.varsize('vals',[1e4 1e4],[1 1]);
-
 rowVals = zeros(1,3);
-coder.varsize('rowVals',[1 1e4],[0 1]);
 
 refXVals = makeCell(numberOfContrasts, 1, rowVals); %cell(numberOfContrasts,1);
 refYVals = makeCell(numberOfContrasts, 1, vals); %cell(numberOfContrasts,1);

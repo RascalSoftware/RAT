@@ -20,68 +20,54 @@ function [outLayers, outSsubs] = groupLayersMod(resampledLayers,subRoughs,geomet
 %     * outLayers: cell array of layers param values for each contrast.
 %     * outSsubs: vector of substrate roughness values.
 
-%outLayers = cell(1,numberOfContrasts);
-%outSsubs = zeros(1,numberOfContrasts);
-
-
-coder.varsize('layers',[Inf,6],[1 1]);
-
-%for i = 1:numberOfContrasts
-    output = resampledLayers;
-    ssub = subRoughs;
-    layers = zeros(size(output));
-    if ~isempty(output)
-        if strcmpi(geometry, coderEnums.geometryOptions.AirSubstrate)
-                layers = output;
-                %ssub = rsub;
-        else
-                roughs = output(:,3);
-                sldss = output(:,2);
-                thicks = output(:,1);
-                rsub = roughs(end);
-                if length(roughs) > 1
-                    roughs = [ssub ; roughs(1:end-1)];
-                else
-                    roughs = ssub;
-                end
-                n = size(output,2);
-                if n == 5
-                    cov = output(:,4);
-                    layers = [thicks(:) sldss(:) roughs(:) cov(:)];
-                else
-                    layers = [thicks(:) sldss(:) roughs(:)];
-                end
-                ssub = rsub;
-        end
-        
-        %Deal with the %coverage if present
-        n = size(output,2);
-        l = size(output,1);
-        if n == 5
-            for j = 1:l
-                this_pcw = output(j,4);
-                if output(j,5) == 1
-                    pc_add = bulkIns;
-                else
-                    pc_add = bulkOuts;
-                end
-                if ~isnan(this_pcw)
-                    layers(j,2) = pc_add*(this_pcw/100) + (1-(this_pcw/100))*layers(j,2);
-                end
+outSsubs = subRoughs;
+layers = zeros(size(resampledLayers));
+if ~isempty(resampledLayers)
+    if strcmpi(geometry, coderEnums.geometryOptions.AirSubstrate)
+            layers = resampledLayers;
+    else
+            roughs = resampledLayers(:,3);
+            sldss = resampledLayers(:,2);
+            thicks = resampledLayers(:,1);
+            rsub = roughs(end);
+            if length(roughs) > 1
+                roughs = [outSsubs ; roughs(1:end-1)];
+            else
+                roughs = outSsubs;
             end
-        end 
+            n = size(resampledLayers,2);
+            if n == 5
+                cov = resampledLayers(:,4);
+                layers = [thicks(:) sldss(:) roughs(:) cov(:)];
+            else
+                layers = [thicks(:) sldss(:) roughs(:)];
+            end
+            outSsubs = rsub;
     end
+    
+    %Deal with the %coverage if present
+    n = size(resampledLayers,2);
+    l = size(resampledLayers,1);
+    if n == 5
+        for j = 1:l
+            this_pcw = resampledLayers(j,4);
+            if resampledLayers(j,5) == 1
+                pc_add = bulkIns;
+            else
+                pc_add = bulkOuts;
+            end
+            if ~isnan(this_pcw)
+                layers(j,2) = pc_add*(this_pcw/100) + (1-(this_pcw/100))*layers(j,2);
+            end
+        end
+    end 
+end
 
 if ~isempty(layers)
     outLayers = layers(:,1:3);
 else
     outLayers = zeros(1,3);
 end
-outSsubs = ssub;
-
 
 end
-
-
-%end
     

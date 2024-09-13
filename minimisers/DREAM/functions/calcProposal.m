@@ -118,6 +118,14 @@ dx = zeros(DREAMPar.nChains,DREAMPar.nParams);
 % Determine when jumprate is 1
 gamma = randsample([0 1],DREAMPar.nChains,true,[ 1 - DREAMPar.pUnitGamma DREAMPar.pUnitGamma ]);   
 
+
+disp(DREAMPar.R);
+disp(size(DREAMPar.R));
+disp(DE_pairs);
+disp(size(DE_pairs));
+disp(draw);
+disp(size(draw));
+
 % Create N proposals
 for i = 1:DREAMPar.nChains               
     % Derive vector r1

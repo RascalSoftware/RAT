@@ -60,7 +60,6 @@ pCR = (1/DREAMPar.nCR) * ones(1,DREAMPar.nCR);
 
 % Generate the actula CR value, lCR and delta_tot
 CR = drawCR(DREAMPar,pCR); 
-%coder.varsize('CR',[100 1e4],[1 1]);
 
 lCR = zeros(1,DREAMPar.nCR); 
 delta_tot = zeros(1,DREAMPar.nCR);

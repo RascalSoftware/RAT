@@ -4,8 +4,8 @@ function [problemStruct,result] = runDE(problemStruct,problemCells,problemLimits
     F_VTR = controls.targetValue; %Value to reach
     I_D = length(problemStruct.fitParams);
     
-    FVr_minbound = problemStruct.fitLimits(:,1)'; 
-    FVr_maxbound = problemStruct.fitLimits(:,2)'; 
+    FVr_minbound = problemStruct.fitLimits(:,1)';
+    FVr_maxbound = problemStruct.fitLimits(:,2)';
     I_bnd_constr = 1;  %1: use bounds as bound constraints, 0: no bound constraints
     
     % I_NP            number of population members
@@ -56,26 +56,7 @@ function [problemStruct,result] = runDE(problemStruct,problemCells,problemLimits
     FVr_lim_lo = -ones(1,I_lentol);  %lower limit is -1
     
     %Tell compiler abut variable sizes
-    coder.varsize('S_struct.I_lentol', [Inf 1],[1 0]);
-    coder.varsize('S_struct.FVr_x', [1 Inf],[0 1]);
-    coder.varsize('S_struct.FVr_lim_up', [1 Inf],[0 1]);
-    coder.varsize('S_struct.FVr_lim_lo', [1 Inf],[0 1]);
-    
-    coder.varsize('S_struct.I_NP', [1 1],[0 0]);
-    coder.varsize('S_struct.fWeight', [1 1],[0 0]);
-    coder.varsize('S_struct.F_CR', [1 1],[0 0]);
-    coder.varsize('S_struct.I_D', [1 1],[0 0]);
-    coder.varsize('S_struct.FVr_minbound', [1 Inf],[0 1]);
-    coder.varsize('S_struct.FVr_maxbound', [1 Inf],[0 1]);
-    coder.varsize('S_struct.I_bnd_constr', [1 1],[0 0]);
-    coder.varsize('S_struct.I_itermax', [1 1],[0 0]);
-    coder.varsize('S_struct.F_VTR', [1 1],[0 0]);
-    coder.varsize('S_struct.I_strategy', [1 1],[0 0]);
-    coder.varsize('S_struct.I_refresh', [1 1],[0 0]);
-    coder.varsize('S_struct.I_plotting', [1 1],[0 0]);
-    coder.varsize('S_struct.FM_pop',[Inf 2],[1 0]);
     coder.varsize('S_struct.FVr_bestmem',[1 Inf],[0 1]);
-    coder.varsize('FVr_bestmem',[1 Inf],[0 1]);
     
     %-----tie all important values to a structure that can be passed along----
     S_struct.I_lentol   = I_lentol;
@@ -111,11 +92,6 @@ end
 
 
 function [S_MSE,result] = intrafun(p,problemStruct,problemCells,problemLimits,controls)
-
-    coder.varsize('S_MSE.I_nc',[1 1],[0 0]);
-    coder.varsize('S_MSE.FVr_ca',[1 1],[0 0]);
-    coder.varsize('S_MSE.I_no',[1 1],[0 0]);
-    coder.varsize('S_MSE.FVr_oa',[1 1],[0 0]);
     
     problemStruct.fitParams = p';
     problemStruct = unpackParams(problemStruct,controls);

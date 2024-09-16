@@ -48,12 +48,8 @@ function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiS
 %
 
 % Pre-definition for Coder
-thisSldLaysIm = [0 0];
+sldProfile = [0 0];
 sldProfileIm = [0 0];
-coder.varsize('thisSldLays',[10000 3],[1 1]);
-coder.varsize('thisSldLaysIm',[10000 3],[1 1]);
-coder.varsize('sldProfile',[10000 3],[1 1]);
-coder.varsize('sldProfileIm',[10000 3],[1 1]);
 
 % Build up the layers matrix for this contrast
 if ~useImaginary
@@ -79,6 +75,7 @@ if calcSld
         thisSldLaysIm = [theseLayers(:,1) theseLayers(:,3:end)];
     else
         thisSldLays = theseLayers;
+        thisSldLaysIm = [0 0]; % Dummy value for coder
     end
     
     sldProfile = makeSLDProfiles(bulkIn,bulkOut,thisSldLays,ssubs,repeatLayers);
@@ -90,9 +87,6 @@ if calcSld
         % the bulk phases..
         sldProfileIm = makeSLDProfiles(0,0,thisSldLaysIm,ssubs,repeatLayers);
     end
-
-else
-    sldProfile = [0 0];
 end
 
 % If required, then resample the SLD

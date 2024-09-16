@@ -3,12 +3,6 @@ function  [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,p
 checks = controls.checks;
 [problemStruct,fitNames] = packParams(problemStruct,problemCells,problemLimits,checks);
 
-nestSamples = [0 0 ; 0 0];
-coder.varsize('nest_samples');
-
-postSamples = [0 0 ; 0 0];
-coder.varsize('post_samples');
-
 logZ = 0;
 H = 0;
 

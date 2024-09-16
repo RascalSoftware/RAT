@@ -253,7 +253,6 @@ hiVal = normalizeFunction(initialDomain(:),sldProfile,vectorizable);
 %dataPoints = [initialDomain(:), func(initialDomain(:))];
 
 dataPoints = [initialDomain(:), hiVal];
-coder.varsize('dataPoints',[Inf Inf],[1 1]);
 
 %% Iterative function refinement
 % if displayWaitbar
@@ -424,7 +423,6 @@ function dataPoints = increaseSampling(dataPoints, segmentsToSplit, sldProfile)
 
 noPointsToAdd = numel(segmentsToSplit(segmentsToSplit==true));
 newDataPoints = zeros(noPointsToAdd, size(dataPoints,2));
-coder.varsize('newDataPoints',[Inf Inf],[1 1]);
 
 newDataPoints(:,1) = 0.5 * (dataPoints([segmentsToSplit;false],1) + ...
   dataPoints([false;segmentsToSplit],1));

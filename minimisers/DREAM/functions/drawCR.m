@@ -2,7 +2,7 @@ function CR = drawCR(DREAMPar,pCR)
     % Generates CR values based on current crossover probabilities
 
     CR = [1,1];
-    coder.varsize('CR',[1e2,1e6],[1,1]);
+    coder.varsize('CR',[1e2 1e6],[1 1]);
 
     if DREAMPar.adaptPCR
         

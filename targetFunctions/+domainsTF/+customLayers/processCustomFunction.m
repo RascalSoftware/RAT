@@ -5,18 +5,13 @@ function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,con
     % contrasts.
 
     % Do some pre-definitions to keep the compiler happy...
-    %totNumCalcs = numberOfContrasts * 2;
-    tempResampledLayers = cell(numberOfContrasts,2);
     resampledLayers = cell(numberOfContrasts,2);
     subRoughs = zeros(numberOfContrasts,1);
 
     for i = 1:numberOfContrasts
-        resampledLayers{i,1} = [1, 1];    % Type def as double (size not important)
-        resampledLayers{i,2} = [1, 1];
-        tempResampledLayers{i,1} = [0 0 0 0 0];
-        tempResampledLayers{i,2} = [0 0 0 0 0];
+        resampledLayers{i,1} = [0 0 0 0 0];
+        resampledLayers{i,2} = [0 0 0 0 0];
     end
-    coder.varsize('tempResampledLayers{:}',[10000 6],[1 1]);
     coder.varsize('resampledLayers{:}',[10000 6],[1 1]);
     
     bulkOuts = bulkOutArray(contrastBulkOuts);
@@ -28,10 +23,10 @@ function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,con
         % Find values of 'bulkIn' and 'bulkOut' for this
         % contrast...
         thisContrastLayers1 = [1 1 1]; % typeDef
-        coder.varsize('thisContrastLayers1',[10000, 6],[1 1]);
+        coder.varsize('thisContrastLayers1',[10000 6],[1 1]);
 
         thisContrastLayers2 = [1 1 1]; % typeDef
-        coder.varsize('thisContrastLayers2',[10000, 6],[1 1]);
+        coder.varsize('thisContrastLayers2',[10000 6],[1 1]);
 
         thisBulkIn = bulkInArray(contrastBulkIns(i));
         thisBulkOut = bulkOuts(i);
@@ -55,10 +50,8 @@ function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,con
            thisContrastLayers2 = applyHydrationImag(thisContrastLayers2,thisBulkIn,thisBulkOut);
         end
 
-        tempResampledLayers{i,1} = thisContrastLayers1;
-        tempResampledLayers{i,2} = thisContrastLayers2;
+        resampledLayers{i,1} = thisContrastLayers1;
+        resampledLayers{i,2} = thisContrastLayers2;
     end
-
-    resampledLayers = tempResampledLayers;
 
 end

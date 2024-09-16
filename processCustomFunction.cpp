@@ -19,37 +19,9 @@
 #include "coder_array.h"
 #include <cmath>
 
-// Function Declarations
-namespace RAT
-{
-  static void cast(const ::coder::array<cell_wrap_45, 1U> &b, ::coder::array<
-                   cell_wrap_10, 1U> &c);
-}
-
 // Function Definitions
 namespace RAT
 {
-  static void cast(const ::coder::array<cell_wrap_45, 1U> &b, ::coder::array<
-                   cell_wrap_10, 1U> &c)
-  {
-    int32_T i;
-    c.set_size(b.size(0));
-    i = b.size(0);
-    for (int32_T i1{0}; i1 < i; i1++) {
-      int32_T loop_ub;
-      loop_ub = b[i1].f1.size(1);
-      c[i1].f1.set_size(b[i1].f1.size(0), b[i1].f1.size(1));
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
-        int32_T b_loop_ub;
-        b_loop_ub = b[i1].f1.size(0);
-        for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
-          c[i1].f1[i3 + c[i1].f1.size(0) * i2] = b[i1].f1[i3 + b[i1].f1.size(0) *
-            i2];
-        }
-      }
-    }
-  }
-
   namespace nonPolarisedTF
   {
     namespace customLayers
@@ -60,10 +32,9 @@ namespace RAT
         real_T, 2U> &bulkOutArray, const ::coder::array<real_T, 2U> &cCustFiles,
         real_T numberOfContrasts, const ::coder::array<cell_wrap_1, 2U>
         &customFiles, const ::coder::array<real_T, 2U> &params, boolean_T
-        useImaginary, ::coder::array<cell_wrap_10, 1U> &resampledLayers, ::coder::
+        useImaginary, ::coder::array<cell_wrap_45, 1U> &resampledLayers, ::coder::
         array<real_T, 1U> &subRoughs)
       {
-        ::coder::array<cell_wrap_45, 1U> tempResampledLayers;
         ::coder::array<real_T, 2U> b_bulkOuts;
         ::coder::array<real_T, 2U> b_params;
         ::coder::array<real_T, 2U> b_thisContrastLayers;
@@ -86,7 +57,7 @@ namespace RAT
             - 1];
         }
 
-        tempResampledLayers.set_size(i);
+        resampledLayers.set_size(i);
         for (int32_T b_i{0}; b_i < i; b_i++) {
           creal_T x;
           real_T d;
@@ -153,20 +124,17 @@ namespace RAT
                                bulkOuts[b_i]);
           }
 
-          tempResampledLayers[b_i].f1.set_size(thisContrastLayers.size(0),
+          resampledLayers[b_i].f1.set_size(thisContrastLayers.size(0),
             thisContrastLayers.size(1));
           loop_ub = thisContrastLayers.size(1);
           for (i1 = 0; i1 < loop_ub; i1++) {
             b_loop_ub = thisContrastLayers.size(0);
             for (i2 = 0; i2 < b_loop_ub; i2++) {
-              tempResampledLayers[b_i].f1[i2 + tempResampledLayers[b_i].f1.size
-                (0) * i1] = thisContrastLayers[i2 + thisContrastLayers.size(0) *
-                i1];
+              resampledLayers[b_i].f1[i2 + resampledLayers[b_i].f1.size(0) * i1]
+                = thisContrastLayers[i2 + thisContrastLayers.size(0) * i1];
             }
           }
         }
-
-        cast(tempResampledLayers, resampledLayers);
       }
     }
   }

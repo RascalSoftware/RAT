@@ -20,6 +20,26 @@
 // Function Definitions
 namespace RAT
 {
+  void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
+            cell_wrap_12, 2U> &c)
+  {
+    int32_T i;
+    c.set_size(b.size(0), b.size(1));
+    i = b.size(0) * b.size(1);
+    for (int32_T i1{0}; i1 < i; i1++) {
+      int32_T loop_ub;
+      loop_ub = b[i1].f1.size(1);
+      c[i1].f1.set_size(b[i1].f1.size(0), b[i1].f1.size(1));
+      for (int32_T i2{0}; i2 < loop_ub; i2++) {
+        int32_T b_loop_ub;
+        b_loop_ub = b[i1].f1.size(0);
+        for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
+          c[i1].f1[i3 + i2] = b[i1].f1[i3 + b[i1].f1.size(0) * i2];
+        }
+      }
+    }
+  }
+
   void cast(const ::coder::array<cell_wrap_45, 2U> &b, ::coder::array<
             cell_wrap_10, 2U> &c)
   {

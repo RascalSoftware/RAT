@@ -31,7 +31,6 @@ namespace RAT
     ::coder::array<real_T, 2U> r1;
     ::coder::array<real_T, 2U> thisBox;
     ::coder::array<real_T, 2U> x;
-    ::coder::array<real_T, 1U> b_SLD;
     ::coder::array<real_T, 1U> b_layers;
     real_T subBox_data[101];
     int32_T b_loop_ub;
@@ -134,12 +133,12 @@ namespace RAT
       }
 
       // plot(x,Lays(:,(numberOfLayers*nrepeats)+2))
-      coder::blockedSummation(Lays, Lays.size(1), b_SLD);
-      b_loop_ub = b_SLD.size(0);
-      SLD.set_size(b_SLD.size(0), 1);
+      coder::blockedSummation(Lays, Lays.size(1), b_layers);
+      b_loop_ub = b_layers.size(0);
+      SLD.set_size(b_layers.size(0), 1);
       for (i = 0; i < 1; i++) {
         for (i1 = 0; i1 < b_loop_ub; i1++) {
-          SLD[i1] = b_SLD[i1];
+          SLD[i1] = b_layers[i1];
         }
       }
     } else {
@@ -200,7 +199,6 @@ namespace RAT
     ::coder::array<real_T, 2U> r1;
     ::coder::array<real_T, 2U> thisBox;
     ::coder::array<real_T, 2U> x;
-    ::coder::array<real_T, 1U> b_SLD;
     ::coder::array<real_T, 1U> b_layers;
     real_T subBox_data[101];
     int32_T b_loop_ub;
@@ -303,12 +301,12 @@ namespace RAT
       }
 
       // plot(x,Lays(:,(numberOfLayers*nrepeats)+2))
-      coder::blockedSummation(Lays, Lays.size(1), b_SLD);
-      b_loop_ub = b_SLD.size(0);
-      SLD.set_size(b_SLD.size(0), 1);
+      coder::blockedSummation(Lays, Lays.size(1), b_layers);
+      b_loop_ub = b_layers.size(0);
+      SLD.set_size(b_layers.size(0), 1);
       for (i = 0; i < 1; i++) {
         for (i1 = 0; i1 < b_loop_ub; i1++) {
-          SLD[i1] = b_SLD[i1];
+          SLD[i1] = b_layers[i1];
         }
       }
     } else {

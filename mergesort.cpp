@@ -100,7 +100,7 @@ namespace RAT
         iwork.set_size(idx.size(1));
         i = n - 1;
         for (k = 1; k <= i; k += 2) {
-          if (sortLE(x, k, k + 1)) {
+          if (b_sortLE(x, k, k + 1)) {
             idx[k - 1] = k;
             idx[k] = k + 1;
           } else {
@@ -136,7 +136,7 @@ namespace RAT
               int32_T i1;
               i = idx[q - 1];
               i1 = idx[p - 1];
-              if (sortLE(x, i1, i)) {
+              if (b_sortLE(x, i1, i)) {
                 iwork[k] = i1;
                 p++;
                 if (p == pEnd) {
@@ -256,7 +256,7 @@ namespace RAT
       }
 
       void b_mergesort(::coder::array<int32_T, 1U> &idx, const ::coder::array<
-                       real_T, 2U> &x, const int32_T dir_data[], int32_T n)
+                       real_T, 2U> &x, int32_T n)
       {
         ::coder::array<int32_T, 1U> iwork;
         int32_T b_i;
@@ -266,7 +266,7 @@ namespace RAT
         iwork.set_size(idx.size(0));
         i = n - 1;
         for (k = 1; k <= i; k += 2) {
-          if (sortLE(x, dir_data, k, k + 1)) {
+          if (sortLE(x, k, k + 1)) {
             idx[k - 1] = k;
             idx[k] = k + 1;
           } else {
@@ -302,7 +302,7 @@ namespace RAT
               int32_T i1;
               i = idx[q - 1];
               i1 = idx[p - 1];
-              if (sortLE(x, dir_data, i1, i)) {
+              if (sortLE(x, i1, i)) {
                 iwork[k] = i1;
                 p++;
                 if (p == pEnd) {

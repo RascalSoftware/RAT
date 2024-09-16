@@ -100,11 +100,11 @@ namespace RAT
       //
       //
       //  Pre-definition for Coder
-      thisSldLaysIm.set_size(1, 2);
+      sldProfile.set_size(1, 2);
       sldProfileIm.set_size(1, 2);
-      thisSldLaysIm[0] = 0.0;
+      sldProfile[0] = 0.0;
       sldProfileIm[0] = 0.0;
-      thisSldLaysIm[thisSldLaysIm.size(0)] = 0.0;
+      sldProfile[sldProfile.size(0)] = 0.0;
       sldProfileIm[sldProfileIm.size(0)] = 0.0;
 
       //  Build up the layers matrix for this contrast
@@ -273,38 +273,24 @@ namespace RAT
                 theseLayers.size(0) * i];
             }
           }
+
+          thisSldLaysIm.set_size(1, 2);
+          thisSldLaysIm[0] = 0.0;
+          thisSldLaysIm[thisSldLaysIm.size(0)] = 0.0;
+
+          //  Dummy value for coder
         }
 
         makeSLDProfiles(bulkIn, bulkOut, thisSldLays, ssubs, repeatLayers,
-                        d_theseLayers);
-        sldProfile.set_size(d_theseLayers.size(0), 2);
-        loop_ub = d_theseLayers.size(0);
-        for (i = 0; i < 2; i++) {
-          for (i1 = 0; i1 < loop_ub; i1++) {
-            sldProfile[i1 + sldProfile.size(0) * i] = d_theseLayers[i1 +
-              d_theseLayers.size(0) * i];
-          }
-        }
+                        sldProfile);
 
         //  If we have imaginary, we are also
         //  going to need an SLD profile for the imaginary part
         if (useImaginary) {
           //  Note bulkIn and bulkOut = 0 since there is never any imaginary part for
           //  the bulk phases..
-          makeSLDProfiles(thisSldLaysIm, ssubs, repeatLayers, d_theseLayers);
-          sldProfileIm.set_size(d_theseLayers.size(0), 2);
-          loop_ub = d_theseLayers.size(0);
-          for (i = 0; i < 2; i++) {
-            for (i1 = 0; i1 < loop_ub; i1++) {
-              sldProfileIm[i1 + sldProfileIm.size(0) * i] = d_theseLayers[i1 +
-                d_theseLayers.size(0) * i];
-            }
-          }
+          makeSLDProfiles(thisSldLaysIm, ssubs, repeatLayers, sldProfileIm);
         }
-      } else {
-        sldProfile.set_size(1, 2);
-        sldProfile[0] = 0.0;
-        sldProfile[sldProfile.size(0)] = 0.0;
       }
 
       //  If required, then resample the SLD

@@ -36,8 +36,8 @@ namespace RAT
                    2U> &idx);
       void sortIdx(const ::coder::array<real_T, 1U> &x, ::coder::array<int32_T,
                    1U> &idx);
-      void sortIdx(const ::coder::array<real_T, 2U> &x, const int32_T col_data[],
-                   ::coder::array<int32_T, 1U> &idx);
+      void sortIdx(const ::coder::array<real_T, 2U> &x, ::coder::array<int32_T,
+                   1U> &idx);
     }
   }
 }

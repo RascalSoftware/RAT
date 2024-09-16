@@ -78,11 +78,7 @@ namespace RAT
       &resampledLayer)
     {
       ::coder::array<real_T, 2U> b_layerSld;
-      ::coder::array<real_T, 2U> b_sldProfile;
       ::coder::array<real_T, 2U> r;
-      int32_T b_loop_ub;
-      int32_T i;
-      int32_T i1;
       int32_T loop_ub;
 
       //  Extract the relevant parameter values for this contrast
@@ -108,23 +104,14 @@ namespace RAT
                             *backgroundParamValue, *resolutionParamValue,
                             contrastBackgroundActions, nParams, parallel_data,
                             parallel_size, resampleMinAngle, resampleNPoints,
-                            useImaginary, b_sldProfile, reflectivity, simulation,
+                            useImaginary, sldProfile, reflectivity, simulation,
                             shiftedData, b_layerSld, resampledLayer, chi);
-      sldProfile.set_size(b_sldProfile.size(0), b_sldProfile.size(1));
-      loop_ub = b_sldProfile.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        b_loop_ub = b_sldProfile.size(0);
-        for (i1 = 0; i1 < b_loop_ub; i1++) {
-          sldProfile[i1 + sldProfile.size(0) * i] = b_sldProfile[i1 +
-            b_sldProfile.size(0) * i];
-        }
-      }
-
       layerSld.set_size(b_layerSld.size(0), b_layerSld.size(1));
       loop_ub = b_layerSld.size(1);
-      for (i = 0; i < loop_ub; i++) {
+      for (int32_T i{0}; i < loop_ub; i++) {
+        int32_T b_loop_ub;
         b_loop_ub = b_layerSld.size(0);
-        for (i1 = 0; i1 < b_loop_ub; i1++) {
+        for (int32_T i1{0}; i1 < b_loop_ub; i1++) {
           layerSld[i1 + layerSld.size(0) * i] = b_layerSld[i1 + b_layerSld.size
             (0) * i];
         }

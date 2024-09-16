@@ -21,6 +21,8 @@
 // Function Declarations
 namespace RAT
 {
+  extern void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
+                   cell_wrap_12, 2U> &c);
   extern void cast(const ::coder::array<cell_wrap_45, 2U> &b, ::coder::array<
                    cell_wrap_10, 2U> &c);
   extern real_T rt_atan2d_snf(real_T u0, real_T u1);

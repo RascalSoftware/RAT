@@ -157,6 +157,11 @@ namespace RAT
 
   struct cell_wrap_57
   {
+    cell_wrap_8 f1[2];
+  };
+
+  struct cell_wrap_58
+  {
     cell_wrap_10 f1[2];
   };
 
@@ -197,10 +202,10 @@ namespace RAT
 
   struct h_struct_T
   {
-    ::coder::bounded_array<real_T, 1U, 1U> I_lentol;
-    ::coder::bounded_array<real_T, 50U, 2U> FVr_x;
-    ::coder::bounded_array<real_T, 50U, 2U> FVr_lim_up;
-    ::coder::bounded_array<real_T, 50U, 2U> FVr_lim_lo;
+    real_T I_lentol;
+    real_T FVr_x[50];
+    real_T FVr_lim_up[50];
+    real_T FVr_lim_lo[50];
     real_T I_NP;
     real_T fWeight;
     real_T F_CR;
@@ -221,8 +226,8 @@ namespace RAT
   {
     ::coder::array<cell_wrap_11, 1U> reflectivity;
     ::coder::array<cell_wrap_11, 2U> sld;
-    ::coder::array<cell_wrap_12, 2U> reflectivityXData;
-    ::coder::array<cell_wrap_12, 2U> sldXData;
+    ::coder::array<cell_wrap_10, 2U> reflectivityXData;
+    ::coder::array<cell_wrap_10, 2U> sldXData;
     real_T sampleChi[1000];
   };
 
@@ -264,7 +269,7 @@ namespace RAT
     ::coder::array<char_T, 2U> message;
   };
 
-  struct cell_49
+  struct cell_48
   {
     ::coder::array<real_T, 2U> f1;
   };

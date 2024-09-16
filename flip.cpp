@@ -25,8 +25,8 @@ namespace RAT
         lup = x.size(0) >> 1;
         for (int32_T k{0}; k < lup; k++) {
           real_T tmp;
-          int16_T subs2_idx_0;
-          subs2_idx_0 = static_cast<int16_T>(x.size(0) - k);
+          int32_T subs2_idx_0;
+          subs2_idx_0 = x.size(0) - k;
           tmp = x[k];
           x[k] = x[subs2_idx_0 - 1];
           x[subs2_idx_0 - 1] = tmp;

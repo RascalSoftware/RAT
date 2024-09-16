@@ -22,6 +22,8 @@ namespace RAT
 {
   void SLDFunction(real_T x, const ::coder::array<real_T, 2U> &SLD, ::coder::
                    array<real_T, 1U> &sldVal);
+  void b_SLDFunction(real_T x, const ::coder::array<real_T, 2U> &SLD, ::coder::
+                     array<real_T, 1U> &sldVal);
 }
 
 #endif

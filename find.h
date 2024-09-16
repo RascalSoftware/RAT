@@ -22,10 +22,10 @@ namespace RAT
 {
   namespace coder
   {
-    void b_eml_find(const boolean_T x_data[], int32_T x_size, int32_T i_data[],
+    void b_eml_find(const ::coder::array<boolean_T, 1U> &x, int32_T i_data[],
                     int32_T *i_size);
-    void c_eml_find(const boolean_T x_data[], int32_T x_size, int32_T i_data[],
-                    int32_T *i_size);
+    void c_eml_find(const ::coder::array<boolean_T, 1U> &x, ::coder::array<
+                    int32_T, 1U> &i);
     void d_eml_find(const boolean_T x[2], int32_T i_data[], int32_T i_size[2]);
     void e_eml_find(const ::coder::array<boolean_T, 2U> &x, ::coder::array<
                     int32_T, 1U> &i);

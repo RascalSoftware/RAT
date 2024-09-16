@@ -62,7 +62,7 @@ namespace RAT
              struct1_T *problemLimits, const struct2_T *controls, g_struct_T
              *b_problemStruct, struct5_T *result)
   {
-    static const real_T FVr_x[50]{ -1.0, -0.95918367346938771,
+    static const real_T S_struct_FVr_x[50]{ -1.0, -0.95918367346938771,
       -0.91836734693877542, -0.87755102040816324, -0.836734693877551,
       -0.79591836734693866, -0.75510204081632648, -0.71428571428571419,
       -0.673469387755102, -0.63265306122448972, -0.59183673469387754,
@@ -143,9 +143,6 @@ namespace RAT
     // lower limit is -1
     // Tell compiler abut variable sizes
     // -----tie all important values to a structure that can be passed along----
-    expl_temp.FVr_x.size[0] = 1;
-    expl_temp.FVr_x.size[1] = 50;
-    std::copy(&FVr_x[0], &FVr_x[50], &expl_temp.FVr_x.data[0]);
     loop_ub = static_cast<int32_T>(controls->populationSize);
     S_struct_FM_pop.set_size(loop_ub, 2);
     expl_temp.FVr_bestmem.set_size(1, 2);
@@ -175,17 +172,13 @@ namespace RAT
     expl_temp.F_CR = controls->crossoverProbability;
     expl_temp.fWeight = controls->fWeight;
     expl_temp.I_NP = controls->populationSize;
-    expl_temp.FVr_lim_lo.size[0] = 1;
-    expl_temp.FVr_lim_lo.size[1] = 50;
-    expl_temp.FVr_lim_up.size[0] = 1;
-    expl_temp.FVr_lim_up.size[1] = 50;
     for (i = 0; i < 50; i++) {
-      expl_temp.FVr_lim_lo.data[i] = -1.0;
-      expl_temp.FVr_lim_up.data[i] = 1.0;
+      expl_temp.FVr_lim_lo[i] = -1.0;
+      expl_temp.FVr_lim_up[i] = 1.0;
+      expl_temp.FVr_x[i] = S_struct_FVr_x[i];
     }
 
-    expl_temp.I_lentol.size[0] = 1;
-    expl_temp.I_lentol.data[0] = 50.0;
+    expl_temp.I_lentol = 50.0;
     deopt(&c_problemStruct, problemCells, problemLimits, controls, &expl_temp,
           res);
     b_problemStruct->TF.size[0] = 1;

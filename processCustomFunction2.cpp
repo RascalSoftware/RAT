@@ -50,7 +50,6 @@ namespace RAT
         //  Top-level function for processing custom layers for all the
         //  contrasts.
         //  Do some pre-definitions to keep the compiler happy...
-        // totNumCalcs = numberOfContrasts * 2;
         i = static_cast<int32_T>(numberOfContrasts);
         subRoughs.set_size(i);
         bulkOuts.set_size(1, contrastBulkOuts.size(1));

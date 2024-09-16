@@ -246,23 +246,19 @@ namespace RAT
     ::coder::array<cell_wrap_10, 2U> b_domainLayerSlds;
     ::coder::array<cell_wrap_10, 2U> b_domainResampledLayers;
     ::coder::array<cell_wrap_10, 2U> b_domainSldProfiles;
-    ::coder::array<cell_wrap_10, 2U> r;
     ::coder::array<cell_wrap_10, 1U> b_layerSlds;
     ::coder::array<cell_wrap_10, 1U> b_resampledLayers;
     ::coder::array<cell_wrap_10, 1U> b_sldProfiles;
     ::coder::array<cell_wrap_10, 1U> shiftedData;
     ::coder::array<cell_wrap_43, 2U> domainSldProfiles;
-    ::coder::array<cell_wrap_43, 2U> r3;
     ::coder::array<cell_wrap_43, 1U> reflectivity;
     ::coder::array<cell_wrap_43, 1U> simulation;
     ::coder::array<cell_wrap_43, 1U> sldProfiles;
     ::coder::array<cell_wrap_44, 2U> domainResampledLayers;
-    ::coder::array<cell_wrap_44, 2U> r4;
     ::coder::array<cell_wrap_44, 1U> resampledLayers;
     ::coder::array<cell_wrap_45, 2U> domainLayerSlds;
-    ::coder::array<cell_wrap_45, 2U> r2;
     ::coder::array<cell_wrap_45, 1U> layerSlds;
-    ::coder::array<cell_wrap_8, 2U> r1;
+    ::coder::array<cell_wrap_8, 2U> r;
     ::coder::array<cell_wrap_8, 1U> b_reflectivity;
     ::coder::array<cell_wrap_8, 1U> b_simulation;
     f_struct_T b_contrastParams;
@@ -462,31 +458,9 @@ namespace RAT
       cast(b_reflectivity, reflectivity);
       cast(b_simulation, simulation);
       cast(shiftedData, result->shiftedData);
-      cast(b_domainLayerSlds, r2);
-      domainLayerSlds.set_size(r2.size(0), 2);
-      cast(b_domainSldProfiles, r3);
-      domainSldProfiles.set_size(r3.size(0), 2);
-      cast(b_domainResampledLayers, r4);
-      domainResampledLayers.set_size(r4.size(0), 2);
-      loop_ub = r2.size(0);
-      b_loop_ub = r3.size(0);
-      b_index = r4.size(0);
-      for (i = 0; i < 2; i++) {
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          domainLayerSlds[i1 + domainLayerSlds.size(0) * i] = r2[i1 + r2.size(0)
-            * i];
-        }
-
-        for (i1 = 0; i1 < b_loop_ub; i1++) {
-          domainSldProfiles[i1 + domainSldProfiles.size(0) * i] = r3[i1 +
-            r3.size(0) * i];
-        }
-
-        for (i1 = 0; i1 < b_index; i1++) {
-          domainResampledLayers[i1 + domainResampledLayers.size(0) * i] = r4[i1
-            + r4.size(0) * i];
-        }
-      }
+      cast(b_domainLayerSlds, domainLayerSlds);
+      cast(b_domainSldProfiles, domainSldProfiles);
+      cast(b_domainResampledLayers, domainResampledLayers);
       break;
     }
 
@@ -504,23 +478,23 @@ namespace RAT
 
     switch (i) {
      case 0:
-      cast(domainLayerSlds, r);
-      result->layerSlds.set_size(r.size(0), 2);
-      cast(domainSldProfiles, r1);
-      result->sldProfiles.set_size(r1.size(0), 2);
+      cast(domainLayerSlds, b_domainLayerSlds);
+      result->layerSlds.set_size(b_domainLayerSlds.size(0), 2);
+      cast(domainSldProfiles, r);
+      result->sldProfiles.set_size(r.size(0), 2);
       result->resampledLayers.set_size(domainResampledLayers.size(0), 2);
-      loop_ub = r.size(0);
-      b_loop_ub = r1.size(0);
+      loop_ub = b_domainLayerSlds.size(0);
+      b_loop_ub = r.size(0);
       b_index = domainResampledLayers.size(0);
       for (i = 0; i < 2; i++) {
         for (i1 = 0; i1 < loop_ub; i1++) {
-          result->layerSlds[i1 + result->layerSlds.size(0) * i] = r[i1 + r.size
-            (0) * i];
+          result->layerSlds[i1 + result->layerSlds.size(0) * i] =
+            b_domainLayerSlds[i1 + b_domainLayerSlds.size(0) * i];
         }
 
         for (i1 = 0; i1 < b_loop_ub; i1++) {
-          result->sldProfiles[i1 + result->sldProfiles.size(0) * i] = r1[i1 +
-            r1.size(0) * i];
+          result->sldProfiles[i1 + result->sldProfiles.size(0) * i] = r[i1 +
+            r.size(0) * i];
         }
 
         for (i1 = 0; i1 < b_index; i1++) {
@@ -638,30 +612,25 @@ namespace RAT
     ::coder::array<cell_wrap_10, 2U> b_domainLayerSlds;
     ::coder::array<cell_wrap_10, 2U> b_domainResampledLayers;
     ::coder::array<cell_wrap_10, 2U> b_domainSldProfiles;
-    ::coder::array<cell_wrap_10, 2U> r;
     ::coder::array<cell_wrap_10, 1U> b_layerSlds;
     ::coder::array<cell_wrap_10, 1U> b_resampledLayers;
     ::coder::array<cell_wrap_10, 1U> b_sldProfiles;
     ::coder::array<cell_wrap_10, 1U> shiftedData;
     ::coder::array<cell_wrap_43, 2U> domainSldProfiles;
-    ::coder::array<cell_wrap_43, 2U> r3;
     ::coder::array<cell_wrap_43, 1U> reflectivity;
     ::coder::array<cell_wrap_43, 1U> simulation;
     ::coder::array<cell_wrap_43, 1U> sldProfiles;
     ::coder::array<cell_wrap_44, 2U> domainResampledLayers;
-    ::coder::array<cell_wrap_44, 2U> r4;
     ::coder::array<cell_wrap_44, 1U> resampledLayers;
     ::coder::array<cell_wrap_45, 2U> domainLayerSlds;
-    ::coder::array<cell_wrap_45, 2U> r2;
     ::coder::array<cell_wrap_45, 1U> layerSlds;
-    ::coder::array<cell_wrap_8, 2U> r1;
+    ::coder::array<cell_wrap_8, 2U> r;
     ::coder::array<cell_wrap_8, 1U> b_reflectivity;
     ::coder::array<cell_wrap_8, 1U> b_simulation;
     d_struct_T a__1;
     f_struct_T b_contrastParams;
     f_struct_T contrastParams;
     int32_T b_index;
-    int32_T b_loop_ub;
     int32_T i;
     int32_T i1;
     int32_T loop_ub;
@@ -854,31 +823,9 @@ namespace RAT
       cast(b_reflectivity, reflectivity);
       cast(b_simulation, simulation);
       cast(shiftedData, result->shiftedData);
-      cast(b_domainLayerSlds, r2);
-      domainLayerSlds.set_size(r2.size(0), 2);
-      cast(b_domainSldProfiles, r3);
-      domainSldProfiles.set_size(r3.size(0), 2);
-      cast(b_domainResampledLayers, r4);
-      domainResampledLayers.set_size(r4.size(0), 2);
-      loop_ub = r2.size(0);
-      b_loop_ub = r3.size(0);
-      b_index = r4.size(0);
-      for (i = 0; i < 2; i++) {
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          domainLayerSlds[i1 + domainLayerSlds.size(0) * i] = r2[i1 + r2.size(0)
-            * i];
-        }
-
-        for (i1 = 0; i1 < b_loop_ub; i1++) {
-          domainSldProfiles[i1 + domainSldProfiles.size(0) * i] = r3[i1 +
-            r3.size(0) * i];
-        }
-
-        for (i1 = 0; i1 < b_index; i1++) {
-          domainResampledLayers[i1 + domainResampledLayers.size(0) * i] = r4[i1
-            + r4.size(0) * i];
-        }
-      }
+      cast(b_domainLayerSlds, domainLayerSlds);
+      cast(b_domainSldProfiles, domainSldProfiles);
+      cast(b_domainResampledLayers, domainResampledLayers);
       break;
     }
 
@@ -896,68 +843,76 @@ namespace RAT
 
     switch (i) {
      case 0:
-      cast(domainLayerSlds, r);
-      result->layerSlds.set_size(r.size(0), 2);
-      cast(domainSldProfiles, r1);
-      result->sldProfiles.set_size(r1.size(0), 2);
-      result->resampledLayers.set_size(domainResampledLayers.size(0), 2);
-      loop_ub = r.size(0);
-      b_loop_ub = r1.size(0);
-      b_index = domainResampledLayers.size(0);
-      for (i = 0; i < 2; i++) {
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          result->layerSlds[i1 + result->layerSlds.size(0) * i] = r[i1 + r.size
-            (0) * i];
-        }
+      {
+        int32_T b_loop_ub;
+        cast(domainLayerSlds, b_domainLayerSlds);
+        result->layerSlds.set_size(b_domainLayerSlds.size(0), 2);
+        cast(domainSldProfiles, r);
+        result->sldProfiles.set_size(r.size(0), 2);
+        result->resampledLayers.set_size(domainResampledLayers.size(0), 2);
+        loop_ub = b_domainLayerSlds.size(0);
+        b_loop_ub = r.size(0);
+        b_index = domainResampledLayers.size(0);
+        for (i = 0; i < 2; i++) {
+          for (i1 = 0; i1 < loop_ub; i1++) {
+            result->layerSlds[i1 + result->layerSlds.size(0) * i] =
+              b_domainLayerSlds[i1 + b_domainLayerSlds.size(0) * i];
+          }
 
-        for (i1 = 0; i1 < b_loop_ub; i1++) {
-          result->sldProfiles[i1 + result->sldProfiles.size(0) * i] = r1[i1 +
-            r1.size(0) * i];
-        }
+          for (i1 = 0; i1 < b_loop_ub; i1++) {
+            result->sldProfiles[i1 + result->sldProfiles.size(0) * i] = r[i1 +
+              r.size(0) * i];
+          }
 
-        for (i1 = 0; i1 < b_index; i1++) {
-          result->resampledLayers[i1 + result->resampledLayers.size(0) * i] =
-            domainResampledLayers[i1 + domainResampledLayers.size(0) * i];
+          for (i1 = 0; i1 < b_index; i1++) {
+            result->resampledLayers[i1 + result->resampledLayers.size(0) * i] =
+              domainResampledLayers[i1 + domainResampledLayers.size(0) * i];
+          }
         }
       }
       break;
 
      default:
-      result->layerSlds.set_size(layerSlds.size(0), 1);
-      for (i = 0; i < layerSlds.size(0); i++) {
-        result->layerSlds[i].f1.set_size(layerSlds[i].f1.size(0), layerSlds[i].
-          f1.size(1));
-        loop_ub = layerSlds[i].f1.size(1);
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          b_loop_ub = layerSlds[i].f1.size(0);
-          for (b_index = 0; b_index < b_loop_ub; b_index++) {
-            result->layerSlds[i].f1[b_index + result->layerSlds[i].f1.size(0) *
-              i1] = layerSlds[i].f1[b_index + layerSlds[i].f1.size(0) * i1];
+      {
+        result->layerSlds.set_size(layerSlds.size(0), 1);
+        for (i = 0; i < layerSlds.size(0); i++) {
+          result->layerSlds[i].f1.set_size(layerSlds[i].f1.size(0), layerSlds[i]
+            .f1.size(1));
+          loop_ub = layerSlds[i].f1.size(1);
+          for (i1 = 0; i1 < loop_ub; i1++) {
+            int32_T b_loop_ub;
+            b_loop_ub = layerSlds[i].f1.size(0);
+            for (b_index = 0; b_index < b_loop_ub; b_index++) {
+              result->layerSlds[i].f1[b_index + result->layerSlds[i].f1.size(0) *
+                i1] = layerSlds[i].f1[b_index + layerSlds[i].f1.size(0) * i1];
+            }
           }
         }
-      }
 
-      result->sldProfiles.set_size(sldProfiles.size(0), 1);
-      for (i = 0; i < sldProfiles.size(0); i++) {
-        result->sldProfiles[i].f1.set_size(sldProfiles[i].f1.size(0), 2);
-        loop_ub = sldProfiles[i].f1.size(0);
-        for (i1 = 0; i1 < 2; i1++) {
-          for (b_index = 0; b_index < loop_ub; b_index++) {
-            result->sldProfiles[i].f1[b_index + result->sldProfiles[i].f1.size(0)
-              * i1] = sldProfiles[i].f1[b_index + sldProfiles[i].f1.size(0) * i1];
+        result->sldProfiles.set_size(sldProfiles.size(0), 1);
+        for (i = 0; i < sldProfiles.size(0); i++) {
+          result->sldProfiles[i].f1.set_size(sldProfiles[i].f1.size(0), 2);
+          loop_ub = sldProfiles[i].f1.size(0);
+          for (i1 = 0; i1 < 2; i1++) {
+            for (b_index = 0; b_index < loop_ub; b_index++) {
+              result->sldProfiles[i].f1[b_index + result->sldProfiles[i].f1.size
+                (0) * i1] = sldProfiles[i].f1[b_index + sldProfiles[i].f1.size(0)
+                * i1];
+            }
           }
         }
-      }
 
-      result->resampledLayers.set_size(resampledLayers.size(0), 1);
-      for (i = 0; i < resampledLayers.size(0); i++) {
-        result->resampledLayers[i].f1.set_size(resampledLayers[i].f1.size(0), 3);
-        loop_ub = resampledLayers[i].f1.size(0);
-        for (i1 = 0; i1 < 3; i1++) {
-          for (b_index = 0; b_index < loop_ub; b_index++) {
-            result->resampledLayers[i].f1[b_index + result->resampledLayers[i].
-              f1.size(0) * i1] = resampledLayers[i].f1[b_index +
-              resampledLayers[i].f1.size(0) * i1];
+        result->resampledLayers.set_size(resampledLayers.size(0), 1);
+        for (i = 0; i < resampledLayers.size(0); i++) {
+          result->resampledLayers[i].f1.set_size(resampledLayers[i].f1.size(0),
+            3);
+          loop_ub = resampledLayers[i].f1.size(0);
+          for (i1 = 0; i1 < 3; i1++) {
+            for (b_index = 0; b_index < loop_ub; b_index++) {
+              result->resampledLayers[i].f1[b_index + result->resampledLayers[i]
+                .f1.size(0) * i1] = resampledLayers[i].f1[b_index +
+                resampledLayers[i].f1.size(0) * i1];
+            }
           }
         }
       }

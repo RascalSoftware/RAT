@@ -639,8 +639,8 @@ namespace RAT
         }
       }
 
-      void sortIdx(const ::coder::array<real_T, 2U> &x, const int32_T col_data[],
-                   ::coder::array<int32_T, 1U> &idx)
+      void sortIdx(const ::coder::array<real_T, 2U> &x, ::coder::array<int32_T,
+                   1U> &idx)
       {
         int32_T k;
         int32_T n;
@@ -656,7 +656,7 @@ namespace RAT
             idx[k] = k + 1;
           }
         } else {
-          b_mergesort(idx, x, col_data, x.size(0));
+          b_mergesort(idx, x, x.size(0));
         }
       }
     }

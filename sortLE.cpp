@@ -22,7 +22,8 @@ namespace RAT
   {
     namespace internal
     {
-      boolean_T sortLE(const real_T v[4], int32_T idx1, int32_T idx2)
+      boolean_T b_sortLE(const ::coder::array<real_T, 2U> &v, int32_T idx1,
+                         int32_T idx2)
       {
         real_T d;
         boolean_T p;
@@ -36,8 +37,7 @@ namespace RAT
         return p;
       }
 
-      boolean_T sortLE(const ::coder::array<real_T, 2U> &v, int32_T idx1,
-                       int32_T idx2)
+      boolean_T sortLE(const real_T v[4], int32_T idx1, int32_T idx2)
       {
         real_T d;
         boolean_T p;
@@ -66,8 +66,8 @@ namespace RAT
         return p;
       }
 
-      boolean_T sortLE(const ::coder::array<real_T, 2U> &v, const int32_T
-                       dir_data[], int32_T idx1, int32_T idx2)
+      boolean_T sortLE(const ::coder::array<real_T, 2U> &v, int32_T idx1,
+                       int32_T idx2)
       {
         int32_T k;
         boolean_T exitg1;
@@ -78,8 +78,8 @@ namespace RAT
         while ((!exitg1) && (k < 2)) {
           real_T v1;
           real_T v2;
-          v1 = v[(idx1 + v.size(0) * (dir_data[k] - 1)) - 1];
-          v2 = v[(idx2 + v.size(0) * (dir_data[k] - 1)) - 1];
+          v1 = v[(idx1 + v.size(0) * k) - 1];
+          v2 = v[(idx2 + v.size(0) * k) - 1];
           if ((v1 == v2) || (std::isnan(v1) && std::isnan(v2))) {
             k++;
           } else {

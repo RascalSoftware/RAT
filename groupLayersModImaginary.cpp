@@ -54,9 +54,6 @@ namespace RAT
     //  Outputs:
     //      * outLayers: cell array of layers param values for each contrast.
     //      * outSsubs: vector of substrate roughness values.
-    // outLayers = cell(1,numberOfContrasts);
-    // outSsubs = zeros(1,numberOfContrasts);
-    // for i = 1:numberOfContrasts
     *outSsubs = subRoughs;
     unnamed_idx_0 = static_cast<uint32_T>(resampledLayers.size(0));
     layers.set_size(resampledLayers.size(0), resampledLayers.size(1));
@@ -79,8 +76,6 @@ namespace RAT
               resampledLayers.size(0) * i];
           }
         }
-
-        // ssub = rsub;
       } else {
         loop_ub = resampledLayers.size(0);
         sldss.set_size(resampledLayers.size(0), 2);
@@ -183,20 +178,18 @@ namespace RAT
       if (resampledLayers.size(1) == 6) {
         i = resampledLayers.size(0);
         for (int32_T j{0}; j < i; j++) {
-          real_T d;
           real_T pc_add;
-          d = resampledLayers[j + resampledLayers.size(0) * 4];
-          if (d == 1.0) {
+          real_T this_pcw;
+          this_pcw = resampledLayers[j + resampledLayers.size(0) * 4];
+          if (resampledLayers[j + resampledLayers.size(0) * 5] == 1.0) {
             pc_add = bulkIns;
           } else {
             pc_add = bulkOuts;
           }
 
-          if (!std::isnan(d)) {
-            layers[j + layers.size(0)] = pc_add * (d / 100.0) + (1.0 - d / 100.0)
-              * layers[j + layers.size(0)];
-
-            // layers(j,3) = pc_add*(this_pcw/100) + (1-(this_pcw/100))*layers(j,3);
+          if (!std::isnan(this_pcw)) {
+            layers[j + layers.size(0)] = pc_add * (this_pcw / 100.0) + (1.0 -
+              this_pcw / 100.0) * layers[j + layers.size(0)];
           }
         }
       }

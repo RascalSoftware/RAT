@@ -140,6 +140,7 @@ namespace RAT
                  array<real_T, 1U> &varargin_2, const ::coder::array<real_T, 2U>
                  &varargin_3, ::coder::array<real_T, 2U> &Vq)
     {
+      ::coder::array<real_T, 1U> r;
       ::coder::array<real_T, 1U> x;
       ::coder::array<real_T, 1U> y;
       int32_T i;
@@ -188,7 +189,18 @@ namespace RAT
                 x[k] = xtmp;
               }
 
-              flip(y);
+              r.set_size(varargin_2.size(0));
+              k = varargin_2.size(0);
+              for (i = 0; i < k; i++) {
+                r[i] = varargin_2[i];
+              }
+
+              flip(r);
+              y.set_size(r.size(0));
+              k = r.size(0);
+              for (i = 0; i < k; i++) {
+                y[i] = r[i];
+              }
             }
 
             interp1Linear(y, varargin_2.size(0), varargin_3, Vq, x);

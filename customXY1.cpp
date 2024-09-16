@@ -28,6 +28,8 @@
 // Function Declarations
 namespace RAT
 {
+  static void cast(const ::coder::array<cell_wrap_56, 2U> &b, ::coder::array<
+                   cell_wrap_10, 2U> &c);
   namespace domainsTF
   {
     static void c_contrastCalculation(real_T backgroundParamIndex, real_T
@@ -56,6 +58,27 @@ namespace RAT
 // Function Definitions
 namespace RAT
 {
+  static void cast(const ::coder::array<cell_wrap_56, 2U> &b, ::coder::array<
+                   cell_wrap_10, 2U> &c)
+  {
+    int32_T i;
+    c.set_size(b.size(0), 2);
+    i = b.size(0) << 1;
+    for (int32_T i1{0}; i1 < i; i1++) {
+      int32_T loop_ub;
+      loop_ub = b[i1].f1.size(1);
+      c[i1].f1.set_size(b[i1].f1.size(0), b[i1].f1.size(1));
+      for (int32_T i2{0}; i2 < loop_ub; i2++) {
+        int32_T b_loop_ub;
+        b_loop_ub = b[i1].f1.size(0);
+        for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
+          c[i1].f1[i3 + c[i1].f1.size(0) * i2] = b[i1].f1[i3 + b[i1].f1.size(0) *
+            i2];
+        }
+      }
+    }
+  }
+
   namespace domainsTF
   {
     static void c_contrastCalculation(real_T backgroundParamIndex, real_T
@@ -113,7 +136,7 @@ namespace RAT
 
       //  Resample the sld profiles
       if (!useImaginary) {
-        resampleLayers(sldProfile1, resampleMinAngle, resampleNPoints, r);
+        b_resampleLayers(sldProfile1, resampleMinAngle, resampleNPoints, r);
         r1.f1.set_size(r.size(0), 3);
         loop_ub = r.size(0);
         for (i = 0; i < 3; i++) {
@@ -122,7 +145,7 @@ namespace RAT
           }
         }
 
-        resampleLayers(sldProfile2, resampleMinAngle, resampleNPoints, r);
+        b_resampleLayers(sldProfile2, resampleMinAngle, resampleNPoints, r);
         r2.f1.set_size(r.size(0), 3);
         loop_ub = r.size(0);
         for (i = 0; i < 3; i++) {
@@ -325,11 +348,12 @@ namespace RAT
       ::coder::array<cell_wrap_10, 2U> inputSldProfiles;
       ::coder::array<cell_wrap_10, 1U> inputSldProfiles1;
       ::coder::array<cell_wrap_10, 1U> inputSldProfiles2;
-      ::coder::array<cell_wrap_57, 1U> layerSlds;
-      ::coder::array<cell_wrap_57, 1U> resampledLayers;
-      ::coder::array<cell_wrap_57, 1U> sldProfiles;
-      ::coder::array<real_T, 2U> r;
+      ::coder::array<cell_wrap_56, 2U> r;
+      ::coder::array<cell_wrap_58, 1U> layerSlds;
+      ::coder::array<cell_wrap_58, 1U> resampledLayers;
+      ::coder::array<cell_wrap_58, 1U> sldProfiles;
       ::coder::array<real_T, 2U> r1;
+      ::coder::array<real_T, 2U> r2;
       real_T d;
       real_T d1;
       real_T d2;
@@ -394,7 +418,8 @@ namespace RAT
         problemStruct->contrastBulkOuts, problemStruct->bulkIn,
         problemStruct->bulkOut, problemStruct->contrastCustomFiles,
         problemStruct->numberOfContrasts, problemCells->f14,
-        problemStruct->params, inputSldProfiles, subRoughs);
+        problemStruct->params, r, subRoughs);
+      cast(r, inputSldProfiles);
       b_i = inputSldProfiles.size(0);
       for (i = 0; i < b_i; i++) {
         int32_T i2;
@@ -445,7 +470,7 @@ namespace RAT
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
- private(r1,d,d1,d2,d3,d4,d5,d6,c_i,c_loop_ub,i3,d_loop_ub,i4)
+ private(r2,d,d1,d2,d3,d4,d5,d6,c_i,c_loop_ub,i3,d_loop_ub,i4)
 
         for (c_i = 0; c_i <= ub_loop; c_i++) {
           c_contrastCalculation(problemStruct->contrastBackgroundParams[c_i],
@@ -472,15 +497,15 @@ namespace RAT
                                 subRoughs[c_i], inputSldProfiles1[c_i].f1,
                                 inputSldProfiles2[c_i].f1, &d6, &d5, &d4, &d3,
                                 &d2, &d1, &d, reflectivity[c_i].f1,
-                                simulation[c_i].f1, r1, layerSlds[c_i].f1,
+                                simulation[c_i].f1, r2, layerSlds[c_i].f1,
                                 sldProfiles[c_i].f1, resampledLayers[c_i].f1);
-          c_loop_ub = r1.size(1);
-          shiftedData[c_i].f1.set_size(r1.size(0), r1.size(1));
+          c_loop_ub = r2.size(1);
+          shiftedData[c_i].f1.set_size(r2.size(0), r2.size(1));
           for (i3 = 0; i3 < c_loop_ub; i3++) {
-            d_loop_ub = r1.size(0);
+            d_loop_ub = r2.size(0);
             for (i4 = 0; i4 < d_loop_ub; i4++) {
-              shiftedData[c_i].f1[i4 + shiftedData[c_i].f1.size(0) * i3] = r1[i4
-                + r1.size(0) * i3];
+              shiftedData[c_i].f1[i4 + shiftedData[c_i].f1.size(0) * i3] = r2[i4
+                + r2.size(0) * i3];
             }
           }
 
@@ -535,15 +560,15 @@ namespace RAT
                                 &backgroundParams[i], &qzshifts[i],
                                 &scalefactors[i], &bulkIns[i], &bulkOuts[i],
                                 &resolutionParams[i], &chis[i], reflectivity[i].
-                                f1, simulation[i].f1, r, layerSlds[i].f1,
+                                f1, simulation[i].f1, r1, layerSlds[i].f1,
                                 sldProfiles[i].f1, resampledLayers[i].f1);
-          loop_ub = r.size(1);
-          shiftedData[i].f1.set_size(r.size(0), r.size(1));
+          loop_ub = r1.size(1);
+          shiftedData[i].f1.set_size(r1.size(0), r1.size(1));
           for (b_i = 0; b_i < loop_ub; b_i++) {
-            b_loop_ub = r.size(0);
+            b_loop_ub = r1.size(0);
             for (i1 = 0; i1 < b_loop_ub; i1++) {
-              shiftedData[i].f1[i1 + shiftedData[i].f1.size(0) * b_i] = r[i1 +
-                r.size(0) * b_i];
+              shiftedData[i].f1[i1 + shiftedData[i].f1.size(0) * b_i] = r1[i1 +
+                r1.size(0) * b_i];
             }
           }
         }
@@ -643,11 +668,12 @@ namespace RAT
       ::coder::array<cell_wrap_10, 2U> inputSldProfiles;
       ::coder::array<cell_wrap_10, 1U> inputSldProfiles1;
       ::coder::array<cell_wrap_10, 1U> inputSldProfiles2;
-      ::coder::array<cell_wrap_57, 1U> layerSlds;
-      ::coder::array<cell_wrap_57, 1U> resampledLayers;
-      ::coder::array<cell_wrap_57, 1U> sldProfiles;
-      ::coder::array<real_T, 2U> r;
+      ::coder::array<cell_wrap_56, 2U> r;
+      ::coder::array<cell_wrap_58, 1U> layerSlds;
+      ::coder::array<cell_wrap_58, 1U> resampledLayers;
+      ::coder::array<cell_wrap_58, 1U> sldProfiles;
       ::coder::array<real_T, 2U> r1;
+      ::coder::array<real_T, 2U> r2;
       real_T d;
       real_T d1;
       real_T d2;
@@ -712,7 +738,8 @@ namespace RAT
         problemStruct->contrastBulkOuts, problemStruct->bulkIn,
         problemStruct->bulkOut, problemStruct->contrastCustomFiles,
         problemStruct->numberOfContrasts, problemCells->f14,
-        problemStruct->params, inputSldProfiles, subRoughs);
+        problemStruct->params, r, subRoughs);
+      cast(r, inputSldProfiles);
       b_i = inputSldProfiles.size(0);
       for (i = 0; i < b_i; i++) {
         int32_T i2;
@@ -763,7 +790,7 @@ namespace RAT
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
- private(r1,d,d1,d2,d3,d4,d5,d6,c_i,c_loop_ub,i3,d_loop_ub,i4)
+ private(r2,d,d1,d2,d3,d4,d5,d6,c_i,c_loop_ub,i3,d_loop_ub,i4)
 
         for (c_i = 0; c_i <= ub_loop; c_i++) {
           c_contrastCalculation(problemStruct->contrastBackgroundParams[c_i],
@@ -790,15 +817,15 @@ namespace RAT
                                 subRoughs[c_i], inputSldProfiles1[c_i].f1,
                                 inputSldProfiles2[c_i].f1, &d6, &d5, &d4, &d3,
                                 &d2, &d1, &d, reflectivity[c_i].f1,
-                                simulation[c_i].f1, r1, layerSlds[c_i].f1,
+                                simulation[c_i].f1, r2, layerSlds[c_i].f1,
                                 sldProfiles[c_i].f1, resampledLayers[c_i].f1);
-          c_loop_ub = r1.size(1);
-          shiftedData[c_i].f1.set_size(r1.size(0), r1.size(1));
+          c_loop_ub = r2.size(1);
+          shiftedData[c_i].f1.set_size(r2.size(0), r2.size(1));
           for (i3 = 0; i3 < c_loop_ub; i3++) {
-            d_loop_ub = r1.size(0);
+            d_loop_ub = r2.size(0);
             for (i4 = 0; i4 < d_loop_ub; i4++) {
-              shiftedData[c_i].f1[i4 + shiftedData[c_i].f1.size(0) * i3] = r1[i4
-                + r1.size(0) * i3];
+              shiftedData[c_i].f1[i4 + shiftedData[c_i].f1.size(0) * i3] = r2[i4
+                + r2.size(0) * i3];
             }
           }
 
@@ -853,15 +880,15 @@ namespace RAT
                                 &backgroundParams[i], &qzshifts[i],
                                 &scalefactors[i], &bulkIns[i], &bulkOuts[i],
                                 &resolutionParams[i], &chis[i], reflectivity[i].
-                                f1, simulation[i].f1, r, layerSlds[i].f1,
+                                f1, simulation[i].f1, r1, layerSlds[i].f1,
                                 sldProfiles[i].f1, resampledLayers[i].f1);
-          loop_ub = r.size(1);
-          shiftedData[i].f1.set_size(r.size(0), r.size(1));
+          loop_ub = r1.size(1);
+          shiftedData[i].f1.set_size(r1.size(0), r1.size(1));
           for (b_i = 0; b_i < loop_ub; b_i++) {
-            b_loop_ub = r.size(0);
+            b_loop_ub = r1.size(0);
             for (i1 = 0; i1 < b_loop_ub; i1++) {
-              shiftedData[i].f1[i1 + shiftedData[i].f1.size(0) * b_i] = r[i1 +
-                r.size(0) * b_i];
+              shiftedData[i].f1[i1 + shiftedData[i].f1.size(0) * b_i] = r1[i1 +
+                r1.size(0) * b_i];
             }
           }
         }

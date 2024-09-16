@@ -11,6 +11,7 @@
 // Include files
 #include "runNestedSampler.h"
 #include "RATMain_internal_types.h"
+#include "RATMain_rtwutil.h"
 #include "RATMain_types.h"
 #include "blockedSummation.h"
 #include "getFittedPriors.h"
@@ -154,29 +155,23 @@ namespace RAT
       (nestResults.predictionIntervals.reflectivityXData.size(0));
     for (i = 0; i < nestResults.predictionIntervals.reflectivityXData.size(0); i
          ++) {
-      bayesResults->predictionIntervals.reflectivityXData[i].f1.set_size(1,
-        nestResults.predictionIntervals.reflectivityXData[i].f1.size(1));
+      bayesResults->predictionIntervals.reflectivityXData[i].f1.set_size
+        (nestResults.predictionIntervals.reflectivityXData[i].f1.size(0),
+         nestResults.predictionIntervals.reflectivityXData[i].f1.size(1));
       loop_ub = nestResults.predictionIntervals.reflectivityXData[i].f1.size(1);
       for (i1 = 0; i1 < loop_ub; i1++) {
-        bayesResults->predictionIntervals.reflectivityXData[i].f1[i1] =
-          nestResults.predictionIntervals.reflectivityXData[i].f1[i1];
+        b_loop_ub = nestResults.predictionIntervals.reflectivityXData[i].f1.size
+          (0);
+        for (int32_T i2{0}; i2 < b_loop_ub; i2++) {
+          bayesResults->predictionIntervals.reflectivityXData[i].f1[i2 + i1] =
+            nestResults.predictionIntervals.reflectivityXData[i].f1[i2 +
+            nestResults.predictionIntervals.reflectivityXData[i].f1.size(0) * i1];
+        }
       }
     }
 
-    bayesResults->predictionIntervals.sldXData.set_size
-      (nestResults.predictionIntervals.sldXData.size(0),
-       nestResults.predictionIntervals.sldXData.size(1));
-    loop_ub = nestResults.predictionIntervals.sldXData.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = nestResults.predictionIntervals.sldXData.size(0);
-      for (i1 = 0; i1 < b_loop_ub; i1++) {
-        bayesResults->predictionIntervals.sldXData[i1 +
-          bayesResults->predictionIntervals.sldXData.size(0) * i] =
-          nestResults.predictionIntervals.sldXData[i1 +
-          nestResults.predictionIntervals.sldXData.size(0) * i];
-      }
-    }
-
+    cast(nestResults.predictionIntervals.sldXData,
+         bayesResults->predictionIntervals.sldXData);
     bayesResults->predictionIntervals.sampleChi.size[0] = 1000;
     std::copy(&nestResults.predictionIntervals.sampleChi[0],
               &nestResults.predictionIntervals.sampleChi[1000],

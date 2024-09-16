@@ -209,8 +209,6 @@ namespace RAT
     iv[0] = (*(int32_T (*)[2])b_paramInfo_max.size())[0];
     iv[1] = (*(int32_T (*)[2])b_paramInfo_max.size())[1];
     drawCR(DREAMPar, (const real_T *)b_paramInfo_max.data(), iv, CR);
-
-    // coder.varsize('CR',[100 1e4],[1 1]);
     lCR_size[0] = 1;
     lCR_size[1] = 3;
     delta_tot_size[0] = 1;

@@ -19,11 +19,56 @@
 // Function Definitions
 namespace RAT
 {
+  void b_resampleLayers(const ::coder::array<real_T, 2U> &sldProfile, real_T
+                        minAngle, real_T nPoints, ::coder::array<real_T, 2U>
+                        &newSLD)
+  {
+    cell_48 expl_temp;
+    real_T b_sldProfile[2];
+    int32_T i;
+    int32_T n;
+
+    //  Function handle for adaptive resampling
+    //  f = @(x) SLDFunction(x);
+    //
+    b_sldProfile[0] = sldProfile[0];
+    b_sldProfile[1] = sldProfile[sldProfile.size(0) - 1];
+    b_adaptive(sldProfile, b_sldProfile, minAngle * 3.1415926535897931, nPoints,
+               &expl_temp);
+    n = coder::internal::intlength(expl_temp.f1.size(0), 1);
+    newSLD.set_size(n - 1, 3);
+    n--;
+    for (i = 0; i < 3; i++) {
+      for (int32_T i1{0}; i1 < n; i1++) {
+        newSLD[i1 + newSLD.size(0) * i] = 0.0;
+      }
+    }
+
+    //  Now build a layer model from these resampled points
+    i = coder::internal::intlength(expl_temp.f1.size(0), 1);
+    for (n = 0; n <= i - 2; n++) {
+      real_T d;
+      real_T d1;
+      real_T thisLayRho;
+      d = expl_temp.f1[(n + expl_temp.f1.size(0)) + 1];
+      d1 = expl_temp.f1[n + expl_temp.f1.size(0)];
+      if (d > d1) {
+        thisLayRho = (d - d1) / 2.0 + d1;
+      } else {
+        thisLayRho = (d1 - d) / 2.0 + d;
+      }
+
+      newSLD[n] = expl_temp.f1[n + 1] - expl_temp.f1[n];
+      newSLD[n + newSLD.size(0)] = thisLayRho;
+      newSLD[n + newSLD.size(0) * 2] = 2.2204460492503131E-16;
+    }
+  }
+
   void resampleLayers(const ::coder::array<real_T, 2U> &sldProfile, real_T
                       minAngle, real_T nPoints, ::coder::array<real_T, 2U>
                       &newSLD)
   {
-    cell_49 expl_temp;
+    cell_48 expl_temp;
     real_T b_sldProfile[2];
     int32_T i;
     int32_T n;

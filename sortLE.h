@@ -24,13 +24,13 @@ namespace RAT
   {
     namespace internal
     {
+      boolean_T b_sortLE(const ::coder::array<real_T, 2U> &v, int32_T idx1,
+                         int32_T idx2);
       boolean_T sortLE(const real_T v[4], int32_T idx1, int32_T idx2);
-      boolean_T sortLE(const ::coder::array<real_T, 2U> &v, int32_T idx1,
-                       int32_T idx2);
       boolean_T sortLE(const ::coder::array<real_T, 1U> &v, int32_T idx1,
                        int32_T idx2);
-      boolean_T sortLE(const ::coder::array<real_T, 2U> &v, const int32_T
-                       dir_data[], int32_T idx1, int32_T idx2);
+      boolean_T sortLE(const ::coder::array<real_T, 2U> &v, int32_T idx1,
+                       int32_T idx2);
     }
   }
 }

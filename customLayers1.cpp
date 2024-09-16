@@ -47,7 +47,7 @@ namespace RAT
       real_T *bulkOutValue, real_T *resolutionParamValue, real_T *chi, ::coder::
       array<real_T, 2U> &reflectivity, ::coder::array<real_T, 2U> &simulation, ::
       coder::array<real_T, 2U> &shiftedData, cell_wrap_10 layerSld[2],
-      cell_wrap_10 sldProfile[2], cell_wrap_10 resampledLayer[2]);
+      cell_wrap_8 sldProfile[2], cell_wrap_10 resampledLayer[2]);
   }
 }
 
@@ -76,27 +76,24 @@ namespace RAT
       real_T *bulkOutValue, real_T *resolutionParamValue, real_T *chi, ::coder::
       array<real_T, 2U> &reflectivity, ::coder::array<real_T, 2U> &simulation, ::
       coder::array<real_T, 2U> &shiftedData, cell_wrap_10 layerSld[2],
-      cell_wrap_10 sldProfile[2], cell_wrap_10 resampledLayer[2])
+      cell_wrap_8 sldProfile[2], cell_wrap_10 resampledLayer[2])
     {
       ::coder::array<real_T, 2U> a__5;
       ::coder::array<real_T, 2U> reflect1;
       ::coder::array<real_T, 2U> reflect2;
       ::coder::array<real_T, 2U> simul1;
       ::coder::array<real_T, 2U> simul2;
-      ::coder::array<real_T, 2U> sldProfile1;
-      ::coder::array<real_T, 2U> sldProfile2;
-      cell_wrap_10 r;
       cell_wrap_10 r1;
       cell_wrap_10 r2;
-      cell_wrap_10 r3;
       cell_wrap_10 r4;
       cell_wrap_10 r5;
+      cell_wrap_8 r;
+      cell_wrap_8 r3;
       real_T a__4;
       real_T a__6;
       real_T domainRatios_tmp;
       int32_T b_loop_ub;
       int32_T i;
-      int32_T i1;
       int32_T loop_ub;
 
       //  Get the domain ratio for this contrast
@@ -117,15 +114,15 @@ namespace RAT
         calcSld, *scalefactorValue, *qzshiftValue, dataPresent, data, dataLimits,
         simLimits, repeatLayers, *backgroundParamValue, *resolutionParamValue,
         contrastBackgroundActions, nParams, parallel_data, parallel_size,
-        resampleMinAngle, resampleNPoints, useImaginary, sldProfile1, reflect1,
-        simul1, shiftedData, r.f1, r1.f1, &a__4);
+        resampleMinAngle, resampleNPoints, useImaginary, r.f1, reflect1, simul1,
+        shiftedData, r1.f1, r2.f1, &a__4);
       nonPolarisedTF::coreLayersCalculation(calcAllLayers2, roughness,
         geometry_data, geometry_size, *bulkInValue, *bulkOutValue, resample,
         calcSld, *scalefactorValue, *qzshiftValue, dataPresent, data, dataLimits,
         simLimits, repeatLayers, *backgroundParamValue, *resolutionParamValue,
         contrastBackgroundActions, nParams, parallel_data, parallel_size,
-        resampleMinAngle, resampleNPoints, useImaginary, sldProfile2, reflect2,
-        simul2, a__5, r2.f1, r3.f1, &a__6);
+        resampleMinAngle, resampleNPoints, useImaginary, r3.f1, reflect2, simul2,
+        a__5, r4.f1, r5.f1, &a__6);
 
       //  Calculate the average reflectivities....
       //  Calculates the averaged reflectivity for domains samples (incoherent
@@ -160,32 +157,12 @@ namespace RAT
       *chi = chiSquared(shiftedData, reflectivity, nParams);
 
       //  Store returned values for this contrast in the output arrays.
-      r4.f1.set_size(sldProfile1.size(0), sldProfile1.size(1));
-      loop_ub = sldProfile1.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        b_loop_ub = sldProfile1.size(0);
-        for (i1 = 0; i1 < b_loop_ub; i1++) {
-          r4.f1[i1 + r4.f1.size(0) * i] = sldProfile1[i1 + sldProfile1.size(0) *
-            i];
-        }
-      }
-
-      r5.f1.set_size(sldProfile2.size(0), sldProfile2.size(1));
-      loop_ub = sldProfile2.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        b_loop_ub = sldProfile2.size(0);
-        for (i1 = 0; i1 < b_loop_ub; i1++) {
-          r5.f1[i1 + r5.f1.size(0) * i] = sldProfile2[i1 + sldProfile2.size(0) *
-            i];
-        }
-      }
-
-      sldProfile[0] = r4;
-      sldProfile[1] = r5;
-      layerSld[0] = r;
-      layerSld[1] = r2;
-      resampledLayer[0] = r1;
-      resampledLayer[1] = r3;
+      sldProfile[0] = r;
+      sldProfile[1] = r3;
+      layerSld[0] = r1;
+      layerSld[1] = r4;
+      resampledLayer[0] = r2;
+      resampledLayer[1] = r5;
     }
 
     void b_customLayers(const g_struct_T *problemStruct, const cell_13
@@ -207,9 +184,9 @@ namespace RAT
       ::coder::array<cell_wrap_10, 1U> calcAllLayers1;
       ::coder::array<cell_wrap_10, 1U> calcAllLayers2;
       ::coder::array<cell_wrap_45, 2U> r;
-      ::coder::array<cell_wrap_57, 1U> layerSlds;
-      ::coder::array<cell_wrap_57, 1U> resampledLayers;
       ::coder::array<cell_wrap_57, 1U> sldProfiles;
+      ::coder::array<cell_wrap_58, 1U> layerSlds;
+      ::coder::array<cell_wrap_58, 1U> resampledLayers;
       ::coder::array<real_T, 2U> r1;
       ::coder::array<real_T, 2U> r2;
       real_T d;
@@ -447,22 +424,17 @@ namespace RAT
 
       ub_loop = static_cast<int32_T>(numberOfContrasts);
       for (i = 0; i < ub_loop; i++) {
-        loop_ub = sldProfiles[i].f1[0].f1.size(1);
-        domainSldProfiles[i].f1.set_size(sldProfiles[i].f1[0].f1.size(0),
-          sldProfiles[i].f1[0].f1.size(1));
-        for (b_i = 0; b_i < loop_ub; b_i++) {
-          b_loop_ub = sldProfiles[i].f1[0].f1.size(0);
-          for (i1 = 0; i1 < b_loop_ub; i1++) {
+        loop_ub = sldProfiles[i].f1[0].f1.size(0);
+        domainSldProfiles[i].f1.set_size(sldProfiles[i].f1[0].f1.size(0), 2);
+        b_loop_ub = sldProfiles[i].f1[1].f1.size(0);
+        domainSldProfiles[i + domainSldProfiles.size(0)].f1.set_size
+          (sldProfiles[i].f1[1].f1.size(0), 2);
+        for (b_i = 0; b_i < 2; b_i++) {
+          for (i1 = 0; i1 < loop_ub; i1++) {
             domainSldProfiles[i].f1[i1 + domainSldProfiles[i].f1.size(0) * b_i] =
               sldProfiles[i].f1[0].f1[i1 + sldProfiles[i].f1[0].f1.size(0) * b_i];
           }
-        }
 
-        loop_ub = sldProfiles[i].f1[1].f1.size(1);
-        domainSldProfiles[i + domainSldProfiles.size(0)].f1.set_size
-          (sldProfiles[i].f1[1].f1.size(0), sldProfiles[i].f1[1].f1.size(1));
-        for (b_i = 0; b_i < loop_ub; b_i++) {
-          b_loop_ub = sldProfiles[i].f1[1].f1.size(0);
           for (i1 = 0; i1 < b_loop_ub; i1++) {
             domainSldProfiles[i + domainSldProfiles.size(0)].f1[i1 +
               domainSldProfiles[i + domainSldProfiles.size(0)].f1.size(0) * b_i]
@@ -541,9 +513,9 @@ namespace RAT
       ::coder::array<cell_wrap_10, 1U> calcAllLayers1;
       ::coder::array<cell_wrap_10, 1U> calcAllLayers2;
       ::coder::array<cell_wrap_45, 2U> r;
-      ::coder::array<cell_wrap_57, 1U> layerSlds;
-      ::coder::array<cell_wrap_57, 1U> resampledLayers;
       ::coder::array<cell_wrap_57, 1U> sldProfiles;
+      ::coder::array<cell_wrap_58, 1U> layerSlds;
+      ::coder::array<cell_wrap_58, 1U> resampledLayers;
       ::coder::array<real_T, 2U> r1;
       ::coder::array<real_T, 2U> r2;
       real_T d;
@@ -781,22 +753,17 @@ namespace RAT
 
       ub_loop = static_cast<int32_T>(numberOfContrasts);
       for (i = 0; i < ub_loop; i++) {
-        loop_ub = sldProfiles[i].f1[0].f1.size(1);
-        domainSldProfiles[i].f1.set_size(sldProfiles[i].f1[0].f1.size(0),
-          sldProfiles[i].f1[0].f1.size(1));
-        for (b_i = 0; b_i < loop_ub; b_i++) {
-          b_loop_ub = sldProfiles[i].f1[0].f1.size(0);
-          for (i1 = 0; i1 < b_loop_ub; i1++) {
+        loop_ub = sldProfiles[i].f1[0].f1.size(0);
+        domainSldProfiles[i].f1.set_size(sldProfiles[i].f1[0].f1.size(0), 2);
+        b_loop_ub = sldProfiles[i].f1[1].f1.size(0);
+        domainSldProfiles[i + domainSldProfiles.size(0)].f1.set_size
+          (sldProfiles[i].f1[1].f1.size(0), 2);
+        for (b_i = 0; b_i < 2; b_i++) {
+          for (i1 = 0; i1 < loop_ub; i1++) {
             domainSldProfiles[i].f1[i1 + domainSldProfiles[i].f1.size(0) * b_i] =
               sldProfiles[i].f1[0].f1[i1 + sldProfiles[i].f1[0].f1.size(0) * b_i];
           }
-        }
 
-        loop_ub = sldProfiles[i].f1[1].f1.size(1);
-        domainSldProfiles[i + domainSldProfiles.size(0)].f1.set_size
-          (sldProfiles[i].f1[1].f1.size(0), sldProfiles[i].f1[1].f1.size(1));
-        for (b_i = 0; b_i < loop_ub; b_i++) {
-          b_loop_ub = sldProfiles[i].f1[1].f1.size(0);
           for (i1 = 0; i1 < b_loop_ub; i1++) {
             domainSldProfiles[i + domainSldProfiles.size(0)].f1[i1 +
               domainSldProfiles[i + domainSldProfiles.size(0)].f1.size(0) * b_i]

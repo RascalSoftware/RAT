@@ -18,37 +18,9 @@
 #include "coder_array.h"
 #include <cmath>
 
-// Function Declarations
-namespace RAT
-{
-  static void cast(const ::coder::array<cell_wrap_56, 2U> &b, ::coder::array<
-                   cell_wrap_10, 2U> &c);
-}
-
 // Function Definitions
 namespace RAT
 {
-  static void cast(const ::coder::array<cell_wrap_56, 2U> &b, ::coder::array<
-                   cell_wrap_10, 2U> &c)
-  {
-    int32_T i;
-    c.set_size(b.size(0), 2);
-    i = b.size(0) << 1;
-    for (int32_T i1{0}; i1 < i; i1++) {
-      int32_T loop_ub;
-      loop_ub = b[i1].f1.size(1);
-      c[i1].f1.set_size(b[i1].f1.size(0), b[i1].f1.size(1));
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
-        int32_T b_loop_ub;
-        b_loop_ub = b[i1].f1.size(0);
-        for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
-          c[i1].f1[i3 + c[i1].f1.size(0) * i2] = b[i1].f1[i3 + b[i1].f1.size(0) *
-            i2];
-        }
-      }
-    }
-  }
-
   namespace domainsTF
   {
     namespace customXY
@@ -59,9 +31,8 @@ namespace RAT
         real_T, 2U> &bulkOutArray, const ::coder::array<real_T, 2U> &cCustFiles,
         real_T numberOfContrasts, const ::coder::array<cell_wrap_1, 2U>
         &customFiles, const ::coder::array<real_T, 2U> &params, ::coder::array<
-        cell_wrap_10, 2U> &slds, ::coder::array<real_T, 1U> &subRoughs)
+        cell_wrap_56, 2U> &slds, ::coder::array<real_T, 1U> &subRoughs)
       {
-        ::coder::array<cell_wrap_56, 2U> tempSLDs;
         ::coder::array<real_T, 2U> b_bulkOuts;
         ::coder::array<real_T, 2U> b_params;
         ::coder::array<real_T, 2U> bulkOuts;
@@ -86,7 +57,7 @@ namespace RAT
             - 1];
         }
 
-        tempSLDs.set_size(i, 2);
+        slds.set_size(i, 2);
         for (int32_T b_i{0}; b_i < i; b_i++) {
           creal_T x;
           real_T d;
@@ -126,12 +97,12 @@ namespace RAT
                               (contrastBulkIns[b_i]) - 1], b_bulkOuts, (
               static_cast<real_T>(b_i) + 1.0) - 1.0, r, &subRoughs[b_i]);
             loop_ub = r.size(1);
-            tempSLDs[b_i].f1.set_size(r.size(0), r.size(1));
+            slds[b_i].f1.set_size(r.size(0), r.size(1));
             for (i1 = 0; i1 < loop_ub; i1++) {
               b_loop_ub = r.size(0);
               for (i2 = 0; i2 < b_loop_ub; i2++) {
-                tempSLDs[b_i].f1[i2 + tempSLDs[b_i].f1.size(0) * i1] = r[i2 +
-                  r.size(0) * i1];
+                slds[b_i].f1[i2 + slds[b_i].f1.size(0) * i1] = r[i2 + r.size(0) *
+                  i1];
               }
             }
 
@@ -159,18 +130,16 @@ namespace RAT
                               (contrastBulkIns[b_i]) - 1], b_bulkOuts, (
               static_cast<real_T>(b_i) + 1.0) - 1.0, r, &a__2);
             loop_ub = r.size(1);
-            tempSLDs[b_i + tempSLDs.size(0)].f1.set_size(r.size(0), r.size(1));
+            slds[b_i + slds.size(0)].f1.set_size(r.size(0), r.size(1));
             for (i1 = 0; i1 < loop_ub; i1++) {
               b_loop_ub = r.size(0);
               for (i2 = 0; i2 < b_loop_ub; i2++) {
-                tempSLDs[b_i + tempSLDs.size(0)].f1[i2 + tempSLDs[b_i +
-                  tempSLDs.size(0)].f1.size(0) * i1] = r[i2 + r.size(0) * i1];
+                slds[b_i + slds.size(0)].f1[i2 + slds[b_i + slds.size(0)].
+                  f1.size(0) * i1] = r[i2 + r.size(0) * i1];
               }
             }
           }
         }
-
-        cast(tempSLDs, slds);
       }
     }
   }

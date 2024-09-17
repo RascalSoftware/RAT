@@ -164,7 +164,7 @@ namespace RAT
 
     expl_temp.I_plotting = 0.0;
     expl_temp.I_refresh = 1.0;
-    expl_temp.I_strategy = 5.0;
+    expl_temp.I_strategy = controls->strategy;
     expl_temp.F_VTR = controls->targetValue;
     expl_temp.I_itermax = controls->numGenerations;
     expl_temp.I_bnd_constr = 1.0;

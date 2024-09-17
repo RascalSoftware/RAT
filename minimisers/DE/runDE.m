@@ -38,7 +38,7 @@ function [problemStruct,result] = runDE(problemStruct,problemCells,problemLimits
     %                      Alternates between differential mutation and three-point-
     %                      recombination.           
     
-    I_strategy = 5;
+    I_strategy = controls.strategy;
     
     % I_refresh     intermediate output will be produced after "I_refresh"
     %               iterations. No intermediate output will be produced

@@ -3,10 +3,10 @@
 ninja_required_version = 1.3
 
 # Basic folders
-root = .
+root = ./fullCompile/codegen/mex/RATMain
 builddir = $root/build/maci64
 matlabdir = /Applications/MATLAB_R2021a.app
-startdir = /Users/rascalNode/Documents/actions-runner/_work/RAT/RAT/compile/fullCompile
+startdir = ./fullCompile
 
 # Toolchain information
 cc = /usr/bin/xcrun -sdk macosx13.1 clang
@@ -14,9 +14,9 @@ cxx = /usr/bin/xcrun -sdk macosx13.1 clang++
 linker = /usr/bin/xcrun -sdk macosx13.1 clang
 linkerxx = /usr/bin/xcrun -sdk macosx13.1 clang++
 
-cflags =  -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c99 -I "$root" -I "$startdir" -I "/Users/rascalNode/Documents/actions-runner/_work/RAT/RAT/compile/customWrapper" -I "/Users/rascalNode/Documents/actions-runner/_work/RAT/RAT/compile/events" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DHAVE_LAPACK_CONFIG_H -DLAPACK_COMPLEX_STRUCTURE -DMW_HAVE_LAPACK_DECLS -DMODEL=RATMain_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I "$matlabdir/toolbox/eml/externalDependency/omp/maci64/include" -DOpenMP_omp_LIBRARY="$matlabdir/sys/os/maci64/libiomp5.dylib" 
+cflags =  -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c99 -I "$root" -I "$startdir" -I "./customWrapper" -I "./events" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DHAVE_LAPACK_CONFIG_H -DLAPACK_COMPLEX_STRUCTURE -DMW_HAVE_LAPACK_DECLS -DMODEL=RATMain_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I "$matlabdir/toolbox/eml/externalDependency/omp/maci64/include" -DOpenMP_omp_LIBRARY="$matlabdir/sys/os/maci64/libiomp5.dylib" 
 
-cxxflags =  -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "$root" -I "$startdir" -I "/Users/rascalNode/Documents/actions-runner/_work/RAT/RAT/compile/customWrapper" -I "/Users/rascalNode/Documents/actions-runner/_work/RAT/RAT/compile/events" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DHAVE_LAPACK_CONFIG_H -DLAPACK_COMPLEX_STRUCTURE -DMW_HAVE_LAPACK_DECLS -DMODEL=RATMain_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I "$matlabdir/toolbox/eml/externalDependency/omp/maci64/include" -DOpenMP_omp_LIBRARY="$matlabdir/sys/os/maci64/libiomp5.dylib" 
+cxxflags =  -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "$root" -I "$startdir" -I "./customWrapper" -I "./events" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DHAVE_LAPACK_CONFIG_H -DLAPACK_COMPLEX_STRUCTURE -DMW_HAVE_LAPACK_DECLS -DMODEL=RATMain_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I "$matlabdir/toolbox/eml/externalDependency/omp/maci64/include" -DOpenMP_omp_LIBRARY="$matlabdir/sys/os/maci64/libiomp5.dylib" 
 
 ldflags =  -Wl,-twolevel_namespace -undefined error -arch x86_64 -mmacosx-version-min=10.14 -Wl,-syslibroot,/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -framework Cocoa -bundle  -stdlib=libc++ -L"$matlabdir/bin/maci64" -lmx -lmex -lmat -L"$matlabdir/extern/bin/maci64" -lMatlabDataArray -lMatlabEngine  -Wl,-rpath,@loader_path -o RATMain_mex.mexmaci64 -L"$matlabdir/bin/maci64" -lmwlapack -lmwblas -lemlrt -lcovrt -lut -lmwmathutil -fPIC -L"$matlabdir/sys/os/maci64" -liomp5
 

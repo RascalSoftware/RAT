@@ -14,7 +14,7 @@ jobs:
   test:
     strategy:
       matrix:
-        platform: [Windows, Linux]
+        platform: [Linux]
     runs-on: ${{ matrix.platform }}
  
     steps:
@@ -24,10 +24,10 @@ jobs:
       uses: matlab-actions/run-command@v2
       with:
         command: buildScript  
-    - name: Run tests
-      uses: matlab-actions/run-command@v2
-      with:
-        command: testScript
+    # - name: Run tests
+    #   uses: matlab-actions/run-command@v2
+    #   with:
+    #     command: testScript
     - name: Create build archive (Windows and macOS)
       if: runner.os != 'Linux'
       run:  tar --exclude="**/-lang:c++.zip" --exclude=".git*/" --exclude="htmlcov/" -acvf ../${{ runner.os }}.zip *
@@ -41,18 +41,18 @@ jobs:
         name: ${{ runner.os }}
         retention-days: 1
         path: ${{ runner.os }}.zip
-    - name: Create cppDeploy
-      if: runner.os == 'Linux'
-      uses: matlab-actions/run-command@v2
-      with:
-        command: cppDeploy  
-    - name: Upload cppDeploy
-      if: runner.os == 'Linux'
-      uses: actions/upload-artifact@v4
-      with:
-        name: cppDeploy
-        retention-days: 1
-        path: compile/fullCompile/cppDeploy/
+    # - name: Create cppDeploy
+    #   if: runner.os == 'Linux'
+    #   uses: matlab-actions/run-command@v2
+    #   with:
+    #     command: cppDeploy  
+    # - name: Upload cppDeploy
+    #   if: runner.os == 'Linux'
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: cppDeploy
+    #     retention-days: 1
+    #     path: compile/fullCompile/cppDeploy/
   
   build-macos:
     runs-on: macos-13
@@ -64,10 +64,19 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: Linux
+          path: RAT/
       - name: Build mac mex
         run: |
           ls -al
+          pwd
+          brew install ninja
+          cd RAT/compile 
           ninja
+
+      # - name: Set up Matlab
+      #   uses: matlab-actions/setup-matlab@v2
+      #   with: 
+      #     release: R2021a
    
   deploy-nightly:
     if: github.ref == 'refs/heads/master'

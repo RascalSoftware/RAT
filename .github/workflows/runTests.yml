@@ -14,7 +14,7 @@ jobs:
   test:
     strategy:
       matrix:
-        platform: [Windows, Linux, macOS]
+        platform: [Windows, Linux]
     runs-on: ${{ matrix.platform }}
  
     steps:
@@ -54,6 +54,21 @@ jobs:
         retention-days: 1
         path: compile/fullCompile/cppDeploy/
   
+  build-macos:
+    runs-on: macos-13
+    needs: [test]
+    permissions:
+      contents: write
+    steps:
+      - name: Get Linux artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: Linux
+      - name: Build mac mex
+        run: |
+          ls -al
+          ninja
+   
   deploy-nightly:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest

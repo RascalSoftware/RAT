@@ -1,0 +1,209 @@
+# CompilerName=clang
+# Mode=optim
+ninja_required_version = 1.3
+
+# Basic folders
+root = .
+builddir = $root/build/maci64
+matlabdir = /Applications/MATLAB_R2021a.app
+startdir = /Users/rascalNode/Documents/actions-runner/_work/RAT/RAT/compile/fullCompile
+
+# Toolchain information
+cc = /usr/bin/xcrun -sdk macosx13.1 clang
+cxx = /usr/bin/xcrun -sdk macosx13.1 clang++
+linker = /usr/bin/xcrun -sdk macosx13.1 clang
+linkerxx = /usr/bin/xcrun -sdk macosx13.1 clang++
+
+cflags =  -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c99 -I "$root" -I "$startdir" -I "/Users/rascalNode/Documents/actions-runner/_work/RAT/RAT/compile/customWrapper" -I "/Users/rascalNode/Documents/actions-runner/_work/RAT/RAT/compile/events" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DHAVE_LAPACK_CONFIG_H -DLAPACK_COMPLEX_STRUCTURE -DMW_HAVE_LAPACK_DECLS -DMODEL=RATMain_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I "$matlabdir/toolbox/eml/externalDependency/omp/maci64/include" -DOpenMP_omp_LIBRARY="$matlabdir/sys/os/maci64/libiomp5.dylib" 
+
+cxxflags =  -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "$root" -I "$startdir" -I "/Users/rascalNode/Documents/actions-runner/_work/RAT/RAT/compile/customWrapper" -I "/Users/rascalNode/Documents/actions-runner/_work/RAT/RAT/compile/events" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DHAVE_LAPACK_CONFIG_H -DLAPACK_COMPLEX_STRUCTURE -DMW_HAVE_LAPACK_DECLS -DMODEL=RATMain_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I "$matlabdir/toolbox/eml/externalDependency/omp/maci64/include" -DOpenMP_omp_LIBRARY="$matlabdir/sys/os/maci64/libiomp5.dylib" 
+
+ldflags =  -Wl,-twolevel_namespace -undefined error -arch x86_64 -mmacosx-version-min=10.14 -Wl,-syslibroot,/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -framework Cocoa -bundle  -stdlib=libc++ -L"$matlabdir/bin/maci64" -lmx -lmex -lmat -L"$matlabdir/extern/bin/maci64" -lMatlabDataArray -lMatlabEngine  -Wl,-rpath,@loader_path -o RATMain_mex.mexmaci64 -L"$matlabdir/bin/maci64" -lmwlapack -lmwblas -lemlrt -lcovrt -lut -lmwmathutil -fPIC -L"$matlabdir/sys/os/maci64" -liomp5
+
+# Build Rules
+rule cc
+    command = $cc $cflags $in -o $out
+
+rule cxx
+    command = $cxx $cxxflags $in -o $out
+
+rule link
+    command = $linker $in $ldflags
+
+rule linkxx
+    command = $linkerxx $in $ldflags
+
+# Build
+build $builddir/RATMain_data.o : cxx $root/RATMain_data.cpp
+build $builddir/rt_nonfinite.o : cxx $root/rt_nonfinite.cpp
+build $builddir/RATMain_initialize.o : cxx $root/RATMain_initialize.cpp
+build $builddir/RATMain_terminate.o : cxx $root/RATMain_terminate.cpp
+build $builddir/strcmp.o : cxx $root/strcmp.cpp
+build $builddir/makeEmptyResultStruct.o : cxx $root/makeEmptyResultStruct.cpp
+build $builddir/makeEmptyBayesResultsStruct.o : cxx $root/makeEmptyBayesResultsStruct.cpp
+build $builddir/reflectivityCalculation.o : cxx $root/reflectivityCalculation.cpp
+build $builddir/reflectivityCalculation1.o : cxx $root/reflectivityCalculation1.cpp
+build $builddir/lower.o : cxx $root/lower.cpp
+build $builddir/eml_int_forloop_overflow_check.o : cxx $root/eml_int_forloop_overflow_check.cpp
+build $builddir/standardLayers.o : cxx $root/standardLayers.cpp
+build $builddir/allocateParamsToLayers.o : cxx $root/allocateParamsToLayers.cpp
+build $builddir/backSort.o : cxx $root/backSort.cpp
+build $builddir/allocateLayersForContrast.o : cxx $root/allocateLayersForContrast.cpp
+build $builddir/coreLayersCalculation.o : cxx $root/coreLayersCalculation.cpp
+build $builddir/groupLayersMod.o : cxx $root/groupLayersMod.cpp
+build $builddir/indexShapeCheck.o : cxx $root/indexShapeCheck.cpp
+build $builddir/groupLayersModImaginary.o : cxx $root/groupLayersModImaginary.cpp
+build $builddir/makeSLDProfiles.o : cxx $root/makeSLDProfiles.cpp
+build $builddir/sum.o : cxx $root/sum.cpp
+build $builddir/sumMatrixIncludeNaN.o : cxx $root/sumMatrixIncludeNaN.cpp
+build $builddir/asymconvstep.o : cxx $root/asymconvstep.cpp
+build $builddir/applyScalarFunction.o : cxx $root/applyScalarFunction.cpp
+build $builddir/adaptive.o : cxx $root/adaptive.cpp
+build $builddir/linspace.o : cxx $root/linspace.cpp
+build $builddir/find.o : cxx $root/find.cpp
+build $builddir/abs.o : cxx $root/abs.cpp
+build $builddir/flt2str.o : cxx $root/flt2str.cpp
+build $builddir/warning.o : cxx $root/warning.cpp
+build $builddir/infocheck.o : cxx $root/infocheck.cpp
+build $builddir/ifWhileCond.o : cxx $root/ifWhileCond.cpp
+build $builddir/repmat.o : cxx $root/repmat.cpp
+build $builddir/power.o : cxx $root/power.cpp
+build $builddir/any1.o : cxx $root/any1.cpp
+build $builddir/sortLE.o : cxx $root/sortLE.cpp
+build $builddir/resampleLayersReIm.o : cxx $root/resampleLayersReIm.cpp
+build $builddir/bsearch.o : cxx $root/bsearch.cpp
+build $builddir/shiftData.o : cxx $root/shiftData.cpp
+build $builddir/callReflectivity.o : cxx $root/callReflectivity.cpp
+build $builddir/colon.o : cxx $root/colon.cpp
+build $builddir/abelesParallelPoints.o : cxx $root/abelesParallelPoints.cpp
+build $builddir/dataResolutionPolly.o : cxx $root/dataResolutionPolly.cpp
+build $builddir/resolutionPolly.o : cxx $root/resolutionPolly.cpp
+build $builddir/abelesSingle.o : cxx $root/abelesSingle.cpp
+build $builddir/chiSquared.o : cxx $root/chiSquared.cpp
+build $builddir/customLayers.o : cxx $root/customLayers.cpp
+build $builddir/processCustomFunction.o : cxx $root/processCustomFunction.cpp
+build $builddir/str2double.o : cxx $root/str2double.cpp
+build $builddir/str2double1.o : cxx $root/str2double1.cpp
+build $builddir/callMatlabFunction.o : cxx $root/callMatlabFunction.cpp
+build $builddir/callCppFunction.o : cxx $root/callCppFunction.cpp
+build $builddir/error.o : cxx $root/error.cpp
+build $builddir/assertValidSizeArg.o : cxx $root/assertValidSizeArg.cpp
+build $builddir/customXY.o : cxx $root/customXY.cpp
+build $builddir/processCustomFunction1.o : cxx $root/processCustomFunction1.cpp
+build $builddir/resampleLayers.o : cxx $root/resampleLayers.cpp
+build $builddir/reflectivityCalculation2.o : cxx $root/reflectivityCalculation2.cpp
+build $builddir/standardLayers1.o : cxx $root/standardLayers1.cpp
+build $builddir/averageReflectivity.o : cxx $root/averageReflectivity.cpp
+build $builddir/customLayers1.o : cxx $root/customLayers1.cpp
+build $builddir/processCustomFunction2.o : cxx $root/processCustomFunction2.cpp
+build $builddir/customXY1.o : cxx $root/customXY1.cpp
+build $builddir/processCustomFunction3.o : cxx $root/processCustomFunction3.cpp
+build $builddir/triggerEvent.o : cxx $root/triggerEvent.cpp
+build $builddir/simplexIntrafun.o : cxx $root/simplexIntrafun.cpp
+build $builddir/simplexXTransform.o : cxx $root/simplexXTransform.cpp
+build $builddir/sprintf.o : cxx $root/sprintf.cpp
+build $builddir/isRATStopped.o : cxx $root/isRATStopped.cpp
+build $builddir/fileManager.o : cxx $root/fileManager.cpp
+build $builddir/eps.o : cxx $root/eps.cpp
+build $builddir/runDE.o : cxx $root/runDE.cpp
+build $builddir/rand.o : cxx $root/rand.cpp
+build $builddir/leftWin.o : cxx $root/leftWin.cpp
+build $builddir/randperm.o : cxx $root/randperm.cpp
+build $builddir/sortIdx.o : cxx $root/sortIdx.cpp
+build $builddir/rem.o : cxx $root/rem.cpp
+build $builddir/runNestedSampler.o : cxx $root/runNestedSampler.cpp
+build $builddir/getFittedPriors.o : cxx $root/getFittedPriors.cpp
+build $builddir/nestedSampler.o : cxx $root/nestedSampler.cpp
+build $builddir/mod.o : cxx $root/mod.cpp
+build $builddir/randn.o : cxx $root/randn.cpp
+build $builddir/nsIntraFun.o : cxx $root/nsIntraFun.cpp
+build $builddir/scaleParameters.o : cxx $root/scaleParameters.cpp
+build $builddir/logPlus.o : cxx $root/logPlus.cpp
+build $builddir/cov.o : cxx $root/cov.cpp
+build $builddir/mchol.o : cxx $root/mchol.cpp
+build $builddir/diag.o : cxx $root/diag.cpp
+build $builddir/eml_mtimes_helper.o : cxx $root/eml_mtimes_helper.cpp
+build $builddir/mtimes.o : cxx $root/mtimes.cpp
+build $builddir/drawMCMC.o : cxx $root/drawMCMC.cpp
+build $builddir/mpower.o : cxx $root/mpower.cpp
+build $builddir/rescaleParameters.o : cxx $root/rescaleParameters.cpp
+build $builddir/optimalEllipsoids.o : cxx $root/optimalEllipsoids.cpp
+build $builddir/calcEllipsoid.o : cxx $root/calcEllipsoid.cpp
+build $builddir/mean.o : cxx $root/mean.cpp
+build $builddir/rcond.o : cxx $root/rcond.cpp
+build $builddir/norm.o : cxx $root/norm.cpp
+build $builddir/mrdivide_helper.o : cxx $root/mrdivide_helper.cpp
+build $builddir/qrsolve.o : cxx $root/qrsolve.cpp
+build $builddir/det.o : cxx $root/det.cpp
+build $builddir/splitEllipsoid.o : cxx $root/splitEllipsoid.cpp
+build $builddir/kmeans.o : cxx $root/kmeans.cpp
+build $builddir/makeCell.o : cxx $root/makeCell.cpp
+build $builddir/all.o : cxx $root/all.cpp
+build $builddir/drawMultiNest.o : cxx $root/drawMultiNest.cpp
+build $builddir/drawEllipsoidPoints.o : cxx $root/drawEllipsoidPoints.cpp
+build $builddir/eig.o : cxx $root/eig.cpp
+build $builddir/anyNonFinite.o : cxx $root/anyNonFinite.cpp
+build $builddir/schur.o : cxx $root/schur.cpp
+build $builddir/inEllipsoids.o : cxx $root/inEllipsoids.cpp
+build $builddir/nest2pos.o : cxx $root/nest2pos.cpp
+build $builddir/prctile.o : cxx $root/prctile.cpp
+build $builddir/refPercentileConfidenceIntervals.o : cxx $root/refPercentileConfidenceIntervals.cpp
+build $builddir/interp1.o : cxx $root/interp1.cpp
+build $builddir/runDREAM.o : cxx $root/runDREAM.cpp
+build $builddir/ratDREAM.o : cxx $root/ratDREAM.cpp
+build $builddir/eml_setop.o : cxx $root/eml_setop.cpp
+build $builddir/strjoin.o : cxx $root/strjoin.cpp
+build $builddir/evaluateModel.o : cxx $root/evaluateModel.cpp
+build $builddir/DREAMWrapper.o : cxx $root/DREAMWrapper.cpp
+build $builddir/calcDensity.o : cxx $root/calcDensity.cpp
+build $builddir/rescale.o : cxx $root/rescale.cpp
+build $builddir/bsxfun.o : cxx $root/bsxfun.cpp
+build $builddir/log2.o : cxx $root/log2.cpp
+build $builddir/pow2.o : cxx $root/pow2.cpp
+build $builddir/drawCR.o : cxx $root/drawCR.cpp
+build $builddir/multrnd.o : cxx $root/multrnd.cpp
+build $builddir/randsample.o : cxx $root/randsample.cpp
+build $builddir/tic.o : cxx $root/tic.cpp
+build $builddir/timeKeeper.o : cxx $root/timeKeeper.cpp
+build $builddir/metropolisRule.o : cxx $root/metropolisRule.cpp
+build $builddir/std.o : cxx $root/std.cpp
+build $builddir/combineVectorElements.o : cxx $root/combineVectorElements.cpp
+build $builddir/adaptPCR.o : cxx $root/adaptPCR.cpp
+build $builddir/gelman.o : cxx $root/gelman.cpp
+build $builddir/var.o : cxx $root/var.cpp
+build $builddir/toc.o : cxx $root/toc.cpp
+build $builddir/_coder_RATMain_api.o : cxx $root/interface/_coder_RATMain_api.cpp
+build $builddir/_coder_RATMain_mex.o : cxx $root/interface/_coder_RATMain_mex.cpp
+build $builddir/RATMain.o : cxx $root/RATMain.cpp
+build $builddir/sqrt.o : cxx $root/sqrt.cpp
+build $builddir/acos.o : cxx $root/acos.cpp
+build $builddir/sqrt1.o : cxx $root/sqrt1.cpp
+build $builddir/sortrows.o : cxx $root/sortrows.cpp
+build $builddir/applyBackgroundCorrection.o : cxx $root/applyBackgroundCorrection.cpp
+build $builddir/applyHydrationReal.o : cxx $root/applyHydrationReal.cpp
+build $builddir/applyHydrationImag.o : cxx $root/applyHydrationImag.cpp
+build $builddir/packParams.o : cxx $root/packParams.cpp
+build $builddir/runSimplex.o : cxx $root/runSimplex.cpp
+build $builddir/fMinSearch.o : cxx $root/fMinSearch.cpp
+build $builddir/unpackParams.o : cxx $root/unpackParams.cpp
+build $builddir/sort.o : cxx $root/sort.cpp
+build $builddir/deopt.o : cxx $root/deopt.cpp
+build $builddir/xgetrf.o : cxx $root/xgetrf.cpp
+build $builddir/useConstantDim.o : cxx $root/useConstantDim.cpp
+build $builddir/xgehrd.o : cxx $root/xgehrd.cpp
+build $builddir/xungorghr.o : cxx $root/xungorghr.cpp
+build $builddir/xhseqr.o : cxx $root/xhseqr.cpp
+build $builddir/setupDREAM.o : cxx $root/setupDREAM.cpp
+build $builddir/initializeDREAM.o : cxx $root/initializeDREAM.cpp
+build $builddir/boundaryHandling.o : cxx $root/boundaryHandling.cpp
+build $builddir/rescaleKernel.o : cxx $root/rescaleKernel.cpp
+build $builddir/fix.o : cxx $root/fix.cpp
+build $builddir/calcProposal.o : cxx $root/calcProposal.cpp
+build $builddir/calcDelta.o : cxx $root/calcDelta.cpp
+build $builddir/removeOutlier.o : cxx $root/removeOutlier.cpp
+build $builddir/RATMain_mexutil.o : cxx $root/RATMain_mexutil.cpp
+build $builddir/_coder_RATMain_info.o : cxx $root/interface/_coder_RATMain_info.cpp
+build $builddir/cpp_mexapi_version.o : cxx $matlabdir/extern/version/cpp_mexapi_version.cpp
+
+# Link
+build $root/RATMain_mex.mexmaci64 : linkxx $builddir/RATMain_data.o $builddir/rt_nonfinite.o $builddir/RATMain_initialize.o $builddir/RATMain_terminate.o $builddir/strcmp.o $builddir/makeEmptyResultStruct.o $builddir/makeEmptyBayesResultsStruct.o $builddir/reflectivityCalculation.o $builddir/reflectivityCalculation1.o $builddir/lower.o $builddir/eml_int_forloop_overflow_check.o $builddir/standardLayers.o $builddir/allocateParamsToLayers.o $builddir/backSort.o $builddir/allocateLayersForContrast.o $builddir/coreLayersCalculation.o $builddir/groupLayersMod.o $builddir/indexShapeCheck.o $builddir/groupLayersModImaginary.o $builddir/makeSLDProfiles.o $builddir/sum.o $builddir/sumMatrixIncludeNaN.o $builddir/asymconvstep.o $builddir/applyScalarFunction.o $builddir/adaptive.o $builddir/linspace.o $builddir/find.o $builddir/abs.o $builddir/flt2str.o $builddir/warning.o $builddir/infocheck.o $builddir/ifWhileCond.o $builddir/repmat.o $builddir/power.o $builddir/any1.o $builddir/sortLE.o $builddir/resampleLayersReIm.o $builddir/bsearch.o $builddir/shiftData.o $builddir/callReflectivity.o $builddir/colon.o $builddir/abelesParallelPoints.o $builddir/dataResolutionPolly.o $builddir/resolutionPolly.o $builddir/abelesSingle.o $builddir/chiSquared.o $builddir/customLayers.o $builddir/processCustomFunction.o $builddir/str2double.o $builddir/str2double1.o $builddir/callMatlabFunction.o $builddir/callCppFunction.o $builddir/error.o $builddir/assertValidSizeArg.o $builddir/customXY.o $builddir/processCustomFunction1.o $builddir/resampleLayers.o $builddir/reflectivityCalculation2.o $builddir/standardLayers1.o $builddir/averageReflectivity.o $builddir/customLayers1.o $builddir/processCustomFunction2.o $builddir/customXY1.o $builddir/processCustomFunction3.o $builddir/triggerEvent.o $builddir/simplexIntrafun.o $builddir/simplexXTransform.o $builddir/sprintf.o $builddir/isRATStopped.o $builddir/fileManager.o $builddir/eps.o $builddir/runDE.o $builddir/rand.o $builddir/leftWin.o $builddir/randperm.o $builddir/sortIdx.o $builddir/rem.o $builddir/runNestedSampler.o $builddir/getFittedPriors.o $builddir/nestedSampler.o $builddir/mod.o $builddir/randn.o $builddir/nsIntraFun.o $builddir/scaleParameters.o $builddir/logPlus.o $builddir/cov.o $builddir/mchol.o $builddir/diag.o $builddir/eml_mtimes_helper.o $builddir/mtimes.o $builddir/drawMCMC.o $builddir/mpower.o $builddir/rescaleParameters.o $builddir/optimalEllipsoids.o $builddir/calcEllipsoid.o $builddir/mean.o $builddir/rcond.o $builddir/norm.o $builddir/mrdivide_helper.o $builddir/qrsolve.o $builddir/det.o $builddir/splitEllipsoid.o $builddir/kmeans.o $builddir/makeCell.o $builddir/all.o $builddir/drawMultiNest.o $builddir/drawEllipsoidPoints.o $builddir/eig.o $builddir/anyNonFinite.o $builddir/schur.o $builddir/inEllipsoids.o $builddir/nest2pos.o $builddir/prctile.o $builddir/refPercentileConfidenceIntervals.o $builddir/interp1.o $builddir/runDREAM.o $builddir/ratDREAM.o $builddir/eml_setop.o $builddir/strjoin.o $builddir/evaluateModel.o $builddir/DREAMWrapper.o $builddir/calcDensity.o $builddir/rescale.o $builddir/bsxfun.o $builddir/log2.o $builddir/pow2.o $builddir/drawCR.o $builddir/multrnd.o $builddir/randsample.o $builddir/tic.o $builddir/timeKeeper.o $builddir/metropolisRule.o $builddir/std.o $builddir/combineVectorElements.o $builddir/adaptPCR.o $builddir/gelman.o $builddir/var.o $builddir/toc.o $builddir/_coder_RATMain_api.o $builddir/_coder_RATMain_mex.o $builddir/RATMain.o $builddir/sqrt.o $builddir/acos.o $builddir/sqrt1.o $builddir/sortrows.o $builddir/applyBackgroundCorrection.o $builddir/applyHydrationReal.o $builddir/applyHydrationImag.o $builddir/packParams.o $builddir/runSimplex.o $builddir/fMinSearch.o $builddir/unpackParams.o $builddir/sort.o $builddir/deopt.o $builddir/xgetrf.o $builddir/useConstantDim.o $builddir/xgehrd.o $builddir/xungorghr.o $builddir/xhseqr.o $builddir/setupDREAM.o $builddir/initializeDREAM.o $builddir/boundaryHandling.o $builddir/rescaleKernel.o $builddir/fix.o $builddir/calcProposal.o $builddir/calcDelta.o $builddir/removeOutlier.o $builddir/RATMain_mexutil.o $builddir/_coder_RATMain_info.o $builddir/cpp_mexapi_version.o 

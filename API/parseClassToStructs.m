@@ -196,7 +196,7 @@ for i = 1:length(inputStruct.contrastBackgrounds)
 
 end
 
-% Convert contrastBackgrounds to parameter indices
+% Convert contrastBackgrounds to parameter indices or data
 contrastBackgrounds = inputStruct.contrastBackgrounds;
 backgroundTypes = inputStruct.backgroundTypes;
 
@@ -206,13 +206,28 @@ contrastBackgroundParams = zeros(1, length(contrastBackgrounds));
 for i = 1:length(contrastBackgrounds)
     % Check the type of the background that each contrast is pointing to.
     % If it is a constant, point to the number of the corresponding
-    % background param. If it's data, then set it to -1
+    % background param. If it's data, then set it to [-1 <dataFile>]
     thisBack = contrastBackgrounds(i);      % Which background
     thisType = backgroundTypes{thisBack};   % What type is it?
     
     if strcmpi(thisType,'data')
-        % Background is in the datafile. Set contrastBackgroundParams to -1
-        contrastBackgroundParams(i) = -1;
+        % Background is in a datafile. Set contrastBackgroundParams to -1
+        % Also need to find the index of the relevant datafile....
+        
+        % Need the data Names....
+        dataNames = project.data.varTable{:,1};
+
+        % ..also corresponding background value
+        backgroundDatafileName = inputStruct.backgroundValues{thisBack,1};
+
+        % Find the index of this data name in the string array...
+        thisDataBack = find(strcmp(backgroundDatafileName,dataNames));
+
+        if isempty(thisDataBack)
+            error('Data backround %s not found',backgroundDatafileName);
+        else
+            contrastBackgroundParams(i) = [-1 thisDataBack];
+        end
     else
         % Background is a backgroundParam, the name of which should
         % be in the first column of backgroundValues

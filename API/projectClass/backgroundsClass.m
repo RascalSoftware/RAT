@@ -56,7 +56,7 @@ classdef backgroundsClass < handle
             % background.addBackground('New Row');
             % background.addBackground('New Row', 'constant', 'param_name');
             % background.addBackground('New Row', 'function', 'function_name', 'param_name');
-            % background.addBackground('New Row', 'data');
+            % background.addBackground('New Row', 'data', 'data name');
             in = varargin;
 
             if isempty(in)
@@ -101,12 +101,12 @@ classdef backgroundsClass < handle
                           thisRow{i} = thisParam;
                        end
                    case allowedTypes.Data.value
-                       throw(exceptions.notImplemented('Data backgrounds are not yet supported.'))
-                       % Background is assumed to be given by a 4th column 
-                       % of a data file. We don't have access to the
-                       % data files at this point so this (i.e. that data is
-                       % [n x 4] ) will be checked downstream
-                       thisRow = {in{1}, in{2}, '', '', '', '', ''};
+                       % throw(exceptions.notImplemented('Data backgrounds are not yet supported.'))
+                       % Background is assumed to be 
+                       % a data file. We don't have access to the
+                       % data files at this point so this 
+                       % will be checked downstream
+                       thisRow = {in{1}, in{2}, in{3}, '', '', '', ''};
                 end
             end
             obj.backgrounds.addRow(thisRow{:});   

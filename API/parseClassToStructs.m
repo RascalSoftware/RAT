@@ -212,10 +212,12 @@ for i = 1:length(contrastBackgrounds)
     
     if strcmpi(thisType,'data')
         % Background is in a datafile. Set contrastBackgroundParams to -1
-        % Also need to find the index of the relevant datafile....
+        % Also need to find the index of the relevant datafile, and add the
+        % relevent data as columns 5 and 6 of the contrast data..
         
         % Need the data Names....
-        dataNames = project.data.varTable{:,1};
+        dataTable = project.data.varTable;
+        dataNames = dataTable{:,1};
 
         % ..also corresponding background value
         backgroundDatafileName = inputStruct.backgroundValues{thisBack,1};
@@ -224,9 +226,16 @@ for i = 1:length(contrastBackgrounds)
         thisDataBack = find(strcmp(backgroundDatafileName,dataNames));
 
         if isempty(thisDataBack)
-            error('Data backround %s not found',backgroundDatafileName);
+            error('Data background %s not found',backgroundDatafileName);
         else
-            contrastBackgroundParams(i) = [-1 thisDataBack];
+            contrastBackgroundParams(i) = -1;
+
+            % We need at add the background data as columns 5 and 6 on to
+            % the data array of this contrast.
+            thisContrastData = problemCells{2}(i);
+            thisBackgroundData = dataTable{thisDataBack,2};
+            thisContrastData = addDataBackgroundToContrastData(thisContrastData,thisBackgroundData);
+            problemCells{2}(i) = thisContrastData;
         end
     else
         % Background is a backgroundParam, the name of which should

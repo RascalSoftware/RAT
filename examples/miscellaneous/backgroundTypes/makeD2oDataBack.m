@@ -9,7 +9,7 @@ d2o_dat = readmatrix('DSPC_D2O.dat');
 
 % Use the x value....
 backgroundX = d2o_dat(:,1);
-backValue = 9e-8;   % A typical vlue from the existing background....
+backValue = 2e-6;   % A typical vlue from the existing background....
 
 % Make a background set...
 dummyBackValues = ones(numel(backgroundX),1) .* backValue;
@@ -22,7 +22,7 @@ backError = normrnd(mean(dummyBackValues),1e-8,[numel(dummyBackValues),1]);
 dummyBackValues = dummyBackValues + backNoise;
 
 figure(1); clf
-errorbar(d2o_dat(:,1),d2o_dat(:,2),d2o_dat(:,3),'bo');
+errorbar(d2o_dat(:,1),d2o_dat(:,2)./0.1,d2o_dat(:,3)./0.1,'bo');
 hold on
 errorbar(d2o_dat(:,1),dummyBackValues,backError,'ro');
 set(gca,'YScale','log');

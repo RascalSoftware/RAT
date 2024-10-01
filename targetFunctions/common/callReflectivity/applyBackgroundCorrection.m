@@ -2,9 +2,10 @@ function [reflect,simul,shiftedData] = applyBackgroundCorrection(reflect,simul,s
 
 % Decide which kind of background we are applyin - 'constant','data', or
 % 'function'.
-if backgroundParams == -1
+if backgroundParams(1) == -1
     % This is a data background....
-    backData = shiftedData(:,5);
+    backOffset = backgroundParams(2);
+    backData = shiftedData(:,5) + backOffset;
     backError = shiftedData(:,6);
     switch contrastBackgroundActions
         case 1
@@ -25,20 +26,39 @@ if backgroundParams == -1
         otherwise
             error('The index "%d" does not represent a valid contrast background action.', contrastBackgroundActions);
     end
-else
+elseif backgroundParams(1) == 0
     % This is a constant background....
     switch contrastBackgroundActions
         case 1
             %Add background to the simulation
-            reflect(:,2) = reflect(:,2) + backgroundParams;
-            simul(:,2) = simul(:,2) + backgroundParams;
+            reflect(:,2) = reflect(:,2) + backgroundParams(2);
+            simul(:,2) = simul(:,2) + backgroundParams(2);
         case 2
             %Subtract the background from the data..
-            shiftedData(:,2) = shiftedData(:,2) - backgroundParams;
+            shiftedData(:,2) = shiftedData(:,2) - backgroundParams(2);
             %shiftedData(:,3) = shiftedData(:,3) - backgroundParams;
+        otherwise
+            error('The index "%d" does not represent a valid contrast background action.', contrastBackgroundActions);
+    end
+elseif backgroundParams(1) == -2
+    % This is a function background.....
+    backData = shiftedData(:,5);        % Previously set in 'applyBackgroundFunction'...
+    switch contrastBackgroundActions
+        case 1
+            % Add the data to the simulation...
+            reflect(:,2) = reflect(:,2) + backData;
+            simul(:,2) = simul(:,2) + backData;
+        case 2
+            % Subtract the background data from the shiftedData....
+            measuredRefl = shiftedData(:,2);
+            newRefl = measuredRefl - backData;
+
+            % Put theis back into the data array....
+            shiftedData(:,2) = newRefl;
         otherwise
             error('The index "%d" does not represent a valid contrast background action.', contrastBackgroundActions);
     end
 end
 
 end
+

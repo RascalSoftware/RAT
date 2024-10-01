@@ -2,13 +2,15 @@ function checkIndices(problemStruct)
     % Make sure that the indices provided lie within the bounds of the
     % corresponding array.
 
-    numBackgroundParams = length(problemStruct.backgroundParams);
-    for i = 1:length(problemStruct.contrastBackgroundParams)
-        index = problemStruct.contrastBackgroundParams(i);
-        if (index < 1 && index ~= -1) || index > numBackgroundParams
-            throw(exceptions.indexOutOfRange(sprintf('contrastBackgroundParams(%i) is %i, which is outside the range of backgroundParams', i, index)));
-        end
-    end
+    % **** Comment out the background checks while we're working on it
+    %
+    % numBackgroundParams = length(problemStruct.backgroundParams);
+    % for i = 1:length(problemStruct.contrastBackgroundParams)
+    %     index = problemStruct.contrastBackgroundParams(i);
+    %     if (index < 1 && index ~= -1) || index > numBackgroundParams
+    %         throw(exceptions.indexOutOfRange(sprintf('contrastBackgroundParams(%i) is %i, which is outside the range of backgroundParams', i, index)));
+    %     end
+    % end
 
     numQzshifts = length(problemStruct.qzshifts);
     for i = 1:length(problemStruct.contrastQzshifts)

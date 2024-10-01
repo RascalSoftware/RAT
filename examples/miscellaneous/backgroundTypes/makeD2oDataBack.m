@@ -9,7 +9,7 @@ d2o_dat = readmatrix('DSPC_D2O.dat');
 
 % Use the x value....
 backgroundX = d2o_dat(:,1);
-backValue = 2e-6;   % A typical vlue from the existing background....
+backValue = 1e-6;   % A typical vlue from the existing background....
 
 % Make a background set...
 dummyBackValues = ones(numel(backgroundX),1) .* backValue;
@@ -17,8 +17,8 @@ dummyBackValues = ones(numel(backgroundX),1) .* backValue;
 % Add Gaussian white noise to this....
 % for i = 1:numel(dummyBackValues)
 %     dummyBackValues(i) = dummyBackValues(i)
-backNoise = normrnd(mean(dummyBackValues),5e-8,[numel(dummyBackValues),1]);
-backError = normrnd(mean(dummyBackValues),1e-8,[numel(dummyBackValues),1]);
+backNoise = normrnd(mean(dummyBackValues),5e-7,[numel(dummyBackValues),1]);
+backError = normrnd(1e-7,8e-7,[numel(dummyBackValues),1]);
 dummyBackValues = dummyBackValues + backNoise;
 
 figure(1); clf

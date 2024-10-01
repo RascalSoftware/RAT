@@ -27,11 +27,36 @@ function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outR
     %    * outBulkOut: list of actual bulkOut values for each contrast
     %    * outResolution: list of actual resolution parameter for each contrast  
     
-        if contrastBackgroundParams ~= -1
-            outBackgroundParam = backgroundParams(contrastBackgroundParams);
-        else
-            outBackgroundParam = -1;     % Negative value means we have a data background.
+        thisType = contrastBackgroundParams(1);         % What type of background is it?
+        thisArray = contrastBackgroundParams(2:end);    % Any associated values...
+        switch thisType
+            case {0,-1}    
+                % Constant or data background. We only need the second
+                % value. But we want to preserve the flag as the first
+                % value of 'outBackgroundParam', so that downbstream knows what to do.
+                % The second value of
+                % outBackgroundParam should be the actual background
+                % value..
+                thisValue = thisArray(1);
+                if thisValue ~= -Inf
+                    outBackgroundParam = [thisType backgroundParams(thisValue)]; 
+                else
+                    outBackgroundParam = [thisType thisValue];
+                end
+
+            case -2     % Function Background
+                % The relevant background in in the data, so just output
+                % the type again - although it'll never be used, not
+                % assigning anything will throw an error...
+                outBackgroundParam = thisType;
         end
+
+        % if contrastBackgroundParams(1) ~= -1
+        % 
+        %     outBackgroundParam = backgroundParams(contrastBackgroundParams);
+        % else
+        %     outBackgroundParam = -1;     % Negative value means we have a data background.
+        % end
 
         outQzshift = qzshifts(contrastQzshifts);
         

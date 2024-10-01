@@ -91,11 +91,13 @@ classdef backgroundsClass < handle
                        thisRow{3} = thisParam;
 
                    case allowedTypes.Function.value
-                       throw(exceptions.notImplemented('Function backgrounds are not yet supported.'))
-                       % Param 3 is assumed to be function name
+                       % throw(exceptions.notImplemented('Function backgrounds are not yet supported.'))
+                       % Param 3 is assumed to be function name - should
+                       % there be validation here??
+                       thisRow{3} = in{3};
+
                        % any other given parameters must be in paramNames
                        % list or numbers in range
-                       thisRow{3} = in{3};
                        for i = 4:length(in)
                           thisParam = obj.validateParam(in(i));
                           thisRow{i} = thisParam;
@@ -105,8 +107,13 @@ classdef backgroundsClass < handle
                        % Background is assumed to be 
                        % a data file. We don't have access to the
                        % data files at this point so this 
-                       % will be checked downstream
-                       thisRow = {in{1}, in{2}, in{3}, '', '', '', ''};
+                       % will be checked downstream. We also allow for an
+                       % optional data offset...
+                       if length(in) == 4
+                            thisRow = {in{1}, in{2}, in{3}, in{4}, '', '', ''};
+                       else
+                            thisRow = {in{1}, in{2}, in{3}, '', '', '', ''};
+                       end
                 end
             end
             obj.backgrounds.addRow(thisRow{:});   

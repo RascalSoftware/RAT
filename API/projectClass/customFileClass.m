@@ -238,11 +238,14 @@ classdef customFileClass < tableUtilities
             %
             % customFiles.toStruct()
             fileStruct.files = {};
+            fileStruct.fileNames = {};
             numberOfFiles = obj.rowCount;      
             if numberOfFiles > 0
                 filesList = cell(numberOfFiles, 1);
+                fileNames = cell(numberOfFiles, 1);
                 for i = 1:numberOfFiles
                     thisRow = obj.varTable{i,:};
+                    fileNames{i} = thisRow{1};
                     thisFile = thisRow{2};
                     functionName = thisRow{3};
                     thisType = thisRow{4};
@@ -287,6 +290,7 @@ classdef customFileClass < tableUtilities
                     filesList{i} = handle;
                 end
                 fileStruct.files = filesList;
+                fileStruct.fileNames = fileNames;
             end
         end
 

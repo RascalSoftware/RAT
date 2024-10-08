@@ -873,6 +873,16 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
             % Custom files
             customFileStruct = obj.customFile.toStruct();
+
+            % Data
+            numData = obj.data.rowCount;
+            dataNames = cell(numData, 1);
+            for i = 1:numData
+                row = obj.data.varTable{i,1};
+                dataNames{i} = row{1};
+            end
+
+            dataStruct.dataNames = dataNames;
             
             % Contrasts
             allNames = obj.getAllAllowedNames;
@@ -891,6 +901,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                                      qzshiftStruct, ...
                                      layersStruct, ...
                                      customFileStruct, ...
+                                     dataStruct, ...
                                      contrastStruct);
             
         end

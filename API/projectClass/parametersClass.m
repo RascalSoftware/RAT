@@ -108,7 +108,7 @@ classdef parametersClass < tableUtilities
                 
                 % Type validation
                 if ~isnumeric(values)
-                    throw(exceptions.invalidType('Expecting numeric values as params 2 - 4'));
+                    throw(exceptions.invalidType('Lower limit, value, and upper limit (2nd, 3rd and 4th arguments) must be numeric values'));
                 end
                 
                 if values(1) > values(3)
@@ -116,11 +116,11 @@ classdef parametersClass < tableUtilities
                 end
 
                 if values(2) < values(1) || values(2) > values(3)
-                    throw(exceptions.invalidValue(sprintf('Parameter value %f must be within the limits %f -- %f', values(2), values(1), values(3))));
+                    throw(exceptions.invalidValue(sprintf('Parameter value %f must be within the limits %f to %f', values(2), values(1), values(3))));
                 end
 
                 if ~islogical(fit)
-                    throw(exceptions.invalidType('Expecting logical value for param 5'));
+                    throw(exceptions.invalidType('Parameter fit (5th argument) must be a logical value'));
                 end
                 
                 priorType = validateOption(priorType, 'priorTypes', obj.invalidPriorsMessage).value;
@@ -204,7 +204,7 @@ classdef parametersClass < tableUtilities
             end
 
             if value < min || value > max
-                throw(exceptions.invalidValue(sprintf('Parameter value %f must be within the limits %f -- %f', value, min, max)));
+                throw(exceptions.invalidValue(sprintf('Parameter value %f must be within the limits %f to %f', value, min, max)));
             end
 
             % Apply values
@@ -280,7 +280,7 @@ classdef parametersClass < tableUtilities
             end
 
             if value < min || value > max
-                throw(exceptions.invalidValue(sprintf('Parameter value %f must be within the limits %f -- %f', value, min, max)));
+                throw(exceptions.invalidValue(sprintf('Parameter value %f must be within the limits %f to %f', value, min, max)));
             end
 
             tab(row,3) = {value};

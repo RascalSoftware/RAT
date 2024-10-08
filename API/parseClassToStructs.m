@@ -221,16 +221,14 @@ for i = 1:length(contrastBackgrounds)
         % deal with the optional background offset if present, and set this as the (optional)
         % second parameter in this row....
 
-        % Need the data Names....
-        dataTable = project.data.varTable;
-        dataNames = dataTable{:,1};
-
-        % ..also corresponding background value
+        % Find corresponding background value
         backgroundDatafileName = inputStruct.backgroundValues{thisBack,1};
         backgroundDataOffset = inputStruct.backgroundValues{thisBack,2};
 
+        dataTable = project.data.varTable;
+
         % Find the index of this data name in the string array...
-        thisDataBack = find(strcmp(backgroundDatafileName,dataNames));
+        thisDataBack = find(strcmp(backgroundDatafileName,inputStruct.dataNames));
 
         if isempty(thisDataBack)
             error('Data background %s not found',backgroundDatafileName);
@@ -245,7 +243,8 @@ for i = 1:length(contrastBackgrounds)
             problemCells{2}(i) = thisContrastData;
 
             % Also add the index of the data offset to the array...
-            contrastBackgroundParams(i,2) = find(strcmpi(backgroundDataOffset,backgroundParamNames));
+            contrastBackgroundParams(i,2) = thisDataBack;
+            contrastBackgroundParams(i,3) = find(strcmpi(backgroundDataOffset,backgroundParamNames));
         end
 
     elseif strcmpi(thisType,'constant')
@@ -261,18 +260,14 @@ for i = 1:length(contrastBackgrounds)
         % Background is a background function....
         contrastBackgroundParams(i,1) = -2;
 
-        % Get function table...
-        funcTable = project.customFile.varTable;
-        funcNames = funcTable{:,1};
-
-        % Also the corresponding function name...
+        % Get the corresponding function name...
         backgroundFuncfileName = inputStruct.backgroundValues{thisBack,1};
 
         % Find the index of this data name in the string array...
-        thisFuncBack = find(strcmp(backgroundFuncfileName,funcNames));
+        thisFuncBack = find(strcmp(backgroundFuncfileName,inputStruct.fileNames));
         contrastBackgroundParams(i,2) = thisFuncBack;
 
-        % Now find the indicies af any defined parameters...
+        % Now find the indicies of any defined parameters...
         allVals = inputStruct.backgroundValues(thisBack,2:end);
         defined = find(~(cellfun(@(x) isequal(x,""),allVals)));  
         for n = 1:numel(defined)

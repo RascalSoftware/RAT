@@ -189,7 +189,7 @@ FM_meanv = ones(I_NP,I_D);
 
 if (S_bestval.FVr_oa(1) <= F_VTR)
    % In this case the while loop should never run so reset 
-   % the random generated best result to default
+   % the best result to the initial value
    FVr_bestmem = problem.params;
 end
 

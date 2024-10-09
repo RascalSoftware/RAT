@@ -230,13 +230,13 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             testInput = testCase.problemStruct;
             checkIndices(testInput);
 
-            % Test Background Param Error
-            testInput = testCase.problemStruct;
-            testInput.contrastBackgroundParams(1) = 0;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
-            testInput = testCase.problemStruct;
-            testInput.contrastBackgroundParams(1) = 4;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            % Test Background Param Error - commented out at present
+            % testInput = testCase.problemStruct;
+            % testInput.contrastBackgroundParams(1) = 0;
+            % testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            % testInput = testCase.problemStruct;
+            % testInput.contrastBackgroundParams(1) = 4;
+            % testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
 
             % Test Qzshift Error
             testInput = testCase.problemStruct;

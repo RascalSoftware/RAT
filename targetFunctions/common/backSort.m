@@ -29,6 +29,7 @@ function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outR
     
         thisType = contrastBackgroundParams(1);         % What type of background is it?
         thisArray = contrastBackgroundParams(2:end);    % Any associated values...
+        outBackgroundParam = 0;  % Dummy value for compilation
         switch thisType
             case 0    
                 % Constant background. We only need the second
@@ -49,7 +50,6 @@ function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outR
                 % data entry, and the third value which is an optional offset parameter.
                 % But we want to preserve the flag as the first
                 % value of 'outBackgroundParam', so that downstream knows what to do.
-                thisData = thisArray(1);
                 thisOffset = thisArray(2);
                 if thisOffset ~= -Inf
                     outBackgroundParam = [thisType backgroundParams(thisOffset)];

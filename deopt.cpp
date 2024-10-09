@@ -315,6 +315,16 @@ namespace RAT
     //
     //
     // FM_pop = zeros(I_NP,2);
+    if (S_bestval_FVr_oa <= S_struct->F_VTR) {
+      //  In this case the while loop should never run so reset
+      //  the best result to the initial value
+      FVr_bestmem.set_size(1, problem->params.size(1));
+      loop_ub = problem->params.size(1);
+      for (i = 0; i < loop_ub; i++) {
+        FVr_bestmem[i] = problem->params[i];
+      }
+    }
+
     I_iter = 1.0;
     exitg1 = false;
     while ((!exitg1) && ((I_iter < I_itermax) && (S_bestval_FVr_oa >

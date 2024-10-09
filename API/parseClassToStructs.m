@@ -9,7 +9,7 @@ function [problemStruct,problemCells,problemLimits,priors,controls] = parseClass
 %       {1 x nContrasts} array of cells
 %       Each cell is {1 x 2 double}.
 %
-% {2} - inputProblem.data
+% {2} - inputProblem.contrastData
 %       {1 x nContrasts} array of cells
 %       Each cell is {Inf x 3 double}
 %
@@ -93,9 +93,17 @@ function [problemStruct,problemCells,problemLimits,priors,controls] = parseClass
 %% First parse the class to a structure variable.
 inputStruct = project.toStruct();
 
+% Make the contrast data array up to six columns,
+% adding columns of zeros if necessary
+inputData = cell(1, length(inputStruct.contrastData));
+for i = 1:length(inputStruct.contrastData)
+    contrastData = inputStruct.contrastData{i};
+    inputData{i} = [contrastData zeros(size(contrastData,1), 6-size(contrastData,2))];
+end
+
 %% Pull out all the cell arrays (except priors) into one array
 problemCells{1} = inputStruct.contrastRepeatSLDs;
-problemCells{2} = inputStruct.data;
+problemCells{2} = inputData;
 problemCells{3} = inputStruct.dataLimits;
 problemCells{4} = inputStruct.simLimits;
 problemCells{5} = inputStruct.contrastLayers;
@@ -211,9 +219,9 @@ for i = 1:length(contrastBackgrounds)
     % If it is a constant, point to the number of the corresponding
     % background param. If it's data, then set it to [-1 <dataFile>]
     thisBack = contrastBackgrounds(i);      % Which background
-    thisType = backgroundTypes{thisBack};   % What type is it?
+    backgroundType = backgroundTypes{thisBack};   % What type is it?
 
-    if strcmpi(thisType,'data')
+    if strcmpi(backgroundType,'data')
         % Background is in a datafile. Set contrastBackgroundParams(1) to
         % -1 for the relevant contrast.
         % Also need to find the index of the relevant datafile, and add the
@@ -225,29 +233,27 @@ for i = 1:length(contrastBackgrounds)
         backgroundDatafileName = inputStruct.backgroundValues{thisBack,1};
         backgroundDataOffset = inputStruct.backgroundValues{thisBack,2};
 
-        dataTable = project.data.varTable;
-
         % Find the index of this data name in the string array...
-        thisDataBack = find(strcmp(backgroundDatafileName,inputStruct.dataNames));
+        backgroundDataIndex = find(strcmp(backgroundDatafileName,inputStruct.dataNames));
 
-        if isempty(thisDataBack)
+        if isempty(backgroundDataIndex)
             error('Data background %s not found',backgroundDatafileName);
         else
             contrastBackgroundParams(i,1) = -1;
 
             % We need at add the background data as columns 5 and 6 on to
             % the data array of this contrast.
-            thisContrastData = problemCells{2}(i);
-            thisBackgroundData = dataTable{thisDataBack,2};
-            thisContrastData = addDataBackgroundToContrastData(thisContrastData,thisBackgroundData);
-            problemCells{2}(i) = thisContrastData;
+            contrastData = problemCells{2}(i);
+            backgroundData = inputStruct.allData{backgroundDataIndex};
+            contrastData = addDataBackgroundToContrastData(contrastData,backgroundData);
+            problemCells{2}(i) = contrastData;
 
             % Also add the index of the data offset to the array...
-            contrastBackgroundParams(i,2) = thisDataBack;
+            contrastBackgroundParams(i,2) = backgroundDataIndex;
             contrastBackgroundParams(i,3) = find(strcmpi(backgroundDataOffset,backgroundParamNames));
         end
 
-    elseif strcmpi(thisType,'constant')
+    elseif strcmpi(backgroundType,'constant')
         % Background is a backgroundParam, the name of which should
         % be in the first column of backgroundValues
         whichBackgroundParamName = inputStruct.backgroundValues{thisBack,1};
@@ -256,7 +262,7 @@ for i = 1:length(contrastBackgrounds)
         contrastBackgroundParams(i,1) = 0;
         contrastBackgroundParams(i,2) = find(strcmpi(whichBackgroundParamName,backgroundParamNames));
 
-    elseif strcmpi(thisType,'function')
+    elseif strcmpi(backgroundType,'function')
         % Background is a background function....
         contrastBackgroundParams(i,1) = -2;
 
@@ -267,11 +273,11 @@ for i = 1:length(contrastBackgrounds)
         thisFuncBack = find(strcmp(backgroundFuncfileName,inputStruct.fileNames));
         contrastBackgroundParams(i,2) = thisFuncBack;
 
-        % Now find the indicies of any defined parameters...
+        % Now find the indices of any defined parameters...
         allVals = inputStruct.backgroundValues(thisBack,2:end);
         defined = find(~(cellfun(@(x) isequal(x,""),allVals)));  
         for n = 1:numel(defined)
-            %find the relevant background for each..
+            % Find the relevant background for each..
             thisBackParamName = allVals{n};
             thisParamIndex = find(strcmpi(thisBackParamName,backgroundParamNames));
             contrastBackgroundParams(i,n+2) = thisParamIndex;

@@ -875,14 +875,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             customFileStruct = obj.customFile.toStruct();
 
             % Data
-            numData = obj.data.rowCount;
-            dataNames = cell(numData, 1);
-            for i = 1:numData
-                row = obj.data.varTable{i,1};
-                dataNames{i} = row{1};
-            end
-
-            dataStruct.dataNames = dataNames;
+            dataStruct = obj.data.toStruct();
             
             % Contrasts
             allNames = obj.getAllAllowedNames;

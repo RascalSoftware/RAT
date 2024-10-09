@@ -47,7 +47,7 @@ shiftedData = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     shiftedData{i} = [1 1 1; 1 1 1];
 end
-coder.varsize('shiftedData{:}',[10000 3],[1 0]);
+coder.varsize('shiftedData{:}',[10000 6],[1 1]);
 
 layerSlds = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
@@ -132,5 +132,10 @@ result.calculationResults = calculationResults;
 result.contrastParams = contrastParams;
 result.fitParams = problemStruct.fitParams;
 result.fitNames = fitNames;
+
+% Reduce data to original three columns
+for i = 1:length(shiftedData)
+    result.shiftedData{i} = shiftedData{i}(:,1:3);
+end
 
 end

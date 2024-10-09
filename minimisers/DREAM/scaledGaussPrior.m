@@ -16,9 +16,9 @@ function pVal2 = scaledGaussPrior(m,extras)
     
     usedPriors = priorList(usedPriorInd,:);
     usedConstr = fitConstr(usedPriorInd,:);
-    usedVals = m(usedPriorInd);
     
     if ~isempty(usedPriorInd)    % There may be no Gaussian priors defined!
+        usedVals = m(usedPriorInd);
         mu = [usedPriors(:,2)];
         sig = [usedPriors(:,3)];
         sigAdd = sig + usedConstr(:,1); % Scale (minVal+prior) will give scaled sigma since minVal goes to 0...

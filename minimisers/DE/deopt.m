@@ -109,7 +109,7 @@ if (I_NP < 5)
    I_NP=5;
    triggerEvent(coderEnums.eventTypes.Message, sprintf('I_NP increased to minimal value 5\n'));
 end
-if ((F_CR < 0) | (F_CR > 1))
+if ((F_CR < 0) || (F_CR > 1))
    F_CR=0.5;
    triggerEvent(coderEnums.eventTypes.Message, sprintf('F_CR should be from interval [0,1]; set to default value 0.5\n'));
 end
@@ -186,6 +186,13 @@ FM_meanv = ones(I_NP,I_D);
 
 %
 %FM_pop = zeros(I_NP,2);
+
+if (S_bestval.FVr_oa(1) <= F_VTR)
+   % In this case the while loop should never run so reset 
+   % the best result to the initial value
+   FVr_bestmem = problem.params;
+end
+
 I_iter = 1;
 while ((I_iter < I_itermax) && (S_bestval.FVr_oa(1) > F_VTR))
   FM_popold = FM_pop;                  % save the old population

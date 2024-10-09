@@ -53,7 +53,7 @@ end
 
 shiftedData = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    shiftedData{i} = [1 1 1; 1 1 1];
+    shiftedData{i} = [1 1 1 1 1 1; 1 1 1 1 1 1];
 end
 
 layerSlds = cell(numberOfContrasts,2);

@@ -170,6 +170,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             else        
                 result = reflectivityCalculation(testCase.problemStruct, testCase.problemCells, testCase.problemLimits, testCase.controls);
             end
+
             testCase.verifyEqual(result, testCase.expectedResultStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 

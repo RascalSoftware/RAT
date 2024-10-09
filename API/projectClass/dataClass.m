@@ -174,6 +174,22 @@ classdef dataClass < tableUtilities
             obj.varTable{whichData,1} = {name};   
         end
 
+        function outStruct = toStruct(obj)
+            % Converts the class parameters into a structure array.
+            numData = obj.rowCount;
+            dataNames = cell(numData, 1);
+            allData = cell(numData, 1);
+
+            for i = 1:numData
+                row = obj.varTable{i,1};
+                dataNames{i} = row{1};
+                allData{i} = obj.varTable{i,2};
+            end
+
+            outStruct.dataNames = dataNames;
+            outStruct.allData = allData;
+        end
+
         function displayTable(obj)
             % Displays the table object. The actual obj.varTable has the 
             % format {string, cell, double, double}, but for display we 

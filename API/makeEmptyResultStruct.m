@@ -78,7 +78,7 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     
     shiftedData = cell(nContrasts,1);
     shiftCell = ones(2,3);
-    coder.varsize('shiftCell',[10000 3],[1 0]);
+    coder.varsize('shiftCell',[10000 6],[1 1]);
     for i = 1:nContrasts
         shiftedData{i} = shiftCell;
     end

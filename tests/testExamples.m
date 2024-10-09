@@ -82,14 +82,14 @@ classdef testExamples < matlab.unittest.TestCase
                 exampleBackgroundsTypesCount, ...
                 exampleDataCount, ...
                 exampleScalefactorRowCount)
-            
+
             % verifies example exists with .m extension
             testCase.verifyEqual(exist(exampleScriptFile,'file'), 2);
             import matlab.unittest.fixtures.CurrentFolderFixture
 
             [pwdPath, ~, ~] = fileparts(which(exampleScriptFile));
             testCase.applyFixture(CurrentFolderFixture(pwdPath))  
-            
+
             % runs the example file
             evalc(exampleScriptFile);
 

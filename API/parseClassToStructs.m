@@ -249,8 +249,7 @@ for i = 1:length(contrastBackgrounds)
             problemCells{2}(i) = contrastData;
 
             % Also add the index of the data offset to the array...
-            contrastBackgroundParams(i,2) = backgroundDataIndex;
-            contrastBackgroundParams(i,3) = find(strcmpi(backgroundDataOffset,backgroundParamNames));
+            contrastBackgroundParams(i,2) = find(strcmpi(backgroundDataOffset,backgroundParamNames));
         end
 
     elseif strcmpi(backgroundType,'constant')

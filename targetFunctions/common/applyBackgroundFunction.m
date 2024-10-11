@@ -1,4 +1,4 @@
-function newData = applyBackgroundFunction(contrastBackgroundParams,data,customFiles,backgroundParamArray)
+function data = applyBackgroundFunction(contrastBackgroundParams,data,customFiles,backgroundParamArray)
 
 % This is a placeholder function to calculate the background function
 % for any function that needs it. Any backgrounds that use a background 
@@ -8,7 +8,7 @@ function newData = applyBackgroundFunction(contrastBackgroundParams,data,customF
 
 for i = 1:size(contrastBackgroundParams,1)
     if contrastBackgroundParams(i,1) == -2
-        
+
         % This is a function background...
         thisBackParams = contrastBackgroundParams(i,:); 
 
@@ -50,9 +50,19 @@ for i = 1:size(contrastBackgroundParams,1)
 
         % Put our modified data array back into data.
         data{i} = thisData;
+
+    else
+
+        % We have either a constant background, or data background with
+        % offset. In either case we add the parameter to column 5 of the
+        % data.
+        backgroundParameter = backgroundParamArray(contrastBackgroundParams(i,2));
+
+        thisData = data{i};
+        thisData(:,5) = thisData(:,5) + backgroundParameter;
+        data{i} = thisData;
+
     end
 end
-
-newData = data;
 
 end

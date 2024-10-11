@@ -95,7 +95,11 @@ function [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
         calcAllLayers1{i} = calcAllLayers{i,1};
         calcAllLayers2{i} = calcAllLayers{i,2};
     end
-    
+
+    % Process any custom backgrounds if necessary...
+    % We only need to run this if we have any function backgrounds....
+    data = applyBackgroundFunction(contrastBackgroundIndices,data,customFiles,backgroundParamArray);
+
     if strcmpi(parallel, coderEnums.parallelOptions.Contrasts)
     
         % Parallel over all contrasts

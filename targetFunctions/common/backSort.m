@@ -31,8 +31,8 @@ function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outR
         thisArray = contrastBackgroundParams(2:end);    % Any associated values...
         outBackgroundParam = 0;  % Dummy value for compilation
         switch thisType
-            case 0    
-                % Constant background. We only need the second
+            case {0, -1}    
+                % Constant or data background. We only need the second
                 % value. But we want to preserve the flag as the first
                 % value of 'outBackgroundParam', so that downstream knows what to do.
                 % The second value of
@@ -44,32 +44,12 @@ function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outR
                 else
                     outBackgroundParam = [thisType thisValue];
                 end
-
-           case -1    
-                % Data background. We need the second value, which is the
-                % data entry, and the third value which is an optional offset parameter.
-                % But we want to preserve the flag as the first
-                % value of 'outBackgroundParam', so that downstream knows what to do.
-                thisOffset = thisArray(2);
-                if thisOffset ~= -Inf
-                    outBackgroundParam = [thisType backgroundParams(thisOffset)];
-                else
-                    outBackgroundParam = [thisType thisOffset];
-                end
-
             case -2     % Function Background
                 % The relevant background in in the data, so just output
                 % the type again - although it'll never be used, not
                 % assigning anything will throw an error...
                 outBackgroundParam = thisType;
         end
-
-        % if contrastBackgroundParams(1) ~= -1
-        % 
-        %     outBackgroundParam = backgroundParams(contrastBackgroundParams);
-        % else
-        %     outBackgroundParam = -1;     % Negative value means we have a data background.
-        % end
 
         outQzshift = qzshifts(contrastQzshifts);
         

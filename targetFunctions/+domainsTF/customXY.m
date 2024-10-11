@@ -88,7 +88,11 @@ function [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
         inputSldProfiles1{i} = inputSldProfiles{i,1};
         inputSldProfiles2{i} = inputSldProfiles{i,2};
     end
-    
+
+    % Process any custom backgrounds if necessary...
+    % We only need to run this if we have any function backgrounds....
+    data = applyBackgroundFunction(contrastBackgroundIndices,data,customFiles,backgroundParamArray);
+
     if strcmpi(parallel, coderEnums.parallelOptions.Contrasts)
     
         parfor i = 1:numberOfContrasts

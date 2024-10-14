@@ -196,7 +196,7 @@ classdef parametersClass < tableUtilities
             if ~isempty(inputBlock.value)
                 value = inputBlock.value;
             else
-                value = obj.varTable{row, 2};
+                value = obj.varTable{row, 3};
             end
 
             if min > max

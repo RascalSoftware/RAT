@@ -135,7 +135,7 @@ function [backgroundParamValue,qzshiftValue,scalefactorValue,bulkInValue,...
     reflectivityType = 'standardAbeles';
     [reflect,simul] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedDat,layerSld,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
 
-    [reflectivity,simulation,shiftedDat] = applyBackgroundCorrection(reflect,simul,shiftedDat,backgroundParamValue,background,contrastBackgroundActions);
+    [reflectivity,simulation,shiftedDat] = applyBackgroundCorrection(reflect,simul,shiftedDat,background,contrastBackgroundActions);
     
     if dataPresent
         chi = chiSquared(shiftedDat,reflectivity,nParams);

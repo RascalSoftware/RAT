@@ -6,21 +6,6 @@ function background = constructBackground(contrastBackgroundParams,shiftedData,c
 % This function identifies which backgrounds are functions, calculates the
 % background and adds this as the 5th coulmn to the datafile of this contrast.
 
-
-% Set up background array, which is defined over the simulation range
-% lowIndex = find(simulation(:,1) < shiftedData(1,1));
-% if ~isempty(lowIndex)
-%     lowIndex = lowIndex(end) + 1;
-% else
-%     lowIndex = 1;
-% end
-% 
-% highIndex = find(simulation(:,1) > shiftedData(end,1));
-% if  ~isempty(highIndex)
-%     highIndex = highIndex(1) - 1;
-% else
-%     highIndex = length(simulation(:,1));
-% end
 simXLo = simLimits(1);
 simXHi = simLimits(2);
 middleSection = shiftedData(:,1);

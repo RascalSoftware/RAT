@@ -108,8 +108,6 @@ function [backgroundParamValue,qzshiftValue,scalefactorValue,bulkInValue,...
     dataPresent,data,dataLimits,simLimits,repeatLayers,contrastBackgroundActions,...
     customFiles,nParams,parallel,resampleMinAngle,resampleNPoints,useImaginary,roughness,sldProfile)
 
-    data = constructBackground(backgroundParamIndex,data,customFiles,backgroundParams);
-
     % Extract the relevant parameter values for this contrast
     % from the input arrays.
     % First need to decide which values of the backgrounds, scalefactors
@@ -135,8 +133,9 @@ function [backgroundParamValue,qzshiftValue,scalefactorValue,bulkInValue,...
 
     reflectivityType = 'standardAbeles';
     [reflect,simul] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedDat,layerSld,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
-    
-    [reflectivity,simulation,shiftedDat] = applyBackgroundCorrection(reflect,simul,shiftedDat,backgroundParamValue,contrastBackgroundActions);
+
+    background = constructBackground(backgroundParamIndex,shiftedDat,customFiles,backgroundParams,simul);
+    [reflectivity,simulation,shiftedDat] = applyBackgroundCorrection(reflect,simul,shiftedDat,backgroundParamValue,background,contrastBackgroundActions);
     
     if dataPresent
         chi = chiSquared(shiftedDat,reflectivity,nParams);

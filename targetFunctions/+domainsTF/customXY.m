@@ -159,8 +159,6 @@ function [backgroundParamValue,qzshiftValue,scalefactorValue,bulkInValue,...
     repeatLayers,contrastBackgroundActions,customFiles,nParams,parallel,resampleMinAngle,resampleNPoints,...
     useImaginary,roughness,sldProfile1,sldProfile2)
 
-    data = constructBackground(backgroundParamIndex,data,customFiles,backgroundParams);
-
     % Get the domain ratio for this contrast
     if isempty(domainRatioIndex)
         domainRatioIndex = 1;
@@ -201,9 +199,11 @@ function [backgroundParamValue,qzshiftValue,scalefactorValue,bulkInValue,...
     reflectivityType = 'standardAbeles';
     [reflect1,simul1] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedDat,layerSld1,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
     [reflect2,simul2] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedDat,layerSld2,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
-    
-    [reflect1,simul1,shiftedDat] = applyBackgroundCorrection(reflect1,simul1,shiftedDat,backgroundParamValue,contrastBackgroundActions);
-    [reflect2,simul2,shiftedDat] = applyBackgroundCorrection(reflect2,simul2,shiftedDat,backgroundParamValue,contrastBackgroundActions);
+
+    background = constructBackground(backgroundParamIndex,shiftedDat,customFiles,backgroundParams,simul1);
+
+    [reflect1,simul1,shiftedDat] = applyBackgroundCorrection(reflect1,simul1,shiftedDat,backgroundParamValue,background,contrastBackgroundActions);
+    [reflect2,simul2,shiftedDat] = applyBackgroundCorrection(reflect2,simul2,shiftedDat,backgroundParamValue,background,contrastBackgroundActions);
 
      % Calculate the average reflectivities....
     [reflectivity,simulation] = domainsTF.averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio);

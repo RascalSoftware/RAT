@@ -43,22 +43,22 @@ outputs.result = result;
 save([root filesep 'tests/domainsTFReflectivityCalculation/domainsStandardLayersOutputs'],'outputs');
 
 % (c) TF Parameters
-[contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
+[contrastParams,calculationResults,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,resampledLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
 
 TFParams.contrastParams = contrastParams;
 TFParams.calculationResults = calculationResults;
 TFParams.reflectivity = reflectivity;
 TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;
+TFParams.backgrounds = backgrounds;
 TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.resampledLayers = resampledLayers;
 
-[backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
- chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,...
+[qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
+ chis,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,...
  resampledLayers,subRoughs] = domainsTF.standardLayers(problemStruct,problemCells,controls);
 
-TFParams.backgroundParams = backgroundParams;
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
 TFParams.bulkIn = bulkIn;
@@ -108,22 +108,22 @@ outputs.result = result;
 save([root filesep 'tests/domainsTFReflectivityCalculation/domainsCustomXYOutputs'],'outputs');
 
 % (c) TF Parameters
-[contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
+[contrastParams,calculationResults,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,resampledLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
 
 TFParams.contrastParams = contrastParams;
 TFParams.calculationResults = calculationResults;
 TFParams.reflectivity = reflectivity;
 TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;
+TFParams.backgrounds = backgrounds;
 TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.resampledLayers = resampledLayers;
 
-[backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
- chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,...
+[qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
+ chis,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,...
  resampledLayers,subRoughs] = domainsTF.customXY(problemStruct,problemCells,controls);
 
-TFParams.backgroundParams = backgroundParams;
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
 TFParams.bulkIn = bulkIn;
@@ -172,22 +172,22 @@ outputs.result = result;
 save([root filesep 'tests/domainsTFReflectivityCalculation/domainsCustomLayersOutputs'],'outputs');
 
 % (c) TF Parameters
-[contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
+[contrastParams,calculationResults,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,resampledLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
 
 TFParams.contrastParams = contrastParams;
 TFParams.calculationResults = calculationResults;
 TFParams.reflectivity = reflectivity;
 TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;
+TFParams.backgrounds = backgrounds;
 TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.resampledLayers = resampledLayers;
 
-[backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
- chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,...
+[qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
+ chis,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,...
  resampledLayers,subRoughs] = domainsTF.customLayers(problemStruct,problemCells,controls);
 
-TFParams.backgrounds = backgroundParams;
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
 TFParams.bulkIn = bulkIn;

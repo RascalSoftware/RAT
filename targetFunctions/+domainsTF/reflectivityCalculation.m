@@ -1,4 +1,4 @@
-function [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = reflectivityCalculation(problemStruct,problemCells,controls)
+function [contrastParams,calculationResults,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,resampledLayers] = reflectivityCalculation(problemStruct,problemCells,controls)
 
 % Main function for the domainsTF reflectivity calculation.
 % This function decides what type of model is being analysed and branches
@@ -29,7 +29,6 @@ numberOfContrasts = problemStruct.numberOfContrasts;
 
 % Pre-allocation - It's necessary to pre-define the types for all the
 % arrays for compilation, so do this in this block.
-backgroundParams = zeros(numberOfContrasts,1);
 qzshifts = zeros(numberOfContrasts,1);
 scalefactors = zeros(numberOfContrasts,1);
 bulkIns = zeros(numberOfContrasts,1);
@@ -41,6 +40,11 @@ subRoughs = zeros(numberOfContrasts,1);
 % Pre-allocate the output arrays.. this is necessary because otherwise the
 % compiler complains with 'Output argument <....> is not assigned on some
 % execution paths' error.
+backgrounds = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    backgrounds{i} = [1 1 1; 1 1 1];
+end
+
 reflectivity = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     reflectivity{i} = [1 1; 1 1];
@@ -53,7 +57,7 @@ end
 
 shiftedData = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    shiftedData{i} = [1 1 1 1 1 1; 1 1 1 1 1 1];
+    shiftedData{i} = [1 1 1; 1 1 1];
 end
 
 layerSlds = cell(numberOfContrasts,2);
@@ -77,30 +81,29 @@ end
 switch lower(type)
     case coderEnums.modelTypes.StandardLayers
 
-        [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
+        [qzshifts,scalefactors,bulkIns,bulkOuts,...
          resolutionParams,chis,reflectivity,simulation,shiftedData,...
-         layerSlds,sldProfiles,resampledLayers,...
+         backgrounds,layerSlds,sldProfiles,resampledLayers,...
          subRoughs] = domainsTF.standardLayers(problemStruct,problemCells,controls);        
 
     case coderEnums.modelTypes.CustomLayers
 
-        [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
+        [qzshifts,scalefactors,bulkIns,bulkOuts,...
          resolutionParams,chis,reflectivity,simulation,shiftedData,...
-         layerSlds,sldProfiles,resampledLayers,...
+         backgrounds,layerSlds,sldProfiles,resampledLayers,...
          subRoughs] = domainsTF.customLayers(problemStruct,problemCells,controls);
 
     case coderEnums.modelTypes.CustomXY
 
-        [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
+        [qzshifts,scalefactors,bulkIns,bulkOuts,...
          resolutionParams,chis,reflectivity,simulation,shiftedData,...
-         layerSlds,sldProfiles,resampledLayers,...
+         backgrounds,layerSlds,sldProfiles,resampledLayers,...
          subRoughs] = domainsTF.customXY(problemStruct,problemCells,controls);
     otherwise
         error('The model type "%s" is not supported', type);
 end
 
 % Package everything into one array for tidy output
-contrastParams.backgroundParams = backgroundParams;
 contrastParams.scalefactors = scalefactors;
 contrastParams.bulkIn = bulkIns;
 contrastParams.bulkOut = bulkOuts;

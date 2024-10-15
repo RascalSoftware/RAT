@@ -1,4 +1,4 @@
-function background = constructBackground(contrastBackgroundParams,shiftedData,customFiles,backgroundParamArray,simulation)
+function background = constructBackground(contrastBackgroundParams,shiftedData,customFiles,backgroundParamArray,simLimits)
 
 % This is a placeholder function to calculate the background function
 % for any function that needs it. Any backgrounds that use a background 
@@ -8,23 +8,43 @@ function background = constructBackground(contrastBackgroundParams,shiftedData,c
 
 
 % Set up background array, which is defined over the simulation range
-lowIndex = find(simulation(:,1) < shiftedData(1,1));
-if ~isempty(lowIndex)
-    lowIndex = lowIndex(end) + 1;
+% lowIndex = find(simulation(:,1) < shiftedData(1,1));
+% if ~isempty(lowIndex)
+%     lowIndex = lowIndex(end) + 1;
+% else
+%     lowIndex = 1;
+% end
+% 
+% highIndex = find(simulation(:,1) > shiftedData(end,1));
+% if  ~isempty(highIndex)
+%     highIndex = highIndex(1) - 1;
+% else
+%     highIndex = length(simulation(:,1));
+% end
+simXLo = simLimits(1);
+simXHi = simLimits(2);
+middleSection = shiftedData(:,1);
+
+if simXLo < middleSection(1)
+    step = (middleSection(2)-middleSection(1));
+    firstSection = simXLo:step:(middleSection(1)-step);
 else
-    lowIndex = 1;
+    firstSection = ones(1,0);
 end
 
-highIndex = find(simulation(:,1) > shiftedData(end,1));
-if  ~isempty(highIndex)
-    highIndex = highIndex(1) - 1;
+if simXHi > middleSection(end)
+    step = (middleSection(end)-middleSection(end-1,1));
+    lastSection = middleSection(end,1)+step:step:simXHi;
 else
-    highIndex = length(simulation(:,1));
+    lastSection = ones(1,0);
 end
 
+simXdata = [firstSection(:) ; middleSection(:) ; lastSection(:)];
+lowIndex = length(firstSection) + 1;
+highIndex = length(firstSection) + length(middleSection);
 
-background = zeros(length(simulation(:,1)),3);
-background(:,1) = simulation(:,1);
+background = zeros(length(simXdata),3);
+background(:,1) = simXdata;
 background(lowIndex:highIndex,2) = shiftedData(:,5);
 background(lowIndex:highIndex,3) = shiftedData(:,6);
 

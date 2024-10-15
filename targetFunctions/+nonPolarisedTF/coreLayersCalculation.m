@@ -104,13 +104,13 @@ end
 
 % Apply scale factors and q shifts to the data
 shiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simLimits);
+background = constructBackground(backgroundParamIndex,shiftedData,customFiles,backgroundParamArray,simLimits);
 
 % Calculate the reflectivity
 reflectivityType = 'standardAbeles';
 [reflect,simulation] = callReflectivity(bulkIn,bulkOut,simLimits,repeatLayers,shiftedData,layerSld,ssubs,resolution,parallelPoints,reflectivityType,useImaginary);
 
 % Apply background correction
-background = constructBackground(backgroundParamIndex,shiftedData,customFiles,backgroundParamArray,simulation);
 [reflect,simulation,shiftedData] = applyBackgroundCorrection(reflect,simulation,shiftedData,backgroundParams,background,contrastBackgroundActions);
 
 % Calculate chi squared.

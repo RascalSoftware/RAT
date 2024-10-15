@@ -1,10 +1,33 @@
-function data = constructBackground(contrastBackgroundParams,data,customFiles,backgroundParamArray)
+function background = constructBackground(contrastBackgroundParams,shiftedData,customFiles,backgroundParamArray,simulation)
 
 % This is a placeholder function to calculate the background function
 % for any function that needs it. Any backgrounds that use a background 
 % function have a -2 flag as the first parameter in backgroundParams. 
 % This function identifies which backgrounds are functions, calculates the
 % background and adds this as the 5th coulmn to the datafile of this contrast.
+
+
+% Set up background array, which is defined over the simulation range
+lowIndex = find(simulation(:,1) < shiftedData(1,1));
+if ~isempty(lowIndex)
+    lowIndex = lowIndex(end) + 1;
+else
+    lowIndex = 1;
+end
+
+highIndex = find(simulation(:,1) > shiftedData(end,1));
+if  ~isempty(highIndex)
+    highIndex = highIndex(1) - 1;
+else
+    highIndex = length(simulation(:,1));
+end
+
+
+background = zeros(length(simulation(:,1)),3);
+background(:,1) = simulation(:,1);
+background(lowIndex:highIndex,2) = shiftedData(:,5);
+background(lowIndex:highIndex,3) = shiftedData(:,6);
+
 
 if contrastBackgroundParams(1) == -2
 
@@ -27,21 +50,21 @@ if contrastBackgroundParams(1) == -2
     % Evaluate the background function with these params...
     % Use a feval for now, but ultimately we will need to do the same
     % as the ususal custom file evaluation...
-    thisBack = data(:,2); % This is the correct type - for compilation
+    thisBack = background(:,2); % This is the correct type - for compilation
 
     if coder.target('MATLAB')
         fileHandle = str2func(funcName);
-        thisBack = fileHandle(data(:,1),paramsArray);
+        thisBack = fileHandle(background(:,1),paramsArray);
     elseif coder.target('MEX')        
         % 'feval' generates an automatic coder.extrinsic call.
-        thisBack = feval(funcName, data(:,1),paramsArray);
+        thisBack = feval(funcName, background(:,1),paramsArray);
     end
 
     % Add this background as column 5 of this data. Note that Matlab
     % will extend with no complaints (with zeros in col 4 if this is absent), 
     % but for Coder we will probably have to have made the data 5 column in
     % parseClassToStructs before calling RATMain...
-    data(:,5) = thisBack;
+    background(:,2) = background(:,2) + thisBack;
 
 else
 
@@ -52,7 +75,7 @@ else
     % NOTE - This parameter is optional for data backgrounds, need to
     % account for this later
     backgroundParameter = backgroundParamArray(contrastBackgroundParams(2));
-    data(:,5) = data(:,5) + backgroundParameter;
+    background(:,2) = background(:,2) + backgroundParameter;
 
 end
 

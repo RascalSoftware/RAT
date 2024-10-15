@@ -54,7 +54,6 @@ roughs(end) = ssubs;
 simXLo = simLimits(1);
 simXHi = simLimits(2);
 middleSection = thisData(:,1);
-split = [0 0];
 
 if simXLo < xdata(1)
     step = (xdata(2)-xdata(1));

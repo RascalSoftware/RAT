@@ -12,6 +12,7 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     %       reflectivity: [nContrastsx1 cell]
     %         simulation: [nContrastsx1 cell]
     %        shiftedData: [nContrastsx1 cell]
+    %        shiftedData: [nContrastsx1 cell]
     %          layerSlds: [nContrastsx1 cell]
     %        sldProfiles: [nContrastsx1 cell]
     %    resampledLayers: [nContrastsx1 cell]
@@ -36,8 +37,6 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     % --------------------------------------------------------------------
     % (2) result.contrastParams
 
-    backgroundParams = zeros(nContrasts,1);
-    coder.varsize('backgroundParams',[maxArraySize 1],[1 0]);
     scalefactors = zeros(nContrasts,1);
     coder.varsize('scalefactors',[maxArraySize 1],[1 0]);
     bulkIn = zeros(nContrasts,1);
@@ -51,8 +50,7 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     resample = zeros(1, nContrasts);
     coder.varsize('resample',[1 maxArraySize],[0 1]);
         
-    contrastParams = struct('backgroundParams', backgroundParams, ...
-                            'scalefactors', scalefactors, ...
+    contrastParams = struct('scalefactors', scalefactors, ...
                             'bulkIn', bulkIn, ...
                             'bulkOut', bulkOut, ...
                             'resolutionParams', resolutionParams, ...
@@ -78,9 +76,16 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     
     shiftedData = cell(nContrasts,1);
     shiftCell = ones(2,3);
-    coder.varsize('shiftCell',[10000 6],[1 1]);
+    coder.varsize('shiftCell',[10000 3],[1 0]);
     for i = 1:nContrasts
         shiftedData{i} = shiftCell;
+    end
+
+    backgrounds = cell(nContrasts,1);
+    backgroundCell = ones(2,3);
+    coder.varsize('backgroundCell',[10000 3],[1 0]);
+    for i = 1:nContrasts
+        backgrounds{i} = backgroundCell;
     end
 
     layerSldCell = ones(2,3);
@@ -142,6 +147,7 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     result = struct('reflectivity', {reflectivity}, ...
                     'simulation', {simulation}, ...
                     'shiftedData', {shiftedData}, ...
+                    'backgrounds', {backgrounds}, ...
                     'layerSlds', {layerSlds}, ...
                     'sldProfiles', {sldProfiles}, ...
                     'resampledLayers', {resampledLayers}, ...

@@ -194,13 +194,12 @@ function [backgroundParamValue,qzshiftValue,scalefactorValue,bulkInValue,...
     sldProfile = {sldProfile1, sldProfile2};
 
     shiftedDat = shiftData(scalefactorValue,qzshiftValue,dataPresent,data,dataLimits,simLimits);
+    background = constructBackground(backgroundParamIndex,shiftedDat,customFiles,backgroundParams,simLimits);
     shiftedData = shiftedDat;
 
     reflectivityType = 'standardAbeles';
     [reflect1,simul1] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedDat,layerSld1,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
     [reflect2,simul2] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedDat,layerSld2,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
-
-    background = constructBackground(backgroundParamIndex,shiftedDat,customFiles,backgroundParams,simul1);
 
     [reflect1,simul1,shiftedDat] = applyBackgroundCorrection(reflect1,simul1,shiftedDat,backgroundParamValue,background,contrastBackgroundActions);
     [reflect2,simul2,shiftedDat] = applyBackgroundCorrection(reflect2,simul2,shiftedDat,backgroundParamValue,background,contrastBackgroundActions);

@@ -40,52 +40,21 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,...
     resolutionParams = zeros(numberOfContrasts,1);
     subRoughs = zeros(numberOfContrasts,1);
     chis = zeros(numberOfContrasts,1);
-    domainLayerSlds = cell(numberOfContrasts,2);
-    domainSldProfiles = cell(numberOfContrasts,2);
+    
+    reflectivity = cell(numberOfContrasts,1);   
+    simulation = cell(numberOfContrasts,1);
     shiftedData = cell(numberOfContrasts,1);
     backgrounds = cell(numberOfContrasts,1);
-    
-    reflectivity = cell(numberOfContrasts,1);
-    for i = 1:numberOfContrasts
-        reflectivity{i} = [1 1; 1 1];
-    end
-    
-    simulation = cell(numberOfContrasts,1);
-    for i = 1:numberOfContrasts
-        simulation{i} = [1 1; 1 1];
-    end
-    
+    domainLayerSlds = cell(numberOfContrasts,2);
+    domainSldProfiles = cell(numberOfContrasts,2);
     domainResampledLayers = cell(numberOfContrasts,2);
-    for i = 1:numberOfContrasts
-        domainResampledLayers{i,1} = [1 1 1; 1 1 1];
-        domainResampledLayers{i,2} = [1 1 1; 1 1 1];
-    end
 
-    domainContrastLayers1 = cell(numberOfContrasts,1);
-    for i = 1:numberOfContrasts
-        domainContrastLayers1{i} = [1; 1];
-    end
-    
-    domainContrastLayers2 = cell(numberOfContrasts,1);
-    for i = 1:numberOfContrasts
-        domainContrastLayers2{i} = [1; 1];
-    end
-    
-    sldProfiles = cell(numberOfContrasts,1);
-    for i = 1:numberOfContrasts
-        sldProfiles{i} = {[1 1; 1 1],[1 1; 1 1]};
-    end
-    
-    resampledLayers = cell(numberOfContrasts,1);
-    for i = 1:numberOfContrasts
-        resampledLayers{i} = {[1 1 1; 1 1 1],[1 1 1; 1 1 1]};
-    end
-    
     layerSlds = cell(numberOfContrasts,1);
-    for i = 1:numberOfContrasts
-        layerSlds{i} = {[1 1 1; 1 1 1],[1 1 1; 1 1 1]};
-    end
-    % end memory allocation.
+    sldProfiles = cell(numberOfContrasts,1);    
+    resampledLayers = cell(numberOfContrasts,1);    
+    
+    domainContrastLayers1 = cell(numberOfContrasts,1);   
+    domainContrastLayers2 = cell(numberOfContrasts,1);
     
     % First we need to allocate the absolute values of the input
     % parameters to all the layers in the layers list. This only needs

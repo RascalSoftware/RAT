@@ -23,13 +23,12 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     
     reflectivityIntervals = cell(nContrasts,1);
     reflectivityIntervalsCell = ones(5,1);
-    coder.varsize('reflectivityIntervalsCell',[5 1e4],[0 1]);
     for i = 1:nContrasts
         reflectivityIntervals{i} = reflectivityIntervalsCell;
     end
+    coder.varsize('reflectivityIntervals{:}',[5 1e4],[0 1]);
 
     sldIntervalsCell = ones(5,1);
-    coder.varsize('sldIntervalsCell',[5 1e4],[0 1]);
     if isDomains
         sldIntervals = cell(nContrasts,2);
         for i = 1:nContrasts
@@ -42,7 +41,30 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
             sldIntervals{i} = sldIntervalsCell;
         end
     end
+    coder.varsize('sldIntervals{:}',[5 1e4],[0 1]);
+    
+    reflectivityXData = cell(nContrasts,1);
+    xDataCell = ones(1,3);
+    for i = 1:nContrasts
+        reflectivityXData{i} = xDataCell;
+    end
+    coder.varsize('reflectivityXData{:}',[1 1e4],[0 1]);
 
+    sldXDataCell = ones(1,3);
+    if isDomains
+        sldXData = cell(nContrasts,2);
+        for i = 1:nContrasts
+            sldXData{i,1} = sldXDataCell;
+            sldXData{i,2} = sldXDataCell;
+        end
+    else
+        sldXData = cell(nContrasts,1);
+        for i = 1:nContrasts
+            sldXData{i} = sldXDataCell;
+        end
+    end
+    coder.varsize('sldXData{:}',[1 1e4],[0 1]);
+    
     sampleChi = zeros(1,1);
     coder.varsize('sampleChi',[1e7 1],[1 0]);
     

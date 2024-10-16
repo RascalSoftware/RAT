@@ -33,34 +33,19 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,...
     bulkIns = zeros(numberOfContrasts,1);
     bulkOuts = zeros(numberOfContrasts,1);
     resolutionParams = zeros(numberOfContrasts,1);
-    subRoughs = zeros(numberOfContrasts,1);
     chis = zeros(numberOfContrasts,1);
-    domainLayerSlds = cell(numberOfContrasts,2);
-    domainSldProfiles = cell(numberOfContrasts,2);
-    shiftedData = cell(numberOfContrasts,1);
-    backgrounds = cell(numberOfContrasts,1);
     
     reflectivity = cell(numberOfContrasts,1);
-    for i = 1:numberOfContrasts
-        reflectivity{i} = [1 1; 1 1];
-    end
-    
     simulation = cell(numberOfContrasts,1);
-    for i = 1:numberOfContrasts
-        simulation{i} = [1 1; 1 1];
-    end
-    
+    shiftedData = cell(numberOfContrasts,1);
+    backgrounds = cell(numberOfContrasts,1);
+    domainLayerSlds = cell(numberOfContrasts,2);
+    domainSldProfiles = cell(numberOfContrasts,2);
     domainResampledLayers = cell(numberOfContrasts,2);
-    for i = 1:numberOfContrasts
-        domainResampledLayers{i,1} = [1 1 1; 1 1 1];
-        domainResampledLayers{i,2} = [1 1 1; 1 1 1];
-    end
-
-    calcAllLayers = cell(numberOfContrasts,2);
-    for i = 1:numberOfContrasts
-        calcAllLayers{i,1} = [1; 1];
-        calcAllLayers{i,2} = [1; 1];
-    end
+    
+    layerSlds = cell(numberOfContrasts,1);
+    sldProfiles = cell(numberOfContrasts,1);
+    resampledLayers = cell(numberOfContrasts,1);
     
     calcAllLayers1 = cell(numberOfContrasts,1);
     for i = 1:numberOfContrasts
@@ -72,21 +57,6 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,...
         calcAllLayers2{i} = [1; 1];
     end
 
-    sldProfiles = cell(numberOfContrasts,1);
-    for i = 1:numberOfContrasts
-        sldProfiles{i} = {[1 1; 1 1],[1 1; 1 1]};
-    end
-        
-    resampledLayers = cell(numberOfContrasts,1);
-    for i = 1:numberOfContrasts
-        resampledLayers{i} = {[1 1 1; 1 1 1],[1 1 1; 1 1 1]};
-    end
-    
-    layerSlds = cell(numberOfContrasts,1);
-    for i = 1:numberOfContrasts
-        layerSlds{i} = {[1 1 1; 1 1 1],[1 1 1; 1 1 1]};
-    end
-    
     % Process the custom models....
     [calcAllLayers,subRoughs] = domainsTF.customLayers.processCustomFunction(contrastBulkInIndices,contrastBulkOutIndices,...
         bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);

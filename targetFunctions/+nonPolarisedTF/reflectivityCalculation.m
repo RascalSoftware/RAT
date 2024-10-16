@@ -25,55 +25,6 @@ function [contrastParams,calculationResults,reflectivity,simulation,shiftedData,
 
 % Find out the model type from the input structs
 type = problemStruct.modelType;
-numberOfContrasts = problemStruct.numberOfContrasts;
-
-% Pre-allocation - It's necessary to pre-define the types for all the
-% arrays for compilation, so do this in this block.
-qzshifts = zeros(numberOfContrasts,1);
-scalefactors = zeros(numberOfContrasts,1);
-bulkIns = zeros(numberOfContrasts,1);
-bulkOuts = zeros(numberOfContrasts,1);
-chis = zeros(numberOfContrasts,1);
-resolutionParams = zeros(numberOfContrasts,1);
-subRoughs = zeros(numberOfContrasts,1);
-
-% Pre-allocate the output arrays. This is necessary because otherwise the
-% compiler complains with 'Output argument <....> is not assigned on some
-% execution paths' error.
-backgrounds = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    backgrounds{i} = [1 1 1; 1 1 1];
-end
-
-reflectivity = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    reflectivity{i} = [1 1; 1 1];
-end
-
-simulation = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    simulation{i} = [1 1; 1 1];
-end
-
-shiftedData = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    shiftedData{i} = [1 1 1; 1 1 1];
-end
-
-layerSlds = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    layerSlds{i} = [1 1 1; 1 1 1];
-end
-
-sldProfiles = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    sldProfiles{i} = [1 1; 1 1];
-end
-
-resampledLayers = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    resampledLayers{i} = [1 1 1; 1 1 1];
-end
            
 switch lower(type)
     case coderEnums.modelTypes.StandardLayers

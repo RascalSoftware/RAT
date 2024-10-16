@@ -13,6 +13,7 @@ bayesResults = makeEmptyBayesResultsStruct(problemStruct.numberOfContrasts, doma
 % Decide what we are doing....
 switch controls.procedure
     case coderEnums.procedures.Calculate % Just a single reflectivity calculation
+        controls.calcSldDuringFit = true;
         result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
     case coderEnums.procedures.Simplex
         if ~strcmpi(controls.display, coderEnums.displayOptions.Off)

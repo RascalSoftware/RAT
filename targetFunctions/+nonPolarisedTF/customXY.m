@@ -28,31 +28,14 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,...
     bulkIns = zeros(numberOfContrasts,1);
     bulkOuts = zeros(numberOfContrasts,1);
     resolutionParams = zeros(numberOfContrasts,1);
-    subRoughs = zeros(numberOfContrasts,1);
     chis = zeros(numberOfContrasts,1);
-    layerSlds = cell(numberOfContrasts,1);
+   
+    reflectivity = cell(numberOfContrasts,1);    
+    simulation = cell(numberOfContrasts,1);
     shiftedData = cell(numberOfContrasts,1);
     backgrounds = cell(numberOfContrasts,1);
-    
-    reflectivity = cell(numberOfContrasts,1);
-    for i = 1:numberOfContrasts
-        reflectivity{i} = [1 1; 1 1];
-    end
-    
-    simulation = cell(numberOfContrasts,1);
-    for i = 1:numberOfContrasts
-        simulation{i} = [1 1; 1 1];
-    end
-    
+    layerSlds = cell(numberOfContrasts,1);
     resampledLayers = cell(numberOfContrasts,1);
-    for i = 1:numberOfContrasts
-        resampledLayers{i} = [1; 1];
-    end
-    
-    sldProfiles = cell(numberOfContrasts,1);
-    for i = 1:numberOfContrasts
-        sldProfiles{i} = [1; 1];
-    end
 
     % Process the custom models
     [sldProfiles,subRoughs] = nonPolarisedTF.customXY.processCustomFunction(contrastBulkInIndices,contrastBulkOutIndices,...

@@ -11,7 +11,7 @@ function [problemStruct,problemCells,problemLimits,priors,controls] = parseClass
 %
 % {2} - inputProblem.contrastData
 %       {1 x nContrasts} array of cells
-%       Each cell is {Inf x 3 double}
+%       Each cell is {Inf x 6 double}
 %
 % {3} - inputProblem.dataLimits
 %       {1 x nContrasts} array of cells

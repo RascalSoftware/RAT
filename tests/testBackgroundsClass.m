@@ -50,19 +50,6 @@
          testCase.verifySize(testBackground.backgrounds.varTable, [1, 7], 'backgrounds has wrong dimension');
       end
 
-      function testShowPrior(testCase)
-         % Tests showPrior property
-         testCase.verifyFalse(testCase.background.showPriors);
-         testCase.verifyFalse(testCase.background.backgroundParams.showPriors);
-         testCase.background.showPriors = true;
-         testCase.verifyTrue(testCase.background.showPriors);
-         testCase.verifyTrue(testCase.background.backgroundParams.showPriors);
-         testCase.verifyError(@setShowPriors, exceptions.invalidType.errorID);  % showPrior should be logical 
-         function setShowPriors
-               testCase.background.showPriors = 'a';
-         end
-      end
-
       function testGetNames(testCase)
          % Tests getNames returns correctly
          names = testCase.background.getNames();
@@ -193,8 +180,7 @@
          testCase.verifyEqual(row, string({1, testCase.backgrounds{1, :}}), 'displayBackgroundsObject method not working')
 
          paramHeader = {'p', 'Name', 'Min', 'Value', 'Max', 'Fit?', 'Prior Type', 'mu', 'sigma'};
-         testCase.background.showPriors = true;
-         display = evalc('testCase.background.displayBackgroundsObject()');
+         display = evalc('testCase.background.displayBackgroundsObject(true)');
          display = split(display, ["(a)", "(b)"]); 
          displayArray = textscan(display{2},'%s','Delimiter','\r','TextType','string');
          displayArray = strip(displayArray{1});

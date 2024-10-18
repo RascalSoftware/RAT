@@ -159,29 +159,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             if ~islogical(showFlag)
                 throw(exceptions.invalidType('usePriors must be logical ''true'' or ''false'''));
             end
-            obj.usePriors = showFlag;
-            
-            % Also need to set the flag in sub-objects
-            % where relevant..
-            % (1) Parameters
-            % replace with showFlag
-            obj.parameters.showPriors = showFlag;
-            
-            % (2) Bulk In
-            obj.bulkIn.showPriors = showFlag;
-            
-            % (3) Bulk out
-            obj.bulkOut.showPriors = showFlag;
-            
-            % (4) Scalefactors
-            obj.scalefactors.showPriors = showFlag;
-            
-            % (5) Backgrounds (parameters table)
-            obj.background.backgroundParams.showPriors = showFlag;
-            
-            % (6) Resolutions (parameters table)
-            obj.resolution.resolutionParams.showPriors = showFlag;
-            
+            obj.usePriors = showFlag;  
         end
         
         function obj = setGeometry(obj, geometry)
@@ -991,33 +969,33 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Display the parameters table
             fprintf('\n    Parameters: ---------------------------------------------------------------------------------------------- \n\n');
-            obj.parameters.displayTable;
+            obj.parameters.displayTable(obj.usePriors);
                         
             % Display the Bulk In table
             fprintf('\n    Bulk In: -------------------------------------------------------------------------------------------------- \n\n');
-            obj.bulkIn.displayTable;
+            obj.bulkIn.displayTable(obj.usePriors);
             
             % Display the Bulk Out table
             fprintf('\n    Bulk Out: ------------------------------------------------------------------------------------------------- \n\n');
-            obj.bulkOut.displayTable;
+            obj.bulkOut.displayTable(obj.usePriors);
             
             % Display the Scalefactors table
             fprintf('\n    Scalefactors: ------------------------------------------------------------------------------------------------- \n\n');
-            obj.scalefactors.displayTable;
+            obj.scalefactors.displayTable(obj.usePriors);
 
             % Display the domain ratio if defined
             if isprop(obj, 'domainRatio') && isa(obj.domainRatio, 'parametersClass')
                 fprintf('\n   Domain Ratios: ----------------------------------------------------------------------------------------------- \n\n');
-                obj.domainRatio.displayTable;
+                obj.domainRatio.displayTable(obj.usePriors);
             end
 
             % Display the backgrounds object
             fprintf('\n    Backgrounds: ----------------------------------------------------------------------------------------------- \n\n');
-            obj.background.displayBackgroundsObject;
+            obj.background.displayBackgroundsObject(obj.usePriors);
             
             % Display the resolutions object
             fprintf('\n    Resolutions: --------------------------------------------------------------------------------------------- \n\n');
-            obj.resolution.displayResolutionsObject;
+            obj.resolution.displayResolutionsObject(obj.usePriors);
 
             % Display the layers table if not a custom model
             if isa(obj.layers, 'layersClass')

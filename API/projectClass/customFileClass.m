@@ -159,11 +159,11 @@ classdef customFileClass < tableUtilities
 
             % Make an 'inputParser' object...
             p = inputParser;
-            addParameter(p, 'name', obj.varTable{row, 1}{:}, @(x) isText(x))
-            addParameter(p, 'filename', obj.varTable{row, 2}{:}, @(x) isText(x))
-            addParameter(p, 'functionName', obj.varTable{row, 3}{:}, @(x) isText(x))
+            addParameter(p, 'name', obj.varTable{row, 1}{:}, @isText)
+            addParameter(p, 'filename', obj.varTable{row, 2}{:}, @isText)
+            addParameter(p, 'functionName', obj.varTable{row, 3}{:}, @isText)
             addParameter(p, 'language', obj.varTable{row, 4}{:}, @(x) isText(x) || isenum(x))
-            addParameter(p, 'path', obj.varTable{row, 5}{:}, @(x) isText(x)) 
+            addParameter(p, 'path', obj.varTable{row, 5}{:}, @isText) 
             parse(p, varargin{:});
                 
             results = p.Results;

@@ -113,7 +113,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyError(@() params.removeParameter(true), exceptions.invalidType.errorID);
         end
 
-        function testSetParams(testCase)
+        function testSetParameter(testCase)
             params = parametersClass(testCase.parameters{1, :});
             params.varTable = [params.varTable; vertcat(testCase.parameters(2:end, :))];
             % Checks that parameter can be modified
@@ -123,6 +123,12 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyEqual(params.varTable{1, 1}, "Heads", 'setParameter method not working');
             params.setParameter('Tails Roughness', 'name', 'Tails?', 'min', 1, 'value', 1, 'max', 1, 'fit', false);
             testCase.verifyEqual(params.varTable{3, 1:5}, ["Tails?", 1, 1, 1, false], 'setParameter method not working');
+            params.setParameter(1, 'min', 5, 'max', 25);
+            testCase.verifyEqual(params.varTable{1, 2}, 5, 'setParameter method not working');
+            testCase.verifyEqual(params.varTable{1, 4}, 25, 'setParameter method not working');
+            params.setParameter(1, 'min', 30, 'value', 40, 'max', 50);
+            testCase.verifyEqual(params.varTable{1, 2:4}, [30. 40, 50], 'setParameter method not working');
+            params.setParameter(1, 'min', 10, 'value', 20, 'max', 30);
             testCase.verifyError(@() params.setParameter(1, 'min', 30), exceptions.invalidValue.errorID);  % lower limit should be less than upper
             testCase.verifyError(@() params.setParameter(1, 'max', 0), exceptions.invalidValue.errorID);  % lower limit should be less than upper
             testCase.verifyError(@() params.setParameter(1, 'value', 0), exceptions.invalidValue.errorID);  % value outside of limits - too low
@@ -158,11 +164,16 @@ classdef testParametersClass < matlab.unittest.TestCase
             % Checks that parameter priors can be modified
             testCase.verifyError(@() params.setPrior(1, '2'), exceptions.invalidOption.errorID);
             params.setPrior(1, priorTypes.Gaussian, 1, 2);
-            testCase.verifyEqual(params.varTable{1, 6:8}, [string(priorTypes.Gaussian.value), 1, 2], 'setParameter method not working');
-            params.setPrior('Heads', priorTypes.Uniform);
-            testCase.verifyEqual(params.varTable{1, 6:8}, [string(priorTypes.Uniform.value), 0, Inf], 'setParameter method not working');
+            testCase.verifyEqual(params.varTable{1, 6:8}, [string(priorTypes.Gaussian.value), 1, 2], 'setPrior method not working');
+            % setPriors changes mu and sigma from [1, 2] to [0, Inf] and throws warning
+            testCase.verifyWarning(@() params.setPrior('Heads', priorTypes.Uniform), '');
+            testCase.verifyEqual(params.varTable{1, 6:8}, [string(priorTypes.Uniform.value), 0, Inf], 'setPrior method not working');
             params.setPrior('Heads', priorTypes.Jeffreys);
             % testCase.verifyEqual(params.varTable{1, 6}, string(priorTypes.Jeffreys.value), 'setParameter method not working');
+            testCase.verifyError(@() params.setPrior(), exceptions.invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() params.setPrior(1, 2, 3, 4, 5), exceptions.invalidNumberOfInputs.errorID);
+            params.setPrior(3, 'gaussian', 2);
+            testCase.verifyEqual(params.varTable{3, 6:8}, [string(priorTypes.Gaussian.value), 2, Inf], 'setPrior method not working');
         end
 
         function testDisplayTable(testCase)
@@ -189,16 +200,8 @@ classdef testParametersClass < matlab.unittest.TestCase
             row = string(replace(row, '"', ''));
             testCase.verifyLength(row, 6)
             testCase.verifyEqual(row(2:end), string(testCase.parameters(1, 1:5)))
-                   
-            % Change showPrior to show the full table
-            params.varTable = [params.varTable; vertcat(testCase.parameters(2:3, :))];
-            testCase.verifyError(@setShowPriors, exceptions.invalidType.errorID);  % showPrior should be logical 
-            function setShowPriors
-                params.showPriors = 'a';
-            end
-            params.showPriors = true;
 
-            display = evalc('params.displayTable()');
+            display = evalc('params.displayTable(true)');
             displayArray = textscan(display,'%s','Delimiter','\r','TextType','string');
             displayArray = strip(displayArray{1});
             testCase.verifyLength(displayArray, height(params.varTable) + 2)
@@ -216,6 +219,34 @@ classdef testParametersClass < matlab.unittest.TestCase
             end
         end
 
+        function testDisplayTableEmpty(testCase)
+            % Check that the empty parameter table is printed correctly
+            emptyClass = parametersClass();
+            emptyClass.removeParameter(1);
+
+            % Capture the standard output and format into string array -
+            % one element for each row of the output
+            display = textscan(evalc('emptyClass.displayTable(true)'),'%s','Delimiter','\r','TextType','string');
+            displayedTable = display{:};
+
+            outVars = eraseBetween(strip(regexprep(displayedTable(1), '\s+', ' ')), '<', '>','Boundaries','inclusive');
+            varString = strip(strjoin(string(emptyClass.varTable.Properties.VariableNames)));
+            testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
+            testCase.assertSize(displayedTable, [3, 1], 'Table does not have the right number of rows');
+
+            outRow = strip(regexprep(displayedTable(3), '\s+', ' '));
+            rowString = """"" """" """" """" """" """" """" """"";
+            testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
+
+            % Capture the standard output and format into string array -
+            % one element for each row of the output
+            display = textscan(evalc('emptyClass.displayTable(false)'),'%s','Delimiter','\r','TextType','string');
+            displayedTable = display{:};
+            outRow = strip(regexprep(displayedTable(3), '\s+', ' '));
+            rowString = """"" """" """" """" """"";
+            testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
+        end
+        
         function testToStruct(testCase)
             % Checks that class to struct works correctly
             params = parametersClass(testCase.parameters{1, :});

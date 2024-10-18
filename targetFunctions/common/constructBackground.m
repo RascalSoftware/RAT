@@ -4,35 +4,14 @@ function background = constructBackground(contrastBackgroundParams,shiftedData,c
 % for any function that needs it. Any backgrounds that use a background 
 % function have a -2 flag as the first parameter in backgroundParams. 
 % This function identifies which backgrounds are functions, calculates the
-% background and adds this as the 5th coulmn to the datafile of this contrast.
+% background and adds this as the 5th column to the datafile of this contrast.
 
-simXLo = simLimits(1);
-simXHi = simLimits(2);
-middleSection = shiftedData(:,1);
+[simulationXData, dataIndices] = makeSimulationRange(shiftedData, simLimits);
 
-if simXLo < middleSection(1)
-    step = (middleSection(2)-middleSection(1));
-    firstSection = simXLo:step:(middleSection(1)-step);
-else
-    firstSection = ones(1,0);
-end
-
-if simXHi > middleSection(end)
-    step = (middleSection(end)-middleSection(end-1,1));
-    lastSection = middleSection(end,1)+step:step:simXHi;
-else
-    lastSection = ones(1,0);
-end
-
-simXdata = [firstSection(:) ; middleSection(:) ; lastSection(:)];
-lowIndex = length(firstSection) + 1;
-highIndex = length(firstSection) + length(middleSection);
-
-background = zeros(length(simXdata),3);
-background(:,1) = simXdata;
-background(lowIndex:highIndex,2) = shiftedData(:,5);
-background(lowIndex:highIndex,3) = shiftedData(:,6);
-
+background = zeros(length(simulationXData),3);
+background(:,1) = simulationXData;
+background(dataIndices(1):dataIndices(2),2) = shiftedData(:,5);
+background(dataIndices(1):dataIndices(2),3) = shiftedData(:,6);
 
 if contrastBackgroundParams(1) == -2
 

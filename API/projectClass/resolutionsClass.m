@@ -17,10 +17,6 @@ classdef resolutionsClass < handle
        resolutionParams 
        resolutions
     end
-
-    properties(Dependent)
-       showPriors
-    end
     
     properties(Access = private, Constant, Hidden)
         invalidTypeMessage = sprintf('Allowed type must be a allowedTypes enum or one of the following strings (%s)', ...
@@ -41,14 +37,6 @@ classdef resolutionsClass < handle
             obj.resolutions = multiTypeTable();
             obj.resolutions.typesAutoNameString = 'New Resolution';
             obj.addResolution(startResolution{:});
-        end
-        
-        function flag = get.showPriors(obj)
-            flag = obj.resolutionParams.showPriors;
-        end
-        
-        function set.showPriors(obj, value)
-            obj.resolutionParams.showPriors = value;
         end
         
         function names = getNames(obj)
@@ -204,10 +192,17 @@ classdef resolutionsClass < handle
             resolutionStruct.resolutionValues = resolutionValues;  
          end
         
-        function displayResolutionsObject(obj)
+        function displayResolutionsObject(obj, showPriors)
             % Displays the resolution parameters and resolution table.
+            % Optional showPriors to display the priors default is false
+            %
+            % resolution.displayResolutionsObject(true);
+            arguments
+                obj
+                showPriors {logical} = false
+            end
             fprintf('    (a) Resolutions Parameters: \n\n');
-            obj.resolutionParams.displayTable;
+            obj.resolutionParams.displayTable(showPriors);
             
             fprintf('    (b) Resolutions:  \n\n')
             obj.resolutions.displayTable;

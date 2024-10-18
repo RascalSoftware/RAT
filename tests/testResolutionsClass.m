@@ -46,19 +46,6 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             testCase.verifySize(testResolution.resolutions.varTable, [1, 7], 'Resolutions has wrong dimension');
         end
         
-        function testShowPrior(testCase)
-            % Tests showPrior property
-            testCase.verifyFalse(testCase.resolution.showPriors);
-            testCase.verifyFalse(testCase.resolution.resolutionParams.showPriors);
-            testCase.resolution.showPriors = true;
-            testCase.verifyTrue(testCase.resolution.showPriors);
-            testCase.verifyTrue(testCase.resolution.resolutionParams.showPriors);
-            testCase.verifyError(@setShowPriors, exceptions.invalidType.errorID);  % showPrior should be logical 
-            function setShowPriors
-                testCase.resolution.showPriors = 'a';
-            end
-        end
-        
         function testGetNames(testCase)
             % Tests getNames returns correctly
             names = testCase.resolution.getNames();
@@ -189,8 +176,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             testCase.verifyEqual(row, string({1, testCase.resolutions{1, :}}), 'displayResolutionsObject method not working')
 
             paramHeader = {'p', 'Name', 'Min', 'Value', 'Max', 'Fit?', 'Prior Type', 'mu', 'sigma'};
-            testCase.resolution.showPriors = true;
-            display = evalc('testCase.resolution.displayResolutionsObject()');
+            display = evalc('testCase.resolution.displayResolutionsObject(true)');
             display = split(display, ["(a)", "(b)"]); 
             displayArray = textscan(display{2},'%s','Delimiter','\r','TextType','string');
             displayArray = strip(displayArray{1});

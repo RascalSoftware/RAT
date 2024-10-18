@@ -191,21 +191,8 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyFalse(testCase.project.usePriors, 'Use priors not set correctly');
             testCase.project.setUsePriors(true);
             testCase.verifyTrue(testCase.project.usePriors, 'Use priors not set correctly');
-            % Changing usePriors also changes the showPriors value of the parameters
-            testCase.verifyTrue(testCase.project.parameters.showPriors, 'Parameter show priors not set correctly');
-            testCase.verifyTrue(testCase.project.bulkIn.showPriors, 'Parameter show priors not set correctly');
-            testCase.verifyTrue(testCase.project.bulkOut.showPriors, 'Parameter show priors not set correctly');
-            testCase.verifyTrue(testCase.project.scalefactors.showPriors, 'Parameter show priors not set correctly');
-            testCase.verifyTrue(testCase.project.background.backgroundParams.showPriors, 'Parameter show priors not set correctly');
-            testCase.verifyTrue(testCase.project.resolution.resolutionParams.showPriors, 'Parameter show priors not set correctly');
             testCase.project.setUsePriors(false);
             testCase.verifyFalse(testCase.project.usePriors, 'Use Priors type not set correctly');
-            testCase.verifyFalse(testCase.project.parameters.showPriors, 'Parameter show priors not set correctly');
-            testCase.verifyFalse(testCase.project.bulkIn.showPriors, 'Parameter show priors not set correctly');
-            testCase.verifyFalse(testCase.project.bulkOut.showPriors, 'Parameter show priors not set correctly');
-            testCase.verifyFalse(testCase.project.scalefactors.showPriors, 'Parameter show priors not set correctly');
-            testCase.verifyFalse(testCase.project.background.backgroundParams.showPriors, 'Parameter show priors not set correctly');
-            testCase.verifyFalse(testCase.project.resolution.resolutionParams.showPriors, 'Parameter show priors not set correctly');
             % Test bad inputs 
             testCase.verifyError(@() testCase.project.setUsePriors('anything'), exceptions.invalidType.errorID);
             testCase.verifyError(@() testCase.project.setUsePriors(1), exceptions.invalidType.errorID);

@@ -21,10 +21,6 @@ classdef backgroundsClass < handle
        backgrounds
     end
 
-    properties(Dependent)
-       showPriors
-    end
-
     properties(Access = private, Constant, Hidden)
         invalidTypeMessage = sprintf('Allowed type must be a allowedTypes enum or one of the following strings (%s)', ...
                                      strjoin(allowedTypes.values(), ', '))
@@ -44,14 +40,6 @@ classdef backgroundsClass < handle
             obj.backgrounds = multiTypeTable();
             obj.backgrounds.typesAutoNameString = 'New background';
             obj.addBackground(startBackground{:});
-        end
-
-        function flag = get.showPriors(obj)
-            flag = obj.backgroundParams.showPriors;
-        end
-        
-        function set.showPriors(obj, value)
-            obj.backgroundParams.showPriors = value;
         end
         
         function names = getNames(obj)
@@ -188,10 +176,17 @@ classdef backgroundsClass < handle
             obj.backgrounds.setValue(row, 'name', name);
         end
 
-        function displayBackgroundsObject(obj)
-            % Displays the background parameters and background table.
+        function displayBackgroundsObject(obj, showPriors)
+            % Displays the background parameters and background table. 
+            % Optional showPriors to display the priors default is false
+            %
+            % background.displayBackgroundsObject(true);
+            arguments
+                obj
+                showPriors {logical} = false
+            end
             fprintf('    (a) Background Parameters: \n\n');
-            obj.backgroundParams.displayTable;
+            obj.backgroundParams.displayTable(showPriors);
             
             fprintf('    (b) Backgrounds:  \n\n')
             obj.backgrounds.displayTable;

@@ -18,7 +18,7 @@ paramGroup = {
               {'cw SLD',                0,      0,          1e-09,  false,  'uniform',      0,  Inf};
               {'SAM head thick',        5,      8.56,       17,     true,   'gaussian',    10,    2};
               {'SAM head SLD',          1e-07,  1.75e-06,   2e-06,  false,  'uniform',      0,  Inf};
-              {'SAM head hydration',    10,     45.45,      50,     true,   'uniform',     30,    3};
+              {'SAM head hydration',    10,     45.45,      50,     true,   'uniform',      0,  Inf};
               {'Bilayer head thick',    7,      10.70,      17,     true,   'gaussian',    10,    2};
               {'Bilayer head SLD',      5e-07,  1.47e-06, 1.5e-06,  false,  'uniform',      0,  Inf};
               {'Bilayer rough',         2,      6.014,      15,     true,   'uniform',      0,  Inf};

@@ -116,7 +116,7 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
             sldProfiles{i} = sldProfileCell;
         end
     end
-    coder.varsize('sldProfiles{:}',[10000 2],[1 0]);
+    coder.varsize('sldProfiles{:}',[10000 3],[1 1]);
 
     resampledLayersCell = ones(2,3);
     if domains
@@ -131,7 +131,7 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
             resampledLayers{i} = resampledLayersCell;
         end
     end
-    coder.varsize('resampledLayers{:}',[10000 3],[1 0]);
+    coder.varsize('resampledLayers{:}',[10000 4],[1 1]);
     
     fitParams = zeros(nParams,1);
     coder.varsize('fitParams',[maxArraySize 1],[1 0]);

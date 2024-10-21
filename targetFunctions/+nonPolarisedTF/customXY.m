@@ -111,17 +111,16 @@ function [qzshiftValue,scalefactorValue,bulkInValue,...
     
     resampledLayer = layerSld;
 
-    shiftedDat = shiftData(scalefactorValue,qzshiftValue,dataPresent,data,dataLimits,simLimits);
-    background = constructBackground(backgroundParamIndex,shiftedDat,customFiles,backgroundParams,simLimits);
-    shiftedData = shiftedDat;
+    shiftedData = shiftData(scalefactorValue,qzshiftValue,dataPresent,data,dataLimits,simLimits);
+    background = constructBackground(backgroundParamIndex,shiftedData,customFiles,backgroundParams,simLimits);
 
     reflectivityType = 'standardAbeles';
-    [reflect,simul] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedDat,layerSld,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
+    [reflect,simul] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedData,layerSld,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
 
-    [reflectivity,simulation,shiftedDat] = applyBackgroundCorrection(reflect,simul,shiftedDat,background,contrastBackgroundActions);
+    [reflectivity,simulation,shiftedData] = applyBackgroundCorrection(reflect,simul,shiftedData,background,contrastBackgroundActions);
     
     if dataPresent
-        chi = chiSquared(shiftedDat,reflectivity,nParams);
+        chi = chiSquared(shiftedData,reflectivity,nParams);
     else
         chi = 0;
     end

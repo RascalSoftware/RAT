@@ -35,14 +35,6 @@ switch whichTF
         error('The calculation type "%s" is not supported', whichTF);
 end
 
-coder.varsize('reflectivity{:}',[10000 2],[1 0]);
-coder.varsize('simulation{:}',[10000 2],[1 0]);
-coder.varsize('fullShiftedData{:}',[10000 6],[1 0]);
-coder.varsize('backgrounds{:}',[10000 3],[1 0]);
-coder.varsize('layerSlds{:}',[10000 6],[1 1]);
-coder.varsize('sldProfiles{:}',[10000 2],[1 0]);
-coder.varsize('resampledLayers{:}',[10000 3],[1 0]);
-
 % Reduce data to original three columns
 for i = 1:length(shiftedData)
     shiftedData{i} = fullShiftedData{i}(:,1:3);

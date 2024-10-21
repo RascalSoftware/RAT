@@ -164,22 +164,21 @@ function [qzshiftValue,scalefactorValue,bulkInValue,...
     resampledLayer = {layerSld1, layerSld2};
     sldProfile = {sldProfile1, sldProfile2};
 
-    shiftedDat = shiftData(scalefactorValue,qzshiftValue,dataPresent,data,dataLimits,simLimits);
-    background = constructBackground(backgroundParamIndex,shiftedDat,customFiles,backgroundParams,simLimits);
-    shiftedData = shiftedDat;
+    shiftedData = shiftData(scalefactorValue,qzshiftValue,dataPresent,data,dataLimits,simLimits);
+    background = constructBackground(backgroundParamIndex,shiftedData,customFiles,backgroundParams,simLimits);
 
     reflectivityType = 'standardAbeles';
-    [reflect1,simul1] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedDat,layerSld1,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
-    [reflect2,simul2] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedDat,layerSld2,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
+    [reflect1,simul1] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedData,layerSld1,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
+    [reflect2,simul2] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedData,layerSld2,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
 
-    [reflect1,simul1,shiftedDat] = applyBackgroundCorrection(reflect1,simul1,shiftedDat,background,contrastBackgroundActions);
-    [reflect2,simul2,shiftedDat] = applyBackgroundCorrection(reflect2,simul2,shiftedDat,background,contrastBackgroundActions);
+    [reflect1,simul1,shiftedData] = applyBackgroundCorrection(reflect1,simul1,shiftedData,background,contrastBackgroundActions);
+    [reflect2,simul2,shiftedData] = applyBackgroundCorrection(reflect2,simul2,shiftedData,background,contrastBackgroundActions);
 
      % Calculate the average reflectivities....
     [reflectivity,simulation] = domainsTF.averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio);
 
     if dataPresent
-        chi = chiSquared(shiftedDat,reflectivity,nParams);
+        chi = chiSquared(shiftedData,reflectivity,nParams);
     else
         chi = 0;
     end

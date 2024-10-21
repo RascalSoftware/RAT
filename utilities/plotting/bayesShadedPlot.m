@@ -20,9 +20,9 @@ if ~isempty(varargin)
     allIntervals = [65 95];
     
     p = inputParser;
-    addOptional(p,  'q4',           defaultq4,          @(x) islogical(x));
+    addOptional(p,  'q4',           defaultq4,          @islogical);
     addOptional(p,  'fit',          defaultFit,         @(x) any(strcmpi(x,{'mean','average','all'})));
-    addOptional(p,  'KeepAxes',     defaultKeep,        @(x) islogical(x));
+    addOptional(p,  'KeepAxes',     defaultKeep,        @islogical);
     addOptional(p,  'interval',     defaultInterval,    @(x) ismember(x,allIntervals));
     
     parse(p,varargin{:});

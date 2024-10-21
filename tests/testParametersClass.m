@@ -133,6 +133,19 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyError(@() params.setParameter(1, 'max', 0), exceptions.invalidValue.errorID);  % lower limit should be less than upper
             testCase.verifyError(@() params.setParameter(1, 'value', 0), exceptions.invalidValue.errorID);  % value outside of limits - too low
             testCase.verifyError(@() params.setParameter(1, 'value', 50), exceptions.invalidValue.errorID);  % value outside of limits - too high
+            params.setParameter('Tails?', 'priorType', priorTypes.Gaussian);
+            testCase.verifyEqual(params.varTable{3, 6:8}, [string(priorTypes.Gaussian.value), 0, Inf], 'setParameter method not working');
+            params.setParameter('Tails?', 'mu', 1, 'sigma', 5);
+            testCase.verifyEqual(params.varTable{3, 6:8}, [string(priorTypes.Gaussian.value), 1, 5], 'setParameter method not working');
+            testCase.verifyWarning(@() params.setParameter('Tails?', 'priorType', priorTypes.Uniform.value), '');
+            testCase.verifyEqual(params.varTable{3, 6:8}, [string(priorTypes.Uniform.value), 0, inf], 'setParameter method not working');
+            testCase.verifyWarning(@() params.setParameter('Tails?', 'sigma', 6), '');
+            testCase.verifyEqual(params.varTable{3, 6:8}, [string(priorTypes.Uniform.value), 0, inf], 'setParameter method not working');
+        end
+
+        function testOtherSetFunctions(testCase)
+            params = parametersClass(testCase.parameters{1, :});
+            params.varTable = [params.varTable; vertcat(testCase.parameters(2:end, :))];          
             % Checks that parameter name can be modified
             testCase.verifyError(@() params.setName(1, 2), exceptions.invalidType.errorID);
             params.setName(1, 'Tails');

@@ -4,7 +4,7 @@
 problem = createProject(name='original_dspc_bilayer', calcType='non polarised', model='standard layers', geometry='substrate/liquid', absorption=false);
 
 % Make priors visible..
-problem.setUsePriors(true);
+problem.showPriors = true;
 
 % Set up the relevant parameters
 paramGroup = {

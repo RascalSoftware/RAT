@@ -159,7 +159,10 @@ classdef parametersClass < tableUtilities
             addParameter(p, 'value', obj.varTable{row, 3}, @isnumeric);
             addParameter(p, 'max', obj.varTable{row, 4}, @isnumeric);
             addParameter(p, 'fit', obj.varTable{row, 5}, @islogical);
-            
+            addParameter(p, 'priorType', obj.varTable{row, 6}{:}, @(x) isText(x) || isenum(x));
+            addParameter(p, 'mu', obj.varTable{row, 7}, @isnumeric);
+            addParameter(p, 'sigma', obj.varTable{row, 8}, @isnumeric);
+
             parse(p, varargin{:});
             inputs = p.Results;
 
@@ -169,7 +172,8 @@ classdef parametersClass < tableUtilities
             obj.varTable{row, 2} = inputs.min;
             obj.varTable{row, 3} = inputs.value;
             obj.varTable{row, 4} = inputs.max;
-            obj.setFit(row, inputs.fit); 
+            obj.setFit(row, inputs.fit);
+            obj.setPrior(row, inputs.priorType, inputs.mu, inputs.sigma);
         end
         
         function obj = setPrior(obj, row, varargin)

@@ -10,7 +10,7 @@ function h = plotHists(results,f,varargin)
     defaultSmooth = true;
     if ~isempty(varargin)
         p = inputParser;
-        addOptional(p,  'smooth',       defaultSmooth,      @(x) islogical(x));     % Use smoothing
+        addOptional(p,  'smooth',       defaultSmooth,      @islogical);     % Use smoothing
     
         parse(p,varargin{:});
         inputBlock = p.Results;

@@ -9,7 +9,7 @@
 
 problem = createProject(name='Orso lipid example - custom layers', model='custom layers');
 problem.setGeometry('Substrate/liquid');
-problem.setUsePriors(true);
+problem.showPriors = true;
 %% 
 % 
 % 

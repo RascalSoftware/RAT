@@ -128,7 +128,7 @@ classdef dataClass < tableUtilities
             % Data needs to be an [n x >3] array
             isDimsData = @(x) size(x,2) >= 3;
 
-            addParameter(p,'name', obj.varTable{row, 1}{:}, @(x) isText(x))
+            addParameter(p,'name', obj.varTable{row, 1}{:}, @isText)
             addParameter(p,'data', obj.varTable{row, 2}{:}, @(x) isnumeric(x) && isDimsData(x))
             addParameter(p,'dataRange', obj.varTable{row, 3}{:}, @(x) isnumeric(x) && isDimsRanges(x))
             addParameter(p,'simRange', obj.varTable{row, 4}{:}, @(x) isnumeric(x) && isDimsRanges(x)) 

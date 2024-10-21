@@ -138,12 +138,12 @@ classdef backgroundsClass < handle
             end
             
             p = inputParser;
-            addParameter(p, 'name', obj.backgrounds.varTable{row, 1}, @(x) isText(x));
+            addParameter(p, 'name', obj.backgrounds.varTable{row, 1}, @isText);
             addParameter(p, 'type', obj.backgrounds.varTable{row, 2}, @(x) isText(x) || isenum(x));
-            addParameter(p, 'value1', obj.backgrounds.varTable{row, 3}, @(x) isText(x));
-            addParameter(p, 'value2', obj.backgrounds.varTable{row, 4}, @(x) isText(x));
-            addParameter(p, 'value3', obj.backgrounds.varTable{row, 5}, @(x) isText(x));
-            addParameter(p, 'value4', obj.backgrounds.varTable{row, 6}, @(x) isText(x));
+            addParameter(p, 'value1', obj.backgrounds.varTable{row, 3}, @isText);
+            addParameter(p, 'value2', obj.backgrounds.varTable{row, 4}, @isText);
+            addParameter(p, 'value3', obj.backgrounds.varTable{row, 5}, @isText);
+            addParameter(p, 'value4', obj.backgrounds.varTable{row, 6}, @isText);
 
             parse(p, varargin{:});
             inputBlock = p.Results;

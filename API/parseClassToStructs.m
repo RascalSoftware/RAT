@@ -246,7 +246,7 @@ for i = 1:length(contrastBackgrounds)
                 % the data array of this contrast.
                 contrastData = problemCells{2}(i);
                 backgroundData = inputStruct.allData{backgroundDataIndex};
-                contrastData = addDataBackgroundToContrastData(contrastData,backgroundData);
+                contrastData = insertDataBackgroundIntoContrastData(contrastData,backgroundData);
                 problemCells{2}(i) = contrastData;
     
                 % Also add the index of the data offset to the array...

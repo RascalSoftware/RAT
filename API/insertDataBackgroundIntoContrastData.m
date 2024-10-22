@@ -1,5 +1,4 @@
-function contrastData = addDataBackgroundToContrastData(contrastData,backgroundData)
-
+function contrastData = insertDataBackgroundIntoContrastData(contrastData,backgroundData)
 % Deal with a Data background. The data and errors in this case are
 % inserted into columns 5 and 6 of the relevant datafile.
 %

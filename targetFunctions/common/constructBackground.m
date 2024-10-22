@@ -1,4 +1,4 @@
-function background = constructBackground(backgroundType,contrastBackgroundParams,shiftedData,customFiles,backgroundParamArray,simLimits)
+function background = constructBackground(backgroundType,backgroundParamIndices,shiftedData,customFiles,backgroundParamArray,simLimits)
 
 % This is a placeholder function to calculate the background function
 % for any function that needs it. Any backgrounds that use a background 
@@ -15,20 +15,18 @@ background(dataIndices(1):dataIndices(2),3) = shiftedData(:,6);
 
 if strcmpi(backgroundType, coderEnums.allowedTypes.Function)
 
-    % Find the name of the custom function...
-    funcName = customFiles{contrastBackgroundParams(1)};
+    % For a function background, the first index is actually that of the
+    % custom function
+    funcName = customFiles{backgroundParamIndices(1)};
 
-    % The rest of the params are indicies to backgroundParams, or -Inf
-    % if unused....
-    funcBackParams = contrastBackgroundParams(2:end);
+    % The rest of the backgroundParamIndices are indicies to
+    % backgroundParams
+    funcBackParams = backgroundParamIndices(2:end);
 
-    % Strip out the unused ones (-Infs)....
-    funcBackParams = funcBackParams(funcBackParams ~= -Inf);
-
-    % Make an array of real params....
+    % Make an array of real params
     paramsArray = zeros(1,length(funcBackParams));
-    for n = 1:length(funcBackParams)
-        paramsArray(n) = backgroundParamArray(funcBackParams(n));
+    for i = 1:length(funcBackParams)
+        paramsArray(i) = backgroundParamArray(funcBackParams(i));
     end
 
     % Evaluate the background function with these params...
@@ -52,14 +50,14 @@ if strcmpi(backgroundType, coderEnums.allowedTypes.Function)
 
 else
 
-    % We have either a constant background, or data background with
-    % offset. In either case we add the parameter to column 5 of the
-    % data.
-    %
-    % NOTE - This parameter is optional for data backgrounds, need to
-    % account for this later
-    backgroundParameter = backgroundParamArray(contrastBackgroundParams(1));
-    background(:,2) = background(:,2) + backgroundParameter;
+    % We have either a constant background, or a data background with an
+    % optional offset. In either case we add the parameter to column 5 of
+    % the data. Hence we expect to run either zero or one iterations
+    % of this loop.
+    for i = 1:length(backgroundParamIndices)
+        backgroundParameter = backgroundParamArray(backgroundParamIndices(i));
+        background(:,2) = background(:,2) + backgroundParameter;
+    end
 
 end
 

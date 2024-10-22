@@ -1,7 +1,7 @@
 function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiSq] = ...
-    coreLayersCalculation(contrastLayers, rough, ...
+    coreLayersCalculation(layers, rough, ...
     geometry, bulkIn, bulkOut, resample, calcSld, shiftedData, simLimits, repeatLayers,...
-    resolution,background,contrastBackgroundAction,params,parallelPoints,resampleMinAngle,resampleNPoints,useImaginary)
+    resolution,background,backgroundAction,params,parallelPoints,resampleMinAngle,resampleNPoints,useImaginary)
 
 %   This is the main reflectivity calculation for all Layers models in the 
 %   non polarised target function. 
@@ -26,9 +26,9 @@ sldProfileIm = [0 0];
 
 % Build up the layers matrix for this contrast
 if ~useImaginary
-    [theseLayers, ssubs] = groupLayersMod(contrastLayers,rough,geometry,bulkIn,bulkOut);
+    [theseLayers, ssubs] = groupLayersMod(layers,rough,geometry,bulkIn,bulkOut);
 else
-    [theseLayers, ssubs] = groupLayersModImaginary(contrastLayers,rough,geometry,bulkIn,bulkOut);
+    [theseLayers, ssubs] = groupLayersModImaginary(layers,rough,geometry,bulkIn,bulkOut);
 end
 
 % Make the SLD profiles.
@@ -80,7 +80,7 @@ reflectivityType = 'standardAbeles';
 [reflect,simulation] = callReflectivity(bulkIn,bulkOut,simLimits,repeatLayers,shiftedData,layerSld,ssubs,resolution,parallelPoints,reflectivityType,useImaginary);
 
 % Apply background correction
-[reflect,simulation,shiftedData] = applyBackgroundCorrection(reflect,simulation,shiftedData,background,contrastBackgroundAction);
+[reflect,simulation,shiftedData] = applyBackgroundCorrection(reflect,simulation,shiftedData,background,backgroundAction);
 
 % Calculate chi squared.
 chiSq = chiSquared(shiftedData,reflect,params);

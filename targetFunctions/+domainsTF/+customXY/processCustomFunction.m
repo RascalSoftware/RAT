@@ -3,8 +3,6 @@ function [slds,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOu
 
     % Top-level function for processing custom XY profiles for all the
     % contrasts.
-
-    % Do some pre-definitions to keep the compiler happy...
     slds = cell(numberOfContrasts,2);
     subRoughs = zeros(numberOfContrasts,1);
 
@@ -24,11 +22,11 @@ function [slds,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOu
         thisBulkIn = bulkInArray(contrastBulkIns(i));
         
         if isnan(str2double(functionHandle))
-            [slds{i, 1}, subRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOuts, i, 1);
-            [slds{i, 2}, ~] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOuts, i, 2);
+            [slds{i,1}, subRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOuts, i, 1);
+            [slds{i,2}, ~] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOuts, i, 2);
         else
-            [slds{i, 1}, subRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, bulkOuts, i-1, 0);
-            [slds{i, 2}, ~] = callCppFunction(functionHandle, params, thisBulkIn, bulkOuts, i-1, 1);
+            [slds{i,1}, subRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, bulkOuts, i-1, 0);
+            [slds{i,2}, ~] = callCppFunction(functionHandle, params, thisBulkIn, bulkOuts, i-1, 1);
         end
     end
 end

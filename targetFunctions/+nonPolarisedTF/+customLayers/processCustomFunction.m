@@ -3,8 +3,6 @@ function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,con
 
     % Top-level function for processing custom layers for all the
     % contrasts.
-
-    % Do some pre-definitions to keep the compiler happy...
     resampledLayers = cell(numberOfContrasts,1);
     subRoughs = zeros(numberOfContrasts,1);
 
@@ -16,7 +14,7 @@ function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,con
         functionHandle = customFiles{cCustFiles(i)};
 
         % Find values of 'bulkIn' and 'bulkOut' for this
-        % contrast...
+        % contrast
         thisBulkIn = bulkInArray(contrastBulkIns(i));
         thisBulkOut = bulkOuts(i);
 
@@ -30,7 +28,7 @@ function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,con
 
         % If the output layers has 5 columns, then we need to do
         % the hydration correction (the user has not done it in the
-        % custom function). Do that here....
+        % custom function).
         if ~useImaginary
            thisContrastLayers = applyHydrationReal(thisContrastLayers,thisBulkIn,thisBulkOut);
         else

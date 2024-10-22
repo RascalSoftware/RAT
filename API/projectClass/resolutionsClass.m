@@ -58,14 +58,14 @@ classdef resolutionsClass < handle
             in = varargin;
             
             if isempty(in)
-                thisRow = {};
+                newRow = {};
             else
-                thisRow = {'','','','','','',''}; 
+                newRow = {'','','','','','',''}; 
                 if length(in) == 1
                     % Assume the input is just a name
-                    thisRow = {in};
+                    newRow = {in};
                 else
-                    thisRow{1} = in;
+                    newRow{1} = in;
                 end
             end
             
@@ -77,36 +77,36 @@ classdef resolutionsClass < handle
                    throw(exceptions.invalidNumberOfInputs(sprintf('For type ''%s'', at least three inputs are required, but only %d are supplied', typeVal, length(in))));
                end
 
-               thisRow{1} = in{1};
-               thisRow{2} = in{2};
+               newRow{1} = in{1};
+               newRow{2} = in{2};
 
                % Check that the other params inputted are either valid
                % resolution names, or numbers in range..
                switch typeVal
                    case allowedTypes.Constant.value
-                       % Param 3 must be a valid parameter
+                       % Param 3 (source) must be a valid resolution parameter
                        thisParam = obj.validateParam(in(3));
-                       thisRow{3} = thisParam;
+                       newRow{3} = thisParam;
 
                    case allowedTypes.Function.value
-                       % Param 3 is assumed to be function name
-                       % any other given parameters must be in paramNames
-                       % list or numbers in range
-                       thisRow{3} = in{3};
+                       % Param 3 (source) is assumed to be function name
+                       newRow{3} = in{3};
+
+                       % any other given parameters must be valid
+                       % resolution parameters
                        for i = 4:length(in)
                           thisParam = obj.validateParam(in(i));
-                          thisRow{i} = thisParam;
+                          newRow{i} = thisParam;
                        end
                        
                    case allowedTypes.Data.value
                        % Resolution is assumed to be given by a 4th column 
                        % of a data file. We don't have access to the
                        % data files at this point so this (i.e. that data is
-                       % [n x 4] ) will be checked downstream
-                       thisRow = {in{1}, in{2}, '', '', '', '', ''};
+                       % [n x 4]) will be checked downstream
                 end
             end
-            obj.resolutions.addRow(thisRow{:});      
+            obj.resolutions.addRow(newRow{:});      
         end
         
         function removeResolution(obj, row)
@@ -122,7 +122,7 @@ classdef resolutionsClass < handle
             % Changes the value of a given resolution in the table. Expects the 
             % index or name of resolution and keyword/value pairs to set. 
             %
-            % resolution.setResolution(1, 'name', 'resolution 1', 'type', 'constant', 'value1', 'param_name');
+            % resolution.setResolution(1, 'name', 'resolution 1', 'type', 'constant', 'source', 'param_name');
             if isText(row)
                 row = obj.resolutions.findRowIndex(row, obj.getNames(), 'Unrecognised resolution');
             elseif isnumeric(row)
@@ -137,10 +137,12 @@ classdef resolutionsClass < handle
             p = inputParser;
             addParameter(p, 'name', obj.resolutions.varTable{row, 1}, @isText);
             addParameter(p, 'type', obj.resolutions.varTable{row, 2}, @(x) isText(x) || isenum(x));
-            addParameter(p, 'value1', obj.resolutions.varTable{row, 3}, @isText);
-            addParameter(p, 'value2', obj.resolutions.varTable{row, 4}, @isText);
-            addParameter(p, 'value3', obj.resolutions.varTable{row, 5}, @isText);
-            addParameter(p, 'value4', obj.resolutions.varTable{row, 6}, @isText);
+            addParameter(p, 'source', obj.resolutions.varTable{row, 3}, @isText);
+            addParameter(p, 'value1', obj.resolutions.varTable{row, 4}, @isText);
+            addParameter(p, 'value2', obj.resolutions.varTable{row, 5}, @isText);
+            addParameter(p, 'value3', obj.resolutions.varTable{row, 6}, @isText);
+            addParameter(p, 'value4', obj.resolutions.varTable{row, 7}, @isText);
+            addParameter(p, 'value5', obj.resolutions.varTable{row, 8}, @isText);
 
             parse(p, varargin{:});
             inputBlock = p.Results;
@@ -150,15 +152,22 @@ classdef resolutionsClass < handle
             if ~isempty(inputBlock.type)
                 inputBlock.type = validateOption(inputBlock.type, 'allowedTypes', obj.invalidTypeMessage).value;
                 obj.resolutions.setValue(row, 2, inputBlock.type);
-            end    
-            values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4};
-            for i = 1:4
+            end
+
+            % For data and function types, source is the data/function name so no validation is done
+            source = convertStringsToChars(inputBlock.source);
+            if ~isempty(source) && strcmpi(inputBlock.type, allowedTypes.Constant.value)
+                source = obj.validateParam(source);
+            end
+            obj.resolutions.setValue(row, 3, source);
+
+            values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4, inputBlock.value5};
+            for i = 1:5
                 value = convertStringsToChars(values{i});
-                % for function type, value 1 is the function name so no validation is done 
-                if ~isempty(value) && ~(i==1 && strcmpi(inputBlock.type,allowedTypes.Function.value))
+                if ~isempty(value)
                     value = obj.validateParam(value);
                 end
-                obj.resolutions.setValue(row, i + 2, value);
+                obj.resolutions.setValue(row, i + 3, value);
             end
         end
 
@@ -185,7 +194,7 @@ classdef resolutionsClass < handle
             
             resolutionNames = obj.resolutions.varTable{:,1};
             resolutionTypes = obj.resolutions.varTable{:,2};
-            resolutionValues = table2cell(obj.resolutions.varTable(:,3:7));
+            resolutionValues = table2cell(obj.resolutions.varTable(:,3:width(obj.resolutions.varTable)));
             
             resolutionStruct.resolutionNames = resolutionNames;
             resolutionStruct.resolutionTypes = resolutionTypes;

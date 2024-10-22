@@ -6,8 +6,6 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 % We use an example multi-type table from the backgrounds class for the
 % example calculation "DPPCStandardLayers.m"
 %
-% Paul Sharp 01/02/23
-%
 %% Declare properties and parameters
 
     properties (TestParameter)
@@ -20,18 +18,20 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
                     {'Four params', allowedTypes.Constant, 'Back Par 1', 'Back Par 2'},...
                     {'Five params', allowedTypes.Data.value, 'Back Par 1', 'Back Par 2', 'Back Par 3'},...
                     {'Six params', allowedTypes.Function.value, 'Back Par 1', 'Back Par 2', 'Back Par 3', 'Back Par 4'},...
-                    {'Full background', allowedTypes.Data.value, 'Back Par 1', 'Back Par 2', 'Back Par 3', 'Back Par 4', 'Back Par 5'},...
-                    {'Overfilled background', allowedTypes.Constant.value, 'Back Par 1', 'Back Par 2', 'Back Par 3', 'Back Par 4', 'Back Par 5', 'Back Par 6'}} % Inputs for "addRow"
+                    {'Seven params', allowedTypes.Constant.value, 'Back Par 1', 'Back Par 2', 'Back Par 3', 'Back Par 4',  'Back Par 5'},...
+                    {'Full background', allowedTypes.Data.value, 'Back Par 1', 'Back Par 2', 'Back Par 3', 'Back Par 4', 'Back Par 5', 'Back Par 6'},...
+                    {'Overfilled background', allowedTypes.Function.value, 'Back Par 1', 'Back Par 2', 'Back Par 3', 'Back Par 4', 'Back Par 5', 'Back Par 6', 'Back Par 7'}} % Inputs for "addRow"
 
-        addedRow = {{'New background 1',allowedTypes.Constant.value,'','','','',''},...
-                    {'Added background',allowedTypes.Constant.value,'','','','',''},...
-                    {'Name and Type',allowedTypes.Data.value,'','','','',''},...
-                    {'Three params',allowedTypes.Function.value,'Back Par 1','','','',''},...
-                    {'Four params',allowedTypes.Constant.value,'Back Par 1','Back Par 2','','',''},...
-                    {'Five params',allowedTypes.Data.value,'Back Par 1','Back Par 2','Back Par 3','',''},...
-                    {'Six params',allowedTypes.Function.value,'Back Par 1','Back Par 2','Back Par 3','Back Par 4',''},...
-                    {'Full background', allowedTypes.Data.value, 'Back Par 1', 'Back Par 2','Back Par 3', 'Back Par 4', 'Back Par 5'},...
-                    {'Overfilled background', allowedTypes.Constant.value, 'Back Par 1', 'Back Par 2','Back Par 3', 'Back Par 4', 'Back Par 5'}} % Resulting additional rows from "addRow"
+        addedRow = {{'New background 1',allowedTypes.Constant.value,'','','','','',''},...
+                    {'Added background',allowedTypes.Constant.value,'','','','','',''},...
+                    {'Name and Type',allowedTypes.Data.value,'','','','','',''},...
+                    {'Three params',allowedTypes.Function.value,'Back Par 1','','','','',''},...
+                    {'Four params',allowedTypes.Constant.value,'Back Par 1','Back Par 2','','','',''},...
+                    {'Five params',allowedTypes.Data.value,'Back Par 1','Back Par 2','Back Par 3','','',''},...
+                    {'Six params',allowedTypes.Function.value,'Back Par 1','Back Par 2','Back Par 3','Back Par 4','',''},...
+                    {'Seven params',allowedTypes.Constant.value,'Back Par 1','Back Par 2','Back Par 3','Back Par 4','Back Par 5',''},...
+                    {'Full background', allowedTypes.Data.value, 'Back Par 1', 'Back Par 2','Back Par 3', 'Back Par 4', 'Back Par 5', 'Back Par 6'},...
+                    {'Overfilled background', allowedTypes.Function.value, 'Back Par 1', 'Back Par 2','Back Par 3', 'Back Par 4', 'Back Par 5', 'Back Par 6'}} % Resulting additional rows from "addRow"
     end
 
     properties
@@ -48,9 +48,9 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
         function initialiseTable(testCase)
             % Set up a types table with a single row of empty strings
-            sz = [0 7];
-            tableTypes = {'string','string','string','string','string','string','string'};
-            tableNames = {'Name','Type','Value 1','Value 2','Value 3','Value 4','Value 5'};
+            sz = [0 8];
+            tableTypes = {'string','string','string','string','string','string','string','string'};
+            tableNames = {'Name','Type','Source','Value 1','Value 2','Value 3','Value 4','Value 5'};
 
             testCase.initialTable = table('Size',sz,'VariableTypes',tableTypes,'VariableNames',tableNames);
         end
@@ -64,9 +64,9 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % This example is used in the backgrounds class for the
             % example calculation "DPPCStandardLayers.m"
             testCase.exampleTable = multiTypeTable();
-            testCase.exampleTable.varTable(1,:) = {'Background D2O', allowedTypes.Constant.value, 'Backs par 1','','','',''};
-            testCase.exampleTable.varTable(2,:) = {'Background SMW',allowedTypes.Constant.value,'Backs par SMW','','','',''};
-            testCase.exampleTable.varTable(3,:) = {'Background H2O',allowedTypes.Constant.value,'Backs par H2O','','','',''};
+            testCase.exampleTable.varTable(1,:) = {'Background D2O',allowedTypes.Constant.value,'Backs par 1','','','','',''};
+            testCase.exampleTable.varTable(2,:) = {'Background SMW',allowedTypes.Constant.value,'Backs par SMW','','','','',''};
+            testCase.exampleTable.varTable(3,:) = {'Background H2O',allowedTypes.Constant.value,'Backs par H2O','','','','',''};
             testCase.exampleTable.typesAutoNameString = 'New background';
 
             testCase.numRows = height(testCase.exampleTable.varTable);
@@ -83,7 +83,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % Tests Multi-Type Table object can be created
             testTable = multiTypeTable();
 
-            testCase.verifySize(testTable.varTable, [0 7], 'multiTypeTable does not initialise correctly');
+            testCase.verifySize(testTable.varTable, [0 8], 'multiTypeTable does not initialise correctly');
 
             testCase.verifyEqual(testTable.varTable, testCase.initialTable, 'multiTypeTable does not initialise correctly');
             testCase.verifyEqual(testTable.typesAutoNameString, testCase.initialTypesAutoNameString, 'multiTypeTable does not initialise correctly');
@@ -120,28 +120,28 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % than a variable number of arguments.
 
             % Row and column indices
-            testCase.exampleTable.setValue(1, 7, 'Added');
-            expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "Added"];
+            testCase.exampleTable.setValue(1, 8, 'Added');
+            expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "" "Added"];
             testCase.verifyEqual(testCase.exampleTable.varTable{1, :}, expectedRow, 'setValue does not work correctly');
 
             % Row name and column index
-            testCase.exampleTable.setValue('Background SMW', 7, 'Added');
-            expectedRow = ["Background SMW" "constant" "Backs par SMW" "" "" "" "Added"];
+            testCase.exampleTable.setValue('Background SMW', 8, 'Added');
+            expectedRow = ["Background SMW" "constant" "Backs par SMW" "" "" "" "" "Added"];
             testCase.verifyEqual(testCase.exampleTable.varTable{2, :}, expectedRow, 'setValue does not work correctly');
 
             % Row index and column name
-            testCase.exampleTable.setValue(3, 'Value 1', 'Changed');
-            expectedRow = ["Background H2O" "constant" "Changed" "" "" "" ""];
+            testCase.exampleTable.setValue(3, 'Source', 'Changed');
+            expectedRow = ["Background H2O" "constant" "Changed" "" "" "" "" ""];
             testCase.verifyEqual(testCase.exampleTable.varTable{3, :}, expectedRow, 'setValue does not work correctly');
 
             % Row and column names
             testCase.exampleTable.setValue('Background D2O', 'Value 5', 'Changed');
-            expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "Changed"];
+            expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "" "Changed"];
             testCase.verifyEqual(testCase.exampleTable.varTable{1, :}, expectedRow, 'setValue does not work correctly');
 
             % Use name to change name
             testCase.exampleTable.setValue('Background D2O', 'Name', 'New Name');
-            expectedRow = ["New Name" "constant" "Backs par 1" "" "" "" "Changed"];
+            expectedRow = ["New Name" "constant" "Backs par 1" "" "" "" "" "Changed"];
             testCase.verifyEqual(testCase.exampleTable.varTable{1, :}, expectedRow, 'setValue does not work correctly');
         end
 
@@ -224,7 +224,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             tableCols = testCase.exampleTable.varTable.Properties.VariableNames;
 
             testCase.verifyEqual(multiTypeTable.findRowIndex('Background SMW', tableRows), 2);
-            testCase.verifyEqual(multiTypeTable.findRowIndex('Value 3', tableCols), 5);
+            testCase.verifyEqual(multiTypeTable.findRowIndex('Value 3', tableCols), 6);
 
             % Check whitespace still matches
             testCase.verifyEqual(multiTypeTable.findRowIndex(' Background D2O', tableRows), 1);

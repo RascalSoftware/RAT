@@ -22,13 +22,10 @@
                   'background param 3', 0.2, 0.17, 1.1, false, priorTypes.Uniform.value, 0, Inf;
                   };
          testCase.backgrounds = {
-                  'background 1', allowedTypes.Constant.value, 'background param 1', '', '', '', '';
-                  'background 2', allowedTypes.Constant.value, 'background param 2', '', '', '', '';
-                  'background 3', allowedTypes.Constant.value, 'background param 3', '', '', '', '';
-                  'background 4', allowedTypes.Constant.value, 'background param 3', '', '', '', '';
-                  % once data and function backgrounds are implemented, replace 3 and 4 with these
-                  %'background 3', allowedTypes.Function.value, 'function_name', 'background param 1', 'background param 2', '', '';
-                  %'background 4', allowedTypes.Data.value, '', '', '', '', '';
+                  'background 1', allowedTypes.Constant.value, 'background param 1', '', '', '', '', '';
+                  'background 2', allowedTypes.Constant.value, 'background param 2', '', '', '', '', '';
+                  'background 3', allowedTypes.Function.value, 'function_name', 'background param 1', 'background param 2', '', '', '';
+                  'background 4', allowedTypes.Data.value, 'data_name', '', '', '', '', '';
                   };
       end
    end
@@ -47,7 +44,7 @@
          
          testCase.verifyEqual(string(testBackground.backgrounds.varTable{1, :}), ...
                               string(testCase.backgrounds(1, :)), 'Start background parameter not set correctly');
-         testCase.verifySize(testBackground.backgrounds.varTable, [1, 7], 'backgrounds has wrong dimension');
+         testCase.verifySize(testBackground.backgrounds.varTable, [1, 8], 'backgrounds has wrong dimension');
       end
 
       function testGetNames(testCase)
@@ -68,20 +65,20 @@
          
          testCase.background.addBackground();
          testCase.verifyEqual(string(testCase.background.backgrounds.varTable{end, :}),...
-                              string({'New background 2', allowedTypes.Constant.value, '', '', '', '', ''}), 'addBackground method not working');
+                              string({'New background 2', allowedTypes.Constant.value, '', '', '', '', '', ''}), 'addBackground method not working');
          testCase.background.addBackground('New Back');
          testCase.verifyEqual(string(testCase.background.backgrounds.varTable{end, :}),...
-                              string({'New Back', allowedTypes.Constant.value, '', '', '', '', ''}), 'addBackground method not working');
+                              string({'New Back', allowedTypes.Constant.value, '', '', '', '', '', ''}), 'addBackground method not working');
          testCase.background.addBackground(testCase.backgrounds{3, 1:5});
          testCase.verifyEqual(string(testCase.background.backgrounds.varTable{end, :}),...
                               string(testCase.backgrounds(3, :)), 'addBackground method not working');
-         testCase.background.addBackground(testCase.backgrounds{4, :});
+         testCase.background.addBackground(testCase.backgrounds{4, 1:3});
          testCase.verifyEqual(string(testCase.background.backgrounds.varTable{end, :}),...
                               string(testCase.backgrounds(4, :)), 'addBackground method not working');
-         %testCase.background.addBackground('background 5', allowedTypes.Function, 'function_name', 1, 3);
-         %testCase.verifyEqual(string(testCase.background.backgrounds.varTable{end, :}),...
-         %                     ["background 5", string(allowedTypes.Function.value), "function_name", "background param 1", "background param 3", "", ""], ...
-         %                     'addBackground method not working');
+         testCase.background.addBackground('background 5', allowedTypes.Function, 'function_name', 1, 3);
+         testCase.verifyEqual(string(testCase.background.backgrounds.varTable{end, :}),...
+                              ["background 5", string(allowedTypes.Function.value), "function_name", "background param 1", "background param 3", "", "", ""], ...
+                              'addBackground method not working');
          testCase.verifyError(@() testCase.background.addBackground('New', 'fixed'), exceptions.invalidOption.errorID);
          testCase.verifyError(@() testCase.background.addBackground('New', allowedTypes.Constant), exceptions.invalidNumberOfInputs.errorID);
          testCase.verifyError(@() testCase.background.addBackground('New', allowedTypes.Constant.value, 6), exceptions.indexOutOfRange.errorID);
@@ -122,22 +119,20 @@
 
          testCase.background.setBackground(1, 'type', allowedTypes.Constant.value);
          testCase.verifyEqual(testCase.background.backgrounds.varTable{1, 2}, string(allowedTypes.Constant.value), 'setBackground method not working');
-         %testCase.background.setBackground('Background 1', 'type', allowedTypes.Function); 
-         %testCase.verifyEqual(testCase.background.backgrounds.varTable{1, 2}, string(allowedTypes.Function.value), 'setBackground method not working');
+         testCase.background.setBackground('Background 1', 'type', allowedTypes.Function); 
+         testCase.verifyEqual(testCase.background.backgrounds.varTable{1, 2}, string(allowedTypes.Function.value), 'setBackground method not working');
          testCase.verifyError(@() testCase.background.setBackground(2, 'type', 'random'), exceptions.invalidOption.errorID);
          
-         %testCase.background.setBackground(3, 'Value1', 'random');
-         %testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 3}, "random", 'setBackground method not working');
-         testCase.background.setBackground('Background 3', 'Value1', 'Background param 1');
+         testCase.background.setBackground('Background 3', 'Source', 'Background param 1');
          testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 3}, "Background param 1", 'setBackground method not working');
          
          testCase.background.setBackground(2, 'Value2', 'Background param 1');
-         testCase.verifyEqual(testCase.background.backgrounds.varTable{2, 4}, "Background param 1", 'setBackground method not working');
+         testCase.verifyEqual(testCase.background.backgrounds.varTable{2, 5}, "Background param 1", 'setBackground method not working');
          testCase.verifyError(@() testCase.background.setBackground(2, 'Value2', 'random'), exceptions.nameNotRecognised.errorID);
          testCase.verifyError(@() testCase.background.setBackground(5, 'Value2', 'random'), exceptions.indexOutOfRange.errorID);
          testCase.verifyError(@() testCase.background.setBackground(true, 'Value2', 'random'), exceptions.invalidType.errorID);
          
-         testCase.background.setBackground(3, 'name', 'New Name', 'type', allowedTypes.Constant, 'value1', 'Background param 3', 'value2', '');
+         testCase.background.setBackground(3, 'name', 'New Name', 'type', allowedTypes.Constant, 'source', 'Background param 3', 'value1', '');
          testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 1}, "New Name", 'setBackground method not working');
          testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 2}, string(allowedTypes.Constant.value), 'setBackground method not working');
          testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 3}, "Background param 3", 'setBackground method not working');
@@ -166,7 +161,7 @@
          testCase.verifyLength(row, length(paramHeader));
          testCase.verifyEqual(row, string({1, testCase.parameters{1, 1:5}}), 'displayBackgroundsObject method not working')
 
-         paramHeader = {'p', 'Name', 'Type', 'Value 1', 'Value 2', 'Value 3', 'Value 4', 'Value 5'};
+         paramHeader = {'p', 'Name', 'Type', 'Source', 'Value 1', 'Value 2', 'Value 3', 'Value 4', 'Value 5'};
          displayArray = textscan(display{3},'%s','Delimiter','\r','TextType','string');
          displayArray = strip(displayArray{1});
          % display table should be height of background table plus header and divider row
@@ -202,7 +197,7 @@
          expected.backgroundParamPriors = {{'background param 1', priorTypes.Uniform.value, 0, Inf}};
          expected.backgroundNames = "background 1";
          expected.backgroundTypes = string(allowedTypes.Constant.value);
-         expected.backgroundValues = {"background param 1", "", "", "", ""};
+         expected.backgroundValues = {"background param 1", "", "", "", "", ""};
          testCase.verifyEqual(testCase.background.toStruct(), expected, 'toStruct method not working');
 
          testCase.background.backgrounds.varTable = [testCase.background.backgrounds.varTable; vertcat(testCase.backgrounds(2:3, :))];
@@ -217,10 +212,9 @@
                                            {'background param 3', priorTypes.Uniform.value, 0, Inf}};
          expected.backgroundNames = ["background 1"; "background 2"; "background 3"];
          expected.backgroundTypes = [string(allowedTypes.Constant.value); string(allowedTypes.Constant.value); 
-                                     string(allowedTypes.Constant.value)];  % FIXME: change to function when function backgrounds added
-         expected.backgroundValues = {"background param 1", "", "", "", ""; "background param 2", "", "", "", "";...
-                                      "background param 3", "", "", "", ""};
-                                     % "function_name", "background param 1", "background param 2", "", ""};  FIXME - replace prev line with this when function backs added
+                                     string(allowedTypes.Function.value)];
+         expected.backgroundValues = {"background param 1", "", "", "", "", ""; "background param 2", "", "", "", "", "";...
+                                      "function_name", "background param 1", "background param 2", "", "", ""};
          testCase.verifyEqual(testCase.background.toStruct(), expected, 'toStruct method not working');
       end
    end

@@ -211,8 +211,8 @@ backgroundTypes = inputStruct.backgroundTypes;
 backgroundParamNames = inputStruct.backgroundParamNames;
 
 % Make the contrastBackgroundParams array and set all elements to -Inf.
-% Dowstream this is makes it easy to identify unused elements...
-contrastBackgroundParams = ones(length(contrastBackgrounds), 5) * -Inf;
+% Downstream this is makes it easy to identify unused elements...
+contrastBackgroundParams = cell(1, length(contrastBackgrounds));
 contrastBackgroundTypes = cell(1, length(contrastBackgrounds));
 
 for i = 1:length(contrastBackgrounds)
@@ -225,7 +225,7 @@ for i = 1:length(contrastBackgrounds)
 
     switch backgroundType
 
-        case allowedTypes.Data
+        case allowedTypes.Data.value
             % Background is in a datafile.
             % Also need to find the index of the relevant datafile, and add the
             % relevant data as columns 5 and 6 of the contrast data. Finally,
@@ -250,18 +250,18 @@ for i = 1:length(contrastBackgrounds)
                 problemCells{2}(i) = contrastData;
     
                 % Also add the index of the data offset to the array...
-                contrastBackgroundParams(i,1) = find(strcmpi(backgroundDataOffset,backgroundParamNames));
+                contrastBackgroundParams{i} = find(strcmpi(backgroundDataOffset,backgroundParamNames));
             end
 
-        case allowedTypes.Constant
+        case allowedTypes.Constant.value
             % Background is a backgroundParam, the name of which should
             % be in the first column of backgroundValues
             whichBackgroundParamName = inputStruct.backgroundValues{thisBack,1};
     
             % Find which backgroundParam this is, and set contrastBackgroundParams to this number
-            contrastBackgroundParams(i,1) = find(strcmpi(whichBackgroundParamName,backgroundParamNames));
+            contrastBackgroundParams{i} = find(strcmpi(whichBackgroundParamName,backgroundParamNames));
 
-        case allowedTypes.Function
+        case allowedTypes.Function.value
             % Background is a background function
     
             % Get the corresponding function name...
@@ -269,7 +269,7 @@ for i = 1:length(contrastBackgrounds)
     
             % Find the index of this data name in the string array...
             thisFuncBack = find(strcmp(backgroundFuncfileName,inputStruct.fileNames));
-            contrastBackgroundParams(i,1) = thisFuncBack;
+            contrastBackgroundParams{i}(1) = thisFuncBack;
     
             % Now find the indices of any defined parameters...
             allVals = inputStruct.backgroundValues(thisBack,2:end);
@@ -278,7 +278,7 @@ for i = 1:length(contrastBackgrounds)
                 % Find the relevant background for each..
                 thisBackParamName = allVals{n};
                 thisParamIndex = find(strcmpi(thisBackParamName,backgroundParamNames));
-                contrastBackgroundParams(i,n+1) = thisParamIndex;
+                contrastBackgroundParams{i}(n+1) = thisParamIndex;
             end
             
         otherwise

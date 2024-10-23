@@ -70,16 +70,15 @@ classdef (Abstract) tableUtilities < handle
             
             if numParams == 0    
                 varNames = obj.varTable.Properties.VariableNames(1:dim(2));
-                array = table('Size', dim, 'VariableTypes', repmat({'string'}, dim), 'VariableNames', varNames);
-                array(1, :) = repmat({''}, 1, dim(2));
+                newTable = table('Size', dim, 'VariableTypes', repmat({'string'}, dim), 'VariableNames', varNames);
+                newTable(1, :) = repmat({''}, 1, dim(2));
             else
-                array = obj.varTable;
-                p = 1:height(array);
+                p = 1:height(obj.varTable);
                 p = p(:);
                 p = table(p);
-                array = [p array(:, 1:dim(2))];
+                newTable = [p obj.varTable(:, 1:dim(2))];
             end         
-            disp(array);
+            disp(newTable);
         end
 
     end

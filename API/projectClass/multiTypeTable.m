@@ -63,8 +63,6 @@ classdef multiTypeTable < tableUtilities
             % column, value
             %
             % multiTable.setValue(1, 1, 'origin');
-            tab = obj.varTable;
-            
             % First parameter needs to be either a row name or number
             rowNames = obj.varTable{:,1};
             
@@ -93,9 +91,7 @@ classdef multiTypeTable < tableUtilities
             end
             
             % Set the value
-            tab(row, col) = {value};
-            obj.varTable = tab;
-
+            obj.varTable(row, col) = {value};
         end
 
     end

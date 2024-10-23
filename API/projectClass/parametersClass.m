@@ -100,7 +100,7 @@ classdef parametersClass < tableUtilities
                 obj.validateLimits(values(1), values(2), values(3));
 
                 if ~islogical(fit)
-                    throw(exceptions.invalidType('Parameter fit must be a logical value i.e. true or false'));
+                    throw(exceptions.invalidType('Parameter "fit" must be a logical value i.e. true or false'));
                 end
                 
                 priors = obj.validatePriors(priorType, priorValues(1), priorValues(2));
@@ -246,7 +246,7 @@ classdef parametersClass < tableUtilities
             row = obj.getValidRow(row);
 
             if ~islogical(fitFlag)
-                throw(exceptions.invalidType('Parameter fit must be a logical value i.e. true or false'));
+                throw(exceptions.invalidType('Parameter "fit" must be a logical value i.e. true or false'));
             end
            
             obj.varTable{row, 5} = fitFlag;
@@ -282,7 +282,6 @@ classdef parametersClass < tableUtilities
             end         
             disp(array);
         end
-        
         
         function outStruct = toStruct(obj)
             % Converts the class parameters into a structure array.
@@ -383,7 +382,6 @@ classdef parametersClass < tableUtilities
 
         function validateLimits(minLimit, value, maxLimit)
             % Validate the value, lower and upper limit variables
-
             if ~(isnumeric(minLimit) && isnumeric(value) && isnumeric(maxLimit))
                 throw(exceptions.invalidType('min, value, and max must be numbers'));
             end

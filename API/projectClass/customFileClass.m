@@ -179,33 +179,29 @@ classdef customFileClass < tableUtilities
             % Display the file table.
             %
             % customFiles.displayCustomFileObject()
-            tab = obj.varTable;
-            
             sz = [1,5];
             displayVarTypes = {'string','string','string','string','string'}; 
             displayVarNames = {'Name','Filename','Function Name','Language','Path'};
             displayTable = table('Size',sz,'VariableTypes',displayVarTypes,'VariableNames',displayVarNames);
             
-            tableSize = size(tab);
+            tableSize = size(obj.varTable);
             
             if tableSize(1) == 0
                 displayTable(1,:) = {'','','','',''};
             else
                 
                 for i = 1:tableSize(1)
-                    thisRow = tab(i,:);
+                    nameString = obj.varTable{i,1};
                     
-                    nameString = thisRow{1,1};
-                    
-                    thisCustomFile = thisRow{1,2}{:};
+                    thisCustomFile = obj.varTable{i,2}{:};
                     if isempty(thisCustomFile)
                         fileNameString = 'No File';
                     else
                         fileNameString = char(thisCustomFile);
                     end
 
-                    thisFunctionName = thisRow{1,3}{:};
-                    thisFileLanguage = thisRow{1,4}{:};
+                    thisFunctionName = obj.varTable{i,3}{:};
+                    thisFileLanguage = obj.varTable{i,4}{:};
                     if isempty(thisFunctionName) || strcmp(thisFileLanguage, supportedLanguages.Matlab.value)
                         functionNameString = '-';
                     else
@@ -219,7 +215,7 @@ classdef customFileClass < tableUtilities
                         fileLanguageString = thisFileLanguage;
                     end
                     
-                    thisFilePath = thisRow{1,5}{:};
+                    thisFilePath = obj.varTable{1,5}{:};
                     if isempty(thisFilePath)
                         thisFilePath = 'pwd';
                     else

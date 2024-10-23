@@ -173,7 +173,7 @@ function [qzshiftValue,scalefactorValue,bulkInValue,...
     [reflect1,simul1] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedData,layerSld1,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
     [reflect2,simul2] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedData,layerSld2,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
 
-    [reflect1,simul1,shiftedData] = applyBackgroundCorrection(reflect1,simul1,shiftedData,background,backgroundAction);
+    [reflect1,simul1,~] = applyBackgroundCorrection(reflect1,simul1,shiftedData,background,backgroundAction);
     [reflect2,simul2,shiftedData] = applyBackgroundCorrection(reflect2,simul2,shiftedData,background,backgroundAction);
 
      % Calculate the average reflectivities....

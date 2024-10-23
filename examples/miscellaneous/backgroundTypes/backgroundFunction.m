@@ -11,5 +11,4 @@ for i = 1:numel(xdata)
     background(i) = Ao*exp(-k*xdata(i)) + backConst;
 end
 
-
 end

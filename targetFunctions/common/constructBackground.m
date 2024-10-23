@@ -34,12 +34,16 @@ if strcmpi(backgroundType, coderEnums.allowedTypes.Function)
     % as the usual custom file evaluation...
     thisBack = zeros(length(background(:,2)), 1); % This is the correct type - for compilation
 
-    if coder.target('MATLAB')
-        fileHandle = str2func(funcName);
-        thisBack = fileHandle(background(:,1), paramsArray);
-    elseif coder.target('MEX')        
-        % 'feval' generates an automatic coder.extrinsic call.
-        thisBack = feval(funcName, background(:,1), paramsArray);
+    if isnan(str2double(funcName))
+        if coder.target('MATLAB')
+            fileHandle = str2func(funcName);
+            thisBack = fileHandle(background(:,1), paramsArray);
+        elseif coder.target('MEX')        
+            % 'feval' generates an automatic coder.extrinsic call.
+            thisBack = feval(funcName, background(:,1), paramsArray);
+        end
+    else
+        error('Background functions in languages other than MATLAB are not supported.');
     end
 
     % Add this background as column 5 of this data. Note that Matlab

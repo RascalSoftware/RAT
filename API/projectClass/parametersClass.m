@@ -2,15 +2,6 @@ classdef parametersClass < tableUtilities
     % This is the class definition for
     % the parameters block.
     
-    properties
-        showPriors = false
-    end
-
-    properties(Access = private, Constant, Hidden)
-        invalidPriorsMessage = sprintf('Prior type must be a priorTypes enum or one of the following strings (%s)', ...
-                                       strjoin(priorTypes.values(), ', '))
-    end
-    
     methods
         function obj = parametersClass(varargin)
             % Class constructor.
@@ -106,30 +97,14 @@ classdef parametersClass < tableUtilities
                         throw(exceptions.invalidNumberOfInputs('Unrecognised inputs to ''addParameter'''));
                 end
                 
-                % Type validation
-                if ~isnumeric(values)
-                    throw(exceptions.invalidType('Lower limit, value, and upper limit (2nd, 3rd and 4th arguments) must be numeric values'));
-                end
-                
-                if values(1) > values(3)
-                    throw(exceptions.invalidValue(sprintf('Lower limit %f must be less than or equal to upper limit %f', values(1), values(3))));
-                end
-
-                if values(2) < values(1) || values(2) > values(3)
-                    throw(exceptions.invalidValue(sprintf('Parameter value %f must be within the limits %f to %f', values(2), values(1), values(3))));
-                end
+                obj.validateLimits(values(1), values(2), values(3));
 
                 if ~islogical(fit)
-                    throw(exceptions.invalidType('Parameter fit (5th argument) must be a logical value'));
+                    throw(exceptions.invalidType('Parameter "fit" must be a logical value i.e. true or false'));
                 end
                 
-                priorType = validateOption(priorType, 'priorTypes', obj.invalidPriorsMessage).value;
-                               
-                if ~isnumeric(priorValues)
-                    throw(exceptions.invalidType('Prior values must be numeric'));
-                end
-
-                newRow = {name, values(1), values(2), values(3), fit, priorType, priorValues(1), priorValues(2)};
+                priors = obj.validatePriors(priorType, priorValues(1), priorValues(2));
+                newRow = {name, values(1), values(2), values(3), fit, priors{1}, priors{2}, priors{3}};
                 obj.addRow(newRow{:});
 
             end
@@ -178,64 +153,27 @@ classdef parametersClass < tableUtilities
             end
 
             row = obj.getValidRow(row);
-            inputBlock = parseParameterInput(obj, varargin{:});
+            p = inputParser;
+            addParameter(p, 'name', obj.varTable{row, 1}{:}, @isText);
+            addParameter(p, 'min', obj.varTable{row, 2}, @isnumeric);
+            addParameter(p, 'value', obj.varTable{row, 3}, @isnumeric);
+            addParameter(p, 'max', obj.varTable{row, 4}, @isnumeric);
+            addParameter(p, 'fit', obj.varTable{row, 5}, @islogical);
+            addParameter(p, 'priorType', obj.varTable{row, 6}{:}, @(x) isText(x) || isenum(x));
+            addParameter(p, 'mu', obj.varTable{row, 7}, @isnumeric);
+            addParameter(p, 'sigma', obj.varTable{row, 8}, @isnumeric);
 
-            % Check value lies within limits
-            if ~isempty(inputBlock.min)
-                min = inputBlock.min;
-            else
-                min = obj.varTable{row, 2};
-            end
+            parse(p, varargin{:});
+            inputs = p.Results;
 
-            if ~isempty(inputBlock.max)
-                max = inputBlock.max;
-            else
-                max = obj.varTable{row, 4};
-            end
-
-            if ~isempty(inputBlock.value)
-                value = inputBlock.value;
-            else
-                value = obj.varTable{row, 3};
-            end
-
-            if min > max
-                throw(exceptions.invalidValue(sprintf('Lower limit %f must be less than or equal to upper limit %f', min, max)));
-            end
-
-            if value < min || value > max
-                throw(exceptions.invalidValue(sprintf('Parameter value %f must be within the limits %f to %f', value, min, max)));
-            end
-
+            obj.validateLimits(inputs.min, inputs.value, inputs.max);
             % Apply values
-            if ~isempty(inputBlock.name)
-                obj.setName(row, inputBlock.name);
-            end
-            
-            % If both limits are set, apply them together to ensure check
-            % works correctly
-            if ~isempty(inputBlock.min) && ~isempty(inputBlock.max)
-                obj.setLimits(row, inputBlock.min, inputBlock.max);
-            else
-                if ~isempty(inputBlock.min)
-                    max = obj.varTable{row, 4};
-                    obj.setLimits(row, inputBlock.min, max);
-                end
-                
-                if ~isempty(inputBlock.max)
-                    min = obj.varTable{row, 2};
-                    obj.setLimits(row, min, inputBlock.max);
-                end
-            end
-            
-            if ~isempty(inputBlock.value)
-                obj.setValue(row, inputBlock.value);
-            end
-            
-            if ~isempty(inputBlock.fit)
-                obj.setFit(row, inputBlock.fit);
-            end
-
+            obj.setName(row, inputs.name);
+            obj.varTable{row, 2} = inputs.min;
+            obj.varTable{row, 3} = inputs.value;
+            obj.varTable{row, 4} = inputs.max;
+            obj.setFit(row, inputs.fit);
+            obj.setPrior(row, inputs.priorType, inputs.mu, inputs.sigma);
         end
         
         function obj = setPrior(obj, row, varargin)
@@ -244,131 +182,106 @@ classdef parametersClass < tableUtilities
             % 'gaussian', 'jeffreys') with mu and sigma value if applicable
             %
             % params.setPrior(2, priorTypes.Gaussian, 1, 2);
-            inputValues = varargin;
-            tab = obj.varTable;
+            if isempty(varargin) || length(varargin) > 3
+                throw(exceptions.invalidNumberOfInputs('''setPrior'' requires 1 to 3 arguments i.e. priorType then optional mu and sigma'));
+            end
             
             row = obj.getValidRow(row);
-            priorType = validateOption(inputValues{1}, 'priorTypes', obj.invalidPriorsMessage).value;
-            switch priorType
-                case priorTypes.Uniform.value
-                    tab(row,6) = {priorTypes.Uniform.value};
-                    tab(row,7) = {0};
-                    tab(row,8) = {Inf};
-                    
-                case priorTypes.Gaussian.value
-                    tab(row,6) = {priorTypes.Gaussian.value};             
-                    tab(row,7) = inputValues(2);
-                    tab(row,8) = inputValues(3);
+            switch length(varargin)
+                case 1
+                    varargin{end + 1} = obj.varTable{row, 7};
+                    varargin{end + 1} = obj.varTable{row, 8};
+                case 2
+                    varargin{end + 1} = obj.varTable{row, 8};
             end
-    
-            obj.varTable = tab;
             
+            priors = obj.validatePriors(varargin{1}, varargin{2}, varargin{3});
+            obj.varTable{row, 6} = priors(1);
+            obj.varTable{row, 7} = priors{2};
+            obj.varTable{row, 8} = priors{3};
         end
         
         function obj = setValue(obj, row, value)
             % Sets the value of an existing parameter. Expects index or
             % name of parameter and the new value
             %
-            % params.setValue(2, 3.4);
-            tab = obj.varTable;           
+            % params.setValue(2, 3.4);           
             row = obj.getValidRow(row);
-            min = tab{row, 2};
-            max = tab{row, 4};
-
-            if ~isnumeric(value)
-                throw(exceptions.invalidType('Value must be numeric'));
-            end
-
-            if value < min || value > max
-                throw(exceptions.invalidValue(sprintf('Parameter value %f must be within the limits %f to %f', value, min, max)));
-            end
-
-            tab(row,3) = {value};
-            obj.varTable = tab;
+            obj.validateLimits(obj.varTable{row, 2}, value, obj.varTable{row, 4});
+            obj.varTable{row, 3} = value;
         end
         
         function obj = setName(obj, row, name)
             % Sets the name of an existing parameter.
             % Expects index or name of parameter and the new name
             %
-            % params.setName(2, 'new name');
-            tab = obj.varTable;           
+            % params.setName(2, 'new name');          
             row = obj.getValidRow(row);
 
             if ~isText(name)
                 throw(exceptions.invalidType('New name must be char'));
             end
 
-            tab(row, 1) = {name};
-            obj.varTable = tab;
+            obj.varTable{row, 1} = {name};
         end
         
-        function obj = setLimits(obj, row, min, max)
+        function obj = setLimits(obj, row, minValue, maxValue)
             % Sets the limits of an existing parameter. Expects index
             % or name of parameter and new min and max of the parameter's
             % value
             %
             % params.setLimits({2, 0, 100});
-            tab = obj.varTable;
             row = obj.getValidRow(row);
-
-            if ~(isnumeric(min) && isnumeric(max))
-                throw(exceptions.invalidType('min and max need to be numeric'));
-            end
-
-            if min > max
-                throw(exceptions.invalidValue(sprintf('Lower limit %f must be less than or equal to upper limit %f', min, max)));
-            end
-            
-            tab(row, 2) = {min};
-            tab(row, 4) = {max};
-            obj.varTable = tab;
+            obj.validateLimits(minValue, obj.varTable{row, 3}, maxValue);
+       
+            obj.varTable{row, 2} = minValue;
+            obj.varTable{row, 4} = maxValue;
         end
                 
         function obj = setFit(obj, row, fitFlag)
             % Sets the 'fit' to off or on for parameter.
             % Expects index or name of parameter and new fit flag
             %
-            % params.setFit(2, true);           
-            tab = obj.varTable;
+            % params.setFit(2, true);
             row = obj.getValidRow(row);
 
             if ~islogical(fitFlag)
-                throw(exceptions.invalidType('Need true or false for Fit? value'));
+                throw(exceptions.invalidType('Parameter "fit" must be a logical value i.e. true or false'));
             end
            
-            tab(row, 5) = {fitFlag};
-            obj.varTable = tab;
+            obj.varTable{row, 5} = fitFlag;
         end
         
-        function set.showPriors(obj, flag)
-            % Setter for the showPriors property
-            if ~islogical(flag)
-                throw(exceptions.invalidType('Show priors must be true or false'));
-            end
-            obj.showPriors = flag;
-        end
-        
-        function displayTable(obj)
-            % Displays the parameter table
-            array = obj.varTable;
-            numParams = height(obj.varTable);
-            if ~obj.showPriors
-                array = array(:,1:5);
+        function displayTable(obj, showPriors)
+            % Displays the parameter table. Optional showPriors to display
+            % the priors default is false
+            %
+            % params.displayTable(true);
+            arguments
+                obj
+                showPriors {logical} = false
             end
 
-            if numParams == 0
-                array(1, :) = repmat({''}, 1, width(obj.varTable));
+            numParams = height(obj.varTable);
+            dim = [1, width(obj.varTable)];
+                        
+            if ~showPriors
+                dim(2) = 5;
+            end
+            
+            if numParams == 0    
+                varNames = obj.varTable.Properties.VariableNames(1:dim(2));
+                array = table('Size', dim, 'VariableTypes', repmat({'string'}, dim), 'VariableNames', varNames);
+                array(1, :) = repmat({''}, 1, dim(2));
             else
-                p = 1:numParams;
+                array = obj.varTable;
+                p = 1:height(array);
                 p = p(:);
                 p = table(p);
-                array = [p array];
-            end
-
+                array = [p array(:, 1:dim(2))];
+            end         
             disp(array);
         end
-        
         
         function outStruct = toStruct(obj)
             % Converts the class parameters into a structure array.
@@ -441,26 +354,45 @@ classdef parametersClass < tableUtilities
                 end     
             end
         end
+    end
 
-        function inputBlock = parseParameterInput(~, varargin)
-            % Parses parameter keyword/value pairs into a structure.
-            %
-            % obj.parseParameterInput('name', 'param')
-            defaultName = '';
-            defaultMin = [];
-            defaultMax = [];   
-            defaultValue = [];
-            defaultFit = [];
-        
-            p = inputParser;
-            addParameter(p,'name',  defaultName,   @isText);
-            addParameter(p,'min',   defaultMin,    @isnumeric);
-            addParameter(p,'value', defaultValue,  @isnumeric);
-            addParameter(p,'max',   defaultMax,    @isnumeric);
-            addParameter(p,'fit',   defaultFit,    @islogical);
-                       
-            parse(p, varargin{:});
-            inputBlock = p.Results;
+    methods (Static)
+        function priors = validatePriors(priorType, muValue, sigmaValue)
+            % Validate the prior types, mu and sigma variables
+            invalidPriorsMessage = sprintf('Prior type must be a priorTypes enum or one of the following strings (%s)', ...
+                                           strjoin(priorTypes.values(), ', '));
+            priorType = validateOption(priorType, 'priorTypes', invalidPriorsMessage).value;
+                               
+            if ~isnumeric(muValue) || ~isnumeric(sigmaValue)
+                throw(exceptions.invalidType('Prior values mu and sigma must be a number.'));
+            end
+
+            if strcmp(priorType, priorTypes.Uniform.value)
+                if muValue ~= 0 
+                    warning('mu cannot be %d when the prior types is uniform - resetting to 0', muValue);
+                end
+                if sigmaValue ~= Inf
+                    warning('sigma cannot be %d when the prior types is uniform - resetting to Inf', sigmaValue);
+                end
+                muValue = 0;
+                sigmaValue = Inf;
+            end
+            priors = {priorType, muValue, sigmaValue};
+        end
+
+        function validateLimits(minLimit, value, maxLimit)
+            % Validate the value, lower and upper limit variables
+            if ~(isnumeric(minLimit) && isnumeric(value) && isnumeric(maxLimit))
+                throw(exceptions.invalidType('min, value, and max must be numbers'));
+            end
+                
+            if minLimit > maxLimit
+                throw(exceptions.invalidValue(sprintf('min limit %f must be less than or equal to max limit %f', minLimit, maxLimit)));
+            end
+
+            if value < minLimit || value > maxLimit
+                throw(exceptions.invalidValue(sprintf('Parameter value %f must be within the limits %f to %f', value, minLimit, minLimit)));
+            end
         end
 
     end

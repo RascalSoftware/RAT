@@ -128,7 +128,7 @@ classdef dataClass < tableUtilities
             % Data needs to be an [n x >3] array
             isDimsData = @(x) size(x,2) >= 3;
 
-            addParameter(p,'name', obj.varTable{row, 1}{:}, @(x) isText(x))
+            addParameter(p,'name', obj.varTable{row, 1}{:}, @isText)
             addParameter(p,'data', obj.varTable{row, 2}{:}, @(x) isnumeric(x) && isDimsData(x))
             addParameter(p,'dataRange', obj.varTable{row, 3}{:}, @(x) isnumeric(x) && isDimsRanges(x))
             addParameter(p,'simRange', obj.varTable{row, 4}{:}, @(x) isnumeric(x) && isDimsRanges(x)) 
@@ -178,21 +178,17 @@ classdef dataClass < tableUtilities
             % Displays the table object. The actual obj.varTable has the 
             % format {string, cell, double, double}, but for display we 
             % make a table that is all strings.
-            tab = obj.varTable;
-            
             sz = [1,4];
             displayVarTypes = {'string','string','string','string'}; 
             displayVarNames = {'Name','Data','Data Range','Simulation Range'};
             displayTable = table('Size',sz,'VariableTypes',displayVarTypes,'VariableNames',displayVarNames);
             
-            tableSize = size(tab);
+            tableSize = size(obj.varTable);
             
             for i = 1:tableSize(1)
-                thisRow = tab(i,:);
+                nameString = obj.varTable{i, 1};
                 
-                nameString = thisRow{1,1};
-                
-                thisData = thisRow{1,2}{:};
+                thisData = obj.varTable{i, 2}{:};
                 if isempty(thisData)
                     dataString = 'No Data';
                 else
@@ -200,14 +196,14 @@ classdef dataClass < tableUtilities
                     dataString = sprintf('Data array: [%d x %d]',dataSize(1),dataSize(2));
                 end
                 
-                thisDataRange = thisRow{1,3}{:};
+                thisDataRange = obj.varTable{i, 3}{:};
                 if isempty(thisDataRange)
                     dataRangeString = '-';
                 else
                     dataRangeString = sprintf('[ %1.4f , %1.4f ]', thisDataRange(1), thisDataRange(2));
                 end
                 
-                thisSimRange = thisRow{1,4}{:};
+                thisSimRange = obj.varTable{i, 4}{:};
                 if isempty(thisSimRange)
                     simRangeString = '-';
                 else
@@ -215,8 +211,7 @@ classdef dataClass < tableUtilities
                 end   
                 
                 newDisplayRow = {nameString, dataString, dataRangeString, simRangeString};
-                displayTable(i,:) = newDisplayRow;
-                
+                displayTable(i,:) = newDisplayRow;               
             end
 
             disp(displayTable);

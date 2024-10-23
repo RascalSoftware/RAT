@@ -28,7 +28,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         customFile          % Custom file object
 
         modelType = modelTypes.StandardLayers.value
-        usePriors = false
+        showPriors = false
     end
 
     properties (SetObservable, AbortSet)
@@ -152,36 +152,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             domainsObj = obj.domainsClass();
         end
 
-        function obj = setUsePriors(obj, showFlag)
-            % Sets the use priors flag. The showFlag should be a boolean/logical.
-            %
-            % project.setUsePriors(true); 
-            if ~islogical(showFlag)
-                throw(exceptions.invalidType('usePriors must be logical ''true'' or ''false'''));
+        function set.showPriors(obj, flag)
+            % Setter for the showPriors property. It indicate priors 
+            % should be visible when printing the project. The flag should 
+            % be a boolean/logical.
+            if ~islogical(flag)
+                throw(exceptions.invalidType('Show priors must be true or false'));
             end
-            obj.usePriors = showFlag;
-            
-            % Also need to set the flag in sub-objects
-            % where relevant..
-            % (1) Parameters
-            % replace with showFlag
-            obj.parameters.showPriors = showFlag;
-            
-            % (2) Bulk In
-            obj.bulkIn.showPriors = showFlag;
-            
-            % (3) Bulk out
-            obj.bulkOut.showPriors = showFlag;
-            
-            % (4) Scalefactors
-            obj.scalefactors.showPriors = showFlag;
-            
-            % (5) Backgrounds (parameters table)
-            obj.background.backgroundParams.showPriors = showFlag;
-            
-            % (6) Resolutions (parameters table)
-            obj.resolution.resolutionParams.showPriors = showFlag;
-            
+            obj.showPriors = flag;
         end
         
         function obj = setGeometry(obj, geometry)
@@ -991,33 +969,33 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Display the parameters table
             fprintf('\n    Parameters: ---------------------------------------------------------------------------------------------- \n\n');
-            obj.parameters.displayTable;
+            obj.parameters.displayTable(obj.showPriors);
                         
             % Display the Bulk In table
             fprintf('\n    Bulk In: -------------------------------------------------------------------------------------------------- \n\n');
-            obj.bulkIn.displayTable;
+            obj.bulkIn.displayTable(obj.showPriors);
             
             % Display the Bulk Out table
             fprintf('\n    Bulk Out: ------------------------------------------------------------------------------------------------- \n\n');
-            obj.bulkOut.displayTable;
+            obj.bulkOut.displayTable(obj.showPriors);
             
             % Display the Scalefactors table
             fprintf('\n    Scalefactors: ------------------------------------------------------------------------------------------------- \n\n');
-            obj.scalefactors.displayTable;
+            obj.scalefactors.displayTable(obj.showPriors);
 
             % Display the domain ratio if defined
             if isprop(obj, 'domainRatio') && isa(obj.domainRatio, 'parametersClass')
                 fprintf('\n   Domain Ratios: ----------------------------------------------------------------------------------------------- \n\n');
-                obj.domainRatio.displayTable;
+                obj.domainRatio.displayTable(obj.showPriors);
             end
 
             % Display the backgrounds object
             fprintf('\n    Backgrounds: ----------------------------------------------------------------------------------------------- \n\n');
-            obj.background.displayBackgroundsObject;
+            obj.background.displayBackgroundsObject(obj.showPriors);
             
             % Display the resolutions object
             fprintf('\n    Resolutions: --------------------------------------------------------------------------------------------- \n\n');
-            obj.resolution.displayResolutionsObject;
+            obj.resolution.displayResolutionsObject(obj.showPriors);
 
             % Display the layers table if not a custom model
             if isa(obj.layers, 'layersClass')
@@ -1102,8 +1080,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Start by getting input arguments
             projectSpec = "%s = createProject(name='%s', calcType='%s', model='%s', geometry='%s', absorption=%s);\n\n";
             script = script + sprintf(projectSpec, options.objName, obj.experimentName, obj.calculationType,  obj.modelType, obj.geometry,  string(obj.absorption));
-            if obj.usePriors
-                script = script + sprintf("%s.setUsePriors(true);\n\n", options.objName);
+            if obj.showPriors
+                script = script + sprintf("%s.showPriors = true;\n\n", options.objName);
             end
 
             % Add all parameters, with different actions for protected

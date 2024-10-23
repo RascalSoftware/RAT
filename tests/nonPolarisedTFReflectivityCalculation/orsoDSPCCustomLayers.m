@@ -12,7 +12,7 @@ function project = orsoDSPCCustomLayers()
 project = projectClass('Orso lipid example - custom layers');
 project.setModelType('custom layers');
 project.setGeometry('Substrate/liquid');
-project.setUsePriors(true);
+project.showPriors = true;
 
 %%  
 % We need to add the relevant parameters we are going to need to define the 

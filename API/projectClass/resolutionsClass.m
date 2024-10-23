@@ -17,10 +17,6 @@ classdef resolutionsClass < handle
        resolutionParams 
        resolutions
     end
-
-    properties(Dependent)
-       showPriors
-    end
     
     properties(Access = private, Constant, Hidden)
         invalidTypeMessage = sprintf('Allowed type must be a allowedTypes enum or one of the following strings (%s)', ...
@@ -41,14 +37,6 @@ classdef resolutionsClass < handle
             obj.resolutions = multiTypeTable();
             obj.resolutions.typesAutoNameString = 'New Resolution';
             obj.addResolution(startResolution{:});
-        end
-        
-        function flag = get.showPriors(obj)
-            flag = obj.resolutionParams.showPriors;
-        end
-        
-        function set.showPriors(obj, value)
-            obj.resolutionParams.showPriors = value;
         end
         
         function names = getNames(obj)
@@ -147,12 +135,12 @@ classdef resolutionsClass < handle
             end
             
             p = inputParser;
-            addParameter(p, 'name', obj.resolutions.varTable{row, 1}, @(x) isText(x));
+            addParameter(p, 'name', obj.resolutions.varTable{row, 1}, @isText);
             addParameter(p, 'type', obj.resolutions.varTable{row, 2}, @(x) isText(x) || isenum(x));
-            addParameter(p, 'value1', obj.resolutions.varTable{row, 3}, @(x) isText(x));
-            addParameter(p, 'value2', obj.resolutions.varTable{row, 4}, @(x) isText(x));
-            addParameter(p, 'value3', obj.resolutions.varTable{row, 5}, @(x) isText(x));
-            addParameter(p, 'value4', obj.resolutions.varTable{row, 6}, @(x) isText(x));
+            addParameter(p, 'value1', obj.resolutions.varTable{row, 3}, @isText);
+            addParameter(p, 'value2', obj.resolutions.varTable{row, 4}, @isText);
+            addParameter(p, 'value3', obj.resolutions.varTable{row, 5}, @isText);
+            addParameter(p, 'value4', obj.resolutions.varTable{row, 6}, @isText);
 
             parse(p, varargin{:});
             inputBlock = p.Results;
@@ -204,10 +192,17 @@ classdef resolutionsClass < handle
             resolutionStruct.resolutionValues = resolutionValues;  
          end
         
-        function displayResolutionsObject(obj)
+        function displayResolutionsObject(obj, showPriors)
             % Displays the resolution parameters and resolution table.
+            % Optional showPriors to display the priors default is false
+            %
+            % resolution.displayResolutionsObject(true);
+            arguments
+                obj
+                showPriors {logical} = false
+            end
             fprintf('    (a) Resolutions Parameters: \n\n');
-            obj.resolutionParams.displayTable;
+            obj.resolutionParams.displayTable(showPriors);
             
             fprintf('    (b) Resolutions:  \n\n')
             obj.resolutions.displayTable;

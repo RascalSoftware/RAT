@@ -21,10 +21,6 @@ classdef backgroundsClass < handle
        backgrounds
     end
 
-    properties(Dependent)
-       showPriors
-    end
-
     properties(Access = private, Constant, Hidden)
         invalidTypeMessage = sprintf('Allowed type must be a allowedTypes enum or one of the following strings (%s)', ...
                                      strjoin(allowedTypes.values(), ', '))
@@ -44,14 +40,6 @@ classdef backgroundsClass < handle
             obj.backgrounds = multiTypeTable();
             obj.backgrounds.typesAutoNameString = 'New background';
             obj.addBackground(startBackground{:});
-        end
-
-        function flag = get.showPriors(obj)
-            flag = obj.backgroundParams.showPriors;
-        end
-        
-        function set.showPriors(obj, value)
-            obj.backgroundParams.showPriors = value;
         end
         
         function names = getNames(obj)
@@ -150,12 +138,12 @@ classdef backgroundsClass < handle
             end
             
             p = inputParser;
-            addParameter(p, 'name', obj.backgrounds.varTable{row, 1}, @(x) isText(x));
+            addParameter(p, 'name', obj.backgrounds.varTable{row, 1}, @isText);
             addParameter(p, 'type', obj.backgrounds.varTable{row, 2}, @(x) isText(x) || isenum(x));
-            addParameter(p, 'value1', obj.backgrounds.varTable{row, 3}, @(x) isText(x));
-            addParameter(p, 'value2', obj.backgrounds.varTable{row, 4}, @(x) isText(x));
-            addParameter(p, 'value3', obj.backgrounds.varTable{row, 5}, @(x) isText(x));
-            addParameter(p, 'value4', obj.backgrounds.varTable{row, 6}, @(x) isText(x));
+            addParameter(p, 'value1', obj.backgrounds.varTable{row, 3}, @isText);
+            addParameter(p, 'value2', obj.backgrounds.varTable{row, 4}, @isText);
+            addParameter(p, 'value3', obj.backgrounds.varTable{row, 5}, @isText);
+            addParameter(p, 'value4', obj.backgrounds.varTable{row, 6}, @isText);
 
             parse(p, varargin{:});
             inputBlock = p.Results;
@@ -188,10 +176,17 @@ classdef backgroundsClass < handle
             obj.backgrounds.setValue(row, 'name', name);
         end
 
-        function displayBackgroundsObject(obj)
-            % Displays the background parameters and background table.
+        function displayBackgroundsObject(obj, showPriors)
+            % Displays the background parameters and background table. 
+            % Optional showPriors to display the priors default is false
+            %
+            % background.displayBackgroundsObject(true);
+            arguments
+                obj
+                showPriors {logical} = false
+            end
             fprintf('    (a) Background Parameters: \n\n');
-            obj.backgroundParams.displayTable;
+            obj.backgroundParams.displayTable(showPriors);
             
             fprintf('    (b) Backgrounds:  \n\n')
             obj.backgrounds.displayTable;

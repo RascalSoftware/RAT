@@ -33,15 +33,12 @@ classdef (Abstract) tableUtilities < handle
             % with the row to append
             % 
             % obj.addRow('Tails', 10, 20, 30, true, 'uniform', 0, Inf)
-            tab = obj.varTable;
-
             % Ensure no duplicate names
-            if any(strcmp(varargin{1}, tab{:,1}))
+            if any(strcmp(varargin{1}, obj.varTable{:,1}))
                 throw(exceptions.duplicateName('Duplicate row names not allowed'));
             end
-
-            tab = [tab; varargin];
-            obj.varTable = tab;
+            
+            obj.varTable = [obj.varTable; varargin];
             obj.autoNameCounter = obj.autoNameCounter + 1;
         end
 
@@ -61,29 +58,27 @@ classdef (Abstract) tableUtilities < handle
                 throw(exceptions.indexOutOfRange(sprintf('Row index %d out of range 1 - %d', row, obj.rowCount)));
             end
             
-            tab = obj.varTable;
-            tab(row, :) = [];
-            obj.varTable = tab;
+            obj.varTable(row, :) = [];
         end
 
         function displayTable(obj)
             % Displays the param table with numbered rows
             %
             % layers.displayTable()
-            array = obj.varTable;
-
-            if obj.rowCount == 0
-                % Creat blank line for empty table,
-                array(1, :) = repmat({''}, 1, width(obj.varTable));
+            numParams = height(obj.varTable);
+            dim = [1, width(obj.varTable)];
+            
+            if numParams == 0    
+                varNames = obj.varTable.Properties.VariableNames(1:dim(2));
+                newTable = table('Size', dim, 'VariableTypes', repmat({'string'}, dim), 'VariableNames', varNames);
+                newTable(1, :) = repmat({''}, 1, dim(2));
             else
-                % Add indices for table entries
-                p = 1:obj.rowCount;
+                p = 1:height(obj.varTable);
                 p = p(:);
                 p = table(p);
-                array = [p array];
-            end
-
-            disp(array);
+                newTable = [p obj.varTable(:, 1:dim(2))];
+            end         
+            disp(newTable);
         end
 
     end

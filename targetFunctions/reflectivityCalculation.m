@@ -18,26 +18,20 @@ function result = reflectivityCalculation(problemStruct,problemCells,problemLimi
 
 % For compilation, we fill the results arrays to define their type and size
 numberOfContrasts = problemStruct.numberOfContrasts;
-shiftedData = cell(numberOfContrasts,1);
 
 % Decide which target function we are calling and call the relevant routines
 whichTF = problemStruct.TF;
 switch whichTF
     case coderEnums.calculationTypes.NonPolarised
-        [contrastParams,calculationResults,reflectivity,simulation,fullShiftedData,backgrounds,layerSlds,sldProfiles,resampledLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
+        [contrastParams,calculationResults,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,resampledLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
     %case coderEnums.calculationTypes.OilWater
         %contrastParams = oilWaterTFReflectivityCalculation(problemStruct,problemCells,controls);    
     %case coderEnums.calculationTypes.Magnetic
         %contrastParams = polarisedTFReflectivityCalculation(problemStruct,problemCells,controls);
     case coderEnums.calculationTypes.Domains
-        [contrastParams,calculationResults,reflectivity,simulation,fullShiftedData,backgrounds,layerSlds,sldProfiles,resampledLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
+        [contrastParams,calculationResults,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,resampledLayers] = domainsTF.reflectivityCalculation(problemStruct,problemCells,controls);
     otherwise
         error('The calculation type "%s" is not supported', whichTF);
-end
-
-% Reduce data to original three columns
-for i = 1:length(shiftedData)
-    shiftedData{i} = fullShiftedData{i}(:,1:3);
 end
 
 % Make the result struct

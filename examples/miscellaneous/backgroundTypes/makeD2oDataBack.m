@@ -1,8 +1,4 @@
-
-
 % Make a dummy background datasets for this problem .....
-
-
 
 % Get the D2O data....
 d2o_dat = readmatrix('DSPC_D2O.dat');
@@ -30,16 +26,3 @@ set(gca,'YScale','log');
 % Put these together into a dummy background dataset.....
 dummyBack_d2o = [d2o_dat(:,1) dummyBackValues(:) backError(:)];
 writematrix(dummyBack_d2o,'d2o_background_data.dat','FileType','text','Delimiter','\t');
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -2,8 +2,9 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     % A function to make an empty container to hold the results of
     % reflectivity calculations. The struct has the following format:
     %
-    % nPar = number of fitted parameters
+    % nParams = number of fitted parameters
     % nContrasts = number of contrasts
+    % nDomains = number of domains - 1 for non-polarised, 2 for domains
     %
     % result = 
     % 
@@ -12,10 +13,10 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     %       reflectivity: [nContrastsx1 cell]
     %         simulation: [nContrastsx1 cell]
     %        shiftedData: [nContrastsx1 cell]
-    %        shiftedData: [nContrastsx1 cell]
-    %          layerSlds: [nContrastsx1 cell]
-    %        sldProfiles: [nContrastsx1 cell]
-    %    resampledLayers: [nContrastsx1 cell]
+    %        backgrounds: [nContrastsx1 cell]
+    %          layerSlds: [nContrastsxnDomains cell]
+    %        sldProfiles: [nContrastsxnDomains cell]
+    %    resampledLayers: [nContrastsxnDomains cell]
     % calculationResults: [1x1 struct]
     %     contrastParams: [1x1 struct]
     %          fitParams: [1xnParams double]

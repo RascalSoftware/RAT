@@ -12,7 +12,7 @@ classdef backgroundsClass < handle
     % 
     % For function, the function name is supplied, along with up to five
     % parameters (from the background parameters table) which are then
-    % supplied to the function to calculate the background. 
+    % passed to the function to calculate the background. 
     %
     % In each case, the background can either be added to the simulation or
     % subtracted from the data.
@@ -56,8 +56,8 @@ classdef backgroundsClass < handle
             %
             % background.addBackground('New Row');
             % background.addBackground('New Row', 'constant', 'param_name');
-            % background.addBackground('New Row', 'function', 'function_name', 'param_name');
-            % background.addBackground('New Row', 'data', 'data name', 'offset');
+            % background.addBackground('New Row', 'function', 'function_name', 'param_name', 'param_name');
+            % background.addBackground('New Row', 'data', 'data_name', 'param_name');
             in = varargin;
 
             if isempty(in)
@@ -91,12 +91,12 @@ classdef backgroundsClass < handle
                        newRow{3} = obj.validateParam(in(3));
 
                    case allowedTypes.Function.value
-                       % Param 3 (source) is assumed to be function name - should
-                       % there be validation here??
+                       % Param 3 (source) is the function name, defined in
+                       % the custom files table
                        newRow{3} = in{3};
 
-                       % any other given parameters must valid background
-                       % parameters
+                       % Any other given parameters must be valid
+                       % background parameters
                        for i = 4:length(in)
                           thisParam = obj.validateParam(in(i));
                           newRow{i} = thisParam;
@@ -161,7 +161,8 @@ classdef backgroundsClass < handle
                 obj.backgrounds.setValue(row, 2, inputBlock.type);
             end
 
-            % For data and function types, source is the data/function name so no validation is done
+            % For data and function types, source is the data/function name
+            % so no validation is done at this point
             source = convertStringsToChars(inputBlock.source);
             if ~isempty(source) && strcmpi(inputBlock.type, allowedTypes.Constant.value)
                 source = obj.validateParam(source);

@@ -85,14 +85,13 @@ classdef resolutionsClass < handle
                switch typeVal
                    case allowedTypes.Constant.value
                        % Param 3 (source) must be a valid resolution parameter
-                       thisParam = obj.validateParam(in(3));
-                       newRow{3} = thisParam;
+                       newRow{3} = obj.validateParam(in(3));
 
                    case allowedTypes.Function.value
-                       % Param 3 (source) is assumed to be function name
+                       % Param 3 (source) is the function name
                        newRow{3} = in{3};
 
-                       % any other given parameters must be valid
+                       % Any other given parameters must be valid
                        % resolution parameters
                        for i = 4:length(in)
                           thisParam = obj.validateParam(in(i));
@@ -104,6 +103,7 @@ classdef resolutionsClass < handle
                        % of a data file. We don't have access to the
                        % data files at this point so this (i.e. that data is
                        % [n x 4]) will be checked downstream
+                       %newRow{3} = in{3};
                 end
             end
             obj.resolutions.addRow(newRow{:});      
@@ -154,7 +154,8 @@ classdef resolutionsClass < handle
                 obj.resolutions.setValue(row, 2, inputBlock.type);
             end
 
-            % For data and function types, source is the data/function name so no validation is done
+            % For data and function types, source is the data/function name
+            % so no validation is done at this point
             source = convertStringsToChars(inputBlock.source);
             if ~isempty(source) && strcmpi(inputBlock.type, allowedTypes.Constant.value)
                 source = obj.validateParam(source);

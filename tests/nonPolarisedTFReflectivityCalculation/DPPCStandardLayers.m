@@ -176,7 +176,7 @@ project.addBackground('Background SMW','constant','Backs par SMW');
 project.addBackground('Background H2O','constant','Backs par H2O');
 
 % And edit the other one....
-project.setBackground(1,'name','Background D2O','Value1','Backs par D2O');
+project.setBackground(1,'name','Background D2O','source','Backs par D2O');
 
 % Finally modify some of the other parameters to be more suitable values
 % for a solid / liquid experiment.

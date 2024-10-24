@@ -9,9 +9,9 @@ function [problemStruct,problemCells,problemLimits,priors,controls] = parseClass
 %       {1 x nContrasts} array of cells
 %       Each cell is {1 x 2 double}.
 %
-% {2} - inputProblem.data
+% {2} - inputProblem.contrastData
 %       {1 x nContrasts} array of cells
-%       Each cell is {Inf x 3 double}
+%       Each cell is {Inf x 6 double}
 %
 % {3} - inputProblem.dataLimits
 %       {1 x nContrasts} array of cells
@@ -93,9 +93,17 @@ function [problemStruct,problemCells,problemLimits,priors,controls] = parseClass
 %% First parse the class to a structure variable.
 inputStruct = project.toStruct();
 
+% Make the contrast data array up to six columns,
+% adding columns of zeros if necessary
+inputData = cell(1, length(inputStruct.contrastData));
+for i = 1:length(inputStruct.contrastData)
+    contrastData = inputStruct.contrastData{i};
+    inputData{i} = [contrastData zeros(size(contrastData,1), 6-size(contrastData,2))];
+end
+
 %% Pull out all the cell arrays (except priors) into one array
 problemCells{1} = inputStruct.contrastRepeatSLDs;
-problemCells{2} = inputStruct.data;
+problemCells{2} = inputData;
 problemCells{3} = inputStruct.dataLimits;
 problemCells{4} = inputStruct.simLimits;
 problemCells{5} = inputStruct.contrastLayers;
@@ -196,30 +204,91 @@ for i = 1:length(inputStruct.contrastBackgrounds)
 
 end
 
-% Convert contrastBackgrounds to parameter indices
+% Convert contrastBackgrounds to custom file/parameter indices
 contrastBackgrounds = inputStruct.contrastBackgrounds;
 backgroundTypes = inputStruct.backgroundTypes;
 
 backgroundParamNames = inputStruct.backgroundParamNames;
-contrastBackgroundParams = zeros(1, length(contrastBackgrounds));
+
+contrastBackgroundParams = cell(1, length(contrastBackgrounds));
+contrastBackgroundTypes = cell(1, length(contrastBackgrounds));
 
 for i = 1:length(contrastBackgrounds)
     % Check the type of the background that each contrast is pointing to.
-    % If it is a constant, point to the number of the corresponding
-    % background param. If it's data, then set it to -1
     thisBack = contrastBackgrounds(i);      % Which background
-    thisType = backgroundTypes{thisBack};   % What type is it?
+    backgroundType = backgroundTypes{thisBack};   % What type is it?
+    contrastBackgroundTypes{i} = backgroundType;
+
+    switch backgroundType
+
+        case allowedTypes.Constant.value
+            % Background is a backgroundParam, the name of which should
+            % be in the first column of backgroundValues
     
-    if strcmpi(thisType,'data')
-        % Background is in the datafile. Set contrastBackgroundParams to -1
-        contrastBackgroundParams(i) = -1;
-    else
-        % Background is a backgroundParam, the name of which should
-        % be in the first column of backgroundValues
-        whichBackgroundParamName = inputStruct.backgroundValues{thisBack,1};
-        
-        % Find which backgroundParam this is, and set contrastBackgroundParams to this number
-        contrastBackgroundParams(i) = find(strcmpi(whichBackgroundParamName,backgroundParamNames));
+            % Find which backgroundParam this is, and set contrastBackgroundParams to this number
+            contrastBackgroundParams{i} = find(strcmpi(inputStruct.backgroundValues{thisBack,1}, backgroundParamNames));
+
+        case allowedTypes.Data.value
+            % Background is in a datafile.
+            %
+            % We need to find the index of the relevant datafile, and
+            % append the relevant data as columns 5 and 6 of the contrast
+            % data. Finally, deal with the optional background offset if
+            % present, and set this as the (optional) contrastBackgroundParams
+            % entry.
+    
+            % Find corresponding background value
+            backgroundDatafileName = inputStruct.backgroundValues{thisBack,1};
+            backgroundDataOffset = inputStruct.backgroundValues{thisBack,2};
+    
+            % Find the index of this data name in the string array
+            backgroundDataIndex = find(strcmp(backgroundDatafileName,inputStruct.dataNames));
+    
+            if isempty(backgroundDataIndex)
+                throw(exceptions.invalidValue(sprintf('Data background %s is not defined in the data table of the project', backgroundDatafileName)));
+            end
+
+            % We append the background data as columns 5 and 6 of the
+            % data array of this contrast.
+            contrastData = problemCells{2}(i);
+            backgroundData = inputStruct.allData{backgroundDataIndex};
+            contrastData = insertDataBackgroundIntoContrastData(contrastData,backgroundData);
+            problemCells{2}(i) = contrastData;
+
+            % Also add the index of the data offset to the array...
+            contrastBackgroundParams{i} = find(strcmpi(backgroundDataOffset,backgroundParamNames));
+
+            % Add the index of the optional data offset to contrastBackgroundParams
+            if ~isempty(backgroundDataIndex)
+                contrastBackgroundParams{i} = find(strcmpi(backgroundDataOffset,backgroundParamNames));
+            end
+
+        case allowedTypes.Function.value
+            % Background is a background function
+    
+            % Get the corresponding function name...
+            backgroundFuncfileName = inputStruct.backgroundValues{thisBack,1};
+    
+            % Find the index of this data name in the string array...
+            backgroundFunctionIndex = find(strcmp(backgroundFuncfileName,inputStruct.fileNames));
+
+            if isempty(backgroundFunctionIndex)
+                throw(exceptions.invalidValue(sprintf('Function background %s is not defined in the custom files table of the project', backgroundFuncfileName)));
+            end
+
+            contrastBackgroundParams{i}(1) = backgroundFunctionIndex;
+    
+            % Now find the indices of any defined background parameters
+            functionParams = inputStruct.backgroundValues(thisBack,2:end);
+            numDefined = length(find(~(cellfun(@(x) isequal(x,""),functionParams))));
+            for n = 1:numDefined
+                backgroundParamIndex = find(strcmpi(functionParams{n},backgroundParamNames));
+                contrastBackgroundParams{i}(n+1) = backgroundParamIndex;
+            end
+
+        otherwise
+            throw(exceptions.inValidOption(sprintf('The background type "%s" is not supported. Backgrounds should be either "constant", "data", or "function"', backgroundType)));
+            
     end
 end
 
@@ -291,13 +360,6 @@ end
 
 %% Make the problemStruct structure from the remaining inputs
 
-% *************************************************************************
-% NOTE - not using the more complicated background and resolution
-% definitions for now - instead use the background names and
-% backgroundParam values.... fix this next
-% *************************************************************************
-
-
 problemStruct.TF = inputStruct.TF;
 problemStruct.resample = inputStruct.resample;
 problemStruct.dataPresent = inputStruct.dataPresent;
@@ -306,13 +368,14 @@ problemStruct.numberOfContrasts = inputStruct.numberOfContrasts;
 problemStruct.geometry = inputStruct.geometry;
 problemStruct.useImaginary = inputStruct.useImaginary;
 problemStruct.contrastBackgroundParams = contrastBackgroundParams;
+problemStruct.contrastBackgroundTypes = contrastBackgroundTypes;
 problemStruct.contrastBackgroundActions = backgroundActions;
 problemStruct.contrastQzshifts = inputStruct.contrastQzshifts;
 problemStruct.contrastScalefactors = inputStruct.contrastScalefactors;
 problemStruct.contrastBulkIns = inputStruct.contrastBulkIns;
 problemStruct.contrastBulkOuts = inputStruct.contrastBulkOuts;
 problemStruct.contrastResolutionParams = contrastResolutionParams;
-problemStruct.backgroundParams = inputStruct.backgroundParamValues; %inputStruct.backgrounds;       % **** note backPar workaround (todo) ****
+problemStruct.backgroundParams = inputStruct.backgroundParamValues;
 problemStruct.qzshifts = inputStruct.qzshiftValues;
 problemStruct.scalefactors = inputStruct.scalefactorValues;
 problemStruct.bulkIn = inputStruct.bulkInValues;
@@ -346,7 +409,7 @@ problemStruct.fitLimits = [];
 problemStruct.otherLimits = [];
 
 % Make sure the indices cannot lie outside of the arrays
-checkIndices(problemStruct)
+checkIndices(problemStruct, inputStruct.files);
 
 %% Now deal with the controls class
 controls.procedure = inputControls.procedure;

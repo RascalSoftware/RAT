@@ -1,4 +1,4 @@
-function [contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = reflectivityCalculation(problemStruct,problemCells,controls)
+function [contrastParams,calculationResults,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,resampledLayers] = reflectivityCalculation(problemStruct,problemCells,controls)
 
 % Main function for the nonPolarisedTF reflectivity calculation.
 % This function decides what type of model is being analysed and branches
@@ -25,79 +25,33 @@ function [contrastParams,calculationResults,reflectivity,simulation,shiftedData,
 
 % Find out the model type from the input structs
 type = problemStruct.modelType;
-numberOfContrasts = problemStruct.numberOfContrasts;
-
-% Pre-allocation - It's necessary to pre-define the types for all the
-% arrays for compilation, so do this in this block.
-backgroundParams = zeros(numberOfContrasts,1);
-qzshifts = zeros(numberOfContrasts,1);
-scalefactors = zeros(numberOfContrasts,1);
-bulkIns = zeros(numberOfContrasts,1);
-bulkOuts = zeros(numberOfContrasts,1);
-chis = zeros(numberOfContrasts,1);
-resolutionParams = zeros(numberOfContrasts,1);
-subRoughs = zeros(numberOfContrasts,1);
-
-% Pre-allocate the output arrays. This is necessary because otherwise the
-% compiler complains with 'Output argument <....> is not assigned on some
-% execution paths' error.
-reflectivity = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    reflectivity{i} = [1 1; 1 1];
-end
-
-simulation = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    simulation{i} = [1 1; 1 1];
-end
-
-shiftedData = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    shiftedData{i} = [1 1 1; 1 1 1];
-end
-
-layerSlds = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    layerSlds{i} = [1 1 1; 1 1 1];
-end
-
-sldProfiles = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    sldProfiles{i} = [1 1; 1 1];
-end
-
-resampledLayers = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    resampledLayers{i} = [1 1 1; 1 1 1];
-end
            
 switch lower(type)
     case coderEnums.modelTypes.StandardLayers
 
-        [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
+        [qzshifts,scalefactors,bulkIns,bulkOuts,...
          resolutionParams,chis,reflectivity,simulation,shiftedData,...
-         layerSlds,sldProfiles,resampledLayers,...
+         backgrounds,layerSlds,sldProfiles,resampledLayers,...
          subRoughs] = nonPolarisedTF.standardLayers(problemStruct,problemCells,controls);
 
     case coderEnums.modelTypes.CustomLayers
 
-        [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
+        [qzshifts,scalefactors,bulkIns,bulkOuts,...
          resolutionParams,chis,reflectivity,simulation,shiftedData,...
-         layerSlds,sldProfiles,resampledLayers,...
+         backgrounds,layerSlds,sldProfiles,resampledLayers,...
          subRoughs] = nonPolarisedTF.customLayers(problemStruct,problemCells,controls);
 
     case coderEnums.modelTypes.CustomXY
         
-        [backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
+        [qzshifts,scalefactors,bulkIns,bulkOuts,...
          resolutionParams,chis,reflectivity,simulation,shiftedData,...
-         layerSlds,sldProfiles,resampledLayers,...
+         backgrounds,layerSlds,sldProfiles,resampledLayers,...
          subRoughs] = nonPolarisedTF.customXY(problemStruct,problemCells,controls);
     otherwise
         error('The model type "%s" is not supported', type);
 end
 
 % Package everything into structs for tidy output
-contrastParams.backgroundParams = backgroundParams;
 contrastParams.scalefactors = scalefactors;
 contrastParams.bulkIn = bulkIns;
 contrastParams.bulkOut = bulkOuts;

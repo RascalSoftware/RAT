@@ -3,15 +3,16 @@ classdef backgroundsClass < handle
     % actual fitted parameters. These are held in a 'ParametersClass'
     % table. Then, we group these into the backgrounds themselves using a
     % multiTypeTable. So, we can then use the background parameters to
-    % either define background as  constant, data or a function. 
+    % either define background as constant, data or a function. 
     % 
-    % For constant only one parameter is supplied to multi type table. 
+    % For constant only one background parameter is supplied to multi type table. 
     % 
-    % For data only the itself is supplied as a cell. 
+    % For data an entry in the data table and an optional offset is
+    % required
     % 
-    % For function, the function name is supplied, along with up to three 
-    % parameters (from the parameters table) which are then supplied to the 
-    % function to calculate the background. 
+    % For function, the function name is supplied, along with up to five
+    % parameters (from the background parameters table) which are then
+    % passed to the function to calculate the background. 
     %
     % In each case, the background can either be added to the simulation or
     % subtracted from the data.
@@ -33,7 +34,7 @@ classdef backgroundsClass < handle
             % and a cell array of  backgrounds
             %
             % params = parametersClass({'Background Param 1', 1e-7, 1e-6, 1e-5, false, 'uniform', 0, Inf});
-            % % background = backgroundClass(params, {'Background 1', 'constant', 'Background Param 1'});
+            % background = backgroundClass(params, {'Background 1', 'constant', 'Background Param 1'});
             obj.backgroundParams = parameters;
             
             % Make a multiType table to define the actual backgrounds
@@ -55,19 +56,19 @@ classdef backgroundsClass < handle
             %
             % background.addBackground('New Row');
             % background.addBackground('New Row', 'constant', 'param_name');
-            % background.addBackground('New Row', 'function', 'function_name', 'param_name');
-            % background.addBackground('New Row', 'data');
+            % background.addBackground('New Row', 'function', 'function_name', 'param_name', 'param_name');
+            % background.addBackground('New Row', 'data', 'data_name', 'param_name');
             in = varargin;
 
             if isempty(in)
-                thisRow = {};
+                newRow = {};
             else
-                thisRow = {'','','','','','',''};
+                newRow = {'','','','','','','',''};
                 if length(in) == 1
                     % Assume the input is just a name
-                    thisRow = {in};
+                    newRow = {in};
                 else
-                    thisRow{1} = in;
+                    newRow{1} = in;
                 end
             end
  
@@ -79,37 +80,45 @@ classdef backgroundsClass < handle
                     throw(exceptions.invalidNumberOfInputs(sprintf('For type ''%s'', at least three inputs are required, but only %d are supplied', typeVal, length(in))));
                end
 
-               thisRow{1} = in{1};
-               thisRow{2} = in{2};
+               newRow{1} = in{1};
+               newRow{2} = in{2};
 
                % Check that the other params inputted are either valid
-               % background names, or numbers in range..
+               % background names, or numbers in range
                switch typeVal
                    case allowedTypes.Constant.value
-                       % Param 3 must be a valid parameter
-                       thisParam = obj.validateParam(in(3));
-                       thisRow{3} = thisParam;
+                       % Param 3 (source) must be a valid background parameter
+                       newRow{3} = obj.validateParam(in(3));
+
+                   case allowedTypes.Data.value
+                       % Background is contained within a data file.
+                       % We don't have access to the data files at this
+                       % point so this will be checked downstream.
+                       % We also allow for an optional data offset
+                       newRow{3} = in{3};
+                       if length(in) >= 4
+                           newRow{4} = obj.validateParam(in(4));
+                       end
 
                    case allowedTypes.Function.value
-                       throw(exceptions.notImplemented('Function backgrounds are not yet supported.'))
-                       % Param 3 is assumed to be function name
-                       % any other given parameters must be in paramNames
-                       % list or numbers in range
-                       thisRow{3} = in{3};
-                       for i = 4:length(in)
-                          thisParam = obj.validateParam(in(i));
-                          thisRow{i} = thisParam;
+                       % Param 3 (source) is the function name, defined in
+                       % the custom files table
+                       newRow{3} = in{3};
+
+                       if length(in) >= 4
+                           % Any other given parameters must be valid
+                           % background parameters
+                           params = in(4:end);
+                           params = params(~(cellfun(@(x) isequal(x,""), params)));
+                           for i = 1:length(params)
+                              thisParam = obj.validateParam(params(i));
+                              newRow{i+3} = thisParam;
+                           end
                        end
-                   case allowedTypes.Data.value
-                       throw(exceptions.notImplemented('Data backgrounds are not yet supported.'))
-                       % Background is assumed to be given by a 4th column 
-                       % of a data file. We don't have access to the
-                       % data files at this point so this (i.e. that data is
-                       % [n x 4] ) will be checked downstream
-                       thisRow = {in{1}, in{2}, '', '', '', '', ''};
+
                 end
             end
-            obj.backgrounds.addRow(thisRow{:});   
+            obj.backgrounds.addRow(newRow{:});   
         end
         
         function obj = removeBackground(obj, row)
@@ -125,7 +134,7 @@ classdef backgroundsClass < handle
             % Changes the value of a given background in the table. Expects the 
             % index or name of background and keyword/value pairs to set. 
             %
-            % background.setBackground(1, 'name', 'back 1', 'type', 'constant', 'value1', 'param_name');
+            % background.setBackground(1, 'name', 'back 1', 'type', 'constant', 'source', 'param_name');
             if isText(row)
                 row = obj.backgrounds.findRowIndex(row, obj.getNames(), 'Unrecognised background');
             elseif isnumeric(row)
@@ -140,10 +149,12 @@ classdef backgroundsClass < handle
             p = inputParser;
             addParameter(p, 'name', obj.backgrounds.varTable{row, 1}, @isText);
             addParameter(p, 'type', obj.backgrounds.varTable{row, 2}, @(x) isText(x) || isenum(x));
-            addParameter(p, 'value1', obj.backgrounds.varTable{row, 3}, @isText);
-            addParameter(p, 'value2', obj.backgrounds.varTable{row, 4}, @isText);
-            addParameter(p, 'value3', obj.backgrounds.varTable{row, 5}, @isText);
-            addParameter(p, 'value4', obj.backgrounds.varTable{row, 6}, @isText);
+            addParameter(p, 'source', obj.backgrounds.varTable{row, 3}, @isText);
+            addParameter(p, 'value1', obj.backgrounds.varTable{row, 4}, @isText);
+            addParameter(p, 'value2', obj.backgrounds.varTable{row, 5}, @isText);
+            addParameter(p, 'value3', obj.backgrounds.varTable{row, 6}, @isText);
+            addParameter(p, 'value4', obj.backgrounds.varTable{row, 7}, @isText);
+            addParameter(p, 'value5', obj.backgrounds.varTable{row, 8}, @isText);
 
             parse(p, varargin{:});
             inputBlock = p.Results;
@@ -154,14 +165,22 @@ classdef backgroundsClass < handle
                 inputBlock.type = validateOption(inputBlock.type, 'allowedTypes', obj.invalidTypeMessage).value;
                 obj.backgrounds.setValue(row, 2, inputBlock.type);
             end
-            values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4};
-            for i = 1:4
+
+            % For data and function types, source is the data/function name
+            % so no validation is done at this point
+            source = convertStringsToChars(inputBlock.source);
+            if ~isempty(source) && strcmpi(inputBlock.type, allowedTypes.Constant.value)
+                source = obj.validateParam(source);
+            end
+            obj.backgrounds.setValue(row, 3, source);
+
+            values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4, inputBlock.value5};
+            for i = 1:5
                 value = convertStringsToChars(values{i});
-                % for function type, value 1 is the function name so no validation is done 
-                if ~isempty(value) && ~(i==1 && strcmpi(inputBlock.type, allowedTypes.Function.value))
+                if ~isempty(value)
                     value = obj.validateParam(value);
                 end
-                obj.backgrounds.setValue(row, i + 2, value);
+                obj.backgrounds.setValue(row, i + 3, value);
             end
         end
          
@@ -204,7 +223,7 @@ classdef backgroundsClass < handle
             
             backgroundNames = obj.backgrounds.varTable{:,1};
             backgroundTypes = obj.backgrounds.varTable{:,2};
-            backgroundValues = table2cell(obj.backgrounds.varTable(:,3:7));
+            backgroundValues = table2cell(obj.backgrounds.varTable(:,3:width(obj.backgrounds.varTable)));
             
             backgroundStruct.backgroundNames = backgroundNames;
             backgroundStruct.backgroundTypes = backgroundTypes;

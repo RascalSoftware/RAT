@@ -873,6 +873,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
             % Custom files
             customFileStruct = obj.customFile.toStruct();
+
+            % Data
+            dataStruct = obj.data.toStruct();
             
             % Contrasts
             allNames = obj.getAllAllowedNames;
@@ -891,6 +894,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                                      qzshiftStruct, ...
                                      layersStruct, ...
                                      customFileStruct, ...
+                                     dataStruct, ...
                                      contrastStruct);
             
         end

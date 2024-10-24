@@ -80,7 +80,7 @@ classdef contrastsClass < baseContrasts
             dataPresent = zeros(1,nContrasts);
             dataLimits = cell(1,nContrasts);
             simLimits = cell(1,nContrasts);
-            data = cell(1,nContrasts);
+            contrastData = cell(1,nContrasts);
 
             oilChiDataPresent = zeros(1,nContrasts);
             oilChiData = cell(1,nContrasts);
@@ -141,11 +141,11 @@ classdef contrastsClass < baseContrasts
                     end
                     dataLimits{i} = thisDataLimit;
                     simLimits{i} = dataTable{thisDataVal,4}{:};
-                    data{i} = dataTable{thisDataVal,2}{:};
+                    contrastData{i} = dataTable{thisDataVal,2}{:};
                 else
                     dataLimits{i} = [0 0];
                     simLimits{i} = [0 0];
-                    data{i} = [0 0 0];
+                    contrastData{i} = [0 0 0];
                 end
             end
 
@@ -175,11 +175,11 @@ classdef contrastsClass < baseContrasts
             contrastStruct.contrastQzshifts = contrastQzshifts;
             contrastStruct.contrastScalefactors = contrastScalefactors;
             contrastStruct.contrastResolutions = contrastResolutions;
-            contrastStruct.resample = resample;
+            contrastStruct.contrastData = contrastData;
             contrastStruct.dataPresent = dataPresent;
             contrastStruct.dataLimits = dataLimits;
             contrastStruct.simLimits = simLimits;
-            contrastStruct.data = data;
+            contrastStruct.resample = resample;
             contrastStruct.oilChiDataPresent = oilChiDataPresent;
             contrastStruct.oilChiData = oilChiData;
 

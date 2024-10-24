@@ -90,18 +90,6 @@ classdef backgroundsClass < handle
                        % Param 3 (source) must be a valid background parameter
                        newRow{3} = obj.validateParam(in(3));
 
-                   case allowedTypes.Function.value
-                       % Param 3 (source) is the function name, defined in
-                       % the custom files table
-                       newRow{3} = in{3};
-
-                       % Any other given parameters must be valid
-                       % background parameters
-                       for i = 4:length(in)
-                          thisParam = obj.validateParam(in(i));
-                          newRow{i} = thisParam;
-                       end
-
                    case allowedTypes.Data.value
                        % Background is contained within a data file.
                        % We don't have access to the data files at this
@@ -111,6 +99,23 @@ classdef backgroundsClass < handle
                        if length(in) >= 4
                            newRow{4} = obj.validateParam(in(4));
                        end
+
+                   case allowedTypes.Function.value
+                       % Param 3 (source) is the function name, defined in
+                       % the custom files table
+                       newRow{3} = in{3};
+
+                       if length(in) >= 4
+                           % Any other given parameters must be valid
+                           % background parameters
+                           params = in(4:end);
+                           params = params(~(cellfun(@(x) isequal(x,""), params)));
+                           for i = 1:length(params)
+                              thisParam = obj.validateParam(params(i));
+                              newRow{i+3} = thisParam;
+                           end
+                       end
+
                 end
             end
             obj.backgrounds.addRow(newRow{:});   

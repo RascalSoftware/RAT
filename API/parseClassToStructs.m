@@ -369,7 +369,7 @@ problemStruct.contrastScalefactors = inputStruct.contrastScalefactors;
 problemStruct.contrastBulkIns = inputStruct.contrastBulkIns;
 problemStruct.contrastBulkOuts = inputStruct.contrastBulkOuts;
 problemStruct.contrastResolutionParams = contrastResolutionParams;
-problemStruct.backgroundParams = inputStruct.backgroundParamValues; %inputStruct.backgrounds;       % **** note backPar workaround (todo) ****
+problemStruct.backgroundParams = inputStruct.backgroundParamValues;
 problemStruct.qzshifts = inputStruct.qzshiftValues;
 problemStruct.scalefactors = inputStruct.scalefactorValues;
 problemStruct.bulkIn = inputStruct.bulkInValues;
@@ -403,7 +403,7 @@ problemStruct.fitLimits = [];
 problemStruct.otherLimits = [];
 
 % Make sure the indices cannot lie outside of the arrays
-checkIndices(problemStruct)
+checkIndices(problemStruct, inputStruct.files);
 
 %% Now deal with the controls class
 controls.procedure = inputControls.procedure;

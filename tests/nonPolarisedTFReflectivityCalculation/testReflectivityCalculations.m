@@ -243,63 +243,70 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             
             % Test standard input passes
             testInput = testCase.problemStruct;
-            checkIndices(testInput);
+            customFiles = testCase.problemCells{14};
+            checkIndices(testInput, customFiles);
 
-            % Test Background Param Error - commented out at present
-            % testInput = testCase.problemStruct;
-            % testInput.contrastBackgroundParams(1) = 0;
-            % testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
-            % testInput = testCase.problemStruct;
-            % testInput.contrastBackgroundParams(1) = 4;
-            % testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            % Test Background Param Error
+            testInput = testCase.problemStruct;
+            testInput.contrastBackgroundParams{1} = 0;
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
+            testInput = testCase.problemStruct;
+            testInput.contrastBackgroundParams{1} = 4;
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
+
+            testInput.contrastBackgroundParams{1} = [0 1 2 3];
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
+            testInput = testCase.problemStruct;
+            testInput.contrastBackgroundParams{1} = [4 1 2 3];
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             % Test Qzshift Error
             testInput = testCase.problemStruct;
             testInput.contrastQzshifts(1) = 0;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
             testInput.contrastQzshifts(1) = 4;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             % Test Scalefactor Error
             testInput = testCase.problemStruct;
             testInput.contrastScalefactors(1) = 0;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
             testInput.contrastScalefactors(1) = 4;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             % Test Bulk In Error
             testInput = testCase.problemStruct;
             testInput.contrastBulkIns(1) = 0;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
             testInput.contrastBulkIns(1) = 4;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             % Test Bulk Out Error
             testInput = testCase.problemStruct;
             testInput.contrastBulkOuts(1) = 0;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
             testInput.contrastBulkOuts(1) = 4;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             % Test Resolution Param Error
             testInput = testCase.problemStruct;
             testInput.contrastResolutionParams(1) = 0;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
             testInput.contrastResolutionParams(1) = 4;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             % Test Domain Ratio Error
             testInput = testCase.problemStruct;
             testInput.contrastDomainRatios(1) = 0;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
             testInput.contrastDomainRatios(1) = 4;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
         end
 

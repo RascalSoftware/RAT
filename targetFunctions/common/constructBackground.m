@@ -1,11 +1,13 @@
 function background = constructBackground(backgroundType,backgroundParamIndices,shiftedData,customFiles,backgroundParamArray,simLimits)
 
-% This is a placeholder function to calculate the background function
-% for any function that needs it. Any backgrounds that use a background 
-% function have a -2 flag as the first parameter in backgroundParams. 
-% This function identifies which backgrounds are functions, calculates the
-% background and adds this as the 5th column to the datafile of this contrast.
+% Apply background parameters to the background.
+%
+% For function backgrounds, this means running the function using the
+% defined parameters. For data and constant backgrounds, this means taking
+% any predefined background data and adding any supplied poarameters.
 
+% Define the background over the simulation range, making sure to include
+% any predefined data.
 [simulationXData, dataIndices] = makeSimulationRange(shiftedData, simLimits);
 
 background = zeros(length(simulationXData),3);
@@ -30,27 +32,21 @@ if strcmpi(backgroundType, coderEnums.allowedTypes.Function)
     end
 
     % Evaluate the background function with these params...
-    % Use a feval for now, but ultimately we will need to do the same
-    % as the usual custom file evaluation...
-    thisBack = zeros(length(background(:,2)), 1); % This is the correct type - for compilation
+    thisBackground = zeros(length(background(:,2)), 1); % This is the correct type - for compilation
 
     if isnan(str2double(funcName))
         if coder.target('MATLAB')
             fileHandle = str2func(funcName);
-            thisBack = fileHandle(background(:,1), paramsArray);
+            thisBackground = fileHandle(background(:,1), paramsArray);
         elseif coder.target('MEX')        
             % 'feval' generates an automatic coder.extrinsic call.
-            thisBack = feval(funcName, background(:,1), paramsArray);
+            thisBackground = feval(funcName, background(:,1), paramsArray);
         end
     else
         error('Background functions in languages other than MATLAB are not supported.');
     end
 
-    % Add this background as column 5 of this data. Note that Matlab
-    % will extend with no complaints (with zeros in col 4 if this is absent), 
-    % but for Coder we will probably have to have made the data 5 column in
-    % parseClassToStructs before calling RATMain...
-    background(:,2) = background(:,2) + thisBack;
+    background(:,2) = background(:,2) + thisBackground;
 
 else
 

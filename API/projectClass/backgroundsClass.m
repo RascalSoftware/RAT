@@ -1,6 +1,6 @@
 classdef backgroundsClass < handle
     % Backgrounds are defined in a two stage process. Firstly we define the
-    % actual fitted parameters. These are held in a 'ParametersClass'
+    % actual fitted parameters. These are held in a 'Parameters'
     % table. Then, we group these into the backgrounds themselves using a
     % multiTypeTable. So, we can then use the background parameters to
     % either define background as constant, data or a function. 

@@ -118,7 +118,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             % we can pass multiple values instead of one struct into testCase.applyB
             s = inputs.ans(1:end);
    
-            inputs = {s.reflect,s.Simul,s.shifted_dat,s.backg,s.backsType};
+            inputs = {s.reflect,s.Simul,s.shifted_dat,s.backg,s.action};
 
             s = outputs.applyBackgroundCorrectionOutputs.ans;
             outputs = {s.reflect,s.Simul,s.shifted_dat};

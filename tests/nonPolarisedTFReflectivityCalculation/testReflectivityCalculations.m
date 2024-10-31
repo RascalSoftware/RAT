@@ -39,8 +39,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         expectedResultStruct       % Expected output value of the initial results struct
         expectedResult             % Expected output value of the final results struct
         expectedBayesResults       % Expected output value of the bayes results struct
-        TFContrastParams
-        TFCalculationResults
         TFReflectivity
         TFSimulation
         TFShiftedData
@@ -94,8 +92,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         function loadTFParams(testCase, TFFile)
             testCase.TFParams = load(TFFile);
 
-            testCase.TFContrastParams = testCase.TFParams.TFParams.contrastParams;
-            testCase.TFCalculationResults = testCase.TFParams.TFParams.calculationResults;
             testCase.TFReflectivity = testCase.TFParams.TFParams.reflectivity;
             testCase.TFSimulation = testCase.TFParams.TFParams.simulation;
             testCase.TFShiftedData = testCase.TFParams.TFParams.shiftedData;
@@ -174,21 +170,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(result, testCase.expectedResultStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
-        function testNonPolarisedTFReflectivityCalculation(testCase)
-            [contrastParams, calculationResults, reflectivity, simulation, shiftedData, backgrounds, layerSLDs, SLDProfiles, resampledLayers] = nonPolarisedTF.reflectivityCalculation(testCase.problemStruct, testCase.problemCells, testCase.controls);
-
-            testCase.verifyEqual(contrastParams, testCase.TFContrastParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(calculationResults, testCase.TFCalculationResults, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(reflectivity, testCase.TFReflectivity, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(simulation, testCase.TFSimulation, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(shiftedData, testCase.TFShiftedData, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(backgrounds, testCase.TFBackgrounds, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(layerSLDs, testCase.TFLayerSLDs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(SLDProfiles, testCase.TFSLDProfiles, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(resampledLayers, testCase.TFResampledLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-        end
-
-        function testNonPolarisedTFLayersReflectivityCalc(testCase, whichParallel, TFFile)
+        function testNonPolarisedTFReflectivityCalculation(testCase, whichParallel, TFFile)
 
             testCase.controls.parallel = whichParallel;
 

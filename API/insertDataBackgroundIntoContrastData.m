@@ -12,7 +12,7 @@ backgroundArray = backgroundData{:};
 
 % Check that we have the same q
 if ~isequal(dataArray(:,1), backgroundArray(:,1))
-    error("q points must be equal for Data and Background Data");
+    throw(exceptions.invalidValue("q points must be equal for Data and Background Data"));
 end
 
 % Insert background data into columns 5 and 6 of contrast data

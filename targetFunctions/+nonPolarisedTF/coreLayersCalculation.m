@@ -41,25 +41,21 @@ end
 % If calc SLD flag is set, then calculate the SLD profile
 if calcSld
 
+    thisSldLays = theseLayers;
+
     % If we need them both, we process real and imaginary parts of the SLD
-    % seperately...
+    % separately
     if useImaginary
         thisSldLays = [theseLayers(:,1:2) theseLayers(:,4:end)];
         thisSldLaysIm = [theseLayers(:,1) theseLayers(:,3:end)];
-    else
-        thisSldLays = theseLayers;
-        thisSldLaysIm = [0 0]; % Dummy value for coder
-    end
-    
-    sldProfile = makeSLDProfiles(bulkIn,bulkOut,thisSldLays,ssubs,repeatLayers);
 
-    % If we have imaginary, we are also
-    % going to need an SLD profile for the imaginary part
-    if useImaginary
         % Note bulkIn and bulkOut = 0 since there is never any imaginary part for
         % the bulk phases..
         sldProfileIm = makeSLDProfiles(0,0,thisSldLaysIm,ssubs,repeatLayers);
     end
+    
+    sldProfile = makeSLDProfiles(bulkIn,bulkOut,thisSldLays,ssubs,repeatLayers);
+
 end
 
 % If required, then resample the SLD

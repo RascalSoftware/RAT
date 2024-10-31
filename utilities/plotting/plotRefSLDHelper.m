@@ -1,13 +1,25 @@
-function plotRefSLDHelper(data, noDelay)
-    % Helper function to make it easier to plot from event. Data is a struct
-    % with the plot data and noDelay indicates if draw should be delayed.
+function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, showLegend)
+    % Helper function to make it easier to plot from event. 
+    %
+    % - Data is a struct with the plot data.
+    % - noDelay indicates if draw should be delayed.
+    % - linearX indicates that the X axis should be linear scale instead of log.
+    % - q4 indicates that the Y axis should plot Q^4.
+    % - showErrorBars indicates that the error bar should be shown in the plot
+    % - showGrid indicates that the grid should be shown in the plot
+    % - showLegend indicates that the legend should be shown in the plot
     %
     % plotRefSLDHelper(data, false);
     arguments
         data
         noDelay {logical} = true
+        linearX {logical} = true
+        q4 {logical} = true
+        showErrorBar {logical} = true
+        showGrid {logical} = false
+        showLegend {logical} = true
     end
-    
+
     defaultState = 'on';
     s = warning();
     if any(strcmp({s.identifier}, 'MATLAB:Axes:NegativeDataInLogAxis'))
@@ -19,33 +31,54 @@ function plotRefSLDHelper(data, noDelay)
     
     % Plot the data.reflectivity
     subplot(1,2,1);
-    set(gca,'YScale','log','XScale','log');
+    if linearX
+       set(gca,'YScale','log','XScale','linear');
+    else
+       set(gca,'YScale','log','XScale','log');
+    end
+
+    if showGrid
+       set(gca,'YGrid','on','XGrid','on');
+    end   
     hold on
     lines = cell(numberOfContrasts, 1);
+    mult = 1;
+    q4Data = 1;
     for i = 1:numberOfContrasts
         thisRef = data.reflectivity{i};
         thisData = data.shiftedData{i};
-        if i == 1
-            mult = 1;
-        else
+        if i > 1 || q4
             mult = 2^(4*i);
         end
-    
+        
+        if q4 && data.dataPresent(i)
+            q4Data = thisData(:,1).^4;
+        end
+        mult = q4Data/mult;
+        refY = thisRef(:,2) .* mult;
         % If there is data present
         % plot it - size of data.shiftedData
         % will be [n x 3] if so
-        if data.dataPresent(i)
-            errorbar(thisData(:,1),thisData(:,2)./mult,thisData(:,3)./mult,'.','MarkerSize',2.5);
+        if data.dataPresent(i) && showErrorBar    
+            dataX = thisData(:, 1); 
+            dataY = thisData(:,2) .* mult;
+            dataErr = thisData(:,3) .* mult;
+            errorbar(dataX, dataY, dataErr, '.', 'MarkerSize', 2.5);
         end
     
         % Plot the fit
-        lines{i} = plot(thisRef(:,1),thisRef(:,2)./mult,'-','LineWidth',2);
+        lines{i} = plot(thisRef(:,1), refY, '-', 'LineWidth', 2);
         
     end
-    legend([lines{:}], data.contrastNames{:});
+    if showLegend
+        legend([lines{:}], data.contrastNames{:});
+    end
 
     % Plot the SLDs
     subplot(1,2,2);
+    if showGrid
+         set(gca,'YGrid','on','XGrid','on');
+    end
     hold on
     nColumns = size(data.sldProfiles, 2);
     lines = cell(numberOfContrasts * nColumns, 1);
@@ -85,7 +118,9 @@ function plotRefSLDHelper(data, noDelay)
             end
         end
     end
-    legend([lines{:}], names{:});
+    if showLegend
+        legend([lines{:}], names{:});
+    end
     if noDelay
         drawnow limitrate;
     end

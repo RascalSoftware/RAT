@@ -54,14 +54,15 @@ function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, sh
         if q4 && data.dataPresent(i)
             q4Data = thisData(:,1).^4;
         end
-        refY = thisRef(:,2) ./mult .* q4Data;
+        mult = q4Data/mult;
+        refY = thisRef(:,2) .* mult;
         % If there is data present
         % plot it - size of data.shiftedData
         % will be [n x 3] if so
         if data.dataPresent(i) && showErrorBar    
             dataX = thisData(:, 1); 
-            dataY = thisData(:,2) ./mult .* q4Data;
-            dataErr = thisData(:,3) ./mult .* q4Data;
+            dataY = thisData(:,2) .* mult;
+            dataErr = thisData(:,3) .* mult;
             errorbar(dataX, dataY, dataErr, '.', 'MarkerSize', 2.5);
         end
     

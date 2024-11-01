@@ -1,4 +1,4 @@
-function allPredInts = refPercentileConfidenceIntervals(bayesOutputs,problemStruct,problemCells,problemLimits,controlsStruct)
+function allPredInts = refPercentileConfidenceIntervals(bayesOutputs,problemStruct,problemCells,problemLimits,controlsStruct,results)
 
 % Need to deal slightly differently with SLDs if there are domains
 if strcmpi(problemStruct.TF, coderEnums.calculationTypes.Domains)
@@ -10,29 +10,15 @@ end
 CIFn = @(x,p)prctile(x,abs([0,100]-(100-p)/2));
 chain = bayesOutputs.chain;
 
-% Calc the ref and SLD for the first row of the chain. This 'sticks' the x
-% values of each that we then interpolate the values from the rest of the
-% cain onto....
-firstRow = chain(1,:); 
-problemStruct.fitParams = firstRow;
-problemStruct = unpackParams(problemStruct,controlsStruct);
-
-% Calc the reflectivities....
-calcResult = reflectivityCalculation(problemStruct,problemCells,problemLimits,controlsStruct);
-
-thisRef = calcResult.reflectivity;
-thisSld = calcResult.sldProfiles;
-
-% so each is a {n x 1} cell array, because of n contrasts. 
-% Prepare some arrays to hold the SLD's and Refs for all the chain, keeping only the Y vales.
+% Prepare some arrays to hold the SLD's and Refs for all the chain, keeping only the Y values.
 % We'll save x values in a separate array
 numberOfContrasts = problemStruct.numberOfContrasts;
 
 vals = zeros(1,3);
 rowVals = zeros(1,3);
 
-refXVals = makeCell(numberOfContrasts, 1, rowVals); %cell(numberOfContrasts,1);
-refYVals = makeCell(numberOfContrasts, 1, vals); %cell(numberOfContrasts,1);
+refXVals = makeCell(numberOfContrasts, 1, rowVals);
+refYVals = makeCell(numberOfContrasts, 1, vals);
 
 
 if ~domains
@@ -44,16 +30,16 @@ else
 end
 
 % We need to have the yvals interpolated onto the same xvals when we
-% calculate the sample. So, take the current reflectivity value from above
+% calculate the sample. So, take the input reflectivity and SLD values
 % to get the 'base' x for ref and SLD, then all following
-% interpelations are onto these x values....
+% interpolations are onto these x values....
 for i = 1:numberOfContrasts
-    refXVals{i} = thisRef{i}(:,1)';        % Transpose these into rows for storage
+    refXVals{i} = results.reflectivity{i}(:,1)';        % Transpose these into rows for storage
     if ~domains
-        sldXVals{i} = thisSld{i}(:,1)';
+        sldXVals{i} = results.sldProfiles{i}(:,1)';
     else
         for m = 1:2
-            sldXVals{i,m} = thisSld{i,m}(:,1)';
+            sldXVals{i,m} = results.sldProfiles{i,m}(:,1)';
         end
     end
 end
@@ -70,18 +56,18 @@ sampleChi = zeros(nsample,1);
 
 % First, we populate the yVals arrays with zero arrays of the correct size...
 for i = 1:numberOfContrasts
-    ref = thisRef{i};
+    ref = results.reflectivity{i};
     nRefPoints = size(ref,1);
     emptyRefArray = zeros(nsample,nRefPoints);
     refYVals{i} = emptyRefArray;
     if ~domains
-        sld = thisSld{i};
+        sld = results.sldProfiles{i};
         nSldPoints = size(sld,1);
         emptySldArray = zeros(nsample,nSldPoints);
         sldYVals{i} = emptySldArray;
     else
-        sld1 = thisSld{i,1};
-        sld2 = thisSld{i,2};
+        sld1 = results.sldProfiles{i,1};
+        sld2 = results.sldProfiles{i,2};
         nSldPoints1 = size(sld1,1);
         nSldPoints2 = size(sld2,1);
         emptySldArray1 = zeros(nsample,nSldPoints1);
@@ -110,7 +96,7 @@ for i = 1:nsample
 
         thisXval = refXVals{n};
         thisYval = interp1(thisRef{n}(:,1),thisRef{n}(:,2),thisXval,'linear','extrap');
-        refYVals{n}(i,:) = thisYval;   % Automatically comes back as a row from inpterp1
+        refYVals{n}(i,:) = thisYval;   % Automatically comes back as a row from interp1
         
         if ~domains
             thisSldXVal = sldXVals{n};
@@ -202,8 +188,6 @@ end
 
 allPredInts.reflectivity = refErrors;
 allPredInts.sld = sldErrors;
-allPredInts.reflectivityXData = refXVals;
-allPredInts.sldXData = sldXVals;
 allPredInts.sampleChi = sampleChi;
 
 end

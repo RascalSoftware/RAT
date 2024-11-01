@@ -42,35 +42,12 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
             sldIntervals{i} = sldIntervalsCell;
         end
     end
-    
-    reflectivityXData = cell(nContrasts,1);
-    xDataCell = ones(1,3);
-    coder.varsize('xDataCell',[1 1e4],[0 1]);
-    for i = 1:nContrasts
-        reflectivityXData{i} = xDataCell;
-    end
 
-    sldXDataCell = ones(1,3);
-    coder.varsize('sldXDataCell',[1 1e4],[0 1]);    
-    if isDomains
-        sldXData = cell(nContrasts,2);
-        for i = 1:nContrasts
-            sldXData{i,1} = sldXDataCell;
-            sldXData{i,2} = sldXDataCell;
-        end
-    else
-        sldXData = cell(nContrasts,1);
-        for i = 1:nContrasts
-            sldXData{i} = sldXDataCell;
-        end
-    end
-    
     sampleChi = zeros(1,1);
     coder.varsize('sampleChi',[1e7 1],[1 0]);
     
     predictionIntervals = struct('reflectivity',{reflectivityIntervals}, ...
-        'sld',{sldIntervals},'reflectivityXData',{reflectivityXData}, ...
-        'sldXData',{sldXData},'sampleChi',sampleChi);
+        'sld',{sldIntervals},'sampleChi',sampleChi);
     
     % ------------------------------------------------------------------
     % (2) bayesResults.confidenceIntervals

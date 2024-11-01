@@ -39,7 +39,7 @@ namespace RAT
       real_T resampleMinAngle, real_T resampleNPoints, boolean_T useImaginary,
       real_T resample, const char_T geometry_data[], const int32_T
       geometry_size[2], real_T roughness, boolean_T calcSld, const ::coder::
-      array<real_T, 2U> &contrastLayers, const ::coder::array<cell_wrap_12, 2U>
+      array<real_T, 2U> &contrastLayers, const ::coder::array<cell_wrap_43, 2U>
       &outParameterisedLayers, real_T *backgroundParamValue, real_T
       *qzshiftValue, real_T *scalefactorValue, real_T *bulkInValue, real_T
       *bulkOutValue, real_T *resolutionParamValue, real_T *chi, ::coder::array<
@@ -68,7 +68,7 @@ namespace RAT
       real_T resampleMinAngle, real_T resampleNPoints, boolean_T useImaginary,
       real_T resample, const char_T geometry_data[], const int32_T
       geometry_size[2], real_T roughness, boolean_T calcSld, const ::coder::
-      array<real_T, 2U> &contrastLayers, const ::coder::array<cell_wrap_12, 2U>
+      array<real_T, 2U> &contrastLayers, const ::coder::array<cell_wrap_43, 2U>
       &outParameterisedLayers, real_T *backgroundParamValue, real_T
       *qzshiftValue, real_T *scalefactorValue, real_T *bulkInValue, real_T
       *bulkOutValue, real_T *resolutionParamValue, real_T *chi, ::coder::array<
@@ -118,7 +118,7 @@ namespace RAT
       }
     }
 
-    void standardLayers(const g_struct_T *problemStruct, const cell_13
+    void standardLayers(const g_struct_T *problemStruct, const cell_12
                         *problemCells, const struct2_T *controls, ::coder::array<
                         real_T, 1U> &backgroundParams, ::coder::array<real_T, 1U>
                         &qzshifts, ::coder::array<real_T, 1U> &scalefactors, ::
@@ -133,7 +133,7 @@ namespace RAT
                         cell_wrap_10, 1U> &resampledLayers, ::coder::array<
                         real_T, 1U> &subRoughs)
     {
-      ::coder::array<cell_wrap_12, 2U> outParameterisedLayers;
+      ::coder::array<cell_wrap_43, 2U> outParameterisedLayers;
       ::coder::array<real_T, 2U> r;
       ::coder::array<real_T, 2U> r1;
       ::coder::array<real_T, 2U> r2;
@@ -369,7 +369,7 @@ namespace RAT
       }
     }
 
-    void standardLayers(const d_struct_T *problemStruct, const cell_13
+    void standardLayers(const d_struct_T *problemStruct, const cell_12
                         *problemCells, const struct2_T *controls, ::coder::array<
                         real_T, 1U> &backgroundParams, ::coder::array<real_T, 1U>
                         &qzshifts, ::coder::array<real_T, 1U> &scalefactors, ::
@@ -384,7 +384,7 @@ namespace RAT
                         cell_wrap_10, 1U> &resampledLayers, ::coder::array<
                         real_T, 1U> &subRoughs)
     {
-      ::coder::array<cell_wrap_12, 2U> outParameterisedLayers;
+      ::coder::array<cell_wrap_43, 2U> outParameterisedLayers;
       ::coder::array<real_T, 2U> r;
       ::coder::array<real_T, 2U> r1;
       ::coder::array<real_T, 2U> r2;

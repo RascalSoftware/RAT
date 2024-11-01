@@ -23,7 +23,7 @@
 // Function Declarations
 namespace RAT
 {
-  static void cast(const ::coder::array<cell_wrap_45, 1U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_42, 1U> &b, ::coder::array<
                    cell_wrap_10, 1U> &c);
   namespace nonPolarisedTF
   {
@@ -53,7 +53,7 @@ namespace RAT
 // Function Definitions
 namespace RAT
 {
-  static void cast(const ::coder::array<cell_wrap_45, 1U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_42, 1U> &b, ::coder::array<
                    cell_wrap_10, 1U> &c)
   {
     int32_T i;
@@ -119,7 +119,7 @@ namespace RAT
                             shiftedData, layerSld, resampledLayer, chi);
     }
 
-    void b_customLayers(const g_struct_T *problemStruct, const cell_13
+    void b_customLayers(const g_struct_T *problemStruct, const cell_12
                         *problemCells, const struct2_T *controls, ::coder::array<
                         real_T, 1U> &backgroundParams, ::coder::array<real_T, 1U>
                         &qzshifts, ::coder::array<real_T, 1U> &scalefactors, ::
@@ -134,7 +134,7 @@ namespace RAT
                         cell_wrap_10, 1U> &resampledLayers, ::coder::array<
                         real_T, 1U> &subRoughs)
     {
-      ::coder::array<cell_wrap_45, 1U> r;
+      ::coder::array<cell_wrap_42, 1U> r;
       ::coder::array<real_T, 2U> b_resampledLayers;
       ::coder::array<real_T, 2U> c_resampledLayers;
       ::coder::array<real_T, 2U> r1;
@@ -373,7 +373,7 @@ namespace RAT
       }
     }
 
-    void b_customLayers(const d_struct_T *problemStruct, const cell_13
+    void b_customLayers(const d_struct_T *problemStruct, const cell_12
                         *problemCells, const struct2_T *controls, ::coder::array<
                         real_T, 1U> &backgroundParams, ::coder::array<real_T, 1U>
                         &qzshifts, ::coder::array<real_T, 1U> &scalefactors, ::
@@ -388,7 +388,7 @@ namespace RAT
                         cell_wrap_10, 1U> &resampledLayers, ::coder::array<
                         real_T, 1U> &subRoughs)
     {
-      ::coder::array<cell_wrap_45, 1U> r;
+      ::coder::array<cell_wrap_42, 1U> r;
       ::coder::array<real_T, 2U> b_resampledLayers;
       ::coder::array<real_T, 2U> c_resampledLayers;
       ::coder::array<real_T, 2U> r1;

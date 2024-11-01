@@ -11,7 +11,6 @@
 // Include files
 #include "runDREAM.h"
 #include "RATMain_internal_types.h"
-#include "RATMain_rtwutil.h"
 #include "RATMain_types.h"
 #include "getFittedPriors.h"
 #include "makeEmptyBayesResultsStruct.h"
@@ -29,7 +28,7 @@
 // Function Definitions
 namespace RAT
 {
-  void runDREAM(const d_struct_T *problemStruct, const cell_13 *problemCells,
+  void runDREAM(const d_struct_T *problemStruct, const cell_12 *problemCells,
                 const struct1_T *problemLimits, const struct2_T *controls, const
                 struct4_T *priors, g_struct_T *outProblemStruct, struct5_T
                 *result, k_struct_T *bayesResults)
@@ -60,8 +59,6 @@ namespace RAT
       internal::b_strcmp(problemStruct->TF.data, problemStruct->TF.size),
       controls->nChains, bayesResults->predictionIntervals.reflectivity,
       bayesResults->predictionIntervals.sld,
-      bayesResults->predictionIntervals.reflectivityXData,
-      bayesResults->predictionIntervals.sldXData,
       bayesResults->predictionIntervals.sampleChi.data,
       &bayesResults->predictionIntervals.sampleChi.size[0],
       bayesResults->confidenceIntervals.percentile95,
@@ -243,28 +240,6 @@ namespace RAT
       }
     }
 
-    bayesResults->predictionIntervals.reflectivityXData.set_size
-      (dreamResults.predictionIntervals.reflectivityXData.size(0));
-    for (i = 0; i < dreamResults.predictionIntervals.reflectivityXData.size(0);
-         i++) {
-      bayesResults->predictionIntervals.reflectivityXData[i].f1.set_size
-        (dreamResults.predictionIntervals.reflectivityXData[i].f1.size(0),
-         dreamResults.predictionIntervals.reflectivityXData[i].f1.size(1));
-      loop_ub = dreamResults.predictionIntervals.reflectivityXData[i].f1.size(1);
-      for (i1 = 0; i1 < loop_ub; i1++) {
-        b_loop_ub = dreamResults.predictionIntervals.reflectivityXData[i].
-          f1.size(0);
-        for (i2 = 0; i2 < b_loop_ub; i2++) {
-          bayesResults->predictionIntervals.reflectivityXData[i].f1[i2 + i1] =
-            dreamResults.predictionIntervals.reflectivityXData[i].f1[i2 +
-            dreamResults.predictionIntervals.reflectivityXData[i].f1.size(0) *
-            i1];
-        }
-      }
-    }
-
-    cast(dreamResults.predictionIntervals.sldXData,
-         bayesResults->predictionIntervals.sldXData);
     bayesResults->predictionIntervals.sampleChi.size[0] = 1000;
     std::copy(&dreamResults.predictionIntervals.sampleChi[0],
               &dreamResults.predictionIntervals.sampleChi[1000],

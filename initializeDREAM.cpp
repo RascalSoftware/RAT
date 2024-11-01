@@ -31,7 +31,7 @@ namespace RAT
                        paramInfo_boundhandling_size[2], ::coder::array<real_T,
                        3U> &chain, l_struct_T *output, ::coder::array<real_T, 2U>
                        &log_L, const d_struct_T *ratInputs_problemStruct, const
-                       cell_13 *ratInputs_problemCells, const struct1_T
+                       cell_12 *ratInputs_problemCells, const struct1_T
                        *ratInputs_problemLimits, const struct2_T
                        *ratInputs_controls, const ::coder::array<real_T, 2U>
                        &ratInputs_priors, ::coder::array<real_T, 2U> &X, ::coder::

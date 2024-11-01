@@ -26,7 +26,7 @@
 // Function Definitions
 namespace RAT
 {
-  void runSimplex(d_struct_T *problemStruct, const cell_13 *problemCells, const
+  void runSimplex(d_struct_T *problemStruct, const cell_12 *problemCells, const
                   struct1_T *problemLimits, const struct2_T *controls,
                   e_struct_T *result)
   {

@@ -40,27 +40,17 @@ namespace RAT
     ::coder::bounded_array<real_T, 2U, 2U> postSamples;
   };
 
-  struct cell_wrap_38
+  struct cell_wrap_37
   {
     ::coder::array<cell_wrap_11, 1U> f1;
   };
 
-  struct cell_wrap_39
+  struct cell_wrap_38
   {
     ::coder::array<cell_wrap_11, 2U> f1;
   };
 
-  struct cell_wrap_40
-  {
-    ::coder::array<cell_wrap_12, 1U> f1;
-  };
-
-  struct cell_wrap_41
-  {
-    ::coder::array<cell_wrap_12, 2U> f1;
-  };
-
-  struct cell_wrap_36
+  struct cell_wrap_35
   {
     ::coder::array<real_T, 1U> f1;
   };
@@ -100,7 +90,7 @@ namespace RAT
     ::coder::array<real_T, 2U> otherLimits;
   };
 
-  struct cell_13
+  struct cell_12
   {
     ::coder::array<cell_wrap_2, 2U> f1;
     ::coder::array<cell_wrap_10, 2U> f2;
@@ -129,10 +119,10 @@ namespace RAT
   {
     ::coder::array<cell_wrap_8, 1U> reflectivity;
     ::coder::array<cell_wrap_8, 1U> simulation;
-    ::coder::array<cell_wrap_44, 1U> shiftedData;
+    ::coder::array<cell_wrap_41, 1U> shiftedData;
     ::coder::array<cell_wrap_10, 2U> layerSlds;
     ::coder::array<cell_wrap_8, 2U> sldProfiles;
-    ::coder::array<cell_wrap_44, 2U> resampledLayers;
+    ::coder::array<cell_wrap_41, 2U> resampledLayers;
     struct6_T calculationResults;
     struct7_T contrastParams;
     ::coder::array<real_T, 1U> fitParams;
@@ -150,17 +140,22 @@ namespace RAT
     ::coder::array<real_T, 2U> resample;
   };
 
-  struct cell_wrap_56
+  struct cell_wrap_43
+  {
+    ::coder::bounded_array<real_T, 10U, 2U> f1;
+  };
+
+  struct cell_wrap_54
   {
     ::coder::array<real_T, 2U> f1;
   };
 
-  struct cell_wrap_57
+  struct cell_wrap_55
   {
     cell_wrap_8 f1[2];
   };
 
-  struct cell_wrap_58
+  struct cell_wrap_56
   {
     cell_wrap_10 f1[2];
   };
@@ -226,8 +221,6 @@ namespace RAT
   {
     ::coder::array<cell_wrap_11, 1U> reflectivity;
     ::coder::array<cell_wrap_11, 2U> sld;
-    ::coder::array<cell_wrap_10, 2U> reflectivityXData;
-    ::coder::array<cell_wrap_10, 2U> sldXData;
     real_T sampleChi[1000];
   };
 
@@ -269,7 +262,7 @@ namespace RAT
     ::coder::array<char_T, 2U> message;
   };
 
-  struct cell_48
+  struct cell_46
   {
     ::coder::array<real_T, 2U> f1;
   };

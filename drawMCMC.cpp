@@ -33,7 +33,7 @@ namespace RAT
   void drawMCMC(const ::coder::array<real_T, 2U> &livepoints, const ::coder::
                 array<real_T, 2U> &cholmat, real_T logLmin, const ::coder::array<
                 real_T, 2U> &prior, const d_struct_T *data_f1, const struct2_T
-                *data_f2, const struct1_T *data_f3, const cell_13 *data_f4,
+                *data_f2, const struct1_T *data_f3, const cell_12 *data_f4,
                 real_T nMCMC, ::coder::array<real_T, 2U> &sample, real_T *logL)
   {
     ::coder::array<real_T, 2U> sampletmp;

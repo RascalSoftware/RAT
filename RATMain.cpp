@@ -32,7 +32,7 @@ namespace RAT
   static void cast(const d_struct_T *b, struct0_T *c);
   static void cast(const g_struct_T *b, struct0_T *c);
   static void cast(const struct0_T *b, d_struct_T *c);
-  static void cast(const cell_7 *b, cell_13 *c);
+  static void cast(const cell_7 *b, cell_12 *c);
   static void cast(const ::coder::array<cell_wrap_5, 2U> &b, ::coder::array<
                    cell_wrap_10, 2U> &c);
   static void cast(const ::coder::array<cell_wrap_3, 2U> &b, ::coder::array<
@@ -592,7 +592,7 @@ namespace RAT
     }
   }
 
-  static void cast(const cell_7 *b, cell_13 *c)
+  static void cast(const cell_7 *b, cell_12 *c)
   {
     int32_T i;
     int32_T loop_ub;
@@ -726,7 +726,7 @@ namespace RAT
     static g_struct_T c_problemStruct;
     static k_struct_T b_bayesResults;
     c_struct_T bayesResults_nestedSamplerOutput;
-    cell_13 r;
+    cell_12 r;
     e_struct_T b_expl_temp;
     e_struct_T expl_temp;
     int32_T b_index;
@@ -737,8 +737,6 @@ namespace RAT
       internal::b_strcmp(problemStruct->TF.data, problemStruct->TF.size),
       controls->nChains, bayesResults->predictionIntervals.reflectivity,
       bayesResults->predictionIntervals.sld,
-      bayesResults->predictionIntervals.reflectivityXData,
-      bayesResults->predictionIntervals.sldXData,
       bayesResults->predictionIntervals.sampleChi.data,
       &bayesResults->predictionIntervals.sampleChi.size[0],
       bayesResults->confidenceIntervals.percentile95,

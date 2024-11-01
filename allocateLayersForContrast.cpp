@@ -10,16 +10,17 @@
 
 // Include files
 #include "allocateLayersForContrast.h"
-#include "RATMain_types.h"
+#include "RATMain_internal_types.h"
 #include "length.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
+#include "coder_bounded_array.h"
 
 // Function Definitions
 namespace RAT
 {
   void allocateLayersForContrast(const ::coder::array<real_T, 2U>
-    &contrastLayers, const ::coder::array<cell_wrap_12, 2U>
+    &contrastLayers, const ::coder::array<cell_wrap_43, 2U>
     &outParameterisedLayers, boolean_T useImaginary, ::coder::array<real_T, 2U>
     &thisContrastLayers)
   {
@@ -58,11 +59,11 @@ namespace RAT
     i = coder::internal::intlength(contrastLayers.size(0), contrastLayers.size(1));
     for (int32_T b_i{0}; b_i < i; b_i++) {
       n = outParameterisedLayers[static_cast<int32_T>(contrastLayers[b_i]) - 1].
-        f1.size(1);
+        f1.size[1];
       for (i1 = 0; i1 < n; i1++) {
         thisContrastLayers[b_i + thisContrastLayers.size(0) * i1] =
           outParameterisedLayers[static_cast<int32_T>(contrastLayers[b_i]) - 1].
-          f1[i1];
+          f1.data[i1];
       }
     }
   }

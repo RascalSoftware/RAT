@@ -21,7 +21,7 @@
 namespace RAT
 {
   struct d_struct_T;
-  struct cell_13;
+  struct cell_12;
   struct struct2_T;
   struct cell_wrap_8;
   struct cell_wrap_10;
@@ -33,7 +33,7 @@ namespace RAT
 {
   namespace domainsTF
   {
-    void b_customXY(const g_struct_T *problemStruct, const cell_13 *problemCells,
+    void b_customXY(const g_struct_T *problemStruct, const cell_12 *problemCells,
                     const struct2_T *controls, ::coder::array<real_T, 1U>
                     &backgroundParams, ::coder::array<real_T, 1U> &qzshifts, ::
                     coder::array<real_T, 1U> &scalefactors, ::coder::array<
@@ -46,7 +46,7 @@ namespace RAT
                     cell_wrap_10, 2U> &domainSldProfiles, ::coder::array<
                     cell_wrap_10, 2U> &domainResampledLayers, ::coder::array<
                     real_T, 1U> &subRoughs);
-    void b_customXY(const d_struct_T *problemStruct, const cell_13 *problemCells,
+    void b_customXY(const d_struct_T *problemStruct, const cell_12 *problemCells,
                     const struct2_T *controls, ::coder::array<real_T, 1U>
                     &backgroundParams, ::coder::array<real_T, 1U> &qzshifts, ::
                     coder::array<real_T, 1U> &scalefactors, ::coder::array<

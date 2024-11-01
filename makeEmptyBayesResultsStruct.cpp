@@ -153,9 +153,7 @@ namespace RAT
   void b_makeEmptyBayesResultsStruct(real_T nContrasts, boolean_T isDomains, ::
     coder::array<cell_wrap_11, 1U>
     &bayesResults_predictionIntervals_reflectivity, ::coder::array<cell_wrap_11,
-    2U> &bayesResults_predictionIntervals_sld, ::coder::array<cell_wrap_12, 1U>
-    &bayesResults_predictionIntervals_reflectivityXData, ::coder::array<
-    cell_wrap_12, 2U> &bayesResults_predictionIntervals_sldXData, real_T
+    2U> &bayesResults_predictionIntervals_sld, real_T
     bayesResults_predictionIntervals_sampleChi_data[], int32_T
     *bayesResults_predictionIntervals_sampleChi_size, ::coder::array<real_T, 2U>
     &bayesResults_confidenceIntervals_percentile95, ::coder::array<real_T, 2U>
@@ -167,19 +165,15 @@ namespace RAT
   {
     ::coder::array<cell_wrap_11, 2U> b_f1;
     ::coder::array<cell_wrap_11, 1U> f1;
-    ::coder::array<cell_wrap_12, 2U> d_f1;
-    ::coder::array<cell_wrap_12, 1U> c_f1;
     ::coder::array<real_T, 3U> t28_allChains;
     ::coder::array<real_T, 2U> t28_AR;
     ::coder::array<real_T, 2U> t28_CR;
     ::coder::array<real_T, 2U> t28_R_stat;
     ::coder::array<real_T, 2U> t28_outlierChains;
-    ::coder::array<real_T, 1U> e_f1;
-    cell_wrap_36 r4;
-    cell_wrap_38 r;
-    cell_wrap_39 r1;
-    cell_wrap_40 r2;
-    cell_wrap_41 r3;
+    ::coder::array<real_T, 1U> c_f1;
+    cell_wrap_35 r2;
+    cell_wrap_37 r;
+    cell_wrap_38 r1;
     real_T t29_percentile65_data[2000];
     real_T t29_percentile95_data[2000];
     real_T t29_mean_data[1000];
@@ -239,48 +233,14 @@ namespace RAT
       }
     }
 
-    c_f1.set_size(i);
-    for (b_i = 0; b_i < i; b_i++) {
-      c_f1[b_i].f1.set_size(1, 3);
-      c_f1[b_i].f1[0] = 1.0;
-      c_f1[b_i].f1[1] = 1.0;
-      c_f1[b_i].f1[2] = 1.0;
-    }
-
-    if (isDomains) {
-      d_f1.set_size(i, 2);
-      for (b_i = 0; b_i < i; b_i++) {
-        d_f1[b_i].f1.set_size(1, 3);
-        d_f1[b_i + d_f1.size(0)].f1.set_size(1, 3);
-        d_f1[b_i].f1[0] = 1.0;
-        d_f1[b_i + d_f1.size(0)].f1[0] = 1.0;
-        d_f1[b_i].f1[1] = 1.0;
-        d_f1[b_i + d_f1.size(0)].f1[1] = 1.0;
-        d_f1[b_i].f1[2] = 1.0;
-        d_f1[b_i + d_f1.size(0)].f1[2] = 1.0;
-      }
-    } else {
-      d_f1.set_size(i, 1);
-      for (b_i = 0; b_i < i; b_i++) {
-        d_f1[b_i].f1.set_size(1, 3);
-        d_f1[b_i].f1[0] = 1.0;
-        d_f1[b_i].f1[1] = 1.0;
-        d_f1[b_i].f1[2] = 1.0;
-      }
-    }
-
-    e_f1.set_size(1);
-    e_f1[0] = 0.0;
+    c_f1.set_size(1);
+    c_f1[0] = 0.0;
     r.f1 = f1;
     r1.f1 = b_f1;
     r2.f1 = c_f1;
-    r3.f1 = d_f1;
-    r4.f1 = e_f1;
-    coder::internal::structConstructorHelper(&r, &r1, &r2, &r3, &r4,
+    coder::internal::structConstructorHelper(&r, &r1, &r2,
       bayesResults_predictionIntervals_reflectivity,
       bayesResults_predictionIntervals_sld,
-      bayesResults_predictionIntervals_reflectivityXData,
-      bayesResults_predictionIntervals_sldXData,
       bayesResults_predictionIntervals_sampleChi_data,
       bayesResults_predictionIntervals_sampleChi_size);
 
@@ -382,9 +342,7 @@ namespace RAT
   void makeEmptyBayesResultsStruct(real_T nContrasts, boolean_T isDomains,
     real_T nChains, ::coder::array<cell_wrap_11, 1U>
     &bayesResults_predictionIntervals_reflectivity, ::coder::array<cell_wrap_11,
-    2U> &bayesResults_predictionIntervals_sld, ::coder::array<cell_wrap_12, 1U>
-    &bayesResults_predictionIntervals_reflectivityXData, ::coder::array<
-    cell_wrap_12, 2U> &bayesResults_predictionIntervals_sldXData, real_T
+    2U> &bayesResults_predictionIntervals_sld, real_T
     bayesResults_predictionIntervals_sampleChi_data[], int32_T
     *bayesResults_predictionIntervals_sampleChi_size, ::coder::array<real_T, 2U>
     &bayesResults_confidenceIntervals_percentile95, ::coder::array<real_T, 2U>
@@ -396,19 +354,15 @@ namespace RAT
   {
     ::coder::array<cell_wrap_11, 2U> b_f1;
     ::coder::array<cell_wrap_11, 1U> f1;
-    ::coder::array<cell_wrap_12, 2U> d_f1;
-    ::coder::array<cell_wrap_12, 1U> c_f1;
     ::coder::array<real_T, 3U> t26_allChains;
     ::coder::array<real_T, 2U> t26_AR;
     ::coder::array<real_T, 2U> t26_CR;
     ::coder::array<real_T, 2U> t26_R_stat;
     ::coder::array<real_T, 2U> t26_outlierChains;
-    ::coder::array<real_T, 1U> e_f1;
-    cell_wrap_36 r4;
-    cell_wrap_38 r;
-    cell_wrap_39 r1;
-    cell_wrap_40 r2;
-    cell_wrap_41 r3;
+    ::coder::array<real_T, 1U> c_f1;
+    cell_wrap_35 r2;
+    cell_wrap_37 r;
+    cell_wrap_38 r1;
     real_T t27_percentile65_data[2000];
     real_T t27_percentile95_data[2000];
     real_T t27_mean_data[1000];
@@ -469,48 +423,14 @@ namespace RAT
       }
     }
 
-    c_f1.set_size(i);
-    for (b_i = 0; b_i < i; b_i++) {
-      c_f1[b_i].f1.set_size(1, 3);
-      c_f1[b_i].f1[0] = 1.0;
-      c_f1[b_i].f1[1] = 1.0;
-      c_f1[b_i].f1[2] = 1.0;
-    }
-
-    if (isDomains) {
-      d_f1.set_size(i, 2);
-      for (b_i = 0; b_i < i; b_i++) {
-        d_f1[b_i].f1.set_size(1, 3);
-        d_f1[b_i + d_f1.size(0)].f1.set_size(1, 3);
-        d_f1[b_i].f1[0] = 1.0;
-        d_f1[b_i + d_f1.size(0)].f1[0] = 1.0;
-        d_f1[b_i].f1[1] = 1.0;
-        d_f1[b_i + d_f1.size(0)].f1[1] = 1.0;
-        d_f1[b_i].f1[2] = 1.0;
-        d_f1[b_i + d_f1.size(0)].f1[2] = 1.0;
-      }
-    } else {
-      d_f1.set_size(i, 1);
-      for (b_i = 0; b_i < i; b_i++) {
-        d_f1[b_i].f1.set_size(1, 3);
-        d_f1[b_i].f1[0] = 1.0;
-        d_f1[b_i].f1[1] = 1.0;
-        d_f1[b_i].f1[2] = 1.0;
-      }
-    }
-
-    e_f1.set_size(1);
-    e_f1[0] = 0.0;
+    c_f1.set_size(1);
+    c_f1[0] = 0.0;
     r.f1 = f1;
     r1.f1 = b_f1;
     r2.f1 = c_f1;
-    r3.f1 = d_f1;
-    r4.f1 = e_f1;
-    coder::internal::structConstructorHelper(&r, &r1, &r2, &r3, &r4,
+    coder::internal::structConstructorHelper(&r, &r1, &r2,
       bayesResults_predictionIntervals_reflectivity,
       bayesResults_predictionIntervals_sld,
-      bayesResults_predictionIntervals_reflectivityXData,
-      bayesResults_predictionIntervals_sldXData,
       bayesResults_predictionIntervals_sampleChi_data,
       bayesResults_predictionIntervals_sampleChi_size);
 

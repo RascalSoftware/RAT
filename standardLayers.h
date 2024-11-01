@@ -21,7 +21,7 @@
 namespace RAT
 {
   struct d_struct_T;
-  struct cell_13;
+  struct cell_12;
   struct struct2_T;
   struct cell_wrap_8;
   struct cell_wrap_10;
@@ -33,7 +33,7 @@ namespace RAT
 {
   namespace nonPolarisedTF
   {
-    void standardLayers(const g_struct_T *problemStruct, const cell_13
+    void standardLayers(const g_struct_T *problemStruct, const cell_12
                         *problemCells, const struct2_T *controls, ::coder::array<
                         real_T, 1U> &backgroundParams, ::coder::array<real_T, 1U>
                         &qzshifts, ::coder::array<real_T, 1U> &scalefactors, ::
@@ -47,7 +47,7 @@ namespace RAT
                         cell_wrap_10, 1U> &sldProfiles, ::coder::array<
                         cell_wrap_10, 1U> &resampledLayers, ::coder::array<
                         real_T, 1U> &subRoughs);
-    void standardLayers(const d_struct_T *problemStruct, const cell_13
+    void standardLayers(const d_struct_T *problemStruct, const cell_12
                         *problemCells, const struct2_T *controls, ::coder::array<
                         real_T, 1U> &backgroundParams, ::coder::array<real_T, 1U>
                         &qzshifts, ::coder::array<real_T, 1U> &scalefactors, ::

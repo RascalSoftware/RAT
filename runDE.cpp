@@ -28,7 +28,7 @@
 namespace RAT
 {
   void intrafun(const ::coder::array<real_T, 2U> &p, d_struct_T *problemStruct,
-                const cell_13 *problemCells, const struct1_T *problemLimits,
+                const cell_12 *problemCells, const struct1_T *problemLimits,
                 const struct2_T *controls, struct_T *S_MSE, e_struct_T *result)
   {
     int32_T loop_ub;
@@ -58,7 +58,7 @@ namespace RAT
     // number of objectives (costs)
   }
 
-  void runDE(const d_struct_T *problemStruct, const cell_13 *problemCells, const
+  void runDE(const d_struct_T *problemStruct, const cell_12 *problemCells, const
              struct1_T *problemLimits, const struct2_T *controls, g_struct_T
              *b_problemStruct, struct5_T *result)
   {

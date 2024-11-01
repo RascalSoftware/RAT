@@ -23,7 +23,7 @@
 namespace RAT
 {
   real_T nsIntraFun(const d_struct_T *data_f1, const struct2_T *data_f2, const
-                    struct1_T *data_f3, const cell_13 *data_f4, const ::coder::
+                    struct1_T *data_f3, const cell_12 *data_f4, const ::coder::
                     array<real_T, 2U> &p)
   {
     g_struct_T problemStruct;
@@ -230,7 +230,7 @@ namespace RAT
   }
 
   real_T nsIntraFun(const d_struct_T *data_f1, const struct2_T *data_f2, const
-                    struct1_T *data_f3, const cell_13 *data_f4, const ::coder::
+                    struct1_T *data_f3, const cell_12 *data_f4, const ::coder::
                     array<real_T, 1U> &p)
   {
     d_struct_T problemStruct;

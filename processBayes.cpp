@@ -26,7 +26,7 @@ namespace RAT
 {
   void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestParams,
                     const ::coder::array<real_T, 2U> &bayesOutputs_chain, const
-                    d_struct_T *problemStruct, const cell_13 *problemCells,
+                    d_struct_T *problemStruct, const cell_12 *problemCells,
                     const struct1_T *problemLimits, struct2_T *controls,
                     g_struct_T *b_problemStruct, struct5_T *result, j_struct_T
                     *bayesResults)
@@ -257,7 +257,8 @@ namespace RAT
     //  2. Reflectivity and SLD shading
     c_problemStruct = *b_problemStruct;
     refPercentileConfidenceIntervals(bayesOutputs_chain, &c_problemStruct,
-      problemCells, problemLimits, controls, &bayesResults->predictionIntervals);
+      problemCells, problemLimits, controls, result,
+      &bayesResults->predictionIntervals);
 
     //  ---------------------------------
     //  bayesResults.chain = bayesOutputs.chain;

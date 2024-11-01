@@ -35,22 +35,22 @@ namespace RAT
 {
   static void b_packCellArray(const ::coder::array<cell_wrap_8, 2U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
-  static void b_packCellArray(const ::coder::array<cell_wrap_44, 2U> &cellArray,
+  static void b_packCellArray(const ::coder::array<cell_wrap_41, 2U> &cellArray,
     ::coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
   static void packCellArray(const ::coder::array<cell_wrap_8, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
-  static void packCellArray(const ::coder::array<cell_wrap_44, 1U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_41, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
   static void packCellArray(const ::coder::array<cell_wrap_8, 2U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
-  static void packCellArray(const ::coder::array<cell_wrap_44, 2U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_41, 2U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
 }
 
 // Function Definitions
 namespace RAT
 {
-  static void b_packCellArray(const ::coder::array<cell_wrap_44, 2U> &cellArray,
+  static void b_packCellArray(const ::coder::array<cell_wrap_41, 2U> &cellArray,
     ::coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
@@ -236,7 +236,7 @@ namespace RAT
     }
   }
 
-  static void packCellArray(const ::coder::array<cell_wrap_44, 1U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_41, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
@@ -360,7 +360,7 @@ namespace RAT
     }
   }
 
-  static void packCellArray(const ::coder::array<cell_wrap_44, 2U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_41, 2U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;

@@ -21,7 +21,7 @@
 namespace RAT
 {
   struct d_struct_T;
-  struct cell_13;
+  struct cell_12;
   struct struct1_T;
   struct struct2_T;
   struct l_struct_T;
@@ -37,7 +37,7 @@ namespace RAT
                 2U> &paramInfo_min, const ::coder::array<real_T, 2U>
                 &paramInfo_max, const char_T paramInfo_boundhandling_data[],
                 const int32_T paramInfo_boundhandling_size[2], const d_struct_T *
-                ratInputs_problemStruct, const cell_13 *ratInputs_problemCells,
+                ratInputs_problemStruct, const cell_12 *ratInputs_problemCells,
                 const struct1_T *ratInputs_problemLimits, const struct2_T
                 *ratInputs_controls, const ::coder::array<real_T, 2U>
                 &ratInputs_priors, ::coder::array<real_T, 3U> &chain, l_struct_T

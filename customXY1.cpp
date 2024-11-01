@@ -28,7 +28,7 @@
 // Function Declarations
 namespace RAT
 {
-  static void cast(const ::coder::array<cell_wrap_56, 2U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_54, 2U> &b, ::coder::array<
                    cell_wrap_10, 2U> &c);
   namespace domainsTF
   {
@@ -58,7 +58,7 @@ namespace RAT
 // Function Definitions
 namespace RAT
 {
-  static void cast(const ::coder::array<cell_wrap_56, 2U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_54, 2U> &b, ::coder::array<
                    cell_wrap_10, 2U> &c)
   {
     int32_T i;
@@ -331,7 +331,7 @@ namespace RAT
       }
     }
 
-    void b_customXY(const g_struct_T *problemStruct, const cell_13 *problemCells,
+    void b_customXY(const g_struct_T *problemStruct, const cell_12 *problemCells,
                     const struct2_T *controls, ::coder::array<real_T, 1U>
                     &backgroundParams, ::coder::array<real_T, 1U> &qzshifts, ::
                     coder::array<real_T, 1U> &scalefactors, ::coder::array<
@@ -348,10 +348,10 @@ namespace RAT
       ::coder::array<cell_wrap_10, 2U> inputSldProfiles;
       ::coder::array<cell_wrap_10, 1U> inputSldProfiles1;
       ::coder::array<cell_wrap_10, 1U> inputSldProfiles2;
-      ::coder::array<cell_wrap_56, 2U> r;
-      ::coder::array<cell_wrap_58, 1U> layerSlds;
-      ::coder::array<cell_wrap_58, 1U> resampledLayers;
-      ::coder::array<cell_wrap_58, 1U> sldProfiles;
+      ::coder::array<cell_wrap_54, 2U> r;
+      ::coder::array<cell_wrap_56, 1U> layerSlds;
+      ::coder::array<cell_wrap_56, 1U> resampledLayers;
+      ::coder::array<cell_wrap_56, 1U> sldProfiles;
       ::coder::array<real_T, 2U> r1;
       ::coder::array<real_T, 2U> r2;
       real_T d;
@@ -651,7 +651,7 @@ namespace RAT
       }
     }
 
-    void b_customXY(const d_struct_T *problemStruct, const cell_13 *problemCells,
+    void b_customXY(const d_struct_T *problemStruct, const cell_12 *problemCells,
                     const struct2_T *controls, ::coder::array<real_T, 1U>
                     &backgroundParams, ::coder::array<real_T, 1U> &qzshifts, ::
                     coder::array<real_T, 1U> &scalefactors, ::coder::array<
@@ -668,10 +668,10 @@ namespace RAT
       ::coder::array<cell_wrap_10, 2U> inputSldProfiles;
       ::coder::array<cell_wrap_10, 1U> inputSldProfiles1;
       ::coder::array<cell_wrap_10, 1U> inputSldProfiles2;
-      ::coder::array<cell_wrap_56, 2U> r;
-      ::coder::array<cell_wrap_58, 1U> layerSlds;
-      ::coder::array<cell_wrap_58, 1U> resampledLayers;
-      ::coder::array<cell_wrap_58, 1U> sldProfiles;
+      ::coder::array<cell_wrap_54, 2U> r;
+      ::coder::array<cell_wrap_56, 1U> layerSlds;
+      ::coder::array<cell_wrap_56, 1U> resampledLayers;
+      ::coder::array<cell_wrap_56, 1U> sldProfiles;
       ::coder::array<real_T, 2U> r1;
       ::coder::array<real_T, 2U> r2;
       real_T d;

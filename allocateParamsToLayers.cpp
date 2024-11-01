@@ -10,10 +10,12 @@
 
 // Include files
 #include "allocateParamsToLayers.h"
+#include "RATMain_internal_types.h"
 #include "RATMain_types.h"
 #include "length.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
+#include "coder_bounded_array.h"
 #include <cmath>
 #include <cstring>
 
@@ -21,7 +23,7 @@
 namespace RAT
 {
   void allocateParamsToLayers(const ::coder::array<real_T, 2U> &params, const ::
-    coder::array<cell_wrap_10, 2U> &layersDetails, ::coder::array<cell_wrap_12,
+    coder::array<cell_wrap_10, 2U> &layersDetails, ::coder::array<cell_wrap_43,
     2U> &outLayers)
   {
     real_T thisOutLayer_data[10];
@@ -59,9 +61,10 @@ namespace RAT
       thisOutLayer_data[coder::internal::intlength(layersDetails[i].f1.size(0),
         layersDetails[i].f1.size(1)) - 1] = layersDetails[i].f1[layersDetails[i]
         .f1.size(0) * layersDetails[i].f1.size(1) - 1];
-      outLayers[outLayers.size(0) * i].f1.set_size(1, n);
+      outLayers[i].f1.size[0] = 1;
+      outLayers[i].f1.size[1] = n;
       for (b_i = 0; b_i < n; b_i++) {
-        outLayers[i].f1[b_i] = thisOutLayer_data[b_i];
+        outLayers[i].f1.data[b_i] = thisOutLayer_data[b_i];
       }
     }
   }

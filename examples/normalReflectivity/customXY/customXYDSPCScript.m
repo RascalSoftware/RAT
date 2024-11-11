@@ -188,7 +188,7 @@ controls.adaptPCR = true;
 % ..and plot this out....
 
     figure(30); clf;
-    bayesShadedPlot(problem, results,'fit','average','KeepAxes',true,'interval',65,'q4',false)
+    bayesShadedPlot(problem, results,'KeepAxes',true,'interval',65,'q4',false)
     
     h3 = figure(40); clf
     plotHists(results,h3,'smooth',true)
@@ -271,12 +271,14 @@ figure; hold on; box on
 
 % In RAT, there is a useful function called 'shade' that we can use
 % here.....
+fillType = [1 2;2 1];
+fillAlpha = 0.3;
 cols = get(gca,'ColorOrder');
-shade(z,ciSi(1,:),z,ciSi(2,:),'FillColor',cols(1,:),'FillType',[1 2;2 1],'FillAlpha',0.3); 
-shade(z,ciOxide(1,:),z,ciOxide(2,:),'FillColor',cols(2,:),'FillType',[1 2;2 1],'FillAlpha',0.3); 
-shade(z,ciHeadL(1,:),z,ciHeadL(2,:),'FillColor',cols(3,:),'FillType',[1 2;2 1],'FillAlpha',0.3);
-shade(z,ciTails(1,:),z,ciTails(2,:),'FillColor',cols(4,:),'FillType',[1 2;2 1],'FillAlpha',0.3);
-shade(z,ciHeadR(1,:),z,ciHeadR(2,:),'FillColor',cols(5,:),'FillType',[1 2;2 1],'FillAlpha',0.3);
+shade(z,ciSi(1,:),z,ciSi(2,:),'FillColor',cols(1,:),'FillType',fillType,'FillAlpha',fillAlpha); 
+shade(z,ciOxide(1,:),z,ciOxide(2,:),'FillColor',cols(2,:),'FillType',fillType,'FillAlpha',fillAlpha); 
+shade(z,ciHeadL(1,:),z,ciHeadL(2,:),'FillColor',cols(3,:),'FillType',fillType,'FillAlpha',fillAlpha);
+shade(z,ciTails(1,:),z,ciTails(2,:),'FillColor',cols(4,:),'FillType',fillType,'FillAlpha',fillAlpha);
+shade(z,ciHeadR(1,:),z,ciHeadR(2,:),'FillColor',cols(5,:),'FillType',fillType,'FillAlpha',fillAlpha);
 title('Volume Fractions');
 %% 
 % .. and we are done.

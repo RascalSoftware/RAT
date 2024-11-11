@@ -13,8 +13,8 @@ function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, sh
     arguments
         data
         noDelay {logical} = true
-        linearX {logical} = true
-        q4 {logical} = true
+        linearX {logical} = false
+        q4 {logical} = false
         showErrorBar {logical} = true
         showGrid {logical} = false
         showLegend {logical} = true

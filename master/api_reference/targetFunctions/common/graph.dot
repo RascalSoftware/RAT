@@ -1,8 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-
-  backSort [URL="backSort.html"];
-  extractProblemParams [URL="extractProblemParams.html"];
-  parseCells [URL="parseCells.html"];
-  shiftData [URL="shiftData.html"];
-}

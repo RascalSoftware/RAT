@@ -1,0 +1,663 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Backgrounds Class &#8212; RAT 1.0.0-beta documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=7138875e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../_static/documentation_options.js?v=3fd7a760"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=881e7dcd"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/matlab/backgroundsClass';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.2';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://rascalsoftware.github.io/RAT//switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <link rel="icon" href="../../_static/logo.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Data Class" href="dataClass.html" />
+    <link rel="prev" title="Resolutions Class" href="resolutionsClass.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="RAT 1.0.0-beta documentation - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="RAT 1.0.0-beta documentation - Home"/>`);</script>
+  
+  
+</a></div>
+    
+      <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../index.html">
+                        Home
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../install.html">
+                        Installation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../guide.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="index.html">
+                        MATLAB API Reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../support.html">
+                        Support
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../index.html">
+                        Home
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../install.html">
+                        Installation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../guide.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="index.html">
+                        MATLAB API Reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../support.html">
+                        Support
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="projectClass.html">Project Class</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="parametersClass.html">Parameters Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resolutionsClass.html">Resolutions Class</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Backgrounds Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataClass.html">Data Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layersClass.html">Layers Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customFileClass.html">Custom File Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrastsClass.html">Contrasts Class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="controlClass.html">Controls Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entryFunctions.html">RAT Entry Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="targetFunctions.html">Target Functions (Low Level API)</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">MATLAB API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="projectClass.html" class="nav-link">Project Class</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Backgrounds Class</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="backgrounds-class">
+<span id="backgroundsclass"></span><h1>Backgrounds Class<a class="headerlink" href="#backgrounds-class" title="Link to this heading">#</a></h1>
+<p>This class makes the backgrounds in RAT. Backgrounds are defined in a two stage process. Firstly we define the actual fitted parameters.
+These are held in a ‘ParametersClass’ table. Then, we group these into the backgrounds themselves using a multiTypeTable(<a class="reference external" href="https://uk.mathworks.com/help/matlab/tables.html">table</a>). So, we can then use the
+background parameters to either define background as constant, data or a function.</p>
+<table class="table" id="id1">
+<caption><span class="caption-text">The methods on the left call the methods on the right in the table.</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method in Project Class</p></th>
+<th class="head"><p>Method in backgroundsClass</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>projectClass.addBackgroundParam()</p></td>
+<td><p>backgroundsClass.backgroundParams.addParameter()</p></td>
+</tr>
+<tr class="row-odd"><td><p>projectClass.removeBackgroundParam()</p></td>
+<td><p>backgroundsClass.backgroundParams.removeParameter()</p></td>
+</tr>
+<tr class="row-even"><td><p>projectClass.setBackgroundParamValue()</p></td>
+<td><p>backgroundsClass.backgroundParams.setValue()</p></td>
+</tr>
+<tr class="row-odd"><td><p>projectClass.addBackground()</p></td>
+<td><p>backgroundsClass.addBackground()</p></td>
+</tr>
+<tr class="row-even"><td><p>projectClass.removeBackground()</p></td>
+<td><p>backgroundsClass.removeBackground()</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ol class="arabic simple">
+<li><p>For constant, only one parameter is supplied to multi type table.</p></li>
+<li><p>For data, only the data itself is supplied as a cell.</p></li>
+<li><p>For function, the function name is supplied, along with up to three parameters (from the parameters table) which are then supplied to the function to
+calculate the background.</p></li>
+</ol>
+</div>
+<p>In each case, the background can either be added to the simulation or subtracted from the data.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Example showing how backgroundsClass methods are called.</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c">% Change the name of the existing parameters to refer to D2O</span>
+<span class="w">    </span><span class="n">problem</span><span class="p">.</span><span class="n">setBacksPar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;name&#39;</span><span class="p">,</span><span class="s">&#39;Backs par D2O&#39;</span><span class="p">,</span><span class="s">&#39;fit&#39;</span><span class="p">,</span><span class="nb">true</span><span class="p">,</span><span class="s">&#39;min&#39;</span><span class="p">,</span><span class="mf">1e-8</span><span class="p">,</span><span class="s">&#39;max&#39;</span><span class="p">,</span><span class="mf">1e-5</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c">% Add a new constant background</span>
+<span class="w">    </span><span class="n">problem</span><span class="p">.</span><span class="n">addBackground</span><span class="p">(</span><span class="s">&#39;Background SMW&#39;</span><span class="p">,</span><span class="s">&#39;constant&#39;</span><span class="p">,</span><span class="s">&#39;Backs par SMW&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<section id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Link to this heading">#</a></h2>
+<dl class="mat class">
+<dt class="sig sig-object mat" id="API.projectClass.backgroundsClass">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">API.projectClass.</span></span><span class="sig-name descname"><span class="pre">backgroundsClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">parameters</span></em>, <em class="sig-param"><span class="pre">startBackground</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.backgroundsClass" title="Link to this definition">#</a></dt>
+<dd><p>Backgrounds are defined in a two stage process. Firstly we define the
+actual fitted parameters. These are held in a ‘ParametersClass’
+table. Then, we group these into the backgrounds themselves using a
+multiTypeTable. So, we can then use the background parameters to
+either define background as  constant, data or a function.</p>
+<p>For constant only one parameter is supplied to multi type table.</p>
+<p>For data only the itself is supplied as a cell.</p>
+<p>For function, the function name is supplied, along with up to three 
+parameters (from the parameters table) which are then supplied to the 
+function to calculate the background.</p>
+<p>In each case, the background can either be added to the simulation or
+subtracted from the data.</p>
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.backgroundsClass.addBackground">
+<span class="sig-name descname"><span class="pre">addBackground</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.backgroundsClass.addBackground" title="Link to this definition">#</a></dt>
+<dd><p>Adds a new entry to the background table.</p>
+<p>background.addBackground(‘New Row’);
+background.addBackground(‘New Row’, ‘constant’, ‘param_name’);
+background.addBackground(‘New Row’, ‘function’, ‘function_name’, ‘param_name’);
+background.addBackground(‘New Row’, ‘data’);</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.backgroundsClass.backgroundsClass">
+<span class="sig-name descname"><span class="pre">backgroundsClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">parameters</span></em>, <em class="sig-param"><span class="pre">startBackground</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.backgroundsClass.backgroundsClass" title="Link to this definition">#</a></dt>
+<dd><p>Creates a background object. The arguments should be 
+an instance of the parameter class with the background parameters
+and a cell array of  backgrounds</p>
+<p>params = parametersClass({‘Background Param 1’, 1e-7, 1e-6, 1e-5, false, ‘uniform’, 0, Inf});
+% background = backgroundClass(params, {‘Background 1’, ‘constant’, ‘Background Param 1’});</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.backgroundsClass.displayBackgroundsObject">
+<span class="sig-name descname"><span class="pre">displayBackgroundsObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">showPriors</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.backgroundsClass.displayBackgroundsObject" title="Link to this definition">#</a></dt>
+<dd><p>Displays the background parameters and background table. 
+Optional showPriors to display the priors default is false</p>
+<p>background.displayBackgroundsObject(true);</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.backgroundsClass.getNames">
+<span class="sig-name descname"><span class="pre">getNames</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.backgroundsClass.getNames" title="Link to this definition">#</a></dt>
+<dd><p>Returns a N x 1 cell array of names of the backgrounds 
+in the object.</p>
+<p>names = background.getNames();</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.backgroundsClass.removeBackground">
+<span class="sig-name descname"><span class="pre">removeBackground</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">row</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.backgroundsClass.removeBackground" title="Link to this definition">#</a></dt>
+<dd><p>Removes a background entry from the table. Expects the 
+index or array of indices of background(s) to remove.</p>
+<p>background.removeBackground(2);
+background.removeBackground([1, 3]);</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.backgroundsClass.setBackground">
+<span class="sig-name descname"><span class="pre">setBackground</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">row</span></em>, <em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.backgroundsClass.setBackground" title="Link to this definition">#</a></dt>
+<dd><p>Changes the value of a given background in the table. Expects the 
+index or name of background and keyword/value pairs to set.</p>
+<p>background.setBackground(1, ‘name’, ‘back 1’, ‘type’, ‘constant’, ‘value1’, ‘param_name’);</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.backgroundsClass.setBackgroundName">
+<span class="sig-name descname"><span class="pre">setBackgroundName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">row</span></em>, <em class="sig-param"><span class="pre">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.backgroundsClass.setBackgroundName" title="Link to this definition">#</a></dt>
+<dd><p>Sets the name of a given background in the table. Expects 
+an index and the new name.</p>
+<p>background.setBackgroundName(1, ‘new_name’);</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.backgroundsClass.toStruct">
+<span class="sig-name descname"><span class="pre">toStruct</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.backgroundsClass.toStruct" title="Link to this definition">#</a></dt>
+<dd><p>Converts the class parameters into a structure array</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference">Reference</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/reference/matlab/backgroundsClass.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024, ISIS Neutron and Muon Source.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.2.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

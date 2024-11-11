@@ -1,8 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-
-  applyHydrationImag [URL="applyHydrationImag.html"];
-  applyHydrationReal [URL="applyHydrationReal.html"];
-  callCppFunction [URL="callCppFunction.html"];
-  callMatlabFunction [URL="callMatlabFunction.html"];
-}

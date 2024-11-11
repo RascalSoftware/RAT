@@ -1,1 +1,48 @@
-/* This file intentionally left blank. */
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: medium;
+}
+
+html[data-theme=light] {
+  --pst-color-primary: #0969da;
+  --pst-color-secondary: #0969da;
+}
+
+html[data-theme=dark] {
+  --pst-color-secondary: var(--pst-color-primary);
+}
+
+.toctree-wrapper li[class^=toctree-l]>a {
+  font-size: medium !important;
+}
+
+.bd-header .navbar-nav>.current>.nav-link {
+  border-bottom: None !important;
+}
+
+.bd-sidebar-primary div#rtd-footer-container {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+.sd-tab-label{
+  text-transform: lowercase;
+}
+ 
+.sd-tab-label::first-letter {
+  text-transform: uppercase;
+}
+
+.tab-label-hidden .sd-tab-label{
+  display: none;
+}
+
+.tab-label-hidden .sd-tab-content{
+  box-shadow: none;
+}
+
+.tab-label-hidden pre{
+  border: none;
+  padding: 0;
+  margin: 0;
+}

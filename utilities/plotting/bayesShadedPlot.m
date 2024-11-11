@@ -50,6 +50,10 @@ switch interval
         vals = [2 4];
 end
 
+fillColor = [0.7 0.7 0.7];
+fillType = [1 2;2 1];
+fillAlpha = 0.3;
+
 % Get the reflectivities and SLDs
 bestReflectivity = result.reflectivity;
 bestSld = result.sldProfiles;
@@ -105,7 +109,7 @@ for i = 1:numberOfContrasts
     end
     
     errorbar(dataX,dataY,dataErr,'.');
-    shade(refXValues,min,refXValues,max,'FillColor',[0.7 0.7 0.7],'FillType',[1 2;2 1],'FillAlpha',0.3);
+    shade(refXValues,min,refXValues,max,'FillColor',fillColor,'FillType',fillType,'FillAlpha',fillAlpha);
     plot(reflectivity(:,1),reflectivity(:,2),'b-');
 
 end
@@ -125,7 +129,7 @@ if ~isDomains
         max = limits(vals(2),:);
 
         plot(sld(:,1),sld(:,2),'b-');
-        shade(sldXValues,min,sldXValues,max,'FillColor',[0.7 0.7 0.7],'FillType',[1 2;2 1],'FillAlpha',0.3);
+        shade(sldXValues,min,sldXValues,max,'FillColor',fillColor,'FillType',fillType,'FillAlpha',fillAlpha);
 
     end
 
@@ -144,7 +148,7 @@ else
             thisDomainSldXValues = sldXValues{j}(:,1);
 
             plot(sld{j}(:,1),sld{j}(:,2),'b-');
-            shade(thisDomainSldXValues,min,thisDomainSldXValues,max,'FillColor',[0.7 0.7 0.7],'FillType',[1 2;2 1],'FillAlpha',0.3);
+            shade(thisDomainSldXValues,min,thisDomainSldXValues,max,'FillColor',fillColor,'FillType',fillType,'FillAlpha',fillAlpha);
         end
     end
 

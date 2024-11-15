@@ -188,7 +188,7 @@ controls.adaptPCR = true;
 % ..and plot this out....
 
     figure(30); clf;
-    bayesShadedPlot(problem, results,'KeepAxes',true,'interval',65,'q4',false)
+    bayesShadedPlot(problem, results,'keepAxes',true,'interval',65,'q4',false)
     
     h3 = figure(40); clf
     plotHists(results,h3,'smooth',true)

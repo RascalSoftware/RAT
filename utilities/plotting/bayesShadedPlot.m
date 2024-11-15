@@ -1,7 +1,13 @@
-function bayesShadedPlot(problem,result,varargin)
-
+function bayesShadedPlot(problem, result, options)
 % Plot the shaded reflectivities from Bayes output
 % from RAT
+arguments
+    problem
+    result
+    options.q4 {logical} = false
+    options.keepAxes {logical} = false
+    options.interval {mustBeMember(options.interval, [65, 95])} = 95
+end
 
 if isa(problem,'domainsClass')
     isDomains = true;
@@ -9,41 +15,11 @@ else
     isDomains = false;
 end
 
-%  Parse the input options
-if ~isempty(varargin)
-
-    defaultq4  = false;
-    defaultKeep = false;
-    defaultInterval = 95;
-    
-    allIntervals = [65 95];
-    
-    p = inputParser;
-    addOptional(p,  'q4',           defaultq4,          @islogical);
-    addOptional(p,  'KeepAxes',     defaultKeep,        @islogical);
-    addOptional(p,  'interval',     defaultInterval,    @(x) ismember(x,allIntervals));
-    
-    parse(p,varargin{:});
-    inputBlock = p.Results;
-    
-    q4 = inputBlock.q4;
-    keepAx = inputBlock.KeepAxes;
-    interval = inputBlock.interval;
-
-else
-
-    q4 = false;
-    keepAx = false;
-    interval = 95;
-
-end
-
-
-if ~keepAx
+if ~options.keepAxes
     clf; hold on; box on
 end
 
-switch interval
+switch options.interval
     case 95
         vals = [1 5];
     case 65
@@ -75,7 +51,7 @@ for i = 1:numberOfContrasts
     reflectivity = bestReflectivity{i};
     
     mult = 2^(4*i);
-    switch q4
+    switch options.q4
         case true
             thisQ4 = thisData(:,1).^4;
         case false
@@ -99,7 +75,7 @@ for i = 1:numberOfContrasts
     refXValues = result.reflectivity{i}(:,1);
     thisSimQ4 = refXValues.^4;
     
-    switch q4
+    switch options.q4
         case true
             min = min .* thisSimQ4;
             max = max .* thisSimQ4;

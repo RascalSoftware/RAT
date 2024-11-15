@@ -1,0 +1,798 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Saving Your Work (working with classes) &#8212; RAT  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=7138875e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=881e7dcd"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/savingAndClasses';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.2';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://rascalsoftware.github.io/RAT/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <link rel="icon" href="../_static/logo.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Algorithms" href="../algorithms/index.html" />
+    <link rel="prev" title="Custom Models" href="customModels.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="RAT  documentation - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="RAT  documentation - Home"/>`);</script>
+  
+  
+</a></div>
+    
+      <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Home
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../install.html">
+                        Installation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../guide.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../reference/matlab/index.html">
+                        MATLAB API Reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../support.html">
+                        Support
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+<nav class="navbar-nav">
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Home
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../install.html">
+                        Installation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../guide.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../reference/matlab/index.html">
+                        MATLAB API Reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../support.html">
+                        Support
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Tutorial</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter1.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter2.html">The Problem Definition Input Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controlsInfo.html">A Closer Look at the Controls Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customModels.html">Custom Models</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Saving Your Work (working with classes)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/simplex.html">Nelder-Mead Simplex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/DE.html">Differential Evolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/DREAM.html">Bayesian Analysis - DREAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/nestedSampling.html">Bayesian Model Selection - Nested Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/paramonte.html">The Paramonte Sampler</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../advanced/index.html">Advanced Topics</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../advanced/resampling.html">Profile Resampling (‘microslicing’)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../advanced/parallelisation.html">Parallelising Calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../advanced/customLanguages.html">Custom Models in Python or C++</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../advanced/events.html">Handling Events During Calculations</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../calcTypes/index.html">Different Calculation Types</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../calcTypes/imaginary.html">Adding the Imaginary Refractive Index</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../calcTypes/incoherent.html">Incoherent Summing (Domains)</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../calcTypes/domainsStanlay.html">Standard Layers Domains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../calcTypes/domainsCustomModels.html">Custom Models with Domains</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../utilities/index.html">Utility Functions</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../utilities/plotFuns.html">Basic Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utilities/plotFunsBayes.html">Plotting Bayesian Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utilities/livePlot.html">Live Updating Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utilities/conversionFuncs.html">Convert between RAT and RasCAL1</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../guide.html" class="nav-link">User Guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Tutorial</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Saving Your...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="saving-your-work-working-with-classes">
+<span id="savingandclasses"></span><h1>Saving Your Work (working with classes)<a class="headerlink" href="#saving-your-work-working-with-classes" title="Link to this heading">#</a></h1>
+<p>When you have completed your analysis, usually uou will want to save a copy of your work for subsequent. Since everything about your model and results are contained
+is their own classes (actually a struct for ‘results’), this is very easy. But, there are a couple of pitfalls to be aware of..</p>
+<section id="saving-to-a-file">
+<h2>Saving to a file<a class="headerlink" href="#saving-to-a-file" title="Link to this heading">#</a></h2>
+<p>Suppose you have a model defined in problem, and you have run this through RAT and you want to save your work for later…</p>
+<a class="reference internal image-reference" href="../_images/ratInput.png"><img alt="RAT input model" src="../_images/ratInput.png" style="width: 600px;" />
+</a>
+<p>So ‘problem’ now contains a copy of the input problem, and results the relevant reflectivities, SLD’s and so on. Because everything is in these two outputs, then saving your work is
+just a matter of saving these to file. It is good practice to keep everything together, and a good way of doing this is to collect them into a struct. Then, you only need to save the
+struct to a file to save all of your work:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="code" data-sync-id="Matlab" for="sd-tab-item-0">
+MATLAB</label><div class="sd-tab-content docutils">
+<div class="highlight-Matlab notranslate"><div class="highlight"><pre><span></span><span class="n">myResults</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">struct</span><span class="p">(</span><span class="s">&#39;problem&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">problem</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;results&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">results</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;controls&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">controls</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">(</span><span class="s">&#39;myResultsFile&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;myResults&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="code" data-sync-id="Python" for="sd-tab-item-1">
+PYTHON</label><div class="sd-tab-content docutils">
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">TODO</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>At a later date, you only need to load back in your struct, split it up into it is components and away you go:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="code" data-sync-id="Matlab" for="sd-tab-item-2">
+MATLAB</label><div class="sd-tab-content docutils">
+<div class="highlight-Matlab notranslate"><div class="highlight"><pre><span></span><span class="n">myWork</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">load</span><span class="p">(</span><span class="s">&#39;myResultsFile&#39;</span><span class="p">);</span>
+<span class="n">myWork</span><span class="p">.</span><span class="n">myResults</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="code" data-sync-id="Python" for="sd-tab-item-3">
+PYTHON</label><div class="sd-tab-content docutils">
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">TODO</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="sd-tab-set tab-label-hidden docutils">
+<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="code" data-sync-id="Matlab" for="sd-tab-item-4">
+Matlab</label><div class="sd-tab-content docutils">
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>myResults =
+
+struct with fields:
+
+    problem: [1x1 projectClass]
+    results: [1x1 struct]
+    controls: [1x1 controlsClass]
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="code" data-sync-id="Python" for="sd-tab-item-5">
+Python</label><div class="sd-tab-content docutils">
+<p>TODO</p>
+</div>
+</div>
+</section>
+<section id="copying-a-project-class">
+<h2>Copying a project class<a class="headerlink" href="#copying-a-project-class" title="Link to this heading">#</a></h2>
+<p>During an analysis, it may be necessary to make a copy of your project, so that you can modify one of them in order
+to carry out some kind of comparison between them for example.
+In the example below, <em>problem1</em> and <em>problem1</em> are references to the same instance of project class so modifying
+<em>problem2</em> will also modify original object <em>problem1</em> which is not ideal.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="code" data-sync-id="Matlab" for="sd-tab-item-6">
+MATLAB</label><div class="sd-tab-content docutils">
+<div class="highlight-Matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">projectClass</span><span class="p">();</span>
+<span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">problem1</span><span class="p">;</span>
+<span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem1</span><span class="p">.</span><span class="n">geometry</span>
+
+<span class="nb">ans</span><span class="w"> </span><span class="p">=</span>
+
+<span class="w">    </span><span class="s">&#39;air/substrate&#39;</span>
+
+<span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem2</span><span class="p">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="s">&#39;substrate/liquid&#39;</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem1</span><span class="p">.</span><span class="n">geometry</span>
+
+<span class="nb">ans</span><span class="w"> </span><span class="p">=</span>
+
+<span class="w">    </span><span class="s">&#39;substrate/liquid&#39;</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-7" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="code" data-sync-id="Python" for="sd-tab-item-7">
+PYTHON</label><div class="sd-tab-content docutils">
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">problem1</span> <span class="o">=</span> <span class="n">RAT</span><span class="o">.</span><span class="n">Project</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">problem2</span> <span class="o">=</span> <span class="n">problem1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">problem1</span><span class="o">.</span><span class="n">geometry</span><span class="p">)</span>
+
+<span class="n">air</span><span class="o">/</span><span class="n">substrate</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">problem2</span><span class="o">.</span><span class="n">geometry</span> <span class="o">=</span> <span class="s2">&quot;substrate/liquid&quot;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">problem1</span><span class="o">.</span><span class="n">geometry</span><span class="p">)</span>
+
+<span class="n">substrate</span><span class="o">/</span><span class="n">liquid</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The proper way to make a copy/clone of the project class is shown in the example below,</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-8" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" data-sync-group="code" data-sync-id="Matlab" for="sd-tab-item-8">
+MATLAB</label><div class="sd-tab-content docutils">
+<div class="highlight-Matlab notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">projectClass</span><span class="p">();</span>
+<span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">problem1</span><span class="p">.</span><span class="n">clone</span><span class="p">();</span><span class="w"> </span><span class="c">% Copy with clone method</span>
+<span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem1</span><span class="p">.</span><span class="n">geometry</span>
+
+<span class="nb">ans</span><span class="w"> </span><span class="p">=</span>
+
+<span class="w">    </span><span class="s">&#39;air/substrate&#39;</span>
+
+<span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem2</span><span class="p">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="s">&#39;substrate/liquid&#39;</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem1</span><span class="p">.</span><span class="n">geometry</span>
+
+<span class="nb">ans</span><span class="w"> </span><span class="p">=</span>
+
+<span class="w">    </span><span class="s">&#39;air/substrate&#39;</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-9" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" data-sync-group="code" data-sync-id="Python" for="sd-tab-item-9">
+PYTHON</label><div class="sd-tab-content docutils">
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">copy</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">problem1</span> <span class="o">=</span> <span class="n">RAT</span><span class="o">.</span><span class="n">Project</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">problem2</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">problem1</span><span class="p">)</span> <span class="c1"># Copy using deepcopy function in the copy module</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">problem1</span><span class="o">.</span><span class="n">geometry</span><span class="p">)</span>
+
+<span class="n">air</span><span class="o">/</span><span class="n">substrate</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">problem2</span><span class="o">.</span><span class="n">geometry</span> <span class="o">=</span> <span class="s2">&quot;substrate/liquid&quot;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">pproblem1</span><span class="o">.</span><span class="n">geometry</span><span class="p">)</span>
+
+<span class="n">air</span><span class="o">/</span><span class="n">substrate</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now <em>problem1</em> and <em>problem2</em> are seperate instances of project class and changing <em>problem2</em> no longer changes <em>problem1</em>.</p>
+</section>
+<section id="exporting-as-a-script">
+<h2>Exporting as a Script<a class="headerlink" href="#exporting-as-a-script" title="Link to this heading">#</a></h2>
+<p>Although saving a binary version of the class is useful, sometimes it would be better to have a script version which will reproduce the class. This can be done as shown below:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-10" name="sd-tab-set-5" type="radio">
+<label class="sd-tab-label" data-sync-group="code" data-sync-id="Matlab" for="sd-tab-item-10">
+MATLAB</label><div class="sd-tab-content docutils">
+<div class="highlight-Matlab notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">projectClass</span><span class="p">();</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">writeScript</span><span class="p">(</span><span class="n">script</span><span class="p">=</span><span class="s">&quot;myProjectScript&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-11" name="sd-tab-set-5" type="radio">
+<label class="sd-tab-label" data-sync-group="code" data-sync-id="Python" for="sd-tab-item-11">
+PYTHON</label><div class="sd-tab-content docutils">
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span> <span class="o">=</span> <span class="n">RAT</span><span class="o">.</span><span class="n">Project</span><span class="p">()</span>
+<span class="n">problem</span><span class="o">.</span><span class="n">write_script</span><span class="p">(</span><span class="n">script</span><span class="o">=</span><span class="s1">&#39;myProjectScript&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then, RAT will create a file containing all the statements needed to re-create your project:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-6" type="radio">
+<label class="sd-tab-label" data-sync-group="code" data-sync-id="Matlab" for="sd-tab-item-12">
+MATLAB</label><div class="sd-tab-content docutils">
+<div class="highlight-Matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% THIS FILE IS GENERATED FROM RAT VIA THE &quot;WRITESCRIPT&quot; ROUTINE. IT IS NOT PART OF THE RAT CODE.</span>
+
+<span class="n">project</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">createProject</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">calcType</span><span class="p">=</span><span class="s">&#39;non polarised&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">model</span><span class="p">=</span><span class="s">&#39;standard layers&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">geometry</span><span class="p">=</span><span class="s">&#39;air/substrate&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">absorption</span><span class="p">=</span><span class="nb">false</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">setParameterValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">setParameterLimits</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">setParameterFit</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">setParameterPrior</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;uniform&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Inf</span><span class="p">);</span>
+
+
+<span class="n">project</span><span class="p">.</span><span class="n">removeBulkIn</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">addBulkIn</span><span class="p">(</span><span class="s">&#39;SLD Air&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;uniform&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Inf</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">removeBulkOut</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">addBulkOut</span><span class="p">(</span><span class="s">&#39;SLD D2O&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">6.2e-06</span><span class="p">,</span><span class="w"> </span><span class="mf">6.35e-06</span><span class="p">,</span><span class="w"> </span><span class="mf">6.35e-06</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;uniform&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Inf</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">removeScalefactor</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">addScalefactor</span><span class="p">(</span><span class="s">&#39;Scalefactor 1&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">0.02</span><span class="p">,</span><span class="w"> </span><span class="mf">0.23</span><span class="p">,</span><span class="w"> </span><span class="mf">0.25</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;uniform&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Inf</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">removeQzshift</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">addQzshift</span><span class="p">(</span><span class="s">&#39;Qz shift 1&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">0.0001</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0001</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;uniform&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Inf</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">removeBackgroundParam</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">addBackgroundParam</span><span class="p">(</span><span class="s">&#39;Background Param 1&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1e-07</span><span class="p">,</span><span class="w"> </span><span class="mf">1e-06</span><span class="p">,</span><span class="w"> </span><span class="mf">1e-05</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;uniform&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Inf</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">removeResolutionParam</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">addResolutionParam</span><span class="p">(</span><span class="s">&#39;Resolution par 1&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span><span class="w"> </span><span class="mf">0.03</span><span class="p">,</span><span class="w"> </span><span class="mf">0.05</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;uniform&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Inf</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">removeBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">removeResolution</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">addBackground</span><span class="p">(</span><span class="s">&#39;Background 1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;constant&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Background Param 1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">addResolution</span><span class="p">(</span><span class="s">&#39;Resolution 1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;constant&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Resolution par 1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">removeData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">addData</span><span class="p">(</span><span class="s">&#39;Simulation&#39;</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">setData</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;simRange&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mf">0.005</span><span class="w"> </span><span class="mf">0.7</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-13" name="sd-tab-set-6" type="radio">
+<label class="sd-tab-label" data-sync-group="code" data-sync-id="Python" for="sd-tab-item-13">
+PYTHON</label><div class="sd-tab-content docutils">
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># THIS FILE IS GENERATED FROM RAT VIA THE &quot;WRITE_SCRIPT&quot; ROUTINE. IT IS NOT PART OF THE RAT CODE.</span>
+
+<span class="kn">import</span> <span class="nn">RAT</span>
+<span class="kn">from</span> <span class="nn">RAT.models</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">inf</span>
+
+<span class="n">problem</span> <span class="o">=</span> <span class="n">RAT</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">calculation</span><span class="o">=</span><span class="s1">&#39;non polarised&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;standard layers&#39;</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="s1">&#39;air/substrate&#39;</span><span class="p">,</span> <span class="n">absorption</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">parameters</span><span class="o">=</span><span class="n">RAT</span><span class="o">.</span><span class="n">ClassList</span><span class="p">([</span><span class="n">ProtectedRAT</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Substrate Roughness&#39;</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">prior_type</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">inf</span><span class="p">)]),</span>
+    <span class="n">background_parameters</span><span class="o">=</span><span class="n">RAT</span><span class="o">.</span><span class="n">ClassList</span><span class="p">([</span><span class="n">RAT</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Background Param 1&#39;</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">1e-07</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">1e-06</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">1e-05</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">prior_type</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">inf</span><span class="p">)]),</span>
+    <span class="n">scalefactors</span><span class="o">=</span><span class="n">RAT</span><span class="o">.</span><span class="n">ClassList</span><span class="p">([</span><span class="n">RAT</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Scalefactor 1&#39;</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.23</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">prior_type</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">inf</span><span class="p">)]),</span>
+    <span class="n">bulk_in</span><span class="o">=</span><span class="n">RAT</span><span class="o">.</span><span class="n">ClassList</span><span class="p">([</span><span class="n">RAT</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;SLD Air&#39;</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">prior_type</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">inf</span><span class="p">)]),</span>
+    <span class="n">bulk_out</span><span class="o">=</span><span class="n">RAT</span><span class="o">.</span><span class="n">ClassList</span><span class="p">([</span><span class="n">RAT</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;SLD D2O&#39;</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">6.2e-06</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">6.35e-06</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">6.35e-06</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">prior_type</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">inf</span><span class="p">)]),</span>
+    <span class="n">resolution_parameters</span><span class="o">=</span><span class="n">RAT</span><span class="o">.</span><span class="n">ClassList</span><span class="p">([</span><span class="n">RAT</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Resolution Param 1&#39;</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">prior_type</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">inf</span><span class="p">)]),</span>
+    <span class="n">backgrounds</span><span class="o">=</span><span class="n">RAT</span><span class="o">.</span><span class="n">ClassList</span><span class="p">([</span><span class="n">Background</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Background 1&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="n">value_1</span><span class="o">=</span><span class="s1">&#39;Background Param 1&#39;</span><span class="p">,</span> <span class="n">value_2</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">value_3</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">value_4</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">value_5</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)]),</span>
+    <span class="n">resolutions</span><span class="o">=</span><span class="n">RAT</span><span class="o">.</span><span class="n">ClassList</span><span class="p">([</span><span class="n">Resolution</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Resolution 1&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="n">value_1</span><span class="o">=</span><span class="s1">&#39;Resolution Param 1&#39;</span><span class="p">,</span> <span class="n">value_2</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">value_3</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">value_4</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">value_5</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)]),</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">RAT</span><span class="o">.</span><span class="n">ClassList</span><span class="p">([</span><span class="n">Data</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Simulation&#39;</span><span class="p">)]),</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is useful because you can then edit this file as you wish, to re-use it as a template for further projects.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-to-a-file">Saving to a file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copying-a-project-class">Copying a project class</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-as-a-script">Exporting as a Script</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/tutorial/savingAndClasses.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2022-2024, ISIS Neutron and Muon Source.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.2.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

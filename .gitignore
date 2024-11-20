@@ -33,9 +33,6 @@ cppDeploy/
 *.mlappinstall
 *.mltbx
 _build/
-docs/build/
-docs/.buildinfo
-docs/*.inv
 DREAM_diagnostics.txt
 __pycache__/
 *.o

@@ -36,4 +36,4 @@ The code coverage report should be generated to a htmlcov folder after the tests
 
 Documentation
 -------------
-The documentation source code is in the [RAT_docs](https://github.com/RascalSoftware/RAT-Docs) repository but the built docs are deploy at https://rascalsoftware.github.io/RAT/
+The documentation source code is in the [RAT_docs](https://github.com/RascalSoftware/RAT-Docs) repository but the built docs are deployed at https://rascalsoftware.github.io/RAT/

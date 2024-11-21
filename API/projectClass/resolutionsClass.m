@@ -24,7 +24,7 @@ classdef resolutionsClass < handle
     end
     
     methods
-        function  obj = resolutionsClass(parameters, startResolution) 
+        function  obj = resolutionsClass(parameters, startResolution, allowedNames) 
             % Creates a Resolutions object. The arguments should be 
             % an instance of the parameter class with the resolution parameters and a
             % cell array with the first resolution entry
@@ -36,7 +36,7 @@ classdef resolutionsClass < handle
             % Make a multiType table to define the actual resolutions
             obj.resolutions = multiTypeTable();
             obj.resolutions.typesAutoNameString = 'New Resolution';
-            obj.addResolution(startResolution{:});
+            obj.addResolution(allowedNames, startResolution{:});
         end
         
         function names = getNames(obj)
@@ -48,7 +48,7 @@ classdef resolutionsClass < handle
             names = resolTable{:,1};   
         end
          
-        function addResolution(obj, varargin)
+        function addResolution(obj, allowedNames, varargin)
             % Adds a new entry to the resolution table.  
             %
             % resolution.addResolution('New Row');
@@ -84,27 +84,38 @@ classdef resolutionsClass < handle
                % resolution names, or numbers in range..
                switch typeVal
                    case allowedTypes.Constant.value
+                       maxValues = 0;
                        % Param 3 (source) must be a valid resolution parameter
-                       newRow{3} = obj.validateParam(in(3));
+                       newRow{3} = obj.validateParam(in(3), obj.resolutionParams.getNames(), 'Resolution Param');
+
 
                    case allowedTypes.Function.value
+                       maxValues = 5;
                        % Param 3 (source) is the function name
-                       newRow{3} = in{3};
+                       newRow{3} = obj.validateParam(in(3), allowedNames.customFileNames, 'Custom File');
 
-                       % Any other given parameters must be valid
-                       % resolution parameters
-                       for i = 4:length(in)
-                          thisParam = obj.validateParam(in(i));
-                          newRow{i} = thisParam;
+                       if length(in) >= 4
+                           % Any other given parameters must be valid
+                           % background parameters
+                           params = in(4:end);
+                           params = params(~(cellfun(@(x) isequal(x,""), params)));
+                           for i = 1:length(params)
+                              thisParam = obj.validateParam(params(i), obj.resolutionParams.getNames(), 'Resolution Param');
+                              newRow{i+3} = thisParam;
+                           end
                        end
                        
                    case allowedTypes.Data.value
+                       maxValues = 1;
                        % Resolution is assumed to be given by a 4th column 
-                       % of a data file. We don't have access to the
-                       % data files at this point so this (i.e. that data is
-                       % [n x 4]) will be checked downstream
-                       %newRow{3} = in{3};
-                end
+                       % of a data file.
+                       %newRow{3} = obj.validateParam(in(3), allowedNames.dataNames, 'Data');
+               end
+
+               if sum(~(cellfun(@(x) isequal(x,""), in))) > maxValues + 3
+                   warning('warnings:invalidNumberOfInputs', 'Value fields %d - 5 are not required for type ''%s'' resolutions, they will not be included', maxValues + 1, typeVal)
+               end
+
             end
             obj.resolutions.addRow(newRow{:});      
         end
@@ -118,7 +129,7 @@ classdef resolutionsClass < handle
             obj.resolutions.removeRow(row);
         end
         
-        function setResolution(obj, row, varargin)
+        function setResolution(obj, row, allowedNames, varargin)
             % Changes the value of a given resolution in the table. Expects the 
             % index or name of resolution and keyword/value pairs to set. 
             %
@@ -151,22 +162,66 @@ classdef resolutionsClass < handle
             
             if ~isempty(inputBlock.type)
                 inputBlock.type = validateOption(inputBlock.type, 'allowedTypes', obj.invalidTypeMessage).value;
+                                
+                % If the type of the resolution is changed, clear all
+                % source and value fields
+                if ~strcmpi(inputBlock.type, obj.resolutions.varTable{row, 2})
+                    warning('warnings:fieldsCleared', "When changing the type of a resolution all unset fields are cleared");
+                    for i = 3:width(obj.resolutions.varTable)
+                        obj.resolutions.setValue(row, i, '');
+                    end
+
+                    % Having cleared the table, we need to re-parse the
+                    % inputs to the function
+                    p = inputParser;
+                    addParameter(p, 'name', obj.resolutions.varTable{row, 1}, @isText);
+                    addParameter(p, 'type', obj.resolutions.varTable{row, 2}, @(x) isText(x) || isenum(x));
+                    addParameter(p, 'source', obj.resolutions.varTable{row, 3}, @isText);
+                    addParameter(p, 'value1', obj.resolutions.varTable{row, 4}, @isText);
+                    addParameter(p, 'value2', obj.resolutions.varTable{row, 5}, @isText);
+                    addParameter(p, 'value3', obj.resolutions.varTable{row, 6}, @isText);
+                    addParameter(p, 'value4', obj.resolutions.varTable{row, 7}, @isText);
+                    addParameter(p, 'value5', obj.resolutions.varTable{row, 8}, @isText);
+
+                    parse(p, varargin{:});
+                    inputBlock = p.Results;
+                end
+
                 obj.resolutions.setValue(row, 2, inputBlock.type);
             end
 
             % For data and function types, source is the data/function name
-            % so no validation is done at this point
             source = convertStringsToChars(inputBlock.source);
-            if ~isempty(source) && strcmpi(inputBlock.type, allowedTypes.Constant.value)
-                source = obj.validateParam(source);
+            if ~isempty(source)
+                if strcmpi(inputBlock.type, allowedTypes.Constant.value)
+                    source = obj.validateParam(source, obj.resolutionParams.getNames(), 'Resolution Param');
+                end
+                if strcmpi(inputBlock.type, allowedTypes.Data.value)
+                    source = obj.validateParam(source, allowedNames.dataNames, 'Data');
+                end
+                if strcmpi(inputBlock.type, allowedTypes.Function.value)
+                    source = obj.validateParam(source, allowedNames.customFileNames, 'Custom File');
+                end
             end
             obj.resolutions.setValue(row, 3, source);
+
+            switch inputBlock.type
+                case allowedTypes.Constant.value
+                    maxValues = 0;
+                case allowedTypes.Data.value
+                    maxValues = 1;
+                case allowedTypes.Function.value
+                    maxValues = 5;
+            end
 
             values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4, inputBlock.value5};
             for i = 1:5
                 value = convertStringsToChars(values{i});
                 if ~isempty(value)
-                    value = obj.validateParam(value);
+                    value = obj.validateParam(value, obj.resolutionParams.getNames(), 'Resolution Param');
+                    if i > maxValues
+                        warning('warnings:invalidNumberOfInputs', 'Value fields %d - 5 are not required for type ''%s'' backgrounds, they will be ignored by RAT', maxValues + 1, inputBlock.type)
+                    end
                 end
                 obj.resolutions.setValue(row, i + 3, value);
             end
@@ -219,8 +274,8 @@ classdef resolutionsClass < handle
         end 
     end
 
-    methods (Access = protected)
-        function thisPar = validateParam(obj, param)
+    methods (Static, Access = protected)
+        function thisPar = validateParam(param, paramList, parameterType)
             % Checks that given parameter index or name is valid, then returns the
             % parameter name. 
             %
@@ -228,18 +283,19 @@ classdef resolutionsClass < handle
             if iscell(param)
                 param = param{:};
             end
-            parList = obj.resolutionParams.getNames(); 
             if isnumeric(param)
-                if (param < 1) || (param > length(parList))
-                    throw(exceptions.indexOutOfRange(sprintf('Resolution Parameter %d is out of range', param)));
+                if (param < 1) || (param > length(paramList))
+                    throw(exceptions.indexOutOfRange(sprintf('%s %d is out of range', parameterType, param)));
+                else
+                    thisPar = paramList(param);
                 end
-                thisPar = parList(param);
-            else
-                if ~strcmpi(param, parList)
-                    throw(exceptions.nameNotRecognised(sprintf('Unrecognised parameter name %s', param)));
+            elseif isText(param)
+                if ~strcmpi(param, paramList)
+                    throw(exceptions.nameNotRecognised(sprintf('Unrecognised %s name %s', parameterType, param)));
+                else
+                    thisPar = param;
                 end
-                thisPar = param;
-            end   
+            end
         end
     end
 end 

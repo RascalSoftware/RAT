@@ -15,9 +15,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             import matlab.unittest.fixtures.WorkingFolderFixture;
             testCase.applyFixture(WorkingFolderFixture);
         end
-    end
 
-    methods(TestMethodSetup)
         function initialiseProject(testCase)
             testCase.project = projectClass('example');
             testCase.parameters = {

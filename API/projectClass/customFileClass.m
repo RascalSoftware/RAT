@@ -238,7 +238,7 @@ classdef customFileClass < tableUtilities
             %
             % customFiles.toStruct()
             fileStruct.files = {};
-            fileStruct.fileNames = {};
+            fileStruct.fileIdentifiers = {};
             numberOfFiles = obj.rowCount;      
             if numberOfFiles > 0
                 filesList = cell(numberOfFiles, 1);
@@ -290,7 +290,7 @@ classdef customFileClass < tableUtilities
                     filesList{i} = handle;
                 end
                 fileStruct.files = filesList;
-                fileStruct.fileNames = fileNames;
+                fileStruct.fileIdentifiers = fileNames;
             end
         end
 

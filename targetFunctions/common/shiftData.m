@@ -49,8 +49,8 @@ switch dataPresent
         simLo = simLimits(1);
         simHi = simLimits(2);
         simXData = linspace(simLo,simHi,simPoints);
-        simYData = zeros(length(simXData),5);
-        shiftedData = [simXData(:) simYData(:, :)];
+        shiftedData = zeros(length(simXData),6);
+        shiftedData(:, 1) = linspace(simLo,simHi,simPoints);
 
 end
 

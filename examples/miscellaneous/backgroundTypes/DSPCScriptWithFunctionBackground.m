@@ -3,7 +3,7 @@
 % Make the project
 problem = createProject(name='original_dspc_bilayer', calcType='non polarised', model='standard layers', geometry='substrate/liquid', absorption=false);
 
-% Make priors visible..
+% Make priors visible
 problem.showPriors(true);
 
 % Set up the relevant parameters
@@ -32,7 +32,7 @@ paramGroup = {
 problem.addParameterGroup(paramGroup);
 problem.setParameter(1,'max',10);
 
-% Group these into layers....
+% Group these into layers
 Layers =    {
             {'Oxide',           'Oxide thick',          'Oxide SLD',        'substrate roughness',  'Oxide Hydration',      'bulk out'};
             {'Sam tails',       'Sam tails thick',      'Sam tails SLD',    'Sam rough',            'Sam tails hydration',  'bulk out'};
@@ -56,44 +56,34 @@ problem.removeScalefactor(1);
 problem.addScalefactor('Scalefactor 1', 0.05, 0.10, 0.2, false);
 problem.addScalefactor('Scalefactor 2', 0.05, 0.15, 0.2, false);
 
-% Now add the data....
+% Now add the data
 d2o_dat = readmatrix('DSPC_D2O.dat');
 problem.addData('dspc_bil_d2O', d2o_dat);
 
 smw_dat = readmatrix('DSPC_SMW.dat');
 problem.addData('dspc_bil_smw', smw_dat);
 
-% Now deal with the backgrounds....
-% Original Constant background....
+% Now deal with the backgrounds
+% Original Constant background
 problem.removeBackgroundParam(1);
 problem.addBackgroundParam('Backs parameter SMW', 1e-10, 3.38e-06, 4.99e-06,   true);
 
 problem.removeBackground(1);
 problem.addBackground('SMW Background','constant','Backs parameter SMW');
 
-% % Now deal with the data background....
-% % Add the background data....
-% d2oBack = readmatrix('d2o_background_data.dat');
-% problem.addData('D2O Background Data',d2oBack);
-% 
-% % We need an offset for the D2O BAckground data....
-% problem.addBackgroundParam('D2O Data Offset',-1e-8,0,1e-8,true);
-% 
-% % Add a D2O Data background....
-% problem.addBackground('D2O data background','data','D2O Background Data','D2O Data Offset');
-
-% % Also the function background...
+% Add the function background
+% Add the function to custom files...
 problem.addCustomFile('Back Fun','backgroundFunction.m','matlab',pwd);
 
-%..andBackgroundParams...
-problem.addBackgroundParam('Fn Ao',5e-7,8e-6,5e-5);
-problem.addBackgroundParam('Fn k',40,70,90);
-problem.addBackgroundParam('Fn Const',1e-7,8e-6,1e-5);
+% ...and its parameters
+problem.addBackgroundParam('Fn Ao',5e-7, 8e-6, 5e-5);
+problem.addBackgroundParam('Fn k',40, 70, 90);
+problem.addBackgroundParam('Fn Const',1e-7, 8e-6, 1e-5);
 
-% ...and Background....
+% ...and add the Background
 problem.addBackground('Func Background','function','Back Fun','Fn Ao','Fn k','Fn Const');
 
-% Make the two contrasts....
+% Make the two contrasts
 problem.addContrast('name',         'D2O',...
                     'BulkIn',       'Silicon',...
                     'BulkOut',      'D2O',...
@@ -124,10 +114,10 @@ stack =  {'Oxide',...
 problem.setContrastModel(1,stack);
 problem.setContrastModel(2,stack);
 
-% Make a controls class....
+% Make a controls class
 controls = controlsClass();
 
-% Send everything to RAT....
+% Send everything to RAT
 [problem,results] = RAT(problem,controls);
 
 plotRefSLD(problem,results);

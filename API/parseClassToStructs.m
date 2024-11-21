@@ -193,16 +193,6 @@ priors.priorValues = cell2mat(priorsCell(:, 2:end));
 
 
 %% Deal with backgrounds and resolutions
-% backgroundActions = zeros(1, length(inputStruct.contrastBackgrounds));
-% for i = 1:length(inputStruct.contrastBackgrounds)
-% 
-%     if strcmpi(inputStruct.contrastBackgroundActions{i}, actions.Add)
-%         backgroundActions(i) = 1;
-%     else
-%         backgroundActions(i) = 2;
-%     end
-% 
-% end
 
 % Convert contrastBackgrounds to custom file/parameter indices
 numContrastBackgrounds = length(inputStruct.contrastBackgrounds);
@@ -267,7 +257,7 @@ for i = 1:numContrastBackgrounds
             backgroundFuncfileName = inputStruct.backgroundValues{thisBack,1};
     
             % Find the index of this function name in the custom file array
-            backgroundFunctionIndex = find(strcmp(backgroundFuncfileName,inputStruct.fileNames));
+            backgroundFunctionIndex = find(strcmp(backgroundFuncfileName,inputStruct.fileIdentifiers));
 
             if isempty(backgroundFunctionIndex)
                 throw(exceptions.invalidValue(sprintf('Function background %s is not defined in the custom files table of the project', backgroundFuncfileName)));

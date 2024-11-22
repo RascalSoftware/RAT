@@ -113,7 +113,7 @@ pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective functi
 % numberOfContrasts = problemStruct.numberOfContrasts;
 % data = cell(1,numberOfContrasts);
 % for i = 1:numberOfContrasts
-%     thisData = problemCells{2}{i};
+%     thisData = problemStruct.data{i};
 %     if ~isempty(thisData)
 %         data{i} = thisData(:,:);
 %     end

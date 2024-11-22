@@ -42,7 +42,7 @@ bayesOutputs.chain = chain;
 bayesOutputs.fitNames = fitNames;
 bayesOutputs.s2chain = [];
 bayesOutputs.sschain = [];
-bayesOutputs.data = problemCells{2};
+bayesOutputs.data = problemStruct.data;
 
 [problemStruct,result,nestResults] = processBayes(bayesOutputs,problemStruct,problemCells,problemLimits,controls);
 

@@ -38,7 +38,7 @@ bayesOutputs.chain = unscaledChain;
 bayesOutputs.fitNames = fitNames;
 bayesOutputs.s2chain = [];
 bayesOutputs.sschain = [];
-bayesOutputs.data = problemCells{2};
+bayesOutputs.data = problemStruct.data;
 bayesOutputs.results.mean = mean(unscaledChain);
 
 [problemStruct,result,bayesResults] = processBayes(bayesOutputs,problemStruct,problemCells,problemLimits,controls);

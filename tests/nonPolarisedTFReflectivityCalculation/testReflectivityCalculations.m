@@ -290,24 +290,13 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testInput.contrastDomainRatios(1) = 4;
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
-        end
-
-        function testParseCells(testCase)
-            [repeatLayers,data,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(testCase.problemCells);
-
-            testCase.verifyEqual(repeatLayers, testCase.problemCells{1}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(data, testCase.problemCells{2}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(dataLimits, testCase.problemCells{3}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(simLimits, testCase.problemCells{4}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(contrastLayers, testCase.problemCells{5}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(layersDetails, testCase.problemCells{6}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(customFiles, testCase.problemCells{7}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-        end        
+        end      
 
         function testExtractProblemParams(testCase)
             [numberOfContrasts, geometry, contrastBackgroundParams, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
             contrastResolutionParams, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, domainRatio,...
-            dataPresent, nParams, params, numberOfLayers, resample, backgroundTypes, backgroundActions, contrastCustomFiles, useImaginary] = extractProblemParams(testCase.problemStruct);
+            dataPresent, nParams, params, numberOfLayers, resample, backgroundTypes, backgroundActions, contrastCustomFiles, useImaginary,...
+            repeatLayers, data, dataLimits, simLimits, contrastLayers, layersDetails, customFiles, domainContrastLayers] = extractProblemParams(testCase.problemStruct);
 
             testCase.verifyEqual(numberOfContrasts, testCase.problemStruct.numberOfContrasts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(geometry, testCase.problemStruct.geometry, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -334,6 +323,14 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(backgroundActions, testCase.problemStruct.contrastBackgroundActions, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastCustomFiles, testCase.problemStruct.contrastCustomFiles, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(useImaginary, testCase.problemStruct.useImaginary, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(repeatLayers, testCase.problemStruct.repeatLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(data, testCase.problemStruct.data, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(dataLimits, testCase.problemStruct.dataLimits, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(simLimits, testCase.problemStruct.simulationLimits, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(contrastLayers, testCase.problemStruct.contrastLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(layersDetails, testCase.problemStruct.layersDetails, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(customFiles, testCase.problemStruct.customFiles, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(domainContrastLayers, testCase.problemStruct.domainContrastLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
         function testParseOutToProjectClass(testCase)

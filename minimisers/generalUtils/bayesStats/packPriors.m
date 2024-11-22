@@ -36,7 +36,7 @@ for n = 1:length(checks.fitParam)
 %         fitParams(fitCounter) = problemStruct.params(n);
 %         fitLimits(fitCounter,1) = limits.param(n,1);
 %         fitLimits(fitCounter,2) = limits.param(n,2);        
-%         fitNames{fitCounter} = problemCells{7}{n};
+%         fitNames{fitCounter} = problemStruct.params{n};
 %         fitCounter = fitCounter + 1;
 % 
 %     else

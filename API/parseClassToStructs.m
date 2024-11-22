@@ -277,11 +277,15 @@ end
 
 problemStruct.TF = inputStruct.TF;
 problemStruct.resample = inputStruct.resample;
+problemStruct.data = problemCells{2};
 problemStruct.dataPresent = inputStruct.dataPresent;
+problemStruct.dataLimits = inputStruct.dataLimits;
+problemStruct.simulationLimits = inputStruct.simLimits;
 problemStruct.oilChiDataPresent = inputStruct.oilChiDataPresent;
 problemStruct.numberOfContrasts = inputStruct.numberOfContrasts;
 problemStruct.geometry = inputStruct.geometry;
 problemStruct.useImaginary = inputStruct.useImaginary;
+problemStruct.repeatLayers = inputStruct.contrastRepeatSLDs;
 problemStruct.contrastNames = inputStruct.contrastNames;
 problemStruct.contrastBackgroundParams = contrastBackgroundParams;
 problemStruct.contrastBackgroundTypes = contrastBackgroundTypes;
@@ -299,6 +303,15 @@ problemStruct.bulkOut = inputStruct.bulkOutValues;
 problemStruct.resolutionParams = inputStruct.resolutionParamValues; %inputStruct.resolutions;           % **** note resolutionParam workaround (todo) ****          
 problemStruct.params = inputStruct.paramValues;
 problemStruct.numberOfLayers = inputStruct.numberOfLayers;
+problemStruct.contrastLayers = inputStruct.contrastLayers;
+problemStruct.layersDetails = inputStruct.layerDetails;
+
+if isempty(inputStruct.files)
+    problemStruct.customFiles = {''};
+else
+    problemStruct.customFiles = inputStruct.files;
+end
+
 problemStruct.modelType = inputStruct.modelType;
 problemStruct.contrastCustomFiles = inputStruct.contrastCustomFile;
 
@@ -314,9 +327,11 @@ end
 
 if isa(project, 'domainsClass') && isa(project.domainContrasts, 'domainContrastsClass')
     problemStruct.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
+    problemStruct.domainContrastLayers = inputStruct.domainContrastLayers;
 else
     problemStruct.numberOfDomainContrasts = 0;
-end    
+    problemStruct.domainContrastLayers = cell(1, 0);
+end
 
 % Initialise the lists of fitting parameters    
 problemStruct.fitParams = [];

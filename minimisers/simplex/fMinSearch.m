@@ -261,7 +261,7 @@ if prnt == 3
 %     fprintf('%g \n', func_evals)
 end
 
-triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCells);
+triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
 
 % OutputFcn and PlotFcns call
 % if haveoutputfcn || haveplotfcn
@@ -313,7 +313,7 @@ if prnt == 3
 %     fprintf('%g \n', func_evals)
 end
 if rem(itercount, controls.updatePlotFreq) == 0
-    triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCells);
+    triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
 end
 if isRATStopped(controls.IPCFilePath)
     [x, fval, exitflag, output] = cleanUpInterrupt(v(:,1), fv(:,1), itercount, func_evals, prnt);
@@ -432,7 +432,7 @@ while func_evals < maxfun && itercount < maxiter
 %         fprintf('%s \n', num2str(func_evals))
     end
     if rem(itercount, controls.updatePlotFreq) == 0   
-        triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCells);
+        triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     end
     if isRATStopped(controls.IPCFilePath)
         [x, fval, exitflag, output] = cleanUpInterrupt(v(:,1), fv(:,1), itercount, func_evals, prnt);

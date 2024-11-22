@@ -331,7 +331,7 @@ while ((I_iter < I_itermax) && (S_bestval.FVr_oa(1) > F_VTR))
      % Trigger the output event...
      if rem(I_iter, controls.updatePlotFreq) == 0
         [~,result] = fname(FVr_bestmem,problem,problemCells,problemLimits,controls);
-        triggerEvent(coderEnums.eventTypes.Plot, result, problem, problemCells);
+        triggerEvent(coderEnums.eventTypes.Plot, result, problem);
      end
     
      if isRATStopped(controls.IPCFilePath)

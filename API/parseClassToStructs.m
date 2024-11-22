@@ -29,65 +29,13 @@ function [problemStruct,problemCells,problemLimits,priors,controls] = parseClass
 %       {n x 1} array of cells
 %       Each cell is (1 x 5 double}
 %
-% {7} - inputProblem.paramNames
-%       {1 x nParams} array of cells
-%       Each cell is {1 x Inf char}
-%
-% {8} - inputProblem.backgroundParamNames
-%       {1 x nBackgroundParams} array of cells
-%       Each cell is {1 x Inf char}
-% 
-% {9} - inputProblem.scalefactorNames
-%       {1 x nScalefactors} array of cells
-%       Each cell is {1 x Inf char}
-% 
-% {10}- inputProblem.qzshiftNames
-%       {1 x nQzshifts} array of cells
-%       Each cell is {1 x Inf char}
-% 
-% {11}- inputProblem.bulkInNames
-%       {1 x nBulkIn} array of cells
-%       Each cell is {1 x Inf char}
-% 
-% {12}- inputProblem.bulkOutNames
-%       {1 x nBulkOut} array of cells
-%       Each cell is {1 x Inf char}
-% 
-% {13}- inputProblem.resolutionParamNames
-%       {1 x nResolutionParams} array of cells
-%       Each cell is {1 x Inf char}
-%
-% {14} - inputProblem.customFiles
+% {7} - inputProblem.customFiles
 %        {1 x nCustomFiles} array of cells
 %        Each cell is {1 x Inf char}
 %
-% {15} - inputProblem.backgroundTypes
-%        {1 x nBackgrounds} array of cells
-%        Each cell is {1 x Inf char}
-%
-% {16} - inputProblem.resolutionTypes
-%        {1 x nResolutions} array of cells
-%        Each cell is {1 x Inf char}
-%
-% {17} - inputProblem.oilChiData
-%        {1 x nContrasts} array of cells
-%        Each cell is {Inf x 3 double}
-%
-% {18} - inputProblem.domainContrastRepeatSLDs
-%        {1 x nDomainContrasts} array of cells
-%        Each cell is {1 x 2 double}.
-%
-% {19} - inputProblem.domainContrastLayers
+% {8} - inputProblem.domainContrastLayers
 %        {1 x nDomainContrasts} array of cells
 %        Each cell is {1 x Inf double}
-% 
-% {20} - inputProblem.domainRatioNames
-%        {1 x nDomainRatios} array of cells
-%        Each cell is {1 x Inf char}
-%
-% {21} - inputProblem.contrastNames
-%        {1 x nContrasts} array of cells
-%        Each cell is {1 x Inf char}
 
  
 %% First parse the class to a structure variable.
@@ -108,37 +56,17 @@ problemCells{3} = inputStruct.dataLimits;
 problemCells{4} = inputStruct.simLimits;
 problemCells{5} = inputStruct.contrastLayers;
 problemCells{6} = inputStruct.layerDetails;
-problemCells{7} = inputStruct.paramNames;
-problemCells{8} = inputStruct.backgroundParamNames;
-problemCells{9} = inputStruct.scalefactorNames;
-problemCells{10} = inputStruct.qzshiftNames;
-problemCells{11} = inputStruct.bulkInNames;
-problemCells{12} = inputStruct.bulkOutNames;
-problemCells{13} = inputStruct.resolutionParamNames;
-problemCells{14} = inputStruct.files;
-problemCells{15} = cellstr(inputStruct.backgroundTypes');
-problemCells{16} = cellstr(inputStruct.resolutionTypes');
-problemCells{17} = inputStruct.oilChiData;
-problemCells{18} = cell(1, 0);
-problemCells{19} = cell(1, 0);
-problemCells{20} = cell(1, 0);
-problemCells{20} = cell(1, 0);
-problemCells{21} = inputStruct.contrastNames;
+problemCells{7} = inputStruct.files;
+problemCells{8} = cell(1, 0);
 
 % Now deal with domains cell arrays
 if isa(project, 'domainsClass') && isa(project.domainContrasts, 'domainContrastsClass')
-    
-    problemCells{18} = inputStruct.domainContrastRepeatSLDs;
-    problemCells{19} = inputStruct.domainContrastLayers;
+    problemCells{8} = inputStruct.domainContrastLayers;
 end
 
-if isa(project, 'domainsClass')
-    problemCells{20} = inputStruct.domainRatioNames;
-end
-
-% Also the custom files array..
-if isempty(problemCells{14})
-    problemCells{14} = {''};
+% Also the custom files array
+if isempty(problemCells{7})
+    problemCells{7} = {''};
 end
 
 
@@ -354,6 +282,7 @@ problemStruct.oilChiDataPresent = inputStruct.oilChiDataPresent;
 problemStruct.numberOfContrasts = inputStruct.numberOfContrasts;
 problemStruct.geometry = inputStruct.geometry;
 problemStruct.useImaginary = inputStruct.useImaginary;
+problemStruct.contrastNames = inputStruct.contrastNames;
 problemStruct.contrastBackgroundParams = contrastBackgroundParams;
 problemStruct.contrastBackgroundTypes = contrastBackgroundTypes;
 problemStruct.contrastBackgroundActions = inputStruct.contrastBackgroundActions;

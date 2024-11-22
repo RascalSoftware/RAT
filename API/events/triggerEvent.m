@@ -7,7 +7,7 @@ function triggerEvent(eventType, varargin)
     %   percentage progress expressed as a decimal (i.e., between 0 and 1).
     % 
     % triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    % triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
+    % triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     % triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     persistent notified;
     persistent helper;
@@ -28,7 +28,6 @@ function triggerEvent(eventType, varargin)
         elseif eventType == coderEnums.eventTypes.Plot
             result = varargin{1};
             problemStruct = varargin{2};
-            problemCell = varargin{3};
             plotData.reflectivity = result.reflectivity;
             plotData.shiftedData = result.shiftedData;
             plotData.sldProfiles = result.sldProfiles;
@@ -37,7 +36,7 @@ function triggerEvent(eventType, varargin)
             plotData.resample = problemStruct.resample;
             plotData.dataPresent = problemStruct.dataPresent;
             plotData.modelType = problemStruct.modelType;
-            plotData.contrastNames = problemCell{21};
+            plotData.contrastNames = problemStruct.contrastNames;
              
             eventManager.notify(eventType, plotData);
         end
@@ -68,14 +67,13 @@ function triggerEvent(eventType, varargin)
 
                 result = varargin{1};
                 problemStruct = varargin{2};
-                problemCell = varargin{3};
                 subRoughs = result.contrastParams.subRoughs;
                 nContrast = length(result.reflectivity);
                 [reflect, nReflect] = packCellArray(result.reflectivity, 1);
                 [shiftedData, nShiftedData] = packCellArray(result.shiftedData, 1);
                 [sldProfiles, nSldProfiles] = packCellArray(result.sldProfiles, 1);
                 [layers, nLayers] = packCellArray(result.resampledLayers, 1);
-                names = problemCell{21};
+                names = problemStruct.contrastNames;
                 contrastNames = strjoin(names, '');
                 nContrastNames = strlength(names);
 

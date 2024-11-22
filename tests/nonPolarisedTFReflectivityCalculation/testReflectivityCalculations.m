@@ -225,7 +225,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             
             % Test standard input passes
             testInput = testCase.problemStruct;
-            customFiles = testCase.problemCells{14};
+            customFiles = testCase.problemCells{7};
             checkIndices(testInput, customFiles);
 
             % Test Background Param Error
@@ -301,7 +301,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(simLimits, testCase.problemCells{4}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastLayers, testCase.problemCells{5}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(layersDetails, testCase.problemCells{6}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(customFiles, testCase.problemCells{14}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(customFiles, testCase.problemCells{7}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end        
 
         function testExtractProblemParams(testCase)

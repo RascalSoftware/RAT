@@ -11,7 +11,7 @@ function plotRefSLD(problem, result, options)
     % Convert the problem class to a struct.
     controls = controlsClass();
     data.modelType = problem.modelType;
-    [problemStruct,~,~,~,~] = parseClassToStructs(problem,controls);
+    [problemStruct,~,~,~] = parseClassToStructs(problem,controls);
     
     data.reflectivity = result.reflectivity;
     data.shiftedData = result.shiftedData;

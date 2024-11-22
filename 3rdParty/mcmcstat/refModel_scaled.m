@@ -36,7 +36,6 @@ end
 problemStruct = problem{1};
 controls = problem{2};
 problemLimits = problem{3};
-problemCells = problem{4};
 
 pars = theta;
 constr = problemStruct.fitLimits;
@@ -44,7 +43,7 @@ pars = unscalePars(pars,constr);
 
 problemStruct.fitParams = pars;
 problemStruct = unpackParams(problemStruct,controls.checks);
-result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+result = reflectivityCalculation(problemStruct,problemLimits,controls);
 
 ySim = result.reflectivity{contrast};
 

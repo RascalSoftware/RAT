@@ -9,12 +9,11 @@ problem = data.problem;                   % Struct needed for the calculation
 problemStruct = problem{1};
 controls = problem{2};
 problemLimits = problem{3};
-problemCells = problem{4};
 
 
 problemStruct.fitParams = pars;
 problemStruct = unpackParams(problemStruct,controls.checks);
-result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+result = reflectivityCalculation(problemStruct,problemLimits,controls);
 
 ss = result.calculationResults.sumChi;
 

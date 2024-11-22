@@ -1,4 +1,4 @@
-function [problemStruct,result] = runDE(problemStruct,problemCells,problemLimits,controls)
+function [problemStruct,result] = runDE(problemStruct,problemLimits,controls)
 
     [problemStruct,~] = fitsetup(problemStruct,problemLimits,controls);
     F_VTR = controls.targetValue; %Value to reach
@@ -79,10 +79,10 @@ function [problemStruct,result] = runDE(problemStruct,problemCells,problemLimits
     S_struct.FM_pop = zeros(I_NP,2);
     S_struct.FVr_bestmem = [0 0];
     
-    [res,problemStruct] = deopt(@intrafun,problemStruct,problemCells,problemLimits,controls,S_struct);
+    [res,problemStruct] = deopt(@intrafun,problemStruct,problemLimits,controls,S_struct);
     problemStruct.fitParams = res;
     problemStruct = unpackParams(problemStruct,controls.checks);
-    result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+    result = reflectivityCalculation(problemStruct,problemLimits,controls);
     
     if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
         triggerEvent(coderEnums.eventTypes.Message, sprintf('Final chi squared is %g\n',result.calculationResults.sumChi));
@@ -91,11 +91,11 @@ function [problemStruct,result] = runDE(problemStruct,problemCells,problemLimits
 end
 
 
-function [S_MSE,result] = intrafun(p,problemStruct,problemCells,problemLimits,controls)
+function [S_MSE,result] = intrafun(p,problemStruct,problemLimits,controls)
     
     problemStruct.fitParams = p';
     problemStruct = unpackParams(problemStruct,controls.checks);
-    result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+    result = reflectivityCalculation(problemStruct,problemLimits,controls);
     fval = result.calculationResults.sumChi;
     
     S_MSE.I_nc      = 0; %no constraints                 THESE FIRST FEW VALS MAY BE WRONG

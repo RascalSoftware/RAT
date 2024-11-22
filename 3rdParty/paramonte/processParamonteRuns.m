@@ -5,7 +5,7 @@ function [outProject,result,pmpd] = processParamonteRuns(problem,controls,chainN
 % 
 % controls = controlsClass();
 
-[problemStruct,problemCells,problemLimits,~,controls] = parseClassToStructs(problem,controls);
+[problemStruct,problemLimits,~,controls] = parseClassToStructs(problem,controls);
 
 [problemStruct,fitNames] = packParams(problemStruct,problemLimits,controls.checks);
 
@@ -41,7 +41,7 @@ bayesOutputs.sschain = [];
 bayesOutputs.data = problemStruct.data;
 bayesOutputs.results.mean = mean(unscaledChain);
 
-[problemStruct,result,bayesResults] = processBayes(bayesOutputs,problemStruct,problemCells,problemLimits,controls);
+[problemStruct,result,bayesResults] = processBayes(bayesOutputs,problemStruct,problemLimits,controls);
 bayesResults.chain = unscaledChain;
 
 result = mergeStructs(result,bayesResults);

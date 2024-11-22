@@ -1,6 +1,6 @@
 function [qzshifts,scalefactors,bulkIns,bulkOuts,...
     resolutionParams,chis,reflectivity,simulation,shiftedData,backgrounds,...
-    layerSlds,sldProfiles,resampledLayers,subRoughs] = standardLayers(problemStruct,problemCells,controls)
+    layerSlds,sldProfiles,resampledLayers,subRoughs] = standardLayers(problemStruct,controls)
     % This is the main reflectivity calculation of the standard layers
     % calculation type. It extracts the required parameters for the contrasts
     % from the input arrays, then passes the main calculation to

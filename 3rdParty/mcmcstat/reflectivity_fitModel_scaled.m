@@ -7,7 +7,6 @@ function ss = reflectivity_fitModel_scaled(theta,data,problem)
 problemStruct = problem{1};
 controls = problem{2};
 problemLimits = problem{3};
-problemCells = problem{4};
 
 pars = theta;           % Current parameter values from mcmcstat
 constr = problemStruct.fitLimits;
@@ -16,7 +15,7 @@ pars = unscalePars(pars,constr);
 problemStruct.fitParams = pars;
 problemStruct = unpackParams(problemStruct,controls.checks);
 
-result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+result = reflectivityCalculation(problemStruct,problemLimits,controls);
 
 ss = result.calculationResults.sumChi;
 

@@ -3,7 +3,6 @@ function output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls)
 problemStruct = problem{1};
 controls = problem{2};
 problemLimits = problem{3};
-problemCells = problem{4};
 
 display = controls.display;
 
@@ -91,7 +90,7 @@ output.data = data;
 % 
 % problemStruct.fitParams = output.bestParams;
 % problemStruct = unpackParams(problemStruct,controls.checks);
-% result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+% result = reflectivityCalculation(problemStruct,problemLimits,controls);
 % 
 % output.bestFits = result.reflectivity;
 % output.shiftedData = problemStruct.data;

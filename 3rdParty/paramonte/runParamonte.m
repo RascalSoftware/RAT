@@ -15,7 +15,7 @@ end
 rng('default');
 
 % Split problem using the routines from RAT..
-[problemStruct,problemCells,problemLimits,priors,controls] = parseClassToStructs(project,inputControls);
+[problemStruct,problemLimits,priors,controls] = parseClassToStructs(project,inputControls);
 
 %controls.parallel = coderEnums.parallelOptions.Points;
 
@@ -33,7 +33,6 @@ problemStruct = scalePars(problemStruct);
 %scaledPriors = scalePriors(problemStruct,fitPriors);
 
 logFunc.problemStruct = problemStruct;
-logFunc.problemCells = problemCells;
 logFunc.problemLimits = problemLimits;
 logFunc.priors = fitPriors; %scaledPriors;
 logFunc.controls = controls;
@@ -126,7 +125,7 @@ pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective functi
 % output.bestParams = mean(unscaledChain);
 % output.data = data;
 % 
-% [problemStruct,result,bayesResults] = processBayes(output,problemStruct,problemCells,problemLimits,controls);
+% [problemStruct,result,bayesResults] = processBayes(output,problemStruct,problemLimits,controls);
 
 % pmpdOut = pmpd;
 

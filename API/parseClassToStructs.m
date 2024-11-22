@@ -1,44 +1,8 @@
-function [problemStruct,problemCells,problemLimits,priors,controls] = parseClassToStructs(project,inputControls)
+function [problemStruct,problemLimits,priors,controls] = parseClassToStructs(project,inputControls)
 
 % Breaks up the classes into the relevant structures for inputting into C
-
-% Put the extracted fields into a cell array...
-% Structure of problemCells array.
-%
-% {1} - inputProblem.contrastRepeatSLDs
-%       {1 x nContrasts} array of cells
-%       Each cell is {1 x 2 double}.
-%
-% {2} - inputProblem.contrastData
-%       {1 x nContrasts} array of cells
-%       Each cell is {Inf x 6 double}
-%
-% {3} - inputProblem.dataLimits
-%       {1 x nContrasts} array of cells
-%       Each cell is {1 x 2 double}
-%
-% {4} - inputProblem.simLimits
-%       {1 x nContrasts} array of cells
-%       Each cell is {1 x 2 double}
-%
-% {5} - inputProblem.contrastLayers
-%       {1 x nContrasts} array of cells
-%       Each cell is {1 x Inf double}
-%
-% {6} - inputProblem.layerDetails
-%       {n x 1} array of cells
-%       Each cell is (1 x 5 double}
-%
-% {7} - inputProblem.customFiles
-%        {1 x nCustomFiles} array of cells
-%        Each cell is {1 x Inf char}
-%
-% {8} - inputProblem.domainContrastLayers
-%        {1 x nDomainContrasts} array of cells
-%        Each cell is {1 x Inf double}
-
  
-%% First parse the class to a structure variable.
+% First convert the class to a structure variable.
 inputStruct = project.toStruct();
 
 % Make the contrast data array up to six columns,
@@ -48,27 +12,6 @@ for i = 1:length(inputStruct.contrastData)
     contrastData = inputStruct.contrastData{i};
     inputData{i} = [contrastData zeros(size(contrastData,1), 6-size(contrastData,2))];
 end
-
-%% Pull out all the cell arrays (except priors) into one array
-problemCells{1} = inputStruct.contrastRepeatSLDs;
-problemCells{2} = inputData;
-problemCells{3} = inputStruct.dataLimits;
-problemCells{4} = inputStruct.simLimits;
-problemCells{5} = inputStruct.contrastLayers;
-problemCells{6} = inputStruct.layerDetails;
-problemCells{7} = inputStruct.files;
-problemCells{8} = cell(1, 0);
-
-% Now deal with domains cell arrays
-if isa(project, 'domainsClass') && isa(project.domainContrasts, 'domainContrastsClass')
-    problemCells{8} = inputStruct.domainContrastLayers;
-end
-
-% Also the custom files array
-if isempty(problemCells{7})
-    problemCells{7} = {''};
-end
-
 
 %% Put the priors into their own array
 priors.param = inputStruct.paramPriors;
@@ -164,10 +107,10 @@ for i = 1:numContrastBackgrounds
 
             % We append the background data as columns 5 and 6 of the
             % data array of this contrast.
-            contrastData = problemCells{2}(i);
+            contrastData = inputData(i);
             backgroundData = inputStruct.allData{backgroundDataIndex};
             contrastData = insertDataBackgroundIntoContrastData(contrastData,backgroundData);
-            problemCells{2}(i) = contrastData;
+            inputData(i) = contrastData;
 
             % Add the index of the optional data offset to contrastBackgroundParams
             offsetIndex = find(strcmpi(backgroundDataOffset,inputStruct.backgroundParamNames));
@@ -277,7 +220,7 @@ end
 
 problemStruct.TF = inputStruct.TF;
 problemStruct.resample = inputStruct.resample;
-problemStruct.data = problemCells{2};
+problemStruct.data = inputData;
 problemStruct.dataPresent = inputStruct.dataPresent;
 problemStruct.dataLimits = inputStruct.dataLimits;
 problemStruct.simulationLimits = inputStruct.simLimits;

@@ -16,15 +16,14 @@ controls = testProb.controls;
 
 fitParams = results.bestParams;
 
-problemCells = ratInputs.problemCells;
 problemLimits = ratInputs.problemLimits;
 
 
 problemStruct.fitParams = fitParams;
 problemStruct = unpackParams(problemStruct,controls.checks);
-result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+result = reflectivityCalculation(problemStruct,problemLimits,controls);
 
 disp('debug');
 
 % Calculate the prediction intervals
-[best, intervals] = calcMCMCstatRefErrors(bayesResults,problemStruct,problemCells,problemLimits,controls);
+[best, intervals] = calcMCMCstatRefErrors(bayesResults,problemStruct,problemLimits,controls);

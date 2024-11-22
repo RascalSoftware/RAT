@@ -1,4 +1,4 @@
-function  [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,problemCells,problemLimits,controls,inPriors)
+function  [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,problemLimits,controls,inPriors)
 
 checks = controls.checks;
 [problemStruct,fitNames] = packParams(problemStruct,problemLimits,checks);
@@ -27,7 +27,7 @@ nLive = controls.nLive;
 tolerance = controls.nsTolerance;
 likelihood = @nsIntraFun;
 nMCMC = controls.nMCMC;
-data = {problemStruct ; controls ; problemLimits ; problemCells};
+data = {problemStruct ; controls ; problemLimits};
 
 [logZ, nestSamples, postSamples, H] = nestedSampler(data, nLive, nMCMC,...
     tolerance, likelihood, model, priorList, fitNames);
@@ -44,7 +44,7 @@ bayesOutputs.s2chain = [];
 bayesOutputs.sschain = [];
 bayesOutputs.data = problemStruct.data;
 
-[problemStruct,result,nestResults] = processBayes(bayesOutputs,problemStruct,problemCells,problemLimits,controls);
+[problemStruct,result,nestResults] = processBayes(bayesOutputs,problemStruct,problemLimits,controls);
 
 bayesResults.predictionIntervals = nestResults.predictionIntervals;
 bayesResults.confidenceIntervals = nestResults.confidenceIntervals;

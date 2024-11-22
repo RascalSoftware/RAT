@@ -1,4 +1,4 @@
-function  [problemStruct,problem,result,bayesResults] = runDram(problemStruct,problemCells,problemLimits,priors,controls)
+function  [problemStruct,problem,result,bayesResults] = runDram(problemStruct,problemLimits,priors,controls)
 
 checks = controls.checks;
 [problemStruct,fitNames] = packParams(problemStruct,problemLimits,checks);
@@ -49,7 +49,7 @@ nsimu =  controls.nsimu;
 burnin = controls.burnin;
 adaptint = 100;%controls.adaptint;
 
-problem = {problemStruct ; controls ; problemLimits ; problemCells};
+problem = {problemStruct ; controls ; problemLimits};
 
 output = runBayes(loop,nsimu,burnin,adaptint,params,problem);
 
@@ -63,7 +63,7 @@ bayesResults.predictionIntervals = output.predictionIntervals;
 
 problemStruct.fitParams = output.bestParams;
 problemStruct = unpackParams(problemStruct,checks);
-result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+result = reflectivityCalculation(problemStruct,problemLimits,controls);
 
 % Pre-processor directives for Matlab Coder.
 coder.varsize('problem.ssubs',[Inf 1],[1 0]);

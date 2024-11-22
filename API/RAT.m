@@ -1,6 +1,6 @@
 function [project,result] = RAT(project,controls)
 
-[problemStruct,problemCells,problemLimits,priors,controls] = parseClassToStructs(project,controls);
+[problemStruct,problemLimits,priors,controls] = parseClassToStructs(project,controls);
 
 % Set controls.calcSLD to 1 if we are doing customXY
 switch lower(problemStruct.modelType)
@@ -17,7 +17,7 @@ if display
 end
 
 tic
-[problemStruct,result,bayesResults] = RATMain_mex(problemStruct,problemCells,problemLimits,controls,priors);
+[problemStruct,result,bayesResults] = RATMain_mex(problemStruct,problemLimits,controls,priors);
 
 if display
     toc

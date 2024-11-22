@@ -1,6 +1,6 @@
 function [qzshifts,scalefactors,bulkIns,bulkOuts,...
     resolutionParams,chis,reflectivity,simulation,shiftedData,backgrounds,layerSlds,...
-    sldProfiles,resampledLayers,subRoughs] = customLayers(problemStruct,problemCells,controls)
+    sldProfiles,resampledLayers,subRoughs] = customLayers(problemStruct,controls)
     % The custom layers, nonPolarisedTF reflectivity calculation.
     % The function extracts the relevant parameters from the input arrays,
     % allocates these on a pre-contrast basis, then calls the

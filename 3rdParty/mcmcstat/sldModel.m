@@ -31,7 +31,7 @@ problemCells = problem{4};
 controls.calcSldDuringFit = true;
 
 problemStruct.fitParams = pars;
-problemStruct = unpackParams(problemStruct,controls);
+problemStruct = unpackParams(problemStruct,controls.checks);
 result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 
 sld = result.sldProfiles{contrast};

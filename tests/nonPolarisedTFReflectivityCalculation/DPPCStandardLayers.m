@@ -136,8 +136,8 @@ project.addData('Bilayer / SMW', SMW_data(:,1:3));
 project.addData('Bilayer / H2O', H2O_data(:,1:3));
 
 project.setData(2,'dataRange',[0.013 0.35]);
-project.setData(3,'dataRange',[0.013 0.35]);
-project.setData(4,'dataRange',[0.013 0.35]);
+project.setData(3,'dataRange',[0.013 0.32996]);
+project.setData(4,'dataRange',[0.013 0.3048]);
 
 %% 
 % We also need the correct SLD's for the bulk phases.....

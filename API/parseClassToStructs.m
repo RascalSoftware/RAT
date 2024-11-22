@@ -395,6 +395,20 @@ problemStruct.otherParams = [];
 problemStruct.fitLimits = [];
 problemStruct.otherLimits = [];
 
+% Record lists of parameter names
+problemStruct.names.params = inputStruct.paramNames;
+problemStruct.names.backgroundParams = inputStruct.backgroundParamNames;
+problemStruct.names.scalefactors = inputStruct.scalefactorNames;
+problemStruct.names.qzshifts = inputStruct.qzshiftNames;
+problemStruct.names.bulkIns = inputStruct.bulkInNames;
+problemStruct.names.bulkOuts = inputStruct.bulkOutNames;
+problemStruct.names.resolutionParams = inputStruct.resolutionParamNames;
+if isa(project, 'domainsClass')
+    problemStruct.names.domainRatios = inputStruct.domainRatioNames;
+else
+    problemStruct.names.domainRatios = cell(1, 0);
+end
+
 % Make sure the indices cannot lie outside of the arrays
 checkIndices(problemStruct, inputStruct.files);
 
@@ -446,6 +460,6 @@ controls.checks = checks;
 controls.IPCFilePath = inputControls.getIPCFilePath();
 
 %% Finally, populate the fitParams, otherParams, fitLimits, otherLimits arrays
-[problemStruct,~] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
+[problemStruct,~] = packParams(problemStruct,problemLimits,controls.checks);
 
 end

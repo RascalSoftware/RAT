@@ -112,7 +112,7 @@ result.contrastParams = contrastParams;
 
 result.fitParams = problemStruct.fitParams;
 
-[~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
+[~,fitNames] = packParams(problemStruct,problemLimits,controls.checks);
 result.fitNames = fitNames;
 
 end

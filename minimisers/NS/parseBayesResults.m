@@ -72,7 +72,7 @@ refs = cell(numCalcs,1);
 slds = cell(numCalcs,1);
 for i = 1:numCalcs
     problemStruct.fitParams = chain(i,1:end-1);
-    problemStruct = unpackParams(problemStruct,controls);
+    problemStruct = unpackParams(problemStruct,controls.checks);
     result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
     refs{i} = result.reflectivity;
     slds{i} = result.sldProfiles;
@@ -80,7 +80,7 @@ end
 
 %Also calculate the best fit
 problemStruct.fitParams = values(:,1);
-problemStruct = unpackParams(problemStruct,controls);
+problemStruct = unpackParams(problemStruct,controls.checks);
 result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 bestFit = result.reflectivity;
 

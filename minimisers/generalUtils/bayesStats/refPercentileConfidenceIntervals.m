@@ -1,4 +1,4 @@
-function allPredInts = refPercentileConfidenceIntervals(bayesOutputs,problemStruct,problemCells,problemLimits,controlsStruct,results)
+function allPredInts = refPercentileConfidenceIntervals(bayesOutputs,problemStruct,problemCells,problemLimits,controls,results)
 
 % Need to deal slightly differently with SLDs if there are domains
 if strcmpi(problemStruct.TF, coderEnums.calculationTypes.Domains)
@@ -83,10 +83,10 @@ for i = 1:nsample
     thisChain= chain(isample(i),:);
 
     problemStruct.fitParams = thisChain;
-    problemStruct = unpackParams(problemStruct,controlsStruct);
+    problemStruct = unpackParams(problemStruct,controls.checks);
 
     % Calc the reflectivities....
-    calcResult = reflectivityCalculation(problemStruct,problemCells,problemLimits,controlsStruct);
+    calcResult = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 
     thisRef = calcResult.reflectivity;
     thisSld = calcResult.sldProfiles;

@@ -5,7 +5,7 @@ controls.calcSldDuringFit = true;
 
 %... and use the Bayes best params
 problemStruct.fitParams = bayesOutputs.bestParams;
-problemStruct = unpackParams(problemStruct,controls);
+problemStruct = unpackParams(problemStruct,controls.checks);
 confidenceIntervals = percentileConfidenceIntervals(bayesOutputs.chain);   %iterShortest(output.chain,length(fitNames),[],0.95);
 
 % Calculate 'mean' best fit curves

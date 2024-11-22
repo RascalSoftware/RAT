@@ -30,7 +30,7 @@ for i = 1:numberOfFitted
     fitParamNames{i} = 'x';
 end
 
-[problemStruct,fitParamNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
+[problemStruct,fitParamNames] = packParams(problemStruct,problemLimits,controls.checks);
 
 % Get the priors for the fitted parameters...
 priorList = getFittedPriors(fitParamNames,priors,problemStruct.fitLimits);

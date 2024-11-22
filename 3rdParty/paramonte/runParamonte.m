@@ -22,7 +22,7 @@ rng('default');
 % Make an instance of the paramonte objective function class
 logFunc = pmLogFunction();
 
-[problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,problemCells,problemLimits,priors,controls.checks);
+[problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,problemLimits,priors,controls.checks);
 nDims = length(problemStruct.fitParams);
 testPars = problemStruct.fitParams;
 

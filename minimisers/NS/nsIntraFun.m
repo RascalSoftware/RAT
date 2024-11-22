@@ -8,7 +8,7 @@ function fval = nsIntraFun(data,p)
     % Removed use of cells....
     problemStruct.fitParams = p;
 
-    problemStruct = unpackParams(problemStruct,controls);
+    problemStruct = unpackParams(problemStruct,controls.checks);
     result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 
     fval = (-result.calculationResults.sumChi/2); 

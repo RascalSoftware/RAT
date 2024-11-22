@@ -1,7 +1,7 @@
 function  [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,problemCells,problemLimits,controls,inPriors)
 
 checks = controls.checks;
-[problemStruct,fitNames] = packParams(problemStruct,problemCells,problemLimits,checks);
+[problemStruct,fitNames] = packParams(problemStruct,problemLimits,checks);
 
 logZ = 0;
 H = 0;

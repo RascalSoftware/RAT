@@ -14,7 +14,7 @@ constr = problemStruct.fitLimits;
 pars = unscalePars(pars,constr);
 
 problemStruct.fitParams = pars;
-problemStruct = unpackParams(problemStruct,controls);
+problemStruct = unpackParams(problemStruct,controls.checks);
 
 result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
 

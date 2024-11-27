@@ -59,9 +59,10 @@ problem.setBulkOut(1,'fit',true,'min',5e-6);
 % them in the data block....
 
 % Read in the datafiles
-D2O_data = dlmread('c_PLP0016596.dat');
-SMW_data = dlmread('c_PLP0016601.dat');
-H2O_data = dlmread('c_PLP0016607.dat');
+root = getappdata(0, 'root');
+D2O_data = dlmread(fullfile(root, '/examples/normalReflectivity/customLayers/c_PLP0016596.dat'));
+SMW_data = dlmread(fullfile(root, '/examples/normalReflectivity/customLayers/c_PLP0016601.dat'));
+H2O_data = dlmread(fullfile(root, '/examples/normalReflectivity/customLayers/c_PLP0016607.dat'));
 
 % Add the data to the project
 problem.addData('Bilayer / D2O', D2O_data(:,1:3));
@@ -77,7 +78,7 @@ problem.setData(4,'dataRange',[0.013 0.37]);
 % 
 % Add the custom file to the project....
 
-problem.addCustomFile('DSPC Model','customBilayer.m','matlab',pwd);
+problem.addCustomFile('DSPC Model','customBilayer.m','matlab');
 %% 
 % 
 % 

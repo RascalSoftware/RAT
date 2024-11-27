@@ -16,8 +16,8 @@ classdef testExamples < matlab.unittest.TestCase
                          ['miscellaneous' filesep 'backgroundTypes'],...
                          ['miscellaneous' filesep 'bayesBenchmark'],...
                          ['miscellaneous' filesep 'roundRobin'],...
-                         ['miscellaneous' filesep 'convertRasCAL1Project']};
-        exampleLiveScriptFile = {'domainsStandardLayersSheet', 'domainsCustomLayerSheet',... 
+                         ['miscellaneous' filesep 'convertRascal1Project']};
+        exampleLiveScriptFile = {'domainsStandardLayersSheet', 'domainsCustomLayersSheet',... 
                                  'domainsCustomXYSheet', 'bayesBenchmark', 'convertRascal'}
         % exampleLiveScriptFile = {'domainsStandardLayersSheet', 'domainsCustomLayerSheet', 'domainsCustomXYSheet',... 
         %                          'customLayersDSPCSheet', 'standardLayersDSPCSheet', 'customXYDSPCSheet',...
@@ -28,8 +28,8 @@ classdef testExamples < matlab.unittest.TestCase
                              'customLayersDSPCScript',...
                              'orsoCustomXYDSPC',...
                              'domainsStandardLayersScript', ...
-                             'domainsCustomLayerTest',...
-                             'domainsCustomXYMain',...
+                             'domainsCustomLayersScript',...
+                             'domainsCustomXYScript',...
                              'absorptionDPPC50'};
         exampleName = {'original_dspc_bilayer', 'original_dspc_bilayer', 'original_dspc_bilayer',...
             'Orso lipid example - custom layers', 'Orso lipid example - custom XY',...
@@ -76,6 +76,17 @@ classdef testExamples < matlab.unittest.TestCase
         end
     end
 
+
+    methods(Static)
+        function setupCurrentDir(testCase, scriptFile)
+            import matlab.unittest.fixtures.CurrentFolderFixture
+
+            [pwdPath, ~, ~] = fileparts(which(scriptFile));
+            testCase.applyFixture(CurrentFolderFixture(pwdPath))  
+        end
+    end
+
+
     methods (Test,ParameterCombination="sequential")
         % Runs the different examples sequentially
         function testScriptExamples(testCase, ...
@@ -93,11 +104,7 @@ classdef testExamples < matlab.unittest.TestCase
 
             % verifies example exists with .m extension
             testCase.verifyEqual(exist(exampleScriptFile,'file'), 2);
-            import matlab.unittest.fixtures.CurrentFolderFixture
-
-            [pwdPath, ~, ~] = fileparts(which(exampleScriptFile));
-            testCase.applyFixture(CurrentFolderFixture(pwdPath))  
-
+            testExamples.setupCurrentDir(testCase, exampleScriptFile)
             % runs the example file
             evalc(exampleScriptFile);
 
@@ -126,8 +133,9 @@ classdef testExamples < matlab.unittest.TestCase
             close all;
         end
 
-        function testLiveScriptExamples(~, exampleLiveScriptFile)
+        function testLiveScriptExamples(testCase, exampleLiveScriptFile)
             % runs the example live script file
+            testExamples.setupCurrentDir(testCase, exampleLiveScriptFile)  
             evalc(exampleLiveScriptFile);
             close all;
         end
@@ -137,10 +145,7 @@ classdef testExamples < matlab.unittest.TestCase
             % to a script that can regenerate the object
             % verifies example exists with .m extension
             testCase.verifyEqual(exist(exampleScriptFile,'file'), 2);
-            import matlab.unittest.fixtures.CurrentFolderFixture
-
-            [pwdPath, ~, ~] = fileparts(which(exampleScriptFile));
-            testCase.applyFixture(CurrentFolderFixture(pwdPath))  
+            testExamples.setupCurrentDir(testCase, exampleScriptFile)  
 
             % runs the example file
             evalc(exampleScriptFile);

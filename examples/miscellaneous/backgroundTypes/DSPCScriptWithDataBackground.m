@@ -80,7 +80,6 @@ problem.addData('D2O Background Data',d2oBack);
 problem.addBackgroundParam('D2O Data Offset',-1e-8,0,1e-8,true);
 
 % Add a D2O Data background
-problem.data.getNames()
 problem.addBackground('D2O data background','data','D2O Background Data','D2O Data Offset');
 
 % Make the two contrasts

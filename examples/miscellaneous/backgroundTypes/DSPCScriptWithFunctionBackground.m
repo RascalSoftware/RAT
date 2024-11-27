@@ -72,15 +72,15 @@ problem.removeBackground(1);
 problem.addBackground('SMW Background','constant','Backs parameter SMW');
 
 % Add the function background
-% Add the function to custom files...
+% Add the function to custom files, and its parameters to background
+% parameters
 problem.addCustomFile('Back Fun','backgroundFunction.m','matlab',pwd);
 
-% ...and its parameters
 problem.addBackgroundParam('Fn Ao',5e-7, 8e-6, 5e-5);
 problem.addBackgroundParam('Fn k',40, 70, 90);
 problem.addBackgroundParam('Fn Const',1e-7, 8e-6, 1e-5);
 
-% ...and add the Background
+% Add the Background
 problem.addBackground('Func Background','function','Back Fun','Fn Ao','Fn k','Fn Const');
 
 % Make the two contrasts

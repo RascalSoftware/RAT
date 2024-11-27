@@ -130,7 +130,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Initialise resolution object
             resolutionParams = parametersClass('Resolution par 1',0.01,0.03,0.05,false,priorTypes.Uniform,0,Inf);
             resolutions = {'Resolution 1',allowedTypes.Constant.value,'Resolution par 1','','','',''};
-            obj.resolution = resolutionsClass(resolutionParams, resolutions, obj.getDataAndFunctionNames());
+            obj.resolution = resolutionsClass(resolutionParams, resolutions);
 
             % Initialise contrasts object
             obj.contrasts = contrastsClass();               
@@ -595,7 +595,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % up to 4 parameters
             %
             % project.addResolution('name','constant','par');
-            obj.resolution.addResolution(obj.getDataAndFunctionNames(), varargin{:});
+            obj.resolution.addResolution(varargin{:});
         end
         
         function obj = removeResolution(obj, row)
@@ -611,7 +611,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index or name of resolution and keyword/value pairs to set
             %
             % project.setResolution(1, 'name', 'Resolution ACMW');
-            obj.resolution.setResolution(row, obj.getDataAndFunctionNames(), varargin{:});
+            obj.resolution.setResolution(row, varargin{:});
         end
         
         function obj = setResolutionName(obj, row, name)

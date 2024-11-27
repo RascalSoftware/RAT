@@ -15,9 +15,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             import matlab.unittest.fixtures.WorkingFolderFixture;
             testCase.applyFixture(WorkingFolderFixture);
         end
-    end
 
-    methods(TestMethodSetup)
         function initialiseProject(testCase)
             testCase.project = projectClass('example');
             testCase.parameters = {
@@ -420,16 +418,16 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{1, 2}, 0, 'setResolutionParamLimits method not working');
             testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{1, 4}, 1, 'setResolutionParamLimits method not working');
             % Checks the default resolution parameter 
-            testCase.verifySize(testCase.project.resolution.resolutions.varTable, [1, 7], 'resolution has wrong dimension');
+            testCase.verifySize(testCase.project.resolution.resolutions.varTable, [1, 8], 'resolution has wrong dimension');
             testCase.verifyEqual(string(testCase.project.resolution.resolutions.varTable{1, :}),...
-                                    string({'Resolution 1', allowedTypes.Constant.value, 'Resolution par 1', '', '', '', ''}), 'resolution default');
+                                    string({'Resolution 1', allowedTypes.Constant.value, 'Resolution par 1', '', '', '', '', ''}), 'resolution default');
             % Checks that resolution can be added
-            testCase.project.addResolution('Resolution 2', allowedTypes.Constant,'Resolution par 1','','','','');
-            testCase.verifySize(testCase.project.resolution.resolutions.varTable, [2, 7], 'resolution has wrong dimension');
+            testCase.project.addResolution('Resolution 2', allowedTypes.Constant,'Resolution par 1','','','','','');
+            testCase.verifySize(testCase.project.resolution.resolutions.varTable, [2, 8], 'resolution has wrong dimension');
             testCase.verifyEqual(testCase.project.resolution.resolutions.varTable{:, 1}, ["Resolution 1"; "Resolution 2"], 'addResolution method not working');
             % Checks that resolution can be removed
             testCase.project.removeResolution(1);
-            testCase.verifySize(testCase.project.resolution.resolutions.varTable, [1, 7], 'resolution has wrong dimension');
+            testCase.verifySize(testCase.project.resolution.resolutions.varTable, [1, 8], 'resolution has wrong dimension');
             testCase.verifyEqual(testCase.project.resolution.resolutions.varTable{:, 1}, "Resolution 2", 'addResolution method not working');
             % Checks that resolution value can be modified
             testCase.project.setResolution(1, 'name', 'New Resolution Name');
@@ -466,16 +464,16 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{1, 2}, 0, 'setBackgroundParamLimits method not working');
             testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{1, 4}, 1, 'setBackgroundParamLimits method not working');
             % Checks the default background parameter 
-            testCase.verifySize(testCase.project.background.backgrounds.varTable, [1, 7], 'background has wrong dimension');
+            testCase.verifySize(testCase.project.background.backgrounds.varTable, [1, 8], 'background has wrong dimension');
             testCase.verifyEqual(string(testCase.project.background.backgrounds.varTable{1, :}),...
-                                      string({'Background 1', allowedTypes.Constant.value, 'Background Param 1', '', '', '', ''}), 'background default');
+                                      string({'Background 1', allowedTypes.Constant.value, 'Background Param 1', '', '', '', '', ''}), 'background default');
             % Checks that background can be added
             testCase.project.addBackground('Background D2O',allowedTypes.Constant.value,'Backs Value D2O');
-            testCase.verifySize(testCase.project.background.backgrounds.varTable, [2, 7], 'background has wrong dimension');
+            testCase.verifySize(testCase.project.background.backgrounds.varTable, [2, 8], 'background has wrong dimension');
             testCase.verifyEqual(testCase.project.background.backgrounds.varTable{:, 1}, ["Background 1"; "Background D2O"], 'addBackground method not working');
             % Checks that background can be removed
             testCase.project.removeBackground(1);
-            testCase.verifySize(testCase.project.background.backgrounds.varTable, [1, 7], 'background has wrong dimension');
+            testCase.verifySize(testCase.project.background.backgrounds.varTable, [1, 8], 'background has wrong dimension');
             testCase.verifyEqual(testCase.project.background.backgrounds.varTable{:, 1}, "Background D2O", 'addBackground method not working');
             % Checks that background value can be modified
             testCase.project.setBackground(1, 'name', 'Background ACMW');

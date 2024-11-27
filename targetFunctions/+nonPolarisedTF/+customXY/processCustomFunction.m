@@ -3,8 +3,6 @@ function [slds,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOu
 
     % Top-level function for processing custom XY profiles for all the
     % contrasts.
-
-    % Do some pre-definitions to keep the compiler happy...
     slds = cell(numberOfContrasts,1);
     subRoughs = zeros(numberOfContrasts,1);
 
@@ -20,7 +18,7 @@ function [slds,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOu
         functionHandle = customFiles{cCustFiles(i)};
 
         % Find values of 'bulkIn' and 'bulkOut' for this
-        % contrast...
+        % contrast
         thisBulkIn = bulkInArray(contrastBulkIns(i));
         
         if isnan(str2double(functionHandle))

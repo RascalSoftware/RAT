@@ -42,22 +42,10 @@ outputs.result = result;
 save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/customLayersOutputs'],'outputs');
 
 % (c) TF Parameters
-[contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
-
-TFParams.contrastParams = contrastParams;
-TFParams.calculationResults = calculationResults;
-TFParams.reflectivity = reflectivity;
-TFParams.simulation = simulation;
-TFParams.shiftedData = shiftedData;
-TFParams.layerSlds = layerSlds;
-TFParams.sldProfiles = sldProfiles;
-TFParams.resampledLayers = resampledLayers;
-
-[backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
- chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,...
+[qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
+ chis,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,...
  resampledLayers,subRoughs] = nonPolarisedTF.customLayers(problemStruct,problemCells,controls);
 
-TFParams.backgroundParams = backgroundParams;
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
 TFParams.bulkIn = bulkIn;
@@ -65,6 +53,14 @@ TFParams.bulkOut = bulkOut;
 TFParams.resolutionParams = resolutionParams;
 TFParams.chis = chis;
 TFParams.subRoughs = subRoughs;
+
+TFParams.reflectivity = reflectivity;
+TFParams.simulation = simulation;
+TFParams.shiftedData = shiftedData;
+TFParams.backgrounds = backgrounds;
+TFParams.layerSlds = layerSlds;
+TFParams.sldProfiles = sldProfiles;
+TFParams.resampledLayers = resampledLayers;
 
 save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/customLayersTFParams'],'TFParams');
 
@@ -107,22 +103,10 @@ outputs.result = result;
 save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/customXYOutputs'],'outputs');
 
 % (c) TF Parameters
-[contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
-
-TFParams.contrastParams = contrastParams;
-TFParams.calculationResults = calculationResults;
-TFParams.reflectivity = reflectivity;
-TFParams.simulation = simulation;
-TFParams.shiftedData = shiftedData;
-TFParams.layerSlds = layerSlds;
-TFParams.sldProfiles = sldProfiles;
-TFParams.resampledLayers = resampledLayers;
-
-[backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
- chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,...
+[qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
+ chis,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,...
  resampledLayers, subRoughs] = nonPolarisedTF.customXY(problemStruct,problemCells,controls);
 
-TFParams.backgroundParams = backgroundParams;
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
 TFParams.bulkIn = bulkIn;
@@ -130,6 +114,14 @@ TFParams.bulkOut = bulkOut;
 TFParams.resolutionParams = resolutionParams;
 TFParams.chis = chis;
 TFParams.subRoughs = subRoughs;
+
+TFParams.reflectivity = reflectivity;
+TFParams.simulation = simulation;
+TFParams.shiftedData = shiftedData;
+TFParams.backgrounds = backgrounds;
+TFParams.layerSlds = layerSlds;
+TFParams.sldProfiles = sldProfiles;
+TFParams.resampledLayers = resampledLayers;
 
 save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/customXYTFParams'],'TFParams');
 
@@ -173,22 +165,10 @@ outputs.result = result;
 save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/standardLayersOutputs'],'outputs');
 
 % (c) TF Parameters
-[contrastParams,calculationResults,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,resampledLayers] = nonPolarisedTF.reflectivityCalculation(problemStruct,problemCells,controls);
-
-TFParams.contrastParams = contrastParams;
-TFParams.calculationResults = calculationResults;
-TFParams.reflectivity = reflectivity;
-TFParams.simulation = simulation;
-TFParams.shiftedData = shiftedData;
-TFParams.layerSlds = layerSlds;
-TFParams.sldProfiles = sldProfiles;
-TFParams.resampledLayers = resampledLayers;
-
-[backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
- chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,...
+[qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
+ chis,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,...
  resampledLayers,subRoughs] = nonPolarisedTF.standardLayers(problemStruct,problemCells,controls);
 
-TFParams.backgroundParams = backgroundParams;
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
 TFParams.bulkIn = bulkIn;
@@ -196,6 +176,14 @@ TFParams.bulkOut = bulkOut;
 TFParams.resolutionParams = resolutionParams;
 TFParams.chis = chis;
 TFParams.subRoughs = subRoughs;
+
+TFParams.reflectivity = reflectivity;
+TFParams.simulation = simulation;
+TFParams.shiftedData = shiftedData;
+TFParams.backgrounds = backgrounds;
+TFParams.layerSlds = layerSlds;
+TFParams.sldProfiles = sldProfiles;
+TFParams.resampledLayers = resampledLayers;
 
 save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/standardLayersTFParams'],'TFParams');
 

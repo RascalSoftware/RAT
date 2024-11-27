@@ -1,18 +1,12 @@
-function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolutionParam] = backSort(contrastBackgroundParams,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutionParams,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams)
+function [outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolutionParam] = backSort(contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutionParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams)
     % Distributes the background and shift values among the different contrasts
     %
-    % USAGE::
-    %
-    %    [backgroundParams,qzshift,scalefactor,bulkIn,bulkOut,resolutionParams] = backsort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,qzshifts,scalefactor,bulkIn,bulkOut,res)
-    %
     % INPUTS:
-    %    * contrastBackgroundParams: Which background value is associated with each contrast
     %    * contrastQzshifts: Which qz_shift value is associated with each contrast
     %    * contrastScalefactors: Which scalefactor value is associated with each contrast
     %    * contrastBulkIns: Which BulkIn value is associated with each contrast
     %    * contrastBulkOuts: Which BulkOut value is associated with each contrast
     %    * contrastResolutionParams: Which resolution value is associated with each contrast
-    %    * backgroundParams: List of all background parameter values.
     %    * qzshifts: List of all qzshift values
     %    * scalefactors: List of all scalefactor values
     %    * bulkIn: List of all bulkIn values
@@ -20,19 +14,12 @@ function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outR
     %    * resolutionParams: List of all resolution parameter values
     % 
     % OUTPUTS:
-    %    * outBackground: list of actual background parameter values for each contrast
     %    * outQzshift: list of actual qzshift values for each contrast      
     %    * outScalefactor: list of actual scalefactor values for each contrast     
     %    * outBulkIn: list of actual bulkIn values for each contrast     
     %    * outBulkOut: list of actual bulkOut values for each contrast
     %    * outResolution: list of actual resolution parameter for each contrast  
     
-        if contrastBackgroundParams ~= -1
-            outBackgroundParam = backgroundParams(contrastBackgroundParams);
-        else
-            outBackgroundParam = -1;     % Negative value means we have a data background.
-        end
-
         outQzshift = qzshifts(contrastQzshifts);
         
         outScalefactor = scalefactors(contrastScalefactors);

@@ -1,8 +1,7 @@
 function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiSq] = ...
-    coreLayersCalculation(contrastLayers, rough, ...
-    geometry, bulkIn, bulkOut, resample, calcSld, scalefactor, qzshift,...
-    dataPresent, data, dataLimits, simLimits, repeatLayers,...
-    background,resolution,contrastBackgroundActions,params,parallelPoints,resampleMinAngle,resampleNPoints,useImaginary)
+    coreLayersCalculation(layers, rough, ...
+    geometry, bulkIn, bulkOut, resample, calcSld, shiftedData, simLimits, repeatLayers,...
+    resolution,background,backgroundAction,params,parallelPoints,resampleMinAngle,resampleNPoints,useImaginary)
 
 %   This is the main reflectivity calculation for all Layers models in the 
 %   non polarised target function. 
@@ -20,32 +19,6 @@ function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiS
 %   'simulation' which can be a different range to allow extrapolation.
 %   The background correction is the applied, and finally chi-squared is 
 %   calculated.
-%
-% Inputs:
-%   contrastLayers  :
-%   rough           :
-%   geometry        :
-%   bulkIn          :
-%   bulkOut         :
-%   resample        :
-%   calcSld         :
-%   scalefactor     :
-%   qzshift         :
-%   dataPresent     :
-%   data            :
-%   dataLimits      :
-%   simLimits       :
-%   repeatLayers    :
-%   background      :
-%   resol           :
-%   contrastBackgroundActions       :
-%   params          :
-%   parallelPoints  :
-%
-% Outputs:
-%
-%
-%
 
 % Pre-definition for Coder
 sldProfile = [0 0];
@@ -53,9 +26,9 @@ sldProfileIm = [0 0];
 
 % Build up the layers matrix for this contrast
 if ~useImaginary
-    [theseLayers, ssubs] = groupLayersMod(contrastLayers,rough,geometry,bulkIn,bulkOut);
+    [theseLayers, ssubs] = groupLayersMod(layers,rough,geometry,bulkIn,bulkOut);
 else
-    [theseLayers, ssubs] = groupLayersModImaginary(contrastLayers,rough,geometry,bulkIn,bulkOut);
+    [theseLayers, ssubs] = groupLayersModImaginary(layers,rough,geometry,bulkIn,bulkOut);
 end
 
 % Make the SLD profiles.
@@ -68,25 +41,21 @@ end
 % If calc SLD flag is set, then calculate the SLD profile
 if calcSld
 
+    thisSldLays = theseLayers;
+
     % If we need them both, we process real and imaginary parts of the SLD
-    % seperately...
+    % separately
     if useImaginary
         thisSldLays = [theseLayers(:,1:2) theseLayers(:,4:end)];
         thisSldLaysIm = [theseLayers(:,1) theseLayers(:,3:end)];
-    else
-        thisSldLays = theseLayers;
-        thisSldLaysIm = [0 0]; % Dummy value for coder
-    end
-    
-    sldProfile = makeSLDProfiles(bulkIn,bulkOut,thisSldLays,ssubs,repeatLayers);
 
-    % If we have imaginary, we are also
-    % going to need an SLD profile for the imaginary part
-    if useImaginary
         % Note bulkIn and bulkOut = 0 since there is never any imaginary part for
         % the bulk phases..
         sldProfileIm = makeSLDProfiles(0,0,thisSldLaysIm,ssubs,repeatLayers);
     end
+    
+    sldProfile = makeSLDProfiles(bulkIn,bulkOut,thisSldLays,ssubs,repeatLayers);
+
 end
 
 % If required, then resample the SLD
@@ -102,15 +71,12 @@ else
     resamLayers = [0 0 0];
 end
 
-% Apply scale factors and q shifts to the data
-shiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simLimits);
-
 % Calculate the reflectivity
 reflectivityType = 'standardAbeles';
 [reflect,simulation] = callReflectivity(bulkIn,bulkOut,simLimits,repeatLayers,shiftedData,layerSld,ssubs,resolution,parallelPoints,reflectivityType,useImaginary);
 
 % Apply background correction
-[reflect,simulation,shiftedData] = applyBackgroundCorrection(reflect,simulation,shiftedData,background,contrastBackgroundActions);
+[reflect,simulation,shiftedData] = applyBackgroundCorrection(reflect,simulation,shiftedData,background,backgroundAction);
 
 % Calculate chi squared.
 chiSq = chiSquared(shiftedData,reflect,params);

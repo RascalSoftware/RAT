@@ -39,15 +39,13 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         expectedResultStruct       % Expected output value of the initial results struct
         expectedResult             % Expected output value of the final results struct
         expectedBayesResults       % Expected output value of the bayes results struct
-        TFContrastParams
-        TFCalculationResults
         TFReflectivity
         TFSimulation
         TFShiftedData
+        TFBackgrounds
         TFLayerSLDs
         TFSLDProfiles
         TFResampledLayers
-        TFBackgroundParams
         TFQzshifts
         TFScalefactors
         TFBulkIn
@@ -94,16 +92,14 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         function loadTFParams(testCase, TFFile)
             testCase.TFParams = load(TFFile);
 
-            testCase.TFContrastParams = testCase.TFParams.TFParams.contrastParams;
-            testCase.TFCalculationResults = testCase.TFParams.TFParams.calculationResults;
             testCase.TFReflectivity = testCase.TFParams.TFParams.reflectivity;
             testCase.TFSimulation = testCase.TFParams.TFParams.simulation;
             testCase.TFShiftedData = testCase.TFParams.TFParams.shiftedData;
+            testCase.TFBackgrounds = testCase.TFParams.TFParams.backgrounds;
             testCase.TFLayerSLDs = testCase.TFParams.TFParams.layerSlds;
             testCase.TFSLDProfiles = testCase.TFParams.TFParams.sldProfiles;
             testCase.TFResampledLayers = testCase.TFParams.TFParams.resampledLayers;
 
-            testCase.TFBackgroundParams = testCase.TFParams.TFParams.backgroundParams;
             testCase.TFQzshifts = testCase.TFParams.TFParams.qzshifts;
             testCase.TFScalefactors = testCase.TFParams.TFParams.scalefactors;
             testCase.TFBulkIn = testCase.TFParams.TFParams.bulkIn;
@@ -170,46 +166,33 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             else        
                 result = reflectivityCalculation(testCase.problemStruct, testCase.problemCells, testCase.problemLimits, testCase.controls);
             end
+
             testCase.verifyEqual(result, testCase.expectedResultStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
-        function testNonPolarisedTFReflectivityCalculation(testCase)
-            [contrastParams, calculationResults, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, resampledLayers] = nonPolarisedTF.reflectivityCalculation(testCase.problemStruct, testCase.problemCells, testCase.controls);
-
-            testCase.verifyEqual(contrastParams, testCase.TFContrastParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(calculationResults, testCase.TFCalculationResults, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(reflectivity, testCase.TFReflectivity, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(simulation, testCase.TFSimulation, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(shiftedData, testCase.TFShiftedData, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(layerSLDs, testCase.TFLayerSLDs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(SLDProfiles, testCase.TFSLDProfiles, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(resampledLayers, testCase.TFResampledLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-        end
-
-        function testNonPolarisedTFLayersReflectivityCalc(testCase, whichParallel, TFFile)
+        function testNonPolarisedTFReflectivityCalculation(testCase, whichParallel, TFFile)
 
             testCase.controls.parallel = whichParallel;
 
             % Choose the appropriate routine for each test case
             switch TFFile
                 case 'standardLayersTFParams.mat'
-                    [backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
-                    simulation,shiftedData,layerSLDs,SLDProfiles,resampledLayers,...
+                    [qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
+                    simulation,shiftedData,backgrounds,layerSLDs,SLDProfiles,resampledLayers,...
                     subRoughs] = nonPolarisedTF.standardLayers(testCase.problemStruct,testCase.problemCells,...
                     testCase.controls);
                 case 'customLayersTFParams.mat'
-                    [backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
-                    simulation,shiftedData,layerSLDs,SLDProfiles,resampledLayers,...
+                    [qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
+                    simulation,shiftedData,backgrounds,layerSLDs,SLDProfiles,resampledLayers,...
                     subRoughs] = nonPolarisedTF.customLayers(testCase.problemStruct,testCase.problemCells,...
                     testCase.controls);
                 case 'customXYTFParams.mat'
-                    [backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
-                    simulation,shiftedData,layerSLDs,SLDProfiles,resampledLayers,...
+                    [qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
+                    simulation,shiftedData,backgrounds,layerSLDs,SLDProfiles,resampledLayers,...
                     subRoughs] = nonPolarisedTF.customXY(testCase.problemStruct,testCase.problemCells,...
                     testCase.controls);
             end
 
-            testCase.verifyEqual(backgroundParams, testCase.TFBackgroundParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(qzshifts, testCase.TFQzshifts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(scalefactors, testCase.TFScalefactors, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(bulkIn, testCase.TFBulkIn, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -219,6 +202,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(reflectivity, testCase.TFReflectivity, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(simulation, testCase.TFSimulation, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(shiftedData, testCase.TFShiftedData, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(backgrounds, testCase.TFBackgrounds, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(layerSLDs, testCase.TFLayerSLDs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(SLDProfiles, testCase.TFSLDProfiles, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(resampledLayers, testCase.TFResampledLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -241,63 +225,70 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             
             % Test standard input passes
             testInput = testCase.problemStruct;
-            checkIndices(testInput);
+            customFiles = testCase.problemCells{14};
+            checkIndices(testInput, customFiles);
 
             % Test Background Param Error
             testInput = testCase.problemStruct;
-            testInput.contrastBackgroundParams(1) = 0;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testInput.contrastBackgroundParams{1} = 0;
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
-            testInput.contrastBackgroundParams(1) = 4;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testInput.contrastBackgroundParams{1} = 4;
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
+
+            testInput.contrastBackgroundParams{1} = [0 1 2 3];
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
+            testInput = testCase.problemStruct;
+            testInput.contrastBackgroundParams{1} = [4 1 2 3];
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             % Test Qzshift Error
             testInput = testCase.problemStruct;
             testInput.contrastQzshifts(1) = 0;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
             testInput.contrastQzshifts(1) = 4;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             % Test Scalefactor Error
             testInput = testCase.problemStruct;
             testInput.contrastScalefactors(1) = 0;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
             testInput.contrastScalefactors(1) = 4;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             % Test Bulk In Error
             testInput = testCase.problemStruct;
             testInput.contrastBulkIns(1) = 0;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
             testInput.contrastBulkIns(1) = 4;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             % Test Bulk Out Error
             testInput = testCase.problemStruct;
             testInput.contrastBulkOuts(1) = 0;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
             testInput.contrastBulkOuts(1) = 4;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             % Test Resolution Param Error
             testInput = testCase.problemStruct;
             testInput.contrastResolutionParams(1) = 0;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
             testInput.contrastResolutionParams(1) = 4;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             % Test Domain Ratio Error
             testInput = testCase.problemStruct;
             testInput.contrastDomainRatios(1) = 0;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
             testInput.contrastDomainRatios(1) = 4;
-            testCase.verifyError(@() checkIndices(testInput), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
         end
 
@@ -316,7 +307,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         function testExtractProblemParams(testCase)
             [numberOfContrasts, geometry, contrastBackgroundParams, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
             contrastResolutionParams, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, domainRatio,...
-            dataPresent, nParams, params, numberOfLayers, resample, backgroundParamsType, contrastCustomFiles, useImaginary] = extractProblemParams(testCase.problemStruct);
+            dataPresent, nParams, params, numberOfLayers, resample, backgroundTypes, backgroundActions, contrastCustomFiles, useImaginary] = extractProblemParams(testCase.problemStruct);
 
             testCase.verifyEqual(numberOfContrasts, testCase.problemStruct.numberOfContrasts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(geometry, testCase.problemStruct.geometry, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -339,7 +330,8 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(params, testCase.problemStruct.params, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(numberOfLayers, testCase.problemStruct.numberOfLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(resample, testCase.problemStruct.resample, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(backgroundParamsType, testCase.problemStruct.contrastBackgroundActions, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(backgroundTypes, testCase.problemStruct.contrastBackgroundTypes, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(backgroundActions, testCase.problemStruct.contrastBackgroundActions, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastCustomFiles, testCase.problemStruct.contrastCustomFiles, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(useImaginary, testCase.problemStruct.useImaginary, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end

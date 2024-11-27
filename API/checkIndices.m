@@ -1,13 +1,30 @@
-function checkIndices(problemStruct)
+function checkIndices(problemStruct, customFiles)
     % Make sure that the indices provided lie within the bounds of the
     % corresponding array.
 
     numBackgroundParams = length(problemStruct.backgroundParams);
+    numCustomFiles = length(customFiles);
     for i = 1:length(problemStruct.contrastBackgroundParams)
-        index = problemStruct.contrastBackgroundParams(i);
-        if (index < 1 && index ~= -1) || index > numBackgroundParams
-            throw(exceptions.indexOutOfRange(sprintf('contrastBackgroundParams(%i) is %i, which is outside the range of backgroundParams', i, index)));
+
+        indices = problemStruct.contrastBackgroundParams{i};
+
+        if length(indices) > 1
+            % The first index is a custom file, the rest are background parameters
+            index = indices(1);
+            if index < 1 || index > numCustomFiles
+                throw(exceptions.indexOutOfRange(sprintf('contrastBackgroundParams{%i}(1) is %i, which is outside the range of customFiles', i, index)));
+            end
+            indices = indices(2:end);
         end
+
+        % All of these indices are background parameters
+        for j = 1:length(indices)
+            index = indices(j);
+            if index < 1 || index > numBackgroundParams
+                throw(exceptions.indexOutOfRange(sprintf('contrastBackgroundParams{%i}(%i) is %i, which is outside the range of backgroundParams', i, j, index)));
+            end
+        end
+
     end
 
     numQzshifts = length(problemStruct.qzshifts);

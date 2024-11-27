@@ -3,8 +3,6 @@ classdef testCreateProject < matlab.unittest.TestCase
 % testProjects Class based unit tests for the project routine used to set
 % up calculations in RAT.
 %
-% Paul Sharp 19/05/23
-%
 %% Declare properties and parameters
 
     properties (TestParameter)

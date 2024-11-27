@@ -35,7 +35,6 @@ function [output,subRough] = callCppFunction(pointer, params, bulkIn, bulkOut, c
                      coder.wref(outputSize), coder.wref(subRough)); 
     end
     
-    
     size = int32(outputSize(1) * outputSize(2));
     tempOutput = zeros(1, size);
     actualSize = 0;

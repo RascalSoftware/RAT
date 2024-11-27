@@ -115,22 +115,22 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Initialise scalefactors table
             obj.scalefactors = parametersClass('Scalefactor 1',0.02,0.23,0.25,false,priorTypes.Uniform,0,Inf);
-            
-            % Initialise backgrounds object
-            backgroundParams = parametersClass('Background Param 1',1e-7,1e-6,1e-5,false,priorTypes.Uniform,0,Inf);
-            backgrounds = {'Background 1',allowedTypes.Constant.value,'Background Param 1','','','',''};
-            obj.background = backgroundsClass(backgroundParams, backgrounds);
-            
-            % Initialise resolution object
-            resolutionParams = parametersClass('Resolution par 1',0.01,0.03,0.05,false,priorTypes.Uniform,0,Inf);
-            resolutions = {'Resolution 1',allowedTypes.Constant.value,'Resolution par 1','','','',''};
-            obj.resolution = resolutionsClass(resolutionParams, resolutions);
-            
+
             % Initialise data object
             obj.data = dataClass('Simulation', [], [], []);
 
             % Initialise custom file object
             obj.customFile = customFileClass();
+            
+            % Initialise backgrounds object
+            backgroundParams = parametersClass('Background Param 1',1e-7,1e-6,1e-5,false,priorTypes.Uniform,0,Inf);
+            backgrounds = {'Background 1',allowedTypes.Constant.value,'Background Param 1','','','',''};
+            obj.background = backgroundsClass(backgroundParams, backgrounds, obj.getDataAndFunctionNames());
+            
+            % Initialise resolution object
+            resolutionParams = parametersClass('Resolution par 1',0.01,0.03,0.05,false,priorTypes.Uniform,0,Inf);
+            resolutions = {'Resolution 1',allowedTypes.Constant.value,'Resolution par 1','','','',''};
+            obj.resolution = resolutionsClass(resolutionParams, resolutions);
 
             % Initialise contrasts object
             obj.contrasts = contrastsClass();               
@@ -199,7 +199,16 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
         end
 
-        function names = getAllAllowedNames(obj)     
+        function names = getDataAndFunctionNames(obj)
+            % Returns a cell array of all currently
+            % set data and custom file names for the project.
+            % These are used to check backgrounds and resolutions of the
+            % Data and Function types.
+            names.dataNames = obj.data.getNames();
+            names.customFileNames = obj.customFile.getNames();
+        end
+
+        function names = getAllAllowedNames(obj)
             % Returns a cell array of all currently
             % set parameter names for the project.
             names.paramNames = obj.parameters.getNames();
@@ -495,7 +504,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % up to 4 parameters
             %
             % project.addBackground('name', 'constant', 'par');
-            obj.background.addBackground(varargin{:});
+            obj.background.addBackground(obj.getDataAndFunctionNames(), varargin{:});
         end
         
         function obj = removeBackground(obj, row)
@@ -512,7 +521,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index or name of background and keyword/value pairs to set
             %
             % project.setBackground(1, 'name', 'Background ACMW');
-            obj.background.setBackground(row, varargin{:});
+            obj.background.setBackground(row, obj.getDataAndFunctionNames(), varargin{:});
         end
         
         function obj = setBackgroundName(obj, row, name)
@@ -767,7 +776,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % "resolution", "resample", "model"
             % 
             % project.addContrast('contrast 1', 'bulkIn', 'Silicon');
-            allowedNames = obj.getAllAllowedNames();
+            allowedNames = obj.getAllAllowedNames;
             obj.contrasts.addContrast(allowedNames, varargin{:});   
         end
 
@@ -873,6 +882,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
             % Custom files
             customFileStruct = obj.customFile.toStruct();
+
+            % Data
+            dataStruct = obj.data.toStruct();
             
             % Contrasts
             allNames = obj.getAllAllowedNames;
@@ -891,6 +903,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                                      qzshiftStruct, ...
                                      layersStruct, ...
                                      customFileStruct, ...
+                                     dataStruct, ...
                                      contrastStruct);
             
         end
@@ -1174,6 +1187,39 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 script = script + newline;
             end
 
+            % Data class requires writing and reading the data
+            script = script + sprintf(options.objName + ".removeData(1);\n");
+
+            for i=1:obj.data.rowCount
+
+                % Write and read data if it exists, else add an empty,
+                % named row
+                if isempty(obj.data.varTable{i, 2}{:})
+                    script = script + sprintf(options.objName + ".addData('%s');\n", obj.data.varTable{i, 1});
+                else
+                    if options.exportData
+                        writematrix(obj.data.varTable{i, 2}{:}, "data_" + string(i) + ".dat");
+                        script = script + sprintf("data_%d = readmatrix('%s');\n", i, "data_" + string(i) + ".dat");
+                        script = script + sprintf(options.objName + ".addData('%s', data_%d);\n", obj.data.varTable{i, 1}, i);
+                    else
+                        script = script + sprintf("data_%d = %s;\n", i, mat2str(obj.data.varTable{i, 2}{:}, 15));
+                        script = script + sprintf(options.objName + ".addData('%s', data_%d);\n", obj.data.varTable{i, 1}, i);
+                    end
+                end
+
+                % Also need to set dataRange and simRange explicitly as they
+                % are optional
+                if ~isempty(obj.data.varTable{i, 3}{:})
+                    script = script + sprintf(options.objName + ".setData(%d, 'dataRange', [%.15g %.15g]);\n", i, obj.data.varTable{i, 3}{:});
+                end
+                if ~isempty(obj.data.varTable{i, 4}{:})
+                    script = script + sprintf(options.objName + ".setData(%d, 'simRange', [%.15g %.15g]);\n", i, obj.data.varTable{i, 4}{:});
+                end
+
+                script = script + newline;
+
+            end
+
             % Now deal with background and resolutions, which have
             % subclasses
             stringClasses = ["background", "resolution"];
@@ -1211,39 +1257,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                     script = script + sprintf(stringSpec, stringTable);
                     script = script + newline;
                 end
-
-            end
-
-            % Data class requires writing and reading the data
-            script = script + sprintf(options.objName + ".removeData(1);\n");
-
-            for i=1:obj.data.rowCount
-
-                % Write and read data if it exists, else add an empty,
-                % named row
-                if isempty(obj.data.varTable{i, 2}{:})
-                    script = script + sprintf(options.objName + ".addData('%s');\n", obj.data.varTable{i, 1});
-                else
-                    if options.exportData
-                        writematrix(obj.data.varTable{i, 2}{:}, "data_" + string(i) + ".dat");
-                        script = script + sprintf("data_%d = readmatrix('%s');\n", i, "data_" + string(i) + ".dat");
-                        script = script + sprintf(options.objName + ".addData('%s', data_%d);\n", obj.data.varTable{i, 1}, i);
-                    else
-                        script = script + sprintf("data_%d = %s;\n", i, mat2str(obj.data.varTable{i, 2}{:}, 15));
-                        script = script + sprintf(options.objName + ".addData('%s', data_%d);\n", obj.data.varTable{i, 1}, i);
-                    end
-                end
-
-                % Also need to set dataRange and simRange explicitly as they
-                % are optional
-                if ~isempty(obj.data.varTable{i, 3}{:})
-                    script = script + sprintf(options.objName + ".setData(%d, 'dataRange', [%.15g %.15g]);\n", i, obj.data.varTable{i, 3}{:});
-                end
-                if ~isempty(obj.data.varTable{i, 4}{:})
-                    script = script + sprintf(options.objName + ".setData(%d, 'simRange', [%.15g %.15g]);\n", i, obj.data.varTable{i, 4}{:});
-                end
-
-                script = script + newline;
 
             end
 

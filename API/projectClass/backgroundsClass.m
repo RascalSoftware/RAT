@@ -1,17 +1,18 @@
 classdef backgroundsClass < handle
     % Backgrounds are defined in a two stage process. Firstly we define the
-    % actual fitted parameters. These are held in a 'ParametersClass'
+    % actual fitted parameters. These are held in a 'Parameters'
     % table. Then, we group these into the backgrounds themselves using a
     % multiTypeTable. So, we can then use the background parameters to
-    % either define background as  constant, data or a function. 
+    % either define background as constant, data or a function. 
     % 
-    % For constant only one parameter is supplied to multi type table. 
+    % For constant only one background parameter is supplied to multi type table. 
     % 
-    % For data only the itself is supplied as a cell. 
+    % For data an entry in the data table and an optional offset is
+    % required
     % 
-    % For function, the function name is supplied, along with up to three 
-    % parameters (from the parameters table) which are then supplied to the 
-    % function to calculate the background. 
+    % For function, the function name is supplied, along with up to five
+    % parameters (from the background parameters table) which are then
+    % passed to the function to calculate the background. 
     %
     % In each case, the background can either be added to the simulation or
     % subtracted from the data.
@@ -22,24 +23,26 @@ classdef backgroundsClass < handle
     end
 
     properties(Access = private, Constant, Hidden)
+        maxValues = struct('constant', 0, 'data', 1, 'function', 5)
         invalidTypeMessage = sprintf('Allowed type must be a allowedTypes enum or one of the following strings (%s)', ...
                                      strjoin(allowedTypes.values(), ', '))
     end
     
     methods
-        function  obj = backgroundsClass(parameters, startBackground)
+        function  obj = backgroundsClass(parameters, startBackground, allowedNames)
             % Creates a background object. The arguments should be 
-            % an instance of the parameter class with the background parameters
-            % and a cell array of  backgrounds
+            % an instance of the parameter class with the background
+            % parameters, a cell array of  backgrounds and the struct of
+            % allowed data and function names.
             %
             % params = parametersClass({'Background Param 1', 1e-7, 1e-6, 1e-5, false, 'uniform', 0, Inf});
-            % % background = backgroundClass(params, {'Background 1', 'constant', 'Background Param 1'});
+            % background = backgroundClass(params, {'Background 1', 'constant', 'Background Param 1'}, allowedNames);
             obj.backgroundParams = parameters;
             
             % Make a multiType table to define the actual backgrounds
             obj.backgrounds = multiTypeTable();
             obj.backgrounds.typesAutoNameString = 'New background';
-            obj.addBackground(startBackground{:});
+            obj.addBackground(allowedNames, startBackground{:});
         end
         
         function names = getNames(obj)
@@ -50,24 +53,24 @@ classdef backgroundsClass < handle
             names = obj.backgrounds.varTable{:,1};      
         end
                  
-        function obj = addBackground(obj, varargin)
+        function obj = addBackground(obj, allowedNames, varargin)
             % Adds a new entry to the background table.  
             %
-            % background.addBackground('New Row');
-            % background.addBackground('New Row', 'constant', 'param_name');
-            % background.addBackground('New Row', 'function', 'function_name', 'param_name');
-            % background.addBackground('New Row', 'data');
+            % background.addBackground(allowedNames, 'New Row');
+            % background.addBackground(allowedNames, 'New Row', 'constant', 'param_name');
+            % background.addBackground(allowedNames, 'New Row', 'function', 'function_name', 'param_name', 'param_name');
+            % background.addBackground(allowedNames, 'New Row', 'data', 'data_name', 'param_name');
             in = varargin;
 
             if isempty(in)
-                thisRow = {};
+                newRow = {};
             else
-                thisRow = {'','','','','','',''};
+                newRow = {'','','','','','','',''};
                 if length(in) == 1
                     % Assume the input is just a name
-                    thisRow = {in};
+                    newRow = {in};
                 else
-                    thisRow{1} = in;
+                    newRow{1} = in;
                 end
             end
  
@@ -79,37 +82,50 @@ classdef backgroundsClass < handle
                     throw(exceptions.invalidNumberOfInputs(sprintf('For type ''%s'', at least three inputs are required, but only %d are supplied', typeVal, length(in))));
                end
 
-               thisRow{1} = in{1};
-               thisRow{2} = in{2};
+               newRow{1} = in{1};
+               newRow{2} = in{2};
 
                % Check that the other params inputted are either valid
-               % background names, or numbers in range..
+               % background names, or numbers in range
                switch typeVal
                    case allowedTypes.Constant.value
-                       % Param 3 must be a valid parameter
-                       thisParam = obj.validateParam(in(3));
-                       thisRow{3} = thisParam;
+                       % Param 3 (source) must be a valid background parameter
+                       newRow{3} = obj.validateParam(in(3), obj.backgroundParams.getNames(), 'Background Param');
+
+
+                   case allowedTypes.Data.value
+                       % Background is contained within a data file.
+                       newRow{3} = obj.validateParam(in(3), allowedNames.dataNames, 'Data');
+                       % We also allow for an optional data offset
+                       if length(in) >= 4
+                           newRow{4} = obj.validateParam(in(4), obj.backgroundParams.getNames(), 'Background Param');
+                       end
+
 
                    case allowedTypes.Function.value
-                       throw(exceptions.notImplemented('Function backgrounds are not yet supported.'))
-                       % Param 3 is assumed to be function name
-                       % any other given parameters must be in paramNames
-                       % list or numbers in range
-                       thisRow{3} = in{3};
-                       for i = 4:length(in)
-                          thisParam = obj.validateParam(in(i));
-                          thisRow{i} = thisParam;
+                       % Param 3 (source) is the function name, defined in
+                       % the custom files table
+                       newRow{3} = obj.validateParam(in(3), allowedNames.customFileNames, 'Custom File');
+
+                       if length(in) >= 4
+                           % Any other given parameters must be valid
+                           % background parameters
+                           params = in(4:end);
+                           params = params(~(cellfun(@(x) isequal(x,""), params)));
+                           for i = 1:length(params)
+                              thisParam = obj.validateParam(params(i), obj.backgroundParams.getNames(), 'Background Param');
+                              newRow{i+3} = thisParam;
+                           end
                        end
-                   case allowedTypes.Data.value
-                       throw(exceptions.notImplemented('Data backgrounds are not yet supported.'))
-                       % Background is assumed to be given by a 4th column 
-                       % of a data file. We don't have access to the
-                       % data files at this point so this (i.e. that data is
-                       % [n x 4] ) will be checked downstream
-                       thisRow = {in{1}, in{2}, '', '', '', '', ''};
-                end
+               end
+
+               % Check number of non-empty values
+               if sum(~(cellfun(@(x) isequal(x,""), in))) > obj.maxValues.(typeVal) + 3
+                   warning('warnings:invalidNumberOfInputs', 'Value fields %d - 5 are not required for type ''%s'' backgrounds, they will not be included', obj.maxValues.(typeVal) + 1, typeVal)
+               end
+
             end
-            obj.backgrounds.addRow(thisRow{:});   
+            obj.backgrounds.addRow(newRow{:});   
         end
         
         function obj = removeBackground(obj, row)
@@ -121,11 +137,12 @@ classdef backgroundsClass < handle
             obj.backgrounds.removeRow(row);
         end
         
-        function obj = setBackground(obj, row, varargin)
+        function obj = setBackground(obj, row, allowedNames, varargin)
             % Changes the value of a given background in the table. Expects the 
-            % index or name of background and keyword/value pairs to set. 
+            % index or name of background, the struct of allowed data and
+            % function names, and keyword/value pairs to set. 
             %
-            % background.setBackground(1, 'name', 'back 1', 'type', 'constant', 'value1', 'param_name');
+            % background.setBackground(1, allowedNames, 'name', 'back 1', 'type', 'constant', 'source', 'param_name');
             if isText(row)
                 row = obj.backgrounds.findRowIndex(row, obj.getNames(), 'Unrecognised background');
             elseif isnumeric(row)
@@ -137,32 +154,59 @@ classdef backgroundsClass < handle
                 throw(exceptions.invalidType('Unrecognised row'));
             end
             
-            p = inputParser;
-            addParameter(p, 'name', obj.backgrounds.varTable{row, 1}, @isText);
-            addParameter(p, 'type', obj.backgrounds.varTable{row, 2}, @(x) isText(x) || isenum(x));
-            addParameter(p, 'value1', obj.backgrounds.varTable{row, 3}, @isText);
-            addParameter(p, 'value2', obj.backgrounds.varTable{row, 4}, @isText);
-            addParameter(p, 'value3', obj.backgrounds.varTable{row, 5}, @isText);
-            addParameter(p, 'value4', obj.backgrounds.varTable{row, 6}, @isText);
-
-            parse(p, varargin{:});
-            inputBlock = p.Results;
-
-            obj.backgrounds.setValue(row, 1, inputBlock.name);
+            inputBlock = obj.makeInputBlock(row, varargin{:});
             
             if ~isempty(inputBlock.type)
                 inputBlock.type = validateOption(inputBlock.type, 'allowedTypes', obj.invalidTypeMessage).value;
-                obj.backgrounds.setValue(row, 2, inputBlock.type);
-            end
-            values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4};
-            for i = 1:4
-                value = convertStringsToChars(values{i});
-                % for function type, value 1 is the function name so no validation is done 
-                if ~isempty(value) && ~(i==1 && strcmpi(inputBlock.type, allowedTypes.Function.value))
-                    value = obj.validateParam(value);
+
+                % If the type of the background is changed, clear all
+                % source and value fields
+                if ~strcmpi(inputBlock.type, obj.backgrounds.varTable{row, 2})
+                    warning("warnings:fieldsCleared", "When changing the type of a background all unset fields are cleared");
+                    for i = 3:width(obj.backgrounds.varTable)
+                        obj.backgrounds.setValue(row, i, '');
+                    end
+
+                    % Having cleared the table, we need to re-parse the
+                    % inputs to the function
+                    inputBlock = obj.makeInputBlock(row, varargin{:});
                 end
-                obj.backgrounds.setValue(row, i + 2, value);
             end
+
+            % For data and function types, source is the data/function name
+            source = convertStringsToChars(inputBlock.source);
+            if ~isempty(source)
+                if strcmpi(inputBlock.type, allowedTypes.Constant.value)
+                    source = obj.validateParam(source, obj.backgroundParams.getNames(), 'Background Param');
+                end
+                if strcmpi(inputBlock.type, allowedTypes.Data.value)
+                    source = obj.validateParam(source, allowedNames.dataNames, 'Data');
+                end
+                if strcmpi(inputBlock.type, allowedTypes.Function.value)
+                    source = obj.validateParam(source, allowedNames.customFileNames, 'Custom File');
+                end
+            end
+
+            values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4, inputBlock.value5};
+            for i = 1:5
+                value = convertStringsToChars(values{i});
+                if ~isempty(value)
+                    obj.validateParam(value, obj.backgroundParams.getNames(), 'Background Param');
+                    if i > obj.maxValues.(inputBlock.type)
+                        warning('warnings:invalidNumberOfInputs', 'Value fields %d - 5 are not required for type ''%s'' backgrounds, they will be ignored by RAT', obj.maxValues.(inputBlock.type) + 1, inputBlock.type)
+                        break
+                    end
+                end
+            end
+
+            % Validation is done, so set the  fields to the new values
+            obj.backgrounds.setValue(row, 1, inputBlock.name);
+            obj.backgrounds.setValue(row, 2, inputBlock.type);
+            obj.backgrounds.setValue(row, 3, source);
+            for i = 1:5
+                obj.backgrounds.setValue(row, i + 3, convertStringsToChars(values{i}));
+            end
+
         end
          
         function obj = setBackgroundName(obj, row, name)
@@ -204,7 +248,7 @@ classdef backgroundsClass < handle
             
             backgroundNames = obj.backgrounds.varTable{:,1};
             backgroundTypes = obj.backgrounds.varTable{:,2};
-            backgroundValues = table2cell(obj.backgrounds.varTable(:,3:7));
+            backgroundValues = table2cell(obj.backgrounds.varTable(:,3:width(obj.backgrounds.varTable)));
             
             backgroundStruct.backgroundNames = backgroundNames;
             backgroundStruct.backgroundTypes = backgroundTypes;
@@ -212,25 +256,44 @@ classdef backgroundsClass < handle
         end
     end
 
-    methods (Access = protected)
-        function thisPar = validateParam(obj, param)
+    methods (Access = private)
+        function inputBlock = makeInputBlock(obj, row, varargin)
+            % Parses the input arguments.
+            %
+            % param = obj.makeInputBlock(1, 'name', 'back 1', 'type', 'constant', 'source', 'param_name');
+            p = inputParser;
+            addParameter(p, 'name', obj.backgrounds.varTable{row, 1}, @isText);
+            addParameter(p, 'type', obj.backgrounds.varTable{row, 2}, @(x) isText(x) || isenum(x));
+            addParameter(p, 'source', obj.backgrounds.varTable{row, 3}, @isText);
+            addParameter(p, 'value1', obj.backgrounds.varTable{row, 4}, @isText);
+            addParameter(p, 'value2', obj.backgrounds.varTable{row, 5}, @isText);
+            addParameter(p, 'value3', obj.backgrounds.varTable{row, 6}, @isText);
+            addParameter(p, 'value4', obj.backgrounds.varTable{row, 7}, @isText);
+            addParameter(p, 'value5', obj.backgrounds.varTable{row, 8}, @isText);
+
+            parse(p, varargin{:});
+            inputBlock = p.Results;
+        end
+    end
+
+    methods (Static, Access = protected)
+        function thisPar = validateParam(param, paramList, parameterType)
             % Checks that given parameter index or name is valid, then returns the
             % parameter name. 
             %
-            % param = obj.validateParam('param_name');
+            % param = obj.validateParam('param_name', paramNames, 'Background Param');
             if iscell(param)
                 param = param{:};
             end
-            parList = obj.backgroundParams.getNames();
             if isnumeric(param)
-                if (param < 1) || (param > length(parList))
-                    throw(exceptions.indexOutOfRange(sprintf('Background Parameter %d is out of range', param)));
+                if (param < 1) || (param > length(paramList))
+                    throw(exceptions.indexOutOfRange(sprintf('%s %d is out of range', parameterType, param)));
                 else
-                    thisPar = parList(param);
+                    thisPar = paramList(param);
                 end
             elseif isText(param)
-                if ~strcmpi(param, parList)
-                    throw(exceptions.nameNotRecognised(sprintf('Unrecognised parameter name %s', param)));
+                if ~strcmpi(param, paramList)
+                    throw(exceptions.nameNotRecognised(sprintf('Unrecognised %s name %s', parameterType, param)));
                 else
                     thisPar = param;
                 end

@@ -13,9 +13,9 @@ classdef multiTypeTable < tableUtilities
             % Initialises a multi-type table.
             %
             % multiTable = multiTypeTable();
-            sz = [0 7];
-            varTypes = {'string','string','string','string','string','string','string'};
-            varNames = {'Name','Type','Value 1','Value 2','Value 3','Value 4','Value 5'};
+            sz = [0 8];
+            varTypes = {'string','string','string','string','string','string','string','string'};
+            varNames = {'Name','Type','Source','Value 1','Value 2','Value 3','Value 4','Value 5'};
             obj.varTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
         end
 
@@ -32,18 +32,18 @@ classdef multiTypeTable < tableUtilities
                     thisName = char(obj.typesAutoNameString);
                     thisNum = obj.autoNameCounter;
                     name = sprintf('%s %d', thisName, thisNum);
-                    newRow = [name, allowedTypes.Constant.value, repmat({''}, 1, 5)];
+                    newRow = [name, allowedTypes.Constant.value, repmat({''}, 1, width(obj.varTable)-2)];
                     
                 case 1
                     % One parameter: assume this is a name
-                    newRow = [varargin, allowedTypes.Constant.value, repmat({''}, 1, 5)];
+                    newRow = [varargin, allowedTypes.Constant.value, repmat({''}, 1, width(obj.varTable)-2)];
 
                 otherwise
                     % Two or more parameters are specified. 
                     % Assume the specified parameters refer to each table
                     % entry in order, then pad the row with empty
                     % characters if necessary
-                    newRow = [varargin, repmat({''}, 1, 7-length(varargin))];
+                    newRow = [varargin, repmat({''}, 1, width(obj.varTable)-length(varargin))];
 
                     % Check type is one of the allowed types
                     invalidTypeMessage = sprintf('Allowed type must be a allowedTypes enum or one of the following strings (%s)', ...
@@ -51,8 +51,8 @@ classdef multiTypeTable < tableUtilities
                     newRow{2} = validateOption(newRow{2}, 'allowedTypes', invalidTypeMessage).value;
             end
 
-            % Pass in only the first seven values to ensure input is not too long
-            addRow@tableUtilities(obj, newRow{1:7});
+            % Pass in only enough values to fit in the table
+            addRow@tableUtilities(obj, newRow{1:width(obj.varTable)});
 
         end
         

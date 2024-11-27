@@ -13,6 +13,9 @@ classdef testCommonFunctions < matlab.unittest.TestCase
         callMatlabCustomLayersInputs;
         callMatlabCustomLayersOutputs;
 
+        insertDataBackgroundBackgroundData
+        insertDataBackgroundContrastData
+        insertDataBackgroundOutputData
         applyBackgroundCorrectionInputs;
         applyBackgroundCorrectionOutputs;
         callReflectivityInputs;
@@ -81,7 +84,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             testCase.backSortOutputs = outputs.outputs; % field 
         end
         
-            function loadChiSquared(testCase)
+        function loadChiSquared(testCase)
             inputs = load('chiSquaredInputs.mat');
             outputs = load('chiSquaredOutputs.mat');
             testCase.chiSquaredInputs = inputs.inputs;
@@ -102,6 +105,12 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             testCase.callMatlabCustomLayersOutputs = outputs.outputs;
         end
 
+        function loadInsertDataBackgroundIntoContrastData(testCase)
+            testCase.insertDataBackgroundBackgroundData = load('D2OBackgroundData.mat').d2obackgrounddata;
+            testCase.insertDataBackgroundContrastData = load('D2OContrastData.mat').d2ocontrastdata;
+            testCase.insertDataBackgroundOutputData = load('D2OOutputData.mat').d2ooutputdata;
+        end
+
         function loadApplyBackgroundCorrection(testCase)
             inputs = load('applyBackgroundCorrectionInputs.mat');
             outputs = load('applyBackgroundCorrectionOutputs.mat');
@@ -109,7 +118,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             % we can pass multiple values instead of one struct into testCase.applyB
             s = inputs.ans(1:end);
    
-            inputs = {s.reflect,s.Simul,s.shifted_dat,s.backg,s.backsType};
+            inputs = {s.reflect,s.Simul,s.shifted_dat,s.backg,s.action};
 
             s = outputs.applyBackgroundCorrectionOutputs.ans;
             outputs = {s.reflect,s.Simul,s.shifted_dat};
@@ -235,6 +244,15 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             out1 = shiftData(testCase.shiftDataInputs{:});
             outputs = {out1};
             testCase.verifyEqual(testCase.shiftDataOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
+        end
+
+        function testInsertDataBackgroundIntoContrastData(testCase)
+            % testInsertDataBackgroundIntoContrastData           
+            contrastData = testCase.insertDataBackgroundContrastData;
+            backgroundData = testCase.insertDataBackgroundBackgroundData;
+
+            outputData = insertDataBackgroundIntoContrastData(contrastData, backgroundData);
+            testCase.verifyEqual(testCase.insertDataBackgroundOutputData,outputData, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
         end
 
         function testApplyBackgroundCorrection(testCase)

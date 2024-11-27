@@ -24,6 +24,12 @@ classdef testORSOValidation < matlab.unittest.TestCase
 
     end
 
+    methods (TestClassTeardown)
+       function clear(~)
+           close all  % Close figure after run
+       end
+    end
+    
     methods (Static)
 
         function out = orsoTest(layersFile, dataFile)

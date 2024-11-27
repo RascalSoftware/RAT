@@ -28,7 +28,7 @@
 namespace RAT
 {
   void intrafun(const ::coder::array<real_T, 2U> &p, d_struct_T *problemStruct,
-                const cell_12 *problemCells, const struct1_T *problemLimits,
+                const cell_16 *problemCells, const struct1_T *problemLimits,
                 const struct2_T *controls, struct_T *S_MSE, e_struct_T *result)
   {
     int32_T loop_ub;
@@ -58,8 +58,8 @@ namespace RAT
     // number of objectives (costs)
   }
 
-  void runDE(const d_struct_T *problemStruct, const cell_12 *problemCells, const
-             struct1_T *problemLimits, const struct2_T *controls, g_struct_T
+  void runDE(const d_struct_T *problemStruct, const cell_16 *problemCells, const
+             struct1_T *problemLimits, const struct2_T *controls, f_struct_T
              *b_problemStruct, struct5_T *result)
   {
     static const real_T S_struct_FVr_x[50]{ -1.0, -0.95918367346938771,
@@ -80,12 +80,12 @@ namespace RAT
       0.79591836734693866, 0.836734693877551, 0.87755102040816324,
       0.91836734693877542, 0.95918367346938771, 1.0 };
 
-    ::coder::array<cell_wrap_1, 1U> d_problemStruct;
+    ::coder::array<cell_wrap_3, 1U> d_problemStruct;
     ::coder::array<real_T, 2U> res;
     ::coder::array<char_T, 2U> charStr;
     ::coder::array<int8_T, 2U> S_struct_FM_pop;
     d_struct_T c_problemStruct;
-    h_struct_T expl_temp;
+    g_struct_T expl_temp;
     int32_T b_loop_ub;
     int32_T i;
     int32_T i1;
@@ -226,6 +226,14 @@ namespace RAT
     for (i = 0; i < loop_ub; i++) {
       b_problemStruct->contrastBackgroundParams[i] =
         c_problemStruct.contrastBackgroundParams[i];
+    }
+
+    b_problemStruct->contrastBackgroundTypes.set_size(1,
+      c_problemStruct.contrastBackgroundTypes.size(1));
+    loop_ub = c_problemStruct.contrastBackgroundTypes.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->contrastBackgroundTypes[i] =
+        c_problemStruct.contrastBackgroundTypes[i];
     }
 
     b_problemStruct->contrastBackgroundActions.set_size(1,
@@ -389,7 +397,7 @@ namespace RAT
                  controls->checks.fitDomainRatio);
     reflectivityCalculation(b_problemStruct, problemCells, problemLimits,
       controls, result);
-    if (!coder::internal::p_strcmp(controls->display.data,
+    if (!coder::internal::t_strcmp(controls->display.data,
          controls->display.size)) {
       coder::snPrint(result->calculationResults.sumChi, charStr);
       triggerEvent(charStr);

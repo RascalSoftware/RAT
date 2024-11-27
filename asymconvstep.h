@@ -21,10 +21,10 @@
 namespace RAT
 {
   void asymconvstep(const ::coder::array<real_T, 2U> &x, real_T xw, real_T xcen,
+                    real_T s1, real_T s2, ::coder::array<real_T, 2U> &f);
+  void asymconvstep(const ::coder::array<real_T, 2U> &x, real_T xw, real_T xcen,
                     real_T s1, real_T s2, real_T h, ::coder::array<real_T, 2U>
                     &f);
-  void asymconvstep(const ::coder::array<real_T, 2U> &x, real_T xw, real_T xcen,
-                    real_T s1, real_T s2, ::coder::array<real_T, 2U> &f);
 }
 
 #endif

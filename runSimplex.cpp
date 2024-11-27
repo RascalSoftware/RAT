@@ -26,7 +26,7 @@
 // Function Definitions
 namespace RAT
 {
-  void runSimplex(d_struct_T *problemStruct, const cell_12 *problemCells, const
+  void runSimplex(d_struct_T *problemStruct, const cell_16 *problemCells, const
                   struct1_T *problemLimits, const struct2_T *controls,
                   e_struct_T *result)
   {
@@ -34,10 +34,10 @@ namespace RAT
 
     static const char_T b_cv[5]{ 'f', 'i', 'n', 'a', 'l' };
 
-    ::coder::array<cell_wrap_1, 1U> b_problemStruct;
+    ::coder::array<cell_wrap_3, 1U> b_problemStruct;
     ::coder::array<real_T, 1U> x0u;
-    m_struct_T a__4;
-    n_struct_T expl_temp;
+    l_struct_T a__4;
+    m_struct_T expl_temp;
     real_T a__2;
     real_T a__3;
     int32_T dis_size[2];
@@ -49,16 +49,16 @@ namespace RAT
                problemCells->f9, problemCells->f10, problemCells->f11,
                problemCells->f12, problemCells->f13, problemCells->f20,
                problemLimits, &controls->checks, b_problemStruct);
-    if (coder::internal::q_strcmp(controls->display.data, controls->display.size))
+    if (coder::internal::u_strcmp(controls->display.data, controls->display.size))
     {
       outsize_idx_0 = 0;
-    } else if (coder::internal::r_strcmp(controls->display.data,
+    } else if (coder::internal::v_strcmp(controls->display.data,
                 controls->display.size)) {
       outsize_idx_0 = 1;
-    } else if (coder::internal::s_strcmp(controls->display.data,
+    } else if (coder::internal::w_strcmp(controls->display.data,
                 controls->display.size)) {
       outsize_idx_0 = 2;
-    } else if (coder::internal::t_strcmp(controls->display.data,
+    } else if (coder::internal::x_strcmp(controls->display.data,
                 controls->display.size)) {
       outsize_idx_0 = 3;
     } else {

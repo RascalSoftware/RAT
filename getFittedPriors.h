@@ -20,14 +20,14 @@
 // Type Declarations
 namespace RAT
 {
-  struct cell_wrap_1;
+  struct cell_wrap_3;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void getFittedPriors(const ::coder::array<cell_wrap_1, 1U> &paramNames, const ::
-                       coder::array<cell_wrap_1, 1U> &priors_priorNames, const ::
+  void getFittedPriors(const ::coder::array<cell_wrap_3, 1U> &paramNames, const ::
+                       coder::array<cell_wrap_3, 1U> &priors_priorNames, const ::
                        coder::array<real_T, 2U> &priors_priorValues, const ::
                        coder::array<real_T, 2U> &fitLimits, ::coder::array<
                        real_T, 2U> &priorFitList);

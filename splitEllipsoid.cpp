@@ -42,8 +42,8 @@ namespace RAT
     ::coder::array<int32_T, 1U> r;
     ::coder::array<int32_T, 1U> r1;
     ::coder::array<boolean_T, 2U> b_VE1_data;
-    cell_wrap_10 temp_u1[50];
-    cell_wrap_10 temp_u2[50];
+    cell_wrap_12 temp_u1[50];
+    cell_wrap_12 temp_u2[50];
     real_T FS[50];
     real_T temp_VE1[50];
     real_T temp_VE2[50];
@@ -303,7 +303,7 @@ namespace RAT
               }
 
               b_VE1_data.set(&c_VE1_data, VE1_size[0], VE1_size[1]);
-              if (coder::internal::b_ifWhileCond(b_VE1_data)) {
+              if (coder::internal::c_ifWhileCond(b_VE1_data)) {
                 m1++;
                 end = u.size(1);
                 for (b_i = 0; b_i < end; b_i++) {

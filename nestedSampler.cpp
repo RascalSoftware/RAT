@@ -51,7 +51,7 @@
 namespace RAT
 {
   void nestedSampler(const d_struct_T *data_f1, const struct2_T *data_f2, const
-                     struct1_T *data_f3, const cell_12 *data_f4, real_T nLive,
+                     struct1_T *data_f3, const cell_16 *data_f4, real_T nLive,
                      real_T nMCMC, real_T tolerance, const ::coder::array<real_T,
                      2U> &prior, real_T *logZ, ::coder::array<real_T, 2U>
                      &nest_samples, ::coder::array<real_T, 2U> &post_samples,
@@ -453,7 +453,7 @@ namespace RAT
           b_FS[b_FS.size(0) * i] = (FS[i] >= 1.1);
         }
 
-        if (coder::internal::b_ifWhileCond(b_FS)) {
+        if (coder::internal::c_ifWhileCond(b_FS)) {
           //  NOTE: THIS CODE IS GUARANTEED TO RUN THE 1ST TIME THROUGH
           //  calculate optimal ellipsoids
           optimalEllipsoids(livepoints, VS, Bs, mus, VEs, b_ns);
@@ -564,7 +564,7 @@ namespace RAT
       tol = logPlus(*logZ, logLmax - j / nLive) - *logZ;
 
       //  display progress (optional)
-      empty_non_axis_sizes = coder::internal::p_strcmp(data_f2->display.data,
+      empty_non_axis_sizes = coder::internal::t_strcmp(data_f2->display.data,
         data_f2->display.size);
       if (!empty_non_axis_sizes) {
         if (j < 2.147483648E+9) {

@@ -33,24 +33,20 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  static void b_packCellArray(const ::coder::array<cell_wrap_8, 2U> &cellArray, ::
-    coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
-  static void b_packCellArray(const ::coder::array<cell_wrap_41, 2U> &cellArray,
+  static void b_packCellArray(const ::coder::array<cell_wrap_12, 2U> &cellArray,
     ::coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
-  static void packCellArray(const ::coder::array<cell_wrap_8, 1U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_10, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
-  static void packCellArray(const ::coder::array<cell_wrap_41, 1U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_11, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
-  static void packCellArray(const ::coder::array<cell_wrap_8, 2U> &cellArray, ::
-    coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
-  static void packCellArray(const ::coder::array<cell_wrap_41, 2U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_12, 2U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
 }
 
 // Function Definitions
 namespace RAT
 {
-  static void b_packCellArray(const ::coder::array<cell_wrap_41, 2U> &cellArray,
+  static void b_packCellArray(const ::coder::array<cell_wrap_12, 2U> &cellArray,
     ::coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
@@ -75,73 +71,13 @@ namespace RAT
     i = cellArray.size(0);
     for (b_i = 0; b_i < i; b_i++) {
       b_index = (static_cast<uint32_T>(b_i + 1) << 1) + MAX_uint32_T;
-      dims[static_cast<int32_T>(b_index) - 1] = static_cast<int16_T>
-        (cellArray[b_i + cellArray.size(0)].f1.size(0));
-      dims[static_cast<int32_T>(b_index)] = 3.0;
-      rowSize += static_cast<real_T>(static_cast<int16_T>(cellArray[b_i +
-        cellArray.size(0)].f1.size(0))) * 3.0;
-    }
-
-    start = 1.0;
-    b_cellArray = static_cast<int32_T>(rowSize);
-    packedArray.set_size(b_cellArray);
-    for (i = 0; i < b_cellArray; i++) {
-      packedArray[i] = 0.0;
-    }
-
-    i = cellArray.size(0);
-    for (b_i = 0; b_i < i; b_i++) {
-      real_T stop;
-      int32_T i1;
-      b_index = (static_cast<uint32_T>(b_i + 1) << 1) - 1U;
-      stop = start + static_cast<real_T>(static_cast<int16_T>(dims[static_cast<
-        int32_T>(b_index) - 1]) * static_cast<int16_T>(dims[static_cast<int32_T>
-        (static_cast<real_T>(b_index) + 1.0) - 1]));
-      if (start > stop - 1.0) {
-        i1 = 1;
-      } else {
-        i1 = static_cast<int32_T>(start);
-      }
-
-      b_cellArray = cellArray[b_i + cellArray.size(0)].f1.size(0) * 3;
-      for (int32_T i2{0}; i2 < b_cellArray; i2++) {
-        packedArray[(i1 + i2) - 1] = cellArray[b_i + cellArray.size(0)].f1[i2];
-      }
-
-      start = stop;
-    }
-  }
-
-  static void b_packCellArray(const ::coder::array<cell_wrap_8, 2U> &cellArray, ::
-    coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
-  {
-    real_T rowSize;
-    real_T start;
-    int32_T b_cellArray;
-    int32_T b_i;
-    int32_T i;
-    uint32_T b_index;
-
-    //  Packs a specified column of a cell array with different sized arrays into a
-    //  single row array and an array of the dimensions for each cell. For the example
-    //  below packedArray will be [1, 2, 3, 4, 5, 6, 7] and dims will be [3, 1, 4, 1]
-    //
-    //  [packedArray, dims] = packCellArray({[1; 2; 3], [4; 5; 6; 7]}, 1);
-    rowSize = 0.0;
-    b_cellArray = cellArray.size(0) * 2;
-    dims.set_size(b_cellArray);
-    for (i = 0; i < b_cellArray; i++) {
-      dims[i] = 0.0;
-    }
-
-    i = cellArray.size(0);
-    for (b_i = 0; b_i < i; b_i++) {
-      b_index = (static_cast<uint32_T>(b_i + 1) << 1) + MAX_uint32_T;
       dims[static_cast<int32_T>(b_index) - 1] = static_cast<uint32_T>
         (cellArray[b_i + cellArray.size(0)].f1.size(0));
-      dims[static_cast<int32_T>(b_index)] = 2.0;
+      dims[static_cast<int32_T>(b_index)] = static_cast<uint32_T>(cellArray[b_i
+        + cellArray.size(0)].f1.size(1));
       rowSize += static_cast<real_T>(static_cast<uint32_T>(cellArray[b_i +
-        cellArray.size(0)].f1.size(0))) * 2.0;
+        cellArray.size(0)].f1.size(0))) * static_cast<real_T>
+        (static_cast<uint32_T>(cellArray[b_i + cellArray.size(0)].f1.size(1)));
     }
 
     start = 1.0;
@@ -165,7 +101,8 @@ namespace RAT
         i1 = static_cast<int32_T>(start);
       }
 
-      b_cellArray = cellArray[b_i + cellArray.size(0)].f1.size(0) << 1;
+      b_cellArray = cellArray[b_i + cellArray.size(0)].f1.size(0) *
+        cellArray[b_i + cellArray.size(0)].f1.size(1);
       for (int32_T i2{0}; i2 < b_cellArray; i2++) {
         packedArray[(i1 + i2) - 1] = cellArray[b_i + cellArray.size(0)].f1[i2];
       }
@@ -174,7 +111,7 @@ namespace RAT
     }
   }
 
-  static void packCellArray(const ::coder::array<cell_wrap_8, 1U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_10, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
@@ -236,69 +173,7 @@ namespace RAT
     }
   }
 
-  static void packCellArray(const ::coder::array<cell_wrap_41, 1U> &cellArray, ::
-    coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
-  {
-    real_T rowSize;
-    real_T start;
-    int32_T b_cellArray;
-    int32_T b_i;
-    int32_T i;
-    uint32_T b_index;
-
-    //  Packs a specified column of a cell array with different sized arrays into a
-    //  single row array and an array of the dimensions for each cell. For the example
-    //  below packedArray will be [1, 2, 3, 4, 5, 6, 7] and dims will be [3, 1, 4, 1]
-    //
-    //  [packedArray, dims] = packCellArray({[1; 2; 3], [4; 5; 6; 7]}, 1);
-    rowSize = 0.0;
-    b_cellArray = cellArray.size(0) * 2;
-    dims.set_size(b_cellArray);
-    for (i = 0; i < b_cellArray; i++) {
-      dims[i] = 0.0;
-    }
-
-    i = cellArray.size(0);
-    for (b_i = 0; b_i < i; b_i++) {
-      b_index = (static_cast<uint32_T>(b_i + 1) << 1) + MAX_uint32_T;
-      dims[static_cast<int32_T>(b_index) - 1] = static_cast<int16_T>
-        (cellArray[b_i].f1.size(0));
-      dims[static_cast<int32_T>(b_index)] = 3.0;
-      rowSize += static_cast<real_T>(static_cast<int16_T>(cellArray[b_i].f1.size
-        (0))) * 3.0;
-    }
-
-    start = 1.0;
-    b_cellArray = static_cast<int32_T>(rowSize);
-    packedArray.set_size(b_cellArray);
-    for (i = 0; i < b_cellArray; i++) {
-      packedArray[i] = 0.0;
-    }
-
-    i = cellArray.size(0);
-    for (b_i = 0; b_i < i; b_i++) {
-      real_T stop;
-      int32_T i1;
-      b_index = (static_cast<uint32_T>(b_i + 1) << 1) - 1U;
-      stop = start + static_cast<real_T>(static_cast<int16_T>(dims
-        [static_cast<int32_T>(b_index) - 1]) * static_cast<int16_T>(dims[
-        static_cast<int32_T>(static_cast<real_T>(b_index) + 1.0) - 1]));
-      if (start > stop - 1.0) {
-        i1 = 1;
-      } else {
-        i1 = static_cast<int32_T>(start);
-      }
-
-      b_cellArray = cellArray[b_i].f1.size(0) * 3;
-      for (int32_T i2{0}; i2 < b_cellArray; i2++) {
-        packedArray[(i1 + i2) - 1] = cellArray[b_i].f1[i2];
-      }
-
-      start = stop;
-    }
-  }
-
-  static void packCellArray(const ::coder::array<cell_wrap_8, 2U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_11, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
@@ -325,9 +200,9 @@ namespace RAT
       b_index = (static_cast<uint32_T>(b_i + 1) << 1) + MAX_uint32_T;
       dims[static_cast<int32_T>(b_index) - 1] = static_cast<uint32_T>
         (cellArray[b_i].f1.size(0));
-      dims[static_cast<int32_T>(b_index)] = 2.0;
+      dims[static_cast<int32_T>(b_index)] = 3.0;
       rowSize += static_cast<real_T>(static_cast<uint32_T>(cellArray[b_i].
-        f1.size(0))) * 2.0;
+        f1.size(0))) * 3.0;
     }
 
     start = 1.0;
@@ -351,7 +226,7 @@ namespace RAT
         i1 = static_cast<int32_T>(start);
       }
 
-      b_cellArray = cellArray[b_i].f1.size(0) << 1;
+      b_cellArray = cellArray[b_i].f1.size(0) * 3;
       for (int32_T i2{0}; i2 < b_cellArray; i2++) {
         packedArray[(i1 + i2) - 1] = cellArray[b_i].f1[i2];
       }
@@ -360,7 +235,7 @@ namespace RAT
     }
   }
 
-  static void packCellArray(const ::coder::array<cell_wrap_41, 2U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_12, 2U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
@@ -385,11 +260,13 @@ namespace RAT
     i = cellArray.size(0);
     for (b_i = 0; b_i < i; b_i++) {
       b_index = (static_cast<uint32_T>(b_i + 1) << 1) + MAX_uint32_T;
-      dims[static_cast<int32_T>(b_index) - 1] = static_cast<int16_T>
+      dims[static_cast<int32_T>(b_index) - 1] = static_cast<uint32_T>
         (cellArray[b_i].f1.size(0));
-      dims[static_cast<int32_T>(b_index)] = 3.0;
-      rowSize += static_cast<real_T>(static_cast<int16_T>(cellArray[b_i].f1.size
-        (0))) * 3.0;
+      dims[static_cast<int32_T>(b_index)] = static_cast<uint32_T>(cellArray[b_i]
+        .f1.size(1));
+      rowSize += static_cast<real_T>(static_cast<uint32_T>(cellArray[b_i].
+        f1.size(0))) * static_cast<real_T>(static_cast<uint32_T>(cellArray[b_i].
+        f1.size(1)));
     }
 
     start = 1.0;
@@ -404,16 +281,17 @@ namespace RAT
       real_T stop;
       int32_T i1;
       b_index = (static_cast<uint32_T>(b_i + 1) << 1) - 1U;
-      stop = start + static_cast<real_T>(static_cast<int16_T>(dims
-        [static_cast<int32_T>(b_index) - 1]) * static_cast<int16_T>(dims[
-        static_cast<int32_T>(static_cast<real_T>(b_index) + 1.0) - 1]));
+      stop = start + static_cast<real_T>(static_cast<uint32_T>(dims
+        [static_cast<int32_T>(b_index) - 1])) * static_cast<real_T>
+        (static_cast<uint32_T>(dims[static_cast<int32_T>(static_cast<real_T>
+           (b_index) + 1.0) - 1]));
       if (start > stop - 1.0) {
         i1 = 1;
       } else {
         i1 = static_cast<int32_T>(start);
       }
 
-      b_cellArray = cellArray[b_i].f1.size(0) * 3;
+      b_cellArray = cellArray[b_i].f1.size(0) * cellArray[b_i].f1.size(1);
       for (int32_T i2{0}; i2 < b_cellArray; i2++) {
         packedArray[(i1 + i2) - 1] = cellArray[b_i].f1[i2];
       }
@@ -1167,7 +1045,7 @@ namespace RAT
                     ::coder::array<real_T, 2U> &varargin_2_dataPresent, const
                     char_T varargin_2_modelType_data[], const int32_T
                     varargin_2_modelType_size[2], const ::coder::array<
-                    cell_wrap_1, 2U> &varargin_3_f21)
+                    cell_wrap_3, 2U> &varargin_3_f21)
   {
     ::coder::array<real_T, 2U> b_nSldProfiles2;
     ::coder::array<real_T, 2U> dataPresent;

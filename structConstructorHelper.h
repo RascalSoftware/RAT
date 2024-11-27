@@ -20,10 +20,10 @@
 // Type Declarations
 namespace RAT
 {
-  struct cell_wrap_37;
-  struct cell_wrap_38;
-  struct cell_wrap_35;
-  struct cell_wrap_11;
+  struct cell_wrap_52;
+  struct cell_wrap_53;
+  struct cell_wrap_48;
+  struct cell_wrap_13;
 }
 
 // Function Declarations
@@ -33,9 +33,9 @@ namespace RAT
   {
     namespace internal
     {
-      void structConstructorHelper(const cell_wrap_37 *varargin_2, const
-        cell_wrap_38 *varargin_4, const cell_wrap_35 *varargin_6, ::coder::array<
-        cell_wrap_11, 1U> &s_reflectivity, ::coder::array<cell_wrap_11, 2U>
+      void structConstructorHelper(const cell_wrap_52 *varargin_2, const
+        cell_wrap_53 *varargin_4, const cell_wrap_48 *varargin_6, ::coder::array<
+        cell_wrap_13, 1U> &s_reflectivity, ::coder::array<cell_wrap_13, 2U>
         &s_sld, real_T s_sampleChi_data[], int32_T *s_sampleChi_size);
     }
   }

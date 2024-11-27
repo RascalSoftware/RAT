@@ -30,9 +30,9 @@ namespace RAT
         &contrastBulkIns, const ::coder::array<real_T, 2U> &contrastBulkOuts,
         const ::coder::array<real_T, 2U> &bulkInArray, const ::coder::array<
         real_T, 2U> &bulkOutArray, const ::coder::array<real_T, 2U> &cCustFiles,
-        real_T numberOfContrasts, const ::coder::array<cell_wrap_1, 2U>
+        real_T numberOfContrasts, const ::coder::array<cell_wrap_3, 2U>
         &customFiles, const ::coder::array<real_T, 2U> &params, boolean_T
-        useImaginary, ::coder::array<cell_wrap_42, 1U> &resampledLayers, ::coder::
+        useImaginary, ::coder::array<cell_wrap_12, 2U> &resampledLayers, ::coder::
         array<real_T, 1U> &subRoughs)
       {
         ::coder::array<real_T, 2U> b_bulkOuts;
@@ -47,7 +47,6 @@ namespace RAT
 
         //  Top-level function for processing custom layers for all the
         //  contrasts.
-        //  Do some pre-definitions to keep the compiler happy...
         i = static_cast<int32_T>(numberOfContrasts);
         subRoughs.set_size(i);
         bulkOuts.set_size(1, contrastBulkOuts.size(1));
@@ -57,7 +56,7 @@ namespace RAT
             - 1];
         }
 
-        resampledLayers.set_size(i);
+        resampledLayers.set_size(i, 1);
         for (int32_T b_i{0}; b_i < i; b_i++) {
           creal_T x;
           real_T d;
@@ -67,7 +66,7 @@ namespace RAT
           //  TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..
           //  Choose which custom file is associated with this contrast
           //  Find values of 'bulkIn' and 'bulkOut' for this
-          //  contrast...
+          //  contrast
           //  typeDef
           d = cCustFiles[b_i];
           iv[0] = (*(int32_T (*)[2])((::coder::array<char_T, 2U> *)&customFiles[
@@ -113,7 +112,7 @@ namespace RAT
 
           //  If the output layers has 5 columns, then we need to do
           //  the hydration correction (the user has not done it in the
-          //  custom function). Do that here....
+          //  custom function).
           if (!useImaginary) {
             applyHydrationReal(thisContrastLayers, bulkInArray
                                [static_cast<int32_T>(contrastBulkIns[b_i]) - 1],

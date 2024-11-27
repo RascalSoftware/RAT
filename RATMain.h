@@ -20,7 +20,7 @@
 // Function Declarations
 namespace RAT
 {
-  extern void RATMain(struct0_T *problemStruct, const cell_7 *problemCells,
+  extern void RATMain(struct0_T *problemStruct, const cell_9 *problemCells,
                       const struct1_T *problemLimits, struct2_T *controls, const
                       struct4_T *priors, struct5_T *result, struct8_T
                       *bayesResults);

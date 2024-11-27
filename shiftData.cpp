@@ -26,7 +26,6 @@ namespace RAT
     ::coder::array<int32_T, 1U> b_i;
     ::coder::array<boolean_T, 1U> c_data_data;
     ::coder::array<boolean_T, 1U> data_data;
-    real_T b_dv1[3][500];
     real_T b_dv[500];
     boolean_T b_data_data[10000];
 
@@ -49,7 +48,6 @@ namespace RAT
         int32_T b_data;
         int32_T hiIndex;
         int32_T i;
-        int32_T i1;
         int32_T loop_ub;
         int32_T lowIndex;
         if (scalefactor == 0.0) {
@@ -119,19 +117,18 @@ namespace RAT
 
         if (lowIndex > hiIndex) {
           i = 0;
-          i1 = 0;
+          b_data = 0;
         } else {
           i = lowIndex - 1;
-          i1 = hiIndex;
+          b_data = hiIndex;
         }
 
-        loop_ub = data.size(1);
-        b_data = i1 - i;
-        shiftedData.set_size(b_data, data.size(1));
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          for (int32_T i2{0}; i2 < b_data; i2++) {
-            shiftedData[i2 + shiftedData.size(0) * i1] = data[(i + i2) +
-              data.size(0) * i1];
+        loop_ub = b_data - i;
+        shiftedData.set_size(loop_ub, 6);
+        for (b_data = 0; b_data < 6; b_data++) {
+          for (int32_T i1{0}; i1 < loop_ub; i1++) {
+            shiftedData[i1 + shiftedData.size(0) * b_data] = data[(i + i1) +
+              data.size(0) * b_data];
           }
         }
       }
@@ -140,18 +137,16 @@ namespace RAT
      default:
       {
         int32_T i;
-        coder::linspace(simLimits[0], simLimits[1], b_dv);
-        for (i = 0; i < 500; i++) {
-          b_dv1[0][i] = b_dv[i];
-          b_dv1[1][i] = 0.0;
-          b_dv1[2][i] = 0.0;
+        shiftedData.set_size(500, 6);
+        for (i = 0; i < 6; i++) {
+          for (int32_T b_data{0}; b_data < 500; b_data++) {
+            shiftedData[b_data + shiftedData.size(0) * i] = 0.0;
+          }
         }
 
-        shiftedData.set_size(500, 3);
-        for (i = 0; i < 3; i++) {
-          for (int32_T i1{0}; i1 < 500; i1++) {
-            shiftedData[i1 + shiftedData.size(0) * i] = b_dv1[i][i1];
-          }
+        coder::linspace(simLimits[0], simLimits[1], b_dv);
+        for (i = 0; i < 500; i++) {
+          shiftedData[i] = b_dv[i];
         }
       }
       break;

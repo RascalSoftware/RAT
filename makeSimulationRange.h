@@ -3,12 +3,12 @@
 // granting, nonprofit, educational organizations only. Not for
 // government, commercial, or other organizational use.
 //
-// strlength.h
+// makeSimulationRange.h
 //
-// Code generation for function 'strlength'
+// Code generation for function 'makeSimulationRange'
 //
-#ifndef STRLENGTH_H
-#define STRLENGTH_H
+#ifndef MAKESIMULATIONRANGE_H
+#define MAKESIMULATIONRANGE_H
 
 // Include files
 #include "rtwtypes.h"
@@ -17,22 +17,13 @@
 #include <cstddef>
 #include <cstdlib>
 
-// Type Declarations
-namespace RAT
-{
-  struct cell_wrap_3;
-}
-
 // Function Declarations
 namespace RAT
 {
-  namespace coder
-  {
-    void intstrlen(const ::coder::array<cell_wrap_3, 2U> &s, int32_T len_data[],
-                   int32_T len_size[2]);
-  }
+  void makeSimulationRange(const ::coder::array<real_T, 2U> &data, const real_T
+    simulationLimits[2], ::coder::array<real_T, 1U> &simXdata, real_T splits[2]);
 }
 
 #endif
 
-// End of code generation (strlength.h)
+// End of code generation (makeSimulationRange.h)

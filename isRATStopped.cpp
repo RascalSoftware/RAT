@@ -34,7 +34,7 @@ namespace RAT
       state_data[0] = false;
     } else {
       int32_T fileID;
-      if (coder::internal::u_strcmp(IPCFilePath_data, IPCFilePath_size)) {
+      if (coder::internal::y_strcmp(IPCFilePath_data, IPCFilePath_size)) {
         fileID = 0;
       } else {
         int8_T fileid;

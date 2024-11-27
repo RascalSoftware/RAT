@@ -21,18 +21,18 @@
 namespace RAT
 {
   struct d_struct_T;
-  struct cell_12;
+  struct cell_16;
   struct struct1_T;
   struct struct2_T;
-  struct h_struct_T;
+  struct g_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void deopt(const d_struct_T *problem, const cell_12 *problemCells, const
+  void deopt(const d_struct_T *problem, const cell_16 *problemCells, const
              struct1_T *problemLimits, const struct2_T *controls, const
-             h_struct_T *S_struct, ::coder::array<real_T, 2U> &FVr_bestmem);
+             g_struct_T *S_struct, ::coder::array<real_T, 2U> &FVr_bestmem);
 }
 
 #endif

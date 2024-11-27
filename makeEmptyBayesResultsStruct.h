@@ -20,7 +20,7 @@
 // Type Declarations
 namespace RAT
 {
-  struct cell_wrap_11;
+  struct cell_wrap_13;
   struct struct11_T;
   struct struct12_T;
   struct c_struct_T;
@@ -30,8 +30,8 @@ namespace RAT
 namespace RAT
 {
   void b_makeEmptyBayesResultsStruct(real_T nContrasts, boolean_T isDomains, ::
-    coder::array<cell_wrap_11, 1U>
-    &bayesResults_predictionIntervals_reflectivity, ::coder::array<cell_wrap_11,
+    coder::array<cell_wrap_13, 1U>
+    &bayesResults_predictionIntervals_reflectivity, ::coder::array<cell_wrap_13,
     2U> &bayesResults_predictionIntervals_sld, real_T
     bayesResults_predictionIntervals_sampleChi_data[], int32_T
     *bayesResults_predictionIntervals_sampleChi_size, ::coder::array<real_T, 2U>
@@ -42,8 +42,8 @@ namespace RAT
     *bayesResults_nestedSamplerOutput, ::coder::array<real_T, 2U>
     &bayesResults_chain);
   void makeEmptyBayesResultsStruct(real_T nContrasts, boolean_T isDomains,
-    real_T nChains, ::coder::array<cell_wrap_11, 1U>
-    &bayesResults_predictionIntervals_reflectivity, ::coder::array<cell_wrap_11,
+    real_T nChains, ::coder::array<cell_wrap_13, 1U>
+    &bayesResults_predictionIntervals_reflectivity, ::coder::array<cell_wrap_13,
     2U> &bayesResults_predictionIntervals_sld, real_T
     bayesResults_predictionIntervals_sampleChi_data[], int32_T
     *bayesResults_predictionIntervals_sampleChi_size, ::coder::array<real_T, 2U>

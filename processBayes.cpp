@@ -26,12 +26,12 @@ namespace RAT
 {
   void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestParams,
                     const ::coder::array<real_T, 2U> &bayesOutputs_chain, const
-                    d_struct_T *problemStruct, const cell_12 *problemCells,
+                    d_struct_T *problemStruct, const cell_16 *problemCells,
                     const struct1_T *problemLimits, struct2_T *controls,
-                    g_struct_T *b_problemStruct, struct5_T *result, j_struct_T
+                    f_struct_T *b_problemStruct, struct5_T *result, i_struct_T
                     *bayesResults)
   {
-    g_struct_T c_problemStruct;
+    f_struct_T c_problemStruct;
     int32_T b_loop_ub;
     int32_T i;
     int32_T loop_ub;
@@ -78,6 +78,14 @@ namespace RAT
     for (i = 0; i < loop_ub; i++) {
       b_problemStruct->contrastBackgroundParams[i] =
         problemStruct->contrastBackgroundParams[i];
+    }
+
+    b_problemStruct->contrastBackgroundTypes.set_size(1,
+      problemStruct->contrastBackgroundTypes.size(1));
+    loop_ub = problemStruct->contrastBackgroundTypes.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->contrastBackgroundTypes[i] =
+        problemStruct->contrastBackgroundTypes[i];
     }
 
     b_problemStruct->contrastBackgroundActions.set_size(1,

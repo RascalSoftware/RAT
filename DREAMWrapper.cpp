@@ -23,12 +23,12 @@
 namespace RAT
 {
   real_T DREAMWrapper(const ::coder::array<real_T, 2U> &pars, const d_struct_T
-                      *ratInputs_problemStruct, const cell_12
+                      *ratInputs_problemStruct, const cell_16
                       *ratInputs_problemCells, const struct1_T
                       *ratInputs_problemLimits, const struct2_T
                       *ratInputs_controls)
   {
-    g_struct_T problemStruct;
+    f_struct_T problemStruct;
     struct5_T expl_temp;
     int32_T b_loop_ub;
     int32_T i;
@@ -82,6 +82,14 @@ namespace RAT
     for (i = 0; i < loop_ub; i++) {
       problemStruct.contrastBackgroundParams[i] =
         ratInputs_problemStruct->contrastBackgroundParams[i];
+    }
+
+    problemStruct.contrastBackgroundTypes.set_size(1,
+      ratInputs_problemStruct->contrastBackgroundTypes.size(1));
+    loop_ub = ratInputs_problemStruct->contrastBackgroundTypes.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      problemStruct.contrastBackgroundTypes[i] =
+        ratInputs_problemStruct->contrastBackgroundTypes[i];
     }
 
     problemStruct.contrastBackgroundActions.set_size(1,

@@ -63,7 +63,7 @@ namespace RAT
     }
 
     if ((resampledLayers.size(0) != 0) && (resampledLayers.size(1) != 0)) {
-      if (coder::internal::n_strcmp(geometry_data, geometry_size)) {
+      if (coder::internal::o_strcmp(geometry_data, geometry_size)) {
         layers.set_size(resampledLayers.size(0), resampledLayers.size(1));
         loop_ub = resampledLayers.size(1);
         for (i = 0; i < loop_ub; i++) {

@@ -21,11 +21,11 @@
 namespace RAT
 {
   struct d_struct_T;
-  struct cell_12;
+  struct cell_16;
   struct struct1_T;
   struct struct2_T;
-  struct n_struct_T;
   struct m_struct_T;
+  struct l_struct_T;
 }
 
 // Function Declarations
@@ -34,10 +34,10 @@ namespace RAT
   void fMinSearch(::coder::array<real_T, 1U> &x, real_T options_MaxIter, real_T
                   options_MaxFunEvals, real_T options_TolX, real_T
                   options_TolFun, const char_T dis_data[], const int32_T
-                  dis_size[2], const d_struct_T *varargin_1, const cell_12
+                  dis_size[2], const d_struct_T *varargin_1, const cell_16
                   *varargin_2, const struct1_T *varargin_3, const struct2_T
-                  *varargin_4, const n_struct_T *varargin_5, real_T *fval,
-                  real_T *exitflag, m_struct_T *output);
+                  *varargin_4, const m_struct_T *varargin_5, real_T *fval,
+                  real_T *exitflag, l_struct_T *output);
 }
 
 #endif

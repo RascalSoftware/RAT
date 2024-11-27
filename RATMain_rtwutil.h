@@ -21,8 +21,17 @@
 // Function Declarations
 namespace RAT
 {
-  extern void cast(const ::coder::array<cell_wrap_42, 2U> &b, ::coder::array<
-                   cell_wrap_10, 2U> &c);
+  extern void cast(const cell_9 *b, cell_16 *c);
+  extern void cast(const ::coder::array<cell_wrap_7, 2U> &b, ::coder::array<
+                   cell_wrap_12, 2U> &c);
+  extern void cast(const ::coder::array<cell_wrap_8, 2U> &b, ::coder::array<
+                   cell_wrap_12, 2U> &c);
+  extern void cast(const ::coder::array<cell_wrap_6, 2U> &b, ::coder::array<
+                   cell_wrap_12, 2U> &c);
+  extern void cast(const ::coder::array<cell_wrap_0, 2U> &b, ::coder::array<
+                   cell_wrap_14, 2U> &c);
+  extern void cast(const ::coder::array<cell_wrap_1, 2U> &b, ::coder::array<
+                   cell_wrap_3, 2U> &c);
   extern real_T rt_atan2d_snf(real_T u0, real_T u1);
   extern real_T rt_hypotd_snf(real_T u0, real_T u1);
   extern real_T rt_powd_snf(real_T u0, real_T u1);

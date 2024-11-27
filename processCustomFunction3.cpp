@@ -29,9 +29,9 @@ namespace RAT
         &contrastBulkIns, const ::coder::array<real_T, 2U> &contrastBulkOuts,
         const ::coder::array<real_T, 2U> &bulkInArray, const ::coder::array<
         real_T, 2U> &bulkOutArray, const ::coder::array<real_T, 2U> &cCustFiles,
-        real_T numberOfContrasts, const ::coder::array<cell_wrap_1, 2U>
+        real_T numberOfContrasts, const ::coder::array<cell_wrap_3, 2U>
         &customFiles, const ::coder::array<real_T, 2U> &params, ::coder::array<
-        cell_wrap_54, 2U> &slds, ::coder::array<real_T, 1U> &subRoughs)
+        cell_wrap_36, 2U> &slds, ::coder::array<real_T, 1U> &subRoughs)
       {
         ::coder::array<real_T, 2U> b_bulkOuts;
         ::coder::array<real_T, 2U> b_params;
@@ -45,7 +45,6 @@ namespace RAT
 
         //  Top-level function for processing custom XY profiles for all the
         //  contrasts.
-        //  Do some pre-definitions to keep the compiler happy...
         i = static_cast<int32_T>(numberOfContrasts);
         subRoughs.set_size(i);
 

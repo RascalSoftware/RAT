@@ -34,9 +34,9 @@
 // Function Definitions
 namespace RAT
 {
-  void deopt(const d_struct_T *problem, const cell_12 *problemCells, const
+  void deopt(const d_struct_T *problem, const cell_16 *problemCells, const
              struct1_T *problemLimits, const struct2_T *controls, const
-             h_struct_T *S_struct, ::coder::array<real_T, 2U> &FVr_bestmem)
+             g_struct_T *S_struct, ::coder::array<real_T, 2U> &FVr_bestmem)
   {
     ::coder::array<struct_T, 1U> S_val;
     ::coder::array<real_T, 2U> FM_bm;
@@ -797,7 +797,7 @@ namespace RAT
       //  iteration. This is needed for some of the strategies.
       // ----Output section----------------------------------------------------------
       if (((rt_remd_snf(I_iter, 1.0) == 0.0) || (I_iter == 1.0)) && coder::
-          internal::w_strcmp(controls->display.data, controls->display.size)) {
+          internal::bb_strcmp(controls->display.data, controls->display.size)) {
         coder::internal::print_processing(I_iter, S_bestval_FVr_oa, fWeight,
           F_CR, I_NP, validatedHoleFilling);
         coder::snPrint(validatedHoleFilling[0], validatedHoleFilling[1],
@@ -832,7 +832,7 @@ namespace RAT
                    (boolean_T *)&tmp_data, &b_FVr_a1);
       if (coder::internal::ifWhileCond((const boolean_T *)&tmp_data, b_FVr_a1))
       {
-        if (!coder::internal::p_strcmp(controls->display.data,
+        if (!coder::internal::t_strcmp(controls->display.data,
              controls->display.size)) {
           h_triggerEvent();
         }

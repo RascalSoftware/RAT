@@ -23,10 +23,10 @@
 namespace RAT
 {
   real_T nsIntraFun(const d_struct_T *data_f1, const struct2_T *data_f2, const
-                    struct1_T *data_f3, const cell_12 *data_f4, const ::coder::
+                    struct1_T *data_f3, const cell_16 *data_f4, const ::coder::
                     array<real_T, 2U> &p)
   {
-    g_struct_T problemStruct;
+    f_struct_T problemStruct;
     struct5_T expl_temp;
     int32_T b_loop_ub;
     int32_T i;
@@ -74,6 +74,14 @@ namespace RAT
     for (i = 0; i < loop_ub; i++) {
       problemStruct.contrastBackgroundParams[i] =
         data_f1->contrastBackgroundParams[i];
+    }
+
+    problemStruct.contrastBackgroundTypes.set_size(1,
+      data_f1->contrastBackgroundTypes.size(1));
+    loop_ub = data_f1->contrastBackgroundTypes.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      problemStruct.contrastBackgroundTypes[i] =
+        data_f1->contrastBackgroundTypes[i];
     }
 
     problemStruct.contrastBackgroundActions.set_size(1,
@@ -230,7 +238,7 @@ namespace RAT
   }
 
   real_T nsIntraFun(const d_struct_T *data_f1, const struct2_T *data_f2, const
-                    struct1_T *data_f3, const cell_12 *data_f4, const ::coder::
+                    struct1_T *data_f3, const cell_16 *data_f4, const ::coder::
                     array<real_T, 1U> &p)
   {
     d_struct_T problemStruct;

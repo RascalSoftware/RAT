@@ -21,7 +21,7 @@
 namespace RAT
 {
   struct d_struct_T;
-  struct g_struct_T;
+  struct f_struct_T;
 }
 
 // Function Declarations
@@ -37,7 +37,7 @@ namespace RAT
                     coder::array<real_T, 2U> &controls_checks_fitResolutionParam,
                     const ::coder::array<real_T, 2U>
                     &controls_checks_fitDomainRatio);
-  void unpackParams(g_struct_T *problemStruct, const ::coder::array<real_T, 2U>
+  void unpackParams(f_struct_T *problemStruct, const ::coder::array<real_T, 2U>
                     &controls_checks_fitParam, const ::coder::array<real_T, 2U>
                     &controls_checks_fitBackgroundParam, const ::coder::array<
                     real_T, 2U> &controls_checks_fitQzshift, const ::coder::

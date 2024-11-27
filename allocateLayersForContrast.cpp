@@ -10,7 +10,7 @@
 
 // Include files
 #include "allocateLayersForContrast.h"
-#include "RATMain_internal_types.h"
+#include "RATMain_types.h"
 #include "length.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
@@ -20,7 +20,7 @@
 namespace RAT
 {
   void allocateLayersForContrast(const ::coder::array<real_T, 2U>
-    &contrastLayers, const ::coder::array<cell_wrap_43, 2U>
+    &contrastLayers, const ::coder::array<cell_wrap_14, 2U>
     &outParameterisedLayers, boolean_T useImaginary, ::coder::array<real_T, 2U>
     &thisContrastLayers)
   {

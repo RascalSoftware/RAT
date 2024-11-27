@@ -21,11 +21,14 @@
 namespace RAT
 {
   struct d_struct_T;
-  struct cell_12;
+  struct cell_16;
   struct struct2_T;
-  struct cell_wrap_8;
   struct cell_wrap_10;
-  struct g_struct_T;
+  struct cell_wrap_11;
+  struct cell_wrap_12;
+  struct f_struct_T;
+  struct struct0_T;
+  struct cell_9;
 }
 
 // Function Declarations
@@ -33,33 +36,47 @@ namespace RAT
 {
   namespace domainsTF
   {
-    void b_customLayers(const g_struct_T *problemStruct, const cell_12
+    void b_customLayers(const d_struct_T *problemStruct, const cell_16
                         *problemCells, const struct2_T *controls, ::coder::array<
-                        real_T, 1U> &backgroundParams, ::coder::array<real_T, 1U>
-                        &qzshifts, ::coder::array<real_T, 1U> &scalefactors, ::
-                        coder::array<real_T, 1U> &bulkIns, ::coder::array<real_T,
-                        1U> &bulkOuts, ::coder::array<real_T, 1U>
-                        &resolutionParams, ::coder::array<real_T, 1U> &chis, ::
-                        coder::array<cell_wrap_8, 1U> &reflectivity, ::coder::
-                        array<cell_wrap_8, 1U> &simulation, ::coder::array<
-                        cell_wrap_10, 1U> &shiftedData, ::coder::array<
-                        cell_wrap_10, 2U> &domainLayerSlds, ::coder::array<
-                        cell_wrap_10, 2U> &domainSldProfiles, ::coder::array<
-                        cell_wrap_10, 2U> &domainResampledLayers, ::coder::array<
+                        real_T, 1U> &qzshifts, ::coder::array<real_T, 1U>
+                        &scalefactors, ::coder::array<real_T, 1U> &bulkIns, ::
+                        coder::array<real_T, 1U> &bulkOuts, ::coder::array<
+                        real_T, 1U> &resolutionParams, ::coder::array<real_T, 1U>
+                        &chis, ::coder::array<cell_wrap_10, 1U> &reflectivity, ::
+                        coder::array<cell_wrap_10, 1U> &simulation, ::coder::
+                        array<cell_wrap_11, 1U> &shiftedData, ::coder::array<
+                        cell_wrap_11, 1U> &backgrounds, ::coder::array<
+                        cell_wrap_12, 2U> &domainLayerSlds, ::coder::array<
+                        cell_wrap_12, 2U> &domainSldProfiles, ::coder::array<
+                        cell_wrap_12, 2U> &domainResampledLayers, ::coder::array<
                         real_T, 1U> &subRoughs);
-    void b_customLayers(const d_struct_T *problemStruct, const cell_12
+    void b_customLayers(const f_struct_T *problemStruct, const cell_16
                         *problemCells, const struct2_T *controls, ::coder::array<
-                        real_T, 1U> &backgroundParams, ::coder::array<real_T, 1U>
-                        &qzshifts, ::coder::array<real_T, 1U> &scalefactors, ::
-                        coder::array<real_T, 1U> &bulkIns, ::coder::array<real_T,
-                        1U> &bulkOuts, ::coder::array<real_T, 1U>
-                        &resolutionParams, ::coder::array<real_T, 1U> &chis, ::
-                        coder::array<cell_wrap_8, 1U> &reflectivity, ::coder::
-                        array<cell_wrap_8, 1U> &simulation, ::coder::array<
-                        cell_wrap_10, 1U> &shiftedData, ::coder::array<
-                        cell_wrap_10, 2U> &domainLayerSlds, ::coder::array<
-                        cell_wrap_10, 2U> &domainSldProfiles, ::coder::array<
-                        cell_wrap_10, 2U> &domainResampledLayers, ::coder::array<
+                        real_T, 1U> &qzshifts, ::coder::array<real_T, 1U>
+                        &scalefactors, ::coder::array<real_T, 1U> &bulkIns, ::
+                        coder::array<real_T, 1U> &bulkOuts, ::coder::array<
+                        real_T, 1U> &resolutionParams, ::coder::array<real_T, 1U>
+                        &chis, ::coder::array<cell_wrap_10, 1U> &reflectivity, ::
+                        coder::array<cell_wrap_10, 1U> &simulation, ::coder::
+                        array<cell_wrap_11, 1U> &shiftedData, ::coder::array<
+                        cell_wrap_11, 1U> &backgrounds, ::coder::array<
+                        cell_wrap_12, 2U> &domainLayerSlds, ::coder::array<
+                        cell_wrap_12, 2U> &domainSldProfiles, ::coder::array<
+                        cell_wrap_12, 2U> &domainResampledLayers, ::coder::array<
+                        real_T, 1U> &subRoughs);
+    void b_customLayers(const struct0_T *problemStruct, const cell_9
+                        *problemCells, const struct2_T *controls, ::coder::array<
+                        real_T, 1U> &qzshifts, ::coder::array<real_T, 1U>
+                        &scalefactors, ::coder::array<real_T, 1U> &bulkIns, ::
+                        coder::array<real_T, 1U> &bulkOuts, ::coder::array<
+                        real_T, 1U> &resolutionParams, ::coder::array<real_T, 1U>
+                        &chis, ::coder::array<cell_wrap_10, 1U> &reflectivity, ::
+                        coder::array<cell_wrap_10, 1U> &simulation, ::coder::
+                        array<cell_wrap_11, 1U> &shiftedData, ::coder::array<
+                        cell_wrap_11, 1U> &backgrounds, ::coder::array<
+                        cell_wrap_12, 2U> &domainLayerSlds, ::coder::array<
+                        cell_wrap_12, 2U> &domainSldProfiles, ::coder::array<
+                        cell_wrap_12, 2U> &domainResampledLayers, ::coder::array<
                         real_T, 1U> &subRoughs);
   }
 }

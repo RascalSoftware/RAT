@@ -36,7 +36,7 @@ namespace RAT
       }
     }
 
-    void strjoin(const ::coder::array<cell_wrap_1, 2U> &c, ::coder::array<char_T,
+    void strjoin(const ::coder::array<cell_wrap_3, 2U> &c, ::coder::array<char_T,
                  2U> &joinedStr)
     {
       int32_T k;
@@ -105,7 +105,7 @@ namespace RAT
       }
     }
 
-    void strjoin(const cell_wrap_1 c[2], ::coder::array<char_T, 2U> &joinedStr)
+    void strjoin(const cell_wrap_3 c[2], ::coder::array<char_T, 2U> &joinedStr)
     {
       int32_T i;
       int32_T i1;

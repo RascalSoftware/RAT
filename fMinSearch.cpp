@@ -115,10 +115,10 @@ namespace RAT
   void fMinSearch(::coder::array<real_T, 1U> &x, real_T options_MaxIter, real_T
                   options_MaxFunEvals, real_T options_TolX, real_T
                   options_TolFun, const char_T dis_data[], const int32_T
-                  dis_size[2], const d_struct_T *varargin_1, const cell_12
+                  dis_size[2], const d_struct_T *varargin_1, const cell_16
                   *varargin_2, const struct1_T *varargin_3, const struct2_T
-                  *varargin_4, const n_struct_T *varargin_5, real_T *fval,
-                  real_T *exitflag, m_struct_T *output)
+                  *varargin_4, const m_struct_T *varargin_5, real_T *fval,
+                  real_T *exitflag, l_struct_T *output)
   {
     static const char_T cv6[35]{ 'E', 'x', 'i', 't', 'i', 'n', 'g', ':', ' ',
       'M', 'a', 'x', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'e', 'v',
@@ -817,7 +817,7 @@ namespace RAT
                 }
               }
 
-              if (coder::internal::v_strcmp(b_how_data, b_how_size)) {
+              if (coder::internal::ab_strcmp(b_how_data, b_how_size)) {
                 i = static_cast<int32_T>((static_cast<real_T>(n) + 1.0) + -1.0);
                 for (j = 0; j < i; j++) {
                   b_index = v.size(0) - 1;

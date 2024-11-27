@@ -27,16 +27,16 @@
 // Function Definitions
 namespace RAT
 {
-  void runNestedSampler(const d_struct_T *problemStruct, const cell_12
+  void runNestedSampler(const d_struct_T *problemStruct, const cell_16
                         *problemCells, const struct1_T *problemLimits, const
                         struct2_T *controls, const struct4_T *inPriors,
-                        g_struct_T *b_problemStruct, struct5_T *result,
+                        f_struct_T *b_problemStruct, struct5_T *result,
                         struct8_T *bayesResults)
   {
     static struct2_T b_controls;
-    ::coder::array<cell_wrap_1, 1U> fitNames;
-    ::coder::array<cell_wrap_11, 2U> expl_temp_sld;
-    ::coder::array<cell_wrap_11, 1U> expl_temp_reflectivity;
+    ::coder::array<cell_wrap_13, 2U> expl_temp_sld;
+    ::coder::array<cell_wrap_13, 1U> expl_temp_reflectivity;
+    ::coder::array<cell_wrap_3, 1U> fitNames;
     ::coder::array<real_T, 2U> b_bayesResults;
     ::coder::array<real_T, 2U> b_expl_temp;
     ::coder::array<real_T, 2U> bayesOutputs_bestParams;
@@ -49,7 +49,7 @@ namespace RAT
     ::coder::bounded_array<real_T, 1000U, 1U> expl_temp_sampleChi;
     c_struct_T expl_temp;
     d_struct_T c_problemStruct;
-    j_struct_T nestResults;
+    i_struct_T nestResults;
     real_T H;
     int32_T b_loop_ub;
     int32_T i;

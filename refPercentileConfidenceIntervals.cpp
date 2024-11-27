@@ -29,15 +29,15 @@
 namespace RAT
 {
   void refPercentileConfidenceIntervals(const ::coder::array<real_T, 2U>
-    &bayesOutputs_chain, g_struct_T *problemStruct, const cell_12 *problemCells,
+    &bayesOutputs_chain, f_struct_T *problemStruct, const cell_16 *problemCells,
     const struct1_T *problemLimits, const struct2_T *controlsStruct, const
-    struct5_T *results, i_struct_T *allPredInts)
+    struct5_T *results, h_struct_T *allPredInts)
   {
-    ::coder::array<cell_wrap_10, 2U> r;
-    ::coder::array<cell_wrap_10, 2U> refXVals;
-    ::coder::array<cell_wrap_10, 2U> refYVals;
-    ::coder::array<cell_wrap_10, 2U> sldXVals;
-    ::coder::array<cell_wrap_10, 2U> sldYVals;
+    ::coder::array<cell_wrap_12, 2U> r;
+    ::coder::array<cell_wrap_12, 2U> refXVals;
+    ::coder::array<cell_wrap_12, 2U> refYVals;
+    ::coder::array<cell_wrap_12, 2U> sldXVals;
+    ::coder::array<cell_wrap_12, 2U> sldYVals;
     ::coder::array<real_T, 2U> r1;
     ::coder::array<real_T, 2U> refArray;
     ::coder::array<real_T, 2U> sldArray;

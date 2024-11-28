@@ -356,7 +356,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             emptyClass = customFileClass();
             fileStruct = emptyClass.toStruct();
             testCase.verifyClass(fileStruct, 'struct');
-            testCase.verifyEqual(fileStruct.files, {});
+            testCase.verifyEmpty(fileStruct.files);
         end
 
         function testToStructWrapper(testCase)

@@ -91,13 +91,13 @@ classdef testDomainsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.calculationType, calculationTypes.Domains.value, 'Calculation Type not set correctly');
             testCase.verifyTrue(testCase.project.contrasts.domainsCalc, 'Calculation Type not set correctly')
 
-            nonPolarised = testCase.project.toProjectClass();
-            testCase.verifyClass(nonPolarised, 'projectClass')
-            testCase.verifyEqual(nonPolarised.experimentName, testCase.project.experimentName, 'Experiment name not copied correctly');
-            testCase.verifyEqual(nonPolarised.calculationType, calculationTypes.NonPolarised.value, 'Calculation Type not set correctly');
-            testCase.verifyFalse(nonPolarised.contrasts.domainsCalc, 'Calculation Type not set correctly')
-            testCase.verifyEqual(nonPolarised.parameters, testCase.project.parameters, 'Parameters not copied correctly');
-            testCase.verifyEqual(nonPolarised.layers, testCase.project.layers, 'Layers not copied correctly');
+            normal = testCase.project.toProjectClass();
+            testCase.verifyClass(normal, 'projectClass')
+            testCase.verifyEqual(normal.experimentName, testCase.project.experimentName, 'Experiment name not copied correctly');
+            testCase.verifyEqual(normal.calculationType, calculationTypes.Normal.value, 'Calculation Type not set correctly');
+            testCase.verifyFalse(normal.contrasts.domainsCalc, 'Calculation Type not set correctly')
+            testCase.verifyEqual(normal.parameters, testCase.project.parameters, 'Parameters not copied correctly');
+            testCase.verifyEqual(normal.layers, testCase.project.layers, 'Layers not copied correctly');
         end
 
         function testModelType(testCase)

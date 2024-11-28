@@ -78,7 +78,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
     methods (TestClassSetup)
         function readClassData(testCase)    
             import matlab.unittest.fixtures.PathFixture
-            path = fullfile(getappdata(0, 'root'), 'tests', 'nonPolarisedTFReflectivityCalculation');
+            path = fullfile(getappdata(0, 'root'), 'tests', 'normalTFReflectivityCalculation');
             testCase.applyFixture(PathFixture(path))
             
             % Read in the data used in the example calculation

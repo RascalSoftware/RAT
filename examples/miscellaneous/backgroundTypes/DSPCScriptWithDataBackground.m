@@ -1,7 +1,7 @@
 % Standard Layers fit of a DSPC floating bilayer
 
 % Make the project
-problem = createProject(name='original_dspc_bilayer', calcType='non polarised', model='standard layers', geometry='substrate/liquid', absorption=false);
+problem = createProject(name='original_dspc_bilayer', calcType='normal', model='standard layers', geometry='substrate/liquid', absorption=false);
 
 % Make priors visible
 problem.showPriors(true);

@@ -4,7 +4,7 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     %
     % nParams = number of fitted parameters
     % nContrasts = number of contrasts
-    % nDomains = number of domains - 1 for non-polarised, 2 for domains
+    % nDomains = number of domains - 1 for normal, 2 for domains
     %
     % result = 
     % 

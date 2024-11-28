@@ -7,10 +7,10 @@ function obj = createProject(options)
     % absorption terms are included in the refractive index.
     % All of the arguments are optional.
     %
-    % project = createProject(name='New experiment', calc='non polarised');
+    % project = createProject(name='New experiment', calc='normal');
     arguments
         options.name {mustBeTextScalar} = ''
-        options.calcType = calculationTypes.NonPolarised
+        options.calcType = calculationTypes.Normal
         options.model = modelTypes.StandardLayers
         options.geometry = geometryOptions.AirSubstrate
         options.absorption {mustBeA(options.absorption,'logical')} = false

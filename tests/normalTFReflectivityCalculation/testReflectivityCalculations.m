@@ -3,7 +3,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 % testReflectivityCalculations Class based unit tests for RAT API, the
 % reflectivity calculation and pre- and post-processing routines.
 %
-% We are using the test cases for a non-polarised TF reflectivity
+% We are using the test cases for a normal TF reflectivity
 % calculation to test the routines. We consider standard layers, custom
 % layers and custom XY examples. For the reflectivity calculation itself,
 % we consider the serial and parallel versions (both points and contrasts),
@@ -61,7 +61,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
     methods (TestClassSetup, ParameterCombination='sequential')
         function addDataPath(testCase)
             import matlab.unittest.fixtures.PathFixture
-            path = fullfile(getappdata(0, 'root'), 'tests', 'nonPolarisedTFReflectivityCalculation');
+            path = fullfile(getappdata(0, 'root'), 'tests', 'normalTFReflectivityCalculation');
             testCase.applyFixture(PathFixture(path))  
         end
 
@@ -168,7 +168,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(result, testCase.expectedResultStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
-        function testNonPolarisedTFReflectivityCalculation(testCase, parallel, TFFile)
+        function testNormalTFReflectivityCalculation(testCase, parallel, TFFile)
 
             testCase.controls.parallel = parallel;
             % Choose the appropriate routine for each test case
@@ -176,15 +176,15 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
                 case 'standardLayersTFParams.mat'
                     [qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
                     simulation,shiftedData,backgrounds,layerSLDs,SLDProfiles,resampledLayers,...
-                    subRoughs] = nonPolarisedTF.standardLayers(testCase.problemStruct,testCase.controls);
+                    subRoughs] = normalTF.standardLayers(testCase.problemStruct,testCase.controls);
                 case 'customLayersTFParams.mat'
                     [qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
                     simulation,shiftedData,backgrounds,layerSLDs,SLDProfiles,resampledLayers,...
-                    subRoughs] = nonPolarisedTF.customLayers(testCase.problemStruct,testCase.controls);
+                    subRoughs] = normalTF.customLayers(testCase.problemStruct,testCase.controls);
                 case 'customXYTFParams.mat'
                     [qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
                     simulation,shiftedData,backgrounds,layerSLDs,SLDProfiles,resampledLayers,...
-                    subRoughs] = nonPolarisedTF.customXY(testCase.problemStruct,testCase.controls);
+                    subRoughs] = normalTF.customXY(testCase.problemStruct,testCase.controls);
             end
 
             testCase.verifyEqual(qzshifts, testCase.TFQzshifts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);

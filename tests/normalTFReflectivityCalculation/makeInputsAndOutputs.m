@@ -20,7 +20,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/customLayersInputs'],'inputs');
+save([root filesep 'tests/normalTFReflectivityCalculation/customLayersInputs'],'inputs');
 
 % (b) Outputs
 resultStruct = reflectivityCalculation(problemStruct,problemLimits,controls);
@@ -38,12 +38,12 @@ outputs.bayesResults = bayesResults;
 outputs.project = project;
 outputs.result = result;
 
-save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/customLayersOutputs'],'outputs');
+save([root filesep 'tests/normalTFReflectivityCalculation/customLayersOutputs'],'outputs');
 
 % (c) TF Parameters
 [qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
  chis,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,...
- resampledLayers,subRoughs] = nonPolarisedTF.customLayers(problemStruct,controls);
+ resampledLayers,subRoughs] = normalTF.customLayers(problemStruct,controls);
 
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
@@ -61,7 +61,7 @@ TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.resampledLayers = resampledLayers;
 
-save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/customLayersTFParams'],'TFParams');
+save([root filesep 'tests/normalTFReflectivityCalculation/customLayersTFParams'],'TFParams');
 
 %% 2. Custom XY.
 % (a) Inputs
@@ -80,7 +80,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/customXYInputs'],'inputs');
+save([root filesep 'tests/normalTFReflectivityCalculation/customXYInputs'],'inputs');
 
 % (b) Outputs
 resultStruct = reflectivityCalculation(problemStruct,problemLimits,controls);
@@ -98,12 +98,12 @@ outputs.bayesResults = bayesResults;
 outputs.project = project;
 outputs.result = result;
 
-save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/customXYOutputs'],'outputs');
+save([root filesep 'tests/normalTFReflectivityCalculation/customXYOutputs'],'outputs');
 
 % (c) TF Parameters
 [qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
  chis,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,...
- resampledLayers, subRoughs] = nonPolarisedTF.customXY(problemStruct,controls);
+ resampledLayers, subRoughs] = normalTF.customXY(problemStruct,controls);
 
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
@@ -121,7 +121,7 @@ TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.resampledLayers = resampledLayers;
 
-save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/customXYTFParams'],'TFParams');
+save([root filesep 'tests/normalTFReflectivityCalculation/customXYTFParams'],'TFParams');
 
 %% 3. Standard Layers
 % (a) Inputs
@@ -140,7 +140,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/standardLayersInputs'],'inputs');
+save([root filesep 'tests/normalTFReflectivityCalculation/standardLayersInputs'],'inputs');
 
 % (b) Outputs
 resultStruct = reflectivityCalculation(problemStruct,problemLimits,controls);
@@ -158,12 +158,12 @@ outputs.bayesResults = bayesResults;
 outputs.project = project;
 outputs.result = result;
 
-save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/standardLayersOutputs'],'outputs');
+save([root filesep 'tests/normalTFReflectivityCalculation/standardLayersOutputs'],'outputs');
 
 % (c) TF Parameters
 [qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
  chis,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,...
- resampledLayers,subRoughs] = nonPolarisedTF.standardLayers(problemStruct,controls);
+ resampledLayers,subRoughs] = normalTF.standardLayers(problemStruct,controls);
 
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
@@ -181,7 +181,7 @@ TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.resampledLayers = resampledLayers;
 
-save([root filesep 'tests/nonPolarisedTFReflectivityCalculation/standardLayersTFParams'],'TFParams');
+save([root filesep 'tests/normalTFReflectivityCalculation/standardLayersTFParams'],'TFParams');
 
 %% 4. Converting between RAT and RASCAL
 

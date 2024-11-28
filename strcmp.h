@@ -20,7 +20,7 @@
 // Type Declarations
 namespace RAT
 {
-  struct cell_wrap_3;
+  struct cell_wrap_7;
 }
 
 // Function Declarations
@@ -38,7 +38,7 @@ namespace RAT
       boolean_T c_strcmp(const char_T a_data[], const int32_T a_size[2]);
       boolean_T c_strcmp(const char_T a_data[], const int32_T a_size[2], const
                          char_T b[4]);
-      void cb_strcmp(const cell_wrap_3 *a, const ::coder::array<cell_wrap_3, 1U>
+      void cb_strcmp(const cell_wrap_7 *a, const ::coder::array<cell_wrap_7, 1U>
                      &b, boolean_T bool_data[], int32_T *bool_size);
       boolean_T d_strcmp(const char_T a_data[], const int32_T a_size[2]);
       boolean_T d_strcmp(const char_T a_data[], const int32_T a_size[2], const
@@ -62,7 +62,7 @@ namespace RAT
       boolean_T p_strcmp(const char_T a_data[], const int32_T a_size[2]);
       boolean_T q_strcmp(const char_T a_data[], const int32_T a_size[2]);
       boolean_T r_strcmp(const char_T a_data[], const int32_T a_size[2]);
-      void s_strcmp(const ::coder::array<cell_wrap_3, 2U> &a, boolean_T
+      void s_strcmp(const ::coder::array<cell_wrap_7, 2U> &a, boolean_T
                     bool_data[], int32_T bool_size[2]);
       boolean_T t_strcmp(const char_T a_data[], const int32_T a_size[2]);
       boolean_T u_strcmp(const char_T a_data[], const int32_T a_size[2]);

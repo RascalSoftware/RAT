@@ -188,7 +188,7 @@ namespace RAT
         return b_bool;
       }
 
-      void cb_strcmp(const cell_wrap_3 *a, const ::coder::array<cell_wrap_3, 1U>
+      void cb_strcmp(const cell_wrap_7 *a, const ::coder::array<cell_wrap_7, 1U>
                      &b, boolean_T bool_data[], int32_T *bool_size)
       {
         int32_T nb;
@@ -785,7 +785,7 @@ namespace RAT
         return b_bool;
       }
 
-      void s_strcmp(const ::coder::array<cell_wrap_3, 2U> &a, boolean_T
+      void s_strcmp(const ::coder::array<cell_wrap_7, 2U> &a, boolean_T
                     bool_data[], int32_T bool_size[2])
       {
         static const char_T b_cv[8]{ 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n' };

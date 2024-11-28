@@ -20,21 +20,19 @@
 // Type Declarations
 namespace RAT
 {
-  struct d_struct_T;
+  struct e_struct_T;
+  struct struct3_T;
   struct struct2_T;
-  struct struct1_T;
-  struct cell_16;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void nestedSampler(const d_struct_T *data_f1, const struct2_T *data_f2, const
-                     struct1_T *data_f3, const cell_16 *data_f4, real_T nLive,
-                     real_T nMCMC, real_T tolerance, const ::coder::array<real_T,
-                     2U> &prior, real_T *logZ, ::coder::array<real_T, 2U>
-                     &nest_samples, ::coder::array<real_T, 2U> &post_samples,
-                     real_T *H);
+  void nestedSampler(const e_struct_T *data_f1, const struct3_T *data_f2, const
+                     struct2_T *data_f3, real_T nLive, real_T nMCMC, real_T
+                     tolerance, const ::coder::array<real_T, 2U> &prior, real_T *
+                     logZ, ::coder::array<real_T, 2U> &nest_samples, ::coder::
+                     array<real_T, 2U> &post_samples, real_T *H);
 }
 
 #endif

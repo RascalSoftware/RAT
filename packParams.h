@@ -20,48 +20,46 @@
 // Type Declarations
 namespace RAT
 {
-  struct d_struct_T;
-  struct cell_wrap_3;
-  struct struct1_T;
-  struct struct3_T;
-  struct f_struct_T;
+  struct e_struct_T;
+  struct struct4_T;
+  struct cell_wrap_7;
+  struct g_struct_T;
   struct struct0_T;
-  struct cell_wrap_1;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void packParams(d_struct_T *problemStruct, const ::coder::array<cell_wrap_3,
-                  2U> &problemCells_f7, const ::coder::array<cell_wrap_3, 2U>
-                  &problemCells_f8, const ::coder::array<cell_wrap_3, 2U>
-                  &problemCells_f9, const ::coder::array<cell_wrap_3, 2U>
-                  &problemCells_f10, const ::coder::array<cell_wrap_3, 2U>
-                  &problemCells_f11, const ::coder::array<cell_wrap_3, 2U>
-                  &problemCells_f12, const ::coder::array<cell_wrap_3, 2U>
-                  &problemCells_f13, const ::coder::array<cell_wrap_3, 2U>
-                  &problemCells_f20, const struct1_T *limits, const struct3_T
-                  *checks, ::coder::array<cell_wrap_3, 1U> &fitNames);
-  void packParams(f_struct_T *problemStruct, const ::coder::array<cell_wrap_3,
-                  2U> &problemCells_f7, const ::coder::array<cell_wrap_3, 2U>
-                  &problemCells_f8, const ::coder::array<cell_wrap_3, 2U>
-                  &problemCells_f9, const ::coder::array<cell_wrap_3, 2U>
-                  &problemCells_f10, const ::coder::array<cell_wrap_3, 2U>
-                  &problemCells_f11, const ::coder::array<cell_wrap_3, 2U>
-                  &problemCells_f12, const ::coder::array<cell_wrap_3, 2U>
-                  &problemCells_f13, const ::coder::array<cell_wrap_3, 2U>
-                  &problemCells_f20, const struct1_T *limits, const struct3_T
-                  *checks, ::coder::array<cell_wrap_3, 1U> &fitNames);
-  void packParams(struct0_T *problemStruct, const ::coder::array<cell_wrap_1, 2U>
-                  &problemCells_f7, const ::coder::array<cell_wrap_1, 2U>
-                  &problemCells_f8, const ::coder::array<cell_wrap_1, 2U>
-                  &problemCells_f9, const ::coder::array<cell_wrap_1, 2U>
-                  &problemCells_f10, const ::coder::array<cell_wrap_1, 2U>
-                  &problemCells_f11, const ::coder::array<cell_wrap_1, 2U>
-                  &problemCells_f12, const ::coder::array<cell_wrap_1, 2U>
-                  &problemCells_f13, const ::coder::array<cell_wrap_1, 2U>
-                  &problemCells_f20, const struct1_T *limits, const struct3_T
-                  *checks, ::coder::array<cell_wrap_3, 1U> &fitNames);
+  void packParams(e_struct_T *problemStruct, const ::coder::array<real_T, 2U>
+                  &limits_param, const ::coder::array<real_T, 2U>
+                  &limits_backgroundParam, const ::coder::array<real_T, 2U>
+                  &limits_scalefactor, const ::coder::array<real_T, 2U>
+                  &limits_qzshift, const ::coder::array<real_T, 2U>
+                  &limits_bulkIn, const ::coder::array<real_T, 2U>
+                  &limits_bulkOut, const ::coder::array<real_T, 2U>
+                  &limits_resolutionParam, const ::coder::array<real_T, 2U>
+                  &limits_domainRatio, const struct4_T *checks, ::coder::array<
+                  cell_wrap_7, 1U> &fitNames);
+  void packParams(g_struct_T *problemStruct, const ::coder::array<real_T, 2U>
+                  &limits_param, const ::coder::array<real_T, 2U>
+                  &limits_backgroundParam, const ::coder::array<real_T, 2U>
+                  &limits_scalefactor, const ::coder::array<real_T, 2U>
+                  &limits_qzshift, const ::coder::array<real_T, 2U>
+                  &limits_bulkIn, const ::coder::array<real_T, 2U>
+                  &limits_bulkOut, const ::coder::array<real_T, 2U>
+                  &limits_resolutionParam, const ::coder::array<real_T, 2U>
+                  &limits_domainRatio, const struct4_T *checks, ::coder::array<
+                  cell_wrap_7, 1U> &fitNames);
+  void packParams(struct0_T *problemStruct, const ::coder::array<real_T, 2U>
+                  &limits_param, const ::coder::array<real_T, 2U>
+                  &limits_backgroundParam, const ::coder::array<real_T, 2U>
+                  &limits_scalefactor, const ::coder::array<real_T, 2U>
+                  &limits_qzshift, const ::coder::array<real_T, 2U>
+                  &limits_bulkIn, const ::coder::array<real_T, 2U>
+                  &limits_bulkOut, const ::coder::array<real_T, 2U>
+                  &limits_resolutionParam, const ::coder::array<real_T, 2U>
+                  &limits_domainRatio, const struct4_T *checks, ::coder::array<
+                  cell_wrap_7, 1U> &fitNames);
 }
 
 #endif

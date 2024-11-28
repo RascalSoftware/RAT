@@ -20,10 +20,9 @@
 // Type Declarations
 namespace RAT
 {
-  struct d_struct_T;
+  struct e_struct_T;
+  struct struct3_T;
   struct struct2_T;
-  struct struct1_T;
-  struct cell_16;
 }
 
 // Function Declarations
@@ -32,9 +31,9 @@ namespace RAT
   void drawMultiNest(const ::coder::array<real_T, 1U> &fracvol, const ::coder::
                      array<real_T, 2U> &Bs, const ::coder::array<real_T, 2U>
                      &mus, real_T logLmin, const ::coder::array<real_T, 2U>
-                     &prior, const d_struct_T *data_f1, const struct2_T *data_f2,
-                     const struct1_T *data_f3, const cell_16 *data_f4, ::coder::
-                     array<real_T, 2U> &sample, real_T *logL);
+                     &prior, const e_struct_T *data_f1, const struct3_T *data_f2,
+                     const struct2_T *data_f3, ::coder::array<real_T, 2U>
+                     &sample, real_T *logL);
 }
 
 #endif

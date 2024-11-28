@@ -34,9 +34,16 @@
 // Function Definitions
 namespace RAT
 {
-  void deopt(const d_struct_T *problem, const cell_16 *problemCells, const
-             struct1_T *problemLimits, const struct2_T *controls, const
-             g_struct_T *S_struct, ::coder::array<real_T, 2U> &FVr_bestmem)
+  void deopt(const e_struct_T *problem, const ::coder::array<real_T, 2U>
+             &problemLimits_param, const ::coder::array<real_T, 2U>
+             &problemLimits_backgroundParam, const ::coder::array<real_T, 2U>
+             &problemLimits_scalefactor, const ::coder::array<real_T, 2U>
+             &problemLimits_qzshift, const ::coder::array<real_T, 2U>
+             &problemLimits_bulkIn, const ::coder::array<real_T, 2U>
+             &problemLimits_bulkOut, const ::coder::array<real_T, 2U>
+             &problemLimits_resolutionParam, const ::coder::array<real_T, 2U>
+             &problemLimits_domainRatio, const struct3_T *controls, const
+             h_struct_T *S_struct, ::coder::array<real_T, 2U> &FVr_bestmem)
   {
     ::coder::array<struct_T, 1U> S_val;
     ::coder::array<real_T, 2U> FM_bm;
@@ -65,11 +72,11 @@ namespace RAT
     ::coder::array<char_T, 2U> charStr;
     ::coder::array<boolean_T, 2U> FM_mpo;
     ::coder::array<boolean_T, 2U> FM_mui;
-    d_struct_T b_problem;
-    e_struct_T a__1;
-    e_struct_T a__2;
-    e_struct_T a__3;
-    e_struct_T result;
+    e_struct_T b_problem;
+    f_struct_T a__1;
+    f_struct_T a__2;
+    f_struct_T a__3;
+    f_struct_T result;
     struct_T S_tempval;
     struct_T a__4;
     real_T validatedHoleFilling[5];
@@ -231,7 +238,10 @@ namespace RAT
     }
 
     b_problem = *problem;
-    intrafun(b_FM_pop, &b_problem, problemCells, problemLimits, controls,
+    intrafun(b_FM_pop, &b_problem, problemLimits_param,
+             problemLimits_backgroundParam, problemLimits_scalefactor,
+             problemLimits_qzshift, problemLimits_bulkIn, problemLimits_bulkOut,
+             problemLimits_resolutionParam, problemLimits_domainRatio, controls,
              &(S_val.data())[0], &a__1);
     S_bestval_FVr_oa = S_val[0].FVr_oa;
 
@@ -246,8 +256,11 @@ namespace RAT
       }
 
       b_problem = *problem;
-      intrafun(b_FM_pop, &b_problem, problemCells, problemLimits, controls,
-               &S_val[k + 1], &a__2);
+      intrafun(b_FM_pop, &b_problem, problemLimits_param,
+               problemLimits_backgroundParam, problemLimits_scalefactor,
+               problemLimits_qzshift, problemLimits_bulkIn,
+               problemLimits_bulkOut, problemLimits_resolutionParam,
+               problemLimits_domainRatio, controls, &S_val[k + 1], &a__2);
       if (leftWin(S_val[k + 1], S_bestval_FVr_oa) == 1.0) {
         I_best_index = k + 2U;
 
@@ -756,8 +769,11 @@ namespace RAT
         }
 
         b_problem = *problem;
-        intrafun(b_FM_pop, &b_problem, problemCells, problemLimits, controls,
-                 &S_tempval, &a__3);
+        intrafun(b_FM_pop, &b_problem, problemLimits_param,
+                 problemLimits_backgroundParam, problemLimits_scalefactor,
+                 problemLimits_qzshift, problemLimits_bulkIn,
+                 problemLimits_bulkOut, problemLimits_resolutionParam,
+                 problemLimits_domainRatio, controls, &S_tempval, &a__3);
 
         //  check cost of competitor
         if (leftWin(S_tempval, S_val[k].FVr_oa) == 1.0) {
@@ -820,12 +836,15 @@ namespace RAT
       //  Trigger the output event...
       if (rt_remd_snf(I_iter, controls->updatePlotFreq) == 0.0) {
         b_problem = *problem;
-        intrafun(FVr_bestmem, &b_problem, problemCells, problemLimits, controls,
-                 &a__4, &result);
+        intrafun(FVr_bestmem, &b_problem, problemLimits_param,
+                 problemLimits_backgroundParam, problemLimits_scalefactor,
+                 problemLimits_qzshift, problemLimits_bulkIn,
+                 problemLimits_bulkOut, problemLimits_resolutionParam,
+                 problemLimits_domainRatio, controls, &a__4, &result);
         triggerEvent(&result, problem->TF.data, problem->TF.size,
                      problem->resample, problem->dataPresent,
-                     problem->modelType.data, problem->modelType.size,
-                     problemCells->f21);
+                     problem->contrastNames, problem->modelType.data,
+                     problem->modelType.size);
       }
 
       isRATStopped(controls->IPCFilePath.data, controls->IPCFilePath.size,

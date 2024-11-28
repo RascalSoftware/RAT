@@ -19,8 +19,8 @@
 // Function Definitions
 namespace RAT
 {
-  void getFittedPriors(const ::coder::array<cell_wrap_3, 1U> &paramNames, const ::
-                       coder::array<cell_wrap_3, 1U> &priors_priorNames, const ::
+  void getFittedPriors(const ::coder::array<cell_wrap_7, 1U> &paramNames, const ::
+                       coder::array<cell_wrap_7, 1U> &priors_priorNames, const ::
                        coder::array<real_T, 2U> &priors_priorValues, const ::
                        coder::array<real_T, 2U> &fitLimits, ::coder::array<
                        real_T, 2U> &priorFitList)
@@ -29,7 +29,7 @@ namespace RAT
     ::coder::array<char_T, 2U> f1;
     ::coder::array<boolean_T, 1U> b_tmp_data;
     ::coder::array<boolean_T, 1U> d_tmp_data;
-    cell_wrap_3 r;
+    cell_wrap_7 r;
     int32_T indices_data[10000];
     int32_T i;
     int32_T i1;

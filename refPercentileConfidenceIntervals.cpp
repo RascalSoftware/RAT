@@ -29,15 +29,22 @@
 namespace RAT
 {
   void refPercentileConfidenceIntervals(const ::coder::array<real_T, 2U>
-    &bayesOutputs_chain, f_struct_T *problemStruct, const cell_16 *problemCells,
-    const struct1_T *problemLimits, const struct2_T *controlsStruct, const
-    struct5_T *results, h_struct_T *allPredInts)
+    &bayesOutputs_chain, g_struct_T *problemStruct, const ::coder::array<real_T,
+    2U> &problemLimits_param, const ::coder::array<real_T, 2U>
+    &problemLimits_backgroundParam, const ::coder::array<real_T, 2U>
+    &problemLimits_scalefactor, const ::coder::array<real_T, 2U>
+    &problemLimits_qzshift, const ::coder::array<real_T, 2U>
+    &problemLimits_bulkIn, const ::coder::array<real_T, 2U>
+    &problemLimits_bulkOut, const ::coder::array<real_T, 2U>
+    &problemLimits_resolutionParam, const ::coder::array<real_T, 2U>
+    &problemLimits_domainRatio, const struct3_T *controls, const struct6_T
+    *results, i_struct_T *allPredInts)
   {
-    ::coder::array<cell_wrap_12, 2U> r;
-    ::coder::array<cell_wrap_12, 2U> refXVals;
-    ::coder::array<cell_wrap_12, 2U> refYVals;
-    ::coder::array<cell_wrap_12, 2U> sldXVals;
-    ::coder::array<cell_wrap_12, 2U> sldYVals;
+    ::coder::array<cell_wrap_10, 2U> r;
+    ::coder::array<cell_wrap_10, 2U> refXVals;
+    ::coder::array<cell_wrap_10, 2U> refYVals;
+    ::coder::array<cell_wrap_10, 2U> sldXVals;
+    ::coder::array<cell_wrap_10, 2U> sldYVals;
     ::coder::array<real_T, 2U> r1;
     ::coder::array<real_T, 2U> refArray;
     ::coder::array<real_T, 2U> sldArray;
@@ -45,7 +52,7 @@ namespace RAT
     ::coder::array<real_T, 2U> sldArray2;
     ::coder::array<real_T, 1U> b_expl_temp;
     ::coder::array<real_T, 1U> c_expl_temp;
-    struct5_T expl_temp;
+    struct6_T expl_temp;
     real_T a[1000];
     real_T isample[1000];
     real_T b_dv[3];
@@ -230,18 +237,19 @@ namespace RAT
                               bayesOutputs_chain.size(0) * i1) - 1];
       }
 
-      unpackParams(problemStruct, controlsStruct->checks.fitParam,
-                   controlsStruct->checks.fitBackgroundParam,
-                   controlsStruct->checks.fitQzshift,
-                   controlsStruct->checks.fitScalefactor,
-                   controlsStruct->checks.fitBulkIn,
-                   controlsStruct->checks.fitBulkOut,
-                   controlsStruct->checks.fitResolutionParam,
-                   controlsStruct->checks.fitDomainRatio);
+      unpackParams(problemStruct, controls->checks.fitParam,
+                   controls->checks.fitBackgroundParam,
+                   controls->checks.fitQzshift, controls->checks.fitScalefactor,
+                   controls->checks.fitBulkIn, controls->checks.fitBulkOut,
+                   controls->checks.fitResolutionParam,
+                   controls->checks.fitDomainRatio);
 
       //  Calc the reflectivities....
-      reflectivityCalculation(problemStruct, problemCells, problemLimits,
-        controlsStruct, &expl_temp);
+      reflectivityCalculation(problemStruct, problemLimits_param,
+        problemLimits_backgroundParam, problemLimits_scalefactor,
+        problemLimits_qzshift, problemLimits_bulkIn, problemLimits_bulkOut,
+        problemLimits_resolutionParam, problemLimits_domainRatio, controls,
+        &expl_temp);
       allPredInts->sampleChi[b_i] = expl_temp.calculationResults.sumChi;
       for (int32_T n{0}; n < i; n++) {
         k = expl_temp.reflectivity[n].f1.size(0);

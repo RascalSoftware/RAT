@@ -20,7 +20,7 @@
 // Type Declarations
 namespace RAT
 {
-  struct cell_wrap_3;
+  struct cell_wrap_7;
 }
 
 // Function Declarations
@@ -28,7 +28,7 @@ namespace RAT
 {
   namespace coder
   {
-    void intstrlen(const ::coder::array<cell_wrap_3, 2U> &s, int32_T len_data[],
+    void intstrlen(const ::coder::array<cell_wrap_7, 2U> &s, int32_T len_data[],
                    int32_T len_size[2]);
   }
 }

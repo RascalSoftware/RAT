@@ -33,20 +33,20 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  static void b_packCellArray(const ::coder::array<cell_wrap_12, 2U> &cellArray,
+  static void b_packCellArray(const ::coder::array<cell_wrap_10, 2U> &cellArray,
     ::coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
-  static void packCellArray(const ::coder::array<cell_wrap_10, 1U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_8, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
-  static void packCellArray(const ::coder::array<cell_wrap_11, 1U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_9, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
-  static void packCellArray(const ::coder::array<cell_wrap_12, 2U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_10, 2U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
 }
 
 // Function Definitions
 namespace RAT
 {
-  static void b_packCellArray(const ::coder::array<cell_wrap_12, 2U> &cellArray,
+  static void b_packCellArray(const ::coder::array<cell_wrap_10, 2U> &cellArray,
     ::coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
@@ -111,7 +111,7 @@ namespace RAT
     }
   }
 
-  static void packCellArray(const ::coder::array<cell_wrap_10, 1U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_8, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
@@ -173,7 +173,7 @@ namespace RAT
     }
   }
 
-  static void packCellArray(const ::coder::array<cell_wrap_11, 1U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_9, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
@@ -235,7 +235,7 @@ namespace RAT
     }
   }
 
-  static void packCellArray(const ::coder::array<cell_wrap_12, 2U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_10, 2U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
@@ -319,7 +319,7 @@ namespace RAT
     //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
     //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       int32_T loop_ub;
@@ -380,7 +380,7 @@ namespace RAT
     //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
     //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       int32_T loop_ub;
@@ -437,7 +437,7 @@ namespace RAT
     //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
     //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       int32_T loop_ub;
@@ -498,7 +498,7 @@ namespace RAT
     //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
     //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       int32_T loop_ub;
@@ -559,7 +559,7 @@ namespace RAT
     //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
     //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       int32_T loop_ub;
@@ -621,7 +621,7 @@ namespace RAT
     //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
     //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       int32_T loop_ub;
@@ -684,7 +684,7 @@ namespace RAT
     //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
     //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       int32_T loop_ub;
@@ -745,7 +745,7 @@ namespace RAT
     //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
     //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       int32_T loop_ub;
@@ -811,7 +811,7 @@ namespace RAT
     //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
     //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       int32_T loop_ub;
@@ -872,7 +872,7 @@ namespace RAT
     //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
     //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       int32_T loop_ub;
@@ -933,7 +933,7 @@ namespace RAT
     //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
     //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       int32_T loop_ub;
@@ -988,7 +988,7 @@ namespace RAT
     //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
     //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       //  Declaration for coder
@@ -1039,13 +1039,13 @@ namespace RAT
     }
   }
 
-  void triggerEvent(const e_struct_T *varargin_1, const char_T
+  void triggerEvent(const f_struct_T *varargin_1, const char_T
                     varargin_2_TF_data[], const int32_T varargin_2_TF_size[2],
                     const ::coder::array<real_T, 2U> &varargin_2_resample, const
-                    ::coder::array<real_T, 2U> &varargin_2_dataPresent, const
-                    char_T varargin_2_modelType_data[], const int32_T
-                    varargin_2_modelType_size[2], const ::coder::array<
-                    cell_wrap_3, 2U> &varargin_3_f21)
+                    ::coder::array<real_T, 2U> &varargin_2_dataPresent, const ::
+                    coder::array<cell_wrap_7, 2U> &varargin_2_contrastNames,
+                    const char_T varargin_2_modelType_data[], const int32_T
+                    varargin_2_modelType_size[2])
   {
     ::coder::array<real_T, 2U> b_nSldProfiles2;
     ::coder::array<real_T, 2U> dataPresent;
@@ -1083,7 +1083,7 @@ namespace RAT
     //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
     //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       //  Declaration for coder
@@ -1117,8 +1117,8 @@ namespace RAT
         packCellArray(varargin_1->shiftedData, shiftedData, nShiftedData);
         packCellArray(varargin_1->sldProfiles, sldProfiles, nSldProfiles);
         packCellArray(varargin_1->resampledLayers, layers, nLayers);
-        coder::strjoin(varargin_3_f21, contrastNames);
-        coder::intstrlen(varargin_3_f21, tmp_data, tmp_size);
+        coder::strjoin(varargin_2_contrastNames, contrastNames);
+        coder::intstrlen(varargin_2_contrastNames, tmp_data, tmp_size);
         nContrastNames.set_size(1, tmp_size[1]);
         loop_ub = tmp_size[1];
         for (i = 0; i < loop_ub; i++) {
@@ -1238,7 +1238,7 @@ namespace RAT
     //    percentage progress expressed as a decimal (i.e., between 0 and 1).
     //
     //  triggerEvent(coderEnums.eventTypes.Message, 'Hello world');
-    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct, problemCell);
+    //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
       int32_T loop_ub;

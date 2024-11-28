@@ -20,7 +20,7 @@
 // Function Definitions
 namespace RAT
 {
-  void gelman(const ::coder::array<real_T, 3U> &chain, const struct11_T
+  void gelman(const ::coder::array<real_T, 3U> &chain, const struct12_T
               *DREAMPar, ::coder::array<real_T, 2U> &R_stat)
   {
     ::coder::array<real_T, 3U> r1;

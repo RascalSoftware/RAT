@@ -27,9 +27,16 @@
 // Function Definitions
 namespace RAT
 {
-  void intrafun(const ::coder::array<real_T, 2U> &p, d_struct_T *problemStruct,
-                const cell_16 *problemCells, const struct1_T *problemLimits,
-                const struct2_T *controls, struct_T *S_MSE, e_struct_T *result)
+  void intrafun(const ::coder::array<real_T, 2U> &p, e_struct_T *problemStruct,
+                const ::coder::array<real_T, 2U> &problemLimits_param, const ::
+                coder::array<real_T, 2U> &problemLimits_backgroundParam, const ::
+                coder::array<real_T, 2U> &problemLimits_scalefactor, const ::
+                coder::array<real_T, 2U> &problemLimits_qzshift, const ::coder::
+                array<real_T, 2U> &problemLimits_bulkIn, const ::coder::array<
+                real_T, 2U> &problemLimits_bulkOut, const ::coder::array<real_T,
+                2U> &problemLimits_resolutionParam, const ::coder::array<real_T,
+                2U> &problemLimits_domainRatio, const struct3_T *controls,
+                struct_T *S_MSE, f_struct_T *result)
   {
     int32_T loop_ub;
     problemStruct->fitParams.set_size(p.size(1));
@@ -44,8 +51,10 @@ namespace RAT
                  controls->checks.fitBulkIn, controls->checks.fitBulkOut,
                  controls->checks.fitResolutionParam,
                  controls->checks.fitDomainRatio);
-    reflectivityCalculation(problemStruct, problemCells, problemLimits, controls,
-      result);
+    reflectivityCalculation(problemStruct, problemLimits_param,
+      problemLimits_backgroundParam, problemLimits_scalefactor,
+      problemLimits_qzshift, problemLimits_bulkIn, problemLimits_bulkOut,
+      problemLimits_resolutionParam, problemLimits_domainRatio, controls, result);
     S_MSE->FVr_oa = result->calculationResults.sumChi;
     S_MSE->I_nc = 0.0;
 
@@ -58,9 +67,16 @@ namespace RAT
     // number of objectives (costs)
   }
 
-  void runDE(const d_struct_T *problemStruct, const cell_16 *problemCells, const
-             struct1_T *problemLimits, const struct2_T *controls, f_struct_T
-             *b_problemStruct, struct5_T *result)
+  void runDE(const e_struct_T *problemStruct, const ::coder::array<real_T, 2U>
+             &problemLimits_param, const ::coder::array<real_T, 2U>
+             &problemLimits_backgroundParam, const ::coder::array<real_T, 2U>
+             &problemLimits_scalefactor, const ::coder::array<real_T, 2U>
+             &problemLimits_qzshift, const ::coder::array<real_T, 2U>
+             &problemLimits_bulkIn, const ::coder::array<real_T, 2U>
+             &problemLimits_bulkOut, const ::coder::array<real_T, 2U>
+             &problemLimits_resolutionParam, const ::coder::array<real_T, 2U>
+             &problemLimits_domainRatio, const struct3_T *controls, g_struct_T
+             *b_problemStruct, struct6_T *result)
   {
     static const real_T S_struct_FVr_x[50]{ -1.0, -0.95918367346938771,
       -0.91836734693877542, -0.87755102040816324, -0.836734693877551,
@@ -80,21 +96,22 @@ namespace RAT
       0.79591836734693866, 0.836734693877551, 0.87755102040816324,
       0.91836734693877542, 0.95918367346938771, 1.0 };
 
-    ::coder::array<cell_wrap_3, 1U> d_problemStruct;
+    ::coder::array<cell_wrap_7, 1U> d_problemStruct;
     ::coder::array<real_T, 2U> res;
     ::coder::array<char_T, 2U> charStr;
     ::coder::array<int8_T, 2U> S_struct_FM_pop;
-    d_struct_T c_problemStruct;
-    g_struct_T expl_temp;
+    e_struct_T c_problemStruct;
+    h_struct_T expl_temp;
     int32_T b_loop_ub;
     int32_T i;
     int32_T i1;
     int32_T loop_ub;
     c_problemStruct = *problemStruct;
-    packParams(&c_problemStruct, problemCells->f7, problemCells->f8,
-               problemCells->f9, problemCells->f10, problemCells->f11,
-               problemCells->f12, problemCells->f13, problemCells->f20,
-               problemLimits, &controls->checks, d_problemStruct);
+    packParams(&c_problemStruct, problemLimits_param,
+               problemLimits_backgroundParam, problemLimits_scalefactor,
+               problemLimits_qzshift, problemLimits_bulkIn,
+               problemLimits_bulkOut, problemLimits_resolutionParam,
+               problemLimits_domainRatio, &controls->checks, d_problemStruct);
 
     // Value to reach
     loop_ub = c_problemStruct.fitLimits.size(0);
@@ -179,8 +196,10 @@ namespace RAT
     }
 
     expl_temp.I_lentol = 50.0;
-    deopt(&c_problemStruct, problemCells, problemLimits, controls, &expl_temp,
-          res);
+    deopt(&c_problemStruct, problemLimits_param, problemLimits_backgroundParam,
+          problemLimits_scalefactor, problemLimits_qzshift, problemLimits_bulkIn,
+          problemLimits_bulkOut, problemLimits_resolutionParam,
+          problemLimits_domainRatio, controls, &expl_temp, res);
     b_problemStruct->TF.size[0] = 1;
     b_problemStruct->TF.size[1] = c_problemStruct.TF.size[1];
     loop_ub = c_problemStruct.TF.size[1];
@@ -195,10 +214,29 @@ namespace RAT
       b_problemStruct->resample[i] = c_problemStruct.resample[i];
     }
 
+    b_problemStruct->data.set_size(1, c_problemStruct.data.size(1));
+    loop_ub = c_problemStruct.data.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->data[i] = c_problemStruct.data[i];
+    }
+
     b_problemStruct->dataPresent.set_size(1, c_problemStruct.dataPresent.size(1));
     loop_ub = c_problemStruct.dataPresent.size(1);
     for (i = 0; i < loop_ub; i++) {
       b_problemStruct->dataPresent[i] = c_problemStruct.dataPresent[i];
+    }
+
+    b_problemStruct->dataLimits.set_size(1, c_problemStruct.dataLimits.size(1));
+    loop_ub = c_problemStruct.dataLimits.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->dataLimits[i] = c_problemStruct.dataLimits[i];
+    }
+
+    b_problemStruct->simulationLimits.set_size(1,
+      c_problemStruct.simulationLimits.size(1));
+    loop_ub = c_problemStruct.simulationLimits.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->simulationLimits[i] = c_problemStruct.simulationLimits[i];
     }
 
     b_problemStruct->oilChiDataPresent.set_size(1,
@@ -220,6 +258,20 @@ namespace RAT
     }
 
     b_problemStruct->useImaginary = c_problemStruct.useImaginary;
+    b_problemStruct->repeatLayers.set_size(1, c_problemStruct.repeatLayers.size
+      (1));
+    loop_ub = c_problemStruct.repeatLayers.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->repeatLayers[i] = c_problemStruct.repeatLayers[i];
+    }
+
+    b_problemStruct->contrastNames.set_size(1,
+      c_problemStruct.contrastNames.size(1));
+    loop_ub = c_problemStruct.contrastNames.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->contrastNames[i] = c_problemStruct.contrastNames[i];
+    }
+
     b_problemStruct->contrastBackgroundParams.set_size(1,
       c_problemStruct.contrastBackgroundParams.size(1));
     loop_ub = c_problemStruct.contrastBackgroundParams.size(1);
@@ -327,6 +379,34 @@ namespace RAT
     }
 
     b_problemStruct->numberOfLayers = c_problemStruct.numberOfLayers;
+    b_problemStruct->contrastLayers.set_size(1,
+      c_problemStruct.contrastLayers.size(1));
+    loop_ub = c_problemStruct.contrastLayers.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->contrastLayers[i] = c_problemStruct.contrastLayers[i];
+    }
+
+    b_problemStruct->layersDetails.set_size(c_problemStruct.layersDetails.size(0),
+      c_problemStruct.layersDetails.size(1));
+    loop_ub = c_problemStruct.layersDetails.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_loop_ub = c_problemStruct.layersDetails.size(0);
+      for (i1 = 0; i1 < b_loop_ub; i1++) {
+        b_problemStruct->layersDetails[i1] = c_problemStruct.layersDetails[i1];
+      }
+    }
+
+    b_problemStruct->customFiles.set_size(c_problemStruct.customFiles.size(0),
+      c_problemStruct.customFiles.size(1));
+    loop_ub = c_problemStruct.customFiles.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_loop_ub = c_problemStruct.customFiles.size(0);
+      for (i1 = 0; i1 < b_loop_ub; i1++) {
+        b_problemStruct->customFiles[b_problemStruct->customFiles.size(0) * i] =
+          c_problemStruct.customFiles[c_problemStruct.customFiles.size(0) * i];
+      }
+    }
+
     b_problemStruct->modelType.size[0] = 1;
     b_problemStruct->modelType.size[1] = c_problemStruct.modelType.size[1];
     loop_ub = c_problemStruct.modelType.size[1];
@@ -360,6 +440,14 @@ namespace RAT
 
     b_problemStruct->numberOfDomainContrasts =
       c_problemStruct.numberOfDomainContrasts;
+    b_problemStruct->domainContrastLayers.set_size(1,
+      c_problemStruct.domainContrastLayers.size(1));
+    loop_ub = c_problemStruct.domainContrastLayers.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_problemStruct->domainContrastLayers[i] =
+        c_problemStruct.domainContrastLayers[i];
+    }
+
     b_problemStruct->otherParams.set_size(c_problemStruct.otherParams.size(0));
     loop_ub = c_problemStruct.otherParams.size(0);
     for (i = 0; i < loop_ub; i++) {
@@ -383,6 +471,7 @@ namespace RAT
       }
     }
 
+    b_problemStruct->names = c_problemStruct.names;
     b_problemStruct->fitParams.set_size(1, res.size(1));
     loop_ub = res.size(1);
     for (i = 0; i < loop_ub; i++) {
@@ -395,8 +484,10 @@ namespace RAT
                  controls->checks.fitBulkIn, controls->checks.fitBulkOut,
                  controls->checks.fitResolutionParam,
                  controls->checks.fitDomainRatio);
-    reflectivityCalculation(b_problemStruct, problemCells, problemLimits,
-      controls, result);
+    reflectivityCalculation(b_problemStruct, problemLimits_param,
+      problemLimits_backgroundParam, problemLimits_scalefactor,
+      problemLimits_qzshift, problemLimits_bulkIn, problemLimits_bulkOut,
+      problemLimits_resolutionParam, problemLimits_domainRatio, controls, result);
     if (!coder::internal::t_strcmp(controls->display.data,
          controls->display.size)) {
       coder::snPrint(result->calculationResults.sumChi, charStr);

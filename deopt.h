@@ -20,19 +20,24 @@
 // Type Declarations
 namespace RAT
 {
-  struct d_struct_T;
-  struct cell_16;
-  struct struct1_T;
-  struct struct2_T;
-  struct g_struct_T;
+  struct e_struct_T;
+  struct struct3_T;
+  struct h_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void deopt(const d_struct_T *problem, const cell_16 *problemCells, const
-             struct1_T *problemLimits, const struct2_T *controls, const
-             g_struct_T *S_struct, ::coder::array<real_T, 2U> &FVr_bestmem);
+  void deopt(const e_struct_T *problem, const ::coder::array<real_T, 2U>
+             &problemLimits_param, const ::coder::array<real_T, 2U>
+             &problemLimits_backgroundParam, const ::coder::array<real_T, 2U>
+             &problemLimits_scalefactor, const ::coder::array<real_T, 2U>
+             &problemLimits_qzshift, const ::coder::array<real_T, 2U>
+             &problemLimits_bulkIn, const ::coder::array<real_T, 2U>
+             &problemLimits_bulkOut, const ::coder::array<real_T, 2U>
+             &problemLimits_resolutionParam, const ::coder::array<real_T, 2U>
+             &problemLimits_domainRatio, const struct3_T *controls, const
+             h_struct_T *S_struct, ::coder::array<real_T, 2U> &FVr_bestmem);
 }
 
 #endif

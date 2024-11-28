@@ -115,10 +115,17 @@ namespace RAT
   void fMinSearch(::coder::array<real_T, 1U> &x, real_T options_MaxIter, real_T
                   options_MaxFunEvals, real_T options_TolX, real_T
                   options_TolFun, const char_T dis_data[], const int32_T
-                  dis_size[2], const d_struct_T *varargin_1, const cell_16
-                  *varargin_2, const struct1_T *varargin_3, const struct2_T
-                  *varargin_4, const m_struct_T *varargin_5, real_T *fval,
-                  real_T *exitflag, l_struct_T *output)
+                  dis_size[2], const e_struct_T *varargin_1, const ::coder::
+                  array<real_T, 2U> &varargin_2_param, const ::coder::array<
+                  real_T, 2U> &varargin_2_backgroundParam, const ::coder::array<
+                  real_T, 2U> &varargin_2_scalefactor, const ::coder::array<
+                  real_T, 2U> &varargin_2_qzshift, const ::coder::array<real_T,
+                  2U> &varargin_2_bulkIn, const ::coder::array<real_T, 2U>
+                  &varargin_2_bulkOut, const ::coder::array<real_T, 2U>
+                  &varargin_2_resolutionParam, const ::coder::array<real_T, 2U>
+                  &varargin_2_domainRatio, const struct3_T *varargin_3, const
+                  m_struct_T *varargin_4, real_T *fval, real_T *exitflag,
+                  l_struct_T *output)
   {
     static const char_T cv6[35]{ 'E', 'x', 'i', 't', 'i', 'n', 'g', ':', ' ',
       'M', 'a', 'x', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'e', 'v',
@@ -169,8 +176,8 @@ namespace RAT
     ::coder::array<int32_T, 2U> iidx;
     ::coder::array<char_T, 2U> b_output;
     ::coder::array<char_T, 2U> charStr;
-    d_struct_T b_varargin_1;
-    e_struct_T result;
+    e_struct_T b_varargin_1;
+    f_struct_T result;
     real_T b_fv;
     real_T b_y;
     real_T func_evals;
@@ -401,8 +408,11 @@ namespace RAT
     //  Place input guess in the simplex! (credit L.Pfeffer at Stanford)
     //  Change x to the form expected by funfcn
     b_varargin_1 = *varargin_1;
-    simplexIntrafun(x, &b_varargin_1, varargin_2, varargin_3, varargin_4,
-                    varargin_5, &fv[0], &result);
+    simplexIntrafun(x, &b_varargin_1, varargin_2_param,
+                    varargin_2_backgroundParam, varargin_2_scalefactor,
+                    varargin_2_qzshift, varargin_2_bulkIn, varargin_2_bulkOut,
+                    varargin_2_resolutionParam, varargin_2_domainRatio,
+                    varargin_3, varargin_4, &fv[0], &result);
 
     //  Initial simplex setup continues later
     //  Initialize the output and plot functions.
@@ -452,8 +462,8 @@ namespace RAT
 
     triggerEvent(&result, varargin_1->TF.data, varargin_1->TF.size,
                  varargin_1->resample, varargin_1->dataPresent,
-                 varargin_1->modelType.data, varargin_1->modelType.size,
-                 varargin_2->f21);
+                 varargin_1->contrastNames, varargin_1->modelType.data,
+                 varargin_1->modelType.size);
 
     //  OutputFcn and PlotFcns call
     //  if haveoutputfcn || haveplotfcn
@@ -491,8 +501,11 @@ namespace RAT
       }
 
       b_varargin_1 = *varargin_1;
-      simplexIntrafun(y, &b_varargin_1, varargin_2, varargin_3, varargin_4,
-                      varargin_5, &fv[j + 1], &result);
+      simplexIntrafun(y, &b_varargin_1, varargin_2_param,
+                      varargin_2_backgroundParam, varargin_2_scalefactor,
+                      varargin_2_qzshift, varargin_2_bulkIn, varargin_2_bulkOut,
+                      varargin_2_resolutionParam, varargin_2_domainRatio,
+                      varargin_3, varargin_4, &fv[j + 1], &result);
     }
 
     //  sort so v(1,:) has the lowest function value
@@ -544,14 +557,14 @@ namespace RAT
       //      fprintf('%g \n', func_evals)
     }
 
-    if (rt_remd_snf(1.0, varargin_4->updatePlotFreq) == 0.0) {
+    if (rt_remd_snf(1.0, varargin_3->updatePlotFreq) == 0.0) {
       triggerEvent(&result, varargin_1->TF.data, varargin_1->TF.size,
                    varargin_1->resample, varargin_1->dataPresent,
-                   varargin_1->modelType.data, varargin_1->modelType.size,
-                   varargin_2->f21);
+                   varargin_1->contrastNames, varargin_1->modelType.data,
+                   varargin_1->modelType.size);
     }
 
-    isRATStopped(varargin_4->IPCFilePath.data, varargin_4->IPCFilePath.size,
+    isRATStopped(varargin_3->IPCFilePath.data, varargin_3->IPCFilePath.size,
                  (boolean_T *)&tmp_data, &b_index);
     if (coder::internal::ifWhileCond((const boolean_T *)&tmp_data, b_index)) {
       x_idx_1 = v.size(0);
@@ -691,8 +704,12 @@ namespace RAT
             }
 
             b_varargin_1 = *varargin_1;
-            simplexIntrafun(xr, &b_varargin_1, varargin_2, varargin_3,
-                            varargin_4, varargin_5, &fxr, &result);
+            simplexIntrafun(xr, &b_varargin_1, varargin_2_param,
+                            varargin_2_backgroundParam, varargin_2_scalefactor,
+                            varargin_2_qzshift, varargin_2_bulkIn,
+                            varargin_2_bulkOut, varargin_2_resolutionParam,
+                            varargin_2_domainRatio, varargin_3, varargin_4, &fxr,
+                            &result);
             func_evals++;
             if (fxr < fv[0]) {
               //  Calculate the expansion point
@@ -703,8 +720,12 @@ namespace RAT
               }
 
               b_varargin_1 = *varargin_1;
-              simplexIntrafun(xe, &b_varargin_1, varargin_2, varargin_3,
-                              varargin_4, varargin_5, &fxe, &result);
+              simplexIntrafun(xe, &b_varargin_1, varargin_2_param,
+                              varargin_2_backgroundParam, varargin_2_scalefactor,
+                              varargin_2_qzshift, varargin_2_bulkIn,
+                              varargin_2_bulkOut, varargin_2_resolutionParam,
+                              varargin_2_domainRatio, varargin_3, varargin_4,
+                              &fxe, &result);
               func_evals++;
               if (fxe < fxr) {
                 b_index = v.size(1) - 1;
@@ -757,8 +778,13 @@ namespace RAT
                 }
 
                 b_varargin_1 = *varargin_1;
-                simplexIntrafun(xc, &b_varargin_1, varargin_2, varargin_3,
-                                varargin_4, varargin_5, &fxc, &result);
+                simplexIntrafun(xc, &b_varargin_1, varargin_2_param,
+                                varargin_2_backgroundParam,
+                                varargin_2_scalefactor, varargin_2_qzshift,
+                                varargin_2_bulkIn, varargin_2_bulkOut,
+                                varargin_2_resolutionParam,
+                                varargin_2_domainRatio, varargin_3, varargin_4,
+                                &fxc, &result);
                 func_evals++;
                 if (fxc <= fxr) {
                   b_index = v.size(1) - 1;
@@ -791,8 +817,13 @@ namespace RAT
                 }
 
                 b_varargin_1 = *varargin_1;
-                simplexIntrafun(xcc, &b_varargin_1, varargin_2, varargin_3,
-                                varargin_4, varargin_5, &fxcc, &result);
+                simplexIntrafun(xcc, &b_varargin_1, varargin_2_param,
+                                varargin_2_backgroundParam,
+                                varargin_2_scalefactor, varargin_2_qzshift,
+                                varargin_2_bulkIn, varargin_2_bulkOut,
+                                varargin_2_resolutionParam,
+                                varargin_2_domainRatio, varargin_3, varargin_4,
+                                &fxcc, &result);
                 func_evals++;
                 if (fxcc < fv[fv.size(1) - 1]) {
                   b_index = v.size(1) - 1;
@@ -839,8 +870,13 @@ namespace RAT
                   }
 
                   b_varargin_1 = *varargin_1;
-                  simplexIntrafun(c_v, &b_varargin_1, varargin_2, varargin_3,
-                                  varargin_4, varargin_5, &fv[j + 1], &result);
+                  simplexIntrafun(c_v, &b_varargin_1, varargin_2_param,
+                                  varargin_2_backgroundParam,
+                                  varargin_2_scalefactor, varargin_2_qzshift,
+                                  varargin_2_bulkIn, varargin_2_bulkOut,
+                                  varargin_2_resolutionParam,
+                                  varargin_2_domainRatio, varargin_3, varargin_4,
+                                  &fv[j + 1], &result);
                 }
 
                 func_evals += static_cast<real_T>(n);
@@ -891,15 +927,15 @@ namespace RAT
               //          fprintf('%s \n', num2str(func_evals))
             }
 
-            if (rt_remd_snf(itercount, varargin_4->updatePlotFreq) == 0.0) {
+            if (rt_remd_snf(itercount, varargin_3->updatePlotFreq) == 0.0) {
               triggerEvent(&result, varargin_1->TF.data, varargin_1->TF.size,
                            varargin_1->resample, varargin_1->dataPresent,
-                           varargin_1->modelType.data,
-                           varargin_1->modelType.size, varargin_2->f21);
+                           varargin_1->contrastNames, varargin_1->modelType.data,
+                           varargin_1->modelType.size);
             }
 
-            isRATStopped(varargin_4->IPCFilePath.data,
-                         varargin_4->IPCFilePath.size, (boolean_T *)&tmp_data,
+            isRATStopped(varargin_3->IPCFilePath.data,
+                         varargin_3->IPCFilePath.size, (boolean_T *)&tmp_data,
                          &b_index);
             if (coder::internal::ifWhileCond((const boolean_T *)&tmp_data,
                  b_index)) {

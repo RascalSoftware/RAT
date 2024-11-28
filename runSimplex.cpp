@@ -26,15 +26,22 @@
 // Function Definitions
 namespace RAT
 {
-  void runSimplex(d_struct_T *problemStruct, const cell_16 *problemCells, const
-                  struct1_T *problemLimits, const struct2_T *controls,
-                  e_struct_T *result)
+  void runSimplex(e_struct_T *problemStruct, const ::coder::array<real_T, 2U>
+                  &problemLimits_param, const ::coder::array<real_T, 2U>
+                  &problemLimits_backgroundParam, const ::coder::array<real_T,
+                  2U> &problemLimits_scalefactor, const ::coder::array<real_T,
+                  2U> &problemLimits_qzshift, const ::coder::array<real_T, 2U>
+                  &problemLimits_bulkIn, const ::coder::array<real_T, 2U>
+                  &problemLimits_bulkOut, const ::coder::array<real_T, 2U>
+                  &problemLimits_resolutionParam, const ::coder::array<real_T,
+                  2U> &problemLimits_domainRatio, const struct3_T *controls,
+                  f_struct_T *result)
   {
     static const char_T b_cv1[6]{ 'n', 'o', 't', 'i', 'f', 'y' };
 
     static const char_T b_cv[5]{ 'f', 'i', 'n', 'a', 'l' };
 
-    ::coder::array<cell_wrap_3, 1U> b_problemStruct;
+    ::coder::array<cell_wrap_7, 1U> b_problemStruct;
     ::coder::array<real_T, 1U> x0u;
     l_struct_T a__4;
     m_struct_T expl_temp;
@@ -45,10 +52,11 @@ namespace RAT
     int32_T i;
     int32_T outsize_idx_0;
     char_T dis_data[6];
-    packParams(problemStruct, problemCells->f7, problemCells->f8,
-               problemCells->f9, problemCells->f10, problemCells->f11,
-               problemCells->f12, problemCells->f13, problemCells->f20,
-               problemLimits, &controls->checks, b_problemStruct);
+    packParams(problemStruct, problemLimits_param, problemLimits_backgroundParam,
+               problemLimits_scalefactor, problemLimits_qzshift,
+               problemLimits_bulkIn, problemLimits_bulkOut,
+               problemLimits_resolutionParam, problemLimits_domainRatio,
+               &controls->checks, b_problemStruct);
     if (coder::internal::u_strcmp(controls->display.data, controls->display.size))
     {
       outsize_idx_0 = 0;
@@ -216,10 +224,13 @@ namespace RAT
     //  intra-objective function.
     fMinSearch(x0u, controls->maxIterations, controls->maxFuncEvals,
                controls->xTolerance, controls->funcTolerance, dis_data, dis_size,
-               problemStruct, problemCells, problemLimits, controls, &expl_temp,
-               &a__2, &a__3, &a__4);
+               problemStruct, problemLimits_param, problemLimits_backgroundParam,
+               problemLimits_scalefactor, problemLimits_qzshift,
+               problemLimits_bulkIn, problemLimits_bulkOut,
+               problemLimits_resolutionParam, problemLimits_domainRatio,
+               controls, &expl_temp, &a__2, &a__3, &a__4);
 
-    // [xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemStruct,problemCells,problemLimits,controls,options,params,300);
+    // [xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemStruct,problemLimits,controls,options,params,300);
     //  undo the variable transformations into the original space
     simplexXTransform(x0u, expl_temp.LB, expl_temp.UB, expl_temp.BoundClass,
                       problemStruct->fitParams);
@@ -232,8 +243,10 @@ namespace RAT
                  controls->checks.fitBulkIn, controls->checks.fitBulkOut,
                  controls->checks.fitResolutionParam,
                  controls->checks.fitDomainRatio);
-    reflectivityCalculation(problemStruct, problemCells, problemLimits, controls,
-      result);
+    reflectivityCalculation(problemStruct, problemLimits_param,
+      problemLimits_backgroundParam, problemLimits_scalefactor,
+      problemLimits_qzshift, problemLimits_bulkIn, problemLimits_bulkOut,
+      problemLimits_resolutionParam, problemLimits_domainRatio, controls, result);
   }
 }
 

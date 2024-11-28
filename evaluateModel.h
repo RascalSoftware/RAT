@@ -20,20 +20,18 @@
 // Type Declarations
 namespace RAT
 {
-  struct struct11_T;
-  struct d_struct_T;
-  struct cell_16;
-  struct struct1_T;
+  struct struct12_T;
+  struct e_struct_T;
   struct struct2_T;
+  struct struct3_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void evaluateModel(const ::coder::array<real_T, 2U> &x, const struct11_T
-                     *DREAMPar, const d_struct_T *ratInputs_problemStruct, const
-                     cell_16 *ratInputs_problemCells, const struct1_T
-                     *ratInputs_problemLimits, const struct2_T
+  void evaluateModel(const ::coder::array<real_T, 2U> &x, const struct12_T
+                     *DREAMPar, const e_struct_T *ratInputs_problemStruct, const
+                     struct2_T *ratInputs_problemLimits, const struct3_T
                      *ratInputs_controls, ::coder::array<real_T, 2U> &fx);
 }
 

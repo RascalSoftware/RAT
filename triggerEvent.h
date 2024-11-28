@@ -20,8 +20,8 @@
 // Type Declarations
 namespace RAT
 {
-  struct e_struct_T;
-  struct cell_wrap_3;
+  struct f_struct_T;
+  struct cell_wrap_7;
 }
 
 // Function Declarations
@@ -39,13 +39,13 @@ namespace RAT
   void i_triggerEvent();
   void j_triggerEvent();
   void triggerEvent();
-  void triggerEvent(const e_struct_T *varargin_1, const char_T
+  void triggerEvent(const f_struct_T *varargin_1, const char_T
                     varargin_2_TF_data[], const int32_T varargin_2_TF_size[2],
                     const ::coder::array<real_T, 2U> &varargin_2_resample, const
-                    ::coder::array<real_T, 2U> &varargin_2_dataPresent, const
-                    char_T varargin_2_modelType_data[], const int32_T
-                    varargin_2_modelType_size[2], const ::coder::array<
-                    cell_wrap_3, 2U> &varargin_3_f21);
+                    ::coder::array<real_T, 2U> &varargin_2_dataPresent, const ::
+                    coder::array<cell_wrap_7, 2U> &varargin_2_contrastNames,
+                    const char_T varargin_2_modelType_data[], const int32_T
+                    varargin_2_modelType_size[2]);
   void triggerEvent(const ::coder::array<char_T, 2U> &varargin_1);
   void triggerEvent(real_T varargin_2);
   void triggerEvent_init();

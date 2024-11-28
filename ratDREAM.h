@@ -20,10 +20,9 @@
 // Type Declarations
 namespace RAT
 {
-  struct d_struct_T;
-  struct cell_16;
-  struct struct1_T;
+  struct e_struct_T;
   struct struct2_T;
+  struct struct3_T;
   struct k_struct_T;
 }
 
@@ -36,12 +35,12 @@ namespace RAT
                 boolean_T dreamVariables_adaptPCR, const ::coder::array<real_T,
                 2U> &paramInfo_min, const ::coder::array<real_T, 2U>
                 &paramInfo_max, const char_T paramInfo_boundhandling_data[],
-                const int32_T paramInfo_boundhandling_size[2], const d_struct_T *
-                ratInputs_problemStruct, const cell_16 *ratInputs_problemCells,
-                const struct1_T *ratInputs_problemLimits, const struct2_T
-                *ratInputs_controls, const ::coder::array<real_T, 2U>
-                &ratInputs_priors, ::coder::array<real_T, 3U> &chain, k_struct_T
-                *output, ::coder::array<real_T, 2U> &fx);
+                const int32_T paramInfo_boundhandling_size[2], const e_struct_T *
+                ratInputs_problemStruct, const struct2_T
+                *ratInputs_problemLimits, const struct3_T *ratInputs_controls,
+                const ::coder::array<real_T, 2U> &ratInputs_priors, ::coder::
+                array<real_T, 3U> &chain, k_struct_T *output, ::coder::array<
+                real_T, 2U> &fx);
 }
 
 #endif

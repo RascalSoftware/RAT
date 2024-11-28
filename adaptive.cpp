@@ -571,7 +571,7 @@ namespace RAT
   }
 
   void adaptive(const ::coder::array<real_T, 2U> &sldProfile, const real_T
-                startDomain[2], real_T minAngle, real_T nPoints, cell_59 *out)
+                startDomain[2], real_T minAngle, real_T nPoints, cell_56 *out)
   {
     ::coder::array<real_T, 2U> b_out;
     ::coder::array<real_T, 2U> r;
@@ -956,7 +956,7 @@ namespace RAT
   }
 
   void b_adaptive(const ::coder::array<real_T, 2U> &sldProfile, const real_T
-                  startDomain[2], real_T minAngle, real_T nPoints, cell_59 *out)
+                  startDomain[2], real_T minAngle, real_T nPoints, cell_56 *out)
   {
     ::coder::array<real_T, 2U> b_out;
     ::coder::array<real_T, 2U> r;

@@ -20,8 +20,8 @@
 // Type Declarations
 namespace RAT
 {
-  struct cell_wrap_3;
-  struct cell_wrap_12;
+  struct cell_wrap_7;
+  struct cell_wrap_10;
 }
 
 // Function Declarations
@@ -35,9 +35,9 @@ namespace RAT
         &contrastBulkIns, const ::coder::array<real_T, 2U> &contrastBulkOuts,
         const ::coder::array<real_T, 2U> &bulkInArray, const ::coder::array<
         real_T, 2U> &bulkOutArray, const ::coder::array<real_T, 2U> &cCustFiles,
-        real_T numberOfContrasts, const ::coder::array<cell_wrap_3, 2U>
+        real_T numberOfContrasts, const ::coder::array<cell_wrap_7, 2U>
         &customFiles, const ::coder::array<real_T, 2U> &params, boolean_T
-        useImaginary, ::coder::array<cell_wrap_12, 2U> &resampledLayers, ::coder::
+        useImaginary, ::coder::array<cell_wrap_10, 2U> &resampledLayers, ::coder::
         array<real_T, 1U> &subRoughs);
     }
   }

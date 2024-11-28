@@ -21,10 +21,10 @@
 // Function Definitions
 namespace RAT
 {
-  void constructBackground(const ::coder::array<cell_wrap_3, 2U> &backgroundType,
+  void constructBackground(const ::coder::array<cell_wrap_7, 2U> &backgroundType,
     const real_T backgroundParamIndices_data[], const int32_T
     backgroundParamIndices_size[2], const ::coder::array<real_T, 2U>
-    &shiftedData, const ::coder::array<cell_wrap_3, 2U> &customFiles, const ::
+    &shiftedData, const ::coder::array<cell_wrap_7, 2U> &customFiles, const ::
     coder::array<real_T, 2U> &backgroundParamArray, const real_T simLimits[2], ::
     coder::array<real_T, 2U> &background)
   {
@@ -138,7 +138,7 @@ namespace RAT
   void constructBackground(const char_T backgroundType_data[], const int32_T
     backgroundType_size[2], const real_T backgroundParamIndices_data[], const
     int32_T backgroundParamIndices_size[2], const ::coder::array<real_T, 2U>
-    &shiftedData, const ::coder::array<cell_wrap_3, 2U> &customFiles, const ::
+    &shiftedData, const ::coder::array<cell_wrap_7, 2U> &customFiles, const ::
     coder::array<real_T, 2U> &backgroundParamArray, const real_T simLimits[2], ::
     coder::array<real_T, 2U> &background)
   {

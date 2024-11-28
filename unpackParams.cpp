@@ -17,16 +17,15 @@
 // Function Definitions
 namespace RAT
 {
-  void unpackParams(d_struct_T *problemStruct, const ::coder::array<real_T, 2U>
-                    &controls_checks_fitParam, const ::coder::array<real_T, 2U>
-                    &controls_checks_fitBackgroundParam, const ::coder::array<
-                    real_T, 2U> &controls_checks_fitQzshift, const ::coder::
-                    array<real_T, 2U> &controls_checks_fitScalefactor, const ::
-                    coder::array<real_T, 2U> &controls_checks_fitBulkIn, const ::
-                    coder::array<real_T, 2U> &controls_checks_fitBulkOut, const ::
-                    coder::array<real_T, 2U> &controls_checks_fitResolutionParam,
-                    const ::coder::array<real_T, 2U>
-                    &controls_checks_fitDomainRatio)
+  void unpackParams(e_struct_T *problemStruct, const ::coder::array<real_T, 2U>
+                    &checks_fitParam, const ::coder::array<real_T, 2U>
+                    &checks_fitBackgroundParam, const ::coder::array<real_T, 2U>
+                    &checks_fitQzshift, const ::coder::array<real_T, 2U>
+                    &checks_fitScalefactor, const ::coder::array<real_T, 2U>
+                    &checks_fitBulkIn, const ::coder::array<real_T, 2U>
+                    &checks_fitBulkOut, const ::coder::array<real_T, 2U>
+                    &checks_fitResolutionParam, const ::coder::array<real_T, 2U>
+                    &checks_fitDomainRatio)
   {
     ::coder::array<real_T, 2U> uppars;
     int32_T b_i;
@@ -38,7 +37,6 @@ namespace RAT
 
     // Unpack the params out of the fitParams and otherParams arrays
     // back into problem.params
-    // problem = getappdata(0,'problem');
     unpacked_counter = 1U;
     packed_counter = 0;
     uppars_counter = 0;
@@ -48,9 +46,9 @@ namespace RAT
       uppars[i] = 0.0;
     }
 
-    i = controls_checks_fitParam.size(1);
+    i = checks_fitParam.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      if (controls_checks_fitParam[b_i] == 1.0) {
+      if (checks_fitParam[b_i] == 1.0) {
         uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
           (unpacked_counter) - 1];
         unpacked_counter++;
@@ -76,9 +74,9 @@ namespace RAT
     }
 
     uppars_counter = 0;
-    i = controls_checks_fitBackgroundParam.size(1);
+    i = checks_fitBackgroundParam.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      if (controls_checks_fitBackgroundParam[b_i] == 1.0) {
+      if (checks_fitBackgroundParam[b_i] == 1.0) {
         uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
           (unpacked_counter) - 1];
         unpacked_counter++;
@@ -104,9 +102,9 @@ namespace RAT
     }
 
     uppars_counter = 0;
-    i = controls_checks_fitScalefactor.size(1);
+    i = checks_fitScalefactor.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      if (controls_checks_fitScalefactor[b_i] == 1.0) {
+      if (checks_fitScalefactor[b_i] == 1.0) {
         uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
           (unpacked_counter) - 1];
         unpacked_counter++;
@@ -132,9 +130,9 @@ namespace RAT
     }
 
     uppars_counter = 0;
-    i = controls_checks_fitQzshift.size(1);
+    i = checks_fitQzshift.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      if (controls_checks_fitQzshift[b_i] == 1.0) {
+      if (checks_fitQzshift[b_i] == 1.0) {
         uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
           (unpacked_counter) - 1];
         unpacked_counter++;
@@ -160,9 +158,9 @@ namespace RAT
     }
 
     uppars_counter = 0;
-    i = controls_checks_fitBulkIn.size(1);
+    i = checks_fitBulkIn.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      if (controls_checks_fitBulkIn[b_i] == 1.0) {
+      if (checks_fitBulkIn[b_i] == 1.0) {
         uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
           (unpacked_counter) - 1];
         unpacked_counter++;
@@ -188,9 +186,9 @@ namespace RAT
     }
 
     uppars_counter = 0;
-    i = controls_checks_fitBulkOut.size(1);
+    i = checks_fitBulkOut.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      if (controls_checks_fitBulkOut[b_i] == 1.0) {
+      if (checks_fitBulkOut[b_i] == 1.0) {
         uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
           (unpacked_counter) - 1];
         unpacked_counter++;
@@ -216,9 +214,9 @@ namespace RAT
     }
 
     uppars_counter = 0;
-    i = controls_checks_fitResolutionParam.size(1);
+    i = checks_fitResolutionParam.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      if (controls_checks_fitResolutionParam[b_i] == 1.0) {
+      if (checks_fitResolutionParam[b_i] == 1.0) {
         uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
           (unpacked_counter) - 1];
         unpacked_counter++;
@@ -244,9 +242,9 @@ namespace RAT
     }
 
     uppars_counter = 0;
-    i = controls_checks_fitDomainRatio.size(1);
+    i = checks_fitDomainRatio.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      if (controls_checks_fitDomainRatio[b_i] == 1.0) {
+      if (checks_fitDomainRatio[b_i] == 1.0) {
         uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
           (unpacked_counter) - 1];
         unpacked_counter++;
@@ -265,16 +263,15 @@ namespace RAT
     }
   }
 
-  void unpackParams(f_struct_T *problemStruct, const ::coder::array<real_T, 2U>
-                    &controls_checks_fitParam, const ::coder::array<real_T, 2U>
-                    &controls_checks_fitBackgroundParam, const ::coder::array<
-                    real_T, 2U> &controls_checks_fitQzshift, const ::coder::
-                    array<real_T, 2U> &controls_checks_fitScalefactor, const ::
-                    coder::array<real_T, 2U> &controls_checks_fitBulkIn, const ::
-                    coder::array<real_T, 2U> &controls_checks_fitBulkOut, const ::
-                    coder::array<real_T, 2U> &controls_checks_fitResolutionParam,
-                    const ::coder::array<real_T, 2U>
-                    &controls_checks_fitDomainRatio)
+  void unpackParams(g_struct_T *problemStruct, const ::coder::array<real_T, 2U>
+                    &checks_fitParam, const ::coder::array<real_T, 2U>
+                    &checks_fitBackgroundParam, const ::coder::array<real_T, 2U>
+                    &checks_fitQzshift, const ::coder::array<real_T, 2U>
+                    &checks_fitScalefactor, const ::coder::array<real_T, 2U>
+                    &checks_fitBulkIn, const ::coder::array<real_T, 2U>
+                    &checks_fitBulkOut, const ::coder::array<real_T, 2U>
+                    &checks_fitResolutionParam, const ::coder::array<real_T, 2U>
+                    &checks_fitDomainRatio)
   {
     ::coder::array<real_T, 2U> uppars;
     int32_T b_i;
@@ -286,7 +283,6 @@ namespace RAT
 
     // Unpack the params out of the fitParams and otherParams arrays
     // back into problem.params
-    // problem = getappdata(0,'problem');
     unpacked_counter = 1U;
     packed_counter = 0;
     uppars_counter = 0;
@@ -296,9 +292,9 @@ namespace RAT
       uppars[i] = 0.0;
     }
 
-    i = controls_checks_fitParam.size(1);
+    i = checks_fitParam.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      if (controls_checks_fitParam[b_i] == 1.0) {
+      if (checks_fitParam[b_i] == 1.0) {
         uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
           (unpacked_counter) - 1];
         unpacked_counter++;
@@ -324,9 +320,9 @@ namespace RAT
     }
 
     uppars_counter = 0;
-    i = controls_checks_fitBackgroundParam.size(1);
+    i = checks_fitBackgroundParam.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      if (controls_checks_fitBackgroundParam[b_i] == 1.0) {
+      if (checks_fitBackgroundParam[b_i] == 1.0) {
         uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
           (unpacked_counter) - 1];
         unpacked_counter++;
@@ -352,9 +348,9 @@ namespace RAT
     }
 
     uppars_counter = 0;
-    i = controls_checks_fitScalefactor.size(1);
+    i = checks_fitScalefactor.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      if (controls_checks_fitScalefactor[b_i] == 1.0) {
+      if (checks_fitScalefactor[b_i] == 1.0) {
         uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
           (unpacked_counter) - 1];
         unpacked_counter++;
@@ -380,9 +376,9 @@ namespace RAT
     }
 
     uppars_counter = 0;
-    i = controls_checks_fitQzshift.size(1);
+    i = checks_fitQzshift.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      if (controls_checks_fitQzshift[b_i] == 1.0) {
+      if (checks_fitQzshift[b_i] == 1.0) {
         uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
           (unpacked_counter) - 1];
         unpacked_counter++;
@@ -408,9 +404,9 @@ namespace RAT
     }
 
     uppars_counter = 0;
-    i = controls_checks_fitBulkIn.size(1);
+    i = checks_fitBulkIn.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      if (controls_checks_fitBulkIn[b_i] == 1.0) {
+      if (checks_fitBulkIn[b_i] == 1.0) {
         uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
           (unpacked_counter) - 1];
         unpacked_counter++;
@@ -436,9 +432,9 @@ namespace RAT
     }
 
     uppars_counter = 0;
-    i = controls_checks_fitBulkOut.size(1);
+    i = checks_fitBulkOut.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      if (controls_checks_fitBulkOut[b_i] == 1.0) {
+      if (checks_fitBulkOut[b_i] == 1.0) {
         uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
           (unpacked_counter) - 1];
         unpacked_counter++;
@@ -464,9 +460,9 @@ namespace RAT
     }
 
     uppars_counter = 0;
-    i = controls_checks_fitResolutionParam.size(1);
+    i = checks_fitResolutionParam.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      if (controls_checks_fitResolutionParam[b_i] == 1.0) {
+      if (checks_fitResolutionParam[b_i] == 1.0) {
         uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
           (unpacked_counter) - 1];
         unpacked_counter++;
@@ -492,9 +488,9 @@ namespace RAT
     }
 
     uppars_counter = 0;
-    i = controls_checks_fitDomainRatio.size(1);
+    i = checks_fitDomainRatio.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      if (controls_checks_fitDomainRatio[b_i] == 1.0) {
+      if (checks_fitDomainRatio[b_i] == 1.0) {
         uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
           (unpacked_counter) - 1];
         unpacked_counter++;

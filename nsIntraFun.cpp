@@ -22,14 +22,14 @@
 // Function Definitions
 namespace RAT
 {
-  real_T nsIntraFun(const d_struct_T *data_f1, const struct2_T *data_f2, const
-                    struct1_T *data_f3, const cell_16 *data_f4, const ::coder::
-                    array<real_T, 2U> &p)
+  real_T nsIntraFun(const e_struct_T *data_f1, const struct3_T *data_f2, const
+                    struct2_T *data_f3, const ::coder::array<real_T, 2U> &p)
   {
-    f_struct_T problemStruct;
-    struct5_T expl_temp;
+    g_struct_T problemStruct;
+    struct6_T expl_temp;
     int32_T b_loop_ub;
     int32_T i;
+    int32_T i1;
     int32_T loop_ub;
     problemStruct.TF.size[0] = 1;
     problemStruct.TF.size[1] = data_f1->TF.size[1];
@@ -45,10 +45,28 @@ namespace RAT
       problemStruct.resample[i] = data_f1->resample[i];
     }
 
+    problemStruct.data.set_size(1, data_f1->data.size(1));
+    loop_ub = data_f1->data.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      problemStruct.data[i] = data_f1->data[i];
+    }
+
     problemStruct.dataPresent.set_size(1, data_f1->dataPresent.size(1));
     loop_ub = data_f1->dataPresent.size(1);
     for (i = 0; i < loop_ub; i++) {
       problemStruct.dataPresent[i] = data_f1->dataPresent[i];
+    }
+
+    problemStruct.dataLimits.set_size(1, data_f1->dataLimits.size(1));
+    loop_ub = data_f1->dataLimits.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      problemStruct.dataLimits[i] = data_f1->dataLimits[i];
+    }
+
+    problemStruct.simulationLimits.set_size(1, data_f1->simulationLimits.size(1));
+    loop_ub = data_f1->simulationLimits.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      problemStruct.simulationLimits[i] = data_f1->simulationLimits[i];
     }
 
     problemStruct.oilChiDataPresent.set_size(1, data_f1->oilChiDataPresent.size
@@ -68,6 +86,18 @@ namespace RAT
     }
 
     problemStruct.useImaginary = data_f1->useImaginary;
+    problemStruct.repeatLayers.set_size(1, data_f1->repeatLayers.size(1));
+    loop_ub = data_f1->repeatLayers.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      problemStruct.repeatLayers[i] = data_f1->repeatLayers[i];
+    }
+
+    problemStruct.contrastNames.set_size(1, data_f1->contrastNames.size(1));
+    loop_ub = data_f1->contrastNames.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      problemStruct.contrastNames[i] = data_f1->contrastNames[i];
+    }
+
     problemStruct.contrastBackgroundParams.set_size(1,
       data_f1->contrastBackgroundParams.size(1));
     loop_ub = data_f1->contrastBackgroundParams.size(1);
@@ -168,6 +198,33 @@ namespace RAT
     }
 
     problemStruct.numberOfLayers = data_f1->numberOfLayers;
+    problemStruct.contrastLayers.set_size(1, data_f1->contrastLayers.size(1));
+    loop_ub = data_f1->contrastLayers.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      problemStruct.contrastLayers[i] = data_f1->contrastLayers[i];
+    }
+
+    problemStruct.layersDetails.set_size(data_f1->layersDetails.size(0),
+      data_f1->layersDetails.size(1));
+    loop_ub = data_f1->layersDetails.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_loop_ub = data_f1->layersDetails.size(0);
+      for (i1 = 0; i1 < b_loop_ub; i1++) {
+        problemStruct.layersDetails[i1] = data_f1->layersDetails[i1];
+      }
+    }
+
+    problemStruct.customFiles.set_size(data_f1->customFiles.size(0),
+      data_f1->customFiles.size(1));
+    loop_ub = data_f1->customFiles.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_loop_ub = data_f1->customFiles.size(0);
+      for (i1 = 0; i1 < b_loop_ub; i1++) {
+        problemStruct.customFiles[problemStruct.customFiles.size(0) * i] =
+          data_f1->customFiles[data_f1->customFiles.size(0) * i];
+      }
+    }
+
     problemStruct.modelType.size[0] = 1;
     problemStruct.modelType.size[1] = data_f1->modelType.size[1];
     loop_ub = data_f1->modelType.size[1];
@@ -197,6 +254,13 @@ namespace RAT
     }
 
     problemStruct.numberOfDomainContrasts = data_f1->numberOfDomainContrasts;
+    problemStruct.domainContrastLayers.set_size(1,
+      data_f1->domainContrastLayers.size(1));
+    loop_ub = data_f1->domainContrastLayers.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      problemStruct.domainContrastLayers[i] = data_f1->domainContrastLayers[i];
+    }
+
     problemStruct.otherParams.set_size(data_f1->otherParams.size(0));
     loop_ub = data_f1->otherParams.size(0);
     for (i = 0; i < loop_ub; i++) {
@@ -208,7 +272,6 @@ namespace RAT
     loop_ub = data_f1->fitLimits.size(0);
     b_loop_ub = data_f1->otherLimits.size(0);
     for (i = 0; i < 2; i++) {
-      int32_T i1;
       for (i1 = 0; i1 < loop_ub; i1++) {
         problemStruct.fitLimits[i1 + problemStruct.fitLimits.size(0) * i] =
           data_f1->fitLimits[i1 + data_f1->fitLimits.size(0) * i];
@@ -219,6 +282,8 @@ namespace RAT
           data_f1->otherLimits[i1 + data_f1->otherLimits.size(0) * i];
       }
     }
+
+    problemStruct.names = data_f1->names;
 
     //  Removed use of cells....
     problemStruct.fitParams.set_size(1, p.size(1));
@@ -232,17 +297,18 @@ namespace RAT
                  data_f2->checks.fitScalefactor, data_f2->checks.fitBulkIn,
                  data_f2->checks.fitBulkOut, data_f2->checks.fitResolutionParam,
                  data_f2->checks.fitDomainRatio);
-    reflectivityCalculation(&problemStruct, data_f4, data_f3, data_f2,
-      &expl_temp);
+    reflectivityCalculation(&problemStruct, data_f3->param,
+      data_f3->backgroundParam, data_f3->scalefactor, data_f3->qzshift,
+      data_f3->bulkIn, data_f3->bulkOut, data_f3->resolutionParam,
+      data_f3->domainRatio, data_f2, &expl_temp);
     return -expl_temp.calculationResults.sumChi / 2.0;
   }
 
-  real_T nsIntraFun(const d_struct_T *data_f1, const struct2_T *data_f2, const
-                    struct1_T *data_f3, const cell_16 *data_f4, const ::coder::
-                    array<real_T, 1U> &p)
+  real_T nsIntraFun(const e_struct_T *data_f1, const struct3_T *data_f2, const
+                    struct2_T *data_f3, const ::coder::array<real_T, 1U> &p)
   {
-    d_struct_T problemStruct;
-    e_struct_T expl_temp;
+    e_struct_T problemStruct;
+    f_struct_T expl_temp;
     int32_T loop_ub;
     problemStruct = *data_f1;
 
@@ -258,8 +324,10 @@ namespace RAT
                  data_f2->checks.fitScalefactor, data_f2->checks.fitBulkIn,
                  data_f2->checks.fitBulkOut, data_f2->checks.fitResolutionParam,
                  data_f2->checks.fitDomainRatio);
-    reflectivityCalculation(&problemStruct, data_f4, data_f3, data_f2,
-      &expl_temp);
+    reflectivityCalculation(&problemStruct, data_f3->param,
+      data_f3->backgroundParam, data_f3->scalefactor, data_f3->qzshift,
+      data_f3->bulkIn, data_f3->bulkOut, data_f3->resolutionParam,
+      data_f3->domainRatio, data_f2, &expl_temp);
     return -expl_temp.calculationResults.sumChi / 2.0;
   }
 }

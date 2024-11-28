@@ -20,14 +20,14 @@
 // Type Declarations
 namespace RAT
 {
-  struct struct11_T;
+  struct struct12_T;
 }
 
 // Function Declarations
 namespace RAT
 {
   void calcProposal(const ::coder::array<real_T, 2U> &X, real_T CR_data[], const
-                    struct11_T *DREAMPar, const ::coder::array<real_T, 2U>
+                    struct12_T *DREAMPar, const ::coder::array<real_T, 2U>
                     &Table_gamma, const ::coder::array<real_T, 2U>
                     &paramInfo_min, const ::coder::array<real_T, 2U>
                     &paramInfo_max, const char_T paramInfo_boundhandling_data[],

@@ -29,15 +29,21 @@
 // Function Definitions
 namespace RAT
 {
-  void reflectivityCalculation(const d_struct_T *problemStruct, const cell_16
-    *problemCells, const struct1_T *problemLimits, const struct2_T *controls,
-    e_struct_T *result)
+  void reflectivityCalculation(const e_struct_T *problemStruct, const ::coder::
+    array<real_T, 2U> &problemLimits_param, const ::coder::array<real_T, 2U>
+    &problemLimits_backgroundParam, const ::coder::array<real_T, 2U>
+    &problemLimits_scalefactor, const ::coder::array<real_T, 2U>
+    &problemLimits_qzshift, const ::coder::array<real_T, 2U>
+    &problemLimits_bulkIn, const ::coder::array<real_T, 2U>
+    &problemLimits_bulkOut, const ::coder::array<real_T, 2U>
+    &problemLimits_resolutionParam, const ::coder::array<real_T, 2U>
+    &problemLimits_domainRatio, const struct3_T *controls, f_struct_T *result)
   {
-    ::coder::array<cell_wrap_12, 2U> layerSlds;
-    ::coder::array<cell_wrap_12, 2U> resampledLayers;
-    ::coder::array<cell_wrap_12, 2U> sldProfiles;
+    ::coder::array<cell_wrap_10, 2U> layerSlds;
+    ::coder::array<cell_wrap_10, 2U> resampledLayers;
+    ::coder::array<cell_wrap_10, 2U> sldProfiles;
     ::coder::array<real_T, 1U> qzshifts;
-    d_struct_T a__1;
+    e_struct_T a__1;
     real_T y;
     int32_T switch_expression_size[2];
     int32_T b_index;
@@ -90,9 +96,9 @@ namespace RAT
 
       switch (b_index) {
        case 0:
-        nonPolarisedTF::standardLayers(problemStruct, problemCells, controls,
-          qzshifts, result->contrastParams.scalefactors,
-          result->contrastParams.bulkIn, result->contrastParams.bulkOut,
+        nonPolarisedTF::standardLayers(problemStruct, controls, qzshifts,
+          result->contrastParams.scalefactors, result->contrastParams.bulkIn,
+          result->contrastParams.bulkOut,
           result->contrastParams.resolutionParams,
           result->calculationResults.chiValues, result->reflectivity,
           result->simulation, result->shiftedData, result->backgrounds,
@@ -118,9 +124,9 @@ namespace RAT
         break;
 
        case 1:
-        nonPolarisedTF::b_customLayers(problemStruct, problemCells, controls,
-          qzshifts, result->contrastParams.scalefactors,
-          result->contrastParams.bulkIn, result->contrastParams.bulkOut,
+        nonPolarisedTF::b_customLayers(problemStruct, controls, qzshifts,
+          result->contrastParams.scalefactors, result->contrastParams.bulkIn,
+          result->contrastParams.bulkOut,
           result->contrastParams.resolutionParams,
           result->calculationResults.chiValues, result->reflectivity,
           result->simulation, result->shiftedData, result->backgrounds,
@@ -146,9 +152,9 @@ namespace RAT
         break;
 
        case 2:
-        nonPolarisedTF::b_customXY(problemStruct, problemCells, controls,
-          qzshifts, result->contrastParams.scalefactors,
-          result->contrastParams.bulkIn, result->contrastParams.bulkOut,
+        nonPolarisedTF::b_customXY(problemStruct, controls, qzshifts,
+          result->contrastParams.scalefactors, result->contrastParams.bulkIn,
+          result->contrastParams.bulkOut,
           result->contrastParams.resolutionParams,
           result->calculationResults.chiValues, result->reflectivity,
           result->simulation, result->shiftedData, result->backgrounds,
@@ -175,9 +181,9 @@ namespace RAT
       }
 
       // case coderEnums.calculationTypes.OilWater
-      // contrastParams = oilWaterTFReflectivityCalculation(problemStruct,problemCells,controls);
+      // contrastParams = oilWaterTFReflectivityCalculation(problemStruct,controls);
       // case coderEnums.calculationTypes.Magnetic
-      // contrastParams = polarisedTFReflectivityCalculation(problemStruct,problemCells,controls);
+      // contrastParams = polarisedTFReflectivityCalculation(problemStruct,controls);
       break;
 
      case 1:
@@ -203,9 +209,9 @@ namespace RAT
           {
             int32_T b_loop_ub;
             int32_T loop_ub;
-            domainsTF::standardLayers(problemStruct, problemCells, controls,
-              qzshifts, result->contrastParams.scalefactors,
-              result->contrastParams.bulkIn, result->contrastParams.bulkOut,
+            domainsTF::standardLayers(problemStruct, controls, qzshifts,
+              result->contrastParams.scalefactors, result->contrastParams.bulkIn,
+              result->contrastParams.bulkOut,
               result->contrastParams.resolutionParams,
               result->calculationResults.chiValues, result->reflectivity,
               result->simulation, result->shiftedData, result->backgrounds,
@@ -241,9 +247,9 @@ namespace RAT
           {
             int32_T b_loop_ub;
             int32_T loop_ub;
-            domainsTF::b_customLayers(problemStruct, problemCells, controls,
-              qzshifts, result->contrastParams.scalefactors,
-              result->contrastParams.bulkIn, result->contrastParams.bulkOut,
+            domainsTF::b_customLayers(problemStruct, controls, qzshifts,
+              result->contrastParams.scalefactors, result->contrastParams.bulkIn,
+              result->contrastParams.bulkOut,
               result->contrastParams.resolutionParams,
               result->calculationResults.chiValues, result->reflectivity,
               result->simulation, result->shiftedData, result->backgrounds,
@@ -279,8 +285,8 @@ namespace RAT
           {
             int32_T b_loop_ub;
             int32_T loop_ub;
-            domainsTF::b_customXY(problemStruct, problemCells, controls,
-                                  qzshifts, result->contrastParams.scalefactors,
+            domainsTF::b_customXY(problemStruct, controls, qzshifts,
+                                  result->contrastParams.scalefactors,
                                   result->contrastParams.bulkIn,
                                   result->contrastParams.bulkOut,
                                   result->contrastParams.resolutionParams,
@@ -341,21 +347,28 @@ namespace RAT
     }
 
     a__1 = *problemStruct;
-    packParams(&a__1, problemCells->f7, problemCells->f8, problemCells->f9,
-               problemCells->f10, problemCells->f11, problemCells->f12,
-               problemCells->f13, problemCells->f20, problemLimits,
+    packParams(&a__1, problemLimits_param, problemLimits_backgroundParam,
+               problemLimits_scalefactor, problemLimits_qzshift,
+               problemLimits_bulkIn, problemLimits_bulkOut,
+               problemLimits_resolutionParam, problemLimits_domainRatio,
                &controls->checks, result->fitNames);
   }
 
-  void reflectivityCalculation(const f_struct_T *problemStruct, const cell_16
-    *problemCells, const struct1_T *problemLimits, const struct2_T *controls,
-    struct5_T *result)
+  void reflectivityCalculation(const g_struct_T *problemStruct, const ::coder::
+    array<real_T, 2U> &problemLimits_param, const ::coder::array<real_T, 2U>
+    &problemLimits_backgroundParam, const ::coder::array<real_T, 2U>
+    &problemLimits_scalefactor, const ::coder::array<real_T, 2U>
+    &problemLimits_qzshift, const ::coder::array<real_T, 2U>
+    &problemLimits_bulkIn, const ::coder::array<real_T, 2U>
+    &problemLimits_bulkOut, const ::coder::array<real_T, 2U>
+    &problemLimits_resolutionParam, const ::coder::array<real_T, 2U>
+    &problemLimits_domainRatio, const struct3_T *controls, struct6_T *result)
   {
-    ::coder::array<cell_wrap_12, 2U> layerSlds;
-    ::coder::array<cell_wrap_12, 2U> resampledLayers;
-    ::coder::array<cell_wrap_12, 2U> sldProfiles;
+    ::coder::array<cell_wrap_10, 2U> layerSlds;
+    ::coder::array<cell_wrap_10, 2U> resampledLayers;
+    ::coder::array<cell_wrap_10, 2U> sldProfiles;
     ::coder::array<real_T, 1U> qzshifts;
-    f_struct_T a__1;
+    g_struct_T a__1;
     real_T y;
     int32_T switch_expression_size[2];
     int32_T b_index;
@@ -410,9 +423,9 @@ namespace RAT
 
       switch (b_index) {
        case 0:
-        nonPolarisedTF::standardLayers(problemStruct, problemCells, controls,
-          qzshifts, result->contrastParams.scalefactors,
-          result->contrastParams.bulkIn, result->contrastParams.bulkOut,
+        nonPolarisedTF::standardLayers(problemStruct, controls, qzshifts,
+          result->contrastParams.scalefactors, result->contrastParams.bulkIn,
+          result->contrastParams.bulkOut,
           result->contrastParams.resolutionParams,
           result->calculationResults.chiValues, result->reflectivity,
           result->simulation, result->shiftedData, result->backgrounds,
@@ -438,9 +451,9 @@ namespace RAT
         break;
 
        case 1:
-        nonPolarisedTF::b_customLayers(problemStruct, problemCells, controls,
-          qzshifts, result->contrastParams.scalefactors,
-          result->contrastParams.bulkIn, result->contrastParams.bulkOut,
+        nonPolarisedTF::b_customLayers(problemStruct, controls, qzshifts,
+          result->contrastParams.scalefactors, result->contrastParams.bulkIn,
+          result->contrastParams.bulkOut,
           result->contrastParams.resolutionParams,
           result->calculationResults.chiValues, result->reflectivity,
           result->simulation, result->shiftedData, result->backgrounds,
@@ -466,9 +479,9 @@ namespace RAT
         break;
 
        case 2:
-        nonPolarisedTF::b_customXY(problemStruct, problemCells, controls,
-          qzshifts, result->contrastParams.scalefactors,
-          result->contrastParams.bulkIn, result->contrastParams.bulkOut,
+        nonPolarisedTF::b_customXY(problemStruct, controls, qzshifts,
+          result->contrastParams.scalefactors, result->contrastParams.bulkIn,
+          result->contrastParams.bulkOut,
           result->contrastParams.resolutionParams,
           result->calculationResults.chiValues, result->reflectivity,
           result->simulation, result->shiftedData, result->backgrounds,
@@ -495,9 +508,9 @@ namespace RAT
       }
 
       // case coderEnums.calculationTypes.OilWater
-      // contrastParams = oilWaterTFReflectivityCalculation(problemStruct,problemCells,controls);
+      // contrastParams = oilWaterTFReflectivityCalculation(problemStruct,controls);
       // case coderEnums.calculationTypes.Magnetic
-      // contrastParams = polarisedTFReflectivityCalculation(problemStruct,problemCells,controls);
+      // contrastParams = polarisedTFReflectivityCalculation(problemStruct,controls);
       break;
 
      case 1:
@@ -522,9 +535,9 @@ namespace RAT
          case 0:
           {
             int32_T b_loop_ub;
-            domainsTF::standardLayers(problemStruct, problemCells, controls,
-              qzshifts, result->contrastParams.scalefactors,
-              result->contrastParams.bulkIn, result->contrastParams.bulkOut,
+            domainsTF::standardLayers(problemStruct, controls, qzshifts,
+              result->contrastParams.scalefactors, result->contrastParams.bulkIn,
+              result->contrastParams.bulkOut,
               result->contrastParams.resolutionParams,
               result->calculationResults.chiValues, result->reflectivity,
               result->simulation, result->shiftedData, result->backgrounds,
@@ -558,9 +571,9 @@ namespace RAT
          case 1:
           {
             int32_T b_loop_ub;
-            domainsTF::b_customLayers(problemStruct, problemCells, controls,
-              qzshifts, result->contrastParams.scalefactors,
-              result->contrastParams.bulkIn, result->contrastParams.bulkOut,
+            domainsTF::b_customLayers(problemStruct, controls, qzshifts,
+              result->contrastParams.scalefactors, result->contrastParams.bulkIn,
+              result->contrastParams.bulkOut,
               result->contrastParams.resolutionParams,
               result->calculationResults.chiValues, result->reflectivity,
               result->simulation, result->shiftedData, result->backgrounds,
@@ -594,8 +607,8 @@ namespace RAT
          case 2:
           {
             int32_T b_loop_ub;
-            domainsTF::b_customXY(problemStruct, problemCells, controls,
-                                  qzshifts, result->contrastParams.scalefactors,
+            domainsTF::b_customXY(problemStruct, controls, qzshifts,
+                                  result->contrastParams.scalefactors,
                                   result->contrastParams.bulkIn,
                                   result->contrastParams.bulkOut,
                                   result->contrastParams.resolutionParams,
@@ -660,19 +673,26 @@ namespace RAT
     }
 
     a__1 = *problemStruct;
-    packParams(&a__1, problemCells->f7, problemCells->f8, problemCells->f9,
-               problemCells->f10, problemCells->f11, problemCells->f12,
-               problemCells->f13, problemCells->f20, problemLimits,
+    packParams(&a__1, problemLimits_param, problemLimits_backgroundParam,
+               problemLimits_scalefactor, problemLimits_qzshift,
+               problemLimits_bulkIn, problemLimits_bulkOut,
+               problemLimits_resolutionParam, problemLimits_domainRatio,
                &controls->checks, result->fitNames);
   }
 
-  void reflectivityCalculation(const struct0_T *problemStruct, const cell_9
-    *problemCells, const struct1_T *problemLimits, const struct2_T *controls,
-    e_struct_T *result)
+  void reflectivityCalculation(const struct0_T *problemStruct, const ::coder::
+    array<real_T, 2U> &problemLimits_param, const ::coder::array<real_T, 2U>
+    &problemLimits_backgroundParam, const ::coder::array<real_T, 2U>
+    &problemLimits_scalefactor, const ::coder::array<real_T, 2U>
+    &problemLimits_qzshift, const ::coder::array<real_T, 2U>
+    &problemLimits_bulkIn, const ::coder::array<real_T, 2U>
+    &problemLimits_bulkOut, const ::coder::array<real_T, 2U>
+    &problemLimits_resolutionParam, const ::coder::array<real_T, 2U>
+    &problemLimits_domainRatio, const struct3_T *controls, f_struct_T *result)
   {
-    ::coder::array<cell_wrap_12, 2U> layerSlds;
-    ::coder::array<cell_wrap_12, 2U> resampledLayers;
-    ::coder::array<cell_wrap_12, 2U> sldProfiles;
+    ::coder::array<cell_wrap_10, 2U> layerSlds;
+    ::coder::array<cell_wrap_10, 2U> resampledLayers;
+    ::coder::array<cell_wrap_10, 2U> sldProfiles;
     ::coder::array<real_T, 1U> qzshifts;
     struct0_T a__1;
     real_T y;
@@ -727,9 +747,9 @@ namespace RAT
 
       switch (b_index) {
        case 0:
-        nonPolarisedTF::standardLayers(problemStruct, problemCells, controls,
-          qzshifts, result->contrastParams.scalefactors,
-          result->contrastParams.bulkIn, result->contrastParams.bulkOut,
+        nonPolarisedTF::standardLayers(problemStruct, controls, qzshifts,
+          result->contrastParams.scalefactors, result->contrastParams.bulkIn,
+          result->contrastParams.bulkOut,
           result->contrastParams.resolutionParams,
           result->calculationResults.chiValues, result->reflectivity,
           result->simulation, result->shiftedData, result->backgrounds,
@@ -755,9 +775,9 @@ namespace RAT
         break;
 
        case 1:
-        nonPolarisedTF::b_customLayers(problemStruct, problemCells, controls,
-          qzshifts, result->contrastParams.scalefactors,
-          result->contrastParams.bulkIn, result->contrastParams.bulkOut,
+        nonPolarisedTF::b_customLayers(problemStruct, controls, qzshifts,
+          result->contrastParams.scalefactors, result->contrastParams.bulkIn,
+          result->contrastParams.bulkOut,
           result->contrastParams.resolutionParams,
           result->calculationResults.chiValues, result->reflectivity,
           result->simulation, result->shiftedData, result->backgrounds,
@@ -783,9 +803,9 @@ namespace RAT
         break;
 
        case 2:
-        nonPolarisedTF::b_customXY(problemStruct, problemCells, controls,
-          qzshifts, result->contrastParams.scalefactors,
-          result->contrastParams.bulkIn, result->contrastParams.bulkOut,
+        nonPolarisedTF::b_customXY(problemStruct, controls, qzshifts,
+          result->contrastParams.scalefactors, result->contrastParams.bulkIn,
+          result->contrastParams.bulkOut,
           result->contrastParams.resolutionParams,
           result->calculationResults.chiValues, result->reflectivity,
           result->simulation, result->shiftedData, result->backgrounds,
@@ -812,9 +832,9 @@ namespace RAT
       }
 
       // case coderEnums.calculationTypes.OilWater
-      // contrastParams = oilWaterTFReflectivityCalculation(problemStruct,problemCells,controls);
+      // contrastParams = oilWaterTFReflectivityCalculation(problemStruct,controls);
       // case coderEnums.calculationTypes.Magnetic
-      // contrastParams = polarisedTFReflectivityCalculation(problemStruct,problemCells,controls);
+      // contrastParams = polarisedTFReflectivityCalculation(problemStruct,controls);
       break;
 
      case 1:
@@ -840,9 +860,9 @@ namespace RAT
           {
             int32_T b_loop_ub;
             int32_T loop_ub;
-            domainsTF::standardLayers(problemStruct, problemCells, controls,
-              qzshifts, result->contrastParams.scalefactors,
-              result->contrastParams.bulkIn, result->contrastParams.bulkOut,
+            domainsTF::standardLayers(problemStruct, controls, qzshifts,
+              result->contrastParams.scalefactors, result->contrastParams.bulkIn,
+              result->contrastParams.bulkOut,
               result->contrastParams.resolutionParams,
               result->calculationResults.chiValues, result->reflectivity,
               result->simulation, result->shiftedData, result->backgrounds,
@@ -878,9 +898,9 @@ namespace RAT
           {
             int32_T b_loop_ub;
             int32_T loop_ub;
-            domainsTF::b_customLayers(problemStruct, problemCells, controls,
-              qzshifts, result->contrastParams.scalefactors,
-              result->contrastParams.bulkIn, result->contrastParams.bulkOut,
+            domainsTF::b_customLayers(problemStruct, controls, qzshifts,
+              result->contrastParams.scalefactors, result->contrastParams.bulkIn,
+              result->contrastParams.bulkOut,
               result->contrastParams.resolutionParams,
               result->calculationResults.chiValues, result->reflectivity,
               result->simulation, result->shiftedData, result->backgrounds,
@@ -916,8 +936,8 @@ namespace RAT
           {
             int32_T b_loop_ub;
             int32_T loop_ub;
-            domainsTF::b_customXY(problemStruct, problemCells, controls,
-                                  qzshifts, result->contrastParams.scalefactors,
+            domainsTF::b_customXY(problemStruct, controls, qzshifts,
+                                  result->contrastParams.scalefactors,
                                   result->contrastParams.bulkIn,
                                   result->contrastParams.bulkOut,
                                   result->contrastParams.resolutionParams,
@@ -978,9 +998,10 @@ namespace RAT
     }
 
     a__1 = *problemStruct;
-    packParams(&a__1, problemCells->f7, problemCells->f8, problemCells->f9,
-               problemCells->f10, problemCells->f11, problemCells->f12,
-               problemCells->f13, problemCells->f20, problemLimits,
+    packParams(&a__1, problemLimits_param, problemLimits_backgroundParam,
+               problemLimits_scalefactor, problemLimits_qzshift,
+               problemLimits_bulkIn, problemLimits_bulkOut,
+               problemLimits_resolutionParam, problemLimits_domainRatio,
                &controls->checks, result->fitNames);
   }
 }

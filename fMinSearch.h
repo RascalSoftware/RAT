@@ -20,10 +20,8 @@
 // Type Declarations
 namespace RAT
 {
-  struct d_struct_T;
-  struct cell_16;
-  struct struct1_T;
-  struct struct2_T;
+  struct e_struct_T;
+  struct struct3_T;
   struct m_struct_T;
   struct l_struct_T;
 }
@@ -34,10 +32,17 @@ namespace RAT
   void fMinSearch(::coder::array<real_T, 1U> &x, real_T options_MaxIter, real_T
                   options_MaxFunEvals, real_T options_TolX, real_T
                   options_TolFun, const char_T dis_data[], const int32_T
-                  dis_size[2], const d_struct_T *varargin_1, const cell_16
-                  *varargin_2, const struct1_T *varargin_3, const struct2_T
-                  *varargin_4, const m_struct_T *varargin_5, real_T *fval,
-                  real_T *exitflag, l_struct_T *output);
+                  dis_size[2], const e_struct_T *varargin_1, const ::coder::
+                  array<real_T, 2U> &varargin_2_param, const ::coder::array<
+                  real_T, 2U> &varargin_2_backgroundParam, const ::coder::array<
+                  real_T, 2U> &varargin_2_scalefactor, const ::coder::array<
+                  real_T, 2U> &varargin_2_qzshift, const ::coder::array<real_T,
+                  2U> &varargin_2_bulkIn, const ::coder::array<real_T, 2U>
+                  &varargin_2_bulkOut, const ::coder::array<real_T, 2U>
+                  &varargin_2_resolutionParam, const ::coder::array<real_T, 2U>
+                  &varargin_2_domainRatio, const struct3_T *varargin_3, const
+                  m_struct_T *varargin_4, real_T *fval, real_T *exitflag,
+                  l_struct_T *output);
 }
 
 #endif

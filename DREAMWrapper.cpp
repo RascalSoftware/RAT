@@ -22,16 +22,16 @@
 // Function Definitions
 namespace RAT
 {
-  real_T DREAMWrapper(const ::coder::array<real_T, 2U> &pars, const d_struct_T
-                      *ratInputs_problemStruct, const cell_16
-                      *ratInputs_problemCells, const struct1_T
-                      *ratInputs_problemLimits, const struct2_T
+  real_T DREAMWrapper(const ::coder::array<real_T, 2U> &pars, const e_struct_T
+                      *ratInputs_problemStruct, const struct2_T
+                      *ratInputs_problemLimits, const struct3_T
                       *ratInputs_controls)
   {
-    f_struct_T problemStruct;
-    struct5_T expl_temp;
+    g_struct_T problemStruct;
+    struct6_T expl_temp;
     int32_T b_loop_ub;
     int32_T i;
+    int32_T i1;
     int32_T loop_ub;
 
     //  Get the inputs for Reflectivity Calculation
@@ -50,11 +50,32 @@ namespace RAT
       problemStruct.resample[i] = ratInputs_problemStruct->resample[i];
     }
 
+    problemStruct.data.set_size(1, ratInputs_problemStruct->data.size(1));
+    loop_ub = ratInputs_problemStruct->data.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      problemStruct.data[i] = ratInputs_problemStruct->data[i];
+    }
+
     problemStruct.dataPresent.set_size(1,
       ratInputs_problemStruct->dataPresent.size(1));
     loop_ub = ratInputs_problemStruct->dataPresent.size(1);
     for (i = 0; i < loop_ub; i++) {
       problemStruct.dataPresent[i] = ratInputs_problemStruct->dataPresent[i];
+    }
+
+    problemStruct.dataLimits.set_size(1,
+      ratInputs_problemStruct->dataLimits.size(1));
+    loop_ub = ratInputs_problemStruct->dataLimits.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      problemStruct.dataLimits[i] = ratInputs_problemStruct->dataLimits[i];
+    }
+
+    problemStruct.simulationLimits.set_size(1,
+      ratInputs_problemStruct->simulationLimits.size(1));
+    loop_ub = ratInputs_problemStruct->simulationLimits.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      problemStruct.simulationLimits[i] =
+        ratInputs_problemStruct->simulationLimits[i];
     }
 
     problemStruct.oilChiDataPresent.set_size(1,
@@ -76,6 +97,20 @@ namespace RAT
     }
 
     problemStruct.useImaginary = ratInputs_problemStruct->useImaginary;
+    problemStruct.repeatLayers.set_size(1,
+      ratInputs_problemStruct->repeatLayers.size(1));
+    loop_ub = ratInputs_problemStruct->repeatLayers.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      problemStruct.repeatLayers[i] = ratInputs_problemStruct->repeatLayers[i];
+    }
+
+    problemStruct.contrastNames.set_size(1,
+      ratInputs_problemStruct->contrastNames.size(1));
+    loop_ub = ratInputs_problemStruct->contrastNames.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      problemStruct.contrastNames[i] = ratInputs_problemStruct->contrastNames[i];
+    }
+
     problemStruct.contrastBackgroundParams.set_size(1,
       ratInputs_problemStruct->contrastBackgroundParams.size(1));
     loop_ub = ratInputs_problemStruct->contrastBackgroundParams.size(1);
@@ -188,6 +223,38 @@ namespace RAT
     }
 
     problemStruct.numberOfLayers = ratInputs_problemStruct->numberOfLayers;
+    problemStruct.contrastLayers.set_size(1,
+      ratInputs_problemStruct->contrastLayers.size(1));
+    loop_ub = ratInputs_problemStruct->contrastLayers.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      problemStruct.contrastLayers[i] = ratInputs_problemStruct->
+        contrastLayers[i];
+    }
+
+    problemStruct.layersDetails.set_size
+      (ratInputs_problemStruct->layersDetails.size(0),
+       ratInputs_problemStruct->layersDetails.size(1));
+    loop_ub = ratInputs_problemStruct->layersDetails.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_loop_ub = ratInputs_problemStruct->layersDetails.size(0);
+      for (i1 = 0; i1 < b_loop_ub; i1++) {
+        problemStruct.layersDetails[i1] = ratInputs_problemStruct->
+          layersDetails[i1];
+      }
+    }
+
+    problemStruct.customFiles.set_size(ratInputs_problemStruct->customFiles.size
+      (0), ratInputs_problemStruct->customFiles.size(1));
+    loop_ub = ratInputs_problemStruct->customFiles.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_loop_ub = ratInputs_problemStruct->customFiles.size(0);
+      for (i1 = 0; i1 < b_loop_ub; i1++) {
+        problemStruct.customFiles[problemStruct.customFiles.size(0) * i] =
+          ratInputs_problemStruct->customFiles
+          [ratInputs_problemStruct->customFiles.size(0) * i];
+      }
+    }
+
     problemStruct.modelType.size[0] = 1;
     problemStruct.modelType.size[1] = ratInputs_problemStruct->modelType.size[1];
     loop_ub = ratInputs_problemStruct->modelType.size[1];
@@ -222,6 +289,14 @@ namespace RAT
 
     problemStruct.numberOfDomainContrasts =
       ratInputs_problemStruct->numberOfDomainContrasts;
+    problemStruct.domainContrastLayers.set_size(1,
+      ratInputs_problemStruct->domainContrastLayers.size(1));
+    loop_ub = ratInputs_problemStruct->domainContrastLayers.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      problemStruct.domainContrastLayers[i] =
+        ratInputs_problemStruct->domainContrastLayers[i];
+    }
+
     problemStruct.otherParams.set_size(ratInputs_problemStruct->otherParams.size
       (0));
     loop_ub = ratInputs_problemStruct->otherParams.size(0);
@@ -236,7 +311,6 @@ namespace RAT
     loop_ub = ratInputs_problemStruct->fitLimits.size(0);
     b_loop_ub = ratInputs_problemStruct->otherLimits.size(0);
     for (i = 0; i < 2; i++) {
-      int32_T i1;
       for (i1 = 0; i1 < loop_ub; i1++) {
         problemStruct.fitLimits[i1 + problemStruct.fitLimits.size(0) * i] =
           ratInputs_problemStruct->fitLimits[i1 +
@@ -249,6 +323,8 @@ namespace RAT
           ratInputs_problemStruct->otherLimits.size(0) * i];
       }
     }
+
+    problemStruct.names = ratInputs_problemStruct->names;
 
     //  Put the current parameters into problem
     problemStruct.fitParams.set_size(1, pars.size(1));
@@ -268,8 +344,12 @@ namespace RAT
                  ratInputs_controls->checks.fitDomainRatio);
 
     //  Calculate....
-    reflectivityCalculation(&problemStruct, ratInputs_problemCells,
-      ratInputs_problemLimits, ratInputs_controls, &expl_temp);
+    reflectivityCalculation(&problemStruct, ratInputs_problemLimits->param,
+      ratInputs_problemLimits->backgroundParam,
+      ratInputs_problemLimits->scalefactor, ratInputs_problemLimits->qzshift,
+      ratInputs_problemLimits->bulkIn, ratInputs_problemLimits->bulkOut,
+      ratInputs_problemLimits->resolutionParam,
+      ratInputs_problemLimits->domainRatio, ratInputs_controls, &expl_temp);
 
     //  Function value is chi-squared....
     return -expl_temp.calculationResults.sumChi / 2.0;

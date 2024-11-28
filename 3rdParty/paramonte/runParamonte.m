@@ -15,14 +15,14 @@ end
 rng('default');
 
 % Split problem using the routines from RAT..
-[problemStruct,problemCells,problemLimits,priors,controls] = parseClassToStructs(project,inputControls);
+[problemStruct,problemLimits,priors,controls] = parseClassToStructs(project,inputControls);
 
 %controls.parallel = coderEnums.parallelOptions.Points;
 
 % Make an instance of the paramonte objective function class
 logFunc = pmLogFunction();
 
-[problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,problemCells,problemLimits,priors,controls.checks);
+[problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,problemLimits,priors,controls.checks);
 nDims = length(problemStruct.fitParams);
 testPars = problemStruct.fitParams;
 
@@ -33,7 +33,6 @@ problemStruct = scalePars(problemStruct);
 %scaledPriors = scalePriors(problemStruct,fitPriors);
 
 logFunc.problemStruct = problemStruct;
-logFunc.problemCells = problemCells;
 logFunc.problemLimits = problemLimits;
 logFunc.priors = fitPriors; %scaledPriors;
 logFunc.controls = controls;
@@ -113,7 +112,7 @@ pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective functi
 % numberOfContrasts = problemStruct.numberOfContrasts;
 % data = cell(1,numberOfContrasts);
 % for i = 1:numberOfContrasts
-%     thisData = problemCells{2}{i};
+%     thisData = problemStruct.data{i};
 %     if ~isempty(thisData)
 %         data{i} = thisData(:,:);
 %     end
@@ -126,7 +125,7 @@ pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective functi
 % output.bestParams = mean(unscaledChain);
 % output.data = data;
 % 
-% [problemStruct,result,bayesResults] = processBayes(output,problemStruct,problemCells,problemLimits,controls);
+% [problemStruct,result,bayesResults] = processBayes(output,problemStruct,problemLimits,controls);
 
 % pmpdOut = pmpd;
 

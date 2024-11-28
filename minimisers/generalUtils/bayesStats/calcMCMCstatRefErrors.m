@@ -1,4 +1,4 @@
-function [ref, intervals, posteriors] = calcMCMCstatRefErrors(bayesResults,problemStruct,problemCells,problemLimits,controls,bestFitMax)
+function [ref, intervals, posteriors] = calcMCMCstatRefErrors(bayesResults,problemStruct,problemLimits,controls,bestFitMax)
 
 %  Calculates fits and confidence intervals
 %  of the results of runing MCMC stat
@@ -32,8 +32,8 @@ end
 controls.procedure = 'calculate';
 controls.calcSldDuringFit = true;
 problemStruct.fitParams = fitParams;
-problemStruct = unpackParams(problemStruct,controls);
-result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+problemStruct = unpackParams(problemStruct,controls.checks);
+result = reflectivityCalculation(problemStruct,problemLimits,controls);
 
 ref.bestSlds = result.sldProfiles;
 ref.bestRefs = result.reflectivity;
@@ -60,7 +60,7 @@ intervals_95 = confIntervals(chain,fitParams,predInt);
 disp('Calculating 95% predicion intervals..'); 
 valRange = [0.0 0.33];
 [refErr_95, sldErr_95, outMessage_95] = refPredInterval(chain,ref.bestRefs,ref.bestSlds,intervals_95,valRange,...
-    problemStruct,problemCells,problemLimits,controls,result);
+    problemStruct,problemLimits,controls,result);
 %msgBoxTest('update','',0.33);
 
 % disp('Calculating 65% predicion intervals..');

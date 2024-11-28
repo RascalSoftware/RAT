@@ -3,7 +3,6 @@ classdef pmLogFunction
     properties 
         
         problemStruct;
-        problemCells;
         problemLimits;
         priors;
         controls;
@@ -23,9 +22,9 @@ classdef pmLogFunction
                 problem = unscalePars(problem);
             end
 
-            problem = unpackParams(problem,obj.controls);
+            problem = unpackParams(problem,obj.controls.checks);
             
-            result = reflectivityCalculation_mex(problem,obj.problemCells,obj.problemLimits,obj.controls);
+            result = reflectivityCalculation_mex(problem,obj.problemLimits,obj.controls);
             chi = result.calculationResults.sumChi;
             logFuncVal = -chi/2;
             

@@ -1,11 +1,5 @@
 function [refShadedIntervals, sldShadedIntervals, outMessage, boxEndValue] = refPredInterval(chain,bestFit,bestSld,intervals,...
-    valRange,problemStruct,problemCells,problemLimits,controls,result)
-
-
-% problemStruct = problem.problemStruct;
-% problemLimits = problem.problemLimits;
-% problemCells = problem.problemCells;
-% controls = problem.controls;
+    valRange,problemStruct,problemLimits,controls,result)
 
 debugPlot = true;
 if debugPlot; figure(50); clf; hold on; end
@@ -64,18 +58,9 @@ for n = 1:numberOfContrasts
             disp('problem here!');
         end
         
-%         problem.fitParams = thisRow;
-%         problem = unpackParams(problem);
-%         % setappdata(0,'problem',problem);
-%         result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
-        % problem = getappdata(0,'problem');
         problemStruct.fitParams = thisRow;
-        problemStruct = unpackParams(problemStruct,controls);
-        result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
-
-%         ref.bestSlds = result.sldProfiles;
-%         ref.bestRefs = result.reflectivity;
-        
+        problemStruct = unpackParams(problemStruct,controls.checks);
+        result = reflectivityCalculation(problemStruct,problemLimits,controls);       
 
         % Get the calculated curves
         thisCalcRef = result.reflectivity{n};

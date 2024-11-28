@@ -1,4 +1,4 @@
-function [outProblemStruct,result,bayesResults] = runDREAM(problemStruct,problemCells,problemLimits,controls,priors)
+function [outProblemStruct,result,bayesResults] = runDREAM(problemStruct,problemLimits,controls,priors)
 
 
 % Make an empty struct for bayesResults to hold the outputs of the
@@ -30,14 +30,13 @@ for i = 1:numberOfFitted
     fitParamNames{i} = 'x';
 end
 
-[problemStruct,fitParamNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
+[problemStruct,fitParamNames] = packParams(problemStruct,problemLimits,controls.checks);
 
 % Get the priors for the fitted parameters...
 priorList = getFittedPriors(fitParamNames,priors,problemStruct.fitLimits);
 
 % Put all the RAT parameters together into one array...
 ratInputs.problemStruct = problemStruct;
-ratInputs.problemCells = problemCells;
 ratInputs.problemLimits = problemLimits;
 ratInputs.controls = controls;
 ratInputs.priors = priorList;
@@ -96,7 +95,7 @@ output.results.outputDream = dreamOutput;
 output.bestParams = bestParams;
 output.chain = collectChains;
 
-[outProblemStruct,result,dreamResults] = processBayes(output,problemStruct,problemCells,problemLimits,controls);
+[outProblemStruct,result,dreamResults] = processBayes(output,problemStruct,problemLimits,controls);
 
 % Populate the output struct
 bayesResults.predictionIntervals = dreamResults.predictionIntervals;

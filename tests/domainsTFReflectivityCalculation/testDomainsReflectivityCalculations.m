@@ -18,7 +18,7 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
     end
 
     properties (TestParameter)    
-        whichParallel = {'single', 'points', 'contrasts'} % How the reflectivity calculation is parallelised
+        parallel = {'single', 'points', 'contrasts'} % How the reflectivity calculation is parallelised
         useCompiled = {false, true}                       % Choose either the MATLAB or MEX version
     end
 
@@ -28,7 +28,6 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
         TFParams                   % Test TF Parameters read from file
         project                    % Input domainsClass object
         problemStruct              % Input parameters for the test problem
-        problemCells               % Input cell arays for the test problem
         problemLimits              % Input limits for the test problem
         priors                     % Input priors for the test problem
         controlsInput              % Instrument controls class for the input problem
@@ -71,7 +70,6 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
 
             testCase.project = testCase.inputs.inputs.project;
             testCase.problemStruct = testCase.inputs.inputs.problemStruct;
-            testCase.problemCells = testCase.inputs.inputs.problemCells;
             testCase.problemLimits = testCase.inputs.inputs.problemLimits;
             testCase.priors = testCase.inputs.inputs.priors;
             testCase.controlsInput = testCase.inputs.inputs.controlsInput;
@@ -127,7 +125,7 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             % Note that we test only a single reflectivity calculation at
             % present
 
-            [testProblemStruct, result, bayesResults] = RATMain(testCase.problemStruct,testCase.problemCells,testCase.problemLimits,testCase.controls,testCase.priors);
+            [testProblemStruct, result, bayesResults] = RATMain(testCase.problemStruct,testCase.problemLimits,testCase.controls,testCase.priors);
 
             testCase.verifyEqual(testProblemStruct, testCase.expectedProblemStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(result, testCase.expectedResultStructMain, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -136,7 +134,7 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
 
 %% Test Reflectivity Calculation Routines
 
-        function testReflectivityCalculation(testCase, whichParallel, useCompiled)
+        function testReflectivityCalculation(testCase, parallel, useCompiled)
             % Test the reflectivity calculation.
             % We will test the serial and parallel (over both points and
             % contrasts) versions of the calculation, using both the MATLAB
@@ -147,36 +145,32 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
                 testCase.assumeEqual(license('test', 'MATLAB_Coder'), 1, 'MATLAB Coder is not installed');
             end
             
-            testCase.controls.parallel = whichParallel;
+            testCase.controls.parallel = parallel;
             if useCompiled
-                result = reflectivityCalculation_mex(testCase.problemStruct, testCase.problemCells, testCase.problemLimits, testCase.controls);
+                result = reflectivityCalculation_mex(testCase.problemStruct, testCase.problemLimits, testCase.controls);
             else        
-                result = reflectivityCalculation(testCase.problemStruct, testCase.problemCells, testCase.problemLimits, testCase.controls);
+                result = reflectivityCalculation(testCase.problemStruct, testCase.problemLimits, testCase.controls);
             end
             testCase.verifyEqual(result, testCase.expectedResultStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
-        function testDomainsTFReflectivityCalculation(testCase, whichParallel, TFFile)
+        function testDomainsTFReflectivityCalculation(testCase, parallel, TFFile)
 
-            testCase.controls.parallel = whichParallel;
-
+            testCase.controls.parallel = parallel;
             % Choose the appropriate routine for each test case
             switch TFFile
                 case 'domainsStandardLayersTFParams.mat'
                     [qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
                     simulation,shiftedData,backgrounds,layerSLDs,SLDProfiles,resampledLayers,...
-                    subRoughs] = domainsTF.standardLayers(testCase.problemStruct,testCase.problemCells,...
-                    testCase.controls);
+                    subRoughs] = domainsTF.standardLayers(testCase.problemStruct,testCase.controls);
                 case 'domainsCustomLayersTFParams.mat'
                     [qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
                     simulation,shiftedData,backgrounds,layerSLDs,SLDProfiles,resampledLayers,...
-                    subRoughs] = domainsTF.customLayers(testCase.problemStruct,testCase.problemCells,...
-                    testCase.controls);
+                    subRoughs] = domainsTF.customLayers(testCase.problemStruct,testCase.controls);
                 case 'domainsCustomXYTFParams.mat'
                     [qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,chis,reflectivity,...
                     simulation,shiftedData,backgrounds,layerSLDs,SLDProfiles,resampledLayers,...
-                    subRoughs] = domainsTF.customXY(testCase.problemStruct,testCase.problemCells,...
-                    testCase.controls);
+                    subRoughs] = domainsTF.customXY(testCase.problemStruct,testCase.controls);
             end
 
             testCase.verifyEqual(qzshifts, testCase.TFQzshifts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -198,10 +192,9 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
 %% Test Pre- and Post-Processing Routines
 
         function testParseClasstoStructs(testCase)
-            [testProblemStruct, testProblemCells, testProblemLimits, testPriors, testControls] = parseClassToStructs(testCase.project, testCase.controlsInput);
+            [testProblemStruct, testProblemLimits, testPriors, testControls] = parseClassToStructs(testCase.project, testCase.controlsInput);
 
             testCase.verifyEqual(testProblemStruct, testCase.problemStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(testProblemCells, testCase.problemCells, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(testProblemLimits, testCase.problemLimits, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(testPriors, testCase.priors, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(testControls, testCase.controls, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -211,7 +204,7 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             
             % Test standard input passes
             testInput = testCase.problemStruct;
-            customFiles = testCase.problemCells{14};
+            customFiles = testCase.problemStruct.customFiles;
             checkIndices(testInput, customFiles);
 
             % Test Background Param Error - commented out at present
@@ -276,24 +269,13 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             testInput.contrastDomainRatios(1) = 4;
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
-        end
-
-        function testParseCells(testCase)
-            [repeatLayers,data,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(testCase.problemCells);
-
-            testCase.verifyEqual(repeatLayers, testCase.problemCells{1}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(data, testCase.problemCells{2}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(dataLimits, testCase.problemCells{3}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(simLimits, testCase.problemCells{4}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(contrastLayers, testCase.problemCells{5}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(layersDetails, testCase.problemCells{6}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(customFiles, testCase.problemCells{14}, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-        end        
+        end       
 
         function testExtractProblemParams(testCase)
             [numberOfContrasts, geometry, contrastBackgroundParams, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
             contrastResolutionParams, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, domainRatio,...
-            dataPresent, nParams, params, numberOfLayers, resample, backgroundTypes, backgroundActions, contrastCustomFiles, useImaginary] = extractProblemParams(testCase.problemStruct);
+            dataPresent, nParams, params, numberOfLayers, resample, backgroundTypes, backgroundActions, contrastCustomFiles, useImaginary,...
+            repeatLayers, data, dataLimits, simLimits, contrastLayers, layersDetails, customFiles, domainContrastLayers] = extractProblemParams(testCase.problemStruct);
 
             testCase.verifyEqual(numberOfContrasts, testCase.problemStruct.numberOfContrasts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(geometry, testCase.problemStruct.geometry, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -320,6 +302,15 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(backgroundActions, testCase.problemStruct.contrastBackgroundActions, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastCustomFiles, testCase.problemStruct.contrastCustomFiles, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(useImaginary, testCase.problemStruct.useImaginary, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(repeatLayers, testCase.problemStruct.repeatLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(data, testCase.problemStruct.data, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(dataLimits, testCase.problemStruct.dataLimits, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(simLimits, testCase.problemStruct.simulationLimits, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(contrastLayers, testCase.problemStruct.contrastLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(layersDetails, testCase.problemStruct.layersDetails, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(customFiles, testCase.problemStruct.customFiles, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(domainContrastLayers, testCase.problemStruct.domainContrastLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+
         end
 
         function testParseOutToProjectClass(testCase)

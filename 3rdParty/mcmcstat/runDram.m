@@ -1,11 +1,11 @@
-function  [problemStruct,outProblem,result,bayesResults] = runDram(problemStruct,problemCells,problemLimits,controls,allPriors)
+function  [problemStruct,outProblem,result,bayesResults] = runDram(problemStruct,problemLimits,controls,allPriors)
 
 %#codegen
 
 %coder.varsize('problemStruct.contrastBacks',[1 Inf],[0 1]);
 
 checks = controls.checks;
-[problemStruct,fitNames] = packParams(problemStruct,problemCells,problemLimits,checks);
+[problemStruct,fitNames] = packParams(problemStruct,problemLimits,checks);
 %fitPriors = packPriors(priors,checks);
 
 % Seed the Random Number Generator
@@ -151,7 +151,7 @@ adaptint = 100;%controls.adaptint;
 
 output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 
-[problemStruct,result,bayesResults] = processBayes(output,problemStruct,problemCells,problemLimits,controls);
+[problemStruct,result,bayesResults] = processBayes(output,problemStruct,problemLimits,controls);
 
 % problemStruct.fitParams = bayesResults.bestParamsMean;
 
@@ -169,16 +169,16 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 % 
 % % Calulate Max best fit curves
 % problemStruct.fitParams = bestParamsMax;
-% problemStruct = unpackParams(problemStruct,controls);
-% result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+% problemStruct = unpackParams(problemStruct,controls.checks);
+% result = reflectivityCalculation(problemStruct,problemLimits,controls);
 % bestFitMax_Ref = result.reflectivity;
 % bestFitMax_Sld = result.sldProfiles;
 % bestFitMax_chi = result.calculationResultss.sumChi;
 % 
 % % Calculate 'mean' best fit curves
 % problemStruct.fitParams = bestParamsMean;
-% problemStruct = unpackParams(problemStruct,controls);
-% result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+% problemStruct = unpackParams(problemStruct,controls.checks);
+% result = reflectivityCalculation(problemStruct,problemLimits,controls);
 % bestFitMean_Ref = result.reflectivity;
 % bestFitMean_Sld = result.sldProfiles;
 % bestFitMean_chi = result.calculationResultss.sumChi;

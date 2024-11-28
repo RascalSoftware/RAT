@@ -27,12 +27,11 @@ pars = theta;
 problemStruct = problem{1};
 controls = problem{2};
 problemLimits = problem{3};
-problemCells = problem{4};
 controls.calcSldDuringFit = true;
 
 problemStruct.fitParams = pars;
-problemStruct = unpackParams(problemStruct,controls);
-result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+problemStruct = unpackParams(problemStruct,controls.checks);
+result = reflectivityCalculation(problemStruct,problemLimits,controls);
 
 sld = result.sldProfiles{contrast};
 

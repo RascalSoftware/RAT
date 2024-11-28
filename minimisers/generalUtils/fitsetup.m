@@ -1,4 +1,4 @@
-function [problemStruct,fitNames] = fitsetup(problemStruct,problemCells,problemLimits,controls)
+function [problemStruct,fitNames] = fitsetup(problemStruct,problemLimits,controls)
 
 if isfield(controls,'checks')
     checks = controls.checks;
@@ -12,6 +12,6 @@ else
     checks.fitResolutionParam = ones(length(problemStruct.resolutionParams),1);
 end
 
-[problemStruct,fitNames] = packParams(problemStruct,problemCells,problemLimits,checks);
+[problemStruct,fitNames] = packParams(problemStruct,problemLimits,checks);
 
 end

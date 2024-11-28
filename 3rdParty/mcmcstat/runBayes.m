@@ -3,7 +3,6 @@ function output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls)
 problemStruct = problem{1};
 controls = problem{2};
 problemLimits = problem{3};
-problemCells = problem{4};
 
 display = controls.display;
 
@@ -23,7 +22,7 @@ numberOfContrasts = problemStruct.numberOfContrasts;
 data.data = cell(1,numberOfContrasts);
 data.problem = problem;
 for i = 1:numberOfContrasts
-    thisData = problemCells{2}{i};
+    thisData = problemStruct.data{i};
     if ~isempty(thisData)
         data.data{i} = [thisData(:,:)];
     end
@@ -90,11 +89,11 @@ output.data = data;
 % outSld = mcmcpred_compile_sld(results,chain,[],data,problem,500);
 % 
 % problemStruct.fitParams = output.bestParams;
-% problemStruct = unpackParams(problemStruct,controls);
-% result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+% problemStruct = unpackParams(problemStruct,controls.checks);
+% result = reflectivityCalculation(problemStruct,problemLimits,controls);
 % 
 % output.bestFits = result.reflectivity;
-% output.shiftedData = problemCells{2};
+% output.shiftedData = problemStruct.data;
 % output.predictionIntervals = out;
 
 end

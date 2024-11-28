@@ -1,96 +1,8 @@
-function [problemStruct,problemCells,problemLimits,priors,controls] = parseClassToStructs(project,inputControls)
+function [problemStruct,problemLimits,priors,controls] = parseClassToStructs(project,inputControls)
 
 % Breaks up the classes into the relevant structures for inputting into C
-
-% Put the extracted fields into a cell array...
-% Structure of problemCells array.
-%
-% {1} - inputProblem.contrastRepeatSLDs
-%       {1 x nContrasts} array of cells
-%       Each cell is {1 x 2 double}.
-%
-% {2} - inputProblem.contrastData
-%       {1 x nContrasts} array of cells
-%       Each cell is {Inf x 6 double}
-%
-% {3} - inputProblem.dataLimits
-%       {1 x nContrasts} array of cells
-%       Each cell is {1 x 2 double}
-%
-% {4} - inputProblem.simLimits
-%       {1 x nContrasts} array of cells
-%       Each cell is {1 x 2 double}
-%
-% {5} - inputProblem.contrastLayers
-%       {1 x nContrasts} array of cells
-%       Each cell is {1 x Inf double}
-%
-% {6} - inputProblem.layerDetails
-%       {n x 1} array of cells
-%       Each cell is (1 x 5 double}
-%
-% {7} - inputProblem.paramNames
-%       {1 x nParams} array of cells
-%       Each cell is {1 x Inf char}
-%
-% {8} - inputProblem.backgroundParamNames
-%       {1 x nBackgroundParams} array of cells
-%       Each cell is {1 x Inf char}
-% 
-% {9} - inputProblem.scalefactorNames
-%       {1 x nScalefactors} array of cells
-%       Each cell is {1 x Inf char}
-% 
-% {10}- inputProblem.qzshiftNames
-%       {1 x nQzshifts} array of cells
-%       Each cell is {1 x Inf char}
-% 
-% {11}- inputProblem.bulkInNames
-%       {1 x nBulkIn} array of cells
-%       Each cell is {1 x Inf char}
-% 
-% {12}- inputProblem.bulkOutNames
-%       {1 x nBulkOut} array of cells
-%       Each cell is {1 x Inf char}
-% 
-% {13}- inputProblem.resolutionParamNames
-%       {1 x nResolutionParams} array of cells
-%       Each cell is {1 x Inf char}
-%
-% {14} - inputProblem.customFiles
-%        {1 x nCustomFiles} array of cells
-%        Each cell is {1 x Inf char}
-%
-% {15} - inputProblem.backgroundTypes
-%        {1 x nBackgrounds} array of cells
-%        Each cell is {1 x Inf char}
-%
-% {16} - inputProblem.resolutionTypes
-%        {1 x nResolutions} array of cells
-%        Each cell is {1 x Inf char}
-%
-% {17} - inputProblem.oilChiData
-%        {1 x nContrasts} array of cells
-%        Each cell is {Inf x 3 double}
-%
-% {18} - inputProblem.domainContrastRepeatSLDs
-%        {1 x nDomainContrasts} array of cells
-%        Each cell is {1 x 2 double}.
-%
-% {19} - inputProblem.domainContrastLayers
-%        {1 x nDomainContrasts} array of cells
-%        Each cell is {1 x Inf double}
-% 
-% {20} - inputProblem.domainRatioNames
-%        {1 x nDomainRatios} array of cells
-%        Each cell is {1 x Inf char}
-%
-% {21} - inputProblem.contrastNames
-%        {1 x nContrasts} array of cells
-%        Each cell is {1 x Inf char}
-
  
-%% First parse the class to a structure variable.
+% First convert the class to a structure variable.
 inputStruct = project.toStruct();
 
 % Make the contrast data array up to six columns,
@@ -100,47 +12,6 @@ for i = 1:length(inputStruct.contrastData)
     contrastData = inputStruct.contrastData{i};
     inputData{i} = [contrastData zeros(size(contrastData,1), 6-size(contrastData,2))];
 end
-
-%% Pull out all the cell arrays (except priors) into one array
-problemCells{1} = inputStruct.contrastRepeatSLDs;
-problemCells{2} = inputData;
-problemCells{3} = inputStruct.dataLimits;
-problemCells{4} = inputStruct.simLimits;
-problemCells{5} = inputStruct.contrastLayers;
-problemCells{6} = inputStruct.layerDetails;
-problemCells{7} = inputStruct.paramNames;
-problemCells{8} = inputStruct.backgroundParamNames;
-problemCells{9} = inputStruct.scalefactorNames;
-problemCells{10} = inputStruct.qzshiftNames;
-problemCells{11} = inputStruct.bulkInNames;
-problemCells{12} = inputStruct.bulkOutNames;
-problemCells{13} = inputStruct.resolutionParamNames;
-problemCells{14} = inputStruct.files;
-problemCells{15} = cellstr(inputStruct.backgroundTypes');
-problemCells{16} = cellstr(inputStruct.resolutionTypes');
-problemCells{17} = inputStruct.oilChiData;
-problemCells{18} = cell(1, 0);
-problemCells{19} = cell(1, 0);
-problemCells{20} = cell(1, 0);
-problemCells{20} = cell(1, 0);
-problemCells{21} = inputStruct.contrastNames;
-
-% Now deal with domains cell arrays
-if isa(project, 'domainsClass') && isa(project.domainContrasts, 'domainContrastsClass')
-    
-    problemCells{18} = inputStruct.domainContrastRepeatSLDs;
-    problemCells{19} = inputStruct.domainContrastLayers;
-end
-
-if isa(project, 'domainsClass')
-    problemCells{20} = inputStruct.domainRatioNames;
-end
-
-% Also the custom files array..
-if isempty(problemCells{14})
-    problemCells{14} = {''};
-end
-
 
 %% Put the priors into their own array
 priors.param = inputStruct.paramPriors;
@@ -236,10 +107,10 @@ for i = 1:numContrastBackgrounds
 
             % We append the background data as columns 5 and 6 of the
             % data array of this contrast.
-            contrastData = problemCells{2}(i);
+            contrastData = inputData(i);
             backgroundData = inputStruct.allData{backgroundDataIndex};
             contrastData = insertDataBackgroundIntoContrastData(contrastData,backgroundData);
-            problemCells{2}(i) = contrastData;
+            inputData(i) = contrastData;
 
             % Add the index of the optional data offset to contrastBackgroundParams
             offsetIndex = find(strcmpi(backgroundDataOffset,inputStruct.backgroundParamNames));
@@ -349,11 +220,16 @@ end
 
 problemStruct.TF = inputStruct.TF;
 problemStruct.resample = inputStruct.resample;
+problemStruct.data = inputData;
 problemStruct.dataPresent = inputStruct.dataPresent;
+problemStruct.dataLimits = inputStruct.dataLimits;
+problemStruct.simulationLimits = inputStruct.simLimits;
 problemStruct.oilChiDataPresent = inputStruct.oilChiDataPresent;
 problemStruct.numberOfContrasts = inputStruct.numberOfContrasts;
 problemStruct.geometry = inputStruct.geometry;
 problemStruct.useImaginary = inputStruct.useImaginary;
+problemStruct.repeatLayers = inputStruct.contrastRepeatSLDs;
+problemStruct.contrastNames = inputStruct.contrastNames;
 problemStruct.contrastBackgroundParams = contrastBackgroundParams;
 problemStruct.contrastBackgroundTypes = contrastBackgroundTypes;
 problemStruct.contrastBackgroundActions = inputStruct.contrastBackgroundActions;
@@ -370,6 +246,9 @@ problemStruct.bulkOut = inputStruct.bulkOutValues;
 problemStruct.resolutionParams = inputStruct.resolutionParamValues; %inputStruct.resolutions;           % **** note resolutionParam workaround (todo) ****          
 problemStruct.params = inputStruct.paramValues;
 problemStruct.numberOfLayers = inputStruct.numberOfLayers;
+problemStruct.contrastLayers = inputStruct.contrastLayers;
+problemStruct.layersDetails = inputStruct.layerDetails;
+problemStruct.customFiles = inputStruct.files;
 problemStruct.modelType = inputStruct.modelType;
 problemStruct.contrastCustomFiles = inputStruct.contrastCustomFile;
 
@@ -385,15 +264,31 @@ end
 
 if isa(project, 'domainsClass') && isa(project.domainContrasts, 'domainContrastsClass')
     problemStruct.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
+    problemStruct.domainContrastLayers = inputStruct.domainContrastLayers;
 else
     problemStruct.numberOfDomainContrasts = 0;
-end    
+    problemStruct.domainContrastLayers = cell(1, 0);
+end
 
 % Initialise the lists of fitting parameters    
 problemStruct.fitParams = [];
 problemStruct.otherParams = [];
 problemStruct.fitLimits = [];
 problemStruct.otherLimits = [];
+
+% Record lists of parameter names
+problemStruct.names.params = inputStruct.paramNames;
+problemStruct.names.backgroundParams = inputStruct.backgroundParamNames;
+problemStruct.names.scalefactors = inputStruct.scalefactorNames;
+problemStruct.names.qzshifts = inputStruct.qzshiftNames;
+problemStruct.names.bulkIns = inputStruct.bulkInNames;
+problemStruct.names.bulkOuts = inputStruct.bulkOutNames;
+problemStruct.names.resolutionParams = inputStruct.resolutionParamNames;
+if isa(project, 'domainsClass')
+    problemStruct.names.domainRatios = inputStruct.domainRatioNames;
+else
+    problemStruct.names.domainRatios = cell(1, 0);
+end
 
 % Make sure the indices cannot lie outside of the arrays
 checkIndices(problemStruct, inputStruct.files);
@@ -446,6 +341,6 @@ controls.checks = checks;
 controls.IPCFilePath = inputControls.getIPCFilePath();
 
 %% Finally, populate the fitParams, otherParams, fitLimits, otherLimits arrays
-[problemStruct,~] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
+[problemStruct,~] = packParams(problemStruct,problemLimits,controls.checks);
 
 end

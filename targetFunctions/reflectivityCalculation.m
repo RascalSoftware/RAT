@@ -1,4 +1,4 @@
-function result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls)
+function result = reflectivityCalculation(problemStruct,problemLimits,controls)
 % Main entry point into the reflectivity calculation for the toolbox.
 % This is the main function that is called by any of the minimisers or
 % analysis tools from the rest of the toolbox. 
@@ -30,30 +30,30 @@ switch targetFunction
                 [qzshifts,scalefactors,bulkIns,bulkOuts,...
                  resolutionParams,chis,reflectivity,simulation,shiftedData,...
                  backgrounds,layerSlds,sldProfiles,resampledLayers,...
-                 subRoughs] = nonPolarisedTF.standardLayers(problemStruct,problemCells,controls);
+                 subRoughs] = nonPolarisedTF.standardLayers(problemStruct,controls);
         
             case coderEnums.modelTypes.CustomLayers
         
                 [qzshifts,scalefactors,bulkIns,bulkOuts,...
                  resolutionParams,chis,reflectivity,simulation,shiftedData,...
                  backgrounds,layerSlds,sldProfiles,resampledLayers,...
-                 subRoughs] = nonPolarisedTF.customLayers(problemStruct,problemCells,controls);
+                 subRoughs] = nonPolarisedTF.customLayers(problemStruct,controls);
         
             case coderEnums.modelTypes.CustomXY
                 
                 [qzshifts,scalefactors,bulkIns,bulkOuts,...
                  resolutionParams,chis,reflectivity,simulation,shiftedData,...
                  backgrounds,layerSlds,sldProfiles,resampledLayers,...
-                 subRoughs] = nonPolarisedTF.customXY(problemStruct,problemCells,controls);
+                 subRoughs] = nonPolarisedTF.customXY(problemStruct,controls);
 
             otherwise
                 error('The model type "%s" is not supported', modelType);
         end
 
     %case coderEnums.calculationTypes.OilWater
-        %contrastParams = oilWaterTFReflectivityCalculation(problemStruct,problemCells,controls);    
+        %contrastParams = oilWaterTFReflectivityCalculation(problemStruct,controls);    
     %case coderEnums.calculationTypes.Magnetic
-        %contrastParams = polarisedTFReflectivityCalculation(problemStruct,problemCells,controls);
+        %contrastParams = polarisedTFReflectivityCalculation(problemStruct,controls);
 
     case coderEnums.calculationTypes.Domains
 
@@ -64,21 +64,21 @@ switch targetFunction
                 [qzshifts,scalefactors,bulkIns,bulkOuts,...
                  resolutionParams,chis,reflectivity,simulation,shiftedData,...
                  backgrounds,layerSlds,sldProfiles,resampledLayers,...
-                 subRoughs] = domainsTF.standardLayers(problemStruct,problemCells,controls);        
+                 subRoughs] = domainsTF.standardLayers(problemStruct,controls);        
         
             case coderEnums.modelTypes.CustomLayers
         
                 [qzshifts,scalefactors,bulkIns,bulkOuts,...
                  resolutionParams,chis,reflectivity,simulation,shiftedData,...
                  backgrounds,layerSlds,sldProfiles,resampledLayers,...
-                 subRoughs] = domainsTF.customLayers(problemStruct,problemCells,controls);
+                 subRoughs] = domainsTF.customLayers(problemStruct,controls);
         
             case coderEnums.modelTypes.CustomXY
         
                 [qzshifts,scalefactors,bulkIns,bulkOuts,...
                  resolutionParams,chis,reflectivity,simulation,shiftedData,...
                  backgrounds,layerSlds,sldProfiles,resampledLayers,...
-                 subRoughs] = domainsTF.customXY(problemStruct,problemCells,controls);
+                 subRoughs] = domainsTF.customXY(problemStruct,controls);
 
             otherwise
                 error('The model type "%s" is not supported', modelType);
@@ -112,7 +112,7 @@ result.contrastParams = contrastParams;
 
 result.fitParams = problemStruct.fitParams;
 
-[~,fitNames] = packParams(problemStruct,problemCells,problemLimits,controls.checks);
+[~,fitNames] = packParams(problemStruct,problemLimits,controls.checks);
 result.fitNames = fitNames;
 
 end

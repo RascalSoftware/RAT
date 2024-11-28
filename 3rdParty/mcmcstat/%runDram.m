@@ -1,7 +1,7 @@
-function  [problemStruct,problem,result,bayesResults] = runDram(problemStruct,problemCells,problemLimits,priors,controls)
+function  [problemStruct,problem,result,bayesResults] = runDram(problemStruct,problemLimits,priors,controls)
 
 checks = controls.checks;
-[problemStruct,fitNames] = packParams(problemStruct,problemCells,problemLimits,checks);
+[problemStruct,fitNames] = packParams(problemStruct,problemLimits,checks);
 %fitPriors = packPriors(priors,checks);
 
 % Seed the Random Number Generator
@@ -49,7 +49,7 @@ nsimu =  controls.nsimu;
 burnin = controls.burnin;
 adaptint = 100;%controls.adaptint;
 
-problem = {problemStruct ; controls ; problemLimits ; problemCells};
+problem = {problemStruct ; controls ; problemLimits};
 
 output = runBayes(loop,nsimu,burnin,adaptint,params,problem);
 
@@ -62,8 +62,8 @@ bayesResults.bestFits = output.bestFits;
 bayesResults.predictionIntervals = output.predictionIntervals;
 
 problemStruct.fitParams = output.bestParams;
-problemStruct = unpackParams(problemStruct,controls);
-result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+problemStruct = unpackParams(problemStruct,checks);
+result = reflectivityCalculation(problemStruct,problemLimits,controls);
 
 % Pre-processor directives for Matlab Coder.
 coder.varsize('problem.ssubs',[Inf 1],[1 0]);

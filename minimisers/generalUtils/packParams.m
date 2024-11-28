@@ -1,4 +1,4 @@
-function [problemStruct,fitNames] = packParams(problemStruct,problemCells,limits,checks)
+function [problemStruct,fitNames] = packParams(problemStruct,limits,checks)
 
     %We need to pack the parameters into separate vectors
     %of those that are being fitted, and those that are
@@ -38,7 +38,7 @@ function [problemStruct,fitNames] = packParams(problemStruct,problemCells,limits
             fitParams(fitCounter) = problemStruct.params(n);
             fitLimits(fitCounter,1) = limits.param(n,1);
             fitLimits(fitCounter,2) = limits.param(n,2);        
-            fitNames{fitCounter} = problemCells{7}{n};
+            fitNames{fitCounter} = problemStruct.names.params{n};
             fitCounter = fitCounter + 1;
     
         else
@@ -55,7 +55,7 @@ function [problemStruct,fitNames] = packParams(problemStruct,problemCells,limits
             fitParams(fitCounter) = problemStruct.backgroundParams(n);
             fitLimits(fitCounter,1) = limits.backgroundParam(n,1);
             fitLimits(fitCounter,2) = limits.backgroundParam(n,2);
-            fitNames{fitCounter} = problemCells{8}{n};
+            fitNames{fitCounter} = problemStruct.names.backgroundParams{n};
             fitCounter = fitCounter + 1;
         else
             otherParams(otherCounter) = problemStruct.backgroundParams(n);
@@ -71,7 +71,7 @@ function [problemStruct,fitNames] = packParams(problemStruct,problemCells,limits
             fitParams(fitCounter) = problemStruct.scalefactors(n);
             fitLimits(fitCounter,1) = limits.scalefactor(n,1);
             fitLimits(fitCounter,2) = limits.scalefactor(n,2);
-            fitNames{fitCounter} = problemCells{9}{n};
+            fitNames{fitCounter} = problemStruct.names.scalefactors{n};
             fitCounter = fitCounter + 1;
         else
             otherParams(otherCounter) = problemStruct.scalefactors(n);
@@ -87,7 +87,7 @@ function [problemStruct,fitNames] = packParams(problemStruct,problemCells,limits
             fitParams(fitCounter) = problemStruct.qzshifts(n);
             fitLimits(fitCounter,1) = limits.qzshift(n,1);
             fitLimits(fitCounter,2) = limits.qzshift(n,2);
-            fitNames{fitCounter} = problemCells{10}{n};
+            fitNames{fitCounter} = problemStruct.names.qzshifts{n};
             fitCounter = fitCounter + 1;
         else
             otherParams(otherCounter) = problemStruct.qzshifts(n);
@@ -103,7 +103,7 @@ function [problemStruct,fitNames] = packParams(problemStruct,problemCells,limits
             fitParams(fitCounter) = problemStruct.bulkIn(n);
             fitLimits(fitCounter,1) = limits.bulkIn(n,1);
             fitLimits(fitCounter,2) = limits.bulkIn(n,2);
-            fitNames{fitCounter} = problemCells{11}{n};
+            fitNames{fitCounter} = problemStruct.names.bulkIns{n};
             fitCounter = fitCounter + 1;
         else
             otherParams(otherCounter) = problemStruct.bulkIn(n);
@@ -119,7 +119,7 @@ function [problemStruct,fitNames] = packParams(problemStruct,problemCells,limits
             fitParams(fitCounter) = problemStruct.bulkOut(n);
             fitLimits(fitCounter,1) = limits.bulkOut(n,1);
             fitLimits(fitCounter,2) = limits.bulkOut(n,2);
-            fitNames{fitCounter} = problemCells{12}{n};
+            fitNames{fitCounter} = problemStruct.names.bulkOuts{n};
             fitCounter = fitCounter + 1;
         else
             otherParams(otherCounter) = problemStruct.bulkOut(n);
@@ -135,7 +135,7 @@ function [problemStruct,fitNames] = packParams(problemStruct,problemCells,limits
             fitParams(fitCounter) = problemStruct.resolutionParams(n);
             fitLimits(fitCounter,1) = limits.resolutionParam(n,1);
             fitLimits(fitCounter,2) = limits.resolutionParam(n,2);
-            fitNames{fitCounter} = problemCells{13}{n};
+            fitNames{fitCounter} = problemStruct.names.resolutionParams{n};
             fitCounter = fitCounter + 1;
         else
             otherParams(otherCounter) = problemStruct.resolutionParams(n);
@@ -151,7 +151,7 @@ function [problemStruct,fitNames] = packParams(problemStruct,problemCells,limits
             fitParams(fitCounter) = problemStruct.domainRatio(n);
             fitLimits(fitCounter,1) = limits.domainRatio(n,1);
             fitLimits(fitCounter,2) = limits.domainRatio(n,2);
-            fitNames{fitCounter} = problemCells{20}{n};
+            fitNames{fitCounter} = problemStruct.names.domainRatios{n};
             fitCounter = fitCounter + 1;
         else
             otherParams(otherCounter) = problemStruct.domainRatio(n);

@@ -1,6 +1,6 @@
-function [problemStruct,result] = runSimplex(problemStruct,problemCells,problemLimits,controls)
+function [problemStruct,result] = runSimplex(problemStruct,problemLimits,controls)
 
-[problemStruct,~] = fitsetup(problemStruct,problemCells,problemLimits,controls);
+[problemStruct,~] = fitsetup(problemStruct,problemLimits,controls);
 
 maxIter = controls.maxIterations;
 tolFun = controls.funcTolerance;
@@ -103,9 +103,9 @@ end
 % now we can call fminsearch, but with our own
 % intra-objective function.
 
-[xu,~,~,~] = fMinSearch(@simplexIntrafun,x0u,options,dis,problemStruct,problemCells,problemLimits,controls,params);
+[xu,~,~,~] = fMinSearch(@simplexIntrafun,x0u,options,dis,problemStruct,problemLimits,controls,params);
 
-%[xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemStruct,problemCells,problemLimits,controls,options,params,300);
+%[xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemStruct,problemLimits,controls,options,params,300);
 
 % undo the variable transformations into the original space
 x = simplexXTransform(xu,params);
@@ -114,7 +114,7 @@ x = simplexXTransform(xu,params);
 %x = reshape(x,xsize);
 
 problemStruct.fitParams = x;
-problemStruct = unpackParams(problemStruct,controls);
-result = reflectivityCalculation(problemStruct,problemCells,problemLimits,controls);
+problemStruct = unpackParams(problemStruct,controls.checks);
+result = reflectivityCalculation(problemStruct,problemLimits,controls);
 
 end

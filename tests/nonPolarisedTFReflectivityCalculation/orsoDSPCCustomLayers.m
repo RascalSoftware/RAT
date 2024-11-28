@@ -63,8 +63,8 @@ project.addData('Bilayer / SMW', SMW_data(:,1:3));
 project.addData('Bilayer / H2O', H2O_data(:,1:3));
 
 project.setData(2,'dataRange',[0.013 0.37]);
-project.setData(3,'dataRange',[0.013 0.37]);
-project.setData(4,'dataRange',[0.013 0.37]);
+project.setData(3,'dataRange',[0.013 0.32996]);
+project.setData(4,'dataRange',[0.013 0.33048]);
 
 %% 
 % 

@@ -1,10 +1,7 @@
 function problemStruct = unpackParams(problemStruct,checks)
 
     %Unpack the params out of the fitParams and otherParams arrays
-    %back into problem.params
-    
-    %problem = getappdata(0,'problem');
-    
+    %back into problem.params  
     
     unpacked_counter = 1;
     packed_counter = 1;

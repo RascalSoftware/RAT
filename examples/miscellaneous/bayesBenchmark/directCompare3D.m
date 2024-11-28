@@ -86,9 +86,10 @@ controls.procedure = 'calculate';
 if useSaved
     probArray = load('probArray.mat');
     probArray = probArray.probArray;
+    
 else
 
-    [problemStruct,problemLimits,priors,controls] = RatParseClassToStructs_new(d2oproblem,controls);
+    [problemStruct,problemLimits,priors,controls] = parseClassToStructs(d2oproblem,controls);
     [problemStruct,fitNames] = packParams(problemStruct,problemLimits,controls.checks);
 
     for r = 1:gridSize

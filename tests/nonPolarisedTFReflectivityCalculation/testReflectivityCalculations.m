@@ -18,7 +18,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
     end
 
     properties (TestParameter)    
-        whichParallel = {'single', 'points', 'contrasts'} % How the reflectivity calculation is parallelised
+        parallel = {'single', 'points', 'contrasts'}      % How the reflectivity calculation is parallelised
         useCompiled = {false, true}                       % Choose either the MATLAB or MEX version
     end
 
@@ -147,7 +147,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 
 %% Test Reflectivity Calculation Routines
 
-        function testReflectivityCalculation(testCase, whichParallel, useCompiled)
+        function testReflectivityCalculation(testCase, parallel, useCompiled)
             % Test the reflectivity calculation.
             % We will test the serial and parallel (over both points and
             % contrasts) versions of the calculation, using both the MATLAB
@@ -158,7 +158,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
                 testCase.assumeEqual(license('test', 'MATLAB_Coder'), 1, 'MATLAB Coder is not installed');
             end
             
-            testCase.controls.parallel = whichParallel;
+            testCase.controls.parallel = parallel;
             if useCompiled
                 result = reflectivityCalculation_mex(testCase.problemStruct, testCase.problemLimits, testCase.controls);
             else        
@@ -168,9 +168,9 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(result, testCase.expectedResultStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
-        function testNonPolarisedTFReflectivityCalculation(testCase, whichParallel, TFFile)
+        function testNonPolarisedTFReflectivityCalculation(testCase, parallel, TFFile)
 
-            testCase.controls.parallel = whichParallel;
+            testCase.controls.parallel = parallel;
             % Choose the appropriate routine for each test case
             switch TFFile
                 case 'standardLayersTFParams.mat'

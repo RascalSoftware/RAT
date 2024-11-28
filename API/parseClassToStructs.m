@@ -248,13 +248,7 @@ problemStruct.params = inputStruct.paramValues;
 problemStruct.numberOfLayers = inputStruct.numberOfLayers;
 problemStruct.contrastLayers = inputStruct.contrastLayers;
 problemStruct.layersDetails = inputStruct.layerDetails;
-
-if isempty(inputStruct.files)
-    problemStruct.customFiles = {''};
-else
-    problemStruct.customFiles = inputStruct.files;
-end
-
+problemStruct.customFiles = inputStruct.files;
 problemStruct.modelType = inputStruct.modelType;
 problemStruct.contrastCustomFiles = inputStruct.contrastCustomFile;
 

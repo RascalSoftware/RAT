@@ -1,7 +1,7 @@
-## 'Non-polarised Target Functions' Examples
+## 'Normal Target Functions' Examples
 
 This folder contains examples of how to use RAT to analyse what are referred
-to as 'Non-polarised TF' samples. This refers to reflectivity data that does not use
+to as 'Normal TF' samples. This refers to reflectivity data that does not use
 absorption (i.e. an imaginary SLD), and is not analysed as magnetic, polarised or
 oil-water data. 
 

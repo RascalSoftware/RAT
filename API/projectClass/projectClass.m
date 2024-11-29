@@ -64,7 +64,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % project = projectClass('New experiment');
             arguments
                 experimentName {mustBeTextScalar} = ''
-                calculationType = calculationTypes.NonPolarised
+                calculationType = calculationTypes.Normal
                 modelType = modelTypes.StandardLayers
                 geometry = geometryOptions.AirSubstrate
                 absorption {mustBeA(absorption,'logical')} = false

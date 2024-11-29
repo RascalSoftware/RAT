@@ -71,7 +71,7 @@ project.setData(4,'dataRange',[0.013 0.33048]);
 % 
 % Add the custom file to the project....
 
-project.addCustomFile('DSPC Model','customBilayer.m','matlab','tests/nonPolarisedTFReflectivityCalculation/');
+project.addCustomFile('DSPC Model','customBilayer.m','matlab','tests/normalTFReflectivityCalculation/');
 %% 
 % 
 % 

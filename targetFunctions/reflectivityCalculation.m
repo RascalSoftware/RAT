@@ -7,7 +7,7 @@ function result = reflectivityCalculation(problemStruct,problemLimits,controls)
 % (i.e. 'Target function' is required, and call the relevant routines.
 % The types of available target functions are:*
 %
-% * non polarised  - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
+% * normal  - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
 %
 % * oil water      - Target function for oil-water samples
 %
@@ -21,7 +21,7 @@ targetFunction = problemStruct.TF;
 modelType = problemStruct.modelType;
 
 switch targetFunction
-    case coderEnums.calculationTypes.NonPolarised      
+    case coderEnums.calculationTypes.Normal      
            
         switch lower(modelType)
 
@@ -30,21 +30,21 @@ switch targetFunction
                 [qzshifts,scalefactors,bulkIns,bulkOuts,...
                  resolutionParams,chis,reflectivity,simulation,shiftedData,...
                  backgrounds,layerSlds,sldProfiles,resampledLayers,...
-                 subRoughs] = nonPolarisedTF.standardLayers(problemStruct,controls);
+                 subRoughs] = normalTF.standardLayers(problemStruct,controls);
         
             case coderEnums.modelTypes.CustomLayers
         
                 [qzshifts,scalefactors,bulkIns,bulkOuts,...
                  resolutionParams,chis,reflectivity,simulation,shiftedData,...
                  backgrounds,layerSlds,sldProfiles,resampledLayers,...
-                 subRoughs] = nonPolarisedTF.customLayers(problemStruct,controls);
+                 subRoughs] = normalTF.customLayers(problemStruct,controls);
         
             case coderEnums.modelTypes.CustomXY
                 
                 [qzshifts,scalefactors,bulkIns,bulkOuts,...
                  resolutionParams,chis,reflectivity,simulation,shiftedData,...
                  backgrounds,layerSlds,sldProfiles,resampledLayers,...
-                 subRoughs] = nonPolarisedTF.customXY(problemStruct,controls);
+                 subRoughs] = normalTF.customXY(problemStruct,controls);
 
             otherwise
                 error('The model type "%s" is not supported', modelType);

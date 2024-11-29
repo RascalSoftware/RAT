@@ -27,8 +27,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
                      {2, 'language', supportedLanguages.Python, 'filename', 'model.m', 'functionName', 'modelFunc', 'name', 'New Model', 'path', pwd},...
                     }
         expectedRow = {["New Model", "DPPCCustomXY.m", "DPPCCustomXY", string(supportedLanguages.Matlab.value), "../../"],...
-                       ["DPPC Model", "model.m", "model", string(supportedLanguages.Matlab.value), "tests/nonPolarisedTFReflectivityCalculation/"],...
-                       ["DSPC Model", "customBilayer.m", "customBilayer", string(supportedLanguages.Python.value), "tests/nonPolarisedTFReflectivityCalculation/"],...
+                       ["DPPC Model", "model.m", "model", string(supportedLanguages.Matlab.value), "tests/normalTFReflectivityCalculation/"],...
+                       ["DSPC Model", "customBilayer.m", "customBilayer", string(supportedLanguages.Python.value), "tests/normalTFReflectivityCalculation/"],...
                        ["New Model", "model.m", "modelFunc", string(supportedLanguages.Python.value), pwd],...
                       }
         invalidInputData = {{'DPPC Model', 'name', 42},...
@@ -52,7 +52,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
     methods (TestClassSetup)
         function addDataPath(testCase)
             import matlab.unittest.fixtures.PathFixture
-            path = fullfile(getappdata(0, 'root'), 'tests', 'nonPolarisedTFReflectivityCalculation');
+            path = fullfile(getappdata(0, 'root'), 'tests', 'normalTFReflectivityCalculation');
             testCase.applyFixture(PathFixture(path))  
         end
 
@@ -77,8 +77,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % "DPPCCustomXY.m" and "orsoDSPCCustomLayers.m"
             testCase.exampleClass = customFileClass();
 
-            testCase.exampleClass.varTable(1,:) = {'DPPC Model', 'DPPCCustomXY.m', 'DPPCCustomXY', 'matlab', 'tests/nonPolarisedTFReflectivityCalculation/'};
-            testCase.exampleClass.varTable(2,:) = {'DSPC Model', 'customBilayer.m', 'customBilayer', 'matlab', 'tests/nonPolarisedTFReflectivityCalculation/'};
+            testCase.exampleClass.varTable(1,:) = {'DPPC Model', 'DPPCCustomXY.m', 'DPPCCustomXY', 'matlab', 'tests/normalTFReflectivityCalculation/'};
+            testCase.exampleClass.varTable(2,:) = {'DSPC Model', 'customBilayer.m', 'customBilayer', 'matlab', 'tests/normalTFReflectivityCalculation/'};
 
             testCase.numRows = height(testCase.exampleClass.varTable);
             testCase.numCols = width(testCase.exampleClass.varTable);
@@ -356,7 +356,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             emptyClass = customFileClass();
             fileStruct = emptyClass.toStruct();
             testCase.verifyClass(fileStruct, 'struct');
-            testCase.verifyEqual(fileStruct.files, {});
+            testCase.verifyEmpty(fileStruct.files);
         end
 
         function testToStructWrapper(testCase)

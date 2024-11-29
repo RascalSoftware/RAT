@@ -82,10 +82,10 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Tests project class can be created and the experiment name is set correctly
             newProject = projectClass();
             testCase.verifyEqual(newProject.experimentName, '', 'Experiment name not set correctly');
-            testCase.verifyEqual(newProject.calculationType, calculationTypes.NonPolarised.value, 'Calculation Type not set correctly');
+            testCase.verifyEqual(newProject.calculationType, calculationTypes.Normal.value, 'Calculation Type not set correctly');
             newProject = projectClass('New experiment');
             testCase.verifyEqual(newProject.experimentName, 'New experiment', 'Experiment name not set correctly');
-            testCase.verifyEqual(newProject.calculationType, calculationTypes.NonPolarised.value, 'Calculation Type not set correctly');
+            testCase.verifyEqual(newProject.calculationType, calculationTypes.Normal.value, 'Calculation Type not set correctly');
             testCase.verifyError(@() projectClass(1), 'MATLAB:validators:mustBeTextScalar')
         end
         
@@ -107,7 +107,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Tests project class can be converted to domains class and
             % the properties are copied over
             testCase.verifyClass(testCase.project, 'projectClass')
-            testCase.verifyEqual(testCase.project.calculationType, calculationTypes.NonPolarised.value, 'Calculation Type not set correctly');
+            testCase.verifyEqual(testCase.project.calculationType, calculationTypes.Normal.value, 'Calculation Type not set correctly');
             testCase.verifyFalse(testCase.project.contrasts.domainsCalc, 'Calculation Type not set correctly')
 
             domains = testCase.project.toDomainsClass();
@@ -293,7 +293,7 @@ classdef testProjectClass < matlab.unittest.TestCase
         function testLayersExceptions(testCase)
             % Ensure layers are not defined for a custom model,
             % and the routines modifying the layers raise an error
-            customProject = projectClass('custom project', calculationTypes.NonPolarised, modelTypes.CustomLayers);
+            customProject = projectClass('custom project', calculationTypes.Normal, modelTypes.CustomLayers);
             testCase.verifyEmpty(customProject.layers);
             testCase.verifyError(@() customProject.addLayerGroup({{'New Layer'}, {'Another Layer'}}), exceptions.invalidProperty.errorID)
             testCase.verifyError(@() customProject.addLayer('New Layer'), exceptions.invalidProperty.errorID)
@@ -557,7 +557,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             projectStruct = testCase.project.toStruct();
             testCase.verifyEqual(projectStruct.experimentName, testCase.project.experimentName, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.geometry, testCase.project.geometry, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.TF, calculationTypes.NonPolarised.value, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.TF, calculationTypes.Normal.value, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.paramNames, {'Substrate Roughness'}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.backgroundNames, testCase.project.background.backgrounds.varTable{:, 1}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.backgroundTypes, testCase.project.background.backgrounds.varTable{:, 2}, 'toStruct method not working');

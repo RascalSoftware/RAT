@@ -53,10 +53,10 @@ classdef domainsClass < projectClass
             % Alias of the converter routine from domainsClass to
             % projectClass.
             % This routine takes the currently defined project and
-            % converts it to a nonPolarised calculation, preserving all
+            % converts it to a normal calculation, preserving all
             % currently defined properties.
             %
-            % nonPolarisedProject = project.toProjectClass();
+            % normalProject = project.toProjectClass();
             projectObj = obj.projectClass();
         end
 
@@ -245,11 +245,11 @@ classdef domainsClass < projectClass
         function projectObj = projectClass(obj)
             % Converter routine from domainsClass to projectClass.
             % This routine takes the currently defined project and
-            % converts it to a nonPolarised calculation, preserving all
+            % converts it to a normal calculation, preserving all
             % currently defined properties.
             %
-            % nonPolarisedProject = project.projectClass();
-            projectObj = projectClass(obj.experimentName, calculationTypes.NonPolarised, obj.modelType, obj.geometry, obj.absorption);
+            % normalProject = project.projectClass();
+            projectObj = projectClass(obj.experimentName, calculationTypes.Normal, obj.modelType, obj.geometry, obj.absorption);
             projectObj = copyProperties(obj, projectObj);
 
             % Need to treat contrasts separately due to changes in the

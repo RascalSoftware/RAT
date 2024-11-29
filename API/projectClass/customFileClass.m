@@ -237,7 +237,7 @@ classdef customFileClass < tableUtilities
             % Convert the custom files class to a struct
             %
             % customFiles.toStruct()
-            fileStruct.files = {};
+            fileStruct.files = cell(1, 0);
             fileStruct.fileIdentifiers = {};
             numberOfFiles = obj.rowCount;      
             if numberOfFiles > 0

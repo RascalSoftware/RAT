@@ -32,7 +32,7 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  namespace nonPolarisedTF
+  namespace normalTF
   {
     void standardLayers(const e_struct_T *problemStruct, const struct3_T
                         *controls, ::coder::array<real_T, 1U> &qzshifts, ::coder::

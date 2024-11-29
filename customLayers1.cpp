@@ -135,15 +135,15 @@ namespace RAT
 
       //  Call the core layers calculation - need to do this once for each
       //  domain
-      nonPolarisedTF::coreLayersCalculation(calcAllLayers1, roughness,
-        geometry_data, geometry_size, *bulkInValue, *bulkOutValue, resample,
-        calcSld, b_shiftedData, simLimits, repeatLayers, *resolutionParamValue,
+      normalTF::coreLayersCalculation(calcAllLayers1, roughness, geometry_data,
+        geometry_size, *bulkInValue, *bulkOutValue, resample, calcSld,
+        b_shiftedData, simLimits, repeatLayers, *resolutionParamValue,
         background, backgroundAction_data, backgroundAction_size, nParams,
         parallel_data, parallel_size, resampleMinAngle, resampleNPoints,
         useImaginary, r.f1, reflect1, simul1, a__5, r1.f1, r2.f1, &a__6);
-      nonPolarisedTF::coreLayersCalculation(calcAllLayers2, roughness,
-        geometry_data, geometry_size, *bulkInValue, *bulkOutValue, resample,
-        calcSld, b_shiftedData, simLimits, repeatLayers, *resolutionParamValue,
+      normalTF::coreLayersCalculation(calcAllLayers2, roughness, geometry_data,
+        geometry_size, *bulkInValue, *bulkOutValue, resample, calcSld,
+        b_shiftedData, simLimits, repeatLayers, *resolutionParamValue,
         background, backgroundAction_data, backgroundAction_size, nParams,
         parallel_data, parallel_size, resampleMinAngle, resampleNPoints,
         useImaginary, r3.f1, reflect2, simul2, shiftedData, r4.f1, r5.f1, &a__7);

@@ -470,18 +470,17 @@ namespace RAT
 
       boolean_T h_strcmp(const char_T a_data[], const int32_T a_size[2])
       {
-        static const char_T b_cv[13]{ 'n', 'o', 'n', ' ', 'p', 'o', 'l', 'a',
-          'r', 'i', 's', 'e', 'd' };
+        static const char_T b_cv[6]{ 'n', 'o', 'r', 'm', 'a', 'l' };
 
         boolean_T b_bool;
         b_bool = false;
-        if (a_size[1] == 13) {
+        if (a_size[1] == 6) {
           int32_T kstr;
           kstr = 0;
           int32_T exitg1;
           do {
             exitg1 = 0;
-            if (kstr < 13) {
+            if (kstr < 6) {
               if (a_data[kstr] != b_cv[kstr]) {
                 exitg1 = 1;
               } else {

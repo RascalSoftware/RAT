@@ -30,8 +30,6 @@
 // Function Declarations
 namespace RAT
 {
-  static void b_cast(const ::coder::array<cell_wrap_7, 2U> &b, ::coder::array<
-                     cell_wrap_0, 2U> &c);
   static void cast(const e_struct_T *b, struct0_T *c);
   static void cast(const struct0_T *b, e_struct_T *c);
   static void cast(const ::coder::array<cell_wrap_0, 2U> &t1_params, const ::
@@ -78,23 +76,6 @@ namespace RAT
 // Function Definitions
 namespace RAT
 {
-  static void b_cast(const ::coder::array<cell_wrap_7, 2U> &b, ::coder::array<
-                     cell_wrap_0, 2U> &c)
-  {
-    int32_T i;
-    c.set_size(b.size(0), b.size(1));
-    i = b.size(0) * b.size(1);
-    for (int32_T i1{0}; i1 < i; i1++) {
-      int32_T loop_ub;
-      c[i1].f1.size[0] = 1;
-      loop_ub = b[i1].f1.size(1);
-      c[i1].f1.size[1] = b[i1].f1.size(1);
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
-        c[i1].f1.data[i2] = b[i1].f1[i2];
-      }
-    }
-  }
-
   static void cast(const e_struct_T *b, struct0_T *c)
   {
     int32_T b_loop_ub;
@@ -238,7 +219,7 @@ namespace RAT
     c->numberOfLayers = b->numberOfLayers;
     cast(b->contrastLayers, c->contrastLayers);
     cast(b->layersDetails, c->layersDetails);
-    b_cast(b->customFiles, c->customFiles);
+    cast(b->customFiles, c->customFiles);
     c->modelType.size[0] = 1;
     c->modelType.size[1] = b->modelType.size[1];
     loop_ub = b->modelType.size[1];
@@ -447,7 +428,7 @@ namespace RAT
     c->numberOfLayers = b->numberOfLayers;
     cast(b->contrastLayers, c->contrastLayers);
     cast(b->layersDetails, c->layersDetails);
-    b_cast(b->customFiles, c->customFiles);
+    cast(b->customFiles, c->customFiles);
     c->modelType.size[0] = 1;
     c->modelType.size[1] = b->modelType.size[1];
     loop_ub = b->modelType.size[1];
@@ -682,7 +663,7 @@ namespace RAT
     c->numberOfLayers = b->numberOfLayers;
     cast(b->contrastLayers, c->contrastLayers);
     cast(b->layersDetails, c->layersDetails);
-    b_cast(b->customFiles, c->customFiles);
+    cast(b->customFiles, c->customFiles);
     c->modelType.size[0] = 1;
     c->modelType.size[1] = b->modelType.size[1];
     loop_ub = b->modelType.size[1];

@@ -27,7 +27,7 @@
 // Function Declarations
 namespace RAT
 {
-  namespace nonPolarisedTF
+  namespace normalTF
   {
     static void contrastCalculation(const real_T backgroundParamIndex_data[],
       const int32_T backgroundParamIndex_size[2], real_T qzshiftIndex, real_T
@@ -59,7 +59,7 @@ namespace RAT
 // Function Definitions
 namespace RAT
 {
-  namespace nonPolarisedTF
+  namespace normalTF
   {
     static void contrastCalculation(const real_T backgroundParamIndex_data[],
       const int32_T backgroundParamIndex_size[2], real_T qzshiftIndex, real_T

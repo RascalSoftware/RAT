@@ -144,20 +144,20 @@ namespace RAT
       //  domain
       allocateLayersForContrast(domainContrastLayers1, outParameterisedLayers,
         useImaginary, r);
-      nonPolarisedTF::coreLayersCalculation(r, roughness, geometry_data,
-        geometry_size, *bulkInValue, *bulkOutValue, resample, calcSld,
-        b_shiftedData, simLimits, repeatLayers, *resolutionParamValue,
-        background, backgroundAction_data, backgroundAction_size, nParams,
-        parallel_data, parallel_size, resampleMinAngle, resampleNPoints,
-        useImaginary, r1.f1, reflect1, simul1, a__3, r2.f1, r3.f1, &a__4);
+      normalTF::coreLayersCalculation(r, roughness, geometry_data, geometry_size,
+        *bulkInValue, *bulkOutValue, resample, calcSld, b_shiftedData, simLimits,
+        repeatLayers, *resolutionParamValue, background, backgroundAction_data,
+        backgroundAction_size, nParams, parallel_data, parallel_size,
+        resampleMinAngle, resampleNPoints, useImaginary, r1.f1, reflect1, simul1,
+        a__3, r2.f1, r3.f1, &a__4);
       allocateLayersForContrast(domainContrastLayers2, outParameterisedLayers,
         useImaginary, r);
-      nonPolarisedTF::coreLayersCalculation(r, roughness, geometry_data,
-        geometry_size, *bulkInValue, *bulkOutValue, resample, calcSld,
-        b_shiftedData, simLimits, repeatLayers, *resolutionParamValue,
-        background, backgroundAction_data, backgroundAction_size, nParams,
-        parallel_data, parallel_size, resampleMinAngle, resampleNPoints,
-        useImaginary, r4.f1, reflect2, simul2, shiftedData, r5.f1, r6.f1, &a__5);
+      normalTF::coreLayersCalculation(r, roughness, geometry_data, geometry_size,
+        *bulkInValue, *bulkOutValue, resample, calcSld, b_shiftedData, simLimits,
+        repeatLayers, *resolutionParamValue, background, backgroundAction_data,
+        backgroundAction_size, nParams, parallel_data, parallel_size,
+        resampleMinAngle, resampleNPoints, useImaginary, r4.f1, reflect2, simul2,
+        shiftedData, r5.f1, r6.f1, &a__5);
 
       //  Calculate the average reflectivities....
       //  Calculates the averaged reflectivity for domains samples (incoherent

@@ -24,7 +24,7 @@
 // Function Definitions
 namespace RAT
 {
-  namespace nonPolarisedTF
+  namespace normalTF
   {
     void coreLayersCalculation(const ::coder::array<real_T, 2U> &layers, real_T
       rough, const char_T geometry_data[], const int32_T geometry_size[2],

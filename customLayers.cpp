@@ -26,7 +26,7 @@
 // Function Declarations
 namespace RAT
 {
-  namespace nonPolarisedTF
+  namespace normalTF
   {
     static void b_contrastCalculation(const real_T backgroundParamIndex_data[],
       const int32_T backgroundParamIndex_size[2], real_T qzshiftIndex, real_T
@@ -57,7 +57,7 @@ namespace RAT
 // Function Definitions
 namespace RAT
 {
-  namespace nonPolarisedTF
+  namespace normalTF
   {
     static void b_contrastCalculation(const real_T backgroundParamIndex_data[],
       const int32_T backgroundParamIndex_size[2], real_T qzshiftIndex, real_T
@@ -167,10 +167,10 @@ namespace RAT
       boolean_T calcSld;
       boolean_T useImaginary;
 
-      //  The custom layers, nonPolarisedTF reflectivity calculation.
+      //  The custom layers, normalTF reflectivity calculation.
       //  The function extracts the relevant parameters from the input arrays,
       //  allocates these on a pre-contrast basis, then calls the
-      //  'coreLayersCalculation' (the core layers nonPolarisedTF calc is
+      //  'coreLayersCalculation' (the core layers normalTF calc is
       //  shared between multiple calculation types).
       //  Extract parameters from problemStruct
       nParams = problemStruct->params.size(1);
@@ -456,10 +456,10 @@ namespace RAT
       boolean_T calcSld;
       boolean_T useImaginary;
 
-      //  The custom layers, nonPolarisedTF reflectivity calculation.
+      //  The custom layers, normalTF reflectivity calculation.
       //  The function extracts the relevant parameters from the input arrays,
       //  allocates these on a pre-contrast basis, then calls the
-      //  'coreLayersCalculation' (the core layers nonPolarisedTF calc is
+      //  'coreLayersCalculation' (the core layers normalTF calc is
       //  shared between multiple calculation types).
       //  Extract parameters from problemStruct
       nParams = problemStruct->params.size(1);
@@ -776,10 +776,10 @@ namespace RAT
       char_T geometry_data[10000];
       boolean_T useImaginary;
 
-      //  The custom layers, nonPolarisedTF reflectivity calculation.
+      //  The custom layers, normalTF reflectivity calculation.
       //  The function extracts the relevant parameters from the input arrays,
       //  allocates these on a pre-contrast basis, then calls the
-      //  'coreLayersCalculation' (the core layers nonPolarisedTF calc is
+      //  'coreLayersCalculation' (the core layers normalTF calc is
       //  shared between multiple calculation types).
       //  Extract parameters from problemStruct
       extractProblemParams(problemStruct, &numberOfContrasts, geometry_data,

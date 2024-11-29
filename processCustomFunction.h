@@ -27,7 +27,7 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  namespace nonPolarisedTF
+  namespace normalTF
   {
     namespace customLayers
     {

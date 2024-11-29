@@ -21,7 +21,7 @@
 // Function Definitions
 namespace RAT
 {
-  namespace nonPolarisedTF
+  namespace normalTF
   {
     namespace customXY
     {

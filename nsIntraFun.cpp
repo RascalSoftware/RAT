@@ -214,15 +214,10 @@ namespace RAT
       }
     }
 
-    problemStruct.customFiles.set_size(data_f1->customFiles.size(0),
-      data_f1->customFiles.size(1));
+    problemStruct.customFiles.set_size(1, data_f1->customFiles.size(1));
     loop_ub = data_f1->customFiles.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = data_f1->customFiles.size(0);
-      for (i1 = 0; i1 < b_loop_ub; i1++) {
-        problemStruct.customFiles[problemStruct.customFiles.size(0) * i] =
-          data_f1->customFiles[data_f1->customFiles.size(0) * i];
-      }
+      problemStruct.customFiles[i] = data_f1->customFiles[i];
     }
 
     problemStruct.modelType.size[0] = 1;

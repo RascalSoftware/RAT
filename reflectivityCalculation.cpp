@@ -58,7 +58,7 @@ namespace RAT
     //  (i.e. 'Target function' is required, and call the relevant routines.
     //  The types of available target functions are:*
     //
-    //  * non polarised  - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
+    //  * normal  - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
     //
     //  * oil water      - Target function for oil-water samples
     //
@@ -96,7 +96,7 @@ namespace RAT
 
       switch (b_index) {
        case 0:
-        nonPolarisedTF::standardLayers(problemStruct, controls, qzshifts,
+        normalTF::standardLayers(problemStruct, controls, qzshifts,
           result->contrastParams.scalefactors, result->contrastParams.bulkIn,
           result->contrastParams.bulkOut,
           result->contrastParams.resolutionParams,
@@ -124,7 +124,7 @@ namespace RAT
         break;
 
        case 1:
-        nonPolarisedTF::b_customLayers(problemStruct, controls, qzshifts,
+        normalTF::b_customLayers(problemStruct, controls, qzshifts,
           result->contrastParams.scalefactors, result->contrastParams.bulkIn,
           result->contrastParams.bulkOut,
           result->contrastParams.resolutionParams,
@@ -152,14 +152,16 @@ namespace RAT
         break;
 
        case 2:
-        nonPolarisedTF::b_customXY(problemStruct, controls, qzshifts,
-          result->contrastParams.scalefactors, result->contrastParams.bulkIn,
-          result->contrastParams.bulkOut,
-          result->contrastParams.resolutionParams,
-          result->calculationResults.chiValues, result->reflectivity,
-          result->simulation, result->shiftedData, result->backgrounds,
-          layerSlds, sldProfiles, resampledLayers,
-          result->contrastParams.subRoughs);
+        normalTF::b_customXY(problemStruct, controls, qzshifts,
+                             result->contrastParams.scalefactors,
+                             result->contrastParams.bulkIn,
+                             result->contrastParams.bulkOut,
+                             result->contrastParams.resolutionParams,
+                             result->calculationResults.chiValues,
+                             result->reflectivity, result->simulation,
+                             result->shiftedData, result->backgrounds, layerSlds,
+                             sldProfiles, resampledLayers,
+                             result->contrastParams.subRoughs);
         result->layerSlds.set_size(layerSlds.size(0), 1);
         b_index = layerSlds.size(0);
         for (i = 0; i < b_index; i++) {
@@ -385,7 +387,7 @@ namespace RAT
     //  (i.e. 'Target function' is required, and call the relevant routines.
     //  The types of available target functions are:*
     //
-    //  * non polarised  - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
+    //  * normal  - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
     //
     //  * oil water      - Target function for oil-water samples
     //
@@ -423,7 +425,7 @@ namespace RAT
 
       switch (b_index) {
        case 0:
-        nonPolarisedTF::standardLayers(problemStruct, controls, qzshifts,
+        normalTF::standardLayers(problemStruct, controls, qzshifts,
           result->contrastParams.scalefactors, result->contrastParams.bulkIn,
           result->contrastParams.bulkOut,
           result->contrastParams.resolutionParams,
@@ -451,7 +453,7 @@ namespace RAT
         break;
 
        case 1:
-        nonPolarisedTF::b_customLayers(problemStruct, controls, qzshifts,
+        normalTF::b_customLayers(problemStruct, controls, qzshifts,
           result->contrastParams.scalefactors, result->contrastParams.bulkIn,
           result->contrastParams.bulkOut,
           result->contrastParams.resolutionParams,
@@ -479,14 +481,16 @@ namespace RAT
         break;
 
        case 2:
-        nonPolarisedTF::b_customXY(problemStruct, controls, qzshifts,
-          result->contrastParams.scalefactors, result->contrastParams.bulkIn,
-          result->contrastParams.bulkOut,
-          result->contrastParams.resolutionParams,
-          result->calculationResults.chiValues, result->reflectivity,
-          result->simulation, result->shiftedData, result->backgrounds,
-          layerSlds, sldProfiles, resampledLayers,
-          result->contrastParams.subRoughs);
+        normalTF::b_customXY(problemStruct, controls, qzshifts,
+                             result->contrastParams.scalefactors,
+                             result->contrastParams.bulkIn,
+                             result->contrastParams.bulkOut,
+                             result->contrastParams.resolutionParams,
+                             result->calculationResults.chiValues,
+                             result->reflectivity, result->simulation,
+                             result->shiftedData, result->backgrounds, layerSlds,
+                             sldProfiles, resampledLayers,
+                             result->contrastParams.subRoughs);
         result->layerSlds.set_size(layerSlds.size(0), 1);
         b_index = layerSlds.size(0);
         for (i = 0; i < b_index; i++) {
@@ -709,7 +713,7 @@ namespace RAT
     //  (i.e. 'Target function' is required, and call the relevant routines.
     //  The types of available target functions are:*
     //
-    //  * non polarised  - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
+    //  * normal  - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
     //
     //  * oil water      - Target function for oil-water samples
     //
@@ -747,7 +751,7 @@ namespace RAT
 
       switch (b_index) {
        case 0:
-        nonPolarisedTF::standardLayers(problemStruct, controls, qzshifts,
+        normalTF::standardLayers(problemStruct, controls, qzshifts,
           result->contrastParams.scalefactors, result->contrastParams.bulkIn,
           result->contrastParams.bulkOut,
           result->contrastParams.resolutionParams,
@@ -775,7 +779,7 @@ namespace RAT
         break;
 
        case 1:
-        nonPolarisedTF::b_customLayers(problemStruct, controls, qzshifts,
+        normalTF::b_customLayers(problemStruct, controls, qzshifts,
           result->contrastParams.scalefactors, result->contrastParams.bulkIn,
           result->contrastParams.bulkOut,
           result->contrastParams.resolutionParams,
@@ -803,14 +807,16 @@ namespace RAT
         break;
 
        case 2:
-        nonPolarisedTF::b_customXY(problemStruct, controls, qzshifts,
-          result->contrastParams.scalefactors, result->contrastParams.bulkIn,
-          result->contrastParams.bulkOut,
-          result->contrastParams.resolutionParams,
-          result->calculationResults.chiValues, result->reflectivity,
-          result->simulation, result->shiftedData, result->backgrounds,
-          layerSlds, sldProfiles, resampledLayers,
-          result->contrastParams.subRoughs);
+        normalTF::b_customXY(problemStruct, controls, qzshifts,
+                             result->contrastParams.scalefactors,
+                             result->contrastParams.bulkIn,
+                             result->contrastParams.bulkOut,
+                             result->contrastParams.resolutionParams,
+                             result->calculationResults.chiValues,
+                             result->reflectivity, result->simulation,
+                             result->shiftedData, result->backgrounds, layerSlds,
+                             sldProfiles, resampledLayers,
+                             result->contrastParams.subRoughs);
         result->layerSlds.set_size(layerSlds.size(0), 1);
         b_index = layerSlds.size(0);
         for (i = 0; i < b_index; i++) {

@@ -189,7 +189,7 @@ namespace RAT
 
     cast(problemStruct->contrastLayers, contrastLayers);
     cast(problemStruct->layersDetails, layersDetails);
-    b_cast(problemStruct->customFiles, customFiles);
+    cast(problemStruct->customFiles, customFiles);
     cast(problemStruct->domainContrastLayers, domainContrastLayers);
     *nParams = b_nParams;
   }

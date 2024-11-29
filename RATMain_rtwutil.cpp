@@ -21,22 +21,6 @@
 // Function Definitions
 namespace RAT
 {
-  void b_cast(const ::coder::array<cell_wrap_0, 2U> &b, ::coder::array<
-              cell_wrap_7, 2U> &c)
-  {
-    int32_T i;
-    c.set_size(b.size(0), b.size(1));
-    i = b.size(0) * b.size(1);
-    for (int32_T i1{0}; i1 < i; i1++) {
-      int32_T loop_ub;
-      loop_ub = b[i1].f1.size[1];
-      c[i1].f1.set_size(1, b[i1].f1.size[1]);
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
-        c[i1].f1[i2] = b[i1].f1.data[i2];
-      }
-    }
-  }
-
   void cast(const ::coder::array<cell_wrap_3, 2U> &b, ::coder::array<
             cell_wrap_13, 2U> &c)
   {
@@ -50,22 +34,6 @@ namespace RAT
       c[i1].f1.size[1] = b[i1].f1.size[1];
       for (int32_T i2{0}; i2 < loop_ub; i2++) {
         c[i1].f1.data[i2] = b[i1].f1.data[i2];
-      }
-    }
-  }
-
-  void cast(const ::coder::array<cell_wrap_0, 2U> &b, ::coder::array<cell_wrap_7,
-            2U> &c)
-  {
-    int32_T i;
-    c.set_size(1, b.size(1));
-    i = b.size(1) - 1;
-    for (int32_T i1{0}; i1 <= i; i1++) {
-      int32_T loop_ub;
-      loop_ub = b[i1].f1.size[1];
-      c[c.size(0) * i1].f1.set_size(1, b[b.size(0) * i1].f1.size[1]);
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
-        c[i1].f1[i2] = b[i1].f1.data[i2];
       }
     }
   }
@@ -86,6 +54,22 @@ namespace RAT
         for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
           c[i1].f1[c[i1].f1.size(0) * i2] = b[i1].f1.data[b[i1].f1.size[0] * i2];
         }
+      }
+    }
+  }
+
+  void cast(const ::coder::array<cell_wrap_0, 2U> &b, ::coder::array<cell_wrap_7,
+            2U> &c)
+  {
+    int32_T i;
+    c.set_size(1, b.size(1));
+    i = b.size(1) - 1;
+    for (int32_T i1{0}; i1 <= i; i1++) {
+      int32_T loop_ub;
+      loop_ub = b[i1].f1.size[1];
+      c[c.size(0) * i1].f1.set_size(1, b[b.size(0) * i1].f1.size[1]);
+      for (int32_T i2{0}; i2 < loop_ub; i2++) {
+        c[i1].f1[i2] = b[i1].f1.data[i2];
       }
     }
   }

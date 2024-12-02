@@ -3,13 +3,12 @@ function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiS
     geometry, bulkIn, bulkOut, resample, calcSld, shiftedData, simLimits, repeatLayers,...
     resolution,background,backgroundAction,params,parallelPoints,resampleMinAngle,resampleNPoints,useImaginary)
 
-%   This is the main reflectivity calculation for all Layers models in the 
-%   non polarised target function. 
+%   This is the main reflectivity calculation for all layers models in the 
+%   normal target function.
 %
-%   The function first arranges the 
-%   roughness' in the correct order according
-%   to geometry. Then, if required it calculates the SLD profile and if
-%   requested resamples this into a number of zero-roughness layers
+%   The function first arranges the roughness' in the correct order
+%   according to geometry. Then, if required it calculates the SLD profile
+%   and if requested resamples this into a number of zero-roughness layers
 %   (roughness resampling). It the applies any scalefactors and qz shifts
 %   the data requires. This is done before calculating the reflectivity to
 %   ensure that the reflectivity is calculated over the same range in qz as

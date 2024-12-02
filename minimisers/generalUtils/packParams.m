@@ -1,16 +1,16 @@
-function [problemStruct,fitNames] = packParams(problemStruct,limits,checks)
+function [problemStruct,fitNames] = packParams(problemStruct,limits)
 
     %We need to pack the parameters into separate vectors
     %of those that are being fitted, and those that are
     %held constant.
-    numberOfFitted = sum(checks.fitParam) + ...
-                     sum(checks.fitBackgroundParam) + ...
-                     sum(checks.fitScalefactor) + ...
-                     sum(checks.fitQzshift) + ...
-                     sum(checks.fitBulkIn) + ...
-                     sum(checks.fitBulkOut) + ...
-                     sum(checks.fitResolutionParam) + ...
-                     sum(checks.fitDomainRatio);
+    numberOfFitted = sum(problemStruct.checks.params) + ...
+                     sum(problemStruct.checks.backgroundParams) + ...
+                     sum(problemStruct.checks.scalefactors) + ...
+                     sum(problemStruct.checks.qzshifts) + ...
+                     sum(problemStruct.checks.bulkIns) + ...
+                     sum(problemStruct.checks.bulkOuts) + ...
+                     sum(problemStruct.checks.resolutionParams) + ...
+                     sum(problemStruct.checks.domainRatios);
                  
     numberOfTotal = length(problemStruct.params) + ...
                     length(problemStruct.backgroundParams) + ...
@@ -33,8 +33,8 @@ function [problemStruct,fitNames] = packParams(problemStruct,limits,checks)
     
     fitCounter = 1;
     otherCounter = 1;
-    for n = 1:length(checks.fitParam)
-        if checks.fitParam(n) == 1
+    for n = 1:length(problemStruct.checks.params)
+        if problemStruct.checks.params(n) == 1
             fitParams(fitCounter) = problemStruct.params(n);
             fitLimits(fitCounter,1) = limits.param(n,1);
             fitLimits(fitCounter,2) = limits.param(n,2);        
@@ -50,8 +50,8 @@ function [problemStruct,fitNames] = packParams(problemStruct,limits,checks)
     end
     
     %Also do the same for backgrounds...
-    for n = 1:length(checks.fitBackgroundParam)
-        if checks.fitBackgroundParam(n) == 1
+    for n = 1:length(problemStruct.checks.backgroundParams)
+        if problemStruct.checks.backgroundParams(n) == 1
             fitParams(fitCounter) = problemStruct.backgroundParams(n);
             fitLimits(fitCounter,1) = limits.backgroundParam(n,1);
             fitLimits(fitCounter,2) = limits.backgroundParam(n,2);
@@ -66,8 +66,8 @@ function [problemStruct,fitNames] = packParams(problemStruct,limits,checks)
     end
     
     %..also for the scale factors
-    for n = 1:length(checks.fitScalefactor)
-        if checks.fitScalefactor(n) == 1
+    for n = 1:length(problemStruct.checks.scalefactors)
+        if problemStruct.checks.scalefactors(n) == 1
             fitParams(fitCounter) = problemStruct.scalefactors(n);
             fitLimits(fitCounter,1) = limits.scalefactor(n,1);
             fitLimits(fitCounter,2) = limits.scalefactor(n,2);
@@ -82,8 +82,8 @@ function [problemStruct,fitNames] = packParams(problemStruct,limits,checks)
     end    
     
     %Need qzshifts
-    for n = 1:length(checks.fitQzshift)
-        if checks.fitQzshift(n) == 1
+    for n = 1:length(problemStruct.checks.qzshifts)
+        if problemStruct.checks.qzshifts(n) == 1
             fitParams(fitCounter) = problemStruct.qzshifts(n);
             fitLimits(fitCounter,1) = limits.qzshift(n,1);
             fitLimits(fitCounter,2) = limits.qzshift(n,2);
@@ -98,8 +98,8 @@ function [problemStruct,fitNames] = packParams(problemStruct,limits,checks)
     end 
     
     %Bulk In
-    for n = 1:length(checks.fitBulkIn)
-        if checks.fitBulkIn(n) == 1
+    for n = 1:length(problemStruct.checks.bulkIns)
+        if problemStruct.checks.bulkIns(n) == 1
             fitParams(fitCounter) = problemStruct.bulkIn(n);
             fitLimits(fitCounter,1) = limits.bulkIn(n,1);
             fitLimits(fitCounter,2) = limits.bulkIn(n,2);
@@ -114,8 +114,8 @@ function [problemStruct,fitNames] = packParams(problemStruct,limits,checks)
     end 
     
     %Bulk Out
-    for n = 1:length(checks.fitBulkOut)
-        if checks.fitBulkOut(n) == 1
+    for n = 1:length(problemStruct.checks.bulkOuts)
+        if problemStruct.checks.bulkOuts(n) == 1
             fitParams(fitCounter) = problemStruct.bulkOut(n);
             fitLimits(fitCounter,1) = limits.bulkOut(n,1);
             fitLimits(fitCounter,2) = limits.bulkOut(n,2);
@@ -130,8 +130,8 @@ function [problemStruct,fitNames] = packParams(problemStruct,limits,checks)
     end 
     
     %Resolution.....
-    for n = 1:length(checks.fitResolutionParam)
-        if checks.fitResolutionParam(n) == 1
+    for n = 1:length(problemStruct.checks.resolutionParams)
+        if problemStruct.checks.resolutionParams(n) == 1
             fitParams(fitCounter) = problemStruct.resolutionParams(n);
             fitLimits(fitCounter,1) = limits.resolutionParam(n,1);
             fitLimits(fitCounter,2) = limits.resolutionParam(n,2);
@@ -146,8 +146,8 @@ function [problemStruct,fitNames] = packParams(problemStruct,limits,checks)
     end 
     
     % Domain Ratio
-    for n = 1:length(checks.fitDomainRatio)
-        if checks.fitDomainRatio(n) == 1
+    for n = 1:length(problemStruct.checks.domainRatios)
+        if problemStruct.checks.domainRatios(n) == 1
             fitParams(fitCounter) = problemStruct.domainRatio(n);
             fitLimits(fitCounter,1) = limits.domainRatio(n,1);
             fitLimits(fitCounter,2) = limits.domainRatio(n,2);

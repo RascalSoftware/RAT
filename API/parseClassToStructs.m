@@ -290,6 +290,20 @@ else
     problemStruct.names.domainRatios = cell(1, 0);
 end
 
+% Also need to deal with the checks...
+problemStruct.checks.params = inputStruct.fitParam;
+problemStruct.checks.backgroundParams = inputStruct.fitBackgroundParam;
+problemStruct.checks.scalefactors = inputStruct.fitScalefactor;
+problemStruct.checks.qzshifts = inputStruct.fitQzshift;
+problemStruct.checks.bulkIns = inputStruct.fitBulkIn;
+problemStruct.checks.bulkOuts = inputStruct.fitBulkOut;
+problemStruct.checks.resolutionParams = inputStruct.fitResolutionParam;
+if isa(project, 'domainsClass')
+    problemStruct.checks.domainRatios = inputStruct.fitDomainRatio;
+else
+    problemStruct.checks.domainRatios = ones(1,0);
+end
+
 % Make sure the indices cannot lie outside of the arrays
 checkIndices(problemStruct, inputStruct.files);
 
@@ -322,25 +336,9 @@ controls.jumpProbability = inputControls.jumpProbability;
 controls.pUnitGamma = inputControls.pUnitGamma;
 controls.boundHandling = inputControls.boundHandling;
 controls.adaptPCR = inputControls.adaptPCR;
-
-% Also need to deal with the checks...
-checks.fitParam = inputStruct.fitParam;
-checks.fitBackgroundParam = inputStruct.fitBackgroundParam;
-checks.fitQzshift = inputStruct.fitQzshift;
-checks.fitScalefactor = inputStruct.fitScalefactor;
-checks.fitBulkIn = inputStruct.fitBulkIn;
-checks.fitBulkOut = inputStruct.fitBulkOut;
-checks.fitResolutionParam = inputStruct.fitResolutionParam;
-if isa(project, 'domainsClass')
-    checks.fitDomainRatio = inputStruct.fitDomainRatio;
-else
-    checks.fitDomainRatio = ones(1,0);
-end
-
-controls.checks = checks;
 controls.IPCFilePath = inputControls.getIPCFilePath();
 
 %% Finally, populate the fitParams, otherParams, fitLimits, otherLimits arrays
-[problemStruct,~] = packParams(problemStruct,problemLimits,controls.checks);
+[problemStruct,~] = packParams(problemStruct,problemLimits);
 
 end

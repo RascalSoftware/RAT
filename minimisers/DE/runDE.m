@@ -1,6 +1,6 @@
 function [problemStruct,result] = runDE(problemStruct,problemLimits,controls)
 
-    [problemStruct,~] = fitsetup(problemStruct,problemLimits,controls);
+    [problemStruct,~] = fitsetup(problemStruct,problemLimits);
     F_VTR = controls.targetValue; %Value to reach
     I_D = length(problemStruct.fitParams);
     
@@ -81,7 +81,7 @@ function [problemStruct,result] = runDE(problemStruct,problemLimits,controls)
     
     [res,problemStruct] = deopt(@intrafun,problemStruct,controls,S_struct);
     problemStruct.fitParams = res;
-    problemStruct = unpackParams(problemStruct,controls.checks);
+    problemStruct = unpackParams(problemStruct);
     result = reflectivityCalculation(problemStruct,controls);
     
     if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
@@ -94,7 +94,7 @@ end
 function [S_MSE,result] = intrafun(p,problemStruct,controls)
     
     problemStruct.fitParams = p';
-    problemStruct = unpackParams(problemStruct,controls.checks);
+    problemStruct = unpackParams(problemStruct);
     result = reflectivityCalculation(problemStruct,controls);
     fval = result.calculationResults.sumChi;
     

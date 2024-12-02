@@ -112,6 +112,6 @@ result.calculationResults = calculationResults;
 result.contrastParams = contrastParams;
 
 result.fitParams = problemStruct.fitParams;
-result.fitNames = getFitNames(problemStruct,controls.checks);
+result.fitNames = getFitNames(problemStruct);
 
 end

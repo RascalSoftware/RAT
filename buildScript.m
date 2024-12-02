@@ -14,7 +14,7 @@ cd(compilePath);
 ratMainCompileScript;
 ratMainCodeGen;
 
-compilePath = fullfile(thisPath, 'compile', 'customWrapper');
+compilePath = fullfile(thisPath,'compile','customWrapper');
 cd(compilePath);
 wrapperCompileScript;
 

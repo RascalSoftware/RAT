@@ -1,4 +1,4 @@
-function output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls)
+function output = runBayes(loop,nsimu,burnin,adaptint,params,problem)
 
 problemStruct = problem{1};
 controls = problem{2};
@@ -88,7 +88,7 @@ output.data = data;
 % outSld = mcmcpred_compile_sld(results,chain,[],data,problem,500);
 % 
 % problemStruct.fitParams = output.bestParams;
-% problemStruct = unpackParams(problemStruct,controls.checks);
+% problemStruct = unpackParams(problemStruct);
 % result = reflectivityCalculation(problemStruct,controls);
 % 
 % output.bestFits = result.reflectivity;

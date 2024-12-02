@@ -7,7 +7,7 @@ function [outProject,result,pmpd] = processParamonteRuns(problem,controls,chainN
 
 [problemStruct,problemLimits,~,controls] = parseClassToStructs(problem,controls);
 
-[problemStruct,fitNames] = packParams(problemStruct,problemLimits,controls.checks);
+[problemStruct,fitNames] = packParams(problemStruct,problemLimits);
 
 pm = paramonte();
 pmpd = pm.ParaDRAM();

@@ -86,7 +86,7 @@ if useSaved
 else
 
     [problemStruct,problemLimits,priors,controls] = parseClassToStructs(d2oproblem,controls);
-    [problemStruct,fitNames] = packParams(problemStruct,problemLimits,controls.checks);
+    [problemStruct,fitNames] = packParams(problemStruct,problemLimits);
 
     for r = 1:gridSize
         for b = 1:gridSize
@@ -102,7 +102,7 @@ else
                 problemStruct.fitParams(1) = thisRough;
                 problemStruct.fitParams(2) = thisBack;
                 problemStruct.fitParams(3) = thisScale;
-                problemStruct = unpackParams(problemStruct,controls.checks);
+                problemStruct = unpackParams(problemStruct);
                 results = reflectivityCalculation(problemStruct,controls);
 
 %                 d2oproblem.setParameter(1,'value',thisRough);

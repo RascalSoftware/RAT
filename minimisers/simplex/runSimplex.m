@@ -1,6 +1,6 @@
 function [problemStruct,result] = runSimplex(problemStruct,problemLimits,controls)
 
-[problemStruct,~] = fitsetup(problemStruct,problemLimits,controls);
+[problemStruct,~] = fitsetup(problemStruct,problemLimits);
 
 maxIter = controls.maxIterations;
 tolFun = controls.funcTolerance;
@@ -114,7 +114,7 @@ x = simplexXTransform(xu,params);
 %x = reshape(x,xsize);
 
 problemStruct.fitParams = x;
-problemStruct = unpackParams(problemStruct,controls.checks);
+problemStruct = unpackParams(problemStruct);
 result = reflectivityCalculation(problemStruct,controls);
 
 end

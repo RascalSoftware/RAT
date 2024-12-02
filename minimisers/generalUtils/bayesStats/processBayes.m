@@ -3,9 +3,9 @@ function [problemStruct,result,bayesResults] = processBayes(bayesOutputs,problem
 % Need to impose that we calculate the SLD..
 controls.calcSldDuringFit = true;
 
-%... and use the Bayes best params
+% ... and use the Bayes best params
 problemStruct.fitParams = bayesOutputs.bestParams;
-problemStruct = unpackParams(problemStruct,controls.checks);
+problemStruct = unpackParams(problemStruct);
 confidenceIntervals = percentileConfidenceIntervals(bayesOutputs.chain);   %iterShortest(output.chain,length(fitNames),[],0.95);
 
 % Calculate 'mean' best fit curves
@@ -15,7 +15,6 @@ result = reflectivityCalculation(problemStruct,controls);
 predInts = refPercentileConfidenceIntervals(bayesOutputs,problemStruct,controls,result);
 
 % ---------------------------------
-
 
 % bayesResults.chain = bayesOutputs.chain;
 bayesResults = struct('predictionIntervals',predInts,...

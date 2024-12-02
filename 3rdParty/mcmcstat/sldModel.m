@@ -29,7 +29,7 @@ controls = problem{2};
 controls.calcSldDuringFit = true;
 
 problemStruct.fitParams = pars;
-problemStruct = unpackParams(problemStruct,controls.checks);
+problemStruct = unpackParams(problemStruct);
 result = reflectivityCalculation(problemStruct,controls);
 
 sld = result.sldProfiles{contrast};

@@ -9,7 +9,7 @@ controls = ratInputs.controls;
 problemStruct.fitParams = pars;
 
 % Distribute them to the right parts
-problemStruct = unpackParams(problemStruct,controls.checks);
+problemStruct = unpackParams(problemStruct);
 
 % Calculate....
 result = reflectivityCalculation(problemStruct,controls);

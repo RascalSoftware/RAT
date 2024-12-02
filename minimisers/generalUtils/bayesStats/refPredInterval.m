@@ -59,7 +59,7 @@ for n = 1:numberOfContrasts
         end
         
         problemStruct.fitParams = thisRow;
-        problemStruct = unpackParams(problemStruct,controls.checks);
+        problemStruct = unpackParams(problemStruct);
         result = reflectivityCalculation(problemStruct,controls);       
 
         % Get the calculated curves

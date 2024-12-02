@@ -4,14 +4,13 @@ function  [problemStruct,outProblem,result,bayesResults] = runDram(problemStruct
 
 %coder.varsize('problemStruct.contrastBacks',[1 Inf],[0 1]);
 
-checks = controls.checks;
-[problemStruct,fitNames] = packParams(problemStruct,problemLimits,checks);
-%fitPriors = packPriors(priors,checks);
+[problemStruct,fitNames] = packParams(problemStruct,problemLimits);
+%fitPriors = packPriors(priors);
 
 % Seed the Random Number Generator
 rng(0);
 
-%fitPriors = packPriors(priors,checks);
+%fitPriors = packPriors(priors);
 
 %First deal with priors.
 prior = {};
@@ -149,7 +148,7 @@ nsimu =  controls.nsimu;
 burnin = controls.burnin;
 adaptint = 100;%controls.adaptint;
 
-output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
+output = runBayes(loop,nsimu,burnin,adaptint,params,problem);
 
 [problemStruct,result,bayesResults] = processBayes(output,problemStruct,controls);
 
@@ -169,7 +168,7 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 % 
 % % Calulate Max best fit curves
 % problemStruct.fitParams = bestParamsMax;
-% problemStruct = unpackParams(problemStruct,controls.checks);
+% problemStruct = unpackParams(problemStruct);
 % result = reflectivityCalculation(problemStruct,controls);
 % bestFitMax_Ref = result.reflectivity;
 % bestFitMax_Sld = result.sldProfiles;
@@ -177,7 +176,7 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 % 
 % % Calculate 'mean' best fit curves
 % problemStruct.fitParams = bestParamsMean;
-% problemStruct = unpackParams(problemStruct,controls.checks);
+% problemStruct = unpackParams(problemStruct);
 % result = reflectivityCalculation(problemStruct,controls);
 % bestFitMean_Ref = result.reflectivity;
 % bestFitMean_Sld = result.sldProfiles;

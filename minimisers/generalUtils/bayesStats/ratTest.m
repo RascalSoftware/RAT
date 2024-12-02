@@ -17,7 +17,7 @@ controls = testProb.controls;
 fitParams = results.bestParams;
 
 problemStruct.fitParams = fitParams;
-problemStruct = unpackParams(problemStruct,controls.checks);
+problemStruct = unpackParams(problemStruct);
 result = reflectivityCalculation(problemStruct,controls);
 
 disp('debug');

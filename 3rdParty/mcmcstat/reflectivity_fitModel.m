@@ -10,7 +10,7 @@ problemStruct = problem{1};
 controls = problem{2};
 
 problemStruct.fitParams = pars;
-problemStruct = unpackParams(problemStruct,controls.checks);
+problemStruct = unpackParams(problemStruct);
 result = reflectivityCalculation(problemStruct,controls);
 
 ss = result.calculationResults.sumChi;

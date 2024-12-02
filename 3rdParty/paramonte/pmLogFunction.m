@@ -21,7 +21,7 @@ classdef pmLogFunction
                 problem = unscalePars(problem);
             end
 
-            problem = unpackParams(problem,obj.controls.checks);
+            problem = unpackParams(problem);
             
             result = reflectivityCalculation_mex(problem,obj.controls);
             chi = result.calculationResults.sumChi;

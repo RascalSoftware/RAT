@@ -5,7 +5,7 @@ xtrans = simplexXTransform(x,params);
 
 %Unpck the params..
 problemStruct.fitParams = xtrans;
-problemStruct = unpackParams(problemStruct,controls.checks);
+problemStruct = unpackParams(problemStruct);
 
 result = reflectivityCalculation(problemStruct,controls);
 

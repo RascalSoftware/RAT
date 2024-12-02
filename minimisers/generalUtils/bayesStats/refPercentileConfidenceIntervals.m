@@ -83,7 +83,7 @@ for i = 1:nsample
     thisChain= chain(isample(i),:);
 
     problemStruct.fitParams = thisChain;
-    problemStruct = unpackParams(problemStruct,controls.checks);
+    problemStruct = unpackParams(problemStruct);
 
     % Calc the reflectivities....
     calcResult = reflectivityCalculation(problemStruct,controls);

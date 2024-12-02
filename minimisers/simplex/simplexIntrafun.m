@@ -1,4 +1,4 @@
-function [fval,result] = simplexIntrafun(x,problemStruct,problemLimits,controls,params)
+function [fval,result] = simplexIntrafun(x,problemStruct,controls,params)
 
 % transform variables, then call original function
 xtrans = simplexXTransform(x,params);
@@ -7,7 +7,7 @@ xtrans = simplexXTransform(x,params);
 problemStruct.fitParams = xtrans;
 problemStruct = unpackParams(problemStruct,controls.checks);
 
-result = reflectivityCalculation(problemStruct,problemLimits,controls);
+result = reflectivityCalculation(problemStruct,controls);
 
 fval = result.calculationResults.sumChi;
 end

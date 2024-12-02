@@ -103,9 +103,9 @@ end
 % now we can call fminsearch, but with our own
 % intra-objective function.
 
-[xu,~,~,~] = fMinSearch(@simplexIntrafun,x0u,options,dis,problemStruct,problemLimits,controls,params);
+[xu,~,~,~] = fMinSearch(@simplexIntrafun,x0u,options,dis,problemStruct,controls,params);
 
-%[xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemStruct,problemLimits,controls,options,params,300);
+%[xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemStruct,controls,options,params,300);
 
 % undo the variable transformations into the original space
 x = simplexXTransform(xu,params);
@@ -115,6 +115,6 @@ x = simplexXTransform(xu,params);
 
 problemStruct.fitParams = x;
 problemStruct = unpackParams(problemStruct,controls.checks);
-result = reflectivityCalculation(problemStruct,problemLimits,controls);
+result = reflectivityCalculation(problemStruct,controls);
 
 end

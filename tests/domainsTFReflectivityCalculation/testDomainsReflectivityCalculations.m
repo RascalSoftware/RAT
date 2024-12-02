@@ -147,9 +147,9 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             
             testCase.controls.parallel = parallel;
             if useCompiled
-                result = reflectivityCalculation_mex(testCase.problemStruct, testCase.problemLimits, testCase.controls);
+                result = reflectivityCalculation_mex(testCase.problemStruct, testCase.controls);
             else        
-                result = reflectivityCalculation(testCase.problemStruct, testCase.problemLimits, testCase.controls);
+                result = reflectivityCalculation(testCase.problemStruct, testCase.controls);
             end
             testCase.verifyEqual(result, testCase.expectedResultStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end

@@ -63,7 +63,7 @@ bayesResults.predictionIntervals = output.predictionIntervals;
 
 problemStruct.fitParams = output.bestParams;
 problemStruct = unpackParams(problemStruct,checks);
-result = reflectivityCalculation(problemStruct,problemLimits,controls);
+result = reflectivityCalculation(problemStruct,controls);
 
 % Pre-processor directives for Matlab Coder.
 coder.varsize('problem.ssubs',[Inf 1],[1 0]);

@@ -103,7 +103,7 @@ else
                 problemStruct.fitParams(2) = thisBack;
                 problemStruct.fitParams(3) = thisScale;
                 problemStruct = unpackParams(problemStruct,controls.checks);
-                results = reflectivityCalculation(problemStruct,problemLimits,controls);
+                results = reflectivityCalculation(problemStruct,controls);
 
 %                 d2oproblem.setParameter(1,'value',thisRough);
 %                 d2oproblem.setBackgroundParam(1,'value',thisBack);

@@ -41,7 +41,7 @@ bayesOutputs.sschain = [];
 bayesOutputs.data = problemStruct.data;
 bayesOutputs.results.mean = mean(unscaledChain);
 
-[problemStruct,result,bayesResults] = processBayes(bayesOutputs,problemStruct,problemLimits,controls);
+[problemStruct,result,bayesResults] = processBayes(bayesOutputs,problemStruct,controls);
 bayesResults.chain = unscaledChain;
 
 result = mergeStructs(result,bayesResults);

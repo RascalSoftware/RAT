@@ -1,4 +1,4 @@
-function [problemStruct,result,bayesResults] = processBayes(bayesOutputs,problemStruct,problemLimits,controls)
+function [problemStruct,result,bayesResults] = processBayes(bayesOutputs,problemStruct,controls)
 
 % Need to impose that we calculate the SLD..
 controls.calcSldDuringFit = true;
@@ -9,10 +9,10 @@ problemStruct = unpackParams(problemStruct,controls.checks);
 confidenceIntervals = percentileConfidenceIntervals(bayesOutputs.chain);   %iterShortest(output.chain,length(fitNames),[],0.95);
 
 % Calculate 'mean' best fit curves
-result = reflectivityCalculation(problemStruct,problemLimits,controls);
+result = reflectivityCalculation(problemStruct,controls);
 
 % 2. Reflectivity and SLD shading
-predInts = refPercentileConfidenceIntervals(bayesOutputs,problemStruct,problemLimits,controls,result);
+predInts = refPercentileConfidenceIntervals(bayesOutputs,problemStruct,controls,result);
 
 % ---------------------------------
 

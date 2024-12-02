@@ -32,11 +32,10 @@ pars = theta;
 
 problemStruct = problem{1};
 controls = problem{2};
-problemLimits = problem{3};
 
 problemStruct.fitParams = pars;
 problemStruct = unpackParams(problemStruct,controls.checks);
-result = reflectivityCalculation(problemStruct,problemLimits,controls);
+result = reflectivityCalculation(problemStruct,controls);
 
 ySim = result.reflectivity{contrast};
 

@@ -151,7 +151,7 @@ adaptint = 100;%controls.adaptint;
 
 output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 
-[problemStruct,result,bayesResults] = processBayes(output,problemStruct,problemLimits,controls);
+[problemStruct,result,bayesResults] = processBayes(output,problemStruct,controls);
 
 % problemStruct.fitParams = bayesResults.bestParamsMean;
 
@@ -170,7 +170,7 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 % % Calulate Max best fit curves
 % problemStruct.fitParams = bestParamsMax;
 % problemStruct = unpackParams(problemStruct,controls.checks);
-% result = reflectivityCalculation(problemStruct,problemLimits,controls);
+% result = reflectivityCalculation(problemStruct,controls);
 % bestFitMax_Ref = result.reflectivity;
 % bestFitMax_Sld = result.sldProfiles;
 % bestFitMax_chi = result.calculationResultss.sumChi;
@@ -178,7 +178,7 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 % % Calculate 'mean' best fit curves
 % problemStruct.fitParams = bestParamsMean;
 % problemStruct = unpackParams(problemStruct,controls.checks);
-% result = reflectivityCalculation(problemStruct,problemLimits,controls);
+% result = reflectivityCalculation(problemStruct,controls);
 % bestFitMean_Ref = result.reflectivity;
 % bestFitMean_Sld = result.sldProfiles;
 % bestFitMean_chi = result.calculationResultss.sumChi;

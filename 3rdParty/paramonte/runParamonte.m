@@ -125,7 +125,7 @@ pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective functi
 % output.bestParams = mean(unscaledChain);
 % output.data = data;
 % 
-% [problemStruct,result,bayesResults] = processBayes(output,problemStruct,problemLimits,controls);
+% [problemStruct,result,bayesResults] = processBayes(output,problemStruct,controls);
 
 % pmpdOut = pmpd;
 

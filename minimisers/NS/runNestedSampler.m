@@ -44,7 +44,7 @@ bayesOutputs.s2chain = [];
 bayesOutputs.sschain = [];
 bayesOutputs.data = problemStruct.data;
 
-[problemStruct,result,nestResults] = processBayes(bayesOutputs,problemStruct,problemLimits,controls);
+[problemStruct,result,nestResults] = processBayes(bayesOutputs,problemStruct,controls);
 
 bayesResults.predictionIntervals = nestResults.predictionIntervals;
 bayesResults.confidenceIntervals = nestResults.confidenceIntervals;

@@ -1,4 +1,4 @@
-function result = reflectivityCalculation(problemStruct,problemLimits,controls)
+function result = reflectivityCalculation(problemStruct,controls)
 % Main entry point into the reflectivity calculation for the toolbox.
 % This is the main function that is called by any of the minimisers or
 % analysis tools from the rest of the toolbox. 

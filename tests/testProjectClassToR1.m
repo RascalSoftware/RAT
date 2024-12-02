@@ -24,7 +24,7 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
             testCase.inputStandardProjectClass = 'DSPCBilayerProjectClass.mat';
             testCase.inputStandardStruct = 'DSPCBilayerStructInput.mat';
             testCase.outputStandardStruct = 'DSPCBilayerStructOutput.mat';
-            testCase.defaultProject = 'defaultProject.mat';
+            testCase.defaultProject = 'defaultR1ProjectTemplate.mat';
             testCase.outputCustomStruct = 'monolayerVolumeModel.mat';
             testCase.inputCustomProjectClass = 'monolayerVolumeModelProjectClass.mat';
             testCase.modelFile = 'monolayerVolumeCustomLayerModel.m';

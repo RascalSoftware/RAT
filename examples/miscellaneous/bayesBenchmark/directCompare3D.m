@@ -1,16 +1,16 @@
 %Comparison of MCMC, NS and direct calculation.
 clear
-useSaved = true;
+useSaved = false;
 
 %Do the direct calculation first.
 %Start by converting the R1 project to 
 %the R2 case...
-d2oproblem = r1ToProjectClass('defaultProject.mat');
-
+root = getappdata(0, 'root');
+d2oproblem = r1ToProjectClass(fullfile(root, 'utilities', 'misc', 'defaultR1ProjectTemplate.mat'));
 d2oproblem.setScalefactor(1,'min',0.07);
 d2oproblem.setScalefactor(1,'max',0.13);
 
-controls = controlsDef();
+controls = controlsClass();
 controls.calcSldDuringFit = true;
 [outProb,results] = RAT(d2oproblem,controls);
 figure(1); clf
@@ -19,9 +19,7 @@ thisChisq = results.calculationResults.sumChi;
 fprintf('Chi squared in %d \n',thisChisq);
 
 % Run MCMC
-controls.procedure = 'bayes';
-controls.nsimu = 50000;
-controls.repeats = 3;
+controls.procedure = 'dream';
 [bayesProb,bayesResults] = RAT(d2oproblem,controls);
 
 %Use a 30 x 30 grid.
@@ -84,9 +82,7 @@ controls.procedure = 'calculate';
 
 %%
 if useSaved
-    probArray = load('probArray.mat');
-    probArray = probArray.probArray;
-    
+    probArray = load('probArray.mat').probArray;
 else
 
     [problemStruct,problemLimits,priors,controls] = parseClassToStructs(d2oproblem,controls);
@@ -107,7 +103,7 @@ else
                 problemStruct.fitParams(2) = thisBack;
                 problemStruct.fitParams(3) = thisScale;
                 problemStruct = unpackParams(problemStruct,controls.checks);
-                [problem,results] = reflectivity_calculation(problemStruct,problemLimits,controls);
+                results = reflectivityCalculation(problemStruct,problemLimits,controls);
 
 %                 d2oproblem.setParameter(1,'value',thisRough);
 %                 d2oproblem.setBackgroundParam(1,'value',thisBack);
@@ -115,7 +111,7 @@ else
 % 
 %                 [outProblem,results] = RAT(d2oproblem,controls);
 
-                thisChi = problem.calculations.sumChi;
+                thisChi = results.calculationResults.sumChi;
                 probArray(r,b,s) = exp(-thisChi/2);
                 percent = (counter/totalGrid)*100;
                 fprintf('Calculated %1.1f percent \n',percent);

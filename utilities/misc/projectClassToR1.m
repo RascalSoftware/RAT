@@ -4,7 +4,7 @@ function newR1Problem = projectClassToR1(r2Problem, varargin)
 % outputs r1 struct. The optional arguments are:
 %
 % r1Problem (struct):    The r1 struct which is updated with equivalent projectClass values. 
-%                        [default] defaultProject.mat.
+%                        [default] defaultR1ProjectTemplate.mat.
 % dirName (char):        The directory where the files are saved. 
 %                        [default] newDirectory.
 % dirPath (char):        The path where the new directory is created. 
@@ -28,7 +28,7 @@ if ~isempty(varargin)
     r1Problem = pars.r1Problem;
     if isfield(r1Problem,'empty')
         % load default project if r1Problem not provided
-        r1Problem = load('defaultProject.mat').problem;
+        r1Problem = load('defaultR1ProjectTemplate.mat').problem;
     end
 
     if ~exist(fullName,'dir') && saveTheProject

@@ -805,9 +805,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         
         function obj = setContrastModel(obj, row, model)
             % Edits the model of an existing contrast parameter. Expects
-            % the index of contrast parameter and cell array of layer names
+            % the index of contrast parameter and cell array of layer
+            % names. Multiple models can be set simultaneously by using 
+            % an 1D array of indices or cell of strings
             %
             % project.setContrastModel(1, {'layer 1'})
+            % project.setContrastModel(1:3, {'layer 1'})
                         
             % Make a different allowed list depending on whether 
             % it is custom or layers
@@ -820,7 +823,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
             
             % Call the setContrastModel method
-            obj.contrasts.setContrastModel(row, obj.modelType, allowedValues, model);
+             if isText(row)
+                row = {row};
+             elseif isnumeric(row) 
+                row = num2cell(row);
+             end
+             for i=1:length(row)
+                 obj.contrasts.setContrastModel(row{i}, obj.modelType, allowedValues, model);
+             end
         end
 
         % ----------------------------------------------------------------

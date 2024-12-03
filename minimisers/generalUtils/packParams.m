@@ -29,19 +29,22 @@ function [problemStruct,fitNames] = packParams(problemStruct,limits)
     otherCounter = 1;
 
     for i = 1:length(fields)
-        for n = 1:length(problemStruct.checks.(fields{i}))
-            if problemStruct.checks.(fields{i})(n) == 1
-                fitParams(fitCounter) = problemStruct.(fields{i})(n);
-                fitLimits(fitCounter,1) = limits.(fields{i})(n,1);
-                fitLimits(fitCounter,2) = limits.(fields{i})(n,2);        
-                fitNames{fitCounter} = problemStruct.names.(fields{i}){n};
-                fitCounter = fitCounter + 1;
-            else
-                otherParams(otherCounter) = problemStruct.(fields{i})(n);
-                otherLimits(otherCounter,1) = limits.(fields{i})(n,1);
-                otherLimits(otherCounter,2) = limits.(fields{i})(n,2);
-                otherCounter = otherCounter + 1;
-            end
+        fitIndices = find(problemStruct.checks.(fields{i}));
+        otherIndices = find(~problemStruct.checks.(fields{i}));
+        
+        for n = 1:length(fitIndices)
+            fitParams(fitCounter) = problemStruct.(fields{i})(fitIndices(n));
+            fitLimits(fitCounter,1) = limits.(fields{i})(fitIndices(n),1);
+            fitLimits(fitCounter,2) = limits.(fields{i})(fitIndices(n),2);        
+            fitNames{fitCounter} = problemStruct.names.(fields{i}){fitIndices(n)};
+            fitCounter = fitCounter + 1;
+        end
+
+        for n = 1:length(otherIndices)
+            otherParams(otherCounter) = problemStruct.(fields{i})(otherIndices(n));
+            otherLimits(otherCounter,1) = limits.(fields{i})(otherIndices(n),1);
+            otherLimits(otherCounter,2) = limits.(fields{i})(otherIndices(n),2);
+            otherCounter = otherCounter + 1;
         end
     end
     

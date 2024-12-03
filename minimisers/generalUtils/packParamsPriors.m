@@ -27,26 +27,29 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
     otherCounter = 1;
 
     for i = 1:length(fields)
-        for n = 1:length(problemStruct.checks.(fields{i}))
-            if problemStruct.checks.(fields{i})(n) == 1
-                fitParams(fitCounter) = problemStruct.(fields{i})(n);
-                fitLimits(fitCounter,1) = limits.(fields{i})(n,1);
-                fitLimits(fitCounter,2) = limits.(fields{i})(n,2);        
-                fitNames{fitCounter} = problemStruct.names.(fields{i}){n};
-                thisPrior = priors.(fields{i}){n};
-                if (strcmpi(thisPrior{2},'gaussian'))
-                    thisGausPrior = [thisPrior{3} thisPrior{4}];
-                else
-                    thisGausPrior = [0 Inf];
-                end
-                fitPriors(fitCounter,:) = thisGausPrior; 
-                fitCounter = fitCounter + 1;
+        fitIndices = find(problemStruct.checks.(fields{i}));
+        otherIndices = find(~problemStruct.checks.(fields{i}));
+
+        for n = 1:length(fitIndices)
+            fitParams(fitCounter) = problemStruct.(fields{i})(fitIndices(n));
+            fitLimits(fitCounter,1) = limits.(fields{i})(fitIndices(n),1);
+            fitLimits(fitCounter,2) = limits.(fields{i})(fitIndices(n),2);        
+            fitNames{fitCounter} = problemStruct.names.(fields{i}){fitIndices(n)};
+            thisPrior = priors.(fields{i}){fitIndices(n)};
+            if (strcmpi(thisPrior{2},'gaussian'))
+                thisGausPrior = [thisPrior{3} thisPrior{4}];
             else
-                otherParams(otherCounter) = problemStruct.(fields{i})(n);
-                otherLimits(otherCounter,1) = limits.(fields{i})(n,1);
-                otherLimits(otherCounter,2) = limits.(fields{i})(n,2);
-                otherCounter = otherCounter + 1;
+                thisGausPrior = [0 Inf];
             end
+            fitPriors(fitCounter,:) = thisGausPrior; 
+            fitCounter = fitCounter + 1;
+        end
+
+        for n = 1:length(otherIndices)
+            otherParams(otherCounter) = problemStruct.(fields{i})(otherIndices(n));
+            otherLimits(otherCounter,1) = limits.(fields{i})(otherIndices(n),1);
+            otherLimits(otherCounter,2) = limits.(fields{i})(otherIndices(n),2);
+            otherCounter = otherCounter + 1;
         end
     end
     

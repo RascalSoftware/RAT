@@ -4,7 +4,10 @@ clear
 %Do the direct calculation first.
 %Start by converting the R1 project to 
 %the R2 case...
-[d2oproblem,controls] = r1ToProblemDef('defaultProject.mat');
+root = getappdata(0, 'root');
+d2oproblem = r1ToProjectClass(fullfile(root, 'utilities', 'misc', 'defaultR1ProjectTemplate.mat'));
+
+controls = controlsClass();
 controls.calcSldDuringFit = true;
 controls.nsTolerance = 1;
 controls.nLive = 500;
@@ -12,7 +15,7 @@ d2oProblem.fitScalefactor = 0;
 
 
 % Run nested sampler
-controls.procedure = 'bayes';
+controls.procedure = 'ns';
 [NSProb,NSResults] = RAT(d2oproblem,controls);
 
 
@@ -22,19 +25,21 @@ gridSize = 30;
 probArray = zeros(gridSize, gridSize);
 
 %Make a vector of roughness values..
-outProb = NSProb;
-minRough = outProb.paramLimits{1}(1);
-maxRough = outProb.paramLimits{1}(2);
+paramsTable = NSProb.parameters.varTable;
+minRough = paramsTable{1,2};
+maxRough = paramsTable{1,4};
 roughVector = linspace(minRough, maxRough, gridSize);
 
 %Also background...
-minBack = outProb.backgroundLimits{1}(1);
-maxBack = outProb.backgroundLimits{1}(2);
+backParsTable = NSProb.background.backgroundParams.varTable;
+minBack = backParsTable{1,2};
+maxBack = backParsTable{1,4};
 backsVector = linspace(minBack, maxBack, gridSize);
 
 % %..and scalefactor
-% minScale = outProb.scalefactorLimits{1}(1);
-% maxScale = outProb.scalefactorLimits{1}(2);
+% scalefactorTable = NSProb.scalefactors.varTable;
+% minScale = scalefactorTable{1,2};
+% maxScale = scalefactorTable{1,4};
 % scaleVector = linspace(minScale, maxScale, gridSize);
 
 
@@ -55,14 +60,15 @@ bar(x,n,'w');
 counter = 1;
 totalGrid = gridSize^2;
 controls.procedure = 'calculate';
+controls.display = 'off';
 
 for r = 1:gridSize
     for b = 1:gridSize
         thisRough = roughVector(r);
         thisBack =  backsVector(b);
         
-        d2oproblem.params(1) = thisRough;
-        d2oproblem.backgrounds(1) = thisBack;
+        NSProb.setParameter(1,'value',thisRough);
+        NSProb.setBackgroundParam(1,'value',thisBack);
         
         [outProblem,results] = RAT(d2oproblem,controls);
         thisChi = results.calculationResults.sumChi;
@@ -105,9 +111,9 @@ scaleDist = sum(probArray,2);
 scaleDist = squeeze(scaleDist);
 %figure(2); clf; contour(backsVector, scaleVector, scaleDist)
 scaleDist = sum(scaleDist,2);
-scaleDist = [scaleVector(:) scaleDist(:)];
-figure(3); subplot(1,2,3); hold on
-plot(scaleDist(:,1), scaleDist(:,2),'linewidth',2);
+% scaleDist = [scaleVector(:) scaleDist(:)];
+% figure(3); subplot(1,2,3); hold on
+% plot(scaleDist(:,1), scaleDist(:,2),'linewidth',2);
 % % scaleDist = [scaleVector(:) scaleDist(:)];
 % 
 % 

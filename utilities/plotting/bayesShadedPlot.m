@@ -44,6 +44,8 @@ numberOfContrasts = length(shiftedData);
 subplot(1,2,1)
 set(gca,'YScale','log','XScale','log');
 hold on; box on
+xlabel('$\textrm{Q}_{z} (\AA^{-1})$', 'Interpreter', 'Latex') 
+ylabel('Reflectivity', 'Interpreter', 'Latex')
 
 for i = 1:numberOfContrasts
     
@@ -92,6 +94,8 @@ end
 
 % Now plot the SLDs
 subplot(1,2,2); hold on; box on
+xlabel('$\textrm{Z} (\AA)$','Interpreter','Latex') 
+ylabel('$\textrm{SLD} (\AA^{-2})$','Interpreter','Latex') 
 
 if ~isDomains
 

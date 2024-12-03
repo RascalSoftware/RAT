@@ -41,6 +41,8 @@ function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, sh
        set(gca,'YGrid','on','XGrid','on');
     end   
     hold on
+    xlabel('$\textrm{Q}_{z} (\AA^{-1})$', 'Interpreter', 'Latex') 
+    ylabel('Reflectivity', 'Interpreter', 'Latex') 
     lines = cell(numberOfContrasts, 1);
     mult = 1;
     q4Data = 1;
@@ -80,6 +82,8 @@ function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, sh
          set(gca,'YGrid','on','XGrid','on');
     end
     hold on
+    xlabel('$\textrm{Z} (\AA)$','Interpreter','Latex') 
+    ylabel('$\textrm{SLD} (\AA^{-2})$','Interpreter','Latex') 
     nColumns = size(data.sldProfiles, 2);
     lines = cell(numberOfContrasts * nColumns, 1);
     names = cell(numberOfContrasts * nColumns, 1);

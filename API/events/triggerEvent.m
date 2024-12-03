@@ -36,7 +36,7 @@ function triggerEvent(eventType, varargin)
             plotData.resample = problemStruct.resample;
             plotData.dataPresent = problemStruct.dataPresent;
             plotData.modelType = problemStruct.modelType;
-            plotData.contrastNames = problemStruct.contrastNames;
+            plotData.contrastNames = problemStruct.names.contrasts;
              
             eventManager.notify(eventType, plotData);
         end
@@ -73,7 +73,7 @@ function triggerEvent(eventType, varargin)
                 [shiftedData, nShiftedData] = packCellArray(result.shiftedData, 1);
                 [sldProfiles, nSldProfiles] = packCellArray(result.sldProfiles, 1);
                 [layers, nLayers] = packCellArray(result.resampledLayers, 1);
-                names = problemStruct.contrastNames;
+                names = problemStruct.names.contrasts;
                 contrastNames = strjoin(names, '');
                 nContrastNames = strlength(names);
 

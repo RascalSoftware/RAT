@@ -18,11 +18,10 @@ function fitNames = getFitNames(problemStruct)
     fitCounter = 1;
 
     for i = 1:length(fields)
-        for n = 1:length(problemStruct.checks.(fields{i}))
-            if problemStruct.checks.(fields{i})(n) == 1
-                fitNames{fitCounter} = problemStruct.names.(fields{i}){n};
-                fitCounter = fitCounter + 1;
-            end
+        fitIndices = find(problemStruct.checks.(fields{i}));
+        for n = 1:length(fitIndices)
+            fitNames{fitCounter} = problemStruct.names.(fields{i}){fitIndices(n)};
+            fitCounter = fitCounter + 1;
         end
     end
 

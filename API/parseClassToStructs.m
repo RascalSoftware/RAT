@@ -229,7 +229,6 @@ problemStruct.numberOfContrasts = inputStruct.numberOfContrasts;
 problemStruct.geometry = inputStruct.geometry;
 problemStruct.useImaginary = inputStruct.useImaginary;
 problemStruct.repeatLayers = inputStruct.contrastRepeatSLDs;
-problemStruct.contrastNames = inputStruct.contrastNames;
 problemStruct.contrastBackgroundParams = contrastBackgroundParams;
 problemStruct.contrastBackgroundTypes = contrastBackgroundTypes;
 problemStruct.contrastBackgroundActions = inputStruct.contrastBackgroundActions;
@@ -289,6 +288,7 @@ if isa(project, 'domainsClass')
 else
     problemStruct.names.domainRatios = cell(1, 0);
 end
+problemStruct.names.contrasts = inputStruct.contrastNames;
 
 % Also need to deal with the checks...
 problemStruct.checks.params = inputStruct.fitParam;

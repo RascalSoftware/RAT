@@ -40,9 +40,9 @@ namespace RAT
     &contrastResolutionParams, ::coder::array<real_T, 2U> &contrastDomainRatios,
     ::coder::array<real_T, 2U> &backgroundParams, ::coder::array<real_T, 2U>
     &qzshifts, ::coder::array<real_T, 2U> &scalefactors, ::coder::array<real_T,
-    2U> &bulkIn, ::coder::array<real_T, 2U> &bulkOut, ::coder::array<real_T, 2U>
-    &resolutionParams, ::coder::array<real_T, 2U> &domainRatio, ::coder::array<
-    real_T, 2U> &dataPresent, real_T *nParams, ::coder::array<real_T, 2U>
+    2U> &bulkIns, ::coder::array<real_T, 2U> &bulkOuts, ::coder::array<real_T,
+    2U> &resolutionParams, ::coder::array<real_T, 2U> &domainRatios, ::coder::
+    array<real_T, 2U> &dataPresent, real_T *nParams, ::coder::array<real_T, 2U>
     &params, real_T *numberOfLayers, ::coder::array<real_T, 2U> &resample, ::
     coder::array<cell_wrap_7, 2U> &contrastBackgroundTypes, ::coder::array<
     cell_wrap_7, 2U> &contrastBackgroundActions, ::coder::array<real_T, 2U>

@@ -50,11 +50,11 @@
 // Function Definitions
 namespace RAT
 {
-  void nestedSampler(const e_struct_T *data_f1, const struct3_T *data_f2, const
-                     struct2_T *data_f3, real_T nLive, real_T nMCMC, real_T
-                     tolerance, const ::coder::array<real_T, 2U> &prior, real_T *
-                     logZ, ::coder::array<real_T, 2U> &nest_samples, ::coder::
-                     array<real_T, 2U> &post_samples, real_T *H)
+  void nestedSampler(const e_struct_T *data_f1, const struct4_T *data_f2, real_T
+                     nLive, real_T nMCMC, real_T tolerance, const ::coder::array<
+                     real_T, 2U> &prior, real_T *logZ, ::coder::array<real_T, 2U>
+                     &nest_samples, ::coder::array<real_T, 2U> &post_samples,
+                     real_T *H)
   {
     ::coder::array<real_T, 2U> Bs;
     ::coder::array<real_T, 2U> FS;
@@ -242,7 +242,7 @@ namespace RAT
         b_livepoints[i] = livepoints[b_i + livepoints.size(0) * i];
       }
 
-      logL[b_i] = nsIntraFun(data_f1, data_f2, data_f3, b_livepoints);
+      logL[b_i] = nsIntraFun(data_f1, data_f2, b_livepoints);
     }
 
     //  now scale the parameters, so that uniform parameters range from 0->1,
@@ -436,8 +436,8 @@ namespace RAT
         }
 
         //  draw a new sample using mcmc algorithm
-        drawMCMC(livepoints, cholmat, logLmin, prior, data_f1, data_f2, data_f3,
-                 nMCMC, b_livepoints, &logL[iindx - 1]);
+        drawMCMC(livepoints, cholmat, logLmin, prior, data_f1, data_f2, nMCMC,
+                 b_livepoints, &logL[iindx - 1]);
         loop_ub = b_livepoints.size(1);
         for (i = 0; i < loop_ub; i++) {
           livepoints[(iindx + livepoints.size(0) * i) - 1] = b_livepoints[i];
@@ -541,7 +541,7 @@ namespace RAT
         coder::internal::useConstantDim(result, coder::internal::nonSingletonDim
           (VEs));
         coder::internal::mrdiv(result, Vtot, r);
-        drawMultiNest(r, Bs, mus, logLmin, prior, data_f1, data_f2, data_f3, r2,
+        drawMultiNest(r, Bs, mus, logLmin, prior, data_f1, data_f2, r2,
                       &logL[iindx - 1]);
         loop_ub = r2.size(1);
         for (i = 0; i < loop_ub; i++) {

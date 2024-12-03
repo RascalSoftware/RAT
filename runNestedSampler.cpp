@@ -27,19 +27,28 @@
 // Function Definitions
 namespace RAT
 {
-  void runNestedSampler(const e_struct_T *problemStruct, const struct2_T
-                        *problemLimits, const struct3_T *controls, const ::coder::
-                        array<cell_wrap_7, 1U> &inPriors_priorNames, const ::
-                        coder::array<real_T, 2U> &inPriors_priorValues,
-                        g_struct_T *b_problemStruct, struct6_T *result,
-                        struct10_T *bayesResults_predictionIntervals, struct11_T
+  void runNestedSampler(const e_struct_T *problemStruct, const ::coder::array<
+                        real_T, 2U> &problemLimits_params, const ::coder::array<
+                        real_T, 2U> &problemLimits_backgroundParams, const ::
+                        coder::array<real_T, 2U> &problemLimits_scalefactors,
+                        const ::coder::array<real_T, 2U> &problemLimits_qzshifts,
+                        const ::coder::array<real_T, 2U> &problemLimits_bulkIns,
+                        const ::coder::array<real_T, 2U> &problemLimits_bulkOuts,
+                        const ::coder::array<real_T, 2U>
+                        &problemLimits_resolutionParams, const ::coder::array<
+                        real_T, 2U> &problemLimits_domainRatios, const struct4_T
+                        *controls, const ::coder::array<cell_wrap_7, 1U>
+                        &inPriors_priorNames, const ::coder::array<real_T, 2U>
+                        &inPriors_priorValues, g_struct_T *b_problemStruct,
+                        struct6_T *result, struct10_T
+                        *bayesResults_predictionIntervals, struct11_T
                         *bayesResults_confidenceIntervals, struct12_T
                         *bayesResults_dreamParams, struct13_T
                         *bayesResults_dreamOutput, struct14_T
                         *bayesResults_nestedSamplerOutput, ::coder::array<real_T,
                         2U> &bayesResults_chain)
   {
-    static struct3_T b_controls;
+    static struct4_T b_controls;
     ::coder::array<cell_wrap_11, 2U> expl_temp_sld;
     ::coder::array<cell_wrap_11, 1U> expl_temp_reflectivity;
     ::coder::array<cell_wrap_7, 1U> fitNames;
@@ -62,11 +71,11 @@ namespace RAT
     int32_T i1;
     int32_T loop_ub;
     c_problemStruct = *problemStruct;
-    packParams(&c_problemStruct, problemLimits->param,
-               problemLimits->backgroundParam, problemLimits->scalefactor,
-               problemLimits->qzshift, problemLimits->bulkIn,
-               problemLimits->bulkOut, problemLimits->resolutionParam,
-               problemLimits->domainRatio, &controls->checks, fitNames);
+    packParams(&c_problemStruct, problemLimits_params,
+               problemLimits_backgroundParams, problemLimits_scalefactors,
+               problemLimits_qzshifts, problemLimits_bulkIns,
+               problemLimits_bulkOuts, problemLimits_resolutionParams,
+               problemLimits_domainRatios, fitNames);
 
     //  Make an empty struct for bayesResults to hold the outputs of the
     //  calculation
@@ -81,8 +90,8 @@ namespace RAT
     // Tuning Parameters
     getFittedPriors(fitNames, inPriors_priorNames, inPriors_priorValues,
                     c_problemStruct.fitLimits, r);
-    nestedSampler(&c_problemStruct, controls, problemLimits, controls->nLive,
-                  controls->nMCMC, controls->nsTolerance, r,
+    nestedSampler(&c_problemStruct, controls, controls->nLive, controls->nMCMC,
+                  controls->nsTolerance, r,
                   &bayesResults_nestedSamplerOutput->LogZ,
                   bayesResults_nestedSamplerOutput->nestSamples,
                   bayesResults_nestedSamplerOutput->postSamples, &H);
@@ -129,8 +138,7 @@ namespace RAT
 
     b_controls = *controls;
     processBayes(bayesOutputs_bestParams, bayesOutputs_chain, &c_problemStruct,
-                 problemLimits, &b_controls, b_problemStruct, result,
-                 &nestResults);
+                 &b_controls, b_problemStruct, result, &nestResults);
     bayesResults_predictionIntervals->reflectivity.set_size
       (nestResults.predictionIntervals.reflectivity.size(0));
     b_loop_ub = nestResults.predictionIntervals.reflectivity.size(0);

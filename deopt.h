@@ -21,23 +21,21 @@
 namespace RAT
 {
   struct e_struct_T;
-  struct struct3_T;
   struct h_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void deopt(const e_struct_T *problem, const ::coder::array<real_T, 2U>
-             &problemLimits_param, const ::coder::array<real_T, 2U>
-             &problemLimits_backgroundParam, const ::coder::array<real_T, 2U>
-             &problemLimits_scalefactor, const ::coder::array<real_T, 2U>
-             &problemLimits_qzshift, const ::coder::array<real_T, 2U>
-             &problemLimits_bulkIn, const ::coder::array<real_T, 2U>
-             &problemLimits_bulkOut, const ::coder::array<real_T, 2U>
-             &problemLimits_resolutionParam, const ::coder::array<real_T, 2U>
-             &problemLimits_domainRatio, const struct3_T *controls, const
-             h_struct_T *S_struct, ::coder::array<real_T, 2U> &FVr_bestmem);
+  void deopt(const e_struct_T *problem, const char_T controls_parallel_data[],
+             const int32_T controls_parallel_size[2], real_T
+             controls_resampleMinAngle, real_T controls_resampleNPoints,
+             boolean_T controls_calcSldDuringFit, const char_T
+             controls_display_data[], const int32_T controls_display_size[2],
+             real_T controls_updatePlotFreq, const char_T
+             controls_IPCFilePath_data[], const int32_T
+             controls_IPCFilePath_size[2], const h_struct_T *S_struct, ::coder::
+             array<real_T, 2U> &FVr_bestmem);
 }
 
 #endif

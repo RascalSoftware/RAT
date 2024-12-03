@@ -65,6 +65,7 @@ namespace RAT
     ::coder::array<cell_wrap_7, 2U> bulkOuts;
     ::coder::array<cell_wrap_7, 2U> resolutionParams;
     ::coder::array<cell_wrap_7, 2U> domainRatios;
+    ::coder::array<cell_wrap_7, 2U> contrasts;
   };
 
   struct e_struct_T
@@ -80,7 +81,6 @@ namespace RAT
     ::coder::bounded_array<char_T, 10000U, 2U> geometry;
     boolean_T useImaginary;
     ::coder::array<cell_wrap_2, 2U> repeatLayers;
-    ::coder::array<cell_wrap_7, 2U> contrastNames;
     ::coder::array<cell_wrap_13, 2U> contrastBackgroundParams;
     ::coder::array<cell_wrap_7, 2U> contrastBackgroundTypes;
     ::coder::array<cell_wrap_7, 2U> contrastBackgroundActions;
@@ -92,8 +92,8 @@ namespace RAT
     ::coder::array<real_T, 2U> backgroundParams;
     ::coder::array<real_T, 2U> qzshifts;
     ::coder::array<real_T, 2U> scalefactors;
-    ::coder::array<real_T, 2U> bulkIn;
-    ::coder::array<real_T, 2U> bulkOut;
+    ::coder::array<real_T, 2U> bulkIns;
+    ::coder::array<real_T, 2U> bulkOuts;
     ::coder::array<real_T, 2U> resolutionParams;
     ::coder::array<real_T, 2U> params;
     real_T numberOfLayers;
@@ -103,7 +103,7 @@ namespace RAT
     ::coder::bounded_array<char_T, 10000U, 2U> modelType;
     ::coder::array<real_T, 2U> contrastCustomFiles;
     ::coder::array<real_T, 2U> contrastDomainRatios;
-    ::coder::array<real_T, 2U> domainRatio;
+    ::coder::array<real_T, 2U> domainRatios;
     real_T numberOfDomainContrasts;
     ::coder::array<cell_wrap_10, 2U> domainContrastLayers;
     ::coder::array<real_T, 1U> fitParams;
@@ -111,6 +111,7 @@ namespace RAT
     ::coder::array<real_T, 2U> fitLimits;
     ::coder::array<real_T, 2U> otherLimits;
     d_struct_T names;
+    struct2_T checks;
   };
 
   struct f_struct_T
@@ -156,7 +157,6 @@ namespace RAT
     ::coder::bounded_array<char_T, 10000U, 2U> geometry;
     boolean_T useImaginary;
     ::coder::array<cell_wrap_2, 2U> repeatLayers;
-    ::coder::array<cell_wrap_7, 2U> contrastNames;
     ::coder::array<cell_wrap_13, 2U> contrastBackgroundParams;
     ::coder::array<cell_wrap_7, 2U> contrastBackgroundTypes;
     ::coder::array<cell_wrap_7, 2U> contrastBackgroundActions;
@@ -168,8 +168,8 @@ namespace RAT
     ::coder::array<real_T, 2U> backgroundParams;
     ::coder::array<real_T, 2U> qzshifts;
     ::coder::array<real_T, 2U> scalefactors;
-    ::coder::array<real_T, 2U> bulkIn;
-    ::coder::array<real_T, 2U> bulkOut;
+    ::coder::array<real_T, 2U> bulkIns;
+    ::coder::array<real_T, 2U> bulkOuts;
     ::coder::array<real_T, 2U> resolutionParams;
     ::coder::array<real_T, 2U> params;
     real_T numberOfLayers;
@@ -179,7 +179,7 @@ namespace RAT
     ::coder::bounded_array<char_T, 10000U, 2U> modelType;
     ::coder::array<real_T, 2U> contrastCustomFiles;
     ::coder::array<real_T, 2U> contrastDomainRatios;
-    ::coder::array<real_T, 2U> domainRatio;
+    ::coder::array<real_T, 2U> domainRatios;
     real_T numberOfDomainContrasts;
     ::coder::array<cell_wrap_10, 2U> domainContrastLayers;
     ::coder::array<real_T, 2U> fitParams;
@@ -187,6 +187,7 @@ namespace RAT
     ::coder::array<real_T, 2U> fitLimits;
     ::coder::array<real_T, 2U> otherLimits;
     d_struct_T names;
+    struct2_T checks;
   };
 
   struct h_struct_T
@@ -226,6 +227,16 @@ namespace RAT
 
   struct k_struct_T
   {
+    struct10_T predictionIntervals;
+    struct11_T confidenceIntervals;
+    struct12_T dreamParams;
+    struct13_T dreamOutput;
+    c_struct_T nestedSamplerOutput;
+    ::coder::array<real_T, 2U> chain;
+  };
+
+  struct l_struct_T
+  {
     ::coder::bounded_array<real_T, 2000U, 2U> outlierChains;
     real_T runtime;
     struct12_T DREAMPar;
@@ -238,7 +249,7 @@ namespace RAT
     ::coder::array<real_T, 2U> CR;
   };
 
-  struct l_struct_T
+  struct m_struct_T
   {
     real_T iterations;
     real_T funcCount;
@@ -249,13 +260,6 @@ namespace RAT
   struct cell_56
   {
     ::coder::array<real_T, 2U> f1;
-  };
-
-  struct m_struct_T
-  {
-    ::coder::array<real_T, 1U> LB;
-    ::coder::array<real_T, 1U> UB;
-    ::coder::array<real_T, 1U> BoundClass;
   };
 }
 

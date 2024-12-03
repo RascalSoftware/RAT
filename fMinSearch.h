@@ -21,9 +21,7 @@
 namespace RAT
 {
   struct e_struct_T;
-  struct struct3_T;
   struct m_struct_T;
-  struct l_struct_T;
 }
 
 // Function Declarations
@@ -32,17 +30,18 @@ namespace RAT
   void fMinSearch(::coder::array<real_T, 1U> &x, real_T options_MaxIter, real_T
                   options_MaxFunEvals, real_T options_TolX, real_T
                   options_TolFun, const char_T dis_data[], const int32_T
-                  dis_size[2], const e_struct_T *varargin_1, const ::coder::
-                  array<real_T, 2U> &varargin_2_param, const ::coder::array<
-                  real_T, 2U> &varargin_2_backgroundParam, const ::coder::array<
-                  real_T, 2U> &varargin_2_scalefactor, const ::coder::array<
-                  real_T, 2U> &varargin_2_qzshift, const ::coder::array<real_T,
-                  2U> &varargin_2_bulkIn, const ::coder::array<real_T, 2U>
-                  &varargin_2_bulkOut, const ::coder::array<real_T, 2U>
-                  &varargin_2_resolutionParam, const ::coder::array<real_T, 2U>
-                  &varargin_2_domainRatio, const struct3_T *varargin_3, const
-                  m_struct_T *varargin_4, real_T *fval, real_T *exitflag,
-                  l_struct_T *output);
+                  dis_size[2], const e_struct_T *varargin_1, const char_T
+                  varargin_2_parallel_data[], const int32_T
+                  varargin_2_parallel_size[2], real_T
+                  varargin_2_resampleMinAngle, real_T varargin_2_resampleNPoints,
+                  boolean_T varargin_2_calcSldDuringFit, real_T
+                  varargin_2_updatePlotFreq, const char_T
+                  varargin_2_IPCFilePath_data[], const int32_T
+                  varargin_2_IPCFilePath_size[2], const ::coder::array<real_T,
+                  1U> &varargin_3_LB, const ::coder::array<real_T, 1U>
+                  &varargin_3_UB, const ::coder::array<real_T, 1U>
+                  &varargin_3_BoundClass, real_T *fval, real_T *exitflag,
+                  m_struct_T *output);
 }
 
 #endif

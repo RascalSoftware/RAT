@@ -1042,10 +1042,10 @@ namespace RAT
   void triggerEvent(const f_struct_T *varargin_1, const char_T
                     varargin_2_TF_data[], const int32_T varargin_2_TF_size[2],
                     const ::coder::array<real_T, 2U> &varargin_2_resample, const
-                    ::coder::array<real_T, 2U> &varargin_2_dataPresent, const ::
-                    coder::array<cell_wrap_7, 2U> &varargin_2_contrastNames,
-                    const char_T varargin_2_modelType_data[], const int32_T
-                    varargin_2_modelType_size[2])
+                    ::coder::array<real_T, 2U> &varargin_2_dataPresent, const
+                    char_T varargin_2_modelType_data[], const int32_T
+                    varargin_2_modelType_size[2], const ::coder::array<
+                    cell_wrap_7, 2U> &varargin_2_names_contrasts)
   {
     ::coder::array<real_T, 2U> b_nSldProfiles2;
     ::coder::array<real_T, 2U> dataPresent;
@@ -1117,8 +1117,8 @@ namespace RAT
         packCellArray(varargin_1->shiftedData, shiftedData, nShiftedData);
         packCellArray(varargin_1->sldProfiles, sldProfiles, nSldProfiles);
         packCellArray(varargin_1->resampledLayers, layers, nLayers);
-        coder::strjoin(varargin_2_contrastNames, contrastNames);
-        coder::intstrlen(varargin_2_contrastNames, tmp_data, tmp_size);
+        coder::strjoin(varargin_2_names_contrasts, contrastNames);
+        coder::intstrlen(varargin_2_names_contrasts, tmp_data, tmp_size);
         nContrastNames.set_size(1, tmp_size[1]);
         loop_ub = tmp_size[1];
         for (i = 0; i < loop_ub; i++) {

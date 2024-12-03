@@ -21,8 +21,8 @@ namespace RAT
 {
   void evaluateModel(const ::coder::array<real_T, 2U> &x, const struct12_T
                      *DREAMPar, const e_struct_T *ratInputs_problemStruct, const
-                     struct2_T *ratInputs_problemLimits, const struct3_T
-                     *ratInputs_controls, ::coder::array<real_T, 2U> &fx)
+                     struct4_T *ratInputs_controls, ::coder::array<real_T, 2U>
+                     &fx)
   {
     ::coder::array<real_T, 2U> b_x;
     int32_T i;
@@ -61,8 +61,7 @@ namespace RAT
         b_x[i] = x[ii + x.size(0) * i];
       }
 
-      fx[ii] = DREAMWrapper(b_x, ratInputs_problemStruct,
-                            ratInputs_problemLimits, ratInputs_controls);
+      fx[ii] = DREAMWrapper(b_x, ratInputs_problemStruct, ratInputs_controls);
     }
   }
 }

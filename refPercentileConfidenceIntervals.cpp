@@ -29,16 +29,11 @@
 namespace RAT
 {
   void refPercentileConfidenceIntervals(const ::coder::array<real_T, 2U>
-    &bayesOutputs_chain, g_struct_T *problemStruct, const ::coder::array<real_T,
-    2U> &problemLimits_param, const ::coder::array<real_T, 2U>
-    &problemLimits_backgroundParam, const ::coder::array<real_T, 2U>
-    &problemLimits_scalefactor, const ::coder::array<real_T, 2U>
-    &problemLimits_qzshift, const ::coder::array<real_T, 2U>
-    &problemLimits_bulkIn, const ::coder::array<real_T, 2U>
-    &problemLimits_bulkOut, const ::coder::array<real_T, 2U>
-    &problemLimits_resolutionParam, const ::coder::array<real_T, 2U>
-    &problemLimits_domainRatio, const struct3_T *controls, const struct6_T
-    *results, i_struct_T *allPredInts)
+    &bayesOutputs_chain, g_struct_T *problemStruct, const struct4_T *controls,
+    const ::coder::array<cell_wrap_8, 1U> &results_reflectivity, const ::coder::
+    array<cell_wrap_10, 2U> &results_sldProfiles, ::coder::array<cell_wrap_11,
+    1U> &allPredInts_reflectivity, ::coder::array<cell_wrap_11, 2U>
+    &allPredInts_sld, real_T allPredInts_sampleChi[1000])
   {
     ::coder::array<cell_wrap_10, 2U> r;
     ::coder::array<cell_wrap_10, 2U> refXVals;
@@ -145,32 +140,31 @@ namespace RAT
     //  interpolations are onto these x values....
     i = static_cast<int32_T>(problemStruct->numberOfContrasts);
     for (b_i = 0; b_i < i; b_i++) {
-      loop_ub = results->reflectivity[b_i].f1.size(0);
-      refXVals[b_i].f1.set_size(1, results->reflectivity[b_i].f1.size(0));
+      loop_ub = results_reflectivity[b_i].f1.size(0);
+      refXVals[b_i].f1.set_size(1, results_reflectivity[b_i].f1.size(0));
       for (i1 = 0; i1 < loop_ub; i1++) {
-        refXVals[b_i].f1[refXVals[b_i].f1.size(0) * i1] = results->
-          reflectivity[b_i].f1[i1];
+        refXVals[b_i].f1[refXVals[b_i].f1.size(0) * i1] =
+          results_reflectivity[b_i].f1[i1];
       }
 
       //  Transpose these into rows for storage
       if (!domains) {
-        loop_ub = results->sldProfiles[b_i].f1.size(0);
-        sldXVals[b_i].f1.set_size(1, results->sldProfiles[b_i].f1.size(0));
+        loop_ub = results_sldProfiles[b_i].f1.size(0);
+        sldXVals[b_i].f1.set_size(1, results_sldProfiles[b_i].f1.size(0));
         for (i1 = 0; i1 < loop_ub; i1++) {
-          sldXVals[b_i].f1[sldXVals[b_i].f1.size(0) * i1] = results->
-            sldProfiles[b_i].f1[i1];
+          sldXVals[b_i].f1[sldXVals[b_i].f1.size(0) * i1] =
+            results_sldProfiles[b_i].f1[i1];
         }
       } else {
         for (m = 0; m < 2; m++) {
-          loop_ub = results->sldProfiles[b_i + results->sldProfiles.size(0) * m]
-            .f1.size(0);
+          loop_ub = results_sldProfiles[b_i + results_sldProfiles.size(0) * m].
+            f1.size(0);
           sldXVals[b_i + sldXVals.size(0) * m].f1.set_size(1,
-            results->sldProfiles[b_i + results->sldProfiles.size(0) * m].f1.size
-            (0));
+            results_sldProfiles[b_i + results_sldProfiles.size(0) * m].f1.size(0));
           for (i1 = 0; i1 < loop_ub; i1++) {
             sldXVals[b_i + sldXVals.size(0) * m].f1[sldXVals[b_i + sldXVals.size
-              (0) * m].f1.size(0) * i1] = results->sldProfiles[b_i +
-              results->sldProfiles.size(0) * m].f1[i1];
+              (0) * m].f1.size(0) * i1] = results_sldProfiles[b_i +
+              results_sldProfiles.size(0) * m].f1[i1];
           }
         }
       }
@@ -189,8 +183,8 @@ namespace RAT
 
     //  First, we populate the yVals arrays with zero arrays of the correct size...
     for (b_i = 0; b_i < i; b_i++) {
-      refYVals[b_i].f1.set_size(1000, results->reflectivity[b_i].f1.size(0));
-      loop_ub = results->reflectivity[b_i].f1.size(0);
+      refYVals[b_i].f1.set_size(1000, results_reflectivity[b_i].f1.size(0));
+      loop_ub = results_reflectivity[b_i].f1.size(0);
       for (i1 = 0; i1 < loop_ub; i1++) {
         for (k = 0; k < 1000; k++) {
           refYVals[b_i].f1[k + refYVals[b_i].f1.size(0) * i1] = 0.0;
@@ -198,26 +192,26 @@ namespace RAT
       }
 
       if (!domains) {
-        sldYVals[b_i].f1.set_size(1000, results->sldProfiles[b_i].f1.size(0));
-        loop_ub = results->sldProfiles[b_i].f1.size(0);
+        sldYVals[b_i].f1.set_size(1000, results_sldProfiles[b_i].f1.size(0));
+        loop_ub = results_sldProfiles[b_i].f1.size(0);
         for (i1 = 0; i1 < loop_ub; i1++) {
           for (k = 0; k < 1000; k++) {
             sldYVals[b_i].f1[k + sldYVals[b_i].f1.size(0) * i1] = 0.0;
           }
         }
       } else {
-        sldYVals[b_i].f1.set_size(1000, results->sldProfiles[b_i].f1.size(0));
-        loop_ub = results->sldProfiles[b_i].f1.size(0);
+        sldYVals[b_i].f1.set_size(1000, results_sldProfiles[b_i].f1.size(0));
+        loop_ub = results_sldProfiles[b_i].f1.size(0);
         for (i1 = 0; i1 < loop_ub; i1++) {
           for (k = 0; k < 1000; k++) {
             sldYVals[b_i].f1[k + sldYVals[b_i].f1.size(0) * i1] = 0.0;
           }
         }
 
-        sldYVals[b_i + sldYVals.size(0)].f1.set_size(1000, results->
-          sldProfiles[b_i + results->sldProfiles.size(0)].f1.size(0));
-        loop_ub = results->sldProfiles[b_i + results->sldProfiles.size(0)].
-          f1.size(0);
+        sldYVals[b_i + sldYVals.size(0)].f1.set_size(1000,
+          results_sldProfiles[b_i + results_sldProfiles.size(0)].f1.size(0));
+        loop_ub = results_sldProfiles[b_i + results_sldProfiles.size(0)].f1.size
+          (0);
         for (i1 = 0; i1 < loop_ub; i1++) {
           for (k = 0; k < 1000; k++) {
             sldYVals[b_i + sldYVals.size(0)].f1[k + sldYVals[b_i + sldYVals.size
@@ -237,20 +231,11 @@ namespace RAT
                               bayesOutputs_chain.size(0) * i1) - 1];
       }
 
-      unpackParams(problemStruct, controls->checks.fitParam,
-                   controls->checks.fitBackgroundParam,
-                   controls->checks.fitQzshift, controls->checks.fitScalefactor,
-                   controls->checks.fitBulkIn, controls->checks.fitBulkOut,
-                   controls->checks.fitResolutionParam,
-                   controls->checks.fitDomainRatio);
+      unpackParams(problemStruct);
 
       //  Calc the reflectivities....
-      reflectivityCalculation(problemStruct, problemLimits_param,
-        problemLimits_backgroundParam, problemLimits_scalefactor,
-        problemLimits_qzshift, problemLimits_bulkIn, problemLimits_bulkOut,
-        problemLimits_resolutionParam, problemLimits_domainRatio, controls,
-        &expl_temp);
-      allPredInts->sampleChi[b_i] = expl_temp.calculationResults.sumChi;
+      reflectivityCalculation(problemStruct, controls, &expl_temp);
+      allPredInts_sampleChi[b_i] = expl_temp.calculationResults.sumChi;
       for (int32_T n{0}; n < i; n++) {
         k = expl_temp.reflectivity[n].f1.size(0);
         b_expl_temp.set_size(expl_temp.reflectivity[n].f1.size(0));
@@ -330,7 +315,7 @@ namespace RAT
     //  Reflectivity..
     i = static_cast<int32_T>(numberOfContrasts);
     i1 = static_cast<int32_T>(numberOfContrasts);
-    allPredInts->reflectivity.set_size(i1);
+    allPredInts_reflectivity.set_size(i1);
     for (b_i = 0; b_i < i; b_i++) {
       refArray.set_size(5, refYVals[b_i].f1.size(1));
       loop_ub = refYVals[b_i].f1.size(1);
@@ -374,11 +359,11 @@ namespace RAT
         refArray[5 * points + 4] = ci95[1];
       }
 
-      allPredInts->reflectivity[b_i].f1.set_size(5, refArray.size(1));
+      allPredInts_reflectivity[b_i].f1.set_size(5, refArray.size(1));
       loop_ub = refArray.size(1);
       for (i1 = 0; i1 < loop_ub; i1++) {
         for (k = 0; k < 5; k++) {
-          allPredInts->reflectivity[b_i].f1[k + 5 * i1] = refArray[k + 5 * i1];
+          allPredInts_reflectivity[b_i].f1[k + 5 * i1] = refArray[k + 5 * i1];
         }
       }
     }
@@ -387,7 +372,7 @@ namespace RAT
     if (!domains) {
       i = static_cast<int32_T>(numberOfContrasts);
       i1 = static_cast<int32_T>(numberOfContrasts);
-      allPredInts->sld.set_size(i1, 1);
+      allPredInts_sld.set_size(i1, 1);
       for (b_i = 0; b_i < i; b_i++) {
         sldArray.set_size(5, sldYVals[b_i].f1.size(1));
         loop_ub = sldYVals[b_i].f1.size(1);
@@ -426,18 +411,18 @@ namespace RAT
           sldArray[5 * points + 4] = ci95[1];
         }
 
-        allPredInts->sld[b_i].f1.set_size(5, sldArray.size(1));
+        allPredInts_sld[b_i].f1.set_size(5, sldArray.size(1));
         loop_ub = sldArray.size(1);
         for (i1 = 0; i1 < loop_ub; i1++) {
           for (k = 0; k < 5; k++) {
-            allPredInts->sld[b_i].f1[k + 5 * i1] = sldArray[k + 5 * i1];
+            allPredInts_sld[b_i].f1[k + 5 * i1] = sldArray[k + 5 * i1];
           }
         }
       }
     } else {
       i = static_cast<int32_T>(numberOfContrasts);
       i1 = static_cast<int32_T>(numberOfContrasts);
-      allPredInts->sld.set_size(i1, 2);
+      allPredInts_sld.set_size(i1, 2);
       for (b_i = 0; b_i < i; b_i++) {
         sldArray1.set_size(5, sldYVals[b_i].f1.size(1));
         loop_ub = sldYVals[b_i].f1.size(1);
@@ -516,20 +501,20 @@ namespace RAT
           sldArray2[5 * points + 4] = ci952[1];
         }
 
-        allPredInts->sld[b_i].f1.set_size(5, sldArray1.size(1));
+        allPredInts_sld[b_i].f1.set_size(5, sldArray1.size(1));
         loop_ub = sldArray1.size(1);
         for (i1 = 0; i1 < loop_ub; i1++) {
           for (k = 0; k < 5; k++) {
-            allPredInts->sld[b_i].f1[k + 5 * i1] = sldArray1[k + 5 * i1];
+            allPredInts_sld[b_i].f1[k + 5 * i1] = sldArray1[k + 5 * i1];
           }
         }
 
-        allPredInts->sld[b_i + allPredInts->sld.size(0)].f1.set_size(5,
+        allPredInts_sld[b_i + allPredInts_sld.size(0)].f1.set_size(5,
           sldArray2.size(1));
         loop_ub = sldArray2.size(1);
         for (i1 = 0; i1 < loop_ub; i1++) {
           for (k = 0; k < 5; k++) {
-            allPredInts->sld[b_i + allPredInts->sld.size(0)].f1[k + 5 * i1] =
+            allPredInts_sld[b_i + allPredInts_sld.size(0)].f1[k + 5 * i1] =
               sldArray2[k + 5 * i1];
           }
         }

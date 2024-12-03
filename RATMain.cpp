@@ -39,14 +39,8 @@ namespace RAT
                    cell_wrap_0, 2U> &t1_bulkIns, const ::coder::array<
                    cell_wrap_0, 2U> &t1_bulkOuts, const ::coder::array<
                    cell_wrap_0, 2U> &t1_resolutionParams, const ::coder::array<
-                   cell_wrap_0, 2U> &t1_domainRatios, ::coder::array<cell_wrap_7,
-                   2U> &t2_params, ::coder::array<cell_wrap_7, 2U>
-                   &t2_backgroundParams, ::coder::array<cell_wrap_7, 2U>
-                   &t2_scalefactors, ::coder::array<cell_wrap_7, 2U>
-                   &t2_qzshifts, ::coder::array<cell_wrap_7, 2U> &t2_bulkIns, ::
-                   coder::array<cell_wrap_7, 2U> &t2_bulkOuts, ::coder::array<
-                   cell_wrap_7, 2U> &t2_resolutionParams, ::coder::array<
-                   cell_wrap_7, 2U> &t2_domainRatios);
+                   cell_wrap_0, 2U> &t1_domainRatios, const ::coder::array<
+                   cell_wrap_0, 2U> &t1_contrasts, d_struct_T *b);
   static void cast(const g_struct_T *b, struct0_T *c);
   static void cast(const ::coder::array<cell_wrap_13, 2U> &b, ::coder::array<
                    cell_wrap_3, 2U> &c);
@@ -54,21 +48,15 @@ namespace RAT
                    cell_wrap_5, 2U> &c);
   static void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
                    cell_wrap_4, 2U> &c);
-  static void cast(const ::coder::array<cell_wrap_7, 2U> &t3_params, const ::
-                   coder::array<cell_wrap_7, 2U> &t3_backgroundParams, const ::
-                   coder::array<cell_wrap_7, 2U> &t3_scalefactors, const ::coder::
-                   array<cell_wrap_7, 2U> &t3_qzshifts, const ::coder::array<
-                   cell_wrap_7, 2U> &t3_bulkIns, const ::coder::array<
-                   cell_wrap_7, 2U> &t3_bulkOuts, const ::coder::array<
-                   cell_wrap_7, 2U> &t3_resolutionParams, const ::coder::array<
-                   cell_wrap_7, 2U> &t3_domainRatios, ::coder::array<cell_wrap_0,
-                   2U> &t4_params, ::coder::array<cell_wrap_0, 2U>
-                   &t4_backgroundParams, ::coder::array<cell_wrap_0, 2U>
-                   &t4_scalefactors, ::coder::array<cell_wrap_0, 2U>
-                   &t4_qzshifts, ::coder::array<cell_wrap_0, 2U> &t4_bulkIns, ::
-                   coder::array<cell_wrap_0, 2U> &t4_bulkOuts, ::coder::array<
-                   cell_wrap_0, 2U> &t4_resolutionParams, ::coder::array<
-                   cell_wrap_0, 2U> &t4_domainRatios);
+  static void cast(const ::coder::array<cell_wrap_7, 2U> &t2_params, const ::
+                   coder::array<cell_wrap_7, 2U> &t2_backgroundParams, const ::
+                   coder::array<cell_wrap_7, 2U> &t2_scalefactors, const ::coder::
+                   array<cell_wrap_7, 2U> &t2_qzshifts, const ::coder::array<
+                   cell_wrap_7, 2U> &t2_bulkIns, const ::coder::array<
+                   cell_wrap_7, 2U> &t2_bulkOuts, const ::coder::array<
+                   cell_wrap_7, 2U> &t2_resolutionParams, const ::coder::array<
+                   cell_wrap_7, 2U> &t2_domainRatios, const ::coder::array<
+                   cell_wrap_7, 2U> &t2_contrasts, struct1_T *b);
   static void cast(const ::coder::array<cell_wrap_7, 2U> &b, ::coder::array<
                    cell_wrap_0, 2U> &c);
 }
@@ -140,7 +128,6 @@ namespace RAT
       c->repeatLayers[i] = b->repeatLayers[i];
     }
 
-    cast(b->contrastNames, c->contrastNames);
     cast(b->contrastBackgroundParams, c->contrastBackgroundParams);
     cast(b->contrastBackgroundTypes, c->contrastBackgroundTypes);
     cast(b->contrastBackgroundActions, c->contrastBackgroundActions);
@@ -192,16 +179,16 @@ namespace RAT
       c->scalefactors[i] = b->scalefactors[i];
     }
 
-    c->bulkIn.set_size(1, b->bulkIn.size(1));
-    loop_ub = b->bulkIn.size(1);
+    c->bulkIns.set_size(1, b->bulkIns.size(1));
+    loop_ub = b->bulkIns.size(1);
     for (i = 0; i < loop_ub; i++) {
-      c->bulkIn[i] = b->bulkIn[i];
+      c->bulkIns[i] = b->bulkIns[i];
     }
 
-    c->bulkOut.set_size(1, b->bulkOut.size(1));
-    loop_ub = b->bulkOut.size(1);
+    c->bulkOuts.set_size(1, b->bulkOuts.size(1));
+    loop_ub = b->bulkOuts.size(1);
     for (i = 0; i < loop_ub; i++) {
-      c->bulkOut[i] = b->bulkOut[i];
+      c->bulkOuts[i] = b->bulkOuts[i];
     }
 
     c->resolutionParams.set_size(1, b->resolutionParams.size(1));
@@ -240,10 +227,10 @@ namespace RAT
       c->contrastDomainRatios[i] = b->contrastDomainRatios[i];
     }
 
-    c->domainRatio.set_size(1, b->domainRatio.size(1));
-    loop_ub = b->domainRatio.size(1);
+    c->domainRatios.set_size(1, b->domainRatios.size(1));
+    loop_ub = b->domainRatios.size(1);
     for (i = 0; i < loop_ub; i++) {
-      c->domainRatio[i] = b->domainRatio[i];
+      c->domainRatios[i] = b->domainRatios[i];
     }
 
     c->numberOfDomainContrasts = b->numberOfDomainContrasts;
@@ -279,10 +266,9 @@ namespace RAT
 
     cast(b->names.params, b->names.backgroundParams, b->names.scalefactors,
          b->names.qzshifts, b->names.bulkIns, b->names.bulkOuts,
-         b->names.resolutionParams, b->names.domainRatios, c->names.params,
-         c->names.backgroundParams, c->names.scalefactors, c->names.qzshifts,
-         c->names.bulkIns, c->names.bulkOuts, c->names.resolutionParams,
-         c->names.domainRatios);
+         b->names.resolutionParams, b->names.domainRatios, b->names.contrasts,
+         &c->names);
+    c->checks = b->checks;
   }
 
   static void cast(const struct0_T *b, e_struct_T *c)
@@ -349,7 +335,6 @@ namespace RAT
       c->repeatLayers[i] = b->repeatLayers[i];
     }
 
-    cast(b->contrastNames, c->contrastNames);
     cast(b->contrastBackgroundParams, c->contrastBackgroundParams);
     cast(b->contrastBackgroundTypes, c->contrastBackgroundTypes);
     cast(b->contrastBackgroundActions, c->contrastBackgroundActions);
@@ -401,16 +386,16 @@ namespace RAT
       c->scalefactors[i] = b->scalefactors[i];
     }
 
-    c->bulkIn.set_size(1, b->bulkIn.size(1));
-    loop_ub = b->bulkIn.size(1);
+    c->bulkIns.set_size(1, b->bulkIns.size(1));
+    loop_ub = b->bulkIns.size(1);
     for (i = 0; i < loop_ub; i++) {
-      c->bulkIn[i] = b->bulkIn[i];
+      c->bulkIns[i] = b->bulkIns[i];
     }
 
-    c->bulkOut.set_size(1, b->bulkOut.size(1));
-    loop_ub = b->bulkOut.size(1);
+    c->bulkOuts.set_size(1, b->bulkOuts.size(1));
+    loop_ub = b->bulkOuts.size(1);
     for (i = 0; i < loop_ub; i++) {
-      c->bulkOut[i] = b->bulkOut[i];
+      c->bulkOuts[i] = b->bulkOuts[i];
     }
 
     c->resolutionParams.set_size(1, b->resolutionParams.size(1));
@@ -449,10 +434,10 @@ namespace RAT
       c->contrastDomainRatios[i] = b->contrastDomainRatios[i];
     }
 
-    c->domainRatio.set_size(1, b->domainRatio.size(1));
-    loop_ub = b->domainRatio.size(1);
+    c->domainRatios.set_size(1, b->domainRatios.size(1));
+    loop_ub = b->domainRatios.size(1);
     for (i = 0; i < loop_ub; i++) {
-      c->domainRatio[i] = b->domainRatio[i];
+      c->domainRatios[i] = b->domainRatios[i];
     }
 
     c->numberOfDomainContrasts = b->numberOfDomainContrasts;
@@ -488,10 +473,9 @@ namespace RAT
 
     cast(b->names.params, b->names.backgroundParams, b->names.scalefactors,
          b->names.qzshifts, b->names.bulkIns, b->names.bulkOuts,
-         b->names.resolutionParams, b->names.domainRatios, c->names.params,
-         c->names.backgroundParams, c->names.scalefactors, c->names.qzshifts,
-         c->names.bulkIns, c->names.bulkOuts, c->names.resolutionParams,
-         c->names.domainRatios);
+         b->names.resolutionParams, b->names.domainRatios, b->names.contrasts,
+         &c->names);
+    c->checks = b->checks;
   }
 
   static void cast(const ::coder::array<cell_wrap_0, 2U> &t1_params, const ::
@@ -501,23 +485,18 @@ namespace RAT
                    cell_wrap_0, 2U> &t1_bulkIns, const ::coder::array<
                    cell_wrap_0, 2U> &t1_bulkOuts, const ::coder::array<
                    cell_wrap_0, 2U> &t1_resolutionParams, const ::coder::array<
-                   cell_wrap_0, 2U> &t1_domainRatios, ::coder::array<cell_wrap_7,
-                   2U> &t2_params, ::coder::array<cell_wrap_7, 2U>
-                   &t2_backgroundParams, ::coder::array<cell_wrap_7, 2U>
-                   &t2_scalefactors, ::coder::array<cell_wrap_7, 2U>
-                   &t2_qzshifts, ::coder::array<cell_wrap_7, 2U> &t2_bulkIns, ::
-                   coder::array<cell_wrap_7, 2U> &t2_bulkOuts, ::coder::array<
-                   cell_wrap_7, 2U> &t2_resolutionParams, ::coder::array<
-                   cell_wrap_7, 2U> &t2_domainRatios)
+                   cell_wrap_0, 2U> &t1_domainRatios, const ::coder::array<
+                   cell_wrap_0, 2U> &t1_contrasts, d_struct_T *b)
   {
-    cast(t1_params, t2_params);
-    cast(t1_backgroundParams, t2_backgroundParams);
-    cast(t1_scalefactors, t2_scalefactors);
-    cast(t1_qzshifts, t2_qzshifts);
-    cast(t1_bulkIns, t2_bulkIns);
-    cast(t1_bulkOuts, t2_bulkOuts);
-    cast(t1_resolutionParams, t2_resolutionParams);
-    cast(t1_domainRatios, t2_domainRatios);
+    cast(t1_params, b->params);
+    cast(t1_backgroundParams, b->backgroundParams);
+    cast(t1_scalefactors, b->scalefactors);
+    cast(t1_qzshifts, b->qzshifts);
+    cast(t1_bulkIns, b->bulkIns);
+    cast(t1_bulkOuts, b->bulkOuts);
+    cast(t1_resolutionParams, b->resolutionParams);
+    cast(t1_domainRatios, b->domainRatios);
+    cast(t1_contrasts, b->contrasts);
   }
 
   static void cast(const g_struct_T *b, struct0_T *c)
@@ -584,7 +563,6 @@ namespace RAT
       c->repeatLayers[i] = b->repeatLayers[i];
     }
 
-    cast(b->contrastNames, c->contrastNames);
     cast(b->contrastBackgroundParams, c->contrastBackgroundParams);
     cast(b->contrastBackgroundTypes, c->contrastBackgroundTypes);
     cast(b->contrastBackgroundActions, c->contrastBackgroundActions);
@@ -636,16 +614,16 @@ namespace RAT
       c->scalefactors[i] = b->scalefactors[i];
     }
 
-    c->bulkIn.set_size(1, b->bulkIn.size(1));
-    loop_ub = b->bulkIn.size(1);
+    c->bulkIns.set_size(1, b->bulkIns.size(1));
+    loop_ub = b->bulkIns.size(1);
     for (i = 0; i < loop_ub; i++) {
-      c->bulkIn[i] = b->bulkIn[i];
+      c->bulkIns[i] = b->bulkIns[i];
     }
 
-    c->bulkOut.set_size(1, b->bulkOut.size(1));
-    loop_ub = b->bulkOut.size(1);
+    c->bulkOuts.set_size(1, b->bulkOuts.size(1));
+    loop_ub = b->bulkOuts.size(1);
     for (i = 0; i < loop_ub; i++) {
-      c->bulkOut[i] = b->bulkOut[i];
+      c->bulkOuts[i] = b->bulkOuts[i];
     }
 
     c->resolutionParams.set_size(1, b->resolutionParams.size(1));
@@ -684,10 +662,10 @@ namespace RAT
       c->contrastDomainRatios[i] = b->contrastDomainRatios[i];
     }
 
-    c->domainRatio.set_size(1, b->domainRatio.size(1));
-    loop_ub = b->domainRatio.size(1);
+    c->domainRatios.set_size(1, b->domainRatios.size(1));
+    loop_ub = b->domainRatios.size(1);
     for (i = 0; i < loop_ub; i++) {
-      c->domainRatio[i] = b->domainRatio[i];
+      c->domainRatios[i] = b->domainRatios[i];
     }
 
     c->numberOfDomainContrasts = b->numberOfDomainContrasts;
@@ -723,10 +701,9 @@ namespace RAT
 
     cast(b->names.params, b->names.backgroundParams, b->names.scalefactors,
          b->names.qzshifts, b->names.bulkIns, b->names.bulkOuts,
-         b->names.resolutionParams, b->names.domainRatios, c->names.params,
-         c->names.backgroundParams, c->names.scalefactors, c->names.qzshifts,
-         c->names.bulkIns, c->names.bulkOuts, c->names.resolutionParams,
-         c->names.domainRatios);
+         b->names.resolutionParams, b->names.domainRatios, b->names.contrasts,
+         &c->names);
+    c->checks = b->checks;
   }
 
   static void cast(const ::coder::array<cell_wrap_13, 2U> &b, ::coder::array<
@@ -790,30 +767,25 @@ namespace RAT
     }
   }
 
-  static void cast(const ::coder::array<cell_wrap_7, 2U> &t3_params, const ::
-                   coder::array<cell_wrap_7, 2U> &t3_backgroundParams, const ::
-                   coder::array<cell_wrap_7, 2U> &t3_scalefactors, const ::coder::
-                   array<cell_wrap_7, 2U> &t3_qzshifts, const ::coder::array<
-                   cell_wrap_7, 2U> &t3_bulkIns, const ::coder::array<
-                   cell_wrap_7, 2U> &t3_bulkOuts, const ::coder::array<
-                   cell_wrap_7, 2U> &t3_resolutionParams, const ::coder::array<
-                   cell_wrap_7, 2U> &t3_domainRatios, ::coder::array<cell_wrap_0,
-                   2U> &t4_params, ::coder::array<cell_wrap_0, 2U>
-                   &t4_backgroundParams, ::coder::array<cell_wrap_0, 2U>
-                   &t4_scalefactors, ::coder::array<cell_wrap_0, 2U>
-                   &t4_qzshifts, ::coder::array<cell_wrap_0, 2U> &t4_bulkIns, ::
-                   coder::array<cell_wrap_0, 2U> &t4_bulkOuts, ::coder::array<
-                   cell_wrap_0, 2U> &t4_resolutionParams, ::coder::array<
-                   cell_wrap_0, 2U> &t4_domainRatios)
+  static void cast(const ::coder::array<cell_wrap_7, 2U> &t2_params, const ::
+                   coder::array<cell_wrap_7, 2U> &t2_backgroundParams, const ::
+                   coder::array<cell_wrap_7, 2U> &t2_scalefactors, const ::coder::
+                   array<cell_wrap_7, 2U> &t2_qzshifts, const ::coder::array<
+                   cell_wrap_7, 2U> &t2_bulkIns, const ::coder::array<
+                   cell_wrap_7, 2U> &t2_bulkOuts, const ::coder::array<
+                   cell_wrap_7, 2U> &t2_resolutionParams, const ::coder::array<
+                   cell_wrap_7, 2U> &t2_domainRatios, const ::coder::array<
+                   cell_wrap_7, 2U> &t2_contrasts, struct1_T *b)
   {
-    cast(t3_params, t4_params);
-    cast(t3_backgroundParams, t4_backgroundParams);
-    cast(t3_scalefactors, t4_scalefactors);
-    cast(t3_qzshifts, t4_qzshifts);
-    cast(t3_bulkIns, t4_bulkIns);
-    cast(t3_bulkOuts, t4_bulkOuts);
-    cast(t3_resolutionParams, t4_resolutionParams);
-    cast(t3_domainRatios, t4_domainRatios);
+    cast(t2_params, b->params);
+    cast(t2_backgroundParams, b->backgroundParams);
+    cast(t2_scalefactors, b->scalefactors);
+    cast(t2_qzshifts, b->qzshifts);
+    cast(t2_bulkIns, b->bulkIns);
+    cast(t2_bulkOuts, b->bulkOuts);
+    cast(t2_resolutionParams, b->resolutionParams);
+    cast(t2_domainRatios, b->domainRatios);
+    cast(t2_contrasts, b->contrasts);
   }
 
   static void cast(const ::coder::array<cell_wrap_7, 2U> &b, ::coder::array<
@@ -833,15 +805,16 @@ namespace RAT
     }
   }
 
-  void RATMain(struct0_T *problemStruct, const struct2_T *problemLimits,
-               struct3_T *controls, const struct5_T *priors, struct6_T *result,
+  void RATMain(struct0_T *problemStruct, const struct3_T *problemLimits,
+               struct4_T *controls, const struct5_T *priors, struct6_T *result,
                struct9_T *bayesResults)
   {
     static e_struct_T b_problemStruct;
-    static g_struct_T c_problemStruct;
+    static k_struct_T b_bayesResults;
     c_struct_T bayesResults_nestedSamplerOutput;
     f_struct_T b_expl_temp;
     f_struct_T expl_temp;
+    g_struct_T c_problemStruct;
     makeEmptyBayesResultsStruct(problemStruct->numberOfContrasts, coder::
       internal::b_strcmp(problemStruct->TF.data, problemStruct->TF.size),
       controls->nChains, bayesResults->predictionIntervals.reflectivity,
@@ -895,11 +868,8 @@ namespace RAT
        case 0:
         //  Just a single reflectivity calculation
         controls->calcSldDuringFit = true;
-        reflectivityCalculation(problemStruct, problemLimits->param,
-          problemLimits->backgroundParam, problemLimits->scalefactor,
-          problemLimits->qzshift, problemLimits->bulkIn, problemLimits->bulkOut,
-          problemLimits->resolutionParam, problemLimits->domainRatio, controls,
-          &expl_temp);
+        cast(problemStruct, &b_problemStruct);
+        reflectivityCalculation(&b_problemStruct, controls, &expl_temp);
         result->reflectivity.set_size(expl_temp.reflectivity.size(0));
         b_index = expl_temp.reflectivity.size(0);
         for (i = 0; i < b_index; i++) {
@@ -982,11 +952,11 @@ namespace RAT
         }
 
         cast(problemStruct, &b_problemStruct);
-        runSimplex(&b_problemStruct, problemLimits->param,
-                   problemLimits->backgroundParam, problemLimits->scalefactor,
-                   problemLimits->qzshift, problemLimits->bulkIn,
-                   problemLimits->bulkOut, problemLimits->resolutionParam,
-                   problemLimits->domainRatio, controls, &b_expl_temp);
+        runSimplex(&b_problemStruct, problemLimits->params,
+                   problemLimits->backgroundParams, problemLimits->scalefactors,
+                   problemLimits->qzshifts, problemLimits->bulkIns,
+                   problemLimits->bulkOuts, problemLimits->resolutionParams,
+                   problemLimits->domainRatios, controls, &b_expl_temp);
         expl_temp.reflectivity.set_size(b_expl_temp.reflectivity.size(0));
         b_index = b_expl_temp.reflectivity.size(0);
         for (i = 0; i < b_index; i++) {
@@ -1140,11 +1110,11 @@ namespace RAT
         }
 
         cast(problemStruct, &b_problemStruct);
-        runDE(&b_problemStruct, problemLimits->param,
-              problemLimits->backgroundParam, problemLimits->scalefactor,
-              problemLimits->qzshift, problemLimits->bulkIn,
-              problemLimits->bulkOut, problemLimits->resolutionParam,
-              problemLimits->domainRatio, controls, &c_problemStruct, result);
+        runDE(&b_problemStruct, problemLimits->params,
+              problemLimits->backgroundParams, problemLimits->scalefactors,
+              problemLimits->qzshifts, problemLimits->bulkIns,
+              problemLimits->bulkOuts, problemLimits->resolutionParams,
+              problemLimits->domainRatios, controls, &c_problemStruct, result);
         cast(&c_problemStruct, problemStruct);
         break;
 
@@ -1155,7 +1125,12 @@ namespace RAT
         }
 
         cast(problemStruct, &b_problemStruct);
-        runNestedSampler(&b_problemStruct, problemLimits, controls,
+        runNestedSampler(&b_problemStruct, problemLimits->params,
+                         problemLimits->backgroundParams,
+                         problemLimits->scalefactors, problemLimits->qzshifts,
+                         problemLimits->bulkIns, problemLimits->bulkOuts,
+                         problemLimits->resolutionParams,
+                         problemLimits->domainRatios, controls,
                          priors->priorNames, priors->priorValues,
                          &c_problemStruct, result,
                          &bayesResults->predictionIntervals,
@@ -1172,15 +1147,42 @@ namespace RAT
         }
 
         cast(problemStruct, &b_problemStruct);
-        runDREAM(&b_problemStruct, problemLimits, controls, priors->priorNames,
-                 priors->priorValues, &c_problemStruct, result,
-                 &bayesResults->predictionIntervals,
-                 &bayesResults->confidenceIntervals, &bayesResults->dreamParams,
-                 &bayesResults->dreamOutput, &bayesResults_nestedSamplerOutput,
-                 bayesResults->chain);
+        runDREAM(&b_problemStruct, problemLimits->params,
+                 problemLimits->backgroundParams, problemLimits->scalefactors,
+                 problemLimits->qzshifts, problemLimits->bulkIns,
+                 problemLimits->bulkOuts, problemLimits->resolutionParams,
+                 problemLimits->domainRatios, controls, priors->priorNames,
+                 priors->priorValues, &c_problemStruct, result, &b_bayesResults);
+        bayesResults->predictionIntervals = b_bayesResults.predictionIntervals;
+        bayesResults->confidenceIntervals = b_bayesResults.confidenceIntervals;
+        bayesResults->dreamParams = b_bayesResults.dreamParams;
+        bayesResults->dreamOutput = b_bayesResults.dreamOutput;
+        bayesResults_nestedSamplerOutput.nestSamples.size[0] = 1;
+        bayesResults_nestedSamplerOutput.nestSamples.size[1] = 2;
+        bayesResults_nestedSamplerOutput.postSamples.size[0] = 1;
+        bayesResults_nestedSamplerOutput.postSamples.size[1] = 2;
+        bayesResults_nestedSamplerOutput.nestSamples.data[0] =
+          b_bayesResults.nestedSamplerOutput.nestSamples.data[0];
+        bayesResults_nestedSamplerOutput.postSamples.data[0] =
+          b_bayesResults.nestedSamplerOutput.postSamples.data[0];
+        bayesResults_nestedSamplerOutput.nestSamples.data[1] =
+          b_bayesResults.nestedSamplerOutput.nestSamples.data[1];
+        bayesResults_nestedSamplerOutput.postSamples.data[1] =
+          b_bayesResults.nestedSamplerOutput.postSamples.data[1];
+        bayesResults->chain.set_size(b_bayesResults.chain.size(0),
+          b_bayesResults.chain.size(1));
+        b_index = b_bayesResults.chain.size(1);
+        for (i = 0; i < b_index; i++) {
+          loop_ub = b_bayesResults.chain.size(0);
+          for (i1 = 0; i1 < loop_ub; i1++) {
+            bayesResults->chain[i1 + bayesResults->chain.size(0) * i] =
+              b_bayesResults.chain[i1 + b_bayesResults.chain.size(0) * i];
+          }
+        }
+
         cast(&c_problemStruct, problemStruct);
         bayesResults->nestedSamplerOutput.LogZ =
-          bayesResults_nestedSamplerOutput.LogZ;
+          b_bayesResults.nestedSamplerOutput.LogZ;
         bayesResults->nestedSamplerOutput.nestSamples.set_size(1, 2);
         bayesResults->nestedSamplerOutput.postSamples.set_size(1, 2);
         bayesResults->nestedSamplerOutput.nestSamples[0] =
@@ -1206,11 +1208,7 @@ namespace RAT
           controls->procedure.data[i] = cv1[i];
         }
 
-        reflectivityCalculation(problemStruct, problemLimits->param,
-          problemLimits->backgroundParam, problemLimits->scalefactor,
-          problemLimits->qzshift, problemLimits->bulkIn, problemLimits->bulkOut,
-          problemLimits->resolutionParam, problemLimits->domainRatio, controls,
-          &b_expl_temp);
+        reflectivityCalculation(problemStruct, controls, &b_expl_temp);
         expl_temp.reflectivity.set_size(b_expl_temp.reflectivity.size(0));
         b_index = b_expl_temp.reflectivity.size(0);
         for (i = 0; i < b_index; i++) {

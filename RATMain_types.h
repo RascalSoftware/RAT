@@ -69,14 +69,14 @@ namespace RAT
     ::coder::array<real_T, 2U> f1;
   };
 
-  struct cell_wrap_7
-  {
-    ::coder::array<char_T, 2U> f1;
-  };
-
   struct cell_wrap_13
   {
     ::coder::bounded_array<real_T, 10U, 2U> f1;
+  };
+
+  struct cell_wrap_7
+  {
+    ::coder::array<char_T, 2U> f1;
   };
 
   struct cell_wrap_10
@@ -84,19 +84,19 @@ namespace RAT
     ::coder::array<real_T, 2U> f1;
   };
 
-  struct struct4_T
+  struct struct2_T
   {
-    ::coder::array<real_T, 2U> fitParam;
-    ::coder::array<real_T, 2U> fitBackgroundParam;
-    ::coder::array<real_T, 2U> fitQzshift;
-    ::coder::array<real_T, 2U> fitScalefactor;
-    ::coder::array<real_T, 2U> fitBulkIn;
-    ::coder::array<real_T, 2U> fitBulkOut;
-    ::coder::array<real_T, 2U> fitResolutionParam;
-    ::coder::array<real_T, 2U> fitDomainRatio;
+    ::coder::array<real_T, 2U> params;
+    ::coder::array<real_T, 2U> backgroundParams;
+    ::coder::array<real_T, 2U> scalefactors;
+    ::coder::array<real_T, 2U> qzshifts;
+    ::coder::array<real_T, 2U> bulkIns;
+    ::coder::array<real_T, 2U> bulkOuts;
+    ::coder::array<real_T, 2U> resolutionParams;
+    ::coder::array<real_T, 2U> domainRatios;
   };
 
-  struct struct3_T
+  struct struct4_T
   {
     ::coder::bounded_array<char_T, 10000U, 2U> procedure;
     ::coder::bounded_array<char_T, 10000U, 2U> parallel;
@@ -126,7 +126,6 @@ namespace RAT
     real_T pUnitGamma;
     ::coder::bounded_array<char_T, 10000U, 2U> boundHandling;
     boolean_T adaptPCR;
-    struct4_T checks;
     ::coder::bounded_array<char_T, 10000U, 2U> IPCFilePath;
   };
 
@@ -171,18 +170,6 @@ namespace RAT
     ::coder::array<cell_wrap_7, 1U> fitNames;
   };
 
-  struct struct2_T
-  {
-    ::coder::array<real_T, 2U> param;
-    ::coder::array<real_T, 2U> backgroundParam;
-    ::coder::array<real_T, 2U> scalefactor;
-    ::coder::array<real_T, 2U> qzshift;
-    ::coder::array<real_T, 2U> bulkIn;
-    ::coder::array<real_T, 2U> bulkOut;
-    ::coder::array<real_T, 2U> resolutionParam;
-    ::coder::array<real_T, 2U> domainRatio;
-  };
-
   struct struct10_T
   {
     ::coder::array<cell_wrap_11, 1U> reflectivity;
@@ -204,14 +191,14 @@ namespace RAT
     ::coder::array<real_T, 2U> postSamples;
   };
 
-  struct cell_wrap_0
-  {
-    ::coder::bounded_array<char_T, 10000U, 2U> f1;
-  };
-
   struct cell_wrap_3
   {
     ::coder::bounded_array<real_T, 5U, 2U> f1;
+  };
+
+  struct cell_wrap_0
+  {
+    ::coder::bounded_array<char_T, 10000U, 2U> f1;
   };
 
   struct cell_wrap_4
@@ -234,6 +221,7 @@ namespace RAT
     ::coder::array<cell_wrap_0, 2U> bulkOuts;
     ::coder::array<cell_wrap_0, 2U> resolutionParams;
     ::coder::array<cell_wrap_0, 2U> domainRatios;
+    ::coder::array<cell_wrap_0, 2U> contrasts;
   };
 
   struct struct0_T
@@ -249,7 +237,6 @@ namespace RAT
     ::coder::bounded_array<char_T, 10000U, 2U> geometry;
     boolean_T useImaginary;
     ::coder::array<cell_wrap_2, 2U> repeatLayers;
-    ::coder::array<cell_wrap_0, 2U> contrastNames;
     ::coder::array<cell_wrap_3, 2U> contrastBackgroundParams;
     ::coder::array<cell_wrap_0, 2U> contrastBackgroundTypes;
     ::coder::array<cell_wrap_0, 2U> contrastBackgroundActions;
@@ -261,8 +248,8 @@ namespace RAT
     ::coder::array<real_T, 2U> backgroundParams;
     ::coder::array<real_T, 2U> qzshifts;
     ::coder::array<real_T, 2U> scalefactors;
-    ::coder::array<real_T, 2U> bulkIn;
-    ::coder::array<real_T, 2U> bulkOut;
+    ::coder::array<real_T, 2U> bulkIns;
+    ::coder::array<real_T, 2U> bulkOuts;
     ::coder::array<real_T, 2U> resolutionParams;
     ::coder::array<real_T, 2U> params;
     real_T numberOfLayers;
@@ -272,7 +259,7 @@ namespace RAT
     ::coder::bounded_array<char_T, 10000U, 2U> modelType;
     ::coder::array<real_T, 2U> contrastCustomFiles;
     ::coder::array<real_T, 2U> contrastDomainRatios;
-    ::coder::array<real_T, 2U> domainRatio;
+    ::coder::array<real_T, 2U> domainRatios;
     real_T numberOfDomainContrasts;
     ::coder::array<cell_wrap_4, 2U> domainContrastLayers;
     ::coder::array<real_T, 1U> fitParams;
@@ -280,6 +267,19 @@ namespace RAT
     ::coder::array<real_T, 2U> fitLimits;
     ::coder::array<real_T, 2U> otherLimits;
     struct1_T names;
+    struct2_T checks;
+  };
+
+  struct struct3_T
+  {
+    ::coder::array<real_T, 2U> params;
+    ::coder::array<real_T, 2U> backgroundParams;
+    ::coder::array<real_T, 2U> scalefactors;
+    ::coder::array<real_T, 2U> qzshifts;
+    ::coder::array<real_T, 2U> bulkIns;
+    ::coder::array<real_T, 2U> bulkOuts;
+    ::coder::array<real_T, 2U> resolutionParams;
+    ::coder::array<real_T, 2U> domainRatios;
   };
 
   struct cell_6
@@ -292,14 +292,14 @@ namespace RAT
 
   struct struct5_T
   {
-    ::coder::array<cell_6, 1U> param;
-    ::coder::array<cell_6, 1U> backgroundParam;
-    ::coder::array<cell_6, 1U> resolutionParam;
-    ::coder::array<cell_6, 1U> bulkIn;
-    ::coder::array<cell_6, 1U> bulkOut;
-    ::coder::array<cell_6, 1U> qzshift;
-    ::coder::array<cell_6, 1U> scalefactor;
-    ::coder::array<cell_6, 1U> domainRatio;
+    ::coder::array<cell_6, 1U> params;
+    ::coder::array<cell_6, 1U> backgroundParams;
+    ::coder::array<cell_6, 1U> scalefactors;
+    ::coder::array<cell_6, 1U> qzshifts;
+    ::coder::array<cell_6, 1U> bulkIns;
+    ::coder::array<cell_6, 1U> bulkOuts;
+    ::coder::array<cell_6, 1U> resolutionParams;
+    ::coder::array<cell_6, 1U> domainRatios;
     ::coder::array<cell_wrap_7, 1U> priorNames;
     ::coder::array<real_T, 2U> priorValues;
   };

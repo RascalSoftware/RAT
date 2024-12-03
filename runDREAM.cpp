@@ -28,28 +28,31 @@
 // Function Definitions
 namespace RAT
 {
-  void runDREAM(const e_struct_T *problemStruct, const struct2_T *problemLimits,
-                const struct3_T *controls, const ::coder::array<cell_wrap_7, 1U>
-                &priors_priorNames, const ::coder::array<real_T, 2U>
-                &priors_priorValues, g_struct_T *outProblemStruct, struct6_T
-                *result, struct10_T *bayesResults_predictionIntervals,
-                struct11_T *bayesResults_confidenceIntervals, struct12_T
-                *bayesResults_dreamParams, struct13_T *bayesResults_dreamOutput,
-                c_struct_T *bayesResults_nestedSamplerOutput, ::coder::array<
-                real_T, 2U> &bayesResults_chain)
+  void runDREAM(const e_struct_T *problemStruct, const ::coder::array<real_T, 2U>
+                &problemLimits_params, const ::coder::array<real_T, 2U>
+                &problemLimits_backgroundParams, const ::coder::array<real_T, 2U>
+                &problemLimits_scalefactors, const ::coder::array<real_T, 2U>
+                &problemLimits_qzshifts, const ::coder::array<real_T, 2U>
+                &problemLimits_bulkIns, const ::coder::array<real_T, 2U>
+                &problemLimits_bulkOuts, const ::coder::array<real_T, 2U>
+                &problemLimits_resolutionParams, const ::coder::array<real_T, 2U>
+                &problemLimits_domainRatios, const struct4_T *controls, const ::
+                coder::array<cell_wrap_7, 1U> &priors_priorNames, const ::coder::
+                array<real_T, 2U> &priors_priorValues, g_struct_T
+                *outProblemStruct, struct6_T *result, k_struct_T *bayesResults)
   {
-    static struct3_T b_controls;
+    static struct4_T b_controls;
     ::coder::array<cell_wrap_7, 1U> fitParamNames;
     ::coder::array<real_T, 2U> ParInfo_max;
     ::coder::array<real_T, 2U> ParInfo_min;
     ::coder::array<real_T, 2U> a__1;
-    ::coder::array<real_T, 2U> b_bayesResults_chain;
-    ::coder::array<real_T, 2U> b_bayesResults_dreamOutput;
+    ::coder::array<real_T, 2U> b_bayesResults;
+    ::coder::array<real_T, 2U> c_bayesResults;
     ::coder::array<real_T, 2U> r;
     ::coder::array<real_T, 2U> r1;
     e_struct_T b_problemStruct;
     j_struct_T dreamResults;
-    k_struct_T dreamOutput;
+    l_struct_T dreamOutput;
     int32_T b_loop_ub;
     int32_T i;
     int32_T i1;
@@ -62,23 +65,23 @@ namespace RAT
     //  calculation
     makeEmptyBayesResultsStruct(problemStruct->numberOfContrasts, coder::
       internal::b_strcmp(problemStruct->TF.data, problemStruct->TF.size),
-      controls->nChains, bayesResults_predictionIntervals->reflectivity,
-      bayesResults_predictionIntervals->sld,
-      bayesResults_predictionIntervals->sampleChi.data,
-      &bayesResults_predictionIntervals->sampleChi.size[0],
-      bayesResults_confidenceIntervals->percentile95,
-      bayesResults_confidenceIntervals->percentile65,
-      bayesResults_confidenceIntervals->mean, bayesResults_dreamParams,
-      bayesResults_dreamOutput, bayesResults_nestedSamplerOutput,
-      bayesResults_chain);
+      controls->nChains, bayesResults->predictionIntervals.reflectivity,
+      bayesResults->predictionIntervals.sld,
+      bayesResults->predictionIntervals.sampleChi.data,
+      &bayesResults->predictionIntervals.sampleChi.size[0],
+      bayesResults->confidenceIntervals.percentile95,
+      bayesResults->confidenceIntervals.percentile65,
+      bayesResults->confidenceIntervals.mean, &bayesResults->dreamParams,
+      &bayesResults->dreamOutput, &bayesResults->nestedSamplerOutput,
+      bayesResults->chain);
 
     //  Pre-allocation
     b_problemStruct = *problemStruct;
-    packParams(&b_problemStruct, problemLimits->param,
-               problemLimits->backgroundParam, problemLimits->scalefactor,
-               problemLimits->qzshift, problemLimits->bulkIn,
-               problemLimits->bulkOut, problemLimits->resolutionParam,
-               problemLimits->domainRatio, &controls->checks, fitParamNames);
+    packParams(&b_problemStruct, problemLimits_params,
+               problemLimits_backgroundParams, problemLimits_scalefactors,
+               problemLimits_qzshifts, problemLimits_bulkIns,
+               problemLimits_bulkOuts, problemLimits_resolutionParams,
+               problemLimits_domainRatios, fitParamNames);
 
     //  Get the priors for the fitted parameters...
     //  Put all the RAT parameters together into one array...
@@ -114,14 +117,13 @@ namespace RAT
              ceil(controls->nSamples / controls->nChains),
              controls->jumpProbability, controls->pUnitGamma, controls->adaptPCR,
              ParInfo_min, ParInfo_max, controls->boundHandling.data,
-             controls->boundHandling.size, &b_problemStruct, problemLimits,
-             controls, r, bayesResults_dreamOutput->allChains, &dreamOutput,
-             a__1);
+             controls->boundHandling.size, &b_problemStruct, controls, r,
+             bayesResults->dreamOutput.allChains, &dreamOutput, a__1);
 
     //  Combine all chains....
-    bayesResults_chain.set_size(0, 0);
+    bayesResults->chain.set_size(0, 0);
     i = static_cast<int32_T>(controls->nChains);
-    if (0 <= i - 1) {
+    if (0 <= static_cast<int32_T>(controls->nChains) - 1) {
       int32_T cutoff;
       if (1 > fitParamNames.size(0)) {
         i1 = 0;
@@ -130,13 +132,13 @@ namespace RAT
       }
 
       cutoff = static_cast<int32_T>(std::floor(static_cast<real_T>
-        (bayesResults_dreamOutput->allChains.size(0)) * 0.25));
-      if (cutoff > bayesResults_dreamOutput->allChains.size(0)) {
+        (bayesResults->dreamOutput.allChains.size(0)) * 0.25));
+      if (cutoff > bayesResults->dreamOutput.allChains.size(0)) {
         i2 = -1;
         i3 = -1;
       } else {
         i2 = cutoff - 2;
-        i3 = bayesResults_dreamOutput->allChains.size(0) - 1;
+        i3 = bayesResults->dreamOutput.allChains.size(0) - 1;
       }
 
       i4 = i1 - 1;
@@ -153,22 +155,22 @@ namespace RAT
 
       //  Keep only the last 75% of the chain..
       //  Combine the parallel chains into one....
-      if ((bayesResults_chain.size(0) != 0) && (bayesResults_chain.size(1) != 0))
-      {
-        b_result = bayesResults_chain.size(1);
+      if ((bayesResults->chain.size(0) != 0) && (bayesResults->chain.size(1) !=
+           0)) {
+        b_result = bayesResults->chain.size(1);
       } else if ((i3 - i2 != 0) && (i1 != 0)) {
         b_result = i1;
       } else {
-        b_result = bayesResults_chain.size(1);
-        if (i1 > bayesResults_chain.size(1)) {
+        b_result = bayesResults->chain.size(1);
+        if (i1 > bayesResults->chain.size(1)) {
           b_result = i1;
         }
       }
 
       empty_non_axis_sizes = (b_result == 0);
-      if (empty_non_axis_sizes || ((bayesResults_chain.size(0) != 0) &&
-           (bayesResults_chain.size(1) != 0))) {
-        loop_ub = bayesResults_chain.size(0);
+      if (empty_non_axis_sizes || ((bayesResults->chain.size(0) != 0) &&
+           (bayesResults->chain.size(1) != 0))) {
+        loop_ub = bayesResults->chain.size(0);
       } else {
         loop_ub = 0;
       }
@@ -180,119 +182,119 @@ namespace RAT
       }
 
       c_loop_ub = i3 - i2;
-      b_bayesResults_dreamOutput.set_size(c_loop_ub, i4 + 1);
+      b_bayesResults.set_size(c_loop_ub, i4 + 1);
       for (i5 = 0; i5 <= b_loop_ub; i5++) {
         for (i6 = 0; i6 < c_loop_ub; i6++) {
-          b_bayesResults_dreamOutput[i6 + b_bayesResults_dreamOutput.size(0) *
-            i5] = bayesResults_dreamOutput->allChains[(((i2 + i6) +
-            bayesResults_dreamOutput->allChains.size(0) * i5) +
-            bayesResults_dreamOutput->allChains.size(0) *
-            bayesResults_dreamOutput->allChains.size(1) * b_i) + 1];
+          b_bayesResults[i6 + b_bayesResults.size(0) * i5] =
+            bayesResults->dreamOutput.allChains[(((i2 + i6) +
+            bayesResults->dreamOutput.allChains.size(0) * i5) +
+            bayesResults->dreamOutput.allChains.size(0) *
+            bayesResults->dreamOutput.allChains.size(1) * b_i) + 1];
         }
       }
 
-      b_bayesResults_chain.set_size(loop_ub + sizes_idx_0, b_result);
+      c_bayesResults.set_size(loop_ub + sizes_idx_0, b_result);
       for (i5 = 0; i5 < b_result; i5++) {
         for (i6 = 0; i6 < loop_ub; i6++) {
-          b_bayesResults_chain[i6 + b_bayesResults_chain.size(0) * i5] =
-            bayesResults_chain[i6 + loop_ub * i5];
+          c_bayesResults[i6 + c_bayesResults.size(0) * i5] = bayesResults->
+            chain[i6 + loop_ub * i5];
         }
       }
 
       for (i5 = 0; i5 < b_result; i5++) {
         for (i6 = 0; i6 < sizes_idx_0; i6++) {
-          b_bayesResults_chain[(i6 + loop_ub) + b_bayesResults_chain.size(0) *
-            i5] = b_bayesResults_dreamOutput[i6 + sizes_idx_0 * i5];
+          c_bayesResults[(i6 + loop_ub) + c_bayesResults.size(0) * i5] =
+            b_bayesResults[i6 + sizes_idx_0 * i5];
         }
       }
 
-      bayesResults_chain.set_size(b_bayesResults_chain.size(0),
-        b_bayesResults_chain.size(1));
-      loop_ub = b_bayesResults_chain.size(1);
+      bayesResults->chain.set_size(c_bayesResults.size(0), c_bayesResults.size(1));
+      loop_ub = c_bayesResults.size(1);
       for (i5 = 0; i5 < loop_ub; i5++) {
-        c_loop_ub = b_bayesResults_chain.size(0);
+        c_loop_ub = c_bayesResults.size(0);
         for (i6 = 0; i6 < c_loop_ub; i6++) {
-          bayesResults_chain[i6 + bayesResults_chain.size(0) * i5] =
-            b_bayesResults_chain[i6 + b_bayesResults_chain.size(0) * i5];
+          bayesResults->chain[i6 + bayesResults->chain.size(0) * i5] =
+            c_bayesResults[i6 + c_bayesResults.size(0) * i5];
         }
       }
     }
 
-    coder::mean(bayesResults_chain, r1);
+    coder::mean(bayesResults->chain, r1);
     b_controls = *controls;
-    processBayes(r1, bayesResults_chain, &b_problemStruct, problemLimits,
-                 &b_controls, outProblemStruct, result, &dreamResults);
+    processBayes(r1, bayesResults->chain, &b_problemStruct, &b_controls,
+                 outProblemStruct, result, &dreamResults);
 
     //  Populate the output struct
-    bayesResults_predictionIntervals->reflectivity.set_size
+    bayesResults->predictionIntervals.reflectivity.set_size
       (dreamResults.predictionIntervals.reflectivity.size(0));
     loop_ub = dreamResults.predictionIntervals.reflectivity.size(0);
     for (i = 0; i < loop_ub; i++) {
-      bayesResults_predictionIntervals->reflectivity[i] =
+      bayesResults->predictionIntervals.reflectivity[i] =
         dreamResults.predictionIntervals.reflectivity[i];
     }
 
-    bayesResults_predictionIntervals->sld.set_size
+    bayesResults->predictionIntervals.sld.set_size
       (dreamResults.predictionIntervals.sld.size(0),
        dreamResults.predictionIntervals.sld.size(1));
     loop_ub = dreamResults.predictionIntervals.sld.size(1);
     for (i = 0; i < loop_ub; i++) {
       b_loop_ub = dreamResults.predictionIntervals.sld.size(0);
       for (i1 = 0; i1 < b_loop_ub; i1++) {
-        bayesResults_predictionIntervals->sld[i1 +
-          bayesResults_predictionIntervals->sld.size(0) * i] =
+        bayesResults->predictionIntervals.sld[i1 +
+          bayesResults->predictionIntervals.sld.size(0) * i] =
           dreamResults.predictionIntervals.sld[i1 +
           dreamResults.predictionIntervals.sld.size(0) * i];
       }
     }
 
-    bayesResults_predictionIntervals->sampleChi.size[0] = 1000;
+    bayesResults->predictionIntervals.sampleChi.size[0] = 1000;
     std::copy(&dreamResults.predictionIntervals.sampleChi[0],
               &dreamResults.predictionIntervals.sampleChi[1000],
-              &bayesResults_predictionIntervals->sampleChi.data[0]);
-    *bayesResults_confidenceIntervals = dreamResults.confidenceIntervals;
-    *bayesResults_dreamParams = dreamOutput.DREAMPar;
-    bayesResults_dreamOutput->outlierChains.size[0] =
+              &bayesResults->predictionIntervals.sampleChi.data[0]);
+    bayesResults->confidenceIntervals = dreamResults.confidenceIntervals;
+    bayesResults->dreamParams = dreamOutput.DREAMPar;
+    bayesResults->dreamOutput.outlierChains.size[0] =
       dreamOutput.outlierChains.size[0];
-    bayesResults_dreamOutput->outlierChains.size[1] = 2;
-    bayesResults_dreamOutput->runtime = dreamOutput.runtime;
-    bayesResults_dreamOutput->iteration = dreamOutput.iteration;
-    bayesResults_dreamOutput->modelOutput = 0.0;
-    bayesResults_dreamOutput->AR.size[0] = dreamOutput.AR.size[0];
-    bayesResults_dreamOutput->AR.size[1] = 2;
+    bayesResults->dreamOutput.outlierChains.size[1] = 2;
+    bayesResults->dreamOutput.runtime = dreamOutput.runtime;
+    bayesResults->dreamOutput.iteration = dreamOutput.iteration;
+    bayesResults->dreamOutput.modelOutput = 0.0;
+    bayesResults->dreamOutput.AR.size[0] = dreamOutput.AR.size[0];
+    bayesResults->dreamOutput.AR.size[1] = 2;
     loop_ub = dreamOutput.outlierChains.size[0];
     b_loop_ub = dreamOutput.AR.size[0];
     for (i = 0; i < 2; i++) {
       for (i1 = 0; i1 < loop_ub; i1++) {
-        bayesResults_dreamOutput->outlierChains.data[i1 +
-          bayesResults_dreamOutput->outlierChains.size[0] * i] =
+        bayesResults->dreamOutput.outlierChains.data[i1 +
+          bayesResults->dreamOutput.outlierChains.size[0] * i] =
           dreamOutput.outlierChains.data[i1 + dreamOutput.outlierChains.size[0] *
           i];
       }
 
       for (i1 = 0; i1 < b_loop_ub; i1++) {
-        bayesResults_dreamOutput->AR.data[i1 + bayesResults_dreamOutput->
-          AR.size[0] * i] = dreamOutput.AR.data[i1 + dreamOutput.AR.size[0] * i];
+        bayesResults->dreamOutput.AR.data[i1 + bayesResults->
+          dreamOutput.AR.size[0] * i] = dreamOutput.AR.data[i1 +
+          dreamOutput.AR.size[0] * i];
       }
     }
 
-    bayesResults_dreamOutput->R_stat.set_size(dreamOutput.R_stat.size(0),
+    bayesResults->dreamOutput.R_stat.set_size(dreamOutput.R_stat.size(0),
       dreamOutput.R_stat.size(1));
     loop_ub = dreamOutput.R_stat.size(1);
     for (i = 0; i < loop_ub; i++) {
       b_loop_ub = dreamOutput.R_stat.size(0);
       for (i1 = 0; i1 < b_loop_ub; i1++) {
-        bayesResults_dreamOutput->R_stat[i1 +
-          bayesResults_dreamOutput->R_stat.size(0) * i] = dreamOutput.R_stat[i1
+        bayesResults->dreamOutput.R_stat[i1 +
+          bayesResults->dreamOutput.R_stat.size(0) * i] = dreamOutput.R_stat[i1
           + dreamOutput.R_stat.size(0) * i];
       }
     }
 
-    bayesResults_dreamOutput->CR.set_size(dreamOutput.CR.size(0), 4);
+    bayesResults->dreamOutput.CR.set_size(dreamOutput.CR.size(0), 4);
     loop_ub = dreamOutput.CR.size(0);
     for (i = 0; i < 4; i++) {
       for (i1 = 0; i1 < loop_ub; i1++) {
-        bayesResults_dreamOutput->CR[i1 + bayesResults_dreamOutput->CR.size(0) *
+        bayesResults->dreamOutput.CR[i1 + bayesResults->dreamOutput.CR.size(0) *
           i] = dreamOutput.CR[i1 + dreamOutput.CR.size(0) * i];
       }
     }

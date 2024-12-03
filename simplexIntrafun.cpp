@@ -17,38 +17,43 @@
 #include "simplexXTransform.h"
 #include "unpackParams.h"
 #include "coder_array.h"
+#include "coder_bounded_array.h"
+#include <algorithm>
 
 // Function Definitions
 namespace RAT
 {
   void simplexIntrafun(const ::coder::array<real_T, 1U> &x, e_struct_T
-                       *problemStruct, const ::coder::array<real_T, 2U>
-                       &problemLimits_param, const ::coder::array<real_T, 2U>
-                       &problemLimits_backgroundParam, const ::coder::array<
-                       real_T, 2U> &problemLimits_scalefactor, const ::coder::
-                       array<real_T, 2U> &problemLimits_qzshift, const ::coder::
-                       array<real_T, 2U> &problemLimits_bulkIn, const ::coder::
-                       array<real_T, 2U> &problemLimits_bulkOut, const ::coder::
-                       array<real_T, 2U> &problemLimits_resolutionParam, const ::
-                       coder::array<real_T, 2U> &problemLimits_domainRatio,
-                       const struct3_T *controls, const m_struct_T *params,
-                       real_T *fval, f_struct_T *result)
+                       *problemStruct, const char_T controls_parallel_data[],
+                       const int32_T controls_parallel_size[2], real_T
+                       controls_resampleMinAngle, real_T
+                       controls_resampleNPoints, boolean_T
+                       controls_calcSldDuringFit, const ::coder::array<real_T,
+                       1U> &params_LB, const ::coder::array<real_T, 1U>
+                       &params_UB, const ::coder::array<real_T, 1U>
+                       &params_BoundClass, real_T *fval, f_struct_T *result)
   {
+    struct4_T expl_temp;
+    int32_T loop_ub;
+
     //  transform variables, then call original function
-    simplexXTransform(x, params->LB, params->UB, params->BoundClass,
+    simplexXTransform(x, params_LB, params_UB, params_BoundClass,
                       problemStruct->fitParams);
 
     // Unpck the params..
-    unpackParams(problemStruct, controls->checks.fitParam,
-                 controls->checks.fitBackgroundParam,
-                 controls->checks.fitQzshift, controls->checks.fitScalefactor,
-                 controls->checks.fitBulkIn, controls->checks.fitBulkOut,
-                 controls->checks.fitResolutionParam,
-                 controls->checks.fitDomainRatio);
-    reflectivityCalculation(problemStruct, problemLimits_param,
-      problemLimits_backgroundParam, problemLimits_scalefactor,
-      problemLimits_qzshift, problemLimits_bulkIn, problemLimits_bulkOut,
-      problemLimits_resolutionParam, problemLimits_domainRatio, controls, result);
+    unpackParams(problemStruct);
+    expl_temp.calcSldDuringFit = controls_calcSldDuringFit;
+    expl_temp.resampleNPoints = controls_resampleNPoints;
+    expl_temp.resampleMinAngle = controls_resampleMinAngle;
+    expl_temp.parallel.size[0] = 1;
+    expl_temp.parallel.size[1] = controls_parallel_size[1];
+    loop_ub = controls_parallel_size[1];
+    if (0 <= loop_ub - 1) {
+      std::copy(&controls_parallel_data[0], &controls_parallel_data[loop_ub],
+                &expl_temp.parallel.data[0]);
+    }
+
+    b_reflectivityCalculation(problemStruct, &expl_temp, result);
     *fval = result->calculationResults.sumChi;
   }
 }

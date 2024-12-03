@@ -27,14 +27,14 @@
 namespace RAT
 {
   void runSimplex(e_struct_T *problemStruct, const ::coder::array<real_T, 2U>
-                  &problemLimits_param, const ::coder::array<real_T, 2U>
-                  &problemLimits_backgroundParam, const ::coder::array<real_T,
-                  2U> &problemLimits_scalefactor, const ::coder::array<real_T,
-                  2U> &problemLimits_qzshift, const ::coder::array<real_T, 2U>
-                  &problemLimits_bulkIn, const ::coder::array<real_T, 2U>
-                  &problemLimits_bulkOut, const ::coder::array<real_T, 2U>
-                  &problemLimits_resolutionParam, const ::coder::array<real_T,
-                  2U> &problemLimits_domainRatio, const struct3_T *controls,
+                  &problemLimits_params, const ::coder::array<real_T, 2U>
+                  &problemLimits_backgroundParams, const ::coder::array<real_T,
+                  2U> &problemLimits_scalefactors, const ::coder::array<real_T,
+                  2U> &problemLimits_qzshifts, const ::coder::array<real_T, 2U>
+                  &problemLimits_bulkIns, const ::coder::array<real_T, 2U>
+                  &problemLimits_bulkOuts, const ::coder::array<real_T, 2U>
+                  &problemLimits_resolutionParams, const ::coder::array<real_T,
+                  2U> &problemLimits_domainRatios, const struct4_T *controls,
                   f_struct_T *result)
   {
     static const char_T b_cv1[6]{ 'n', 'o', 't', 'i', 'f', 'y' };
@@ -42,9 +42,11 @@ namespace RAT
     static const char_T b_cv[5]{ 'f', 'i', 'n', 'a', 'l' };
 
     ::coder::array<cell_wrap_7, 1U> b_problemStruct;
+    ::coder::array<real_T, 1U> LB;
+    ::coder::array<real_T, 1U> UB;
+    ::coder::array<real_T, 1U> params_BoundClass;
     ::coder::array<real_T, 1U> x0u;
-    l_struct_T a__4;
-    m_struct_T expl_temp;
+    m_struct_T a__4;
     real_T a__2;
     real_T a__3;
     int32_T dis_size[2];
@@ -52,11 +54,11 @@ namespace RAT
     int32_T i;
     int32_T outsize_idx_0;
     char_T dis_data[6];
-    packParams(problemStruct, problemLimits_param, problemLimits_backgroundParam,
-               problemLimits_scalefactor, problemLimits_qzshift,
-               problemLimits_bulkIn, problemLimits_bulkOut,
-               problemLimits_resolutionParam, problemLimits_domainRatio,
-               &controls->checks, b_problemStruct);
+    packParams(problemStruct, problemLimits_params,
+               problemLimits_backgroundParams, problemLimits_scalefactors,
+               problemLimits_qzshifts, problemLimits_bulkIns,
+               problemLimits_bulkOuts, problemLimits_resolutionParams,
+               problemLimits_domainRatios, b_problemStruct);
     if (coder::internal::u_strcmp(controls->display.data, controls->display.size))
     {
       outsize_idx_0 = 0;
@@ -118,32 +120,31 @@ namespace RAT
     }
 
     outsize_idx_0 = problemStruct->fitLimits.size(0);
-    expl_temp.LB.set_size(outsize_idx_0);
+    LB.set_size(outsize_idx_0);
     for (i = 0; i < outsize_idx_0; i++) {
-      expl_temp.LB[i] = problemStruct->fitLimits[i];
+      LB[i] = problemStruct->fitLimits[i];
     }
 
     outsize_idx_0 = problemStruct->fitLimits.size(0);
-    expl_temp.UB.set_size(outsize_idx_0);
+    UB.set_size(outsize_idx_0);
     for (i = 0; i < outsize_idx_0; i++) {
-      expl_temp.UB[i] = problemStruct->fitLimits[i +
-        problemStruct->fitLimits.size(0)];
+      UB[i] = problemStruct->fitLimits[i + problemStruct->fitLimits.size(0)];
     }
 
     //  size checks
     if (problemStruct->fitLimits.size(0) == 0) {
       outsize_idx_0 = problemStruct->fitParams.size(0);
-      expl_temp.LB.set_size(outsize_idx_0);
+      LB.set_size(outsize_idx_0);
       for (i = 0; i < outsize_idx_0; i++) {
-        expl_temp.LB[i] = rtMinusInf;
+        LB[i] = rtMinusInf;
       }
     }
 
     if (problemStruct->fitLimits.size(0) == 0) {
       outsize_idx_0 = problemStruct->fitParams.size(0);
-      expl_temp.UB.set_size(outsize_idx_0);
+      UB.set_size(outsize_idx_0);
       for (i = 0; i < outsize_idx_0; i++) {
-        expl_temp.UB[i] = rtInf;
+        UB[i] = rtInf;
       }
     }
 
@@ -155,17 +156,16 @@ namespace RAT
     //  2 --> upper bound only
     //  3 --> dual finite bounds
     outsize_idx_0 = problemStruct->fitParams.size(0);
-    expl_temp.BoundClass.set_size(outsize_idx_0);
+    params_BoundClass.set_size(outsize_idx_0);
     for (i = 0; i < outsize_idx_0; i++) {
-      expl_temp.BoundClass[i] = 0.0;
+      params_BoundClass[i] = 0.0;
     }
 
     i = problemStruct->fitParams.size(0);
     for (b_i = 0; b_i < i; b_i++) {
-      expl_temp.BoundClass[b_i] = static_cast<real_T>((!std::isinf
-        (expl_temp.LB[b_i])) && (!std::isnan(expl_temp.LB[b_i]))) + static_cast<
-        real_T>(((!std::isinf(expl_temp.UB[b_i])) && (!std::isnan
-                  (expl_temp.UB[b_i]))) << 1);
+      params_BoundClass[b_i] = static_cast<real_T>((!std::isinf(LB[b_i])) &&
+        (!std::isnan(LB[b_i]))) + static_cast<real_T>(((!std::isinf(UB[b_i])) &&
+        (!std::isnan(UB[b_i]))) << 1);
     }
 
     //  transform starting values into their unconstrained
@@ -178,38 +178,38 @@ namespace RAT
 
     i = problemStruct->fitParams.size(0);
     for (b_i = 0; b_i < i; b_i++) {
-      switch (static_cast<int32_T>(expl_temp.BoundClass[b_i])) {
+      switch (static_cast<int32_T>(params_BoundClass[b_i])) {
        case 1:
         //  lower bound only
-        if (problemStruct->fitParams[b_i] <= expl_temp.LB[b_i]) {
+        if (problemStruct->fitParams[b_i] <= LB[b_i]) {
           //  infeasible starting value. Use bound.
           x0u[b_i] = 0.0;
         } else {
-          x0u[b_i] = std::sqrt(problemStruct->fitParams[b_i] - expl_temp.LB[b_i]);
+          x0u[b_i] = std::sqrt(problemStruct->fitParams[b_i] - LB[b_i]);
         }
         break;
 
        case 2:
         //  upper bound only
-        if (problemStruct->fitParams[b_i] >= expl_temp.UB[b_i]) {
+        if (problemStruct->fitParams[b_i] >= UB[b_i]) {
           //  infeasible starting value. use bound.
           x0u[b_i] = 0.0;
         } else {
-          x0u[b_i] = std::sqrt(expl_temp.UB[b_i] - problemStruct->fitParams[b_i]);
+          x0u[b_i] = std::sqrt(UB[b_i] - problemStruct->fitParams[b_i]);
         }
         break;
 
        case 3:
         //  lower and upper bounds
-        if (problemStruct->fitParams[b_i] <= expl_temp.LB[b_i]) {
+        if (problemStruct->fitParams[b_i] <= LB[b_i]) {
           //  infeasible starting value
           x0u[b_i] = -1.5707963267948966;
-        } else if (problemStruct->fitParams[b_i] >= expl_temp.UB[b_i]) {
+        } else if (problemStruct->fitParams[b_i] >= UB[b_i]) {
           //  infeasible starting value
           x0u[b_i] = 1.5707963267948966;
         } else {
-          x0u[b_i] = 2.0 * (problemStruct->fitParams[b_i] - expl_temp.LB[b_i]) /
-            (expl_temp.UB[b_i] - expl_temp.LB[b_i]) - 1.0;
+          x0u[b_i] = 2.0 * (problemStruct->fitParams[b_i] - LB[b_i]) / (UB[b_i]
+            - LB[b_i]) - 1.0;
           x0u[b_i] = std::asin(std::fmax(-1.0, std::fmin(1.0, x0u[b_i])));
         }
         break;
@@ -224,29 +224,20 @@ namespace RAT
     //  intra-objective function.
     fMinSearch(x0u, controls->maxIterations, controls->maxFuncEvals,
                controls->xTolerance, controls->funcTolerance, dis_data, dis_size,
-               problemStruct, problemLimits_param, problemLimits_backgroundParam,
-               problemLimits_scalefactor, problemLimits_qzshift,
-               problemLimits_bulkIn, problemLimits_bulkOut,
-               problemLimits_resolutionParam, problemLimits_domainRatio,
-               controls, &expl_temp, &a__2, &a__3, &a__4);
+               problemStruct, controls->parallel.data, controls->parallel.size,
+               controls->resampleMinAngle, controls->resampleNPoints,
+               controls->calcSldDuringFit, controls->updatePlotFreq,
+               controls->IPCFilePath.data, controls->IPCFilePath.size, LB, UB,
+               params_BoundClass, &a__2, &a__3, &a__4);
 
-    // [xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemStruct,problemLimits,controls,options,params,300);
+    // [xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemStruct,controls,options,params,300);
     //  undo the variable transformations into the original space
-    simplexXTransform(x0u, expl_temp.LB, expl_temp.UB, expl_temp.BoundClass,
-                      problemStruct->fitParams);
+    simplexXTransform(x0u, LB, UB, params_BoundClass, problemStruct->fitParams);
 
     //  final reshape
     // x = reshape(x,xsize);
-    unpackParams(problemStruct, controls->checks.fitParam,
-                 controls->checks.fitBackgroundParam,
-                 controls->checks.fitQzshift, controls->checks.fitScalefactor,
-                 controls->checks.fitBulkIn, controls->checks.fitBulkOut,
-                 controls->checks.fitResolutionParam,
-                 controls->checks.fitDomainRatio);
-    reflectivityCalculation(problemStruct, problemLimits_param,
-      problemLimits_backgroundParam, problemLimits_scalefactor,
-      problemLimits_qzshift, problemLimits_bulkIn, problemLimits_bulkOut,
-      problemLimits_resolutionParam, problemLimits_domainRatio, controls, result);
+    unpackParams(problemStruct);
+    b_reflectivityCalculation(problemStruct, controls, result);
   }
 }
 

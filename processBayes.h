@@ -21,8 +21,7 @@
 namespace RAT
 {
   struct e_struct_T;
-  struct struct2_T;
-  struct struct3_T;
+  struct struct4_T;
   struct g_struct_T;
   struct struct6_T;
   struct j_struct_T;
@@ -33,9 +32,9 @@ namespace RAT
 {
   void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestParams,
                     const ::coder::array<real_T, 2U> &bayesOutputs_chain, const
-                    e_struct_T *problemStruct, const struct2_T *problemLimits,
-                    struct3_T *controls, g_struct_T *b_problemStruct, struct6_T *
-                    result, j_struct_T *bayesResults);
+                    e_struct_T *problemStruct, struct4_T *controls, g_struct_T
+                    *b_problemStruct, struct6_T *result, j_struct_T
+                    *bayesResults);
 }
 
 #endif

@@ -29,15 +29,14 @@ namespace RAT
                        &paramInfo_max, const char_T
                        paramInfo_boundhandling_data[], const int32_T
                        paramInfo_boundhandling_size[2], ::coder::array<real_T,
-                       3U> &chain, k_struct_T *output, ::coder::array<real_T, 2U>
+                       3U> &chain, l_struct_T *output, ::coder::array<real_T, 2U>
                        &log_L, const e_struct_T *ratInputs_problemStruct, const
-                       struct2_T *ratInputs_problemLimits, const struct3_T
-                       *ratInputs_controls, const ::coder::array<real_T, 2U>
-                       &ratInputs_priors, ::coder::array<real_T, 2U> &X, ::coder::
-                       array<real_T, 2U> &fx, ::coder::array<real_T, 2U> &CR,
-                       real_T pCR_data[], int32_T pCR_size[2], real_T lCR_data[],
-                       int32_T lCR_size[2], real_T delta_tot_data[], int32_T
-                       delta_tot_size[2])
+                       struct4_T *ratInputs_controls, const ::coder::array<
+                       real_T, 2U> &ratInputs_priors, ::coder::array<real_T, 2U>
+                       &X, ::coder::array<real_T, 2U> &fx, ::coder::array<real_T,
+                       2U> &CR, real_T pCR_data[], int32_T pCR_size[2], real_T
+                       lCR_data[], int32_T lCR_size[2], real_T delta_tot_data[],
+                       int32_T delta_tot_size[2])
   {
     ::coder::array<real_T, 2U> b_X;
     ::coder::array<real_T, 2U> b_paramInfo_max;
@@ -112,8 +111,7 @@ namespace RAT
                      paramInfo_boundhandling_data, paramInfo_boundhandling_size);
 
     //  Now evaluate the model ( = pdf ) and return fx
-    evaluateModel(x, DREAMPar, ratInputs_problemStruct, ratInputs_problemLimits,
-                  ratInputs_controls, fx);
+    evaluateModel(x, DREAMPar, ratInputs_problemStruct, ratInputs_controls, fx);
 
     //  Calculate the log-likelihood and log-prior of x (fx)
     calcDensity(x, fx, DREAMPar, ratInputs_problemStruct->fitLimits,

@@ -21,25 +21,21 @@
 namespace RAT
 {
   struct g_struct_T;
-  struct struct3_T;
-  struct struct6_T;
-  struct i_struct_T;
+  struct struct4_T;
+  struct cell_wrap_8;
+  struct cell_wrap_10;
+  struct cell_wrap_11;
 }
 
 // Function Declarations
 namespace RAT
 {
   void refPercentileConfidenceIntervals(const ::coder::array<real_T, 2U>
-    &bayesOutputs_chain, g_struct_T *problemStruct, const ::coder::array<real_T,
-    2U> &problemLimits_param, const ::coder::array<real_T, 2U>
-    &problemLimits_backgroundParam, const ::coder::array<real_T, 2U>
-    &problemLimits_scalefactor, const ::coder::array<real_T, 2U>
-    &problemLimits_qzshift, const ::coder::array<real_T, 2U>
-    &problemLimits_bulkIn, const ::coder::array<real_T, 2U>
-    &problemLimits_bulkOut, const ::coder::array<real_T, 2U>
-    &problemLimits_resolutionParam, const ::coder::array<real_T, 2U>
-    &problemLimits_domainRatio, const struct3_T *controls, const struct6_T
-    *results, i_struct_T *allPredInts);
+    &bayesOutputs_chain, g_struct_T *problemStruct, const struct4_T *controls,
+    const ::coder::array<cell_wrap_8, 1U> &results_reflectivity, const ::coder::
+    array<cell_wrap_10, 2U> &results_sldProfiles, ::coder::array<cell_wrap_11,
+    1U> &allPredInts_reflectivity, ::coder::array<cell_wrap_11, 2U>
+    &allPredInts_sld, real_T allPredInts_sampleChi[1000]);
 }
 
 #endif

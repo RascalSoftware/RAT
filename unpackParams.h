@@ -12,7 +12,6 @@
 
 // Include files
 #include "rtwtypes.h"
-#include "coder_array.h"
 #include "omp.h"
 #include <cstddef>
 #include <cstdlib>
@@ -27,24 +26,8 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void unpackParams(e_struct_T *problemStruct, const ::coder::array<real_T, 2U>
-                    &checks_fitParam, const ::coder::array<real_T, 2U>
-                    &checks_fitBackgroundParam, const ::coder::array<real_T, 2U>
-                    &checks_fitQzshift, const ::coder::array<real_T, 2U>
-                    &checks_fitScalefactor, const ::coder::array<real_T, 2U>
-                    &checks_fitBulkIn, const ::coder::array<real_T, 2U>
-                    &checks_fitBulkOut, const ::coder::array<real_T, 2U>
-                    &checks_fitResolutionParam, const ::coder::array<real_T, 2U>
-                    &checks_fitDomainRatio);
-  void unpackParams(g_struct_T *problemStruct, const ::coder::array<real_T, 2U>
-                    &checks_fitParam, const ::coder::array<real_T, 2U>
-                    &checks_fitBackgroundParam, const ::coder::array<real_T, 2U>
-                    &checks_fitQzshift, const ::coder::array<real_T, 2U>
-                    &checks_fitScalefactor, const ::coder::array<real_T, 2U>
-                    &checks_fitBulkIn, const ::coder::array<real_T, 2U>
-                    &checks_fitBulkOut, const ::coder::array<real_T, 2U>
-                    &checks_fitResolutionParam, const ::coder::array<real_T, 2U>
-                    &checks_fitDomainRatio);
+  void unpackParams(e_struct_T *problemStruct);
+  void unpackParams(g_struct_T *problemStruct);
 }
 
 #endif

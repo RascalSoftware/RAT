@@ -45,6 +45,18 @@ namespace RAT
 
       return y;
     }
+
+    real_T sum(const ::coder::array<real_T, 2U> &x)
+    {
+      real_T y;
+      if (x.size(1) == 0) {
+        y = 0.0;
+      } else {
+        y = nestedIter(x, x.size(1));
+      }
+
+      return y;
+    }
   }
 }
 

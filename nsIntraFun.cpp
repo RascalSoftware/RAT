@@ -22,8 +22,8 @@
 // Function Definitions
 namespace RAT
 {
-  real_T nsIntraFun(const e_struct_T *data_f1, const struct3_T *data_f2, const
-                    struct2_T *data_f3, const ::coder::array<real_T, 2U> &p)
+  real_T nsIntraFun(const e_struct_T *data_f1, const struct4_T *data_f2, const ::
+                    coder::array<real_T, 2U> &p)
   {
     g_struct_T problemStruct;
     struct6_T expl_temp;
@@ -90,12 +90,6 @@ namespace RAT
     loop_ub = data_f1->repeatLayers.size(1);
     for (i = 0; i < loop_ub; i++) {
       problemStruct.repeatLayers[i] = data_f1->repeatLayers[i];
-    }
-
-    problemStruct.contrastNames.set_size(1, data_f1->contrastNames.size(1));
-    loop_ub = data_f1->contrastNames.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      problemStruct.contrastNames[i] = data_f1->contrastNames[i];
     }
 
     problemStruct.contrastBackgroundParams.set_size(1,
@@ -173,16 +167,16 @@ namespace RAT
       problemStruct.scalefactors[i] = data_f1->scalefactors[i];
     }
 
-    problemStruct.bulkIn.set_size(1, data_f1->bulkIn.size(1));
-    loop_ub = data_f1->bulkIn.size(1);
+    problemStruct.bulkIns.set_size(1, data_f1->bulkIns.size(1));
+    loop_ub = data_f1->bulkIns.size(1);
     for (i = 0; i < loop_ub; i++) {
-      problemStruct.bulkIn[i] = data_f1->bulkIn[i];
+      problemStruct.bulkIns[i] = data_f1->bulkIns[i];
     }
 
-    problemStruct.bulkOut.set_size(1, data_f1->bulkOut.size(1));
-    loop_ub = data_f1->bulkOut.size(1);
+    problemStruct.bulkOuts.set_size(1, data_f1->bulkOuts.size(1));
+    loop_ub = data_f1->bulkOuts.size(1);
     for (i = 0; i < loop_ub; i++) {
-      problemStruct.bulkOut[i] = data_f1->bulkOut[i];
+      problemStruct.bulkOuts[i] = data_f1->bulkOuts[i];
     }
 
     problemStruct.resolutionParams.set_size(1, data_f1->resolutionParams.size(1));
@@ -242,10 +236,10 @@ namespace RAT
       problemStruct.contrastDomainRatios[i] = data_f1->contrastDomainRatios[i];
     }
 
-    problemStruct.domainRatio.set_size(1, data_f1->domainRatio.size(1));
-    loop_ub = data_f1->domainRatio.size(1);
+    problemStruct.domainRatios.set_size(1, data_f1->domainRatios.size(1));
+    loop_ub = data_f1->domainRatios.size(1);
     for (i = 0; i < loop_ub; i++) {
-      problemStruct.domainRatio[i] = data_f1->domainRatio[i];
+      problemStruct.domainRatios[i] = data_f1->domainRatios[i];
     }
 
     problemStruct.numberOfDomainContrasts = data_f1->numberOfDomainContrasts;
@@ -279,6 +273,7 @@ namespace RAT
     }
 
     problemStruct.names = data_f1->names;
+    problemStruct.checks = data_f1->checks;
 
     //  Removed use of cells....
     problemStruct.fitParams.set_size(1, p.size(1));
@@ -287,20 +282,13 @@ namespace RAT
       problemStruct.fitParams[problemStruct.fitParams.size(0) * i] = p[i];
     }
 
-    unpackParams(&problemStruct, data_f2->checks.fitParam,
-                 data_f2->checks.fitBackgroundParam, data_f2->checks.fitQzshift,
-                 data_f2->checks.fitScalefactor, data_f2->checks.fitBulkIn,
-                 data_f2->checks.fitBulkOut, data_f2->checks.fitResolutionParam,
-                 data_f2->checks.fitDomainRatio);
-    reflectivityCalculation(&problemStruct, data_f3->param,
-      data_f3->backgroundParam, data_f3->scalefactor, data_f3->qzshift,
-      data_f3->bulkIn, data_f3->bulkOut, data_f3->resolutionParam,
-      data_f3->domainRatio, data_f2, &expl_temp);
+    unpackParams(&problemStruct);
+    reflectivityCalculation(&problemStruct, data_f2, &expl_temp);
     return -expl_temp.calculationResults.sumChi / 2.0;
   }
 
-  real_T nsIntraFun(const e_struct_T *data_f1, const struct3_T *data_f2, const
-                    struct2_T *data_f3, const ::coder::array<real_T, 1U> &p)
+  real_T nsIntraFun(const e_struct_T *data_f1, const struct4_T *data_f2, const ::
+                    coder::array<real_T, 1U> &p)
   {
     e_struct_T problemStruct;
     f_struct_T expl_temp;
@@ -314,15 +302,8 @@ namespace RAT
       problemStruct.fitParams[i] = p[i];
     }
 
-    unpackParams(&problemStruct, data_f2->checks.fitParam,
-                 data_f2->checks.fitBackgroundParam, data_f2->checks.fitQzshift,
-                 data_f2->checks.fitScalefactor, data_f2->checks.fitBulkIn,
-                 data_f2->checks.fitBulkOut, data_f2->checks.fitResolutionParam,
-                 data_f2->checks.fitDomainRatio);
-    reflectivityCalculation(&problemStruct, data_f3->param,
-      data_f3->backgroundParam, data_f3->scalefactor, data_f3->qzshift,
-      data_f3->bulkIn, data_f3->bulkOut, data_f3->resolutionParam,
-      data_f3->domainRatio, data_f2, &expl_temp);
+    unpackParams(&problemStruct);
+    b_reflectivityCalculation(&problemStruct, data_f2, &expl_temp);
     return -expl_temp.calculationResults.sumChi / 2.0;
   }
 }

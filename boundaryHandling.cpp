@@ -56,7 +56,7 @@ namespace RAT
       }
     }
 
-    coder::e_eml_find(b_x, ii_up);
+    coder::f_eml_find(b_x, ii_up);
     ii_low.set_size(ii_up.size(0));
     loop_ub = ii_up.size(0);
     for (i = 0; i < loop_ub; i++) {
@@ -74,7 +74,7 @@ namespace RAT
       }
     }
 
-    coder::e_eml_find(b_x, ii_up);
+    coder::f_eml_find(b_x, ii_up);
 
     //  Reflection
     if (coder::internal::db_strcmp(paramInfo_boundhandling_data,
@@ -162,7 +162,7 @@ namespace RAT
       }
     }
 
-    coder::e_eml_find(b_x, ii_up);
+    coder::f_eml_find(b_x, ii_up);
     ii_low.set_size(ii_up.size(0));
     loop_ub = ii_up.size(0);
     for (i = 0; i < loop_ub; i++) {
@@ -188,7 +188,7 @@ namespace RAT
       }
     }
 
-    coder::e_eml_find(b_x, ii_up);
+    coder::f_eml_find(b_x, ii_up);
     b_ii_low[0] = ii_up.size(0);
     b_ii_low[1] = 1.0;
     coder::b_rand(b_ii_low, r);

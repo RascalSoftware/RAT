@@ -28,16 +28,14 @@
 namespace RAT
 {
   void intrafun(const ::coder::array<real_T, 2U> &p, e_struct_T *problemStruct,
-                const ::coder::array<real_T, 2U> &problemLimits_param, const ::
-                coder::array<real_T, 2U> &problemLimits_backgroundParam, const ::
-                coder::array<real_T, 2U> &problemLimits_scalefactor, const ::
-                coder::array<real_T, 2U> &problemLimits_qzshift, const ::coder::
-                array<real_T, 2U> &problemLimits_bulkIn, const ::coder::array<
-                real_T, 2U> &problemLimits_bulkOut, const ::coder::array<real_T,
-                2U> &problemLimits_resolutionParam, const ::coder::array<real_T,
-                2U> &problemLimits_domainRatio, const struct3_T *controls,
-                struct_T *S_MSE, f_struct_T *result)
+                const char_T controls_parallel_data[], const int32_T
+                controls_parallel_size[2], real_T controls_resampleMinAngle,
+                real_T controls_resampleNPoints, boolean_T
+                controls_calcSldDuringFit, real_T *S_MSE_I_nc, real_T
+                *S_MSE_FVr_ca, real_T *S_MSE_I_no, real_T *S_MSE_FVr_oa,
+                f_struct_T *result)
   {
+    struct4_T expl_temp;
     int32_T loop_ub;
     problemStruct->fitParams.set_size(p.size(1));
     loop_ub = p.size(1);
@@ -45,38 +43,39 @@ namespace RAT
       problemStruct->fitParams[i] = p[i];
     }
 
-    unpackParams(problemStruct, controls->checks.fitParam,
-                 controls->checks.fitBackgroundParam,
-                 controls->checks.fitQzshift, controls->checks.fitScalefactor,
-                 controls->checks.fitBulkIn, controls->checks.fitBulkOut,
-                 controls->checks.fitResolutionParam,
-                 controls->checks.fitDomainRatio);
-    reflectivityCalculation(problemStruct, problemLimits_param,
-      problemLimits_backgroundParam, problemLimits_scalefactor,
-      problemLimits_qzshift, problemLimits_bulkIn, problemLimits_bulkOut,
-      problemLimits_resolutionParam, problemLimits_domainRatio, controls, result);
-    S_MSE->FVr_oa = result->calculationResults.sumChi;
-    S_MSE->I_nc = 0.0;
+    unpackParams(problemStruct);
+    expl_temp.calcSldDuringFit = controls_calcSldDuringFit;
+    expl_temp.resampleNPoints = controls_resampleNPoints;
+    expl_temp.resampleMinAngle = controls_resampleMinAngle;
+    expl_temp.parallel.size[0] = 1;
+    expl_temp.parallel.size[1] = controls_parallel_size[1];
+    loop_ub = controls_parallel_size[1];
+    if (0 <= loop_ub - 1) {
+      std::copy(&controls_parallel_data[0], &controls_parallel_data[loop_ub],
+                &expl_temp.parallel.data[0]);
+    }
+
+    b_reflectivityCalculation(problemStruct, &expl_temp, result);
 
     // no constraints                 THESE FIRST FEW VALS MAY BE WRONG
-    S_MSE->FVr_ca = 0.0;
-
     // no constraint array
-    S_MSE->I_no = 1.0;
-
     // number of objectives (costs)
+    *S_MSE_I_nc = 0.0;
+    *S_MSE_FVr_ca = 0.0;
+    *S_MSE_I_no = 1.0;
+    *S_MSE_FVr_oa = result->calculationResults.sumChi;
   }
 
   void runDE(const e_struct_T *problemStruct, const ::coder::array<real_T, 2U>
-             &problemLimits_param, const ::coder::array<real_T, 2U>
-             &problemLimits_backgroundParam, const ::coder::array<real_T, 2U>
-             &problemLimits_scalefactor, const ::coder::array<real_T, 2U>
-             &problemLimits_qzshift, const ::coder::array<real_T, 2U>
-             &problemLimits_bulkIn, const ::coder::array<real_T, 2U>
-             &problemLimits_bulkOut, const ::coder::array<real_T, 2U>
-             &problemLimits_resolutionParam, const ::coder::array<real_T, 2U>
-             &problemLimits_domainRatio, const struct3_T *controls, g_struct_T
-             *b_problemStruct, struct6_T *result)
+             &problemLimits_params, const ::coder::array<real_T, 2U>
+             &problemLimits_backgroundParams, const ::coder::array<real_T, 2U>
+             &problemLimits_scalefactors, const ::coder::array<real_T, 2U>
+             &problemLimits_qzshifts, const ::coder::array<real_T, 2U>
+             &problemLimits_bulkIns, const ::coder::array<real_T, 2U>
+             &problemLimits_bulkOuts, const ::coder::array<real_T, 2U>
+             &problemLimits_resolutionParams, const ::coder::array<real_T, 2U>
+             &problemLimits_domainRatios, const struct4_T *controls, g_struct_T *
+             b_problemStruct, struct6_T *result)
   {
     static const real_T S_struct_FVr_x[50]{ -1.0, -0.95918367346938771,
       -0.91836734693877542, -0.87755102040816324, -0.836734693877551,
@@ -107,11 +106,11 @@ namespace RAT
     int32_T i1;
     int32_T loop_ub;
     c_problemStruct = *problemStruct;
-    packParams(&c_problemStruct, problemLimits_param,
-               problemLimits_backgroundParam, problemLimits_scalefactor,
-               problemLimits_qzshift, problemLimits_bulkIn,
-               problemLimits_bulkOut, problemLimits_resolutionParam,
-               problemLimits_domainRatio, &controls->checks, d_problemStruct);
+    packParams(&c_problemStruct, problemLimits_params,
+               problemLimits_backgroundParams, problemLimits_scalefactors,
+               problemLimits_qzshifts, problemLimits_bulkIns,
+               problemLimits_bulkOuts, problemLimits_resolutionParams,
+               problemLimits_domainRatios, d_problemStruct);
 
     // Value to reach
     loop_ub = c_problemStruct.fitLimits.size(0);
@@ -196,10 +195,12 @@ namespace RAT
     }
 
     expl_temp.I_lentol = 50.0;
-    deopt(&c_problemStruct, problemLimits_param, problemLimits_backgroundParam,
-          problemLimits_scalefactor, problemLimits_qzshift, problemLimits_bulkIn,
-          problemLimits_bulkOut, problemLimits_resolutionParam,
-          problemLimits_domainRatio, controls, &expl_temp, res);
+    deopt(&c_problemStruct, controls->parallel.data, controls->parallel.size,
+          controls->resampleMinAngle, controls->resampleNPoints,
+          controls->calcSldDuringFit, controls->display.data,
+          controls->display.size, controls->updatePlotFreq,
+          controls->IPCFilePath.data, controls->IPCFilePath.size, &expl_temp,
+          res);
     b_problemStruct->TF.size[0] = 1;
     b_problemStruct->TF.size[1] = c_problemStruct.TF.size[1];
     loop_ub = c_problemStruct.TF.size[1];
@@ -263,13 +264,6 @@ namespace RAT
     loop_ub = c_problemStruct.repeatLayers.size(1);
     for (i = 0; i < loop_ub; i++) {
       b_problemStruct->repeatLayers[i] = c_problemStruct.repeatLayers[i];
-    }
-
-    b_problemStruct->contrastNames.set_size(1,
-      c_problemStruct.contrastNames.size(1));
-    loop_ub = c_problemStruct.contrastNames.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      b_problemStruct->contrastNames[i] = c_problemStruct.contrastNames[i];
     }
 
     b_problemStruct->contrastBackgroundParams.set_size(1,
@@ -353,16 +347,16 @@ namespace RAT
       b_problemStruct->scalefactors[i] = c_problemStruct.scalefactors[i];
     }
 
-    b_problemStruct->bulkIn.set_size(1, c_problemStruct.bulkIn.size(1));
-    loop_ub = c_problemStruct.bulkIn.size(1);
+    b_problemStruct->bulkIns.set_size(1, c_problemStruct.bulkIns.size(1));
+    loop_ub = c_problemStruct.bulkIns.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b_problemStruct->bulkIn[i] = c_problemStruct.bulkIn[i];
+      b_problemStruct->bulkIns[i] = c_problemStruct.bulkIns[i];
     }
 
-    b_problemStruct->bulkOut.set_size(1, c_problemStruct.bulkOut.size(1));
-    loop_ub = c_problemStruct.bulkOut.size(1);
+    b_problemStruct->bulkOuts.set_size(1, c_problemStruct.bulkOuts.size(1));
+    loop_ub = c_problemStruct.bulkOuts.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b_problemStruct->bulkOut[i] = c_problemStruct.bulkOut[i];
+      b_problemStruct->bulkOuts[i] = c_problemStruct.bulkOuts[i];
     }
 
     b_problemStruct->resolutionParams.set_size(1,
@@ -427,10 +421,11 @@ namespace RAT
         c_problemStruct.contrastDomainRatios[i];
     }
 
-    b_problemStruct->domainRatio.set_size(1, c_problemStruct.domainRatio.size(1));
-    loop_ub = c_problemStruct.domainRatio.size(1);
+    b_problemStruct->domainRatios.set_size(1, c_problemStruct.domainRatios.size
+      (1));
+    loop_ub = c_problemStruct.domainRatios.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b_problemStruct->domainRatio[i] = c_problemStruct.domainRatio[i];
+      b_problemStruct->domainRatios[i] = c_problemStruct.domainRatios[i];
     }
 
     b_problemStruct->numberOfDomainContrasts =
@@ -467,22 +462,15 @@ namespace RAT
     }
 
     b_problemStruct->names = c_problemStruct.names;
+    b_problemStruct->checks = c_problemStruct.checks;
     b_problemStruct->fitParams.set_size(1, res.size(1));
     loop_ub = res.size(1);
     for (i = 0; i < loop_ub; i++) {
       b_problemStruct->fitParams[b_problemStruct->fitParams.size(0) * i] = res[i];
     }
 
-    unpackParams(b_problemStruct, controls->checks.fitParam,
-                 controls->checks.fitBackgroundParam,
-                 controls->checks.fitQzshift, controls->checks.fitScalefactor,
-                 controls->checks.fitBulkIn, controls->checks.fitBulkOut,
-                 controls->checks.fitResolutionParam,
-                 controls->checks.fitDomainRatio);
-    reflectivityCalculation(b_problemStruct, problemLimits_param,
-      problemLimits_backgroundParam, problemLimits_scalefactor,
-      problemLimits_qzshift, problemLimits_bulkIn, problemLimits_bulkOut,
-      problemLimits_resolutionParam, problemLimits_domainRatio, controls, result);
+    unpackParams(b_problemStruct);
+    reflectivityCalculation(b_problemStruct, controls, result);
     if (!coder::internal::t_strcmp(controls->display.data,
          controls->display.size)) {
       coder::snPrint(result->calculationResults.sumChi, charStr);

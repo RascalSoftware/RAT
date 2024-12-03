@@ -193,7 +193,7 @@ namespace RAT
       }
     }
 
-    void b_customXY(const e_struct_T *problemStruct, const struct3_T *controls, ::
+    void b_customXY(const e_struct_T *problemStruct, const struct4_T *controls, ::
                     coder::array<real_T, 1U> &qzshifts, ::coder::array<real_T,
                     1U> &scalefactors, ::coder::array<real_T, 1U> &bulkIns, ::
                     coder::array<real_T, 1U> &bulkOuts, ::coder::array<real_T,
@@ -248,8 +248,8 @@ namespace RAT
       // Pre-Allocation...
       //  Process the custom models
       customXY::processCustomFunction(problemStruct->contrastBulkIns,
-        problemStruct->contrastBulkOuts, problemStruct->bulkIn,
-        problemStruct->bulkOut, problemStruct->contrastCustomFiles,
+        problemStruct->contrastBulkOuts, problemStruct->bulkIns,
+        problemStruct->bulkOuts, problemStruct->contrastCustomFiles,
         problemStruct->numberOfContrasts, problemStruct->customFiles,
         problemStruct->params, r, subRoughs);
       sldProfiles.set_size(r.size(0), 1);
@@ -325,7 +325,7 @@ namespace RAT
                                 problemStruct->backgroundParams,
                                 problemStruct->qzshifts,
                                 problemStruct->scalefactors,
-                                problemStruct->bulkIn, problemStruct->bulkOut,
+                                problemStruct->bulkIns, problemStruct->bulkOuts,
                                 problemStruct->resolutionParams,
                                 problemStruct->dataPresent[c_i],
                                 problemStruct->data[c_i].f1,
@@ -435,7 +435,7 @@ namespace RAT
                                 problemStruct->backgroundParams,
                                 problemStruct->qzshifts,
                                 problemStruct->scalefactors,
-                                problemStruct->bulkIn, problemStruct->bulkOut,
+                                problemStruct->bulkIns, problemStruct->bulkOuts,
                                 problemStruct->resolutionParams,
                                 problemStruct->dataPresent[b_i],
                                 problemStruct->data[b_i].f1,
@@ -497,7 +497,7 @@ namespace RAT
       }
     }
 
-    void b_customXY(const g_struct_T *problemStruct, const struct3_T *controls, ::
+    void b_customXY(const g_struct_T *problemStruct, const struct4_T *controls, ::
                     coder::array<real_T, 1U> &qzshifts, ::coder::array<real_T,
                     1U> &scalefactors, ::coder::array<real_T, 1U> &bulkIns, ::
                     coder::array<real_T, 1U> &bulkOuts, ::coder::array<real_T,
@@ -552,8 +552,8 @@ namespace RAT
       // Pre-Allocation...
       //  Process the custom models
       customXY::processCustomFunction(problemStruct->contrastBulkIns,
-        problemStruct->contrastBulkOuts, problemStruct->bulkIn,
-        problemStruct->bulkOut, problemStruct->contrastCustomFiles,
+        problemStruct->contrastBulkOuts, problemStruct->bulkIns,
+        problemStruct->bulkOuts, problemStruct->contrastCustomFiles,
         problemStruct->numberOfContrasts, problemStruct->customFiles,
         problemStruct->params, r, subRoughs);
       sldProfiles.set_size(r.size(0), 1);
@@ -629,7 +629,7 @@ namespace RAT
                                 problemStruct->backgroundParams,
                                 problemStruct->qzshifts,
                                 problemStruct->scalefactors,
-                                problemStruct->bulkIn, problemStruct->bulkOut,
+                                problemStruct->bulkIns, problemStruct->bulkOuts,
                                 problemStruct->resolutionParams,
                                 problemStruct->dataPresent[c_i],
                                 problemStruct->data[c_i].f1,
@@ -739,7 +739,7 @@ namespace RAT
                                 problemStruct->backgroundParams,
                                 problemStruct->qzshifts,
                                 problemStruct->scalefactors,
-                                problemStruct->bulkIn, problemStruct->bulkOut,
+                                problemStruct->bulkIns, problemStruct->bulkOuts,
                                 problemStruct->resolutionParams,
                                 problemStruct->dataPresent[b_i],
                                 problemStruct->data[b_i].f1,
@@ -801,7 +801,7 @@ namespace RAT
       }
     }
 
-    void b_customXY(const struct0_T *problemStruct, const struct3_T *controls, ::
+    void b_customXY(const struct0_T *problemStruct, const struct4_T *controls, ::
                     coder::array<real_T, 1U> &qzshifts, ::coder::array<real_T,
                     1U> &scalefactors, ::coder::array<real_T, 1U> &bulkIns, ::
                     coder::array<real_T, 1U> &bulkOuts, ::coder::array<real_T,

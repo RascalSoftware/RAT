@@ -16,16 +16,10 @@
 #include <cstddef>
 #include <cstdlib>
 
-// Type Declarations
-namespace RAT
-{
-  struct struct_T;
-}
-
 // Function Declarations
 namespace RAT
 {
-  real_T leftWin(const struct_T S_x, real_T S_y_FVr_oa);
+  real_T leftWin(real_T S_x_I_no, real_T S_x_FVr_oa, real_T S_y_FVr_oa);
 }
 
 #endif

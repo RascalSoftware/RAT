@@ -21,8 +21,6 @@
 namespace RAT
 {
   struct e_struct_T;
-  struct struct3_T;
-  struct m_struct_T;
   struct f_struct_T;
 }
 
@@ -30,17 +28,14 @@ namespace RAT
 namespace RAT
 {
   void simplexIntrafun(const ::coder::array<real_T, 1U> &x, e_struct_T
-                       *problemStruct, const ::coder::array<real_T, 2U>
-                       &problemLimits_param, const ::coder::array<real_T, 2U>
-                       &problemLimits_backgroundParam, const ::coder::array<
-                       real_T, 2U> &problemLimits_scalefactor, const ::coder::
-                       array<real_T, 2U> &problemLimits_qzshift, const ::coder::
-                       array<real_T, 2U> &problemLimits_bulkIn, const ::coder::
-                       array<real_T, 2U> &problemLimits_bulkOut, const ::coder::
-                       array<real_T, 2U> &problemLimits_resolutionParam, const ::
-                       coder::array<real_T, 2U> &problemLimits_domainRatio,
-                       const struct3_T *controls, const m_struct_T *params,
-                       real_T *fval, f_struct_T *result);
+                       *problemStruct, const char_T controls_parallel_data[],
+                       const int32_T controls_parallel_size[2], real_T
+                       controls_resampleMinAngle, real_T
+                       controls_resampleNPoints, boolean_T
+                       controls_calcSldDuringFit, const ::coder::array<real_T,
+                       1U> &params_LB, const ::coder::array<real_T, 1U>
+                       &params_UB, const ::coder::array<real_T, 1U>
+                       &params_BoundClass, real_T *fval, f_struct_T *result);
 }
 
 #endif

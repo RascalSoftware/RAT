@@ -21,8 +21,7 @@
 namespace RAT
 {
   struct e_struct_T;
-  struct struct2_T;
-  struct struct3_T;
+  struct struct4_T;
   struct cell_wrap_7;
   struct g_struct_T;
   struct struct6_T;
@@ -36,12 +35,21 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void runNestedSampler(const e_struct_T *problemStruct, const struct2_T
-                        *problemLimits, const struct3_T *controls, const ::coder::
-                        array<cell_wrap_7, 1U> &inPriors_priorNames, const ::
-                        coder::array<real_T, 2U> &inPriors_priorValues,
-                        g_struct_T *b_problemStruct, struct6_T *result,
-                        struct10_T *bayesResults_predictionIntervals, struct11_T
+  void runNestedSampler(const e_struct_T *problemStruct, const ::coder::array<
+                        real_T, 2U> &problemLimits_params, const ::coder::array<
+                        real_T, 2U> &problemLimits_backgroundParams, const ::
+                        coder::array<real_T, 2U> &problemLimits_scalefactors,
+                        const ::coder::array<real_T, 2U> &problemLimits_qzshifts,
+                        const ::coder::array<real_T, 2U> &problemLimits_bulkIns,
+                        const ::coder::array<real_T, 2U> &problemLimits_bulkOuts,
+                        const ::coder::array<real_T, 2U>
+                        &problemLimits_resolutionParams, const ::coder::array<
+                        real_T, 2U> &problemLimits_domainRatios, const struct4_T
+                        *controls, const ::coder::array<cell_wrap_7, 1U>
+                        &inPriors_priorNames, const ::coder::array<real_T, 2U>
+                        &inPriors_priorValues, g_struct_T *b_problemStruct,
+                        struct6_T *result, struct10_T
+                        *bayesResults_predictionIntervals, struct11_T
                         *bayesResults_confidenceIntervals, struct12_T
                         *bayesResults_dreamParams, struct13_T
                         *bayesResults_dreamOutput, struct14_T

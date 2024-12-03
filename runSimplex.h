@@ -21,7 +21,7 @@
 namespace RAT
 {
   struct e_struct_T;
-  struct struct3_T;
+  struct struct4_T;
   struct f_struct_T;
 }
 
@@ -29,14 +29,14 @@ namespace RAT
 namespace RAT
 {
   void runSimplex(e_struct_T *problemStruct, const ::coder::array<real_T, 2U>
-                  &problemLimits_param, const ::coder::array<real_T, 2U>
-                  &problemLimits_backgroundParam, const ::coder::array<real_T,
-                  2U> &problemLimits_scalefactor, const ::coder::array<real_T,
-                  2U> &problemLimits_qzshift, const ::coder::array<real_T, 2U>
-                  &problemLimits_bulkIn, const ::coder::array<real_T, 2U>
-                  &problemLimits_bulkOut, const ::coder::array<real_T, 2U>
-                  &problemLimits_resolutionParam, const ::coder::array<real_T,
-                  2U> &problemLimits_domainRatio, const struct3_T *controls,
+                  &problemLimits_params, const ::coder::array<real_T, 2U>
+                  &problemLimits_backgroundParams, const ::coder::array<real_T,
+                  2U> &problemLimits_scalefactors, const ::coder::array<real_T,
+                  2U> &problemLimits_qzshifts, const ::coder::array<real_T, 2U>
+                  &problemLimits_bulkIns, const ::coder::array<real_T, 2U>
+                  &problemLimits_bulkOuts, const ::coder::array<real_T, 2U>
+                  &problemLimits_resolutionParams, const ::coder::array<real_T,
+                  2U> &problemLimits_domainRatios, const struct4_T *controls,
                   f_struct_T *result);
 }
 

@@ -34,16 +34,15 @@
 // Function Definitions
 namespace RAT
 {
-  void deopt(const e_struct_T *problem, const ::coder::array<real_T, 2U>
-             &problemLimits_param, const ::coder::array<real_T, 2U>
-             &problemLimits_backgroundParam, const ::coder::array<real_T, 2U>
-             &problemLimits_scalefactor, const ::coder::array<real_T, 2U>
-             &problemLimits_qzshift, const ::coder::array<real_T, 2U>
-             &problemLimits_bulkIn, const ::coder::array<real_T, 2U>
-             &problemLimits_bulkOut, const ::coder::array<real_T, 2U>
-             &problemLimits_resolutionParam, const ::coder::array<real_T, 2U>
-             &problemLimits_domainRatio, const struct3_T *controls, const
-             h_struct_T *S_struct, ::coder::array<real_T, 2U> &FVr_bestmem)
+  void deopt(const e_struct_T *problem, const char_T controls_parallel_data[],
+             const int32_T controls_parallel_size[2], real_T
+             controls_resampleMinAngle, real_T controls_resampleNPoints,
+             boolean_T controls_calcSldDuringFit, const char_T
+             controls_display_data[], const int32_T controls_display_size[2],
+             real_T controls_updatePlotFreq, const char_T
+             controls_IPCFilePath_data[], const int32_T
+             controls_IPCFilePath_size[2], const h_struct_T *S_struct, ::coder::
+             array<real_T, 2U> &FVr_bestmem)
   {
     ::coder::array<struct_T, 1U> S_val;
     ::coder::array<real_T, 2U> FM_bm;
@@ -77,8 +76,6 @@ namespace RAT
     f_struct_T a__2;
     f_struct_T a__3;
     f_struct_T result;
-    struct_T S_tempval;
-    struct_T a__4;
     real_T validatedHoleFilling[5];
     real_T p[4];
     real_T F_CR;
@@ -88,7 +85,15 @@ namespace RAT
     real_T I_itermax;
     real_T I_strategy;
     real_T S_bestval_FVr_oa;
+    real_T S_tempval_FVr_ca;
+    real_T S_tempval_FVr_oa;
+    real_T S_tempval_I_nc;
+    real_T S_tempval_I_no;
+    real_T b_expl_temp;
+    real_T c_expl_temp;
     real_T d;
+    real_T d_expl_temp;
+    real_T expl_temp;
     real_T fWeight;
     int32_T iv[4];
     int32_T b_FVr_a1;
@@ -238,11 +243,10 @@ namespace RAT
     }
 
     b_problem = *problem;
-    intrafun(b_FM_pop, &b_problem, problemLimits_param,
-             problemLimits_backgroundParam, problemLimits_scalefactor,
-             problemLimits_qzshift, problemLimits_bulkIn, problemLimits_bulkOut,
-             problemLimits_resolutionParam, problemLimits_domainRatio, controls,
-             &(S_val.data())[0], &a__1);
+    intrafun(b_FM_pop, &b_problem, controls_parallel_data,
+             controls_parallel_size, controls_resampleMinAngle,
+             controls_resampleNPoints, controls_calcSldDuringFit, &S_val[0].I_nc,
+             &S_val[0].FVr_ca, &S_val[0].I_no, &S_val[0].FVr_oa, &a__1);
     S_bestval_FVr_oa = S_val[0].FVr_oa;
 
     //  best objective function value so far
@@ -256,12 +260,13 @@ namespace RAT
       }
 
       b_problem = *problem;
-      intrafun(b_FM_pop, &b_problem, problemLimits_param,
-               problemLimits_backgroundParam, problemLimits_scalefactor,
-               problemLimits_qzshift, problemLimits_bulkIn,
-               problemLimits_bulkOut, problemLimits_resolutionParam,
-               problemLimits_domainRatio, controls, &S_val[k + 1], &a__2);
-      if (leftWin(S_val[k + 1], S_bestval_FVr_oa) == 1.0) {
+      intrafun(b_FM_pop, &b_problem, controls_parallel_data,
+               controls_parallel_size, controls_resampleMinAngle,
+               controls_resampleNPoints, controls_calcSldDuringFit, &S_val[k + 1]
+               .I_nc, &S_val[k + 1].FVr_ca, &S_val[k + 1].I_no, &S_val[k + 1].
+               FVr_oa, &a__2);
+      if (leftWin(S_val[k + 1].I_no, S_val[k + 1].FVr_oa, S_bestval_FVr_oa) ==
+          1.0) {
         I_best_index = k + 2U;
 
         //  save its location
@@ -769,26 +774,30 @@ namespace RAT
         }
 
         b_problem = *problem;
-        intrafun(b_FM_pop, &b_problem, problemLimits_param,
-                 problemLimits_backgroundParam, problemLimits_scalefactor,
-                 problemLimits_qzshift, problemLimits_bulkIn,
-                 problemLimits_bulkOut, problemLimits_resolutionParam,
-                 problemLimits_domainRatio, controls, &S_tempval, &a__3);
+        intrafun(b_FM_pop, &b_problem, controls_parallel_data,
+                 controls_parallel_size, controls_resampleMinAngle,
+                 controls_resampleNPoints, controls_calcSldDuringFit,
+                 &S_tempval_I_nc, &S_tempval_FVr_ca, &S_tempval_I_no,
+                 &S_tempval_FVr_oa, &a__3);
 
         //  check cost of competitor
-        if (leftWin(S_tempval, S_val[k].FVr_oa) == 1.0) {
+        if (leftWin(S_tempval_I_no, S_tempval_FVr_oa, S_val[k].FVr_oa) == 1.0) {
           loop_ub = FM_ui.size(1);
           for (i = 0; i < loop_ub; i++) {
             FM_pop[k + FM_pop.size(0) * i] = FM_ui[k + FM_ui.size(0) * i];
           }
 
           //  replace old vector with new one (for new iteration)
-          S_val[k] = S_tempval;
+          S_val[k].I_nc = S_tempval_I_nc;
+          S_val[k].FVr_ca = S_tempval_FVr_ca;
+          S_val[k].I_no = S_tempval_I_no;
+          S_val[k].FVr_oa = S_tempval_FVr_oa;
 
           //  save value in "cost array"
           // ----we update S_bestval only in case of success to save time-----------
-          if (leftWin(S_tempval, S_bestval_FVr_oa) == 1.0) {
-            S_bestval_FVr_oa = S_tempval.FVr_oa;
+          if (leftWin(S_tempval_I_no, S_tempval_FVr_oa, S_bestval_FVr_oa) == 1.0)
+          {
+            S_bestval_FVr_oa = S_tempval_FVr_oa;
 
             //  new best value
             loop_ub = FM_ui.size(1);
@@ -813,7 +822,7 @@ namespace RAT
       //  iteration. This is needed for some of the strategies.
       // ----Output section----------------------------------------------------------
       if (((rt_remd_snf(I_iter, 1.0) == 0.0) || (I_iter == 1.0)) && coder::
-          internal::bb_strcmp(controls->display.data, controls->display.size)) {
+          internal::bb_strcmp(controls_display_data, controls_display_size)) {
         coder::internal::print_processing(I_iter, S_bestval_FVr_oa, fWeight,
           F_CR, I_NP, validatedHoleFilling);
         coder::snPrint(validatedHoleFilling[0], validatedHoleFilling[1],
@@ -834,25 +843,24 @@ namespace RAT
       }
 
       //  Trigger the output event...
-      if (rt_remd_snf(I_iter, controls->updatePlotFreq) == 0.0) {
+      if (rt_remd_snf(I_iter, controls_updatePlotFreq) == 0.0) {
         b_problem = *problem;
-        intrafun(FVr_bestmem, &b_problem, problemLimits_param,
-                 problemLimits_backgroundParam, problemLimits_scalefactor,
-                 problemLimits_qzshift, problemLimits_bulkIn,
-                 problemLimits_bulkOut, problemLimits_resolutionParam,
-                 problemLimits_domainRatio, controls, &a__4, &result);
+        intrafun(FVr_bestmem, &b_problem, controls_parallel_data,
+                 controls_parallel_size, controls_resampleMinAngle,
+                 controls_resampleNPoints, controls_calcSldDuringFit, &expl_temp,
+                 &b_expl_temp, &c_expl_temp, &d_expl_temp, &result);
         triggerEvent(&result, problem->TF.data, problem->TF.size,
                      problem->resample, problem->dataPresent,
-                     problem->contrastNames, problem->modelType.data,
-                     problem->modelType.size);
+                     problem->modelType.data, problem->modelType.size,
+                     problem->names.contrasts);
       }
 
-      isRATStopped(controls->IPCFilePath.data, controls->IPCFilePath.size,
+      isRATStopped(controls_IPCFilePath_data, controls_IPCFilePath_size,
                    (boolean_T *)&tmp_data, &b_FVr_a1);
       if (coder::internal::ifWhileCond((const boolean_T *)&tmp_data, b_FVr_a1))
       {
-        if (!coder::internal::t_strcmp(controls->display.data,
-             controls->display.size)) {
+        if (!coder::internal::t_strcmp(controls_display_data,
+             controls_display_size)) {
           h_triggerEvent();
         }
 

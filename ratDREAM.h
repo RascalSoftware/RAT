@@ -21,9 +21,8 @@
 namespace RAT
 {
   struct e_struct_T;
-  struct struct2_T;
-  struct struct3_T;
-  struct k_struct_T;
+  struct struct4_T;
+  struct l_struct_T;
 }
 
 // Function Declarations
@@ -36,10 +35,9 @@ namespace RAT
                 2U> &paramInfo_min, const ::coder::array<real_T, 2U>
                 &paramInfo_max, const char_T paramInfo_boundhandling_data[],
                 const int32_T paramInfo_boundhandling_size[2], const e_struct_T *
-                ratInputs_problemStruct, const struct2_T
-                *ratInputs_problemLimits, const struct3_T *ratInputs_controls,
+                ratInputs_problemStruct, const struct4_T *ratInputs_controls,
                 const ::coder::array<real_T, 2U> &ratInputs_priors, ::coder::
-                array<real_T, 3U> &chain, k_struct_T *output, ::coder::array<
+                array<real_T, 3U> &chain, l_struct_T *output, ::coder::array<
                 real_T, 2U> &fx);
 }
 

@@ -21,7 +21,7 @@
 namespace RAT
 {
   struct e_struct_T;
-  struct struct3_T;
+  struct struct4_T;
   struct cell_wrap_8;
   struct cell_wrap_9;
   struct cell_wrap_10;
@@ -34,7 +34,7 @@ namespace RAT
 {
   namespace normalTF
   {
-    void b_customXY(const e_struct_T *problemStruct, const struct3_T *controls, ::
+    void b_customXY(const e_struct_T *problemStruct, const struct4_T *controls, ::
                     coder::array<real_T, 1U> &qzshifts, ::coder::array<real_T,
                     1U> &scalefactors, ::coder::array<real_T, 1U> &bulkIns, ::
                     coder::array<real_T, 1U> &bulkOuts, ::coder::array<real_T,
@@ -45,7 +45,7 @@ namespace RAT
                     coder::array<cell_wrap_10, 2U> &layerSlds, ::coder::array<
                     cell_wrap_10, 2U> &sldProfiles, ::coder::array<cell_wrap_10,
                     2U> &resampledLayers, ::coder::array<real_T, 1U> &subRoughs);
-    void b_customXY(const g_struct_T *problemStruct, const struct3_T *controls, ::
+    void b_customXY(const g_struct_T *problemStruct, const struct4_T *controls, ::
                     coder::array<real_T, 1U> &qzshifts, ::coder::array<real_T,
                     1U> &scalefactors, ::coder::array<real_T, 1U> &bulkIns, ::
                     coder::array<real_T, 1U> &bulkOuts, ::coder::array<real_T,
@@ -56,7 +56,7 @@ namespace RAT
                     coder::array<cell_wrap_10, 2U> &layerSlds, ::coder::array<
                     cell_wrap_10, 2U> &sldProfiles, ::coder::array<cell_wrap_10,
                     2U> &resampledLayers, ::coder::array<real_T, 1U> &subRoughs);
-    void b_customXY(const struct0_T *problemStruct, const struct3_T *controls, ::
+    void b_customXY(const struct0_T *problemStruct, const struct4_T *controls, ::
                     coder::array<real_T, 1U> &qzshifts, ::coder::array<real_T,
                     1U> &scalefactors, ::coder::array<real_T, 1U> &bulkIns, ::
                     coder::array<real_T, 1U> &bulkOuts, ::coder::array<real_T,

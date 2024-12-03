@@ -23,8 +23,7 @@
 namespace RAT
 {
   real_T DREAMWrapper(const ::coder::array<real_T, 2U> &pars, const e_struct_T
-                      *ratInputs_problemStruct, const struct2_T
-                      *ratInputs_problemLimits, const struct3_T
+                      *ratInputs_problemStruct, const struct4_T
                       *ratInputs_controls)
   {
     g_struct_T problemStruct;
@@ -102,13 +101,6 @@ namespace RAT
     loop_ub = ratInputs_problemStruct->repeatLayers.size(1);
     for (i = 0; i < loop_ub; i++) {
       problemStruct.repeatLayers[i] = ratInputs_problemStruct->repeatLayers[i];
-    }
-
-    problemStruct.contrastNames.set_size(1,
-      ratInputs_problemStruct->contrastNames.size(1));
-    loop_ub = ratInputs_problemStruct->contrastNames.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      problemStruct.contrastNames[i] = ratInputs_problemStruct->contrastNames[i];
     }
 
     problemStruct.contrastBackgroundParams.set_size(1,
@@ -196,16 +188,16 @@ namespace RAT
       problemStruct.scalefactors[i] = ratInputs_problemStruct->scalefactors[i];
     }
 
-    problemStruct.bulkIn.set_size(1, ratInputs_problemStruct->bulkIn.size(1));
-    loop_ub = ratInputs_problemStruct->bulkIn.size(1);
+    problemStruct.bulkIns.set_size(1, ratInputs_problemStruct->bulkIns.size(1));
+    loop_ub = ratInputs_problemStruct->bulkIns.size(1);
     for (i = 0; i < loop_ub; i++) {
-      problemStruct.bulkIn[i] = ratInputs_problemStruct->bulkIn[i];
+      problemStruct.bulkIns[i] = ratInputs_problemStruct->bulkIns[i];
     }
 
-    problemStruct.bulkOut.set_size(1, ratInputs_problemStruct->bulkOut.size(1));
-    loop_ub = ratInputs_problemStruct->bulkOut.size(1);
+    problemStruct.bulkOuts.set_size(1, ratInputs_problemStruct->bulkOuts.size(1));
+    loop_ub = ratInputs_problemStruct->bulkOuts.size(1);
     for (i = 0; i < loop_ub; i++) {
-      problemStruct.bulkOut[i] = ratInputs_problemStruct->bulkOut[i];
+      problemStruct.bulkOuts[i] = ratInputs_problemStruct->bulkOuts[i];
     }
 
     problemStruct.resolutionParams.set_size(1,
@@ -275,11 +267,11 @@ namespace RAT
         ratInputs_problemStruct->contrastDomainRatios[i];
     }
 
-    problemStruct.domainRatio.set_size(1,
-      ratInputs_problemStruct->domainRatio.size(1));
-    loop_ub = ratInputs_problemStruct->domainRatio.size(1);
+    problemStruct.domainRatios.set_size(1,
+      ratInputs_problemStruct->domainRatios.size(1));
+    loop_ub = ratInputs_problemStruct->domainRatios.size(1);
     for (i = 0; i < loop_ub; i++) {
-      problemStruct.domainRatio[i] = ratInputs_problemStruct->domainRatio[i];
+      problemStruct.domainRatios[i] = ratInputs_problemStruct->domainRatios[i];
     }
 
     problemStruct.numberOfDomainContrasts =
@@ -320,6 +312,7 @@ namespace RAT
     }
 
     problemStruct.names = ratInputs_problemStruct->names;
+    problemStruct.checks = ratInputs_problemStruct->checks;
 
     //  Put the current parameters into problem
     problemStruct.fitParams.set_size(1, pars.size(1));
@@ -329,22 +322,10 @@ namespace RAT
     }
 
     //  Distribute them to the right parts
-    unpackParams(&problemStruct, ratInputs_controls->checks.fitParam,
-                 ratInputs_controls->checks.fitBackgroundParam,
-                 ratInputs_controls->checks.fitQzshift,
-                 ratInputs_controls->checks.fitScalefactor,
-                 ratInputs_controls->checks.fitBulkIn,
-                 ratInputs_controls->checks.fitBulkOut,
-                 ratInputs_controls->checks.fitResolutionParam,
-                 ratInputs_controls->checks.fitDomainRatio);
+    unpackParams(&problemStruct);
 
     //  Calculate....
-    reflectivityCalculation(&problemStruct, ratInputs_problemLimits->param,
-      ratInputs_problemLimits->backgroundParam,
-      ratInputs_problemLimits->scalefactor, ratInputs_problemLimits->qzshift,
-      ratInputs_problemLimits->bulkIn, ratInputs_problemLimits->bulkOut,
-      ratInputs_problemLimits->resolutionParam,
-      ratInputs_problemLimits->domainRatio, ratInputs_controls, &expl_temp);
+    reflectivityCalculation(&problemStruct, ratInputs_controls, &expl_temp);
 
     //  Function value is chi-squared....
     return -expl_temp.calculationResults.sumChi / 2.0;

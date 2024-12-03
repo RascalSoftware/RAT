@@ -21,16 +21,14 @@
 namespace RAT
 {
   struct e_struct_T;
-  struct struct2_T;
-  struct struct3_T;
+  struct struct4_T;
 }
 
 // Function Declarations
 namespace RAT
 {
   real_T DREAMWrapper(const ::coder::array<real_T, 2U> &pars, const e_struct_T
-                      *ratInputs_problemStruct, const struct2_T
-                      *ratInputs_problemLimits, const struct3_T
+                      *ratInputs_problemStruct, const struct4_T
                       *ratInputs_controls);
 }
 

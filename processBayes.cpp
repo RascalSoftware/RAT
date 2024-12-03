@@ -26,9 +26,9 @@ namespace RAT
 {
   void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestParams,
                     const ::coder::array<real_T, 2U> &bayesOutputs_chain, const
-                    e_struct_T *problemStruct, const struct2_T *problemLimits,
-                    struct3_T *controls, g_struct_T *b_problemStruct, struct6_T *
-                    result, j_struct_T *bayesResults)
+                    e_struct_T *problemStruct, struct4_T *controls, g_struct_T
+                    *b_problemStruct, struct6_T *result, j_struct_T
+                    *bayesResults)
   {
     g_struct_T c_problemStruct;
     int32_T b_loop_ub;
@@ -95,13 +95,6 @@ namespace RAT
     loop_ub = problemStruct->repeatLayers.size(1);
     for (i = 0; i < loop_ub; i++) {
       b_problemStruct->repeatLayers[i] = problemStruct->repeatLayers[i];
-    }
-
-    b_problemStruct->contrastNames.set_size(1, problemStruct->contrastNames.size
-      (1));
-    loop_ub = problemStruct->contrastNames.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      b_problemStruct->contrastNames[i] = problemStruct->contrastNames[i];
     }
 
     b_problemStruct->contrastBackgroundParams.set_size(1,
@@ -184,16 +177,16 @@ namespace RAT
       b_problemStruct->scalefactors[i] = problemStruct->scalefactors[i];
     }
 
-    b_problemStruct->bulkIn.set_size(1, problemStruct->bulkIn.size(1));
-    loop_ub = problemStruct->bulkIn.size(1);
+    b_problemStruct->bulkIns.set_size(1, problemStruct->bulkIns.size(1));
+    loop_ub = problemStruct->bulkIns.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b_problemStruct->bulkIn[i] = problemStruct->bulkIn[i];
+      b_problemStruct->bulkIns[i] = problemStruct->bulkIns[i];
     }
 
-    b_problemStruct->bulkOut.set_size(1, problemStruct->bulkOut.size(1));
-    loop_ub = problemStruct->bulkOut.size(1);
+    b_problemStruct->bulkOuts.set_size(1, problemStruct->bulkOuts.size(1));
+    loop_ub = problemStruct->bulkOuts.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b_problemStruct->bulkOut[i] = problemStruct->bulkOut[i];
+      b_problemStruct->bulkOuts[i] = problemStruct->bulkOuts[i];
     }
 
     b_problemStruct->resolutionParams.set_size(1,
@@ -258,10 +251,10 @@ namespace RAT
         problemStruct->contrastDomainRatios[i];
     }
 
-    b_problemStruct->domainRatio.set_size(1, problemStruct->domainRatio.size(1));
-    loop_ub = problemStruct->domainRatio.size(1);
+    b_problemStruct->domainRatios.set_size(1, problemStruct->domainRatios.size(1));
+    loop_ub = problemStruct->domainRatios.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b_problemStruct->domainRatio[i] = problemStruct->domainRatio[i];
+      b_problemStruct->domainRatios[i] = problemStruct->domainRatios[i];
     }
 
     b_problemStruct->numberOfDomainContrasts =
@@ -298,11 +291,12 @@ namespace RAT
     }
 
     b_problemStruct->names = problemStruct->names;
+    b_problemStruct->checks = problemStruct->checks;
 
     //  Need to impose that we calculate the SLD..
     controls->calcSldDuringFit = true;
 
-    // ... and use the Bayes best params
+    //  ... and use the Bayes best params
     b_problemStruct->fitParams.set_size(1, bayesOutputs_bestParams.size(1));
     loop_ub = bayesOutputs_bestParams.size(1);
     for (i = 0; i < loop_ub; i++) {
@@ -310,12 +304,7 @@ namespace RAT
         bayesOutputs_bestParams[i];
     }
 
-    unpackParams(b_problemStruct, controls->checks.fitParam,
-                 controls->checks.fitBackgroundParam,
-                 controls->checks.fitQzshift, controls->checks.fitScalefactor,
-                 controls->checks.fitBulkIn, controls->checks.fitBulkOut,
-                 controls->checks.fitResolutionParam,
-                 controls->checks.fitDomainRatio);
+    unpackParams(b_problemStruct);
     percentileConfidenceIntervals(bayesOutputs_chain,
       bayesResults->confidenceIntervals.percentile95,
       bayesResults->confidenceIntervals.percentile65,
@@ -323,20 +312,15 @@ namespace RAT
 
     // iterShortest(output.chain,length(fitNames),[],0.95);
     //  Calculate 'mean' best fit curves
-    reflectivityCalculation(b_problemStruct, problemLimits->param,
-      problemLimits->backgroundParam, problemLimits->scalefactor,
-      problemLimits->qzshift, problemLimits->bulkIn, problemLimits->bulkOut,
-      problemLimits->resolutionParam, problemLimits->domainRatio, controls,
-      result);
+    reflectivityCalculation(b_problemStruct, controls, result);
 
     //  2. Reflectivity and SLD shading
     c_problemStruct = *b_problemStruct;
     refPercentileConfidenceIntervals(bayesOutputs_chain, &c_problemStruct,
-      problemLimits->param, problemLimits->backgroundParam,
-      problemLimits->scalefactor, problemLimits->qzshift, problemLimits->bulkIn,
-      problemLimits->bulkOut, problemLimits->resolutionParam,
-      problemLimits->domainRatio, controls, result,
-      &bayesResults->predictionIntervals);
+      controls, result->reflectivity, result->sldProfiles,
+      bayesResults->predictionIntervals.reflectivity,
+      bayesResults->predictionIntervals.sld,
+      bayesResults->predictionIntervals.sampleChi);
 
     //  ---------------------------------
     //  bayesResults.chain = bayesOutputs.chain;

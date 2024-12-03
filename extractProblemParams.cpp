@@ -29,9 +29,9 @@ namespace RAT
     &contrastResolutionParams, ::coder::array<real_T, 2U> &contrastDomainRatios,
     ::coder::array<real_T, 2U> &backgroundParams, ::coder::array<real_T, 2U>
     &qzshifts, ::coder::array<real_T, 2U> &scalefactors, ::coder::array<real_T,
-    2U> &bulkIn, ::coder::array<real_T, 2U> &bulkOut, ::coder::array<real_T, 2U>
-    &resolutionParams, ::coder::array<real_T, 2U> &domainRatio, ::coder::array<
-    real_T, 2U> &dataPresent, real_T *nParams, ::coder::array<real_T, 2U>
+    2U> &bulkIns, ::coder::array<real_T, 2U> &bulkOuts, ::coder::array<real_T,
+    2U> &resolutionParams, ::coder::array<real_T, 2U> &domainRatios, ::coder::
+    array<real_T, 2U> &dataPresent, real_T *nParams, ::coder::array<real_T, 2U>
     &params, real_T *numberOfLayers, ::coder::array<real_T, 2U> &resample, ::
     coder::array<cell_wrap_7, 2U> &contrastBackgroundTypes, ::coder::array<
     cell_wrap_7, 2U> &contrastBackgroundActions, ::coder::array<real_T, 2U>
@@ -118,16 +118,16 @@ namespace RAT
       scalefactors[i] = problemStruct->scalefactors[i];
     }
 
-    bulkIn.set_size(1, problemStruct->bulkIn.size(1));
-    loop_ub = problemStruct->bulkIn.size(1);
+    bulkIns.set_size(1, problemStruct->bulkIns.size(1));
+    loop_ub = problemStruct->bulkIns.size(1);
     for (i = 0; i < loop_ub; i++) {
-      bulkIn[i] = problemStruct->bulkIn[i];
+      bulkIns[i] = problemStruct->bulkIns[i];
     }
 
-    bulkOut.set_size(1, problemStruct->bulkOut.size(1));
-    loop_ub = problemStruct->bulkOut.size(1);
+    bulkOuts.set_size(1, problemStruct->bulkOuts.size(1));
+    loop_ub = problemStruct->bulkOuts.size(1);
     for (i = 0; i < loop_ub; i++) {
-      bulkOut[i] = problemStruct->bulkOut[i];
+      bulkOuts[i] = problemStruct->bulkOuts[i];
     }
 
     resolutionParams.set_size(1, problemStruct->resolutionParams.size(1));
@@ -136,10 +136,10 @@ namespace RAT
       resolutionParams[i] = problemStruct->resolutionParams[i];
     }
 
-    domainRatio.set_size(1, problemStruct->domainRatio.size(1));
-    loop_ub = problemStruct->domainRatio.size(1);
+    domainRatios.set_size(1, problemStruct->domainRatios.size(1));
+    loop_ub = problemStruct->domainRatios.size(1);
     for (i = 0; i < loop_ub; i++) {
-      domainRatio[i] = problemStruct->domainRatio[i];
+      domainRatios[i] = problemStruct->domainRatios[i];
     }
 
     dataPresent.set_size(1, problemStruct->dataPresent.size(1));

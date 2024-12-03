@@ -14,17 +14,17 @@ for i = 1:length(inputStruct.contrastData)
 end
 
 %% Put the priors into their own array
-priors.param = inputStruct.paramPriors;
-priors.backgroundParam = inputStruct.backgroundParamPriors;
-priors.resolutionParam = inputStruct.resolutionParamPriors;
-priors.bulkIn = inputStruct.bulkInPriors;
-priors.bulkOut = inputStruct.bulkOutPriors;
-priors.qzshift = inputStruct.qzshiftPriors;
-priors.scalefactor = inputStruct.scalefactorPriors;
+priors.params = inputStruct.paramPriors;
+priors.backgroundParams = inputStruct.backgroundParamPriors;
+priors.scalefactors = inputStruct.scalefactorPriors;
+priors.qzshifts = inputStruct.qzshiftPriors;
+priors.bulkIns = inputStruct.bulkInPriors;
+priors.bulkOuts = inputStruct.bulkOutPriors;
+priors.resolutionParams = inputStruct.resolutionParamPriors;
 if isa(project, 'domainsClass')
-    priors.domainRatio = inputStruct.domainRatioPriors;
+    priors.domainRatios = inputStruct.domainRatioPriors;
 else
-    priors.domainRatio = cell(0,1);
+    priors.domainRatios = cell(0,1);
 end
 
 priorFields = fieldnames(priors);
@@ -180,39 +180,39 @@ end
 
 %% Now make the limits array
 for i = 1:length(inputStruct.paramLimits)
-    problemLimits.param(i,:) = inputStruct.paramLimits{i};
+    problemLimits.params(i,:) = inputStruct.paramLimits{i};
 end
 
 for i = 1:length(inputStruct.backgroundParamLimits)
-    problemLimits.backgroundParam(i,:) = inputStruct.backgroundParamLimits{i};
+    problemLimits.backgroundParams(i,:) = inputStruct.backgroundParamLimits{i};
 end
 
 for i = 1:length(inputStruct.scalefactorLimits)
-    problemLimits.scalefactor(i,:) = inputStruct.scalefactorLimits{i};
+    problemLimits.scalefactors(i,:) = inputStruct.scalefactorLimits{i};
 end
 
 for i = 1:length(inputStruct.qzshiftLimits)
-    problemLimits.qzshift(i,:) = inputStruct.qzshiftLimits{i};
+    problemLimits.qzshifts(i,:) = inputStruct.qzshiftLimits{i};
 end
 
 for i = 1:length(inputStruct.bulkInLimits)
-    problemLimits.bulkIn(i,:) = inputStruct.bulkInLimits{i};
+    problemLimits.bulkIns(i,:) = inputStruct.bulkInLimits{i};
 end
 
 for i = 1:length(inputStruct.bulkOutLimits)
-    problemLimits.bulkOut(i,:) = inputStruct.bulkOutLimits{i};
+    problemLimits.bulkOuts(i,:) = inputStruct.bulkOutLimits{i};
 end
 
 for i = 1:length(inputStruct.resolutionParamLimits)
-    problemLimits.resolutionParam(i,:) = inputStruct.resolutionParamLimits{i};
+    problemLimits.resolutionParams(i,:) = inputStruct.resolutionParamLimits{i};
 end
 
 if isa(project, 'domainsClass')
     for i = 1:length(inputStruct.domainRatioLimits)
-        problemLimits.domainRatio(i,:) = inputStruct.domainRatioLimits{i};
+        problemLimits.domainRatios(i,:) = inputStruct.domainRatioLimits{i};
     end
 else
-    problemLimits.domainRatio = ones(0,2);
+    problemLimits.domainRatios = ones(0,2);
 end
 
 
@@ -241,8 +241,8 @@ problemStruct.contrastResolutionParams = contrastResolutionParams;
 problemStruct.backgroundParams = inputStruct.backgroundParamValues;
 problemStruct.qzshifts = inputStruct.qzshiftValues;
 problemStruct.scalefactors = inputStruct.scalefactorValues;
-problemStruct.bulkIn = inputStruct.bulkInValues;
-problemStruct.bulkOut = inputStruct.bulkOutValues;
+problemStruct.bulkIns = inputStruct.bulkInValues;
+problemStruct.bulkOuts = inputStruct.bulkOutValues;
 problemStruct.resolutionParams = inputStruct.resolutionParamValues; %inputStruct.resolutions;           % **** note resolutionParam workaround (todo) ****          
 problemStruct.params = inputStruct.paramValues;
 problemStruct.numberOfLayers = inputStruct.numberOfLayers;
@@ -257,9 +257,9 @@ problemStruct.contrastCustomFiles = inputStruct.contrastCustomFile;
 problemStruct.contrastDomainRatios = inputStruct.contrastDomainRatios;
 
 if isa(project, 'domainsClass')
-    problemStruct.domainRatio = inputStruct.domainRatioValues;
+    problemStruct.domainRatios = inputStruct.domainRatioValues;
 else
-    problemStruct.domainRatio = ones(1,0);
+    problemStruct.domainRatios = ones(1,0);
 end
 
 if isa(project, 'domainsClass') && isa(project.domainContrasts, 'domainContrastsClass')

@@ -16,10 +16,10 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
                     length(problemStruct.backgroundParams) + ...
                     length(problemStruct.scalefactors) + ...
                     length(problemStruct.qzshifts) + ...
-                    length(problemStruct.bulkIn) + ...
-                    length(problemStruct.bulkOut) + ...
+                    length(problemStruct.bulkIns) + ...
+                    length(problemStruct.bulkOuts) + ...
                     length(problemStruct.resolutionParams) + ...
-                    length(problemStruct.domainRatio);
+                    length(problemStruct.domainRatios);
        
     fitParams = zeros(numberOfFitted, 1);
     otherParams = zeros((numberOfTotal-numberOfFitted), 1);
@@ -33,10 +33,10 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
     for n = 1:length(problemStruct.checks.params)
         if problemStruct.checks.params(n) == 1
             fitParams(fitCounter) = problemStruct.params(n);
-            fitLimits(fitCounter,1) = limits.param(n,1);
-            fitLimits(fitCounter,2) = limits.param(n,2);        
+            fitLimits(fitCounter,1) = limits.params(n,1);
+            fitLimits(fitCounter,2) = limits.params(n,2);        
             fitNames{fitCounter} = problemStruct.names.params{n};
-            thisPrior = priors.param{n};
+            thisPrior = priors.params{n};
             if (strcmpi(thisPrior{2},'gaussian'))
                 thisGausPrior = [thisPrior{3} thisPrior{4}];
             else
@@ -46,8 +46,8 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
             fitCounter = fitCounter + 1;
         else
             otherParams(otherCounter) = problemStruct.params(n);
-            otherLimits(otherCounter,1) = limits.param(n,1);
-            otherLimits(otherCounter,2) = limits.param(n,2);
+            otherLimits(otherCounter,1) = limits.params(n,1);
+            otherLimits(otherCounter,2) = limits.params(n,2);
             otherCounter = otherCounter + 1;
         end
     end
@@ -56,10 +56,10 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
     for n = 1:length(problemStruct.checks.backgroundParams)
         if problemStruct.checks.backgroundParams(n) == 1
             fitParams(fitCounter) = problemStruct.backgroundParams(n);
-            fitLimits(fitCounter,1) = limits.backgroundParam(n,1);
-            fitLimits(fitCounter,2) = limits.backgroundParam(n,2);
+            fitLimits(fitCounter,1) = limits.backgroundParams(n,1);
+            fitLimits(fitCounter,2) = limits.backgroundParams(n,2);
             fitNames{fitCounter} = problemStruct.names.backgroundParams{n};
-            thisPrior = priors.backgroundParam{n};
+            thisPrior = priors.backgroundParams{n};
             if (strcmpi(thisPrior{2},'gaussian'))
                 thisGausPrior = [thisPrior{4} thisPrior{5}];
             else
@@ -69,8 +69,8 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
             fitCounter = fitCounter + 1;
         else
             otherParams(otherCounter) = problemStruct.backgroundParams(n);
-            otherLimits(otherCounter,1) = limits.backgroundParam(n,1);
-            otherLimits(otherCounter,2) = limits.backgroundParam(n,2);
+            otherLimits(otherCounter,1) = limits.backgroundParams(n,1);
+            otherLimits(otherCounter,2) = limits.backgroundParams(n,2);
             otherCounter = otherCounter + 1;
         end
     end
@@ -79,10 +79,10 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
     for n = 1:length(problemStruct.checks.scalefactors)
         if problemStruct.checks.scalefactors(n) == 1
             fitParams(fitCounter) = problemStruct.scalefactors(n);
-            fitLimits(fitCounter,1) = limits.scalefactor(n,1);
-            fitLimits(fitCounter,2) = limits.scalefactor(n,2);
+            fitLimits(fitCounter,1) = limits.scalefactors(n,1);
+            fitLimits(fitCounter,2) = limits.scalefactors(n,2);
             fitNames{fitCounter} = problemStruct.names.scalefactors{n};
-            thisPrior = priors.scalefactor{n};
+            thisPrior = priors.scalefactors{n};
             if (strcmpi(thisPrior{2},'gaussian'))
                 thisGausPrior = [thisPrior{4} thisPrior{5}];
             else
@@ -92,8 +92,8 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
             fitCounter = fitCounter + 1;
         else
             otherParams(otherCounter) = problemStruct.scalefactors(n);
-            otherLimits(otherCounter,1) = limits.scalefactor(n,1);
-            otherLimits(otherCounter,2) = limits.scalefactor(n,2);
+            otherLimits(otherCounter,1) = limits.scalefactors(n,1);
+            otherLimits(otherCounter,2) = limits.scalefactors(n,2);
             otherCounter = otherCounter + 1;
         end
     end    
@@ -102,10 +102,10 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
     for n = 1:length(problemStruct.checks.qzshifts)
         if problemStruct.checks.qzshifts(n) == 1
             fitParams(fitCounter) = problemStruct.qzshifts(n);
-            fitLimits(fitCounter,1) = limits.qzshift(n,1);
-            fitLimits(fitCounter,2) = limits.qzshift(n,2);
+            fitLimits(fitCounter,1) = limits.qzshifts(n,1);
+            fitLimits(fitCounter,2) = limits.qzshifts(n,2);
             fitNames{fitCounter} = problemStruct.names.qzshifts{n};
-            thisPrior = priors.qzshift{n};
+            thisPrior = priors.qzshifts{n};
             if (strcmpi(thisPrior{2},'gaussian'))
                 thisGausPrior = [thisPrior{4} thisPrior{5}];
             else
@@ -115,8 +115,8 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
             fitCounter = fitCounter + 1;
         else
             otherParams(otherCounter) = problemStruct.qzshifts(n);
-            otherLimits(otherCounter,1) = limits.qzshift(n,1);
-            otherLimits(otherCounter,2) = limits.qzshift(n,2);
+            otherLimits(otherCounter,1) = limits.qzshifts(n,1);
+            otherLimits(otherCounter,2) = limits.qzshifts(n,2);
             otherCounter = otherCounter + 1;
         end
     end 
@@ -124,11 +124,11 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
     %Bulk In
     for n = 1:length(problemStruct.checks.bulkIns)
         if problemStruct.checks.bulkIns(n) == 1
-            fitParams(fitCounter) = problemStruct.bulkIn(n);
-            fitLimits(fitCounter,1) = limits.bulkIn(n,1);
-            fitLimits(fitCounter,2) = limits.bulkIn(n,2);
+            fitParams(fitCounter) = problemStruct.bulkIns(n);
+            fitLimits(fitCounter,1) = limits.bulkIns(n,1);
+            fitLimits(fitCounter,2) = limits.bulkIns(n,2);
             fitNames{fitCounter} = problemStruct.names.bulkIns{n};
-            thisPrior = priors.bulkIn{n};
+            thisPrior = priors.bulkIns{n};
             if (strcmpi(thisPrior{2},'gaussian'))
                 thisGausPrior = [thisPrior{4} thisPrior{5}];
             else
@@ -137,9 +137,9 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
             fitPriors(fitCounter,:) = thisGausPrior;
             fitCounter = fitCounter + 1;
         else
-            otherParams(otherCounter) = problemStruct.bulkIn(n);
-            otherLimits(otherCounter,1) = limits.bulkIn(n,1);
-            otherLimits(otherCounter,2) = limits.bulkIn(n,2);
+            otherParams(otherCounter) = problemStruct.bulkIns(n);
+            otherLimits(otherCounter,1) = limits.bulkIns(n,1);
+            otherLimits(otherCounter,2) = limits.bulkIns(n,2);
             otherCounter = otherCounter + 1;
         end
     end 
@@ -147,11 +147,11 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
     %Bulk Out
     for n = 1:length(problemStruct.checks.bulkOuts)
         if problemStruct.checks.bulkOuts(n) == 1
-            fitParams(fitCounter) = problemStruct.bulkOut(n);
-            fitLimits(fitCounter,1) = limits.bulkOut(n,1);
-            fitLimits(fitCounter,2) = limits.bulkOut(n,2);
+            fitParams(fitCounter) = problemStruct.bulkOuts(n);
+            fitLimits(fitCounter,1) = limits.bulkOuts(n,1);
+            fitLimits(fitCounter,2) = limits.bulkOuts(n,2);
             fitNames{fitCounter} = problemStruct.names.bulkOuts{n};
-            thisPrior = priors.bulkOut{n};
+            thisPrior = priors.bulkOuts{n};
             if (strcmpi(thisPrior{2},'gaussian'))
                 thisGausPrior = [thisPrior{3} thisPrior{4}];
             else
@@ -160,9 +160,9 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
             fitPriors(fitCounter,:) = thisGausPrior;
             fitCounter = fitCounter + 1;
         else
-            otherParams(otherCounter) = problemStruct.bulkOut(n);
-            otherLimits(otherCounter,1) = limits.bulkOut(n,1);
-            otherLimits(otherCounter,2) = limits.bulkOut(n,2);
+            otherParams(otherCounter) = problemStruct.bulkOuts(n);
+            otherLimits(otherCounter,1) = limits.bulkOuts(n,1);
+            otherLimits(otherCounter,2) = limits.bulkOuts(n,2);
             otherCounter = otherCounter + 1;
         end
     end 
@@ -171,10 +171,10 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
     for n = 1:length(problemStruct.checks.resolutionParams)
         if problemStruct.checks.resolutionParams(n) == 1
             fitParams(fitCounter) = problemStruct.resolutionParams(n);
-            fitLimits(fitCounter,1) = limits.resolutionParam(n,1);
-            fitLimits(fitCounter,2) = limits.resolutionParam(n,2);
+            fitLimits(fitCounter,1) = limits.resolutionParams(n,1);
+            fitLimits(fitCounter,2) = limits.resolutionParams(n,2);
             fitNames{fitCounter} = problemStruct.names.resolutionParams{n};
-            thisPrior = priors.resolutionParam{n};
+            thisPrior = priors.resolutionParams{n};
             if (strcmpi(thisPrior{2},'gaussian'))
                 thisGausPrior = [thisPrior{4} thisPrior{5}];
             else
@@ -184,8 +184,8 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
             fitCounter = fitCounter + 1;
         else
             otherParams(otherCounter) = problemStruct.resolutionParams(n);
-            otherLimits(otherCounter,1) = limits.resolutionParam(n,1);
-            otherLimits(otherCounter,2) = limits.resolutionParam(n,2);
+            otherLimits(otherCounter,1) = limits.resolutionParams(n,1);
+            otherLimits(otherCounter,2) = limits.resolutionParams(n,2);
             otherCounter = otherCounter + 1;
         end
     end 
@@ -193,11 +193,11 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
     % Domain Ratio
     for n = 1:length(problemStruct.checks.domainRatios)
         if problemStruct.checks.domainRatios(n) == 1
-            fitParams(fitCounter) = problemStruct.domainRatio(n);
-            fitLimits(fitCounter,1) = limits.domainRatio(n,1);
-            fitLimits(fitCounter,2) = limits.domainRatio(n,2);
+            fitParams(fitCounter) = problemStruct.domainRatios(n);
+            fitLimits(fitCounter,1) = limits.domainRatios(n,1);
+            fitLimits(fitCounter,2) = limits.domainRatios(n,2);
             fitNames{fitCounter} = problemStruct.names.domainRatios{n};
-            thisPrior = priors.domainRatio{n};
+            thisPrior = priors.domainRatios{n};
             if (strcmpi(thisPrior{2},'gaussian'))
                 thisGausPrior = [thisPrior{4} thisPrior{5}];
             else
@@ -206,9 +206,9 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
             fitPriors(fitCounter,:) = thisGausPrior;
             fitCounter = fitCounter + 1;
         else
-            otherParams(otherCounter) = problemStruct.domainRatio(n);
-            otherLimits(otherCounter,1) = limits.domainRatio(n,1);
-            otherLimits(otherCounter,2) = limits.domainRatio(n,2);
+            otherParams(otherCounter) = problemStruct.domainRatios(n);
+            otherLimits(otherCounter,1) = limits.domainRatios(n,1);
+            otherLimits(otherCounter,2) = limits.domainRatios(n,2);
             otherCounter = otherCounter + 1;
         end
     end 

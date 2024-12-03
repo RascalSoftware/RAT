@@ -22,13 +22,13 @@ for i = 1:length(scalefactors)
 end
 
 %(4) Bulk In
-bulkIns = problemStruct.bulkIn;
+bulkIns = problemStruct.bulkIns;
 for i = 1:length(bulkIns)
     project.setBulkIn(i,'value',bulkIns(i));
 end
 
 %(5) Bulk Out
-bulkOuts = problemStruct.bulkOut;
+bulkOuts = problemStruct.bulkOuts;
 for i = 1:length(bulkOuts)
     project.setBulkOut(i,'value',bulkOuts(i));
 end
@@ -41,7 +41,7 @@ end
 
 % (7) Domain ratio
 if strcmpi(problemStruct.TF, calculationTypes.Domains.value)
-    domainRatios = problemStruct.domainRatio;
+    domainRatios = problemStruct.domainRatios;
     for i = 1:length(domainRatios)
         project.setDomainRatio(i,'value',domainRatios(i));
     end

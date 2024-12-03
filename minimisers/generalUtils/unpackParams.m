@@ -70,7 +70,7 @@ function problemStruct = unpackParams(problemStruct)
     problemStruct.qzshifts = uppars;
 
     %Bulk In
-    uppars = zeros(1,length(problemStruct.bulkIn));
+    uppars = zeros(1,length(problemStruct.bulkIns));
     uppars_counter = 1;
     for i = 1:length(problemStruct.checks.bulkIns)
         if problemStruct.checks.bulkIns(i) == 1
@@ -83,10 +83,10 @@ function problemStruct = unpackParams(problemStruct)
             uppars_counter = uppars_counter + 1;
         end
     end
-    problemStruct.bulkIn = uppars;
+    problemStruct.bulkIns = uppars;
 
     %Bulk Out
-    uppars = zeros(1,length(problemStruct.bulkOut));
+    uppars = zeros(1,length(problemStruct.bulkOuts));
     uppars_counter = 1;
     for i = 1:length(problemStruct.checks.bulkOuts)
         if problemStruct.checks.bulkOuts(i) == 1
@@ -99,7 +99,7 @@ function problemStruct = unpackParams(problemStruct)
             uppars_counter = uppars_counter + 1;
         end
     end
-    problemStruct.bulkOut = uppars;
+    problemStruct.bulkOuts = uppars;
 
     %Resolutions
     uppars = zeros(1,length(problemStruct.resolutionParams));
@@ -118,7 +118,7 @@ function problemStruct = unpackParams(problemStruct)
     problemStruct.resolutionParams = uppars;
 
     %Domain Ratios
-    uppars = zeros(1,length(problemStruct.domainRatio));
+    uppars = zeros(1,length(problemStruct.domainRatios));
     uppars_counter = 1;
     for i = 1:length(problemStruct.checks.domainRatios)
         if problemStruct.checks.domainRatios(i) == 1
@@ -131,6 +131,6 @@ function problemStruct = unpackParams(problemStruct)
             uppars_counter = uppars_counter + 1;
         end
     end
-    problemStruct.domainRatio = uppars;
+    problemStruct.domainRatios = uppars;
 
 end

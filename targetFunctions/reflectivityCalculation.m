@@ -1,19 +1,20 @@
-function result = reflectivityCalculation(problemStruct,problemLimits,controls)
+function result = reflectivityCalculation(problemStruct,controls)
 % Main entry point into the reflectivity calculation for the toolbox.
 % This is the main function that is called by any of the minimisers or
 % analysis tools from the rest of the toolbox. 
 %
-% *The main job of this function is to decide which type of calculation
-% (i.e. 'Target function' is required, and call the relevant routines.
-% The types of available target functions are:*
+% The main job of this function is to decide which type of calculation
+% (i.e. 'Target function') is required, and call the relevant routines.
+% Different model types are specified in sub functions.
+% The types of available target functions are:
 %
-% * normal  - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
+% * normal    - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples.
 %
-% * oil water      - Target function for oil-water samples
+% * oil water - Target function for oil-water samples
 %
-% * domains        - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
+% * domains   - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
 %
-% * magnetic       - Target function for cases for polarised neutrons with polarisation analysis.
+% * magnetic  - Target function for cases for polarised neutrons with polarisation analysis.
 %                       
 
 % Decide which target function we are calling and call the relevant routines
@@ -111,8 +112,6 @@ result.calculationResults = calculationResults;
 result.contrastParams = contrastParams;
 
 result.fitParams = problemStruct.fitParams;
-
-[~,fitNames] = packParams(problemStruct,problemLimits,controls.checks);
-result.fitNames = fitNames;
+result.fitNames = getFitNames(problemStruct);
 
 end

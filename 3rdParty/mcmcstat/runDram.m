@@ -4,14 +4,13 @@ function  [problemStruct,outProblem,result,bayesResults] = runDram(problemStruct
 
 %coder.varsize('problemStruct.contrastBacks',[1 Inf],[0 1]);
 
-checks = controls.checks;
-[problemStruct,fitNames] = packParams(problemStruct,problemLimits,checks);
-%fitPriors = packPriors(priors,checks);
+[problemStruct,fitNames] = packParams(problemStruct,problemLimits);
+%fitPriors = packPriors(priors);
 
 % Seed the Random Number Generator
 rng(0);
 
-%fitPriors = packPriors(priors,checks);
+%fitPriors = packPriors(priors);
 
 %First deal with priors.
 prior = {};
@@ -31,12 +30,12 @@ end
 % Put all the priors into one array
 % ** This won't work for code generation **
 % priorsGroup = [priors.param ; ...
-%     priors.backgroundParam ; ...
-%     priors.resolutionParam ; ...
-%     priors.bulkIn ; ...
-%     priors.bulkOut ; ...
-%     priors.qzshift ; 
-%     priors.scalefactor];
+%     priors.backgroundParams ; ...
+%     priors.resolutionParams ; ...
+%     priors.bulkIns ; ...
+%     priors.bulkOuts ; ...
+%     priors.qzshifts ; 
+%     priors.scalefactors];
 
 % totalNumber = size(priors.param,1) + size(priors.backgroundParam,1) + ...
 %     size(priors.resolutionParam,1) + size(priors.bulkIn,1) + size(priors.bulkOut,1) + ...
@@ -47,59 +46,59 @@ end
 % allPriors = strings(totalNumber,2);
 % allPriorVals = cell(totalNumber,2);
 % cellCount = 1;
-% for i = 1:size(priors.param,1)
-%     allPriors(cellCount,1) = string(priors.param{i}{1});
-%     allPriors(cellCount,2) = string(priors.param{i}{2});
-%     allPriorVals{cellCount,1} = priors.param{i}{3};
-%     allPriorVals{cellCount,2} = priors.param{i}{4};
+% for i = 1:size(priors.params,1)
+%     allPriors(cellCount,1) = string(priors.params{i}{1});
+%     allPriors(cellCount,2) = string(priors.params{i}{2});
+%     allPriorVals{cellCount,1} = priors.params{i}{3};
+%     allPriorVals{cellCount,2} = priors.params{i}{4};
 %     cellCount = cellCount + 1;
 % end
 % 
-% for i = 1:size(priors.backgroundParam,1)
-%     allPriors(cellCount,1) = priors.backgroundParam{i}{1};
-%     allPriors(cellCount,2) = priors.backgroundParam{i}{2};
-%     allPriorVals{cellCount,1} = priors.backgroundParam{i}{3};
-%     allPriorVals{cellCount,2} = priors.backgroundParam{i}{4};
+% for i = 1:size(priors.backgroundParams,1)
+%     allPriors(cellCount,1) = priors.backgroundParams{i}{1};
+%     allPriors(cellCount,2) = priors.backgroundParams{i}{2};
+%     allPriorVals{cellCount,1} = priors.backgroundParams{i}{3};
+%     allPriorVals{cellCount,2} = priors.backgroundParams{i}{4};
 %     cellCount = cellCount + 1;
 % end
 % 
-% for i = 1:size(priors.resolutionParam,1)
-%     allPriors(cellCount,1) = priors.resolutionParam{i}{1};
-%     allPriors(cellCount,2) = priors.resolutionParam{i}{2};
-%     allPriorVals{cellCount,1} = priors.resolutionParam{i}{3};
-%     allPriorVals{cellCount,2} = priors.resolutionParam{i}{4};
+% for i = 1:size(priors.resolutionParams,1)
+%     allPriors(cellCount,1) = priors.resolutionParams{i}{1};
+%     allPriors(cellCount,2) = priors.resolutionParams{i}{2};
+%     allPriorVals{cellCount,1} = priors.resolutionParams{i}{3};
+%     allPriorVals{cellCount,2} = priors.resolutionParams{i}{4};
 %     cellCount = cellCount + 1;
 % end
 % 
-% for i = 1:size(priors.bulkIn,1)
-%     allPriors(cellCount,1) = priors.bulkIn{i}{1};
-%     allPriors(cellCount,2) = priors.bulkIn{i}{2};
-%     allPriorVals{cellCount,1} = priors.bulkIn{i}{3};
-%     allPriorVals{cellCount,2} = priors.bulkIn{i}{4}; 
+% for i = 1:size(priors.bulkIns,1)
+%     allPriors(cellCount,1) = priors.bulkIns{i}{1};
+%     allPriors(cellCount,2) = priors.bulkIns{i}{2};
+%     allPriorVals{cellCount,1} = priors.bulkIns{i}{3};
+%     allPriorVals{cellCount,2} = priors.bulkIns{i}{4}; 
 %     cellCount = cellCount + 1;
 % end
 % 
-% for i = 1:size(priors.bulkOut,1)
-%     allPriors(cellCount,1) = priors.bulkOut{i}{1};
-%     allPriors(cellCount,2) = priors.bulkOut{i}{2};
-%     allPriorVals{cellCount,1} = priors.bulkOut{i}{3};
-%     allPriorVals{cellCount,2} = priors.bulkOut{i}{4};
+% for i = 1:size(priors.bulkOuts,1)
+%     allPriors(cellCount,1) = priors.bulkOuts{i}{1};
+%     allPriors(cellCount,2) = priors.bulkOuts{i}{2};
+%     allPriorVals{cellCount,1} = priors.bulkOuts{i}{3};
+%     allPriorVals{cellCount,2} = priors.bulkOuts{i}{4};
 %     cellCount = cellCount + 1;
 % end
 % 
-% for i = 1:size(priors.qzshift,1)
-%     allPriors(cellCount,1) = priors.qzshift{i}{1};
-%     allPriors(cellCount,2) = priors.qzshift{i}{2};
-%     allPriorVals{cellCount,1} = priors.qzshift{i}{3};
-%     allPriorVals{cellCount,2} = priors.qzshift{i}{4};
+% for i = 1:size(priors.qzshifts,1)
+%     allPriors(cellCount,1) = priors.qzshifts{i}{1};
+%     allPriors(cellCount,2) = priors.qzshifts{i}{2};
+%     allPriorVals{cellCount,1} = priors.qzshifts{i}{3};
+%     allPriorVals{cellCount,2} = priors.qzshifts{i}{4};
 %     cellCount = cellCount + 1;
 % end
 % 
-% for i = 1:size(priors.scalefactor,1)
-%     allPriors(cellCount,1) = priors.scalefactor{i}{1};
-%     allPriors(cellCount,2) = priors.scalefactor{i}{2};
-%     allPriorVals{cellCount,1} = priors.scalefactor{i}{3};
-%     allPriorVals{cellCount,2} = priors.scalefactor{i}{4};
+% for i = 1:size(priors.scalefactors,1)
+%     allPriors(cellCount,1) = priors.scalefactors{i}{1};
+%     allPriors(cellCount,2) = priors.scalefactors{i}{2};
+%     allPriorVals{cellCount,1} = priors.scalefactors{i}{3};
+%     allPriorVals{cellCount,2} = priors.scalefactors{i}{4};
 %     cellCount = cellCount + 1;
 % end
 
@@ -149,9 +148,9 @@ nsimu =  controls.nsimu;
 burnin = controls.burnin;
 adaptint = 100;%controls.adaptint;
 
-output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
+output = runBayes(loop,nsimu,burnin,adaptint,params,problem);
 
-[problemStruct,result,bayesResults] = processBayes(output,problemStruct,problemLimits,controls);
+[problemStruct,result,bayesResults] = processBayes(output,problemStruct,controls);
 
 % problemStruct.fitParams = bayesResults.bestParamsMean;
 
@@ -169,16 +168,16 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 % 
 % % Calulate Max best fit curves
 % problemStruct.fitParams = bestParamsMax;
-% problemStruct = unpackParams(problemStruct,controls.checks);
-% result = reflectivityCalculation(problemStruct,problemLimits,controls);
+% problemStruct = unpackParams(problemStruct);
+% result = reflectivityCalculation(problemStruct,controls);
 % bestFitMax_Ref = result.reflectivity;
 % bestFitMax_Sld = result.sldProfiles;
 % bestFitMax_chi = result.calculationResultss.sumChi;
 % 
 % % Calculate 'mean' best fit curves
 % problemStruct.fitParams = bestParamsMean;
-% problemStruct = unpackParams(problemStruct,controls.checks);
-% result = reflectivityCalculation(problemStruct,problemLimits,controls);
+% problemStruct = unpackParams(problemStruct);
+% result = reflectivityCalculation(problemStruct,controls);
 % bestFitMean_Ref = result.reflectivity;
 % bestFitMean_Sld = result.sldProfiles;
 % bestFitMean_chi = result.calculationResultss.sumChi;

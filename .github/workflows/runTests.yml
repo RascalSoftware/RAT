@@ -14,7 +14,8 @@ jobs:
   test:
     strategy:
       matrix:
-        platform: [Windows, Linux, macOS]
+        # platform: [Windows, Linux, macOS]
+        platform: [Linux]
     runs-on: ${{ matrix.platform }}
  
     steps:

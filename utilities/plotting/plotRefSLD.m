@@ -20,7 +20,7 @@ function plotRefSLD(problem, result, options)
     data.dataPresent = problemStruct.dataPresent;
     data.subRoughs = result.contrastParams.subRoughs;
     data.resample = problemStruct.resample;
-    data.contrastNames = problemStruct.contrastNames;
+    data.contrastNames = problemStruct.names.contrasts;
     
     plotRefSLDHelper(data, false, options.linearX, options.q4, options.showErrorBar, ...
                      options.showGrid, options.showLegend);

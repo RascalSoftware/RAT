@@ -1,7 +1,6 @@
 function  [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,problemLimits,controls,inPriors)
 
-checks = controls.checks;
-[problemStruct,fitNames] = packParams(problemStruct,problemLimits,checks);
+[problemStruct,fitNames] = packParams(problemStruct,problemLimits);
 
 logZ = 0;
 H = 0;
@@ -44,7 +43,7 @@ bayesOutputs.s2chain = [];
 bayesOutputs.sschain = [];
 bayesOutputs.data = problemStruct.data;
 
-[problemStruct,result,nestResults] = processBayes(bayesOutputs,problemStruct,problemLimits,controls);
+[problemStruct,result,nestResults] = processBayes(bayesOutputs,problemStruct,controls);
 
 bayesResults.predictionIntervals = nestResults.predictionIntervals;
 bayesResults.confidenceIntervals = nestResults.confidenceIntervals;

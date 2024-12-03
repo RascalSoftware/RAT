@@ -43,7 +43,7 @@ function checkIndices(problemStruct, customFiles)
         end
     end
 
-    numBulkIns = length(problemStruct.bulkIn);
+    numBulkIns = length(problemStruct.bulkIns);
     for i = 1:length(problemStruct.contrastBulkIns)
         index = problemStruct.contrastBulkIns(i);
         if index < 1 || index > numBulkIns
@@ -51,7 +51,7 @@ function checkIndices(problemStruct, customFiles)
         end
     end
 
-    numBulkOuts = length(problemStruct.bulkOut);
+    numBulkOuts = length(problemStruct.bulkOuts);
     for i = 1:length(problemStruct.contrastBulkOuts)
         index = problemStruct.contrastBulkOuts(i);
         if index < 1 || index > numBulkOuts
@@ -67,7 +67,7 @@ function checkIndices(problemStruct, customFiles)
         end
     end
 
-    numDomainRatios = length(problemStruct.domainRatio);
+    numDomainRatios = length(problemStruct.domainRatios);
     for i = 1:length(problemStruct.contrastDomainRatios)
         index = problemStruct.contrastDomainRatios(i);
         if (index < 1 && index ~= -1) || index > numDomainRatios

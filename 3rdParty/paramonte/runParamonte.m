@@ -22,7 +22,7 @@ rng('default');
 % Make an instance of the paramonte objective function class
 logFunc = pmLogFunction();
 
-[problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,problemLimits,priors,controls.checks);
+[problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,problemLimits,priors);
 nDims = length(problemStruct.fitParams);
 testPars = problemStruct.fitParams;
 
@@ -125,7 +125,7 @@ pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective functi
 % output.bestParams = mean(unscaledChain);
 % output.data = data;
 % 
-% [problemStruct,result,bayesResults] = processBayes(output,problemStruct,problemLimits,controls);
+% [problemStruct,result,bayesResults] = processBayes(output,problemStruct,controls);
 
 % pmpdOut = pmpd;
 

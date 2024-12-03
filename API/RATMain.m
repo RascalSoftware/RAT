@@ -14,7 +14,7 @@ if problemStruct.numberOfContrasts > 0
     switch controls.procedure
         case coderEnums.procedures.Calculate % Just a single reflectivity calculation
             controls.calcSldDuringFit = true;
-            result = reflectivityCalculation(problemStruct,problemLimits,controls);
+            result = reflectivityCalculation(problemStruct,controls);
         case coderEnums.procedures.Simplex
             if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
                 triggerEvent(coderEnums.eventTypes.Message, sprintf('\nRunning simplex\n\n'));
@@ -44,7 +44,7 @@ if problemStruct.numberOfContrasts > 0
     if ~controls.calcSldDuringFit
         controls.calcSldDuringFit = true;
         controls.procedure = coderEnums.procedures.Calculate;
-        result = reflectivityCalculation(problemStruct,problemLimits,controls);
+        result = reflectivityCalculation(problemStruct,controls);
     end
 
 else

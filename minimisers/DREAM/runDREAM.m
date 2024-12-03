@@ -37,7 +37,6 @@ priorList = getFittedPriors(fitParamNames,priors,problemStruct.fitLimits);
 
 % Put all the RAT parameters together into one array...
 ratInputs.problemStruct = problemStruct;
-%ratInputs.problemLimits = problemLimits;
 ratInputs.controls = controls;
 ratInputs.priors = priorList;
 

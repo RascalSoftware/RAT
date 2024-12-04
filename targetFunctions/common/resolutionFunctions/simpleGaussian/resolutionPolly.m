@@ -1,35 +1,24 @@
-function out = resolutionPolly(xdata,ydata,resData,points)
+function resolutionCorrection = resolutionPolly(xdata,ydata,resolutionValues,points)
 % Apply resolution correction
 
-dummydata = zeros(points,1);
+resolutionCorrection = zeros(points,1);
 
 for j = 1:points
-    res = resData(j);
-    sumg = 0;
-    dummydata(j) = 0;
-    
-    if (j>10)
-        ilow = -10;
-    else
-        ilow = -j + 1;
-    end
-    
-    if (j < (points - 10))
-        ihi = 10;
-    else
-        ihi = points - j;
-    end
-    
-    for i = ilow:ihi
-        g = exp(-1*((xdata(j+i)-xdata(j))/(res*xdata(j)))^2);
-        sumg = sumg + g;
-        dummydata(j) = dummydata(j) + ydata(i+j) * g;
-    end
-    if (sumg ~= 0)
-        dummydata(j) = dummydata(j) / sumg;
-    end
-end
 
-out = dummydata;
+    sumg = 0;
+    ilow = max(-10, -j + 1);
+    ihi = min(10, points - j);
+
+    for i = ilow:ihi
+        g = exp(-1*((xdata(j+i)-xdata(j))/(resolutionValues(j)*xdata(j)))^2);
+        sumg = sumg + g;
+        resolutionCorrection(j) = resolutionCorrection(j) + ydata(i+j) * g;
+    end
+    
+    if (sumg ~= 0)
+        resolutionCorrection(j) = resolutionCorrection(j) / sumg;
+    end
+
+end
 
 end

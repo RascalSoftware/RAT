@@ -7,7 +7,7 @@ else
     nRepeats = 1;
 end
 
-% Build the input arrays for thick, sld and rough.....
+% Build the input arrays for thick, sld and rough
 
 if isempty(layers)
     % No layers defined. Make a zeros dummy zero layer 
@@ -55,13 +55,10 @@ simulation(:,1) = simulationXData;
 % If we are using data resolutions, then we also need to adjust the length
 % of the resolution column. We do this by just extending with the resolution
 % values at the ends of the curve.
-simResolData = 0;
 if resolution == -1
     thisDataResol = data(:,4);
-    minVal = thisDataResol(1);
-    maxVal = thisDataResol(end);
-    startResol = ones((dataIndices(1)-1),1) .* minVal;
-    endResol = ones((length(simulationXData)-dataIndices(2)),1) .* maxVal;
+    startResol = ones((dataIndices(1)-1),1) .* thisDataResol(1);
+    endResol = ones((length(simulationXData)-dataIndices(2)),1) .* thisDataResol(end);
     simResolData = [startResol(:) ; thisDataResol(:) ; endResol(:)];
 else
     % WHY ON EARTH IS THE +0.0001 THERE ???????????????????
@@ -74,22 +71,19 @@ switch refType
             case coderEnums.parallelOptions.Points
                 % Parallelise over points
                 
-                % Calculate reflectivity....
+                % Calculate reflectivity
                 simRef = abelesParallelPoints(simulationXData,nLayersTot,thicks,slds,roughs);
 
                 % Apply resolution
-                % Note: paraPoints gives an error during validation, so use
-                % single cored resolution as a workaround for now.
                 simRef = resolutionPollyParallel(simulationXData,simRef,simResolData,length(simulationXData));
-                %simRef = resolutionPolly(simulationXData,simRef,simResolData,length(simulationXData));
                 
             otherwise
                 % Single cored over points
                 
-                % Calculate reflectivity.....
+                % Calculate reflectivity
                 simRef = abelesSingle(simulationXData,nLayersTot,thicks,slds,roughs);
                 
-                % Apply resolution correction...
+                % Apply resolution correction
                 simRef = resolutionPolly(simulationXData,simRef,simResolData,length(simulationXData));
         end
     otherwise

@@ -52,19 +52,6 @@ roughs(end) = ssubs;
 simulation = zeros(length(simulationXData),2);
 simulation(:,1) = simulationXData;
 
-% If we are using data resolutions, then we also need to adjust the length
-% of the resolution column. We do this by just extending with the resolution
-% values at the ends of the curve.
-if resolution == -1
-    thisDataResol = data(:,4);
-    startResol = ones((dataIndices(1)-1),1) .* thisDataResol(1);
-    endResol = ones((length(simulationXData)-dataIndices(2)),1) .* thisDataResol(end);
-    simResolData = [startResol(:) ; thisDataResol(:) ; endResol(:)];
-else
-    % WHY ON EARTH IS THE +0.0001 THERE ???????????????????
-    simResolData = ones(length(simulationXData),1) .* (resolution + 0.0001);
-end
-
 switch refType
     case 'standardAbeles'
         switch parallel
@@ -75,7 +62,7 @@ switch refType
                 simRef = abelesParallelPoints(simulationXData,nLayersTot,thicks,slds,roughs);
 
                 % Apply resolution
-                simRef = resolutionPollyParallel(simulationXData,simRef,simResolData,length(simulationXData));
+                simRef = resolutionPollyParallel(simulationXData,simRef,resolution,length(simulationXData));
                 
             otherwise
                 % Single cored over points
@@ -84,7 +71,7 @@ switch refType
                 simRef = abelesSingle(simulationXData,nLayersTot,thicks,slds,roughs);
                 
                 % Apply resolution correction
-                simRef = resolutionPolly(simulationXData,simRef,simResolData,length(simulationXData));
+                simRef = resolutionPolly(simulationXData,simRef,resolution,length(simulationXData));
         end
     otherwise
         coderException(coderEnums.errorCodes.invalidOption, 'The reflectivity type "%s" is not supported', refType);

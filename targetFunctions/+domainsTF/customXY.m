@@ -138,10 +138,8 @@ function [qzshiftValue,scalefactorValue,bulkInValue,...
     % from the input arrays.
     % First need to decide which values of the backgrounds, scalefactors
     % data shifts and bulk contrasts are associated with this contrast
-    [qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue,...
-     resolutionParamValue] = backSort(qzshiftIndex,...
-     scalefactorIndex,bulkInIndex,bulkOutIndex,resolutionParamIndex,...
-     qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams);
+    [qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue] = backSort(qzshiftIndex,...
+     scalefactorIndex,bulkInIndex,bulkOutIndex,qzshifts,scalefactors,bulkIns,bulkOuts);
      
     % Resample the sld profiles
     if ~useImaginary
@@ -164,10 +162,12 @@ function [qzshiftValue,scalefactorValue,bulkInValue,...
 
     shiftedData = shiftData(scalefactorValue,qzshiftValue,dataPresent,data,dataLimits,simLimits);
     background = constructBackground(backgroundType,backgroundParamIndex,shiftedData,customFiles,backgroundParams,simLimits);
+    resolution = constructResolution(resolutionType,resolutionParamIndex,shiftedData,customFiles,resolutionParams,simLimits);
+    resolutionParamValue = resolution(1) - 0.0001;
 
     reflectivityType = 'standardAbeles';
-    [reflect1,simul1] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedData,layerSld1,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
-    [reflect2,simul2] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedData,layerSld2,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
+    [reflect1,simul1] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedData,layerSld1,roughness,resolution,parallel,reflectivityType,useImaginary);
+    [reflect2,simul2] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedData,layerSld2,roughness,resolution,parallel,reflectivityType,useImaginary);
 
     [reflect1,simul1,~] = applyBackgroundCorrection(reflect1,simul1,shiftedData,background,backgroundAction);
     [reflect2,simul2,shiftedData] = applyBackgroundCorrection(reflect2,simul2,shiftedData,background,backgroundAction);

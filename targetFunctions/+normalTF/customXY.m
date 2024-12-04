@@ -92,10 +92,8 @@ function [qzshiftValue,scalefactorValue,bulkInValue,...
     % from the input arrays.
     % First need to decide which values of the backgrounds, scalefactors
     % data shifts and bulk contrasts are associated with this contrast
-    [qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue,...
-     resolutionParamValue] = backSort(qzshiftIndex,...
-     scalefactorIndex,bulkInIndex,bulkOutIndex,resolutionParamIndex,...
-     qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams);
+    [qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue] = backSort(qzshiftIndex,...
+     scalefactorIndex,bulkInIndex,bulkOutIndex,qzshifts,scalefactors,bulkIns,bulkOuts);
      
     % Resample the layers
     if ~useImaginary
@@ -110,9 +108,11 @@ function [qzshiftValue,scalefactorValue,bulkInValue,...
 
     shiftedData = shiftData(scalefactorValue,qzshiftValue,dataPresent,data,dataLimits,simLimits);
     background = constructBackground(backgroundType,backgroundParamIndex,shiftedData,customFiles,backgroundParams,simLimits);
+    resolution = constructResolution(resolutionType,resolutionParamIndex,shiftedData,customFiles,resolutionParams,simLimits);
+    resolutionParamValue = resolution(1) - 0.0001;
 
     reflectivityType = 'standardAbeles';
-    [reflect,simul] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedData,layerSld,roughness,resolutionParamValue,parallel,reflectivityType,useImaginary);
+    [reflect,simul] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedData,layerSld,roughness,resolution,parallel,reflectivityType,useImaginary);
 
     [reflectivity,simulation,shiftedData] = applyBackgroundCorrection(reflect,simul,shiftedData,background,backgroundAction);
     

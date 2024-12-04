@@ -1,13 +1,12 @@
-function out = resolutionPollyParallelPoints(xdata,ydata,res,points)
+function out = resolutionPollyParallel(xdata,ydata,resData,points)
+% Apply resolution correction
 
-
-%res = res + 0.0001;
 dummydata = zeros(points,1);
 
 parfor j = 1:points
-    
     sumg = 0;
     dummydata(j) = 0;
+    res = resData(j);
     
     if (j>10)
         ilow = -10;
@@ -21,7 +20,6 @@ parfor j = 1:points
         ihi = points - j;
     end
     
-%    try
     for i = ilow:ihi
         g = exp(-1*((xdata(j+i)-xdata(j))/(res*xdata(j)))^2);
         sumg = sumg + g;
@@ -30,9 +28,6 @@ parfor j = 1:points
     if (sumg ~= 0)
         dummydata(j) = dummydata(j) / sumg;
     end
-%     catch
-%         disp('debug!');
-%     end
 end
 
 out = dummydata;

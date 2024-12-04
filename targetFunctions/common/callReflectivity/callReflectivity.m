@@ -63,6 +63,9 @@ if resolution == -1
     startResol = ones((dataIndices(1)-1),1) .* minVal;
     endResol = ones((length(simulationXData)-dataIndices(2)),1) .* maxVal;
     simResolData = [startResol(:) ; thisDataResol(:) ; endResol(:)];
+else
+    % WHY ON EARTH IS THE +0.0001 THERE ???????????????????
+    simResolData = ones(length(simulationXData),1) .* (resolution + 0.0001);
 end
 
 switch refType
@@ -77,13 +80,8 @@ switch refType
                 % Apply resolution
                 % Note: paraPoints gives an error during validation, so use
                 % single cored resolution as a workaround for now.
-                if resolution == -1
-                    %simRef = dataResolutionPollyParallelPoints(simulationXData,simRef,simResolData,length(simulationXData));
-                    simRef = dataResolutionPolly(simulationXData,simRef,simResolData,length(simulationXData));
-                else
-                    %simRef = resolutionPollyParallelPoints(simulationXData,simRef,resolution,length(simulationXData));
-                    simRef = resolutionPolly(simulationXData,simRef,resolution,length(simulationXData));
-                end
+                simRef = resolutionPollyParallel(simulationXData,simRef,simResolData,length(simulationXData));
+                %simRef = resolutionPolly(simulationXData,simRef,simResolData,length(simulationXData));
                 
             otherwise
                 % Single cored over points
@@ -92,11 +90,7 @@ switch refType
                 simRef = abelesSingle(simulationXData,nLayersTot,thicks,slds,roughs);
                 
                 % Apply resolution correction...
-                if resolution == -1
-                    simRef = dataResolutionPolly(simulationXData,simRef,simResolData,length(simulationXData));
-                else
-                    simRef = resolutionPolly(simulationXData,simRef,resolution,length(simulationXData));
-                end
+                simRef = resolutionPolly(simulationXData,simRef,simResolData,length(simulationXData));
         end
     otherwise
         coderException(coderEnums.errorCodes.invalidOption, 'The reflectivity type "%s" is not supported', refType);

@@ -1,11 +1,10 @@
-function out = resolutionPolly(xdata,ydata,res,points)
+function out = resolutionPolly(xdata,ydata,resData,points)
 % Apply resolution correction
 
-res = res + 0.0001;
 dummydata = zeros(points,1);
 
 for j = 1:points
-    
+    res = resData(j);
     sumg = 0;
     dummydata(j) = 0;
     
@@ -21,7 +20,6 @@ for j = 1:points
         ihi = points - j;
     end
     
-%    try
     for i = ilow:ihi
         g = exp(-1*((xdata(j+i)-xdata(j))/(res*xdata(j)))^2);
         sumg = sumg + g;

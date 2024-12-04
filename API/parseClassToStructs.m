@@ -152,19 +152,19 @@ end
 
 % Here we need to do the same with the contrastResolutions array
 contrastResolutions = inputStruct.contrastResolutions;
-resolutionTypes = inputStruct.resolutionTypes;
 
 resolutionParamNames = inputStruct.resolutionParamNames;
+contrastResolutionTypes = cell(1, length(contrastResolutions));
 contrastResolutionParams = zeros(1, length(contrastResolutions));
 
 for i = 1:length(contrastResolutions)
     % Check the type of the resolution that each contrast is pointing to.
     % If it is a constant, point to the number of the corresponding
     % resolution param. If it's data, then set it to -1
-    thisResol = contrastResolutions(i);      % Which resolution
-    thisType = resolutionTypes{thisResol};   % What type is it?
+    thisResol = contrastResolutions(i);                                  % Which resolution
+    contrastResolutionTypes{i} = inputStruct.resolutionTypes{thisResol}; % What type is it?
     
-    if strcmpi(thisType,'data')
+    if strcmpi(contrastResolutionTypes{i},'data')
         % Resolution is in the datafile. Set contrastResolutionParams to -1
         contrastResolutionParams(i) = -1;
     else
@@ -237,6 +237,7 @@ problemStruct.contrastScalefactors = inputStruct.contrastScalefactors;
 problemStruct.contrastBulkIns = inputStruct.contrastBulkIns;
 problemStruct.contrastBulkOuts = inputStruct.contrastBulkOuts;
 problemStruct.contrastResolutionParams = contrastResolutionParams;
+problemStruct.contrastResolutionTypes = contrastResolutionTypes;
 problemStruct.backgroundParams = inputStruct.backgroundParamValues;
 problemStruct.qzshifts = inputStruct.qzshiftValues;
 problemStruct.scalefactors = inputStruct.scalefactorValues;

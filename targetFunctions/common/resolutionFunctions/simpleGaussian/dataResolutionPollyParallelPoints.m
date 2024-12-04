@@ -1,5 +1,6 @@
 function out = dataResolutionPollyParallelPoints(xdata,ydata,resData,points)
 
+
 dummydata = zeros(points,1);
 
 parfor j = 1:points

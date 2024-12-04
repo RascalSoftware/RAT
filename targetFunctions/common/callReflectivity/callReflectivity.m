@@ -74,14 +74,14 @@ switch refType
                 % Calculate reflectivity....
                 simRef = abelesParallelPoints(simulationXData,nLayersTot,thicks,slds,roughs);
 
-                % Apply resolution              
+                % Apply resolution
                 % Note: paraPoints gives an error during validation, so use
                 % single cored resolution as a workaround for now.
                 if resolution == -1
-                    %simRef = dataResolutionPollyParallelPoints(simXdata,simRef,simResolData,length(simXdata));
+                    %simRef = dataResolutionPollyParallelPoints(simulationXData,simRef,simResolData,length(simulationXData));
                     simRef = dataResolutionPolly(simulationXData,simRef,simResolData,length(simulationXData));
                 else
-                    %simRef = resolutionPollyParallelPoints(simXdata,simRef,res,length(simXdata));
+                    %simRef = resolutionPollyParallelPoints(simulationXData,simRef,resolution,length(simulationXData));
                     simRef = resolutionPolly(simulationXData,simRef,resolution,length(simulationXData));
                 end
                 

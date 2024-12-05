@@ -4,7 +4,7 @@ function background = constructBackground(backgroundType,backgroundParamIndices,
 %
 % For function backgrounds, this means running the function using the
 % defined parameters. For data and constant backgrounds, this means taking
-% any predefined background data and adding any supplied poarameters.
+% any predefined background data and adding any supplied parameters.
 
 % Define the background over the simulation range, making sure to include
 % any predefined data.

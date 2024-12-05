@@ -155,7 +155,7 @@ contrastResolutions = inputStruct.contrastResolutions;
 
 resolutionParamNames = inputStruct.resolutionParamNames;
 contrastResolutionTypes = cell(1, length(contrastResolutions));
-contrastResolutionParams = zeros(1, length(contrastResolutions));
+contrastResolutionParams = cell(1, length(contrastResolutions));
 
 for i = 1:length(contrastResolutions)
     % Check the type of the resolution that each contrast is pointing to.
@@ -165,15 +165,16 @@ for i = 1:length(contrastResolutions)
     contrastResolutionTypes{i} = inputStruct.resolutionTypes{thisResol}; % What type is it?
     
     if strcmpi(contrastResolutionTypes{i},'data')
-        % Resolution is in the datafile. Set contrastResolutionParams to -1
-        contrastResolutionParams(i) = -1;
+        % Resolution is in the datafile.
+        % Set contrastResolutionParams as empty
+        contrastResolutionParams{i} = [];
     else
         % Resolution is a resolutionParam, the name of which should
         % be in the first column of resolutionValues
         whichResolutionParamName = inputStruct.resolutionValues{thisResol,1};
         
         % Find which resolutionParam this is, and set contrastResolutionParams to this number
-        contrastResolutionParams(i) = find(strcmpi(whichResolutionParamName,resolutionParamNames));
+        contrastResolutionParams{i} = find(strcmpi(whichResolutionParamName,resolutionParamNames));
     end
 end
         

@@ -61,9 +61,12 @@ function checkIndices(problemStruct, customFiles)
 
     numResolutionParams = length(problemStruct.resolutionParams);
     for i = 1:length(problemStruct.contrastResolutionParams)
-        index = problemStruct.contrastResolutionParams(i);
-        if (index < 1 && index ~= -1) || index > numResolutionParams
-            throw(exceptions.indexOutOfRange(sprintf('contrastResolutionParams(%i) is %i, which is outside the range of resolutionParams', i, index)));
+        indices = problemStruct.contrastResolutionParams{i};
+        for j = 1:length(indices)
+            index = indices(j);
+            if index < 1 || index > numResolutionParams
+                throw(exceptions.indexOutOfRange(sprintf('contrastResolutionParams{%i}(%i) is %i, which is outside the range of resolutionParams', i, j, index)));
+            end
         end
     end
 

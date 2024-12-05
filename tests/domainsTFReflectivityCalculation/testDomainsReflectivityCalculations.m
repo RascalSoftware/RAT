@@ -255,10 +255,16 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
 
             % Test Resolution Param Error
             testInput = testCase.problemStruct;
-            testInput.contrastResolutionParams(1) = 0;
+            testInput.contrastResolutionParams{1} = 0;
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
-            testInput.contrastResolutionParams(1) = 4;
+            testInput.contrastResolutionParams{1} = 4;
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
+
+            testInput.contrastResolutionParams{1} = [0 1 2 3];
+            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
+            testInput = testCase.problemStruct;
+            testInput.contrastResolutionParams{1} = [4 1 2 3];
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             % Test Domain Ratio Error

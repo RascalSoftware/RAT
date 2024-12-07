@@ -1,7 +1,7 @@
 function fitNames = getFitNames(problemStruct)
 
     % Note that this order of parameters fields is hard-coded by this
-    % routine, packParams, and packParamsPriors
+    % routine, packParams, packParamsPriors, and unpackParams
     fields = {"params", "backgroundParams", "scalefactors", "qzshifts",...
         "bulkIns", "bulkOuts", "resolutionParams", "domainRatios"};
 

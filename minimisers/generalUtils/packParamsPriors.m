@@ -4,7 +4,7 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
     % are being fitted, and those that are held constant.
 
     % Note that this order of parameters fields is hard-coded by this
-    % routine, packParams, and getFitNames
+    % routine, packParams, unpackParams, and getFitNames
     fields = {"params", "backgroundParams", "scalefactors", "qzshifts",...
         "bulkIns", "bulkOuts", "resolutionParams", "domainRatios"};
 

@@ -8,24 +8,25 @@ function problemStruct = unpackParams(problemStruct)
     fields = {"params", "backgroundParams", "scalefactors", "qzshifts",...
         "bulkIns", "bulkOuts", "resolutionParams", "domainRatios"};
 
-    unpacked_counter = 1;
-    packed_counter = 1;
+    fit_counter = 1;
+    other_counter = 1;
  
     for i = 1:length(fields)
-        uppars = zeros(1,length(problemStruct.(fields{i})));
-        uppars_counter = 1;
-        for j = 1:length(problemStruct.checks.(fields{i}))
-            if problemStruct.checks.(fields{i})(j) == 1
-                uppars(uppars_counter) = problemStruct.fitParams(unpacked_counter);
-                unpacked_counter = unpacked_counter + 1;
-                uppars_counter = uppars_counter + 1;
-            else
-                uppars(uppars_counter) = problemStruct.otherParams(packed_counter);
-                packed_counter = packed_counter + 1;
-                uppars_counter = uppars_counter + 1;
-            end
+        unpackedpars = zeros(1,length(problemStruct.(fields{i})));
+        fitIndices = find(problemStruct.checks.(fields{i}));
+        otherIndices = find(~problemStruct.checks.(fields{i}));
+
+        for j = 1:length(fitIndices)
+            unpackedpars(fitIndices(j)) = problemStruct.fitParams(fit_counter);
+            fit_counter = fit_counter + 1;
         end
-        problemStruct.(fields{i}) = uppars;
+
+        for j = 1:length(otherIndices)
+            unpackedpars(otherIndices(j)) = problemStruct.otherParams(other_counter);
+            other_counter = other_counter + 1;
+        end
+
+        problemStruct.(fields{i}) = unpackedpars;
     end
     
 end

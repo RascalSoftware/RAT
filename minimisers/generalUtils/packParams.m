@@ -4,7 +4,7 @@ function [problemStruct,fitNames] = packParams(problemStruct,limits)
     % are being fitted, and those that are held constant.
 
     % Note that this order of parameters fields is hard-coded by this
-    % routine, packParamsPriors, and getFitNames
+    % routine, packParamsPriors, unpackParams, and getFitNames
     fields = {"params", "backgroundParams", "scalefactors", "qzshifts",...
         "bulkIns", "bulkOuts", "resolutionParams", "domainRatios"};
 
@@ -32,18 +32,18 @@ function [problemStruct,fitNames] = packParams(problemStruct,limits)
         fitIndices = find(problemStruct.checks.(fields{i}));
         otherIndices = find(~problemStruct.checks.(fields{i}));
         
-        for n = 1:length(fitIndices)
-            fitParams(fitCounter) = problemStruct.(fields{i})(fitIndices(n));
-            fitLimits(fitCounter,1) = limits.(fields{i})(fitIndices(n),1);
-            fitLimits(fitCounter,2) = limits.(fields{i})(fitIndices(n),2);        
-            fitNames{fitCounter} = problemStruct.names.(fields{i}){fitIndices(n)};
+        for j = 1:length(fitIndices)
+            fitParams(fitCounter) = problemStruct.(fields{i})(fitIndices(j));
+            fitLimits(fitCounter,1) = limits.(fields{i})(fitIndices(j),1);
+            fitLimits(fitCounter,2) = limits.(fields{i})(fitIndices(j),2);        
+            fitNames{fitCounter} = problemStruct.names.(fields{i}){fitIndices(j)};
             fitCounter = fitCounter + 1;
         end
 
-        for n = 1:length(otherIndices)
-            otherParams(otherCounter) = problemStruct.(fields{i})(otherIndices(n));
-            otherLimits(otherCounter,1) = limits.(fields{i})(otherIndices(n),1);
-            otherLimits(otherCounter,2) = limits.(fields{i})(otherIndices(n),2);
+        for j = 1:length(otherIndices)
+            otherParams(otherCounter) = problemStruct.(fields{i})(otherIndices(j));
+            otherLimits(otherCounter,1) = limits.(fields{i})(otherIndices(j),1);
+            otherLimits(otherCounter,2) = limits.(fields{i})(otherIndices(j),2);
             otherCounter = otherCounter + 1;
         end
     end

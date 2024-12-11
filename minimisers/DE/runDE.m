@@ -93,7 +93,7 @@ end
 
 function [S_MSE,result] = intrafun(p,problemStruct,controls)
     
-    problemStruct.fitParams = p';
+    problemStruct.fitParams = p;
     problemStruct = unpackParams(problemStruct);
     result = reflectivityCalculation(problemStruct,controls);
     fval = result.calculationResults.sumChi;

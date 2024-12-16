@@ -19,8 +19,8 @@ numberOfFitted = sum(checks.params) + ...
 %                 length(problemStruct.bulkOuts) + ...
 %                 length(problemStruct.resolutionParams);
    
-% fitParams = problemStruct.fitParams;%zeros(numberOfFitted,1);
-% otherParams = zeros((numberOfTotal-numberOfFitted),1);
+% fitParams = problemStruct.fitParams;%zeros(1,numberOfFitted);
+% otherParams = zeros(1,(numberOfTotal-numberOfFitted));
 % fitLimits = zeros(numberOfFitted,2);
 % otherLimits = zeros((numberOfTotal-numberOfFitted),2);
 % %limits = problemStruct.limits;

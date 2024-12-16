@@ -134,8 +134,8 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     end
     coder.varsize('resampledLayers{:}',[10000 4],[1 1]);
     
-    fitParams = zeros(nParams,1);
-    coder.varsize('fitParams',[maxArraySize 1],[1 0]);
+    fitParams = zeros(1,nParams);
+    coder.varsize('fitParams',[1 maxArraySize],[0 1]);
     
     fitNames = cell(nParams,1);
     for i = 1:nParams

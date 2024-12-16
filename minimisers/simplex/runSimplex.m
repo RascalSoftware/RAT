@@ -113,7 +113,7 @@ x = simplexXTransform(xu,params);
 % final reshape
 %x = reshape(x,xsize);
 
-problemStruct.fitParams = x;
+problemStruct.fitParams = x';
 problemStruct = unpackParams(problemStruct);
 result = reflectivityCalculation(problemStruct,controls);
 

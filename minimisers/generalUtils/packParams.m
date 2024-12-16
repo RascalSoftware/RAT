@@ -15,8 +15,8 @@ function [problemStruct,fitNames] = packParams(problemStruct,limits)
         numberOfTotal = numberOfTotal + length(problemStruct.(fields{i}));
     end
        
-    fitParams = zeros(numberOfFitted, 1);
-    otherParams = zeros((numberOfTotal-numberOfFitted), 1);
+    fitParams = zeros(1, numberOfFitted);
+    otherParams = zeros(1, (numberOfTotal-numberOfFitted));
     fitLimits = zeros(numberOfFitted,2);
     otherLimits = zeros((numberOfTotal-numberOfFitted),2);
 

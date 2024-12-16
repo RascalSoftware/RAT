@@ -79,7 +79,7 @@ for i = 1:numCalcs
 end
 
 %Also calculate the best fit
-problemStruct.fitParams = values(:,1);
+problemStruct.fitParams = values(:,1)';
 problemStruct = unpackParams(problemStruct);
 result = reflectivityCalculation(problemStruct,controls);
 bestFit = result.reflectivity;

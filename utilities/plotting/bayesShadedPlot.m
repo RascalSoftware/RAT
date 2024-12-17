@@ -1,12 +1,12 @@
 function bayesShadedPlot(problem, result, options)
-% Plot the shaded reflectivities from Bayes output
-% from RAT
+% Plot the shaded reflectivities from Bayes output from RAT
 arguments
     problem
     result
     options.q4 {logical} = false
     options.keepAxes {logical} = false
     options.interval {mustBeMember(options.interval, [65, 95])} = 95
+    options.showLegend {logical} = true
 end
 
 if isa(problem,'domainsClass')
@@ -27,15 +27,15 @@ switch options.interval
 end
 
 fillColor = [0.7 0.7 0.7];
-fillType = [1 2;2 1];
+fillType = [1 2; 2 1];
 fillAlpha = 0.3;
 
-% Get the reflectivities and SLDs
-bestReflectivity = result.reflectivity;
-bestSld = result.sldProfiles;
+controls = controlsClass();
+[problemStruct,~,~,~] = parseClassToStructs(problem,controls);
 
-reflectivityLimits = result.predictionIntervals.reflectivity;
-sldLimits = result.predictionIntervals.sld;
+% Get the reflectivities and SLDs
+reflectivityValues = result.predictionIntervals.reflectivity;
+sldValues = result.predictionIntervals.sld;
 
 shiftedData = result.shiftedData;
 numberOfContrasts = length(shiftedData);
@@ -46,11 +46,12 @@ set(gca,'YScale','log','XScale','log');
 hold on; box on
 xlabel('$\textrm{Q}_{z} (\AA^{-1})$', 'Interpreter', 'Latex') 
 ylabel('Reflectivity', 'Interpreter', 'Latex')
+lines = cell(numberOfContrasts, 1);
 
 for i = 1:numberOfContrasts
     
     thisData = shiftedData{i};
-    reflectivity = bestReflectivity{i};
+    reflectivity = reflectivityValues{i}(3,:)';
     
     mult = 2^(4*i);
     switch options.q4
@@ -63,12 +64,12 @@ for i = 1:numberOfContrasts
     end
         
     % Get the limits and fits
-    limits = reflectivityLimits{i};
+    limits = reflectivityValues{i};
     
     min = limits(vals(1),:)./mult;
     max = limits(vals(2),:)./mult;
         
-    reflectivity(:,2) = reflectivity(:,2)./mult;
+    reflectivity = reflectivity./mult;
     
     dataX = thisData(:,1);
     dataY = thisData(:,2)./mult;
@@ -81,34 +82,41 @@ for i = 1:numberOfContrasts
         case true
             min = min .* thisSimQ4;
             max = max .* thisSimQ4;
-            reflectivity(:,2) = reflectivity(:,2) .* thisQ4;         
+            reflectivity = reflectivity .* thisQ4;
             dataY = dataY(:) .* thisQ4;
             dataErr = dataErr(:) .* thisQ4;
     end
     
     errorbar(dataX,dataY,dataErr,'.');
+    lines{i} = plot(refXValues,reflectivity,'-');
     shade(refXValues,min,refXValues,max,'FillColor',fillColor,'FillType',fillType,'FillAlpha',fillAlpha);
-    plot(reflectivity(:,1),reflectivity(:,2),'b-');
 
+end
+if options.showLegend
+    legend([lines{:}], problemStruct.names.contrasts{:});
 end
 
 % Now plot the SLDs
 subplot(1,2,2); hold on; box on
-xlabel('$\textrm{Z} (\AA)$','Interpreter','Latex') 
-ylabel('$\textrm{SLD} (\AA^{-2})$','Interpreter','Latex') 
+xlabel('$\textrm{Z} (\AA)$','Interpreter','Latex')
+ylabel('$\textrm{SLD} (\AA^{-2})$','Interpreter','Latex')
+nColumns = size(result.sldProfiles, 2);
+lines = cell(numberOfContrasts * nColumns, 1);
+names = cell(numberOfContrasts * nColumns, 1);
 
 if ~isDomains
 
     for i = 1:numberOfContrasts
 
-        sld = bestSld{i};
-        limits = sldLimits{i};
+        sld = sldValues{i}(3,:);
+        limits = sldValues{i};
         sldXValues = result.sldProfiles{i}(:,1);
 
         min = limits(vals(1),:);
         max = limits(vals(2),:);
 
-        plot(sld(:,1),sld(:,2),'b-');
+        names{i} = problemStruct.names.contrasts{i};
+        lines{i} = plot(sldXValues,sld,'-');
         shade(sldXValues,min,sldXValues,max,'FillColor',fillColor,'FillType',fillType,'FillAlpha',fillAlpha);
 
     end
@@ -117,21 +125,27 @@ else
 
     for i = 1:numberOfContrasts
 
-        sld = bestSld(i,:);
-        limits = sldLimits(i,:);
+        sld = sldValues(i,:);
+        limits = sldValues(i,:);
         sldXValues = result.sldProfiles(i,:);
 
         for j = 1:2
             min = limits{j}(vals(1),:);
             max = limits{j}(vals(2),:);
+            index = nColumns*(i-1)+j;
 
             thisDomainSldXValues = sldXValues{j}(:,1);
 
-            plot(sld{j}(:,1),sld{j}(:,2),'b-');
+            names{index} = sprintf("%s Domain %d", problemStruct.names.contrasts{i}, j);
+            lines{index} = plot(thisDomainSldXValues,sld{j}(3,:),'-');
             shade(thisDomainSldXValues,min,thisDomainSldXValues,max,'FillColor',fillColor,'FillType',fillType,'FillAlpha',fillAlpha);
         end
     end
 
+end
+
+if options.showLegend
+    legend([lines{:}], names{:});
 end
 
 end

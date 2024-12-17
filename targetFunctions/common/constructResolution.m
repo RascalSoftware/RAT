@@ -1,13 +1,9 @@
-function resolution = constructResolution(resolutionType,resolutionParamIndex,shiftedData,customFiles,resolutionParamArray,simLimits)
+function resolution = constructResolution(resolutionType,resolutionParamIndex,shiftedData,customFiles,resolutionParamArray,simulationXData,dataIndices)
 
 % Apply resolution parameters to the resolution.
 %
 % For data and constant resolutions, this means taking any predefined
 % resolution data and adding any supplied parameters.
-
-% Define the resolution over the simulation range, making sure to include
-% any predefined data.
-[simulationXData, dataIndices] = makeSimulationRange(shiftedData, simLimits);
 
 resolution = zeros(length(simulationXData),2);
 resolution(:,1) = simulationXData;

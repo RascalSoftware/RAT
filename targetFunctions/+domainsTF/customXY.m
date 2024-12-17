@@ -159,12 +159,16 @@ function [qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue,chi,...
     sldProfile = {sldProfile1, sldProfile2};
 
     shiftedData = shiftData(scalefactorValue,qzshiftValue,dataPresent,data,dataLimits,simLimits);
-    background = constructBackground(backgroundType,backgroundParamIndex,shiftedData,customFiles,backgroundParams,simLimits);
-    resolution = constructResolution(resolutionType,resolutionParamIndex,shiftedData,customFiles,resolutionParams,simLimits);
+    [simulationXData, dataIndices] = makeSimulationRange(shiftedData, simLimits);
+
+    background = constructBackground(backgroundType,backgroundParamIndex,...
+        shiftedData,customFiles,backgroundParams,simulationXData,dataIndices);
+    resolution = constructResolution(resolutionType,resolutionParamIndex,...
+        shiftedData,customFiles,resolutionParams,simulationXData,dataIndices);
 
     reflectivityType = 'standardAbeles';
-    [reflect1,simul1] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedData,layerSld1,roughness,resolution,parallel,reflectivityType,useImaginary);
-    [reflect2,simul2] = callReflectivity(bulkInValue,bulkOutValue,simLimits,repeatLayers,shiftedData,layerSld2,roughness,resolution,parallel,reflectivityType,useImaginary);
+    [reflect1,simul1] = callReflectivity(bulkInValue,bulkOutValue,simulationXData,dataIndices,repeatLayers,layerSld1,roughness,resolution,parallel,reflectivityType,useImaginary);
+    [reflect2,simul2] = callReflectivity(bulkInValue,bulkOutValue,simulationXData,dataIndices,repeatLayers,layerSld2,roughness,resolution,parallel,reflectivityType,useImaginary);
 
     [reflect1,simul1,~] = applyBackgroundCorrection(reflect1,simul1,shiftedData,background,backgroundAction);
     [reflect2,simul2,shiftedData] = applyBackgroundCorrection(reflect2,simul2,shiftedData,background,backgroundAction);

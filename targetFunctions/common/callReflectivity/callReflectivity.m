@@ -1,4 +1,4 @@
-function [reflectivity, simulation] = callReflectivity(bulkIn,bulkOut,simLimits,repeatLayers,data,layers,ssubs,resolution,parallel,refType,useImaginary)
+function [reflectivity, simulation] = callReflectivity(bulkIn,bulkOut,simulationXData,dataIndices,repeatLayers,layers,ssubs,resolution,parallel,refType,useImaginary)
 
 repeatFlag = repeatLayers(1);
 if repeatFlag
@@ -46,8 +46,6 @@ end
 slds(1) = complex(bulkIn, eps);
 slds(end) = complex(bulkOut, eps);
 roughs(end) = ssubs;
-
-[simulationXData, dataIndices] = makeSimulationRange(data, simLimits);
 
 simulation = zeros(length(simulationXData),2);
 simulation(:,1) = simulationXData;

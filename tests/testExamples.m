@@ -16,9 +16,11 @@ classdef testExamples < matlab.unittest.TestCase
                          ['miscellaneous' filesep 'backgroundTypes'],...
                          ['miscellaneous' filesep 'bayesBenchmark'],...
                          ['miscellaneous' filesep 'roundRobin'],...
-                         ['miscellaneous' filesep 'convertRascal1Project']};
+                         ['miscellaneous' filesep 'convertRascal1Project'],...
+                         'tutorialFiles'};
         exampleLiveScriptFile = {'domainsStandardLayersSheet', 'domainsCustomLayersSheet',... 
-                                 'domainsCustomXYSheet', 'bayesBenchmark', 'convertRascal'}
+                                 'domainsCustomXYSheet', 'bayesBenchmark', 'convertRascal'};
+        tutorialFiles = {'twoContrastExample'};
         % exampleLiveScriptFile = {'domainsStandardLayersSheet', 'domainsCustomLayerSheet', 'domainsCustomXYSheet',... 
         %                          'customLayersDSPCSheet', 'standardLayersDSPCSheet', 'customXYDSPCSheet',...
         %                          'roundRobin', 'bayesBenchmark', 'convertRascal'}
@@ -138,6 +140,17 @@ classdef testExamples < matlab.unittest.TestCase
             testExamples.setupCurrentDir(testCase, exampleLiveScriptFile)  
             evalc(exampleLiveScriptFile);
             close all;
+        end
+
+        function testTutorialFiles(testCase, tutorialFiles)
+            % runs the example live script file
+            testExamples.setupCurrentDir(testCase, tutorialFiles) 
+            problem1 = load('twoContrastExample.mat');
+            problem1 = problem1.problem; 
+            evalc(tutorialFiles);
+            problem2 = load('twoContrastExample.mat');
+            problem2 = problem2.problem;
+            testCase.verifyEqual(problem1, problem2, 'twoContrastExample is not correctly updated');           
         end
 
         function testWriteScript(testCase, exampleScriptFile)

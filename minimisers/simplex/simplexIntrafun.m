@@ -4,7 +4,7 @@ function [fval,result] = simplexIntrafun(x,problemStruct,controls,params)
 xtrans = simplexXTransform(x,params);
 
 %Unpck the params..
-problemStruct.fitParams = xtrans;
+problemStruct.fitParams = xtrans';
 problemStruct = unpackParams(problemStruct);
 
 result = reflectivityCalculation(problemStruct,controls);

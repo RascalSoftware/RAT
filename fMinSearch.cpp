@@ -126,7 +126,7 @@ namespace RAT
                   1U> &varargin_3_LB, const ::coder::array<real_T, 1U>
                   &varargin_3_UB, const ::coder::array<real_T, 1U>
                   &varargin_3_BoundClass, real_T *fval, real_T *exitflag,
-                  m_struct_T *output)
+                  k_struct_T *output)
   {
     static const char_T cv6[35]{ 'E', 'x', 'i', 't', 'i', 'n', 'g', ':', ' ',
       'M', 'a', 'x', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'e', 'v',
@@ -178,7 +178,7 @@ namespace RAT
     ::coder::array<char_T, 2U> b_output;
     ::coder::array<char_T, 2U> charStr;
     e_struct_T b_varargin_1;
-    f_struct_T result;
+    struct6_T result;
     real_T b_fv;
     real_T b_y;
     real_T func_evals;

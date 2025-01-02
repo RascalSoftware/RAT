@@ -20,7 +20,7 @@
 // Type Declarations
 namespace RAT
 {
-  struct f_struct_T;
+  struct struct6_T;
   struct cell_wrap_7;
 }
 
@@ -39,7 +39,7 @@ namespace RAT
   void i_triggerEvent();
   void j_triggerEvent();
   void triggerEvent();
-  void triggerEvent(const f_struct_T *varargin_1, const char_T
+  void triggerEvent(const struct6_T *varargin_1, const char_T
                     varargin_2_TF_data[], const int32_T varargin_2_TF_size[2],
                     const ::coder::array<real_T, 2U> &varargin_2_resample, const
                     ::coder::array<real_T, 2U> &varargin_2_dataPresent, const

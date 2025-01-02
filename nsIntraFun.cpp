@@ -25,8 +25,28 @@ namespace RAT
   real_T nsIntraFun(const e_struct_T *data_f1, const struct4_T *data_f2, const ::
                     coder::array<real_T, 2U> &p)
   {
-    g_struct_T problemStruct;
+    e_struct_T problemStruct;
     struct6_T expl_temp;
+    int32_T loop_ub;
+    problemStruct = *data_f1;
+
+    //  Removed use of cells....
+    problemStruct.fitParams.set_size(1, p.size(1));
+    loop_ub = p.size(1);
+    for (int32_T i{0}; i < loop_ub; i++) {
+      problemStruct.fitParams[i] = p[i];
+    }
+
+    unpackParams(&problemStruct);
+    b_reflectivityCalculation(&problemStruct, data_f2, &expl_temp);
+    return -expl_temp.calculationResults.sumChi / 2.0;
+  }
+
+  real_T nsIntraFun(const e_struct_T *data_f1, const struct4_T *data_f2, const ::
+                    coder::array<real_T, 1U> &p)
+  {
+    e_struct_T problemStruct;
+    f_struct_T expl_temp;
     int32_T b_loop_ub;
     int32_T i;
     int32_T i1;
@@ -250,8 +270,8 @@ namespace RAT
       problemStruct.domainContrastLayers[i] = data_f1->domainContrastLayers[i];
     }
 
-    problemStruct.otherParams.set_size(data_f1->otherParams.size(0));
-    loop_ub = data_f1->otherParams.size(0);
+    problemStruct.otherParams.set_size(1, data_f1->otherParams.size(1));
+    loop_ub = data_f1->otherParams.size(1);
     for (i = 0; i < loop_ub; i++) {
       problemStruct.otherParams[i] = data_f1->otherParams[i];
     }
@@ -276,34 +296,16 @@ namespace RAT
     problemStruct.checks = data_f1->checks;
 
     //  Removed use of cells....
-    problemStruct.fitParams.set_size(1, p.size(1));
-    loop_ub = p.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      problemStruct.fitParams[problemStruct.fitParams.size(0) * i] = p[i];
+    loop_ub = p.size(0);
+    problemStruct.fitParams.set_size(p.size(0), 1);
+    for (i = 0; i < 1; i++) {
+      for (i1 = 0; i1 < loop_ub; i1++) {
+        problemStruct.fitParams[i1] = p[i1];
+      }
     }
 
     unpackParams(&problemStruct);
     reflectivityCalculation(&problemStruct, data_f2, &expl_temp);
-    return -expl_temp.calculationResults.sumChi / 2.0;
-  }
-
-  real_T nsIntraFun(const e_struct_T *data_f1, const struct4_T *data_f2, const ::
-                    coder::array<real_T, 1U> &p)
-  {
-    e_struct_T problemStruct;
-    f_struct_T expl_temp;
-    int32_T loop_ub;
-    problemStruct = *data_f1;
-
-    //  Removed use of cells....
-    problemStruct.fitParams.set_size(p.size(0));
-    loop_ub = p.size(0);
-    for (int32_T i{0}; i < loop_ub; i++) {
-      problemStruct.fitParams[i] = p[i];
-    }
-
-    unpackParams(&problemStruct);
-    b_reflectivityCalculation(&problemStruct, data_f2, &expl_temp);
     return -expl_temp.calculationResults.sumChi / 2.0;
   }
 }

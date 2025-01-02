@@ -21,7 +21,7 @@
 namespace RAT
 {
   struct e_struct_T;
-  struct h_struct_T;
+  struct l_struct_T;
 }
 
 // Function Declarations
@@ -34,7 +34,7 @@ namespace RAT
              controls_display_data[], const int32_T controls_display_size[2],
              real_T controls_updatePlotFreq, const char_T
              controls_IPCFilePath_data[], const int32_T
-             controls_IPCFilePath_size[2], const h_struct_T *S_struct, ::coder::
+             controls_IPCFilePath_size[2], const l_struct_T *S_struct, ::coder::
              array<real_T, 2U> &FVr_bestmem);
 }
 

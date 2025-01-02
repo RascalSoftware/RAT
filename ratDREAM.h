@@ -22,7 +22,7 @@ namespace RAT
 {
   struct e_struct_T;
   struct struct4_T;
-  struct l_struct_T;
+  struct j_struct_T;
 }
 
 // Function Declarations
@@ -37,7 +37,7 @@ namespace RAT
                 const int32_T paramInfo_boundhandling_size[2], const e_struct_T *
                 ratInputs_problemStruct, const struct4_T *ratInputs_controls,
                 const ::coder::array<real_T, 2U> &ratInputs_priors, ::coder::
-                array<real_T, 3U> &chain, l_struct_T *output, ::coder::array<
+                array<real_T, 3U> &chain, j_struct_T *output, ::coder::array<
                 real_T, 2U> &fx);
 }
 

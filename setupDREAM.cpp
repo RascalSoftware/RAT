@@ -26,7 +26,7 @@ namespace RAT
                   DREAMPar_nGenerations, real_T DREAMPar_jumpProbability, real_T
                   DREAMPar_pUnitGamma, boolean_T DREAMPar_adaptPCR, b_struct_T
                   *Meas_info, struct12_T *outDREAMPar, ::coder::array<real_T, 3U>
-                  &chain, l_struct_T *output, ::coder::array<real_T, 2U> &log_L,
+                  &chain, j_struct_T *output, ::coder::array<real_T, 2U> &log_L,
                   ::coder::array<real_T, 2U> &Table_gamma)
   {
     ::coder::array<real_T, 2U> c;

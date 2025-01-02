@@ -29,7 +29,7 @@
 namespace RAT
 {
   void refPercentileConfidenceIntervals(const ::coder::array<real_T, 2U>
-    &bayesOutputs_chain, g_struct_T *problemStruct, const struct4_T *controls,
+    &bayesOutputs_chain, e_struct_T *problemStruct, const struct4_T *controls,
     const ::coder::array<cell_wrap_8, 1U> &results_reflectivity, const ::coder::
     array<cell_wrap_10, 2U> &results_sldProfiles, ::coder::array<cell_wrap_11,
     1U> &allPredInts_reflectivity, ::coder::array<cell_wrap_11, 2U>
@@ -226,15 +226,14 @@ namespace RAT
     for (b_i = 0; b_i < 1000; b_i++) {
       problemStruct->fitParams.set_size(1, loop_ub);
       for (i1 = 0; i1 < loop_ub; i1++) {
-        problemStruct->fitParams[problemStruct->fitParams.size(0) * i1] =
-          bayesOutputs_chain[(static_cast<int32_T>(isample[b_i]) +
-                              bayesOutputs_chain.size(0) * i1) - 1];
+        problemStruct->fitParams[i1] = bayesOutputs_chain[(static_cast<int32_T>
+          (isample[b_i]) + bayesOutputs_chain.size(0) * i1) - 1];
       }
 
       unpackParams(problemStruct);
 
       //  Calc the reflectivities....
-      reflectivityCalculation(problemStruct, controls, &expl_temp);
+      b_reflectivityCalculation(problemStruct, controls, &expl_temp);
       allPredInts_sampleChi[b_i] = expl_temp.calculationResults.sumChi;
       for (int32_T n{0}; n < i; n++) {
         k = expl_temp.reflectivity[n].f1.size(0);

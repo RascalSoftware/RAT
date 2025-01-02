@@ -21,7 +21,7 @@
 namespace RAT
 {
   struct struct0_T;
-  struct cell_wrap_13;
+  struct cell_wrap_47;
   struct cell_wrap_7;
   struct cell_wrap_2;
   struct cell_wrap_1;
@@ -33,7 +33,7 @@ namespace RAT
 {
   void extractProblemParams(const struct0_T *problemStruct, real_T
     *numberOfContrasts, char_T geometry_data[], int32_T geometry_size[2], ::
-    coder::array<cell_wrap_13, 2U> &contrastBackgroundParams, ::coder::array<
+    coder::array<cell_wrap_47, 2U> &contrastBackgroundParams, ::coder::array<
     real_T, 2U> &contrastQzshifts, ::coder::array<real_T, 2U>
     &contrastScalefactors, ::coder::array<real_T, 2U> &contrastBulkIns, ::coder::
     array<real_T, 2U> &contrastBulkOuts, ::coder::array<real_T, 2U>

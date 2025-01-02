@@ -21,10 +21,8 @@
 namespace RAT
 {
   struct e_struct_T;
-  struct struct4_T;
-  struct g_struct_T;
   struct struct6_T;
-  struct f_struct_T;
+  struct struct4_T;
 }
 
 // Function Declarations
@@ -36,8 +34,8 @@ namespace RAT
                 real_T controls_resampleNPoints, boolean_T
                 controls_calcSldDuringFit, real_T *S_MSE_I_nc, real_T
                 *S_MSE_FVr_ca, real_T *S_MSE_I_no, real_T *S_MSE_FVr_oa,
-                f_struct_T *result);
-  void runDE(const e_struct_T *problemStruct, const ::coder::array<real_T, 2U>
+                struct6_T *result);
+  void runDE(e_struct_T *problemStruct, const ::coder::array<real_T, 2U>
              &problemLimits_params, const ::coder::array<real_T, 2U>
              &problemLimits_backgroundParams, const ::coder::array<real_T, 2U>
              &problemLimits_scalefactors, const ::coder::array<real_T, 2U>
@@ -45,8 +43,8 @@ namespace RAT
              &problemLimits_bulkIns, const ::coder::array<real_T, 2U>
              &problemLimits_bulkOuts, const ::coder::array<real_T, 2U>
              &problemLimits_resolutionParams, const ::coder::array<real_T, 2U>
-             &problemLimits_domainRatios, const struct4_T *controls, g_struct_T *
-             b_problemStruct, struct6_T *result);
+             &problemLimits_domainRatios, const struct4_T *controls, struct6_T
+             *result);
 }
 
 #endif

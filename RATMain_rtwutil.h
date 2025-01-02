@@ -22,7 +22,7 @@
 namespace RAT
 {
   extern void cast(const ::coder::array<cell_wrap_3, 2U> &b, ::coder::array<
-                   cell_wrap_13, 2U> &c);
+                   cell_wrap_47, 2U> &c);
   extern void cast(const ::coder::array<cell_wrap_5, 2U> &b, ::coder::array<
                    cell_wrap_10, 2U> &c);
   extern void cast(const ::coder::array<cell_wrap_0, 2U> &b, ::coder::array<

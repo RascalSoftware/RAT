@@ -21,7 +21,7 @@
 namespace RAT
 {
   struct e_struct_T;
-  struct m_struct_T;
+  struct k_struct_T;
 }
 
 // Function Declarations
@@ -41,7 +41,7 @@ namespace RAT
                   1U> &varargin_3_LB, const ::coder::array<real_T, 1U>
                   &varargin_3_UB, const ::coder::array<real_T, 1U>
                   &varargin_3_BoundClass, real_T *fval, real_T *exitflag,
-                  m_struct_T *output);
+                  k_struct_T *output);
 }
 
 #endif

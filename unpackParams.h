@@ -20,14 +20,12 @@
 namespace RAT
 {
   struct e_struct_T;
-  struct g_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
   void unpackParams(e_struct_T *problemStruct);
-  void unpackParams(g_struct_T *problemStruct);
 }
 
 #endif

@@ -43,7 +43,7 @@ namespace RAT
     int32_T i1;
     int32_T loop_ub_tmp;
     int32_T n;
-    int32_T numberOfFitted_idx_0_tmp;
+    int32_T numberOfFitted_idx_1_tmp;
     int32_T numberOfTotal;
     int32_T otherCounter;
     uint32_T fitCounter;
@@ -117,16 +117,18 @@ namespace RAT
                       problemStruct->bulkOuts.size(1)) +
                      problemStruct->resolutionParams.size(1)) +
       problemStruct->domainRatios.size(1);
+    problemStruct->fitParams.set_size(1, problemStruct->fitParams.size(1));
     loop_ub_tmp = static_cast<int32_T>(numberOfFitted);
-    problemStruct->fitParams.set_size(loop_ub_tmp);
+    problemStruct->fitParams.set_size(problemStruct->fitParams.size(0),
+      loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
       problemStruct->fitParams[i] = 0.0;
     }
 
-    numberOfFitted_idx_0_tmp = static_cast<int32_T>(static_cast<real_T>
+    numberOfFitted_idx_1_tmp = static_cast<int32_T>(static_cast<real_T>
       (numberOfTotal) - numberOfFitted);
-    problemStruct->otherParams.set_size(numberOfFitted_idx_0_tmp);
-    for (i = 0; i < numberOfFitted_idx_0_tmp; i++) {
+    problemStruct->otherParams.set_size(1, numberOfFitted_idx_1_tmp);
+    for (i = 0; i < numberOfFitted_idx_1_tmp; i++) {
       problemStruct->otherParams[i] = 0.0;
     }
 
@@ -138,9 +140,9 @@ namespace RAT
       }
     }
 
-    problemStruct->otherLimits.set_size(numberOfFitted_idx_0_tmp, 2);
+    problemStruct->otherLimits.set_size(numberOfFitted_idx_1_tmp, 2);
     for (i = 0; i < 2; i++) {
-      for (i1 = 0; i1 < numberOfFitted_idx_0_tmp; i1++) {
+      for (i1 = 0; i1 < numberOfFitted_idx_1_tmp; i1++) {
         problemStruct->otherLimits[i1 + problemStruct->otherLimits.size(0) * i] =
           0.0;
       }
@@ -166,8 +168,8 @@ namespace RAT
         fitNames[static_cast<int32_T>(fitCounter) - 1].f1.set_size(1,
           problemStruct->names.params[problemStruct->names.params.size(0) * n].
           f1.size(1));
-        numberOfFitted_idx_0_tmp = problemStruct->names.params[n].f1.size(1);
-        for (i1 = 0; i1 < numberOfFitted_idx_0_tmp; i1++) {
+        numberOfFitted_idx_1_tmp = problemStruct->names.params[n].f1.size(1);
+        for (i1 = 0; i1 < numberOfFitted_idx_1_tmp; i1++) {
           fitNames[static_cast<int32_T>(fitCounter) - 1].f1[i1] =
             problemStruct->names.params[n].f1[i1];
         }
@@ -196,9 +198,9 @@ namespace RAT
         fitNames[static_cast<int32_T>(fitCounter) - 1].f1.set_size(1,
           problemStruct->names.backgroundParams
           [problemStruct->names.backgroundParams.size(0) * n].f1.size(1));
-        numberOfFitted_idx_0_tmp = problemStruct->names.backgroundParams[n].
+        numberOfFitted_idx_1_tmp = problemStruct->names.backgroundParams[n].
           f1.size(1);
-        for (i1 = 0; i1 < numberOfFitted_idx_0_tmp; i1++) {
+        for (i1 = 0; i1 < numberOfFitted_idx_1_tmp; i1++) {
           fitNames[static_cast<int32_T>(fitCounter) - 1].f1[i1] =
             problemStruct->names.backgroundParams[n].f1[i1];
         }
@@ -228,9 +230,9 @@ namespace RAT
         fitNames[static_cast<int32_T>(fitCounter) - 1].f1.set_size(1,
           problemStruct->names.scalefactors
           [problemStruct->names.scalefactors.size(0) * n].f1.size(1));
-        numberOfFitted_idx_0_tmp = problemStruct->names.scalefactors[n].f1.size
+        numberOfFitted_idx_1_tmp = problemStruct->names.scalefactors[n].f1.size
           (1);
-        for (i1 = 0; i1 < numberOfFitted_idx_0_tmp; i1++) {
+        for (i1 = 0; i1 < numberOfFitted_idx_1_tmp; i1++) {
           fitNames[static_cast<int32_T>(fitCounter) - 1].f1[i1] =
             problemStruct->names.scalefactors[n].f1[i1];
         }
@@ -259,8 +261,8 @@ namespace RAT
         fitNames[static_cast<int32_T>(fitCounter) - 1].f1.set_size(1,
           problemStruct->names.qzshifts[problemStruct->names.qzshifts.size(0) *
           n].f1.size(1));
-        numberOfFitted_idx_0_tmp = problemStruct->names.qzshifts[n].f1.size(1);
-        for (i1 = 0; i1 < numberOfFitted_idx_0_tmp; i1++) {
+        numberOfFitted_idx_1_tmp = problemStruct->names.qzshifts[n].f1.size(1);
+        for (i1 = 0; i1 < numberOfFitted_idx_1_tmp; i1++) {
           fitNames[static_cast<int32_T>(fitCounter) - 1].f1[i1] =
             problemStruct->names.qzshifts[n].f1[i1];
         }
@@ -289,8 +291,8 @@ namespace RAT
         fitNames[static_cast<int32_T>(fitCounter) - 1].f1.set_size(1,
           problemStruct->names.bulkIns[problemStruct->names.bulkIns.size(0) * n]
           .f1.size(1));
-        numberOfFitted_idx_0_tmp = problemStruct->names.bulkIns[n].f1.size(1);
-        for (i1 = 0; i1 < numberOfFitted_idx_0_tmp; i1++) {
+        numberOfFitted_idx_1_tmp = problemStruct->names.bulkIns[n].f1.size(1);
+        for (i1 = 0; i1 < numberOfFitted_idx_1_tmp; i1++) {
           fitNames[static_cast<int32_T>(fitCounter) - 1].f1[i1] =
             problemStruct->names.bulkIns[n].f1[i1];
         }
@@ -319,8 +321,8 @@ namespace RAT
         fitNames[static_cast<int32_T>(fitCounter) - 1].f1.set_size(1,
           problemStruct->names.bulkOuts[problemStruct->names.bulkOuts.size(0) *
           n].f1.size(1));
-        numberOfFitted_idx_0_tmp = problemStruct->names.bulkOuts[n].f1.size(1);
-        for (i1 = 0; i1 < numberOfFitted_idx_0_tmp; i1++) {
+        numberOfFitted_idx_1_tmp = problemStruct->names.bulkOuts[n].f1.size(1);
+        for (i1 = 0; i1 < numberOfFitted_idx_1_tmp; i1++) {
           fitNames[static_cast<int32_T>(fitCounter) - 1].f1[i1] =
             problemStruct->names.bulkOuts[n].f1[i1];
         }
@@ -349,9 +351,9 @@ namespace RAT
         fitNames[static_cast<int32_T>(fitCounter) - 1].f1.set_size(1,
           problemStruct->names.resolutionParams
           [problemStruct->names.resolutionParams.size(0) * n].f1.size(1));
-        numberOfFitted_idx_0_tmp = problemStruct->names.resolutionParams[n].
+        numberOfFitted_idx_1_tmp = problemStruct->names.resolutionParams[n].
           f1.size(1);
-        for (i1 = 0; i1 < numberOfFitted_idx_0_tmp; i1++) {
+        for (i1 = 0; i1 < numberOfFitted_idx_1_tmp; i1++) {
           fitNames[static_cast<int32_T>(fitCounter) - 1].f1[i1] =
             problemStruct->names.resolutionParams[n].f1[i1];
         }
@@ -381,9 +383,9 @@ namespace RAT
         fitNames[static_cast<int32_T>(fitCounter) - 1].f1.set_size(1,
           problemStruct->names.domainRatios
           [problemStruct->names.domainRatios.size(0) * n].f1.size(1));
-        numberOfFitted_idx_0_tmp = problemStruct->names.domainRatios[n].f1.size
+        numberOfFitted_idx_1_tmp = problemStruct->names.domainRatios[n].f1.size
           (1);
-        for (i1 = 0; i1 < numberOfFitted_idx_0_tmp; i1++) {
+        for (i1 = 0; i1 < numberOfFitted_idx_1_tmp; i1++) {
           fitNames[static_cast<int32_T>(fitCounter) - 1].f1[i1] =
             problemStruct->names.domainRatios[n].f1[i1];
         }

@@ -30,7 +30,7 @@
 namespace RAT
 {
   void b_reflectivityCalculation(const e_struct_T *problemStruct, const
-    struct4_T *controls, f_struct_T *result)
+    struct4_T *controls, struct6_T *result)
   {
     ::coder::array<cell_wrap_10, 2U> layerSlds;
     ::coder::array<cell_wrap_10, 2U> resampledLayers;
@@ -335,8 +335,8 @@ namespace RAT
       result->contrastParams.resample[i] = problemStruct->resample[i];
     }
 
-    result->fitParams.set_size(problemStruct->fitParams.size(0));
-    b_index = problemStruct->fitParams.size(0);
+    result->fitParams.set_size(1, problemStruct->fitParams.size(1));
+    b_index = problemStruct->fitParams.size(1);
     for (i = 0; i < b_index; i++) {
       result->fitParams[i] = problemStruct->fitParams[i];
     }
@@ -356,7 +356,7 @@ namespace RAT
   }
 
   void reflectivityCalculation(const e_struct_T *problemStruct, const struct4_T *
-    controls, f_struct_T *result)
+    controls, struct6_T *result)
   {
     ::coder::array<cell_wrap_10, 2U> layerSlds;
     ::coder::array<cell_wrap_10, 2U> resampledLayers;
@@ -661,8 +661,8 @@ namespace RAT
       result->contrastParams.resample[i] = problemStruct->resample[i];
     }
 
-    result->fitParams.set_size(problemStruct->fitParams.size(0));
-    b_index = problemStruct->fitParams.size(0);
+    result->fitParams.set_size(1, problemStruct->fitParams.size(1));
+    b_index = problemStruct->fitParams.size(1);
     for (i = 0; i < b_index; i++) {
       result->fitParams[i] = problemStruct->fitParams[i];
     }
@@ -681,8 +681,8 @@ namespace RAT
                 problemStruct->checks.domainRatios, result->fitNames);
   }
 
-  void reflectivityCalculation(const g_struct_T *problemStruct, const struct4_T *
-    controls, struct6_T *result)
+  void reflectivityCalculation(const e_struct_T *problemStruct, const struct4_T *
+    controls, f_struct_T *result)
   {
     ::coder::array<cell_wrap_10, 2U> layerSlds;
     ::coder::array<cell_wrap_10, 2U> resampledLayers;
@@ -743,7 +743,7 @@ namespace RAT
 
       switch (b_index) {
        case 0:
-        normalTF::standardLayers(problemStruct, controls, qzshifts,
+        normalTF::b_standardLayers(problemStruct, controls, qzshifts,
           result->contrastParams.scalefactors, result->contrastParams.bulkIn,
           result->contrastParams.bulkOut,
           result->contrastParams.resolutionParams,
@@ -771,7 +771,7 @@ namespace RAT
         break;
 
        case 1:
-        normalTF::b_customLayers(problemStruct, controls, qzshifts,
+        normalTF::c_customLayers(problemStruct, controls, qzshifts,
           result->contrastParams.scalefactors, result->contrastParams.bulkIn,
           result->contrastParams.bulkOut,
           result->contrastParams.resolutionParams,
@@ -857,7 +857,7 @@ namespace RAT
          case 0:
           {
             int32_T b_loop_ub;
-            domainsTF::standardLayers(problemStruct, controls, qzshifts,
+            domainsTF::b_standardLayers(problemStruct, controls, qzshifts,
               result->contrastParams.scalefactors, result->contrastParams.bulkIn,
               result->contrastParams.bulkOut,
               result->contrastParams.resolutionParams,
@@ -893,7 +893,7 @@ namespace RAT
          case 1:
           {
             int32_T b_loop_ub;
-            domainsTF::b_customLayers(problemStruct, controls, qzshifts,
+            domainsTF::c_customLayers(problemStruct, controls, qzshifts,
               result->contrastParams.scalefactors, result->contrastParams.bulkIn,
               result->contrastParams.bulkOut,
               result->contrastParams.resolutionParams,
@@ -1009,7 +1009,7 @@ namespace RAT
   }
 
   void reflectivityCalculation(const struct0_T *problemStruct, const struct4_T
-    *controls, f_struct_T *result)
+    *controls, struct6_T *result)
   {
     ::coder::array<cell_wrap_10, 2U> layerSlds;
     ::coder::array<cell_wrap_10, 2U> resampledLayers;
@@ -1314,8 +1314,8 @@ namespace RAT
       result->contrastParams.resample[i] = problemStruct->resample[i];
     }
 
-    result->fitParams.set_size(problemStruct->fitParams.size(0));
-    b_index = problemStruct->fitParams.size(0);
+    result->fitParams.set_size(1, problemStruct->fitParams.size(1));
+    b_index = problemStruct->fitParams.size(1);
     for (i = 0; i < b_index; i++) {
       result->fitParams[i] = problemStruct->fitParams[i];
     }

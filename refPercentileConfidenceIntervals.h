@@ -20,7 +20,7 @@
 // Type Declarations
 namespace RAT
 {
-  struct g_struct_T;
+  struct e_struct_T;
   struct struct4_T;
   struct cell_wrap_8;
   struct cell_wrap_10;
@@ -31,7 +31,7 @@ namespace RAT
 namespace RAT
 {
   void refPercentileConfidenceIntervals(const ::coder::array<real_T, 2U>
-    &bayesOutputs_chain, g_struct_T *problemStruct, const struct4_T *controls,
+    &bayesOutputs_chain, e_struct_T *problemStruct, const struct4_T *controls,
     const ::coder::array<cell_wrap_8, 1U> &results_reflectivity, const ::coder::
     array<cell_wrap_10, 2U> &results_sldProfiles, ::coder::array<cell_wrap_11,
     1U> &allPredInts_reflectivity, ::coder::array<cell_wrap_11, 2U>

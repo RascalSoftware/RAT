@@ -10,7 +10,6 @@
 
 // Include files
 #include "triggerEvent.h"
-#include "RATMain_internal_types.h"
 #include "RATMain_types.h"
 #include "getenv.h"
 #include "rt_nonfinite.h"
@@ -1039,7 +1038,7 @@ namespace RAT
     }
   }
 
-  void triggerEvent(const f_struct_T *varargin_1, const char_T
+  void triggerEvent(const struct6_T *varargin_1, const char_T
                     varargin_2_TF_data[], const int32_T varargin_2_TF_size[2],
                     const ::coder::array<real_T, 2U> &varargin_2_resample, const
                     ::coder::array<real_T, 2U> &varargin_2_dataPresent, const

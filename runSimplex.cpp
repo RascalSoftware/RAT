@@ -35,7 +35,7 @@ namespace RAT
                   &problemLimits_bulkOuts, const ::coder::array<real_T, 2U>
                   &problemLimits_resolutionParams, const ::coder::array<real_T,
                   2U> &problemLimits_domainRatios, const struct4_T *controls,
-                  f_struct_T *result)
+                  struct6_T *result)
   {
     static const char_T b_cv1[6]{ 'n', 'o', 't', 'i', 'f', 'y' };
 
@@ -45,8 +45,9 @@ namespace RAT
     ::coder::array<real_T, 1U> LB;
     ::coder::array<real_T, 1U> UB;
     ::coder::array<real_T, 1U> params_BoundClass;
+    ::coder::array<real_T, 1U> x;
     ::coder::array<real_T, 1U> x0u;
-    m_struct_T a__4;
+    k_struct_T a__4;
     real_T a__2;
     real_T a__3;
     int32_T dis_size[2];
@@ -133,7 +134,7 @@ namespace RAT
 
     //  size checks
     if (problemStruct->fitLimits.size(0) == 0) {
-      outsize_idx_0 = problemStruct->fitParams.size(0);
+      outsize_idx_0 = problemStruct->fitParams.size(1);
       LB.set_size(outsize_idx_0);
       for (i = 0; i < outsize_idx_0; i++) {
         LB[i] = rtMinusInf;
@@ -141,7 +142,7 @@ namespace RAT
     }
 
     if (problemStruct->fitLimits.size(0) == 0) {
-      outsize_idx_0 = problemStruct->fitParams.size(0);
+      outsize_idx_0 = problemStruct->fitParams.size(1);
       UB.set_size(outsize_idx_0);
       for (i = 0; i < outsize_idx_0; i++) {
         UB[i] = rtInf;
@@ -155,13 +156,13 @@ namespace RAT
     //  1 --> lower bound only
     //  2 --> upper bound only
     //  3 --> dual finite bounds
-    outsize_idx_0 = problemStruct->fitParams.size(0);
+    outsize_idx_0 = problemStruct->fitParams.size(1);
     params_BoundClass.set_size(outsize_idx_0);
     for (i = 0; i < outsize_idx_0; i++) {
       params_BoundClass[i] = 0.0;
     }
 
-    i = problemStruct->fitParams.size(0);
+    i = problemStruct->fitParams.size(1);
     for (b_i = 0; b_i < i; b_i++) {
       params_BoundClass[b_i] = static_cast<real_T>((!std::isinf(LB[b_i])) &&
         (!std::isnan(LB[b_i]))) + static_cast<real_T>(((!std::isinf(UB[b_i])) &&
@@ -170,13 +171,13 @@ namespace RAT
 
     //  transform starting values into their unconstrained
     //  surrogates. Check for infeasible starting guesses.
-    x0u.set_size(problemStruct->fitParams.size(0));
-    outsize_idx_0 = problemStruct->fitParams.size(0);
+    outsize_idx_0 = problemStruct->fitParams.size(1);
+    x0u.set_size(outsize_idx_0);
     for (i = 0; i < outsize_idx_0; i++) {
       x0u[i] = problemStruct->fitParams[i];
     }
 
-    i = problemStruct->fitParams.size(0);
+    i = problemStruct->fitParams.size(1);
     for (b_i = 0; b_i < i; b_i++) {
       switch (static_cast<int32_T>(params_BoundClass[b_i])) {
        case 1:
@@ -232,10 +233,16 @@ namespace RAT
 
     // [xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemStruct,controls,options,params,300);
     //  undo the variable transformations into the original space
-    simplexXTransform(x0u, LB, UB, params_BoundClass, problemStruct->fitParams);
+    simplexXTransform(x0u, LB, UB, params_BoundClass, x);
 
     //  final reshape
     // x = reshape(x,xsize);
+    problemStruct->fitParams.set_size(1, x.size(0));
+    outsize_idx_0 = x.size(0);
+    for (i = 0; i < outsize_idx_0; i++) {
+      problemStruct->fitParams[i] = x[i];
+    }
+
     unpackParams(problemStruct);
     b_reflectivityCalculation(problemStruct, controls, result);
   }

@@ -22,7 +22,7 @@ namespace RAT
 {
   struct e_struct_T;
   struct struct4_T;
-  struct f_struct_T;
+  struct struct6_T;
 }
 
 // Function Declarations
@@ -37,7 +37,7 @@ namespace RAT
                   &problemLimits_bulkOuts, const ::coder::array<real_T, 2U>
                   &problemLimits_resolutionParams, const ::coder::array<real_T,
                   2U> &problemLimits_domainRatios, const struct4_T *controls,
-                  f_struct_T *result);
+                  struct6_T *result);
 }
 
 #endif

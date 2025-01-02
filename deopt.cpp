@@ -41,7 +41,7 @@ namespace RAT
              controls_display_data[], const int32_T controls_display_size[2],
              real_T controls_updatePlotFreq, const char_T
              controls_IPCFilePath_data[], const int32_T
-             controls_IPCFilePath_size[2], const h_struct_T *S_struct, ::coder::
+             controls_IPCFilePath_size[2], const l_struct_T *S_struct, ::coder::
              array<real_T, 2U> &FVr_bestmem)
   {
     ::coder::array<struct_T, 1U> S_val;
@@ -72,10 +72,10 @@ namespace RAT
     ::coder::array<boolean_T, 2U> FM_mpo;
     ::coder::array<boolean_T, 2U> FM_mui;
     e_struct_T b_problem;
-    f_struct_T a__1;
-    f_struct_T a__2;
-    f_struct_T a__3;
-    f_struct_T result;
+    struct6_T a__1;
+    struct6_T a__2;
+    struct6_T a__3;
+    struct6_T result;
     real_T validatedHoleFilling[5];
     real_T p[4];
     real_T F_CR;

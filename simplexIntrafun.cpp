@@ -31,16 +31,22 @@ namespace RAT
                        controls_calcSldDuringFit, const ::coder::array<real_T,
                        1U> &params_LB, const ::coder::array<real_T, 1U>
                        &params_UB, const ::coder::array<real_T, 1U>
-                       &params_BoundClass, real_T *fval, f_struct_T *result)
+                       &params_BoundClass, real_T *fval, struct6_T *result)
   {
+    ::coder::array<real_T, 1U> xtrans;
     struct4_T expl_temp;
     int32_T loop_ub;
 
     //  transform variables, then call original function
-    simplexXTransform(x, params_LB, params_UB, params_BoundClass,
-                      problemStruct->fitParams);
+    simplexXTransform(x, params_LB, params_UB, params_BoundClass, xtrans);
 
     // Unpck the params..
+    problemStruct->fitParams.set_size(1, xtrans.size(0));
+    loop_ub = xtrans.size(0);
+    for (int32_T i{0}; i < loop_ub; i++) {
+      problemStruct->fitParams[i] = xtrans[i];
+    }
+
     unpackParams(problemStruct);
     expl_temp.calcSldDuringFit = controls_calcSldDuringFit;
     expl_temp.resampleNPoints = controls_resampleNPoints;

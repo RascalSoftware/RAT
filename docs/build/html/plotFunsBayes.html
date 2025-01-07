@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Reflectivity and SLD &#8212; RAT 1.0.0-beta documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/design-tabs.js"></script>
+    <link rel="icon" href="_static/logo.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Live Updating Plots" href="livePlot.html" />
+    <link rel="prev" title="Basic Plotting" href="plotFuns.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calcTypes.html">Different Calculation Types</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="utilities.html">Utility Functions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="plotFuns.html">Basic Plotting</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Reflectivity and SLD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#posterior-histograms">Posterior Histograms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#corner-plots">Corner Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#chain-view">Chain View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="livePlot.html">Live Updating Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conversionFuncs.html">Convert between RAT and RasCAL1</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <p id="bayesplotting">A number of function exist for plotting the results of Bayesian analysis.</p>
+<section id="reflectivity-and-sld">
+<h1>Reflectivity and SLD<a class="headerlink" href="#reflectivity-and-sld" title="Permalink to this heading">¶</a></h1>
+<p>A simple reflectivity shaded plot can be displayed as follows:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="nb">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="n">clf</span>
+<span class="s">bayesShadedPlot(problem,results)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/bayesRef1.png"><img alt="simple shaded plot" src="_images/bayesRef1.png" style="width: 800px;" /></a>
+<p>By default, this shows a standard reflectivity plot with a 65% shaded confidence interval.</p>
+<p>There are a number of options to customise the plot:</p>
+<p><strong>Interval</strong> - You can sepcify either the 65% or 95% confidence interval to display:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">bayesShadedPlot</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span><span class="n">results</span><span class="p">,</span><span class="s">&#39;interval&#39;</span><span class="p">,</span><span class="mi">95</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/bayes95.png"><img alt="95 shaded plot" src="_images/bayes95.png" style="width: 800px;" /></a>
+<p><strong>Type</strong> - You can also specify a q4 plot for the reflectivity:</p>
+<a class="reference internal image-reference" href="_images/bayesq4.png"><img alt="bayes q4 plot" src="_images/bayesq4.png" style="width: 800px;" /></a>
+</section>
+<section id="posterior-histograms">
+<h1>Posterior Histograms<a class="headerlink" href="#posterior-histograms" title="Permalink to this heading">¶</a></h1>
+<p>You can easily view the marginalised Bayesian posteriors from your analysis:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">plotHists</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/histSmooth.png"><img alt="smooth hists" src="_images/histSmooth.png" style="width: 800px;" /></a>
+<p>By default, <em>plotHists</em> carries out a KDE smooth of the histograms. You can optionally choose no smoothing:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">plotHists</span><span class="p">(</span><span class="n">results</span><span class="p">,</span><span class="s">&#39;smooth&#39;</span><span class="p">,</span><span class="nb">false</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/histNoSmooth.png"><img alt="smooth hists" src="_images/histNoSmooth.png" style="width: 800px;" /></a>
+</section>
+<section id="corner-plots">
+<h1>Corner Plots<a class="headerlink" href="#corner-plots" title="Permalink to this heading">¶</a></h1>
+<p>To produce a cornerplot, simply use the <em>cornerPlot</em> function:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">cornerPlot</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/cornerPlot.png"><img alt="cornerPlot" src="_images/cornerPlot.png" style="width: 800px;" /></a>
+</section>
+<section id="chain-view">
+<h1>Chain View<a class="headerlink" href="#chain-view" title="Permalink to this heading">¶</a></h1>
+<p>Finally, you can check the integrity of your markov chain as follows:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">mcmcplot</span><span class="p">(</span><span class="n">results</span><span class="p">.</span><span class="n">chain</span><span class="p">,[],</span><span class="n">results</span><span class="p">.</span><span class="n">fitNames</span><span class="p">,</span><span class="s">&#39;chainpanel&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/chainPlot.png"><img alt="chainPlot" src="_images/chainPlot.png" style="width: 800px;" /></a>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &#169;2022-2024, ISIS Neutron and Muon Source.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 6.2.1</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/plotFunsBayes.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

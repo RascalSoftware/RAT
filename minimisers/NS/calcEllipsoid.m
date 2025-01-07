@@ -65,7 +65,17 @@ VE = const*sqrt(det( fB * C ));
 % expand volume of bounding ellipsoid to VS if necessary
 fV = 1;
 if VE < VS
-    fV = (VS/VE)^(2/ndims);
+
+    
+    % Fix to avoid the fractional matrix power error....
+    % Replace....
+    %fV = (VS/VE)^(2/ndims);
+
+    % .... with....
+    x = 2/ndims;
+    A = log(VS/VE) * x;
+    fV = exp(A);
+
     VE = VS;
 end
 

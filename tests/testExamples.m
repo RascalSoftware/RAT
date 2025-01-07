@@ -150,7 +150,7 @@ classdef testExamples < matlab.unittest.TestCase
             evalc(tutorialFiles);
             problem2 = load('twoContrastExample.mat');
             problem2 = problem2.problem;
-            testCase.verifyEqual(problem1, problem2, 'twoContrastExample is not correctly updated');           
+            testCase.verifyEqual(problem1, problem2, 'twoContrastExample.mat is not correctly updated. Update the mat file by manually running twoContrastExample.m');           
         end
 
         function testWriteScript(testCase, exampleScriptFile)

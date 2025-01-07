@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Introduction &#8212; RAT 1.0.0-beta documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/design-tabs.js"></script>
+    <link rel="icon" href="_static/logo.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The Problem Definition Input Class" href="chapter2.html" />
+    <link rel="prev" title="Tutorial" href="tutorial.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="tutorial.html">Tutorial</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter2.html">The Problem Definition Input Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter2.html#the-monolayer-example-in-full">The Monolayer Example In Full</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controlsInfo.html">A Closer Look at the Controls Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customModels.html">Custom Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="savingAndClasses.html">Saving Your Work (working with classes)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calcTypes.html">Different Calculation Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="introduction">
+<span id="chapter1"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h1>
+<p>When we are at the calculations point our data analysis - that the data has been properly reduced and we have some idea of a
+modelling strategy, we can still then split the problem specification into two parts.</p>
+<ul class="simple">
+<li><p>The <strong>Model Definition</strong> describes our data, our model, the various parameters we may have along with their limits or priors,
+and other quantities such as bulk SLD’s or backgrounds.</p></li>
+<li><p>The <strong>Controls Block</strong> summarises the actions which we want to do with our model. So it specifies which algorithm we
+might want to apply to improve our model fit, along with algorithm parameters such as maximum function evaluations or gradients etc.</p></li>
+</ul>
+<p>Keeping these two separate gives a high degree of flexibility as to how we can approach a data analysis problem. For example,
+suppose we have defined a Model Definition block which contains the data and model details for a given fitting problem, we
+then decide that we would like to optimise this first using a genetic algorithm, and then run a Bayesian analysis to
+obtain the parameter posterior distributions. To do all this we only need to define our model once, and run it twice
+whilst simply modifying the Controls Block to tweak the algorithm that is run in each case. Also, once we are satisfied with
+our model, we can save it or export it, and re-use this basic pattern for subsequent analysis with different,
+related data sets. Keeping the Model and Controls separate gives a high degree of flexibility as to how tasks can be
+formulated and run.</p>
+<p>So, an input into RAT always conforms to this picture: a model definition class to specify the problem, and a controls definition class that tells RAT what analysis task you would like to do:</p>
+<img alt="RAT input model" src="_images/ratInput.png" />
+<p>The outputs are always another <em>problemDef</em> class, and a results block. The new <em>problemDef</em> class is identical to the inputted one, except with updated values of the fitted parameters (e.g. after running a fit). The results block as a set of arrays containing the results of the calculations, such as simulated reflectivities, SLD profiles or parameter distributions. We will discuss more about these in the next chapter where we look at the outputs in more detail. Similarly, we will look in more detail at the input classes in the next section.</p>
+<p>In the next section, we will look at an example calculation, in order to introduce the basics of the RAT toolbox. Before we proceed, it’s useful to keep a couple of things in mind:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Different model types?</strong> - There are many possible types of model, and this is done by having more than one version of</dt><dd><p>the <em>problemDef</em> class. These are (those in italics not initial release):</p>
+<ul>
+<li><p>Standard Problem: Problem types which are well described by a non-polarised beam, with no absorption (i.e., real refractive index only).</p></li>
+<li><p>Standard Problem with imaginary refractive index.</p></li>
+<li><p>Domains Problem Type (‘incoherent summing’).</p></li>
+<li><p><em>Oil/Water problem type (phase 2)</em></p></li>
+<li><p><em>Polarised problem type (phase 2)</em></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Within each problem class, there is the option of <em>Custom Layer</em> or <em>Custom XY</em> model definitions. These will be discussed in
+more detail in a later section.</p>
+<p>In this section we’ll look at the project definition class in more detail, we’ll see how we can use the class methods to build and modify a model, and how to carry out the analysis.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are a RasCAL1 user, you probably have existing RasCAL models that you would like to analyse using RAT. If so, there is no need to re-make the model from scratch. Instead, there are
+conversion utilities (<a class="reference internal" href="conversionFuncs.html#conversionfuncs"><span class="std std-ref">Convert between RAT and RasCAL1</span></a>). In fact, for those who prefer a graphical model builder, using the RasCAL1 GUI to build a basic model and then converting to RAT is a viable workflow.</p>
+</div>
+<section id="an-example-a-simple-model-of-a-lipid-layer">
+<h2>An example - A simple model of a lipid layer<a class="headerlink" href="#an-example-a-simple-model-of-a-lipid-layer" title="Permalink to this heading">¶</a></h2>
+<p><strong>(a) Specifying the Model.</strong></p>
+<p>In the next section, we’ll look in detail how to set up the problem definition for a given situation. Initially though, it’s
+useful to take a pre-prepared problem definition, and to see how this is then used in RAT. As an example, we’ll use some
+neutron reflectivity data for a lipid monolayer, collected at various deuterations, which we want to analyse simultaneously.</p>
+<p>In terms of reflectivity, the interface we want to model (i.e. a monolayer at an air-water interface) is usually well modelled
+by two layers: the hydrophobic tail regions of the lipids, which locate outside the bulk water interface, and the hydrophilic
+heads which are adjacent (or embedded) in the bulk aqueous phase.</p>
+<p>In our example, the layers can be either deuterated of hydrogenated, and the bulk water can either be D2O or ACMW.</p>
+<a class="reference internal image-reference" href="_images/lipidMonolayer.png"><img alt="The lipid monolayer example" src="_images/lipidMonolayer.png" style="width: 300px;" /></a>
+<p>We are going to analyze our monolayer data using a RasCAL type <em>standard layers</em> model, in that we identify which parameters we
+need to describe the model, group these into layers (which are defined as a thickness, roughness, SLD and hydration), and then
+group the layers along with data into contrasts. The advantage of this approach is that it’s simple to share parameters between
+layers, so a layer representing deuterated headgroups should share the same thickness and roughness parameters as a
+layer representing hydrogenated heads, but they should differ from each other in their SLD.</p>
+<p>The problem definition in RAT is done by making an instance of a <em>projectClass</em> object, and then using the class methods to
+set up the parameters, layers and so on this instance. The details of setting up a <em>projectClass</em> object is
+discussed in chapter 2, but for now, we’ll look at a pre-prepared example.</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="c">% Load in a pre-made problem Definition class</span>
+<span class="n">problem</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">load</span><span class="p">(</span><span class="s">&#39;twoContrastExample.mat&#39;</span><span class="p">);</span>
+<span class="n">problem</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">problem</span><span class="p">.</span><span class="n">problem</span><span class="p">;</span>
+
+<span class="c">% Have a look at what we have</span>
+<span class="nb">disp</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/lipidModel-1.png"><img alt="The lipid monolayer model output display (first half)" src="_images/lipidModel-1.png" style="width: 700px;" /></a>
+<a class="reference internal image-reference" href="_images/lipidModel-2.png"><img alt="The lipid monolayer model output display (second half)" src="_images/lipidModel-2.png" style="width: 700px;" /></a>
+<p>This may initially look quite complicated, but it is fairly self-explanatory in terms of representing a typical RasCAL
+model (and should make sense to anyone familiar to the RasCAL gui, with some thought). The various aspects of the model
+definition are grouped together, then eventually combined to make our contrasts. These groups are:</p>
+<p>1. <strong>The Parameters Group -</strong> This block defines all the parameters that we need to specify our model. In our layers case, we
+need 10 parameters to define our system: A bulk interface roughness, thickness and roughness for the headgroups and tails, and
+SLD values for the layers, depending on whether they are deuterated or not. In this block we also define the parameter values
+and their allowed ranges, and specify if they are included in the fit:-</p>
+<a class="reference internal image-reference" href="_images/parameterGroup.png"><img alt="The parameter group" src="_images/parameterGroup.png" style="width: 500px;" /></a>
+<p>2. <strong>The Layers Group -</strong> Once we have our parameters, we then need to group these into layers, in traditional RasCAL style.
+For our model, we always have two layers - a headgroup and the associated tails. Each of which can be deuterated, so we set up
+4 layers in total, sharing the parameters between the layers as necessary:</p>
+<a class="reference internal image-reference" href="_images/layersGroup.png"><img alt="The layers group" src="_images/layersGroup.png" style="width: 900px;" /></a>
+<ol class="arabic simple" start="3">
+<li><p><strong>‘Instrument’ Parameters: (Backgrounds, scalefactors and resolutions) -</strong> These are necessary to specify our model, and are specified in much the same way as the parameters. The background and resolutions blocks have a more complicated format to allow flexibility in how these are specified, which will be discussed further in a later section. These are the parameters that appear in the <em>experimental Parameters</em> tab of the RasCAL model builder, and are subsequently included in the definitions of the contrasts at the end of the worksheet.</p></li>
+<li><p><strong>Data -</strong> Each contrast has to have a dataset associated with it, whether or not it contains data or not. An empty data object (i.e. containing no data and just simulation ranges), means RAT will calculate the reflectivity only. When data is present, chi-squared will also be calculated. For our problem, we have two datasets and these are coded in to the data block ready to be incorporated into contrasts:</p></li>
+</ol>
+<a class="reference internal image-reference" href="_images/dataGroup.png"><img alt="The data group" src="_images/dataGroup.png" style="width: 900px;" /></a>
+<ol class="arabic simple" start="5">
+<li><p><strong>Contrasts -</strong> Once we have defined all the components of our model, we need to group them together into contrasts. We have two datasets we want to consider, so two contrasts. We have the relevant instrument parameters, and also we specify which layers are included in each contrast (<em>model</em>).</p></li>
+</ol>
+<a class="reference internal image-reference" href="_images/contrastGroup.png"><img alt="The contrast group" src="_images/contrastGroup.png" style="width: 900px;" /></a>
+<p><strong>(b) Running our Model.</strong></p>
+<p>As implied from figure (1), running RAT requires not only our input model specification, but also a controls block telling RAT what to do. We will discuss the controls block in more detail in Chapter 4, but for this demo we will just make an instance of the controls block and modify a few parameters to run the demo:</p>
+<a class="reference internal image-reference" href="_images/controlsClass.png"><img alt="Control class" src="_images/controlsClass.png" style="width: 400px;" /></a>
+<p>This makes an instance of the <em>controlsClass</em> we have called <strong>controls</strong>. The various properties of the class allow the type of calculation to be specified, in terms of parallelisation, choice of algorithm to be applied and so on. Here we are specifying a single threaded calculation of our reflectivities only (the default) - in other words we are not asking RAT to do any kind of fit with our parameters. We can now send our problem definition and controls classes to the RAT toolbox:</p>
+<img alt="RAT run" src="_images/ratRun.png" />
+<p>It is worth noticing here that this is always the general format for calling RAT. There are two inputs - a problem definition and a controls block, and the result is two outputs - another copy of the problem, and a new, <em>results</em> block.</p>
+<p>The problem that returns is a copy of our input, except that the parameter values will be changed by any procedure done. So, if we run a simple fit, then the output <em>problemDef</em> will have the values of the best-fit parameters. Here, we are not doing any fitting yet, and so the output is an exact copy. Also, we overwrite our original input class with the output by using the same name (‘problem’) as an input and an output, but you don’t have to do it this way.</p>
+<p>Once we’ve run our model through RAT, then the second output (we call <em>results</em> here) is an array which contains the output of the calculation :</p>
+<img alt="disp(results)" src="_images/dispResults.png" />
+<p>This contains the results of our calculations, so for us including the SLD profiles and reflectivities calculated from our <em>problemDef</em> class. We can now plot the output, either manually (by taking the relevant parts from the <em>results</em> array), or using one of the supplied plotting utilities:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="nb">clf</span><span class="p">;</span>
+<span class="n">plotRefSLD</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span><span class="w"> </span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="reflectivity and SLD plots" src="_images/plots.png" />
+<p>We can see that our model is looking fairly sensible, but that our guess values for the parameters are pretty wide off the mark.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &#169;2022-2024, ISIS Neutron and Muon Source.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 6.2.1</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/chapter1.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Saving Your Work (working with classes) &#8212; RAT 1.0.0-beta documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/design-tabs.js"></script>
+    <link rel="icon" href="_static/logo.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Algorithms" href="algorithms.html" />
+    <link rel="prev" title="Custom Models" href="customModels.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="tutorial.html">Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter1.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter2.html">The Problem Definition Input Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter2.html#the-monolayer-example-in-full">The Monolayer Example In Full</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controlsInfo.html">A Closer Look at the Controls Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customModels.html">Custom Models</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Saving Your Work (working with classes)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calcTypes.html">Different Calculation Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="saving-your-work-working-with-classes">
+<span id="savingandclasses"></span><h1>Saving Your Work (working with classes)<a class="headerlink" href="#saving-your-work-working-with-classes" title="Permalink to this heading">¶</a></h1>
+<p>When you have completed your analysis, usually uou will want to save a copy of your work for subsequent. Since everything about your model and results are contained
+is their own classes (actually a struct for ‘results’), this is very easy. But, there are a couple of pitfalls to be aware of..</p>
+<section id="saving-to-a-file">
+<h2>Saving to a file<a class="headerlink" href="#saving-to-a-file" title="Permalink to this heading">¶</a></h2>
+<p>Suppose you have a model defined in problem, and you have run this through RAT and you want to save your work for later…</p>
+<a class="reference internal image-reference" href="_images/ratInput.png"><img alt="RAT input model" src="_images/ratInput.png" style="width: 600px;" /></a>
+<p>SO. ‘problem’ now contains a copy of the input problem, and results the relevant reflectivities, SLD’s and so on. Because everything is in these two outputs, then saving your mork is
+just a matter of saving these to file. It’s good practice to keep everything together, and a good way of doing this is to collect them into a struct…</p>
+<a class="reference internal image-reference" href="_images/resultsStruct.png"><img alt="results struct" src="_images/resultsStruct.png" style="width: 700px;" /></a>
+<p>Then, you only need to save the struct to a file to save all of your work:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="nb">save</span><span class="p">(</span><span class="s">&#39;myResultsFile&#39;</span><span class="p">,</span><span class="s">&#39;myResults&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>At a later date, you only need to load back in your struct, split it up into it’s components and away you go:</p>
+<a class="reference internal image-reference" href="_images/loadingBack.png"><img alt="loading back" src="_images/loadingBack.png" style="width: 700px;" /></a>
+</section>
+<section id="copying-projectclass">
+<h2>Copying projectClass<a class="headerlink" href="#copying-projectclass" title="Permalink to this heading">¶</a></h2>
+<p>During an analysis, it may be tempting to try to make a copy of your project, so that you can modify one of them in order to carry out some kind of comparison between them for example.
+But, you need to be aware of how matlab deals with attempt to copy a class.</p>
+<p>For example, first make an instance of projectClass:</p>
+<a class="reference internal image-reference" href="_images/copyProject1.png"><img alt="copy project 1" src="_images/copyProject1.png" style="width: 700px;" /></a>
+<p>Now, we try to make a copy:</p>
+<a class="reference internal image-reference" href="_images/copyProject2.png"><img alt="copy project 2" src="_images/copyProject2.png" style="width: 700px;" /></a>
+<p>If we then attempt to modify problem2, we find that the original problem has also changed!</p>
+<a class="reference internal image-reference" href="_images/referenceChange.png"><img alt="copy project 2" src="_images/referenceChange.png" style="width: 700px;" /></a>
+<p>In other words, <em>problem2 and problem 1 are references to the same instance of projectClass!</em> If you reall want a new instance,
+you will need to save the class toa file, and load it into a new variable with a different name.</p>
+</section>
+<section id="exporting-as-a-script">
+<h2>Exporting as a Script<a class="headerlink" href="#exporting-as-a-script" title="Permalink to this heading">¶</a></h2>
+<p>Although saving a binary version of the class is useful, sometimes it would be better to have a script version which will reproduce the class. This is done using the
+‘toScript’ method of projectClass:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">projectClass</span><span class="p">();</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">writeScript</span><span class="p">(</span><span class="n">script</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;myProjectScript&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Then, RAT will create a file containing all the statements needed to re-create your project:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="c">% THIS FILE IS GENERATED FROM RAT VIA THE &quot;WRITESCRIPT&quot; ROUTINE. IT IS NOT PART OF THE RAT CODE.</span>
+
+<span class="n">project</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">createProject</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">calcType</span><span class="p">=</span><span class="s">&#39;non polarised&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">model</span><span class="p">=</span><span class="s">&#39;standard layers&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">geometry</span><span class="p">=</span><span class="s">&#39;air/substrate&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">absorption</span><span class="p">=</span><span class="nb">false</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">setParameterValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">setParameterLimits</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">setParameterFit</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">setParameterPrior</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;uniform&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Inf</span><span class="p">);</span>
+
+
+<span class="n">project</span><span class="p">.</span><span class="n">removeBulkIn</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">addBulkIn</span><span class="p">(</span><span class="s">&#39;SLD Air&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;uniform&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Inf</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">removeBulkOut</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">addBulkOut</span><span class="p">(</span><span class="s">&#39;SLD D2O&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">6.2e-06</span><span class="p">,</span><span class="w"> </span><span class="mf">6.35e-06</span><span class="p">,</span><span class="w"> </span><span class="mf">6.35e-06</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;uniform&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Inf</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">removeScalefactor</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">addScalefactor</span><span class="p">(</span><span class="s">&#39;Scalefactor 1&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">0.02</span><span class="p">,</span><span class="w"> </span><span class="mf">0.23</span><span class="p">,</span><span class="w"> </span><span class="mf">0.25</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;uniform&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Inf</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">removeQzshift</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">addQzshift</span><span class="p">(</span><span class="s">&#39;Qz shift 1&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">0.0001</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0001</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;uniform&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Inf</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">removeBackgroundParam</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">addBackgroundParam</span><span class="p">(</span><span class="s">&#39;Background Param 1&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1e-07</span><span class="p">,</span><span class="w"> </span><span class="mf">1e-06</span><span class="p">,</span><span class="w"> </span><span class="mf">1e-05</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;uniform&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Inf</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">removeResolutionParam</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">addResolutionParam</span><span class="p">(</span><span class="s">&#39;Resolution par 1&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span><span class="w"> </span><span class="mf">0.03</span><span class="p">,</span><span class="w"> </span><span class="mf">0.05</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;uniform&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Inf</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">removeBackground</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">removeResolution</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">addBackground</span><span class="p">(</span><span class="s">&#39;Background 1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;constant&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Background Param 1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">addResolution</span><span class="p">(</span><span class="s">&#39;Resolution 1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;constant&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Resolution par 1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="p">);</span>
+
+<span class="n">project</span><span class="p">.</span><span class="n">removeData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">addData</span><span class="p">(</span><span class="s">&#39;Simulation&#39;</span><span class="p">);</span>
+<span class="n">project</span><span class="p">.</span><span class="n">setData</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;simRange&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mf">0.005</span><span class="w"> </span><span class="mf">0.7</span><span class="p">]);</span>
+</pre></div>
+</div>
+<p>This is useful because you can then edit this file as you wish, to re-use it as a template for further projects.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Developers Note: We get that the format of the created file currently leaves something to desired! It works, but is very untidy..
+This will be cleaned up in a future release…</p>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &#169;2022-2024, ISIS Neutron and Muon Source.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 6.2.1</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/savingAndClasses.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

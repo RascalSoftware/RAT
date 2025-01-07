@@ -34,8 +34,4 @@ for i = 1:length(layersFile)
             % Calculate the output....
             out = sum(sum((data(:,2) - ref).^2));
 
-
-
-
-
 end

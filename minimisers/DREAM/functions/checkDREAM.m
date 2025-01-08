@@ -18,7 +18,7 @@ fclose('all');
 if DREAMPar.nChains < (2 * DREAMPar.delta) + 1
     % Error -- not enough chains to do sampling -- increase number of chains!
     stop = true;
-    error('DREAM ERROR: Insufficient number of chains -> Use at least DREAMPar.nChains = %1g chains \n',((2 * DREAMPar.delta) + 1));
+    coderException(coderEnums.errorCodes.domainError, 'DREAM ERROR: Insufficient number of chains -> Use at least DREAMPar.nChains = %1g chains \n',((2 * DREAMPar.delta) + 1));
 end
 
 % Check parameter ranges
@@ -26,7 +26,7 @@ if strcmp(paramInfo,'latin')
     % Error -- if lhs is used -> requires explicit parameter ranges
     if ( sum(isinf(paramInfo.min)) == DREAMPar.nParams )
         stop = true;
-        error('DREAM ERROR: latinHypercubeSampling hypercube sampling selected but parameter ranges not defined -> Set paramInfo.min and paramInfo.max!!\n');
+        coderException(coderEnums.errorCodes.domainError, 'DREAM ERROR: latinHypercubeSampling hypercube sampling selected but parameter ranges not defined -> Set paramInfo.min and paramInfo.max!!\n');
     end
 end
 
@@ -52,9 +52,9 @@ end
 if ( isfield(Meas_info,'Sigma') == 1 ) && ( isfield(Meas_info,'n') == 0 )
     if (prod(size(Meas_info.Sigma)) ~= prod(size(Meas_info.MeasData))) && ( prod(size(Meas_info.Sigma)) > 1 )
         % Error -- Meas_info.Sigma incorrect length!!
-        error('DREAM ERROR: Heteroscedastic error, but length of Meas_info.Sigma is not equal to that of the observations!!\n');
+        coderException(coderEnums.errorCodes.domainError, 'DREAM ERROR: Heteroscedastic error, but length of Meas_info.Sigma is not equal to that of the observations!!');
     elseif ( sum(Meas_info.Sigma<=0) > 0 )
         % Error -- Meas_info.Sigma is negative!!
-        error('DREAM ERROR: At least one value of the specified Meas_info.Sigma is negative or zero!!\n');
+        coderException(coderEnums.errorCodes.domainError, 'DREAM ERROR: At least one value of the specified Meas_info.Sigma is negative or zero!!');
     end
 end

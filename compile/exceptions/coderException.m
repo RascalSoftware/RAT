@@ -1,18 +1,14 @@
-function coderException(message, varagin)
+function coderException(errorCode, message, varargin)
+    % Ensures a proper exception is thrown in the generated C++ code.
+    % The arguments should be the errorCode integer, error message as a char array (which can be a formatspec) 
+    % and other parameters if message is a formatspec.
+    %
+    % coderException(coderEnums.errorCodes.invalidOption, 'The model type is not supported')
+    % coderException(coderEnums.errorCodes.invalidOption, 'The model type "%s" is not supported', modelType)
     
-    if coder.target('MATLAB') || coder.target('MEX')
-        error(message, varagin);
-    else       
-        coder.cinclude('<stdexcept>');
-        coder.updateBuildInfo('addLinkFlags','-ldl');
-        if isempty(helper)       
-            % Declaration for coder
-            helper = coder.opaque('eventHelper','NULL','HeaderFile','eventHelper.hpp');
-    
-            % Make an instance 
-            helper = coder.ceval('eventHelper');
-            path = [getenv('RAT_PATH'), 0];
-            coder.ceval('std::mem_fn(&eventHelper::init)', helper, path);
-        end
+    if coder.target('C++')     
+        coder.cinclude('coderException.hpp');
+        coder.ceval('coderException', errorCode, sprintf(message, varargin{:}));
     end
+    error(message, varargin{:});
 end

@@ -10,6 +10,7 @@ paths = {
     fullfile(root,'compile');
     fullfile(root,'compile','customWrapper');
     fullfile(root,'compile','events');
+    fullfile(root,'compile','exceptions');
     fullfile(root,'compile','fullCompile');
     fullfile(root,'compile','reflectivityCalculation');
 

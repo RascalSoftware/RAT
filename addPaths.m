@@ -24,6 +24,7 @@ paths = {
     eventCompilePath;
     fullfile(root,'compile');
     fullfile(root,'compile','customWrapper');
+    fullfile(root,'compile','exceptions');
     fullfile(root,'compile','fullCompile');
     fullfile(root,'compile','reflectivityCalculation');
 
@@ -61,7 +62,7 @@ end
 
 addpath(root);
 setappdata(0, 'root', root);
-includedir = {fullfile(root, 'compile', 'customWrapper'), eventCompilePath};
+includedir = {fullfile(root, 'compile', 'customWrapper'), fullfile(root, 'compile', 'exceptions'), eventCompilePath};
 setappdata(0, 'includeDirs', includedir);
 
 % Add the folder with the eventManager dynamic library to the system path so 

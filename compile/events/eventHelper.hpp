@@ -1,5 +1,5 @@
-#ifndef WRAPPER_H
-#define WRAPPER_H
+#ifndef EVENT_HELPER_HPP
+#define EVENT_HELPER_HPP
 
 #include <memory>
 #include <cstdlib>

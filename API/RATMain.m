@@ -36,7 +36,7 @@ if problemStruct.numberOfContrasts > 0
             end
             [problemStruct,result,bayesResults] = runDREAM(problemStruct,problemLimits,controls,priors);
         otherwise
-            error('The procedure "%s" is not supported. The procedure must be one of "%s"', controls.procedure, strjoin(fieldnames(coderEnums.procedures), '", "'));
+            coderException(coderEnums.errorCodes.invalidOption, 'The procedure "%s" is not supported. The procedure must be one of "%s"', controls.procedure, strjoin(fieldnames(coderEnums.procedures), '", "'));
     end
 
     % Then just do a final calculation to fill in SLD if necessary
@@ -48,7 +48,7 @@ if problemStruct.numberOfContrasts > 0
     end
 
 else
-    error("RAT cannot proceed without at least one contrast defined in the project");
+    coderException(coderEnums.errorCodes.domainError, 'RAT cannot proceed without at least one contrast defined in the project');
 end
 
 end

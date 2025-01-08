@@ -99,7 +99,7 @@ switch refType
                 end
         end
     otherwise
-        error('The reflectivity type "%s" is not supported', refType);
+        coderException(coderEnums.errorCodes.invalidOption, 'The reflectivity type "%s" is not supported', refType);
 end
 
 simulation(:,2) = simRef(:);

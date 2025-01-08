@@ -76,11 +76,11 @@ coder.varsize('nest_samples',[1e5 50],[1 1]);
 
 % check certain values are positive integers or zero
 if mod(nMCMC, 1) ~= 0 || nMCMC < 0
-    error('NS Error: nMCMC must be an integer >= 0')
+    coderException(coderEnums.errorCodes.domainError, 'NS Error: nMCMC must be an integer >= 0')
 end
 
 if mod(nLive, 1) ~= 0 || nLive < 0
-    error('NS Error: nLive must be an integer >= 0')
+    coderException(coderEnums.errorCodes.domainError, 'NS Error: nLive must be an integer >= 0')
 end
 
 % draw the set of initial live points from the prior
@@ -102,7 +102,7 @@ for i=1:D
         p4 = prior(i,3);
         livepoints(:,i) = 10.^(log10(p3) + (log10(p4)-log10(p3))*rand(nLive,1));
     else
-        error('Unrecognised prior for param %d', int32(i));
+        coderException(coderEnums.errorCodes.invalidOption, 'Unrecognised prior for param %d', int32(i));
     end
 end
 

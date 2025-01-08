@@ -43,7 +43,7 @@ if strcmpi(backgroundType, coderEnums.allowedTypes.Function)
             thisBackground = feval(funcName, background(:,1), paramsArray);
         end
     else
-        error('Background functions in languages other than MATLAB are not supported.');
+        coderException(coderEnums.errorCodes.invalidOption, 'Background functions in languages other than MATLAB are not supported.');
     end
 
     background(:,2) = background(:,2) + thisBackground;

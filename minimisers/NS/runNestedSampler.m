@@ -49,6 +49,7 @@ bayesResults.predictionIntervals = nestResults.predictionIntervals;
 bayesResults.confidenceIntervals = nestResults.confidenceIntervals;
 bayesResults.chain = chain;
 bayesResults.nestedSamplerOutput.LogZ = logZ;
+bayesResults.nestedSamplerOutput.LogZErr = sqrt(H / nLive);
 bayesResults.nestedSamplerOutput.nestSamples = nestSamples;
 bayesResults.nestedSamplerOutput.postSamples = postSamples;
 

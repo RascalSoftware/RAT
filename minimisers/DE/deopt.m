@@ -311,7 +311,7 @@ while ((I_iter < I_itermax) && (S_bestval.FVr_oa(1) > F_VTR))
 %----Output section----------------------------------------------------------
 
   if (I_refresh > 0)
-     if ((rem(I_iter,I_refresh) == 0) || I_iter == 1) && strcmpi(controls.display, coderEnums.displayOptions.Iter)
+     if ((rem(I_iter,I_refresh) == 0) || I_iter == 1) && strcmpi(controls.display, coderEnums.displayOptions.Iter) && rem(I_iter, controls.updateFreq) == 0
         triggerEvent(coderEnums.eventTypes.Message, ...
                      sprintf('Iteration: %g,  Best: %f,  fWeight: %f,  F_CR: %f,  I_NP: %g\n\n', I_iter,S_bestval.FVr_oa(1),fWeight,F_CR,I_NP));
 
@@ -347,4 +347,14 @@ while ((I_iter < I_itermax) && (S_bestval.FVr_oa(1) > F_VTR))
 %       I_iter = I_itermax + 1;
 %   end
 end %---end while ((I_iter < I_itermax) ...
+if ~strcmpi(controls.display, coderEnums.displayOptions.Off) && rem(I_iter, controls.updateFreq) ~= 0
+    % This should ensure the final result is printed at the end of a run irrespective of update frequency
+    triggerEvent(coderEnums.eventTypes.Message, ...
+                     sprintf('Iteration: %g,  Best: %f,  fWeight: %f,  F_CR: %f,  I_NP: %g\n\n', I_iter,S_bestval.FVr_oa(1),fWeight,F_CR,I_NP));
+end
+if rem(I_iter, controls.updatePlotFreq) ~= 0
+   % This should ensure the final result is always plotted irrespective of update frequency
+   [~,result] = fname(FVr_bestmem,problem,controls);
+   triggerEvent(coderEnums.eventTypes.Plot, result, problem);
+end
 end

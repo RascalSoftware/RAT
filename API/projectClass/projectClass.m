@@ -1114,8 +1114,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             for i=1:height(obj.parameters.varTable)
                 % Set protected parameters
                 if any(strcmpi(obj.parameters.varTable{i, 1}, obj.protectedParameters))
-                    script = script + sprintf(options.objName + ".setParameterValue(%d, %.15g);\n", i, obj.parameters.varTable{i, 3});
-                    script = script + sprintf(options.objName + ".setParameterLimits(%d, %.15g, %.15g);\n", i, obj.parameters.varTable{i, 2}, obj.parameters.varTable{i, 4});
+                    script = script + sprintf(options.objName + ".setParameter(%d, 'min', %.15g, 'value', %.15g, 'max', %.15g);\n", i, obj.parameters.varTable{i, 2}, obj.parameters.varTable{i, 3}, obj.parameters.varTable{i, 4});
                     script = script + sprintf(options.objName + ".setParameterFit(%d, %s);\n", i, string(obj.parameters.varTable{i, 5}));
                     script = script + sprintf(options.objName + ".setParameterPrior(%d, '%s', %.15g, %.15g);\n", i, obj.parameters.varTable{i, 6}, obj.parameters.varTable{i, 7}, obj.parameters.varTable{i, 8});
                 % Add non-protected parameters to a parameter group

@@ -298,7 +298,7 @@ v = v(:,j);
 how = 'initial simplex';
 itercount = itercount + 1;
 func_evals = n+1;
-if prnt == 3
+if prnt == 3 && rem(itercount, controls.updateFreq) == 0
     triggerEvent(coderEnums.eventTypes.Message, ...
                  sprintf(' %5.0f        %5.0f     %12.6g         %s\n', itercount, func_evals, fv(1), how));
 % elseif prnt == 4
@@ -418,7 +418,7 @@ while func_evals < maxfun && itercount < maxiter
     [fv,j] = sort(fv);
     v = v(:,j);
     itercount = itercount + 1;
-    if prnt == 3
+    if prnt == 3 && rem(itercount, controls.updateFreq) == 0
         triggerEvent(coderEnums.eventTypes.Message, sprintf(' %5.0f        %5.0f     %12.6g         %s\n', itercount, func_evals, fv(1), how));
 %     elseif prnt == 4
 %         fprintf('%s \n', ' ')
@@ -454,6 +454,14 @@ end   % while
 x(:) = v(:,1);
 fval = fv(:,1);
 
+if prnt == 3 && rem(itercount, controls.updateFreq) ~= 0
+    % This should ensure the final result is printed at the end of a run irrespective of update frequency
+    triggerEvent(coderEnums.eventTypes.Message, sprintf(' %5.0f        %5.0f     %12.6g         %s\n', itercount, func_evals, fv(1), how));
+end
+if rem(itercount, controls.updatePlotFreq) ~= 0
+    % This should ensure the final result is always plotted irrespective of update frequency
+   triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
+end
 
 % OutputFcn and PlotFcns call
 % if haveoutputfcn || haveplotfcn

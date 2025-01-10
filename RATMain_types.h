@@ -69,7 +69,7 @@ namespace RAT
     ::coder::array<real_T, 2U> f1;
   };
 
-  struct cell_wrap_47
+  struct cell_wrap_48
   {
     ::coder::array<real_T, 2U> f1;
   };

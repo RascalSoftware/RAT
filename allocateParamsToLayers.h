@@ -21,14 +21,14 @@
 namespace RAT
 {
   struct cell_wrap_10;
-  struct cell_wrap_47;
+  struct cell_wrap_48;
 }
 
 // Function Declarations
 namespace RAT
 {
   void allocateParamsToLayers(const ::coder::array<real_T, 2U> &params, const ::
-    coder::array<cell_wrap_10, 2U> &layersDetails, ::coder::array<cell_wrap_47,
+    coder::array<cell_wrap_10, 2U> &layersDetails, ::coder::array<cell_wrap_48,
     2U> &outLayers);
 }
 

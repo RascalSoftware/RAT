@@ -22,8 +22,8 @@ namespace RAT
   {
     namespace internal
     {
-      void structConstructorHelper(const cell_wrap_48 *varargin_2, const
-        cell_wrap_49 *varargin_4, const cell_wrap_52 *varargin_6, ::coder::array<
+      void structConstructorHelper(const cell_wrap_49 *varargin_2, const
+        cell_wrap_50 *varargin_4, const cell_wrap_53 *varargin_6, ::coder::array<
         cell_wrap_11, 1U> &s_reflectivity, ::coder::array<cell_wrap_11, 2U>
         &s_sld, real_T s_sampleChi_data[], int32_T *s_sampleChi_size)
       {

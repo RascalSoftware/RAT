@@ -442,7 +442,7 @@ namespace RAT
       ::coder::array<cell_wrap_2, 2U> dataLimits;
       ::coder::array<cell_wrap_2, 2U> repeatLayers;
       ::coder::array<cell_wrap_2, 2U> simLimits;
-      ::coder::array<cell_wrap_47, 2U> contrastBackgroundIndices;
+      ::coder::array<cell_wrap_48, 2U> contrastBackgroundIndices;
       ::coder::array<cell_wrap_7, 2U> contrastBackgroundActions;
       ::coder::array<cell_wrap_7, 2U> contrastBackgroundTypes;
       ::coder::array<cell_wrap_7, 2U> customFiles;

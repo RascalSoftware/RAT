@@ -23,7 +23,7 @@ namespace RAT
                         minAngle, real_T nPoints, ::coder::array<real_T, 2U>
                         &newSLD)
   {
-    cell_56 expl_temp;
+    cell_57 expl_temp;
     real_T b_sldProfile[2];
     int32_T i;
     int32_T n;
@@ -68,7 +68,7 @@ namespace RAT
                       minAngle, real_T nPoints, ::coder::array<real_T, 2U>
                       &newSLD)
   {
-    cell_56 expl_temp;
+    cell_57 expl_temp;
     real_T b_sldProfile[2];
     int32_T i;
     int32_T n;

@@ -20,27 +20,27 @@
 // Type Definitions
 namespace RAT
 {
-  struct cell_wrap_46
+  struct cell_wrap_47
   {
     ::coder::array<real_T, 2U> f1;
   };
 
-  struct cell_wrap_50
-  {
-    ::coder::array<cell_wrap_46, 1U> f1;
-  };
-
   struct cell_wrap_51
   {
-    ::coder::array<cell_wrap_46, 2U> f1;
+    ::coder::array<cell_wrap_47, 1U> f1;
+  };
+
+  struct cell_wrap_52
+  {
+    ::coder::array<cell_wrap_47, 2U> f1;
   };
 }
 
 // Function Declarations
 namespace RAT
 {
-  static void cast(const cell_wrap_50 *b, cell_wrap_48 *c);
   static void cast(const cell_wrap_51 *b, cell_wrap_49 *c);
+  static void cast(const cell_wrap_52 *b, cell_wrap_50 *c);
   static void cast(const real_T t2_percentile95_data[], const int32_T
                    t2_percentile95_size[2], const real_T t2_percentile65_data[],
                    const int32_T t2_percentile65_size[2], const real_T
@@ -63,7 +63,7 @@ namespace RAT
 // Function Definitions
 namespace RAT
 {
-  static void cast(const cell_wrap_50 *b, cell_wrap_48 *c)
+  static void cast(const cell_wrap_51 *b, cell_wrap_49 *c)
   {
     int32_T i;
     i = b->f1.size(0);
@@ -80,7 +80,7 @@ namespace RAT
     }
   }
 
-  static void cast(const cell_wrap_51 *b, cell_wrap_49 *c)
+  static void cast(const cell_wrap_52 *b, cell_wrap_50 *c)
   {
     int32_T i;
     i = b->f1.size(0) * b->f1.size(1);
@@ -217,19 +217,19 @@ namespace RAT
     *bayesResults_nestedSamplerOutput, ::coder::array<real_T, 2U>
     &bayesResults_chain)
   {
-    ::coder::array<cell_wrap_46, 2U> b_f1;
-    ::coder::array<cell_wrap_46, 1U> f1;
+    ::coder::array<cell_wrap_47, 2U> b_f1;
+    ::coder::array<cell_wrap_47, 1U> f1;
     ::coder::array<real_T, 3U> t4_allChains;
     ::coder::array<real_T, 2U> t4_AR;
     ::coder::array<real_T, 2U> t4_CR;
     ::coder::array<real_T, 2U> t4_R_stat;
     ::coder::array<real_T, 2U> t4_outlierChains;
     ::coder::array<real_T, 1U> c_f1;
-    cell_wrap_48 r3;
-    cell_wrap_49 r4;
-    cell_wrap_50 r;
-    cell_wrap_51 r1;
-    cell_wrap_52 r2;
+    cell_wrap_49 r3;
+    cell_wrap_50 r4;
+    cell_wrap_51 r;
+    cell_wrap_52 r1;
+    cell_wrap_53 r2;
     real_T t5_percentile65_data[2000];
     real_T t5_percentile95_data[2000];
     real_T t5_mean_data[1000];
@@ -410,19 +410,19 @@ namespace RAT
     *bayesResults_nestedSamplerOutput, ::coder::array<real_T, 2U>
     &bayesResults_chain)
   {
-    ::coder::array<cell_wrap_46, 2U> b_f1;
-    ::coder::array<cell_wrap_46, 1U> f1;
+    ::coder::array<cell_wrap_47, 2U> b_f1;
+    ::coder::array<cell_wrap_47, 1U> f1;
     ::coder::array<real_T, 3U> t31_allChains;
     ::coder::array<real_T, 2U> t31_AR;
     ::coder::array<real_T, 2U> t31_CR;
     ::coder::array<real_T, 2U> t31_R_stat;
     ::coder::array<real_T, 2U> t31_outlierChains;
     ::coder::array<real_T, 1U> c_f1;
-    cell_wrap_48 r3;
-    cell_wrap_49 r4;
-    cell_wrap_50 r;
-    cell_wrap_51 r1;
-    cell_wrap_52 r2;
+    cell_wrap_49 r3;
+    cell_wrap_50 r4;
+    cell_wrap_51 r;
+    cell_wrap_52 r1;
+    cell_wrap_53 r2;
     real_T t32_percentile65_data[2000];
     real_T t32_percentile95_data[2000];
     real_T t32_mean_data[1000];

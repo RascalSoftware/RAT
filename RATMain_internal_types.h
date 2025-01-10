@@ -40,17 +40,17 @@ namespace RAT
     ::coder::bounded_array<real_T, 2U, 2U> postSamples;
   };
 
-  struct cell_wrap_52
+  struct cell_wrap_53
   {
     ::coder::array<real_T, 1U> f1;
   };
 
-  struct cell_wrap_48
+  struct cell_wrap_49
   {
     ::coder::array<cell_wrap_11, 1U> f1;
   };
 
-  struct cell_wrap_49
+  struct cell_wrap_50
   {
     ::coder::array<cell_wrap_11, 2U> f1;
   };
@@ -81,7 +81,7 @@ namespace RAT
     ::coder::bounded_array<char_T, 10000U, 2U> geometry;
     boolean_T useImaginary;
     ::coder::array<cell_wrap_2, 2U> repeatLayers;
-    ::coder::array<cell_wrap_47, 2U> contrastBackgroundParams;
+    ::coder::array<cell_wrap_48, 2U> contrastBackgroundParams;
     ::coder::array<cell_wrap_7, 2U> contrastBackgroundTypes;
     ::coder::array<cell_wrap_7, 2U> contrastBackgroundActions;
     ::coder::array<real_T, 2U> contrastQzshifts;
@@ -114,17 +114,17 @@ namespace RAT
     struct2_T checks;
   };
 
-  struct cell_wrap_33
+  struct cell_wrap_34
   {
     ::coder::array<real_T, 2U> f1;
   };
 
-  struct cell_wrap_63
+  struct cell_wrap_64
   {
     cell_wrap_10 f1[2];
   };
 
-  struct cell_wrap_64
+  struct cell_wrap_65
   {
     cell_wrap_8 f1[2];
   };
@@ -211,7 +211,7 @@ namespace RAT
     ::coder::array<real_T, 2U> FVr_bestmem;
   };
 
-  struct cell_56
+  struct cell_57
   {
     ::coder::array<real_T, 2U> f1;
   };

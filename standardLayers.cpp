@@ -46,7 +46,7 @@ namespace RAT
       boolean_T useImaginary, real_T resample, const char_T geometry_data[],
       const int32_T geometry_size[2], real_T roughness, boolean_T calcSld, const
       ::coder::array<real_T, 2U> &contrastLayers, const ::coder::array<
-      cell_wrap_47, 2U> &outParameterisedLayers, real_T *qzshiftValue, real_T
+      cell_wrap_48, 2U> &outParameterisedLayers, real_T *qzshiftValue, real_T
       *scalefactorValue, real_T *bulkInValue, real_T *bulkOutValue, real_T
       *resolutionParamValue, real_T *chi, ::coder::array<real_T, 2U>
       &reflectivity, ::coder::array<real_T, 2U> &simulation, ::coder::array<
@@ -78,7 +78,7 @@ namespace RAT
       boolean_T useImaginary, real_T resample, const char_T geometry_data[],
       const int32_T geometry_size[2], real_T roughness, boolean_T calcSld, const
       ::coder::array<real_T, 2U> &contrastLayers, const ::coder::array<
-      cell_wrap_47, 2U> &outParameterisedLayers, real_T *qzshiftValue, real_T
+      cell_wrap_48, 2U> &outParameterisedLayers, real_T *qzshiftValue, real_T
       *scalefactorValue, real_T *bulkInValue, real_T *bulkOutValue, real_T
       *resolutionParamValue, real_T *chi, ::coder::array<real_T, 2U>
       &reflectivity, ::coder::array<real_T, 2U> &simulation, ::coder::array<
@@ -161,7 +161,7 @@ namespace RAT
                           cell_wrap_10, 2U> &resampledLayers, ::coder::array<
                           real_T, 1U> &subRoughs)
     {
-      ::coder::array<cell_wrap_47, 2U> outParameterisedLayers;
+      ::coder::array<cell_wrap_48, 2U> outParameterisedLayers;
       ::coder::array<real_T, 2U> r;
       ::coder::array<real_T, 2U> r1;
       ::coder::array<real_T, 2U> r2;
@@ -463,7 +463,7 @@ namespace RAT
                         &sldProfiles, ::coder::array<cell_wrap_10, 2U>
                         &resampledLayers, ::coder::array<real_T, 1U> &subRoughs)
     {
-      ::coder::array<cell_wrap_47, 2U> outParameterisedLayers;
+      ::coder::array<cell_wrap_48, 2U> outParameterisedLayers;
       ::coder::array<real_T, 2U> r;
       ::coder::array<real_T, 2U> r1;
       ::coder::array<real_T, 2U> r2;
@@ -770,8 +770,8 @@ namespace RAT
       ::coder::array<cell_wrap_2, 2U> dataLimits;
       ::coder::array<cell_wrap_2, 2U> repeatLayers;
       ::coder::array<cell_wrap_2, 2U> simLimits;
-      ::coder::array<cell_wrap_47, 2U> contrastBackgroundIndices;
-      ::coder::array<cell_wrap_47, 2U> outParameterisedLayers;
+      ::coder::array<cell_wrap_48, 2U> contrastBackgroundIndices;
+      ::coder::array<cell_wrap_48, 2U> outParameterisedLayers;
       ::coder::array<cell_wrap_7, 2U> contrastBackgroundActions;
       ::coder::array<cell_wrap_7, 2U> contrastBackgroundTypes;
       ::coder::array<cell_wrap_7, 2U> customFiles;

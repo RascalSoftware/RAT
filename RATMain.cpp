@@ -41,7 +41,7 @@ namespace RAT
                    cell_wrap_0, 2U> &t8_domainRatios, const ::coder::array<
                    cell_wrap_0, 2U> &t8_contrasts, d_struct_T *b);
   static void cast(const e_struct_T *b, struct0_T *c);
-  static void cast(const ::coder::array<cell_wrap_47, 2U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_48, 2U> &b, ::coder::array<
                    cell_wrap_3, 2U> &c);
   static void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
                    cell_wrap_5, 2U> &c);
@@ -498,7 +498,7 @@ namespace RAT
     c->checks = b->checks;
   }
 
-  static void cast(const ::coder::array<cell_wrap_47, 2U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_48, 2U> &b, ::coder::array<
                    cell_wrap_3, 2U> &c)
   {
     int32_T i;

@@ -30,7 +30,7 @@
 // Function Declarations
 namespace RAT
 {
-  static void cast(const ::coder::array<cell_wrap_33, 2U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_34, 2U> &b, ::coder::array<
                    cell_wrap_10, 2U> &c);
   namespace domainsTF
   {
@@ -86,7 +86,7 @@ namespace RAT
 // Function Definitions
 namespace RAT
 {
-  static void cast(const ::coder::array<cell_wrap_33, 2U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_34, 2U> &b, ::coder::array<
                    cell_wrap_10, 2U> &c)
   {
     int32_T i;
@@ -634,10 +634,10 @@ namespace RAT
       ::coder::array<cell_wrap_10, 2U> inputSldProfiles;
       ::coder::array<cell_wrap_10, 1U> inputSldProfiles1;
       ::coder::array<cell_wrap_10, 1U> inputSldProfiles2;
-      ::coder::array<cell_wrap_33, 2U> r;
-      ::coder::array<cell_wrap_63, 1U> layerSlds;
-      ::coder::array<cell_wrap_63, 1U> resampledLayers;
-      ::coder::array<cell_wrap_63, 1U> sldProfiles;
+      ::coder::array<cell_wrap_34, 2U> r;
+      ::coder::array<cell_wrap_64, 1U> layerSlds;
+      ::coder::array<cell_wrap_64, 1U> resampledLayers;
+      ::coder::array<cell_wrap_64, 1U> sldProfiles;
       ::coder::array<real_T, 2U> r1;
       ::coder::array<real_T, 2U> r2;
       real_T d;
@@ -1003,11 +1003,11 @@ namespace RAT
       ::coder::array<cell_wrap_2, 2U> dataLimits;
       ::coder::array<cell_wrap_2, 2U> repeatLayers;
       ::coder::array<cell_wrap_2, 2U> simLimits;
-      ::coder::array<cell_wrap_33, 2U> r;
-      ::coder::array<cell_wrap_47, 2U> contrastBackgroundIndices;
-      ::coder::array<cell_wrap_63, 1U> layerSlds;
-      ::coder::array<cell_wrap_63, 1U> resampledLayers;
-      ::coder::array<cell_wrap_63, 1U> sldProfiles;
+      ::coder::array<cell_wrap_34, 2U> r;
+      ::coder::array<cell_wrap_48, 2U> contrastBackgroundIndices;
+      ::coder::array<cell_wrap_64, 1U> layerSlds;
+      ::coder::array<cell_wrap_64, 1U> resampledLayers;
+      ::coder::array<cell_wrap_64, 1U> sldProfiles;
       ::coder::array<cell_wrap_7, 2U> contrastBackgroundActions;
       ::coder::array<cell_wrap_7, 2U> contrastBackgroundTypes;
       ::coder::array<cell_wrap_7, 2U> customFiles;

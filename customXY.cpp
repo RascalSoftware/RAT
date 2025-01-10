@@ -205,7 +205,7 @@ namespace RAT
                     cell_wrap_10, 2U> &sldProfiles, ::coder::array<cell_wrap_10,
                     2U> &resampledLayers, ::coder::array<real_T, 1U> &subRoughs)
     {
-      ::coder::array<cell_wrap_33, 1U> r;
+      ::coder::array<cell_wrap_34, 1U> r;
       ::coder::array<real_T, 2U> r1;
       ::coder::array<real_T, 2U> r2;
       ::coder::array<real_T, 2U> r3;
@@ -526,8 +526,8 @@ namespace RAT
       ::coder::array<cell_wrap_2, 2U> dataLimits;
       ::coder::array<cell_wrap_2, 2U> repeatLayers;
       ::coder::array<cell_wrap_2, 2U> simLimits;
-      ::coder::array<cell_wrap_33, 1U> r;
-      ::coder::array<cell_wrap_47, 2U> contrastBackgroundIndices;
+      ::coder::array<cell_wrap_34, 1U> r;
+      ::coder::array<cell_wrap_48, 2U> contrastBackgroundIndices;
       ::coder::array<cell_wrap_7, 2U> contrastBackgroundActions;
       ::coder::array<cell_wrap_7, 2U> contrastBackgroundTypes;
       ::coder::array<cell_wrap_7, 2U> customFiles;

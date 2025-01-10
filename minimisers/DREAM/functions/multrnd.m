@@ -5,8 +5,8 @@ function [X,Y] = multrnd(n,p,m)
 %  multinomial distribution with n trials and k outcomes, where the probability for each
 %  simulation is,
 %                          n!    
-%                 ----------------------  ×  p1^n1 × p2^n2 ×  . . .  × pk^nk .  
-%                n1! × n2! ×  . . .  × nk!    
+%                 ----------------------  ï¿½  p1^n1 ï¿½ p2^n2 ï¿½  . . .  ï¿½ pk^nk .  
+%                n1! ï¿½ n2! ï¿½  . . .  ï¿½ nk!    
 %
 %  Then, a single sample {n1, n2,  . . .  , nk} have a multinomial joint distribution with
 %  parameters n and p1, p2,  . . .  , pk. The parameter n is called the number of trials; 
@@ -82,12 +82,12 @@ if nargin < 3
     if nargin == 2
         m = 1;
     else
-        error('You need to input at least two arguments.');
+        coderException(coderEnums.errorCodes.domainError, 'You need to input at least two arguments.');
     end
 end
 
 if (length(n)~=1) | (fix(n) ~= n) | (n < 0)
-   error('n must be a positive integer.');
+    coderException(coderEnums.errorCodes.domainError, 'n must be a positive integer.');
 end
 
 P = sum(p);

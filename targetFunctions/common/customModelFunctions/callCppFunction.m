@@ -41,7 +41,7 @@ function [output,subRough] = callCppFunction(pointer, params, bulkIn, bulkOut, c
     actualSize = coder.ceval('convertVector2Ptr', outArray, coder.wref(tempOutput));
 
     if size ~= actualSize
-        error('The output of the custom function with size %d does not match the specified size (%d x %d).', actualSize, outputSize(2), outputSize(1))
+        coderException(coderEnums.errorCodes.domainError, 'The output of the custom function with size %.0f does not match the specified size (%.0f x %.0f).', actualSize, outputSize(2), outputSize(1));
     end
     output = reshape(tempOutput, [outputSize(2), outputSize(1)])';
 end

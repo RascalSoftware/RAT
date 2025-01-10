@@ -20,5 +20,5 @@ else
     % Calling matlab from other languages should be implemented in their wrapper
     sRough = 0;
     output = zeros([0 0]);
-    error("This is not supported!");
+    coderException(coderEnums.errorCodes.unknown, 'This is not supported!');
 end

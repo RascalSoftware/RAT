@@ -5,6 +5,7 @@ classdef coderEnums
         allowedTypes = allowedTypes.toStruct()
         boundHandlingOptions = boundHandlingOptions.toStruct()
         calculationTypes = calculationTypes.toStruct()
+        errorCodes = errorCodes.toStruct()
         displayOptions = displayOptions.toStruct()
         eventTypes = eventTypes.toStruct()
         geometryOptions = geometryOptions.toStruct()

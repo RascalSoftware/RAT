@@ -48,7 +48,7 @@ switch targetFunction
                  subRoughs] = normalTF.customXY(problemStruct,controls);
 
             otherwise
-                error('The model type "%s" is not supported', modelType);
+                coderException(coderEnums.errorCodes.invalidOption, 'The model type "%s" is not supported', modelType);
         end
 
     %case coderEnums.calculationTypes.OilWater
@@ -82,11 +82,11 @@ switch targetFunction
                  subRoughs] = domainsTF.customXY(problemStruct,controls);
 
             otherwise
-                error('The model type "%s" is not supported', modelType);
+                coderException(coderEnums.errorCodes.invalidOption, 'The model type "%s" is not supported', modelType);
         end
 
     otherwise
-        error('The calculation type "%s" is not supported', targetFunction);
+        coderException(coderEnums.errorCodes.invalidOption, 'The calculation type "%s" is not supported', targetFunction);
 end
 
 % Make the result struct

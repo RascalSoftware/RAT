@@ -206,8 +206,7 @@ else
         triggerEvent(coderEnums.eventTypes.Message, 'DREAMPar.nChains > 60; using Peirce r-values for DREAMPar.nChains is 60');
     end
     if N < 2
-        error('Insufficient number of chains to apply Peirce diagnostic');
-        return;
+        coderException(coderEnums.errorCodes.domainError, 'Insufficient number of chains to apply Peirce diagnostic');
     end
 end
 

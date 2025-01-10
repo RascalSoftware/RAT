@@ -21,7 +21,7 @@ switch backgroundAction
         shiftedData(:,2) = shiftedData(:,2) - backData;
         shiftedData(:,3) = sqrt(shiftedData(:,3).^2 + backError.^2);   % Propagate the errors
     otherwise
-        error('"%s" does not represent a valid contrast background action.', backgroundAction);
+        coderException(coderEnums.errorCodes.invalidOption, '"%s" does not represent a valid contrast background action.', backgroundAction);
 end
 
 % Reduce data to original three columns

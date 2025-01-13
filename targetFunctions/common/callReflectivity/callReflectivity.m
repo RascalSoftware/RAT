@@ -59,18 +59,15 @@ switch refType
                 % Calculate reflectivity
                 simRef = abelesParallelPoints(simulationXData,nLayersTot,thicks,slds,roughs);
 
-                % Apply resolution
-                simRef = resolutionPollyParallel(simulationXData,simRef,resolution(:,2),length(simulationXData));
-                
             otherwise
-                % Single cored over points
-                
                 % Calculate reflectivity
                 simRef = abelesSingle(simulationXData,nLayersTot,thicks,slds,roughs);
                 
-                % Apply resolution correction
-                simRef = resolutionPolly(simulationXData,simRef,resolution(:,2),length(simulationXData));
         end
+
+        % Apply resolution correction
+        simRef = resolutionPolly(simulationXData,simRef,resolution(:,2),length(simulationXData));
+
     otherwise
         coderException(coderEnums.errorCodes.invalidOption, 'The reflectivity type "%s" is not supported', refType);
 end

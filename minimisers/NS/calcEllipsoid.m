@@ -67,11 +67,11 @@ fV = 1;
 if VE < VS
 
     
-    % Fix to avoid the fractional matrix power error....
-    % Replace....
+    % the original implementation calculates this as
     %fV = (VS/VE)^(2/ndims);
-
-    % .... with....
+    % however when compiled to C++,
+    % MATLAB Coder does not compile the code for fractional powers of matrices.
+    % so we must replace it with the explicit calculation:
     x = 2/ndims;
     A = log(VS/VE) * x;
     fV = exp(A);

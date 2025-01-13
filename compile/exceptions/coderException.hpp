@@ -13,7 +13,7 @@ namespace{
         else if (errorCode == 2)
             throw std::domain_error(msg);
         else
-            throw std::exception(msg);
+            throw std::runtime_error(msg);
     }
 }
 #endif // CODER_EXCEPTION_HPP

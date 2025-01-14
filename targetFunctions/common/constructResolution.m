@@ -8,16 +8,20 @@ function resolution = constructResolution(resolutionType,resolutionParamIndex,sh
 resolution = zeros(length(simulationXData),2);
 resolution(:,1) = simulationXData;
 
-% If we are using data resolutions, then we also need to adjust the length
-% of the resolution column. We do this by just extending with the resolution
-% values at the ends of the curve.
 if strcmpi(resolutionType, coderEnums.allowedTypes.Data)
+    % If we are using data resolutions, then we also need to adjust the
+    % length of the resolution column. We do this by just extending with
+    % the resolution values at the ends of the curve.
     resolution(1:dataIndices(1),2) = shiftedData(1,4);
     resolution(dataIndices(1):dataIndices(2),2) = shiftedData(:,4);
     resolution(dataIndices(2):end,2) = shiftedData(end,4);
 else
-    resolutionParameter = resolutionParamArray(resolutionParamIndex);
-    resolution(:,2) = resolution(:,2) + resolutionParameter;
+    % For a constant resolution, we expect exactly one index here, but must
+    % account for the case where resolutionParamIndex is empty.
+    for i = 1:length(resolutionParamIndex)
+        resolutionParameter = resolutionParamArray(resolutionParamIndex(i));
+        resolution(:,2) = resolution(:,2) + resolutionParameter;
+    end
 end
 
 % We must add eps (~10^-16) here in order to ensure we do not have any

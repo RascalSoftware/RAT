@@ -21,6 +21,7 @@
 namespace RAT
 {
   struct e_struct_T;
+  struct m_struct_T;
   struct k_struct_T;
 }
 
@@ -35,13 +36,10 @@ namespace RAT
                   varargin_2_parallel_size[2], real_T
                   varargin_2_resampleMinAngle, real_T varargin_2_resampleNPoints,
                   boolean_T varargin_2_calcSldDuringFit, real_T
-                  varargin_2_updatePlotFreq, const char_T
-                  varargin_2_IPCFilePath_data[], const int32_T
-                  varargin_2_IPCFilePath_size[2], const ::coder::array<real_T,
-                  1U> &varargin_3_LB, const ::coder::array<real_T, 1U>
-                  &varargin_3_UB, const ::coder::array<real_T, 1U>
-                  &varargin_3_BoundClass, real_T *fval, real_T *exitflag,
-                  k_struct_T *output);
+                  varargin_2_updateFreq, real_T varargin_2_updatePlotFreq, const
+                  char_T varargin_2_IPCFilePath_data[], const int32_T
+                  varargin_2_IPCFilePath_size[2], const m_struct_T *varargin_3,
+                  real_T *fval, real_T *exitflag, k_struct_T *output);
 }
 
 #endif

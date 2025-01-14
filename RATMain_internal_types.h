@@ -216,6 +216,13 @@ namespace RAT
   {
     ::coder::array<real_T, 2U> f1;
   };
+
+  struct m_struct_T
+  {
+    ::coder::array<real_T, 1U> LB;
+    ::coder::array<real_T, 1U> UB;
+    ::coder::array<real_T, 1U> BoundClass;
+  };
 }
 
 #endif

@@ -32,8 +32,8 @@ namespace RAT
              controls_resampleMinAngle, real_T controls_resampleNPoints,
              boolean_T controls_calcSldDuringFit, const char_T
              controls_display_data[], const int32_T controls_display_size[2],
-             real_T controls_updatePlotFreq, const char_T
-             controls_IPCFilePath_data[], const int32_T
+             real_T controls_updateFreq, real_T controls_updatePlotFreq, const
+             char_T controls_IPCFilePath_data[], const int32_T
              controls_IPCFilePath_size[2], const l_struct_T *S_struct, ::coder::
              array<real_T, 2U> &FVr_bestmem);
 }

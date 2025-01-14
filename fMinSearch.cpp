@@ -120,13 +120,10 @@ namespace RAT
                   varargin_2_parallel_size[2], real_T
                   varargin_2_resampleMinAngle, real_T varargin_2_resampleNPoints,
                   boolean_T varargin_2_calcSldDuringFit, real_T
-                  varargin_2_updatePlotFreq, const char_T
-                  varargin_2_IPCFilePath_data[], const int32_T
-                  varargin_2_IPCFilePath_size[2], const ::coder::array<real_T,
-                  1U> &varargin_3_LB, const ::coder::array<real_T, 1U>
-                  &varargin_3_UB, const ::coder::array<real_T, 1U>
-                  &varargin_3_BoundClass, real_T *fval, real_T *exitflag,
-                  k_struct_T *output)
+                  varargin_2_updateFreq, real_T varargin_2_updatePlotFreq, const
+                  char_T varargin_2_IPCFilePath_data[], const int32_T
+                  varargin_2_IPCFilePath_size[2], const m_struct_T *varargin_3,
+                  real_T *fval, real_T *exitflag, k_struct_T *output)
   {
     static const char_T cv6[35]{ 'E', 'x', 'i', 't', 'i', 'n', 'g', ':', ' ',
       'M', 'a', 'x', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'e', 'v',
@@ -412,8 +409,8 @@ namespace RAT
     simplexIntrafun(x, &b_varargin_1, varargin_2_parallel_data,
                     varargin_2_parallel_size, varargin_2_resampleMinAngle,
                     varargin_2_resampleNPoints, varargin_2_calcSldDuringFit,
-                    varargin_3_LB, varargin_3_UB, varargin_3_BoundClass, &fv[0],
-                    &result);
+                    varargin_3->LB, varargin_3->UB, varargin_3->BoundClass, &fv
+                    [0], &result);
 
     //  Initial simplex setup continues later
     //  Initialize the output and plot functions.
@@ -505,8 +502,8 @@ namespace RAT
       simplexIntrafun(y, &b_varargin_1, varargin_2_parallel_data,
                       varargin_2_parallel_size, varargin_2_resampleMinAngle,
                       varargin_2_resampleNPoints, varargin_2_calcSldDuringFit,
-                      varargin_3_LB, varargin_3_UB, varargin_3_BoundClass, &fv[j
-                      + 1], &result);
+                      varargin_3->LB, varargin_3->UB, varargin_3->BoundClass,
+                      &fv[j + 1], &result);
     }
 
     //  sort so v(1,:) has the lowest function value
@@ -529,13 +526,14 @@ namespace RAT
       }
     }
 
+    b_how_size[1] = 15;
     for (i = 0; i < 15; i++) {
       b_how_data[i] = cv5[i];
     }
 
     itercount = 1.0;
     func_evals = static_cast<real_T>(x.size(0)) + 1.0;
-    if (prnt == 3) {
+    if ((prnt == 3) && (rt_remd_snf(1.0, varargin_2_updateFreq) == 0.0)) {
       how_size[0] = 1;
       how_size[1] = 16;
       for (i = 0; i < 15; i++) {
@@ -709,8 +707,9 @@ namespace RAT
                             varargin_2_parallel_size,
                             varargin_2_resampleMinAngle,
                             varargin_2_resampleNPoints,
-                            varargin_2_calcSldDuringFit, varargin_3_LB,
-                            varargin_3_UB, varargin_3_BoundClass, &fxr, &result);
+                            varargin_2_calcSldDuringFit, varargin_3->LB,
+                            varargin_3->UB, varargin_3->BoundClass, &fxr,
+                            &result);
             func_evals++;
             if (fxr < fv[0]) {
               //  Calculate the expansion point
@@ -725,8 +724,8 @@ namespace RAT
                               varargin_2_parallel_size,
                               varargin_2_resampleMinAngle,
                               varargin_2_resampleNPoints,
-                              varargin_2_calcSldDuringFit, varargin_3_LB,
-                              varargin_3_UB, varargin_3_BoundClass, &fxe,
+                              varargin_2_calcSldDuringFit, varargin_3->LB,
+                              varargin_3->UB, varargin_3->BoundClass, &fxe,
                               &result);
               func_evals++;
               if (fxe < fxr) {
@@ -784,8 +783,8 @@ namespace RAT
                                 varargin_2_parallel_size,
                                 varargin_2_resampleMinAngle,
                                 varargin_2_resampleNPoints,
-                                varargin_2_calcSldDuringFit, varargin_3_LB,
-                                varargin_3_UB, varargin_3_BoundClass, &fxc,
+                                varargin_2_calcSldDuringFit, varargin_3->LB,
+                                varargin_3->UB, varargin_3->BoundClass, &fxc,
                                 &result);
                 func_evals++;
                 if (fxc <= fxr) {
@@ -823,8 +822,8 @@ namespace RAT
                                 varargin_2_parallel_size,
                                 varargin_2_resampleMinAngle,
                                 varargin_2_resampleNPoints,
-                                varargin_2_calcSldDuringFit, varargin_3_LB,
-                                varargin_3_UB, varargin_3_BoundClass, &fxcc,
+                                varargin_2_calcSldDuringFit, varargin_3->LB,
+                                varargin_3->UB, varargin_3->BoundClass, &fxcc,
                                 &result);
                 func_evals++;
                 if (fxcc < fv[fv.size(1) - 1]) {
@@ -876,9 +875,9 @@ namespace RAT
                                   varargin_2_parallel_size,
                                   varargin_2_resampleMinAngle,
                                   varargin_2_resampleNPoints,
-                                  varargin_2_calcSldDuringFit, varargin_3_LB,
-                                  varargin_3_UB, varargin_3_BoundClass, &fv[j +
-                                  1], &result);
+                                  varargin_2_calcSldDuringFit, varargin_3->LB,
+                                  varargin_3->UB, varargin_3->BoundClass, &fv[j
+                                  + 1], &result);
                 }
 
                 func_evals += static_cast<real_T>(n);
@@ -905,7 +904,8 @@ namespace RAT
             }
 
             itercount++;
-            if (prnt == 3) {
+            if ((prnt == 3) && (rt_remd_snf(itercount, varargin_2_updateFreq) ==
+                                0.0)) {
               how_size[0] = 1;
               how_size[1] = b_how_size[1] + 1;
               x_idx_1 = b_how_size[1];
@@ -993,6 +993,29 @@ namespace RAT
         }
 
         *fval = fv[0];
+        if ((prnt == 3) && (rt_remd_snf(itercount, varargin_2_updateFreq) != 0.0))
+        {
+          //  This should ensure the final result is printed at the end of a run irrespective of update frequency
+          how_size[0] = 1;
+          how_size[1] = b_how_size[1] + 1;
+          x_idx_1 = b_how_size[1];
+          if (0 <= x_idx_1 - 1) {
+            std::copy(&b_how_data[0], &b_how_data[x_idx_1], &how_data[0]);
+          }
+
+          how_data[b_how_size[1]] = '\x00';
+          coder::snPrint(itercount, func_evals, fv[0], how_data, how_size,
+                         charStr);
+          triggerEvent(charStr);
+        }
+
+        if (rt_remd_snf(itercount, varargin_2_updatePlotFreq) != 0.0) {
+          //  This should ensure the final result is always plotted irrespective of update frequency
+          triggerEvent(&result, varargin_1->TF.data, varargin_1->TF.size,
+                       varargin_1->resample, varargin_1->dataPresent,
+                       varargin_1->modelType.data, varargin_1->modelType.size,
+                       varargin_1->names.contrasts);
+        }
 
         //  OutputFcn and PlotFcns call
         //  if haveoutputfcn || haveplotfcn

@@ -195,7 +195,7 @@ namespace RAT
     deopt(problemStruct, controls->parallel.data, controls->parallel.size,
           controls->resampleMinAngle, controls->resampleNPoints,
           controls->calcSldDuringFit, controls->display.data,
-          controls->display.size, controls->updatePlotFreq,
+          controls->display.size, controls->updateFreq, controls->updatePlotFreq,
           controls->IPCFilePath.data, controls->IPCFilePath.size, &expl_temp, r);
     problemStruct->fitParams.set_size(1, r.size(1));
     loop_ub = r.size(1) - 1;

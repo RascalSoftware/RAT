@@ -42,12 +42,10 @@ namespace RAT
     static const char_T b_cv[5]{ 'f', 'i', 'n', 'a', 'l' };
 
     ::coder::array<cell_wrap_7, 1U> b_problemStruct;
-    ::coder::array<real_T, 1U> LB;
-    ::coder::array<real_T, 1U> UB;
-    ::coder::array<real_T, 1U> params_BoundClass;
     ::coder::array<real_T, 1U> x;
     ::coder::array<real_T, 1U> x0u;
     k_struct_T a__4;
+    m_struct_T expl_temp;
     real_T a__2;
     real_T a__3;
     int32_T dis_size[2];
@@ -121,31 +119,32 @@ namespace RAT
     }
 
     outsize_idx_0 = problemStruct->fitLimits.size(0);
-    LB.set_size(outsize_idx_0);
+    expl_temp.LB.set_size(outsize_idx_0);
     for (i = 0; i < outsize_idx_0; i++) {
-      LB[i] = problemStruct->fitLimits[i];
+      expl_temp.LB[i] = problemStruct->fitLimits[i];
     }
 
     outsize_idx_0 = problemStruct->fitLimits.size(0);
-    UB.set_size(outsize_idx_0);
+    expl_temp.UB.set_size(outsize_idx_0);
     for (i = 0; i < outsize_idx_0; i++) {
-      UB[i] = problemStruct->fitLimits[i + problemStruct->fitLimits.size(0)];
+      expl_temp.UB[i] = problemStruct->fitLimits[i +
+        problemStruct->fitLimits.size(0)];
     }
 
     //  size checks
     if (problemStruct->fitLimits.size(0) == 0) {
       outsize_idx_0 = problemStruct->fitParams.size(1);
-      LB.set_size(outsize_idx_0);
+      expl_temp.LB.set_size(outsize_idx_0);
       for (i = 0; i < outsize_idx_0; i++) {
-        LB[i] = rtMinusInf;
+        expl_temp.LB[i] = rtMinusInf;
       }
     }
 
     if (problemStruct->fitLimits.size(0) == 0) {
       outsize_idx_0 = problemStruct->fitParams.size(1);
-      UB.set_size(outsize_idx_0);
+      expl_temp.UB.set_size(outsize_idx_0);
       for (i = 0; i < outsize_idx_0; i++) {
-        UB[i] = rtInf;
+        expl_temp.UB[i] = rtInf;
       }
     }
 
@@ -157,16 +156,17 @@ namespace RAT
     //  2 --> upper bound only
     //  3 --> dual finite bounds
     outsize_idx_0 = problemStruct->fitParams.size(1);
-    params_BoundClass.set_size(outsize_idx_0);
+    expl_temp.BoundClass.set_size(outsize_idx_0);
     for (i = 0; i < outsize_idx_0; i++) {
-      params_BoundClass[i] = 0.0;
+      expl_temp.BoundClass[i] = 0.0;
     }
 
     i = problemStruct->fitParams.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      params_BoundClass[b_i] = static_cast<real_T>((!std::isinf(LB[b_i])) &&
-        (!std::isnan(LB[b_i]))) + static_cast<real_T>(((!std::isinf(UB[b_i])) &&
-        (!std::isnan(UB[b_i]))) << 1);
+      expl_temp.BoundClass[b_i] = static_cast<real_T>((!std::isinf
+        (expl_temp.LB[b_i])) && (!std::isnan(expl_temp.LB[b_i]))) + static_cast<
+        real_T>(((!std::isinf(expl_temp.UB[b_i])) && (!std::isnan
+                  (expl_temp.UB[b_i]))) << 1);
     }
 
     //  transform starting values into their unconstrained
@@ -179,38 +179,38 @@ namespace RAT
 
     i = problemStruct->fitParams.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      switch (static_cast<int32_T>(params_BoundClass[b_i])) {
+      switch (static_cast<int32_T>(expl_temp.BoundClass[b_i])) {
        case 1:
         //  lower bound only
-        if (problemStruct->fitParams[b_i] <= LB[b_i]) {
+        if (problemStruct->fitParams[b_i] <= expl_temp.LB[b_i]) {
           //  infeasible starting value. Use bound.
           x0u[b_i] = 0.0;
         } else {
-          x0u[b_i] = std::sqrt(problemStruct->fitParams[b_i] - LB[b_i]);
+          x0u[b_i] = std::sqrt(problemStruct->fitParams[b_i] - expl_temp.LB[b_i]);
         }
         break;
 
        case 2:
         //  upper bound only
-        if (problemStruct->fitParams[b_i] >= UB[b_i]) {
+        if (problemStruct->fitParams[b_i] >= expl_temp.UB[b_i]) {
           //  infeasible starting value. use bound.
           x0u[b_i] = 0.0;
         } else {
-          x0u[b_i] = std::sqrt(UB[b_i] - problemStruct->fitParams[b_i]);
+          x0u[b_i] = std::sqrt(expl_temp.UB[b_i] - problemStruct->fitParams[b_i]);
         }
         break;
 
        case 3:
         //  lower and upper bounds
-        if (problemStruct->fitParams[b_i] <= LB[b_i]) {
+        if (problemStruct->fitParams[b_i] <= expl_temp.LB[b_i]) {
           //  infeasible starting value
           x0u[b_i] = -1.5707963267948966;
-        } else if (problemStruct->fitParams[b_i] >= UB[b_i]) {
+        } else if (problemStruct->fitParams[b_i] >= expl_temp.UB[b_i]) {
           //  infeasible starting value
           x0u[b_i] = 1.5707963267948966;
         } else {
-          x0u[b_i] = 2.0 * (problemStruct->fitParams[b_i] - LB[b_i]) / (UB[b_i]
-            - LB[b_i]) - 1.0;
+          x0u[b_i] = 2.0 * (problemStruct->fitParams[b_i] - expl_temp.LB[b_i]) /
+            (expl_temp.UB[b_i] - expl_temp.LB[b_i]) - 1.0;
           x0u[b_i] = std::asin(std::fmax(-1.0, std::fmin(1.0, x0u[b_i])));
         }
         break;
@@ -227,13 +227,13 @@ namespace RAT
                controls->xTolerance, controls->funcTolerance, dis_data, dis_size,
                problemStruct, controls->parallel.data, controls->parallel.size,
                controls->resampleMinAngle, controls->resampleNPoints,
-               controls->calcSldDuringFit, controls->updatePlotFreq,
-               controls->IPCFilePath.data, controls->IPCFilePath.size, LB, UB,
-               params_BoundClass, &a__2, &a__3, &a__4);
+               controls->calcSldDuringFit, controls->updateFreq,
+               controls->updatePlotFreq, controls->IPCFilePath.data,
+               controls->IPCFilePath.size, &expl_temp, &a__2, &a__3, &a__4);
 
     // [xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemStruct,controls,options,params,300);
     //  undo the variable transformations into the original space
-    simplexXTransform(x0u, LB, UB, params_BoundClass, x);
+    simplexXTransform(x0u, expl_temp.LB, expl_temp.UB, expl_temp.BoundClass, x);
 
     //  final reshape
     // x = reshape(x,xsize);

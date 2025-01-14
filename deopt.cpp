@@ -39,8 +39,8 @@ namespace RAT
              controls_resampleMinAngle, real_T controls_resampleNPoints,
              boolean_T controls_calcSldDuringFit, const char_T
              controls_display_data[], const int32_T controls_display_size[2],
-             real_T controls_updatePlotFreq, const char_T
-             controls_IPCFilePath_data[], const int32_T
+             real_T controls_updateFreq, real_T controls_updatePlotFreq, const
+             char_T controls_IPCFilePath_data[], const int32_T
              controls_IPCFilePath_size[2], const l_struct_T *S_struct, ::coder::
              array<real_T, 2U> &FVr_bestmem)
   {
@@ -333,6 +333,7 @@ namespace RAT
     //
     //
     // FM_pop = zeros(I_NP,2);
+    I_iter = 0.0;
     if (S_bestval_FVr_oa <= S_struct->F_VTR) {
       //  In this case the while loop should never run so reset
       //  the best result to the initial value
@@ -341,9 +342,20 @@ namespace RAT
       for (i = 0; i < loop_ub; i++) {
         FVr_bestmem[i] = problem->params[i];
       }
+    } else {
+      if (coder::internal::bb_strcmp(controls_display_data,
+           controls_display_size)) {
+        //  This should ensure the first result is printed.
+        coder::internal::print_processing(0.0, S_bestval_FVr_oa,
+          S_struct->fWeight, F_CR, I_NP, validatedHoleFilling);
+        coder::snPrint(0.0, validatedHoleFilling[1], validatedHoleFilling[2],
+                       validatedHoleFilling[3], validatedHoleFilling[4], charStr);
+        triggerEvent(charStr);
+      }
+
+      I_iter = 1.0;
     }
 
-    I_iter = 1.0;
     exitg1 = false;
     while ((!exitg1) && ((I_iter < I_itermax) && (S_bestval_FVr_oa >
              S_struct->F_VTR))) {
@@ -822,7 +834,8 @@ namespace RAT
       //  iteration. This is needed for some of the strategies.
       // ----Output section----------------------------------------------------------
       if (((rt_remd_snf(I_iter, 1.0) == 0.0) || (I_iter == 1.0)) && coder::
-          internal::bb_strcmp(controls_display_data, controls_display_size)) {
+          internal::bb_strcmp(controls_display_data, controls_display_size) &&
+          (rt_remd_snf(I_iter, controls_updateFreq) == 0.0)) {
         coder::internal::print_processing(I_iter, S_bestval_FVr_oa, fWeight,
           F_CR, I_NP, validatedHoleFilling);
         coder::snPrint(validatedHoleFilling[0], validatedHoleFilling[1],
@@ -876,6 +889,29 @@ namespace RAT
     }
 
     // ---end while ((I_iter < I_itermax) ...
+    if (coder::internal::bb_strcmp(controls_display_data, controls_display_size)
+        && (rt_remd_snf(I_iter - 1.0, controls_updateFreq) != 0.0)) {
+      //  This should ensure the final result is printed at the end of a run irrespective of update frequency
+      coder::internal::print_processing(I_iter - 1.0, S_bestval_FVr_oa,
+        S_struct->fWeight, F_CR, I_NP, validatedHoleFilling);
+      coder::snPrint(validatedHoleFilling[0], validatedHoleFilling[1],
+                     validatedHoleFilling[2], validatedHoleFilling[3],
+                     validatedHoleFilling[4], charStr);
+      triggerEvent(charStr);
+    }
+
+    if (rt_remd_snf(I_iter - 1.0, controls_updatePlotFreq) != 0.0) {
+      //  This should ensure the final result is always plotted irrespective of update frequency
+      b_problem = *problem;
+      intrafun(FVr_bestmem, &b_problem, controls_parallel_data,
+               controls_parallel_size, controls_resampleMinAngle,
+               controls_resampleNPoints, controls_calcSldDuringFit, &expl_temp,
+               &b_expl_temp, &c_expl_temp, &d_expl_temp, &result);
+      triggerEvent(&result, problem->TF.data, problem->TF.size,
+                   problem->resample, problem->dataPresent,
+                   problem->modelType.data, problem->modelType.size,
+                   problem->names.contrasts);
+    }
   }
 }
 

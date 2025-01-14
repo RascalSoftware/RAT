@@ -300,6 +300,7 @@ namespace RAT
   struct struct14_T
   {
     real_T LogZ;
+    real_T LogZErr;
     ::coder::array<real_T, 2U> nestSamples;
     ::coder::array<real_T, 2U> postSamples;
   };

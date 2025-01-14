@@ -23,6 +23,7 @@
 #include "coder_array.h"
 #include "coder_bounded_array.h"
 #include <algorithm>
+#include <cmath>
 
 // Function Definitions
 namespace RAT
@@ -174,6 +175,8 @@ namespace RAT
           bayesResults_nestedSamplerOutput->postSamples.size(0) * i];
       }
     }
+
+    bayesResults_nestedSamplerOutput->LogZErr = std::sqrt(H / controls->nLive);
   }
 }
 

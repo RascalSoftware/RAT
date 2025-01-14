@@ -618,6 +618,8 @@ namespace RAT
       bayesResults->chain);
     bayesResults->nestedSamplerOutput.LogZ =
       bayesResults_nestedSamplerOutput.LogZ;
+    bayesResults->nestedSamplerOutput.LogZErr =
+      bayesResults_nestedSamplerOutput.LogZErr;
     bayesResults->nestedSamplerOutput.nestSamples.set_size(1, 2);
     bayesResults->nestedSamplerOutput.postSamples.set_size(1, 2);
     bayesResults->nestedSamplerOutput.nestSamples[0] =
@@ -752,6 +754,8 @@ namespace RAT
           cast(&b_problemStruct, problemStruct);
           bayesResults->nestedSamplerOutput.LogZ =
             b_bayesResults.nestedSamplerOutput.LogZ;
+          bayesResults->nestedSamplerOutput.LogZErr =
+            b_bayesResults.nestedSamplerOutput.LogZErr;
           bayesResults->nestedSamplerOutput.nestSamples.set_size(1, 2);
           bayesResults->nestedSamplerOutput.postSamples.set_size(1, 2);
           bayesResults->nestedSamplerOutput.nestSamples[0] =

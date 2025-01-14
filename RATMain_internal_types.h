@@ -36,6 +36,7 @@ namespace RAT
   struct c_struct_T
   {
     real_T LogZ;
+    real_T LogZErr;
     ::coder::bounded_array<real_T, 2U, 2U> nestSamples;
     ::coder::bounded_array<real_T, 2U, 2U> postSamples;
   };

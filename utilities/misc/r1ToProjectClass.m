@@ -133,7 +133,7 @@ for i = 1:problem.numberOfNbss
 end
 
 % Set scalefactors
-problem.nbsubs_constr = fixNonFitConstrs(problem.numberOfScales, problem.scalesNames, problem.scale_constr, problem.scalefac, problem.scalefac_fityesno);
+problem.scale_constr = fixNonFitConstrs(problem.numberOfScales, problem.scalesNames, problem.scale_constr, problem.scalefac, problem.scalefac_fityesno);
 for i = 1:problem.numberOfScales
     % addScalefactor <- (name, min, value, max, fit)
     thisProjectClass.addScalefactor(problem.scalesNames{i}, ...

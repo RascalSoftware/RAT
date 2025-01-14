@@ -387,11 +387,11 @@ classdef parametersClass < tableUtilities
             end
                 
             if minLimit > maxLimit
-                throw(exceptions.invalidValue(sprintf('min limit %f must be less than or equal to max limit %f', minLimit, maxLimit)));
+                throw(exceptions.invalidValue(sprintf('min limit %d must be less than or equal to max limit %d', minLimit, maxLimit)));
             end
 
             if value < minLimit || value > maxLimit
-                throw(exceptions.invalidValue(sprintf('Parameter value %f must be within the limits %f to %f', value, minLimit, minLimit)));
+                throw(exceptions.invalidValue(sprintf('Parameter value %d must be within the limits %d to %d', value, minLimit, maxLimit)));
             end
         end
 

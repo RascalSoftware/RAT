@@ -287,9 +287,6 @@ classdef dataClass < tableUtilities
                     warning('simRange(2) can''t be less than max data range - resetting to %d', realDataRange(2));
                     simRange(2) = realDataRange(2);
                 end
-            
-            elseif ~isempty(dataRange)
-                % throw(exceptions.invalidValue('Data range cannot be set when data is empty'));
             end
 
             row = {{name}, {data}, {dataRange}, {simRange}};

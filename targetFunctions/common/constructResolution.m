@@ -16,14 +16,13 @@ if strcmpi(resolutionType, coderEnums.allowedTypes.Data)
     resolution(dataIndices(1):dataIndices(2),2) = shiftedData(:,4);
     resolution(dataIndices(2):end,2) = shiftedData(end,4);
 else
-    % WHY ON EARTH IS THE +0.0001 THERE ???????????????????
     resolutionParameter = resolutionParamArray(resolutionParamIndex);
-    resolution(:,2) = resolution(:,2) + (resolutionParameter + 0.0001);
+    resolution(:,2) = resolution(:,2) + resolutionParameter;
 end
 
 % We must add eps (~10^-16) here in order to ensure we do not have any
 % values identical to 0.0 in the resolution as this will cause a divide by
 % zero error when the resolution correction is applied to the reflectivity.
-% resolution(:,2) = resolution(:,2) + eps;
+resolution(:,2) = resolution(:,2) + eps;
 
 end

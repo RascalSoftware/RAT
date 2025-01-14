@@ -86,6 +86,14 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             obj.display = validateOption(val, 'displayOptions', message).value;
         end
         
+        function set.updateFreq(obj, val)
+            validateNumber(val, 'updateFreq must be a whole number', true);
+            if val < 1
+                throw(exceptions.invalidValue('updateFreq must be greater or equal to 1'));
+            end
+            obj.updateFreq = val;
+        end
+        
         function set.updatePlotFreq(obj, val)
             validateNumber(val, 'updatePlotFreq must be a whole number', true);
             if val < 1

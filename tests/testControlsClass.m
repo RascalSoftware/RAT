@@ -98,8 +98,21 @@ classdef testControlsClass < matlab.unittest.TestCase
             end
         end
         
+        function testUpdateFreq(testCase)
+            % Test if UpdateFreq property is working
+            testCase.controls.updateFreq = 5;
+            testCase.verifyEqual(testCase.controls.updateFreq, 5, 'set.updateFreq method is not working')
+            % bad updateFreq type
+            testCase.verifyError(@() setUpdateFreq('a'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setUpdateFreq(1.5), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setUpdateFreq(0), exceptions.invalidValue.errorID);
+            function setUpdateFreq(value)
+                testCase.controls.updateFreq = value;
+            end
+        end
+
         function testUpdatePlotFreq(testCase)
-            % Test if NS property setters are working
+            % Test if UpdatePlotFreq property is working
             testCase.controls.updatePlotFreq = 5;
             testCase.verifyEqual(testCase.controls.updatePlotFreq, 5, 'set.updatePlotFreq method is not working')
             % bad updatePlotFreq type

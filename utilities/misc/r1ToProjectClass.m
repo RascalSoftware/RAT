@@ -205,22 +205,14 @@ function new_constrs = fixNonFitConstrs(num_items, names, constrs, vals, fits)
 % RasCAL-1 let you not bother with constraints for non-fit parameters,
 % so this function adjusts the constraints to avoid an error if needed.
 for i = 1:num_items
+    new_constrs = constrs;
     if ~fits(i)
-        constraintsChanged = false;
-        if constrs(i, 1) > vals(i)
-            constrs(i, 1) = vals(i);
-            constraintsChanged = true;
-        end
-        if constrs(i, 2) < vals(i)
-            constrs(i, 2) = vals(i);
-            constraintsChanged = true;
-        end
-        if constraintsChanged
+        new_constrs(i, :) = [min(constrs(i, 1), vals(i)) max(constrs(i, 2), vals(i))];
+        if new_constrs(i) ~= constrs(i)
             warning("Non-fit parameter %s has invalid constraints, these" + ...
                 "have been adjusted to satisfy the current value of the parameter.", ...
                 names{i})
         end
     end
 end
-new_constrs = constrs;
 end

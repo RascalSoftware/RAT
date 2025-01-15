@@ -29,7 +29,10 @@ classdef testCommonFunctions < matlab.unittest.TestCase
         
         groupLayersModInputs;
         groupLayersModOutputs;
-    
+
+        groupLayersModImaginaryInputs;
+        groupLayersModImaginaryOutputs;
+
         jacobianEstInputs;
         jacobianEstOutputs;
 
@@ -48,6 +51,8 @@ classdef testCommonFunctions < matlab.unittest.TestCase
         adaptiveOutputs;
         resampleLayersInputs;
         resampleLayersOutputs;
+        resampleLayersReImInputs;
+        resampleLayersReImOutputs;
         SLDFunctionInputs;
         SLDFunctionOutputs;
 
@@ -156,6 +161,13 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             testCase.groupLayersModOutputs = outputs.outputs;
         end
 
+        function loadGroupLayersImaginaryMod(testCase)
+            inputs = load('groupLayersModImaginaryInputs.mat');
+            outputs = load('groupLayersModImaginaryOutputs.mat');
+            testCase.groupLayersModImaginaryInputs = inputs.inputs;
+            testCase.groupLayersModImaginaryOutputs = outputs.outputs;
+        end
+
         function loadMakeSLDProfiles(testCase)
             inputs = load('makeSLDProfilesInputs.mat');
             outputs = load('makeSLDProfilesOutputs.mat');
@@ -196,6 +208,13 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             outputs = load('resampleLayersOutputs.mat');
             testCase.resampleLayersInputs = inputs.inputs;
             testCase.resampleLayersOutputs = outputs.outputs;
+        end
+
+        function loadResampleLayersReIm(testCase)
+            inputs = load('resampleLayersReImInputs.mat');
+            outputs = load('resampleLayersReImOutputs.mat');
+            testCase.resampleLayersReImInputs = inputs.inputs;
+            testCase.resampleLayersReImOutputs = outputs.outputs;
         end
 
         function loadSLDFunction(testCase)
@@ -323,6 +342,23 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             outputs = {out1,out2};
             testCase.verifyEqual(testCase.groupLayersModOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
         end
+
+        function testGroupLayersImaginaryMod(testCase)
+            % testGroupLayersModImaginary
+            %
+            % Inputs:
+            %   testCase - class instance
+            %
+            % Outputs:
+            %   none
+            %
+            % Example:
+            %   groupLayersModImaginary(testCase)
+           
+            [out1,out2] = groupLayersModImaginary(testCase.groupLayersModImaginaryInputs{1:end});
+            outputs = {out1,out2};
+            testCase.verifyEqual(testCase.groupLayersModImaginaryOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
+        end
  
 %        function testJacobianEstimate(testCase)
             % testJacobianEstimate
@@ -448,6 +484,22 @@ classdef testCommonFunctions < matlab.unittest.TestCase
 
             out1 = resampleLayers(testCase.resampleLayersInputs{1:end});
             testCase.verifyEqual(testCase.resampleLayersOutputs,out1, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
+        end
+
+        function testResampleLayersReIm(testCase)
+            % testResampleLayersReIm
+            %
+            % Inputs:
+            %   testCase - class instance
+            %
+            % Outputs:
+            %   none
+            %
+            % Example:
+            %   resampleLayersReIm(testCase)
+
+            out1 = resampleLayersReIm(testCase.resampleLayersReImInputs{1:end});
+            testCase.verifyEqual(testCase.resampleLayersReImOutputs,out1, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
         end
 
         function testSLDFunction(testCase)

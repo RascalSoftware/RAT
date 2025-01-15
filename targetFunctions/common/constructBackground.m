@@ -15,7 +15,7 @@ if strcmpi(backgroundType, coderEnums.allowedTypes.Function)
 
     % For a function background, the first index is actually that of the
     % custom function
-    funcName = customFiles{backgroundParamIndices(1)};
+    functionHandle = customFiles{backgroundParamIndices(1)};
 
     % The rest of the backgroundParamIndices are indicies to
     % backgroundParams
@@ -30,16 +30,16 @@ if strcmpi(backgroundType, coderEnums.allowedTypes.Function)
     % Evaluate the background function with these params...
     thisBackground = zeros(length(background(:,2)), 1); % This is the correct type - for compilation
 
-    if isnan(str2double(funcName))
+    if isnan(str2double(functionHandle))
         if coder.target('MATLAB')
-            fileHandle = str2func(funcName);
+            fileHandle = str2func(functionHandle);
             thisBackground = fileHandle(background(:,1), paramsArray);
         elseif coder.target('MEX')        
             % 'feval' generates an automatic coder.extrinsic call.
-            thisBackground = feval(funcName, background(:,1), paramsArray);
+            thisBackground = feval(functionHandle, background(:,1), paramsArray);
         end
     else
-        coderException(coderEnums.errorCodes.invalidOption, 'Background functions in languages other than MATLAB are not supported.');
+        thisBackground = callCppFunction(functionHandle, background(:,1), paramsArray);
     end
 
     background(:,2) = background(:,2) + thisBackground;

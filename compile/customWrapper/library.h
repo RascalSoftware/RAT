@@ -49,6 +49,25 @@ class Library: public CallbackInterface
            this->library = std::unique_ptr<dylib>(new dylib(libName));
         };
 
+        // Backgrounds overload
+        void invoke(std::vector<double>& xdata, std::vector<double>& params, std::vector<double>& tempOutput)
+        {   
+            if (!library)
+            {
+                std::cerr << "dynamic libray failed to load" << std::endl;
+                return;
+            }     
+
+            try{
+                auto func = library->get_function<void(std::vector<double>&, std::vector<double>&, std::vector<double>&)>(functionName);
+                // pass the arguments to the function
+                func(xdata, params, tempOutput);           
+            }catch (const dylib::symbol_error &) {
+                std::cerr << "failed to get dynamic libray symbol for " << functionName << std::endl;
+            }
+            
+        };
+
         // Domain overload
         void invoke(std::vector<double>& params, std::vector<double>& bulk_in, std::vector<double>& bulk_out, int contrast, int domainNumber, std::vector<double>& tempOutput, double *outputSize, double *roughness)
         {   

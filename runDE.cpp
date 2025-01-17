@@ -95,7 +95,7 @@ namespace RAT
       0.79591836734693866, 0.836734693877551, 0.87755102040816324,
       0.91836734693877542, 0.95918367346938771, 1.0 };
 
-    ::coder::array<cell_wrap_7, 1U> b_problemStruct;
+    ::coder::array<cell_wrap_8, 1U> b_problemStruct;
     ::coder::array<real_T, 2U> r;
     ::coder::array<char_T, 2U> charStr;
     ::coder::array<int8_T, 2U> S_struct_FM_pop;
@@ -205,7 +205,7 @@ namespace RAT
 
     unpackParams(problemStruct);
     b_reflectivityCalculation(problemStruct, controls, result);
-    if (!coder::internal::t_strcmp(controls->display.data,
+    if (!coder::internal::u_strcmp(controls->display.data,
          controls->display.size)) {
       coder::snPrint(result->calculationResults.sumChi, charStr);
       triggerEvent(charStr);

@@ -27,7 +27,7 @@ namespace RAT
                   &limits_bulkIns, const ::coder::array<real_T, 2U>
                   &limits_bulkOuts, const ::coder::array<real_T, 2U>
                   &limits_resolutionParams, const ::coder::array<real_T, 2U>
-                  &limits_domainRatios, ::coder::array<cell_wrap_7, 1U>
+                  &limits_domainRatios, ::coder::array<cell_wrap_8, 1U>
                   &fitNames)
   {
     real_T b_y;

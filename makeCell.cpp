@@ -17,7 +17,7 @@
 // Function Definitions
 namespace RAT
 {
-  void b_makeCell(real_T m, const real_T vals[3], ::coder::array<cell_wrap_10,
+  void b_makeCell(real_T m, const real_T vals[3], ::coder::array<cell_wrap_11,
                   2U> &x)
   {
     int32_T i;
@@ -44,7 +44,7 @@ namespace RAT
     }
   }
 
-  void makeCell(cell_wrap_10 x[50])
+  void makeCell(cell_wrap_11 x[50])
   {
     //  Creates a m by n cell array and initialise each cell with given
     //  value
@@ -152,7 +152,7 @@ namespace RAT
     x[49].f1[0] = 1.0;
   }
 
-  void makeCell(real_T m, const real_T vals[3], ::coder::array<cell_wrap_10, 2U>
+  void makeCell(real_T m, const real_T vals[3], ::coder::array<cell_wrap_11, 2U>
                 &x)
   {
     int32_T i;

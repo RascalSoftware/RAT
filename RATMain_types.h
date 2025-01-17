@@ -24,7 +24,7 @@ namespace RAT
     real_T f1[2];
   };
 
-  struct cell_wrap_11
+  struct cell_wrap_12
   {
     ::coder::array<real_T, 2U> f1;
   };
@@ -69,17 +69,17 @@ namespace RAT
     ::coder::array<real_T, 2U> f1;
   };
 
-  struct cell_wrap_48
+  struct cell_wrap_49
   {
     ::coder::array<real_T, 2U> f1;
   };
 
-  struct cell_wrap_7
+  struct cell_wrap_8
   {
     ::coder::array<char_T, 2U> f1;
   };
 
-  struct cell_wrap_10
+  struct cell_wrap_11
   {
     ::coder::array<real_T, 2U> f1;
   };
@@ -129,12 +129,12 @@ namespace RAT
     ::coder::bounded_array<char_T, 10000U, 2U> IPCFilePath;
   };
 
-  struct cell_wrap_8
+  struct cell_wrap_9
   {
     ::coder::array<real_T, 2U> f1;
   };
 
-  struct cell_wrap_9
+  struct cell_wrap_10
   {
     ::coder::array<real_T, 2U> f1;
   };
@@ -150,24 +150,24 @@ namespace RAT
     ::coder::array<real_T, 1U> scalefactors;
     ::coder::array<real_T, 1U> bulkIn;
     ::coder::array<real_T, 1U> bulkOut;
-    ::coder::array<real_T, 1U> resolutionParams;
     ::coder::array<real_T, 1U> subRoughs;
     ::coder::array<real_T, 2U> resample;
   };
 
   struct struct6_T
   {
-    ::coder::array<cell_wrap_8, 1U> reflectivity;
-    ::coder::array<cell_wrap_8, 1U> simulation;
-    ::coder::array<cell_wrap_9, 1U> shiftedData;
-    ::coder::array<cell_wrap_9, 1U> backgrounds;
-    ::coder::array<cell_wrap_10, 2U> layerSlds;
-    ::coder::array<cell_wrap_10, 2U> sldProfiles;
-    ::coder::array<cell_wrap_10, 2U> resampledLayers;
+    ::coder::array<cell_wrap_9, 1U> reflectivity;
+    ::coder::array<cell_wrap_9, 1U> simulation;
+    ::coder::array<cell_wrap_10, 1U> shiftedData;
+    ::coder::array<cell_wrap_10, 1U> backgrounds;
+    ::coder::array<cell_wrap_9, 1U> resolutions;
+    ::coder::array<cell_wrap_11, 2U> layerSlds;
+    ::coder::array<cell_wrap_11, 2U> sldProfiles;
+    ::coder::array<cell_wrap_11, 2U> resampledLayers;
     struct7_T calculationResults;
     struct8_T contrastParams;
     ::coder::array<real_T, 2U> fitParams;
-    ::coder::array<cell_wrap_7, 1U> fitNames;
+    ::coder::array<cell_wrap_8, 1U> fitNames;
   };
 
   struct struct3_T
@@ -182,7 +182,7 @@ namespace RAT
     ::coder::array<real_T, 2U> domainRatios;
   };
 
-  struct cell_6
+  struct cell_7
   {
     ::coder::bounded_array<char_T, 10000U, 2U> f1;
     ::coder::bounded_array<char_T, 10000U, 2U> f2;
@@ -192,22 +192,22 @@ namespace RAT
 
   struct struct5_T
   {
-    ::coder::array<cell_6, 1U> params;
-    ::coder::array<cell_6, 1U> backgroundParams;
-    ::coder::array<cell_6, 1U> scalefactors;
-    ::coder::array<cell_6, 1U> qzshifts;
-    ::coder::array<cell_6, 1U> bulkIns;
-    ::coder::array<cell_6, 1U> bulkOuts;
-    ::coder::array<cell_6, 1U> resolutionParams;
-    ::coder::array<cell_6, 1U> domainRatios;
-    ::coder::array<cell_wrap_7, 1U> priorNames;
+    ::coder::array<cell_7, 1U> params;
+    ::coder::array<cell_7, 1U> backgroundParams;
+    ::coder::array<cell_7, 1U> scalefactors;
+    ::coder::array<cell_7, 1U> qzshifts;
+    ::coder::array<cell_7, 1U> bulkIns;
+    ::coder::array<cell_7, 1U> bulkOuts;
+    ::coder::array<cell_7, 1U> resolutionParams;
+    ::coder::array<cell_7, 1U> domainRatios;
+    ::coder::array<cell_wrap_8, 1U> priorNames;
     ::coder::array<real_T, 2U> priorValues;
   };
 
   struct struct10_T
   {
-    ::coder::array<cell_wrap_11, 1U> reflectivity;
-    ::coder::array<cell_wrap_11, 2U> sld;
+    ::coder::array<cell_wrap_12, 1U> reflectivity;
+    ::coder::array<cell_wrap_12, 2U> sld;
     ::coder::bounded_array<real_T, 1000U, 1U> sampleChi;
   };
 
@@ -230,10 +230,15 @@ namespace RAT
 
   struct cell_wrap_4
   {
-    ::coder::array<real_T, 2U> f1;
+    ::coder::bounded_array<real_T, 5U, 2U> f1;
   };
 
   struct cell_wrap_5
+  {
+    ::coder::array<real_T, 2U> f1;
+  };
+
+  struct cell_wrap_6
   {
     ::coder::bounded_array<real_T, 10U, 2U> f1;
   };
@@ -271,7 +276,8 @@ namespace RAT
     ::coder::array<real_T, 2U> contrastScalefactors;
     ::coder::array<real_T, 2U> contrastBulkIns;
     ::coder::array<real_T, 2U> contrastBulkOuts;
-    ::coder::array<real_T, 2U> contrastResolutionParams;
+    ::coder::array<cell_wrap_4, 2U> contrastResolutionParams;
+    ::coder::array<cell_wrap_0, 2U> contrastResolutionTypes;
     ::coder::array<real_T, 2U> backgroundParams;
     ::coder::array<real_T, 2U> qzshifts;
     ::coder::array<real_T, 2U> scalefactors;
@@ -280,15 +286,15 @@ namespace RAT
     ::coder::array<real_T, 2U> resolutionParams;
     ::coder::array<real_T, 2U> params;
     real_T numberOfLayers;
-    ::coder::array<cell_wrap_4, 2U> contrastLayers;
-    ::coder::array<cell_wrap_5, 2U> layersDetails;
+    ::coder::array<cell_wrap_5, 2U> contrastLayers;
+    ::coder::array<cell_wrap_6, 2U> layersDetails;
     ::coder::array<cell_wrap_0, 2U> customFiles;
     ::coder::bounded_array<char_T, 10000U, 2U> modelType;
     ::coder::array<real_T, 2U> contrastCustomFiles;
     ::coder::array<real_T, 2U> contrastDomainRatios;
     ::coder::array<real_T, 2U> domainRatios;
     real_T numberOfDomainContrasts;
-    ::coder::array<cell_wrap_4, 2U> domainContrastLayers;
+    ::coder::array<cell_wrap_5, 2U> domainContrastLayers;
     ::coder::array<real_T, 2U> fitParams;
     ::coder::array<real_T, 2U> otherParams;
     ::coder::array<real_T, 2U> fitLimits;

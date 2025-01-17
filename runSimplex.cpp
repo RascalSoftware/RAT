@@ -41,7 +41,7 @@ namespace RAT
 
     static const char_T b_cv[5]{ 'f', 'i', 'n', 'a', 'l' };
 
-    ::coder::array<cell_wrap_7, 1U> b_problemStruct;
+    ::coder::array<cell_wrap_8, 1U> b_problemStruct;
     ::coder::array<real_T, 1U> x;
     ::coder::array<real_T, 1U> x0u;
     k_struct_T a__4;
@@ -58,16 +58,16 @@ namespace RAT
                problemLimits_qzshifts, problemLimits_bulkIns,
                problemLimits_bulkOuts, problemLimits_resolutionParams,
                problemLimits_domainRatios, b_problemStruct);
-    if (coder::internal::u_strcmp(controls->display.data, controls->display.size))
+    if (coder::internal::v_strcmp(controls->display.data, controls->display.size))
     {
       outsize_idx_0 = 0;
-    } else if (coder::internal::v_strcmp(controls->display.data,
-                controls->display.size)) {
-      outsize_idx_0 = 1;
     } else if (coder::internal::w_strcmp(controls->display.data,
                 controls->display.size)) {
-      outsize_idx_0 = 2;
+      outsize_idx_0 = 1;
     } else if (coder::internal::x_strcmp(controls->display.data,
+                controls->display.size)) {
+      outsize_idx_0 = 2;
+    } else if (coder::internal::y_strcmp(controls->display.data,
                 controls->display.size)) {
       outsize_idx_0 = 3;
     } else {

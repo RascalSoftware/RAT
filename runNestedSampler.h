@@ -22,7 +22,7 @@ namespace RAT
 {
   struct e_struct_T;
   struct struct4_T;
-  struct cell_wrap_7;
+  struct cell_wrap_8;
   struct struct6_T;
   struct struct10_T;
   struct struct11_T;
@@ -44,7 +44,7 @@ namespace RAT
                         coder::array<real_T, 2U> &problemLimits_resolutionParams,
                         const ::coder::array<real_T, 2U>
                         &problemLimits_domainRatios, const struct4_T *controls,
-                        const ::coder::array<cell_wrap_7, 1U>
+                        const ::coder::array<cell_wrap_8, 1U>
                         &inPriors_priorNames, const ::coder::array<real_T, 2U>
                         &inPriors_priorValues, struct6_T *result, struct10_T
                         *bayesResults_predictionIntervals, struct11_T

@@ -38,7 +38,7 @@ namespace RAT
                         coder::array<real_T, 2U> &problemLimits_resolutionParams,
                         const ::coder::array<real_T, 2U>
                         &problemLimits_domainRatios, const struct4_T *controls,
-                        const ::coder::array<cell_wrap_7, 1U>
+                        const ::coder::array<cell_wrap_8, 1U>
                         &inPriors_priorNames, const ::coder::array<real_T, 2U>
                         &inPriors_priorValues, struct6_T *result, struct10_T
                         *bayesResults_predictionIntervals, struct11_T
@@ -49,9 +49,9 @@ namespace RAT
                         2U> &bayesResults_chain)
   {
     static struct4_T b_controls;
-    ::coder::array<cell_wrap_11, 2U> expl_temp_sld;
-    ::coder::array<cell_wrap_11, 1U> expl_temp_reflectivity;
-    ::coder::array<cell_wrap_7, 1U> fitNames;
+    ::coder::array<cell_wrap_12, 2U> expl_temp_sld;
+    ::coder::array<cell_wrap_12, 1U> expl_temp_reflectivity;
+    ::coder::array<cell_wrap_8, 1U> fitNames;
     ::coder::array<real_T, 2U> b_expl_temp;
     ::coder::array<real_T, 2U> bayesOutputs_bestParams;
     ::coder::array<real_T, 2U> bayesOutputs_chain;

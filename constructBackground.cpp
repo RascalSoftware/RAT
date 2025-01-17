@@ -12,7 +12,6 @@
 #include "constructBackground.h"
 #include "RATMain_types.h"
 #include "ifWhileCond.h"
-#include "makeSimulationRange.h"
 #include "rt_nonfinite.h"
 #include "str2double.h"
 #include "strcmp.h"
@@ -21,16 +20,15 @@
 // Function Definitions
 namespace RAT
 {
-  void constructBackground(const ::coder::array<cell_wrap_7, 2U> &backgroundType,
+  void constructBackground(const ::coder::array<cell_wrap_8, 2U> &backgroundType,
     const real_T backgroundParamIndices_data[], const int32_T
     backgroundParamIndices_size[2], const ::coder::array<real_T, 2U>
-    &shiftedData, const ::coder::array<cell_wrap_7, 2U> &customFiles, const ::
-    coder::array<real_T, 2U> &backgroundParamArray, const real_T simLimits[2], ::
-    coder::array<real_T, 2U> &background)
+    &shiftedData, const ::coder::array<cell_wrap_8, 2U> &customFiles, const ::
+    coder::array<real_T, 2U> &backgroundParamArray, const ::coder::array<real_T,
+    1U> &simulationXData, const real_T dataIndices[2], ::coder::array<real_T, 2U>
+    &background)
   {
     ::coder::array<real_T, 1U> b_background;
-    ::coder::array<real_T, 1U> simulationXData;
-    real_T dataIndices[2];
     int32_T tmp_size[2];
     int32_T i;
     int32_T i1;
@@ -41,10 +39,7 @@ namespace RAT
     //
     //  For function backgrounds, this means running the function using the
     //  defined parameters. For data and constant backgrounds, this means taking
-    //  any predefined background data and adding any supplied poarameters.
-    //  Define the background over the simulation range, making sure to include
-    //  any predefined data.
-    makeSimulationRange(shiftedData, simLimits, simulationXData, dataIndices);
+    //  any predefined background data and adding any supplied parameters.
     background.set_size(simulationXData.size(0), 3);
     loop_ub = simulationXData.size(0);
     for (i = 0; i < 3; i++) {
@@ -82,7 +77,7 @@ namespace RAT
         shiftedData.size(0) * 5];
     }
 
-    coder::internal::s_strcmp(backgroundType, tmp_data, tmp_size);
+    coder::internal::t_strcmp(backgroundType, tmp_data, tmp_size);
     if (coder::internal::b_ifWhileCond(tmp_data, tmp_size)) {
       //  For a function background, the first index is actually that of the
       //  custom function
@@ -138,13 +133,12 @@ namespace RAT
   void constructBackground(const char_T backgroundType_data[], const int32_T
     backgroundType_size[2], const real_T backgroundParamIndices_data[], const
     int32_T backgroundParamIndices_size[2], const ::coder::array<real_T, 2U>
-    &shiftedData, const ::coder::array<cell_wrap_7, 2U> &customFiles, const ::
-    coder::array<real_T, 2U> &backgroundParamArray, const real_T simLimits[2], ::
-    coder::array<real_T, 2U> &background)
+    &shiftedData, const ::coder::array<cell_wrap_8, 2U> &customFiles, const ::
+    coder::array<real_T, 2U> &backgroundParamArray, const ::coder::array<real_T,
+    1U> &simulationXData, const real_T dataIndices[2], ::coder::array<real_T, 2U>
+    &background)
   {
     ::coder::array<real_T, 1U> b_background;
-    ::coder::array<real_T, 1U> simulationXData;
-    real_T dataIndices[2];
     int32_T iv[2];
     int32_T i;
     int32_T i1;
@@ -154,10 +148,7 @@ namespace RAT
     //
     //  For function backgrounds, this means running the function using the
     //  defined parameters. For data and constant backgrounds, this means taking
-    //  any predefined background data and adding any supplied poarameters.
-    //  Define the background over the simulation range, making sure to include
-    //  any predefined data.
-    makeSimulationRange(shiftedData, simLimits, simulationXData, dataIndices);
+    //  any predefined background data and adding any supplied parameters.
     background.set_size(simulationXData.size(0), 3);
     loop_ub = simulationXData.size(0);
     for (i = 0; i < 3; i++) {

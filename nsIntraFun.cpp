@@ -169,6 +169,14 @@ namespace RAT
         data_f1->contrastResolutionParams[i];
     }
 
+    problemStruct.contrastResolutionTypes.set_size(1,
+      data_f1->contrastResolutionTypes.size(1));
+    loop_ub = data_f1->contrastResolutionTypes.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      problemStruct.contrastResolutionTypes[i] =
+        data_f1->contrastResolutionTypes[i];
+    }
+
     problemStruct.backgroundParams.set_size(1, data_f1->backgroundParams.size(1));
     loop_ub = data_f1->backgroundParams.size(1);
     for (i = 0; i < loop_ub; i++) {

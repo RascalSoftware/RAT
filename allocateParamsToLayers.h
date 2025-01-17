@@ -20,15 +20,15 @@
 // Type Declarations
 namespace RAT
 {
-  struct cell_wrap_10;
-  struct cell_wrap_48;
+  struct cell_wrap_11;
+  struct cell_wrap_49;
 }
 
 // Function Declarations
 namespace RAT
 {
   void allocateParamsToLayers(const ::coder::array<real_T, 2U> &params, const ::
-    coder::array<cell_wrap_10, 2U> &layersDetails, ::coder::array<cell_wrap_48,
+    coder::array<cell_wrap_11, 2U> &layersDetails, ::coder::array<cell_wrap_49,
     2U> &outLayers);
 }
 

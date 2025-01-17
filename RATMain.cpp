@@ -41,22 +41,24 @@ namespace RAT
                    cell_wrap_0, 2U> &t8_domainRatios, const ::coder::array<
                    cell_wrap_0, 2U> &t8_contrasts, d_struct_T *b);
   static void cast(const e_struct_T *b, struct0_T *c);
-  static void cast(const ::coder::array<cell_wrap_48, 2U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_49, 2U> &b, ::coder::array<
                    cell_wrap_3, 2U> &c);
-  static void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
-                   cell_wrap_5, 2U> &c);
-  static void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_11, 2U> &b, ::coder::array<
                    cell_wrap_4, 2U> &c);
-  static void cast(const ::coder::array<cell_wrap_7, 2U> &t9_params, const ::
-                   coder::array<cell_wrap_7, 2U> &t9_backgroundParams, const ::
-                   coder::array<cell_wrap_7, 2U> &t9_scalefactors, const ::coder::
-                   array<cell_wrap_7, 2U> &t9_qzshifts, const ::coder::array<
-                   cell_wrap_7, 2U> &t9_bulkIns, const ::coder::array<
-                   cell_wrap_7, 2U> &t9_bulkOuts, const ::coder::array<
-                   cell_wrap_7, 2U> &t9_resolutionParams, const ::coder::array<
-                   cell_wrap_7, 2U> &t9_domainRatios, const ::coder::array<
-                   cell_wrap_7, 2U> &t9_contrasts, struct1_T *b);
-  static void cast(const ::coder::array<cell_wrap_7, 2U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_11, 2U> &b, ::coder::array<
+                   cell_wrap_6, 2U> &c);
+  static void cast(const ::coder::array<cell_wrap_11, 2U> &b, ::coder::array<
+                   cell_wrap_5, 2U> &c);
+  static void cast(const ::coder::array<cell_wrap_8, 2U> &t9_params, const ::
+                   coder::array<cell_wrap_8, 2U> &t9_backgroundParams, const ::
+                   coder::array<cell_wrap_8, 2U> &t9_scalefactors, const ::coder::
+                   array<cell_wrap_8, 2U> &t9_qzshifts, const ::coder::array<
+                   cell_wrap_8, 2U> &t9_bulkIns, const ::coder::array<
+                   cell_wrap_8, 2U> &t9_bulkOuts, const ::coder::array<
+                   cell_wrap_8, 2U> &t9_resolutionParams, const ::coder::array<
+                   cell_wrap_8, 2U> &t9_domainRatios, const ::coder::array<
+                   cell_wrap_8, 2U> &t9_contrasts, struct1_T *b);
+  static void cast(const ::coder::array<cell_wrap_8, 2U> &b, ::coder::array<
                    cell_wrap_0, 2U> &c);
 }
 
@@ -154,12 +156,8 @@ namespace RAT
       c->contrastBulkOuts[i] = b->contrastBulkOuts[i];
     }
 
-    c->contrastResolutionParams.set_size(1, b->contrastResolutionParams.size(1));
-    loop_ub = b->contrastResolutionParams.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      c->contrastResolutionParams[i] = b->contrastResolutionParams[i];
-    }
-
+    cast(b->contrastResolutionParams, c->contrastResolutionParams);
+    cast(b->contrastResolutionTypes, c->contrastResolutionTypes);
     c->backgroundParams.set_size(1, b->backgroundParams.size(1));
     loop_ub = b->backgroundParams.size(1);
     for (i = 0; i < loop_ub; i++) {
@@ -382,12 +380,8 @@ namespace RAT
       c->contrastBulkOuts[i] = b->contrastBulkOuts[i];
     }
 
-    c->contrastResolutionParams.set_size(1, b->contrastResolutionParams.size(1));
-    loop_ub = b->contrastResolutionParams.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      c->contrastResolutionParams[i] = b->contrastResolutionParams[i];
-    }
-
+    cast(b->contrastResolutionParams, c->contrastResolutionParams);
+    cast(b->contrastResolutionTypes, c->contrastResolutionTypes);
     c->backgroundParams.set_size(1, b->backgroundParams.size(1));
     loop_ub = b->backgroundParams.size(1);
     for (i = 0; i < loop_ub; i++) {
@@ -498,7 +492,7 @@ namespace RAT
     c->checks = b->checks;
   }
 
-  static void cast(const ::coder::array<cell_wrap_48, 2U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_49, 2U> &b, ::coder::array<
                    cell_wrap_3, 2U> &c)
   {
     int32_T i;
@@ -515,8 +509,30 @@ namespace RAT
     }
   }
 
-  static void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
-                   cell_wrap_5, 2U> &c)
+  static void cast(const ::coder::array<cell_wrap_11, 2U> &b, ::coder::array<
+                   cell_wrap_4, 2U> &c)
+  {
+    int32_T i;
+    c.set_size(1, b.size(1));
+    i = b.size(1) - 1;
+    for (int32_T i1{0}; i1 <= i; i1++) {
+      int32_T loop_ub;
+      c[i1].f1.size[0] = b[i1].f1.size(0);
+      loop_ub = b[i1].f1.size(1);
+      c[i1].f1.size[1] = b[i1].f1.size(1);
+      for (int32_T i2{0}; i2 < loop_ub; i2++) {
+        int32_T b_loop_ub;
+        b_loop_ub = b[i1].f1.size(0);
+        for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
+          c[i1].f1.data[i3 + c[i1].f1.size[0] * i2] = b[i1].f1[i3 + b[i1].
+            f1.size(0) * i2];
+        }
+      }
+    }
+  }
+
+  static void cast(const ::coder::array<cell_wrap_11, 2U> &b, ::coder::array<
+                   cell_wrap_6, 2U> &c)
   {
     int32_T i;
     c.set_size(b.size(0), b.size(1));
@@ -537,8 +553,8 @@ namespace RAT
     }
   }
 
-  static void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
-                   cell_wrap_4, 2U> &c)
+  static void cast(const ::coder::array<cell_wrap_11, 2U> &b, ::coder::array<
+                   cell_wrap_5, 2U> &c)
   {
     int32_T i;
     c.set_size(1, b.size(1));
@@ -559,15 +575,15 @@ namespace RAT
     }
   }
 
-  static void cast(const ::coder::array<cell_wrap_7, 2U> &t9_params, const ::
-                   coder::array<cell_wrap_7, 2U> &t9_backgroundParams, const ::
-                   coder::array<cell_wrap_7, 2U> &t9_scalefactors, const ::coder::
-                   array<cell_wrap_7, 2U> &t9_qzshifts, const ::coder::array<
-                   cell_wrap_7, 2U> &t9_bulkIns, const ::coder::array<
-                   cell_wrap_7, 2U> &t9_bulkOuts, const ::coder::array<
-                   cell_wrap_7, 2U> &t9_resolutionParams, const ::coder::array<
-                   cell_wrap_7, 2U> &t9_domainRatios, const ::coder::array<
-                   cell_wrap_7, 2U> &t9_contrasts, struct1_T *b)
+  static void cast(const ::coder::array<cell_wrap_8, 2U> &t9_params, const ::
+                   coder::array<cell_wrap_8, 2U> &t9_backgroundParams, const ::
+                   coder::array<cell_wrap_8, 2U> &t9_scalefactors, const ::coder::
+                   array<cell_wrap_8, 2U> &t9_qzshifts, const ::coder::array<
+                   cell_wrap_8, 2U> &t9_bulkIns, const ::coder::array<
+                   cell_wrap_8, 2U> &t9_bulkOuts, const ::coder::array<
+                   cell_wrap_8, 2U> &t9_resolutionParams, const ::coder::array<
+                   cell_wrap_8, 2U> &t9_domainRatios, const ::coder::array<
+                   cell_wrap_8, 2U> &t9_contrasts, struct1_T *b)
   {
     cast(t9_params, b->params);
     cast(t9_backgroundParams, b->backgroundParams);
@@ -580,7 +596,7 @@ namespace RAT
     cast(t9_contrasts, b->contrasts);
   }
 
-  static void cast(const ::coder::array<cell_wrap_7, 2U> &b, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_8, 2U> &b, ::coder::array<
                    cell_wrap_0, 2U> &c)
   {
     int32_T i;
@@ -663,7 +679,7 @@ namespace RAT
         break;
 
        case 1:
-        if (!coder::internal::t_strcmp(controls->display.data,
+        if (!coder::internal::u_strcmp(controls->display.data,
              controls->display.size)) {
           triggerEvent();
         }
@@ -678,7 +694,7 @@ namespace RAT
         break;
 
        case 2:
-        if (!coder::internal::t_strcmp(controls->display.data,
+        if (!coder::internal::u_strcmp(controls->display.data,
              controls->display.size)) {
           d_triggerEvent();
         }
@@ -693,7 +709,7 @@ namespace RAT
         break;
 
        case 3:
-        if (!coder::internal::t_strcmp(controls->display.data,
+        if (!coder::internal::u_strcmp(controls->display.data,
              controls->display.size)) {
           i_triggerEvent();
         }
@@ -715,7 +731,7 @@ namespace RAT
 
        case 4:
         {
-          if (!coder::internal::t_strcmp(controls->display.data,
+          if (!coder::internal::u_strcmp(controls->display.data,
                controls->display.size)) {
             j_triggerEvent();
           }

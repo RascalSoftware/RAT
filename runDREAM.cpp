@@ -33,7 +33,7 @@ namespace RAT
                 *outProblemStruct, struct6_T *result, g_struct_T *bayesResults)
   {
     static struct4_T b_controls;
-    ::coder::array<cell_wrap_7, 1U> fitParamNames;
+    ::coder::array<cell_wrap_8, 1U> fitParamNames;
     ::coder::array<real_T, 2U> ParInfo_max;
     ::coder::array<real_T, 2U> ParInfo_min;
     ::coder::array<real_T, 2U> a__1;

@@ -20,24 +20,24 @@
 // Type Declarations
 namespace RAT
 {
-  struct cell_wrap_7;
+  struct cell_wrap_8;
   struct cell_wrap_0;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void getFitNames(const ::coder::array<cell_wrap_7, 2U>
-                   &problemStruct_names_params, const ::coder::array<cell_wrap_7,
+  void getFitNames(const ::coder::array<cell_wrap_8, 2U>
+                   &problemStruct_names_params, const ::coder::array<cell_wrap_8,
                    2U> &problemStruct_names_backgroundParams, const ::coder::
-                   array<cell_wrap_7, 2U> &problemStruct_names_scalefactors,
-                   const ::coder::array<cell_wrap_7, 2U>
+                   array<cell_wrap_8, 2U> &problemStruct_names_scalefactors,
+                   const ::coder::array<cell_wrap_8, 2U>
                    &problemStruct_names_qzshifts, const ::coder::array<
-                   cell_wrap_7, 2U> &problemStruct_names_bulkIns, const ::coder::
-                   array<cell_wrap_7, 2U> &problemStruct_names_bulkOuts, const ::
-                   coder::array<cell_wrap_7, 2U>
+                   cell_wrap_8, 2U> &problemStruct_names_bulkIns, const ::coder::
+                   array<cell_wrap_8, 2U> &problemStruct_names_bulkOuts, const ::
+                   coder::array<cell_wrap_8, 2U>
                    &problemStruct_names_resolutionParams, const ::coder::array<
-                   cell_wrap_7, 2U> &problemStruct_names_domainRatios, const ::
+                   cell_wrap_8, 2U> &problemStruct_names_domainRatios, const ::
                    coder::array<real_T, 2U> &problemStruct_checks_params, const ::
                    coder::array<real_T, 2U>
                    &problemStruct_checks_backgroundParams, const ::coder::array<
@@ -48,7 +48,7 @@ namespace RAT
                    const ::coder::array<real_T, 2U>
                    &problemStruct_checks_resolutionParams, const ::coder::array<
                    real_T, 2U> &problemStruct_checks_domainRatios, ::coder::
-                   array<cell_wrap_7, 1U> &fitNames);
+                   array<cell_wrap_8, 1U> &fitNames);
   void getFitNames(const ::coder::array<cell_wrap_0, 2U>
                    &problemStruct_names_params, const ::coder::array<cell_wrap_0,
                    2U> &problemStruct_names_backgroundParams, const ::coder::
@@ -70,7 +70,7 @@ namespace RAT
                    const ::coder::array<real_T, 2U>
                    &problemStruct_checks_resolutionParams, const ::coder::array<
                    real_T, 2U> &problemStruct_checks_domainRatios, ::coder::
-                   array<cell_wrap_7, 1U> &fitNames);
+                   array<cell_wrap_8, 1U> &fitNames);
 }
 
 #endif

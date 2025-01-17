@@ -29,9 +29,9 @@ namespace RAT
         &contrastBulkIns, const ::coder::array<real_T, 2U> &contrastBulkOuts,
         const ::coder::array<real_T, 2U> &bulkInArray, const ::coder::array<
         real_T, 2U> &bulkOutArray, const ::coder::array<real_T, 2U> &cCustFiles,
-        real_T numberOfContrasts, const ::coder::array<cell_wrap_7, 2U>
+        real_T numberOfContrasts, const ::coder::array<cell_wrap_8, 2U>
         &customFiles, const ::coder::array<real_T, 2U> &params, ::coder::array<
-        cell_wrap_34, 2U> &slds, ::coder::array<real_T, 1U> &subRoughs)
+        cell_wrap_35, 2U> &slds, ::coder::array<real_T, 1U> &subRoughs)
       {
         ::coder::array<real_T, 2U> b_bulkOuts;
         ::coder::array<real_T, 2U> b_params;

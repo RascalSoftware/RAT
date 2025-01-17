@@ -25,9 +25,10 @@ namespace RAT
     void coreLayersCalculation(const ::coder::array<real_T, 2U> &layers, real_T
       rough, const char_T geometry_data[], const int32_T geometry_size[2],
       real_T bulkIn, real_T bulkOut, real_T resample, boolean_T calcSld, const ::
-      coder::array<real_T, 2U> &shiftedData, const real_T simLimits[2], const
-      real_T repeatLayers[2], real_T resolution, const ::coder::array<real_T, 2U>
-      &background, const char_T backgroundAction_data[], const int32_T
+      coder::array<real_T, 2U> &shiftedData, const ::coder::array<real_T, 1U>
+      &simulationXData, const real_T dataIndices[2], const real_T repeatLayers[2],
+      const ::coder::array<real_T, 2U> &resolution, const ::coder::array<real_T,
+      2U> &background, const char_T backgroundAction_data[], const int32_T
       backgroundAction_size[2], real_T params, const char_T parallelPoints_data[],
       const int32_T parallelPoints_size[2], real_T resampleMinAngle, real_T
       resampleNPoints, boolean_T useImaginary, ::coder::array<real_T, 2U>

@@ -22,7 +22,7 @@
 namespace RAT
 {
   void cast(const ::coder::array<cell_wrap_3, 2U> &b, ::coder::array<
-            cell_wrap_48, 2U> &c)
+            cell_wrap_49, 2U> &c)
   {
     int32_T i;
     c.set_size(1, b.size(1));
@@ -37,8 +37,29 @@ namespace RAT
     }
   }
 
-  void cast(const ::coder::array<cell_wrap_5, 2U> &b, ::coder::array<
-            cell_wrap_10, 2U> &c)
+  void cast(const ::coder::array<cell_wrap_4, 2U> &b, ::coder::array<
+            cell_wrap_11, 2U> &c)
+  {
+    int32_T i;
+    c.set_size(1, b.size(1));
+    i = b.size(1) - 1;
+    for (int32_T i1{0}; i1 <= i; i1++) {
+      int32_T loop_ub;
+      loop_ub = b[i1].f1.size[1];
+      c[c.size(0) * i1].f1.set_size(b[b.size(0) * i1].f1.size[0], b[b.size(0) *
+        i1].f1.size[1]);
+      for (int32_T i2{0}; i2 < loop_ub; i2++) {
+        int32_T b_loop_ub;
+        b_loop_ub = b[i1].f1.size[0];
+        for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
+          c[i1].f1[c[i1].f1.size(0) * i2] = b[i1].f1.data[b[i1].f1.size[0] * i2];
+        }
+      }
+    }
+  }
+
+  void cast(const ::coder::array<cell_wrap_6, 2U> &b, ::coder::array<
+            cell_wrap_11, 2U> &c)
   {
     int32_T i;
     c.set_size(b.size(0), b.size(1));
@@ -57,7 +78,7 @@ namespace RAT
     }
   }
 
-  void cast(const ::coder::array<cell_wrap_0, 2U> &b, ::coder::array<cell_wrap_7,
+  void cast(const ::coder::array<cell_wrap_0, 2U> &b, ::coder::array<cell_wrap_8,
             2U> &c)
   {
     int32_T i;
@@ -73,8 +94,8 @@ namespace RAT
     }
   }
 
-  void cast(const ::coder::array<cell_wrap_4, 2U> &b, ::coder::array<
-            cell_wrap_10, 2U> &c)
+  void cast(const ::coder::array<cell_wrap_5, 2U> &b, ::coder::array<
+            cell_wrap_11, 2U> &c)
   {
     int32_T i;
     c.set_size(1, b.size(1));

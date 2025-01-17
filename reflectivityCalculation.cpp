@@ -32,9 +32,9 @@ namespace RAT
   void b_reflectivityCalculation(const e_struct_T *problemStruct, const
     struct4_T *controls, struct6_T *result)
   {
-    ::coder::array<cell_wrap_10, 2U> layerSlds;
-    ::coder::array<cell_wrap_10, 2U> resampledLayers;
-    ::coder::array<cell_wrap_10, 2U> sldProfiles;
+    ::coder::array<cell_wrap_11, 2U> layerSlds;
+    ::coder::array<cell_wrap_11, 2U> resampledLayers;
+    ::coder::array<cell_wrap_11, 2U> sldProfiles;
     ::coder::array<real_T, 1U> qzshifts;
     real_T y;
     int32_T switch_expression_size[2];
@@ -91,12 +91,10 @@ namespace RAT
        case 0:
         normalTF::b_standardLayers(problemStruct, controls, qzshifts,
           result->contrastParams.scalefactors, result->contrastParams.bulkIn,
-          result->contrastParams.bulkOut,
-          result->contrastParams.resolutionParams,
-          result->calculationResults.chiValues, result->reflectivity,
-          result->simulation, result->shiftedData, result->backgrounds,
-          layerSlds, sldProfiles, resampledLayers,
-          result->contrastParams.subRoughs);
+          result->contrastParams.bulkOut, result->calculationResults.chiValues,
+          result->reflectivity, result->simulation, result->shiftedData,
+          result->backgrounds, result->resolutions, layerSlds, sldProfiles,
+          resampledLayers, result->contrastParams.subRoughs);
         result->layerSlds.set_size(layerSlds.size(0), 1);
         b_index = layerSlds.size(0);
         for (i = 0; i < b_index; i++) {
@@ -119,12 +117,10 @@ namespace RAT
        case 1:
         normalTF::c_customLayers(problemStruct, controls, qzshifts,
           result->contrastParams.scalefactors, result->contrastParams.bulkIn,
-          result->contrastParams.bulkOut,
-          result->contrastParams.resolutionParams,
-          result->calculationResults.chiValues, result->reflectivity,
-          result->simulation, result->shiftedData, result->backgrounds,
-          layerSlds, sldProfiles, resampledLayers,
-          result->contrastParams.subRoughs);
+          result->contrastParams.bulkOut, result->calculationResults.chiValues,
+          result->reflectivity, result->simulation, result->shiftedData,
+          result->backgrounds, result->resolutions, layerSlds, sldProfiles,
+          resampledLayers, result->contrastParams.subRoughs);
         result->layerSlds.set_size(layerSlds.size(0), 1);
         b_index = layerSlds.size(0);
         for (i = 0; i < b_index; i++) {
@@ -149,12 +145,11 @@ namespace RAT
                              result->contrastParams.scalefactors,
                              result->contrastParams.bulkIn,
                              result->contrastParams.bulkOut,
-                             result->contrastParams.resolutionParams,
                              result->calculationResults.chiValues,
                              result->reflectivity, result->simulation,
-                             result->shiftedData, result->backgrounds, layerSlds,
-                             sldProfiles, resampledLayers,
-                             result->contrastParams.subRoughs);
+                             result->shiftedData, result->backgrounds,
+                             result->resolutions, layerSlds, sldProfiles,
+                             resampledLayers, result->contrastParams.subRoughs);
         result->layerSlds.set_size(layerSlds.size(0), 1);
         b_index = layerSlds.size(0);
         for (i = 0; i < b_index; i++) {
@@ -207,10 +202,9 @@ namespace RAT
             domainsTF::b_standardLayers(problemStruct, controls, qzshifts,
               result->contrastParams.scalefactors, result->contrastParams.bulkIn,
               result->contrastParams.bulkOut,
-              result->contrastParams.resolutionParams,
               result->calculationResults.chiValues, result->reflectivity,
               result->simulation, result->shiftedData, result->backgrounds,
-              layerSlds, sldProfiles, resampledLayers,
+              result->resolutions, layerSlds, sldProfiles, resampledLayers,
               result->contrastParams.subRoughs);
             result->layerSlds.set_size(layerSlds.size(0), 2);
             result->sldProfiles.set_size(sldProfiles.size(0), 2);
@@ -245,10 +239,9 @@ namespace RAT
             domainsTF::c_customLayers(problemStruct, controls, qzshifts,
               result->contrastParams.scalefactors, result->contrastParams.bulkIn,
               result->contrastParams.bulkOut,
-              result->contrastParams.resolutionParams,
               result->calculationResults.chiValues, result->reflectivity,
               result->simulation, result->shiftedData, result->backgrounds,
-              layerSlds, sldProfiles, resampledLayers,
+              result->resolutions, layerSlds, sldProfiles, resampledLayers,
               result->contrastParams.subRoughs);
             result->layerSlds.set_size(layerSlds.size(0), 2);
             result->sldProfiles.set_size(sldProfiles.size(0), 2);
@@ -284,11 +277,11 @@ namespace RAT
                                   result->contrastParams.scalefactors,
                                   result->contrastParams.bulkIn,
                                   result->contrastParams.bulkOut,
-                                  result->contrastParams.resolutionParams,
                                   result->calculationResults.chiValues,
                                   result->reflectivity, result->simulation,
                                   result->shiftedData, result->backgrounds,
-                                  layerSlds, sldProfiles, resampledLayers,
+                                  result->resolutions, layerSlds, sldProfiles,
+                                  resampledLayers,
                                   result->contrastParams.subRoughs);
             result->layerSlds.set_size(layerSlds.size(0), 2);
             result->sldProfiles.set_size(sldProfiles.size(0), 2);
@@ -358,9 +351,9 @@ namespace RAT
   void reflectivityCalculation(const e_struct_T *problemStruct, const struct4_T *
     controls, struct6_T *result)
   {
-    ::coder::array<cell_wrap_10, 2U> layerSlds;
-    ::coder::array<cell_wrap_10, 2U> resampledLayers;
-    ::coder::array<cell_wrap_10, 2U> sldProfiles;
+    ::coder::array<cell_wrap_11, 2U> layerSlds;
+    ::coder::array<cell_wrap_11, 2U> resampledLayers;
+    ::coder::array<cell_wrap_11, 2U> sldProfiles;
     ::coder::array<real_T, 1U> qzshifts;
     real_T y;
     int32_T switch_expression_size[2];
@@ -417,12 +410,10 @@ namespace RAT
        case 0:
         normalTF::standardLayers(problemStruct, controls, qzshifts,
           result->contrastParams.scalefactors, result->contrastParams.bulkIn,
-          result->contrastParams.bulkOut,
-          result->contrastParams.resolutionParams,
-          result->calculationResults.chiValues, result->reflectivity,
-          result->simulation, result->shiftedData, result->backgrounds,
-          layerSlds, sldProfiles, resampledLayers,
-          result->contrastParams.subRoughs);
+          result->contrastParams.bulkOut, result->calculationResults.chiValues,
+          result->reflectivity, result->simulation, result->shiftedData,
+          result->backgrounds, result->resolutions, layerSlds, sldProfiles,
+          resampledLayers, result->contrastParams.subRoughs);
         result->layerSlds.set_size(layerSlds.size(0), 1);
         b_index = layerSlds.size(0);
         for (i = 0; i < b_index; i++) {
@@ -445,12 +436,10 @@ namespace RAT
        case 1:
         normalTF::b_customLayers(problemStruct, controls, qzshifts,
           result->contrastParams.scalefactors, result->contrastParams.bulkIn,
-          result->contrastParams.bulkOut,
-          result->contrastParams.resolutionParams,
-          result->calculationResults.chiValues, result->reflectivity,
-          result->simulation, result->shiftedData, result->backgrounds,
-          layerSlds, sldProfiles, resampledLayers,
-          result->contrastParams.subRoughs);
+          result->contrastParams.bulkOut, result->calculationResults.chiValues,
+          result->reflectivity, result->simulation, result->shiftedData,
+          result->backgrounds, result->resolutions, layerSlds, sldProfiles,
+          resampledLayers, result->contrastParams.subRoughs);
         result->layerSlds.set_size(layerSlds.size(0), 1);
         b_index = layerSlds.size(0);
         for (i = 0; i < b_index; i++) {
@@ -475,12 +464,11 @@ namespace RAT
                              result->contrastParams.scalefactors,
                              result->contrastParams.bulkIn,
                              result->contrastParams.bulkOut,
-                             result->contrastParams.resolutionParams,
                              result->calculationResults.chiValues,
                              result->reflectivity, result->simulation,
-                             result->shiftedData, result->backgrounds, layerSlds,
-                             sldProfiles, resampledLayers,
-                             result->contrastParams.subRoughs);
+                             result->shiftedData, result->backgrounds,
+                             result->resolutions, layerSlds, sldProfiles,
+                             resampledLayers, result->contrastParams.subRoughs);
         result->layerSlds.set_size(layerSlds.size(0), 1);
         b_index = layerSlds.size(0);
         for (i = 0; i < b_index; i++) {
@@ -533,10 +521,9 @@ namespace RAT
             domainsTF::standardLayers(problemStruct, controls, qzshifts,
               result->contrastParams.scalefactors, result->contrastParams.bulkIn,
               result->contrastParams.bulkOut,
-              result->contrastParams.resolutionParams,
               result->calculationResults.chiValues, result->reflectivity,
               result->simulation, result->shiftedData, result->backgrounds,
-              layerSlds, sldProfiles, resampledLayers,
+              result->resolutions, layerSlds, sldProfiles, resampledLayers,
               result->contrastParams.subRoughs);
             result->layerSlds.set_size(layerSlds.size(0), 2);
             result->sldProfiles.set_size(sldProfiles.size(0), 2);
@@ -571,10 +558,9 @@ namespace RAT
             domainsTF::b_customLayers(problemStruct, controls, qzshifts,
               result->contrastParams.scalefactors, result->contrastParams.bulkIn,
               result->contrastParams.bulkOut,
-              result->contrastParams.resolutionParams,
               result->calculationResults.chiValues, result->reflectivity,
               result->simulation, result->shiftedData, result->backgrounds,
-              layerSlds, sldProfiles, resampledLayers,
+              result->resolutions, layerSlds, sldProfiles, resampledLayers,
               result->contrastParams.subRoughs);
             result->layerSlds.set_size(layerSlds.size(0), 2);
             result->sldProfiles.set_size(sldProfiles.size(0), 2);
@@ -610,11 +596,11 @@ namespace RAT
                                   result->contrastParams.scalefactors,
                                   result->contrastParams.bulkIn,
                                   result->contrastParams.bulkOut,
-                                  result->contrastParams.resolutionParams,
                                   result->calculationResults.chiValues,
                                   result->reflectivity, result->simulation,
                                   result->shiftedData, result->backgrounds,
-                                  layerSlds, sldProfiles, resampledLayers,
+                                  result->resolutions, layerSlds, sldProfiles,
+                                  resampledLayers,
                                   result->contrastParams.subRoughs);
             result->layerSlds.set_size(layerSlds.size(0), 2);
             result->sldProfiles.set_size(sldProfiles.size(0), 2);
@@ -684,9 +670,9 @@ namespace RAT
   void reflectivityCalculation(const e_struct_T *problemStruct, const struct4_T *
     controls, f_struct_T *result)
   {
-    ::coder::array<cell_wrap_10, 2U> layerSlds;
-    ::coder::array<cell_wrap_10, 2U> resampledLayers;
-    ::coder::array<cell_wrap_10, 2U> sldProfiles;
+    ::coder::array<cell_wrap_11, 2U> layerSlds;
+    ::coder::array<cell_wrap_11, 2U> resampledLayers;
+    ::coder::array<cell_wrap_11, 2U> sldProfiles;
     ::coder::array<real_T, 1U> qzshifts;
     real_T y;
     int32_T switch_expression_size[2];
@@ -745,12 +731,10 @@ namespace RAT
        case 0:
         normalTF::b_standardLayers(problemStruct, controls, qzshifts,
           result->contrastParams.scalefactors, result->contrastParams.bulkIn,
-          result->contrastParams.bulkOut,
-          result->contrastParams.resolutionParams,
-          result->calculationResults.chiValues, result->reflectivity,
-          result->simulation, result->shiftedData, result->backgrounds,
-          layerSlds, sldProfiles, resampledLayers,
-          result->contrastParams.subRoughs);
+          result->contrastParams.bulkOut, result->calculationResults.chiValues,
+          result->reflectivity, result->simulation, result->shiftedData,
+          result->backgrounds, result->resolutions, layerSlds, sldProfiles,
+          resampledLayers, result->contrastParams.subRoughs);
         result->layerSlds.set_size(layerSlds.size(0), 1);
         b_index = layerSlds.size(0);
         for (i = 0; i < b_index; i++) {
@@ -773,12 +757,10 @@ namespace RAT
        case 1:
         normalTF::c_customLayers(problemStruct, controls, qzshifts,
           result->contrastParams.scalefactors, result->contrastParams.bulkIn,
-          result->contrastParams.bulkOut,
-          result->contrastParams.resolutionParams,
-          result->calculationResults.chiValues, result->reflectivity,
-          result->simulation, result->shiftedData, result->backgrounds,
-          layerSlds, sldProfiles, resampledLayers,
-          result->contrastParams.subRoughs);
+          result->contrastParams.bulkOut, result->calculationResults.chiValues,
+          result->reflectivity, result->simulation, result->shiftedData,
+          result->backgrounds, result->resolutions, layerSlds, sldProfiles,
+          resampledLayers, result->contrastParams.subRoughs);
         result->layerSlds.set_size(layerSlds.size(0), 1);
         b_index = layerSlds.size(0);
         for (i = 0; i < b_index; i++) {
@@ -803,12 +785,11 @@ namespace RAT
                              result->contrastParams.scalefactors,
                              result->contrastParams.bulkIn,
                              result->contrastParams.bulkOut,
-                             result->contrastParams.resolutionParams,
                              result->calculationResults.chiValues,
                              result->reflectivity, result->simulation,
-                             result->shiftedData, result->backgrounds, layerSlds,
-                             sldProfiles, resampledLayers,
-                             result->contrastParams.subRoughs);
+                             result->shiftedData, result->backgrounds,
+                             result->resolutions, layerSlds, sldProfiles,
+                             resampledLayers, result->contrastParams.subRoughs);
         result->layerSlds.set_size(layerSlds.size(0), 1);
         b_index = layerSlds.size(0);
         for (i = 0; i < b_index; i++) {
@@ -860,10 +841,9 @@ namespace RAT
             domainsTF::b_standardLayers(problemStruct, controls, qzshifts,
               result->contrastParams.scalefactors, result->contrastParams.bulkIn,
               result->contrastParams.bulkOut,
-              result->contrastParams.resolutionParams,
               result->calculationResults.chiValues, result->reflectivity,
               result->simulation, result->shiftedData, result->backgrounds,
-              layerSlds, sldProfiles, resampledLayers,
+              result->resolutions, layerSlds, sldProfiles, resampledLayers,
               result->contrastParams.subRoughs);
             result->layerSlds.set_size(layerSlds.size(0), 2);
             result->sldProfiles.set_size(sldProfiles.size(0), 2);
@@ -896,10 +876,9 @@ namespace RAT
             domainsTF::c_customLayers(problemStruct, controls, qzshifts,
               result->contrastParams.scalefactors, result->contrastParams.bulkIn,
               result->contrastParams.bulkOut,
-              result->contrastParams.resolutionParams,
               result->calculationResults.chiValues, result->reflectivity,
               result->simulation, result->shiftedData, result->backgrounds,
-              layerSlds, sldProfiles, resampledLayers,
+              result->resolutions, layerSlds, sldProfiles, resampledLayers,
               result->contrastParams.subRoughs);
             result->layerSlds.set_size(layerSlds.size(0), 2);
             result->sldProfiles.set_size(sldProfiles.size(0), 2);
@@ -933,11 +912,11 @@ namespace RAT
                                   result->contrastParams.scalefactors,
                                   result->contrastParams.bulkIn,
                                   result->contrastParams.bulkOut,
-                                  result->contrastParams.resolutionParams,
                                   result->calculationResults.chiValues,
                                   result->reflectivity, result->simulation,
                                   result->shiftedData, result->backgrounds,
-                                  layerSlds, sldProfiles, resampledLayers,
+                                  result->resolutions, layerSlds, sldProfiles,
+                                  resampledLayers,
                                   result->contrastParams.subRoughs);
             result->layerSlds.set_size(layerSlds.size(0), 2);
             result->sldProfiles.set_size(sldProfiles.size(0), 2);
@@ -1011,9 +990,9 @@ namespace RAT
   void reflectivityCalculation(const struct0_T *problemStruct, const struct4_T
     *controls, struct6_T *result)
   {
-    ::coder::array<cell_wrap_10, 2U> layerSlds;
-    ::coder::array<cell_wrap_10, 2U> resampledLayers;
-    ::coder::array<cell_wrap_10, 2U> sldProfiles;
+    ::coder::array<cell_wrap_11, 2U> layerSlds;
+    ::coder::array<cell_wrap_11, 2U> resampledLayers;
+    ::coder::array<cell_wrap_11, 2U> sldProfiles;
     ::coder::array<real_T, 1U> qzshifts;
     real_T y;
     int32_T switch_expression_size[2];
@@ -1070,12 +1049,10 @@ namespace RAT
        case 0:
         normalTF::standardLayers(problemStruct, controls, qzshifts,
           result->contrastParams.scalefactors, result->contrastParams.bulkIn,
-          result->contrastParams.bulkOut,
-          result->contrastParams.resolutionParams,
-          result->calculationResults.chiValues, result->reflectivity,
-          result->simulation, result->shiftedData, result->backgrounds,
-          layerSlds, sldProfiles, resampledLayers,
-          result->contrastParams.subRoughs);
+          result->contrastParams.bulkOut, result->calculationResults.chiValues,
+          result->reflectivity, result->simulation, result->shiftedData,
+          result->backgrounds, result->resolutions, layerSlds, sldProfiles,
+          resampledLayers, result->contrastParams.subRoughs);
         result->layerSlds.set_size(layerSlds.size(0), 1);
         b_index = layerSlds.size(0);
         for (i = 0; i < b_index; i++) {
@@ -1098,12 +1075,10 @@ namespace RAT
        case 1:
         normalTF::b_customLayers(problemStruct, controls, qzshifts,
           result->contrastParams.scalefactors, result->contrastParams.bulkIn,
-          result->contrastParams.bulkOut,
-          result->contrastParams.resolutionParams,
-          result->calculationResults.chiValues, result->reflectivity,
-          result->simulation, result->shiftedData, result->backgrounds,
-          layerSlds, sldProfiles, resampledLayers,
-          result->contrastParams.subRoughs);
+          result->contrastParams.bulkOut, result->calculationResults.chiValues,
+          result->reflectivity, result->simulation, result->shiftedData,
+          result->backgrounds, result->resolutions, layerSlds, sldProfiles,
+          resampledLayers, result->contrastParams.subRoughs);
         result->layerSlds.set_size(layerSlds.size(0), 1);
         b_index = layerSlds.size(0);
         for (i = 0; i < b_index; i++) {
@@ -1128,12 +1103,11 @@ namespace RAT
                              result->contrastParams.scalefactors,
                              result->contrastParams.bulkIn,
                              result->contrastParams.bulkOut,
-                             result->contrastParams.resolutionParams,
                              result->calculationResults.chiValues,
                              result->reflectivity, result->simulation,
-                             result->shiftedData, result->backgrounds, layerSlds,
-                             sldProfiles, resampledLayers,
-                             result->contrastParams.subRoughs);
+                             result->shiftedData, result->backgrounds,
+                             result->resolutions, layerSlds, sldProfiles,
+                             resampledLayers, result->contrastParams.subRoughs);
         result->layerSlds.set_size(layerSlds.size(0), 1);
         b_index = layerSlds.size(0);
         for (i = 0; i < b_index; i++) {
@@ -1186,10 +1160,9 @@ namespace RAT
             domainsTF::standardLayers(problemStruct, controls, qzshifts,
               result->contrastParams.scalefactors, result->contrastParams.bulkIn,
               result->contrastParams.bulkOut,
-              result->contrastParams.resolutionParams,
               result->calculationResults.chiValues, result->reflectivity,
               result->simulation, result->shiftedData, result->backgrounds,
-              layerSlds, sldProfiles, resampledLayers,
+              result->resolutions, layerSlds, sldProfiles, resampledLayers,
               result->contrastParams.subRoughs);
             result->layerSlds.set_size(layerSlds.size(0), 2);
             result->sldProfiles.set_size(sldProfiles.size(0), 2);
@@ -1224,10 +1197,9 @@ namespace RAT
             domainsTF::b_customLayers(problemStruct, controls, qzshifts,
               result->contrastParams.scalefactors, result->contrastParams.bulkIn,
               result->contrastParams.bulkOut,
-              result->contrastParams.resolutionParams,
               result->calculationResults.chiValues, result->reflectivity,
               result->simulation, result->shiftedData, result->backgrounds,
-              layerSlds, sldProfiles, resampledLayers,
+              result->resolutions, layerSlds, sldProfiles, resampledLayers,
               result->contrastParams.subRoughs);
             result->layerSlds.set_size(layerSlds.size(0), 2);
             result->sldProfiles.set_size(sldProfiles.size(0), 2);
@@ -1263,11 +1235,11 @@ namespace RAT
                                   result->contrastParams.scalefactors,
                                   result->contrastParams.bulkIn,
                                   result->contrastParams.bulkOut,
-                                  result->contrastParams.resolutionParams,
                                   result->calculationResults.chiValues,
                                   result->reflectivity, result->simulation,
                                   result->shiftedData, result->backgrounds,
-                                  layerSlds, sldProfiles, resampledLayers,
+                                  result->resolutions, layerSlds, sldProfiles,
+                                  resampledLayers,
                                   result->contrastParams.subRoughs);
             result->layerSlds.set_size(layerSlds.size(0), 2);
             result->sldProfiles.set_size(sldProfiles.size(0), 2);

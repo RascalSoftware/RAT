@@ -32,20 +32,20 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  static void b_packCellArray(const ::coder::array<cell_wrap_10, 2U> &cellArray,
+  static void b_packCellArray(const ::coder::array<cell_wrap_11, 2U> &cellArray,
     ::coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
-  static void packCellArray(const ::coder::array<cell_wrap_8, 1U> &cellArray, ::
-    coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
   static void packCellArray(const ::coder::array<cell_wrap_9, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
-  static void packCellArray(const ::coder::array<cell_wrap_10, 2U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_10, 1U> &cellArray, ::
+    coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
+  static void packCellArray(const ::coder::array<cell_wrap_11, 2U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
 }
 
 // Function Definitions
 namespace RAT
 {
-  static void b_packCellArray(const ::coder::array<cell_wrap_10, 2U> &cellArray,
+  static void b_packCellArray(const ::coder::array<cell_wrap_11, 2U> &cellArray,
     ::coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
@@ -110,7 +110,7 @@ namespace RAT
     }
   }
 
-  static void packCellArray(const ::coder::array<cell_wrap_8, 1U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_9, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
@@ -172,7 +172,7 @@ namespace RAT
     }
   }
 
-  static void packCellArray(const ::coder::array<cell_wrap_9, 1U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_10, 1U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
@@ -234,7 +234,7 @@ namespace RAT
     }
   }
 
-  static void packCellArray(const ::coder::array<cell_wrap_10, 2U> &cellArray, ::
+  static void packCellArray(const ::coder::array<cell_wrap_11, 2U> &cellArray, ::
     coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
   {
     real_T rowSize;
@@ -1044,7 +1044,7 @@ namespace RAT
                     ::coder::array<real_T, 2U> &varargin_2_dataPresent, const
                     char_T varargin_2_modelType_data[], const int32_T
                     varargin_2_modelType_size[2], const ::coder::array<
-                    cell_wrap_7, 2U> &varargin_2_names_contrasts)
+                    cell_wrap_8, 2U> &varargin_2_names_contrasts)
   {
     ::coder::array<real_T, 2U> b_nSldProfiles2;
     ::coder::array<real_T, 2U> dataPresent;

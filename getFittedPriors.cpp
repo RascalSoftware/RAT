@@ -19,8 +19,8 @@
 // Function Definitions
 namespace RAT
 {
-  void getFittedPriors(const ::coder::array<cell_wrap_7, 1U> &paramNames, const ::
-                       coder::array<cell_wrap_7, 1U> &priors_priorNames, const ::
+  void getFittedPriors(const ::coder::array<cell_wrap_8, 1U> &paramNames, const ::
+                       coder::array<cell_wrap_8, 1U> &priors_priorNames, const ::
                        coder::array<real_T, 2U> &priors_priorValues, const ::
                        coder::array<real_T, 2U> &fitLimits, ::coder::array<
                        real_T, 2U> &priorFitList)
@@ -29,7 +29,7 @@ namespace RAT
     ::coder::array<char_T, 2U> f1;
     ::coder::array<boolean_T, 1U> b_tmp_data;
     ::coder::array<boolean_T, 1U> d_tmp_data;
-    cell_wrap_7 r;
+    cell_wrap_8 r;
     int32_T indices_data[10000];
     int32_T i;
     int32_T i1;
@@ -69,7 +69,7 @@ namespace RAT
       }
 
       r.f1 = f1;
-      coder::internal::cb_strcmp(&r, priors_priorNames, tmp_data, &loop_ub);
+      coder::internal::db_strcmp(&r, priors_priorNames, tmp_data, &loop_ub);
       b_tmp_data.set(&tmp_data[0], loop_ub);
       coder::eml_find(b_tmp_data, r1);
       loop_ub = r1.size(0);
@@ -78,7 +78,7 @@ namespace RAT
       }
 
       r.f1 = f1;
-      coder::internal::cb_strcmp(&r, priors_priorNames, c_tmp_data, &loop_ub);
+      coder::internal::db_strcmp(&r, priors_priorNames, c_tmp_data, &loop_ub);
       d_tmp_data.set(&c_tmp_data[0], loop_ub);
       coder::eml_find(d_tmp_data, r1);
       if (r1.size(0) != 0) {

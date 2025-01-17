@@ -249,7 +249,7 @@ namespace RAT
     } while (exitg1 == 0);
 
     //  print out acceptance ratio
-    if (!coder::internal::t_strcmp(data_f2->display.data, data_f2->display.size))
+    if (!coder::internal::u_strcmp(data_f2->display.data, data_f2->display.size))
     {
       coder::b_snPrint(acc / (Ntimes * nMCMC), charStr);
       triggerEvent(charStr);

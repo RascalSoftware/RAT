@@ -849,7 +849,7 @@ namespace RAT
                 }
               }
 
-              if (coder::internal::ab_strcmp(b_how_data, b_how_size)) {
+              if (coder::internal::bb_strcmp(b_how_data, b_how_size)) {
                 i = static_cast<int32_T>((static_cast<real_T>(n) + 1.0) + -1.0);
                 for (j = 0; j < i; j++) {
                   b_index = v.size(0) - 1;

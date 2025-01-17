@@ -20,7 +20,7 @@
 // Type Declarations
 namespace RAT
 {
-  struct cell_wrap_7;
+  struct cell_wrap_8;
 }
 
 // Function Declarations
@@ -30,13 +30,13 @@ namespace RAT
   {
     void b_strjoin(const ::coder::array<char_T, 2U> &c_f1, const char_T c_f2[72],
                    ::coder::array<char_T, 2U> &joinedStr);
-    void strjoin(const ::coder::array<cell_wrap_7, 2U> &c, ::coder::array<char_T,
+    void strjoin(const ::coder::array<cell_wrap_8, 2U> &c, ::coder::array<char_T,
                  2U> &joinedStr);
     void strjoin(const ::coder::array<char_T, 2U> &c_f1, const char_T c_f2[27],
                  char_T joinedStr_data[], int32_T joinedStr_size[2]);
     void strjoin(const ::coder::array<char_T, 2U> &c_f1, const char_T c_f2[27], ::
                  coder::array<char_T, 2U> &joinedStr);
-    void strjoin(const cell_wrap_7 c[2], ::coder::array<char_T, 2U> &joinedStr);
+    void strjoin(const cell_wrap_8 c[2], ::coder::array<char_T, 2U> &joinedStr);
   }
 }
 

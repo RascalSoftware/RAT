@@ -42,8 +42,8 @@ namespace RAT
     ::coder::array<int32_T, 1U> r;
     ::coder::array<int32_T, 1U> r1;
     ::coder::array<boolean_T, 2U> b_VE1_data;
-    cell_wrap_10 temp_u1[50];
-    cell_wrap_10 temp_u2[50];
+    cell_wrap_11 temp_u1[50];
+    cell_wrap_11 temp_u2[50];
     real_T FS[50];
     real_T temp_VE1[50];
     real_T temp_VE2[50];

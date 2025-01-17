@@ -563,7 +563,7 @@ namespace RAT
       tol = logPlus(*logZ, logLmax - j / nLive) - *logZ;
 
       //  display progress (optional)
-      empty_non_axis_sizes = coder::internal::t_strcmp(data_f2->display.data,
+      empty_non_axis_sizes = coder::internal::u_strcmp(data_f2->display.data,
         data_f2->display.size);
       if (!empty_non_axis_sizes) {
         if (j < 2.147483648E+9) {

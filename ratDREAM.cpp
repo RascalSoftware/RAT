@@ -188,8 +188,8 @@ namespace RAT
     ::coder::array<char_T, 2U> w_f1;
     ::coder::array<char_T, 2U> x_f1;
     ::coder::array<char_T, 2U> y_f1;
-    cell_wrap_7 bools[2];
-    cell_wrap_7 rv[2];
+    cell_wrap_8 bools[2];
+    cell_wrap_8 rv[2];
     int32_T tmp_size[2];
     int32_T i;
     int32_T loop_ub;
@@ -607,7 +607,7 @@ namespace RAT
     DREAMPar.CPU = 1.0;
 
     //  Now print to screen all the settings
-    b = coder::internal::t_strcmp(ratInputs_controls->display.data,
+    b = coder::internal::u_strcmp(ratInputs_controls->display.data,
       ratInputs_controls->display.size);
     if (!b) {
       printParameters(&DREAMPar);

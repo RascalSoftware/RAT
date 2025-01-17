@@ -22,13 +22,15 @@
 namespace RAT
 {
   extern void cast(const ::coder::array<cell_wrap_3, 2U> &b, ::coder::array<
-                   cell_wrap_48, 2U> &c);
-  extern void cast(const ::coder::array<cell_wrap_5, 2U> &b, ::coder::array<
-                   cell_wrap_10, 2U> &c);
-  extern void cast(const ::coder::array<cell_wrap_0, 2U> &b, ::coder::array<
-                   cell_wrap_7, 2U> &c);
+                   cell_wrap_49, 2U> &c);
   extern void cast(const ::coder::array<cell_wrap_4, 2U> &b, ::coder::array<
-                   cell_wrap_10, 2U> &c);
+                   cell_wrap_11, 2U> &c);
+  extern void cast(const ::coder::array<cell_wrap_6, 2U> &b, ::coder::array<
+                   cell_wrap_11, 2U> &c);
+  extern void cast(const ::coder::array<cell_wrap_0, 2U> &b, ::coder::array<
+                   cell_wrap_8, 2U> &c);
+  extern void cast(const ::coder::array<cell_wrap_5, 2U> &b, ::coder::array<
+                   cell_wrap_11, 2U> &c);
   extern real_T rt_atan2d_snf(real_T u0, real_T u1);
   extern real_T rt_hypotd_snf(real_T u0, real_T u1);
   extern real_T rt_powd_snf(real_T u0, real_T u1);

@@ -21,7 +21,7 @@
 namespace RAT
 {
   struct struct6_T;
-  struct cell_wrap_7;
+  struct cell_wrap_8;
 }
 
 // Function Declarations
@@ -45,7 +45,7 @@ namespace RAT
                     ::coder::array<real_T, 2U> &varargin_2_dataPresent, const
                     char_T varargin_2_modelType_data[], const int32_T
                     varargin_2_modelType_size[2], const ::coder::array<
-                    cell_wrap_7, 2U> &varargin_2_names_contrasts);
+                    cell_wrap_8, 2U> &varargin_2_names_contrasts);
   void triggerEvent(const ::coder::array<char_T, 2U> &varargin_1);
   void triggerEvent(real_T varargin_2);
   void triggerEvent_init();

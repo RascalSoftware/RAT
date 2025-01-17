@@ -74,10 +74,10 @@ namespace RAT
       i2 = highXVals[highXVals.size(0) - 1];
     }
 
-    if (coder::internal::q_strcmp(backgroundAction_data, backgroundAction_size))
+    if (coder::internal::r_strcmp(backgroundAction_data, backgroundAction_size))
     {
       k = 0;
-    } else if (coder::internal::r_strcmp(backgroundAction_data,
+    } else if (coder::internal::s_strcmp(backgroundAction_data,
                 backgroundAction_size)) {
       k = 1;
     } else {

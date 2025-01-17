@@ -35,8 +35,6 @@ namespace RAT
         useImaginary, ::coder::array<cell_wrap_11, 2U> &resampledLayers, ::coder::
         array<real_T, 1U> &subRoughs)
       {
-        ::coder::array<real_T, 2U> b_bulkOuts;
-        ::coder::array<real_T, 2U> b_params;
         ::coder::array<real_T, 2U> b_thisContrastLayers1;
         ::coder::array<real_T, 2U> bulkOuts;
         ::coder::array<real_T, 2U> thisContrastLayers1;
@@ -78,49 +76,25 @@ namespace RAT
           x = coder::str2double((const char_T *)((::coder::array<char_T, 2U> *)
             &customFiles[static_cast<int32_T>(d) - 1].f1)->data(), iv);
           if ((!std::isnan(x.re)) && (!std::isnan(x.im))) {
-            b_params.set_size(1, params.size(1));
-            loop_ub = params.size(1) - 1;
-            for (i1 = 0; i1 <= loop_ub; i1++) {
-              b_params[i1] = params[i1];
-            }
-
-            b_bulkOuts.set_size(1, bulkOuts.size(1));
-            loop_ub = bulkOuts.size(1) - 1;
-            for (i1 = 0; i1 <= loop_ub; i1++) {
-              b_bulkOuts[i1] = bulkOuts[i1];
-            }
-
             iv[0] = (*(int32_T (*)[2])((::coder::array<char_T, 2U> *)
                       &customFiles[static_cast<int32_T>(d) - 1].f1)->size())[0];
             iv[1] = (*(int32_T (*)[2])((::coder::array<char_T, 2U> *)
                       &customFiles[static_cast<int32_T>(d) - 1].f1)->size())[1];
             b_callCppFunction((const char_T *)((::coder::array<char_T, 2U> *)
-              &customFiles[static_cast<int32_T>(d) - 1].f1)->data(), iv,
-                              b_params, bulkInArray[static_cast<int32_T>
-                              (contrastBulkIns[b_i]) - 1], b_bulkOuts, (
-              static_cast<real_T>(b_i) + 1.0) - 1.0, b_thisContrastLayers1,
+              &customFiles[static_cast<int32_T>(d) - 1].f1)->data(), iv, params,
+                              bulkInArray[static_cast<int32_T>
+                              (contrastBulkIns[b_i]) - 1], bulkOuts, (
+              static_cast<real_T>(b_i) + 1.0) - 1.0, thisContrastLayers1,
                               &subRoughs[b_i]);
-            loop_ub = b_thisContrastLayers1.size(1);
-            thisContrastLayers1.set_size(b_thisContrastLayers1.size(0),
-              b_thisContrastLayers1.size(1));
+            loop_ub = thisContrastLayers1.size(1);
+            b_thisContrastLayers1.set_size(thisContrastLayers1.size(0),
+              thisContrastLayers1.size(1));
             for (i1 = 0; i1 < loop_ub; i1++) {
-              b_loop_ub = b_thisContrastLayers1.size(0);
+              b_loop_ub = thisContrastLayers1.size(0);
               for (i2 = 0; i2 < b_loop_ub; i2++) {
-                thisContrastLayers1[i2 + thisContrastLayers1.size(0) * i1] =
-                  b_thisContrastLayers1[i2 + b_thisContrastLayers1.size(0) * i1];
+                b_thisContrastLayers1[i2 + b_thisContrastLayers1.size(0) * i1] =
+                  thisContrastLayers1[i2 + thisContrastLayers1.size(0) * i1];
               }
-            }
-
-            b_params.set_size(1, params.size(1));
-            loop_ub = params.size(1) - 1;
-            for (i1 = 0; i1 <= loop_ub; i1++) {
-              b_params[i1] = params[i1];
-            }
-
-            b_bulkOuts.set_size(1, bulkOuts.size(1));
-            loop_ub = bulkOuts.size(1) - 1;
-            for (i1 = 0; i1 <= loop_ub; i1++) {
-              b_bulkOuts[i1] = bulkOuts[i1];
             }
 
             iv[0] = (*(int32_T (*)[2])((::coder::array<char_T, 2U> *)
@@ -131,18 +105,17 @@ namespace RAT
                      ->size())[1];
             c_callCppFunction((const char_T *)((::coder::array<char_T, 2U> *)
               &customFiles[static_cast<int32_T>(cCustFiles[b_i]) - 1].f1)->data(),
-                              iv, b_params, bulkInArray[static_cast<int32_T>
-                              (contrastBulkIns[b_i]) - 1], b_bulkOuts, (
-              static_cast<real_T>(b_i) + 1.0) - 1.0, b_thisContrastLayers1,
-                              &a__2);
-            loop_ub = b_thisContrastLayers1.size(1);
-            thisContrastLayers2.set_size(b_thisContrastLayers1.size(0),
-              b_thisContrastLayers1.size(1));
+                              iv, params, bulkInArray[static_cast<int32_T>
+                              (contrastBulkIns[b_i]) - 1], bulkOuts, (
+              static_cast<real_T>(b_i) + 1.0) - 1.0, thisContrastLayers1, &a__2);
+            loop_ub = thisContrastLayers1.size(1);
+            thisContrastLayers2.set_size(thisContrastLayers1.size(0),
+              thisContrastLayers1.size(1));
             for (i1 = 0; i1 < loop_ub; i1++) {
-              b_loop_ub = b_thisContrastLayers1.size(0);
+              b_loop_ub = thisContrastLayers1.size(0);
               for (i2 = 0; i2 < b_loop_ub; i2++) {
                 thisContrastLayers2[i2 + thisContrastLayers2.size(0) * i1] =
-                  b_thisContrastLayers1[i2 + b_thisContrastLayers1.size(0) * i1];
+                  thisContrastLayers1[i2 + thisContrastLayers1.size(0) * i1];
               }
             }
           }
@@ -152,26 +125,26 @@ namespace RAT
           //  custom function).
           if (!useImaginary) {
             d = contrastBulkIns[b_i];
-            applyHydrationReal(thisContrastLayers1, bulkInArray
-                               [static_cast<int32_T>(d) - 1], bulkOuts[b_i]);
+            applyHydrationReal(b_thisContrastLayers1, bulkInArray[static_cast<
+                               int32_T>(d) - 1], bulkOuts[b_i]);
             applyHydrationReal(thisContrastLayers2, bulkInArray
                                [static_cast<int32_T>(d) - 1], bulkOuts[b_i]);
           } else {
             d = contrastBulkIns[b_i];
-            applyHydrationImag(thisContrastLayers1, bulkInArray
-                               [static_cast<int32_T>(d) - 1], bulkOuts[b_i]);
+            applyHydrationImag(b_thisContrastLayers1, bulkInArray[static_cast<
+                               int32_T>(d) - 1], bulkOuts[b_i]);
             applyHydrationImag(thisContrastLayers2, bulkInArray
                                [static_cast<int32_T>(d) - 1], bulkOuts[b_i]);
           }
 
-          resampledLayers[b_i].f1.set_size(thisContrastLayers1.size(0),
-            thisContrastLayers1.size(1));
-          loop_ub = thisContrastLayers1.size(1);
+          resampledLayers[b_i].f1.set_size(b_thisContrastLayers1.size(0),
+            b_thisContrastLayers1.size(1));
+          loop_ub = b_thisContrastLayers1.size(1);
           for (i1 = 0; i1 < loop_ub; i1++) {
-            b_loop_ub = thisContrastLayers1.size(0);
+            b_loop_ub = b_thisContrastLayers1.size(0);
             for (i2 = 0; i2 < b_loop_ub; i2++) {
               resampledLayers[b_i].f1[i2 + resampledLayers[b_i].f1.size(0) * i1]
-                = thisContrastLayers1[i2 + thisContrastLayers1.size(0) * i1];
+                = b_thisContrastLayers1[i2 + b_thisContrastLayers1.size(0) * i1];
             }
           }
 

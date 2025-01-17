@@ -33,8 +33,6 @@ namespace RAT
         &customFiles, const ::coder::array<real_T, 2U> &params, ::coder::array<
         cell_wrap_35, 1U> &slds, ::coder::array<real_T, 1U> &subRoughs)
       {
-        ::coder::array<real_T, 2U> b_bulkOuts;
-        ::coder::array<real_T, 2U> b_params;
         ::coder::array<real_T, 2U> bulkOuts;
         ::coder::array<real_T, 2U> r;
         int32_T iv[2];
@@ -72,27 +70,15 @@ namespace RAT
           x = coder::str2double((const char_T *)((::coder::array<char_T, 2U> *)
             &customFiles[static_cast<int32_T>(d) - 1].f1)->data(), iv);
           if ((!std::isnan(x.re)) && (!std::isnan(x.im))) {
-            b_params.set_size(1, params.size(1));
-            loop_ub = params.size(1) - 1;
-            for (i1 = 0; i1 <= loop_ub; i1++) {
-              b_params[i1] = params[i1];
-            }
-
-            b_bulkOuts.set_size(1, bulkOuts.size(1));
-            loop_ub = bulkOuts.size(1) - 1;
-            for (i1 = 0; i1 <= loop_ub; i1++) {
-              b_bulkOuts[i1] = bulkOuts[i1];
-            }
-
             iv[0] = (*(int32_T (*)[2])((::coder::array<char_T, 2U> *)
                       &customFiles[static_cast<int32_T>(d) - 1].f1)->size())[0];
             iv[1] = (*(int32_T (*)[2])((::coder::array<char_T, 2U> *)
                       &customFiles[static_cast<int32_T>(d) - 1].f1)->size())[1];
             callCppFunction((const char_T *)((::coder::array<char_T, 2U> *)
-              &customFiles[static_cast<int32_T>(d) - 1].f1)->data(), iv,
-                            b_params, bulkInArray[static_cast<int32_T>
-                            (contrastBulkIns[b_i]) - 1], b_bulkOuts, (
-              static_cast<real_T>(b_i) + 1.0) - 1.0, r, &subRoughs[b_i]);
+              &customFiles[static_cast<int32_T>(d) - 1].f1)->data(), iv, params,
+                            bulkInArray[static_cast<int32_T>(contrastBulkIns[b_i])
+                            - 1], bulkOuts, (static_cast<real_T>(b_i) + 1.0) -
+                            1.0, r, &subRoughs[b_i]);
             loop_ub = r.size(1);
             slds[b_i].f1.set_size(r.size(0), r.size(1));
             for (i1 = 0; i1 < loop_ub; i1++) {

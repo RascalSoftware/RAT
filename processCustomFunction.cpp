@@ -35,8 +35,6 @@ namespace RAT
         useImaginary, ::coder::array<cell_wrap_11, 2U> &resampledLayers, ::coder::
         array<real_T, 1U> &subRoughs)
       {
-        ::coder::array<real_T, 2U> b_bulkOuts;
-        ::coder::array<real_T, 2U> b_params;
         ::coder::array<real_T, 2U> b_thisContrastLayers;
         ::coder::array<real_T, 2U> bulkOuts;
         ::coder::array<real_T, 2U> thisContrastLayers;
@@ -76,36 +74,23 @@ namespace RAT
           x = coder::str2double((const char_T *)((::coder::array<char_T, 2U> *)
             &customFiles[static_cast<int32_T>(d) - 1].f1)->data(), iv);
           if ((!std::isnan(x.re)) && (!std::isnan(x.im))) {
-            b_params.set_size(1, params.size(1));
-            loop_ub = params.size(1) - 1;
-            for (i1 = 0; i1 <= loop_ub; i1++) {
-              b_params[i1] = params[i1];
-            }
-
-            b_bulkOuts.set_size(1, bulkOuts.size(1));
-            loop_ub = bulkOuts.size(1) - 1;
-            for (i1 = 0; i1 <= loop_ub; i1++) {
-              b_bulkOuts[i1] = bulkOuts[i1];
-            }
-
             iv[0] = (*(int32_T (*)[2])((::coder::array<char_T, 2U> *)
                       &customFiles[static_cast<int32_T>(d) - 1].f1)->size())[0];
             iv[1] = (*(int32_T (*)[2])((::coder::array<char_T, 2U> *)
                       &customFiles[static_cast<int32_T>(d) - 1].f1)->size())[1];
             callCppFunction((const char_T *)((::coder::array<char_T, 2U> *)
-              &customFiles[static_cast<int32_T>(d) - 1].f1)->data(), iv,
-                            b_params, bulkInArray[static_cast<int32_T>
-                            (contrastBulkIns[b_i]) - 1], b_bulkOuts, (
-              static_cast<real_T>(b_i) + 1.0) - 1.0, b_thisContrastLayers,
-                            &subRoughs[b_i]);
-            loop_ub = b_thisContrastLayers.size(1);
-            thisContrastLayers.set_size(b_thisContrastLayers.size(0),
-              b_thisContrastLayers.size(1));
+              &customFiles[static_cast<int32_T>(d) - 1].f1)->data(), iv, params,
+                            bulkInArray[static_cast<int32_T>(contrastBulkIns[b_i])
+                            - 1], bulkOuts, (static_cast<real_T>(b_i) + 1.0) -
+                            1.0, thisContrastLayers, &subRoughs[b_i]);
+            loop_ub = thisContrastLayers.size(1);
+            b_thisContrastLayers.set_size(thisContrastLayers.size(0),
+              thisContrastLayers.size(1));
             for (i1 = 0; i1 < loop_ub; i1++) {
-              b_loop_ub = b_thisContrastLayers.size(0);
+              b_loop_ub = thisContrastLayers.size(0);
               for (i2 = 0; i2 < b_loop_ub; i2++) {
-                thisContrastLayers[i2 + thisContrastLayers.size(0) * i1] =
-                  b_thisContrastLayers[i2 + b_thisContrastLayers.size(0) * i1];
+                b_thisContrastLayers[i2 + b_thisContrastLayers.size(0) * i1] =
+                  thisContrastLayers[i2 + thisContrastLayers.size(0) * i1];
               }
             }
           }
@@ -114,23 +99,23 @@ namespace RAT
           //  the hydration correction (the user has not done it in the
           //  custom function).
           if (!useImaginary) {
-            applyHydrationReal(thisContrastLayers, bulkInArray
+            applyHydrationReal(b_thisContrastLayers, bulkInArray
                                [static_cast<int32_T>(contrastBulkIns[b_i]) - 1],
                                bulkOuts[b_i]);
           } else {
-            applyHydrationImag(thisContrastLayers, bulkInArray
+            applyHydrationImag(b_thisContrastLayers, bulkInArray
                                [static_cast<int32_T>(contrastBulkIns[b_i]) - 1],
                                bulkOuts[b_i]);
           }
 
-          resampledLayers[b_i].f1.set_size(thisContrastLayers.size(0),
-            thisContrastLayers.size(1));
-          loop_ub = thisContrastLayers.size(1);
+          resampledLayers[b_i].f1.set_size(b_thisContrastLayers.size(0),
+            b_thisContrastLayers.size(1));
+          loop_ub = b_thisContrastLayers.size(1);
           for (i1 = 0; i1 < loop_ub; i1++) {
-            b_loop_ub = thisContrastLayers.size(0);
+            b_loop_ub = b_thisContrastLayers.size(0);
             for (i2 = 0; i2 < b_loop_ub; i2++) {
               resampledLayers[b_i].f1[i2 + resampledLayers[b_i].f1.size(0) * i1]
-                = thisContrastLayers[i2 + thisContrastLayers.size(0) * i1];
+                = b_thisContrastLayers[i2 + b_thisContrastLayers.size(0) * i1];
             }
           }
         }

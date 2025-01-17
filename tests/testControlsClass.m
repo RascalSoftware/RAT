@@ -191,7 +191,7 @@ classdef testControlsClass < matlab.unittest.TestCase
                 testCase.verifyEqual(testCase.controls.strategy, i, 'set.strategy method is not working')
             end
             % bad strategy type
-            testCase.verifyError(@() setStrategy('a'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setStrategy('a'), exceptions.invalidOption.errorID);
             testCase.verifyError(@() setStrategy(7), exceptions.invalidOption.errorID);
             testCase.verifyError(@() setStrategy(3.14), exceptions.invalidOption.errorID);
             testCase.verifyError(@() setStrategy(0), exceptions.invalidOption.errorID);

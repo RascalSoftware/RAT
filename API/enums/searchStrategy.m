@@ -1,7 +1,7 @@
 classdef searchStrategy < customEnum
-   methods (Static)
+   methods (Static)           
         function s = toStruct()
-            s = customEnum.toStruct(mfilename('class'));
+            s = customEnum.toStruct(mfilename('class'), true);
         end
         
         function v = values()
@@ -9,16 +9,16 @@ classdef searchStrategy < customEnum
         end
         
         function e = fromValue(value)
-            e = customEnum.fromValue(mfilename('class'), value);
+            e = customEnum.fromValue(mfilename('class'), value, true);
         end
     end
 
     enumeration
-        Random (1)
-        LocalToBest (2)
-        BestWithJitter (3)
-        RandomWithPerVectorDither (4)
-        RandomWithPerGenerationDither (5)
-        RandomEitherOrAlgorithm (6)
+        Random ('random')
+        LocalToBest ('local to best')
+        BestWithJitter ('best jitter')
+        RandomWithPerVectorDither ('vector dither')
+        RandomWithPerGenerationDither ('generation dither')
+        RandomEitherOrAlgorithm ('either or')
     end
 end

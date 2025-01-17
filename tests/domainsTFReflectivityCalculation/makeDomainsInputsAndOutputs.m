@@ -42,15 +42,14 @@ outputs.result = result;
 save([root filesep 'tests/domainsTFReflectivityCalculation/domainsStandardLayersOutputs'],'outputs');
 
 % (c) TF Parameters
-[qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
- chis,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,...
+[qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,simulation,...
+ shiftedData,backgrounds,resolutions,layerSlds,sldProfiles,...
  resampledLayers,subRoughs] = domainsTF.standardLayers(problemStruct,controls);
 
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
 TFParams.bulkIn = bulkIn;
 TFParams.bulkOut = bulkOut;
-TFParams.resolutionParams = resolutionParams;
 TFParams.chis = chis;
 TFParams.subRoughs = subRoughs;
 
@@ -58,6 +57,7 @@ TFParams.reflectivity = reflectivity;
 TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;
 TFParams.backgrounds = backgrounds;
+TFParams.resolutions = resolutions;
 TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.resampledLayers = resampledLayers;
@@ -102,15 +102,14 @@ outputs.result = result;
 save([root filesep 'tests/domainsTFReflectivityCalculation/domainsCustomXYOutputs'],'outputs');
 
 % (c) TF Parameters
-[qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
- chis,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,...
+[qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,simulation,...
+ shiftedData,backgrounds,resolutions,layerSlds,sldProfiles,...
  resampledLayers,subRoughs] = domainsTF.customXY(problemStruct,controls);
 
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
 TFParams.bulkIn = bulkIn;
 TFParams.bulkOut = bulkOut;
-TFParams.resolutionParams = resolutionParams;
 TFParams.chis = chis;
 TFParams.subRoughs = subRoughs;
 
@@ -118,6 +117,7 @@ TFParams.reflectivity = reflectivity;
 TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;
 TFParams.backgrounds = backgrounds;
+TFParams.resolutions = resolutions;
 TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.resampledLayers = resampledLayers;
@@ -161,15 +161,14 @@ outputs.result = result;
 save([root filesep 'tests/domainsTFReflectivityCalculation/domainsCustomLayersOutputs'],'outputs');
 
 % (c) TF Parameters
-[qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams,...
- chis,reflectivity,simulation,shiftedData,backgrounds,layerSlds,sldProfiles,...
+[qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,simulation,...
+ shiftedData,backgrounds,resolutions,layerSlds,sldProfiles,...
  resampledLayers,subRoughs] = domainsTF.customLayers(problemStruct,controls);
 
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
 TFParams.bulkIn = bulkIn;
 TFParams.bulkOut = bulkOut;
-TFParams.resolutionParams = resolutionParams;
 TFParams.chis = chis;
 TFParams.subRoughs = subRoughs;
 
@@ -177,6 +176,7 @@ TFParams.reflectivity = reflectivity;
 TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;
 TFParams.backgrounds = backgrounds;
+TFParams.resolutions = resolutions;
 TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.resampledLayers = resampledLayers;

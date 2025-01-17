@@ -1,7 +1,8 @@
 function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiSq] = ...
-    coreLayersCalculation(layers, rough, ...
-    geometry, bulkIn, bulkOut, resample, calcSld, shiftedData, simLimits, repeatLayers,...
-    resolution,background,backgroundAction,params,parallelPoints,resampleMinAngle,resampleNPoints,useImaginary)
+    coreLayersCalculation(layers,rough,geometry,bulkIn,bulkOut,resample,...
+    calcSld,shiftedData,simulationXData,dataIndices,repeatLayers,resolution,...
+    background,backgroundAction,params,parallelPoints,resampleMinAngle,...
+    resampleNPoints,useImaginary)
 
 %   This is the main reflectivity calculation for all layers models in the 
 %   normal target function.
@@ -72,7 +73,7 @@ end
 
 % Calculate the reflectivity
 reflectivityType = 'standardAbeles';
-[reflect,simulation] = callReflectivity(bulkIn,bulkOut,simLimits,repeatLayers,shiftedData,layerSld,ssubs,resolution,parallelPoints,reflectivityType,useImaginary);
+[reflect,simulation] = callReflectivity(bulkIn,bulkOut,simulationXData,dataIndices,repeatLayers,layerSld,ssubs,resolution,parallelPoints,reflectivityType,useImaginary);
 
 % Apply background correction
 [reflect,simulation,shiftedData] = applyBackgroundCorrection(reflect,simulation,shiftedData,background,backgroundAction);

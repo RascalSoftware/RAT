@@ -1,14 +1,10 @@
-function background = constructBackground(backgroundType,backgroundParamIndices,shiftedData,customFiles,backgroundParamArray,simLimits)
+function background = constructBackground(backgroundType,backgroundParamIndices,shiftedData,customFiles,backgroundParamArray,simulationXData,dataIndices)
 
 % Apply background parameters to the background.
 %
 % For function backgrounds, this means running the function using the
 % defined parameters. For data and constant backgrounds, this means taking
-% any predefined background data and adding any supplied poarameters.
-
-% Define the background over the simulation range, making sure to include
-% any predefined data.
-[simulationXData, dataIndices] = makeSimulationRange(shiftedData, simLimits);
+% any predefined background data and adding any supplied parameters.
 
 background = zeros(length(simulationXData),3);
 background(:,1) = simulationXData;

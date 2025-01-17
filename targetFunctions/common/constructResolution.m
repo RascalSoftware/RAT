@@ -9,9 +9,9 @@ resolution = zeros(length(simulationXData),2);
 resolution(:,1) = simulationXData;
 
 if strcmpi(resolutionType, coderEnums.allowedTypes.Data)
-    % If we are using data resolutions, then we also need to adjust the
-    % length of the resolution column. We do this by just extending with
-    % the resolution values at the ends of the curve.
+    % If we are using data resolutions and the simulation range is larger
+    % than the data range, we extend the data resolution to the simulation
+    % range using the resolution values at the ends of the curve.
     resolution(1:dataIndices(1),2) = shiftedData(1,4);
     resolution(dataIndices(1):dataIndices(2),2) = shiftedData(:,4);
     resolution(dataIndices(2):end,2) = shiftedData(end,4);

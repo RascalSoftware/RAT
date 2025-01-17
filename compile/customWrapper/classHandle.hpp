@@ -37,6 +37,7 @@ public:
                         int contrast, std::vector<double>& tempOutput, double *outputSize, double *roughness)=0;
     virtual void invoke(std::vector<double>& params, std::vector<double>& bulk_in, std::vector<double>& bulk_out, 
                         int contrast, int domainNumber, std::vector<double>& tempOutput, double *outputSize, double *roughness)=0;
+    virtual void invoke(std::vector<double>& xdata, std::vector<double>& params, std::vector<double>& tempOutput)=0;
 };
 
 inline std::vector<double> convertPtr2Vector(double* ptr, int size)
@@ -45,10 +46,11 @@ inline std::vector<double> convertPtr2Vector(double* ptr, int size)
     return array;
 }
 
-inline std::size_t convertVector2Ptr(std::vector<double>& array, double* ptr)
+inline std::size_t getVectorSize(std::vector<double>& array) { return array.size(); }
+
+inline void convertVector2Ptr(std::vector<double>& array, double* ptr)
 {  
     std::memcpy(ptr, array.data(), array.size()*sizeof(double));
-    return array.size();
 }
 
 template<class base> inline std::string convertPtr2String(base *ptr)

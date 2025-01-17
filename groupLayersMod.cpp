@@ -21,7 +21,7 @@ namespace RAT
   void groupLayersMod(const ::coder::array<real_T, 2U> &resampledLayers, real_T
                       subRoughs, const char_T geometry_data[], const int32_T
                       geometry_size[2], real_T bulkIns, real_T bulkOuts, ::coder::
-                      array<real_T, 2U> &outLayers, real_T *outSsubs)
+                      array<real_T, 2U> &outLayers, real_T *ssubs)
   {
     ::coder::array<real_T, 2U> layers;
     ::coder::array<real_T, 1U> roughs;
@@ -32,14 +32,14 @@ namespace RAT
     uint32_T unnamed_idx_0;
 
     //  Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the
-    //  z,rho,rough stack, and the parameter 'ssub' in callParatt is the final roughness encountered.
+    //  z,rho,rough stack, and the parameter 'ssub' is the final roughness encountered.
     //
     //  * For air liquid 'ssub' is therefore the substrate roughness.
     //  * For solid liquid, the substrate roughness is the first roughness encountered, and 'ssub' is then the roughness of the outermost layer
     //
     //  USAGE::
     //
-    //      [outLayers, outSsubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)
+    //      [outLayers, ssubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)
     //
     //  INPUTS:
     //      * resampledLayers: cell array, one for each contrast. Each cell is the list of layer values for each contrast.
@@ -50,8 +50,8 @@ namespace RAT
     //
     //  Outputs:
     //      * outLayers: cell array of layers param values for each contrast.
-    //      * outSsubs: vector of substrate roughness values.
-    *outSsubs = subRoughs;
+    //      * ssubs: vector of ssub values.
+    *ssubs = subRoughs;
     unnamed_idx_0 = static_cast<uint32_T>(resampledLayers.size(0));
     layers.set_size(resampledLayers.size(0), resampledLayers.size(1));
     loop_ub = resampledLayers.size(1);
@@ -74,8 +74,8 @@ namespace RAT
           }
         }
       } else {
-        *outSsubs = resampledLayers[(resampledLayers.size(0) +
-          resampledLayers.size(0) * 2) - 1];
+        *ssubs = resampledLayers[(resampledLayers.size(0) + resampledLayers.size
+          (0) * 2) - 1];
         if (resampledLayers.size(0) > 1) {
           loop_ub = resampledLayers.size(0);
           roughs.set_size(resampledLayers.size(0));
@@ -131,7 +131,7 @@ namespace RAT
         }
       }
 
-      // Deal with the %coverage if present
+      //  Deal with the %coverage if present
       if (resampledLayers.size(1) == 5) {
         i = resampledLayers.size(0);
         for (int32_T j{0}; j < i; j++) {

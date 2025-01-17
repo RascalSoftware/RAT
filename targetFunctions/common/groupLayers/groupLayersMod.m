@@ -1,13 +1,13 @@
-function [outLayers, outSsubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)
+function [outLayers, ssubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)
 % Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the 
-% z,rho,rough stack, and the parameter 'ssub' in callParatt is the final roughness encountered. 
+% z,rho,rough stack, and the parameter 'ssub' is the final roughness encountered. 
 %
 % * For air liquid 'ssub' is therefore the substrate roughness.
 % * For solid liquid, the substrate roughness is the first roughness encountered, and 'ssub' is then the roughness of the outermost layer
 %
 % USAGE::
 %
-%     [outLayers, outSsubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)
+%     [outLayers, ssubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)
 %
 % INPUTS:
 %     * resampledLayers: cell array, one for each contrast. Each cell is the list of layer values for each contrast.
@@ -18,9 +18,9 @@ function [outLayers, outSsubs] = groupLayersMod(resampledLayers,subRoughs,geomet
 %
 % Outputs:
 %     * outLayers: cell array of layers param values for each contrast.
-%     * outSsubs: vector of substrate roughness values.
+%     * ssubs: vector of ssub values.
 
-outSsubs = subRoughs;
+ssubs = subRoughs;
 layers = zeros(size(resampledLayers));
 if ~isempty(resampledLayers)
     if strcmpi(geometry, coderEnums.geometryOptions.AirSubstrate)
@@ -31,9 +31,9 @@ if ~isempty(resampledLayers)
             thicks = resampledLayers(:,1);
             rsub = roughs(end);
             if length(roughs) > 1
-                roughs = [outSsubs ; roughs(1:end-1)];
+                roughs = [ssubs ; roughs(1:end-1)];
             else
-                roughs = outSsubs;
+                roughs = ssubs;
             end
             n = size(resampledLayers,2);
             if n == 5
@@ -42,10 +42,10 @@ if ~isempty(resampledLayers)
             else
                 layers = [thicks(:) sldss(:) roughs(:)];
             end
-            outSsubs = rsub;
+            ssubs = rsub;
     end
     
-    %Deal with the %coverage if present
+    % Deal with the %coverage if present
     n = size(resampledLayers,2);
     l = size(resampledLayers,1);
     if n == 5

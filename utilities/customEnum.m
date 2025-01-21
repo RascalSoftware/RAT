@@ -21,14 +21,6 @@ classdef customEnum
       end
    end
    methods (Static)
-       function flag = acceptIndex()
-         % Returns a structure containing all the enumeration names and
-         % values. Expects the name of the enumeration class
-         %
-         % structure = enum.acceptIndex('priorTypes')
-         flag = false;
-       end
-
        function s = toStruct(name, useIndexAsValue)
          % Returns a structure containing all the enumeration names and
          % values. Expects the name of the enumeration class

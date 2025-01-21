@@ -161,7 +161,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             message = sprintf('strategy must be a searchStrategy enum or one of the following strings (%s)', ...
                 strjoin(string(values), ', '));
             
-            % Convert the strategyy to its index
+            % Convert the strategy to its index
             obj.strategy = validateOption(val, 'searchStrategy', message).index;
         end
         

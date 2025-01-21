@@ -14,10 +14,6 @@ function input = validateOption(input, enum,  message)
     end
     
     options = enumeration(enum);
-    if ~(isenum(input) || isa(input, class(options(1).value)))
-        throw(exceptions.invalidType(message));
-    end
-
     if ~isenum(input)
         input = options(1).fromValue(input);
     end

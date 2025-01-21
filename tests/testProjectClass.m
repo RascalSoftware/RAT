@@ -155,7 +155,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.geometry, geometryOptions.AirSubstrate.value, 'Geometry not set correctly');
             % Test bad inputs 
             testCase.verifyError(@() testCase.project.setGeometry('anything'), exceptions.invalidOption.errorID)
-            testCase.verifyError(@() testCase.project.setGeometry(2), exceptions.invalidType.errorID)
+            testCase.verifyError(@() testCase.project.setGeometry(2), exceptions.invalidOption.errorID)
         end
 
         function testModelType(testCase)
@@ -181,7 +181,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyClass(testCase.project.layers, 'layersClass', 'Layers class not initialised correctly')
             % Test bad inputs 
             testCase.verifyError(@() testCase.project.setModelType('anything'), exceptions.invalidOption.errorID)
-            testCase.verifyError(@() testCase.project.setModelType(2), exceptions.invalidType.errorID)
+            testCase.verifyError(@() testCase.project.setModelType(2), exceptions.invalidOption.errorID)
         end
 
         function testShowPriors(testCase)

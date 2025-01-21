@@ -146,7 +146,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % Invalid types
             testCase.verifyError(@() testCase.exampleClass.addCustomFile(42), exceptions.invalidType.errorID);
             testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 42), exceptions.invalidType.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 42), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 42), exceptions.invalidOption.errorID);
             testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 'matlab', 42, 'other'), exceptions.invalidType.errorID);
             testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 'matlab', '', 42), exceptions.invalidType.errorID);
 

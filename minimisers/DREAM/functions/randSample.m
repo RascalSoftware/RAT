@@ -18,40 +18,55 @@ function outputSample = randSample(population, numItems, weights)
     population = 1:population;
   end
 
-  switch nargin
-    case 1
-      numItems = 1;
-      weights = 1;
-    case 2
-      weights = ones(1, length(population));
-    case 3
-      % do nothing
-    otherwise
-      error("Too many arguments.")
+  nargs = nargin;
+
+  if nargs > 3
+    error("Too many arguments.")
   end
 
   if numItems > length(population)
     error("numItems is larger than the number of items in the population.")
   end
-  if length(weights) ~= length(population)
-    error("Weights and population must be the same length.")
-  end
 
   % create vector for results
   outputSample = zeros(1, numItems);
 
-  for i = 1:numItems
-    % we generate weighted random integers by creating bins from our weights
-    % and discretizing a random number in [0, 1] to those bins
-    weights = normalize(weights, 'norm', 1);
-    bins = [0, cumsum(weights)];
-    bins(end) = 1;  % ensure final bin is 1 as normalize is not always exact
+  if nargs == 3
 
-    randomIndex = discretize(rand(1), bins);
+    if length(weights) ~= length(population)
+      error("Weights and population must be the same length.")
+    end
 
-    outputSample(i) = population(randomIndex);
-    population(randomIndex) = [];
-    weights(randomIndex) = [];
+    for i = 1:numItems
+      % we generate weighted random integers by creating bins from our weights
+      % and discretizing a random number in [0, 1] to those bins
+      weights = normalize(weights, 'norm', 1);
+      bins = [0, cumsum(weights)];
+      bins(end) = 1;  % ensure final bin is 1 as normalize is not always exact
+
+      randomIndex = discretize(rand(1), bins);
+
+      outputSample(i) = population(randomIndex);
+      population(randomIndex) = [];
+      weights(randomIndex) = [];
+    end
+
+  % we can generate unweighted numbers far more efficiently
+  else
+    % for large numbers of items it's more efficient to randomise the array
+    % and return the first numItems items
+    if 4*numItems > length(population)
+      population = population(randperm(length(population)));
+      outputSample = population(1:numItems);
+    % else, just generate random integers and pick items from the population
+    else
+      for i = 1:numItems
+        randomIndex = randi(length(population));
+        outputSample(i) = population(randomIndex);
+        population(randomIndex) = [];
+      end
+    end
+
   end
 end
 

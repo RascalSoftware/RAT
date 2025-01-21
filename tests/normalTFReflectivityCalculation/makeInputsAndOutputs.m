@@ -183,7 +183,67 @@ TFParams.resampledLayers = resampledLayers;
 
 save([root filesep 'tests/normalTFReflectivityCalculation/standardLayersTFParams'],'TFParams');
 
-%% 4. Converting between RAT and RASCAL
+%% 4. Absorption
+% (a) Inputs
+absorptionProblem = DPPCAbsorption();
+controlsInput = controlsClass();
+
+% Supress printing of RAT output for testing
+controlsInput.display = 'off';
+
+[problemStruct,problemLimits,priors,controls] = parseClassToStructs(absorptionProblem,controlsInput);
+
+inputs.project = absorptionProblem;
+inputs.problemStruct = problemStruct;
+inputs.problemLimits = problemLimits;
+inputs.priors = priors;
+inputs.controlsInput = controlsInput;
+inputs.controls = controls;
+
+save([root filesep 'tests/normalTFReflectivityCalculation/absorptionInputs'],'inputs');
+
+% (b) Outputs
+resultStruct = reflectivityCalculation(problemStruct,controls);
+
+outputs.resultStruct = resultStruct;
+
+[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemLimits,controls,priors);
+
+outputs.problemStruct = problemStruct;
+outputs.resultStructMain = resultStructMain;
+outputs.bayesResults = bayesResults;
+
+[project, result] = RAT(absorptionProblem,controlsInput);
+
+outputs.project = project;
+outputs.result = result;
+
+save([root filesep 'tests/normalTFReflectivityCalculation/absorptionOutputs'],'outputs');
+
+% (c) TF Parameters
+[qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,simulation,...
+ shiftedData,backgrounds,resolutions,layerSlds,sldProfiles,...
+ resampledLayers,subRoughs] = normalTF.customLayers(problemStruct,controls);
+
+TFParams.qzshifts = qzshifts;
+TFParams.scalefactors = scalefactors;
+TFParams.bulkIn = bulkIn;
+TFParams.bulkOut = bulkOut;
+TFParams.chis = chis;
+TFParams.subRoughs = subRoughs;
+
+TFParams.reflectivity = reflectivity;
+TFParams.simulation = simulation;
+TFParams.shiftedData = shiftedData;
+TFParams.backgrounds = backgrounds;
+TFParams.resolutions = resolutions;
+TFParams.layerSlds = layerSlds;
+TFParams.sldProfiles = sldProfiles;
+TFParams.resampledLayers = resampledLayers;
+
+save([root filesep 'tests/normalTFReflectivityCalculation/absorptionTFParams'],'TFParams');
+
+%% 5. Converting between RAT and RASCAL
 
 thisProjectClass = r1ToProjectClass([root filesep 'tests/testProjectConversion/DSPCBilayerStructInput.mat']);
 save([root filesep 'tests/testProjectConversion/DSPCBilayerProjectClass.mat'], 'thisProjectClass');

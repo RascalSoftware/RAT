@@ -246,8 +246,5 @@ project.setContrastModel(1,{'Oxide Layer',...
               'Bil tail',...
               'Bil tail',...
               'Bil outer head'});
-          
-          
-          
-          
+
 end

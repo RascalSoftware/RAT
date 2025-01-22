@@ -5,7 +5,7 @@ function [x_new,CR] = calcProposal(X,CR,DREAMPar,Table_gamma,paramInfo)
 % % % eps = DREAMPar.zeta * randn(DREAMPar.nChains,DREAMPar.nParams);
 % % % 
 % % % % Determine which sequences to evolve with what DE strategy
-% % % DE_pairs = randsample( [1:DREAMPar.delta ] , DREAMPar.nChains , true , [ 1/DREAMPar.delta*ones(1,DREAMPar.delta) ])';
+% % % DE_pairs = randSample( [1:DREAMPar.delta ] , DREAMPar.nChains , [ 1/DREAMPar.delta*ones(1,DREAMPar.delta) ])';
 % % % 
 % % % % Generate series of permutations of chains
 % % % [dummy,tt] = sort(rand(DREAMPar.nChains-1,DREAMPar.nChains));
@@ -100,7 +100,7 @@ function [x_new,CR] = calcProposal(X,CR,DREAMPar,Table_gamma,paramInfo)
 eps = DREAMPar.zeta * randn(DREAMPar.nChains,DREAMPar.nParams);
 
 % Determine how many chain pairs to use for each individual chain
-DE_pairs = randsample( [1:DREAMPar.delta ] , DREAMPar.nChains , true , [ 1/DREAMPar.delta*ones(1,DREAMPar.delta) ])';
+DE_pairs = randSample( [1:DREAMPar.delta ] , DREAMPar.nChains , [ 1/DREAMPar.delta*ones(1,DREAMPar.delta) ])';
 
 % Generate uniform random numbers for each chain to determine which dimension to update
 rnd_cr = rand(DREAMPar.nChains,DREAMPar.nParams);
@@ -116,7 +116,7 @@ rnd_jump = DREAMPar.jumpProbability * (2 * rand(DREAMPar.nChains,DREAMPar.nParam
 dx = zeros(DREAMPar.nChains,DREAMPar.nParams);               
 
 % Determine when jumprate is 1
-gamma = randsample([0 1],DREAMPar.nChains,true,[ 1 - DREAMPar.pUnitGamma DREAMPar.pUnitGamma ]);   
+gamma = randSample([0 1],DREAMPar.nChains,[ 1 - DREAMPar.pUnitGamma DREAMPar.pUnitGamma ]);   
 
 % Create N proposals
 for i = 1:DREAMPar.nChains               

@@ -218,7 +218,7 @@ outputVF = true;
 
     % We don't need to calculate all of it, just take a random 1000 points
     % from the chain. Make a set of indices...
-    samples = randsample(nSamples,1000);
+    samples = randSample(nSamples,1000);
 
     % Make some empty arrays to store our data....
     vfSi = []; vfOxide = []; vfHeadL = []; vfTails = []; vfHeadR = []; vfWat = [];

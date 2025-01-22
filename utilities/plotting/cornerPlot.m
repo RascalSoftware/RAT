@@ -308,7 +308,7 @@ contour(ctrs1,ctrs2,F)
 %         plot(X(outliers,1),X(outliers,2),'.','MarkerEdgeColor',[.8 .8 .8]);
 %     end
 % %     % plot a subsample of the data
-% %     Xsample = X(randsample(n,n/10),:);
+% %     Xsample = X(randSample(n,n/10),:);
 % %     plot(Xsample(:,1),Xsample(:,2),'bo');
 %     hold off
 % end

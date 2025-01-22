@@ -35,6 +35,6 @@ function CR = drawCR(DREAMPar,pCR)
         CR = reshape(cCR,DREAMPar.nChains,[]);
     else
         % If crossover probabilities are not updated  
-        CR = reshape(randsample([1:DREAMPar.nCR]/DREAMPar.nCR,DREAMPar.steps*DREAMPar.nChains,true,pCR),DREAMPar.nChains,DREAMPar.steps);
+        CR = reshape(randSample([1:DREAMPar.nCR]/DREAMPar.nCR,DREAMPar.steps*DREAMPar.nChains,pCR),DREAMPar.nChains,DREAMPar.steps);
     end    
 end

@@ -11,9 +11,10 @@ function h = plotHists(results, options)
     % Parse the input options
     chain = results.chain;
     fitNames = results.fitNames;
+    smooth = options.smooth;
 
-    if ~isempty(inputBlock.figure)
-      h = figure(inputBlock.figure);
+    if ~isempty(options.figure)
+      h = figure(options.figure);
     else
         h = figure();
     end
@@ -46,7 +47,7 @@ function h = plotHists(results, options)
 end
 
 function isFigure(figure)
-  if ~(isnumeric(figure) || isa(f, 'matlab.ui.Figure'))
+  if ~(isnumeric(figure) || isa(figure, 'matlab.ui.Figure'))
     error("'figure' must be a figure number or a figure object.")
   end
 end

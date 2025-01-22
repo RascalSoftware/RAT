@@ -16,7 +16,6 @@
 #include "det.h"
 #include "gamma.h"
 #include "ifWhileCond.h"
-#include "matrix_to_integer_power.h"
 #include "mean.h"
 #include "mrdivide_helper.h"
 #include "rcond.h"
@@ -37,8 +36,7 @@ namespace RAT
     ::coder::array<real_T, 2U> r;
     ::coder::array<real_T, 2U> y;
     ::coder::array<boolean_T, 2U> b_const_data;
-    real_T b;
-    int32_T fV_size[2];
+    real_T d;
     int32_T b_flag;
     boolean_T const_data;
 
@@ -81,8 +79,8 @@ namespace RAT
       int32_T loop_ub;
 
       //  constant factor for volume of ellipsoid
-      b = static_cast<real_T>(u.size(1)) / 2.0 + 1.0;
-      coder::b_gamma(&b);
+      d = static_cast<real_T>(u.size(1)) / 2.0 + 1.0;
+      coder::b_gamma(&d);
 
       //  calculate covariance matrix and centroid
       coder::cov(u, C);
@@ -145,7 +143,7 @@ namespace RAT
         VE_size[0] = 1;
         VE_size[1] = 1;
         x = rt_powd_snf(3.1415926535897931, static_cast<real_T>(u.size(1)) / 2.0)
-          / b * std::sqrt(coder::det(y));
+          / d * std::sqrt(coder::det(y));
         VE_data[0] = x;
 
         //  expand volume of bounding ellipsoid to VS if necessary
@@ -153,13 +151,13 @@ namespace RAT
         const_data = (x < VS);
         b_const_data.set(&const_data, 1, 1);
         if (coder::internal::c_ifWhileCond(b_const_data)) {
-          b = 2.0 / static_cast<real_T>(u.size(1));
-          if (std::floor(b) == b) {
-            x = VS / x;
-            coder::matrix_to_integer_power((const real_T *)&x, b, (real_T *)
-              &fV_data, fV_size);
-          }
-
+          //  the original implementation calculates this as
+          // fV = (VS/VE)^(2/ndims);
+          //  however when compiled to C++,
+          //  MATLAB Coder does not compile the code for fractional powers of matrices.
+          //  so we must replace it with the explicit calculation:
+          fV_data = std::log(VS / x) * (2.0 / static_cast<real_T>(u.size(1)));
+          fV_data = std::exp(fV_data);
           VE_size[0] = 1;
           VE_size[1] = 1;
           VE_data[0] = VS;

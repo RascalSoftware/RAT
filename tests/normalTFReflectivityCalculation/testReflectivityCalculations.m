@@ -12,9 +12,9 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 %% Declare properties and parameters
 
     properties (ClassSetupParameter)
-        inputsFile = {'standardLayersInputs.mat', 'customLayersInputs.mat', 'customXYInputs.mat'}
-        outputsFile = {'standardLayersOutputs.mat', 'customLayersOutputs.mat', 'customXYOutputs.mat'}
-        TFFile = {'standardLayersTFParams.mat', 'customLayersTFParams.mat',  'customXYTFParams.mat'} % TF Params test data
+        inputsFile = {'standardLayersInputs.mat', 'customLayersInputs.mat', 'customXYInputs.mat', 'absorptionInputs.mat'}
+        outputsFile = {'standardLayersOutputs.mat', 'customLayersOutputs.mat', 'customXYOutputs.mat', 'absorptionOutputs.mat'}
+        TFFile = {'standardLayersTFParams.mat', 'customLayersTFParams.mat',  'customXYTFParams.mat', 'absorptionTFParams.mat'} % TF Params test data
     end
 
     properties (TestParameter)    
@@ -178,7 +178,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
                     [qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,...
                     simulation,shiftedData,backgrounds,resolutions,layerSLDs,SLDProfiles,resampledLayers,...
                     subRoughs] = normalTF.standardLayers(testCase.problemStruct,testCase.controls);
-                case 'customLayersTFParams.mat'
+                case {'customLayersTFParams.mat', 'absorptionTFParams.mat'}
                     [qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,...
                     simulation,shiftedData,backgrounds,resolutions,layerSLDs,SLDProfiles,resampledLayers,...
                     subRoughs] = normalTF.customLayers(testCase.problemStruct,testCase.controls);
@@ -227,7 +227,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testInput.contrastBackgroundParams{1} = 0;
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
-            testInput.contrastBackgroundParams{1} = 4;
+            testInput.contrastBackgroundParams{1} = 5;
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             testInput.contrastBackgroundParams{1} = [0 1 2 3];
@@ -241,7 +241,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testInput.contrastQzshifts(1) = 0;
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
-            testInput.contrastQzshifts(1) = 4;
+            testInput.contrastQzshifts(1) = 5;
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             % Test Scalefactor Error
@@ -249,7 +249,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testInput.contrastScalefactors(1) = 0;
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
-            testInput.contrastScalefactors(1) = 4;
+            testInput.contrastScalefactors(1) = 5;
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             % Test Bulk In Error
@@ -257,7 +257,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testInput.contrastBulkIns(1) = 0;
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
-            testInput.contrastBulkIns(1) = 4;
+            testInput.contrastBulkIns(1) = 5;
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             % Test Bulk Out Error
@@ -265,7 +265,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testInput.contrastBulkOuts(1) = 0;
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
-            testInput.contrastBulkOuts(1) = 4;
+            testInput.contrastBulkOuts(1) = 5;
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             % Test Resolution Param Error
@@ -273,7 +273,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testInput.contrastResolutionParams{1} = 0;
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
-            testInput.contrastResolutionParams{1} = 4;
+            testInput.contrastResolutionParams{1} = 5;
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
             testInput.contrastResolutionParams{1} = [0 1 2 3];
@@ -287,7 +287,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testInput.contrastDomainRatios(1) = 0;
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
             testInput = testCase.problemStruct;
-            testInput.contrastDomainRatios(1) = 4;
+            testInput.contrastDomainRatios(1) = 5;
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
         end      

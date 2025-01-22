@@ -82,8 +82,7 @@ classdef testR1ToProjectClass < matlab.unittest.TestCase
         end
 
         function testBadConstrs(testCase)
-            testCase.verifyWarning(@() r1ToProjectClass('double_bilayer_volume_model.mat'), "");
-            project = r1ToProjectClass('double_bilayer_volume_model.mat');
+            project = testCase.verifyWarning(@() r1ToProjectClass('double_bilayer_volume_model.mat'), "");
             % this example project has background min bigger than
             % background value
             testCase.verifyEqual(project.background.backgroundParams.varTable{1,2}, ...

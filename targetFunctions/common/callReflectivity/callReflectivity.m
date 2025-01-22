@@ -1,4 +1,4 @@
-function [reflectivity, simulation] = callReflectivity(bulkIn,bulkOut,simLimits,repeatLayers,data,layers,ssubs,resolution,parallel,refType,useImaginary)
+function [reflectivity, simulation] = callReflectivity(bulkIn,bulkOut,simulationXData,dataIndices,repeatLayers,layers,ssubs,resolution,parallel,refType,useImaginary)
 
 repeatFlag = repeatLayers(1);
 if repeatFlag
@@ -7,7 +7,7 @@ else
     nRepeats = 1;
 end
 
-% Build the input arrays for thick, sld and rough.....
+% Build the input arrays for thick, sld and rough
 
 if isempty(layers)
     % No layers defined. Make a zeros dummy zero layer 
@@ -47,23 +47,8 @@ slds(1) = complex(bulkIn, eps);
 slds(end) = complex(bulkOut, eps);
 roughs(end) = ssubs;
 
-[simulationXData, dataIndices] = makeSimulationRange(data, simLimits);
-
 simulation = zeros(length(simulationXData),2);
 simulation(:,1) = simulationXData;
-
-% If we are using data resolutions, then we also need to adjust the length
-% of the resolution column. We do this by just extending with the resolution
-% values at the ends of the curve.
-simResolData = 0;
-if resolution == -1
-    thisDataResol = data(:,4);
-    minVal = thisDataResol(1);
-    maxVal = thisDataResol(end);
-    startResol = ones((dataIndices(1)-1),1) .* minVal;
-    endResol = ones((length(simulationXData)-dataIndices(2)),1) .* maxVal;
-    simResolData = [startResol(:) ; thisDataResol(:) ; endResol(:)];
-end
 
 switch refType
     case 'standardAbeles'
@@ -71,33 +56,18 @@ switch refType
             case coderEnums.parallelOptions.Points
                 % Parallelise over points
                 
-                % Calculate reflectivity....
+                % Calculate reflectivity
                 simRef = abelesParallelPoints(simulationXData,nLayersTot,thicks,slds,roughs);
 
-                % Apply resolution              
-                % Note: paraPoints gives an error during validation, so use
-                % single cored resolution as a workaround for now.
-                if resolution == -1
-                    %simRef = dataResolutionPollyParallelPoints(simXdata,simRef,simResolData,length(simXdata));
-                    simRef = dataResolutionPolly(simulationXData,simRef,simResolData,length(simulationXData));
-                else
-                    %simRef = resolutionPollyParallelPoints(simXdata,simRef,res,length(simXdata));
-                    simRef = resolutionPolly(simulationXData,simRef,resolution,length(simulationXData));
-                end
-                
             otherwise
-                % Single cored over points
-                
-                % Calculate reflectivity.....
+                % Calculate reflectivity
                 simRef = abelesSingle(simulationXData,nLayersTot,thicks,slds,roughs);
                 
-                % Apply resolution correction...
-                if resolution == -1
-                    simRef = dataResolutionPolly(simulationXData,simRef,simResolData,length(simulationXData));
-                else
-                    simRef = resolutionPolly(simulationXData,simRef,resolution,length(simulationXData));
-                end
         end
+
+        % Apply resolution correction
+        simRef = resolutionPolly(simulationXData,simRef,resolution(:,2),length(simulationXData));
+
     otherwise
         coderException(coderEnums.errorCodes.invalidOption, 'The reflectivity type "%s" is not supported', refType);
 end

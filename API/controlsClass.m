@@ -31,7 +31,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         % The crossover probability or recombination constant (Default: 0.8)
         crossoverProbability = 0.8
         % differential evolution strategy (Default: searchStrategy.RandomWithPerVectorDither)
-        strategy = searchStrategy.RandomWithPerVectorDither.value
+        strategy = searchStrategy.RandomWithPerVectorDither.index
         % Target Value (Default: 1)
         targetValue = 1
         % Maximum number of generations (Default: 500)
@@ -84,6 +84,14 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             message = sprintf('display must be a displayOptions enum or one of the following strings (%s)', ...
                 strjoin(displayOptions.values(), ', '));
             obj.display = validateOption(val, 'displayOptions', message).value;
+        end
+        
+        function set.updateFreq(obj, val)
+            validateNumber(val, 'updateFreq must be a whole number', true);
+            if val < 1
+                throw(exceptions.invalidValue('updateFreq must be greater or equal to 1'));
+            end
+            obj.updateFreq = val;
         end
         
         function set.updatePlotFreq(obj, val)
@@ -149,10 +157,12 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         end
         
         function set.strategy(obj,val)
-            message = sprintf('strategy must be a searchStrategy enum or one of the following integers (%s)', ...
-                strjoin(string(searchStrategy.values()), ', '));
+            values = searchStrategy.values();
+            message = sprintf('strategy must be a searchStrategy enum or one of the following strings (%s)', ...
+                strjoin(string(values), ', '));
             
-            obj.strategy = validateOption(val, 'searchStrategy', message).value;
+            % Convert the strategy to its index
+            obj.strategy = validateOption(val, 'searchStrategy', message).index;
         end
         
         function set.targetValue(obj,val)

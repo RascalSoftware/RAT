@@ -34,6 +34,7 @@ else
 end
 
 % Set parameters block
+problem.constr = fixNonFitConstrs(length(problem.params), problem.paramnames, problem.constr, problem.params, problem.fityesno);
 for i = 2:length(problem.params)
     % addParameter <- (name, min, value, max, fit)
     thisProjectClass.addParameter(problem.paramnames{i},...
@@ -91,11 +92,12 @@ thisProjectClass.removeBulkOut(1);
 thisProjectClass.removeScalefactor(1);
 
 % Set backgrounds
+backParamNames = num2cell(arrayfun(@(i) sprintf("Backs parameter %d", i), 1:problem.numberOfBacks));
+problem.backs_constr = fixNonFitConstrs(problem.numberOfBacks, backParamNames, problem.backs_constr, problem.backs, problem.backgrounds_fityesno);
 for i = 1:problem.numberOfBacks
-    backName = sprintf('Backs parameter %d',i);
     % Add backgrounds parameter
     % addBackgroundParam <- (name, min, value, max, fit)
-    thisProjectClass.addBackgroundParam(backName, ...
+    thisProjectClass.addBackgroundParam(backParamNames{i}, ...
         problem.backs_constr(i,1), ...
         problem.backs(i), ...
         problem.backs_constr(i,2), ...
@@ -103,12 +105,15 @@ for i = 1:problem.numberOfBacks
     % Add background
     thisProjectClass.addBackground(problem.backsNames{i}, ...
         allowedTypes.Constant.value, ...
-        backName);
+        backParamNames{i});
 end
 
 % Set bulk in params
+problem.nbairs_constr = fixNonFitConstrs(problem.numberOfNbas, problem.nbaNames, problem.nbairs_constr, problem.nba, problem.nbairs_fityesno);
 for i = 1:problem.numberOfNbas
     % addBulkIn <- (name, min, value, max, fit)
+    % RasCAL-1 let you not bother with constraints for non-fit parameters,
+    % so adjust constraints to avoid an error if needed
     thisProjectClass.addBulkIn(problem.nbaNames{i}, ...
         problem.nbairs_constr(i,1), ...
         problem.nba(i), ...
@@ -117,6 +122,7 @@ for i = 1:problem.numberOfNbas
 end
 
 % Set bulk out params
+problem.nbsubs_constr = fixNonFitConstrs(problem.numberOfNbss, problem.nbsNames, problem.nbsubs_constr, problem.nbs, problem.nbsubs_fityesno);
 for i = 1:problem.numberOfNbss
     % addBulkOut <- (name, min, value, max, fit)
     thisProjectClass.addBulkOut(problem.nbsNames{i}, ...
@@ -127,6 +133,7 @@ for i = 1:problem.numberOfNbss
 end
 
 % Set scalefactors
+problem.scale_constr = fixNonFitConstrs(problem.numberOfScales, problem.scalesNames, problem.scale_constr, problem.scalefac, problem.scalefac_fityesno);
 for i = 1:problem.numberOfScales
     % addScalefactor <- (name, min, value, max, fit)
     thisProjectClass.addScalefactor(problem.scalesNames{i}, ...
@@ -192,4 +199,20 @@ end
         end
         output = input;
     end
+end
+
+function new_constrs = fixNonFitConstrs(num_items, names, constrs, vals, fits)
+% RasCAL-1 let you not bother with constraints for non-fit parameters,
+% so this function adjusts the constraints to avoid an error if needed.
+for i = 1:num_items
+    new_constrs = constrs;
+    if ~fits(i)
+        new_constrs(i, :) = [min(constrs(i, 1), vals(i)) max(constrs(i, 2), vals(i))];
+        if new_constrs(i) ~= constrs(i)
+            warning("Non-fit parameter %s has invalid constraints, these" + ...
+                "have been adjusted to satisfy the current value of the parameter.", ...
+                names{i})
+        end
+    end
+end
 end

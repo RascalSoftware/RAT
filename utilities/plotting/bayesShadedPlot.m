@@ -66,8 +66,8 @@ for i = 1:numberOfContrasts
     % Get the limits and fits
     limits = reflectivityValues{i};
     
-    min = limits(vals(1),:)./mult;
-    max = limits(vals(2),:)./mult;
+    min = limits(vals(1),:)'./mult;
+    max = limits(vals(2),:)'./mult;
         
     reflectivity = reflectivity./mult;
     
@@ -77,7 +77,7 @@ for i = 1:numberOfContrasts
     
     refXValues = result.reflectivity{i}(:,1);
     thisSimQ4 = refXValues.^4;
-    
+
     switch options.q4
         case true
             min = min .* thisSimQ4;

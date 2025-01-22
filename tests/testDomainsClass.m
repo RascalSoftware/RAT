@@ -128,7 +128,7 @@ classdef testDomainsClass < matlab.unittest.TestCase
             testCase.verifyClass(testCase.project.layers, 'layersClass', 'Layers class not initialised correctly')
             % Test bad inputs 
             testCase.verifyError(@() testCase.project.setModelType('anything'), exceptions.invalidOption.errorID)
-            testCase.verifyError(@() testCase.project.setModelType(2), exceptions.invalidType.errorID)
+            testCase.verifyError(@() testCase.project.setModelType(2), exceptions.invalidOption.errorID)
         end
 
         function testDomainRatio(testCase)

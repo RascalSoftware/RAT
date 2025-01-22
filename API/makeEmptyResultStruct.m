@@ -14,6 +14,7 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     %         simulation: [nContrastsx1 cell]
     %        shiftedData: [nContrastsx1 cell]
     %        backgrounds: [nContrastsx1 cell]
+    %        resolutions: [nContrastsx1 cell]
     %          layerSlds: [nContrastsxnDomains cell]
     %        sldProfiles: [nContrastsxnDomains cell]
     %    resampledLayers: [nContrastsxnDomains cell]
@@ -44,8 +45,6 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     coder.varsize('bulkIn',[maxArraySize 1],[1 0]);
     bulkOut = zeros(nContrasts,1);
     coder.varsize('bulkOut',[maxArraySize 1],[1 0]);
-    resolutionParams = zeros(nContrasts,1);
-    coder.varsize('resolutionParams',[maxArraySize 1],[1 0]);
     subRoughs = zeros(nContrasts,1);
     coder.varsize('subRoughs',[maxArraySize 1],[1 0]);
     resample = zeros(1, nContrasts);
@@ -54,7 +53,6 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     contrastParams = struct('scalefactors', scalefactors, ...
                             'bulkIn', bulkIn, ...
                             'bulkOut', bulkOut, ...
-                            'resolutionParams', resolutionParams, ...
                             'subRoughs', subRoughs, ...
                             'resample', resample);
     
@@ -88,6 +86,13 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
         backgrounds{i} = backgroundCell;
     end
     coder.varsize('backgrounds{:}',[10000 3],[1 0]);
+
+    resolutions = cell(nContrasts,1);
+    resolutionCell = ones(2,2);
+    for i = 1:nContrasts
+        resolutions{i} = resolutionCell;
+    end
+    coder.varsize('resolutions{:}',[10000 2],[1 0]);
 
     layerSldCell = ones(2,3);
     if domains
@@ -147,6 +152,7 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
                     'simulation', {simulation}, ...
                     'shiftedData', {shiftedData}, ...
                     'backgrounds', {backgrounds}, ...
+                    'resolutions', {resolutions}, ...
                     'layerSlds', {layerSlds}, ...
                     'sldProfiles', {sldProfiles}, ...
                     'resampledLayers', {resampledLayers}, ...

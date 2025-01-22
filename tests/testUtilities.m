@@ -36,7 +36,7 @@ classdef testUtilities < matlab.unittest.TestCase
             testCase.verifyEqual(validateOption(searchStrategy.LocalToBest, 'searchStrategy', 'new error'), ...
                                  searchStrategy.LocalToBest, 'validateOption function is not working');
             testCase.verifyError(@() validateOption('a', 'priorTypes'), exceptions.invalidOption.errorID);
-            testCase.verifyError(@() validateOption(false, 'priorTypes'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() validateOption(false, 'priorTypes'), exceptions.invalidOption.errorID);
             testCase.verifyError(@() validateOption('uniform', 'priors'), exceptions.invalidValue.errorID);
             testCase.verifyError(@() validateOption('uniform', 2), exceptions.invalidType.errorID);
         end

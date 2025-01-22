@@ -41,7 +41,7 @@
       end
       
       function testRegister(testCase)
-          testCase.verifyError(@() eventManager.register('event', 'disp'), exceptions.invalidType.errorID);
+          testCase.verifyError(@() eventManager.register('event', 'disp'), exceptions.invalidOption.errorID);
           testCase.verifyEmpty(eventManager.getEvents());
           testCase.verifyError(@() eventManager.register(eventTypes.Message, ''), exceptions.invalidType.errorID);
           testCase.verifyEmpty(eventManager.getEvents());
@@ -70,7 +70,7 @@
           eventManager.setEvents({'disp', 0, @disp; id, 1, anonymous; 'disp', 1, @disp});
 
           testCase.verifySize(eventManager.getEvents(), [3, 3]);
-          testCase.verifyError(@() eventManager.unregister('event', 'disp'), exceptions.invalidType.errorID);
+          testCase.verifyError(@() eventManager.unregister('event', 'disp'), exceptions.invalidOption.errorID);
           testCase.verifySize(eventManager.getEvents(), [3, 3]);
           testCase.verifyError(@() eventManager.unregister(eventTypes.Message, ''), exceptions.invalidType.errorID);
           testCase.verifySize(eventManager.getEvents(), [3, 3]);

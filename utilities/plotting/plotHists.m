@@ -1,27 +1,20 @@
-function h = plotHists(results,varargin)   
+function h = plotHists(results, options)   
     % Plots the Bayes histogram plot from the chain, with or without smoothing.
     % If selected, smoothing is via a moving average algorithm.
+    arguments
+      results
+      options.figure {isFigure} = []
+      options.smooth {logical} = true
+    end
     
     % Parse the inputs...
     % Parse the input options
     chain = results.chain;
     fitNames = results.fitNames;
-    
-    defaultSmooth = true;
-    if ~isempty(varargin)
-        p = inputParser;
-        addOptional(p,  'smooth',       defaultSmooth,      @islogical);     % Use smoothing
-        addOptional(p, 'figure', [], @isFigure);  % use an existing figure if given
-        parse(p,varargin{:});
-        inputBlock = p.Results;
-        
-        smooth = inputBlock.smooth;
 
-        if ~isempty(inputBlock.figure)
-          h = figure(inputBlock.figure);
-        end
+    if ~isempty(inputBlock.figure)
+      h = figure(inputBlock.figure);
     else
-        smooth = defaultSmooth;
         h = figure();
     end
 

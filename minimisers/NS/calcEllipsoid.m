@@ -65,7 +65,17 @@ VE = const*sqrt(det( fB * C ));
 % expand volume of bounding ellipsoid to VS if necessary
 fV = 1;
 if VE < VS
-    fV = (VS/VE)^(2/ndims);
+
+    
+    % the original implementation calculates this as
+    %fV = (VS/VE)^(2/ndims);
+    % however when compiled to C++,
+    % MATLAB Coder does not compile the code for fractional powers of matrices.
+    % so we must replace it with the explicit calculation:
+    x = 2/ndims;
+    A = log(VS/VE) * x;
+    fV = exp(A);
+
     VE = VS;
 end
 

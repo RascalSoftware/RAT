@@ -1,11 +1,16 @@
 function outputSample = randSample(population, numItems, weights)
   % Take a random sample of values.
+  % GPL-licensed replacement for `randsample` from Statistics and Machine
+  % Learning Toolbox.
+  % 
+  % Note that unweighted sampling is *without* replacement, and weighted
+  % sampling is *with* replacement!
   % 
   % Parameters
   % ----------
   % population : vector or int
-  %   if a vector, sample k values from the vector without replacement.
-  %   if an int, sample k values from 1:n without replacement.
+  %   if a vector, sample k values from the vector.
+  %   if an int, sample k values from 1:n.
   % numItems : int
   %   the number of items to sample.
   % weights : vector
@@ -24,49 +29,29 @@ function outputSample = randSample(population, numItems, weights)
     error("Too many arguments.")
   end
 
-  if numItems > length(population)
-    error("numItems is larger than the number of items in the population.")
-  end
-
-  % create vector for results
-  outputSample = zeros(1, numItems);
-
   if nargs == 3
 
     if length(weights) ~= length(population)
       error("Weights and population must be the same length.")
     end
 
-    for i = 1:numItems
-      % we generate weighted random integers by creating bins from our weights
-      % and discretizing a random number in [0, 1] to those bins
-      weights = normalize(weights, 'norm', 1);
-      bins = [0, cumsum(weights)];
-      bins(end) = 1;  % ensure final bin is 1 as normalize is not always exact
+    % we generate weighted random integers by creating bins from our weights
+    % and discretizing random numbers in [0, 1] to those bins
+    weights = normalize(weights, 'norm', 1);
+    bins = [0, cumsum(weights)];
+    bins(end) = 1;  % ensure final bin is 1 as normalize is not always exact
 
-      randomIndex = discretize(rand(1), bins);
+    randomIndices = discretize(rand(1, numItems), bins);
 
-      outputSample(i) = population(randomIndex);
-      population(randomIndex) = [];
-      weights(randomIndex) = [];
-    end
+    outputSample = population(randomIndices);
 
   % we can generate unweighted numbers far more efficiently
+  % just randomise the array and return the first numItems items
   else
-    % for large numbers of items it's more efficient to randomise the array
-    % and return the first numItems items
-    if 4*numItems > length(population)
+    if numItems > length(population)
+      error("numItems is larger than the number of items in the population.")
+    end
       population = population(randperm(length(population)));
       outputSample = population(1:numItems);
-    % else, just generate random integers and pick items from the population
-    else
-      for i = 1:numItems
-        randomIndex = randi(length(population));
-        outputSample(i) = population(randomIndex);
-        population(randomIndex) = [];
-      end
-    end
-
   end
 end
-

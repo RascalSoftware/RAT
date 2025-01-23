@@ -171,9 +171,10 @@ classdef testControlsClass < matlab.unittest.TestCase
             
             testCase.controls.fWeight = 0.2;
             testCase.verifyEqual(testCase.controls.fWeight, 0.2, 'set.fWeight method is not working')
-            testCase.verifyError(@setFWeight, exceptions.invalidType.errorID);  % bad fWeight type
-            function setFWeight
-                testCase.controls.fWeight = 'a';
+            testCase.verifyError(@() setFWeight('a'), exceptions.invalidType.errorID);  % bad fWeight type
+            testCase.verifyError(@() setFWeight(-3), exceptions.invalidValue.errorID);
+            function setFWeight(value)
+                testCase.controls.fWeight = value;
             end
             
             testCase.controls.crossoverProbability = 0.1;

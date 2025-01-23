@@ -146,6 +146,9 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         
         function set.fWeight(obj,val)
             obj.fWeight = validateNumber(val,'fWeight must be a number');
+            if val <= 0
+              throw(exceptions.invalidValue('fWeight must be greater than 0'));
+            end
         end
         
         function set.crossoverProbability(obj,val)

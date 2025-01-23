@@ -1,32 +1,24 @@
-function h = plotHists(results,f,varargin)   
+function h = plotHists(results, options)   
     % Plots the Bayes histogram plot from the chain, with or without smoothing.
     % If selected, smoothing is via a moving average algorithm.
+    arguments
+      results
+      options.figure {isFigure} = []
+      options.smooth {logical} = true
+    end
     
     % Parse the inputs...
     % Parse the input options
     chain = results.chain;
     fitNames = results.fitNames;
-    
-    defaultSmooth = true;
-    if ~isempty(varargin)
-        p = inputParser;
-        addOptional(p,  'smooth',       defaultSmooth,      @islogical);     % Use smoothing
-    
-        parse(p,varargin{:});
-        inputBlock = p.Results;
-        
-        smooth = inputBlock.smooth;
+    smooth = options.smooth;
+
+    if ~isempty(options.figure)
+      h = figure(options.figure);
     else
-        smooth = defaultSmooth;
-    end
-    
-    % Sort the figure..
-    if (isnumeric(f) || isa(f,'matlab.ui.Figure')) && ~isempty(f)
-        h = figure(f);
-    elseif isempty(f)
         h = figure();
     end
-    
+
     % Work out how many plots....
     [~,npar2]=size(chain);
     inds = 1:npar2;
@@ -52,4 +44,10 @@ function h = plotHists(results,f,varargin)
         set(h,'ytick',[]);
         title(sprintf('%s',fitNames{i}))
     end
+end
+
+function isFigure(figure)
+  if ~(isnumeric(figure) || isa(figure, 'matlab.ui.Figure'))
+    error("'figure' must be a figure number or a figure object.")
+  end
 end

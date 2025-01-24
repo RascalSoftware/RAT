@@ -345,7 +345,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             end
             old = testCase.exampleClass.varTable{1, 5};
             testCase.exampleClass.varTable{1, 5} = {'../..'};
-            testCase.verifyError(@() testCase.exampleClass.toStruct(), exceptions.invalidPath.errorID);
+            testCase.verifyWarning(@() testCase.exampleClass.toStruct(), '');
             testCase.exampleClass.varTable{1, 5} = old;
             testCase.exampleClass.varTable{1, 3} = {'randomName'};
             testCase.verifyError(@() testCase.exampleClass.toStruct(), exceptions.invalidPath.errorID);

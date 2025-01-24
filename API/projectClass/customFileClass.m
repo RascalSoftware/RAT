@@ -259,8 +259,9 @@ classdef customFileClass < tableUtilities
                             msg = 'The Matlab custom file (%s) is not on the search path. Add the file to path and check using "which(%s)".';
                             throw(exceptions.invalidPath(sprintf(msg, strrep(libpath, '\', '/'), functionName)));
                         elseif ~isempty(thisPath) && ~strcmp(foundPath, libpath)                        
-                            msg = 'The Matlab custom file (%s) on the search path does not match the given path (%s).';
-                            throw(exceptions.invalidPath(sprintf(msg, strrep(foundPath, '\', '/'), strrep(libpath, '\', '/'))));
+                            msg = ['The Matlab custom file (%s) on the search path does not match the specified path (%s). ' ...
+                                   'The file on the serach path will be used, if this is expected ignore this warning'];
+                            warning(msg, strrep(foundPath, '\', '/'), strrep(libpath, '\', '/'));
                         end
                     else
                         if ~exist(libpath, 'file')

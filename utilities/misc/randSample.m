@@ -19,7 +19,7 @@ function outputSample = randSample(population, numItems, weights)
   %
   % Returns
   % -------
-  % vector
+  % outputSample : vector
   %   The resulting sample of values.
   %
 

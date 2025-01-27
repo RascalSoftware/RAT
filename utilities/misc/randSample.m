@@ -26,8 +26,8 @@ function outputSample = randSample(population, numItems, weights)
   % if the user is trying to get multiple items from a single-integer array,
   % assume that they want to sample between 1 and n
   arguments
-    population (1,:) double {mustBeNonempty}
-    numItems int16 {mustBeNonempty, mustBeInteger, mustBePositive}
+    population (1,:) double
+    numItems int16
     weights (1,:) double = []
   end
 

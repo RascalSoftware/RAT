@@ -35,7 +35,7 @@ end
 if nargin<2|isempty(nbin)
 % nbin=ceil(log2(n)+1);                        % Sturges' formula
 % nbin=ceil(range(y)/(3.5*sy*n^(-1/3)));       % Scott
-  nbin=ceil(range(y)/(2*iqrange(y)*n^(-1/3))); % Freedman & Diaconis
+  nbin=ceil((max(y) - min(y))/(2*iqrange(y)*n^(-1/3))); % Freedman & Diaconis
 
   % bar(...,'w') does not work with nbin>150
   nbin=min(50,nbin);

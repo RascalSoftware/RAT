@@ -43,7 +43,7 @@ function outputSample = randSample(population, numItems, weights)
       coderException(coderEnums.errorCodes.invalidOption, 'Weights and population must be the same length.')
     end
 
-    % we generate weighted random integers by creating bins from our weights
+    % we generate weighted random integers with replacement by creating bins from our weights
     % and discretizing random numbers in [0, 1] to those bins
     weights = normalize(weights, 'norm', 1);
     bins = [0, cumsum(weights)];

@@ -13,7 +13,7 @@ function outputSample = randSample(population, numItems, weights)
   %   if an int, sample k values from 1:n.
   % numItems : int
   %   the number of items to sample.
-  % weights : vector
+  % weights : vector, optional
   %   a weight vector, where the i'th index of ``weights`` is the 
   %   weight for the i'th member of the population.
   %
@@ -25,17 +25,12 @@ function outputSample = randSample(population, numItems, weights)
 
   % if the user is trying to get multiple items from a single-integer array,
   % assume that they want to sample between 1 and n
-  arguments
-    population (1,:) double
-    numItems int16
-    weights (1,:) double = []
-  end
 
   if isscalar(population) && numItems > 1
     population = 1:population;
   end
 
-  if isempty(weights)
+  if nargin == 2
     if numItems > length(population)
       coderException(coderEnums.errorCodes.invalidOption, 'numItems is larger than the number of items in the population.')
     end

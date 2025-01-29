@@ -28,7 +28,6 @@ namespace RAT
                 &r);
     void b_rand(const real_T varargin_1[2], ::coder::array<real_T, 2U> &r);
     void b_rand(real_T varargin_1, ::coder::array<real_T, 1U> &r);
-    void b_rand(int32_T varargin_1, ::coder::array<real_T, 1U> &r);
     void b_rand(real_T varargin_2, ::coder::array<real_T, 2U> &r);
     void c_rand(real_T r[1000]);
   }

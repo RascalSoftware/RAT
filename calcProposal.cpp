@@ -15,12 +15,13 @@
 #include "boundaryHandling.h"
 #include "find.h"
 #include "rand.h"
+#include "randSample.h"
 #include "randn.h"
 #include "randperm.h"
-#include "randsample.h"
 #include "rt_nonfinite.h"
 #include "sort.h"
 #include "coder_array.h"
+#include <cmath>
 
 // Function Definitions
 namespace RAT
@@ -34,28 +35,31 @@ namespace RAT
                     array<real_T, 2U> &x_new)
   {
     ::coder::array<real_T, 2U> A;
-    ::coder::array<real_T, 2U> a;
+    ::coder::array<real_T, 2U> DE_pairs;
     ::coder::array<real_T, 2U> b;
+    ::coder::array<real_T, 2U> b_a;
     ::coder::array<real_T, 2U> b_b;
     ::coder::array<real_T, 2U> b_gamma;
     ::coder::array<real_T, 2U> dx;
     ::coder::array<real_T, 2U> eps;
-    ::coder::array<real_T, 2U> r;
-    ::coder::array<real_T, 2U> r1;
+    ::coder::array<real_T, 2U> r2;
+    ::coder::array<real_T, 2U> r3;
     ::coder::array<real_T, 2U> r4;
-    ::coder::array<real_T, 2U> r5;
-    ::coder::array<real_T, 2U> r6;
     ::coder::array<real_T, 2U> rnd_cr;
     ::coder::array<real_T, 2U> rnd_jump;
-    ::coder::array<real_T, 1U> DE_pairs;
-    ::coder::array<real_T, 1U> r3;
+    ::coder::array<real_T, 2U> y;
+    ::coder::array<real_T, 1U> r1;
     ::coder::array<int32_T, 2U> iidx;
-    ::coder::array<int32_T, 2U> r2;
+    ::coder::array<int32_T, 2U> r;
     ::coder::array<boolean_T, 2U> b_rnd_cr;
     real_T r2_data[6];
+    real_T a_data[3];
     real_T r1_data[3];
-    real_T tmp_data[3];
+    real_T y_data[3];
     real_T b_dv[2];
+    real_T a;
+    int32_T b_y_size[2];
+    int32_T y_size[2];
     int32_T b_loop_ub;
     int32_T b_loop_ub_tmp;
     int32_T i;
@@ -68,7 +72,7 @@ namespace RAT
     //  % % eps = DREAMPar.zeta * randn(DREAMPar.nChains,DREAMPar.nParams);
     //  % %
     //  % % % Determine which sequences to evolve with what DE strategy
-    //  % % DE_pairs = randsample( [1:DREAMPar.delta ] , DREAMPar.nChains , true , [ 1/DREAMPar.delta*ones(1,DREAMPar.delta) ])';
+    //  % % DE_pairs = randSample( [1:DREAMPar.delta ] , DREAMPar.nChains , [ 1/DREAMPar.delta*ones(1,DREAMPar.delta) ])';
     //  % %
     //  % % % Generate series of permutations of chains
     //  % % [dummy,tt] = sort(rand(DREAMPar.nChains-1,DREAMPar.nChains));
@@ -168,18 +172,53 @@ namespace RAT
     }
 
     //  Determine how many chain pairs to use for each individual chain
-    r.set_size(1, 3);
-    r[0] = 1.0;
-    tmp_data[0] = 0.33333333333333331;
-    r[1] = 2.0;
-    tmp_data[1] = 0.33333333333333331;
-    r[2] = 3.0;
-    tmp_data[2] = 0.33333333333333331;
-    coder::randsample((const real_T *)r.data(), DREAMPar->nChains, tmp_data, r1);
-    DE_pairs.set_size(r1.size(1));
-    loop_ub = r1.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      DE_pairs[i] = r1[i];
+    if (std::isnan(DREAMPar->delta)) {
+      y.set_size(1, 1);
+      y[0] = rtNaN;
+    } else if (DREAMPar->delta < 1.0) {
+      y.set_size(1, 0);
+    } else if (std::isinf(DREAMPar->delta) && (1.0 == DREAMPar->delta)) {
+      y.set_size(1, 1);
+      y[0] = rtNaN;
+    } else {
+      loop_ub = static_cast<int32_T>(std::floor(DREAMPar->delta - 1.0));
+      y.set_size(1, loop_ub + 1);
+      for (i = 0; i <= loop_ub; i++) {
+        y[i] = static_cast<real_T>(i) + 1.0;
+      }
+    }
+
+    a = 1.0 / DREAMPar->delta;
+    a_data[0] = a;
+    a_data[1] = a;
+    a_data[2] = a;
+    y_size[0] = 1;
+    y_size[1] = y.size(1);
+    loop_ub = y.size(1) - 1;
+    for (i = 0; i <= loop_ub; i++) {
+      y_data[i] = y[i];
+    }
+
+    randSample(y_data, y_size, DREAMPar->nChains, a_data, y);
+    b_loop_ub = y.size(1);
+    y.set_size(1, 3);
+    y[0] = 1.0;
+    a_data[0] = 0.33333333333333331;
+    y[1] = 2.0;
+    a_data[1] = 0.33333333333333331;
+    y[2] = 3.0;
+    a_data[2] = 0.33333333333333331;
+    b_y_size[0] = 1;
+    b_y_size[1] = y.size(1);
+    loop_ub = y.size(1) - 1;
+    for (i = 0; i <= loop_ub; i++) {
+      y_data[i] = y[i];
+    }
+
+    randSample(y_data, b_y_size, DREAMPar->nChains, a_data, y);
+    DE_pairs.set_size(b_loop_ub, 1);
+    for (i = 0; i < b_loop_ub; i++) {
+      DE_pairs[i] = y[i];
     }
 
     //  Generate uniform random numbers for each chain to determine which dimension to update
@@ -215,11 +254,11 @@ namespace RAT
     //  Determine when jumprate is 1
     b_dv[0] = 1.0 - DREAMPar->pUnitGamma;
     b_dv[1] = DREAMPar->pUnitGamma;
-    coder::randsample(DREAMPar->nChains, b_dv, b_gamma);
+    randSample(DREAMPar->nChains, b_dv, b_gamma);
 
     //  Create N proposals
     for (int32_T b_i{0}; b_i < loop_ub_tmp; b_i++) {
-      real_T CR;
+      real_T d;
       int32_T D;
 
       //  Derive vector r1
@@ -230,13 +269,14 @@ namespace RAT
       }
 
       //  Derive vector r2
-      CR = 2.0 * DE_pairs[b_i];
-      if (DE_pairs[b_i] + 1.0 > CR) {
+      a = DE_pairs[b_i];
+      d = 2.0 * a;
+      if (a + 1.0 > d) {
         i = 0;
         i1 = 0;
       } else {
-        i = static_cast<int32_T>(DE_pairs[b_i] + 1.0) - 1;
-        i1 = static_cast<int32_T>(CR);
+        i = static_cast<int32_T>(a + 1.0) - 1;
+        i1 = static_cast<int32_T>(d);
       }
 
       loop_ub = i1 - i;
@@ -252,17 +292,17 @@ namespace RAT
         b_loop_ub = static_cast<int32_T>(DREAMPar->nParams);
       }
 
-      CR = CR_data[b_i];
+      a = CR_data[b_i];
       b_rnd_cr.set_size(1, b_loop_ub);
       for (i = 0; i < b_loop_ub; i++) {
-        b_rnd_cr[i] = (rnd_cr[b_i + rnd_cr.size(0) * i] < CR);
+        b_rnd_cr[i] = (rnd_cr[b_i + rnd_cr.size(0) * i] < a);
       }
 
-      coder::g_eml_find(b_rnd_cr, r2);
-      A.set_size(1, r2.size(1));
-      b_loop_ub = r2.size(1);
+      coder::g_eml_find(b_rnd_cr, r);
+      A.set_size(1, r.size(1));
+      b_loop_ub = r.size(1);
       for (i = 0; i < b_loop_ub; i++) {
-        A[i] = r2[i];
+        A[i] = r[i];
       }
 
       //  How many dimensions are sampled?
@@ -270,9 +310,9 @@ namespace RAT
 
       //  Make sure that at least one dimension is selected!
       if (A.size(1) == 0) {
-        coder::randperm(DREAMPar->nParams, a);
+        coder::randperm(DREAMPar->nParams, b_a);
         A.set_size(1, 1);
-        A[0] = a[0];
+        A[0] = b_a[0];
         D = 1;
       }
 
@@ -300,10 +340,10 @@ namespace RAT
           }
         }
 
-        r5.set_size(loop_ub, d_loop_ub);
+        r3.set_size(loop_ub, d_loop_ub);
         for (i = 0; i < d_loop_ub; i++) {
           for (i1 = 0; i1 < loop_ub; i1++) {
-            r5[i1 + r5.size(0) * i] = X[(static_cast<int32_T>(r2_data[i1]) +
+            r3[i1 + r3.size(0) * i] = X[(static_cast<int32_T>(r2_data[i1]) +
               X.size(0) * i) - 1];
           }
         }
@@ -313,15 +353,15 @@ namespace RAT
         for (i = 0; i < loop_ub; i++) {
           c_loop_ub = b.size(0);
           for (i1 = 0; i1 < c_loop_ub; i1++) {
-            b_b[i1 + b_b.size(0) * i] = b[i1 + b.size(0) * i] - r5[i1 + r5.size
+            b_b[i1 + b_b.size(0) * i] = b[i1 + b.size(0) * i] - r3[i1 + r3.size
               (0) * i];
           }
         }
 
-        coder::blockedSummation(b_b, b_loop_ub_tmp, r1);
+        coder::blockedSummation(b_b, b_loop_ub_tmp, y);
         for (i = 0; i < b_loop_ub; i++) {
           dx[b_i + dx.size(0) * i] = (rnd_jump[b_i + rnd_jump.size(0) * i] + 1.0)
-            * r1[i] + eps[b_i + eps.size(0) * i];
+            * y[i] + eps[b_i + eps.size(0) * i];
         }
 
         //  Set CR to -1 so that this jump does not count for calculation of pCR
@@ -334,46 +374,46 @@ namespace RAT
           1];
 
         //  Calculate jump
-        r3.set_size(A.size(1));
+        r1.set_size(A.size(1));
         b_loop_ub = A.size(1);
         for (i = 0; i < b_loop_ub; i++) {
-          r3[i] = A[i];
+          r1[i] = A[i];
         }
 
-        r4.set_size(b_loop_ub_tmp, r3.size(0));
-        b_loop_ub = r3.size(0);
+        r2.set_size(b_loop_ub_tmp, r1.size(0));
+        b_loop_ub = r1.size(0);
         for (i = 0; i < b_loop_ub; i++) {
           for (i1 = 0; i1 < b_loop_ub_tmp; i1++) {
-            r4[i1 + r4.size(0) * i] = X[(static_cast<int32_T>(r1_data[i1]) +
-              X.size(0) * (static_cast<int32_T>(r3[i]) - 1)) - 1];
+            r2[i1 + r2.size(0) * i] = X[(static_cast<int32_T>(r1_data[i1]) +
+              X.size(0) * (static_cast<int32_T>(r1[i]) - 1)) - 1];
           }
         }
 
-        r6.set_size(loop_ub, r3.size(0));
-        b_loop_ub = r3.size(0);
+        r4.set_size(loop_ub, r1.size(0));
+        b_loop_ub = r1.size(0);
         for (i = 0; i < b_loop_ub; i++) {
           for (i1 = 0; i1 < loop_ub; i1++) {
-            r6[i1 + r6.size(0) * i] = X[(static_cast<int32_T>(r2_data[i1]) +
-              X.size(0) * (static_cast<int32_T>(r3[i]) - 1)) - 1];
+            r4[i1 + r4.size(0) * i] = X[(static_cast<int32_T>(r2_data[i1]) +
+              X.size(0) * (static_cast<int32_T>(r1[i]) - 1)) - 1];
           }
         }
 
-        b_b.set_size(r4.size(0), r4.size(1));
-        loop_ub = r4.size(1);
+        b_b.set_size(r2.size(0), r2.size(1));
+        loop_ub = r2.size(1);
         for (i = 0; i < loop_ub; i++) {
-          b_loop_ub = r4.size(0);
+          b_loop_ub = r2.size(0);
           for (i1 = 0; i1 < b_loop_ub; i1++) {
-            b_b[i1 + b_b.size(0) * i] = r4[i1 + r4.size(0) * i] - r6[i1 +
-              r6.size(0) * i];
+            b_b[i1 + b_b.size(0) * i] = r2[i1 + r2.size(0) * i] - r4[i1 +
+              r4.size(0) * i];
           }
         }
 
-        coder::blockedSummation(b_b, b_loop_ub_tmp, r1);
-        loop_ub = r3.size(0);
+        coder::blockedSummation(b_b, b_loop_ub_tmp, y);
+        loop_ub = r1.size(0);
         for (i = 0; i < loop_ub; i++) {
-          b_loop_ub = static_cast<int32_T>(r3[i]) - 1;
+          b_loop_ub = static_cast<int32_T>(r1[i]) - 1;
           dx[b_i + dx.size(0) * b_loop_ub] = (rnd_jump[b_i + rnd_jump.size(0) *
-            b_loop_ub] + 1.0) * gamma_D * r1[i] + eps[b_i + eps.size(0) *
+            b_loop_ub] + 1.0) * gamma_D * y[i] + eps[b_i + eps.size(0) *
             b_loop_ub];
         }
       }

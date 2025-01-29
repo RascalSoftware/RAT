@@ -304,14 +304,6 @@ namespace RAT
       }
     }
 
-    void b_rand(int32_T varargin_1, ::coder::array<real_T, 1U> &r)
-    {
-      r.set_size(varargin_1);
-      for (int32_T k{0}; k < varargin_1; k++) {
-        r[k] = eml_rand_mt19937ar(state);
-      }
-    }
-
     void b_rand(real_T varargin_2, ::coder::array<real_T, 2U> &r)
     {
       int32_T i;

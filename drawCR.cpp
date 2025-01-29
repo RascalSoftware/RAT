@@ -12,8 +12,8 @@
 #include "drawCR.h"
 #include "RATMain_types.h"
 #include "multrnd.h"
+#include "randSample.h"
 #include "randperm.h"
-#include "randsample.h"
 #include "reshapeSizeChecks.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
@@ -31,7 +31,7 @@ namespace RAT
     real_T L2_data[4];
     real_T L_data[3];
     real_T tmp_data[3];
-    int32_T L_size[2];
+    int32_T tmp_size[2];
 
     //  Generates CR values based on current crossover probabilities
     if (DREAMPar->adaptPCR) {
@@ -43,7 +43,7 @@ namespace RAT
       //  If crossover probabilities are updated
       //  How many candidate points for each crossover value?
       multrnd(DREAMPar->nChains * DREAMPar->steps, pCR_data, pCR_size, L_data,
-              L_size);
+              tmp_size);
       L_data[1] += L_data[0];
       L_data[2] += L_data[1];
       L2_data[0] = 0.0;
@@ -104,11 +104,13 @@ namespace RAT
       int32_T DREAMPar_tmp_tmp;
 
       //  If crossover probabilities are not updated
+      tmp_size[0] = 1;
+      tmp_size[1] = 3;
       tmp_data[0] = 0.33333333333333331;
       tmp_data[1] = 0.66666666666666663;
       tmp_data[2] = 1.0;
-      coder::randsample(tmp_data, DREAMPar->steps * DREAMPar->nChains, pCR_data,
-                        r);
+      randSample(tmp_data, tmp_size, DREAMPar->steps * DREAMPar->nChains,
+                 pCR_data, r);
       DREAMPar_idx_0_tmp = static_cast<int32_T>(DREAMPar->nChains);
       DREAMPar_tmp_tmp = static_cast<int32_T>(DREAMPar->steps);
       CR.set_size(DREAMPar_idx_0_tmp, DREAMPar_tmp_tmp);

@@ -7,16 +7,16 @@ thisPath = pwd;
 % Go to the correct compile directory
 compilePath = fullfile(thisPath,'compile','reflectivityCalculation');
 cd(compilePath);
-reflectivityCalculationCompileScript
+reflectivityCalculationMexBuild;
 
 compilePath = fullfile(thisPath,'compile','fullCompile');
 cd(compilePath);
-ratMainCompileScript;
+ratMainMexBuild;
 ratMainCodeGen;
 
 compilePath = fullfile(thisPath,'compile','customWrapper');
 cd(compilePath);
-wrapperCompileScript;
+wrapperMexBuild;
 
 % Return to RAT root directory
 cd(thisPath);

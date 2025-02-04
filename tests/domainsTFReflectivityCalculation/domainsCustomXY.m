@@ -1,7 +1,7 @@
 function project = domainsCustomXY()
     project = createProject(calcType="domains");
-    project.setModelType('custom XY');
-    project.setGeometry('air/substrate');
+    project.modelType = 'custom XY';
+    project.geometry = 'air/substrate';
     
     params = {{'Oxide thick',   10,         20,     50,     true}
               {'Layer thick',   150,        300,    500,    true}

@@ -28,9 +28,9 @@ thisProjectClass = createProject(name=projectName, model=problem.module.type);
 
 % Set geometry
 if strcmpi(problem.module.experiment_type, 'Air / Liquid (or solid)')
-    thisProjectClass.setGeometry(geometryOptions.AirSubstrate.value);
+    thisProjectClass.geometry = geometryOptions.AirSubstrate.value;
 else
-    thisProjectClass.setGeometry(geometryOptions.SubstrateLiquid.value);
+    thisProjectClass.geometry = geometryOptions.SubstrateLiquid.value;
 end
 
 % Set parameters block

@@ -1,8 +1,8 @@
 %% Simple example of a layer containing domains using a custom XY model
 
 problem = createProject(calcType="domains");
-problem.setModelType('custom XY');
-problem.setGeometry('substrate/liquid');
+problem.modelType = 'custom XY';
+problem.geometry = 'substrate/liquid';
 
 % Make some parameters...
 params = {{'Oxide thick',   10,         20,         50,     true}

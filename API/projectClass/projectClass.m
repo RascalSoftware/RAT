@@ -15,23 +15,23 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     
     properties
         experimentName
+        modelType = modelTypes.StandardLayers.value
         geometry
+        showPriors = false
+
         parameters          % parametersClass object
         layers              % layersClass object
         bulkIn              % parametersClass object
-        bulkOut             % parametersClass object
-        background          % backgroundsClass object
+        bulkOut             % parametersClass object  
         scalefactors        % parametersClass object
-        resolution          % resolutionClass object
-        contrasts           % contrastsClass object
         data                % dataClass object
         customFile          % Custom file object
-
-        modelType = modelTypes.StandardLayers.value
-        showPriors = false
+        background          % backgroundsClass object
+        resolution          % resolutionClass object
+        contrasts           % contrastsClass object
     end
 
-    properties (SetObservable, AbortSet)
+    properties (AbortSet)
         absorption {mustBeA(absorption,'logical')} = false
     end
 
@@ -77,7 +77,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.calculationType = validateOption(calculationType, 'calculationTypes', invalidTypeMessage).value;
 
             invalidModelMessage = sprintf('modelType must be a modelTypes enum or one of the following strings (%s)', ...
-                                         strjoin(modelTypes.values(), ', '));
+                             strjoin(modelTypes.values(), ', '));
 
             obj.modelType = validateOption(modelType, 'modelTypes', invalidModelMessage).value;
 
@@ -99,12 +99,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.protectedParameters = cellstr(obj.parameters.getNames');
 
             % Initialise the layers table. Then set the value of
-            % absorption, listen for any changes, and modify the layers
-            % table accordingly
+            % absorption, which will modify the layers table accordingly
             if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
                 obj.layers = layersClass();
             end
-            addlistener(obj, 'absorption', 'PostSet', @obj.modifyLayersTable);
             obj.absorption = absorption;
             
             % Initialise bulkIn table
@@ -133,7 +131,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.resolution = resolutionsClass(resolutionParams, resolutions);
 
             % Initialise contrasts object
-            obj.contrasts = contrastsClass();               
+            obj.contrasts = contrastsClass();
         end
 
         function delete(obj)
@@ -153,50 +151,46 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         end
 
         function set.showPriors(obj, flag)
-            % Setter for the showPriors property. It indicate priors 
-            % should be visible when printing the project. The flag should 
-            % be a boolean/logical.
+            % Setter for the showPriors property. It indicates whether
+            % priors should be visible when printing the project. The flag
+            % should be a boolean/logical.
             if ~islogical(flag)
                 throw(exceptions.invalidType('Show priors must be true or false'));
             end
             obj.showPriors = flag;
         end
+
+        function set.absorption(obj, absorption)
+            % Setter for the absorption property. It states whether we
+            % allow an imaginary component for the SLD value in layers.
+            % The flag should be a boolean/logical.
+            if ~islogical(absorption)
+                throw(exceptions.invalidType('absorption must be true or false'));
+            end
+            obj.absorption = absorption;
+            obj.modifyLayersTable();
+        end
         
-        function obj = setGeometry(obj, geometry)
-            % Sets the experiment geometry. The geometry should be a string,  
-            % either "Air/Substrate" or "Substrate/Liquid" is permitted.
-            %
-            % project.setGeometry('Substrate/liquid');
+        function set.geometry(obj, geometry)
+            % Setter for the experiment geometry. The geometry should be a
+            % string, either "Air/Substrate" or "Substrate/Liquid" are
+            % permitted.
             invalidTypeMessage = sprintf('Geometry must be a geometryOptions enum or one of the following strings (%s)', ...
                                          strjoin(geometryOptions.values(), ', '));
             obj.geometry = validateOption(geometry, 'geometryOptions', invalidTypeMessage).value;
         end
 
-        function obj = setModelType(obj, modelType)
-            % Sets the experiment type. The type should be a string,  
-            % either "standard layers", "custom layers", or "custom xy" is
-            % permitted.
-            %
-            % project.setModelType('Custom Layers');
+        function set.modelType(obj, modelType)
+            % Setter for the model type used in the experiment. The type
+            % should be a string, either "standard layers", "custom layers",
+            % or "custom xy" are permitted.
             oldModel = obj.modelType;
+
             invalidTypeMessage = sprintf('Experiment type must be a modelTypes enum or one of the following strings (%s)', ...
                                          strjoin(modelTypes.values(), ', '));
             obj.modelType = validateOption(modelType, 'modelTypes', invalidTypeMessage).value;
 
-            % Need to adjust layers and contrasts for new model type
-            if ~strcmpi(obj.modelType, oldModel)
-                for i=1:obj.contrasts.numberOfContrasts
-                    obj.contrasts.contrasts{i}.model = '';
-                end
-            end
-
-            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
-                if ~isa(obj.layers, 'layersClass')
-                    obj.layers = layersClass();
-                end
-            else
-                obj.layers = [];
-            end
+            obj.setLayersAndContrasts(oldModel);
         end
 
         function names = getDataAndFunctionNames(obj)
@@ -1050,7 +1044,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
     methods (Access = protected, Hidden)
 
-        function modifyLayersTable(obj,~,~)
+        function modifyLayersTable(obj)
             % Add or remove a column from the layers table whenever the
             % "absorption" property is modified.
             if isa(obj.layers, 'layersClass')
@@ -1061,6 +1055,27 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 else
                     obj.layers.varTable = removevars(obj.layers.varTable, 'SLD Imaginary');
                     obj.layers.varTable = renamevars(obj.layers.varTable, 'SLD Real', 'SLD');
+                end
+            end
+        end
+
+        function setLayersAndContrasts(obj, oldModel)
+            % Adjust layers and contrast objects when the model type is
+            % changed.
+
+            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
+                if ~isa(obj.layers, 'layersClass')
+                    obj.layers = layersClass();
+                end
+            else
+                obj.layers = [];
+            end
+
+            if isa(obj.contrasts, 'contrastsClass')
+                if ~strcmpi(obj.modelType, oldModel)
+                    for i=1:obj.contrasts.numberOfContrasts
+                        obj.contrasts.contrasts{i}.model = '';
+                    end
                 end
             end
         end

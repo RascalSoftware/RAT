@@ -4,8 +4,8 @@ function project = domainsCustomLayers()
     % as a test
     
     project = createProject(calcType="domains");
-    project.setModelType('custom layers');
-    project.setGeometry('substrate/liquid');
+    project.modelType = 'custom layers';
+    project.geometry = 'substrate/liquid';
     
     params = {{'Alloy thick',   100,    150,    200,   true}
               {'Alloy SLD up',  9e-6,   11e-6,  13e-6, true}

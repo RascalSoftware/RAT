@@ -4,8 +4,8 @@
 % as a test
 
 problem = createProject(calcType="domains");
-problem.setModelType('custom layers');
-problem.setGeometry('substrate/liquid');
+problem.modelType = 'custom layers';
+problem.geometry = 'substrate/liquid';
 
 % Make some parameters...
 params = {{'Alloy thick',   100,    150,    200,   true}

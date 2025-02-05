@@ -10,8 +10,8 @@ function project = orsoDSPCCustomLayers()
 % Start by making the class and setting it to a custom layers type:
 
 project = projectClass('Orso lipid example - custom layers');
-project.setModelType('custom layers');
-project.setGeometry('Substrate/liquid');
+project.modelType = 'custom layers';
+project.geometry = 'Substrate/liquid';
 project.showPriors = true;
 
 %%  

@@ -5,8 +5,8 @@ function project = DPPCCustomXYScript()
 project = projectClass('Custom DPPC');
 
 % Set the experiment type and geometry
-project.setModelType('custom XY');
-project.setGeometry('Substrate/liquid');
+project.modelType = 'custom XY';
+project.geometry = 'Substrate/liquid';
 
 % Add some parameters....
 Parameters = {
@@ -97,6 +97,5 @@ project.addContrast('name','Bilayer / H2O',...
 project.setContrastModel(1,'DPPC Model');
 project.setContrastModel(2,'DPPC Model');
 project.setContrastModel(3,'DPPC Model');
-
 
 end

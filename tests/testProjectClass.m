@@ -149,13 +149,16 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Test default geometry
             testCase.verifyEqual(testCase.project.geometry, geometryOptions.AirSubstrate.value, 'Geometry not set correctly');
             % Test possible model type with varied case
-            testCase.project.setGeometry(geometryOptions.SubstrateLiquid);
+            testCase.project.geometry = geometryOptions.SubstrateLiquid;
             testCase.verifyEqual(testCase.project.geometry, geometryOptions.SubstrateLiquid.value, 'Geometry not set correctly');
-            testCase.project.setGeometry('aIr/SuBstRate');
+            testCase.project.geometry = 'aIr/SuBstRate';
             testCase.verifyEqual(testCase.project.geometry, geometryOptions.AirSubstrate.value, 'Geometry not set correctly');
             % Test bad inputs 
-            testCase.verifyError(@() testCase.project.setGeometry('anything'), exceptions.invalidOption.errorID)
-            testCase.verifyError(@() testCase.project.setGeometry(2), exceptions.invalidOption.errorID)
+            testCase.verifyError(@() setGeometry('anything'), exceptions.invalidOption.errorID)
+            testCase.verifyError(@() setGeometry(2), exceptions.invalidOption.errorID)
+            function setGeometry(value)
+                testCase.project.geometry = value;
+            end
         end
 
         function testModelType(testCase)
@@ -165,23 +168,26 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.modelType, modelTypes.StandardLayers.value, 'Model type not set correctly');
             testCase.verifyClass(testCase.project.layers, 'layersClass', 'Layers class not initialised correctly')
             % Test resetting retains layers
-            testCase.project.setModelType('standard layers');
+            testCase.project.modelType = 'standard layers';
             testCase.verifyEqual(testCase.project.modelType, modelTypes.StandardLayers.value, 'Model type not set correctly');
             testCase.verifyClass(testCase.project.layers, 'layersClass', 'Layers class not initialised correctly')
             testCase.verifyEqual(testCase.project.layers.rowCount, 2, 'Layers object wrongly reset');
             % Test possible model type with varied case
-            testCase.project.setModelType(modelTypes.CustomLayers);
+            testCase.project.modelType = modelTypes.CustomLayers;
             testCase.verifyEqual(testCase.project.modelType, modelTypes.CustomLayers.value, 'Model type not set correctly');
             testCase.verifyThat(testCase.project.layers, ~matlab.unittest.constraints.IsOfClass('layersClass'), 'Layers class not initialised correctly');
-            testCase.project.setModelType('Custom XY');
+            testCase.project.modelType = 'Custom XY';
             testCase.verifyEqual(testCase.project.modelType, modelTypes.CustomXY.value, 'Model type not set correctly');
             testCase.verifyThat(testCase.project.layers, ~matlab.unittest.constraints.IsOfClass('layersClass'), 'Layers class not initialised correctly');
-            testCase.project.setModelType('STANDARD LAYERS');
+            testCase.project.modelType = 'STANDARD LAYERS';
             testCase.verifyEqual(testCase.project.modelType, modelTypes.StandardLayers.value, 'Model type not set correctly');
             testCase.verifyClass(testCase.project.layers, 'layersClass', 'Layers class not initialised correctly')
             % Test bad inputs 
-            testCase.verifyError(@() testCase.project.setModelType('anything'), exceptions.invalidOption.errorID)
-            testCase.verifyError(@() testCase.project.setModelType(2), exceptions.invalidOption.errorID)
+            testCase.verifyError(@() setModelType('anything'), exceptions.invalidOption.errorID)
+            testCase.verifyError(@() setModelType(2), exceptions.invalidOption.errorID)
+            function setModelType(value)
+                testCase.project.modelType = value;
+            end
         end
 
         function testShowPriors(testCase)

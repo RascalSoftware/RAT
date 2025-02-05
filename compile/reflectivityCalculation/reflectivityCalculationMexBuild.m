@@ -16,4 +16,4 @@ includeDirs = getappdata(0,'includeDirs');
 includes = cell(length(includeDirs)*2, 1);
 includes(1:2:end) = {'-I'};
 includes(2:2:end) = includeDirs;
-codegen('reflectivityCalculation', '-config', cfg, '-args',  ARGS{1}, includes{:}); %s -config cfg reflectivityCalculation -args ARGS{1}'
+codegen('reflectivityCalculation', '-globals', '{"DEBUG", 0}', '-config', cfg, '-args',  ARGS{1}, includes{:});

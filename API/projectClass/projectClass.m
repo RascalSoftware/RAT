@@ -67,7 +67,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 calculationType = calculationTypes.Normal
                 modelType = modelTypes.StandardLayers
                 geometry = geometryOptions.AirSubstrate
-                absorption {mustBeA(absorption,'logical')} = false
+                absorption {logical} = false
             end
 
             % Validate input options

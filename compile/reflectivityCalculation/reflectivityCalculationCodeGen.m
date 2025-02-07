@@ -1,11 +1,8 @@
-% REFLECTIVITY_CALCULATION_CODEONLY_SCRIPT   Generate static library
-%  reflectivityCalculation from reflectivityCalculation.
+% reflectivityCalculationCodeGen   
 % 
-% Script generated from project 'reflectivityCalculation.prj' on 07-Jul-2021.
-% 
-% See also CODER, CODER.CONFIG, CODER.TYPEOF, CODEGEN.
+% Generates C++ source code from reflectivityCalculation.
 
-%% Create configuration object of class 'coder.CodeConfig'.
+% Create configuration object of class 'coder.CodeConfig'.
 cfg = coder.config('lib');
 cfg.GenerateReport = true;
 cfg.ReportPotentialDifferences = false;
@@ -17,14 +14,13 @@ cfg.TargetLang = 'C++';
 cfg.PreserveVariableNames = 'UserNames';
 cfg.CppNamespace = 'RAT';
 cfg.PreserveArrayDimensions = true;
-%cfg.MATLABSourceComments = true;
 cfg.CodeFormattingTool = 'MathWorks';
 cfg.RunInitializeFcn = false;
 cfg.DataTypeReplacement = 'CoderTypeDefs';
 
 ARGS = makeCompileArgs();
 
-%% Invoke MATLAB Coder.
+% Invoke MATLAB Coder.
 includeDirs = getappdata(0,'includeDirs');
 includes = cell(length(includeDirs)*2, 1);
 includes(1:2:end) = {'-I'};

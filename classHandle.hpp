@@ -33,6 +33,7 @@ private:
 class CallbackInterface
 {
 public:
+    virtual ~CallbackInterface() = default;
     virtual void invoke(std::vector<double>& params, std::vector<double>& bulk_in, std::vector<double>& bulk_out, 
                         int contrast, std::vector<double>& tempOutput, double *outputSize, double *roughness)=0;
     virtual void invoke(std::vector<double>& params, std::vector<double>& bulk_in, std::vector<double>& bulk_out, 

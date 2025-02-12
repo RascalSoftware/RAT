@@ -1,6 +1,6 @@
-function output_data = readOrso(filename)
-% Read data from an .ort file. 
-% 
+function outputData = readOrso(filename)
+% Read data from an .ort file.
+%
 % Parameters
 % ----------
 % filename : string
@@ -11,12 +11,28 @@ function output_data = readOrso(filename)
 % output_data : array
 %   The data array from the .ort file.
 
-  text = fileread(filename);
-  % match any line that doesn't start with '#'
-  % i.e. remove the header
-  expr = '^[^#].+';
+f = fopen(filename);
 
-  match = regexp(text, expr, 'match', 'lineanchors');
-  output_data = str2num(match{1});
+outputData = {};
+currentlyReading = false;
+currentData = "";
+
+while ~feof(f)
+    line = fgetl(f);
+    if startsWith(line, '#')
+        if currentlyReading && currentData ~= ""
+            outputData{length(outputData) + 1} = str2num(currentData);
+            currentData = "";
+        end
+        currentlyReading = false;
+    else
+        if ~currentlyReading
+            currentData = line;
+        else
+            currentData = append(currentData, newline, line);
+        end
+        currentlyReading = true;
+    end
 end
-
+outputData{length(outputData) + 1} = str2num(currentData);
+end

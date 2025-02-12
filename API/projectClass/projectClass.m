@@ -219,6 +219,15 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             if isa(obj.layers, 'layersClass')
                 names.layerNames = obj.layers.getNames();
             end
+            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
+                if strcmpi(obj.calculationType, calculationTypes.Domains.value)
+                    names.modelNames = obj.domainContrasts.getNames();
+                else
+                    names.modelNames = obj.layers.getNames();
+                end
+            else
+                names.modelNames = obj.customFile.getNames();
+            end
         end
         
         % ---------------------------------  
@@ -770,7 +779,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % 
             % project.addContrast('contrast 1', 'bulkIn', 'Silicon');
             allowedNames = obj.getAllAllowedNames;
-            obj.contrasts.addContrast(allowedNames, varargin{:});   
+            obj.contrasts.addContrast(obj.modelType, allowedNames, varargin{:});
         end
 
         function obj = removeContrast(obj, row)
@@ -793,7 +802,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             allowedValues = obj.getAllAllowedNames;
             
             % Call the setContrast method
-            obj.contrasts.setContrast(row, allowedValues, varargin{:});
+            obj.contrasts.setContrast(row, obj.modelType, allowedValues, varargin{:});
         end
         
         function obj = setContrastModel(obj, row, model)
@@ -804,16 +813,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             %
             % project.setContrastModel(1, {'layer 1'})
             % project.setContrastModel(1:3, {'layer 1'})
-                        
-            % Make a different allowed list depending on whether 
-            % it is custom or layers
-            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
-                % Standard Layers
-                allowedValues = obj.layers.getNames();
-            else
-                % Custom models
-                allowedValues = obj.customFile.getNames();
-            end
+            allowedValues = obj.getAllAllowedNames.modelNames;
             
             % Call the setContrastModel method
              if isText(row)

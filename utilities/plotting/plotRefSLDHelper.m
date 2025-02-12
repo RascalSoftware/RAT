@@ -1,15 +1,46 @@
 function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, showLegend)
-    % Helper function to make it easier to plot from event. 
+    % Helper function to plot the reflectivity and SLD profiles from plot event struct. 
+    % Most users never need to use this function, rather use ``useLivePlot`` for live 
+    % plotting or ``plotRefSLD`` for simple SLD plots. 
     %
-    % - Data is a struct with the plot data.
-    % - noDelay indicates if draw should be delayed.
-    % - linearX indicates that the X axis should be linear scale instead of log.
-    % - q4 indicates that the Y axis should plot Q^4.
-    % - showErrorBars indicates that the error bar should be shown in the plot
-    % - showGrid indicates that the grid should be shown in the plot
-    % - showLegend indicates that the legend should be shown in the plot
+    % Example Usage::
+    % 
+    %    plotRefSLDHelper(data, false);
     %
-    % plotRefSLDHelper(data, false);
+    % `data` is a struct created by the RAT plot event. This struct can be created as shown below::
+    % 
+    %    [projectStruct,~,~,~] = parseClassToStructs(project,controls);
+    %
+    %    data.modelType = project.modelType;
+    %    data.reflectivity = result.reflectivity;
+    %    data.shiftedData = result.shiftedData;
+    %    data.sldProfiles = result.sldProfiles;
+    %    data.resampledLayers = result.resampledLayers;
+    %    data.dataPresent = projectStruct.dataPresent;
+    %    data.subRoughs = result.contrastParams.subRoughs;
+    %    data.resample = projectStruct.resample;
+    %    data.contrastNames = projectStruct.names.contrasts;
+    %
+    % Where `project` is an instance of the ``projectClass``, `controls` is an instance of ``controlsClass`` and `result` is 
+    % the result struct from the RAT calculation. 
+    %
+    % Parameters
+    % ----------
+    % data : struct
+    %    A plot event struct.
+    % noDelay : logical, default: true
+    %    Indicates if draw should be delayed.
+    % linearX : logical, default: false
+    %    Indicates if the X axis should be linear scale instead of log.
+    % q4 : logical, default: false
+    %    Indicates if the Y axis should plot Q^4.
+    % showErrorBar : logical, default: true
+    %    Indicates if the error bar should be shown.
+    % showGrid : logical, default: false
+    %    Indicates if the grid should be shown.
+    % showLegend : logical, default: true
+    %    Indicates if the legend should be shown.    
+
     arguments
         data
         noDelay {logical} = true

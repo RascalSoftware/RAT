@@ -7,7 +7,7 @@ function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, sh
     % 
     %    plotRefSLDHelper(data, false);
     %
-    % `data` is a struct created by the RAT plot event. This struct can be created a shown below::
+    % `data` is a struct created by the RAT plot event. This struct can be created as shown below::
     % 
     %    [projectStruct,~,~,~] = parseClassToStructs(project,controls);
     %

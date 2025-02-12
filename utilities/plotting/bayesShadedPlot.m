@@ -15,7 +15,7 @@ function bayesShadedPlot(project, result, options)
 %    Keyword/value pair to configure plotting, the following are allowed
 %       * q4 (logical, default: false) indicates if the Y axis should plot Q^4
 %       * keepAxes (logical, default: false) indicates if the figure should be used without clearing axes.
-%       * interval (65 or 95, default: 95) Bayesian confidence interval
+%       * interval (65 or 95, default: 95) Bayesian confidence interval to shade in the plot.
 %       * showLegend (logical, default: false) indicates if the legend should be shown.
 
 arguments

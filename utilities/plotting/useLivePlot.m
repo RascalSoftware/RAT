@@ -1,6 +1,6 @@
 classdef useLivePlot < handle
     % Sets up a live plot on a given figure. The live plot listens for plot events from the RAT calculation and
-	% redraws the plot every time an event is recieved.	
+    % redraws the plot every time an event is received.	
     %
     % Example Usage::
     % 

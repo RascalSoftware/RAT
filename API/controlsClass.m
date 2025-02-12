@@ -2,7 +2,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
     % ``controlsClass`` determines how RAT works. It allows the user to interact with the software, by choosing how to parallelise, 
     % whether to calculate the SLD during a fit, how many iterations an algorithm should do and more.
     %
-    % There are 5 different procedures availalble for calculations in RAT. They are: 
+    % There are 5 different procedures available for calculations in RAT. They are: 
     %  
     % * Calculate
     % * Simplex
@@ -331,17 +331,17 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         
         
         function obj = setProcedure(obj, procedure, varargin)
-		    % Sets the properties of the controls object based on the selected procedures
-			% 
-			% Example Usage::
-			% 
-			%    controls = controlsClass();
+            % Sets the properties of the controls object based on the selected procedures
+            % 
+            % Example Usage::
+            % 
+            %    controls = controlsClass();
             %    controls.setProcedure('simplex', 'xTolerance', 1e-6, 'funcTolerance', 1e-6,'maxFuncEvals', 1000);
             %    controls.setProcedure('dream');  % This will use default DREAM options 
             %    controls.setProcedure('ns', 'nLive', 150,'nMCMC', 0, 'propScale', 0.1, 'nsTolerance', 0.1);
-			%
-			% Parameters
-			% ----------
+            %
+            % Parameters
+            % ----------
             % procedure : str or procedures
             %    Which procedure RAT should execute. Can be 'calculate', 'simplex', 'de', 'ns', or 'dream'.
             % varargin
@@ -395,12 +395,12 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         end
         
         function obj = initialiseIPC(obj)
-			% Creates and initialises the inter-process communication file
-			%
-			% Usage::
-			% 
-			%    controls = controlsClass();
-			%    controls.initialiseIPC(); 
+            % Creates and initialises the inter-process communication file
+            %
+            % Usage::
+            % 
+            %    controls = controlsClass();
+            %    controls.initialiseIPC(); 
             obj.IPCFilePath = tempname();
             fileID = fopen(obj.IPCFilePath, 'w');
             fwrite(fileID, false, 'uchar');
@@ -408,12 +408,12 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         end
         
         function path = getIPCFilePath(obj)
-			% Returns the path of the IPC file.
-			%
-			% Usage::
-			% 
-			%    controls = controlsClass();
-			%    path = controls.getIPCFilePath();
+            % Returns the path of the IPC file.
+            %
+            % Usage::
+            % 
+            %    controls = controlsClass();
+            %    path = controls.getIPCFilePath();
             %
             % Returns
             % -------
@@ -423,12 +423,12 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         end
         
         function obj = sendStopEvent(obj)
-			% Sends the stop event via IPC file.
-			%
-			% Usage::
-			% 
-			%    controls = controlsClass();
-			%    controls.sendStopEvent();
+            % Sends the stop event via IPC file.
+            %
+            % Usage::
+            % 
+            %    controls = controlsClass();
+            %    controls.sendStopEvent();
             if isempty(obj.IPCFilePath)
                 return
             end

@@ -38,18 +38,35 @@ classdef domainContrastsClass < baseContrasts
             contrastStruct.contrastLayers = contrastLayers;
         end
 
-        function inputBlock = parseContrastInput(~, ~, ~, inputValues)
+        function inputBlock = parseContrastInput(~, ~, allowedNames, inputValues)
             % Parse the parameters given for the contrast, assigning
             % default values to those unspecified and ensuring specified
             % values are of the correct type, and included in the list of
             % allowed names where necessary.
             %
-            % contrastsClass.parseContrastInput('name', 'Contrast Name')        
+            % contrastsClass.parseContrastInput(~, allowedNames, 'name', 'Contrast Name')        
             defaultName = '';
-        
+            defaultModel = '';
+
+            expectedModel = cellstr(allowedNames.modelNames);
+
             p = inputParser;
-            addParameter(p,'name',          defaultName,        @isText);
-                
+            p.PartialMatching = false;
+
+            addParameter(p,'name',          defaultName,  @isText);
+            addParameter(p,'model',         defaultModel, @(x) validateDomainContrastModel(x,expectedModel));
+
+            % Set up the model validator
+            function validateDomainContrastModel(model, allowedModelNames)
+                modelArray = cellstr(model);
+
+                for i = 1:length(modelArray)
+                    if ~strcmpi(modelArray{i}, allowedModelNames)
+                        throw(exceptions.nameNotRecognised(sprintf('Model component name "%s" is not recognised. The allowed names are: "%s".', modelArray{i}, strjoin(allowedModelNames, '", "'))));
+                    end
+                end
+            end
+
             parse(p, inputValues{:});
             inputBlock = p.Results;
         end
@@ -59,8 +76,11 @@ classdef domainContrastsClass < baseContrasts
 
         function contrast = setDefaultValues(contrast)
             % Set non-empty default values when adding a contrast.
-            contrast.model = '';
+            if ~isempty(contrast.model)
+                contrast.model = cellstr(contrast.model);
+            end
         end
+
     end
 
 end

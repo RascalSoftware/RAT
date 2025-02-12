@@ -6,8 +6,6 @@ classdef testDomainContrastsClass < matlab.unittest.TestCase
 % We use an example contrasts class from the example calculation
 % "DPPC_standard_layers.m".
 %
-% Paul Sharp 27/06/23
-%
 %% Declare properties and parameters
 
     properties
@@ -31,6 +29,7 @@ classdef testDomainContrastsClass < matlab.unittest.TestCase
             % custom file names from "orsoDSPC_custLay_script.m" and
             % "DPPC_customXY.m"
             testCase.allowedNames = struct( ...
+                'modelNames',  ["Oxide Layer" "Water Layer" "Bil inner head" "Bil tail" "Bil outer head"], ...
                 'layerNames',  ["Oxide Layer" "Water Layer" "Bil inner head" "Bil tail" "Bil outer head"], ...
                 'customFileNames',  ["DSPC Model" "DPPC Model"] ...
                 );
@@ -47,7 +46,8 @@ classdef testDomainContrastsClass < matlab.unittest.TestCase
 
         function initialiseNewValues(testCase)
             % Create a new set of values for each contrast parameter
-            testCase.newValues = {'name', 'New Sim Contrast'};
+            testCase.newValues = {'name', 'New Sim Contrast', ...
+                                  'model', {'Water Layer', 'Oxide Layer'}};
         end
 
     end
@@ -232,7 +232,9 @@ classdef testDomainContrastsClass < matlab.unittest.TestCase
 
         function testParseContrastInput(testCase)
             expectedContrast = struct( ...
-                'name', 'New Sim Contrast');
+                'name', 'New Sim Contrast', ...
+                'model', {{'Water Layer', 'Oxide Layer'}} ...
+                );
 
             contrastStruct = testCase.exampleClass.parseContrastInput(modelTypes.StandardLayers, testCase.allowedNames, testCase.newValues);
             testCase.verifyEqual(contrastStruct, expectedContrast, 'parseContrastInput does not work correctly');

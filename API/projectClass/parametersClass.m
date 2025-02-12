@@ -132,6 +132,7 @@ classdef parametersClass < tableUtilities
 
             row = obj.getValidRow(row);
             p = inputParser;
+            p.PartialMatching = false;
             addParameter(p, 'name', obj.varTable{row, 1}{:}, @isText);
             addParameter(p, 'min', obj.varTable{row, 2}, @isnumeric);
             addParameter(p, 'value', obj.varTable{row, 3}, @isnumeric);

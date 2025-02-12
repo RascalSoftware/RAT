@@ -33,10 +33,10 @@ function [project,result] = RAT(project,controls)
 % resampledLayers    [nContrasts x nDomains] cell resampled layer values for each contrast 
 %                                                 if resample is true otherwise an array of zeros
 % calculationResults [1 x 1] struct               Chi-squared goodness of fit results. The fields 
-%                                                 are 'chiValues' and 'sumChi'  
+%                                                 are ``chiValues`` and ``sumChi``  
 % contrastParams     [1 x 1] struct               Parameter values for each contrast. The fields are 
-%                                                 'scalefactors', 'bulkIn', 'bulkOut', 'subRoughs', 
-%                                                 and 'resample'
+%                                                 ``scalefactors``, ``bulkIn``, ``bulkOut``, ``subRoughs``, 
+%                                                 and ``resample``
 % fitParams          [1 x nParams] double         fitted parameter values
 % fitNames           [nParams x 1] cell           name of fitted parameters
 % ================== ============================ ===============
@@ -49,15 +49,15 @@ function [project,result] = RAT(project,controls)
 % =================== ==================== ===============
 % predictionIntervals [1 x 1] struct       Mean, 65% and 95% confidence intervals, and chi squared 
 %                                          goodness of fit values for the reflectivity and SLD. The fields 
-%                                          are 'reflectivity', 'sld', and 'sampleChi'
+%                                          are ``reflectivity``, ``sld``, and ``sampleChi``
 % confidenceIntervals [1 x 1] struct       Confidence intervals for the Markov chain. The fields are 
-%                                          'percentile95', 'percentile65', and 'mean'.
+%                                          ``percentile95``, ``percentile65``, and ``mean``.
 % dreamParams         [1 x 1] struct       Parameters used to configure dream. 
 % dreamOutput         [1 x 1] struct       Diagnostic output information from a DREAM run. The fields 
-%                                          are 'allChains', 'outlierChains', 'runtime', 
-%                                          'iteration', 'modelOutput', 'AR', 'R_stat', and 'CR'
-% nestedSamplerOutput [1 x 1] struct       Output from a nested sampler run. The fields are '
-%                                          LogZ', 'LogZErr', 'nestSamples', and 'postSamples'
+%                                          are ``allChains``, ``outlierChains``, ``runtime``, 
+%                                          ``iteration``, ``modelOutput``, ``AR``, ``R_stat``, and ``CR``
+% nestedSamplerOutput [1 x 1] struct       Output from a nested sampler run. The fields are ``LogZ``, 
+%                                          ``LogZErr``, ``nestSamples``, and ``postSamples``
 % chain               [M x nParams] double MCMC chains where M is the length of each chain
 % =================== ==================== ===============
 

@@ -1,7 +1,25 @@
-function bayesShadedPlot(problem, result, options)
-% Plot the shaded reflectivities from Bayes output from RAT
+function bayesShadedPlot(project, result, options)
+% Plots the shaded reflectivities from Bayes output from RAT
+%
+% Example Usage::
+% 
+%    bayesShadedPlot(project, result, 'interval', 65, 'q4', true);
+%
+% Parameters
+% ----------
+% project : projectClass
+%    An instance of the projectClass.
+% result : struct
+%    The result of the RAT Bayesian calculation. 
+% options
+%    Keyword/value pair to configure plotting, the following are allowed
+%       * q4 (logical, default: false) indicates if the Y axis should plot Q^4
+%       * keepAxes (logical, default: false) indicates if the figure should be used without clearing axes.
+%       * interval (65 or 95, default: 95) Bayesian confidence interval to shade in the plot.
+%       * showLegend (logical, default: false) indicates if the legend should be shown.
+
 arguments
-    problem
+    project
     result
     options.q4 {logical} = false
     options.keepAxes {logical} = false
@@ -9,7 +27,7 @@ arguments
     options.showLegend {logical} = true
 end
 
-if isa(problem,'domainsClass')
+if isa(project,'domainsClass')
     isDomains = true;
 else
     isDomains = false;
@@ -31,7 +49,7 @@ fillType = [1 2; 2 1];
 fillAlpha = 0.3;
 
 controls = controlsClass();
-[problemStruct,~,~,~] = parseClassToStructs(problem,controls);
+[projectStruct,~,~,~] = parseClassToStructs(project,controls);
 
 % Get the reflectivities and SLDs
 reflectivityValues = result.predictionIntervals.reflectivity;
@@ -93,7 +111,7 @@ for i = 1:numberOfContrasts
 
 end
 if options.showLegend
-    legend([lines{:}], problemStruct.names.contrasts{:});
+    legend([lines{:}], projectStruct.names.contrasts{:});
 end
 
 % Now plot the SLDs
@@ -115,7 +133,7 @@ if ~isDomains
         min = limits(vals(1),:);
         max = limits(vals(2),:);
 
-        names{i} = problemStruct.names.contrasts{i};
+        names{i} = projectStruct.names.contrasts{i};
         lines{i} = plot(sldXValues,sld,'-');
         shade(sldXValues,min,sldXValues,max,'FillColor',fillColor,'FillType',fillType,'FillAlpha',fillAlpha);
 
@@ -136,7 +154,7 @@ else
 
             thisDomainSldXValues = sldXValues{j}(:,1);
 
-            names{index} = sprintf("%s Domain %d", problemStruct.names.contrasts{i}, j);
+            names{index} = sprintf("%s Domain %d", projectStruct.names.contrasts{i}, j);
             lines{index} = plot(thisDomainSldXValues,sld{j}(3,:),'-');
             shade(thisDomainSldXValues,min,thisDomainSldXValues,max,'FillColor',fillColor,'FillType',fillType,'FillAlpha',fillAlpha);
         end

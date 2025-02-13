@@ -11,7 +11,6 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     % 
     % predictionIntervals: [1×1 struct]
     % confidenceIntervals: [1×1 struct]
-    %           allChains: [1×1 struct]
     %         dreamParams: [1×1 struct]
     %         dreamOutput: [1×1 struct]
     % nestedSamplerOutput: [1×1 struct]

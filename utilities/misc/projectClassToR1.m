@@ -1,20 +1,26 @@
-function newR1Problem = projectClassToR1(r2Problem, varargin)
-% Converts projectClass to r1 struct. Also creates the datafiles directory and saves the 
-% data if asked. The functions takes in a projectClass and other optional arguments then 
-% outputs r1 struct. The optional arguments are:
+function newR1Problem = projectClassToR1(project, varargin)
+% Converts ``projectClass`` instance to RasCAL1 (r1) struct. Also creates the datafiles directory and saves the 
+% data if asked. The functions takes in a ``projectClass`` instance and other optional arguments then outputs r1 struct.
 %
-% r1Problem (struct):    The r1 struct which is updated with equivalent projectClass values. 
-%                        [default] defaultR1ProjectTemplate.mat.
-% dirName (char):        The directory where the files are saved. 
-%                        [default] newDirectory.
-% dirPath (char):        The path where the new directory is created. 
-%                        [default] current directory (pwd).
-% saveproject (logical): A boolean that determines if files are saved. 
-%                        [default] true.
-% fileName (char): The filename of the resulting r1 struct. 
-%                  [default] newFile appended with current timestamp.
+% Example Usage::
+% 
+%     r1Struct = projectClassToR1(project, 'saveProject', false);
 %
-% r1Struct = projectClassToR1(pClass, 'saveProject', false);
+% Parameters
+% ----------
+% project : projectClass
+%    An instance of the ``projectClass`` to convert to r1. 
+% varargin
+%    Keyword/value pair to configure conversion, the following are allowed
+%       * r1Problem (struct, default: defaultR1ProjectTemplate) a r1 struct which will be updated with equivalent projectClass values.
+%       * dirName (string or char array, default: 'newDirectory') directory where the files are saved.
+%       * dirPath (string or char array, default: pwd) path where the new directory is created.
+%       * saveProject (logical, default: false) indicates if files are saved to filesystem.
+%       * fileName (string or char array, default: newFile appended with current timestamp): The filename of the resulting r1 struct.
+% Returns
+% -------
+% newR1Problem : struct
+%    r1 struct which should be equivalent to the given RAT ``projectClass`` instance.
 
 if ~isempty(varargin)
     pars = parseR1Problem(varargin{:});
@@ -38,12 +44,12 @@ if ~isempty(varargin)
 end
 
 % Set name, type and experiment_type
-r1Problem.name = r2Problem.experimentName;
-r1Problem.module.type = r2Problem.modelType;
-r1Problem.module.experiment_type = r2Problem.geometry;
+r1Problem.name = project.experimentName;
+r1Problem.module.type = project.modelType;
+r1Problem.module.experiment_type = project.geometry;
 
 % Set parameter names, values, limits and check boxes
-r2ParamStruct = r2Problem.parameters.toStruct();
+r2ParamStruct = project.parameters.toStruct();
 r1Problem.params = r2ParamStruct.values;
 r1Problem.paramnames = r2ParamStruct.names;
 r1Problem.constr = vertcat(r2ParamStruct.limits{:});
@@ -56,7 +62,7 @@ r1Problem.shiftsNames = {'Shift 1'};
 r1Problem.shifts_constr = [-1e-4 1e-4];
 
 % Set scalefactors
-r2ScalesStruct = r2Problem.scalefactors.toStruct();
+r2ScalesStruct = project.scalefactors.toStruct();
 r1Problem.scalesNames = r2ScalesStruct.names;
 r1Problem.scalefac = r2ScalesStruct.values;
 r1Problem.numberOfScales = length(r2ScalesStruct.names);
@@ -64,7 +70,7 @@ r1Problem.scale_constr = vertcat(r2ScalesStruct.limits{:});
 r1Problem.scalefac_fityesno = r2ScalesStruct.fit;
 
 % Set bulk in
-r2BulkInStruct = r2Problem.bulkIn.toStruct();
+r2BulkInStruct = project.bulkIn.toStruct();
 r1Problem.nbaNames = r2BulkInStruct.names;
 r1Problem.nba = r2BulkInStruct.values;
 r1Problem.numberOfNbas = length(r2BulkInStruct.names);
@@ -72,7 +78,7 @@ r1Problem.nbairs_constr = vertcat(r2BulkInStruct.limits{:});
 r1Problem.nbairs_fityesno = r2BulkInStruct.fit;
 
 % Set bulk out
-r2BulkOutStruct = r2Problem.bulkOut.toStruct();
+r2BulkOutStruct = project.bulkOut.toStruct();
 r1Problem.nbsNames = r2BulkOutStruct.names;
 r1Problem.nbs = r2BulkOutStruct.values;
 r1Problem.numberOfNbss = length(r2BulkOutStruct.names);
@@ -81,7 +87,7 @@ r1Problem.nbsubs_fityesno = r2BulkOutStruct.fit;
 
 % Set resolutions (only use resolutionparams - more advanced resolutions
 % unavaliable in R1)
-r2ResolStruct = r2Problem.resolution.toStruct();
+r2ResolStruct = project.resolution.toStruct();
 r1Problem.resolNames = r2ResolStruct.resolutionParamNames;
 r1Problem.resolution = r2ResolStruct.resolutionParamValues;
 r1Problem.numberOfResolutions = length(r2ResolStruct.resolutionParamNames);
@@ -89,16 +95,16 @@ r1Problem.resolution_constr = vertcat(r2ResolStruct.resolutionParamLimits{:});
 r1Problem.resolution_fityesno = r2ResolStruct.fitResolutionParam;
 
 % Set Backgrounds
-r2BackStruct = r2Problem.background.toStruct();
+r2BackStruct = project.background.toStruct();
 r1Problem.backsNames = r2BackStruct.backgroundParamNames;
 r1Problem.backs = r2BackStruct.backgroundParamValues;
 r1Problem.numberOfBacks = length(r2BackStruct.backgroundParamNames);
 r1Problem.backs_constr = vertcat(r2BackStruct.backgroundParamLimits{:});
 r1Problem.backgrounds_fityesno = r2BackStruct.fitBackgroundParam;
 
-if strcmpi(r2Problem.modelType, modelTypes.StandardLayers.value)
+if strcmpi(project.modelType, modelTypes.StandardLayers.value)
     % Set layers (if modelType is standard layers)
-    layersTable = table2cell(r2Problem.layers.varTable);
+    layersTable = table2cell(project.layers.varTable);
     numberOfLayers = size(layersTable,1);
     
     for i = 1:numberOfLayers
@@ -125,13 +131,13 @@ else
     numberOfLayers = 0;
     
     % Get the custom file name..
-    customFileName = r2Problem.customFile.varTable{1, 2}; % Only ever 1 custom file in R1
+    customFileName = project.customFile.varTable{1, 2}; % Only ever 1 custom file in R1
     
     copyfile(fullfile(originalDir, customFileName), dirName);
 end
 
 % Set contrasts           
-numberOfContrasts = r2Problem.contrasts.numberOfContrasts;
+numberOfContrasts = project.contrasts.numberOfContrasts;
 r1Problem.numberOfContrasts = numberOfContrasts;
 
 [contrastBacks, contrastScales, contrastResolutions, contrastBulkIns, contrastBulkOuts, contrastsNumberOfLayers, forceReload, fitlowrange, fithirange] = deal(zeros(numberOfContrasts, 1));
@@ -140,7 +146,7 @@ contrastShifts = ones(numberOfContrasts, 1);
 
 for i = 1:numberOfContrasts
 
-    thisContrast = r2Problem.contrasts.contrasts{i};
+    thisContrast = project.contrasts.contrasts{i};
     
     contrastNames{i} = thisContrast.name;
     
@@ -173,7 +179,7 @@ for i = 1:numberOfContrasts
     contrastBacks(i) = find(strcmp(r2BackStruct.backgroundParamNames, thisBackgroundParamName));
 
     % data
-    dataTable = table2cell(r2Problem.data.varTable);
+    dataTable = table2cell(project.data.varTable);
     r2DataNames = dataTable(:,1);
     r2DataNames = cellfun(@(x)char(x), r2DataNames, 'UniformOutput', false);
     thisContrastData = thisContrast.data;
@@ -194,7 +200,7 @@ for i = 1:numberOfContrasts
         dataTypes{i} = 'Simulation';
     end
     
-    if strcmpi(r2Problem.modelType, modelTypes.StandardLayers.value)
+    if strcmpi(project.modelType, modelTypes.StandardLayers.value)
         % If modelType is StandardLayers
         % Set up the contrastLayers strings
         % Get the model for this contrast
@@ -212,7 +218,7 @@ for i = 1:numberOfContrasts
     else
         % % If modelType is NOT StandardLayers (custom model)
         whichCustom = thisContrast.model{:};
-        varTable = table2cell(r2Problem.customFile.varTable);
+        varTable = table2cell(project.customFile.varTable);
         customNames = varTable(:,1);
         customNames = cellfun(@(x)char(x), customNames, 'UniformOutput', false);
         thisCustomLocation = find(strcmp(customNames,whichCustom));
@@ -250,7 +256,7 @@ r1Problem.repeatLayers = contrastRepeatSLDs;
 % Set calculation results in the r1 model using RAT
 controls = controlsClass;
 controls.display = displayOptions.Off.value;
-[~,results] = RAT(r2Problem, controls);
+[~,results] = RAT(project, controls);
 
 r1Problem.shifted_data = results.shiftedData;
 r1Problem.calculations.Simulation = results.simulation;

@@ -48,7 +48,7 @@ classdef domainContrastsClass < baseContrasts
             defaultName = '';
             defaultModel = '';
 
-            expectedModel = cellstr(allowedNames.modelNames);
+            expectedModel = cellstr(allowedNames.domainModelNames);
 
             p = inputParser;
             p.PartialMatching = false;

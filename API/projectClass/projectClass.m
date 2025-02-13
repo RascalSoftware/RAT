@@ -813,7 +813,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             %
             % project.setContrastModel(1, {'layer 1'})
             % project.setContrastModel(1:3, {'layer 1'})
-            allowedValues = obj.getAllAllowedNames.modelNames;
+            allowedValues = obj.getAllAllowedNames;
             
             % Call the setContrastModel method
              if isText(row)

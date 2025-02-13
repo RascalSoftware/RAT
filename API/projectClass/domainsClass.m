@@ -67,6 +67,7 @@ classdef domainsClass < projectClass
             names.domainRatioNames = obj.domainRatio.getNames();
             if isa(obj.domainContrasts, 'domainContrastsClass')
                 names.domainContrastNames = obj.domainContrasts.getNames();
+                names.domainModelNames = obj.layers.getNames();
             end
         end
     
@@ -82,13 +83,7 @@ classdef domainsClass < projectClass
                         
             % Make a different allowed list depending on whether 
             % it is custom or layers
-            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
-                % Standard Layers
-                allowedValues = obj.domainContrasts.getNames();
-            else
-                % Custom models
-                allowedValues = obj.customFile.getNames();
-            end
+            allowedValues = obj.getAllAllowedNames;
             
             % Call the setContrastModel method
             obj.contrasts.setContrastModel(row, obj.modelType, allowedValues, model);
@@ -175,7 +170,7 @@ classdef domainsClass < projectClass
             %
             % project.setDomainContrastModel(1, {'layer 1'})
             if isa(obj.domainContrasts, 'domainContrastsClass')
-                allowedValues = obj.layers.getNames();
+                allowedValues = obj.getAllAllowedNames;
                 obj.domainContrasts.setContrastModel(row, obj.modelType, allowedValues, model);
             else
                 throw(exceptions.invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));

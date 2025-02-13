@@ -71,20 +71,13 @@ disp(problem)
 %% 
 % Now, make a couple of Domain Contrasts....
 
-
-problem.addDomainContrast('Domain1');
-problem.addDomainContrast('Domain2');
-
-%% 
-% ..and define which layers make up which domains...
-
-
-problem.setDomainContrastModel(1,'Layer 1');
-problem.setDomainContrastModel(2,{'Layer 2','Layer 3'});
+problem.addDomainContrast('name', 'Domain1', 'model', 'Layer 1');
+problem.addDomainContrast('name', 'Domain2', 'model', {'Layer 2', 'Layer 3'});
 
 %% 
 % Now make a contrast as with standard models, but this time also including 
-% the default domain ratio ("Domain Ratio 1)....
+% the default domain ratio ("Domain Ratio 1). Each physical contrast must
+% have exactly two domain contrasts.
 
 problem.addContrast('name','Domain Test',...
     'background',   'Background 1',...
@@ -94,12 +87,9 @@ problem.addContrast('name','Domain Test',...
     'BulkIn',       'SLD Air',...        
     'BulkOut',      'SLD D2O',...        
     'domainRatio',  'Domain Ratio 1',....
-    'data',         'Simulation');
-%% 
-% Finally set the model for our contrast. Each physical contrast must have 
-% exactly two domain contrasts.
+    'data',         'Simulation',...
+    'model',        {'Domain1', 'Domain2'});
 
-problem.setContrastModel(1,{'Domain1','Domain2'});
 %% 
 % Now we can run our simulation as usual, and plot the results....
 

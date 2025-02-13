@@ -1293,7 +1293,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 script = script + sprintf(contrastSpec, contrastParams);
                 script = script + sprintf(options.objName + ".setContrast(%d, 'resample', %s);\n", i, string(obj.contrasts.contrasts{i}.resample));
                 if ~isempty(obj.contrasts.contrasts{i}.model)
-                    script = script + sprintf(options.objName + ".setContrastModel(%d, {" + join(repmat("'%s'", 1, length(obj.contrasts.contrasts{i}.model))) +"});\n", i, obj.contrasts.contrasts{i}.model{:});
+                    script = script + sprintf(options.objName + ".setContrast(%d, 'model', {" + join(repmat("'%s'", 1, length(obj.contrasts.contrasts{i}.model))) +"});\n", i, obj.contrasts.contrasts{i}.model{:});
                 end
                 script = script + newline;
 
@@ -1307,7 +1307,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                     contrastSpec = options.objName + ".addDomainContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
                     script = script + sprintf(contrastSpec, contrastParams);
                     if ~isempty(obj.domainContrasts.contrasts{i}.model)
-                        script = script + sprintf(options.objName + ".setDomainContrastModel(%d, {" + join(repmat("'%s'", 1, length(obj.domainContrasts.contrasts{i}.model))) +"});\n", i, obj.domainContrasts.contrasts{i}.model{:});
+                        script = script + sprintf(options.objName + ".setDomainContrast(%d, 'model', {" + join(repmat("'%s'", 1, length(obj.domainContrasts.contrasts{i}.model))) +"});\n", i, obj.domainContrasts.contrasts{i}.model{:});
                     end
                     script = script + newline;
                     

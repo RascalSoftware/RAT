@@ -14,7 +14,7 @@ function project = domainsCustomXY()
     project.addParameterGroup(params);
     
     
-    project.setBackgroundParam(1,'name','Backs par D2O','fit',true,'min',1e-10,'max',1e-5,'val',1e-07);
+    project.setBackgroundParam(1,'name','Backs par D2O','fit',true,'min',1e-10,'max',1e-5,'value',1e-07);
     
     project.addBackgroundParam('Backs par SMW',1e-10,1e-7,1e-5,true);
     project.addBackgroundParam('Backs par H2O',1e-10,1e-7,1e-5,true);

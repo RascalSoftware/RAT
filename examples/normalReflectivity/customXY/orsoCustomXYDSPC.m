@@ -68,7 +68,7 @@ problem.addCustomFile('DSPC Model','customXYDSPC.m','matlab',pwd);
 % Also, add the relevant background parameters - one each for each contrast:
 
 % Change the name of the existing parameters to refer to D2O
-problem.setBackgroundParam(1,'name','Backs par D2O','fit',true,'min',1e-10,'max',1e-5,'val',1e-07);
+problem.setBackgroundParam(1,'name','Backs par D2O','fit',true,'min',1e-10,'max',1e-5,'value',1e-07);
 
 % Add two new backs parameters for the other two..
 problem.addBackgroundParam('Backs par SMW',0,1e-7,1e-5,true);

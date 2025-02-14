@@ -116,29 +116,7 @@ classdef parametersClass < tableUtilities
             % names or indices to remove
             %
             % params.removeParameter(2);
-
-            % Arrange parameters into a cell array
-            if isa(row, 'double')
-                row = num2cell(sort(row, 'descend'));
-            elseif isText(row)
-                row = cellstr(row);
-            elseif iscell(row)
-            else
-                throw(exceptions.invalidType('Unrecognised Row'))
-            end
-
-            % Find index for each parameter and remove from table
-            rowNames = obj.varTable{:,1};
-            for i = 1:length(row)
-                currentRow = row{i};
-
-                if isText(currentRow)
-                    currentRow = obj.findRowIndex(currentRow, rowNames, 'Unrecognised parameter name');
-                end
-
-                obj.removeRow(currentRow);
-            end
-
+            obj.removeRow(row);
         end
         
         function obj = setParameter(obj, row, varargin)

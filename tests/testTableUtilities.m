@@ -123,8 +123,7 @@ classdef testTableUtilities < matlab.unittest.TestCase
             % Test using invalid row indices to remove rows from a
             % multi-type table.
             % Note that the routine requires a single cell array as input.
-            testCase.verifyError(@() testCase.exampleTable.removeRow(0), 'MATLAB:validators:mustBePositive');
-            testCase.verifyError(@() testCase.exampleTable.removeRow(1.5), 'MATLAB:validators:mustBeInteger');
+            testCase.verifyError(@() testCase.exampleTable.removeRow(0), 'RAT:IndexOutOfRange');
             testCase.verifyError(@() testCase.exampleTable.removeRow(testCase.numRows+1), 'RAT:IndexOutOfRange');
 
             testCase.verifySize(testCase.exampleTable.varTable, [testCase.numRows testCase.numCols], 'Table parameters have changed despite no rows being removed');

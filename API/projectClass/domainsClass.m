@@ -83,7 +83,7 @@ classdef domainsClass < projectClass
                         
             % Make a different allowed list depending on whether 
             % it is custom or layers
-            allowedValues = obj.getAllAllowedNames;
+            allowedValues = obj.getAllAllowedNames();
             
             % Call the setContrastModel method
             obj.contrasts.setContrastModel(row, obj.modelType, allowedValues, model);
@@ -155,7 +155,7 @@ classdef domainsClass < projectClass
             if isa(obj.domainContrasts, 'domainContrastsClass')
                 % Get the list of allowed values depending on what is
                 % set for the other contrasts.
-                allowedValues = obj.getAllAllowedNames;
+                allowedValues = obj.getAllAllowedNames();
                 
                 % Call the setContrast method
                 obj.domainContrasts.setContrast(row, obj.modelType, allowedValues, varargin{:});
@@ -170,7 +170,7 @@ classdef domainsClass < projectClass
             %
             % project.setDomainContrastModel(1, {'layer 1'})
             if isa(obj.domainContrasts, 'domainContrastsClass')
-                allowedValues = obj.getAllAllowedNames;
+                allowedValues = obj.getAllAllowedNames();
                 obj.domainContrasts.setContrastModel(row, obj.modelType, allowedValues, model);
             else
                 throw(exceptions.invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
@@ -186,7 +186,7 @@ classdef domainsClass < projectClass
             mainStruct = toStruct@projectClass(obj);
 
             if isa(obj.domainContrasts, 'domainContrastsClass')
-                domainContrastStruct = obj.domainContrasts.toStruct(obj.getAllAllowedNames, obj.modelType);
+                domainContrastStruct = obj.domainContrasts.toStruct(obj.getAllAllowedNames(), obj.modelType);
                 domainContrastStruct = cell2struct(struct2cell(domainContrastStruct), ...
                                                     {'domainContrastNames', ...
                                                      'numberOfDomainContrasts', ...

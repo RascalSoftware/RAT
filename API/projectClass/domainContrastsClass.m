@@ -6,7 +6,7 @@ classdef domainContrastsClass < baseContrasts
                 
     methods
 
-        function names = getDisplayNames(obj)
+        function names = getDisplayNames(~)
             names = ["Name"; "Model"];
         end
 
@@ -38,7 +38,7 @@ classdef domainContrastsClass < baseContrasts
             contrastStruct.contrastLayers = contrastLayers;
         end
 
-        function inputBlock = parseContrastInput(~, ~, allowedNames, inputValues)
+        function inputBlock = parseContrastInput(obj, ~, allowedNames, inputValues)
             % Parse the parameters given for the contrast, assigning
             % default values to those unspecified and ensuring specified
             % values are of the correct type, and included in the list of
@@ -54,22 +54,25 @@ classdef domainContrastsClass < baseContrasts
             p.PartialMatching = false;
 
             addParameter(p,'name',          defaultName,  @isText);
-            addParameter(p,'model',         defaultModel, @(x) validateDomainContrastModel(x,expectedModel));
-
-            % Set up the model validator
-            function validateDomainContrastModel(model, allowedModelNames)
-                modelArray = cellstr(model);
-
-                for i = 1:length(modelArray)
-                    if ~strcmpi(modelArray{i}, allowedModelNames)
-                        throw(exceptions.nameNotRecognised(sprintf('Model component name "%s" is not recognised. The allowed names are: "%s".', modelArray{i}, strjoin(allowedModelNames, '", "'))));
-                    end
-                end
-            end
+            addParameter(p,'model',         defaultModel, @(x) obj.validateDomainContrastModel(x,expectedModel));
 
             parse(p, inputValues{:});
             inputBlock = p.Results;
         end
+    end
+
+    methods(Access = private)
+
+        function validateDomainContrastModel(~, model, allowedModelNames)
+            modelArray = cellstr(model);
+    
+            for i = 1:length(modelArray)
+                if ~strcmpi(modelArray{i}, allowedModelNames)
+                    throw(exceptions.nameNotRecognised(sprintf('Model component name "%s" is not recognised. The allowed names are: "%s".', modelArray{i}, strjoin(allowedModelNames, '", "'))));
+                end
+            end
+        end
+
     end
 
     methods(Static)

@@ -778,7 +778,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % "resolution", "resample", "model"
             % 
             % project.addContrast('contrast 1', 'bulkIn', 'Silicon');
-            allowedNames = obj.getAllAllowedNames;
+            allowedNames = obj.getAllAllowedNames();
             obj.contrasts.addContrast(obj.modelType, allowedNames, varargin{:});
         end
 
@@ -799,7 +799,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                         
             % Get the list of allowed values depending on what is
             % set for the other contrasts.
-            allowedValues = obj.getAllAllowedNames;
+            allowedValues = obj.getAllAllowedNames();
             
             % Call the setContrast method
             obj.contrasts.setContrast(row, obj.modelType, allowedValues, varargin{:});
@@ -813,7 +813,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             %
             % project.setContrastModel(1, {'layer 1'})
             % project.setContrastModel(1:3, {'layer 1'})
-            allowedValues = obj.getAllAllowedNames;
+            allowedValues = obj.getAllAllowedNames();
             
             % Call the setContrastModel method
              if isText(row)
@@ -890,7 +890,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             dataStruct = obj.data.toStruct();
             
             % Contrasts
-            allNames = obj.getAllAllowedNames;
+            allNames = obj.getAllAllowedNames();
             dataTable = obj.data.varTable;
             
             contrastStruct = obj.contrasts.toStruct(allNames, generalStruct.modelType, dataTable);

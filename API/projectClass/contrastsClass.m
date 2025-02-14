@@ -217,59 +217,62 @@ classdef contrastsClass < baseContrasts
             p.PartialMatching = false;
 
             addParameter(p,'name',          defaultName,        @isText);
-            addParameter(p,'data',          defaultData,        @(x) validateExactString(x,expectedData));
+            addParameter(p,'data',          defaultData,        @(x) obj.validateExactString(x,expectedData));
 
             if obj.oilWaterCalc
                 defaultOilChiData = '';
-                addParameter(p,'oilChiData',    defaultOilChiData,  @(x) any(validatestring(x,expectedData)));
+                addParameter(p,'oilChiData',    defaultOilChiData,  @(x) obj.validateExactString(x,expectedData));
             end
 
-            addParameter(p,'background',       defaultBackground,         @(x) validateExactString(x,expectedBackground));
+            addParameter(p,'background',       defaultBackground,         @(x) obj.validateExactString(x,expectedBackground));
             addParameter(p,'backgroundAction', defaultBackgroundAction,   @(x) isText(x) || isenum(x))
-            addParameter(p,'bulkIn',           defaultBulkIn,             @(x) validateExactString(x,expectedBulkIn));
-            addParameter(p,'bulkOut',          defaultBulkOut,            @(x) validateExactString(x,expectedBulkOut));
-            addParameter(p,'scalefactor',      defaultScalefactor,        @(x) validateExactString(x,expectedScalefactor));
-            addParameter(p,'resolution',       defaultResolution,         @(x) validateExactString(x,expectedResolution));
+            addParameter(p,'bulkIn',           defaultBulkIn,             @(x) obj.validateExactString(x,expectedBulkIn));
+            addParameter(p,'bulkOut',          defaultBulkOut,            @(x) obj.validateExactString(x,expectedBulkOut));
+            addParameter(p,'scalefactor',      defaultScalefactor,        @(x) obj.validateExactString(x,expectedScalefactor));
+            addParameter(p,'resolution',       defaultResolution,         @(x) obj.validateExactString(x,expectedResolution));
             addParameter(p,'resample',         defaultResample,           @islogical);
 
             if obj.domainsCalc
                 defaultDomainRatio = '';
                 expectedDomainRatio = cellstr(allowedNames.domainRatioNames);
-                addParameter(p,'domainRatio',   defaultDomainRatio, @(x) any(validatestring(x,expectedDomainRatio)));
+                addParameter(p,'domainRatio',   defaultDomainRatio, @(x) obj.validateExactString(x,expectedDomainRatio));
             end
 
-            addParameter(p,'model',            defaultModel, @(x) validateContrastModel(x,modelType,expectedModel));
-
-            % Set up the validators
-            function validateExactString(input, allowedNames)
-                if ~strcmpi(input, allowedNames)
-                    throw(exceptions.nameNotRecognised(sprintf('The input "%s" is not recognised. The allowed names are: "%s".', input, strjoin(allowedNames, '", "'))));
-                end
-            end
-
-            function validateContrastModel(model, modelType, allowedModelNames)
-                modelArray = cellstr(model);
-    
-                % Check the input is as expected
-                modelType = validateOption(modelType, 'modelTypes', obj.invalidTypeMessage).value;
-                if any(strcmpi(modelType, {modelTypes.CustomLayers.value, modelTypes.CustomXY.value}))
-                    if length(modelArray) > 1
-                        throw(exceptions.invalidValue('Only one model value is allowed for custom models'));
-                    end
-                elseif strcmpi(modelType, modelTypes.StandardLayers.value) && obj.domainsCalc
-                    if length(modelArray) ~= 2
-                        throw(exceptions.invalidValue('Exactly two model values are required for ''standard layers'' with domains'));
-                    end
-                end
-                for i = 1:length(modelArray)
-                    if ~strcmpi(modelArray{i}, allowedModelNames)
-                        throw(exceptions.nameNotRecognised(sprintf('Model component name "%s" is not recognised. The allowed names are: "%s".', modelArray{i}, strjoin(allowedModelNames, '", "'))));
-                    end
-                end
-            end
+            addParameter(p,'model',            defaultModel, @(x) obj.validateContrastModel(x,modelType,expectedModel));
             
             parse(p, inputValues{:});
             inputBlock = p.Results;        
+        end
+
+    end
+
+    methods(Access = private)
+
+        function validateExactString(~, input, allowedNames)
+            if ~strcmpi(input, allowedNames)
+                throw(exceptions.nameNotRecognised(sprintf('The input "%s" is not recognised. The allowed names are: "%s".', input, strjoin(allowedNames, '", "'))));
+            end
+        end
+
+        function validateContrastModel(obj, model, modelType, allowedModelNames)
+            modelArray = cellstr(model);
+
+            % Check the input is as expected
+            modelType = validateOption(modelType, 'modelTypes', obj.invalidTypeMessage).value;
+            if any(strcmpi(modelType, {modelTypes.CustomLayers.value, modelTypes.CustomXY.value}))
+                if length(modelArray) > 1
+                    throw(exceptions.invalidValue('Only one model value is allowed for custom models'));
+                end
+            elseif strcmpi(modelType, modelTypes.StandardLayers.value) && obj.domainsCalc
+                if length(modelArray) ~= 2
+                    throw(exceptions.invalidValue('Exactly two model values are required for ''standard layers'' with domains'));
+                end
+            end
+            for i = 1:length(modelArray)
+                if ~strcmpi(modelArray{i}, allowedModelNames)
+                    throw(exceptions.nameNotRecognised(sprintf('Model component name "%s" is not recognised. The allowed names are: "%s".', modelArray{i}, strjoin(allowedModelNames, '", "'))));
+                end
+            end
         end
 
     end

@@ -114,7 +114,27 @@ classdef testDataClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.data.varTable{1, 1}, "Sim 3", 'setDataName method not working');
             testCase.verifyEqual(names.oldName, "Sim 1", 'setData returned incorrect data');
             testCase.verifyEqual(names.newName, 'Sim 3', 'setData returned incorrect data');
-         end
+        end
+
+        function testRemoveData(testCase)
+            % Checks that data can be removed by name
+            testCase.addDataSets();
+            testCase.data.removeData(3);
+            testCase.verifyEqual(testCase.data.varTable{:, 1}, ["New data 1"; "Bilayer / D2O"; "Bilayer / H2O"], 'removeData does not work correctly');
+            % Test removing multiple rows
+            testCase.data.removeData([1 3]);
+            testCase.verifyEqual(testCase.data.varTable{:, 1}, "Bilayer / D2O", 'removeData does not work correctly');
+        end
+
+        function testRemoveDataName(testCase)
+            % Checks that data can be removed
+            testCase.addDataSets();
+            testCase.data.removeData("Bilayer / SMW");
+            testCase.verifyEqual(testCase.data.varTable{:, 1}, ["New data 1"; "Bilayer / D2O"; "Bilayer / H2O"], 'removeData does not work correctly');
+            % Test removing multiple rows
+            testCase.data.removeData({"New data 1", "Bilayer / H2O"});
+            testCase.verifyEqual(testCase.data.varTable{:, 1}, "Bilayer / D2O", 'removeData does not work correctly');
+        end
 
         function testDisplayTable(testCase)
             % Check that the content of the data table are printed

@@ -94,7 +94,15 @@ classdef dataClass < tableUtilities
             obj.addRow(newRow{:});
 
         end
-        
+
+        function obj = removeData(obj, row)
+            % Removes a dataset. Expects the index or array of
+            % indices of dataset(s) to remove.
+            % 
+            % data.removeData(2);
+            obj.removeRow(row);
+        end
+
         function nameChanged = setData(obj, row, varargin)
             % Sets the values of an existing dataset. Expects the
             % index or name of dataset and keyword/value pairs to set

@@ -258,6 +258,36 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, datetime('today'), 'Substrate Roughness', testCase.parameterNames), exceptions.invalidType.errorID);
         end
 
+        function testRemoveLayer(testCase)
+            remainingRows = testCase.exampleClass.varTable(2:end,:);
+            testCase.exampleClass.removeLayer(1);
+
+            testCase.verifyEqual(testCase.exampleClass.varTable, remainingRows, 'removeLayer does not work correctly');
+        end
+
+        function testRemoveLayerName(testCase)
+            remainingRows = testCase.exampleClass.varTable(2:end,:);
+            testCase.exampleClass.removeLayer('Bil inner head');
+
+            testCase.verifyEqual(testCase.exampleClass.varTable, remainingRows, 'removeLayer does not work correctly');
+        end
+
+        function testRemoveLayerMultiple(testCase)
+            % Test removing multiple rows from a layers table
+            remainingRows = testCase.exampleClass.varTable(2,:);
+            testCase.exampleClass.removeLayer([1 3]);
+
+            testCase.verifyEqual(testCase.exampleClass.varTable, remainingRows, 'removeLayer does not work correctly');
+        end
+
+        function testRemoveLayerMultipleCell(testCase)
+            % Test removing multiple rows from a layers table by name
+            remainingRows = testCase.exampleClass.varTable(2,:);
+            testCase.exampleClass.removeLayer({'Bil inner head', 'Bil outer head'});
+
+            testCase.verifyEqual(testCase.exampleClass.varTable, remainingRows, 'removeLayer does not work correctly');
+        end
+
         function testToStructStandardLayers(testCase)
             % Test converting the layers class to a struct
             % Here we use a "standard layers" model type

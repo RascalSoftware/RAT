@@ -62,7 +62,7 @@ classdef (Abstract) tableUtilities < handle
             elseif isText(row) || iscell(row)
 
                 row = cellstr(row);
-                indices = zeros(length(row));
+                indices = zeros(1, length(row));
 
                 rowNames = obj.getNames;
                 for i = 1:length(row)
@@ -76,6 +76,7 @@ classdef (Abstract) tableUtilities < handle
 
             end
 
+            indices = sort(indices, 'descend');
             for i = 1:length(indices)
                 if indices(i) < 1 || indices(i) > obj.rowCount
                     throw(exceptions.indexOutOfRange(sprintf('Row index %d out of range 1 - %d', indices(i), obj.rowCount)));

@@ -103,18 +103,35 @@ classdef testTableUtilities < matlab.unittest.TestCase
         end
 
         function testRemoveRow(testCase)
-            % Note that the routine requires a single cell array as input
+            % Note that the routine requires a single integer as input
             remainingRows = testCase.exampleTable.varTable(2:end,:);
             testCase.exampleTable.removeRow(1);
 
             testCase.verifyEqual(testCase.exampleTable.varTable, remainingRows, 'removeRow does not work correctly');
         end
 
+        function testRemoveRowName(testCase)
+            % Note that the routine requires a single string as input
+            remainingRows = testCase.exampleTable.varTable(2:end,:);
+            testCase.exampleTable.removeRow('Background D2O');
+
+            testCase.verifyEqual(testCase.exampleTable.varTable, remainingRows, 'removeRow does not work correctly');
+        end
+
         function testRemoveRowMultiple(testCase)
+            % Test removing multiple rows from a multi-type table
+            % Note that the routine requires a single array as input
+            remainingRows = testCase.exampleTable.varTable(2,:);
+            testCase.exampleTable.removeRow([1 3]);
+
+            testCase.verifyEqual(testCase.exampleTable.varTable, remainingRows, 'removeRow does not work correctly');
+        end
+
+        function testRemoveRowMultipleCell(testCase)
             % Test removing multiple rows from a multi-type table
             % Note that the routine requires a single cell array as input
             remainingRows = testCase.exampleTable.varTable(2,:);
-            testCase.exampleTable.removeRow([1 3]);
+            testCase.exampleTable.removeRow({'Background D2O', 'Background H2O'});
 
             testCase.verifyEqual(testCase.exampleTable.varTable, remainingRows, 'removeRow does not work correctly');
         end

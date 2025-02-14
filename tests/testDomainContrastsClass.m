@@ -236,7 +236,7 @@ classdef testDomainContrastsClass < matlab.unittest.TestCase
                 'model', {{'Water Layer', 'Oxide Layer'}} ...
                 );
 
-            contrastStruct = testCase.exampleClass.parseContrastInput(modelTypes.StandardLayers, testCase.allowedNames, testCase.newValues);
+            contrastStruct = testCase.exampleClass.parseContrastInput(testCase.allowedNames, testCase.newValues);
             testCase.verifyEqual(contrastStruct, expectedContrast, 'parseContrastInput does not work correctly');
         end
 

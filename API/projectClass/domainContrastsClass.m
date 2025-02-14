@@ -38,7 +38,7 @@ classdef domainContrastsClass < baseContrasts
             contrastStruct.contrastLayers = contrastLayers;
         end
 
-        function inputBlock = parseContrastInput(obj, ~, allowedNames, inputValues)
+        function inputBlock = parseContrastInput(obj, allowedNames, inputValues)
             % Parse the parameters given for the contrast, assigning
             % default values to those unspecified and ensuring specified
             % values are of the correct type, and included in the list of

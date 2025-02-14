@@ -77,7 +77,7 @@ classdef (Abstract) baseContrasts < handle
             end
         end
 
-        function obj = addContrast(obj, modelType, allowedNames, varargin)
+        function obj = addContrast(obj, allowedNames, varargin)
             % Add a contrast to the class
             % A class can be added with no input parameters, just a class
             % name, or a set of key-value pairs.
@@ -101,7 +101,7 @@ classdef (Abstract) baseContrasts < handle
                 inputVals = varargin;
             end
             
-            thisContrast = parseContrastInput(obj, modelType, allowedNames, inputVals);
+            thisContrast = parseContrastInput(obj, allowedNames, inputVals);
             thisContrast = obj.setDefaultValues(thisContrast);
 
             obj.contrasts{end+1} = thisContrast;
@@ -142,7 +142,7 @@ classdef (Abstract) baseContrasts < handle
 
         end
 
-        function obj = setContrastModel(obj, row, modelType, allowedNames, model)
+        function obj = setContrastModel(obj, row, allowedNames, model)
             % Set the value of the model parameter in a contrast.
             % The expected input is the contrast (specified either by name
             % or index), the model type, the allowed values (either layers
@@ -152,11 +152,11 @@ classdef (Abstract) baseContrasts < handle
             % "addContrast" or "setContrast".
             %
             % contrasts.setContrastModel(1, 'standard layers', allowedNames, 'Oxide Model')
-            obj.setContrast(row, modelType, allowedNames, 'model', model);
+            obj.setContrast(row, allowedNames, 'model', model);
 
         end
 
-        function obj = setContrast(obj, row, modelType, allowedNames, varargin)
+        function obj = setContrast(obj, row, allowedNames, varargin)
             % Set a value within a contrast.
             % The expected input is the contrast (specified either by name
             % or index), the allowed values for all parameters and a
@@ -188,7 +188,7 @@ classdef (Abstract) baseContrasts < handle
             % Check to see if the inputs are valid
             % Raise a warning if we try to set the model as this should be
             % done elsewhere
-            inputBlock = parseContrastInput(obj, modelType, allowedNames, varargin);
+            inputBlock = parseContrastInput(obj, allowedNames, varargin);
             
             if isfield(inputBlock, 'name') && ~isempty(inputBlock.name)
                 thisContrast.name = inputBlock.name;

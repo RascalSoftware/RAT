@@ -86,7 +86,7 @@ classdef domainsClass < projectClass
             allowedValues = obj.getAllAllowedNames();
             
             % Call the setContrastModel method
-            obj.contrasts.setContrastModel(row, obj.modelType, allowedValues, model);
+            obj.contrasts.setContrastModel(row, allowedValues, model);
         end
 
         % -------------------------------------------------------------------
@@ -128,7 +128,7 @@ classdef domainsClass < projectClass
             % project.addDomainContrast('domainContrast 1', 'bulkIn', 'Silicon');
             if isa(obj.domainContrasts, 'domainContrastsClass')
                 allowedNames = obj.getAllAllowedNames();
-                obj.domainContrasts.addContrast(obj.modelType, allowedNames, varargin{:});
+                obj.domainContrasts.addContrast(allowedNames, varargin{:});
             else
                 throw(exceptions.invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
             end
@@ -158,7 +158,7 @@ classdef domainsClass < projectClass
                 allowedValues = obj.getAllAllowedNames();
                 
                 % Call the setContrast method
-                obj.domainContrasts.setContrast(row, obj.modelType, allowedValues, varargin{:});
+                obj.domainContrasts.setContrast(row, allowedValues, varargin{:});
             else
                 throw(exceptions.invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
             end
@@ -171,7 +171,7 @@ classdef domainsClass < projectClass
             % project.setDomainContrastModel(1, {'layer 1'})
             if isa(obj.domainContrasts, 'domainContrastsClass')
                 allowedValues = obj.getAllAllowedNames();
-                obj.domainContrasts.setContrastModel(row, obj.modelType, allowedValues, model);
+                obj.domainContrasts.setContrastModel(row, allowedValues, model);
             else
                 throw(exceptions.invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
             end

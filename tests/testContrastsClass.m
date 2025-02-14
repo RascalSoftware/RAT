@@ -293,7 +293,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
             expectedContrasts = [testCase.exampleClass.contrasts, addedContrast];
 
-            testCase.exampleClass.addContrast(modelTypes.StandardLayers, testCase.allowedNames, contrastInput{:});
+            testCase.exampleClass.addContrast(testCase.allowedNames, contrastInput{:});
             testCase.verifyEqual(testCase.exampleClass.contrasts, expectedContrasts, 'addContrast does not work correctly');
         end
 
@@ -301,7 +301,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % Test adding a contrast to the contrasts class.
             % If the "backgroundAction" input is not a member of the enum
             % we should raise an error
-            testCase.verifyError(@() testCase.exampleClass.addContrast(modelTypes.StandardLayers, testCase.allowedNames, 'backgroundAction', 'random'), exceptions.invalidOption.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addContrast(testCase.allowedNames, 'backgroundAction', 'random'), exceptions.invalidOption.errorID);
         end
 
         function testRemoveContrast(testCase, removeInput)
@@ -330,7 +330,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             contrastIndex = 1;
             testModel = {'Domain Contrast 1', 'Test Domain Contrast'};
 
-            testCase.exampleClass.setContrastModel(contrastIndex, modelTypes.StandardLayers, testCase.allowedNames, testModel);
+            testCase.exampleClass.setContrastModel(contrastIndex, testCase.allowedNames, testModel);
             testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}.model, testModel, 'setContrastModel does not work correctly');
         end
         
@@ -338,12 +338,12 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % Test setting a model for a contrast from the contrasts class
             % for a "standard layers" model type
             noDomainsClass = contrastsClass();
-            noDomainsClass.addContrast(modelTypes.StandardLayers, testCase.allowedNames);
+            noDomainsClass.addContrast(testCase.allowedNames);
 
             testModel = {'Oxide Layer', 'Water Layer'};
             testCase.allowedNames.modelNames = testCase.layerNames;
 
-            noDomainsClass.setContrastModel(1, modelTypes.StandardLayers, testCase.allowedNames, testModel);
+            noDomainsClass.setContrastModel(1, testCase.allowedNames, testModel);
             testCase.verifyEqual(noDomainsClass.contrasts{1}.model, testModel, 'setContrastModel does not work correctly');
         end
 
@@ -351,13 +351,16 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % Test setting a model for a contrast from the contrasts class
             % for a "custom XY" model type
             noDomainsClass = contrastsClass();
-            noDomainsClass.addContrast(modelTypes.CustomXY, testCase.allowedNames);
+            noDomainsClass.addContrast(testCase.allowedNames);
 
             testModel = {'DPPC Model'};
             testCase.allowedNames.modelNames = testCase.customNames;
 
-            testCase.exampleClass.setContrastModel(1, modelTypes.CustomXY, testCase.allowedNames, testModel);
+            testCase.exampleClass.setContrastModel(1, testCase.allowedNames, testModel);
             testCase.verifyEqual(testCase.exampleClass.contrasts{1}.model, testModel, 'setContrastModel does not work correctly');
+
+            % only one model value is allowed
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, {'DPPC Model', 'DSPC Model'}), exceptions.invalidValue.errorID);
         end
 
         function testSetContrastModelInvalid(testCase)
@@ -365,28 +368,22 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % If the input is invalid we should raise an error
 
             % Contrast must be recognisable by name or index
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(0, modelTypes.StandardLayers.value, testCase.allowedNames, {'Oxide Layer'}), exceptions.indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(testCase.numContrasts+1, modelTypes.StandardLayers.value, testCase.allowedNames, {'Oxide Layer'}), exceptions.indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel('Invalid Contrast', modelTypes.StandardLayers.value, testCase.allowedNames, {'Oxide Layer'}), exceptions.nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(0, testCase.allowedNames, {'Oxide Layer'}), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(testCase.numContrasts+1, testCase.allowedNames, {'Oxide Layer'}), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel('Invalid Contrast', testCase.allowedNames, {'Oxide Layer'}), exceptions.nameNotRecognised.errorID);
 
             % Contrast models must be defined in allowed values, and only
             % one model is allowed for "custom layers" and "custom XY"
             testModel = {'Domain Contrast 1', 'Invalid Domain Contrast'};
-
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, modelTypes.StandardLayers.value, testCase.allowedNames, testModel), exceptions.nameNotRecognised.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, modelTypes.CustomLayers.value, testCase.allowedNames, testModel), exceptions.invalidValue.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, modelTypes.CustomXY.value, testCase.allowedNames, testModel), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, testModel), exceptions.nameNotRecognised.errorID);
 
             % Only two contrast models are allowed for "standard layers"
             % with domains
             testModel = {'Domain Contrast 1', 'Domain Contrast 2', 'Test Domain Contrast'};
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, modelTypes.StandardLayers.value, testCase.allowedNames, testModel), exceptions.invalidValue.errorID);
-
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, modelTypes.CustomLayers.value, testCase.allowedNames, {'Carbide Layer'}), exceptions.nameNotRecognised.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, 'randomLayers', testCase.allowedNames, {'DPPC Model'}), exceptions.invalidOption.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, testModel), exceptions.invalidValue.errorID);
 
             % Partial matches must be disallowed
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel('Oxide Lay', modelTypes.StandardLayers.value, testCase.allowedNames, {'Oxide Layer'}), exceptions.nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel('Oxide Lay', testCase.allowedNames, {'Oxide Layer'}), exceptions.nameNotRecognised.errorID);
         end
 
         function testSetContrast(testCase)
@@ -407,14 +404,14 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 'model', {{'Domain Contrast 1', 'Test Domain Contrast'}} ...
                 );
 
-            testCase.exampleClass.setContrast(contrastIndex, modelTypes.StandardLayers, testCase.allowedNames, testCase.newValues{:});
+            testCase.exampleClass.setContrast(contrastIndex, testCase.allowedNames, testCase.newValues{:});
             testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}, expectedContrast, 'setContrast does not work correctly');
 
             % Addresses bug where resample was reset due to non-empty
             % default value
             checkName = 'Check New Contrast';
             expectedContrast.name = checkName;
-            testCase.exampleClass.setContrast(contrastIndex, modelTypes.StandardLayers, testCase.allowedNames, 'name', checkName);
+            testCase.exampleClass.setContrast(contrastIndex, testCase.allowedNames, 'name', checkName);
             testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}, expectedContrast, 'setContrast does not work correctly');
         end
 
@@ -447,30 +444,30 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 );
 
             noDomainsNoOilClass = contrastsClass();
-            noDomainsNoOilClass.addContrast(modelTypes.StandardLayers, testCase.allowedNames);
+            noDomainsNoOilClass.addContrast(testCase.allowedNames);
 
             % If we include "oilChiData" or "domainRatio" here, we should
             % encounter an error
-            testCase.verifyError(@() noDomainsNoOilClass.setContrast(contrastIndex, modelTypes.StandardLayers, testCase.allowedNames, testCase.newValues{:}), 'MATLAB:InputParser:UnmatchedParameter');
+            testCase.verifyError(@() noDomainsNoOilClass.setContrast(contrastIndex, testCase.allowedNames, testCase.newValues{:}), 'MATLAB:InputParser:UnmatchedParameter');
 
-            noDomainsNoOilClass.setContrast(contrastIndex, modelTypes.StandardLayers, testCase.allowedNames, noDomainsNoOilInput{:});
+            noDomainsNoOilClass.setContrast(contrastIndex, testCase.allowedNames, noDomainsNoOilInput{:});
             testCase.verifyEqual(noDomainsNoOilClass.contrasts{contrastIndex}, expectedContrast, 'setContrast does not work correctly');
         end
 
         function testSetContrastInvalid(testCase)
             % Test setting parameter values within a contrast
             % Contrast must be recognisable by name or index
-            testCase.verifyError(@() testCase.exampleClass.setContrast(0, modelTypes.StandardLayers, testCase.allowedNames, testCase.newValues), exceptions.indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrast(testCase.numContrasts+1, modelTypes.StandardLayers, testCase.allowedNames, testCase.newValues), exceptions.indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrast('Invalid Contrast', modelTypes.StandardLayers, testCase.allowedNames, testCase.newValues), exceptions.nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(0, testCase.allowedNames, testCase.newValues), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(testCase.numContrasts+1, testCase.allowedNames, testCase.newValues), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast('Invalid Contrast', testCase.allowedNames, testCase.newValues), exceptions.nameNotRecognised.errorID);
 
             % "backgroundAction" should be a value of the "actions" enum
-            testCase.verifyError(@() testCase.exampleClass.setContrast(1, modelTypes.StandardLayers, testCase.allowedNames, 'backgroundAction', 'random'), exceptions.invalidOption.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, 'backgroundAction', 'random'), exceptions.invalidOption.errorID);
 
             % Partial matches of fields names and parameter values should
             % be disallowed
-            testCase.verifyError(@() testCase.exampleClass.setContrast(1, modelTypes.StandardLayers, testCase.allowedNames, 'backgr', 'Background H2O'), 'MATLAB:InputParser:UnmatchedParameter');
-            testCase.verifyError(@() testCase.exampleClass.setContrast(1, modelTypes.StandardLayers, testCase.allowedNames, 'background', 'Background H'), exceptions.nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, 'backgr', 'Background H2O'), 'MATLAB:InputParser:UnmatchedParameter');
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, 'background', 'Background H'), exceptions.nameNotRecognised.errorID);
         end
 
         function testGetAllContrastNames(testCase)
@@ -727,9 +724,9 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 );
 
             % If we are not running a domains calculation, raise an error
-            testCase.verifyError(@() contrastsClass().parseContrastInput(modelTypes.StandardLayers, testCase.allowedNames, testCase.newValues), 'MATLAB:InputParser:UnmatchedParameter');
+            testCase.verifyError(@() contrastsClass().parseContrastInput(testCase.allowedNames, testCase.newValues), 'MATLAB:InputParser:UnmatchedParameter');
 
-            contrastStruct = testCase.exampleClass.parseContrastInput(modelTypes.StandardLayers, testCase.allowedNames, testCase.newValues);
+            contrastStruct = testCase.exampleClass.parseContrastInput(testCase.allowedNames, testCase.newValues);
             testCase.verifyEqual(contrastStruct, expectedContrast, 'parseContrastInput does not work correctly');
         end
 
@@ -745,7 +742,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             expectedInputBlock.backgroundAction = '';
             expectedInputBlock.resample = [];
 
-            testCase.verifyEqual(emptyContrasts.parseContrastInput(modelTypes.StandardLayers, testCase.allowedNames, {}), expectedInputBlock);
+            testCase.verifyEqual(emptyContrasts.parseContrastInput(testCase.allowedNames, {}), expectedInputBlock);
         end
 
         function testParseContrastInputInvalidOption(testCase, invalidInput)
@@ -753,7 +750,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % class.
             % If values for each parameter are not valid options, we
             % should raise an error
-            testCase.verifyError(@() testCase.exampleClass.parseContrastInput(modelTypes.StandardLayers, testCase.allowedNames, invalidInput), 'RAT:NameNotRecognised');
+            testCase.verifyError(@() testCase.exampleClass.parseContrastInput(testCase.allowedNames, invalidInput), 'RAT:NameNotRecognised');
         end
 
         function testParseContrastInputInvalidType(testCase)
@@ -761,8 +758,8 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % class.
             % If values for the name and resample parameters are an
             % invalid type, we should raise an error
-            testCase.verifyError(@() testCase.exampleClass.parseContrastInput(modelTypes.StandardLayers, testCase.allowedNames, {'name', 42}), 'MATLAB:InputParser:ArgumentFailedValidation');
-            testCase.verifyError(@() testCase.exampleClass.parseContrastInput(modelTypes.StandardLayers, testCase.allowedNames, {'resample', datetime('today')}), 'MATLAB:InputParser:ArgumentFailedValidation');
+            testCase.verifyError(@() testCase.exampleClass.parseContrastInput(testCase.allowedNames, {'name', 42}), 'MATLAB:InputParser:ArgumentFailedValidation');
+            testCase.verifyError(@() testCase.exampleClass.parseContrastInput(testCase.allowedNames, {'resample', datetime('today')}), 'MATLAB:InputParser:ArgumentFailedValidation');
         end
 
     end

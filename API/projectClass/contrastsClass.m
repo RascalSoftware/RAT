@@ -185,13 +185,13 @@ classdef contrastsClass < baseContrasts
 
         end
 
-        function inputBlock = parseContrastInput(obj, modelType, allowedNames, inputValues)
+        function inputBlock = parseContrastInput(obj, allowedNames, inputValues)
             % Parse the parameters given for the contrast, assigning
             % default values to those unspecified and ensuring specified
             % values are of the correct type, and included in the list of
             % allowed names where necessary.
             %
-            % contrastsClass.parseContrastInput(modelType, allowedNames, ...
+            % contrastsClass.parseContrastInput(allowedNames, ...
             %                                   'name', 'Contrast Name', ...
             %                                   'background', 'Background H2O')        
             defaultName = '';
@@ -211,7 +211,6 @@ classdef contrastsClass < baseContrasts
             expectedBulkOut = cellstr(allowedNames.bulkOutNames);
             expectedScalefactor = cellstr(allowedNames.scalefactorNames);
             expectedResolution = cellstr(allowedNames.resolutionNames);
-            expectedModel = cellstr(allowedNames.modelNames);
 
             p = inputParser;
             p.PartialMatching = false;
@@ -238,7 +237,7 @@ classdef contrastsClass < baseContrasts
                 addParameter(p,'domainRatio',   defaultDomainRatio, @(x) obj.validateExactString(x,expectedDomainRatio));
             end
 
-            addParameter(p,'model',            defaultModel, @(x) obj.validateContrastModel(x,modelType,expectedModel));
+            addParameter(p,'model',            defaultModel, @(x) obj.validateContrastModel(x,allowedNames));
             
             parse(p, inputValues{:});
             inputBlock = p.Results;        
@@ -254,23 +253,24 @@ classdef contrastsClass < baseContrasts
             end
         end
 
-        function validateContrastModel(obj, model, modelType, allowedModelNames)
+        function validateContrastModel(obj, model, allowedNames)
             modelArray = cellstr(model);
 
-            % Check the input is as expected
-            modelType = validateOption(modelType, 'modelTypes', obj.invalidTypeMessage).value;
-            if any(strcmpi(modelType, {modelTypes.CustomLayers.value, modelTypes.CustomXY.value}))
+            % Check the input is as expected - modelNames tells us what the
+            % model type is
+            if all(size(allowedNames.modelNames) == size(allowedNames.customFileNames)) && all(cellfun(@strcmp, allowedNames.modelNames, allowedNames.customFileNames))
                 if length(modelArray) > 1
                     throw(exceptions.invalidValue('Only one model value is allowed for custom models'));
                 end
-            elseif strcmpi(modelType, modelTypes.StandardLayers.value) && obj.domainsCalc
+            elseif obj.domainsCalc && all(size(allowedNames.modelNames) == size(allowedNames.domainContrastNames)) && all(cellfun(@strcmp, allowedNames.modelNames, allowedNames.domainContrastNames))
                 if length(modelArray) ~= 2
                     throw(exceptions.invalidValue('Exactly two model values are required for ''standard layers'' with domains'));
                 end
             end
+
             for i = 1:length(modelArray)
-                if ~strcmpi(modelArray{i}, allowedModelNames)
-                    throw(exceptions.nameNotRecognised(sprintf('Model component name "%s" is not recognised. The allowed names are: "%s".', modelArray{i}, strjoin(allowedModelNames, '", "'))));
+                if ~strcmpi(modelArray{i}, allowedNames.modelNames)
+                    throw(exceptions.nameNotRecognised(sprintf('Model component name "%s" is not recognised. The allowed names are: "%s".', modelArray{i}, strjoin(allowedNames.modelNames, '", "'))));
                 end
             end
         end

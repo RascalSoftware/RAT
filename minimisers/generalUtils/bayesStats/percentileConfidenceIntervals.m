@@ -1,10 +1,10 @@
 function confidenceIntervals = percentileConfidenceIntervals(chain)
 
-CIFn = @(x,p)prctile(x,abs([0,100]-(100-p)/2));
+CIFn = @(x,p)prctile(x,abs([0,100]-(100-p)/2),1);
 
 percentile95 = CIFn(chain,95);
 percentile65 = CIFn(chain,65);
-meanValues = mean(chain);
+meanValues = mean(chain,1);
 
 confidenceIntervals.percentile95 = percentile95;
 confidenceIntervals.percentile65 = percentile65;

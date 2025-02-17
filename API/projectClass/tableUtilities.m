@@ -57,7 +57,7 @@ classdef (Abstract) tableUtilities < handle
             % Arrange parameters into a cell array
             if isa(row, 'double')
 
-                indices = sort(row, 'descend');
+                indices = row;
 
             elseif isText(row) || iscell(row)
 
@@ -76,7 +76,6 @@ classdef (Abstract) tableUtilities < handle
 
             end
 
-            indices = sort(indices, 'descend');
             for i = 1:length(indices)
                 if indices(i) < 1 || indices(i) > obj.rowCount
                     throw(exceptions.indexOutOfRange(sprintf('Row index %d out of range 1 - %d', indices(i), obj.rowCount)));

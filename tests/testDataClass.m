@@ -117,7 +117,7 @@ classdef testDataClass < matlab.unittest.TestCase
         end
 
         function testRemoveData(testCase)
-            % Checks that data can be removed by name
+            % Checks that data can be removed by index
             testCase.addDataSets();
             testCase.data.removeData(3);
             testCase.verifyEqual(testCase.data.varTable{:, 1}, ["New data 1"; "Bilayer / D2O"; "Bilayer / H2O"], 'removeData does not work correctly');
@@ -127,7 +127,7 @@ classdef testDataClass < matlab.unittest.TestCase
         end
 
         function testRemoveDataName(testCase)
-            % Checks that data can be removed
+            % Checks that data can be removed by name
             testCase.addDataSets();
             testCase.data.removeData("Bilayer / SMW");
             testCase.verifyEqual(testCase.data.varTable{:, 1}, ["New data 1"; "Bilayer / D2O"; "Bilayer / H2O"], 'removeData does not work correctly');

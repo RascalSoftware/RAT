@@ -6,8 +6,6 @@ classdef testTableUtilities < matlab.unittest.TestCase
 % We use an example multi-type table from the backgrounds class for the
 % example calculation "DPPCStandardLayers.m"
 %
-% Paul Sharp 02/06/23
-%
 %% Declare properties and parameters
 
     properties (TestParameter)
@@ -103,7 +101,8 @@ classdef testTableUtilities < matlab.unittest.TestCase
         end
 
         function testRemoveRow(testCase)
-            % Note that the routine requires a single integer as input
+            % Test we can remove a single row from a multi-type table by
+            % index
             remainingRows = testCase.exampleTable.varTable(2:end,:);
             testCase.exampleTable.removeRow(1);
 
@@ -111,7 +110,7 @@ classdef testTableUtilities < matlab.unittest.TestCase
         end
 
         function testRemoveRowName(testCase)
-            % Note that the routine requires a single string as input
+            % Test removing multiple rows from a multi-type table by name
             remainingRows = testCase.exampleTable.varTable(2:end,:);
             testCase.exampleTable.removeRow('Background D2O');
 
@@ -119,8 +118,8 @@ classdef testTableUtilities < matlab.unittest.TestCase
         end
 
         function testRemoveRowMultiple(testCase)
-            % Test removing multiple rows from a multi-type table
-            % Note that the routine requires a single array as input
+            % Test removing multiple rows from a multi-type table by
+            % indices
             remainingRows = testCase.exampleTable.varTable(2,:);
             testCase.exampleTable.removeRow([1 3]);
 
@@ -128,8 +127,7 @@ classdef testTableUtilities < matlab.unittest.TestCase
         end
 
         function testRemoveRowMultipleCell(testCase)
-            % Test removing multiple rows from a multi-type table
-            % Note that the routine requires a single cell array as input
+            % Test removing multiple rows from a multi-type table by name
             remainingRows = testCase.exampleTable.varTable(2,:);
             testCase.exampleTable.removeRow({'Background D2O', 'Background H2O'});
 
@@ -139,7 +137,6 @@ classdef testTableUtilities < matlab.unittest.TestCase
         function testRemoveRowInvalid(testCase)
             % Test using invalid row indices to remove rows from a
             % multi-type table.
-            % Note that the routine requires a single cell array as input.
             testCase.verifyError(@() testCase.exampleTable.removeRow(0), 'RAT:IndexOutOfRange');
             testCase.verifyError(@() testCase.exampleTable.removeRow(testCase.numRows+1), 'RAT:IndexOutOfRange');
 

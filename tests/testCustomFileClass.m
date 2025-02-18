@@ -381,9 +381,17 @@ classdef testCustomFileClass < matlab.unittest.TestCase
                 [~, handle, ~] = fileparts(testCase.exampleClass.varTable{i, 2});
                 testCase.verifyEqual(string(fileStruct.files{i}), handle);
             end
-            old = testCase.exampleClass.varTable{1, 5};
-            testCase.exampleClass.varTable{1, 5} = {'../..'};
-            testCase.verifyWarning(@() testCase.exampleClass.toStruct(), '');
+            import matlab.unittest.fixtures.TemporaryFolderFixture
+            import matlab.unittest.fixtures.CurrentFolderFixture
+            fixture = testCase.applyFixture(TemporaryFolderFixture);
+            filename = fullfile(fixture.Folder, 'DPPCCustomXY.m');
+            fid = fopen(filename, 'w');
+            testCase.addTeardown(@fclose, fid)
+            
+            old = testCase.exampleClass.varTable{1, 5};  
+            testCase.exampleClass.setCustomFile(1, 'path', fixture.Folder);
+            testCase.verifyWarning(@() testCase.exampleClass.toStruct(), '', 'CustomFile conflict warning should be triggered');
+            testCase.verifyWarningFree(@() testCase.exampleClass.toStruct(), 'CustomFile conflict warning should be triggered only once');
             testCase.exampleClass.varTable{1, 5} = old;
             testCase.exampleClass.varTable{1, 3} = {'randomName'};
             testCase.verifyError(@() testCase.exampleClass.toStruct(), exceptions.invalidPath.errorID);

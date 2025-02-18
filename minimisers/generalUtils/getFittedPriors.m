@@ -1,8 +1,4 @@
-function priorFitList = getFittedPriors(paramNames,priors,fitLimits)
-
-% Get the list of all the priors..
-priorNames = priors.priorNames;
-priorValues = priors.priorValues;
+function priorFitList = getFittedPriors(paramNames,priorNames,priorValues,fitLimits)
 
 % Find the values for fitParams
 numberOfParams = length(paramNames);

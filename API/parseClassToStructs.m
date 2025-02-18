@@ -1,4 +1,4 @@
-function [problemStruct,problemLimits,priors,controls] = parseClassToStructs(project,inputControls)
+function [problemStruct,problemLimits,controls] = parseClassToStructs(project,inputControls)
 
 % Breaks up the classes into the relevant structures for inputting into C
  
@@ -12,56 +12,6 @@ for i = 1:length(inputStruct.contrastData)
     contrastData = inputStruct.contrastData{i};
     inputData{i} = [contrastData zeros(size(contrastData,1), 6-size(contrastData,2))];
 end
-
-%% Put the priors into their own array
-priors.params = inputStruct.paramPriors;
-priors.backgroundParams = inputStruct.backgroundParamPriors;
-priors.scalefactors = inputStruct.scalefactorPriors;
-priors.qzshifts = inputStruct.qzshiftPriors;
-priors.bulkIns = inputStruct.bulkInPriors;
-priors.bulkOuts = inputStruct.bulkOutPriors;
-priors.resolutionParams = inputStruct.resolutionParamPriors;
-if isa(project, 'domainsClass')
-    priors.domainRatios = inputStruct.domainRatioPriors;
-else
-    priors.domainRatios = cell(0,1);
-end
-
-priorFields = fieldnames(priors);
-totalNumber = 0;
-for i=1:length(priorFields)
-    totalNumber = totalNumber + size(priors.(priorFields{i}), 1);
-end
-
-priorsCell = cell(totalNumber,4);
-cellCount = 1;
-
-for i=1:length(priorFields)
-    currentPrior = priorFields{i};
-    for j = 1:size(priors.(currentPrior), 1)
-        priorsCell{cellCount,1} = priors.(currentPrior){j}{1};
-       
-        % Check prior type.....
-        thisType = priors.(currentPrior){j}{2};
-
-        if strcmpi(thisType, priorTypes.Uniform.value)
-            priorType = 1;
-        elseif strcmpi(thisType, priorTypes.Gaussian.value)
-            priorType = 2;
-        else
-            priorType = 3;
-        end
-        priorsCell{cellCount,2} = priorType;
-
-        priorsCell{cellCount,3} = priors.(currentPrior){j}{3};
-        priorsCell{cellCount,4} = priors.(currentPrior){j}{4};
-        cellCount = cellCount + 1;
-    end
-end
-
-priors.priorNames = priorsCell(:, 1);
-priors.priorValues = cell2mat(priorsCell(:, 2:end));
-
 
 %% Deal with backgrounds and resolutions
 
@@ -277,6 +227,52 @@ problemStruct.otherParams = [];
 problemStruct.fitLimits = [];
 problemStruct.otherLimits = [];
 
+%% Put the priors into their fields
+
+priorFields = {"paramPriors", "backgroundParamPriors", ...
+               "scalefactorPriors","qzshiftPriors", "bulkInPriors", ...
+               "bulkOutPriors", "resolutionParamPriors"};
+
+if isa(project, 'domainsClass')
+    priorFields{end+1} = "domainRatioPriors";
+end
+
+totalNumber = 0;
+for i=1:length(priorFields)
+    totalNumber = totalNumber + size(inputStruct.(priorFields{i}), 1);
+end
+
+priorsCell = cell(totalNumber,4);
+cellCount = 1;
+
+for i=1:length(priorFields)
+    currentPrior = priorFields{i};
+    for j = 1:size(inputStruct.(currentPrior), 1)
+        priorsCell{cellCount,1} = inputStruct.(currentPrior){j}{1};
+       
+        % Check prior type
+        thisType = inputStruct.(currentPrior){j}{2};
+
+        if strcmpi(thisType, priorTypes.Uniform.value)
+            priorType = 1;
+        elseif strcmpi(thisType, priorTypes.Gaussian.value)
+            priorType = 2;
+        else
+            priorType = 3;
+        end
+        priorsCell{cellCount,2} = priorType;
+
+        priorsCell{cellCount,3} = inputStruct.(currentPrior){j}{3};
+        priorsCell{cellCount,4} = inputStruct.(currentPrior){j}{4};
+        cellCount = cellCount + 1;
+    end
+end
+
+problemStruct.priorNames = priorsCell(:, 1);
+problemStruct.priorValues = cell2mat(priorsCell(:, 2:end));
+
+%% Add structs for parameter names and fits
+
 % Record lists of parameter names
 problemStruct.names.params = inputStruct.paramNames;
 problemStruct.names.backgroundParams = inputStruct.backgroundParamNames;
@@ -292,7 +288,7 @@ else
 end
 problemStruct.names.contrasts = inputStruct.contrastNames;
 
-% Also need to deal with the checks...
+% Record lists of parameter fits
 problemStruct.checks.params = inputStruct.fitParam;
 problemStruct.checks.backgroundParams = inputStruct.fitBackgroundParam;
 problemStruct.checks.scalefactors = inputStruct.fitScalefactor;

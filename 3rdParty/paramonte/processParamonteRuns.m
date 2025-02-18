@@ -5,7 +5,7 @@ function [outProject,result,pmpd] = processParamonteRuns(problem,controls,chainN
 % 
 % controls = controlsClass();
 
-[problemStruct,problemLimits,~,controls] = parseClassToStructs(problem,controls);
+[problemStruct,problemLimits,controls] = parseClassToStructs(problem,controls);
 
 [problemStruct,fitNames] = packParams(problemStruct,problemLimits);
 

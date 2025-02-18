@@ -1,4 +1,4 @@
-function [problemStruct,result,bayesResults] = RATMain(problemStruct,problemLimits,controls,priors)
+function [problemStruct,result,bayesResults] = RATMain(problemStruct,problemLimits,controls)
 coderEnums.initialise()
 
 if strcmpi(problemStruct.TF, coderEnums.calculationTypes.Domains)
@@ -29,12 +29,12 @@ if problemStruct.numberOfContrasts > 0
             if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
                 triggerEvent(coderEnums.eventTypes.Message, sprintf('\nRunning Nested Sampler\n\n'));
             end            
-            [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,problemLimits,controls,priors);   
+            [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,problemLimits,controls);   
         case coderEnums.procedures.Dream
             if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
                 triggerEvent(coderEnums.eventTypes.Message, sprintf('\nRunning DREAM\n\n'));
             end
-            [problemStruct,result,bayesResults] = runDREAM(problemStruct,problemLimits,controls,priors);
+            [problemStruct,result,bayesResults] = runDREAM(problemStruct,problemLimits,controls);
         otherwise
             coderException(coderEnums.errorCodes.invalidOption, 'The procedure "%s" is not supported. The procedure must be one of "%s"', controls.procedure, strjoin(fieldnames(coderEnums.procedures), '", "'));
     end

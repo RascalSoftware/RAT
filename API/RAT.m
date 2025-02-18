@@ -61,7 +61,7 @@ function [project,result] = RAT(project,controls)
 % chain               [M x nParams] double MCMC chains where M is the length of each chain
 % =================== ==================== ===============
 
-[problemStruct,problemLimits,priors,controls] = parseClassToStructs(project,controls);
+[problemStruct,problemLimits,controls] = parseClassToStructs(project,controls);
 
 % Set controls.calcSLD to 1 if we are doing customXY
 switch lower(problemStruct.modelType)
@@ -78,7 +78,7 @@ if display
 end
 
 tic
-[problemStruct,result,bayesResults] = RATMain_mex(problemStruct,problemLimits,controls,priors);
+[problemStruct,result,bayesResults] = RATMain_mex(problemStruct,problemLimits,controls);
 
 if display
     toc

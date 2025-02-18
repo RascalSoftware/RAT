@@ -1,4 +1,4 @@
-function [outProblemStruct,result,bayesResults] = runDREAM(problemStruct,problemLimits,controls,priors)
+function [outProblemStruct,result,bayesResults] = runDREAM(problemStruct,problemLimits,controls)
 
 
 % Make an empty struct for bayesResults to hold the outputs of the
@@ -33,7 +33,8 @@ end
 [problemStruct,fitParamNames] = packParams(problemStruct,problemLimits);
 
 % Get the priors for the fitted parameters...
-priorList = getFittedPriors(fitParamNames,priors,problemStruct.fitLimits);
+priorList = getFittedPriors(fitParamNames, problemStruct.priorNames, ...
+                            problemStruct.priorValues, problemStruct.fitLimits);
 
 % Put all the RAT parameters together into one array...
 ratInputs.problemStruct = problemStruct;

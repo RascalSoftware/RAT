@@ -21,7 +21,7 @@ namespace RAT
 {
   struct e_struct_T;
   struct struct4_T;
-  struct struct6_T;
+  struct struct5_T;
   struct f_struct_T;
   struct struct0_T;
 }
@@ -30,13 +30,13 @@ namespace RAT
 namespace RAT
 {
   void b_reflectivityCalculation(const e_struct_T *problemStruct, const
-    struct4_T *controls, struct6_T *result);
+    struct4_T *controls, struct5_T *result);
   void reflectivityCalculation(const e_struct_T *problemStruct, const struct4_T *
-    controls, struct6_T *result);
+    controls, struct5_T *result);
   void reflectivityCalculation(const e_struct_T *problemStruct, const struct4_T *
     controls, f_struct_T *result);
   void reflectivityCalculation(const struct0_T *problemStruct, const struct4_T
-    *controls, struct6_T *result);
+    *controls, struct5_T *result);
 }
 
 #endif

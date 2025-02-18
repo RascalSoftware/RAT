@@ -20,9 +20,9 @@
 // Type Declarations
 namespace RAT
 {
-  struct cell_wrap_12;
+  struct cell_wrap_11;
+  struct struct11_T;
   struct struct12_T;
-  struct struct13_T;
   struct c_struct_T;
 }
 
@@ -30,27 +30,27 @@ namespace RAT
 namespace RAT
 {
   void b_makeEmptyBayesResultsStruct(real_T nContrasts, boolean_T isDomains, ::
-    coder::array<cell_wrap_12, 1U>
-    &bayesResults_predictionIntervals_reflectivity, ::coder::array<cell_wrap_12,
+    coder::array<cell_wrap_11, 1U>
+    &bayesResults_predictionIntervals_reflectivity, ::coder::array<cell_wrap_11,
     2U> &bayesResults_predictionIntervals_sld, real_T
     bayesResults_predictionIntervals_sampleChi_data[], int32_T
     *bayesResults_predictionIntervals_sampleChi_size, ::coder::array<real_T, 2U>
     &bayesResults_confidenceIntervals_percentile95, ::coder::array<real_T, 2U>
     &bayesResults_confidenceIntervals_percentile65, ::coder::array<real_T, 2U>
-    &bayesResults_confidenceIntervals_mean, struct12_T *bayesResults_dreamParams,
-    struct13_T *bayesResults_dreamOutput, c_struct_T
+    &bayesResults_confidenceIntervals_mean, struct11_T *bayesResults_dreamParams,
+    struct12_T *bayesResults_dreamOutput, c_struct_T
     *bayesResults_nestedSamplerOutput, ::coder::array<real_T, 2U>
     &bayesResults_chain);
   void makeEmptyBayesResultsStruct(real_T nContrasts, boolean_T isDomains,
-    real_T nChains, ::coder::array<cell_wrap_12, 1U>
-    &bayesResults_predictionIntervals_reflectivity, ::coder::array<cell_wrap_12,
+    real_T nChains, ::coder::array<cell_wrap_11, 1U>
+    &bayesResults_predictionIntervals_reflectivity, ::coder::array<cell_wrap_11,
     2U> &bayesResults_predictionIntervals_sld, real_T
     bayesResults_predictionIntervals_sampleChi_data[], int32_T
     *bayesResults_predictionIntervals_sampleChi_size, ::coder::array<real_T, 2U>
     &bayesResults_confidenceIntervals_percentile95, ::coder::array<real_T, 2U>
     &bayesResults_confidenceIntervals_percentile65, ::coder::array<real_T, 2U>
-    &bayesResults_confidenceIntervals_mean, struct12_T *bayesResults_dreamParams,
-    struct13_T *bayesResults_dreamOutput, c_struct_T
+    &bayesResults_confidenceIntervals_mean, struct11_T *bayesResults_dreamParams,
+    struct12_T *bayesResults_dreamOutput, c_struct_T
     *bayesResults_nestedSamplerOutput, ::coder::array<real_T, 2U>
     &bayesResults_chain);
 }

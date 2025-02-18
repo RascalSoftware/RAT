@@ -20,14 +20,14 @@
 // Type Declarations
 namespace RAT
 {
-  struct cell_wrap_49;
+  struct cell_wrap_47;
 }
 
 // Function Declarations
 namespace RAT
 {
   void allocateLayersForContrast(const ::coder::array<real_T, 2U>
-    &contrastLayers, const ::coder::array<cell_wrap_49, 2U>
+    &contrastLayers, const ::coder::array<cell_wrap_47, 2U>
     &outParameterisedLayers, boolean_T useImaginary, ::coder::array<real_T, 2U>
     &thisContrastLayers);
 }

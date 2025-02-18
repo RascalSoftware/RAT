@@ -43,18 +43,18 @@ namespace RAT
       const char_T backgroundType_data[], const int32_T backgroundType_size[2],
       const char_T backgroundAction_data[], const int32_T backgroundAction_size
       [2], const char_T resolutionType_data[], const int32_T
-      resolutionType_size[2], const ::coder::array<cell_wrap_8, 2U> &customFiles,
-      real_T nParams, const char_T parallel_data[], const int32_T parallel_size
-      [2], real_T resampleMinAngle, real_T resampleNPoints, boolean_T
-      useImaginary, real_T resample, const char_T geometry_data[], const int32_T
-      geometry_size[2], real_T roughness, boolean_T calcSld, const ::coder::
-      array<real_T, 2U> &layer, real_T *qzshiftValue, real_T *scalefactorValue,
-      real_T *bulkInValue, real_T *bulkOutValue, real_T *chi, ::coder::array<
-      real_T, 2U> &reflectivity, ::coder::array<real_T, 2U> &simulation, ::coder::
-      array<real_T, 2U> &shiftedData, ::coder::array<real_T, 2U> &background, ::
-      coder::array<real_T, 2U> &resolution, ::coder::array<real_T, 2U> &layerSld,
-      ::coder::array<real_T, 2U> &sldProfile, ::coder::array<real_T, 2U>
-      &resampledLayer);
+      resolutionType_size[2], const ::coder::array<cell_wrap_10, 2U>
+      &customFiles, real_T nParams, const char_T parallel_data[], const int32_T
+      parallel_size[2], real_T resampleMinAngle, real_T resampleNPoints,
+      boolean_T useImaginary, real_T resample, const char_T geometry_data[],
+      const int32_T geometry_size[2], real_T roughness, boolean_T calcSld, const
+      ::coder::array<real_T, 2U> &layer, real_T *qzshiftValue, real_T
+      *scalefactorValue, real_T *bulkInValue, real_T *bulkOutValue, real_T *chi,
+      ::coder::array<real_T, 2U> &reflectivity, ::coder::array<real_T, 2U>
+      &simulation, ::coder::array<real_T, 2U> &shiftedData, ::coder::array<
+      real_T, 2U> &background, ::coder::array<real_T, 2U> &resolution, ::coder::
+      array<real_T, 2U> &layerSld, ::coder::array<real_T, 2U> &sldProfile, ::
+      coder::array<real_T, 2U> &resampledLayer);
   }
 }
 
@@ -76,18 +76,18 @@ namespace RAT
       const char_T backgroundType_data[], const int32_T backgroundType_size[2],
       const char_T backgroundAction_data[], const int32_T backgroundAction_size
       [2], const char_T resolutionType_data[], const int32_T
-      resolutionType_size[2], const ::coder::array<cell_wrap_8, 2U> &customFiles,
-      real_T nParams, const char_T parallel_data[], const int32_T parallel_size
-      [2], real_T resampleMinAngle, real_T resampleNPoints, boolean_T
-      useImaginary, real_T resample, const char_T geometry_data[], const int32_T
-      geometry_size[2], real_T roughness, boolean_T calcSld, const ::coder::
-      array<real_T, 2U> &layer, real_T *qzshiftValue, real_T *scalefactorValue,
-      real_T *bulkInValue, real_T *bulkOutValue, real_T *chi, ::coder::array<
-      real_T, 2U> &reflectivity, ::coder::array<real_T, 2U> &simulation, ::coder::
-      array<real_T, 2U> &shiftedData, ::coder::array<real_T, 2U> &background, ::
-      coder::array<real_T, 2U> &resolution, ::coder::array<real_T, 2U> &layerSld,
-      ::coder::array<real_T, 2U> &sldProfile, ::coder::array<real_T, 2U>
-      &resampledLayer)
+      resolutionType_size[2], const ::coder::array<cell_wrap_10, 2U>
+      &customFiles, real_T nParams, const char_T parallel_data[], const int32_T
+      parallel_size[2], real_T resampleMinAngle, real_T resampleNPoints,
+      boolean_T useImaginary, real_T resample, const char_T geometry_data[],
+      const int32_T geometry_size[2], real_T roughness, boolean_T calcSld, const
+      ::coder::array<real_T, 2U> &layer, real_T *qzshiftValue, real_T
+      *scalefactorValue, real_T *bulkInValue, real_T *bulkOutValue, real_T *chi,
+      ::coder::array<real_T, 2U> &reflectivity, ::coder::array<real_T, 2U>
+      &simulation, ::coder::array<real_T, 2U> &shiftedData, ::coder::array<
+      real_T, 2U> &background, ::coder::array<real_T, 2U> &resolution, ::coder::
+      array<real_T, 2U> &layerSld, ::coder::array<real_T, 2U> &sldProfile, ::
+      coder::array<real_T, 2U> &resampledLayer)
     {
       ::coder::array<real_T, 2U> b_data;
       ::coder::array<real_T, 2U> b_shiftedData;
@@ -141,14 +141,13 @@ namespace RAT
                         array<real_T, 1U> &scalefactors, ::coder::array<real_T,
                         1U> &bulkIns, ::coder::array<real_T, 1U> &bulkOuts, ::
                         coder::array<real_T, 1U> &chis, ::coder::array<
-                        cell_wrap_9, 1U> &reflectivity, ::coder::array<
-                        cell_wrap_9, 1U> &simulation, ::coder::array<
-                        cell_wrap_10, 1U> &shiftedData, ::coder::array<
-                        cell_wrap_10, 1U> &backgrounds, ::coder::array<
-                        cell_wrap_9, 1U> &resolutions, ::coder::array<
-                        cell_wrap_11, 2U> &layerSlds, ::coder::array<
-                        cell_wrap_11, 2U> &sldProfiles, ::coder::array<
-                        cell_wrap_11, 2U> &resampledLayers, ::coder::array<
+                        cell_wrap_7, 1U> &reflectivity, ::coder::array<
+                        cell_wrap_7, 1U> &simulation, ::coder::array<cell_wrap_8,
+                        1U> &shiftedData, ::coder::array<cell_wrap_8, 1U>
+                        &backgrounds, ::coder::array<cell_wrap_7, 1U>
+                        &resolutions, ::coder::array<cell_wrap_9, 2U> &layerSlds,
+                        ::coder::array<cell_wrap_9, 2U> &sldProfiles, ::coder::
+                        array<cell_wrap_9, 2U> &resampledLayers, ::coder::array<
                         real_T, 1U> &subRoughs)
     {
       ::coder::array<real_T, 2U> r;
@@ -465,29 +464,28 @@ namespace RAT
                         array<real_T, 1U> &scalefactors, ::coder::array<real_T,
                         1U> &bulkIns, ::coder::array<real_T, 1U> &bulkOuts, ::
                         coder::array<real_T, 1U> &chis, ::coder::array<
-                        cell_wrap_9, 1U> &reflectivity, ::coder::array<
-                        cell_wrap_9, 1U> &simulation, ::coder::array<
-                        cell_wrap_10, 1U> &shiftedData, ::coder::array<
-                        cell_wrap_10, 1U> &backgrounds, ::coder::array<
-                        cell_wrap_9, 1U> &resolutions, ::coder::array<
-                        cell_wrap_11, 2U> &layerSlds, ::coder::array<
-                        cell_wrap_11, 2U> &sldProfiles, ::coder::array<
-                        cell_wrap_11, 2U> &resampledLayers, ::coder::array<
+                        cell_wrap_7, 1U> &reflectivity, ::coder::array<
+                        cell_wrap_7, 1U> &simulation, ::coder::array<cell_wrap_8,
+                        1U> &shiftedData, ::coder::array<cell_wrap_8, 1U>
+                        &backgrounds, ::coder::array<cell_wrap_7, 1U>
+                        &resolutions, ::coder::array<cell_wrap_9, 2U> &layerSlds,
+                        ::coder::array<cell_wrap_9, 2U> &sldProfiles, ::coder::
+                        array<cell_wrap_9, 2U> &resampledLayers, ::coder::array<
                         real_T, 1U> &subRoughs)
     {
       ::coder::array<cell_wrap_1, 2U> data;
-      ::coder::array<cell_wrap_11, 2U> a__4;
-      ::coder::array<cell_wrap_11, 2U> a__5;
-      ::coder::array<cell_wrap_11, 2U> a__6;
-      ::coder::array<cell_wrap_11, 2U> contrastResolutionIndices;
+      ::coder::array<cell_wrap_10, 2U> contrastBackgroundActions;
+      ::coder::array<cell_wrap_10, 2U> contrastBackgroundTypes;
+      ::coder::array<cell_wrap_10, 2U> contrastResolutionTypes;
+      ::coder::array<cell_wrap_10, 2U> customFiles;
       ::coder::array<cell_wrap_2, 2U> dataLimits;
       ::coder::array<cell_wrap_2, 2U> repeatLayers;
       ::coder::array<cell_wrap_2, 2U> simLimits;
-      ::coder::array<cell_wrap_49, 2U> contrastBackgroundIndices;
-      ::coder::array<cell_wrap_8, 2U> contrastBackgroundActions;
-      ::coder::array<cell_wrap_8, 2U> contrastBackgroundTypes;
-      ::coder::array<cell_wrap_8, 2U> contrastResolutionTypes;
-      ::coder::array<cell_wrap_8, 2U> customFiles;
+      ::coder::array<cell_wrap_47, 2U> contrastBackgroundIndices;
+      ::coder::array<cell_wrap_9, 2U> a__4;
+      ::coder::array<cell_wrap_9, 2U> a__5;
+      ::coder::array<cell_wrap_9, 2U> a__6;
+      ::coder::array<cell_wrap_9, 2U> contrastResolutionIndices;
       ::coder::array<real_T, 2U> a__1;
       ::coder::array<real_T, 2U> a__2;
       ::coder::array<real_T, 2U> backgroundParamArray;
@@ -769,14 +767,13 @@ namespace RAT
                         array<real_T, 1U> &scalefactors, ::coder::array<real_T,
                         1U> &bulkIns, ::coder::array<real_T, 1U> &bulkOuts, ::
                         coder::array<real_T, 1U> &chis, ::coder::array<
-                        cell_wrap_9, 1U> &reflectivity, ::coder::array<
-                        cell_wrap_9, 1U> &simulation, ::coder::array<
-                        cell_wrap_10, 1U> &shiftedData, ::coder::array<
-                        cell_wrap_10, 1U> &backgrounds, ::coder::array<
-                        cell_wrap_9, 1U> &resolutions, ::coder::array<
-                        cell_wrap_11, 2U> &layerSlds, ::coder::array<
-                        cell_wrap_11, 2U> &sldProfiles, ::coder::array<
-                        cell_wrap_11, 2U> &resampledLayers, ::coder::array<
+                        cell_wrap_7, 1U> &reflectivity, ::coder::array<
+                        cell_wrap_7, 1U> &simulation, ::coder::array<cell_wrap_8,
+                        1U> &shiftedData, ::coder::array<cell_wrap_8, 1U>
+                        &backgrounds, ::coder::array<cell_wrap_7, 1U>
+                        &resolutions, ::coder::array<cell_wrap_9, 2U> &layerSlds,
+                        ::coder::array<cell_wrap_9, 2U> &sldProfiles, ::coder::
+                        array<cell_wrap_9, 2U> &resampledLayers, ::coder::array<
                         real_T, 1U> &subRoughs)
     {
       ::coder::array<real_T, 2U> r;

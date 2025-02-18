@@ -35,13 +35,13 @@ namespace RAT
                   &problemLimits_bulkOuts, const ::coder::array<real_T, 2U>
                   &problemLimits_resolutionParams, const ::coder::array<real_T,
                   2U> &problemLimits_domainRatios, const struct4_T *controls,
-                  struct6_T *result)
+                  struct5_T *result)
   {
     static const char_T b_cv1[6]{ 'n', 'o', 't', 'i', 'f', 'y' };
 
     static const char_T b_cv[5]{ 'f', 'i', 'n', 'a', 'l' };
 
-    ::coder::array<cell_wrap_8, 1U> b_problemStruct;
+    ::coder::array<cell_wrap_10, 1U> b_problemStruct;
     ::coder::array<real_T, 1U> x;
     ::coder::array<real_T, 1U> x0u;
     k_struct_T a__4;

@@ -19,7 +19,7 @@
 // Function Definitions
 namespace RAT
 {
-  void evaluateModel(const ::coder::array<real_T, 2U> &x, const struct12_T
+  void evaluateModel(const ::coder::array<real_T, 2U> &x, const struct11_T
                      *DREAMPar, const e_struct_T *ratInputs_problemStruct, const
                      struct4_T *ratInputs_controls, ::coder::array<real_T, 2U>
                      &fx)

@@ -23,7 +23,6 @@ namespace RAT
   struct struct3_T;
   struct struct4_T;
   struct struct5_T;
-  struct struct6_T;
   struct g_struct_T;
 }
 
@@ -31,8 +30,8 @@ namespace RAT
 namespace RAT
 {
   void runDREAM(const e_struct_T *problemStruct, const struct3_T *problemLimits,
-                const struct4_T *controls, const struct5_T *priors, e_struct_T
-                *outProblemStruct, struct6_T *result, g_struct_T *bayesResults);
+                const struct4_T *controls, e_struct_T *outProblemStruct,
+                struct5_T *result, g_struct_T *bayesResults);
 }
 
 #endif

@@ -175,7 +175,7 @@ namespace RAT
     ::coder::array<char_T, 2U> b_output;
     ::coder::array<char_T, 2U> charStr;
     e_struct_T b_varargin_1;
-    struct6_T result;
+    struct5_T result;
     real_T b_fv;
     real_T b_y;
     real_T func_evals;

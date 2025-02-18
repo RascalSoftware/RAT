@@ -25,7 +25,7 @@ namespace RAT
                       *ratInputs_controls)
   {
     e_struct_T problemStruct;
-    struct6_T expl_temp;
+    struct5_T expl_temp;
     int32_T loop_ub;
 
     //  Get the inputs for Reflectivity Calculation

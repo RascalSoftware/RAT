@@ -66,7 +66,7 @@ namespace RAT
 
   void removeOutlier(::coder::array<real_T, 2U> &X, ::coder::array<real_T, 2U>
                      &log_L, const real_T outlier_data[], const int32_T
-                     outlier_size[2], const struct12_T *DREAMPar, ::coder::array<
+                     outlier_size[2], const struct11_T *DREAMPar, ::coder::array<
                      real_T, 2U> &outputOutlier)
   {
     ::coder::array<real_T, 2U> b_chain_select;

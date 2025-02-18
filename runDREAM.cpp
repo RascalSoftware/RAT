@@ -29,11 +29,11 @@
 namespace RAT
 {
   void runDREAM(const e_struct_T *problemStruct, const struct3_T *problemLimits,
-                const struct4_T *controls, const struct5_T *priors, e_struct_T
-                *outProblemStruct, struct6_T *result, g_struct_T *bayesResults)
+                const struct4_T *controls, e_struct_T *outProblemStruct,
+                struct5_T *result, g_struct_T *bayesResults)
   {
     static struct4_T b_controls;
-    ::coder::array<cell_wrap_8, 1U> fitParamNames;
+    ::coder::array<cell_wrap_10, 1U> fitParamNames;
     ::coder::array<real_T, 2U> ParInfo_max;
     ::coder::array<real_T, 2U> ParInfo_min;
     ::coder::array<real_T, 2U> a__1;
@@ -101,8 +101,9 @@ namespace RAT
     }
 
     //  Run the sampler....
-    getFittedPriors(fitParamNames, priors->priorNames, priors->priorValues,
-                    outProblemStruct->fitLimits, r);
+    getFittedPriors(fitParamNames, outProblemStruct->priorNames,
+                    outProblemStruct->priorValues, outProblemStruct->fitLimits,
+                    r);
     ratDREAM(static_cast<real_T>(fitParamNames.size(0)), controls->nChains, std::
              ceil(controls->nSamples / controls->nChains),
              controls->jumpProbability, controls->pUnitGamma, controls->adaptPCR,

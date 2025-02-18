@@ -24,7 +24,7 @@ namespace RAT
 {
   void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestParams,
                     const ::coder::array<real_T, 2U> &bayesOutputs_chain,
-                    e_struct_T *problemStruct, struct4_T *controls, struct6_T
+                    e_struct_T *problemStruct, struct4_T *controls, struct5_T
                     *result, i_struct_T *bayesResults)
   {
     e_struct_T b_problemStruct;

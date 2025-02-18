@@ -24,7 +24,7 @@
 // Function Definitions
 namespace RAT
 {
-  void initializeDREAM(const struct12_T *DREAMPar, const ::coder::array<real_T,
+  void initializeDREAM(const struct11_T *DREAMPar, const ::coder::array<real_T,
                        2U> &paramInfo_min, const ::coder::array<real_T, 2U>
                        &paramInfo_max, const char_T
                        paramInfo_boundhandling_data[], const int32_T

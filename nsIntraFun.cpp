@@ -26,7 +26,7 @@ namespace RAT
                     coder::array<real_T, 2U> &p)
   {
     e_struct_T problemStruct;
-    struct6_T expl_temp;
+    struct5_T expl_temp;
     int32_T loop_ub;
     problemStruct = *data_f1;
 
@@ -297,6 +297,21 @@ namespace RAT
       for (i1 = 0; i1 < b_loop_ub; i1++) {
         problemStruct.otherLimits[i1 + problemStruct.otherLimits.size(0) * i] =
           data_f1->otherLimits[i1 + data_f1->otherLimits.size(0) * i];
+      }
+    }
+
+    problemStruct.priorNames.set_size(data_f1->priorNames.size(0));
+    loop_ub = data_f1->priorNames.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      problemStruct.priorNames[i] = data_f1->priorNames[i];
+    }
+
+    problemStruct.priorValues.set_size(data_f1->priorValues.size(0), 3);
+    loop_ub = data_f1->priorValues.size(0);
+    for (i = 0; i < 3; i++) {
+      for (i1 = 0; i1 < loop_ub; i1++) {
+        problemStruct.priorValues[i1 + problemStruct.priorValues.size(0) * i] =
+          data_f1->priorValues[i1 + data_f1->priorValues.size(0) * i];
       }
     }
 

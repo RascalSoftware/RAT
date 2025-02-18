@@ -72,10 +72,10 @@ namespace RAT
     ::coder::array<boolean_T, 2U> FM_mpo;
     ::coder::array<boolean_T, 2U> FM_mui;
     e_struct_T b_problem;
-    struct6_T a__1;
-    struct6_T a__2;
-    struct6_T a__3;
-    struct6_T result;
+    struct5_T a__1;
+    struct5_T a__2;
+    struct5_T a__3;
+    struct5_T result;
     real_T validatedHoleFilling[5];
     real_T p[4];
     real_T F_CR;

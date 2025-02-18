@@ -20,7 +20,7 @@
 // Type Declarations
 namespace RAT
 {
-  struct struct12_T;
+  struct struct11_T;
   struct j_struct_T;
   struct e_struct_T;
   struct struct4_T;
@@ -29,7 +29,7 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void initializeDREAM(const struct12_T *DREAMPar, const ::coder::array<real_T,
+  void initializeDREAM(const struct11_T *DREAMPar, const ::coder::array<real_T,
                        2U> &paramInfo_min, const ::coder::array<real_T, 2U>
                        &paramInfo_max, const char_T
                        paramInfo_boundhandling_data[], const int32_T

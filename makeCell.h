@@ -20,16 +20,16 @@
 // Type Declarations
 namespace RAT
 {
-  struct cell_wrap_11;
+  struct cell_wrap_9;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void b_makeCell(real_T m, const real_T vals[3], ::coder::array<cell_wrap_11,
-                  2U> &x);
-  void makeCell(cell_wrap_11 x[50]);
-  void makeCell(real_T m, const real_T vals[3], ::coder::array<cell_wrap_11, 2U>
+  void b_makeCell(real_T m, const real_T vals[3], ::coder::array<cell_wrap_9, 2U>
+                  &x);
+  void makeCell(cell_wrap_9 x[50]);
+  void makeCell(real_T m, const real_T vals[3], ::coder::array<cell_wrap_9, 2U>
                 &x);
 }
 

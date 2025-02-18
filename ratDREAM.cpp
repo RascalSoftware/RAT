@@ -46,13 +46,13 @@
 // Function Declarations
 namespace RAT
 {
-  static void printParameters(const struct12_T *DREAMPar);
+  static void printParameters(const struct11_T *DREAMPar);
 }
 
 // Function Definitions
 namespace RAT
 {
-  static void printParameters(const struct12_T *DREAMPar)
+  static void printParameters(const struct11_T *DREAMPar)
   {
     static const char_T b_cv[72]{ '-', '-', '-', '-', '-', '-', '-', '-', '-',
       '-', '-', '-', '-', '-', '-', '-', '-', '-', ' ', 'S', 'u', 'm', 'm', 'a',
@@ -188,8 +188,8 @@ namespace RAT
     ::coder::array<char_T, 2U> w_f1;
     ::coder::array<char_T, 2U> x_f1;
     ::coder::array<char_T, 2U> y_f1;
-    cell_wrap_8 bools[2];
-    cell_wrap_8 rv[2];
+    cell_wrap_10 bools[2];
+    cell_wrap_10 rv[2];
     int32_T tmp_size[2];
     int32_T i;
     int32_T loop_ub;
@@ -412,7 +412,7 @@ namespace RAT
     ::coder::array<boolean_T, 1U> accept;
     ::coder::bounded_array<char_T, 10000U, 2U> paramInfo_boundhandling;
     b_struct_T Meas_info;
-    struct12_T DREAMPar;
+    struct11_T DREAMPar;
     real_T delta_normX_data[100];
     real_T b_lCR_data[3];
     real_T delta_tot_data[3];

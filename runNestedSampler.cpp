@@ -38,20 +38,18 @@ namespace RAT
                         coder::array<real_T, 2U> &problemLimits_resolutionParams,
                         const ::coder::array<real_T, 2U>
                         &problemLimits_domainRatios, const struct4_T *controls,
-                        const ::coder::array<cell_wrap_8, 1U>
-                        &inPriors_priorNames, const ::coder::array<real_T, 2U>
-                        &inPriors_priorValues, struct6_T *result, struct10_T
-                        *bayesResults_predictionIntervals, struct11_T
-                        *bayesResults_confidenceIntervals, struct12_T
-                        *bayesResults_dreamParams, struct13_T
-                        *bayesResults_dreamOutput, struct14_T
+                        struct5_T *result, struct9_T
+                        *bayesResults_predictionIntervals, struct10_T
+                        *bayesResults_confidenceIntervals, struct11_T
+                        *bayesResults_dreamParams, struct12_T
+                        *bayesResults_dreamOutput, struct13_T
                         *bayesResults_nestedSamplerOutput, ::coder::array<real_T,
                         2U> &bayesResults_chain)
   {
     static struct4_T b_controls;
-    ::coder::array<cell_wrap_12, 2U> expl_temp_sld;
-    ::coder::array<cell_wrap_12, 1U> expl_temp_reflectivity;
-    ::coder::array<cell_wrap_8, 1U> fitNames;
+    ::coder::array<cell_wrap_10, 1U> fitNames;
+    ::coder::array<cell_wrap_11, 2U> expl_temp_sld;
+    ::coder::array<cell_wrap_11, 1U> expl_temp_reflectivity;
     ::coder::array<real_T, 2U> b_expl_temp;
     ::coder::array<real_T, 2U> bayesOutputs_bestParams;
     ::coder::array<real_T, 2U> bayesOutputs_chain;
@@ -84,10 +82,10 @@ namespace RAT
       expl_temp_percentile65, expl_temp_mean, bayesResults_dreamParams,
       bayesResults_dreamOutput, &expl_temp, b_expl_temp);
 
-    // Deal with priors.
-    // Tuning Parameters
-    getFittedPriors(fitNames, inPriors_priorNames, inPriors_priorValues,
-                    problemStruct->fitLimits, r);
+    //  Deal with priors.
+    //  Tuning Parameters
+    getFittedPriors(fitNames, problemStruct->priorNames,
+                    problemStruct->priorValues, problemStruct->fitLimits, r);
     nestedSampler(problemStruct, controls, controls->nLive, controls->nMCMC,
                   controls->nsTolerance, r,
                   &bayesResults_nestedSamplerOutput->LogZ,

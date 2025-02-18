@@ -30,16 +30,16 @@ namespace RAT
 {
   void refPercentileConfidenceIntervals(const ::coder::array<real_T, 2U>
     &bayesOutputs_chain, e_struct_T *problemStruct, const struct4_T *controls,
-    const ::coder::array<cell_wrap_9, 1U> &results_reflectivity, const ::coder::
-    array<cell_wrap_11, 2U> &results_sldProfiles, ::coder::array<cell_wrap_12,
-    1U> &allPredInts_reflectivity, ::coder::array<cell_wrap_12, 2U>
-    &allPredInts_sld, real_T allPredInts_sampleChi[1000])
+    const ::coder::array<cell_wrap_7, 1U> &results_reflectivity, const ::coder::
+    array<cell_wrap_9, 2U> &results_sldProfiles, ::coder::array<cell_wrap_11, 1U>
+    &allPredInts_reflectivity, ::coder::array<cell_wrap_11, 2U> &allPredInts_sld,
+    real_T allPredInts_sampleChi[1000])
   {
-    ::coder::array<cell_wrap_11, 2U> r;
-    ::coder::array<cell_wrap_11, 2U> refXVals;
-    ::coder::array<cell_wrap_11, 2U> refYVals;
-    ::coder::array<cell_wrap_11, 2U> sldXVals;
-    ::coder::array<cell_wrap_11, 2U> sldYVals;
+    ::coder::array<cell_wrap_9, 2U> r;
+    ::coder::array<cell_wrap_9, 2U> refXVals;
+    ::coder::array<cell_wrap_9, 2U> refYVals;
+    ::coder::array<cell_wrap_9, 2U> sldXVals;
+    ::coder::array<cell_wrap_9, 2U> sldYVals;
     ::coder::array<real_T, 2U> r1;
     ::coder::array<real_T, 2U> refArray;
     ::coder::array<real_T, 2U> sldArray;
@@ -47,7 +47,7 @@ namespace RAT
     ::coder::array<real_T, 2U> sldArray2;
     ::coder::array<real_T, 1U> b_expl_temp;
     ::coder::array<real_T, 1U> c_expl_temp;
-    struct6_T expl_temp;
+    struct5_T expl_temp;
     real_T a[1000];
     real_T isample[1000];
     real_T b_dv[3];

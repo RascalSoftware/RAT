@@ -20,28 +20,29 @@
 // Function Definitions
 namespace RAT
 {
-  void getFitNames(const ::coder::array<cell_wrap_8, 2U>
-                   &problemStruct_names_params, const ::coder::array<cell_wrap_8,
-                   2U> &problemStruct_names_backgroundParams, const ::coder::
-                   array<cell_wrap_8, 2U> &problemStruct_names_scalefactors,
-                   const ::coder::array<cell_wrap_8, 2U>
-                   &problemStruct_names_qzshifts, const ::coder::array<
-                   cell_wrap_8, 2U> &problemStruct_names_bulkIns, const ::coder::
-                   array<cell_wrap_8, 2U> &problemStruct_names_bulkOuts, const ::
-                   coder::array<cell_wrap_8, 2U>
-                   &problemStruct_names_resolutionParams, const ::coder::array<
-                   cell_wrap_8, 2U> &problemStruct_names_domainRatios, const ::
-                   coder::array<real_T, 2U> &problemStruct_checks_params, const ::
-                   coder::array<real_T, 2U>
-                   &problemStruct_checks_backgroundParams, const ::coder::array<
-                   real_T, 2U> &problemStruct_checks_scalefactors, const ::coder::
-                   array<real_T, 2U> &problemStruct_checks_qzshifts, const ::
-                   coder::array<real_T, 2U> &problemStruct_checks_bulkIns, const
-                   ::coder::array<real_T, 2U> &problemStruct_checks_bulkOuts,
+  void getFitNames(const ::coder::array<cell_wrap_10, 2U>
+                   &problemStruct_names_params, const ::coder::array<
+                   cell_wrap_10, 2U> &problemStruct_names_backgroundParams,
+                   const ::coder::array<cell_wrap_10, 2U>
+                   &problemStruct_names_scalefactors, const ::coder::array<
+                   cell_wrap_10, 2U> &problemStruct_names_qzshifts, const ::
+                   coder::array<cell_wrap_10, 2U> &problemStruct_names_bulkIns,
+                   const ::coder::array<cell_wrap_10, 2U>
+                   &problemStruct_names_bulkOuts, const ::coder::array<
+                   cell_wrap_10, 2U> &problemStruct_names_resolutionParams,
+                   const ::coder::array<cell_wrap_10, 2U>
+                   &problemStruct_names_domainRatios, const ::coder::array<
+                   real_T, 2U> &problemStruct_checks_params, const ::coder::
+                   array<real_T, 2U> &problemStruct_checks_backgroundParams,
+                   const ::coder::array<real_T, 2U>
+                   &problemStruct_checks_scalefactors, const ::coder::array<
+                   real_T, 2U> &problemStruct_checks_qzshifts, const ::coder::
+                   array<real_T, 2U> &problemStruct_checks_bulkIns, const ::
+                   coder::array<real_T, 2U> &problemStruct_checks_bulkOuts,
                    const ::coder::array<real_T, 2U>
                    &problemStruct_checks_resolutionParams, const ::coder::array<
                    real_T, 2U> &problemStruct_checks_domainRatios, ::coder::
-                   array<cell_wrap_8, 1U> &fitNames)
+                   array<cell_wrap_10, 1U> &fitNames)
   {
     static int32_T fitIndices_data[10000];
     real_T fitCounter;
@@ -217,7 +218,7 @@ namespace RAT
                    const ::coder::array<real_T, 2U>
                    &problemStruct_checks_resolutionParams, const ::coder::array<
                    real_T, 2U> &problemStruct_checks_domainRatios, ::coder::
-                   array<cell_wrap_8, 1U> &fitNames)
+                   array<cell_wrap_10, 1U> &fitNames)
   {
     real_T fitCounter;
     int32_T fitIndices_data[10000];

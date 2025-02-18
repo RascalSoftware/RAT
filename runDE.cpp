@@ -33,7 +33,7 @@ namespace RAT
                 real_T controls_resampleNPoints, boolean_T
                 controls_calcSldDuringFit, real_T *S_MSE_I_nc, real_T
                 *S_MSE_FVr_ca, real_T *S_MSE_I_no, real_T *S_MSE_FVr_oa,
-                struct6_T *result)
+                struct5_T *result)
   {
     struct4_T expl_temp;
     int32_T loop_ub;
@@ -74,7 +74,7 @@ namespace RAT
              &problemLimits_bulkIns, const ::coder::array<real_T, 2U>
              &problemLimits_bulkOuts, const ::coder::array<real_T, 2U>
              &problemLimits_resolutionParams, const ::coder::array<real_T, 2U>
-             &problemLimits_domainRatios, const struct4_T *controls, struct6_T
+             &problemLimits_domainRatios, const struct4_T *controls, struct5_T
              *result)
   {
     static const real_T S_struct_FVr_x[50]{ -1.0, -0.95918367346938771,
@@ -95,7 +95,7 @@ namespace RAT
       0.79591836734693866, 0.836734693877551, 0.87755102040816324,
       0.91836734693877542, 0.95918367346938771, 1.0 };
 
-    ::coder::array<cell_wrap_8, 1U> b_problemStruct;
+    ::coder::array<cell_wrap_10, 1U> b_problemStruct;
     ::coder::array<real_T, 2U> r;
     ::coder::array<char_T, 2U> charStr;
     ::coder::array<int8_T, 2U> S_struct_FM_pop;

@@ -22,10 +22,10 @@ namespace RAT
 {
   void extractProblemParams(const struct0_T *problemStruct, real_T
     *numberOfContrasts, char_T geometry_data[], int32_T geometry_size[2], ::
-    coder::array<cell_wrap_49, 2U> &contrastBackgroundParams, ::coder::array<
+    coder::array<cell_wrap_47, 2U> &contrastBackgroundParams, ::coder::array<
     real_T, 2U> &contrastQzshifts, ::coder::array<real_T, 2U>
     &contrastScalefactors, ::coder::array<real_T, 2U> &contrastBulkIns, ::coder::
-    array<real_T, 2U> &contrastBulkOuts, ::coder::array<cell_wrap_11, 2U>
+    array<real_T, 2U> &contrastBulkOuts, ::coder::array<cell_wrap_9, 2U>
     &contrastResolutionParams, ::coder::array<real_T, 2U> &contrastDomainRatios,
     ::coder::array<real_T, 2U> &backgroundParams, ::coder::array<real_T, 2U>
     &qzshifts, ::coder::array<real_T, 2U> &scalefactors, ::coder::array<real_T,
@@ -33,15 +33,15 @@ namespace RAT
     2U> &resolutionParams, ::coder::array<real_T, 2U> &domainRatios, ::coder::
     array<real_T, 2U> &dataPresent, real_T *nParams, ::coder::array<real_T, 2U>
     &params, real_T *numberOfLayers, ::coder::array<real_T, 2U> &resample, ::
-    coder::array<cell_wrap_8, 2U> &contrastBackgroundTypes, ::coder::array<
-    cell_wrap_8, 2U> &contrastBackgroundActions, ::coder::array<cell_wrap_8, 2U>
-    &contrastResolutionTypes, ::coder::array<real_T, 2U> &contrastCustomFiles,
-    boolean_T *useImaginary, ::coder::array<cell_wrap_2, 2U> &repeatLayers, ::
-    coder::array<cell_wrap_1, 2U> &data, ::coder::array<cell_wrap_2, 2U>
-    &dataLimits, ::coder::array<cell_wrap_2, 2U> &simLimits, ::coder::array<
-    cell_wrap_11, 2U> &contrastLayers, ::coder::array<cell_wrap_11, 2U>
-    &layersDetails, ::coder::array<cell_wrap_8, 2U> &customFiles, ::coder::array<
-    cell_wrap_11, 2U> &domainContrastLayers)
+    coder::array<cell_wrap_10, 2U> &contrastBackgroundTypes, ::coder::array<
+    cell_wrap_10, 2U> &contrastBackgroundActions, ::coder::array<cell_wrap_10,
+    2U> &contrastResolutionTypes, ::coder::array<real_T, 2U>
+    &contrastCustomFiles, boolean_T *useImaginary, ::coder::array<cell_wrap_2,
+    2U> &repeatLayers, ::coder::array<cell_wrap_1, 2U> &data, ::coder::array<
+    cell_wrap_2, 2U> &dataLimits, ::coder::array<cell_wrap_2, 2U> &simLimits, ::
+    coder::array<cell_wrap_9, 2U> &contrastLayers, ::coder::array<cell_wrap_9,
+    2U> &layersDetails, ::coder::array<cell_wrap_10, 2U> &customFiles, ::coder::
+    array<cell_wrap_9, 2U> &domainContrastLayers)
   {
     int32_T b_nParams;
     int32_T i;

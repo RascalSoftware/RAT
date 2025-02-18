@@ -22,13 +22,12 @@ namespace RAT
 {
   struct e_struct_T;
   struct struct4_T;
-  struct cell_wrap_8;
-  struct struct6_T;
+  struct struct5_T;
+  struct struct9_T;
   struct struct10_T;
   struct struct11_T;
   struct struct12_T;
   struct struct13_T;
-  struct struct14_T;
 }
 
 // Function Declarations
@@ -44,13 +43,11 @@ namespace RAT
                         coder::array<real_T, 2U> &problemLimits_resolutionParams,
                         const ::coder::array<real_T, 2U>
                         &problemLimits_domainRatios, const struct4_T *controls,
-                        const ::coder::array<cell_wrap_8, 1U>
-                        &inPriors_priorNames, const ::coder::array<real_T, 2U>
-                        &inPriors_priorValues, struct6_T *result, struct10_T
-                        *bayesResults_predictionIntervals, struct11_T
-                        *bayesResults_confidenceIntervals, struct12_T
-                        *bayesResults_dreamParams, struct13_T
-                        *bayesResults_dreamOutput, struct14_T
+                        struct5_T *result, struct9_T
+                        *bayesResults_predictionIntervals, struct10_T
+                        *bayesResults_confidenceIntervals, struct11_T
+                        *bayesResults_dreamParams, struct12_T
+                        *bayesResults_dreamOutput, struct13_T
                         *bayesResults_nestedSamplerOutput, ::coder::array<real_T,
                         2U> &bayesResults_chain);
 }

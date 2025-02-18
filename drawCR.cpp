@@ -21,7 +21,7 @@
 // Function Definitions
 namespace RAT
 {
-  void drawCR(const struct12_T *DREAMPar, const real_T pCR_data[], const int32_T
+  void drawCR(const struct11_T *DREAMPar, const real_T pCR_data[], const int32_T
               pCR_size[2], ::coder::array<real_T, 2U> &CR)
   {
     ::coder::array<real_T, 2U> b_r;

@@ -21,7 +21,7 @@
 namespace RAT
 {
   struct e_struct_T;
-  struct struct6_T;
+  struct struct5_T;
 }
 
 // Function Declarations
@@ -35,7 +35,7 @@ namespace RAT
                        controls_calcSldDuringFit, const ::coder::array<real_T,
                        1U> &params_LB, const ::coder::array<real_T, 1U>
                        &params_UB, const ::coder::array<real_T, 1U>
-                       &params_BoundClass, real_T *fval, struct6_T *result);
+                       &params_BoundClass, real_T *fval, struct5_T *result);
 }
 
 #endif

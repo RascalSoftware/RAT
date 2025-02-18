@@ -19,17 +19,17 @@
 // Function Definitions
 namespace RAT
 {
-  void getFittedPriors(const ::coder::array<cell_wrap_8, 1U> &paramNames, const ::
-                       coder::array<cell_wrap_8, 1U> &priors_priorNames, const ::
-                       coder::array<real_T, 2U> &priors_priorValues, const ::
-                       coder::array<real_T, 2U> &fitLimits, ::coder::array<
-                       real_T, 2U> &priorFitList)
+  void getFittedPriors(const ::coder::array<cell_wrap_10, 1U> &paramNames, const
+                       ::coder::array<cell_wrap_10, 1U> &priorNames, const ::
+                       coder::array<real_T, 2U> &priorValues, const ::coder::
+                       array<real_T, 2U> &fitLimits, ::coder::array<real_T, 2U>
+                       &priorFitList)
   {
     ::coder::array<int32_T, 1U> r1;
     ::coder::array<char_T, 2U> f1;
     ::coder::array<boolean_T, 1U> b_tmp_data;
     ::coder::array<boolean_T, 1U> d_tmp_data;
-    cell_wrap_8 r;
+    cell_wrap_10 r;
     int32_T indices_data[10000];
     int32_T i;
     int32_T i1;
@@ -37,7 +37,6 @@ namespace RAT
     boolean_T c_tmp_data[10000];
     boolean_T tmp_data[10000];
 
-    //  Get the list of all the priors..
     //  Find the values for fitParams
     // priorFitList = cell(numberOfParams,5);
     //  for i = 1:numberOfParams
@@ -69,7 +68,7 @@ namespace RAT
       }
 
       r.f1 = f1;
-      coder::internal::db_strcmp(&r, priors_priorNames, tmp_data, &loop_ub);
+      coder::internal::db_strcmp(&r, priorNames, tmp_data, &loop_ub);
       b_tmp_data.set(&tmp_data[0], loop_ub);
       coder::eml_find(b_tmp_data, r1);
       loop_ub = r1.size(0);
@@ -78,15 +77,15 @@ namespace RAT
       }
 
       r.f1 = f1;
-      coder::internal::db_strcmp(&r, priors_priorNames, c_tmp_data, &loop_ub);
+      coder::internal::db_strcmp(&r, priorNames, c_tmp_data, &loop_ub);
       d_tmp_data.set(&c_tmp_data[0], loop_ub);
       coder::eml_find(d_tmp_data, r1);
       if (r1.size(0) != 0) {
-        priorFitList[b_i] = priors_priorValues[indices_data[0] - 1];
-        priorFitList[b_i + priorFitList.size(0)] = priors_priorValues
-          [(indices_data[0] + priors_priorValues.size(0)) - 1];
-        priorFitList[b_i + priorFitList.size(0) * 2] = priors_priorValues
-          [(indices_data[0] + priors_priorValues.size(0) * 2) - 1];
+        priorFitList[b_i] = priorValues[indices_data[0] - 1];
+        priorFitList[b_i + priorFitList.size(0)] = priorValues[(indices_data[0]
+          + priorValues.size(0)) - 1];
+        priorFitList[b_i + priorFitList.size(0) * 2] = priorValues
+          [(indices_data[0] + priorValues.size(0) * 2) - 1];
         priorFitList[b_i + priorFitList.size(0) * 3] = fitLimits[b_i];
         priorFitList[b_i + priorFitList.size(0) * 4] = fitLimits[b_i +
           fitLimits.size(0)];

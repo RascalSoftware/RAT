@@ -30,11 +30,11 @@
 namespace RAT
 {
   void b_reflectivityCalculation(const e_struct_T *problemStruct, const
-    struct4_T *controls, struct6_T *result)
+    struct4_T *controls, struct5_T *result)
   {
-    ::coder::array<cell_wrap_11, 2U> layerSlds;
-    ::coder::array<cell_wrap_11, 2U> resampledLayers;
-    ::coder::array<cell_wrap_11, 2U> sldProfiles;
+    ::coder::array<cell_wrap_9, 2U> layerSlds;
+    ::coder::array<cell_wrap_9, 2U> resampledLayers;
+    ::coder::array<cell_wrap_9, 2U> sldProfiles;
     ::coder::array<real_T, 1U> qzshifts;
     real_T y;
     int32_T switch_expression_size[2];
@@ -349,11 +349,11 @@ namespace RAT
   }
 
   void reflectivityCalculation(const e_struct_T *problemStruct, const struct4_T *
-    controls, struct6_T *result)
+    controls, struct5_T *result)
   {
-    ::coder::array<cell_wrap_11, 2U> layerSlds;
-    ::coder::array<cell_wrap_11, 2U> resampledLayers;
-    ::coder::array<cell_wrap_11, 2U> sldProfiles;
+    ::coder::array<cell_wrap_9, 2U> layerSlds;
+    ::coder::array<cell_wrap_9, 2U> resampledLayers;
+    ::coder::array<cell_wrap_9, 2U> sldProfiles;
     ::coder::array<real_T, 1U> qzshifts;
     real_T y;
     int32_T switch_expression_size[2];
@@ -670,9 +670,9 @@ namespace RAT
   void reflectivityCalculation(const e_struct_T *problemStruct, const struct4_T *
     controls, f_struct_T *result)
   {
-    ::coder::array<cell_wrap_11, 2U> layerSlds;
-    ::coder::array<cell_wrap_11, 2U> resampledLayers;
-    ::coder::array<cell_wrap_11, 2U> sldProfiles;
+    ::coder::array<cell_wrap_9, 2U> layerSlds;
+    ::coder::array<cell_wrap_9, 2U> resampledLayers;
+    ::coder::array<cell_wrap_9, 2U> sldProfiles;
     ::coder::array<real_T, 1U> qzshifts;
     real_T y;
     int32_T switch_expression_size[2];
@@ -988,11 +988,11 @@ namespace RAT
   }
 
   void reflectivityCalculation(const struct0_T *problemStruct, const struct4_T
-    *controls, struct6_T *result)
+    *controls, struct5_T *result)
   {
-    ::coder::array<cell_wrap_11, 2U> layerSlds;
-    ::coder::array<cell_wrap_11, 2U> resampledLayers;
-    ::coder::array<cell_wrap_11, 2U> sldProfiles;
+    ::coder::array<cell_wrap_9, 2U> layerSlds;
+    ::coder::array<cell_wrap_9, 2U> resampledLayers;
+    ::coder::array<cell_wrap_9, 2U> sldProfiles;
     ::coder::array<real_T, 1U> qzshifts;
     real_T y;
     int32_T switch_expression_size[2];

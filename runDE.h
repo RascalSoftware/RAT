@@ -21,7 +21,7 @@
 namespace RAT
 {
   struct e_struct_T;
-  struct struct6_T;
+  struct struct5_T;
   struct struct4_T;
 }
 
@@ -34,7 +34,7 @@ namespace RAT
                 real_T controls_resampleNPoints, boolean_T
                 controls_calcSldDuringFit, real_T *S_MSE_I_nc, real_T
                 *S_MSE_FVr_ca, real_T *S_MSE_I_no, real_T *S_MSE_FVr_oa,
-                struct6_T *result);
+                struct5_T *result);
   void runDE(e_struct_T *problemStruct, const ::coder::array<real_T, 2U>
              &problemLimits_params, const ::coder::array<real_T, 2U>
              &problemLimits_backgroundParams, const ::coder::array<real_T, 2U>
@@ -43,7 +43,7 @@ namespace RAT
              &problemLimits_bulkIns, const ::coder::array<real_T, 2U>
              &problemLimits_bulkOuts, const ::coder::array<real_T, 2U>
              &problemLimits_resolutionParams, const ::coder::array<real_T, 2U>
-             &problemLimits_domainRatios, const struct4_T *controls, struct6_T
+             &problemLimits_domainRatios, const struct4_T *controls, struct5_T
              *result);
 }
 

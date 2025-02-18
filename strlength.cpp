@@ -20,7 +20,7 @@ namespace RAT
 {
   namespace coder
   {
-    void intstrlen(const ::coder::array<cell_wrap_8, 2U> &s, int32_T len_data[],
+    void intstrlen(const ::coder::array<cell_wrap_10, 2U> &s, int32_T len_data[],
                    int32_T len_size[2])
     {
       int32_T ns;

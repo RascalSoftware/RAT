@@ -219,6 +219,15 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             if isa(obj.layers, 'layersClass')
                 names.layerNames = obj.layers.getNames();
             end
+            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
+                if strcmpi(obj.calculationType, calculationTypes.Domains.value)
+                    names.modelNames = obj.domainContrasts.getNames();
+                else
+                    names.modelNames = obj.layers.getNames();
+                end
+            else
+                names.modelNames = obj.customFile.getNames();
+            end
         end
         
         % ---------------------------------  
@@ -769,8 +778,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % "resolution", "resample", "model"
             % 
             % project.addContrast('contrast 1', 'bulkIn', 'Silicon');
-            allowedNames = obj.getAllAllowedNames;
-            obj.contrasts.addContrast(allowedNames, varargin{:});   
+            allowedNames = obj.getAllAllowedNames();
+            obj.contrasts.addContrast(allowedNames, varargin{:});
         end
 
         function obj = removeContrast(obj, row)
@@ -790,7 +799,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                         
             % Get the list of allowed values depending on what is
             % set for the other contrasts.
-            allowedValues = obj.getAllAllowedNames;
+            allowedValues = obj.getAllAllowedNames();
             
             % Call the setContrast method
             obj.contrasts.setContrast(row, allowedValues, varargin{:});
@@ -804,16 +813,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             %
             % project.setContrastModel(1, {'layer 1'})
             % project.setContrastModel(1:3, {'layer 1'})
-                        
-            % Make a different allowed list depending on whether 
-            % it is custom or layers
-            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
-                % Standard Layers
-                allowedValues = obj.layers.getNames();
-            else
-                % Custom models
-                allowedValues = obj.customFile.getNames();
-            end
+            allowedValues = obj.getAllAllowedNames();
             
             % Call the setContrastModel method
              if isText(row)
@@ -822,7 +822,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 row = num2cell(row);
              end
              for i=1:length(row)
-                 obj.contrasts.setContrastModel(row{i}, obj.modelType, allowedValues, model);
+                 obj.contrasts.setContrastModel(row{i}, allowedValues, model);
              end
         end
 
@@ -890,7 +890,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             dataStruct = obj.data.toStruct();
             
             % Contrasts
-            allNames = obj.getAllAllowedNames;
+            allNames = obj.getAllAllowedNames();
             dataTable = obj.data.varTable;
             
             contrastStruct = obj.contrasts.toStruct(allNames, generalStruct.modelType, dataTable);
@@ -1285,20 +1285,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
             % Contrasts are a cell array rather than a table
             % Need to handle resample and model fields separately
-            for i=1:obj.contrasts.numberOfContrasts
-
-                reducedStruct = rmfield(obj.contrasts.contrasts{i}, {'resample', 'model'});
-                contrastParams = string(namedargs2cell(reducedStruct));
-                contrastSpec = options.objName + ".addContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
-                script = script + sprintf(contrastSpec, contrastParams);
-                script = script + sprintf(options.objName + ".setContrast(%d, 'resample', %s);\n", i, string(obj.contrasts.contrasts{i}.resample));
-                if ~isempty(obj.contrasts.contrasts{i}.model)
-                    script = script + sprintf(options.objName + ".setContrastModel(%d, {" + join(repmat("'%s'", 1, length(obj.contrasts.contrasts{i}.model))) +"});\n", i, obj.contrasts.contrasts{i}.model{:});
-                end
-                script = script + newline;
-
-            end
-
+            % Also need to do domain contrasts before experimental
+            % contrasts
             if isprop(obj, 'domainContrasts') && isa(obj.domainContrasts, 'domainContrastsClass')
                 for i=1:obj.domainContrasts.numberOfContrasts
                     
@@ -1307,11 +1295,25 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                     contrastSpec = options.objName + ".addDomainContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
                     script = script + sprintf(contrastSpec, contrastParams);
                     if ~isempty(obj.domainContrasts.contrasts{i}.model)
-                        script = script + sprintf(options.objName + ".setDomainContrastModel(%d, {" + join(repmat("'%s'", 1, length(obj.domainContrasts.contrasts{i}.model))) +"});\n", i, obj.domainContrasts.contrasts{i}.model{:});
+                        script = script + sprintf(options.objName + ".setDomainContrast(%d, 'model', {" + join(repmat("'%s'", 1, length(obj.domainContrasts.contrasts{i}.model))) +"});\n", i, obj.domainContrasts.contrasts{i}.model{:});
                     end
                     script = script + newline;
                     
                 end
+            end
+
+            for i=1:obj.contrasts.numberOfContrasts
+
+                reducedStruct = rmfield(obj.contrasts.contrasts{i}, {'resample', 'model'});
+                contrastParams = string(namedargs2cell(reducedStruct));
+                contrastSpec = options.objName + ".addContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
+                script = script + sprintf(contrastSpec, contrastParams);
+                script = script + sprintf(options.objName + ".setContrast(%d, 'resample', %s);\n", i, string(obj.contrasts.contrasts{i}.resample));
+                if ~isempty(obj.contrasts.contrasts{i}.model)
+                    script = script + sprintf(options.objName + ".setContrast(%d, 'model', {" + join(repmat("'%s'", 1, length(obj.contrasts.contrasts{i}.model))) +"});\n", i, obj.contrasts.contrasts{i}.model{:});
+                end
+                script = script + newline;
+
             end
         end
     end

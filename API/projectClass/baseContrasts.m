@@ -142,7 +142,7 @@ classdef (Abstract) baseContrasts < handle
 
         end
 
-        function obj = setContrastModel(obj, row, modelType, allowedNames, model)
+        function obj = setContrastModel(obj, row, allowedNames, model)
             % Set the value of the model parameter in a contrast.
             % The expected input is the contrast (specified either by name
             % or index), the model type, the allowed values (either layers
@@ -152,45 +152,7 @@ classdef (Abstract) baseContrasts < handle
             % "addContrast" or "setContrast".
             %
             % contrasts.setContrastModel(1, 'standard layers', allowedNames, 'Oxide Model')
-            
-            % Find if we are referencing an existing contrast
-            if isnumeric(row)
-                if (row < 1 || row > obj.numberOfContrasts)
-                    throw(exceptions.indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', row, obj.numberOfContrasts)));
-                end
-                contrastIndex = row; 
-            elseif isText(row)
-                [present,idx] = ismember(row, obj.getAllContrastNames());
-                if ~present
-                    throw(exceptions.nameNotRecognised(sprintf('Contrast %s is not recognised', row)));
-                end
-                contrastIndex = idx;
-            end
-
-            % Determine which contrast is being set
-            thisContrast = obj.contrasts{contrastIndex};
-            modelArray = cellstr(model);
-
-            % Check the input is as expected
-            modelType = validateOption(modelType, 'modelTypes', obj.invalidTypeMessage).value;
-            if any(strcmpi(modelType, {modelTypes.CustomLayers.value, modelTypes.CustomXY.value}))
-                if length(modelArray) > 1
-                    throw(exceptions.invalidValue('Only 1 model value allowed for ''custom'''));
-                end
-            elseif strcmpi(modelType, modelTypes.StandardLayers.value) && obj.domainsCalc && isa(obj, 'contrastsClass')
-                if length(modelArray) ~= 2
-                    throw(exceptions.invalidValue('Exactly two model values are required for ''standard layers'' with domains'));
-                end
-            end
-
-            for i = 1:length(modelArray)
-                if ~strcmpi(modelArray{i}, allowedNames)
-                    throw(exceptions.nameNotRecognised(sprintf('Model component name %s is not recognised. The allowed names are: %s.', modelArray{i}, strjoin(allowedNames, ', '))));
-                end
-            end
-
-            thisContrast.model = modelArray;
-            obj.contrasts{contrastIndex} = thisContrast;
+            obj.setContrast(row, allowedNames, 'model', model);
 
         end
 
@@ -271,6 +233,10 @@ classdef (Abstract) baseContrasts < handle
             
             if isfield(inputBlock, 'domainRatio') && ~isempty(inputBlock.domainRatio)
                 thisContrast.domainRatio = inputBlock.domainRatio;
+            end
+
+            if isfield(inputBlock, 'model') && ~isempty(inputBlock.model)
+                thisContrast.model = cellstr(inputBlock.model);
             end
 
             obj.contrasts{contrastIndex} = thisContrast;

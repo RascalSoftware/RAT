@@ -1,25 +1,23 @@
-clear
+% Quick script to check if we have a clean D2O calibration surface
 
-% Quick script to check if we have a clean D2O calibfration surface..
-
-% Make an instance of projectClass...
+% Make an instance of projectClass
 problem = projectClass();
 
-% Add some data....
+% Add some data
 % dat = readtable('f82395c.dat');
 dat = readtable('IvsQ_81455_81456.dat');
 dat = table2array(dat);
 problem.addData('D2O',dat);
 
-
-% Make our contrast....
+% Make our contrast
 problem.addContrast('name',          'D2O Contrast',...
                     'BulkIn',        'SLD Air',...
                     'BulkOut',       'SLD D2O',...
                     'resolution',    'Resolution 1',...
                     'background',    'Background 1',...
                     'data',          'D2O',...
-                    'scalefactor',   'Scalefactor 1');
+                    'scalefactor',   'Scalefactor 1', ...
+                    'model',         '');
 
 problem.setScalefactor(1,'min',0.9,'max',1.1,'value',0.93,'fit',true);
 problem.setBackgroundParam(1,'fit',true);
@@ -46,10 +44,8 @@ paramGroup = {
                                                         };
 
 problem.addParameterGroup(paramGroup);
-
-
 problem.addLayer('Layer1',  'Lay thick',  'Lay SLD',    'Lay rough');
-problem.setContrastModel(1,'Layer1');
+problem.setContrast(1, 'model', 'Layer1');
 
 %% Re-run the nested sampling....
 [problem,oneLayerResults] = RAT(problem,controls);
@@ -60,7 +56,4 @@ oneLayerLogZ = oneLayerResults.nestedSamplerOutput.LogZ;
 noLayerLogZ = resultsNoLayer.nestedSamplerOutput.LogZ;
 
 evDiff = exp(noLayerLogZ - oneLayerLogZ);
-fprintf('Nested sampling suggests thatconfidence level of the surface being clean is %g %% \n', (evDiff / (1+evDiff)) * 100)
-
-
-
+fprintf('Nested sampling suggests that the confidence level of the surface being clean is %g %% \n', (evDiff / (1+evDiff)) * 100)

@@ -168,6 +168,7 @@ classdef customFileClass < tableUtilities
 
             % Make an 'inputParser' object...
             p = inputParser;
+            p.PartialMatching = false;
             addParameter(p, 'name', obj.varTable{row, 1}{:}, @isText)
             addParameter(p, 'filename', obj.varTable{row, 2}{:}, @isText)
             addParameter(p, 'functionName', obj.varTable{row, 3}{:}, @isText)

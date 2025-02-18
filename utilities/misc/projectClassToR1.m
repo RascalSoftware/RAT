@@ -302,6 +302,7 @@ function inputBlock = parseR1Problem(varargin)
     default_fileName = sprintf('newFile%s', dateNow);
 
     p = inputParser;
+    p.PartialMatching = false;
     addParameter(p,'r1Problem',     default_r1Problem,      @isstruct);
     addParameter(p,'dirName',       default_dirName,        @isText);
     addParameter(p,'dirPath',       default_dirPath,        @isText);

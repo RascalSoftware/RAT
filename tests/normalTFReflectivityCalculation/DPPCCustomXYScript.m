@@ -41,7 +41,7 @@ project.addCustomFile('DPPC Model','DPPCCustomXY.m','matlab','tests/normalTFRefl
 % Also, add the relevant background parameters - one each for each contrast:
 
 % Change the name of the existing parameters to refer to D2O
-project.setBackgroundParam(1,'name','Backs par D2O','fit',true,'min',1e-7,'max',1e-5,'val',1e-6);
+project.setBackgroundParam(1,'name','Backs par D2O','fit',true,'min',1e-7,'max',1e-5,'value',1e-6);
 
 % Add two new backs parameters for the other two..
 project.addBackgroundParam('Backs par SMW',1e-7,1e-7,1e-5,true);

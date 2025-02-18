@@ -8,7 +8,7 @@ classdef contrastsClass < baseContrasts
         function obj = contrastsClass(calcType)
             % Class Constructor
             % The (optional) inputs are logical flags to state whether
-            % or not this is a domains calculation and wheter or not this
+            % or not this is a domains calculation and whether or not this
             % is an oil-water calculation.
             %
             % contrasts = contrastsClass()
@@ -203,6 +203,7 @@ classdef contrastsClass < baseContrasts
             defaultScalefactor = '';
             defaultResolution = '';
             defaultResample = [];
+            defaultModel = '';
         
             expectedBackground = cellstr(allowedNames.backgroundNames);
             expectedData = cellstr(allowedNames.dataNames);
@@ -212,38 +213,77 @@ classdef contrastsClass < baseContrasts
             expectedResolution = cellstr(allowedNames.resolutionNames);
 
             p = inputParser;
+            p.PartialMatching = false;
+
             addParameter(p,'name',          defaultName,        @isText);
-            addParameter(p,'data',          defaultData,        @(x) any(validatestring(x,expectedData)));
+            addParameter(p,'data',          defaultData,        @(x) obj.validateExactString(x,expectedData));
 
             if obj.oilWaterCalc
                 defaultOilChiData = '';
-                addParameter(p,'oilChiData',    defaultOilChiData,  @(x) any(validatestring(x,expectedData)));
+                addParameter(p,'oilChiData',    defaultOilChiData,  @(x) obj.validateExactString(x,expectedData));
             end
 
-            addParameter(p,'background',       defaultBackground,         @(x) any(validatestring(x,expectedBackground)));
+            addParameter(p,'background',       defaultBackground,         @(x) obj.validateExactString(x,expectedBackground));
             addParameter(p,'backgroundAction', defaultBackgroundAction,   @(x) isText(x) || isenum(x))
-            addParameter(p,'bulkIn',           defaultBulkIn,             @(x) any(validatestring(x,expectedBulkIn)));
-            addParameter(p,'bulkOut',          defaultBulkOut,            @(x) any(validatestring(x,expectedBulkOut)));
-            addParameter(p,'scalefactor',      defaultScalefactor,        @(x) any(validatestring(x,expectedScalefactor)));
-            addParameter(p,'resolution',       defaultResolution,         @(x) any(validatestring(x,expectedResolution)));
+            addParameter(p,'bulkIn',           defaultBulkIn,             @(x) obj.validateExactString(x,expectedBulkIn));
+            addParameter(p,'bulkOut',          defaultBulkOut,            @(x) obj.validateExactString(x,expectedBulkOut));
+            addParameter(p,'scalefactor',      defaultScalefactor,        @(x) obj.validateExactString(x,expectedScalefactor));
+            addParameter(p,'resolution',       defaultResolution,         @(x) obj.validateExactString(x,expectedResolution));
             addParameter(p,'resample',         defaultResample,           @islogical);
 
             if obj.domainsCalc
                 defaultDomainRatio = '';
                 expectedDomainRatio = cellstr(allowedNames.domainRatioNames);
-                addParameter(p,'domainRatio',   defaultDomainRatio, @(x) any(validatestring(x,expectedDomainRatio)));
+                addParameter(p,'domainRatio',   defaultDomainRatio, @(x) obj.validateExactString(x,expectedDomainRatio));
             end
 
+            addParameter(p,'model',            defaultModel, @(x) obj.validateContrastModel(x,allowedNames));
+            
             parse(p, inputValues{:});
             inputBlock = p.Results;        
         end
+
+    end
+
+    methods(Access = private)
+
+        function validateExactString(~, input, allowedNames)
+            if ~strcmpi(input, allowedNames)
+                throw(exceptions.nameNotRecognised(sprintf('The input "%s" is not recognised. The allowed names are: "%s".', input, strjoin(allowedNames, '", "'))));
+            end
+        end
+
+        function validateContrastModel(obj, model, allowedNames)
+            modelArray = cellstr(model);
+
+            % Check the input is as expected - modelNames tells us what the
+            % model type is
+            if all(size(allowedNames.modelNames) == size(allowedNames.customFileNames)) && all(cellfun(@strcmp, allowedNames.modelNames, allowedNames.customFileNames))
+                if length(modelArray) > 1
+                    throw(exceptions.invalidValue('Only one model value is allowed for custom models'));
+                end
+            elseif obj.domainsCalc && all(size(allowedNames.modelNames) == size(allowedNames.domainContrastNames)) && all(cellfun(@strcmp, allowedNames.modelNames, allowedNames.domainContrastNames))
+                if length(modelArray) ~= 2
+                    throw(exceptions.invalidValue('Exactly two model values are required for ''standard layers'' with domains'));
+                end
+            end
+
+            for i = 1:length(modelArray)
+                if ~strcmpi(modelArray{i}, allowedNames.modelNames)
+                    throw(exceptions.nameNotRecognised(sprintf('Model component name "%s" is not recognised. The allowed names are: "%s".', modelArray{i}, strjoin(allowedNames.modelNames, '", "'))));
+                end
+            end
+        end
+
     end
 
     methods(Static)
 
         function contrast = setDefaultValues(contrast)
             % Set non-empty default values when adding a contrast.
-            contrast.model = '';
+            if ~isempty(contrast.model)
+                contrast.model = cellstr(contrast.model);
+            end
 
             if isempty(contrast.backgroundAction)
                 contrast.backgroundAction = actions.Add.value;
@@ -257,6 +297,7 @@ classdef contrastsClass < baseContrasts
             end
 
         end
-        
+
     end
+
 end

@@ -540,6 +540,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             
             % Creates the input parser for the calculate parameters
             p = inputParser;
+            p.PartialMatching = false;
             addParameter(p,'parallel',  defaultParallel,   @(x) isText(x) || isenum(x));
             addParameter(p,'calcSldDuringFit',   defaultCalcSldDuringFit,    @islogical);
             addParameter(p,'resampleMinAngle', defaultMinAngle,  @isnumeric);
@@ -592,6 +593,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             
             % Parses the input for simplex parameters
             p = inputParser;
+            p.PartialMatching = false;
             addParameter(p,'xTolerance',  defaultXTolerance,   @isnumeric);
             addParameter(p,'funcTolerance',   defaultFuncTolerance,    @isnumeric);
             addParameter(p,'maxFuncEvals', defaultMaxFuncEvals,  @isnumeric);
@@ -660,6 +662,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             
             % Creates the input parser for the DE parameters
             p = inputParser;
+            p.PartialMatching = false;
             addParameter(p,'populationSize',  defaultPopulationSize,   @isnumeric);
             addParameter(p,'fWeight',   defaultFWeight,    @isnumeric);
             addParameter(p,'crossoverProbability', defaultCrossoverProbability,  @isnumeric);
@@ -724,6 +727,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             
             % Creates the input parser for the NS parameters
             p = inputParser;
+            p.PartialMatching = false;
             addParameter(p,'nLive',  defaultnLive,   @isnumeric);
             addParameter(p,'nMCMC',   defaultnMCMC,    @isnumeric);
             addParameter(p,'propScale', defaultPropScale,  @isnumeric);
@@ -784,6 +788,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             
             % Creates the input parser for the Dream parameters
             p = inputParser;
+            p.PartialMatching = false;
             addParameter(p,'nSamples',  defaultNSamples,   @isnumeric);
             addParameter(p,'nChains',   defaultNChains,    @isnumeric);
             addParameter(p,'jumpProbability', defaultJumpProbability,  @isnumeric);

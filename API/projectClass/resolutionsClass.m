@@ -229,6 +229,7 @@ classdef resolutionsClass < handle
             %
             % param = obj.makeInputBlock(1, 'name', 'back 1', 'type', 'constant', 'source', 'param_name');
             p = inputParser;
+            p.PartialMatching = false;
             addParameter(p, 'name', obj.resolutions.varTable{row, 1}, @isText);
             addParameter(p, 'type', obj.resolutions.varTable{row, 2}, @(x) isText(x) || isenum(x));
             addParameter(p, 'source', obj.resolutions.varTable{row, 3}, @isText);

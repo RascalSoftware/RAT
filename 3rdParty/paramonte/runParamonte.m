@@ -15,7 +15,7 @@ end
 rng('default');
 
 % Split problem using the routines from RAT..
-[problemStruct,problemLimits,priors,controls] = parseClassToStructs(project,inputControls);
+[problemStruct,problemLimits,controls] = parseClassToStructs(project,inputControls);
 
 %controls.parallel = coderEnums.parallelOptions.Points;
 

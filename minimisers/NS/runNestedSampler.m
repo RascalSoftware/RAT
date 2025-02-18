@@ -1,4 +1,4 @@
-function  [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,problemLimits,controls,inPriors)
+function  [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,problemLimits,controls)
 
 [problemStruct,fitNames] = packParams(problemStruct,problemLimits);
 
@@ -17,10 +17,11 @@ else
 end
 bayesResults = makeEmptyBayesResultsStruct(numberOfContrasts, domains, numberOfChains);
       
-%Deal with priors.
-priorList = getFittedPriors(fitNames,inPriors,problemStruct.fitLimits);
+% Deal with priors.
+priorList = getFittedPriors(fitNames, problemStruct.priorNames, ...
+                            problemStruct.priorValues, problemStruct.fitLimits);
 
-%Tuning Parameters
+% Tuning Parameters
 model.ssfun = @nsIntraFun;
 nLive = controls.nLive;
 tolerance = controls.nsTolerance;

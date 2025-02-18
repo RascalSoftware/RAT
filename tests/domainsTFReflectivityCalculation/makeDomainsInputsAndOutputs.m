@@ -12,12 +12,11 @@ controlsInput = controlsClass();
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemStruct,problemLimits,priors,controls] = parseClassToStructs(standardProblem,controlsInput);
+[problemStruct,problemLimits,controls] = parseClassToStructs(standardProblem,controlsInput);
 
 inputs.project = standardProblem;
 inputs.problemStruct = problemStruct;
 inputs.problemLimits = problemLimits;
-inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
@@ -28,7 +27,7 @@ resultStruct = reflectivityCalculation(problemStruct,controls);
 
 outputs.resultStruct = resultStruct;
 
-[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemLimits,controls,priors);
+[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemLimits,controls);
 
 outputs.problemStruct = problemStruct;
 outputs.resultStructMain = resultStructMain;
@@ -72,12 +71,11 @@ controlsInput = controlsClass();
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemStruct,problemLimits,priors,controls] = parseClassToStructs(customXYProblem,controlsInput);
+[problemStruct,problemLimits,controls] = parseClassToStructs(customXYProblem,controlsInput);
 
 inputs.project = customXYProblem;
 inputs.problemStruct = problemStruct;
 inputs.problemLimits = problemLimits;
-inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
@@ -88,7 +86,7 @@ resultStruct = reflectivityCalculation(problemStruct,controls);
 
 outputs.resultStruct = resultStruct;
 
-[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemLimits,controls,priors);
+[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemLimits,controls);
 
 outputs.problemStruct = problemStruct;
 outputs.resultStructMain = resultStructMain;
@@ -131,12 +129,11 @@ controlsInput = controlsClass();
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemStruct,problemLimits,priors,controls] = parseClassToStructs(customLayersProblem,controlsInput);
+[problemStruct,problemLimits,controls] = parseClassToStructs(customLayersProblem,controlsInput);
 
 inputs.project = customLayersProblem;
 inputs.problemStruct = problemStruct;
 inputs.problemLimits = problemLimits;
-inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
@@ -147,7 +144,7 @@ resultStruct = reflectivityCalculation(problemStruct,controls);
 
 outputs.resultStruct = resultStruct;
 
-[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemLimits,controls,priors);
+[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemLimits,controls);
 
 outputs.problemStruct = problemStruct;
 outputs.resultStructMain = resultStructMain;

@@ -8,7 +8,7 @@ maxArraySize = 10000;
 maxDataSize = 10000;
 
 ARGS = cell(1,1);
-ARGS{1} = cell(4,1);
+ARGS{1} = cell(3,1);
 ARGS_1_1 = struct;
 ARGS_1_1.TF = coder.typeof('X',[1 maxArraySize],[0 1]);
 ARGS_1_1.resample = coder.typeof(0,[1 maxArraySize],[0 1]);
@@ -63,6 +63,9 @@ ARGS_1_1.fitParams = coder.typeof(0,[1 maxArraySize],[0 1]);
 ARGS_1_1.otherParams = coder.typeof(0,[1 maxArraySize],[0 1]);
 ARGS_1_1.fitLimits = coder.typeof(0,[maxArraySize 2],[1 0]);
 ARGS_1_1.otherLimits = coder.typeof(0,[maxArraySize 2],[1 0]);
+ARG = coder.typeof('X',[1 maxArraySize],[0 1]);
+ARGS_1_1.priorNames = coder.typeof({ARG}, [maxArraySize 1],[1 0]);
+ARGS_1_1.priorValues = coder.typeof(0, [maxArraySize 3], [1 0]);
 ARGS_1_1_names = struct;
 ARG = coder.typeof('X',[1 maxArraySize],[0 1]);
 ARGS_1_1_names.params = coder.typeof({ARG}, [1 maxArraySize],[0 1]);
@@ -127,10 +130,5 @@ ARGS_1_3.boundHandling = coder.typeof('X',[1 maxArraySize],[0 1]);
 ARGS_1_3.adaptPCR = coder.typeof(true);
 ARGS_1_3.IPCFilePath = coder.typeof('X',[1 maxArraySize],[0 1]);
 ARGS{1}{3} = coder.typeof(ARGS_1_3);
-ARGS_1_4 = struct;
-ARG = coder.typeof('X',[1 maxArraySize],[0 1]);
-ARGS_1_4.priorNames = coder.typeof({ARG}, [maxArraySize 1],[1 0]);
-ARGS_1_4.priorValues = coder.typeof(0, [maxArraySize 3], [1 0]);
-ARGS{1}{4} = coder.typeof(ARGS_1_4);
 
 end

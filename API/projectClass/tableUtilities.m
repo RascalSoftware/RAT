@@ -44,21 +44,45 @@ classdef (Abstract) tableUtilities < handle
 
         function removeRow(obj, row)
             % Removes a row from the table. The expected input is an
-            % integer or integer array.
+            % integer/string or integer/string array.
             % NOTE that an input such as [1 3] leads to multiple rows
             % being removed from the table
             %
             % varTable.removeRow(2);
             arguments
                 obj
-                row {mustBePositive, mustBeInteger}
+                row
             end
 
-            if row > obj.rowCount
-                throw(exceptions.indexOutOfRange(sprintf('Row index %d out of range 1 - %d', row, obj.rowCount)));
+            % Arrange parameters into a cell array
+            if isa(row, 'double')
+
+                indices = row;
+
+            elseif isText(row) || iscell(row)
+
+                row = cellstr(row);
+                indices = zeros(1, length(row));
+
+                rowNames = obj.getNames;
+                for i = 1:length(row)
+                    currentRow = row{i};
+                    indices(i) = obj.findRowIndex(currentRow, rowNames, 'Unrecognised parameter name');
+                end
+
+            else
+
+                throw(exceptions.invalidType('Unrecognised Row'))
+
             end
-            
-            obj.varTable(row, :) = [];
+
+            for i = 1:length(indices)
+                if indices(i) < 1 || indices(i) > obj.rowCount
+                    throw(exceptions.indexOutOfRange(sprintf('Row index %d out of range 1 - %d', indices(i), obj.rowCount)));
+                end
+            end
+
+            obj.varTable(indices, :) = [];
         end
 
         function displayTable(obj)

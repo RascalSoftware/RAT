@@ -410,7 +410,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
         function obj = removeLayer(obj, layer)
             % Removes layer(s) from the layers object. Expects
-            % index of layer(s) to remove.
+            % index/name of layer(s) to remove.
             %
             % project.removeLayer(1);
             if isa(obj.layers, 'layersClass')
@@ -448,12 +448,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.background.backgroundParams.addParameter(varargin{:});
         end
 
-        function obj = removeBackgroundParam(obj, varargin)
+        function obj = removeBackgroundParam(obj, row)
             % Removes a given background parameter.
             % Expects index or name of parameter to remove
             % 
             % project.removeBackgroundParam(2);
-            obj.background.backgroundParams.removeParameter(varargin{:});
+            obj.background.backgroundParams.removeParameter(row);
         end
 
         function obj = setBackgroundParam(obj, varargin)
@@ -503,8 +503,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         
         function obj = removeBackground(obj, row)
             % Removes background from the project. Expects
-            % index or array of indices of background(s) of background(s)
-            % to remove
+            % index or array of indices of background(s) to remove
             %
             % project.removeBackground(1);
             obj.background.removeBackground(row);
@@ -539,12 +538,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.resolution.resolutionParams.addParameter(varargin{:});
         end
         
-        function obj = removeResolutionParam(obj, varargin)
+        function obj = removeResolutionParam(obj, row)
             % Removes a given resolution parameter.
             % Expects index or name of parameter to remove
             % 
             % project.removeResolutionParam(2);
-            obj.resolution.resolutionParams.removeParameter(varargin{:});
+            obj.resolution.resolutionParams.removeParameter(row);
         end
 
         function obj = setResolutionParam(obj, varargin)
@@ -632,7 +631,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % indices of dataset(s) to remove.
             % 
             % project.removeData(2);
-            obj.data.removeRow(row);
+            obj.data.removeData(row);
         end
         
         function obj = setData(obj, varargin)
@@ -659,12 +658,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.bulkOut.addParameter(varargin{:});
         end
         
-        function obj = removeBulkOut(obj, varargin)
+        function obj = removeBulkOut(obj, row)
             % Removes specified bulk-out parameter. Expects the name/index
             % of bulk-out to remove
             % 
             % project.removeBulkOut(2);
-            obj.bulkOut.removeParameter(varargin{:});
+            obj.bulkOut.removeParameter(row);
         end
         
         function obj = setBulkOut(obj, varargin)
@@ -687,12 +686,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.bulkIn.addParameter(varargin{:});
         end
         
-        function obj = removeBulkIn(obj, varargin)
+        function obj = removeBulkIn(obj, row)
             % Removes specified bulk-in parameter. Expects the name/index
             % of bulk-in to remove
             % 
             % project.removeBulkIn(2);
-            obj.bulkIn.removeParameter(varargin{:});
+            obj.bulkIn.removeParameter(row);
         end
         
         function obj = setBulkIn(obj, varargin)
@@ -714,12 +713,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.scalefactors.addParameter(varargin{:});
         end
         
-        function obj = removeScalefactor(obj, varargin)
+        function obj = removeScalefactor(obj, row)
             % Removes specified scale factor parameter. Expects the name/index
             % of scale factor to remove
             % 
             % project.removeScalefactor(2);
-           obj.scalefactors.removeParameter(varargin{:}); 
+           obj.scalefactors.removeParameter(row); 
         end
         
         function obj = setScalefactor(obj, varargin)

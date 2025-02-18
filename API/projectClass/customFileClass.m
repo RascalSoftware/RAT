@@ -127,7 +127,16 @@ classdef customFileClass < tableUtilities
             newFunc = obj.validateFunctionName(newFile, newFunc, newLang);           
             obj.addRow(newName, newFile, newFunc, newLang, obj.validatePath(newPath));            
         end
-        
+
+        function obj = removeCustomFile(obj, row)
+            % Removes a custom file from the file table. 
+            % Expects a single custom file name or index/array of custom
+            % file names or indices to remove
+            %
+            % customFiles.removeCustomFile(2);
+            obj.removeRow(row);
+        end
+
         function obj = setCustomFile(obj, row, varargin)
             % Change the value of a given parameter in the file table.
             % The expected inputs are the row of the file entry of

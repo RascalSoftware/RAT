@@ -197,6 +197,44 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.setCustomFile(2, 'Name', 'New Model', 'Language'), exceptions.invalidNumberOfInputs.errorID);      
         end
 
+        function testRemoveCustomFile(testCase)
+            remainingRows = testCase.exampleClass.varTable(2:end,:);
+            testCase.exampleClass.removeCustomFile(1);
+
+            testCase.verifyEqual(testCase.exampleClass.varTable, remainingRows, 'removeCustomFile does not work correctly');
+        end
+
+        function testRemoveCustomFileName(testCase)
+            remainingRows = testCase.exampleClass.varTable(2:end,:);
+            testCase.exampleClass.removeCustomFile('DPPC Model');
+
+            testCase.verifyEqual(testCase.exampleClass.varTable, remainingRows, 'removeCustomFile does not work correctly');
+        end
+
+        function testRemoveCustomFileMultiple(testCase)
+            % Test removing multiple rows from a file table
+            
+            % Put dummy third row in table
+            testCase.exampleClass.varTable(3, :) = {'Test Row', '', '', '', ''};
+
+            remainingRows = testCase.exampleClass.varTable(2,:);
+            testCase.exampleClass.removeCustomFile([1 3]);
+
+            testCase.verifyEqual(testCase.exampleClass.varTable, remainingRows, 'removeCustomFile does not work correctly');
+        end
+
+        function testRemoveCustomFileMultipleCell(testCase)
+            % Test removing multiple rows from a file table by name
+            
+            % Put dummy third row in table
+            testCase.exampleClass.varTable(3, :) = {'Test Row', '', '', '', ''};
+
+            remainingRows = testCase.exampleClass.varTable(2,:);
+            testCase.exampleClass.removeCustomFile({'DPPC Model', 'Test Row'});
+
+            testCase.verifyEqual(testCase.exampleClass.varTable, remainingRows, 'removeCustomFile does not work correctly');
+        end
+
         function testDisplayTable(testCase)
             % Test the routine to display the file table by capturing the
             % output and comparing with the table headers and data

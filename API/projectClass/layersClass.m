@@ -77,6 +77,15 @@ classdef layersClass < tableUtilities
             obj.addRow(newRow{:});
 
         end
+
+        function obj = removeLayer(obj, row)
+            % Removes a layer from the layers table. 
+            % Expects a single layer name or index/array of layer names or
+            % indices to remove
+            %
+            % layers.removeLayer(2);
+            obj.removeRow(row);
+        end
         
         function obj = setLayerValue(obj, row, col, inputValue, paramNames)
             % Change the value of a given layer parameter in the table

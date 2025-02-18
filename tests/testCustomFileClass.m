@@ -390,8 +390,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             
             old = testCase.exampleClass.varTable{1, 5};  
             testCase.exampleClass.setCustomFile(1, 'path', fixture.Folder);
-            testCase.verifyWarning(@() testCase.exampleClass.toStruct(), '', 'CustomFile conflict waning should be triggered');
-            testCase.verifyWarningFree(@() testCase.exampleClass.toStruct(), 'CustomFile conflict waning should be triggered only once');
+            testCase.verifyWarning(@() testCase.exampleClass.toStruct(), '', 'CustomFile conflict warning should be triggered');
+            testCase.verifyWarningFree(@() testCase.exampleClass.toStruct(), 'CustomFile conflict warning should be triggered only once');
             testCase.exampleClass.varTable{1, 5} = old;
             testCase.exampleClass.varTable{1, 3} = {'randomName'};
             testCase.verifyError(@() testCase.exampleClass.toStruct(), exceptions.invalidPath.errorID);

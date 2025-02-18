@@ -4,11 +4,13 @@ classdef customFileClass < tableUtilities
     % models, backgrounds or resolutions.
    properties (SetAccess = private, Hidden = true)
         wrappers = {}
+        canShowWarning = false; % ensures conflict warning only shows once if no change occurs
    end
 
     properties(Access = private, Constant, Hidden)
         invalidLanguageMessage = sprintf('Language must be a supportedLanguages enum or one of the following strings (%s)', ...
-                                         strjoin(supportedLanguages.values(), ', '))    
+                                         strjoin(supportedLanguages.values(), ', ')) 
+         
     end
     
     methods
@@ -66,14 +68,14 @@ classdef customFileClass < tableUtilities
                 newName = inputs{1};
                 
                 if ~isText(newName)
-                    throw(exceptions.invalidType('First value must be unique name identifer (text)'));
+                    throw(exceptions.invalidType('First value must be unique name identifier (text)'));
                 end
                 % Check length of added data
                 switch length(inputs)
                     case 1   
                     case 2
                     
-                        % Two inputs suppled - assume both name and filename supplied;
+                        % Two inputs supplied - assume both name and filename supplied;
                         newName = inputs{1};
                         newFile = inputs{2};
                     
@@ -125,7 +127,8 @@ classdef customFileClass < tableUtilities
             newLang = validateOption(newLang, 'supportedLanguages', obj.invalidLanguageMessage).value;
             newFile = obj.addFileExtension(newFile, newLang);
             newFunc = obj.validateFunctionName(newFile, newFunc, newLang);           
-            obj.addRow(newName, newFile, newFunc, newLang, obj.validatePath(newPath));            
+            obj.addRow(newName, newFile, newFunc, newLang, obj.validatePath(newPath));
+            obj.canShowWarning = true;
         end
 
         function obj = removeCustomFile(obj, row)
@@ -145,7 +148,7 @@ classdef customFileClass < tableUtilities
             % "Name", "Filename", "Language", "Path" and "functionName" if 
             % applicable.
             %
-            % customFiles.setcustomFile(1, 'Name', 'New Name',...
+            % customFiles.setCustomFile(1, 'Name', 'New Name',...
             %                           'Language', 'Octave')
             customNames = obj.getNames;
             
@@ -183,6 +186,7 @@ classdef customFileClass < tableUtilities
             obj.varTable{row, 4} = {results.language};
             obj.varTable{row, 5} = {obj.validatePath(results.path)};
             obj.varTable{row, 3} = {obj.validateFunctionName(results.filename, results.functionName, results.language)};
+            obj.canShowWarning = true;
         end
 
         function displayTable(obj)
@@ -268,10 +272,16 @@ classdef customFileClass < tableUtilities
                         if isempty(foundPath)
                             msg = 'The Matlab custom file (%s) is not on the search path. Add the file to path and check using "which(%s)".';
                             throw(exceptions.invalidPath(sprintf(msg, strrep(libpath, '\', '/'), functionName)));
-                        elseif ~isempty(thisPath) && ~strcmp(foundPath, libpath)                        
+                        elseif ~isempty(thisPath) && ~strcmp(foundPath, libpath) && isfile(libpath) && obj.canShowWarning  
+                            % This warning should only show if there is a difference between the specified custom file and
+                            % the file on the search path. If the specified file does not exist the one found in the search path will 
+                            % be used with no warning.  
                             msg = ['The Matlab custom file (%s) on the search path does not match the specified path (%s). ' ...
-                                   'The file on the serach path will be used, if this is expected ignore this warning'];
-                            warning(msg, strrep(foundPath, '\', '/'), strrep(libpath, '\', '/'));
+                                   'The file on the search path will be used, if this is expected ignore this warning, ' ...
+                                   'otherwise set the current directory to the directory with the desired file i.e. ' ...
+                                   'cd("%s")'];
+                            warning(msg, strrep(foundPath, '\', '/'), strrep(libpath, '\', '/'), strrep(what(thisPath).path, '\', '/'));
+                            obj.canShowWarning = false;
                         end
                     else
                         if ~exist(libpath, 'file')

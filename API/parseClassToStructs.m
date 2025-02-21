@@ -229,12 +229,12 @@ problemStruct.otherLimits = [];
 
 %% Put the priors into their fields
 
-priorFields = {"paramPriors", "backgroundParamPriors", ...
+priorFields = ["paramPriors", "backgroundParamPriors", ...
                "scalefactorPriors","qzshiftPriors", "bulkInPriors", ...
-               "bulkOutPriors", "resolutionParamPriors"};
+               "bulkOutPriors", "resolutionParamPriors"];
 
 if isa(project, 'domainsClass')
-    priorFields{end+1} = "domainRatioPriors";
+    priorFields(end+1) = "domainRatioPriors";
 end
 
 totalNumber = 0;

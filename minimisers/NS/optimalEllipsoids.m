@@ -17,8 +17,6 @@ function [Bs, mus, VEs, ns] = optimalEllipsoids(u, VS)
 %   ns:  an array containing the number of points for each subcluster (K x 1)
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global DEBUG
-
 N = size(u,1); % number of samples in multi-dimensional space
 ndims = size(u,2); % number of dimensions
 K = 1;
@@ -50,9 +48,6 @@ else
     test1 = all(VE1 + VE2 < VE); 
     test2 = all(VE > 2*VS);
     if  all(test1) || all(test2) 
-        if DEBUG
-            fprintf('PARTITION ACCEPTED: N=%d splits to n1=%d, n2=%d\n', int32(N), int32(n1), int32(n2));
-        end
         K = K + 1;
         VS1 = n1 * VS / N;
         VS2 = n2 * VS / N;
@@ -65,9 +60,6 @@ else
         VEs = [VE1 ; VE2];
         ns =  [n1 ; n2];
     else
-        if DEBUG
-            fprintf('PARTITION REJECTED: N=%d doesnt split into n1=%d and n2=%d\n', int32(N), int32(n1), int32(n2));
-        end
         Bs = B;
         mus = mu;
         VEs = VE;

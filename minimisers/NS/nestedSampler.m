@@ -46,14 +46,9 @@ function [logZ, nest_samples, post_samples,H] = nestedSampler(data, ...
 %                      'x', 4};
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% global verbose;
-global DEBUG;
-
 extraparvals = [];
 
 controls = data{2};
-% verbose = 1;
-DEBUG = 0;
 
 % get the number of parameters from the prior array
 D = size(prior,1);

@@ -14,7 +14,6 @@ function [u1, u2, VE1, VE2, nosplit] = splitEllipsoid(u, VS)
 % is set to 1 if the splitting cannot be done; otherwise = 0.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global DEBUG
 max_attempt = 50; % maximum number of attempts to recluster points
 
 % default return values
@@ -30,7 +29,6 @@ D = size(u,2);
 
 % check total number of samples
 if N < 2*(D+1)
-    if DEBUG; fprintf('CANT SPLIT: total number of samples is too small!  N = %d\n', int32(N)); end;
     nosplit = 1;
     return;
 end
@@ -45,7 +43,6 @@ n2 = size(u2,1); % number of samples in S2
 
 % check number of points in subclusters
 if n1 < D+1 || n2 < D+1
-    if DEBUG; fprintf('CANT SPLIT: number of samples in subclusters is too small! n1 = %d, n2 = %d\n', int32(n1), int32(n2)); end;
     nosplit = 1;
     return;
 end
@@ -72,7 +69,6 @@ while 1
     
     % check flags
     if flag1 || flag2
-        if DEBUG; fprintf('CANT SPLIT!!\n'); end
         nosplit = 1;
         break
     end
@@ -84,12 +80,6 @@ while 1
     temp_VE1(counter) = VE1;
     temp_VE2(counter) = VE2;
     FS(counter)=(VE1+VE2)/VS;
-
-    % DEBUG print statement
-%     if DEBUG
-%         fprintf('SPLIT ELLIPSOID: counter = %d, numreassigned = %d\n', ...
-%                 int32(counter), int32(numreassigned));
-%     end
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % check if points need to be reassigned to the other subcluster
@@ -152,14 +142,6 @@ while 1
     if reassign && counter <= max_attempt
         continue
     else
-        % DEBUG print statement
-%         if DEBUG 
-%             %fprintf('SPLIT ELLIPSOID: counter = %d, FS = %f, numreassigned = %d\n', counter, (VE1+VE2)/VS, numreassigned);
-%             if counter > max_attempt
-%                 fprintf('SPLIT ELLIPSOID: exceeded maximum attempts; take min F(S).\n');
-%             end
-%         end
-
         break
     end
 
@@ -171,7 +153,5 @@ u1 = temp_u1{idx};
 u2 = temp_u2{idx};
 VE1 = temp_VE1(idx);
 VE2 = temp_VE2(idx);
-
-if DEBUG; fprintf('SPLIT ELLIPSOID: min F(S) = %f\n', minFS); end
 
 end

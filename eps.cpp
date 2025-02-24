@@ -19,11 +19,11 @@ namespace RAT
 {
   namespace coder
   {
-    real_T eps(real_T x)
+    double eps(double x)
     {
-      real_T absx;
-      real_T r;
-      int32_T exponent;
+      double absx;
+      double r;
+      int exponent;
       absx = std::abs(x);
       if ((!std::isinf(absx)) && (!std::isnan(absx))) {
         if (absx <= 2.2250738585072014E-308) {

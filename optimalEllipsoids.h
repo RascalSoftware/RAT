@@ -20,9 +20,9 @@
 // Function Declarations
 namespace RAT
 {
-  void optimalEllipsoids(const ::coder::array<real_T, 2U> &u, real_T VS, ::coder::
-    array<real_T, 2U> &Bs, ::coder::array<real_T, 2U> &mus, ::coder::array<
-    real_T, 2U> &VEs, ::coder::array<real_T, 2U> &ns);
+  void optimalEllipsoids(const ::coder::array<double, 2U> &u, double VS, ::coder::
+    array<double, 2U> &Bs, ::coder::array<double, 2U> &mus, ::coder::array<
+    double, 2U> &VEs, ::coder::array<double, 2U> &ns);
 }
 
 #endif

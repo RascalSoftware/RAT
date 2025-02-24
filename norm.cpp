@@ -19,8 +19,8 @@ namespace RAT
 {
   namespace coder
   {
-    static real_T genpnorm(const ::coder::array<real_T, 2U> &x);
-    static real_T mat1norm(const ::coder::array<real_T, 2U> &x);
+    static double genpnorm(const ::coder::array<double, 2U> &x);
+    static double mat1norm(const ::coder::array<double, 2U> &x);
   }
 }
 
@@ -29,33 +29,33 @@ namespace RAT
 {
   namespace coder
   {
-    static real_T genpnorm(const ::coder::array<real_T, 2U> &x)
+    static double genpnorm(const ::coder::array<double, 2U> &x)
     {
-      real_T y;
-      int32_T i;
+      double y;
+      int i;
       y = 0.0;
       i = x.size(0) * x.size(1);
-      for (int32_T k{0}; k < i; k++) {
+      for (int k{0}; k < i; k++) {
         y += std::abs(x[k]);
       }
 
       return y;
     }
 
-    static real_T mat1norm(const ::coder::array<real_T, 2U> &x)
+    static double mat1norm(const ::coder::array<double, 2U> &x)
     {
-      real_T y;
-      int32_T j;
+      double y;
+      int j;
       boolean_T exitg1;
       y = 0.0;
       j = 0;
       exitg1 = false;
       while ((!exitg1) && (j <= x.size(1) - 1)) {
-        real_T s;
-        int32_T i;
+        double s;
+        int i;
         s = 0.0;
         i = x.size(0);
-        for (int32_T b_i{0}; b_i < i; b_i++) {
+        for (int b_i{0}; b_i < i; b_i++) {
           s += std::abs(x[b_i + x.size(0) * j]);
         }
 
@@ -74,28 +74,28 @@ namespace RAT
       return y;
     }
 
-    real_T b_genpnorm(const ::coder::array<real_T, 2U> &x)
+    double b_genpnorm(const ::coder::array<double, 2U> &x)
     {
-      real_T y;
+      double y;
       y = 0.0;
       if (x.size(1) >= 1) {
         if (x.size(1) == 1) {
           y = std::abs(x[0]);
         } else {
-          real_T scale;
-          int32_T kend;
+          double scale;
+          int kend;
           scale = 3.3121686421112381E-170;
           kend = x.size(1);
-          for (int32_T k{0}; k < kend; k++) {
-            real_T absxk;
+          for (int k{0}; k < kend; k++) {
+            double absxk;
             absxk = std::abs(x[k]);
             if (absxk > scale) {
-              real_T t;
+              double t;
               t = scale / absxk;
               y = y * t * t + 1.0;
               scale = absxk;
             } else {
-              real_T t;
+              double t;
               t = absxk / scale;
               y += t * t;
             }
@@ -108,9 +108,9 @@ namespace RAT
       return y;
     }
 
-    real_T b_norm(const ::coder::array<real_T, 2U> &x)
+    double b_norm(const ::coder::array<double, 2U> &x)
     {
-      real_T y;
+      double y;
       if ((x.size(0) == 0) || (x.size(1) == 0)) {
         y = 0.0;
       } else if ((x.size(0) == 1) || (x.size(1) == 1)) {
@@ -122,13 +122,13 @@ namespace RAT
       return y;
     }
 
-    real_T b_norm(const ::coder::array<real_T, 1U> &x)
+    double b_norm(const ::coder::array<double, 1U> &x)
     {
-      real_T y;
-      int32_T i;
+      double y;
+      int i;
       y = 0.0;
       i = x.size(0);
-      for (int32_T k{0}; k < i; k++) {
+      for (int k{0}; k < i; k++) {
         y += std::abs(x[k]);
       }
 

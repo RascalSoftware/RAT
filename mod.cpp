@@ -18,9 +18,9 @@ namespace RAT
 {
   namespace coder
   {
-    real_T b_mod(real_T x)
+    double b_mod(double x)
     {
-      real_T r;
+      double r;
       if (std::isnan(x) || std::isinf(x)) {
         r = rtNaN;
       } else if (x == 0.0) {
@@ -35,9 +35,9 @@ namespace RAT
       return r;
     }
 
-    real_T b_mod(real_T x, real_T y)
+    double b_mod(double x, double y)
     {
-      real_T r;
+      double r;
       r = x;
       if (std::isnan(x) || std::isnan(y) || std::isinf(x)) {
         r = rtNaN;

@@ -20,27 +20,27 @@
 // Function Definitions
 namespace RAT
 {
-  void callReflectivity(real_T bulkIn, real_T bulkOut, const ::coder::array<
-                        real_T, 1U> &simulationXData, const real_T dataIndices[2],
-                        const real_T repeatLayers[2], ::coder::array<real_T, 2U>
-                        &layers, real_T ssubs, const ::coder::array<real_T, 2U>
-                        &resolution, const char_T parallel_data[], const int32_T
+  void callReflectivity(double bulkIn, double bulkOut, const ::coder::array<
+                        double, 1U> &simulationXData, const double dataIndices[2],
+                        const double repeatLayers[2], ::coder::array<double, 2U>
+                        &layers, double ssubs, const ::coder::array<double, 2U>
+                        &resolution, const char parallel_data[], const int
                         parallel_size[2], boolean_T useImaginary, ::coder::array<
-                        real_T, 2U> &reflectivity, ::coder::array<real_T, 2U>
+                        double, 2U> &reflectivity, ::coder::array<double, 2U>
                         &simulation)
   {
     ::coder::array<creal_T, 1U> slds;
-    ::coder::array<real_T, 1U> b_resolution;
-    ::coder::array<real_T, 1U> r;
-    ::coder::array<real_T, 1U> roughs;
-    ::coder::array<real_T, 1U> simRef;
-    ::coder::array<real_T, 1U> thicks;
-    real_T nLayersTot;
-    real_T nRepeats;
-    int32_T i;
-    int32_T i1;
-    int32_T loop_ub_tmp;
-    uint32_T layerCount;
+    ::coder::array<double, 1U> b_resolution;
+    ::coder::array<double, 1U> r;
+    ::coder::array<double, 1U> roughs;
+    ::coder::array<double, 1U> simRef;
+    ::coder::array<double, 1U> thicks;
+    double nLayersTot;
+    double nRepeats;
+    int i;
+    int i1;
+    unsigned int layerCount;
+    int loop_ub_tmp;
     if (repeatLayers[0] != 0.0) {
       nRepeats = repeatLayers[1];
     } else {
@@ -57,10 +57,10 @@ namespace RAT
     }
 
     //  Number of layers (including repeats)
-    nLayersTot = static_cast<real_T>(layers.size(0)) * nRepeats + 2.0;
+    nLayersTot = static_cast<double>(layers.size(0)) * nRepeats + 2.0;
 
     //  Make arrays for thick, sld, rough
-    loop_ub_tmp = static_cast<int32_T>(nLayersTot);
+    loop_ub_tmp = static_cast<int>(nLayersTot);
     thicks.set_size(loop_ub_tmp);
     slds.set_size(loop_ub_tmp);
     roughs.set_size(loop_ub_tmp);
@@ -73,11 +73,11 @@ namespace RAT
 
     //  Populate the d,rho,sig arrays...
     layerCount = 2U;
-    i = static_cast<int32_T>(nRepeats);
-    for (int32_T m{0}; m < i; m++) {
+    i = static_cast<int>(nRepeats);
+    for (int m{0}; m < i; m++) {
       i1 = layers.size(0);
-      for (int32_T n{0}; n < i1; n++) {
-        loop_ub_tmp = static_cast<int32_T>(layerCount + n) - 1;
+      for (int n{0}; n < i1; n++) {
+        loop_ub_tmp = static_cast<int>(layerCount + n) - 1;
         thicks[loop_ub_tmp] = layers[n];
         if (!useImaginary) {
           slds[loop_ub_tmp].re = layers[n + layers.size(0)];
@@ -139,7 +139,7 @@ namespace RAT
       b_resolution[i] = resolution[i + resolution.size(0)];
     }
 
-    resolutionPolly(simulationXData, simRef, b_resolution, static_cast<real_T>
+    resolutionPolly(simulationXData, simRef, b_resolution, static_cast<double>
                     (simulationXData.size(0)), r);
     loop_ub_tmp = r.size(0);
     for (i = 0; i < loop_ub_tmp; i++) {
@@ -150,14 +150,14 @@ namespace RAT
       i = 0;
       i1 = 0;
     } else {
-      i = static_cast<int32_T>(dataIndices[0]) - 1;
-      i1 = static_cast<int32_T>(dataIndices[1]);
+      i = static_cast<int>(dataIndices[0]) - 1;
+      i1 = static_cast<int>(dataIndices[1]);
     }
 
     loop_ub_tmp = i1 - i;
     reflectivity.set_size(loop_ub_tmp, 2);
     for (i1 = 0; i1 < 2; i1++) {
-      for (int32_T i2{0}; i2 < loop_ub_tmp; i2++) {
+      for (int i2{0}; i2 < loop_ub_tmp; i2++) {
         reflectivity[i2 + reflectivity.size(0) * i1] = simulation[(i + i2) +
           simulation.size(0) * i1];
       }

@@ -25,62 +25,61 @@ namespace RAT
   {
     namespace customXY
     {
-      void processCustomFunction(const ::coder::array<real_T, 2U>
-        &contrastBulkIns, const ::coder::array<real_T, 2U> &contrastBulkOuts,
-        const ::coder::array<real_T, 2U> &bulkInArray, const ::coder::array<
-        real_T, 2U> &bulkOutArray, const ::coder::array<real_T, 2U> &cCustFiles,
-        real_T numberOfContrasts, const ::coder::array<cell_wrap_10, 2U>
-        &customFiles, const ::coder::array<real_T, 2U> &params, ::coder::array<
-        cell_wrap_33, 2U> &slds, ::coder::array<real_T, 1U> &subRoughs)
+      void processCustomFunction(const ::coder::array<double, 2U>
+        &contrastBulkIns, const ::coder::array<double, 2U> &contrastBulkOuts,
+        const ::coder::array<double, 2U> &bulkInArray, const ::coder::array<
+        double, 2U> &bulkOutArray, const ::coder::array<double, 2U> &cCustFiles,
+        double numberOfContrasts, const ::coder::array<cell_wrap_10, 2U>
+        &customFiles, const ::coder::array<double, 2U> &params, ::coder::array<
+        cell_wrap_33, 2U> &slds, ::coder::array<double, 1U> &subRoughs)
       {
-        ::coder::array<real_T, 2U> bulkOuts;
-        ::coder::array<real_T, 2U> r;
-        real_T a__2;
-        int32_T iv[2];
-        int32_T i;
-        int32_T i1;
-        int32_T loop_ub;
+        ::coder::array<double, 2U> bulkOuts;
+        ::coder::array<double, 2U> r;
+        double a__2;
+        int iv[2];
+        int i;
+        int i1;
+        int loop_ub;
 
         //  Top-level function for processing custom XY profiles for all the
         //  contrasts.
-        i = static_cast<int32_T>(numberOfContrasts);
+        i = static_cast<int>(numberOfContrasts);
         subRoughs.set_size(i);
 
         //  3 columns to allow for potential imaginary curve
         bulkOuts.set_size(1, contrastBulkOuts.size(1));
         loop_ub = contrastBulkOuts.size(1);
         for (i1 = 0; i1 < loop_ub; i1++) {
-          bulkOuts[i1] = bulkOutArray[static_cast<int32_T>(contrastBulkOuts[i1])
-            - 1];
+          bulkOuts[i1] = bulkOutArray[static_cast<int>(contrastBulkOuts[i1]) - 1];
         }
 
         slds.set_size(i, 2);
-        for (int32_T b_i{0}; b_i < i; b_i++) {
+        for (int b_i{0}; b_i < i; b_i++) {
           creal_T x;
-          real_T d;
+          double d;
 
           //  TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..
           //  Choose which custom file is associated with this contrast
           //  Find values of 'bulkIn' and 'bulkOut' for this contrast...
           d = cCustFiles[b_i];
-          iv[0] = (*(int32_T (*)[2])((::coder::array<char_T, 2U> *)&customFiles[
-                    static_cast<int32_T>(d) - 1].f1)->size())[0];
-          iv[1] = (*(int32_T (*)[2])((::coder::array<char_T, 2U> *)&customFiles[
-                    static_cast<int32_T>(d) - 1].f1)->size())[1];
-          x = coder::str2double((const char_T *)((::coder::array<char_T, 2U> *)
-            &customFiles[static_cast<int32_T>(d) - 1].f1)->data(), iv);
+          iv[0] = (*(int (*)[2])((::coder::array<char, 2U> *)&customFiles[
+                    static_cast<int>(d) - 1].f1)->size())[0];
+          iv[1] = (*(int (*)[2])((::coder::array<char, 2U> *)&customFiles[
+                    static_cast<int>(d) - 1].f1)->size())[1];
+          x = coder::str2double((const char *)((::coder::array<char, 2U> *)
+            &customFiles[static_cast<int>(d) - 1].f1)->data(), iv);
           if ((!std::isnan(x.re)) && (!std::isnan(x.im))) {
-            int32_T b_loop_ub;
-            int32_T i2;
-            iv[0] = (*(int32_T (*)[2])((::coder::array<char_T, 2U> *)
-                      &customFiles[static_cast<int32_T>(d) - 1].f1)->size())[0];
-            iv[1] = (*(int32_T (*)[2])((::coder::array<char_T, 2U> *)
-                      &customFiles[static_cast<int32_T>(d) - 1].f1)->size())[1];
-            b_callCppFunction((const char_T *)((::coder::array<char_T, 2U> *)
-              &customFiles[static_cast<int32_T>(d) - 1].f1)->data(), iv, params,
-                              bulkInArray[static_cast<int32_T>
-                              (contrastBulkIns[b_i]) - 1], bulkOuts, (
-              static_cast<real_T>(b_i) + 1.0) - 1.0, r, &subRoughs[b_i]);
+            int b_loop_ub;
+            int i2;
+            iv[0] = (*(int (*)[2])((::coder::array<char, 2U> *)&customFiles[
+                      static_cast<int>(d) - 1].f1)->size())[0];
+            iv[1] = (*(int (*)[2])((::coder::array<char, 2U> *)&customFiles[
+                      static_cast<int>(d) - 1].f1)->size())[1];
+            b_callCppFunction((const char *)((::coder::array<char, 2U> *)
+              &customFiles[static_cast<int>(d) - 1].f1)->data(), iv, params,
+                              bulkInArray[static_cast<int>(contrastBulkIns[b_i])
+                              - 1], bulkOuts, (static_cast<double>(b_i) + 1.0) -
+                              1.0, r, &subRoughs[b_i]);
             loop_ub = r.size(1);
             slds[b_i].f1.set_size(r.size(0), r.size(1));
             for (i1 = 0; i1 < loop_ub; i1++) {
@@ -91,17 +90,15 @@ namespace RAT
               }
             }
 
-            iv[0] = (*(int32_T (*)[2])((::coder::array<char_T, 2U> *)
-                      &customFiles[static_cast<int32_T>(cCustFiles[b_i]) - 1].f1)
-                     ->size())[0];
-            iv[1] = (*(int32_T (*)[2])((::coder::array<char_T, 2U> *)
-                      &customFiles[static_cast<int32_T>(cCustFiles[b_i]) - 1].f1)
-                     ->size())[1];
-            c_callCppFunction((const char_T *)((::coder::array<char_T, 2U> *)
-              &customFiles[static_cast<int32_T>(cCustFiles[b_i]) - 1].f1)->data(),
-                              iv, params, bulkInArray[static_cast<int32_T>
+            iv[0] = (*(int (*)[2])((::coder::array<char, 2U> *)&customFiles[
+                      static_cast<int>(cCustFiles[b_i]) - 1].f1)->size())[0];
+            iv[1] = (*(int (*)[2])((::coder::array<char, 2U> *)&customFiles[
+                      static_cast<int>(cCustFiles[b_i]) - 1].f1)->size())[1];
+            c_callCppFunction((const char *)((::coder::array<char, 2U> *)
+              &customFiles[static_cast<int>(cCustFiles[b_i]) - 1].f1)->data(),
+                              iv, params, bulkInArray[static_cast<int>
                               (contrastBulkIns[b_i]) - 1], bulkOuts, (
-              static_cast<real_T>(b_i) + 1.0) - 1.0, r, &a__2);
+              static_cast<double>(b_i) + 1.0) - 1.0, r, &a__2);
             loop_ub = r.size(1);
             slds[b_i + slds.size(0)].f1.set_size(r.size(0), r.size(1));
             for (i1 = 0; i1 < loop_ub; i1++) {

@@ -20,18 +20,18 @@
 // Type Declarations
 namespace RAT
 {
-  struct e_struct_T;
-  struct struct4_T;
+  struct ProblemDefinition;
+  struct Controls;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void drawMCMC(const ::coder::array<real_T, 2U> &livepoints, const ::coder::
-                array<real_T, 2U> &cholmat, real_T logLmin, const ::coder::array<
-                real_T, 2U> &prior, const e_struct_T *data_f1, const struct4_T
-                *data_f2, real_T nMCMC, ::coder::array<real_T, 2U> &sample,
-                real_T *logL);
+  void drawMCMC(const ::coder::array<double, 2U> &livepoints, const ::coder::
+                array<double, 2U> &cholmat, double logLmin, const ::coder::array<
+                double, 2U> &prior, const ProblemDefinition *data_f1, const
+                Controls *data_f2, double nMCMC, ::coder::array<double, 2U>
+                &sample, double *logL);
 }
 
 #endif

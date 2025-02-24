@@ -20,10 +20,10 @@ namespace RAT
 {
   namespace coder
   {
-    void b_rand(real_T r[4])
+    void b_rand(double r[4])
     {
-      real_T b_r;
-      uint32_T u[2];
+      double b_r;
+      unsigned int u[2];
 
       // ========================= COPYRIGHT NOTICE ============================
       //  This is a uniform (0,1) pseudorandom number generator based on:
@@ -67,8 +67,8 @@ namespace RAT
         genrand_uint32_vector(state, u);
         u[0] >>= 5U;
         u[1] >>= 6U;
-        b_r = 1.1102230246251565E-16 * (static_cast<real_T>(u[0]) * 6.7108864E+7
-          + static_cast<real_T>(u[1]));
+        b_r = 1.1102230246251565E-16 * (static_cast<double>(u[0]) * 6.7108864E+7
+          + static_cast<double>(u[1]));
       } while (b_r == 0.0);
 
       r[0] = b_r;
@@ -115,8 +115,8 @@ namespace RAT
         genrand_uint32_vector(state, u);
         u[0] >>= 5U;
         u[1] >>= 6U;
-        b_r = 1.1102230246251565E-16 * (static_cast<real_T>(u[0]) * 6.7108864E+7
-          + static_cast<real_T>(u[1]));
+        b_r = 1.1102230246251565E-16 * (static_cast<double>(u[0]) * 6.7108864E+7
+          + static_cast<double>(u[1]));
       } while (b_r == 0.0);
 
       r[1] = b_r;
@@ -163,8 +163,8 @@ namespace RAT
         genrand_uint32_vector(state, u);
         u[0] >>= 5U;
         u[1] >>= 6U;
-        b_r = 1.1102230246251565E-16 * (static_cast<real_T>(u[0]) * 6.7108864E+7
-          + static_cast<real_T>(u[1]));
+        b_r = 1.1102230246251565E-16 * (static_cast<double>(u[0]) * 6.7108864E+7
+          + static_cast<double>(u[1]));
       } while (b_r == 0.0);
 
       r[2] = b_r;
@@ -211,17 +211,17 @@ namespace RAT
         genrand_uint32_vector(state, u);
         u[0] >>= 5U;
         u[1] >>= 6U;
-        b_r = 1.1102230246251565E-16 * (static_cast<real_T>(u[0]) * 6.7108864E+7
-          + static_cast<real_T>(u[1]));
+        b_r = 1.1102230246251565E-16 * (static_cast<double>(u[0]) * 6.7108864E+7
+          + static_cast<double>(u[1]));
       } while (b_r == 0.0);
 
       r[3] = b_r;
     }
 
-    real_T b_rand()
+    double b_rand()
     {
-      real_T r;
-      uint32_T u[2];
+      double r;
+      unsigned int u[2];
 
       // ========================= COPYRIGHT NOTICE ============================
       //  This is a uniform (0,1) pseudorandom number generator based on:
@@ -265,60 +265,59 @@ namespace RAT
         genrand_uint32_vector(state, u);
         u[0] >>= 5U;
         u[1] >>= 6U;
-        r = 1.1102230246251565E-16 * (static_cast<real_T>(u[0]) * 6.7108864E+7 +
-          static_cast<real_T>(u[1]));
+        r = 1.1102230246251565E-16 * (static_cast<double>(u[0]) * 6.7108864E+7 +
+          static_cast<double>(u[1]));
       } while (r == 0.0);
 
       return r;
     }
 
-    void b_rand(real_T varargin_1, real_T varargin_2, ::coder::array<real_T, 2U>
+    void b_rand(double varargin_1, double varargin_2, ::coder::array<double, 2U>
                 &r)
     {
-      int32_T i;
-      r.set_size(static_cast<int32_T>(varargin_1), static_cast<int32_T>
-                 (varargin_2));
-      i = static_cast<int32_T>(varargin_1) * static_cast<int32_T>(varargin_2);
-      for (int32_T k{0}; k < i; k++) {
+      int i;
+      r.set_size(static_cast<int>(varargin_1), static_cast<int>(varargin_2));
+      i = static_cast<int>(varargin_1) * static_cast<int>(varargin_2);
+      for (int k{0}; k < i; k++) {
         r[k] = eml_rand_mt19937ar(state);
       }
     }
 
-    void b_rand(const real_T varargin_1[2], ::coder::array<real_T, 2U> &r)
+    void b_rand(const double varargin_1[2], ::coder::array<double, 2U> &r)
     {
-      int32_T i;
-      i = static_cast<int32_T>(varargin_1[0]);
+      int i;
+      i = static_cast<int>(varargin_1[0]);
       r.set_size(i, 1);
-      for (int32_T k{0}; k < i; k++) {
+      for (int k{0}; k < i; k++) {
         r[k] = eml_rand_mt19937ar(state);
       }
     }
 
-    void b_rand(real_T varargin_1, ::coder::array<real_T, 1U> &r)
+    void b_rand(double varargin_1, ::coder::array<double, 1U> &r)
     {
-      int32_T i;
-      i = static_cast<int32_T>(varargin_1);
+      int i;
+      i = static_cast<int>(varargin_1);
       r.set_size(i);
-      for (int32_T k{0}; k < i; k++) {
+      for (int k{0}; k < i; k++) {
         r[k] = eml_rand_mt19937ar(state);
       }
     }
 
-    void b_rand(real_T varargin_2, ::coder::array<real_T, 2U> &r)
+    void b_rand(double varargin_2, ::coder::array<double, 2U> &r)
     {
-      int32_T i;
-      i = static_cast<int32_T>(varargin_2);
+      int i;
+      i = static_cast<int>(varargin_2);
       r.set_size(1, i);
-      for (int32_T k{0}; k < i; k++) {
+      for (int k{0}; k < i; k++) {
         r[k] = eml_rand_mt19937ar(state);
       }
     }
 
-    void c_rand(real_T r[1000])
+    void c_rand(double r[1000])
     {
-      uint32_T u[2];
-      for (int32_T k{0}; k < 1000; k++) {
-        real_T b_r;
+      unsigned int u[2];
+      for (int k{0}; k < 1000; k++) {
+        double b_r;
 
         // ========================= COPYRIGHT NOTICE ============================
         //  This is a uniform (0,1) pseudorandom number generator based on:
@@ -362,8 +361,8 @@ namespace RAT
           genrand_uint32_vector(state, u);
           u[0] >>= 5U;
           u[1] >>= 6U;
-          b_r = 1.1102230246251565E-16 * (static_cast<real_T>(u[0]) *
-            6.7108864E+7 + static_cast<real_T>(u[1]));
+          b_r = 1.1102230246251565E-16 * (static_cast<double>(u[0]) *
+            6.7108864E+7 + static_cast<double>(u[1]));
         } while (b_r == 0.0);
 
         r[k] = b_r;

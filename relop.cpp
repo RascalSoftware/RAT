@@ -20,7 +20,7 @@ namespace RAT
   {
     namespace internal
     {
-      boolean_T b_relop(real_T a, real_T b)
+      boolean_T b_relop(double a, double b)
       {
         boolean_T p;
         if (std::isnan(b)) {
@@ -34,7 +34,7 @@ namespace RAT
         return p;
       }
 
-      boolean_T c_relop(real_T a, real_T b)
+      boolean_T c_relop(double a, double b)
       {
         boolean_T p;
         if (std::isnan(b)) {
@@ -48,7 +48,7 @@ namespace RAT
         return p;
       }
 
-      boolean_T d_relop(real_T a, real_T b)
+      boolean_T d_relop(double a, double b)
       {
         boolean_T p;
         if (std::isnan(b)) {
@@ -62,7 +62,7 @@ namespace RAT
         return p;
       }
 
-      boolean_T relop(real_T a, real_T b)
+      boolean_T relop(double a, double b)
       {
         boolean_T p;
         if (std::isnan(b)) {

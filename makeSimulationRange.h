@@ -20,8 +20,8 @@
 // Function Declarations
 namespace RAT
 {
-  void makeSimulationRange(const ::coder::array<real_T, 2U> &data, const real_T
-    simulationLimits[2], ::coder::array<real_T, 1U> &simXdata, real_T splits[2]);
+  void makeSimulationRange(const ::coder::array<double, 2U> &data, const double
+    simulationLimits[2], ::coder::array<double, 1U> &simXdata, double splits[2]);
 }
 
 #endif

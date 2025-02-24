@@ -22,7 +22,7 @@ namespace RAT
 {
   namespace coder
   {
-    void b_getenv(::coder::array<char_T, 2U> &value);
+    void b_getenv(::coder::array<char, 2U> &value);
   }
 }
 

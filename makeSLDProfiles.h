@@ -20,11 +20,11 @@
 // Function Declarations
 namespace RAT
 {
-  void makeSLDProfiles(const ::coder::array<real_T, 2U> &sld, real_T ssub, const
-                       real_T repeats[2], ::coder::array<real_T, 2U> &sldProfile);
-  void makeSLDProfiles(real_T bulkIn, real_T bulkOut, const ::coder::array<
-                       real_T, 2U> &sld, real_T ssub, const real_T repeats[2], ::
-                       coder::array<real_T, 2U> &sldProfile);
+  void makeSLDProfiles(const ::coder::array<double, 2U> &sld, double ssub, const
+                       double repeats[2], ::coder::array<double, 2U> &sldProfile);
+  void makeSLDProfiles(double bulkIn, double bulkOut, const ::coder::array<
+                       double, 2U> &sld, double ssub, const double repeats[2], ::
+                       coder::array<double, 2U> &sldProfile);
 }
 
 #endif

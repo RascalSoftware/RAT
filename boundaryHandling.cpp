@@ -20,30 +20,30 @@
 // Function Definitions
 namespace RAT
 {
-  void boundaryHandling(::coder::array<real_T, 2U> &x, const ::coder::array<
-                        real_T, 2U> &paramInfo_min, const ::coder::array<real_T,
-                        2U> &paramInfo_max, const char_T
-                        paramInfo_boundhandling_data[], const int32_T
+  void boundaryHandling(::coder::array<double, 2U> &x, const ::coder::array<
+                        double, 2U> &paramInfo_min, const ::coder::array<double,
+                        2U> &paramInfo_max, const char
+                        paramInfo_boundhandling_data[], const int
                         paramInfo_boundhandling_size[2])
   {
-    ::coder::array<real_T, 2U> max_d;
-    ::coder::array<real_T, 2U> min_d;
-    ::coder::array<real_T, 2U> r;
-    ::coder::array<real_T, 1U> b_max_d;
-    ::coder::array<int32_T, 1U> ii_low;
-    ::coder::array<int32_T, 1U> ii_up;
+    ::coder::array<double, 2U> max_d;
+    ::coder::array<double, 2U> min_d;
+    ::coder::array<double, 2U> r;
+    ::coder::array<double, 1U> b_max_d;
+    ::coder::array<int, 1U> ii_low;
+    ::coder::array<int, 1U> ii_up;
     ::coder::array<boolean_T, 2U> b_x;
-    real_T b_ii_low[2];
-    int32_T b_loop_ub;
-    int32_T i;
-    int32_T i1;
-    int32_T loop_ub;
+    double b_ii_low[2];
+    int b_loop_ub;
+    int i;
+    int i1;
+    int loop_ub;
 
     //  Function to check whether parameter values remain within prior bounds
     //  First determine the size of new
     //  Now replicate min and max
-    coder::repmat(paramInfo_min, static_cast<real_T>(x.size(0)), min_d);
-    coder::repmat(paramInfo_max, static_cast<real_T>(x.size(0)), max_d);
+    coder::repmat(paramInfo_min, static_cast<double>(x.size(0)), min_d);
+    coder::repmat(paramInfo_max, static_cast<double>(x.size(0)), max_d);
 
     //  Now find which elements of x are smaller than their respective bound
     b_x.set_size(x.size(0), x.size(1));

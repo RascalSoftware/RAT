@@ -19,8 +19,8 @@ namespace RAT
 {
   namespace coder
   {
-    static void float_colon_length(real_T a, real_T d, real_T b, int32_T *n,
-      real_T *anew, real_T *bnew, boolean_T *n_too_large);
+    static void float_colon_length(double a, double d, double b, int *n, double *
+      anew, double *bnew, boolean_T *n_too_large);
   }
 }
 
@@ -29,11 +29,11 @@ namespace RAT
 {
   namespace coder
   {
-    static void float_colon_length(real_T a, real_T d, real_T b, int32_T *n,
-      real_T *anew, real_T *bnew, boolean_T *n_too_large)
+    static void float_colon_length(double a, double d, double b, int *n, double *
+      anew, double *bnew, boolean_T *n_too_large)
     {
-      real_T cdiff;
-      real_T ndbl;
+      double cdiff;
+      double ndbl;
       *anew = a;
       ndbl = std::floor((b - a) / d + 0.5);
       *bnew = a + ndbl * d;
@@ -55,30 +55,30 @@ namespace RAT
 
       *n_too_large = (ndbl > 2.147483647E+9);
       if (ndbl >= 0.0) {
-        *n = static_cast<int32_T>(ndbl);
+        *n = static_cast<int>(ndbl);
       } else {
         *n = 0;
       }
     }
 
-    void eml_float_colon(real_T a, real_T d, real_T b, ::coder::array<real_T, 2U>
+    void eml_float_colon(double a, double d, double b, ::coder::array<double, 2U>
                          &y)
     {
-      real_T a1;
-      real_T b1;
-      int32_T n;
+      double a1;
+      double b1;
+      int n;
       boolean_T n_too_large;
       float_colon_length(a, d, b, &n, &a1, &b1, &n_too_large);
       y.set_size(1, n);
       if (n > 0) {
         y[0] = a1;
         if (n > 1) {
-          real_T kd;
-          int32_T nm1d2;
+          double kd;
+          int nm1d2;
           y[n - 1] = b1;
           nm1d2 = (n - 1) / 2;
-          for (int32_T k{0}; k <= nm1d2 - 2; k++) {
-            kd = (static_cast<real_T>(k) + 1.0) * d;
+          for (int k{0}; k <= nm1d2 - 2; k++) {
+            kd = (static_cast<double>(k) + 1.0) * d;
             y[k + 1] = a1 + kd;
             y[(n - k) - 2] = b1 - kd;
           }
@@ -86,7 +86,7 @@ namespace RAT
           if (nm1d2 << 1 == n - 1) {
             y[nm1d2] = (a1 + b1) / 2.0;
           } else {
-            kd = static_cast<real_T>(nm1d2) * d;
+            kd = static_cast<double>(nm1d2) * d;
             y[nm1d2] = a1 + kd;
             y[nm1d2 + 1] = b1 - kd;
           }
@@ -94,9 +94,9 @@ namespace RAT
       }
     }
 
-    void eml_integer_colon_dispatcher(int32_T b, ::coder::array<int32_T, 2U> &y)
+    void eml_integer_colon_dispatcher(int b, ::coder::array<int, 2U> &y)
     {
-      int32_T n;
+      int n;
       if (b < 1) {
         n = 0;
       } else {
@@ -105,10 +105,10 @@ namespace RAT
 
       y.set_size(1, n);
       if (n > 0) {
-        int32_T yk;
+        int yk;
         y[0] = 1;
         yk = 1;
-        for (int32_T k{2}; k <= n; k++) {
+        for (int k{2}; k <= n; k++) {
           yk++;
           y[k - 1] = yk;
         }

@@ -25,7 +25,7 @@ namespace RAT
     {
       namespace scalar
       {
-        void b_asinh(real_T *x);
+        void b_asinh(double *x);
       }
     }
   }

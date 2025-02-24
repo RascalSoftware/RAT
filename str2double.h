@@ -21,7 +21,7 @@ namespace RAT
 {
   namespace coder
   {
-    creal_T str2double(const char_T s_data[], const int32_T s_size[2]);
+    creal_T str2double(const char s_data[], const int s_size[2]);
   }
 }
 

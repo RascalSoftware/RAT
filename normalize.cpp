@@ -18,12 +18,12 @@ namespace RAT
 {
   namespace coder
   {
-    void normalize(const real_T a[2], real_T n[2])
+    void normalize(const double a[2], double n[2])
     {
-      real_T fillA[2];
-      int32_T partialTrueCount;
-      int32_T trueCount;
-      int8_T tmp_data[2];
+      double fillA[2];
+      int partialTrueCount;
+      int trueCount;
+      signed char tmp_data[2];
       boolean_T unnamed_idx_0;
       boolean_T unnamed_idx_1;
       trueCount = 0;
@@ -55,18 +55,18 @@ namespace RAT
         fillA[tmp_data[partialTrueCount] - 1] = 0.0;
       }
 
-      real_T y;
+      double y;
       y = std::abs(fillA[0]) + std::abs(fillA[1]);
       n[0] = a[0] / y;
       n[1] = a[1] / y;
     }
 
-    void normalize(const real_T a_data[], real_T n_data[], int32_T n_size[2])
+    void normalize(const double a_data[], double n_data[], int n_size[2])
     {
-      real_T fillA_data[3];
-      int32_T partialTrueCount;
-      int32_T trueCount;
-      int8_T tmp_data[3];
+      double fillA_data[3];
+      int partialTrueCount;
+      int trueCount;
+      signed char tmp_data[3];
       boolean_T tmp_data_idx_0;
       boolean_T tmp_data_idx_1;
       boolean_T tmp_data_idx_2;
@@ -111,7 +111,7 @@ namespace RAT
         fillA_data[tmp_data[partialTrueCount] - 1] = 0.0;
       }
 
-      real_T s;
+      double s;
       s = (std::abs(fillA_data[0]) + std::abs(fillA_data[1])) + std::abs
         (fillA_data[2]);
       n_size[0] = 1;

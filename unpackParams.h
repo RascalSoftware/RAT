@@ -19,13 +19,13 @@
 // Type Declarations
 namespace RAT
 {
-  struct e_struct_T;
+  struct ProblemDefinition;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void unpackParams(e_struct_T *problemStruct);
+  void unpackParams(ProblemDefinition *problemStruct);
 }
 
 #endif

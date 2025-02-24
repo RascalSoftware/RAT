@@ -26,15 +26,15 @@ namespace RAT
     {
       namespace blas
       {
-        void b_xgemv(int32_T m, int32_T n, const ::coder::array<real_T, 2U> &A,
-                     int32_T ia0, int32_T lda, const ::coder::array<real_T, 2U>
-                     &x, int32_T ix0, ::coder::array<real_T, 1U> &y);
-        void c_xgemv(int32_T m, int32_T n, const ::coder::array<real_T, 2U> &A,
-                     int32_T ia0, int32_T lda, const ::coder::array<real_T, 2U>
-                     &x, int32_T ix0, ::coder::array<real_T, 1U> &y);
-        void xgemv(int32_T m, int32_T n, const ::coder::array<real_T, 2U> &A,
-                   int32_T ia0, int32_T lda, const ::coder::array<real_T, 2U> &x,
-                   int32_T ix0, ::coder::array<real_T, 1U> &y);
+        void b_xgemv(int m, int n, const ::coder::array<double, 2U> &A, int ia0,
+                     int lda, const ::coder::array<double, 2U> &x, int ix0, ::
+                     coder::array<double, 1U> &y);
+        void c_xgemv(int m, int n, const ::coder::array<double, 2U> &A, int ia0,
+                     int lda, const ::coder::array<double, 2U> &x, int ix0, ::
+                     coder::array<double, 1U> &y);
+        void xgemv(int m, int n, const ::coder::array<double, 2U> &A, int ia0,
+                   int lda, const ::coder::array<double, 2U> &x, int ix0, ::
+                   coder::array<double, 1U> &y);
       }
     }
   }

@@ -23,22 +23,22 @@
 // Function Declarations
 namespace RAT
 {
-  static void iqr(const ::coder::array<real_T, 2U> &log_L, ::coder::array<real_T,
+  static void iqr(const ::coder::array<double, 2U> &log_L, ::coder::array<double,
                   2U> &idx_outlier);
 }
 
 // Function Definitions
 namespace RAT
 {
-  static void iqr(const ::coder::array<real_T, 2U> &log_L, ::coder::array<real_T,
+  static void iqr(const ::coder::array<double, 2U> &log_L, ::coder::array<double,
                   2U> &idx_outlier)
   {
-    ::coder::array<int32_T, 2U> r;
+    ::coder::array<int, 2U> r;
     ::coder::array<boolean_T, 2U> b_log_L;
-    real_T Q[2];
-    real_T b_Q;
-    int32_T i;
-    int32_T loop_ub;
+    double Q[2];
+    double b_Q;
+    int i;
+    int loop_ub;
 
     //  Secondary functions used by this function
     //  -------------------------------------------------------------------------
@@ -64,31 +64,31 @@ namespace RAT
     }
   }
 
-  void removeOutlier(::coder::array<real_T, 2U> &X, ::coder::array<real_T, 2U>
-                     &log_L, const real_T outlier_data[], const int32_T
-                     outlier_size[2], const struct11_T *DREAMPar, ::coder::array<
-                     real_T, 2U> &outputOutlier)
+  void removeOutlier(::coder::array<double, 2U> &X, ::coder::array<double, 2U>
+                     &log_L, const double outlier_data[], const int
+                     outlier_size[2], const DreamParams *DREAMPar, ::coder::
+                     array<double, 2U> &outputOutlier)
   {
-    ::coder::array<real_T, 2U> b_chain_select;
-    ::coder::array<real_T, 2U> b_log_L;
-    ::coder::array<real_T, 2U> b_outputOutlier;
-    ::coder::array<real_T, 2U> chain_id;
-    ::coder::array<real_T, 2U> chain_select;
-    ::coder::array<real_T, 2U> r;
-    ::coder::array<real_T, 1U> c_log_L;
-    ::coder::array<int32_T, 2U> b_chain_id;
-    int32_T b_loop_ub;
-    int32_T chain_select_tmp;
-    int32_T i;
-    int32_T i1;
-    int32_T loop_ub;
-    int32_T t;
-    int32_T t_half;
+    ::coder::array<double, 2U> b_chain_select;
+    ::coder::array<double, 2U> b_log_L;
+    ::coder::array<double, 2U> b_outputOutlier;
+    ::coder::array<double, 2U> chain_id;
+    ::coder::array<double, 2U> chain_select;
+    ::coder::array<double, 2U> r;
+    ::coder::array<double, 1U> c_log_L;
+    ::coder::array<int, 2U> b_chain_id;
+    int b_loop_ub;
+    int chain_select_tmp;
+    int i;
+    int i1;
+    int loop_ub;
+    int t;
+    int t_half;
 
     //  Finds outlier chains and removes them when needed
     //  Determine the number of elements of L_density
     t = log_L.size(0);
-    t_half = static_cast<int32_T>(std::floor(static_cast<real_T>(log_L.size(0)) /
+    t_half = static_cast<int>(std::floor(static_cast<double>(log_L.size(0)) /
       2.0));
 
     //  Then determine the mean log density of the active chains
@@ -103,7 +103,7 @@ namespace RAT
     if (1.0 > DREAMPar->nChains) {
       loop_ub = 0;
     } else {
-      loop_ub = static_cast<int32_T>(DREAMPar->nChains);
+      loop_ub = static_cast<int>(DREAMPar->nChains);
     }
 
     //  ------------------------------
@@ -159,28 +159,28 @@ namespace RAT
         b_chain_select.set_size(1, 1);
         b_chain_select[0] = rtNaN;
       } else {
-        loop_ub = static_cast<int32_T>(std::floor(DREAMPar->nChains - 1.0));
+        loop_ub = static_cast<int>(std::floor(DREAMPar->nChains - 1.0));
         b_chain_select.set_size(1, loop_ub + 1);
         for (i = 0; i <= loop_ub; i++) {
-          b_chain_select[i] = static_cast<real_T>(i) + 1.0;
+          b_chain_select[i] = static_cast<double>(i) + 1.0;
         }
       }
 
       b_chain_id.set_size(1, chain_id.size(1));
       loop_ub = chain_id.size(1);
       for (i = 0; i < loop_ub; i++) {
-        b_chain_id[i] = static_cast<int32_T>(chain_id[i]);
+        b_chain_id[i] = static_cast<int>(chain_id[i]);
       }
 
       coder::internal::nullAssignment(b_chain_select, b_chain_id);
 
       //  Randomly permute these available chains
-      coder::randperm(DREAMPar->nChains - static_cast<real_T>(chain_id.size(1)),
+      coder::randperm(DREAMPar->nChains - static_cast<double>(chain_id.size(1)),
                       r);
       chain_select.set_size(1, r.size(1));
       loop_ub = r.size(1);
       for (i = 0; i < loop_ub; i++) {
-        chain_select[i] = b_chain_select[static_cast<int32_T>(r[i]) - 1];
+        chain_select[i] = b_chain_select[static_cast<int>(r[i]) - 1];
       }
 
       b_chain_select.set_size(1, chain_select.size(1));
@@ -191,15 +191,15 @@ namespace RAT
 
       //  Loop over each outlier chain
       i = chain_id.size(1);
-      loop_ub = static_cast<int32_T>(DREAMPar->nParams + 2.0);
-      for (int32_T j{0}; j < i; j++) {
-        int32_T chain_id_tmp;
-        int16_T i2;
+      loop_ub = static_cast<int>(DREAMPar->nParams + 2.0);
+      for (int j{0}; j < i; j++) {
+        int chain_id_tmp;
+        short i2;
 
         //  Added -- update log_L -- chain will not be considered as an outlier chain then
         b_loop_ub = log_L.size(0) - 1;
-        chain_select_tmp = static_cast<int32_T>(b_chain_select[j]);
-        chain_id_tmp = static_cast<int32_T>(chain_id[j]);
+        chain_select_tmp = static_cast<int>(b_chain_select[j]);
+        chain_id_tmp = static_cast<int>(chain_id[j]);
         c_log_L.set_size(b_loop_ub + 1);
         for (i1 = 0; i1 <= b_loop_ub; i1++) {
           c_log_L[i1] = log_L[i1 + log_L.size(0) * (chain_select_tmp - 1)];
@@ -223,13 +223,13 @@ namespace RAT
 
         //  Add to chain_outlier and print to screen
         if (outputOutlier.size(0) != 0) {
-          i2 = static_cast<int16_T>(outputOutlier.size(0));
+          i2 = static_cast<short>(outputOutlier.size(0));
         } else {
           i2 = 0;
         }
 
         if (outputOutlier.size(0) != 0) {
-          b_loop_ub = static_cast<int16_T>(outputOutlier.size(0));
+          b_loop_ub = static_cast<short>(outputOutlier.size(0));
         } else {
           b_loop_ub = 0;
         }

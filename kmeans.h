@@ -20,8 +20,8 @@
 // Function Declarations
 namespace RAT
 {
-  void kmeans(const ::coder::array<real_T, 2U> &X, ::coder::array<real_T, 2U>
-              &means, real_T Nmeans[2]);
+  void kmeans(const ::coder::array<double, 2U> &X, ::coder::array<double, 2U>
+              &means, double Nmeans[2]);
 }
 
 #endif

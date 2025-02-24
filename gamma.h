@@ -21,7 +21,7 @@ namespace RAT
 {
   namespace coder
   {
-    void b_gamma(real_T *x);
+    void b_gamma(double *x);
   }
 }
 

@@ -19,9 +19,8 @@
 // Function Declarations
 namespace RAT
 {
-  void isRATStopped(const char_T IPCFilePath_data[], const int32_T
-                    IPCFilePath_size[2], boolean_T state_data[], int32_T
-                    *state_size);
+  void isRATStopped(const char IPCFilePath_data[], const int IPCFilePath_size[2],
+                    boolean_T state_data[], int *state_size);
 }
 
 #endif

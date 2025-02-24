@@ -25,15 +25,15 @@ namespace RAT
     {
       namespace reflapack
       {
-        void xzgeev(const ::coder::array<real_T, 2U> &A, int32_T *info, ::coder::
+        void xzgeev(const ::coder::array<double, 2U> &A, int *info, ::coder::
                     array<creal_T, 1U> &alpha1, ::coder::array<creal_T, 1U>
                     &beta1, ::coder::array<creal_T, 2U> &V)
         {
           ::coder::array<creal_T, 2U> At;
-          int32_T coltop;
-          int32_T i;
-          int32_T lastcol;
-          int32_T n;
+          int coltop;
+          int i;
+          int lastcol;
+          int n;
           At.set_size(A.size(0), A.size(1));
           n = A.size(1);
           for (i = 0; i < n; i++) {
@@ -50,13 +50,13 @@ namespace RAT
             lastcol = (A.size(0) - 1) * A.size(0) + 1;
             for (coltop = 1; n < 0 ? coltop >= lastcol : coltop <= lastcol;
                  coltop += n) {
-              real_T colnorm;
+              double colnorm;
               colnorm = blas::xnrm2(n, V, coltop);
               i = (coltop + n) - 1;
-              for (int32_T j{coltop}; j <= i; j++) {
-                real_T ai;
-                real_T im;
-                real_T re;
+              for (int j{coltop}; j <= i; j++) {
+                double ai;
+                double im;
+                double re;
                 im = V[j - 1].re;
                 ai = V[j - 1].im;
                 if (ai == 0.0) {

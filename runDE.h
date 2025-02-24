@@ -20,30 +20,30 @@
 // Type Declarations
 namespace RAT
 {
-  struct e_struct_T;
-  struct struct5_T;
-  struct struct4_T;
+  struct ProblemDefinition;
+  struct Results;
+  struct Controls;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void intrafun(const ::coder::array<real_T, 2U> &p, e_struct_T *problemStruct,
-                const char_T controls_parallel_data[], const int32_T
-                controls_parallel_size[2], real_T controls_resampleMinAngle,
-                real_T controls_resampleNPoints, boolean_T
-                controls_calcSldDuringFit, real_T *S_MSE_I_nc, real_T
-                *S_MSE_FVr_ca, real_T *S_MSE_I_no, real_T *S_MSE_FVr_oa,
-                struct5_T *result);
-  void runDE(e_struct_T *problemStruct, const ::coder::array<real_T, 2U>
-             &problemLimits_params, const ::coder::array<real_T, 2U>
-             &problemLimits_backgroundParams, const ::coder::array<real_T, 2U>
-             &problemLimits_scalefactors, const ::coder::array<real_T, 2U>
-             &problemLimits_qzshifts, const ::coder::array<real_T, 2U>
-             &problemLimits_bulkIns, const ::coder::array<real_T, 2U>
-             &problemLimits_bulkOuts, const ::coder::array<real_T, 2U>
-             &problemLimits_resolutionParams, const ::coder::array<real_T, 2U>
-             &problemLimits_domainRatios, const struct4_T *controls, struct5_T
+  void intrafun(const ::coder::array<double, 2U> &p, ProblemDefinition
+                *problemStruct, const char controls_parallel_data[], const int
+                controls_parallel_size[2], double controls_resampleMinAngle,
+                double controls_resampleNPoints, boolean_T
+                controls_calcSldDuringFit, double *S_MSE_I_nc, double
+                *S_MSE_FVr_ca, double *S_MSE_I_no, double *S_MSE_FVr_oa, Results
+                *result);
+  void runDE(ProblemDefinition *problemStruct, const ::coder::array<double, 2U>
+             &problemLimits_params, const ::coder::array<double, 2U>
+             &problemLimits_backgroundParams, const ::coder::array<double, 2U>
+             &problemLimits_scalefactors, const ::coder::array<double, 2U>
+             &problemLimits_qzshifts, const ::coder::array<double, 2U>
+             &problemLimits_bulkIns, const ::coder::array<double, 2U>
+             &problemLimits_bulkOuts, const ::coder::array<double, 2U>
+             &problemLimits_resolutionParams, const ::coder::array<double, 2U>
+             &problemLimits_domainRatios, const Controls *controls, Results
              *result);
 }
 

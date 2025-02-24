@@ -28,49 +28,49 @@
 // Function Definitions
 namespace RAT
 {
-  void refPercentileConfidenceIntervals(const ::coder::array<real_T, 2U>
-    &bayesOutputs_chain, e_struct_T *problemStruct, const struct4_T *controls,
-    const ::coder::array<cell_wrap_7, 1U> &results_reflectivity, const ::coder::
-    array<cell_wrap_9, 2U> &results_sldProfiles, ::coder::array<cell_wrap_11, 1U>
-    &allPredInts_reflectivity, ::coder::array<cell_wrap_11, 2U> &allPredInts_sld,
-    real_T allPredInts_sampleChi[1000])
+  void refPercentileConfidenceIntervals(const ::coder::array<double, 2U>
+    &bayesOutputs_chain, ProblemDefinition *problemStruct, const Controls
+    *controls, const ::coder::array<cell_wrap_7, 1U> &results_reflectivity,
+    const ::coder::array<cell_wrap_9, 2U> &results_sldProfiles, ::coder::array<
+    cell_wrap_11, 1U> &allPredInts_reflectivity, ::coder::array<cell_wrap_11, 2U>
+    &allPredInts_sld, double allPredInts_sampleChi[1000])
   {
     ::coder::array<cell_wrap_9, 2U> r;
     ::coder::array<cell_wrap_9, 2U> refXVals;
     ::coder::array<cell_wrap_9, 2U> refYVals;
     ::coder::array<cell_wrap_9, 2U> sldXVals;
     ::coder::array<cell_wrap_9, 2U> sldYVals;
-    ::coder::array<real_T, 2U> r1;
-    ::coder::array<real_T, 2U> refArray;
-    ::coder::array<real_T, 2U> sldArray;
-    ::coder::array<real_T, 2U> sldArray1;
-    ::coder::array<real_T, 2U> sldArray2;
-    ::coder::array<real_T, 1U> b_expl_temp;
-    ::coder::array<real_T, 1U> c_expl_temp;
-    struct5_T expl_temp;
-    real_T a[1000];
-    real_T isample[1000];
-    real_T b_dv[3];
-    real_T ci65[2];
-    real_T ci651[2];
-    real_T ci652[2];
-    real_T ci95[2];
-    real_T ci951[2];
-    real_T ci952[2];
-    real_T numberOfContrasts;
-    int32_T b_i;
-    int32_T b_loop_ub;
-    int32_T b_refYVals_size;
-    int32_T c_loop_ub;
-    int32_T c_refYVals_size;
-    int32_T d_loop_ub;
-    int32_T i;
-    int32_T i1;
-    int32_T k;
-    int32_T loop_ub;
-    int32_T m;
-    int32_T points;
-    int32_T refYVals_size;
+    ::coder::array<double, 2U> r1;
+    ::coder::array<double, 2U> refArray;
+    ::coder::array<double, 2U> sldArray;
+    ::coder::array<double, 2U> sldArray1;
+    ::coder::array<double, 2U> sldArray2;
+    ::coder::array<double, 1U> b_expl_temp;
+    ::coder::array<double, 1U> c_expl_temp;
+    Results expl_temp;
+    double a[1000];
+    double isample[1000];
+    double b_dv[3];
+    double ci65[2];
+    double ci651[2];
+    double ci652[2];
+    double ci95[2];
+    double ci951[2];
+    double ci952[2];
+    double numberOfContrasts;
+    int b_i;
+    int b_loop_ub;
+    int b_refYVals_size;
+    int c_loop_ub;
+    int c_refYVals_size;
+    int d_loop_ub;
+    int i;
+    int i1;
+    int k;
+    int loop_ub;
+    int m;
+    int points;
+    int refYVals_size;
     boolean_T domains;
 
     //  Need to deal slightly differently with SLDs if there are domains
@@ -138,7 +138,7 @@ namespace RAT
     //  calculate the sample. So, take the input reflectivity and SLD values
     //  to get the 'base' x for ref and SLD, then all following
     //  interpolations are onto these x values....
-    i = static_cast<int32_T>(problemStruct->numberOfContrasts);
+    i = static_cast<int>(problemStruct->numberOfContrasts);
     for (b_i = 0; b_i < i; b_i++) {
       loop_ub = results_reflectivity[b_i].f1.size(0);
       refXVals[b_i].f1.set_size(1, results_reflectivity[b_i].f1.size(0));
@@ -177,7 +177,7 @@ namespace RAT
     //  calculating >20000 reflectivities...
     coder::c_rand(a);
     for (k = 0; k < 1000; k++) {
-      isample[k] = std::ceil(a[k] * static_cast<real_T>(bayesOutputs_chain.size
+      isample[k] = std::ceil(a[k] * static_cast<double>(bayesOutputs_chain.size
         (0)));
     }
 
@@ -226,7 +226,7 @@ namespace RAT
     for (b_i = 0; b_i < 1000; b_i++) {
       problemStruct->fitParams.set_size(1, loop_ub);
       for (i1 = 0; i1 < loop_ub; i1++) {
-        problemStruct->fitParams[i1] = bayesOutputs_chain[(static_cast<int32_T>
+        problemStruct->fitParams[i1] = bayesOutputs_chain[(static_cast<int>
           (isample[b_i]) + bayesOutputs_chain.size(0) * i1) - 1];
       }
 
@@ -235,7 +235,7 @@ namespace RAT
       //  Calc the reflectivities....
       b_reflectivityCalculation(problemStruct, controls, &expl_temp);
       allPredInts_sampleChi[b_i] = expl_temp.calculationResults.sumChi;
-      for (int32_T n{0}; n < i; n++) {
+      for (int n{0}; n < i; n++) {
         k = expl_temp.reflectivity[n].f1.size(0);
         b_expl_temp.set_size(expl_temp.reflectivity[n].f1.size(0));
         for (i1 = 0; i1 < k; i1++) {
@@ -312,8 +312,8 @@ namespace RAT
     //  Calculate the percentiles across all the calculated samples for each
     //  point in x... We calculate 95% and 65% CI's for each set of curves
     //  Reflectivity..
-    i = static_cast<int32_T>(numberOfContrasts);
-    i1 = static_cast<int32_T>(numberOfContrasts);
+    i = static_cast<int>(numberOfContrasts);
+    i1 = static_cast<int>(numberOfContrasts);
     allPredInts_reflectivity.set_size(i1);
     for (b_i = 0; b_i < i; b_i++) {
       refArray.set_size(5, refYVals[b_i].f1.size(1));
@@ -369,8 +369,8 @@ namespace RAT
 
     //  Also the SLD's
     if (!domains) {
-      i = static_cast<int32_T>(numberOfContrasts);
-      i1 = static_cast<int32_T>(numberOfContrasts);
+      i = static_cast<int>(numberOfContrasts);
+      i1 = static_cast<int>(numberOfContrasts);
       allPredInts_sld.set_size(i1, 1);
       for (b_i = 0; b_i < i; b_i++) {
         sldArray.set_size(5, sldYVals[b_i].f1.size(1));
@@ -419,8 +419,8 @@ namespace RAT
         }
       }
     } else {
-      i = static_cast<int32_T>(numberOfContrasts);
-      i1 = static_cast<int32_T>(numberOfContrasts);
+      i = static_cast<int>(numberOfContrasts);
+      i1 = static_cast<int>(numberOfContrasts);
       allPredInts_sld.set_size(i1, 2);
       for (b_i = 0; b_i < i; b_i++) {
         sldArray1.set_size(5, sldYVals[b_i].f1.size(1));

@@ -26,8 +26,7 @@ namespace RAT
     {
       namespace reflapack
       {
-        real_T xzlanhs(const ::coder::array<creal_T, 2U> &A, int32_T ilo,
-                       int32_T ihi);
+        double xzlanhs(const ::coder::array<creal_T, 2U> &A, int ilo, int ihi);
       }
     }
   }

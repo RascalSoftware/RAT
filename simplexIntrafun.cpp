@@ -23,19 +23,19 @@
 // Function Definitions
 namespace RAT
 {
-  void simplexIntrafun(const ::coder::array<real_T, 1U> &x, e_struct_T
-                       *problemStruct, const char_T controls_parallel_data[],
-                       const int32_T controls_parallel_size[2], real_T
-                       controls_resampleMinAngle, real_T
+  void simplexIntrafun(const ::coder::array<double, 1U> &x, ProblemDefinition
+                       *problemStruct, const char controls_parallel_data[],
+                       const int controls_parallel_size[2], double
+                       controls_resampleMinAngle, double
                        controls_resampleNPoints, boolean_T
-                       controls_calcSldDuringFit, const ::coder::array<real_T,
-                       1U> &params_LB, const ::coder::array<real_T, 1U>
-                       &params_UB, const ::coder::array<real_T, 1U>
-                       &params_BoundClass, real_T *fval, struct5_T *result)
+                       controls_calcSldDuringFit, const ::coder::array<double,
+                       1U> &params_LB, const ::coder::array<double, 1U>
+                       &params_UB, const ::coder::array<double, 1U>
+                       &params_BoundClass, double *fval, Results *result)
   {
-    ::coder::array<real_T, 1U> xtrans;
-    struct4_T expl_temp;
-    int32_T loop_ub;
+    ::coder::array<double, 1U> xtrans;
+    Controls expl_temp;
+    int loop_ub;
 
     //  transform variables, then call original function
     simplexXTransform(x, params_LB, params_UB, params_BoundClass, xtrans);
@@ -43,7 +43,7 @@ namespace RAT
     // Unpck the params..
     problemStruct->fitParams.set_size(1, xtrans.size(0));
     loop_ub = xtrans.size(0);
-    for (int32_T i{0}; i < loop_ub; i++) {
+    for (int i{0}; i < loop_ub; i++) {
       problemStruct->fitParams[i] = xtrans[i];
     }
 

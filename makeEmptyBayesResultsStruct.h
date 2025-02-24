@@ -21,37 +21,37 @@
 namespace RAT
 {
   struct cell_wrap_11;
-  struct struct11_T;
-  struct struct12_T;
+  struct DreamParams;
+  struct DreamOutput;
   struct c_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void b_makeEmptyBayesResultsStruct(real_T nContrasts, boolean_T isDomains, ::
+  void b_makeEmptyBayesResultsStruct(double nContrasts, boolean_T isDomains, ::
     coder::array<cell_wrap_11, 1U>
     &bayesResults_predictionIntervals_reflectivity, ::coder::array<cell_wrap_11,
-    2U> &bayesResults_predictionIntervals_sld, real_T
-    bayesResults_predictionIntervals_sampleChi_data[], int32_T
-    *bayesResults_predictionIntervals_sampleChi_size, ::coder::array<real_T, 2U>
-    &bayesResults_confidenceIntervals_percentile95, ::coder::array<real_T, 2U>
-    &bayesResults_confidenceIntervals_percentile65, ::coder::array<real_T, 2U>
-    &bayesResults_confidenceIntervals_mean, struct11_T *bayesResults_dreamParams,
-    struct12_T *bayesResults_dreamOutput, c_struct_T
-    *bayesResults_nestedSamplerOutput, ::coder::array<real_T, 2U>
+    2U> &bayesResults_predictionIntervals_sld, double
+    bayesResults_predictionIntervals_sampleChi_data[], int
+    *bayesResults_predictionIntervals_sampleChi_size, ::coder::array<double, 2U>
+    &bayesResults_confidenceIntervals_percentile95, ::coder::array<double, 2U>
+    &bayesResults_confidenceIntervals_percentile65, ::coder::array<double, 2U>
+    &bayesResults_confidenceIntervals_mean, DreamParams
+    *bayesResults_dreamParams, DreamOutput *bayesResults_dreamOutput, c_struct_T
+    *bayesResults_nestedSamplerOutput, ::coder::array<double, 2U>
     &bayesResults_chain);
-  void makeEmptyBayesResultsStruct(real_T nContrasts, boolean_T isDomains,
-    real_T nChains, ::coder::array<cell_wrap_11, 1U>
+  void makeEmptyBayesResultsStruct(double nContrasts, boolean_T isDomains,
+    double nChains, ::coder::array<cell_wrap_11, 1U>
     &bayesResults_predictionIntervals_reflectivity, ::coder::array<cell_wrap_11,
-    2U> &bayesResults_predictionIntervals_sld, real_T
-    bayesResults_predictionIntervals_sampleChi_data[], int32_T
-    *bayesResults_predictionIntervals_sampleChi_size, ::coder::array<real_T, 2U>
-    &bayesResults_confidenceIntervals_percentile95, ::coder::array<real_T, 2U>
-    &bayesResults_confidenceIntervals_percentile65, ::coder::array<real_T, 2U>
-    &bayesResults_confidenceIntervals_mean, struct11_T *bayesResults_dreamParams,
-    struct12_T *bayesResults_dreamOutput, c_struct_T
-    *bayesResults_nestedSamplerOutput, ::coder::array<real_T, 2U>
+    2U> &bayesResults_predictionIntervals_sld, double
+    bayesResults_predictionIntervals_sampleChi_data[], int
+    *bayesResults_predictionIntervals_sampleChi_size, ::coder::array<double, 2U>
+    &bayesResults_confidenceIntervals_percentile95, ::coder::array<double, 2U>
+    &bayesResults_confidenceIntervals_percentile65, ::coder::array<double, 2U>
+    &bayesResults_confidenceIntervals_mean, DreamParams
+    *bayesResults_dreamParams, DreamOutput *bayesResults_dreamOutput, c_struct_T
+    *bayesResults_nestedSamplerOutput, ::coder::array<double, 2U>
     &bayesResults_chain);
 }
 

@@ -22,10 +22,10 @@ namespace RAT
 {
   namespace coder
   {
-    int32_T cfclose(real_T fid);
-    int8_T cfopen(const char_T cfilename_data[], const int32_T cfilename_size[2],
-                  const char_T *cpermission);
-    FILE * fileManager(real_T varargin_1);
+    int cfclose(double fid);
+    signed char cfopen(const char cfilename_data[], const int cfilename_size[2],
+                       const char *cpermission);
+    FILE * fileManager(double varargin_1);
   }
 
   void filedata_init();

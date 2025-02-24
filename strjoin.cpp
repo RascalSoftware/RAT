@@ -19,11 +19,11 @@ namespace RAT
 {
   namespace coder
   {
-    void b_strjoin(const ::coder::array<char_T, 2U> &c_f1, const char_T c_f2[72],
-                   ::coder::array<char_T, 2U> &joinedStr)
+    void b_strjoin(const ::coder::array<char, 2U> &c_f1, const char c_f2[72], ::
+                   coder::array<char, 2U> &joinedStr)
     {
-      int32_T i;
-      int32_T j;
+      int i;
+      int j;
       joinedStr.set_size(1, c_f1.size(1) + 73);
       i = c_f1.size(1);
       for (j = 0; j < i; j++) {
@@ -36,12 +36,12 @@ namespace RAT
       }
     }
 
-    void strjoin(const ::coder::array<cell_wrap_10, 2U> &c, ::coder::array<
-                 char_T, 2U> &joinedStr)
+    void strjoin(const ::coder::array<cell_wrap_10, 2U> &c, ::coder::array<char,
+                 2U> &joinedStr)
     {
-      int32_T k;
-      int32_T num;
-      int32_T outidx;
+      int k;
+      int num;
+      int outidx;
       outidx = c.size(1);
       num = 0;
       if (c.size(1) > 0) {
@@ -53,10 +53,10 @@ namespace RAT
       joinedStr.set_size(1, num);
       outidx = 0;
       if (c.size(1) > 0) {
-        int32_T j;
+        int j;
         num = c.size(1);
         for (k = 0; k <= num - 2; k++) {
-          int32_T i;
+          int i;
           i = c[k].f1.size(1);
           for (j = 0; j < i; j++) {
             joinedStr[outidx + j] = c[k].f1[j];
@@ -72,10 +72,10 @@ namespace RAT
       }
     }
 
-    void strjoin(const ::coder::array<char_T, 2U> &c_f1, const char_T c_f2[27],
-                 char_T joinedStr_data[], int32_T joinedStr_size[2])
+    void strjoin(const ::coder::array<char, 2U> &c_f1, const char c_f2[27], char
+                 joinedStr_data[], int joinedStr_size[2])
     {
-      int32_T j;
+      int j;
       joinedStr_size[0] = 1;
       joinedStr_size[1] = 100;
       for (j = 0; j < 72; j++) {
@@ -88,11 +88,11 @@ namespace RAT
       }
     }
 
-    void strjoin(const ::coder::array<char_T, 2U> &c_f1, const char_T c_f2[27], ::
-                 coder::array<char_T, 2U> &joinedStr)
+    void strjoin(const ::coder::array<char, 2U> &c_f1, const char c_f2[27], ::
+                 coder::array<char, 2U> &joinedStr)
     {
-      int32_T i;
-      int32_T j;
+      int i;
+      int j;
       joinedStr.set_size(1, c_f1.size(1) + 28);
       i = c_f1.size(1);
       for (j = 0; j < i; j++) {
@@ -105,11 +105,11 @@ namespace RAT
       }
     }
 
-    void strjoin(const cell_wrap_10 c[2], ::coder::array<char_T, 2U> &joinedStr)
+    void strjoin(const cell_wrap_10 c[2], ::coder::array<char, 2U> &joinedStr)
     {
-      int32_T i;
-      int32_T i1;
-      int32_T j;
+      int i;
+      int i1;
+      int j;
       joinedStr.set_size(1, (c[0].f1.size(1) + c[1].f1.size(1)) + 1);
       i = c[0].f1.size(1);
       for (j = 0; j < i; j++) {

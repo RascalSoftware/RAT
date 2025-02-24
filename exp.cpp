@@ -27,8 +27,8 @@ namespace RAT
         x->re = 0.0;
         x->im = 0.0;
       } else {
-        real_T d;
-        real_T r;
+        double d;
+        double r;
         r = std::exp(x->re / 2.0);
         d = x->im;
         x->re = r * (r * std::cos(x->im));

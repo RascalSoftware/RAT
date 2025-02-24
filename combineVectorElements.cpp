@@ -19,10 +19,9 @@ namespace RAT
 {
   namespace coder
   {
-    real_T b_combineVectorElements(const ::coder::array<real_T, 1U> &x, int32_T
-      vlen)
+    double b_combineVectorElements(const ::coder::array<double, 1U> &x, int vlen)
     {
-      real_T y;
+      double y;
       if ((x.size(0) == 0) || (vlen == 0)) {
         y = 0.0;
       } else {
@@ -32,16 +31,16 @@ namespace RAT
       return y;
     }
 
-    int32_T c_combineVectorElements(const ::coder::array<boolean_T, 1U> &x)
+    int c_combineVectorElements(const ::coder::array<boolean_T, 1U> &x)
     {
-      int32_T vlen;
-      int32_T y;
+      int vlen;
+      int y;
       vlen = x.size(0);
       if (x.size(0) == 0) {
         y = 0;
       } else {
         y = x[0];
-        for (int32_T k{2}; k <= vlen; k++) {
+        for (int k{2}; k <= vlen; k++) {
           if (vlen >= 2) {
             y += x[k - 1];
           }
@@ -51,16 +50,16 @@ namespace RAT
       return y;
     }
 
-    int32_T combineVectorElements(const ::coder::array<boolean_T, 2U> &x)
+    int combineVectorElements(const ::coder::array<boolean_T, 2U> &x)
     {
-      int32_T vlen;
-      int32_T y;
+      int vlen;
+      int y;
       vlen = x.size(1);
       if (x.size(1) == 0) {
         y = 0;
       } else {
         y = x[0];
-        for (int32_T k{2}; k <= vlen; k++) {
+        for (int k{2}; k <= vlen; k++) {
           if (vlen >= 2) {
             y += x[k - 1];
           }

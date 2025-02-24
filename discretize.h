@@ -22,10 +22,10 @@ namespace RAT
 {
   namespace coder
   {
-    void b_discretize(const ::coder::array<real_T, 2U> &x, const real_T
-                      edgesInput[3], ::coder::array<real_T, 2U> &bins);
-    void discretize(const ::coder::array<real_T, 2U> &x, const real_T
-                    edgesInput_data[], ::coder::array<real_T, 2U> &bins);
+    void b_discretize(const ::coder::array<double, 2U> &x, const double
+                      edgesInput[3], ::coder::array<double, 2U> &bins);
+    void discretize(const ::coder::array<double, 2U> &x, const double
+                    edgesInput_data[], ::coder::array<double, 2U> &bins);
   }
 }
 

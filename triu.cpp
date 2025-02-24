@@ -18,13 +18,13 @@ namespace RAT
 {
   namespace coder
   {
-    void b_triu(::coder::array<real_T, 2U> &x)
+    void b_triu(::coder::array<double, 2U> &x)
     {
-      int32_T m;
+      int m;
       m = x.size(0);
       if ((x.size(0) != 0) && (x.size(1) != 0) && (3 < x.size(0))) {
-        int32_T istart;
-        int32_T jend;
+        int istart;
+        int jend;
         istart = 4;
         if (x.size(0) - 4 < x.size(1) - 1) {
           jend = x.size(0) - 3;
@@ -32,8 +32,8 @@ namespace RAT
           jend = x.size(1);
         }
 
-        for (int32_T j{0}; j < jend; j++) {
-          for (int32_T i{istart}; i <= m; i++) {
+        for (int j{0}; j < jend; j++) {
+          for (int i{istart}; i <= m; i++) {
             x[(i + x.size(0) * j) - 1] = 0.0;
           }
 
@@ -42,13 +42,13 @@ namespace RAT
       }
     }
 
-    void triu(::coder::array<real_T, 2U> &x)
+    void triu(::coder::array<double, 2U> &x)
     {
-      int32_T m;
+      int m;
       m = x.size(0);
       if ((x.size(0) != 0) && (x.size(1) != 0) && (1 < x.size(0))) {
-        int32_T istart;
-        int32_T jend;
+        int istart;
+        int jend;
         istart = 2;
         if (x.size(0) - 2 < x.size(1) - 1) {
           jend = x.size(0) - 1;
@@ -56,8 +56,8 @@ namespace RAT
           jend = x.size(1);
         }
 
-        for (int32_T j{0}; j < jend; j++) {
-          for (int32_T i{istart}; i <= m; i++) {
+        for (int j{0}; j < jend; j++) {
+          for (int i{istart}; i <= m; i++) {
             x[(i + x.size(0) * j) - 1] = 0.0;
           }
 

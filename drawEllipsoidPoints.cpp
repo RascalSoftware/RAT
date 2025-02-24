@@ -26,19 +26,19 @@
 // Function Definitions
 namespace RAT
 {
-  void drawEllipsoidPoints(const ::coder::array<real_T, 2U> &B, const ::coder::
-    array<real_T, 2U> &mu, ::coder::array<real_T, 2U> &pnts)
+  void drawEllipsoidPoints(const ::coder::array<double, 2U> &B, const ::coder::
+    array<double, 2U> &mu, ::coder::array<double, 2U> &pnts)
   {
     ::coder::array<creal_T, 2U> E;
     ::coder::array<creal_T, 2U> V;
     ::coder::array<creal_T, 2U> b_pnts;
     ::coder::array<creal_T, 2U> r1;
     ::coder::array<creal_T, 1U> r;
-    ::coder::array<real_T, 2U> pt;
-    ::coder::array<real_T, 2U> x;
-    real_T a;
-    int32_T i;
-    int32_T k;
+    ::coder::array<double, 2U> pt;
+    ::coder::array<double, 2U> x;
+    double a;
+    int i;
+    int k;
 
     //  function pnts = drawEllipsoidPoints(B, mu, N )
     //
@@ -56,14 +56,14 @@ namespace RAT
     a = coder::b_rand();
 
     //  generate points
-    coder::randn(static_cast<real_T>(B.size(0)), pt);
+    coder::randn(static_cast<double>(B.size(0)), pt);
 
     //  get scalings for each point onto the surface of a unit hypersphere
     coder::power(pt, x);
 
     //  calculate scaling for each point to be within the unit hypersphere
     //  with radii rs
-    a = rt_powd_snf(a, 1.0 / static_cast<real_T>(B.size(0))) / std::sqrt(coder::
+    a = rt_powd_snf(a, 1.0 / static_cast<double>(B.size(0))) / std::sqrt(coder::
       blockedSummation(x, x.size(1)));
     pnts.set_size(1, B.size(0));
     k = B.size(0);

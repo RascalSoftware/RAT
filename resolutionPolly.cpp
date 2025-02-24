@@ -17,35 +17,35 @@
 // Function Definitions
 namespace RAT
 {
-  void resolutionPolly(const ::coder::array<real_T, 1U> &xdata, const ::coder::
-                       array<real_T, 1U> &ydata, const ::coder::array<real_T, 1U>
-                       &resolutionValues, real_T points, ::coder::array<real_T,
+  void resolutionPolly(const ::coder::array<double, 1U> &xdata, const ::coder::
+                       array<double, 1U> &ydata, const ::coder::array<double, 1U>
+                       &resolutionValues, double points, ::coder::array<double,
                        1U> &resolutionCorrection)
   {
-    int32_T i;
-    int32_T loop_ub_tmp;
+    int i;
+    int loop_ub_tmp;
 
     //  Apply resolution correction
-    loop_ub_tmp = static_cast<int32_T>(points);
+    loop_ub_tmp = static_cast<int>(points);
     resolutionCorrection.set_size(loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
       resolutionCorrection[i] = 0.0;
     }
 
-    for (int32_T j{0}; j < loop_ub_tmp; j++) {
-      real_T sumg;
-      int32_T ilow;
+    for (int j{0}; j < loop_ub_tmp; j++) {
+      double sumg;
+      int ilow;
       sumg = 0.0;
-      ilow = static_cast<int32_T>(std::fmax(-10.0, -(static_cast<real_T>(j) +
-        1.0) + 1.0));
-      i = static_cast<int32_T>(std::fmin(10.0, points - (static_cast<real_T>(j)
-        + 1.0)) + (1.0 - static_cast<real_T>(ilow)));
-      for (int32_T b_i{0}; b_i < i; b_i++) {
-        real_T a;
-        real_T g;
-        int32_T a_tmp;
-        a_tmp = static_cast<int32_T>((static_cast<real_T>(j) + 1.0) +
-          static_cast<real_T>(ilow + b_i)) - 1;
+      ilow = static_cast<int>(std::fmax(-10.0, -(static_cast<double>(j) + 1.0) +
+        1.0));
+      i = static_cast<int>(std::fmin(10.0, points - (static_cast<double>(j) +
+        1.0)) + (1.0 - static_cast<double>(ilow)));
+      for (int b_i{0}; b_i < i; b_i++) {
+        double a;
+        double g;
+        int a_tmp;
+        a_tmp = static_cast<int>((static_cast<double>(j) + 1.0) + static_cast<
+          double>(ilow + b_i)) - 1;
         a = (xdata[a_tmp] - xdata[j]) / (resolutionValues[j] * xdata[j]);
         g = std::exp(-(a * a));
         sumg += g;

@@ -18,15 +18,15 @@ namespace RAT
 {
   namespace coder
   {
-    void apply_row_permutation(::coder::array<real_T, 2U> &y, const ::coder::
-      array<int32_T, 1U> &idx)
+    void apply_row_permutation(::coder::array<double, 2U> &y, const ::coder::
+      array<int, 1U> &idx)
     {
-      ::coder::array<real_T, 1U> ycol;
-      int32_T m;
+      ::coder::array<double, 1U> ycol;
+      int m;
       m = y.size(0) - 1;
       ycol.set_size(y.size(0));
-      for (int32_T j{0}; j < 2; j++) {
-        int32_T i;
+      for (int j{0}; j < 2; j++) {
+        int i;
         for (i = 0; i <= m; i++) {
           ycol[i] = y[(idx[i] + y.size(0) * j) - 1];
         }

@@ -19,13 +19,13 @@ namespace RAT
 {
   namespace coder
   {
-    void sum(const ::coder::array<real_T, 2U> &x, ::coder::array<real_T, 2U> &y)
+    void sum(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U> &y)
     {
       if ((x.size(0) == 0) || (x.size(1) == 0)) {
-        int32_T loop_ub;
+        int loop_ub;
         y.set_size(1, x.size(1));
         loop_ub = x.size(1);
-        for (int32_T i{0}; i < loop_ub; i++) {
+        for (int i{0}; i < loop_ub; i++) {
           y[i] = 0.0;
         }
       } else {
@@ -46,9 +46,9 @@ namespace RAT
       return y;
     }
 
-    real_T sum(const ::coder::array<real_T, 2U> &x)
+    double sum(const ::coder::array<double, 2U> &x)
     {
-      real_T y;
+      double y;
       if (x.size(1) == 0) {
         y = 0.0;
       } else {

@@ -21,8 +21,8 @@ namespace RAT
 {
   namespace coder
   {
-    void lower(const char_T x_data[], const int32_T x_size[2], char_T y_data[],
-               int32_T y_size[2]);
+    void lower(const char x_data[], const int x_size[2], char y_data[], int
+               y_size[2]);
   }
 }
 

@@ -20,10 +20,10 @@
 // Function Declarations
 namespace RAT
 {
-  void asymconvstep(const ::coder::array<real_T, 2U> &x, real_T xw, real_T xcen,
-                    real_T s1, real_T s2, ::coder::array<real_T, 2U> &f);
-  void asymconvstep(const ::coder::array<real_T, 2U> &x, real_T xw, real_T xcen,
-                    real_T s1, real_T s2, real_T h, ::coder::array<real_T, 2U>
+  void asymconvstep(const ::coder::array<double, 2U> &x, double xw, double xcen,
+                    double s1, double s2, ::coder::array<double, 2U> &f);
+  void asymconvstep(const ::coder::array<double, 2U> &x, double xw, double xcen,
+                    double s1, double s2, double h, ::coder::array<double, 2U>
                     &f);
 }
 

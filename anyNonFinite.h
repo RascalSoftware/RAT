@@ -24,7 +24,7 @@ namespace RAT
   {
     namespace internal
     {
-      boolean_T anyNonFinite(const ::coder::array<real_T, 2U> &x);
+      boolean_T anyNonFinite(const ::coder::array<double, 2U> &x);
     }
   }
 }

@@ -22,9 +22,9 @@ namespace RAT
 {
   namespace coder
   {
-    void sum(const ::coder::array<real_T, 2U> &x, ::coder::array<real_T, 2U> &y);
+    void sum(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U> &y);
     creal_T sum(const ::coder::array<creal_T, 2U> &x);
-    real_T sum(const ::coder::array<real_T, 2U> &x);
+    double sum(const ::coder::array<double, 2U> &x);
   }
 }
 

@@ -24,9 +24,9 @@ namespace RAT
   {
     namespace internal
     {
-      boolean_T b_ifWhileCond(const boolean_T x_data[], const int32_T x_size[2]);
+      boolean_T b_ifWhileCond(const boolean_T x_data[], const int x_size[2]);
       boolean_T c_ifWhileCond(const ::coder::array<boolean_T, 2U> &x);
-      boolean_T ifWhileCond(const boolean_T x_data[], int32_T x_size);
+      boolean_T ifWhileCond(const boolean_T x_data[], int x_size);
     }
   }
 }

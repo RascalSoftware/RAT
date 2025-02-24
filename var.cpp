@@ -19,14 +19,14 @@ namespace RAT
 {
   namespace coder
   {
-    void var(const ::coder::array<real_T, 2U> &x, ::coder::array<real_T, 2U> &y)
+    void var(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U> &y)
     {
-      ::coder::array<real_T, 1U> xv;
-      int32_T hi;
-      int32_T k;
-      int32_T loop_ub;
-      int32_T nx;
-      int32_T outsize_idx_0;
+      ::coder::array<double, 1U> xv;
+      int hi;
+      int k;
+      int loop_ub;
+      int nx;
+      int outsize_idx_0;
       y.set_size(1, x.size(1));
       hi = x.size(1);
       for (k = 0; k < hi; k++) {
@@ -40,7 +40,7 @@ namespace RAT
         loop_ub = x.size(0);
       }
 
-      for (int32_T b_k{0}; b_k < hi; b_k++) {
+      for (int b_k{0}; b_k < hi; b_k++) {
         xv.set_size(outsize_idx_0);
         for (k = 0; k < loop_ub; k++) {
           xv[k] = 0.0;

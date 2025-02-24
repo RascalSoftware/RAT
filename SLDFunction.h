@@ -20,10 +20,10 @@
 // Function Declarations
 namespace RAT
 {
-  void SLDFunction(real_T x, const ::coder::array<real_T, 2U> &SLD, ::coder::
-                   array<real_T, 1U> &sldVal);
-  void b_SLDFunction(real_T x, const ::coder::array<real_T, 2U> &SLD, ::coder::
-                     array<real_T, 1U> &sldVal);
+  void SLDFunction(double x, const ::coder::array<double, 2U> &SLD, ::coder::
+                   array<double, 1U> &sldVal);
+  void b_SLDFunction(double x, const ::coder::array<double, 2U> &SLD, ::coder::
+                     array<double, 1U> &sldVal);
 }
 
 #endif

@@ -20,11 +20,11 @@
 // Function Declarations
 namespace RAT
 {
-  void randSample(real_T numItems, const real_T weights[2], ::coder::array<
-                  real_T, 2U> &outputSample);
-  void randSample(real_T population_data[], const int32_T population_size[2],
-                  real_T numItems, const real_T weights_data[], ::coder::array<
-                  real_T, 2U> &outputSample);
+  void randSample(double numItems, const double weights[2], ::coder::array<
+                  double, 2U> &outputSample);
+  void randSample(double population_data[], const int population_size[2], double
+                  numItems, const double weights_data[], ::coder::array<double,
+                  2U> &outputSample);
 }
 
 #endif

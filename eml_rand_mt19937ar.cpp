@@ -19,30 +19,30 @@ namespace RAT
 {
   namespace coder
   {
-    real_T b_eml_rand_mt19937ar(uint32_T b_state[625])
+    double b_eml_rand_mt19937ar(unsigned int b_state[625])
     {
-      real_T r;
-      int32_T exitg1;
-      int32_T i;
-      uint32_T u32[2];
+      double r;
+      unsigned int u32[2];
+      int exitg1;
+      int i;
       do {
         exitg1 = 0;
         genrand_uint32_vector(b_state, u32);
-        i = static_cast<int32_T>((u32[1] >> 24U) + 1U);
-        r = ((static_cast<real_T>(u32[0] >> 3U) * 1.6777216E+7 +
-              static_cast<real_T>(static_cast<int32_T>(u32[1]) & 16777215)) *
+        i = static_cast<int>((u32[1] >> 24U) + 1U);
+        r = ((static_cast<double>(u32[0] >> 3U) * 1.6777216E+7 + static_cast<
+              double>(static_cast<int>(u32[1]) & 16777215)) *
              2.2204460492503131E-16 - 1.0) * dv[i];
         if (std::abs(r) <= dv[i - 1]) {
           exitg1 = 1;
         } else if (i < 256) {
-          real_T u;
+          double u;
           u = eml_rand_mt19937ar(b_state);
           if (dv1[i] + u * (dv1[i - 1] - dv1[i]) < std::exp(-0.5 * r * r)) {
             exitg1 = 1;
           }
         } else {
-          real_T u;
-          real_T x;
+          double u;
+          double x;
           do {
             u = eml_rand_mt19937ar(b_state);
             x = std::log(u) * 0.273661237329758;
@@ -62,10 +62,10 @@ namespace RAT
       return r;
     }
 
-    real_T eml_rand_mt19937ar(uint32_T b_state[625])
+    double eml_rand_mt19937ar(unsigned int b_state[625])
     {
-      real_T r;
-      uint32_T u[2];
+      double r;
+      unsigned int u[2];
 
       // ========================= COPYRIGHT NOTICE ============================
       //  This is a uniform (0,1) pseudorandom number generator based on:
@@ -109,21 +109,21 @@ namespace RAT
         genrand_uint32_vector(b_state, u);
         u[0] >>= 5U;
         u[1] >>= 6U;
-        r = 1.1102230246251565E-16 * (static_cast<real_T>(u[0]) * 6.7108864E+7 +
-          static_cast<real_T>(u[1]));
+        r = 1.1102230246251565E-16 * (static_cast<double>(u[0]) * 6.7108864E+7 +
+          static_cast<double>(u[1]));
       } while (r == 0.0);
 
       return r;
     }
 
-    void genrand_uint32_vector(uint32_T mt[625], uint32_T u[2])
+    void genrand_uint32_vector(unsigned int mt[625], unsigned int u[2])
     {
-      for (int32_T j{0}; j < 2; j++) {
-        uint32_T mti;
-        uint32_T y;
+      for (int j{0}; j < 2; j++) {
+        unsigned int mti;
+        unsigned int y;
         mti = mt[624] + 1U;
         if (mti >= 625U) {
-          int32_T kk;
+          int kk;
           for (kk = 0; kk < 227; kk++) {
             y = (mt[kk] & 2147483648U) | (mt[kk + 1] & 2147483647U);
             if ((y & 1U) == 0U) {
@@ -157,7 +157,7 @@ namespace RAT
           mti = 1U;
         }
 
-        y = mt[static_cast<int32_T>(mti) - 1];
+        y = mt[static_cast<int>(mti) - 1];
         mt[624] = mti;
         y ^= y >> 11U;
         y ^= y << 7U & 2636928640U;

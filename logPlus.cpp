@@ -16,9 +16,9 @@
 // Function Definitions
 namespace RAT
 {
-  real_T logPlus(real_T logx, real_T logy)
+  double logPlus(double logx, double logy)
   {
-    real_T logz;
+    double logz;
 
     //
     //  logz = logPlus(logx, logy)

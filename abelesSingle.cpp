@@ -21,23 +21,23 @@
 // Function Definitions
 namespace RAT
 {
-  void abelesSingle(const ::coder::array<real_T, 1U> &q, real_T N, const ::coder::
-                    array<real_T, 1U> &layers_thick, const ::coder::array<
-                    creal_T, 1U> &layers_rho, const ::coder::array<real_T, 1U>
-                    &layers_sig, ::coder::array<real_T, 1U> &ref)
+  void abelesSingle(const ::coder::array<double, 1U> &q, double N, const ::coder::
+                    array<double, 1U> &layers_thick, const ::coder::array<
+                    creal_T, 1U> &layers_rho, const ::coder::array<double, 1U>
+                    &layers_sig, ::coder::array<double, 1U> &ref)
   {
     creal_T M_n[2][2];
     creal_T M_res[2][2];
     creal_T M_tot[2][2];
     creal_T M_n_tmp;
     creal_T dc;
-    real_T bulk_in_SLD_im;
-    real_T bulk_in_SLD_re;
-    real_T d;
-    real_T k0_im;
-    int32_T i;
-    int32_T i1;
-    int32_T loop_ub;
+    double bulk_in_SLD_im;
+    double bulk_in_SLD_re;
+    double d;
+    double k0_im;
+    int i;
+    int i1;
+    int loop_ub;
 
     //  New Matlab version of reflectivity
     //  with complex rho...
@@ -59,25 +59,25 @@ namespace RAT
       k0_im = 0.0 - 12.566370614359172 * (layers_rho[1].im - (layers_rho[0].im +
         1.0E-30));
       d = layers_sig[1] * layers_sig[1];
-      i1 = static_cast<int32_T>((N - 1.0) + -1.0);
+      i1 = static_cast<int>((N - 1.0) + -1.0);
     }
 
-    for (int32_T points{0}; points < i; points++) {
-      real_T ar;
-      real_T br;
-      real_T brm;
-      real_T im;
-      real_T k0;
-      real_T k0_re;
-      real_T k0_re_tmp;
-      real_T k1_im;
-      real_T k1_re;
-      real_T kn_ptr_im;
-      real_T kn_ptr_re;
-      real_T r01_im;
-      real_T r01_re;
-      real_T re;
-      real_T sgnbr;
+    for (int points{0}; points < i; points++) {
+      double ar;
+      double br;
+      double brm;
+      double im;
+      double k0;
+      double k0_re;
+      double k0_re_tmp;
+      double k1_im;
+      double k1_re;
+      double kn_ptr_im;
+      double kn_ptr_re;
+      double r01_im;
+      double r01_re;
+      double re;
+      double sgnbr;
       k0 = q[points] / 2.0;
 
       //  Find k1..
@@ -177,16 +177,16 @@ namespace RAT
       M_tot[1][1].im = 0.0;
       kn_ptr_re = k1_re;
       kn_ptr_im = k1_im;
-      for (int32_T n{0}; n < i1; n++) {
-        real_T ai;
-        real_T b_kn_ptr_re;
-        real_T beta_im;
-        real_T beta_re;
-        real_T d1;
-        real_T knp1_im;
-        real_T knp1_re;
-        real_T r_n_np1_im;
-        real_T r_n_np1_re;
+      for (int n{0}; n < i1; n++) {
+        double ai;
+        double b_kn_ptr_re;
+        double beta_im;
+        double beta_re;
+        double d1;
+        double knp1_im;
+        double knp1_re;
+        double r_n_np1_im;
+        double r_n_np1_re;
 
         //  Find kn and k_n+1 (ex. k1 and k2 for n=1): $/
         //  sqrt function with branch cut in zarg from 0 to infinity along a ray

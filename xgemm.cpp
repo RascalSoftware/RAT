@@ -22,18 +22,17 @@ namespace RAT
     {
       namespace blas
       {
-        void xgemm(int32_T m, int32_T n, int32_T k, real_T alpha1, const ::coder::
-                   array<real_T, 2U> &A, int32_T lda, const ::coder::array<
-                   real_T, 2U> &B, int32_T ldb, ::coder::array<real_T, 2U> &C,
-                   int32_T ldc)
+        void xgemm(int m, int n, int k, double alpha1, const ::coder::array<
+                   double, 2U> &A, int lda, const ::coder::array<double, 2U> &B,
+                   int ldb, ::coder::array<double, 2U> &C, int ldc)
         {
           if ((m != 0) && (n != 0)) {
-            int32_T br;
-            int32_T cr;
-            int32_T i;
-            int32_T i1;
-            int32_T ic;
-            int32_T lastColC;
+            int br;
+            int cr;
+            int i;
+            int i1;
+            int ic;
+            int lastColC;
             lastColC = ldc * (n - 1);
             for (cr = 0; ldc < 0 ? cr >= lastColC : cr <= lastColC; cr += ldc) {
               i = cr + 1;
@@ -45,14 +44,14 @@ namespace RAT
 
             br = -1;
             for (cr = 0; ldc < 0 ? cr >= lastColC : cr <= lastColC; cr += ldc) {
-              int32_T ar;
+              int ar;
               ar = -1;
               i = cr + 1;
               i1 = cr + m;
               for (ic = i; ic <= i1; ic++) {
-                real_T temp;
+                double temp;
                 temp = 0.0;
-                for (int32_T w{0}; w < k; w++) {
+                for (int w{0}; w < k; w++) {
                   temp += A[(w + ar) + 1] * B[(w + br) + 1];
                 }
 
@@ -65,12 +64,12 @@ namespace RAT
           }
         }
 
-        void xgemm(int32_T k, real_T alpha1, const ::coder::array<real_T, 1U> &A,
-                   const ::coder::array<real_T, 1U> &B, real_T *C)
+        void xgemm(int k, double alpha1, const ::coder::array<double, 1U> &A,
+                   const ::coder::array<double, 1U> &B, double *C)
         {
-          real_T temp;
+          double temp;
           temp = 0.0;
-          for (int32_T w{0}; w < k; w++) {
+          for (int w{0}; w < k; w++) {
             temp += A[w] * B[w];
           }
 

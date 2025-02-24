@@ -18,14 +18,14 @@ namespace RAT
 {
   namespace coder
   {
-    void flip(::coder::array<real_T, 1U> &x)
+    void flip(::coder::array<double, 1U> &x)
     {
       if ((x.size(0) != 0) && (x.size(0) > 1)) {
-        int32_T lup;
+        int lup;
         lup = x.size(0) >> 1;
-        for (int32_T k{0}; k < lup; k++) {
-          real_T tmp;
-          int32_T subs2_idx_0;
+        for (int k{0}; k < lup; k++) {
+          double tmp;
+          int subs2_idx_0;
           subs2_idx_0 = x.size(0) - k;
           tmp = x[k];
           x[k] = x[subs2_idx_0 - 1];

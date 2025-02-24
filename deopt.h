@@ -20,22 +20,21 @@
 // Type Declarations
 namespace RAT
 {
-  struct e_struct_T;
-  struct l_struct_T;
+  struct ProblemDefinition;
+  struct i_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void deopt(const e_struct_T *problem, const char_T controls_parallel_data[],
-             const int32_T controls_parallel_size[2], real_T
-             controls_resampleMinAngle, real_T controls_resampleNPoints,
-             boolean_T controls_calcSldDuringFit, const char_T
-             controls_display_data[], const int32_T controls_display_size[2],
-             real_T controls_updateFreq, real_T controls_updatePlotFreq, const
-             char_T controls_IPCFilePath_data[], const int32_T
-             controls_IPCFilePath_size[2], const l_struct_T *S_struct, ::coder::
-             array<real_T, 2U> &FVr_bestmem);
+  void deopt(const ProblemDefinition *problem, const char
+             controls_parallel_data[], const int controls_parallel_size[2],
+             double controls_resampleMinAngle, double controls_resampleNPoints,
+             boolean_T controls_calcSldDuringFit, const char
+             controls_display_data[], const int controls_display_size[2], double
+             controls_updateFreq, double controls_updatePlotFreq, const char
+             controls_IPCFilePath_data[], const int controls_IPCFilePath_size[2],
+             const i_struct_T *S_struct, ::coder::array<double, 2U> &FVr_bestmem);
 }
 
 #endif

@@ -20,8 +20,8 @@
 // Function Declarations
 namespace RAT
 {
-  void mchol(const ::coder::array<real_T, 2U> &G, ::coder::array<real_T, 2U> &L,
-             ::coder::array<real_T, 2U> &D);
+  void mchol(const ::coder::array<double, 2U> &G, ::coder::array<double, 2U> &L,
+             ::coder::array<double, 2U> &D);
 }
 
 #endif

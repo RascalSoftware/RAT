@@ -21,27 +21,27 @@ namespace RAT
 {
   namespace coder
   {
-    void b_power(const ::coder::array<real_T, 1U> &b, ::coder::array<real_T, 1U>
+    void b_power(const ::coder::array<double, 1U> &b, ::coder::array<double, 1U>
                  &y)
     {
-      int32_T N;
+      int N;
       y.set_size(b.size(0));
       N = b.size(0);
-      for (int32_T k{0}; k < N; k++) {
+      for (int k{0}; k < N; k++) {
         y[k] = rt_powd_snf(10.0, b[k]);
       }
     }
 
-    void b_power(const ::coder::array<real_T, 2U> &a, ::coder::array<real_T, 2U>
+    void b_power(const ::coder::array<double, 2U> &a, ::coder::array<double, 2U>
                  &y)
     {
-      int32_T N;
+      int N;
       y.set_size(a.size(0), a.size(1));
       N = a.size(1);
-      for (int32_T k{0}; k < N; k++) {
-        int32_T b_N;
+      for (int k{0}; k < N; k++) {
+        int b_N;
         b_N = y.size(0);
-        for (int32_T b_k{0}; b_k < b_N; b_k++) {
+        for (int b_k{0}; b_k < b_N; b_k++) {
           y[b_k + y.size(0) * k] = rt_powd_snf(a[b_k + a.size(0) * k], 2.0);
         }
       }
@@ -51,12 +51,12 @@ namespace RAT
                &y)
     {
       creal_T dc;
-      int32_T N;
+      int N;
       y.set_size(1, a.size(1));
       N = a.size(1);
-      for (int32_T k{0}; k < N; k++) {
-        real_T ai;
-        real_T ar;
+      for (int k{0}; k < N; k++) {
+        double ai;
+        double ar;
         ar = a[k].re;
         ai = a[k].im;
         if ((ai == 0.0) && (ar >= 0.0)) {
@@ -75,24 +75,24 @@ namespace RAT
       }
     }
 
-    void power(const ::coder::array<real_T, 2U> &a, ::coder::array<real_T, 2U>
+    void power(const ::coder::array<double, 2U> &a, ::coder::array<double, 2U>
                &y)
     {
-      int32_T N;
+      int N;
       y.set_size(1, a.size(1));
       N = a.size(1);
-      for (int32_T k{0}; k < N; k++) {
+      for (int k{0}; k < N; k++) {
         y[k] = rt_powd_snf(a[k], 2.0);
       }
     }
 
-    void power(const ::coder::array<real_T, 1U> &a, ::coder::array<real_T, 1U>
+    void power(const ::coder::array<double, 1U> &a, ::coder::array<double, 1U>
                &y)
     {
-      int32_T N;
+      int N;
       y.set_size(a.size(0));
       N = a.size(0);
-      for (int32_T k{0}; k < N; k++) {
+      for (int k{0}; k < N; k++) {
         y[k] = rt_powd_snf(a[k], 2.0);
       }
     }

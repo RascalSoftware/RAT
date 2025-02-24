@@ -20,26 +20,26 @@
 // Type Declarations
 namespace RAT
 {
-  struct e_struct_T;
-  struct m_struct_T;
-  struct k_struct_T;
+  struct ProblemDefinition;
+  struct j_struct_T;
+  struct h_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void fMinSearch(::coder::array<real_T, 1U> &x, real_T options_MaxIter, real_T
-                  options_MaxFunEvals, real_T options_TolX, real_T
-                  options_TolFun, const char_T dis_data[], const int32_T
-                  dis_size[2], const e_struct_T *varargin_1, const char_T
-                  varargin_2_parallel_data[], const int32_T
-                  varargin_2_parallel_size[2], real_T
-                  varargin_2_resampleMinAngle, real_T varargin_2_resampleNPoints,
-                  boolean_T varargin_2_calcSldDuringFit, real_T
-                  varargin_2_updateFreq, real_T varargin_2_updatePlotFreq, const
-                  char_T varargin_2_IPCFilePath_data[], const int32_T
-                  varargin_2_IPCFilePath_size[2], const m_struct_T *varargin_3,
-                  real_T *fval, real_T *exitflag, k_struct_T *output);
+  void fMinSearch(::coder::array<double, 1U> &x, double options_MaxIter, double
+                  options_MaxFunEvals, double options_TolX, double
+                  options_TolFun, const char dis_data[], const int dis_size[2],
+                  const ProblemDefinition *varargin_1, const char
+                  varargin_2_parallel_data[], const int
+                  varargin_2_parallel_size[2], double
+                  varargin_2_resampleMinAngle, double varargin_2_resampleNPoints,
+                  boolean_T varargin_2_calcSldDuringFit, double
+                  varargin_2_updateFreq, double varargin_2_updatePlotFreq, const
+                  char varargin_2_IPCFilePath_data[], const int
+                  varargin_2_IPCFilePath_size[2], const j_struct_T *varargin_3,
+                  double *fval, double *exitflag, h_struct_T *output);
 }
 
 #endif

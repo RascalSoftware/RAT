@@ -24,14 +24,14 @@ namespace RAT
   void cast(const ::coder::array<cell_wrap_3, 2U> &b, ::coder::array<
             cell_wrap_47, 2U> &c)
   {
-    int32_T i;
+    int i;
     c.set_size(1, b.size(1));
     i = b.size(1) - 1;
-    for (int32_T i1{0}; i1 <= i; i1++) {
-      int32_T loop_ub;
+    for (int i1{0}; i1 <= i; i1++) {
+      int loop_ub;
       loop_ub = b[i1].f1.size[1];
       c[c.size(0) * i1].f1.set_size(1, b[b.size(0) * i1].f1.size[1]);
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
+      for (int i2{0}; i2 < loop_ub; i2++) {
         c[i1].f1[i2] = b[i1].f1.data[i2];
       }
     }
@@ -40,18 +40,18 @@ namespace RAT
   void cast(const ::coder::array<cell_wrap_4, 2U> &b, ::coder::array<cell_wrap_9,
             2U> &c)
   {
-    int32_T i;
+    int i;
     c.set_size(1, b.size(1));
     i = b.size(1) - 1;
-    for (int32_T i1{0}; i1 <= i; i1++) {
-      int32_T loop_ub;
+    for (int i1{0}; i1 <= i; i1++) {
+      int loop_ub;
       loop_ub = b[i1].f1.size[1];
       c[c.size(0) * i1].f1.set_size(b[b.size(0) * i1].f1.size[0], b[b.size(0) *
         i1].f1.size[1]);
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
-        int32_T b_loop_ub;
+      for (int i2{0}; i2 < loop_ub; i2++) {
+        int b_loop_ub;
         b_loop_ub = b[i1].f1.size[0];
-        for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
+        for (int i3{0}; i3 < b_loop_ub; i3++) {
           c[i1].f1[c[i1].f1.size(0) * i2] = b[i1].f1.data[b[i1].f1.size[0] * i2];
         }
       }
@@ -61,17 +61,17 @@ namespace RAT
   void cast(const ::coder::array<cell_wrap_6, 2U> &b, ::coder::array<cell_wrap_9,
             2U> &c)
   {
-    int32_T i;
+    int i;
     c.set_size(b.size(0), b.size(1));
     i = b.size(0) * b.size(1);
-    for (int32_T i1{0}; i1 < i; i1++) {
-      int32_T loop_ub;
+    for (int i1{0}; i1 < i; i1++) {
+      int loop_ub;
       loop_ub = b[i1].f1.size[1];
       c[i1].f1.set_size(b[i1].f1.size[0], b[i1].f1.size[1]);
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
-        int32_T b_loop_ub;
+      for (int i2{0}; i2 < loop_ub; i2++) {
+        int b_loop_ub;
         b_loop_ub = b[i1].f1.size[0];
-        for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
+        for (int i3{0}; i3 < b_loop_ub; i3++) {
           c[i1].f1[c[i1].f1.size(0) * i2] = b[i1].f1.data[b[i1].f1.size[0] * i2];
         }
       }
@@ -81,14 +81,14 @@ namespace RAT
   void cast(const ::coder::array<cell_wrap_0, 2U> &b, ::coder::array<
             cell_wrap_10, 2U> &c)
   {
-    int32_T i;
+    int i;
     c.set_size(1, b.size(1));
     i = b.size(1) - 1;
-    for (int32_T i1{0}; i1 <= i; i1++) {
-      int32_T loop_ub;
+    for (int i1{0}; i1 <= i; i1++) {
+      int loop_ub;
       loop_ub = b[i1].f1.size[1];
       c[c.size(0) * i1].f1.set_size(1, b[b.size(0) * i1].f1.size[1]);
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
+      for (int i2{0}; i2 < loop_ub; i2++) {
         c[i1].f1[i2] = b[i1].f1.data[i2];
       }
     }
@@ -97,32 +97,32 @@ namespace RAT
   void cast(const ::coder::array<cell_wrap_5, 2U> &b, ::coder::array<cell_wrap_9,
             2U> &c)
   {
-    int32_T i;
+    int i;
     c.set_size(1, b.size(1));
     i = b.size(1) - 1;
-    for (int32_T i1{0}; i1 <= i; i1++) {
-      int32_T loop_ub;
+    for (int i1{0}; i1 <= i; i1++) {
+      int loop_ub;
       loop_ub = b[i1].f1.size(1);
       c[c.size(0) * i1].f1.set_size(b[b.size(0) * i1].f1.size(0), b[b.size(0) *
         i1].f1.size(1));
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
-        int32_T b_loop_ub;
+      for (int i2{0}; i2 < loop_ub; i2++) {
+        int b_loop_ub;
         b_loop_ub = b[i1].f1.size(0);
-        for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
+        for (int i3{0}; i3 < b_loop_ub; i3++) {
           c[i1].f1[c[i1].f1.size(0) * i2] = b[i1].f1[b[i1].f1.size(0) * i2];
         }
       }
     }
   }
 
-  real_T rt_atan2d_snf(real_T u0, real_T u1)
+  double rt_atan2d_snf(double u0, double u1)
   {
-    real_T y;
+    double y;
     if (std::isnan(u0) || std::isnan(u1)) {
       y = rtNaN;
     } else if (std::isinf(u0) && std::isinf(u1)) {
-      int32_T b_u0;
-      int32_T b_u1;
+      int b_u0;
+      int b_u1;
       if (u0 > 0.0) {
         b_u0 = 1;
       } else {
@@ -135,7 +135,7 @@ namespace RAT
         b_u1 = -1;
       }
 
-      y = std::atan2(static_cast<real_T>(b_u0), static_cast<real_T>(b_u1));
+      y = std::atan2(static_cast<double>(b_u0), static_cast<double>(b_u1));
     } else if (u1 == 0.0) {
       if (u0 > 0.0) {
         y = RT_PI / 2.0;
@@ -151,10 +151,10 @@ namespace RAT
     return y;
   }
 
-  real_T rt_hypotd_snf(real_T u0, real_T u1)
+  double rt_hypotd_snf(double u0, double u1)
   {
-    real_T a;
-    real_T y;
+    double a;
+    double y;
     a = std::abs(u0);
     y = std::abs(u1);
     if (a < y) {
@@ -170,14 +170,14 @@ namespace RAT
     return y;
   }
 
-  real_T rt_powd_snf(real_T u0, real_T u1)
+  double rt_powd_snf(double u0, double u1)
   {
-    real_T y;
+    double y;
     if (std::isnan(u0) || std::isnan(u1)) {
       y = rtNaN;
     } else {
-      real_T d;
-      real_T d1;
+      double d;
+      double d1;
       d = std::abs(u0);
       d1 = std::abs(u1);
       if (std::isinf(u1)) {
@@ -216,15 +216,15 @@ namespace RAT
     return y;
   }
 
-  real_T rt_remd_snf(real_T u0, real_T u1)
+  double rt_remd_snf(double u0, double u1)
   {
-    real_T y;
+    double y;
     if (std::isnan(u0) || std::isnan(u1) || std::isinf(u0)) {
       y = rtNaN;
     } else if (std::isinf(u1)) {
       y = u0;
     } else if ((u1 != 0.0) && (u1 != std::trunc(u1))) {
-      real_T q;
+      double q;
       q = std::abs(u0 / u1);
       if (!(std::abs(q - std::floor(q + 0.5)) > DBL_EPSILON * q)) {
         y = 0.0 * u0;

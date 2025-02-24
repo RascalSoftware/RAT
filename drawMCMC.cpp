@@ -30,23 +30,24 @@
 // Function Definitions
 namespace RAT
 {
-  void drawMCMC(const ::coder::array<real_T, 2U> &livepoints, const ::coder::
-                array<real_T, 2U> &cholmat, real_T logLmin, const ::coder::array<
-                real_T, 2U> &prior, const e_struct_T *data_f1, const struct4_T
-                *data_f2, real_T nMCMC, ::coder::array<real_T, 2U> &sample,
-                real_T *logL)
+  void drawMCMC(const ::coder::array<double, 2U> &livepoints, const ::coder::
+                array<double, 2U> &cholmat, double logLmin, const ::coder::array<
+                double, 2U> &prior, const ProblemDefinition *data_f1, const
+                Controls *data_f2, double nMCMC, ::coder::array<double, 2U>
+                &sample, double *logL)
   {
-    ::coder::array<real_T, 2U> sampletmp;
-    ::coder::array<real_T, 1U> gasdevs;
-    ::coder::array<real_T, 1U> r;
-    ::coder::array<char_T, 2U> charStr;
-    real_T a[2];
-    real_T Ntimes;
-    real_T acc;
-    int32_T i;
-    int32_T loop_ub;
-    int32_T nLive;
-    int32_T nParams;
+    ::coder::array<double, 2U> r1;
+    ::coder::array<double, 2U> sampletmp;
+    ::coder::array<double, 1U> gasdevs;
+    ::coder::array<double, 1U> r;
+    ::coder::array<char, 2U> charStr;
+    double a[2];
+    double Ntimes;
+    double acc;
+    int i;
+    int loop_ub;
+    int nLive;
+    int nParams;
 
     //  This function will draw a multi-dimensional sample from the prior volume
     //  for use in the nested sampling algorithm. The new point will have a
@@ -71,25 +72,25 @@ namespace RAT
     //  initialise counters
     Ntimes = 1.0;
     loop_ub = livepoints.size(1);
-    i = static_cast<int32_T>(nMCMC);
-    real_T sampidx;
-    int32_T exitg1;
+    i = static_cast<int>(nMCMC);
+    double sampidx;
+    int exitg1;
     do {
-      real_T currentPrior;
-      real_T priortype;
-      real_T pv_tmp;
-      int32_T i1;
-      int32_T j;
+      double currentPrior;
+      double priortype;
+      double pv_tmp;
+      int i1;
+      int j;
       exitg1 = 0;
       acc = 0.0;
 
       //  get random point from live point array
-      sampidx = coder::b_rand() * static_cast<real_T>(nLive);
+      sampidx = coder::b_rand() * static_cast<double>(nLive);
       sampidx = std::ceil(sampidx);
       sample.set_size(1, loop_ub);
       for (i1 = 0; i1 < loop_ub; i1++) {
-        sample[i1] = livepoints[(static_cast<int32_T>(sampidx) + livepoints.size
-          (0) * i1) - 1];
+        sample[i1] = livepoints[(static_cast<int>(sampidx) + livepoints.size(0) *
+          i1) - 1];
       }
 
       //  get the sample prior
@@ -103,7 +104,7 @@ namespace RAT
           currentPrior = logPlus(currentPrior, -std::log(prior[j + prior.size(0)
             * 4] - prior[j + prior.size(0) * 3]));
         } else if (priortype == 2.0) {
-          real_T p4;
+          double p4;
           p4 = prior[j + prior.size(0) * 2];
           pv_tmp = sample[j] - prior[j + prior.size(0)];
           currentPrior = logPlus(currentPrior, (-0.91893853320467267 - std::log
@@ -116,14 +117,14 @@ namespace RAT
         }
       }
 
-      for (int32_T b_i{0}; b_i < i; b_i++) {
-        real_T newPrior;
-        int32_T b_loop_ub;
+      for (int b_i{0}; b_i < i; b_i++) {
+        double newPrior;
+        int b_loop_ub;
         boolean_T exitg2;
         if (coder::b_rand() < 0.9) {
           //  use Students-t proposal
           //  draw points from mulitvariate Gaussian distribution
-          coder::randn(static_cast<real_T>(nParams + 1), gasdevs);
+          coder::randn(static_cast<double>(nParams + 1), gasdevs);
 
           //  calculate chi-square distributed value
           coder::randn(a);
@@ -138,26 +139,26 @@ namespace RAT
             sampletmp[i1] = sample[i1] + r[i1] * pv_tmp;
           }
         } else {
-          real_T idx1;
-          real_T idx2;
+          double idx1;
+          double idx2;
 
           //  use differential evolution
           //  draw two random (different points) A and B and add (B-A) to
           //  the current sample
-          idx1 = coder::b_rand() * static_cast<real_T>(nLive);
+          idx1 = coder::b_rand() * static_cast<double>(nLive);
           idx1 = std::ceil(idx1);
           idx2 = idx1;
           while (idx2 == idx1) {
-            idx2 = coder::b_rand() * static_cast<real_T>(nLive);
+            idx2 = coder::b_rand() * static_cast<double>(nLive);
             idx2 = std::ceil(idx2);
           }
 
           b_loop_ub = sample.size(1);
           sampletmp.set_size(1, sample.size(1));
           for (i1 = 0; i1 < b_loop_ub; i1++) {
-            sampletmp[i1] = sample[i1] + (livepoints[(static_cast<int32_T>(idx2)
-              + livepoints.size(0) * i1) - 1] - livepoints[(static_cast<int32_T>
-              (idx1) + livepoints.size(0) * i1) - 1]);
+            sampletmp[i1] = sample[i1] + (livepoints[(static_cast<int>(idx2) +
+              livepoints.size(0) * i1) - 1] - livepoints[(static_cast<int>(idx1)
+              + livepoints.size(0) * i1) - 1]);
           }
         }
 
@@ -211,15 +212,15 @@ namespace RAT
 
         pv_tmp = coder::b_rand();
         if (!(std::log(pv_tmp) > newPrior - currentPrior)) {
-          real_T logLnew;
+          double logLnew;
 
           //  rescale sample back to its proper range for likelihood
           //  get the likelihood of the new sample
           // likestart = tic;
           //  logLnew = likelihood(data, model, parnames, ...
           //                loopCell(sc));
-          rescaleParameters(prior, sampletmp, r);
-          logLnew = nsIntraFun(data_f1, data_f2, r);
+          rescaleParameters(prior, sampletmp, r1);
+          logLnew = nsIntraFun(data_f1, data_f2, r1);
 
           // likedur = toc(likestart);
           // fprintf(1, 'liketime = %.6f\n', likedur);

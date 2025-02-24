@@ -22,7 +22,7 @@ namespace RAT
 {
   namespace coder
   {
-    void diagDiagUpperHessNoImag(::coder::array<real_T, 2U> &D);
+    void diagDiagUpperHessNoImag(::coder::array<double, 2U> &D);
   }
 }
 

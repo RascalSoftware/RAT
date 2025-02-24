@@ -20,17 +20,17 @@
 // Type Declarations
 namespace RAT
 {
-  struct struct11_T;
+  struct DreamParams;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void calcDensity(const ::coder::array<real_T, 2U> &x, const ::coder::array<
-                   real_T, 2U> &fx, const struct11_T *DREAMPar, const ::coder::
-                   array<real_T, 2U> &ratInputs_problemStruct_fitLimits, const ::
-                   coder::array<real_T, 2U> &ratInputs_priors, ::coder::array<
-                   real_T, 1U> &log_L, ::coder::array<real_T, 1U> &log_PR);
+  void calcDensity(const ::coder::array<double, 2U> &x, const ::coder::array<
+                   double, 2U> &fx, const DreamParams *DREAMPar, const ::coder::
+                   array<double, 2U> &ratInputs_problemStruct_fitLimits, const ::
+                   coder::array<double, 2U> &ratInputs_priors, ::coder::array<
+                   double, 1U> &log_L, ::coder::array<double, 1U> &log_PR);
 }
 
 #endif

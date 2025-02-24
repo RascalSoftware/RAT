@@ -16,12 +16,12 @@
 // Function Definitions
 namespace RAT
 {
-  void backSort(real_T contrastQzshifts, real_T contrastScalefactors, real_T
-                contrastBulkIns, real_T contrastBulkOuts, const ::coder::array<
-                real_T, 2U> &qzshifts, const ::coder::array<real_T, 2U>
-                &scalefactors, const ::coder::array<real_T, 2U> &bulkIn, const ::
-                coder::array<real_T, 2U> &bulkOut, real_T *outQzshift, real_T
-                *outScalefactor, real_T *outBulkIn, real_T *outBulkOut)
+  void backSort(double contrastQzshifts, double contrastScalefactors, double
+                contrastBulkIns, double contrastBulkOuts, const ::coder::array<
+                double, 2U> &qzshifts, const ::coder::array<double, 2U>
+                &scalefactors, const ::coder::array<double, 2U> &bulkIn, const ::
+                coder::array<double, 2U> &bulkOut, double *outQzshift, double
+                *outScalefactor, double *outBulkIn, double *outBulkOut)
   {
     //  Distributes the background and shift values among the different contrasts
     //
@@ -40,11 +40,10 @@ namespace RAT
     //     * outScalefactor: list of actual scalefactor values for each contrast
     //     * outBulkIn: list of actual bulkIn values for each contrast
     //     * outBulkOut: list of actual bulkOut values for each contrast
-    *outQzshift = qzshifts[static_cast<int32_T>(contrastQzshifts) - 1];
-    *outScalefactor = scalefactors[static_cast<int32_T>(contrastScalefactors) -
-      1];
-    *outBulkIn = bulkIn[static_cast<int32_T>(contrastBulkIns) - 1];
-    *outBulkOut = bulkOut[static_cast<int32_T>(contrastBulkOuts) - 1];
+    *outQzshift = qzshifts[static_cast<int>(contrastQzshifts) - 1];
+    *outScalefactor = scalefactors[static_cast<int>(contrastScalefactors) - 1];
+    *outBulkIn = bulkIn[static_cast<int>(contrastBulkIns) - 1];
+    *outBulkOut = bulkOut[static_cast<int>(contrastBulkOuts) - 1];
   }
 }
 

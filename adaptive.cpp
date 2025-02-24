@@ -27,41 +27,41 @@
 // Function Declarations
 namespace RAT
 {
-  static void b_increaseSampling(::coder::array<real_T, 2U> &dataPoints, const ::
-    coder::array<boolean_T, 1U> &segmentsToSplit, const ::coder::array<real_T,
+  static void b_increaseSampling(::coder::array<double, 2U> &dataPoints, const ::
+    coder::array<boolean_T, 1U> &segmentsToSplit, const ::coder::array<double,
     2U> &sldProfile);
-  static void b_normalizeFunction(const ::coder::array<real_T, 1U> &x, const ::
-    coder::array<real_T, 2U> &sldProfile, ::coder::array<real_T, 1U> &y);
-  static void calculateCentralAngles(const ::coder::array<real_T, 2U> &XYdata,
-    const real_T dataBoxSize[2], ::coder::array<real_T, 1U> &cornerAngle);
-  static void calculateTrianglesSides(const ::coder::array<real_T, 2U> &XYdata, ::
-    coder::array<real_T, 2U> &firstStep, ::coder::array<real_T, 2U> &secondStep,
-    ::coder::array<real_T, 2U> &longStep);
-  static void increaseSampling(::coder::array<real_T, 2U> &dataPoints, const ::
-    coder::array<boolean_T, 1U> &segmentsToSplit, const ::coder::array<real_T,
+  static void b_normalizeFunction(const ::coder::array<double, 1U> &x, const ::
+    coder::array<double, 2U> &sldProfile, ::coder::array<double, 1U> &y);
+  static void calculateCentralAngles(const ::coder::array<double, 2U> &XYdata,
+    const double dataBoxSize[2], ::coder::array<double, 1U> &cornerAngle);
+  static void calculateTrianglesSides(const ::coder::array<double, 2U> &XYdata, ::
+    coder::array<double, 2U> &firstStep, ::coder::array<double, 2U> &secondStep,
+    ::coder::array<double, 2U> &longStep);
+  static void increaseSampling(::coder::array<double, 2U> &dataPoints, const ::
+    coder::array<boolean_T, 1U> &segmentsToSplit, const ::coder::array<double,
     2U> &sldProfile);
-  static void normalizeFunction(const ::coder::array<real_T, 1U> &x, const ::
-    coder::array<real_T, 2U> &sldProfile, ::coder::array<real_T, 1U> &y);
+  static void normalizeFunction(const ::coder::array<double, 1U> &x, const ::
+    coder::array<double, 2U> &sldProfile, ::coder::array<double, 1U> &y);
 }
 
 // Function Definitions
 namespace RAT
 {
-  static void b_increaseSampling(::coder::array<real_T, 2U> &dataPoints, const ::
-    coder::array<boolean_T, 1U> &segmentsToSplit, const ::coder::array<real_T,
+  static void b_increaseSampling(::coder::array<double, 2U> &dataPoints, const ::
+    coder::array<boolean_T, 1U> &segmentsToSplit, const ::coder::array<double,
     2U> &sldProfile)
   {
-    ::coder::array<real_T, 2U> b_dataPoints;
-    ::coder::array<real_T, 2U> newDataPoints;
-    ::coder::array<real_T, 1U> b_newDataPoints;
-    ::coder::array<real_T, 1U> r4;
-    ::coder::array<int32_T, 1U> r2;
-    ::coder::array<int32_T, 1U> r3;
+    ::coder::array<double, 2U> b_dataPoints;
+    ::coder::array<double, 2U> newDataPoints;
+    ::coder::array<double, 1U> b_newDataPoints;
+    ::coder::array<double, 1U> r4;
+    ::coder::array<int, 1U> r2;
+    ::coder::array<int, 1U> r3;
     ::coder::array<boolean_T, 1U> r;
     ::coder::array<boolean_T, 1U> r1;
-    int32_T end;
-    int32_T i;
-    int32_T trueCount;
+    int end;
+    int i;
+    int trueCount;
 
     //  increaseSampling increase the sampling of an input function
     end = segmentsToSplit.size(0);
@@ -176,11 +176,11 @@ namespace RAT
     coder::apply_row_permutation(dataPoints, r2);
   }
 
-  static void b_normalizeFunction(const ::coder::array<real_T, 1U> &x, const ::
-    coder::array<real_T, 2U> &sldProfile, ::coder::array<real_T, 1U> &y)
+  static void b_normalizeFunction(const ::coder::array<double, 1U> &x, const ::
+    coder::array<double, 2U> &sldProfile, ::coder::array<double, 1U> &y)
   {
-    ::coder::array<real_T, 1U> r;
-    int32_T i;
+    ::coder::array<double, 1U> r;
+    int i;
 
     //  Subfunctions
     //  NORMALIZEFUNCTION evaluates a function and returns a NxM array, where N
@@ -202,7 +202,7 @@ namespace RAT
     //    y = cell2mat(newValues);
     //  else
     i = x.size(0);
-    for (int32_T b_i{0}; b_i < i; b_i++) {
+    for (int b_i{0}; b_i < i; b_i++) {
       //  Remove cell array so no need for cell2mat
       //  which won't compile - AVH
       // [newValues{:}] = func(x(i));
@@ -214,36 +214,36 @@ namespace RAT
     // end
   }
 
-  static void calculateCentralAngles(const ::coder::array<real_T, 2U> &XYdata,
-    const real_T dataBoxSize[2], ::coder::array<real_T, 1U> &cornerAngle)
+  static void calculateCentralAngles(const ::coder::array<double, 2U> &XYdata,
+    const double dataBoxSize[2], ::coder::array<double, 1U> &cornerAngle)
   {
     ::coder::array<creal_T, 1U> r3;
-    ::coder::array<real_T, 2U> b_XYdata;
-    ::coder::array<real_T, 2U> firstStep;
-    ::coder::array<real_T, 2U> longStep;
-    ::coder::array<real_T, 2U> r;
-    ::coder::array<real_T, 2U> secondStep;
-    ::coder::array<real_T, 1U> b_firstStep;
-    ::coder::array<real_T, 1U> firstStepSquared;
-    ::coder::array<real_T, 1U> r1;
-    ::coder::array<real_T, 1U> r2;
-    ::coder::array<real_T, 1U> secondStepSquared;
-    real_T b_dv[2];
-    int32_T i;
-    int32_T k;
+    ::coder::array<double, 2U> b_XYdata;
+    ::coder::array<double, 2U> firstStep;
+    ::coder::array<double, 2U> longStep;
+    ::coder::array<double, 2U> r;
+    ::coder::array<double, 2U> secondStep;
+    ::coder::array<double, 1U> b_firstStep;
+    ::coder::array<double, 1U> firstStepSquared;
+    ::coder::array<double, 1U> r1;
+    ::coder::array<double, 1U> r2;
+    ::coder::array<double, 1U> secondStepSquared;
+    double b_dv[2];
+    int i;
+    int k;
 
     //  Calculate the central angle of the triangles formed by data points.
     //  For input size NxM, the output size is (N-2)xN, because the first and the
     //  last point are not the central corner of any triangle.
     //  Normalize data, because angles depend on scaling.
     //  calculate cosine of central angles
-    coder::repmat(dataBoxSize, static_cast<real_T>(XYdata.size(0)), b_XYdata);
+    coder::repmat(dataBoxSize, static_cast<double>(XYdata.size(0)), b_XYdata);
     coder::internal::minimum(XYdata, b_dv);
-    coder::repmat(b_dv, static_cast<real_T>(XYdata.size(0)), r);
+    coder::repmat(b_dv, static_cast<double>(XYdata.size(0)), r);
     b_XYdata.set_size(XYdata.size(0), 2);
     k = XYdata.size(0);
     for (i = 0; i < 2; i++) {
-      for (int32_T i1{0}; i1 < k; i1++) {
+      for (int i1{0}; i1 < k; i1++) {
         b_XYdata[i1 + b_XYdata.size(0) * i] = XYdata[i1 + XYdata.size(0) * i] /
           b_XYdata[i1 + b_XYdata.size(0) * i] - r[i1 + r.size(0) * i];
       }
@@ -337,14 +337,14 @@ namespace RAT
     }
   }
 
-  static void calculateTrianglesSides(const ::coder::array<real_T, 2U> &XYdata, ::
-    coder::array<real_T, 2U> &firstStep, ::coder::array<real_T, 2U> &secondStep,
-    ::coder::array<real_T, 2U> &longStep)
+  static void calculateTrianglesSides(const ::coder::array<double, 2U> &XYdata, ::
+    coder::array<double, 2U> &firstStep, ::coder::array<double, 2U> &secondStep,
+    ::coder::array<double, 2U> &longStep)
   {
-    int32_T i;
-    int32_T i1;
-    int32_T i2;
-    int32_T loop_ub;
+    int i;
+    int i1;
+    int i2;
+    int loop_ub;
 
     //  Return the sides (deltaX, deltaY) of the triangles formed by data points.
     //  For input size NxM, the output size is (N-2)xN, because the first and the
@@ -379,7 +379,7 @@ namespace RAT
     loop_ub = i1 - i;
     secondStep.set_size(loop_ub, 2);
     for (i1 = 0; i1 < 2; i1++) {
-      for (int32_T i3{0}; i3 < loop_ub; i3++) {
+      for (int i3{0}; i3 < loop_ub; i3++) {
         secondStep[i3 + secondStep.size(0) * i1] = XYdata[(i + i3) + XYdata.size
           (0) * i1] - XYdata[(i2 + i3) + XYdata.size(0) * i1];
       }
@@ -403,21 +403,21 @@ namespace RAT
     }
   }
 
-  static void increaseSampling(::coder::array<real_T, 2U> &dataPoints, const ::
-    coder::array<boolean_T, 1U> &segmentsToSplit, const ::coder::array<real_T,
+  static void increaseSampling(::coder::array<double, 2U> &dataPoints, const ::
+    coder::array<boolean_T, 1U> &segmentsToSplit, const ::coder::array<double,
     2U> &sldProfile)
   {
-    ::coder::array<real_T, 2U> b_dataPoints;
-    ::coder::array<real_T, 2U> newDataPoints;
-    ::coder::array<real_T, 1U> b_newDataPoints;
-    ::coder::array<real_T, 1U> r4;
-    ::coder::array<int32_T, 1U> r2;
-    ::coder::array<int32_T, 1U> r3;
+    ::coder::array<double, 2U> b_dataPoints;
+    ::coder::array<double, 2U> newDataPoints;
+    ::coder::array<double, 1U> b_newDataPoints;
+    ::coder::array<double, 1U> r4;
+    ::coder::array<int, 1U> r2;
+    ::coder::array<int, 1U> r3;
     ::coder::array<boolean_T, 1U> r;
     ::coder::array<boolean_T, 1U> r1;
-    int32_T end;
-    int32_T i;
-    int32_T trueCount;
+    int end;
+    int i;
+    int trueCount;
 
     //  increaseSampling increase the sampling of an input function
     end = segmentsToSplit.size(0);
@@ -532,11 +532,11 @@ namespace RAT
     coder::apply_row_permutation(dataPoints, r2);
   }
 
-  static void normalizeFunction(const ::coder::array<real_T, 1U> &x, const ::
-    coder::array<real_T, 2U> &sldProfile, ::coder::array<real_T, 1U> &y)
+  static void normalizeFunction(const ::coder::array<double, 1U> &x, const ::
+    coder::array<double, 2U> &sldProfile, ::coder::array<double, 1U> &y)
   {
-    ::coder::array<real_T, 1U> r;
-    int32_T i;
+    ::coder::array<double, 1U> r;
+    int i;
 
     //  Subfunctions
     //  NORMALIZEFUNCTION evaluates a function and returns a NxM array, where N
@@ -558,7 +558,7 @@ namespace RAT
     //    y = cell2mat(newValues);
     //  else
     i = x.size(0);
-    for (int32_T b_i{0}; b_i < i; b_i++) {
+    for (int b_i{0}; b_i < i; b_i++) {
       //  Remove cell array so no need for cell2mat
       //  which won't compile - AVH
       // [newValues{:}] = func(x(i));
@@ -570,23 +570,23 @@ namespace RAT
     // end
   }
 
-  void adaptive(const ::coder::array<real_T, 2U> &sldProfile, const real_T
-                startDomain[2], real_T minAngle, real_T nPoints, cell_56 *out)
+  void adaptive(const ::coder::array<double, 2U> &sldProfile, const double
+                startDomain[2], double minAngle, double nPoints, cell_56 *out)
   {
-    ::coder::array<real_T, 2U> b_out;
-    ::coder::array<real_T, 2U> r;
-    ::coder::array<real_T, 1U> cornerAngle;
-    ::coder::array<real_T, 1U> hiVal;
-    ::coder::array<real_T, 1U> newDomain;
+    ::coder::array<double, 2U> b_out;
+    ::coder::array<double, 2U> r;
+    ::coder::array<double, 1U> cornerAngle;
+    ::coder::array<double, 1U> hiVal;
+    ::coder::array<double, 1U> newDomain;
     ::coder::array<boolean_T, 1U> b_trianglesToRefine;
     ::coder::array<boolean_T, 1U> r1;
     ::coder::array<boolean_T, 1U> segmentsToSplit;
     ::coder::array<boolean_T, 1U> trianglesToRefine;
-    real_T b_dv[2];
-    real_T b_dv1[2];
-    int32_T i;
-    int32_T loop_ub;
-    int32_T nRefinements;
+    double b_dv[2];
+    double b_dv1[2];
+    int i;
+    int loop_ub;
+    int nRefinements;
     boolean_T exitg1;
 
     //  adaptive: evaluates a matlab function on a given range
@@ -838,7 +838,7 @@ namespace RAT
     nRefinements = 0;
     exitg1 = false;
     while ((!exitg1) && (nRefinements < 10)) {
-      int32_T i1;
+      int i1;
       boolean_T y;
 
       //  calculate the box which encloses the current data points:
@@ -955,23 +955,23 @@ namespace RAT
     //  end
   }
 
-  void b_adaptive(const ::coder::array<real_T, 2U> &sldProfile, const real_T
-                  startDomain[2], real_T minAngle, real_T nPoints, cell_56 *out)
+  void b_adaptive(const ::coder::array<double, 2U> &sldProfile, const double
+                  startDomain[2], double minAngle, double nPoints, cell_56 *out)
   {
-    ::coder::array<real_T, 2U> b_out;
-    ::coder::array<real_T, 2U> r;
-    ::coder::array<real_T, 1U> cornerAngle;
-    ::coder::array<real_T, 1U> hiVal;
-    ::coder::array<real_T, 1U> newDomain;
+    ::coder::array<double, 2U> b_out;
+    ::coder::array<double, 2U> r;
+    ::coder::array<double, 1U> cornerAngle;
+    ::coder::array<double, 1U> hiVal;
+    ::coder::array<double, 1U> newDomain;
     ::coder::array<boolean_T, 1U> b_trianglesToRefine;
     ::coder::array<boolean_T, 1U> r1;
     ::coder::array<boolean_T, 1U> segmentsToSplit;
     ::coder::array<boolean_T, 1U> trianglesToRefine;
-    real_T b_dv[2];
-    real_T b_dv1[2];
-    int32_T i;
-    int32_T loop_ub;
-    int32_T nRefinements;
+    double b_dv[2];
+    double b_dv1[2];
+    int i;
+    int loop_ub;
+    int nRefinements;
     boolean_T exitg1;
 
     //  adaptive: evaluates a matlab function on a given range
@@ -1223,7 +1223,7 @@ namespace RAT
     nRefinements = 0;
     exitg1 = false;
     while ((!exitg1) && (nRefinements < 10)) {
-      int32_T i1;
+      int i1;
       boolean_T y;
 
       //  calculate the box which encloses the current data points:

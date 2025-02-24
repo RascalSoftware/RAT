@@ -19,14 +19,14 @@ namespace RAT
   {
     namespace internal
     {
-      int32_T computeDimsData(real_T varargin_1)
+      int computeDimsData(double varargin_1)
       {
-        int32_T b_calclen;
-        if (static_cast<int32_T>(varargin_1) > 0) {
-          if (static_cast<int32_T>(varargin_1) == 0) {
+        int b_calclen;
+        if (static_cast<int>(varargin_1) > 0) {
+          if (static_cast<int>(varargin_1) == 0) {
             b_calclen = MAX_int32_T;
           } else {
-            b_calclen = 1000000 / static_cast<int32_T>(varargin_1);
+            b_calclen = 1000000 / static_cast<int>(varargin_1);
           }
         } else {
           b_calclen = 0;

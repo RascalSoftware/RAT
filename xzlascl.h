@@ -26,8 +26,8 @@ namespace RAT
     {
       namespace reflapack
       {
-        void xzlascl(real_T cfrom, real_T cto, ::coder::array<creal_T, 1U> &A);
-        void xzlascl(real_T cfrom, real_T cto, ::coder::array<creal_T, 2U> &A);
+        void xzlascl(double cfrom, double cto, ::coder::array<creal_T, 1U> &A);
+        void xzlascl(double cfrom, double cto, ::coder::array<creal_T, 2U> &A);
       }
     }
   }

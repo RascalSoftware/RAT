@@ -28,10 +28,10 @@ namespace RAT
 {
   namespace coder
   {
-    void repmat(real_T varargin_1, ::coder::array<struct_T, 1U> &b);
-    void repmat(const ::coder::array<real_T, 2U> &a, real_T varargin_1, ::coder::
-                array<real_T, 2U> &b);
-    void repmat(const real_T a[2], real_T varargin_1, ::coder::array<real_T, 2U>
+    void repmat(double varargin_1, ::coder::array<struct_T, 1U> &b);
+    void repmat(const ::coder::array<double, 2U> &a, double varargin_1, ::coder::
+                array<double, 2U> &b);
+    void repmat(const double a[2], double varargin_1, ::coder::array<double, 2U>
                 &b);
   }
 }

@@ -22,17 +22,17 @@ namespace RAT
     {
       namespace blas
       {
-        void b_xtrsm(int32_T n, const ::coder::array<real_T, 2U> &A, int32_T lda,
-                     ::coder::array<real_T, 2U> &B)
+        void b_xtrsm(int n, const ::coder::array<double, 2U> &A, int lda, ::
+                     coder::array<double, 2U> &B)
         {
           if ((n != 0) && (B.size(1) != 0)) {
-            for (int32_T j{n}; j >= 1; j--) {
-              int32_T i;
-              int32_T jAcol;
+            for (int j{n}; j >= 1; j--) {
+              int i;
+              int jAcol;
               jAcol = lda * (j - 1) - 1;
               i = j + 1;
-              for (int32_T k{i}; k <= n; k++) {
-                int32_T i1;
+              for (int k{i}; k <= n; k++) {
+                int i1;
                 i1 = k + jAcol;
                 if (A[i1] != 0.0) {
                   B[j - 1] = B[j - 1] - A[i1] * B[k - 1];
@@ -42,15 +42,15 @@ namespace RAT
           }
         }
 
-        void xtrsm(int32_T n, const ::coder::array<real_T, 2U> &A, int32_T lda, ::
-                   coder::array<real_T, 2U> &B)
+        void xtrsm(int n, const ::coder::array<double, 2U> &A, int lda, ::coder::
+                   array<double, 2U> &B)
         {
           if ((n != 0) && (B.size(1) != 0)) {
-            for (int32_T j{0}; j < n; j++) {
-              int32_T jAcol;
+            for (int j{0}; j < n; j++) {
+              int jAcol;
               jAcol = lda * j;
-              for (int32_T k{0}; k < j; k++) {
-                int32_T i;
+              for (int k{0}; k < j; k++) {
+                int i;
                 i = k + jAcol;
                 if (A[i] != 0.0) {
                   B[j] = B[j] - A[i] * B[k];

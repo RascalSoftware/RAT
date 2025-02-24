@@ -20,23 +20,23 @@
 // Function Declarations
 namespace RAT
 {
-  void b_callCppFunction(const char_T pointer_data[], const int32_T
-    pointer_size[2], const ::coder::array<real_T, 2U> &varargin_1, real_T
-    varargin_2, const ::coder::array<real_T, 2U> &varargin_3, real_T varargin_4,
-    ::coder::array<real_T, 2U> &output, real_T *varargout_1);
-  void c_callCppFunction(const char_T pointer_data[], const int32_T
-    pointer_size[2], const ::coder::array<real_T, 2U> &varargin_1, real_T
-    varargin_2, const ::coder::array<real_T, 2U> &varargin_3, real_T varargin_4,
-    ::coder::array<real_T, 2U> &output, real_T *varargout_1);
-  void callCppFunction(const char_T pointer_data[], const int32_T pointer_size[2],
-                       const ::coder::array<real_T, 2U> &varargin_1, real_T
-                       varargin_2, const ::coder::array<real_T, 2U> &varargin_3,
-                       real_T varargin_4, ::coder::array<real_T, 2U> &output,
-                       real_T *varargout_1);
-  void callCppFunction(const char_T pointer_data[], const int32_T pointer_size[2],
-                       const ::coder::array<real_T, 1U> &varargin_1, const
-                       real_T varargin_2_data[], const int32_T varargin_2_size[2],
-                       ::coder::array<real_T, 1U> &output);
+  void b_callCppFunction(const char pointer_data[], const int pointer_size[2],
+    const ::coder::array<double, 2U> &varargin_1, double varargin_2, const ::
+    coder::array<double, 2U> &varargin_3, double varargin_4, ::coder::array<
+    double, 2U> &output, double *varargout_1);
+  void c_callCppFunction(const char pointer_data[], const int pointer_size[2],
+    const ::coder::array<double, 2U> &varargin_1, double varargin_2, const ::
+    coder::array<double, 2U> &varargin_3, double varargin_4, ::coder::array<
+    double, 2U> &output, double *varargout_1);
+  void callCppFunction(const char pointer_data[], const int pointer_size[2],
+                       const ::coder::array<double, 2U> &varargin_1, double
+                       varargin_2, const ::coder::array<double, 2U> &varargin_3,
+                       double varargin_4, ::coder::array<double, 2U> &output,
+                       double *varargout_1);
+  void callCppFunction(const char pointer_data[], const int pointer_size[2],
+                       const ::coder::array<double, 1U> &varargin_1, const
+                       double varargin_2_data[], const int varargin_2_size[2], ::
+                       coder::array<double, 1U> &output);
 }
 
 #endif

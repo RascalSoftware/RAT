@@ -22,9 +22,9 @@ namespace RAT
 {
   namespace coder
   {
-    real_T anon(real_T x, real_T y)
+    double anon(double x, double y)
     {
-      real_T varargout_1;
+      double varargout_1;
       boolean_T p;
       if (std::isnan(y)) {
         p = !std::isnan(x);
@@ -43,9 +43,9 @@ namespace RAT
       return varargout_1;
     }
 
-    real_T b_anon(real_T x, real_T y)
+    double b_anon(double x, double y)
     {
-      real_T varargout_1;
+      double varargout_1;
       boolean_T p;
       if (std::isnan(y)) {
         p = !std::isnan(x);
@@ -64,25 +64,25 @@ namespace RAT
       return varargout_1;
     }
 
-    void rescale(::coder::array<real_T, 1U> &A, const ::coder::array<real_T, 1U>
-                 &varargin_2, const ::coder::array<real_T, 1U> &varargin_4, ::
-                 coder::array<real_T, 1U> &R)
+    void rescale(::coder::array<double, 1U> &A, const ::coder::array<double, 1U>
+                 &varargin_2, const ::coder::array<double, 1U> &varargin_4, ::
+                 coder::array<double, 1U> &R)
     {
-      ::coder::array<real_T, 1U> b_A;
+      ::coder::array<double, 1U> b_A;
       if (varargin_2.size(0) == 1) {
-        int32_T loop_ub;
+        int loop_ub;
         b_A.set_size(A.size(0));
         loop_ub = A.size(0) - 1;
-        for (int32_T i{0}; i <= loop_ub; i++) {
+        for (int i{0}; i <= loop_ub; i++) {
           b_A[i] = A[i];
         }
 
         internal::maximum2(b_A, varargin_2[0], A);
       } else {
-        int32_T loop_ub;
+        int loop_ub;
         b_A.set_size(A.size(0));
         loop_ub = A.size(0) - 1;
-        for (int32_T i{0}; i <= loop_ub; i++) {
+        for (int i{0}; i <= loop_ub; i++) {
           b_A[i] = A[i];
         }
 

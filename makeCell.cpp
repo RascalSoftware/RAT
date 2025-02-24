@@ -17,25 +17,25 @@
 // Function Definitions
 namespace RAT
 {
-  void b_makeCell(real_T m, const real_T vals[3], ::coder::array<cell_wrap_9, 2U>
+  void b_makeCell(double m, const double vals[3], ::coder::array<cell_wrap_9, 2U>
                   &x)
   {
-    int32_T i;
+    int i;
 
     //  Creates a m by n cell array and initialise each cell with given
     //  value
     //
     //  array = makeCell(5, 2, [1, 1])
-    i = static_cast<int32_T>(m);
+    i = static_cast<int>(m);
     x.set_size(i, 2);
-    for (int32_T b_i{0}; b_i < i; b_i++) {
-      real_T d;
-      real_T d1;
-      real_T d2;
+    for (int b_i{0}; b_i < i; b_i++) {
+      double d;
+      double d1;
+      double d2;
       d = vals[0];
       d1 = vals[1];
       d2 = vals[2];
-      for (int32_T j{0}; j < 2; j++) {
+      for (int j{0}; j < 2; j++) {
         x[b_i + x.size(0) * j].f1.set_size(1, 3);
         x[b_i + x.size(0) * j].f1[0] = d;
         x[b_i + x.size(0) * j].f1[x[b_i + x.size(0) * j].f1.size(0)] = d1;
@@ -152,18 +152,18 @@ namespace RAT
     x[49].f1[0] = 1.0;
   }
 
-  void makeCell(real_T m, const real_T vals[3], ::coder::array<cell_wrap_9, 2U>
+  void makeCell(double m, const double vals[3], ::coder::array<cell_wrap_9, 2U>
                 &x)
   {
-    int32_T i;
+    int i;
 
     //  Creates a m by n cell array and initialise each cell with given
     //  value
     //
     //  array = makeCell(5, 2, [1, 1])
-    i = static_cast<int32_T>(m);
+    i = static_cast<int>(m);
     x.set_size(i, 1);
-    for (int32_T b_i{0}; b_i < i; b_i++) {
+    for (int b_i{0}; b_i < i; b_i++) {
       x[b_i].f1.set_size(1, 3);
       x[b_i].f1[0] = vals[0];
       x[b_i].f1[x[b_i].f1.size(0)] = vals[1];

@@ -22,7 +22,7 @@ namespace RAT
 {
   namespace coder
   {
-    real_T det(const ::coder::array<real_T, 2U> &x);
+    double det(const ::coder::array<double, 2U> &x);
   }
 }
 

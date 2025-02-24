@@ -18,19 +18,19 @@
 // Function Definitions
 namespace RAT
 {
-  void calcDensity(const ::coder::array<real_T, 2U> &x, const ::coder::array<
-                   real_T, 2U> &fx, const struct11_T *DREAMPar, const ::coder::
-                   array<real_T, 2U> &ratInputs_problemStruct_fitLimits, const ::
-                   coder::array<real_T, 2U> &ratInputs_priors, ::coder::array<
-                   real_T, 1U> &log_L, ::coder::array<real_T, 1U> &log_PR)
+  void calcDensity(const ::coder::array<double, 2U> &x, const ::coder::array<
+                   double, 2U> &fx, const DreamParams *DREAMPar, const ::coder::
+                   array<double, 2U> &ratInputs_problemStruct_fitLimits, const ::
+                   coder::array<double, 2U> &ratInputs_priors, ::coder::array<
+                   double, 1U> &log_L, ::coder::array<double, 1U> &log_PR)
   {
-    ::coder::array<real_T, 2U> PR;
-    ::coder::array<real_T, 2U> b_x;
-    int32_T b_i;
-    int32_T i;
-    int32_T i1;
-    int32_T loop_ub;
-    int32_T loop_ub_tmp;
+    ::coder::array<double, 2U> PR;
+    ::coder::array<double, 2U> b_x;
+    int b_i;
+    int i;
+    int i1;
+    int loop_ub;
+    int loop_ub_tmp;
 
     //  Now calculate the likelihood (not used) and log-likelihood (used)
     //  ---------------------------------------
@@ -76,7 +76,7 @@ namespace RAT
     //
     //      elseif isfield(paramInfo,'mvnpdf')
     //  RAT specific prior funtion (mvnpdf)
-    loop_ub_tmp = static_cast<int32_T>(DREAMPar->nChains);
+    loop_ub_tmp = static_cast<int>(DREAMPar->nChains);
     PR.set_size(1, loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
       PR[i] = 0.0;
@@ -108,7 +108,7 @@ namespace RAT
 
     i = PR.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      real_T d;
+      double d;
       d = PR[b_i];
       if (d != 0.0) {
         log_PR[b_i] = d;
@@ -160,7 +160,7 @@ namespace RAT
       log_L[i] = 0.0;
     }
 
-    for (int32_T ii{0}; ii < loop_ub_tmp; ii++) {
+    for (int ii{0}; ii < loop_ub_tmp; ii++) {
       log_L[ii] = fx[ii];
     }
 

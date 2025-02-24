@@ -23,7 +23,7 @@ namespace RAT
   {
     namespace internal
     {
-      int32_T intlength(int32_T varargin_1, int32_T varargin_2);
+      int intlength(int varargin_1, int varargin_2);
     }
   }
 }

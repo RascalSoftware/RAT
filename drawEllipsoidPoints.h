@@ -20,8 +20,8 @@
 // Function Declarations
 namespace RAT
 {
-  void drawEllipsoidPoints(const ::coder::array<real_T, 2U> &B, const ::coder::
-    array<real_T, 2U> &mu, ::coder::array<real_T, 2U> &pnts);
+  void drawEllipsoidPoints(const ::coder::array<double, 2U> &B, const ::coder::
+    array<double, 2U> &mu, ::coder::array<double, 2U> &pnts);
 }
 
 #endif

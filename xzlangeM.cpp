@@ -24,21 +24,21 @@ namespace RAT
     {
       namespace reflapack
       {
-        real_T xzlangeM(const ::coder::array<creal_T, 2U> &x)
+        double xzlangeM(const ::coder::array<creal_T, 2U> &x)
         {
-          real_T y;
+          double y;
           boolean_T b;
           boolean_T b1;
           y = 0.0;
           b = (x.size(0) == 0);
           b1 = (x.size(1) == 0);
           if ((!b) && (!b1)) {
-            int32_T k;
+            int k;
             boolean_T exitg1;
             k = 0;
             exitg1 = false;
             while ((!exitg1) && (k <= x.size(0) * x.size(1) - 1)) {
-              real_T absxk;
+              double absxk;
               absxk = rt_hypotd_snf(x[k].re, x[k].im);
               if (std::isnan(absxk)) {
                 y = rtNaN;

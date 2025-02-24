@@ -21,7 +21,7 @@ namespace RAT
 {
   namespace coder
   {
-    real_T eps(real_T x);
+    double eps(double x);
   }
 }
 

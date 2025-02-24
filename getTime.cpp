@@ -23,7 +23,7 @@ namespace RAT
     {
       namespace time
       {
-        void getTime(real_T *t_tv_sec, real_T *t_tv_nsec)
+        void getTime(double *t_tv_sec, double *t_tv_nsec)
         {
           coderTimespec b_timespec;
           if (!freq_not_empty) {

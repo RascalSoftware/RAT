@@ -20,15 +20,15 @@ namespace RAT
 {
   namespace coder
   {
-    void randperm(real_T n, ::coder::array<real_T, 2U> &p)
+    void randperm(double n, ::coder::array<double, 2U> &p)
     {
-      ::coder::array<int32_T, 2U> idx;
-      int32_T p_idx_1;
+      ::coder::array<int, 2U> idx;
+      int p_idx_1;
       b_rand(n, p);
       internal::sortIdx(p, idx);
       p_idx_1 = p.size(1);
       p.set_size(1, p_idx_1);
-      for (int32_T i{0}; i < p_idx_1; i++) {
+      for (int i{0}; i < p_idx_1; i++) {
         p[i] = idx[i];
       }
     }

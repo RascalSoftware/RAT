@@ -27,17 +27,17 @@
 // Function Definitions
 namespace RAT
 {
-  void calcEllipsoid(const ::coder::array<real_T, 2U> &u, real_T VS, ::coder::
-                     array<real_T, 2U> &B, ::coder::array<real_T, 2U> &mu,
-                     real_T VE_data[], int32_T VE_size[2], real_T *flag)
+  void calcEllipsoid(const ::coder::array<double, 2U> &u, double VS, ::coder::
+                     array<double, 2U> &B, ::coder::array<double, 2U> &mu,
+                     double VE_data[], int VE_size[2], double *flag)
   {
-    ::coder::array<real_T, 2U> C;
-    ::coder::array<real_T, 2U> b_u;
-    ::coder::array<real_T, 2U> r;
-    ::coder::array<real_T, 2U> y;
+    ::coder::array<double, 2U> C;
+    ::coder::array<double, 2U> b_u;
+    ::coder::array<double, 2U> r;
+    ::coder::array<double, 2U> y;
     ::coder::array<boolean_T, 2U> b_const_data;
-    real_T d;
-    int32_T b_flag;
+    double d;
+    int b_flag;
     boolean_T const_data;
 
     //
@@ -66,7 +66,7 @@ namespace RAT
 
     //  extract number of points and number of dimensions
     //  check that total number of points is large enough
-    if (static_cast<uint32_T>(u.size(0)) < u.size(1) + 1U) {
+    if (static_cast<unsigned int>(u.size(0)) < u.size(1) + 1U) {
       if (DEBUG != 0.0) {
         printf("number of samples too small to calculate bounding matrix for ellipsoid\n");
         fflush(stdout);
@@ -74,12 +74,12 @@ namespace RAT
 
       b_flag = 1;
     } else {
-      real_T x;
-      int32_T i;
-      int32_T loop_ub;
+      double x;
+      int i;
+      int loop_ub;
 
       //  constant factor for volume of ellipsoid
-      d = static_cast<real_T>(u.size(1)) / 2.0 + 1.0;
+      d = static_cast<double>(u.size(1)) / 2.0 + 1.0;
       coder::b_gamma(&d);
 
       //  calculate covariance matrix and centroid
@@ -101,17 +101,17 @@ namespace RAT
 
         b_flag = 1;
       } else {
-        real_T fB;
-        real_T fV_data;
-        int32_T b_loop_ub;
-        int32_T i1;
+        double fB;
+        double fV_data;
+        int b_loop_ub;
+        int i1;
 
         //  find scale factor for bounding ellipsoid E
         fB = 0.0;
 
         // coder.varsize('fB');
         i = u.size(0);
-        for (int32_T b_i{0}; b_i < i; b_i++) {
+        for (int b_i{0}; b_i < i; b_i++) {
           loop_ub = u.size(1);
           b_u.set_size(1, u.size(1));
           for (i1 = 0; i1 < loop_ub; i1++) {
@@ -142,7 +142,7 @@ namespace RAT
 
         VE_size[0] = 1;
         VE_size[1] = 1;
-        x = rt_powd_snf(3.1415926535897931, static_cast<real_T>(u.size(1)) / 2.0)
+        x = rt_powd_snf(3.1415926535897931, static_cast<double>(u.size(1)) / 2.0)
           / d * std::sqrt(coder::det(y));
         VE_data[0] = x;
 
@@ -156,7 +156,7 @@ namespace RAT
           //  however when compiled to C++,
           //  MATLAB Coder does not compile the code for fractional powers of matrices.
           //  so we must replace it with the explicit calculation:
-          fV_data = std::log(VS / x) * (2.0 / static_cast<real_T>(u.size(1)));
+          fV_data = std::log(VS / x) * (2.0 / static_cast<double>(u.size(1)));
           fV_data = std::exp(fV_data);
           VE_size[0] = 1;
           VE_size[1] = 1;

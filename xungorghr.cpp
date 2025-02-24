@@ -23,16 +23,16 @@ namespace RAT
     {
       namespace lapack
       {
-        void xungorghr(int32_T n, int32_T ihi, ::coder::array<real_T, 2U> &A,
-                       int32_T lda, const ::coder::array<real_T, 1U> &tau)
+        void xungorghr(int n, int ihi, ::coder::array<double, 2U> &A, int lda,
+                       const ::coder::array<double, 1U> &tau)
         {
           if (n != 0) {
-            int32_T b_i;
-            int32_T i;
-            int32_T ia;
-            int32_T j;
+            int b_i;
+            int i;
+            int ia;
+            int j;
             for (j = ihi; j >= 2; j--) {
-              int32_T iajm1;
+              int iajm1;
               ia = (j - 1) * lda - 1;
               for (i = 0; i <= j - 2; i++) {
                 A[(ia + i) + 1] = 0.0;

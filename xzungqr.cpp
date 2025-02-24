@@ -23,18 +23,17 @@ namespace RAT
     {
       namespace reflapack
       {
-        void xzungqr(int32_T m, int32_T n, int32_T k, ::coder::array<real_T, 2U>
-                     &A, int32_T ia0, int32_T lda, const ::coder::array<real_T,
-                     1U> &tau)
+        void xzungqr(int m, int n, int k, ::coder::array<double, 2U> &A, int ia0,
+                     int lda, const ::coder::array<double, 1U> &tau)
         {
-          ::coder::array<real_T, 1U> work;
+          ::coder::array<double, 1U> work;
           if (n >= 1) {
-            int32_T b_i;
-            int32_T i;
-            int32_T ia;
-            int32_T iaii;
-            int32_T itau;
-            int32_T j;
+            int b_i;
+            int i;
+            int ia;
+            int iaii;
+            int itau;
+            int j;
             i = n - 1;
             for (j = k; j <= i; j++) {
               ia = (ia0 + j * lda) - 1;

@@ -25,7 +25,7 @@ namespace RAT
     {
       namespace scalar
       {
-        void b_log1p(real_T *z);
+        void b_log1p(double *z);
       }
     }
   }

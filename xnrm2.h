@@ -26,12 +26,11 @@ namespace RAT
     {
       namespace blas
       {
-        real_T b_xnrm2(int32_T n, const ::coder::array<real_T, 1U> &x);
-        real_T xnrm2(int32_T n, const ::coder::array<real_T, 1U> &x);
-        real_T xnrm2(int32_T n, const ::coder::array<creal_T, 2U> &x, int32_T
-                     ix0);
-        real_T xnrm2(int32_T n, const ::coder::array<real_T, 2U> &x, int32_T ix0);
-        real_T xnrm2(int32_T n, const real_T x[3]);
+        double b_xnrm2(int n, const ::coder::array<double, 1U> &x);
+        double xnrm2(int n, const ::coder::array<double, 1U> &x);
+        double xnrm2(int n, const ::coder::array<creal_T, 2U> &x, int ix0);
+        double xnrm2(int n, const ::coder::array<double, 2U> &x, int ix0);
+        double xnrm2(int n, const double x[3]);
       }
     }
   }

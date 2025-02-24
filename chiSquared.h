@@ -20,8 +20,8 @@
 // Function Declarations
 namespace RAT
 {
-  real_T chiSquared(const ::coder::array<real_T, 2U> &thisData, const ::coder::
-                    array<real_T, 2U> &thisFit, real_T P);
+  double chiSquared(const ::coder::array<double, 2U> &thisData, const ::coder::
+                    array<double, 2U> &thisFit, double P);
 }
 
 #endif

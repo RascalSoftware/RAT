@@ -21,24 +21,24 @@
 // Function Definitions
 namespace RAT
 {
-  void drawCR(const struct11_T *DREAMPar, const real_T pCR_data[], const int32_T
-              pCR_size[2], ::coder::array<real_T, 2U> &CR)
+  void drawCR(const DreamParams *DREAMPar, const double pCR_data[], const int
+              pCR_size[2], ::coder::array<double, 2U> &CR)
   {
-    ::coder::array<real_T, 2U> b_r;
-    ::coder::array<real_T, 2U> r;
-    ::coder::array<real_T, 1U> cCR;
-    ::coder::array<int32_T, 1U> r1;
-    real_T L2_data[4];
-    real_T L_data[3];
-    real_T tmp_data[3];
-    int32_T tmp_size[2];
+    ::coder::array<double, 2U> b_r;
+    ::coder::array<double, 2U> r;
+    ::coder::array<double, 1U> cCR;
+    ::coder::array<int, 1U> r1;
+    double L2_data[4];
+    double L_data[3];
+    double tmp_data[3];
+    int tmp_size[2];
 
     //  Generates CR values based on current crossover probabilities
     if (DREAMPar->adaptPCR) {
-      int32_T DREAMPar_idx_0_tmp;
-      int32_T DREAMPar_tmp_tmp;
-      int32_T i;
-      int32_T i1;
+      int DREAMPar_idx_0_tmp;
+      int DREAMPar_tmp_tmp;
+      int i;
+      int i1;
 
       //  If crossover probabilities are updated
       //  How many candidate points for each crossover value?
@@ -60,9 +60,9 @@ namespace RAT
         cCR[i] = 0.0;
       }
 
-      for (int32_T zz{0}; zz < 3; zz++) {
-        real_T d;
-        real_T d1;
+      for (int zz{0}; zz < 3; zz++) {
+        double d;
+        double d1;
 
         //  Define start and end
         //  Take the appropriate elements of r
@@ -72,27 +72,27 @@ namespace RAT
           i = 0;
           i1 = 0;
         } else {
-          i = static_cast<int32_T>(d1 + 1.0) - 1;
-          i1 = static_cast<int32_T>(d);
+          i = static_cast<int>(d1 + 1.0) - 1;
+          i1 = static_cast<int>(d);
         }
 
         //  Assign these indices DREAMPar.CR(zz)
         DREAMPar_tmp_tmp = i1 - i;
         r1.set_size(DREAMPar_tmp_tmp);
         for (i1 = 0; i1 < DREAMPar_tmp_tmp; i1++) {
-          r1[i1] = static_cast<int32_T>(b_r[i + i1]);
+          r1[i1] = static_cast<int>(b_r[i + i1]);
         }
 
         DREAMPar_tmp_tmp = r1.size(0);
         for (i = 0; i < DREAMPar_tmp_tmp; i++) {
-          cCR[r1[i] - 1] = (static_cast<real_T>(zz) + 1.0) / 3.0;
+          cCR[r1[i] - 1] = (static_cast<double>(zz) + 1.0) / 3.0;
         }
       }
 
       //  Now reshape CR
       //  CR = reshape(cCR,DREAMPar.nChains,DREAMPar.steps);
       DREAMPar_tmp_tmp = coder::internal::computeDimsData(DREAMPar->nChains);
-      DREAMPar_idx_0_tmp = static_cast<int32_T>(DREAMPar->nChains);
+      DREAMPar_idx_0_tmp = static_cast<int>(DREAMPar->nChains);
       CR.set_size(DREAMPar_idx_0_tmp, DREAMPar_tmp_tmp);
       for (i = 0; i < DREAMPar_tmp_tmp; i++) {
         for (i1 = 0; i1 < DREAMPar_idx_0_tmp; i1++) {
@@ -100,8 +100,8 @@ namespace RAT
         }
       }
     } else {
-      int32_T DREAMPar_idx_0_tmp;
-      int32_T DREAMPar_tmp_tmp;
+      int DREAMPar_idx_0_tmp;
+      int DREAMPar_tmp_tmp;
 
       //  If crossover probabilities are not updated
       tmp_size[0] = 1;
@@ -111,11 +111,11 @@ namespace RAT
       tmp_data[2] = 1.0;
       randSample(tmp_data, tmp_size, DREAMPar->steps * DREAMPar->nChains,
                  pCR_data, r);
-      DREAMPar_idx_0_tmp = static_cast<int32_T>(DREAMPar->nChains);
-      DREAMPar_tmp_tmp = static_cast<int32_T>(DREAMPar->steps);
+      DREAMPar_idx_0_tmp = static_cast<int>(DREAMPar->nChains);
+      DREAMPar_tmp_tmp = static_cast<int>(DREAMPar->steps);
       CR.set_size(DREAMPar_idx_0_tmp, DREAMPar_tmp_tmp);
-      for (int32_T i{0}; i < DREAMPar_tmp_tmp; i++) {
-        for (int32_T i1{0}; i1 < DREAMPar_idx_0_tmp; i1++) {
+      for (int i{0}; i < DREAMPar_tmp_tmp; i++) {
+        for (int i1{0}; i1 < DREAMPar_idx_0_tmp; i1++) {
           CR[i1 + CR.size(0) * i] = r[i1 + DREAMPar_idx_0_tmp * i];
         }
       }

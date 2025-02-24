@@ -22,11 +22,11 @@ namespace RAT
 {
   namespace coder
   {
-    real_T anon(real_T x, real_T y);
-    real_T b_anon(real_T x, real_T y);
-    void rescale(::coder::array<real_T, 1U> &A, const ::coder::array<real_T, 1U>
-                 &varargin_2, const ::coder::array<real_T, 1U> &varargin_4, ::
-                 coder::array<real_T, 1U> &R);
+    double anon(double x, double y);
+    double b_anon(double x, double y);
+    void rescale(::coder::array<double, 1U> &A, const ::coder::array<double, 1U>
+                 &varargin_2, const ::coder::array<double, 1U> &varargin_4, ::
+                 coder::array<double, 1U> &R);
   }
 }
 

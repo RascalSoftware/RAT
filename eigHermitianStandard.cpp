@@ -18,13 +18,13 @@ namespace RAT
 {
   namespace coder
   {
-    void diagDiagUpperHessNoImag(::coder::array<real_T, 2U> &D)
+    void diagDiagUpperHessNoImag(::coder::array<double, 2U> &D)
     {
-      int32_T n;
+      int n;
       n = D.size(0);
-      for (int32_T j{2}; j <= n; j++) {
+      for (int j{2}; j <= n; j++) {
         D[(j + D.size(0) * (j - 2)) - 1] = 0.0;
-        for (int32_T i{0}; i <= j - 2; i++) {
+        for (int i{0}; i <= j - 2; i++) {
           D[i + D.size(0) * (j - 1)] = 0.0;
         }
       }

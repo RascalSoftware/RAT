@@ -18,14 +18,14 @@
 // Function Definitions
 namespace RAT
 {
-  void allocateLayersForContrast(const ::coder::array<real_T, 2U>
+  void allocateLayersForContrast(const ::coder::array<double, 2U>
     &contrastLayers, const ::coder::array<cell_wrap_47, 2U>
-    &outParameterisedLayers, boolean_T useImaginary, ::coder::array<real_T, 2U>
+    &outParameterisedLayers, boolean_T useImaginary, ::coder::array<double, 2U>
     &thisContrastLayers)
   {
-    int32_T i;
-    int32_T i1;
-    int32_T n;
+    int i;
+    int i1;
+    int n;
 
     //  Decide which layers are needed for a particular contrast.
     //  This function takes the master array of all layers
@@ -56,13 +56,13 @@ namespace RAT
     }
 
     i = coder::internal::intlength(contrastLayers.size(0), contrastLayers.size(1));
-    for (int32_T b_i{0}; b_i < i; b_i++) {
-      n = outParameterisedLayers[static_cast<int32_T>(contrastLayers[b_i]) - 1].
+    for (int b_i{0}; b_i < i; b_i++) {
+      n = outParameterisedLayers[static_cast<int>(contrastLayers[b_i]) - 1].
         f1.size(1);
       for (i1 = 0; i1 < n; i1++) {
         thisContrastLayers[b_i + thisContrastLayers.size(0) * i1] =
-          outParameterisedLayers[static_cast<int32_T>(contrastLayers[b_i]) - 1].
-          f1[i1];
+          outParameterisedLayers[static_cast<int>(contrastLayers[b_i]) - 1]
+          .f1[i1];
       }
     }
   }

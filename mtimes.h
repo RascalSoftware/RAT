@@ -26,14 +26,14 @@ namespace RAT
     {
       namespace blas
       {
-        void b_mtimes(const ::coder::array<real_T, 2U> &A, const ::coder::array<
-                      real_T, 2U> &B, ::coder::array<real_T, 2U> &C);
+        void b_mtimes(const ::coder::array<double, 2U> &A, const ::coder::array<
+                      double, 2U> &B, ::coder::array<double, 2U> &C);
         void mtimes(const ::coder::array<creal_T, 2U> &A, const ::coder::array<
                     creal_T, 2U> &B, ::coder::array<creal_T, 2U> &C);
-        void mtimes(const ::coder::array<real_T, 2U> &A, const ::coder::array<
-                    real_T, 2U> &B, ::coder::array<real_T, 2U> &C);
-        void mtimes(const ::coder::array<real_T, 2U> &A, const ::coder::array<
-                    real_T, 1U> &B, ::coder::array<real_T, 1U> &C);
+        void mtimes(const ::coder::array<double, 2U> &A, const ::coder::array<
+                    double, 2U> &B, ::coder::array<double, 2U> &C);
+        void mtimes(const ::coder::array<double, 2U> &A, const ::coder::array<
+                    double, 1U> &B, ::coder::array<double, 1U> &C);
       }
     }
   }

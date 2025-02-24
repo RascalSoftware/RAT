@@ -23,7 +23,7 @@ namespace RAT
   {
     namespace internal
     {
-      boolean_T sortAscendLE(real_T a, real_T b);
+      boolean_T sortAscendLE(double a, double b);
     }
   }
 }

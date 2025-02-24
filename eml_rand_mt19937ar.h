@@ -21,9 +21,9 @@ namespace RAT
 {
   namespace coder
   {
-    real_T b_eml_rand_mt19937ar(uint32_T b_state[625]);
-    real_T eml_rand_mt19937ar(uint32_T b_state[625]);
-    void genrand_uint32_vector(uint32_T mt[625], uint32_T u[2]);
+    double b_eml_rand_mt19937ar(unsigned int b_state[625]);
+    double eml_rand_mt19937ar(unsigned int b_state[625]);
+    void genrand_uint32_vector(unsigned int mt[625], unsigned int u[2]);
   }
 }
 

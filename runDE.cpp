@@ -27,19 +27,19 @@
 // Function Definitions
 namespace RAT
 {
-  void intrafun(const ::coder::array<real_T, 2U> &p, e_struct_T *problemStruct,
-                const char_T controls_parallel_data[], const int32_T
-                controls_parallel_size[2], real_T controls_resampleMinAngle,
-                real_T controls_resampleNPoints, boolean_T
-                controls_calcSldDuringFit, real_T *S_MSE_I_nc, real_T
-                *S_MSE_FVr_ca, real_T *S_MSE_I_no, real_T *S_MSE_FVr_oa,
-                struct5_T *result)
+  void intrafun(const ::coder::array<double, 2U> &p, ProblemDefinition
+                *problemStruct, const char controls_parallel_data[], const int
+                controls_parallel_size[2], double controls_resampleMinAngle,
+                double controls_resampleNPoints, boolean_T
+                controls_calcSldDuringFit, double *S_MSE_I_nc, double
+                *S_MSE_FVr_ca, double *S_MSE_I_no, double *S_MSE_FVr_oa, Results
+                *result)
   {
-    struct4_T expl_temp;
-    int32_T loop_ub;
+    Controls expl_temp;
+    int loop_ub;
     problemStruct->fitParams.set_size(1, p.size(1));
     loop_ub = p.size(1);
-    for (int32_T i{0}; i < loop_ub; i++) {
+    for (int i{0}; i < loop_ub; i++) {
       problemStruct->fitParams[i] = p[i];
     }
 
@@ -66,18 +66,18 @@ namespace RAT
     *S_MSE_FVr_oa = result->calculationResults.sumChi;
   }
 
-  void runDE(e_struct_T *problemStruct, const ::coder::array<real_T, 2U>
-             &problemLimits_params, const ::coder::array<real_T, 2U>
-             &problemLimits_backgroundParams, const ::coder::array<real_T, 2U>
-             &problemLimits_scalefactors, const ::coder::array<real_T, 2U>
-             &problemLimits_qzshifts, const ::coder::array<real_T, 2U>
-             &problemLimits_bulkIns, const ::coder::array<real_T, 2U>
-             &problemLimits_bulkOuts, const ::coder::array<real_T, 2U>
-             &problemLimits_resolutionParams, const ::coder::array<real_T, 2U>
-             &problemLimits_domainRatios, const struct4_T *controls, struct5_T
+  void runDE(ProblemDefinition *problemStruct, const ::coder::array<double, 2U>
+             &problemLimits_params, const ::coder::array<double, 2U>
+             &problemLimits_backgroundParams, const ::coder::array<double, 2U>
+             &problemLimits_scalefactors, const ::coder::array<double, 2U>
+             &problemLimits_qzshifts, const ::coder::array<double, 2U>
+             &problemLimits_bulkIns, const ::coder::array<double, 2U>
+             &problemLimits_bulkOuts, const ::coder::array<double, 2U>
+             &problemLimits_resolutionParams, const ::coder::array<double, 2U>
+             &problemLimits_domainRatios, const Controls *controls, Results
              *result)
   {
-    static const real_T S_struct_FVr_x[50]{ -1.0, -0.95918367346938771,
+    static const double S_struct_FVr_x[50]{ -1.0, -0.95918367346938771,
       -0.91836734693877542, -0.87755102040816324, -0.836734693877551,
       -0.79591836734693866, -0.75510204081632648, -0.71428571428571419,
       -0.673469387755102, -0.63265306122448972, -0.59183673469387754,
@@ -96,13 +96,13 @@ namespace RAT
       0.91836734693877542, 0.95918367346938771, 1.0 };
 
     ::coder::array<cell_wrap_10, 1U> b_problemStruct;
-    ::coder::array<real_T, 2U> r;
-    ::coder::array<char_T, 2U> charStr;
-    ::coder::array<int8_T, 2U> S_struct_FM_pop;
-    l_struct_T expl_temp;
-    int32_T i;
-    int32_T i1;
-    int32_T loop_ub;
+    ::coder::array<double, 2U> r;
+    ::coder::array<signed char, 2U> S_struct_FM_pop;
+    ::coder::array<char, 2U> charStr;
+    i_struct_T expl_temp;
+    int i;
+    int i1;
+    int loop_ub;
     packParams(problemStruct, problemLimits_params,
                problemLimits_backgroundParams, problemLimits_scalefactors,
                problemLimits_qzshifts, problemLimits_bulkIns,
@@ -156,7 +156,7 @@ namespace RAT
     // lower limit is -1
     // Tell compiler abut variable sizes
     // -----tie all important values to a structure that can be passed along----
-    loop_ub = static_cast<int32_T>(controls->populationSize);
+    loop_ub = static_cast<int>(controls->populationSize);
     S_struct_FM_pop.set_size(loop_ub, 2);
     expl_temp.FVr_bestmem.set_size(1, 2);
     for (i = 0; i < 2; i++) {

@@ -24,8 +24,8 @@ namespace RAT
   {
     namespace internal
     {
-      int32_T nonSingletonDim(const ::coder::array<real_T, 1U> &x);
-      int32_T nonSingletonDim(const ::coder::array<real_T, 2U> &x);
+      int nonSingletonDim(const ::coder::array<double, 1U> &x);
+      int nonSingletonDim(const ::coder::array<double, 2U> &x);
     }
   }
 }

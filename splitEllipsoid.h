@@ -20,10 +20,10 @@
 // Function Declarations
 namespace RAT
 {
-  void splitEllipsoid(const ::coder::array<real_T, 2U> &u, real_T VS, ::coder::
-                      array<real_T, 2U> &u1, ::coder::array<real_T, 2U> &u2,
-                      real_T VE1_data[], int32_T VE1_size[2], real_T VE2_data[],
-                      int32_T VE2_size[2], real_T *nosplit);
+  void splitEllipsoid(const ::coder::array<double, 2U> &u, double VS, ::coder::
+                      array<double, 2U> &u1, ::coder::array<double, 2U> &u2,
+                      double VE1_data[], int VE1_size[2], double VE2_data[], int
+                      VE2_size[2], double *nosplit);
 }
 
 #endif

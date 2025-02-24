@@ -23,12 +23,12 @@ namespace RAT
     {
       namespace lapack
       {
-        void xgeqp3(::coder::array<real_T, 2U> &A, ::coder::array<real_T, 1U>
-                    &tau, ::coder::array<int32_T, 2U> &jpvt)
+        void xgeqp3(::coder::array<double, 2U> &A, ::coder::array<double, 1U>
+                    &tau, ::coder::array<int, 2U> &jpvt)
         {
-          int32_T k;
-          int32_T minmana;
-          int32_T n;
+          int k;
+          int minmana;
+          int n;
           boolean_T guard1{ false };
 
           n = A.size(1) - 1;

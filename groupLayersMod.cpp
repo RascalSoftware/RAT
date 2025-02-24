@@ -18,18 +18,18 @@
 // Function Definitions
 namespace RAT
 {
-  void groupLayersMod(const ::coder::array<real_T, 2U> &resampledLayers, real_T
-                      subRoughs, const char_T geometry_data[], const int32_T
-                      geometry_size[2], real_T bulkIns, real_T bulkOuts, ::coder::
-                      array<real_T, 2U> &outLayers, real_T *ssubs)
+  void groupLayersMod(const ::coder::array<double, 2U> &resampledLayers, double
+                      subRoughs, const char geometry_data[], const int
+                      geometry_size[2], double bulkIns, double bulkOuts, ::coder::
+                      array<double, 2U> &outLayers, double *ssubs)
   {
-    ::coder::array<real_T, 2U> layers;
-    ::coder::array<real_T, 1U> roughs;
-    int32_T b_loop_ub;
-    int32_T c_loop_ub;
-    int32_T i;
-    int32_T loop_ub;
-    uint32_T unnamed_idx_0;
+    ::coder::array<double, 2U> layers;
+    ::coder::array<double, 1U> roughs;
+    int b_loop_ub;
+    int c_loop_ub;
+    int i;
+    int loop_ub;
+    unsigned int unnamed_idx_0;
 
     //  Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the
     //  z,rho,rough stack, and the parameter 'ssub' is the final roughness encountered.
@@ -52,11 +52,11 @@ namespace RAT
     //      * outLayers: cell array of layers param values for each contrast.
     //      * ssubs: vector of ssub values.
     *ssubs = subRoughs;
-    unnamed_idx_0 = static_cast<uint32_T>(resampledLayers.size(0));
+    unnamed_idx_0 = static_cast<unsigned int>(resampledLayers.size(0));
     layers.set_size(resampledLayers.size(0), resampledLayers.size(1));
     loop_ub = resampledLayers.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = static_cast<int32_T>(unnamed_idx_0);
+      b_loop_ub = static_cast<int>(unnamed_idx_0);
       for (c_loop_ub = 0; c_loop_ub < b_loop_ub; c_loop_ub++) {
         layers[c_loop_ub + layers.size(0) * i] = 0.0;
       }
@@ -134,9 +134,9 @@ namespace RAT
       //  Deal with the %coverage if present
       if (resampledLayers.size(1) == 5) {
         i = resampledLayers.size(0);
-        for (int32_T j{0}; j < i; j++) {
-          real_T pc_add;
-          real_T this_pcw;
+        for (int j{0}; j < i; j++) {
+          double pc_add;
+          double this_pcw;
           this_pcw = resampledLayers[j + resampledLayers.size(0) * 3];
           if (resampledLayers[j + resampledLayers.size(0) * 4] == 1.0) {
             pc_add = bulkIns;

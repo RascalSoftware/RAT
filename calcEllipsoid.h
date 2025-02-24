@@ -20,9 +20,9 @@
 // Function Declarations
 namespace RAT
 {
-  void calcEllipsoid(const ::coder::array<real_T, 2U> &u, real_T VS, ::coder::
-                     array<real_T, 2U> &B, ::coder::array<real_T, 2U> &mu,
-                     real_T VE_data[], int32_T VE_size[2], real_T *flag);
+  void calcEllipsoid(const ::coder::array<double, 2U> &u, double VS, ::coder::
+                     array<double, 2U> &B, ::coder::array<double, 2U> &mu,
+                     double VE_data[], int VE_size[2], double *flag);
 }
 
 #endif

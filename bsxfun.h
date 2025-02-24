@@ -22,24 +22,24 @@ namespace RAT
 {
   namespace coder
   {
-    void b_bsxfun(const ::coder::array<real_T, 1U> &a, const ::coder::array<
-                  real_T, 1U> &b, ::coder::array<real_T, 1U> &c);
-    void b_bsxfun(const ::coder::array<real_T, 1U> &a, ::coder::array<real_T, 1U>
+    void b_bsxfun(const ::coder::array<double, 1U> &a, const ::coder::array<
+                  double, 1U> &b, ::coder::array<double, 1U> &c);
+    void b_bsxfun(const ::coder::array<double, 1U> &a, ::coder::array<double, 1U>
                   &c);
-    void bsxfun(const ::coder::array<real_T, 1U> &a, const ::coder::array<real_T,
-                1U> &b, ::coder::array<real_T, 1U> &c);
-    void bsxfun(const ::coder::array<real_T, 1U> &a, ::coder::array<real_T, 1U>
+    void bsxfun(const ::coder::array<double, 1U> &a, const ::coder::array<double,
+                1U> &b, ::coder::array<double, 1U> &c);
+    void bsxfun(const ::coder::array<double, 1U> &a, ::coder::array<double, 1U>
                 &c);
-    void c_bsxfun(const ::coder::array<real_T, 1U> &a, const ::coder::array<
-                  real_T, 1U> &b, ::coder::array<real_T, 1U> &c);
-    void c_bsxfun(const ::coder::array<real_T, 1U> &a, ::coder::array<real_T, 1U>
+    void c_bsxfun(const ::coder::array<double, 1U> &a, const ::coder::array<
+                  double, 1U> &b, ::coder::array<double, 1U> &c);
+    void c_bsxfun(const ::coder::array<double, 1U> &a, ::coder::array<double, 1U>
                   &c);
-    void d_bsxfun(const ::coder::array<real_T, 1U> &a, const ::coder::array<
-                  real_T, 1U> &b, ::coder::array<real_T, 1U> &c);
-    void e_bsxfun(const ::coder::array<real_T, 1U> &a, const ::coder::array<
-                  real_T, 1U> &b, ::coder::array<real_T, 1U> &c);
-    void f_bsxfun(const ::coder::array<real_T, 1U> &a, const ::coder::array<
-                  real_T, 1U> &b, ::coder::array<real_T, 1U> &c);
+    void d_bsxfun(const ::coder::array<double, 1U> &a, const ::coder::array<
+                  double, 1U> &b, ::coder::array<double, 1U> &c);
+    void e_bsxfun(const ::coder::array<double, 1U> &a, const ::coder::array<
+                  double, 1U> &b, ::coder::array<double, 1U> &c);
+    void f_bsxfun(const ::coder::array<double, 1U> &a, const ::coder::array<
+                  double, 1U> &b, ::coder::array<double, 1U> &c);
   }
 }
 

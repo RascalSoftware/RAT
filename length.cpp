@@ -19,9 +19,9 @@ namespace RAT
   {
     namespace internal
     {
-      int32_T intlength(int32_T varargin_1, int32_T varargin_2)
+      int intlength(int varargin_1, int varargin_2)
       {
-        int32_T n;
+        int n;
         if ((varargin_1 == 0) || (varargin_2 == 0)) {
           n = 0;
         } else if (varargin_1 > varargin_2) {

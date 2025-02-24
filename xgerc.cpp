@@ -22,21 +22,20 @@ namespace RAT
     {
       namespace blas
       {
-        void xgerc(int32_T m, int32_T n, real_T alpha1, const ::coder::array<
-                   real_T, 1U> &x, int32_T iy0, ::coder::array<real_T, 2U> &A,
-                   int32_T ia0, int32_T lda)
+        void xgerc(int m, int n, double alpha1, const ::coder::array<double, 1U>
+                   &x, int iy0, ::coder::array<double, 2U> &A, int ia0, int lda)
         {
           if (!(alpha1 == 0.0)) {
-            int32_T jA;
+            int jA;
             jA = ia0;
-            for (int32_T j{0}; j < n; j++) {
-              int32_T i;
+            for (int j{0}; j < n; j++) {
+              int i;
               i = (iy0 + j) - 1;
               if (A[i] != 0.0) {
-                real_T temp;
+                double temp;
                 temp = A[i] * alpha1;
                 i = m + jA;
-                for (int32_T ijA{jA}; ijA < i; ijA++) {
+                for (int ijA{jA}; ijA < i; ijA++) {
                   A[ijA - 1] = A[ijA - 1] + x[ijA - jA] * temp;
                 }
               }
@@ -46,20 +45,20 @@ namespace RAT
           }
         }
 
-        void xgerc(int32_T m, int32_T n, real_T alpha1, int32_T ix0, const ::
-                   coder::array<real_T, 1U> &y, ::coder::array<real_T, 2U> &A,
-                   int32_T ia0, int32_T lda)
+        void xgerc(int m, int n, double alpha1, int ix0, const ::coder::array<
+                   double, 1U> &y, ::coder::array<double, 2U> &A, int ia0, int
+                   lda)
         {
           if (!(alpha1 == 0.0)) {
-            int32_T jA;
+            int jA;
             jA = ia0;
-            for (int32_T j{0}; j < n; j++) {
+            for (int j{0}; j < n; j++) {
               if (y[j] != 0.0) {
-                real_T temp;
-                int32_T i;
+                double temp;
+                int i;
                 temp = y[j] * alpha1;
                 i = m + jA;
-                for (int32_T ijA{jA}; ijA < i; ijA++) {
+                for (int ijA{jA}; ijA < i; ijA++) {
                   A[ijA - 1] = A[ijA - 1] + A[((ix0 + ijA) - jA) - 1] * temp;
                 }
               }

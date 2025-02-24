@@ -26,12 +26,11 @@ namespace RAT
     {
       namespace blas
       {
-        void xgerc(int32_T m, int32_T n, real_T alpha1, const ::coder::array<
-                   real_T, 1U> &x, int32_T iy0, ::coder::array<real_T, 2U> &A,
-                   int32_T ia0, int32_T lda);
-        void xgerc(int32_T m, int32_T n, real_T alpha1, int32_T ix0, const ::
-                   coder::array<real_T, 1U> &y, ::coder::array<real_T, 2U> &A,
-                   int32_T ia0, int32_T lda);
+        void xgerc(int m, int n, double alpha1, const ::coder::array<double, 1U>
+                   &x, int iy0, ::coder::array<double, 2U> &A, int ia0, int lda);
+        void xgerc(int m, int n, double alpha1, int ix0, const ::coder::array<
+                   double, 1U> &y, ::coder::array<double, 2U> &A, int ia0, int
+                   lda);
       }
     }
   }

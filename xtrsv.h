@@ -26,14 +26,14 @@ namespace RAT
     {
       namespace blas
       {
-        void b_xtrsv(int32_T n, const ::coder::array<real_T, 2U> &A, int32_T lda,
-                     ::coder::array<real_T, 1U> &x);
-        void c_xtrsv(int32_T n, const ::coder::array<real_T, 2U> &A, int32_T lda,
-                     ::coder::array<real_T, 1U> &x);
-        void d_xtrsv(int32_T n, const ::coder::array<real_T, 2U> &A, int32_T lda,
-                     ::coder::array<real_T, 1U> &x);
-        void xtrsv(int32_T n, const ::coder::array<real_T, 2U> &A, int32_T lda, ::
-                   coder::array<real_T, 1U> &x);
+        void b_xtrsv(int n, const ::coder::array<double, 2U> &A, int lda, ::
+                     coder::array<double, 1U> &x);
+        void c_xtrsv(int n, const ::coder::array<double, 2U> &A, int lda, ::
+                     coder::array<double, 1U> &x);
+        void d_xtrsv(int n, const ::coder::array<double, 2U> &A, int lda, ::
+                     coder::array<double, 1U> &x);
+        void xtrsv(int n, const ::coder::array<double, 2U> &A, int lda, ::coder::
+                   array<double, 1U> &x);
       }
     }
   }

@@ -19,8 +19,8 @@
 // Function Declarations
 namespace RAT
 {
-  void multrnd(real_T n, const real_T p_data[], const int32_T p_size[2], real_T
-               X_data[], int32_T X_size[2]);
+  void multrnd(double n, const double p_data[], const int p_size[2], double
+               X_data[], int X_size[2]);
 }
 
 #endif

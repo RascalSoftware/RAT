@@ -18,9 +18,9 @@
 // Function Definitions
 namespace RAT
 {
-  void percentileConfidenceIntervals(const ::coder::array<real_T, 2U> &chain, ::
-    coder::array<real_T, 2U> &confidenceIntervals_percentile95, ::coder::array<
-    real_T, 2U> &confidenceIntervals_percentile65, ::coder::array<real_T, 2U>
+  void percentileConfidenceIntervals(const ::coder::array<double, 2U> &chain, ::
+    coder::array<double, 2U> &confidenceIntervals_percentile95, ::coder::array<
+    double, 2U> &confidenceIntervals_percentile65, ::coder::array<double, 2U>
     &confidenceIntervals_mean)
   {
     coder::prctile(chain, confidenceIntervals_percentile95);

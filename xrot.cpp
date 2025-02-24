@@ -22,14 +22,14 @@ namespace RAT
     {
       namespace blas
       {
-        void xrot(int32_T n, ::coder::array<real_T, 2U> &x, int32_T ix0, int32_T
-                  incx, int32_T iy0, int32_T incy, real_T c, real_T s)
+        void xrot(int n, ::coder::array<double, 2U> &x, int ix0, int incx, int
+                  iy0, int incy, double c, double s)
         {
           if (n >= 1) {
-            for (int32_T k{0}; k < n; k++) {
-              real_T temp;
-              int32_T b_temp_tmp;
-              int32_T temp_tmp;
+            for (int k{0}; k < n; k++) {
+              double temp;
+              int b_temp_tmp;
+              int temp_tmp;
               temp_tmp = (iy0 + k * incx) - 1;
               b_temp_tmp = (ix0 + k * incy) - 1;
               temp = c * x[b_temp_tmp] + s * x[temp_tmp];
@@ -39,14 +39,14 @@ namespace RAT
           }
         }
 
-        void xrot(int32_T n, ::coder::array<real_T, 2U> &x, int32_T ix0, int32_T
-                  iy0, real_T c, real_T s)
+        void xrot(int n, ::coder::array<double, 2U> &x, int ix0, int iy0, double
+                  c, double s)
         {
           if (n >= 1) {
-            for (int32_T k{0}; k < n; k++) {
-              real_T temp;
-              int32_T b_temp_tmp;
-              int32_T temp_tmp;
+            for (int k{0}; k < n; k++) {
+              double temp;
+              int b_temp_tmp;
+              int temp_tmp;
               temp_tmp = (iy0 + k) - 1;
               b_temp_tmp = (ix0 + k) - 1;
               temp = c * x[b_temp_tmp] + s * x[temp_tmp];

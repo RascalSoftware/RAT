@@ -20,8 +20,8 @@
 // Function Declarations
 namespace RAT
 {
-  real_T inEllipsoids(const ::coder::array<real_T, 2U> &pnt, const ::coder::
-                      array<real_T, 2U> &Bs, const ::coder::array<real_T, 2U>
+  double inEllipsoids(const ::coder::array<double, 2U> &pnt, const ::coder::
+                      array<double, 2U> &Bs, const ::coder::array<double, 2U>
                       &mus);
 }
 

@@ -23,15 +23,15 @@ namespace RAT
     {
       namespace reflapack
       {
-        void xzlartg(const creal_T f, const creal_T g, real_T *cs, creal_T *sn)
+        void xzlartg(const creal_T f, const creal_T g, double *cs, creal_T *sn)
         {
-          real_T f2;
-          real_T fs_im;
-          real_T fs_re;
-          real_T gs_im;
-          real_T gs_re;
-          real_T scale;
-          real_T scale_tmp;
+          double f2;
+          double fs_im;
+          double fs_re;
+          double gs_im;
+          double gs_re;
+          double scale;
+          double scale_tmp;
           boolean_T guard1{ false };
 
           scale_tmp = std::abs(f.re);
@@ -87,7 +87,7 @@ namespace RAT
           }
 
           if (guard1) {
-            real_T g2;
+            double g2;
             f2 = fs_re * fs_re + fs_im * fs_im;
             g2 = gs_re * gs_re + gs_im * gs_im;
             scale = g2;
@@ -102,7 +102,7 @@ namespace RAT
                 sn->re = gs_re / g2;
                 sn->im = -gs_im / g2;
               } else {
-                real_T g2s;
+                double g2s;
                 g2s = std::sqrt(g2);
                 *cs = rt_hypotd_snf(fs_re, fs_im) / g2s;
                 if (scale_tmp > 1.0) {
@@ -134,18 +134,18 @@ namespace RAT
           }
         }
 
-        void xzlartg(const creal_T f, const creal_T g, real_T *cs, creal_T *sn,
+        void xzlartg(const creal_T f, const creal_T g, double *cs, creal_T *sn,
                      creal_T *r)
         {
-          real_T f2s;
-          real_T fs_im;
-          real_T fs_re;
-          real_T gs_im;
-          real_T gs_re;
-          real_T scale;
-          real_T scale_tmp;
-          int32_T count;
-          int32_T rescaledir;
+          double f2s;
+          double fs_im;
+          double fs_re;
+          double gs_im;
+          double gs_re;
+          double scale;
+          double scale_tmp;
+          int count;
+          int rescaledir;
           boolean_T guard1{ false };
 
           scale_tmp = std::abs(f.re);
@@ -208,8 +208,8 @@ namespace RAT
           }
 
           if (guard1) {
-            real_T f2;
-            real_T g2;
+            double f2;
+            double g2;
             f2 = fs_re * fs_re + fs_im * fs_im;
             g2 = gs_re * gs_re + gs_im * gs_im;
             scale = g2;

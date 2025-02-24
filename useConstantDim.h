@@ -24,8 +24,7 @@ namespace RAT
   {
     namespace internal
     {
-      void useConstantDim(::coder::array<real_T, 2U> &varargin_2, int32_T
-                          varargin_3);
+      void useConstantDim(::coder::array<double, 2U> &varargin_2, int varargin_3);
     }
   }
 }

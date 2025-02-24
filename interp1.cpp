@@ -21,12 +21,12 @@ namespace RAT
 {
   namespace coder
   {
-    static void interp1Linear(const ::coder::array<real_T, 1U> &y, int32_T
-      nyrows, const ::coder::array<real_T, 2U> &xi, ::coder::array<real_T, 2U>
-      &yi, const ::coder::array<real_T, 1U> &varargin_1);
-    static void interp1Linear(const ::coder::array<real_T, 1U> &y, int32_T
-      nyrows, const ::coder::array<real_T, 1U> &xi, ::coder::array<real_T, 1U>
-      &yi, const ::coder::array<real_T, 1U> &varargin_1);
+    static void interp1Linear(const ::coder::array<double, 1U> &y, int nyrows,
+      const ::coder::array<double, 2U> &xi, ::coder::array<double, 2U> &yi,
+      const ::coder::array<double, 1U> &varargin_1);
+    static void interp1Linear(const ::coder::array<double, 1U> &y, int nyrows,
+      const ::coder::array<double, 1U> &xi, ::coder::array<double, 1U> &yi,
+      const ::coder::array<double, 1U> &varargin_1);
   }
 }
 
@@ -35,18 +35,18 @@ namespace RAT
 {
   namespace coder
   {
-    static void interp1Linear(const ::coder::array<real_T, 1U> &y, int32_T
-      nyrows, const ::coder::array<real_T, 2U> &xi, ::coder::array<real_T, 2U>
-      &yi, const ::coder::array<real_T, 1U> &varargin_1)
+    static void interp1Linear(const ::coder::array<double, 1U> &y, int nyrows,
+      const ::coder::array<double, 2U> &xi, ::coder::array<double, 2U> &yi,
+      const ::coder::array<double, 1U> &varargin_1)
     {
-      real_T d;
-      real_T maxx;
-      real_T minx;
-      real_T penx;
-      real_T r;
-      int32_T k;
-      int32_T n;
-      int32_T ub_loop;
+      double d;
+      double maxx;
+      double minx;
+      double penx;
+      double r;
+      int k;
+      int n;
+      int ub_loop;
       minx = varargin_1[0];
       penx = varargin_1[varargin_1.size(0) - 2];
       maxx = varargin_1[varargin_1.size(0) - 1];
@@ -86,18 +86,18 @@ namespace RAT
       }
     }
 
-    static void interp1Linear(const ::coder::array<real_T, 1U> &y, int32_T
-      nyrows, const ::coder::array<real_T, 1U> &xi, ::coder::array<real_T, 1U>
-      &yi, const ::coder::array<real_T, 1U> &varargin_1)
+    static void interp1Linear(const ::coder::array<double, 1U> &y, int nyrows,
+      const ::coder::array<double, 1U> &xi, ::coder::array<double, 1U> &yi,
+      const ::coder::array<double, 1U> &varargin_1)
     {
-      real_T d;
-      real_T maxx;
-      real_T minx;
-      real_T penx;
-      real_T r;
-      int32_T k;
-      int32_T n;
-      int32_T ub_loop;
+      double d;
+      double maxx;
+      double minx;
+      double penx;
+      double r;
+      int k;
+      int n;
+      int ub_loop;
       minx = varargin_1[0];
       penx = varargin_1[varargin_1.size(0) - 2];
       maxx = varargin_1[varargin_1.size(0) - 1];
@@ -136,15 +136,15 @@ namespace RAT
       }
     }
 
-    void interp1(const ::coder::array<real_T, 1U> &varargin_1, const ::coder::
-                 array<real_T, 1U> &varargin_2, const ::coder::array<real_T, 2U>
-                 &varargin_3, ::coder::array<real_T, 2U> &Vq)
+    void interp1(const ::coder::array<double, 1U> &varargin_1, const ::coder::
+                 array<double, 1U> &varargin_2, const ::coder::array<double, 2U>
+                 &varargin_3, ::coder::array<double, 2U> &Vq)
     {
-      ::coder::array<real_T, 1U> x;
-      ::coder::array<real_T, 1U> y;
-      int32_T i;
-      int32_T k;
-      int32_T nx;
+      ::coder::array<double, 1U> x;
+      ::coder::array<double, 1U> y;
+      int i;
+      int k;
+      int nx;
       boolean_T b;
       y.set_size(varargin_2.size(0));
       k = varargin_2.size(0);
@@ -168,7 +168,7 @@ namespace RAT
       b = (varargin_3.size(1) == 0);
       if (!b) {
         k = 0;
-        int32_T exitg1;
+        int exitg1;
         do {
           exitg1 = 0;
           if (k <= nx) {
@@ -180,8 +180,8 @@ namespace RAT
           } else {
             if (varargin_1[1] < varargin_1[0]) {
               i = (nx + 1) >> 1;
-              for (int32_T b_j1{0}; b_j1 < i; b_j1++) {
-                real_T xtmp;
+              for (int b_j1{0}; b_j1 < i; b_j1++) {
+                double xtmp;
                 xtmp = x[b_j1];
                 k = nx - b_j1;
                 x[b_j1] = x[k];
@@ -198,15 +198,15 @@ namespace RAT
       }
     }
 
-    void interp1(const ::coder::array<real_T, 1U> &varargin_1, const ::coder::
-                 array<real_T, 1U> &varargin_2, const ::coder::array<real_T, 1U>
-                 &varargin_3, ::coder::array<real_T, 1U> &Vq)
+    void interp1(const ::coder::array<double, 1U> &varargin_1, const ::coder::
+                 array<double, 1U> &varargin_2, const ::coder::array<double, 1U>
+                 &varargin_3, ::coder::array<double, 1U> &Vq)
     {
-      ::coder::array<real_T, 1U> x;
-      ::coder::array<real_T, 1U> y;
-      int32_T i;
-      int32_T k;
-      int32_T nx;
+      ::coder::array<double, 1U> x;
+      ::coder::array<double, 1U> y;
+      int i;
+      int k;
+      int nx;
       y.set_size(varargin_2.size(0));
       k = varargin_2.size(0);
       for (i = 0; i < k; i++) {
@@ -228,7 +228,7 @@ namespace RAT
 
       if (varargin_3.size(0) != 0) {
         k = 0;
-        int32_T exitg1;
+        int exitg1;
         do {
           exitg1 = 0;
           if (k <= nx) {
@@ -240,8 +240,8 @@ namespace RAT
           } else {
             if (varargin_1[1] < varargin_1[0]) {
               i = (nx + 1) >> 1;
-              for (int32_T b_j1{0}; b_j1 < i; b_j1++) {
-                real_T xtmp;
+              for (int b_j1{0}; b_j1 < i; b_j1++) {
+                double xtmp;
                 xtmp = x[b_j1];
                 k = nx - b_j1;
                 x[b_j1] = x[k];

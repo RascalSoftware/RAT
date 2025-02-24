@@ -31,16 +31,16 @@ namespace RAT
         }
       } else if ((std::abs(x->re) > 8.9884656743115785E+307) || (std::abs(x->im)
                   > 8.9884656743115785E+307)) {
-        real_T d;
-        real_T d1;
+        double d;
+        double d1;
         d = x->im;
         d1 = x->re;
         x->re = std::log(rt_hypotd_snf(x->re / 2.0, x->im / 2.0)) +
           0.69314718055994529;
         x->im = rt_atan2d_snf(d, d1);
       } else {
-        real_T d;
-        real_T d1;
+        double d;
+        double d1;
         d = x->im;
         d1 = x->re;
         x->re = std::log(rt_hypotd_snf(x->re, x->im));

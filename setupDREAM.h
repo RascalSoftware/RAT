@@ -21,19 +21,19 @@
 namespace RAT
 {
   struct b_struct_T;
-  struct struct11_T;
-  struct j_struct_T;
+  struct DreamParams;
+  struct g_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void setupDREAM(real_T DREAMPar_nParams, real_T DREAMPar_nChains, real_T
-                  DREAMPar_nGenerations, real_T DREAMPar_jumpProbability, real_T
+  void setupDREAM(double DREAMPar_nParams, double DREAMPar_nChains, double
+                  DREAMPar_nGenerations, double DREAMPar_jumpProbability, double
                   DREAMPar_pUnitGamma, boolean_T DREAMPar_adaptPCR, b_struct_T
-                  *Meas_info, struct11_T *outDREAMPar, ::coder::array<real_T, 3U>
-                  &chain, j_struct_T *output, ::coder::array<real_T, 2U> &log_L,
-                  ::coder::array<real_T, 2U> &Table_gamma);
+                  *Meas_info, DreamParams *outDREAMPar, ::coder::array<double,
+                  3U> &chain, g_struct_T *output, ::coder::array<double, 2U>
+                  &log_L, ::coder::array<double, 2U> &Table_gamma);
 }
 
 #endif

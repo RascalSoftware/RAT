@@ -20,14 +20,14 @@
 // Type Declarations
 namespace RAT
 {
-  struct struct11_T;
+  struct DreamParams;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void gelman(const ::coder::array<real_T, 3U> &chain, const struct11_T
-              *DREAMPar, ::coder::array<real_T, 2U> &R_stat);
+  void gelman(const ::coder::array<double, 3U> &chain, const DreamParams
+              *DREAMPar, ::coder::array<double, 2U> &R_stat);
 }
 
 #endif

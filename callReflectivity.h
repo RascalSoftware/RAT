@@ -20,13 +20,13 @@
 // Function Declarations
 namespace RAT
 {
-  void callReflectivity(real_T bulkIn, real_T bulkOut, const ::coder::array<
-                        real_T, 1U> &simulationXData, const real_T dataIndices[2],
-                        const real_T repeatLayers[2], ::coder::array<real_T, 2U>
-                        &layers, real_T ssubs, const ::coder::array<real_T, 2U>
-                        &resolution, const char_T parallel_data[], const int32_T
+  void callReflectivity(double bulkIn, double bulkOut, const ::coder::array<
+                        double, 1U> &simulationXData, const double dataIndices[2],
+                        const double repeatLayers[2], ::coder::array<double, 2U>
+                        &layers, double ssubs, const ::coder::array<double, 2U>
+                        &resolution, const char parallel_data[], const int
                         parallel_size[2], boolean_T useImaginary, ::coder::array<
-                        real_T, 2U> &reflectivity, ::coder::array<real_T, 2U>
+                        double, 2U> &reflectivity, ::coder::array<double, 2U>
                         &simulation);
 }
 

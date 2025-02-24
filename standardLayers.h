@@ -20,12 +20,12 @@
 // Type Declarations
 namespace RAT
 {
-  struct e_struct_T;
-  struct struct4_T;
+  struct ProblemDefinition;
+  struct Controls;
   struct cell_wrap_7;
   struct cell_wrap_8;
   struct cell_wrap_9;
-  struct struct0_T;
+  struct b_ProblemDefinition;
 }
 
 // Function Declarations
@@ -33,11 +33,11 @@ namespace RAT
 {
   namespace normalTF
   {
-    void b_standardLayers(const e_struct_T *problemStruct, const struct4_T
-                          *controls, ::coder::array<real_T, 1U> &qzshifts, ::
-                          coder::array<real_T, 1U> &scalefactors, ::coder::array<
-                          real_T, 1U> &bulkIns, ::coder::array<real_T, 1U>
-                          &bulkOuts, ::coder::array<real_T, 1U> &chis, ::coder::
+    void b_standardLayers(const ProblemDefinition *problemStruct, const Controls
+                          *controls, ::coder::array<double, 1U> &qzshifts, ::
+                          coder::array<double, 1U> &scalefactors, ::coder::array<
+                          double, 1U> &bulkIns, ::coder::array<double, 1U>
+                          &bulkOuts, ::coder::array<double, 1U> &chis, ::coder::
                           array<cell_wrap_7, 1U> &reflectivity, ::coder::array<
                           cell_wrap_7, 1U> &simulation, ::coder::array<
                           cell_wrap_8, 1U> &shiftedData, ::coder::array<
@@ -46,12 +46,12 @@ namespace RAT
                           cell_wrap_9, 2U> &layerSlds, ::coder::array<
                           cell_wrap_9, 2U> &sldProfiles, ::coder::array<
                           cell_wrap_9, 2U> &resampledLayers, ::coder::array<
-                          real_T, 1U> &subRoughs);
-    void standardLayers(const e_struct_T *problemStruct, const struct4_T
-                        *controls, ::coder::array<real_T, 1U> &qzshifts, ::coder::
-                        array<real_T, 1U> &scalefactors, ::coder::array<real_T,
-                        1U> &bulkIns, ::coder::array<real_T, 1U> &bulkOuts, ::
-                        coder::array<real_T, 1U> &chis, ::coder::array<
+                          double, 1U> &subRoughs);
+    void standardLayers(const ProblemDefinition *problemStruct, const Controls
+                        *controls, ::coder::array<double, 1U> &qzshifts, ::coder::
+                        array<double, 1U> &scalefactors, ::coder::array<double,
+                        1U> &bulkIns, ::coder::array<double, 1U> &bulkOuts, ::
+                        coder::array<double, 1U> &chis, ::coder::array<
                         cell_wrap_7, 1U> &reflectivity, ::coder::array<
                         cell_wrap_7, 1U> &simulation, ::coder::array<cell_wrap_8,
                         1U> &shiftedData, ::coder::array<cell_wrap_8, 1U>
@@ -59,12 +59,12 @@ namespace RAT
                         &resolutions, ::coder::array<cell_wrap_9, 2U> &layerSlds,
                         ::coder::array<cell_wrap_9, 2U> &sldProfiles, ::coder::
                         array<cell_wrap_9, 2U> &resampledLayers, ::coder::array<
-                        real_T, 1U> &subRoughs);
-    void standardLayers(const struct0_T *problemStruct, const struct4_T
-                        *controls, ::coder::array<real_T, 1U> &qzshifts, ::coder::
-                        array<real_T, 1U> &scalefactors, ::coder::array<real_T,
-                        1U> &bulkIns, ::coder::array<real_T, 1U> &bulkOuts, ::
-                        coder::array<real_T, 1U> &chis, ::coder::array<
+                        double, 1U> &subRoughs);
+    void standardLayers(const b_ProblemDefinition *problemStruct, const Controls
+                        *controls, ::coder::array<double, 1U> &qzshifts, ::coder::
+                        array<double, 1U> &scalefactors, ::coder::array<double,
+                        1U> &bulkIns, ::coder::array<double, 1U> &bulkOuts, ::
+                        coder::array<double, 1U> &chis, ::coder::array<
                         cell_wrap_7, 1U> &reflectivity, ::coder::array<
                         cell_wrap_7, 1U> &simulation, ::coder::array<cell_wrap_8,
                         1U> &shiftedData, ::coder::array<cell_wrap_8, 1U>
@@ -72,7 +72,7 @@ namespace RAT
                         &resolutions, ::coder::array<cell_wrap_9, 2U> &layerSlds,
                         ::coder::array<cell_wrap_9, 2U> &sldProfiles, ::coder::
                         array<cell_wrap_9, 2U> &resampledLayers, ::coder::array<
-                        real_T, 1U> &subRoughs);
+                        double, 1U> &subRoughs);
   }
 }
 

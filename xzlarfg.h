@@ -26,10 +26,10 @@ namespace RAT
     {
       namespace reflapack
       {
-        real_T xzlarfg(int32_T n, real_T *alpha1, ::coder::array<real_T, 1U> &x);
-        real_T xzlarfg(int32_T n, real_T *alpha1, ::coder::array<real_T, 2U> &x,
-                       int32_T ix0);
-        real_T xzlarfg(int32_T n, real_T *alpha1, real_T x[3]);
+        double xzlarfg(int n, double *alpha1, ::coder::array<double, 1U> &x);
+        double xzlarfg(int n, double *alpha1, ::coder::array<double, 2U> &x, int
+                       ix0);
+        double xzlarfg(int n, double *alpha1, double x[3]);
       }
     }
   }

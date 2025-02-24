@@ -19,18 +19,18 @@
 // Function Definitions
 namespace RAT
 {
-  void multrnd(real_T n, const real_T p_data[], const int32_T p_size[2], real_T
-               X_data[], int32_T X_size[2])
+  void multrnd(double n, const double p_data[], const int p_size[2], double
+               X_data[], int X_size[2])
   {
-    ::coder::array<real_T, 2U> b_p_data;
-    ::coder::array<real_T, 2U> o;
-    ::coder::array<real_T, 2U> r;
+    ::coder::array<double, 2U> b_p_data;
+    ::coder::array<double, 2U> o;
+    ::coder::array<double, 2U> r;
     ::coder::array<boolean_T, 2U> b_o;
-    real_T s_data[3];
-    real_T P;
-    int32_T i;
-    int32_T j;
-    int32_T loop_ub_tmp;
+    double s_data[3];
+    double P;
+    int i;
+    int j;
+    int loop_ub_tmp;
 
     //  MULTRND Multinomial random sequence of m simulations of k outcomes with p probabiltites
     //   in n trials.
@@ -110,7 +110,7 @@ namespace RAT
     //            Functions, Government Printing Office, 26.1.20. Available on
     //            Internet at the URL address http://hcohl.shell42.com/as/frameindex.htm
     //
-    b_p_data.set((real_T *)&p_data[0], p_size[0], p_size[1]);
+    b_p_data.set((double *)&p_data[0], p_size[0], p_size[1]);
     if (b_p_data.size(1) == 0) {
       P = 0.0;
     } else {
@@ -121,7 +121,7 @@ namespace RAT
     //     error('The sum of the input probabilities must be equal 1.')
     //     return,
     // end;
-    loop_ub_tmp = static_cast<int32_T>(n);
+    loop_ub_tmp = static_cast<int>(n);
     o.set_size(1, loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
       o[i] = 1.0;
@@ -137,7 +137,7 @@ namespace RAT
       o.set_size(1, o.size(1));
       loop_ub_tmp = o.size(1);
       for (i = 0; i < loop_ub_tmp; i++) {
-        o[i] = o[i] + static_cast<real_T>(r[i] > s_data[j]);
+        o[i] = o[i] + static_cast<double>(r[i] > s_data[j]);
       }
     }
 
@@ -147,7 +147,7 @@ namespace RAT
     for (j = 0; j < 3; j++) {
       b_o.set_size(1, o.size(1));
       for (i = 0; i < loop_ub_tmp; i++) {
-        b_o[i] = (o[i] == static_cast<real_T>(j) + 1.0);
+        b_o[i] = (o[i] == static_cast<double>(j) + 1.0);
       }
 
       X_data[j] = coder::combineVectorElements(b_o);

@@ -25,36 +25,36 @@
 // Function Definitions
 namespace RAT
 {
-  void splitEllipsoid(const ::coder::array<real_T, 2U> &u, real_T VS, ::coder::
-                      array<real_T, 2U> &u1, ::coder::array<real_T, 2U> &u2,
-                      real_T VE1_data[], int32_T VE1_size[2], real_T VE2_data[],
-                      int32_T VE2_size[2], real_T *nosplit)
+  void splitEllipsoid(const ::coder::array<double, 2U> &u, double VS, ::coder::
+                      array<double, 2U> &u1, ::coder::array<double, 2U> &u2,
+                      double VE1_data[], int VE1_size[2], double VE2_data[], int
+                      VE2_size[2], double *nosplit)
   {
-    ::coder::array<real_T, 2U> B1;
-    ::coder::array<real_T, 2U> B2;
-    ::coder::array<real_T, 2U> b_u;
-    ::coder::array<real_T, 2U> idx;
-    ::coder::array<real_T, 2U> mu1;
-    ::coder::array<real_T, 2U> mu2;
-    ::coder::array<real_T, 2U> r2;
-    ::coder::array<real_T, 2U> u1new;
-    ::coder::array<real_T, 2U> u2new;
-    ::coder::array<int32_T, 1U> r;
-    ::coder::array<int32_T, 1U> r1;
+    ::coder::array<double, 2U> B1;
+    ::coder::array<double, 2U> B2;
+    ::coder::array<double, 2U> b_u;
+    ::coder::array<double, 2U> idx;
+    ::coder::array<double, 2U> mu1;
+    ::coder::array<double, 2U> mu2;
+    ::coder::array<double, 2U> r2;
+    ::coder::array<double, 2U> u1new;
+    ::coder::array<double, 2U> u2new;
+    ::coder::array<int, 1U> r;
+    ::coder::array<int, 1U> r1;
     ::coder::array<boolean_T, 2U> b_VE1_data;
     cell_wrap_9 temp_u1[50];
     cell_wrap_9 temp_u2[50];
-    real_T FS[50];
-    real_T temp_VE1[50];
-    real_T temp_VE2[50];
-    real_T mu[2];
-    real_T flag1;
-    real_T flag2;
-    real_T minFS;
-    int32_T D;
-    int32_T N;
-    int32_T b_nosplit;
-    int32_T iindx;
+    double FS[50];
+    double temp_VE1[50];
+    double temp_VE2[50];
+    double mu[2];
+    double flag1;
+    double flag2;
+    double minFS;
+    int D;
+    int N;
+    int b_nosplit;
+    int iindx;
     boolean_T c_VE1_data;
 
     //  function [u1, u2, VE1, VE2, nosplit] = split_ellipsiod(u, VS)
@@ -86,7 +86,7 @@ namespace RAT
     D = u.size(1);
 
     //  check total number of samples
-    if (u.size(0) < 2.0 * (static_cast<real_T>(u.size(1)) + 1.0)) {
+    if (u.size(0) < 2.0 * (static_cast<double>(u.size(1)) + 1.0)) {
       if (DEBUG != 0.0) {
         printf("CANT SPLIT: total number of samples is too small!  N = %d\n",
                u.size(0));
@@ -95,13 +95,13 @@ namespace RAT
 
       b_nosplit = 1;
     } else {
-      int32_T b_i;
-      int32_T end;
-      int32_T i;
-      int32_T i1;
-      int32_T loop_ub;
-      int32_T n1;
-      int32_T n2;
+      int b_i;
+      int end;
+      int i;
+      int i1;
+      int loop_ub;
+      int n1;
+      int n2;
 
       //  use kmeans to separate the data points into two sub-clusters
       kmeans(u, idx, mu);
@@ -164,8 +164,8 @@ namespace RAT
 
       //  number of samples in S2
       //  check number of points in subclusters
-      if ((static_cast<uint32_T>(r.size(0)) < u.size(1) + 1U) ||
-          (static_cast<uint32_T>(r1.size(0)) < u.size(1) + 1U)) {
+      if ((static_cast<unsigned int>(r.size(0)) < u.size(1) + 1U) || (
+           static_cast<unsigned int>(r1.size(0)) < u.size(1) + 1U)) {
         if (DEBUG != 0.0) {
           printf("CANT SPLIT: number of samples in subclusters is too small! n1 = %d, n2 = %d\n",
                  r.size(0), r1.size(0));
@@ -174,7 +174,7 @@ namespace RAT
 
         b_nosplit = 1;
       } else {
-        int32_T counter;
+        int counter;
 
         //  preallocate temp arrays
         makeCell(temp_u1);
@@ -187,15 +187,15 @@ namespace RAT
 
         // %%%%%%%%%%%%%%%%%%%%%%%%%
         counter = 0;
-        real_T VS1;
-        real_T VS2;
-        int32_T exitg1;
+        double VS1;
+        double VS2;
+        int exitg1;
         do {
           exitg1 = 0;
 
           //  calculate minimum volume of ellipsoids
-          VS1 = VS * static_cast<real_T>(n1) / static_cast<real_T>(N);
-          VS2 = VS * static_cast<real_T>(n2) / static_cast<real_T>(N);
+          VS1 = VS * static_cast<double>(n1) / static_cast<double>(N);
+          VS2 = VS * static_cast<double>(n2) / static_cast<double>(N);
 
           //  calculate properties of bounding ellipsoids for the two subclusters
           calcEllipsoid(u1, VS1, B1, mu1, VE1_data, VE1_size, &flag1);
@@ -211,9 +211,9 @@ namespace RAT
             b_nosplit = 1;
             exitg1 = 1;
           } else {
-            int32_T reassign;
-            uint32_T m1;
-            uint32_T m2;
+            unsigned int m1;
+            unsigned int m2;
+            int reassign;
 
             //  construct temporary arrays and cell arrays containing results for
             //  each pass through the loop
@@ -263,8 +263,8 @@ namespace RAT
             //  for all points get the Mahalanobis distance between each point and
             //  the centroid of each ellipse and assign accordingly
             for (i = 0; i < N; i++) {
-              real_T b;
-              real_T b_b;
+              double b;
+              double b_b;
 
               //  get d = (u-mu)^T * B^-1 * (u-mu)
               end = u.size(1);
@@ -307,8 +307,8 @@ namespace RAT
                 m1++;
                 end = u.size(1);
                 for (b_i = 0; b_i < end; b_i++) {
-                  u1new[(static_cast<int32_T>(m1) + u1new.size(0) * b_i) - 1] =
-                    u[i + u.size(0) * b_i];
+                  u1new[(static_cast<int>(m1) + u1new.size(0) * b_i) - 1] = u[i
+                    + u.size(0) * b_i];
                 }
 
                 //  check if point has been reassigned or not
@@ -320,8 +320,8 @@ namespace RAT
                 m2++;
                 end = u.size(1);
                 for (b_i = 0; b_i < end; b_i++) {
-                  u2new[(static_cast<int32_T>(m2) + u2new.size(0) * b_i) - 1] =
-                    u[i + u.size(0) * b_i];
+                  u2new[(static_cast<int>(m2) + u2new.size(0) * b_i) - 1] = u[i
+                    + u.size(0) * b_i];
                 }
 
                 //  check if point has been reassigned or not
@@ -332,12 +332,12 @@ namespace RAT
               }
             }
 
-            n1 = static_cast<int32_T>(m1);
-            n2 = static_cast<int32_T>(m2);
-            if (1 > static_cast<int32_T>(m1)) {
+            n1 = static_cast<int>(m1);
+            n2 = static_cast<int>(m2);
+            if (1 > static_cast<int>(m1)) {
               end = 0;
             } else {
-              end = static_cast<int32_T>(m1);
+              end = static_cast<int>(m1);
             }
 
             loop_ub = u1new.size(1);
@@ -348,10 +348,10 @@ namespace RAT
               }
             }
 
-            if (1 > static_cast<int32_T>(m2)) {
+            if (1 > static_cast<int>(m2)) {
               end = 0;
             } else {
-              end = static_cast<int32_T>(m2);
+              end = static_cast<int>(m2);
             }
 
             loop_ub = u2new.size(1);

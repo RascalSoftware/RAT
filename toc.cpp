@@ -19,12 +19,12 @@ namespace RAT
 {
   namespace coder
   {
-    real_T toc()
+    double toc()
     {
-      real_T tnow_tv_nsec;
-      real_T tnow_tv_sec;
-      real_T tstart_tv_nsec;
-      real_T tstart_tv_sec;
+      double tnow_tv_nsec;
+      double tnow_tv_sec;
+      double tstart_tv_nsec;
+      double tstart_tv_sec;
       internal::time::impl::timeKeeper(&tstart_tv_sec, &tstart_tv_nsec);
       internal::time::getTime(&tnow_tv_sec, &tnow_tv_nsec);
       return (tnow_tv_sec - tstart_tv_sec) + (tnow_tv_nsec - tstart_tv_nsec) /

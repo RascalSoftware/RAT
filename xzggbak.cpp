@@ -22,16 +22,16 @@ namespace RAT
     {
       namespace reflapack
       {
-        void xzggbak(::coder::array<creal_T, 2U> &V, int32_T ilo, int32_T ihi,
-                     const ::coder::array<int32_T, 1U> &rscale)
+        void xzggbak(::coder::array<creal_T, 2U> &V, int ilo, int ihi, const ::
+                     coder::array<int, 1U> &rscale)
         {
-          real_T tmp_im;
-          real_T tmp_re;
-          int32_T i;
-          int32_T j;
-          int32_T k;
-          int32_T m;
-          int32_T n;
+          double tmp_im;
+          double tmp_re;
+          int i;
+          int j;
+          int k;
+          int m;
+          int n;
           n = V.size(0);
           m = V.size(1) - 1;
           if (ilo > 1) {
@@ -52,7 +52,7 @@ namespace RAT
           if (ihi < n) {
             k = ihi + 1;
             for (i = k; i <= n; i++) {
-              int32_T b_i;
+              int b_i;
               b_i = rscale[i - 1];
               if (b_i != i) {
                 for (j = 0; j <= m; j++) {

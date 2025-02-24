@@ -24,24 +24,24 @@ namespace RAT
   {
     namespace internal
     {
-      real_T b_maximum(const real_T x[3]);
-      void maximum(const ::coder::array<real_T, 2U> &x, ::coder::array<real_T,
+      double b_maximum(const double x[3]);
+      void maximum(const ::coder::array<double, 2U> &x, ::coder::array<double,
                    2U> &ex);
-      real_T maximum(const ::coder::array<real_T, 1U> &x);
-      real_T maximum(const ::coder::array<real_T, 2U> &x);
-      void maximum(const ::coder::array<real_T, 2U> &x, real_T ex[2]);
-      real_T maximum(const real_T x[2]);
-      void maximum2(const ::coder::array<real_T, 1U> &x, real_T y, ::coder::
-                    array<real_T, 1U> &ex);
-      void maximum2(const ::coder::array<real_T, 1U> &x, const ::coder::array<
-                    real_T, 1U> &y, ::coder::array<real_T, 1U> &ex);
-      void minimum(const ::coder::array<real_T, 1U> &x, real_T *ex, int32_T *idx);
-      real_T minimum(const real_T x[2]);
-      void minimum(const real_T x[50], real_T *ex, int32_T *idx);
-      void minimum(const ::coder::array<real_T, 2U> &x, real_T ex[2]);
-      void minimum2(const ::coder::array<real_T, 1U> &x, real_T y, ::coder::
-                    array<real_T, 1U> &ex);
-      void minimum2(const ::coder::array<real_T, 1U> &y, ::coder::array<real_T,
+      double maximum(const ::coder::array<double, 1U> &x);
+      double maximum(const ::coder::array<double, 2U> &x);
+      void maximum(const ::coder::array<double, 2U> &x, double ex[2]);
+      double maximum(const double x[2]);
+      void maximum2(const ::coder::array<double, 1U> &x, double y, ::coder::
+                    array<double, 1U> &ex);
+      void maximum2(const ::coder::array<double, 1U> &x, const ::coder::array<
+                    double, 1U> &y, ::coder::array<double, 1U> &ex);
+      void minimum(const ::coder::array<double, 1U> &x, double *ex, int *idx);
+      double minimum(const double x[2]);
+      void minimum(const double x[50], double *ex, int *idx);
+      void minimum(const ::coder::array<double, 2U> &x, double ex[2]);
+      void minimum2(const ::coder::array<double, 1U> &x, double y, ::coder::
+                    array<double, 1U> &ex);
+      void minimum2(const ::coder::array<double, 1U> &y, ::coder::array<double,
                     1U> &ex);
     }
   }

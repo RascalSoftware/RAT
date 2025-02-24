@@ -29,8 +29,8 @@ namespace RAT
     {
       namespace reflapack
       {
-        static void qrpf(::coder::array<real_T, 1U> &A, int32_T m, real_T
-                         tau_data[], int32_T *jpvt);
+        static void qrpf(::coder::array<double, 1U> &A, int m, double tau_data[],
+                         int *jpvt);
       }
     }
   }
@@ -45,11 +45,11 @@ namespace RAT
     {
       namespace reflapack
       {
-        static void qrpf(::coder::array<real_T, 1U> &A, int32_T m, real_T
-                         tau_data[], int32_T *jpvt)
+        static void qrpf(::coder::array<double, 1U> &A, int m, double tau_data[],
+                         int *jpvt)
         {
-          real_T atmp;
-          int32_T minmn;
+          double atmp;
+          int minmn;
           *jpvt = 1;
           if (m < 1) {
             minmn = m;
@@ -57,7 +57,7 @@ namespace RAT
             minmn = 1;
           }
 
-          for (int32_T i{0}; i < minmn; i++) {
+          for (int i{0}; i < minmn; i++) {
             if (1 < m) {
               atmp = A[0];
               tau_data[0] = xzlarfg(m, &atmp, A);
@@ -68,17 +68,17 @@ namespace RAT
           }
         }
 
-        void qrpf(::coder::array<real_T, 2U> &A, int32_T m, int32_T n, ::coder::
-                  array<real_T, 1U> &tau, ::coder::array<int32_T, 2U> &jpvt)
+        void qrpf(::coder::array<double, 2U> &A, int m, int n, ::coder::array<
+                  double, 1U> &tau, ::coder::array<int, 2U> &jpvt)
         {
-          ::coder::array<real_T, 1U> vn1;
-          ::coder::array<real_T, 1U> vn2;
-          ::coder::array<real_T, 1U> work;
-          real_T atmp;
-          int32_T itemp;
-          int32_T j;
-          int32_T ma;
-          int32_T minmn;
+          ::coder::array<double, 1U> vn1;
+          ::coder::array<double, 1U> vn2;
+          ::coder::array<double, 1U> work;
+          double atmp;
+          int itemp;
+          int j;
+          int ma;
+          int minmn;
           ma = A.size(0);
           if (m < n) {
             minmn = m;
@@ -110,12 +110,12 @@ namespace RAT
             vn2[j] = atmp;
           }
 
-          for (int32_T i{0}; i < minmn; i++) {
-            int32_T ii;
-            int32_T ip1;
-            int32_T mmi;
-            int32_T nmi;
-            int32_T pvt;
+          for (int i{0}; i < minmn; i++) {
+            int ii;
+            int ip1;
+            int mmi;
+            int nmi;
+            int pvt;
             ip1 = i + 2;
             j = i * ma;
             ii = j + i;
@@ -150,8 +150,8 @@ namespace RAT
               itemp = i + (j - 1) * ma;
               atmp = vn1[j - 1];
               if (atmp != 0.0) {
-                real_T temp1;
-                real_T temp2;
+                double temp1;
+                double temp2;
                 temp1 = std::abs(A[itemp]) / atmp;
                 temp1 = 1.0 - temp1 * temp1;
                 if (temp1 < 0.0) {
@@ -177,8 +177,8 @@ namespace RAT
           }
         }
 
-        void xzgeqp3(::coder::array<real_T, 1U> &A, int32_T m, real_T tau_data[],
-                     int32_T *tau_size, int32_T *jpvt)
+        void xzgeqp3(::coder::array<double, 1U> &A, int m, double tau_data[],
+                     int *tau_size, int *jpvt)
         {
           *tau_size = A.size(0);
           if (*tau_size >= 1) {
@@ -186,13 +186,13 @@ namespace RAT
           }
 
           if (0 <= *tau_size - 1) {
-            std::memset(&tau_data[0], 0, *tau_size * sizeof(real_T));
+            std::memset(&tau_data[0], 0, *tau_size * sizeof(double));
           }
 
           if (A.size(0) == 0) {
             *jpvt = 1;
           } else {
-            int32_T y;
+            int y;
             if (m < 1) {
               y = m;
             } else {

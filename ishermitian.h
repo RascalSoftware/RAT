@@ -22,7 +22,7 @@ namespace RAT
 {
   namespace coder
   {
-    boolean_T ishermitian(const ::coder::array<real_T, 2U> &A);
+    boolean_T ishermitian(const ::coder::array<double, 2U> &A);
   }
 }
 

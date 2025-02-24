@@ -22,11 +22,11 @@ namespace RAT
   {
     namespace internal
     {
-      real_T b_maximum(const real_T x[3])
+      double b_maximum(const double x[3])
       {
-        real_T ex;
-        int32_T idx;
-        int32_T k;
+        double ex;
+        int idx;
+        int k;
         if (!std::isnan(x[0])) {
           idx = 1;
         } else {
@@ -50,7 +50,7 @@ namespace RAT
           ex = x[idx - 1];
           idx++;
           for (k = idx; k < 4; k++) {
-            real_T d;
+            double d;
             d = x[k - 1];
             if (ex < d) {
               ex = d;
@@ -61,19 +61,19 @@ namespace RAT
         return ex;
       }
 
-      void maximum(const ::coder::array<real_T, 2U> &x, ::coder::array<real_T,
+      void maximum(const ::coder::array<double, 2U> &x, ::coder::array<double,
                    2U> &ex)
       {
-        int32_T m;
-        int32_T n;
+        int m;
+        int n;
         m = x.size(0);
         n = x.size(1);
         ex.set_size(1, x.size(1));
         if (x.size(1) >= 1) {
-          for (int32_T j{0}; j < n; j++) {
+          for (int j{0}; j < n; j++) {
             ex[j] = x[x.size(0) * j];
-            for (int32_T i{2}; i <= m; i++) {
-              real_T d;
+            for (int i{2}; i <= m; i++) {
+              double d;
               d = x[(i + x.size(0) * j) - 1];
               if (relop(ex[j], d)) {
                 ex[j] = d;
@@ -83,10 +83,10 @@ namespace RAT
         }
       }
 
-      real_T maximum(const ::coder::array<real_T, 1U> &x)
+      double maximum(const ::coder::array<double, 1U> &x)
       {
-        real_T ex;
-        int32_T last;
+        double ex;
+        int last;
         last = x.size(0);
         if (x.size(0) <= 2) {
           if (x.size(0) == 1) {
@@ -98,8 +98,8 @@ namespace RAT
             ex = x[0];
           }
         } else {
-          int32_T idx;
-          int32_T k;
+          int idx;
+          int k;
           if (!std::isnan(x[0])) {
             idx = 1;
           } else {
@@ -123,7 +123,7 @@ namespace RAT
             ex = x[idx - 1];
             idx++;
             for (k = idx; k <= last; k++) {
-              real_T d;
+              double d;
               d = x[k - 1];
               if (ex < d) {
                 ex = d;
@@ -135,10 +135,10 @@ namespace RAT
         return ex;
       }
 
-      real_T maximum(const ::coder::array<real_T, 2U> &x)
+      double maximum(const ::coder::array<double, 2U> &x)
       {
-        real_T ex;
-        int32_T last;
+        double ex;
+        int last;
         last = x.size(1);
         if (x.size(1) <= 2) {
           if (x.size(1) == 1) {
@@ -150,8 +150,8 @@ namespace RAT
             ex = x[0];
           }
         } else {
-          int32_T idx;
-          int32_T k;
+          int idx;
+          int k;
           if (!std::isnan(x[0])) {
             idx = 1;
           } else {
@@ -175,7 +175,7 @@ namespace RAT
             ex = x[idx - 1];
             idx++;
             for (k = idx; k <= last; k++) {
-              real_T d;
+              double d;
               d = x[k - 1];
               if (ex < d) {
                 ex = d;
@@ -187,14 +187,14 @@ namespace RAT
         return ex;
       }
 
-      void maximum(const ::coder::array<real_T, 2U> &x, real_T ex[2])
+      void maximum(const ::coder::array<double, 2U> &x, double ex[2])
       {
-        int32_T m;
+        int m;
         m = x.size(0);
-        for (int32_T j{0}; j < 2; j++) {
+        for (int j{0}; j < 2; j++) {
           ex[j] = x[x.size(0) * j];
-          for (int32_T i{2}; i <= m; i++) {
-            real_T d;
+          for (int i{2}; i <= m; i++) {
+            double d;
             d = x[(i + x.size(0) * j) - 1];
             if (relop(ex[j], d)) {
               ex[j] = d;
@@ -203,9 +203,9 @@ namespace RAT
         }
       }
 
-      real_T maximum(const real_T x[2])
+      double maximum(const double x[2])
       {
-        real_T ex;
+        double ex;
         if ((x[0] < x[1]) || (std::isnan(x[0]) && (!std::isnan(x[1])))) {
           ex = x[1];
         } else {
@@ -215,13 +215,13 @@ namespace RAT
         return ex;
       }
 
-      void maximum2(const ::coder::array<real_T, 1U> &x, real_T y, ::coder::
-                    array<real_T, 1U> &ex)
+      void maximum2(const ::coder::array<double, 1U> &x, double y, ::coder::
+                    array<double, 1U> &ex)
       {
-        int32_T N;
+        int N;
         ex.set_size(x.size(0));
         N = x.size(0);
-        for (int32_T k{0}; k < N; k++) {
+        for (int k{0}; k < N; k++) {
           if (c_relop(x[k], y)) {
             ex[k] = y;
           } else {
@@ -230,10 +230,10 @@ namespace RAT
         }
       }
 
-      void maximum2(const ::coder::array<real_T, 1U> &x, const ::coder::array<
-                    real_T, 1U> &y, ::coder::array<real_T, 1U> &ex)
+      void maximum2(const ::coder::array<double, 1U> &x, const ::coder::array<
+                    double, 1U> &y, ::coder::array<double, 1U> &ex)
       {
-        int32_T csz_idx_0;
+        int csz_idx_0;
         if (x.size(0) <= y.size(0)) {
           csz_idx_0 = x.size(0);
         } else {
@@ -241,14 +241,14 @@ namespace RAT
         }
 
         ex.set_size(csz_idx_0);
-        for (int32_T k{0}; k < csz_idx_0; k++) {
+        for (int k{0}; k < csz_idx_0; k++) {
           ex[k] = std::fmax(x[k], y[k]);
         }
       }
 
-      void minimum(const ::coder::array<real_T, 1U> &x, real_T *ex, int32_T *idx)
+      void minimum(const ::coder::array<double, 1U> &x, double *ex, int *idx)
       {
-        int32_T last;
+        int last;
         last = x.size(0);
         if (x.size(0) <= 2) {
           if (x.size(0) == 1) {
@@ -263,7 +263,7 @@ namespace RAT
             *idx = 1;
           }
         } else {
-          int32_T k;
+          int k;
           if (!std::isnan(x[0])) {
             *idx = 1;
           } else {
@@ -285,11 +285,11 @@ namespace RAT
             *ex = x[0];
             *idx = 1;
           } else {
-            int32_T i;
+            int i;
             *ex = x[*idx - 1];
             i = *idx + 1;
             for (k = i; k <= last; k++) {
-              real_T d;
+              double d;
               d = x[k - 1];
               if (*ex > d) {
                 *ex = d;
@@ -300,9 +300,9 @@ namespace RAT
         }
       }
 
-      real_T minimum(const real_T x[2])
+      double minimum(const double x[2])
       {
-        real_T ex;
+        double ex;
         if ((x[0] > x[1]) || (std::isnan(x[0]) && (!std::isnan(x[1])))) {
           ex = x[1];
         } else {
@@ -312,9 +312,9 @@ namespace RAT
         return ex;
       }
 
-      void minimum(const real_T x[50], real_T *ex, int32_T *idx)
+      void minimum(const double x[50], double *ex, int *idx)
       {
-        int32_T k;
+        int k;
         if (!std::isnan(x[0])) {
           *idx = 1;
         } else {
@@ -336,11 +336,11 @@ namespace RAT
           *ex = x[0];
           *idx = 1;
         } else {
-          int32_T i;
+          int i;
           *ex = x[*idx - 1];
           i = *idx + 1;
           for (k = i; k < 51; k++) {
-            real_T d;
+            double d;
             d = x[k - 1];
             if (*ex > d) {
               *ex = d;
@@ -350,14 +350,14 @@ namespace RAT
         }
       }
 
-      void minimum(const ::coder::array<real_T, 2U> &x, real_T ex[2])
+      void minimum(const ::coder::array<double, 2U> &x, double ex[2])
       {
-        int32_T m;
+        int m;
         m = x.size(0);
-        for (int32_T j{0}; j < 2; j++) {
+        for (int j{0}; j < 2; j++) {
           ex[j] = x[x.size(0) * j];
-          for (int32_T i{2}; i <= m; i++) {
-            real_T d;
+          for (int i{2}; i <= m; i++) {
+            double d;
             d = x[(i + x.size(0) * j) - 1];
             if (b_relop(ex[j], d)) {
               ex[j] = d;
@@ -366,13 +366,13 @@ namespace RAT
         }
       }
 
-      void minimum2(const ::coder::array<real_T, 1U> &x, real_T y, ::coder::
-                    array<real_T, 1U> &ex)
+      void minimum2(const ::coder::array<double, 1U> &x, double y, ::coder::
+                    array<double, 1U> &ex)
       {
-        int32_T N;
+        int N;
         ex.set_size(x.size(0));
         N = x.size(0);
-        for (int32_T k{0}; k < N; k++) {
+        for (int k{0}; k < N; k++) {
           if (d_relop(x[k], y)) {
             ex[k] = y;
           } else {
@@ -381,13 +381,13 @@ namespace RAT
         }
       }
 
-      void minimum2(const ::coder::array<real_T, 1U> &y, ::coder::array<real_T,
+      void minimum2(const ::coder::array<double, 1U> &y, ::coder::array<double,
                     1U> &ex)
       {
-        int32_T N;
+        int N;
         ex.set_size(y.size(0));
         N = y.size(0);
-        for (int32_T k{0}; k < N; k++) {
+        for (int k{0}; k < N; k++) {
           ex[k] = std::fmin(0.0, y[k]);
         }
       }

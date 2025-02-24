@@ -18,18 +18,18 @@ namespace RAT
 {
   namespace coder
   {
-    boolean_T ishermitian(const ::coder::array<real_T, 2U> &A)
+    boolean_T ishermitian(const ::coder::array<double, 2U> &A)
     {
       boolean_T p;
       p = (A.size(0) == A.size(1));
       if (p) {
-        int32_T j;
+        int j;
         boolean_T exitg2;
         j = 0;
         exitg2 = false;
         while ((!exitg2) && (j <= A.size(1) - 1)) {
-          int32_T exitg1;
-          int32_T i;
+          int exitg1;
+          int i;
           i = 0;
           do {
             exitg1 = 0;

@@ -25,23 +25,23 @@ namespace RAT
     {
       namespace reflapack
       {
-        real_T xzlarfg(int32_T n, real_T *alpha1, ::coder::array<real_T, 1U> &x)
+        double xzlarfg(int n, double *alpha1, ::coder::array<double, 1U> &x)
         {
-          real_T tau;
+          double tau;
           tau = 0.0;
           if (n > 0) {
-            real_T xnorm;
+            double xnorm;
             xnorm = blas::xnrm2(n - 1, x);
             if (xnorm != 0.0) {
-              real_T beta1;
+              double beta1;
               beta1 = rt_hypotd_snf(*alpha1, xnorm);
               if (*alpha1 >= 0.0) {
                 beta1 = -beta1;
               }
 
               if (std::abs(beta1) < 1.0020841800044864E-292) {
-                int32_T k;
-                int32_T knt;
+                int k;
+                int knt;
                 knt = 0;
                 do {
                   knt++;
@@ -73,7 +73,7 @@ namespace RAT
               } else {
                 tau = (beta1 - *alpha1) / beta1;
                 xnorm = 1.0 / (*alpha1 - beta1);
-                for (int32_T k{2}; k <= n; k++) {
+                for (int k{2}; k <= n; k++) {
                   x[k - 1] = xnorm * x[k - 1];
                 }
 
@@ -85,25 +85,25 @@ namespace RAT
           return tau;
         }
 
-        real_T xzlarfg(int32_T n, real_T *alpha1, ::coder::array<real_T, 2U> &x,
-                       int32_T ix0)
+        double xzlarfg(int n, double *alpha1, ::coder::array<double, 2U> &x, int
+                       ix0)
         {
-          real_T tau;
+          double tau;
           tau = 0.0;
           if (n > 0) {
-            real_T xnorm;
+            double xnorm;
             xnorm = blas::xnrm2(n - 1, x, ix0);
             if (xnorm != 0.0) {
-              real_T beta1;
+              double beta1;
               beta1 = rt_hypotd_snf(*alpha1, xnorm);
               if (*alpha1 >= 0.0) {
                 beta1 = -beta1;
               }
 
               if (std::abs(beta1) < 1.0020841800044864E-292) {
-                int32_T i;
-                int32_T k;
-                int32_T knt;
+                int i;
+                int k;
+                int knt;
                 knt = 0;
                 i = (ix0 + n) - 2;
                 do {
@@ -134,11 +134,11 @@ namespace RAT
 
                 *alpha1 = beta1;
               } else {
-                int32_T i;
+                int i;
                 tau = (beta1 - *alpha1) / beta1;
                 xnorm = 1.0 / (*alpha1 - beta1);
                 i = (ix0 + n) - 2;
-                for (int32_T k{ix0}; k <= i; k++) {
+                for (int k{ix0}; k <= i; k++) {
                   x[k - 1] = xnorm * x[k - 1];
                 }
 
@@ -150,23 +150,23 @@ namespace RAT
           return tau;
         }
 
-        real_T xzlarfg(int32_T n, real_T *alpha1, real_T x[3])
+        double xzlarfg(int n, double *alpha1, double x[3])
         {
-          real_T tau;
+          double tau;
           tau = 0.0;
           if (n > 0) {
-            real_T xnorm;
+            double xnorm;
             xnorm = blas::xnrm2(n - 1, x);
             if (xnorm != 0.0) {
-              real_T beta1;
+              double beta1;
               beta1 = rt_hypotd_snf(*alpha1, xnorm);
               if (*alpha1 >= 0.0) {
                 beta1 = -beta1;
               }
 
               if (std::abs(beta1) < 1.0020841800044864E-292) {
-                int32_T k;
-                int32_T knt;
+                int k;
+                int knt;
                 knt = 0;
                 do {
                   knt++;
@@ -198,7 +198,7 @@ namespace RAT
               } else {
                 tau = (beta1 - *alpha1) / beta1;
                 xnorm = 1.0 / (*alpha1 - beta1);
-                for (int32_T k{2}; k <= n; k++) {
+                for (int k{2}; k <= n; k++) {
                   x[k - 1] *= xnorm;
                 }
 

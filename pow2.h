@@ -22,7 +22,7 @@ namespace RAT
 {
   namespace coder
   {
-    void pow2(const ::coder::array<real_T, 1U> &a, ::coder::array<real_T, 1U> &y);
+    void pow2(const ::coder::array<double, 1U> &a, ::coder::array<double, 1U> &y);
   }
 }
 

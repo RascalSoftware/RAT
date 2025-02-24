@@ -29,18 +29,18 @@ namespace RAT
         {
           ::coder::array<creal_T, 1U> work1;
           ::coder::array<creal_T, 1U> work2;
-          ::coder::array<real_T, 1U> rworka;
-          real_T BIG;
-          real_T BIGNUM;
-          real_T SMALL;
-          real_T anorm;
-          real_T ascale;
-          real_T d_re;
-          real_T xmx;
-          int32_T b_i;
-          int32_T i;
-          int32_T j;
-          int32_T n;
+          ::coder::array<double, 1U> rworka;
+          double BIG;
+          double BIGNUM;
+          double SMALL;
+          double anorm;
+          double ascale;
+          double d_re;
+          double xmx;
+          int b_i;
+          int i;
+          int j;
+          int n;
           n = A.size(0) - 1;
           work1.set_size(A.size(0));
           i = A.size(0);
@@ -56,10 +56,10 @@ namespace RAT
             work2[b_i].im = 0.0;
           }
 
-          SMALL = 2.2250738585072014E-308 * static_cast<real_T>(A.size(0)) /
+          SMALL = 2.2250738585072014E-308 * static_cast<double>(A.size(0)) /
             2.2204460492503131E-16;
           BIG = 1.0 / SMALL;
-          BIGNUM = 1.0 / (2.2250738585072014E-308 * static_cast<real_T>(A.size(0)));
+          BIGNUM = 1.0 / (2.2250738585072014E-308 * static_cast<double>(A.size(0)));
           rworka.set_size(A.size(0));
           i = A.size(0);
           for (b_i = 0; b_i < i; b_i++) {
@@ -87,18 +87,18 @@ namespace RAT
           }
 
           ascale = 1.0 / xmx;
-          b_i = static_cast<int32_T>(((-1.0 - static_cast<real_T>(A.size(0))) +
-            1.0) / -1.0);
-          for (int32_T je{0}; je < b_i; je++) {
-            real_T acoeff;
-            real_T dmin;
-            real_T salpha_im;
-            real_T salpha_re;
-            real_T scale;
-            real_T temp;
-            real_T z;
-            int32_T b_je;
-            int32_T jr;
+          b_i = static_cast<int>(((-1.0 - static_cast<double>(A.size(0))) + 1.0)
+            / -1.0);
+          for (int je{0}; je < b_i; je++) {
+            double acoeff;
+            double dmin;
+            double salpha_im;
+            double salpha_re;
+            double scale;
+            double temp;
+            double z;
+            int b_je;
+            int jr;
             boolean_T lscalea;
             boolean_T lscaleb;
             b_je = n - je;
@@ -192,13 +192,13 @@ namespace RAT
 
             work1[b_je].re = 1.0;
             work1[b_je].im = 0.0;
-            i = static_cast<int32_T>(((-1.0 - (static_cast<real_T>(b_je + 1) -
-              1.0)) + 1.0) / -1.0);
+            i = static_cast<int>(((-1.0 - (static_cast<double>(b_je + 1) - 1.0))
+                                  + 1.0) / -1.0);
             for (j = 0; j < i; j++) {
-              real_T ai;
-              real_T brm;
-              real_T d_im;
-              int32_T b_j;
+              double ai;
+              double brm;
+              double d_im;
+              int b_j;
               b_j = (b_je - j) - 1;
               d_re = acoeff * A[b_j + A.size(0) * b_j].re - salpha_re;
               d_im = acoeff * A[b_j + A.size(0) * b_j].im - salpha_im;

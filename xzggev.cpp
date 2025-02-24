@@ -30,16 +30,16 @@ namespace RAT
     {
       namespace reflapack
       {
-        void xzggev(::coder::array<creal_T, 2U> &A, int32_T *info, ::coder::
-                    array<creal_T, 1U> &alpha1, ::coder::array<creal_T, 1U>
-                    &beta1, ::coder::array<creal_T, 2U> &V)
+        void xzggev(::coder::array<creal_T, 2U> &A, int *info, ::coder::array<
+                    creal_T, 1U> &alpha1, ::coder::array<creal_T, 1U> &beta1, ::
+                    coder::array<creal_T, 2U> &V)
         {
-          ::coder::array<int32_T, 1U> rscale;
-          int32_T i;
-          int32_T i1;
-          int32_T ihi;
-          int32_T ilo;
-          int32_T n;
+          ::coder::array<int, 1U> rscale;
+          int i;
+          int i1;
+          int ihi;
+          int ilo;
+          int n;
           *info = 0;
           n = A.size(0) - 1;
           ilo = A.size(0);
@@ -67,7 +67,7 @@ namespace RAT
           }
 
           if ((A.size(0) != 0) && (A.size(1) != 0)) {
-            real_T anrm;
+            double anrm;
             anrm = xzlangeM(A);
             if (std::isinf(anrm) || std::isnan(anrm)) {
               ilo = A.size(0);
@@ -94,7 +94,7 @@ namespace RAT
                 }
               }
             } else {
-              real_T anrmto;
+              double anrmto;
               boolean_T ilascl;
               ilascl = false;
               anrmto = anrm;
@@ -115,12 +115,12 @@ namespace RAT
                 xztgevc(A, V);
                 xzggbak(V, ilo, ihi, rscale);
                 for (ilo = 0; ilo <= n; ilo++) {
-                  real_T vtemp;
+                  double vtemp;
                   vtemp = std::abs(V[V.size(0) * ilo].re) + std::abs(V[V.size(0)
                     * ilo].im);
                   if (n + 1 > 1) {
                     for (ihi = 0; ihi < n; ihi++) {
-                      real_T y;
+                      double y;
                       y = std::abs(V[(ihi + V.size(0) * ilo) + 1].re) + std::abs
                         (V[(ihi + V.size(0) * ilo) + 1].im);
                       if (y > vtemp) {

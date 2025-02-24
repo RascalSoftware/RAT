@@ -15,9 +15,9 @@
 // Function Definitions
 namespace RAT
 {
-  real_T leftWin(real_T S_x_I_no, real_T S_x_FVr_oa, real_T S_y_FVr_oa)
+  double leftWin(double S_x_I_no, double S_x_FVr_oa, double S_y_FVr_oa)
   {
-    real_T I_z;
+    double I_z;
 
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     //  Function:         I_z = left_win(S_x,S_y)

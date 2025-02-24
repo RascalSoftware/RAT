@@ -20,14 +20,14 @@
 // Type Declarations
 namespace RAT
 {
-  struct struct11_T;
+  struct DreamParams;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void drawCR(const struct11_T *DREAMPar, const real_T pCR_data[], const int32_T
-              pCR_size[2], ::coder::array<real_T, 2U> &CR);
+  void drawCR(const DreamParams *DREAMPar, const double pCR_data[], const int
+              pCR_size[2], ::coder::array<double, 2U> &CR);
 }
 
 #endif

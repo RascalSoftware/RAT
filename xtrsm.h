@@ -26,10 +26,10 @@ namespace RAT
     {
       namespace blas
       {
-        void b_xtrsm(int32_T n, const ::coder::array<real_T, 2U> &A, int32_T lda,
-                     ::coder::array<real_T, 2U> &B);
-        void xtrsm(int32_T n, const ::coder::array<real_T, 2U> &A, int32_T lda, ::
-                   coder::array<real_T, 2U> &B);
+        void b_xtrsm(int n, const ::coder::array<double, 2U> &A, int lda, ::
+                     coder::array<double, 2U> &B);
+        void xtrsm(int n, const ::coder::array<double, 2U> &A, int lda, ::coder::
+                   array<double, 2U> &B);
       }
     }
   }

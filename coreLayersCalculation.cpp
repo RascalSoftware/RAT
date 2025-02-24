@@ -26,36 +26,36 @@ namespace RAT
 {
   namespace normalTF
   {
-    void coreLayersCalculation(const ::coder::array<real_T, 2U> &layers, real_T
-      rough, const char_T geometry_data[], const int32_T geometry_size[2],
-      real_T bulkIn, real_T bulkOut, real_T resample, boolean_T calcSld, const ::
-      coder::array<real_T, 2U> &shiftedData, const ::coder::array<real_T, 1U>
-      &simulationXData, const real_T dataIndices[2], const real_T repeatLayers[2],
-      const ::coder::array<real_T, 2U> &resolution, const ::coder::array<real_T,
-      2U> &background, const char_T backgroundAction_data[], const int32_T
-      backgroundAction_size[2], real_T params, const char_T parallelPoints_data[],
-      const int32_T parallelPoints_size[2], real_T resampleMinAngle, real_T
-      resampleNPoints, boolean_T useImaginary, ::coder::array<real_T, 2U>
-      &sldProfile, ::coder::array<real_T, 2U> &reflect, ::coder::array<real_T,
-      2U> &simulation, ::coder::array<real_T, 2U> &b_shiftedData, ::coder::array<
-      real_T, 2U> &theseLayers, ::coder::array<real_T, 2U> &resamLayers, real_T *
+    void coreLayersCalculation(const ::coder::array<double, 2U> &layers, double
+      rough, const char geometry_data[], const int geometry_size[2], double
+      bulkIn, double bulkOut, double resample, boolean_T calcSld, const ::coder::
+      array<double, 2U> &shiftedData, const ::coder::array<double, 1U>
+      &simulationXData, const double dataIndices[2], const double repeatLayers[2],
+      const ::coder::array<double, 2U> &resolution, const ::coder::array<double,
+      2U> &background, const char backgroundAction_data[], const int
+      backgroundAction_size[2], double params, const char parallelPoints_data[],
+      const int parallelPoints_size[2], double resampleMinAngle, double
+      resampleNPoints, boolean_T useImaginary, ::coder::array<double, 2U>
+      &sldProfile, ::coder::array<double, 2U> &reflect, ::coder::array<double,
+      2U> &simulation, ::coder::array<double, 2U> &b_shiftedData, ::coder::array<
+      double, 2U> &theseLayers, ::coder::array<double, 2U> &resamLayers, double *
       chiSq)
     {
-      ::coder::array<real_T, 2U> b_theseLayers;
-      ::coder::array<real_T, 2U> c_shiftedData;
-      ::coder::array<real_T, 2U> c_theseLayers;
-      ::coder::array<real_T, 2U> d_theseLayers;
-      ::coder::array<real_T, 2U> e_theseLayers;
-      ::coder::array<real_T, 2U> g_theseLayers;
-      ::coder::array<real_T, 2U> layerSld;
-      ::coder::array<real_T, 2U> sldProfileIm;
-      ::coder::array<real_T, 2U> thisSldLays;
-      ::coder::array<real_T, 1U> f_theseLayers;
-      real_T ssubs;
-      int32_T b_loop_ub;
-      int32_T i;
-      int32_T i1;
-      int32_T loop_ub;
+      ::coder::array<double, 2U> b_theseLayers;
+      ::coder::array<double, 2U> c_shiftedData;
+      ::coder::array<double, 2U> c_theseLayers;
+      ::coder::array<double, 2U> d_theseLayers;
+      ::coder::array<double, 2U> e_theseLayers;
+      ::coder::array<double, 2U> g_theseLayers;
+      ::coder::array<double, 2U> layerSld;
+      ::coder::array<double, 2U> sldProfileIm;
+      ::coder::array<double, 2U> thisSldLays;
+      ::coder::array<double, 1U> f_theseLayers;
+      double ssubs;
+      int b_loop_ub;
+      int i;
+      int i1;
+      int loop_ub;
 
       //    This is the main reflectivity calculation for all layers models in the
       //    normal target function.
@@ -127,10 +127,10 @@ namespace RAT
         //  If we need them both, we process real and imaginary parts of the SLD
         //  separately
         if (useImaginary) {
-          int32_T i2;
-          int32_T result;
-          int8_T input_sizes_idx_1;
-          int8_T sizes_idx_1;
+          int i2;
+          int result;
+          signed char input_sizes_idx_1;
+          signed char sizes_idx_1;
           boolean_T empty_non_axis_sizes;
           if (4 > theseLayers.size(1)) {
             i = -1;
@@ -155,7 +155,7 @@ namespace RAT
 
           if (empty_non_axis_sizes || ((theseLayers.size(0) != 0) && (i1 - i !=
                 0))) {
-            sizes_idx_1 = static_cast<int8_T>(i1 - i);
+            sizes_idx_1 = static_cast<signed char>(i1 - i);
           } else {
             sizes_idx_1 = 0;
           }
@@ -210,7 +210,7 @@ namespace RAT
           }
 
           if (empty_non_axis_sizes || (theseLayers.size(0) != 0)) {
-            sizes_idx_1 = static_cast<int8_T>(theseLayers.size(1) - 2);
+            sizes_idx_1 = static_cast<signed char>(theseLayers.size(1) - 2);
           } else {
             sizes_idx_1 = 0;
           }

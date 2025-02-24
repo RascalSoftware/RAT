@@ -21,11 +21,11 @@ namespace RAT
   {
     void rng()
     {
-      uint32_T r;
-      std::memset(&state[0], 0, 625U * sizeof(uint32_T));
+      unsigned int r;
+      std::memset(&state[0], 0, 625U * sizeof(unsigned int));
       r = 5489U;
       state[0] = 5489U;
-      for (int32_T mti{0}; mti < 623; mti++) {
+      for (int mti{0}; mti < 623; mti++) {
         r = ((r ^ r >> 30U) * 1812433253U + mti) + 1U;
         state[mti + 1] = r;
       }

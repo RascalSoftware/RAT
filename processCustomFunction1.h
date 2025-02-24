@@ -31,13 +31,13 @@ namespace RAT
   {
     namespace customXY
     {
-      void processCustomFunction(const ::coder::array<real_T, 2U>
-        &contrastBulkIns, const ::coder::array<real_T, 2U> &contrastBulkOuts,
-        const ::coder::array<real_T, 2U> &bulkInArray, const ::coder::array<
-        real_T, 2U> &bulkOutArray, const ::coder::array<real_T, 2U> &cCustFiles,
-        real_T numberOfContrasts, const ::coder::array<cell_wrap_10, 2U>
-        &customFiles, const ::coder::array<real_T, 2U> &params, ::coder::array<
-        cell_wrap_33, 1U> &slds, ::coder::array<real_T, 1U> &subRoughs);
+      void processCustomFunction(const ::coder::array<double, 2U>
+        &contrastBulkIns, const ::coder::array<double, 2U> &contrastBulkOuts,
+        const ::coder::array<double, 2U> &bulkInArray, const ::coder::array<
+        double, 2U> &bulkOutArray, const ::coder::array<double, 2U> &cCustFiles,
+        double numberOfContrasts, const ::coder::array<cell_wrap_10, 2U>
+        &customFiles, const ::coder::array<double, 2U> &params, ::coder::array<
+        cell_wrap_33, 1U> &slds, ::coder::array<double, 1U> &subRoughs);
     }
   }
 }

@@ -22,8 +22,8 @@ namespace RAT
 {
   namespace coder
   {
-    void schur(const ::coder::array<real_T, 2U> &A, ::coder::array<real_T, 2U>
-               &V, ::coder::array<real_T, 2U> &T);
+    void schur(const ::coder::array<double, 2U> &A, ::coder::array<double, 2U>
+               &V, ::coder::array<double, 2U> &T);
   }
 }
 

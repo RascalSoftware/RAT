@@ -19,24 +19,24 @@ namespace RAT
 {
   namespace coder
   {
-    void b_sqrt(::coder::array<real_T, 2U> &x)
+    void b_sqrt(::coder::array<double, 2U> &x)
     {
-      int32_T i;
+      int i;
       i = x.size(1);
-      for (int32_T k{0}; k < i; k++) {
-        int32_T i1;
+      for (int k{0}; k < i; k++) {
+        int i1;
         i1 = x.size(0);
-        for (int32_T b_k{0}; b_k < i1; b_k++) {
+        for (int b_k{0}; b_k < i1; b_k++) {
           x[b_k + x.size(0) * k] = std::sqrt(x[b_k + x.size(0) * k]);
         }
       }
     }
 
-    void c_sqrt(::coder::array<real_T, 2U> &x)
+    void c_sqrt(::coder::array<double, 2U> &x)
     {
-      int32_T i;
+      int i;
       i = x.size(1);
-      for (int32_T k{0}; k < i; k++) {
+      for (int k{0}; k < i; k++) {
         x[k] = std::sqrt(x[k]);
       }
     }

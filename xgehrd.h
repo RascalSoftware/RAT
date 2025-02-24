@@ -26,7 +26,7 @@ namespace RAT
     {
       namespace lapack
       {
-        void xgehrd(::coder::array<real_T, 2U> &a, ::coder::array<real_T, 1U>
+        void xgehrd(::coder::array<double, 2U> &a, ::coder::array<double, 1U>
                     &tau);
       }
     }

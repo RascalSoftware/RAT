@@ -22,31 +22,31 @@
 // Function Definitions
 namespace RAT
 {
-  void optimalEllipsoids(const ::coder::array<real_T, 2U> &u, real_T VS, ::coder::
-    array<real_T, 2U> &Bs, ::coder::array<real_T, 2U> &mus, ::coder::array<
-    real_T, 2U> &VEs, ::coder::array<real_T, 2U> &ns)
+  void optimalEllipsoids(const ::coder::array<double, 2U> &u, double VS, ::coder::
+    array<double, 2U> &Bs, ::coder::array<double, 2U> &mus, ::coder::array<
+    double, 2U> &VEs, ::coder::array<double, 2U> &ns)
   {
-    ::coder::array<real_T, 2U> B1;
-    ::coder::array<real_T, 2U> B2;
-    ::coder::array<real_T, 2U> VE1;
-    ::coder::array<real_T, 2U> VE2;
-    ::coder::array<real_T, 2U> mu;
-    ::coder::array<real_T, 2U> mu1;
-    ::coder::array<real_T, 2U> mu2;
-    ::coder::array<real_T, 2U> n1;
-    ::coder::array<real_T, 2U> n2;
-    ::coder::array<real_T, 2U> u1;
-    ::coder::array<real_T, 2U> u2;
-    real_T VE1_data;
-    real_T VE2_data;
-    real_T VE_data;
-    real_T flag;
-    real_T nosplit;
-    int32_T validatedHoleFilling[3];
-    int32_T VE1_size[2];
-    int32_T VE2_size[2];
-    int32_T VE_size[2];
-    int32_T b_VE1_size[2];
+    ::coder::array<double, 2U> B1;
+    ::coder::array<double, 2U> B2;
+    ::coder::array<double, 2U> VE1;
+    ::coder::array<double, 2U> VE2;
+    ::coder::array<double, 2U> mu;
+    ::coder::array<double, 2U> mu1;
+    ::coder::array<double, 2U> mu2;
+    ::coder::array<double, 2U> n1;
+    ::coder::array<double, 2U> n2;
+    ::coder::array<double, 2U> u1;
+    ::coder::array<double, 2U> u2;
+    double VE1_data;
+    double VE2_data;
+    double VE_data;
+    double flag;
+    double nosplit;
+    int validatedHoleFilling[3];
+    int VE1_size[2];
+    int VE2_size[2];
+    int VE_size[2];
+    int b_VE1_size[2];
     boolean_T empty_non_axis_sizes;
     boolean_T tmp_data;
 
@@ -71,17 +71,17 @@ namespace RAT
     //  number of dimensions
     //  calculate bounding matrix, etc. for bounding ellipsoid associated
     //  with the original set of points u
-    calcEllipsoid(u, VS, Bs, mu, (real_T *)&VE_data, VE_size, &flag);
+    calcEllipsoid(u, VS, Bs, mu, (double *)&VE_data, VE_size, &flag);
 
     //  attempt to split u into two subclusters
-    splitEllipsoid(u, VS, u1, u2, (real_T *)&VE1_data, VE1_size, (real_T *)
+    splitEllipsoid(u, VS, u1, u2, (double *)&VE1_data, VE1_size, (double *)
                    &VE2_data, VE2_size, &nosplit);
-    if ((nosplit != 0.0) || (static_cast<uint32_T>(u1.size(0)) < u.size(1) + 1U)
-        || (static_cast<uint32_T>(u2.size(0)) < u.size(1) + 1U)) {
-      int32_T i;
-      int32_T i1;
-      int32_T input_sizes_idx_0;
-      int32_T loop_ub;
+    if ((nosplit != 0.0) || (static_cast<unsigned int>(u1.size(0)) < u.size(1) +
+         1U) || (static_cast<unsigned int>(u2.size(0)) < u.size(1) + 1U)) {
+      int i;
+      int i1;
+      int input_sizes_idx_0;
+      int loop_ub;
 
       //  couldn't split the cluster
       mus.set_size(mu.size(0), mu.size(1));
@@ -105,10 +105,10 @@ namespace RAT
       ns.set_size(1, 1);
       ns[0] = u.size(0);
     } else {
-      int32_T i;
-      int32_T i1;
-      int32_T input_sizes_idx_0;
-      int32_T loop_ub;
+      int i;
+      int i1;
+      int input_sizes_idx_0;
+      int loop_ub;
       boolean_T guard1{ false };
 
       //  check if we should keep the partitioning of S
@@ -178,9 +178,9 @@ namespace RAT
       }
 
       if (guard1) {
-        int32_T result;
-        int32_T sizes_idx_0;
-        int16_T b_input_sizes_idx_0;
+        int result;
+        int sizes_idx_0;
+        short b_input_sizes_idx_0;
         if (DEBUG != 0.0) {
           coder::internal::print_processing(u.size(0), u1.size(0), u2.size(0),
             validatedHoleFilling);
@@ -190,10 +190,10 @@ namespace RAT
           fflush(stdout);
         }
 
-        optimalEllipsoids(u1, static_cast<real_T>(u1.size(0)) * VS /
-                          static_cast<real_T>(u.size(0)), B1, mu1, VE1, n1);
-        optimalEllipsoids(u2, static_cast<real_T>(u2.size(0)) * VS /
-                          static_cast<real_T>(u.size(0)), B2, mu2, VE2, n2);
+        optimalEllipsoids(u1, static_cast<double>(u1.size(0)) * VS /
+                          static_cast<double>(u.size(0)), B1, mu1, VE1, n1);
+        optimalEllipsoids(u2, static_cast<double>(u2.size(0)) * VS /
+                          static_cast<double>(u.size(0)), B2, mu2, VE2, n2);
         if ((B1.size(0) != 0) && (B1.size(1) != 0)) {
           result = B1.size(1);
         } else if ((B2.size(0) != 0) && (B2.size(1) != 0)) {
@@ -246,7 +246,7 @@ namespace RAT
         empty_non_axis_sizes = (result == 0);
         if (empty_non_axis_sizes || ((mu1.size(0) != 0) && (mu1.size(1) != 0)))
         {
-          b_input_sizes_idx_0 = static_cast<int16_T>(mu1.size(0));
+          b_input_sizes_idx_0 = static_cast<short>(mu1.size(0));
         } else {
           b_input_sizes_idx_0 = 0;
         }
@@ -326,7 +326,7 @@ namespace RAT
 
         empty_non_axis_sizes = (result == 0);
         if (empty_non_axis_sizes || ((n1.size(0) != 0) && (n1.size(1) != 0))) {
-          b_input_sizes_idx_0 = static_cast<int16_T>(n1.size(0));
+          b_input_sizes_idx_0 = static_cast<short>(n1.size(0));
         } else {
           b_input_sizes_idx_0 = 0;
         }

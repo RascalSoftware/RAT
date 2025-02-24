@@ -16,26 +16,26 @@
 // Function Definitions
 namespace RAT
 {
-  void applyHydrationImag(::coder::array<real_T, 2U> &thisContrastLayers, real_T
-    bulkIn, real_T bulkOut)
+  void applyHydrationImag(::coder::array<double, 2U> &thisContrastLayers, double
+    bulkIn, double bulkOut)
   {
-    ::coder::array<real_T, 2U> newOutLayers;
-    int16_T outSize_idx_0;
+    ::coder::array<double, 2U> newOutLayers;
+    short outSize_idx_0;
 
     //  Applies the hydration correction to real value of layers
     //  if it is necessary.. (This is for when im(SLD) is used)
     //  The only guidance we have to whether the user is using hydration
     //  in their custom model is the number of columns of the output
-    outSize_idx_0 = static_cast<int16_T>(thisContrastLayers.size(0));
+    outSize_idx_0 = static_cast<short>(thisContrastLayers.size(0));
 
     //  [nlayers x nCols]
-    if (static_cast<int16_T>(thisContrastLayers.size(1)) == 6) {
-      int32_T i;
-      int32_T i1;
-      int32_T loop_ub;
+    if (static_cast<short>(thisContrastLayers.size(1)) == 6) {
+      int i;
+      int i1;
+      int loop_ub;
 
       //  we need to calculate the hydrated SLD
-      newOutLayers.set_size(static_cast<int32_T>(outSize_idx_0), 4);
+      newOutLayers.set_size(static_cast<int>(outSize_idx_0), 4);
       loop_ub = outSize_idx_0;
       for (i = 0; i < 4; i++) {
         for (i1 = 0; i1 < loop_ub; i1++) {
@@ -64,9 +64,9 @@ namespace RAT
 
       //  Roughness
       i = outSize_idx_0;
-      for (int32_T n{0}; n < i; n++) {
-        real_T thisBulkHydr;
-        real_T thisHydration;
+      for (int n{0}; n < i; n++) {
+        double thisBulkHydr;
+        double thisHydration;
         thisHydration = thisContrastLayers[n + thisContrastLayers.size(0) * 4] /
           100.0;
 

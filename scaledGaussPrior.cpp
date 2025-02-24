@@ -20,24 +20,24 @@
 // Function Definitions
 namespace RAT
 {
-  real_T scaledGaussPrior(const ::coder::array<real_T, 2U> &m, const ::coder::
-    array<real_T, 2U> &extras_problemStruct_fitLimits, const ::coder::array<
-    real_T, 2U> &extras_priors)
+  double scaledGaussPrior(const ::coder::array<double, 2U> &m, const ::coder::
+    array<double, 2U> &extras_problemStruct_fitLimits, const ::coder::array<
+    double, 2U> &extras_priors)
   {
-    ::coder::array<real_T, 2U> usedConstr;
-    ::coder::array<real_T, 2U> usedPriors;
-    ::coder::array<real_T, 1U> b_usedConstr;
-    ::coder::array<real_T, 1U> b_usedPriors;
-    ::coder::array<real_T, 1U> c_usedConstr;
-    ::coder::array<real_T, 1U> muSc;
-    ::coder::array<real_T, 1U> sigSc;
-    ::coder::array<real_T, 1U> valsSc;
-    ::coder::array<int32_T, 1U> usedPriorInd;
+    ::coder::array<double, 2U> usedConstr;
+    ::coder::array<double, 2U> usedPriors;
+    ::coder::array<double, 1U> b_usedConstr;
+    ::coder::array<double, 1U> b_usedPriors;
+    ::coder::array<double, 1U> c_usedConstr;
+    ::coder::array<double, 1U> muSc;
+    ::coder::array<double, 1U> sigSc;
+    ::coder::array<double, 1U> valsSc;
+    ::coder::array<int, 1U> usedPriorInd;
     ::coder::array<boolean_T, 1U> b_extras_priors;
-    real_T pVal2;
-    int32_T i;
-    int32_T i1;
-    int32_T loop_ub;
+    double pVal2;
+    int i;
+    int i1;
+    int loop_ub;
 
     //  All are in range, so check for Gaussian priors....
     //  We pick out any priors that are Gaussians and calculate the mvnpdf
@@ -70,7 +70,7 @@ namespace RAT
     }
 
     if (usedPriorInd.size(0) != 0) {
-      real_T y;
+      double y;
 
       //  There may be no Gaussian priors defined!
       //  Scale (minVal+prior) will give scaled sigma since minVal goes to 0...

@@ -23,14 +23,14 @@ namespace RAT
     void makeD(const ::coder::array<creal_T, 1U> &alpha1, const ::coder::array<
                creal_T, 1U> &beta1, ::coder::array<creal_T, 2U> &D)
     {
-      int32_T i;
-      int32_T k;
+      int i;
+      int k;
       D.set_size(alpha1.size(0), alpha1.size(0));
       k = alpha1.size(0);
       for (i = 0; i < k; i++) {
-        int32_T loop_ub;
+        int loop_ub;
         loop_ub = alpha1.size(0);
-        for (int32_T i1{0}; i1 < loop_ub; i1++) {
+        for (int i1{0}; i1 < loop_ub; i1++) {
           D[i1 + D.size(0) * i].re = 0.0;
           D[i1 + D.size(0) * i].im = 0.0;
         }
@@ -38,10 +38,10 @@ namespace RAT
 
       i = alpha1.size(0);
       for (k = 0; k < i; k++) {
-        real_T ai;
-        real_T ar;
-        real_T bi;
-        real_T br;
+        double ai;
+        double ar;
+        double bi;
+        double br;
         ar = alpha1[k].re;
         ai = alpha1[k].im;
         br = beta1[k].re;
@@ -69,18 +69,18 @@ namespace RAT
             D[k + D.size(0) * k].im = -(ar / bi);
           }
         } else {
-          real_T bim;
-          real_T brm;
+          double bim;
+          double brm;
           brm = std::abs(br);
           bim = std::abs(bi);
           if (brm > bim) {
-            real_T s;
+            double s;
             s = bi / br;
             bim = br + s * bi;
             D[k + D.size(0) * k].re = (ar + s * ai) / bim;
             D[k + D.size(0) * k].im = (ai - s * ar) / bim;
           } else if (bim == brm) {
-            real_T s;
+            double s;
             if (br > 0.0) {
               s = 0.5;
             } else {
@@ -96,7 +96,7 @@ namespace RAT
             D[k + D.size(0) * k].re = (ar * s + ai * bim) / brm;
             D[k + D.size(0) * k].im = (ai * s - ar * bim) / brm;
           } else {
-            real_T s;
+            double s;
             s = br / bi;
             bim = bi + s * br;
             D[k + D.size(0) * k].re = (s * ar + ai) / bim;

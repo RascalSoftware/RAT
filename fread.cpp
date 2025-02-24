@@ -20,8 +20,8 @@ namespace RAT
 {
   namespace coder
   {
-    static FILE * getFileStar(real_T fileID);
-    static boolean_T isImplementedFilestar(real_T fileID);
+    static FILE * getFileStar(double fileID);
+    static boolean_T isImplementedFilestar(double fileID);
   }
 }
 
@@ -30,7 +30,7 @@ namespace RAT
 {
   namespace coder
   {
-    static FILE * getFileStar(real_T fileID)
+    static FILE * getFileStar(double fileID)
     {
       FILE * filestar;
       filestar = fileManager(fileID);
@@ -41,7 +41,7 @@ namespace RAT
       return filestar;
     }
 
-    static boolean_T isImplementedFilestar(real_T fileID)
+    static boolean_T isImplementedFilestar(double fileID)
     {
       boolean_T p;
       if ((fileID != 0.0) && (fileID != 1.0) && (fileID != 2.0)) {
@@ -53,23 +53,23 @@ namespace RAT
       return p;
     }
 
-    void b_fread(real_T fileID, uint8_T A_data[], int32_T *A_size)
+    void b_fread(double fileID, unsigned char A_data[], int *A_size)
     {
       FILE * filestar;
-      uint8_T b_A_data;
+      unsigned char b_A_data;
       filestar = getFileStar(fileID);
       if (filestar == NULL) {
         *A_size = 0;
       } else {
         size_t numReadSizeT;
-        numReadSizeT = fread(&b_A_data, sizeof(uint8_T), 1, filestar);
-        if ((int32_T)numReadSizeT + 1 <= 1) {
+        numReadSizeT = fread(&b_A_data, sizeof(unsigned char), 1, filestar);
+        if ((int)numReadSizeT + 1 <= 1) {
           b_A_data = 0U;
         }
 
         *A_size = 1;
         A_data[0] = b_A_data;
-        if ((int32_T)numReadSizeT < 1) {
+        if ((int)numReadSizeT < 1) {
           *A_size = 0;
         }
       }

@@ -22,11 +22,11 @@ namespace RAT
 {
   namespace coder
   {
-    void b_abs(const ::coder::array<real_T, 2U> &x, ::coder::array<real_T, 2U>
+    void b_abs(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U>
                &y);
-    void b_abs(const ::coder::array<real_T, 1U> &x, ::coder::array<real_T, 1U>
+    void b_abs(const ::coder::array<double, 1U> &x, ::coder::array<double, 1U>
                &y);
-    void c_abs(const ::coder::array<real_T, 2U> &x, ::coder::array<real_T, 2U>
+    void c_abs(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U>
                &y);
   }
 }

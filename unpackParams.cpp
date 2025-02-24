@@ -18,15 +18,15 @@
 // Function Definitions
 namespace RAT
 {
-  void unpackParams(e_struct_T *problemStruct)
+  void unpackParams(ProblemDefinition *problemStruct)
   {
-    ::coder::array<real_T, 2U> uppars;
-    int32_T i;
-    int32_T j;
-    int32_T packed_counter;
-    int32_T unnamed_idx_1;
-    int32_T uppars_counter;
-    uint32_T unpacked_counter;
+    ::coder::array<double, 2U> uppars;
+    int i;
+    int j;
+    int packed_counter;
+    int unnamed_idx_1;
+    unsigned int unpacked_counter;
+    int uppars_counter;
 
     //  Unpack the params out of the fitParams and otherParams arrays
     //  back into problem.params
@@ -44,7 +44,7 @@ namespace RAT
     i = problemStruct->checks.params.size(1);
     for (j = 0; j < i; j++) {
       if (problemStruct->checks.params[j] == 1.0) {
-        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
+        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int>
           (unpacked_counter) - 1];
         unpacked_counter++;
         uppars_counter++;
@@ -71,7 +71,7 @@ namespace RAT
     i = problemStruct->checks.backgroundParams.size(1);
     for (j = 0; j < i; j++) {
       if (problemStruct->checks.backgroundParams[j] == 1.0) {
-        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
+        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int>
           (unpacked_counter) - 1];
         unpacked_counter++;
         uppars_counter++;
@@ -98,7 +98,7 @@ namespace RAT
     i = problemStruct->checks.scalefactors.size(1);
     for (j = 0; j < i; j++) {
       if (problemStruct->checks.scalefactors[j] == 1.0) {
-        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
+        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int>
           (unpacked_counter) - 1];
         unpacked_counter++;
         uppars_counter++;
@@ -125,7 +125,7 @@ namespace RAT
     i = problemStruct->checks.qzshifts.size(1);
     for (j = 0; j < i; j++) {
       if (problemStruct->checks.qzshifts[j] == 1.0) {
-        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
+        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int>
           (unpacked_counter) - 1];
         unpacked_counter++;
         uppars_counter++;
@@ -152,7 +152,7 @@ namespace RAT
     i = problemStruct->checks.bulkIns.size(1);
     for (j = 0; j < i; j++) {
       if (problemStruct->checks.bulkIns[j] == 1.0) {
-        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
+        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int>
           (unpacked_counter) - 1];
         unpacked_counter++;
         uppars_counter++;
@@ -179,7 +179,7 @@ namespace RAT
     i = problemStruct->checks.bulkOuts.size(1);
     for (j = 0; j < i; j++) {
       if (problemStruct->checks.bulkOuts[j] == 1.0) {
-        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
+        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int>
           (unpacked_counter) - 1];
         unpacked_counter++;
         uppars_counter++;
@@ -206,7 +206,7 @@ namespace RAT
     i = problemStruct->checks.resolutionParams.size(1);
     for (j = 0; j < i; j++) {
       if (problemStruct->checks.resolutionParams[j] == 1.0) {
-        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
+        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int>
           (unpacked_counter) - 1];
         unpacked_counter++;
         uppars_counter++;
@@ -233,7 +233,7 @@ namespace RAT
     i = problemStruct->checks.domainRatios.size(1);
     for (j = 0; j < i; j++) {
       if (problemStruct->checks.domainRatios[j] == 1.0) {
-        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int32_T>
+        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int>
           (unpacked_counter) - 1];
         unpacked_counter++;
         uppars_counter++;

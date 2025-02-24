@@ -24,10 +24,9 @@ namespace RAT
   {
     namespace internal
     {
-      void b_sort(::coder::array<real_T, 2U> &x, ::coder::array<int32_T, 2U>
-                  &idx);
-      void sort(::coder::array<real_T, 2U> &x, ::coder::array<int32_T, 2U> &idx);
-      void sort(::coder::array<real_T, 1U> &x, ::coder::array<int32_T, 1U> &idx);
+      void b_sort(::coder::array<double, 2U> &x, ::coder::array<int, 2U> &idx);
+      void sort(::coder::array<double, 2U> &x, ::coder::array<int, 2U> &idx);
+      void sort(::coder::array<double, 1U> &x, ::coder::array<int, 1U> &idx);
     }
   }
 }

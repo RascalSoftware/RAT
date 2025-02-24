@@ -18,15 +18,15 @@
 // Function Definitions
 namespace RAT
 {
-  void shiftData(real_T scalefactor, real_T qzshift, real_T dataPresent, ::coder::
-                 array<real_T, 2U> &data, const real_T dataLimits[2], const
-                 real_T simLimits[2], ::coder::array<real_T, 2U> &shiftedData)
+  void shiftData(double scalefactor, double qzshift, double dataPresent, ::coder::
+                 array<double, 2U> &data, const double dataLimits[2], const
+                 double simLimits[2], ::coder::array<double, 2U> &shiftedData)
   {
-    ::coder::array<real_T, 1U> c_data;
-    ::coder::array<int32_T, 1U> b_i;
+    ::coder::array<double, 1U> c_data;
+    ::coder::array<int, 1U> b_i;
     ::coder::array<boolean_T, 1U> c_data_data;
     ::coder::array<boolean_T, 1U> data_data;
-    real_T b_dv[500];
+    double b_dv[500];
     boolean_T b_data_data[10000];
 
     //  Shifts the data according to scale factor. If there is no data, makes
@@ -42,14 +42,14 @@ namespace RAT
     //
     //  OUTPUTS:
     //      * shiftedData: Data shifted using given scale factor
-    switch (static_cast<int32_T>(dataPresent)) {
+    switch (static_cast<int>(dataPresent)) {
      case 1:
       {
-        int32_T b_data;
-        int32_T hiIndex;
-        int32_T i;
-        int32_T loop_ub;
-        int32_T lowIndex;
+        int b_data;
+        int hiIndex;
+        int i;
+        int loop_ub;
+        int lowIndex;
         if (scalefactor == 0.0) {
           scalefactor = 1.0E-30;
         }
@@ -126,7 +126,7 @@ namespace RAT
         loop_ub = b_data - i;
         shiftedData.set_size(loop_ub, 6);
         for (b_data = 0; b_data < 6; b_data++) {
-          for (int32_T i1{0}; i1 < loop_ub; i1++) {
+          for (int i1{0}; i1 < loop_ub; i1++) {
             shiftedData[i1 + shiftedData.size(0) * b_data] = data[(i + i1) +
               data.size(0) * b_data];
           }
@@ -136,10 +136,10 @@ namespace RAT
 
      default:
       {
-        int32_T i;
+        int i;
         shiftedData.set_size(500, 6);
         for (i = 0; i < 6; i++) {
-          for (int32_T b_data{0}; b_data < 500; b_data++) {
+          for (int b_data{0}; b_data < 500; b_data++) {
             shiftedData[b_data + shiftedData.size(0) * i] = 0.0;
           }
         }

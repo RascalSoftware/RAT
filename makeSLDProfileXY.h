@@ -20,12 +20,12 @@
 // Function Declarations
 namespace RAT
 {
-  void makeSLDProfileXY(real_T ssub, const ::coder::array<real_T, 2U> &layers,
-                        real_T numberOfLayers, real_T nrepeats, ::coder::array<
-                        real_T, 2U> &out);
-  void makeSLDProfileXY(real_T bulkIn, real_T bulkOut, real_T ssub, const ::
-                        coder::array<real_T, 2U> &layers, real_T numberOfLayers,
-                        real_T nrepeats, ::coder::array<real_T, 2U> &out);
+  void makeSLDProfileXY(double ssub, const ::coder::array<double, 2U> &layers,
+                        double numberOfLayers, double nrepeats, ::coder::array<
+                        double, 2U> &out);
+  void makeSLDProfileXY(double bulkIn, double bulkOut, double ssub, const ::
+                        coder::array<double, 2U> &layers, double numberOfLayers,
+                        double nrepeats, ::coder::array<double, 2U> &out);
 }
 
 #endif

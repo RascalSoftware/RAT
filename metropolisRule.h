@@ -20,17 +20,17 @@
 // Type Declarations
 namespace RAT
 {
-  struct struct11_T;
+  struct DreamParams;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void metropolisRule(const struct11_T *DREAMPar, const ::coder::array<real_T,
-                      1U> &log_L_xnew, const ::coder::array<real_T, 1U>
-                      &log_PR_xnew, const ::coder::array<real_T, 1U> &log_L_xold,
-                      const ::coder::array<real_T, 1U> &log_PR_xold, ::coder::
-                      array<boolean_T, 1U> &accept, ::coder::array<real_T, 1U>
+  void metropolisRule(const DreamParams *DREAMPar, const ::coder::array<double,
+                      1U> &log_L_xnew, const ::coder::array<double, 1U>
+                      &log_PR_xnew, const ::coder::array<double, 1U> &log_L_xold,
+                      const ::coder::array<double, 1U> &log_PR_xold, ::coder::
+                      array<boolean_T, 1U> &accept, ::coder::array<double, 1U>
                       &idx_accept);
 }
 

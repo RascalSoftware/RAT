@@ -24,14 +24,14 @@ namespace RAT
     {
       namespace lapack
       {
-        void xgehrd(::coder::array<real_T, 2U> &a, ::coder::array<real_T, 1U>
+        void xgehrd(::coder::array<double, 2U> &a, ::coder::array<double, 1U>
                     &tau)
         {
-          ::coder::array<real_T, 1U> work;
-          real_T alpha1;
-          int32_T i;
-          int32_T n;
-          int32_T unnamed_idx_0;
+          ::coder::array<double, 1U> work;
+          double alpha1;
+          int i;
+          int n;
+          int unnamed_idx_0;
           n = a.size(0);
           if (a.size(0) < 1) {
             i = 0;
@@ -47,10 +47,10 @@ namespace RAT
           }
 
           i = a.size(0);
-          for (int32_T b_i{0}; b_i <= i - 2; b_i++) {
-            real_T d;
-            int32_T i1;
-            int32_T in;
+          for (int b_i{0}; b_i <= i - 2; b_i++) {
+            double d;
+            int i1;
+            int in;
             in = (b_i + 1) * n;
             alpha1 = a[(b_i + a.size(0) * b_i) + 1];
             unnamed_idx_0 = b_i + 3;

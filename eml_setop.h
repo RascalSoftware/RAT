@@ -22,9 +22,9 @@ namespace RAT
 {
   namespace coder
   {
-    void do_vectors(const ::coder::array<real_T, 2U> &a, real_T b, ::coder::
-                    array<real_T, 2U> &c, ::coder::array<int32_T, 1U> &ia,
-                    int32_T *ib_size);
+    void do_vectors(const ::coder::array<double, 2U> &a, double b, ::coder::
+                    array<double, 2U> &c, ::coder::array<int, 1U> &ia, int
+                    *ib_size);
   }
 }
 

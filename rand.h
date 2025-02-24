@@ -22,14 +22,14 @@ namespace RAT
 {
   namespace coder
   {
-    void b_rand(real_T r[4]);
-    real_T b_rand();
-    void b_rand(real_T varargin_1, real_T varargin_2, ::coder::array<real_T, 2U>
+    void b_rand(double r[4]);
+    double b_rand();
+    void b_rand(double varargin_1, double varargin_2, ::coder::array<double, 2U>
                 &r);
-    void b_rand(const real_T varargin_1[2], ::coder::array<real_T, 2U> &r);
-    void b_rand(real_T varargin_1, ::coder::array<real_T, 1U> &r);
-    void b_rand(real_T varargin_2, ::coder::array<real_T, 2U> &r);
-    void c_rand(real_T r[1000]);
+    void b_rand(const double varargin_1[2], ::coder::array<double, 2U> &r);
+    void b_rand(double varargin_1, ::coder::array<double, 1U> &r);
+    void b_rand(double varargin_2, ::coder::array<double, 2U> &r);
+    void c_rand(double r[1000]);
   }
 }
 

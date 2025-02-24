@@ -18,17 +18,17 @@
 // Function Definitions
 namespace RAT
 {
-  void constructResolution(const char_T resolutionType_data[], const int32_T
-    resolutionType_size[2], const real_T resolutionParamIndex_data[], const
-    int32_T resolutionParamIndex_size[2], const ::coder::array<real_T, 2U>
-    &shiftedData, const ::coder::array<real_T, 2U> &resolutionParamArray, const ::
-    coder::array<real_T, 1U> &simulationXData, const real_T dataIndices[2], ::
-    coder::array<real_T, 2U> &resolution)
+  void constructResolution(const char resolutionType_data[], const int
+    resolutionType_size[2], const double resolutionParamIndex_data[], const int
+    resolutionParamIndex_size[2], const ::coder::array<double, 2U> &shiftedData,
+    const ::coder::array<double, 2U> &resolutionParamArray, const ::coder::array<
+    double, 1U> &simulationXData, const double dataIndices[2], ::coder::array<
+    double, 2U> &resolution)
   {
-    ::coder::array<real_T, 1U> b_resolution;
-    int32_T i;
-    int32_T i1;
-    int32_T loop_ub;
+    ::coder::array<double, 1U> b_resolution;
+    int i;
+    int i1;
+    int loop_ub;
 
     //  Apply resolution parameters to the resolution.
     //
@@ -51,7 +51,7 @@ namespace RAT
       //  If we are using data resolutions and the simulation range is larger
       //  than the data range, we extend the data resolution to the simulation
       //  range using the resolution values at the ends of the curve.
-      loop_ub = static_cast<int32_T>(dataIndices[0]);
+      loop_ub = static_cast<int>(dataIndices[0]);
       for (i = 0; i < loop_ub; i++) {
         resolution[i + resolution.size(0)] = shiftedData[shiftedData.size(0) * 3];
       }
@@ -59,7 +59,7 @@ namespace RAT
       if (dataIndices[0] > dataIndices[1]) {
         i = 1;
       } else {
-        i = static_cast<int32_T>(dataIndices[0]);
+        i = static_cast<int>(dataIndices[0]);
       }
 
       loop_ub = shiftedData.size(0);
@@ -72,7 +72,7 @@ namespace RAT
         i = 0;
         i1 = 0;
       } else {
-        i = static_cast<int32_T>(dataIndices[1]) - 1;
+        i = static_cast<int>(dataIndices[1]) - 1;
         i1 = resolution.size(0);
       }
 
@@ -86,10 +86,10 @@ namespace RAT
       //  account for the case where resolutionParamIndex is empty.
       i = coder::internal::intlength(resolutionParamIndex_size[0],
         resolutionParamIndex_size[1]);
-      for (int32_T b_i{0}; b_i < i; b_i++) {
-        real_T b_resolutionParamArray;
+      for (int b_i{0}; b_i < i; b_i++) {
+        double b_resolutionParamArray;
         loop_ub = resolution.size(0) - 1;
-        b_resolutionParamArray = resolutionParamArray[static_cast<int32_T>
+        b_resolutionParamArray = resolutionParamArray[static_cast<int>
           (resolutionParamIndex_data[b_i]) - 1];
         b_resolution.set_size(resolution.size(0));
         for (i1 = 0; i1 <= loop_ub; i1++) {

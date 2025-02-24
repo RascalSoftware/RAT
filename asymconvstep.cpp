@@ -17,18 +17,18 @@
 // Function Definitions
 namespace RAT
 {
-  void asymconvstep(const ::coder::array<real_T, 2U> &x, real_T xw, real_T xcen,
-                    real_T s1, real_T s2, ::coder::array<real_T, 2U> &f)
+  void asymconvstep(const ::coder::array<double, 2U> &x, double xw, double xcen,
+                    double s1, double s2, ::coder::array<double, 2U> &f)
   {
-    ::coder::array<real_T, 2U> b_r;
-    ::coder::array<real_T, 2U> b_x;
-    ::coder::array<real_T, 2U> r1;
-    real_T aFactor;
-    real_T bFactor;
-    real_T l;
-    real_T r;
-    int32_T i;
-    int32_T loop_ub;
+    ::coder::array<double, 2U> b_r;
+    ::coder::array<double, 2U> b_x;
+    ::coder::array<double, 2U> r1;
+    double aFactor;
+    double bFactor;
+    double l;
+    double r;
+    int i;
+    int loop_ub;
 
     //  Produces a step function convoluted with differnt error functions
     //  on each side.
@@ -87,20 +87,20 @@ namespace RAT
     }
   }
 
-  void asymconvstep(const ::coder::array<real_T, 2U> &x, real_T xw, real_T xcen,
-                    real_T s1, real_T s2, real_T h, ::coder::array<real_T, 2U>
+  void asymconvstep(const ::coder::array<double, 2U> &x, double xw, double xcen,
+                    double s1, double s2, double h, ::coder::array<double, 2U>
                     &f)
   {
-    ::coder::array<real_T, 2U> b_r;
-    ::coder::array<real_T, 2U> b_x;
-    ::coder::array<real_T, 2U> r1;
-    real_T a;
-    real_T aFactor;
-    real_T bFactor;
-    real_T l;
-    real_T r;
-    int32_T i;
-    int32_T loop_ub;
+    ::coder::array<double, 2U> b_r;
+    ::coder::array<double, 2U> b_x;
+    ::coder::array<double, 2U> r1;
+    double a;
+    double aFactor;
+    double bFactor;
+    double l;
+    double r;
+    int i;
+    int loop_ub;
 
     //  Produces a step function convoluted with differnt error functions
     //  on each side.

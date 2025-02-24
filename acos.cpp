@@ -30,7 +30,7 @@ namespace RAT
         {
           creal_T u;
           creal_T v;
-          real_T d;
+          double d;
           if ((x->im == 0.0) && (!(std::abs(x->re) > 1.0))) {
             x->re = std::acos(x->re);
             x->im = 0.0;

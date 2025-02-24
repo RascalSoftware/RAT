@@ -39,16 +39,16 @@ namespace RAT
                    cell_wrap_10, 2U> &problemStruct_names_resolutionParams,
                    const ::coder::array<cell_wrap_10, 2U>
                    &problemStruct_names_domainRatios, const ::coder::array<
-                   real_T, 2U> &problemStruct_checks_params, const ::coder::
-                   array<real_T, 2U> &problemStruct_checks_backgroundParams,
-                   const ::coder::array<real_T, 2U>
+                   double, 2U> &problemStruct_checks_params, const ::coder::
+                   array<double, 2U> &problemStruct_checks_backgroundParams,
+                   const ::coder::array<double, 2U>
                    &problemStruct_checks_scalefactors, const ::coder::array<
-                   real_T, 2U> &problemStruct_checks_qzshifts, const ::coder::
-                   array<real_T, 2U> &problemStruct_checks_bulkIns, const ::
-                   coder::array<real_T, 2U> &problemStruct_checks_bulkOuts,
-                   const ::coder::array<real_T, 2U>
+                   double, 2U> &problemStruct_checks_qzshifts, const ::coder::
+                   array<double, 2U> &problemStruct_checks_bulkIns, const ::
+                   coder::array<double, 2U> &problemStruct_checks_bulkOuts,
+                   const ::coder::array<double, 2U>
                    &problemStruct_checks_resolutionParams, const ::coder::array<
-                   real_T, 2U> &problemStruct_checks_domainRatios, ::coder::
+                   double, 2U> &problemStruct_checks_domainRatios, ::coder::
                    array<cell_wrap_10, 1U> &fitNames);
   void getFitNames(const ::coder::array<cell_wrap_0, 2U>
                    &problemStruct_names_params, const ::coder::array<cell_wrap_0,
@@ -61,16 +61,16 @@ namespace RAT
                    coder::array<cell_wrap_0, 2U>
                    &problemStruct_names_resolutionParams, const ::coder::array<
                    cell_wrap_0, 2U> &problemStruct_names_domainRatios, const ::
-                   coder::array<real_T, 2U> &problemStruct_checks_params, const ::
-                   coder::array<real_T, 2U>
+                   coder::array<double, 2U> &problemStruct_checks_params, const ::
+                   coder::array<double, 2U>
                    &problemStruct_checks_backgroundParams, const ::coder::array<
-                   real_T, 2U> &problemStruct_checks_scalefactors, const ::coder::
-                   array<real_T, 2U> &problemStruct_checks_qzshifts, const ::
-                   coder::array<real_T, 2U> &problemStruct_checks_bulkIns, const
-                   ::coder::array<real_T, 2U> &problemStruct_checks_bulkOuts,
-                   const ::coder::array<real_T, 2U>
+                   double, 2U> &problemStruct_checks_scalefactors, const ::coder::
+                   array<double, 2U> &problemStruct_checks_qzshifts, const ::
+                   coder::array<double, 2U> &problemStruct_checks_bulkIns, const
+                   ::coder::array<double, 2U> &problemStruct_checks_bulkOuts,
+                   const ::coder::array<double, 2U>
                    &problemStruct_checks_resolutionParams, const ::coder::array<
-                   real_T, 2U> &problemStruct_checks_domainRatios, ::coder::
+                   double, 2U> &problemStruct_checks_domainRatios, ::coder::
                    array<cell_wrap_10, 1U> &fitNames);
 }
 

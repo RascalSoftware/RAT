@@ -20,16 +20,16 @@ namespace RAT
   {
     namespace internal
     {
-      int32_T b_bsearch(const real_T x_data[], real_T xi)
+      int b_bsearch(const double x_data[], double xi)
       {
-        int32_T high_i;
-        int32_T low_ip1;
-        int32_T n;
+        int high_i;
+        int low_ip1;
+        int n;
         n = 1;
         low_ip1 = 2;
         high_i = 4;
         while (high_i > low_ip1) {
-          int32_T mid_i;
+          int mid_i;
           mid_i = (n >> 1) + (high_i >> 1);
           if (((n & 1) == 1) && ((high_i & 1) == 1)) {
             mid_i++;
@@ -46,16 +46,16 @@ namespace RAT
         return n;
       }
 
-      int32_T b_bsearch(const ::coder::array<real_T, 1U> &x, real_T xi)
+      int b_bsearch(const ::coder::array<double, 1U> &x, double xi)
       {
-        int32_T high_i;
-        int32_T low_ip1;
-        int32_T n;
+        int high_i;
+        int low_ip1;
+        int n;
         high_i = x.size(0);
         n = 1;
         low_ip1 = 2;
         while (high_i > low_ip1) {
-          int32_T mid_i;
+          int mid_i;
           mid_i = (n >> 1) + (high_i >> 1);
           if (((n & 1) == 1) && ((high_i & 1) == 1)) {
             mid_i++;
@@ -72,9 +72,9 @@ namespace RAT
         return n;
       }
 
-      int32_T c_bsearch(const real_T x[3], real_T xi)
+      int c_bsearch(const double x[3], double xi)
       {
-        int32_T n;
+        int n;
         n = 1;
         if (xi >= x[1]) {
           n = 2;

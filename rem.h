@@ -22,8 +22,8 @@ namespace RAT
 {
   namespace coder
   {
-    void b_rem(const ::coder::array<real_T, 2U> &x, real_T y, ::coder::array<
-               real_T, 2U> &r);
+    void b_rem(const ::coder::array<double, 2U> &x, double y, ::coder::array<
+               double, 2U> &r);
   }
 }
 

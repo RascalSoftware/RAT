@@ -32,7 +32,7 @@ namespace RAT
       {
         namespace impl
         {
-          void timeKeeper(real_T newTime_tv_sec, real_T newTime_tv_nsec)
+          void timeKeeper(double newTime_tv_sec, double newTime_tv_nsec)
           {
             if (!savedTime_not_empty) {
               getTime(&savedTime.tv_sec, &savedTime.tv_nsec);
@@ -43,7 +43,7 @@ namespace RAT
             savedTime.tv_nsec = newTime_tv_nsec;
           }
 
-          void timeKeeper(real_T *outTime_tv_sec, real_T *outTime_tv_nsec)
+          void timeKeeper(double *outTime_tv_sec, double *outTime_tv_nsec)
           {
             *outTime_tv_sec = savedTime.tv_sec;
             *outTime_tv_nsec = savedTime.tv_nsec;

@@ -22,10 +22,10 @@ namespace RAT
 {
   namespace coder
   {
-    void randn(real_T varargin_2, ::coder::array<real_T, 2U> &r);
-    void randn(real_T varargin_1, ::coder::array<real_T, 1U> &r);
-    void randn(real_T r[2]);
-    void randn(real_T varargin_1, real_T varargin_2, ::coder::array<real_T, 2U>
+    void randn(double varargin_2, ::coder::array<double, 2U> &r);
+    void randn(double varargin_1, ::coder::array<double, 1U> &r);
+    void randn(double r[2]);
+    void randn(double varargin_1, double varargin_2, ::coder::array<double, 2U>
                &r);
   }
 }

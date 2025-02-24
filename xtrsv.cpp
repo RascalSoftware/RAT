@@ -22,16 +22,16 @@ namespace RAT
     {
       namespace blas
       {
-        void b_xtrsv(int32_T n, const ::coder::array<real_T, 2U> &A, int32_T lda,
-                     ::coder::array<real_T, 1U> &x)
+        void b_xtrsv(int n, const ::coder::array<double, 2U> &A, int lda, ::
+                     coder::array<double, 1U> &x)
         {
           if ((A.size(0) != 0) && (A.size(1) != 0)) {
-            for (int32_T j{n}; j >= 1; j--) {
-              int32_T jjA;
+            for (int j{n}; j >= 1; j--) {
+              int jjA;
               jjA = (j + (j - 1) * lda) - 1;
               x[j - 1] = x[j - 1] / A[jjA];
-              for (int32_T i{0}; i <= j - 2; i++) {
-                int32_T ix;
+              for (int i{0}; i <= j - 2; i++) {
+                int ix;
                 ix = (j - i) - 2;
                 x[ix] = x[ix] - x[j - 1] * A[(jjA - i) - 1];
               }
@@ -39,16 +39,16 @@ namespace RAT
           }
         }
 
-        void c_xtrsv(int32_T n, const ::coder::array<real_T, 2U> &A, int32_T lda,
-                     ::coder::array<real_T, 1U> &x)
+        void c_xtrsv(int n, const ::coder::array<double, 2U> &A, int lda, ::
+                     coder::array<double, 1U> &x)
         {
           if ((A.size(0) != 0) && (A.size(1) != 0)) {
-            for (int32_T j{0}; j < n; j++) {
-              real_T temp;
-              int32_T jA;
+            for (int j{0}; j < n; j++) {
+              double temp;
+              int jA;
               jA = j * lda;
               temp = x[j];
-              for (int32_T i{0}; i < j; i++) {
+              for (int i{0}; i < j; i++) {
                 temp -= A[jA + i] * x[i];
               }
 
@@ -57,18 +57,18 @@ namespace RAT
           }
         }
 
-        void d_xtrsv(int32_T n, const ::coder::array<real_T, 2U> &A, int32_T lda,
-                     ::coder::array<real_T, 1U> &x)
+        void d_xtrsv(int n, const ::coder::array<double, 2U> &A, int lda, ::
+                     coder::array<double, 1U> &x)
         {
           if ((A.size(0) != 0) && (A.size(1) != 0)) {
-            for (int32_T j{n}; j >= 1; j--) {
-              real_T temp;
-              int32_T i;
-              int32_T jA;
+            for (int j{n}; j >= 1; j--) {
+              double temp;
+              int i;
+              int jA;
               jA = (j - 1) * lda;
               temp = x[j - 1];
               i = j + 1;
-              for (int32_T b_i{n}; b_i >= i; b_i--) {
+              for (int b_i{n}; b_i >= i; b_i--) {
                 temp -= A[(jA + b_i) - 1] * x[b_i - 1];
               }
 
@@ -77,17 +77,17 @@ namespace RAT
           }
         }
 
-        void xtrsv(int32_T n, const ::coder::array<real_T, 2U> &A, int32_T lda, ::
-                   coder::array<real_T, 1U> &x)
+        void xtrsv(int n, const ::coder::array<double, 2U> &A, int lda, ::coder::
+                   array<double, 1U> &x)
         {
           if ((A.size(0) != 0) && (A.size(1) != 0)) {
-            for (int32_T j{0}; j < n; j++) {
-              int32_T i;
-              int32_T jjA;
+            for (int j{0}; j < n; j++) {
+              int i;
+              int jjA;
               jjA = j + j * lda;
               i = n - j;
-              for (int32_T b_i{0}; b_i <= i - 2; b_i++) {
-                int32_T ix;
+              for (int b_i{0}; b_i <= i - 2; b_i++) {
+                int ix;
                 ix = (j + b_i) + 1;
                 x[ix] = x[ix] - x[j] * A[(jjA + b_i) + 1];
               }

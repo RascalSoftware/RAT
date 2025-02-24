@@ -27,18 +27,18 @@ namespace RAT
 namespace RAT
 {
   void constructBackground(const ::coder::array<cell_wrap_10, 2U>
-    &backgroundType, const real_T backgroundParamIndices_data[], const int32_T
-    backgroundParamIndices_size[2], const ::coder::array<real_T, 2U>
+    &backgroundType, const double backgroundParamIndices_data[], const int
+    backgroundParamIndices_size[2], const ::coder::array<double, 2U>
     &shiftedData, const ::coder::array<cell_wrap_10, 2U> &customFiles, const ::
-    coder::array<real_T, 2U> &backgroundParamArray, const ::coder::array<real_T,
-    1U> &simulationXData, const real_T dataIndices[2], ::coder::array<real_T, 2U>
+    coder::array<double, 2U> &backgroundParamArray, const ::coder::array<double,
+    1U> &simulationXData, const double dataIndices[2], ::coder::array<double, 2U>
     &background);
-  void constructBackground(const char_T backgroundType_data[], const int32_T
-    backgroundType_size[2], const real_T backgroundParamIndices_data[], const
-    int32_T backgroundParamIndices_size[2], const ::coder::array<real_T, 2U>
+  void constructBackground(const char backgroundType_data[], const int
+    backgroundType_size[2], const double backgroundParamIndices_data[], const
+    int backgroundParamIndices_size[2], const ::coder::array<double, 2U>
     &shiftedData, const ::coder::array<cell_wrap_10, 2U> &customFiles, const ::
-    coder::array<real_T, 2U> &backgroundParamArray, const ::coder::array<real_T,
-    1U> &simulationXData, const real_T dataIndices[2], ::coder::array<real_T, 2U>
+    coder::array<double, 2U> &backgroundParamArray, const ::coder::array<double,
+    1U> &simulationXData, const double dataIndices[2], ::coder::array<double, 2U>
     &background);
 }
 

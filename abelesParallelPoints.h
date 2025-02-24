@@ -20,10 +20,10 @@
 // Function Declarations
 namespace RAT
 {
-  void abelesParallelPoints(const ::coder::array<real_T, 1U> &q, real_T N, const
-    ::coder::array<real_T, 1U> &layers_thick, const ::coder::array<creal_T, 1U>
-    &layers_rho, const ::coder::array<real_T, 1U> &layers_sig, ::coder::array<
-    real_T, 1U> &ref);
+  void abelesParallelPoints(const ::coder::array<double, 1U> &q, double N, const
+    ::coder::array<double, 1U> &layers_thick, const ::coder::array<creal_T, 1U>
+    &layers_rho, const ::coder::array<double, 1U> &layers_sig, ::coder::array<
+    double, 1U> &ref);
 }
 
 #endif

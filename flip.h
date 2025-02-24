@@ -22,7 +22,7 @@ namespace RAT
 {
   namespace coder
   {
-    void flip(::coder::array<real_T, 1U> &x);
+    void flip(::coder::array<double, 1U> &x);
   }
 }
 

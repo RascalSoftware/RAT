@@ -22,7 +22,7 @@ namespace RAT
 {
   namespace coder
   {
-    real_T rcond(const ::coder::array<real_T, 2U> &A);
+    double rcond(const ::coder::array<double, 2U> &A);
   }
 }
 

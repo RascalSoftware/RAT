@@ -22,7 +22,7 @@ namespace RAT
 {
   namespace coder
   {
-    void eye(int32_T varargin_1, ::coder::array<real_T, 2U> &b_I);
+    void eye(int varargin_1, ::coder::array<double, 2U> &b_I);
   }
 }
 

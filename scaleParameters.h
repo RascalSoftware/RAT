@@ -20,8 +20,8 @@
 // Function Declarations
 namespace RAT
 {
-  void scaleParameters(const ::coder::array<real_T, 2U> &prior, const ::coder::
-                       array<real_T, 2U> &params, ::coder::array<real_T, 1U>
+  void scaleParameters(const ::coder::array<double, 2U> &prior, const ::coder::
+                       array<double, 2U> &params, ::coder::array<double, 1U>
                        &scaled);
 }
 

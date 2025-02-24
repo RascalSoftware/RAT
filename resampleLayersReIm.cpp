@@ -19,18 +19,18 @@
 // Function Definitions
 namespace RAT
 {
-  void resampleLayersReIm(const ::coder::array<real_T, 2U> &sldProfile, const ::
-    coder::array<real_T, 2U> &sldProfileIm, real_T minAngle, real_T nPoints, ::
-    coder::array<real_T, 2U> &newSLD)
+  void resampleLayersReIm(const ::coder::array<double, 2U> &sldProfile, const ::
+    coder::array<double, 2U> &sldProfileIm, double minAngle, double nPoints, ::
+    coder::array<double, 2U> &newSLD)
   {
-    ::coder::array<real_T, 1U> b_expl_temp;
-    ::coder::array<real_T, 1U> b_sldProfileIm;
-    ::coder::array<real_T, 1U> c_sldProfileIm;
-    ::coder::array<real_T, 1U> newYIm;
+    ::coder::array<double, 1U> b_expl_temp;
+    ::coder::array<double, 1U> b_sldProfileIm;
+    ::coder::array<double, 1U> c_sldProfileIm;
+    ::coder::array<double, 1U> newYIm;
     cell_56 expl_temp;
-    real_T b_sldProfile[2];
-    int32_T i;
-    int32_T loop_ub;
+    double b_sldProfile[2];
+    int i;
+    int loop_ub;
 
     //  Resample the SLD profile. In this case we have an imaginary SLD also, and
     //  so we resample that onto the same points as the real one..
@@ -67,18 +67,18 @@ namespace RAT
     newSLD.set_size(expl_temp.f1.size(0) - 1, 4);
     loop_ub = expl_temp.f1.size(0) - 1;
     for (i = 0; i < 4; i++) {
-      for (int32_T i1{0}; i1 < loop_ub; i1++) {
+      for (int i1{0}; i1 < loop_ub; i1++) {
         newSLD[i1 + newSLD.size(0) * i] = 0.0;
       }
     }
 
     //  Now build a layer model from these resampled points
     i = expl_temp.f1.size(0) - 2;
-    for (int32_T n{0}; n <= i; n++) {
-      real_T d;
-      real_T d1;
-      real_T thisLayRho;
-      real_T thisLayRhoIm;
+    for (int n{0}; n <= i; n++) {
+      double d;
+      double d1;
+      double thisLayRho;
+      double thisLayRhoIm;
       d = expl_temp.f1[(n + expl_temp.f1.size(0)) + 1];
       d1 = expl_temp.f1[n + expl_temp.f1.size(0)];
       if (d > d1) {

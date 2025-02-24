@@ -24,23 +24,23 @@ namespace RAT
 {
   namespace coder
   {
-    void eig(const ::coder::array<real_T, 2U> &A, ::coder::array<creal_T, 2U> &V,
+    void eig(const ::coder::array<double, 2U> &A, ::coder::array<creal_T, 2U> &V,
              ::coder::array<creal_T, 2U> &D)
     {
       ::coder::array<creal_T, 1U> alpha1;
       ::coder::array<creal_T, 1U> beta1;
-      ::coder::array<real_T, 2U> b_D;
-      ::coder::array<real_T, 2U> b_V;
-      int32_T info;
-      int32_T n;
+      ::coder::array<double, 2U> b_D;
+      ::coder::array<double, 2U> b_V;
+      int info;
+      int n;
       n = A.size(0);
       V.set_size(A.size(0), A.size(0));
       D.set_size(A.size(0), A.size(0));
       if ((A.size(0) != 0) && (A.size(1) != 0)) {
         if (internal::anyNonFinite(A)) {
-          int32_T i;
-          int32_T i1;
-          int32_T loop_ub;
+          int i;
+          int i1;
+          int loop_ub;
           info = A.size(0);
           loop_ub = A.size(0);
           V.set_size(A.size(0), A.size(0));
@@ -66,9 +66,9 @@ namespace RAT
             D[info + D.size(0) * info].im = 0.0;
           }
         } else if (ishermitian(A)) {
-          int32_T i;
-          int32_T i1;
-          int32_T loop_ub;
+          int i;
+          int i1;
+          int loop_ub;
           schur(A, b_V, b_D);
           V.set_size(b_V.size(0), b_V.size(1));
           info = b_V.size(1);

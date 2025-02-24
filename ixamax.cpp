@@ -23,19 +23,18 @@ namespace RAT
     {
       namespace blas
       {
-        int32_T ixamax(int32_T n, const ::coder::array<real_T, 1U> &x, int32_T
-                       ix0)
+        int ixamax(int n, const ::coder::array<double, 1U> &x, int ix0)
         {
-          int32_T idxmax;
+          int idxmax;
           if (n < 1) {
             idxmax = 0;
           } else {
             idxmax = 1;
             if (n > 1) {
-              real_T smax;
+              double smax;
               smax = std::abs(x[ix0 - 1]);
-              for (int32_T k{2}; k <= n; k++) {
-                real_T s;
+              for (int k{2}; k <= n; k++) {
+                double s;
                 s = std::abs(x[(ix0 + k) - 2]);
                 if (s > smax) {
                   idxmax = k;
@@ -48,19 +47,18 @@ namespace RAT
           return idxmax;
         }
 
-        int32_T ixamax(int32_T n, const ::coder::array<real_T, 2U> &x, int32_T
-                       ix0)
+        int ixamax(int n, const ::coder::array<double, 2U> &x, int ix0)
         {
-          int32_T idxmax;
+          int idxmax;
           if (n < 1) {
             idxmax = 0;
           } else {
             idxmax = 1;
             if (n > 1) {
-              real_T smax;
+              double smax;
               smax = std::abs(x[ix0 - 1]);
-              for (int32_T k{2}; k <= n; k++) {
-                real_T s;
+              for (int k{2}; k <= n; k++) {
+                double s;
                 s = std::abs(x[(ix0 + k) - 2]);
                 if (s > smax) {
                   idxmax = k;

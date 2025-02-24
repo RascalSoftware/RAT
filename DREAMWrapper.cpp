@@ -20,13 +20,13 @@
 // Function Definitions
 namespace RAT
 {
-  real_T DREAMWrapper(const ::coder::array<real_T, 2U> &pars, const e_struct_T
-                      *ratInputs_problemStruct, const struct4_T
+  double DREAMWrapper(const ::coder::array<double, 2U> &pars, const
+                      ProblemDefinition *ratInputs_problemStruct, const Controls
                       *ratInputs_controls)
   {
-    e_struct_T problemStruct;
-    struct5_T expl_temp;
-    int32_T loop_ub;
+    ProblemDefinition problemStruct;
+    Results expl_temp;
+    int loop_ub;
 
     //  Get the inputs for Reflectivity Calculation
     problemStruct = *ratInputs_problemStruct;
@@ -34,7 +34,7 @@ namespace RAT
     //  Put the current parameters into problem
     problemStruct.fitParams.set_size(1, pars.size(1));
     loop_ub = pars.size(1);
-    for (int32_T i{0}; i < loop_ub; i++) {
+    for (int i{0}; i < loop_ub; i++) {
       problemStruct.fitParams[i] = pars[i];
     }
 

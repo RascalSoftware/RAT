@@ -23,41 +23,41 @@ namespace RAT
 {
   namespace coder
   {
-    void schur(const ::coder::array<real_T, 2U> &A, ::coder::array<real_T, 2U>
-               &V, ::coder::array<real_T, 2U> &T)
+    void schur(const ::coder::array<double, 2U> &A, ::coder::array<double, 2U>
+               &V, ::coder::array<double, 2U> &T)
     {
-      ::coder::array<real_T, 1U> tau;
+      ::coder::array<double, 1U> tau;
       if (internal::anyNonFinite(A)) {
-        int32_T b_loop_ub;
-        int32_T i;
-        int32_T i1;
-        int32_T loop_ub;
-        uint32_T unnamed_idx_0;
-        unnamed_idx_0 = static_cast<uint32_T>(A.size(0));
+        int b_loop_ub;
+        int i;
+        int i1;
+        int loop_ub;
+        unsigned int unnamed_idx_0;
+        unnamed_idx_0 = static_cast<unsigned int>(A.size(0));
         V.set_size(A.size(0), A.size(1));
         loop_ub = A.size(1);
         for (i = 0; i < loop_ub; i++) {
-          b_loop_ub = static_cast<int32_T>(unnamed_idx_0);
+          b_loop_ub = static_cast<int>(unnamed_idx_0);
           for (i1 = 0; i1 < b_loop_ub; i1++) {
             V[i1 + V.size(0) * i] = rtNaN;
           }
         }
 
         triu(V);
-        unnamed_idx_0 = static_cast<uint32_T>(A.size(0));
+        unnamed_idx_0 = static_cast<unsigned int>(A.size(0));
         T.set_size(A.size(0), A.size(1));
         loop_ub = A.size(1);
         for (i = 0; i < loop_ub; i++) {
-          b_loop_ub = static_cast<int32_T>(unnamed_idx_0);
+          b_loop_ub = static_cast<int>(unnamed_idx_0);
           for (i1 = 0; i1 < b_loop_ub; i1++) {
             T[i1 + T.size(0) * i] = rtNaN;
           }
         }
       } else {
-        int32_T b_loop_ub;
-        int32_T i;
-        int32_T i1;
-        int32_T loop_ub;
+        int b_loop_ub;
+        int i;
+        int i1;
+        int loop_ub;
         T.set_size(A.size(0), A.size(1));
         loop_ub = A.size(1);
         for (i = 0; i < loop_ub; i++) {

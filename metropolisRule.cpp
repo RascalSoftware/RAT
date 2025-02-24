@@ -20,20 +20,20 @@
 // Function Definitions
 namespace RAT
 {
-  void metropolisRule(const struct11_T *DREAMPar, const ::coder::array<real_T,
-                      1U> &log_L_xnew, const ::coder::array<real_T, 1U>
-                      &log_PR_xnew, const ::coder::array<real_T, 1U> &log_L_xold,
-                      const ::coder::array<real_T, 1U> &log_PR_xold, ::coder::
-                      array<boolean_T, 1U> &accept, ::coder::array<real_T, 1U>
+  void metropolisRule(const DreamParams *DREAMPar, const ::coder::array<double,
+                      1U> &log_L_xnew, const ::coder::array<double, 1U>
+                      &log_PR_xnew, const ::coder::array<double, 1U> &log_L_xold,
+                      const ::coder::array<double, 1U> &log_PR_xold, ::coder::
+                      array<boolean_T, 1U> &accept, ::coder::array<double, 1U>
                       &idx_accept)
   {
-    ::coder::array<real_T, 1U> Z;
-    ::coder::array<real_T, 1U> r;
-    ::coder::array<real_T, 1U> r1;
-    ::coder::array<int32_T, 1U> r2;
+    ::coder::array<double, 1U> Z;
+    ::coder::array<double, 1U> r;
+    ::coder::array<double, 1U> r1;
+    ::coder::array<int, 1U> r2;
     ::coder::array<boolean_T, 1U> b_accept;
-    int32_T i;
-    int32_T k;
+    int i;
+    int k;
 
     //  Metropolis rule for acceptance or rejection
     //  No ABC --> regular MCMC with prior and likelihood

@@ -26,10 +26,10 @@ namespace RAT
     {
       namespace lapack
       {
-        void xunormqr(const ::coder::array<real_T, 2U> &Q, ::coder::array<real_T,
-                      1U> &C, const ::coder::array<real_T, 1U> &tau);
-        void xunormqr(const ::coder::array<real_T, 1U> &Q, ::coder::array<real_T,
-                      2U> &C, const real_T tau_data[]);
+        void xunormqr(const ::coder::array<double, 2U> &Q, ::coder::array<double,
+                      1U> &C, const ::coder::array<double, 1U> &tau);
+        void xunormqr(const ::coder::array<double, 1U> &Q, ::coder::array<double,
+                      2U> &C, const double tau_data[]);
       }
     }
   }

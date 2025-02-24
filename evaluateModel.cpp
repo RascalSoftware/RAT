@@ -19,14 +19,14 @@
 // Function Definitions
 namespace RAT
 {
-  void evaluateModel(const ::coder::array<real_T, 2U> &x, const struct11_T
-                     *DREAMPar, const e_struct_T *ratInputs_problemStruct, const
-                     struct4_T *ratInputs_controls, ::coder::array<real_T, 2U>
-                     &fx)
+  void evaluateModel(const ::coder::array<double, 2U> &x, const DreamParams
+                     *DREAMPar, const ProblemDefinition *ratInputs_problemStruct,
+                     const Controls *ratInputs_controls, ::coder::array<double,
+                     2U> &fx)
   {
-    ::coder::array<real_T, 2U> b_x;
-    int32_T i;
-    int32_T loop_ub_tmp;
+    ::coder::array<double, 2U> b_x;
+    int i;
+    int loop_ub_tmp;
 
     //  This function computes the likelihood and log-likelihood of each d-vector
     //  of x values
@@ -42,7 +42,7 @@ namespace RAT
     //
     //  end
     //  Now evaluate the model
-    loop_ub_tmp = static_cast<int32_T>(DREAMPar->nChains);
+    loop_ub_tmp = static_cast<int>(DREAMPar->nChains);
     fx.set_size(1, loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
       fx[i] = 0.0;
@@ -50,8 +50,8 @@ namespace RAT
 
     //  Sequential evaluation
     //  Loop over each d-vector of parameter values of x using 1 worker
-    for (int32_T ii{0}; ii < loop_ub_tmp; ii++) {
-      int32_T loop_ub;
+    for (int ii{0}; ii < loop_ub_tmp; ii++) {
+      int loop_ub;
 
       //  Execute the model and return the model simulation
       // fx(:,ii) = f_handle(x(ii,:), ratInputs);

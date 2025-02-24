@@ -22,7 +22,7 @@ namespace RAT
 {
   namespace coder
   {
-    void b_erf(const ::coder::array<real_T, 2U> &x, ::coder::array<real_T, 2U>
+    void b_erf(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U>
                &y);
   }
 }

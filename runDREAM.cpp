@@ -28,28 +28,28 @@
 // Function Definitions
 namespace RAT
 {
-  void runDREAM(const e_struct_T *problemStruct, const struct3_T *problemLimits,
-                const struct4_T *controls, e_struct_T *outProblemStruct,
-                struct5_T *result, g_struct_T *bayesResults)
+  void runDREAM(const ProblemDefinition *problemStruct, const ProblemLimits
+                *problemLimits, const Controls *controls, ProblemDefinition
+                *outProblemStruct, Results *result, d_struct_T *bayesResults)
   {
-    static struct4_T b_controls;
+    static Controls b_controls;
     ::coder::array<cell_wrap_10, 1U> fitParamNames;
-    ::coder::array<real_T, 2U> ParInfo_max;
-    ::coder::array<real_T, 2U> ParInfo_min;
-    ::coder::array<real_T, 2U> a__1;
-    ::coder::array<real_T, 2U> b_bayesResults;
-    ::coder::array<real_T, 2U> c_bayesResults;
-    ::coder::array<real_T, 2U> r;
-    ::coder::array<real_T, 2U> r1;
-    i_struct_T dreamResults;
-    j_struct_T dreamOutput;
-    int32_T b_loop_ub;
-    int32_T i;
-    int32_T i1;
-    int32_T i2;
-    int32_T i3;
-    int32_T i4;
-    int32_T loop_ub;
+    ::coder::array<double, 2U> ParInfo_max;
+    ::coder::array<double, 2U> ParInfo_min;
+    ::coder::array<double, 2U> a__1;
+    ::coder::array<double, 2U> b_bayesResults;
+    ::coder::array<double, 2U> c_bayesResults;
+    ::coder::array<double, 2U> r;
+    ::coder::array<double, 2U> r1;
+    f_struct_T dreamResults;
+    g_struct_T dreamOutput;
+    int b_loop_ub;
+    int i;
+    int i1;
+    int i2;
+    int i3;
+    int i4;
+    int loop_ub;
 
     //  Make an empty struct for bayesResults to hold the outputs of the
     //  calculation
@@ -104,7 +104,7 @@ namespace RAT
     getFittedPriors(fitParamNames, outProblemStruct->priorNames,
                     outProblemStruct->priorValues, outProblemStruct->fitLimits,
                     r);
-    ratDREAM(static_cast<real_T>(fitParamNames.size(0)), controls->nChains, std::
+    ratDREAM(static_cast<double>(fitParamNames.size(0)), controls->nChains, std::
              ceil(controls->nSamples / controls->nChains),
              controls->jumpProbability, controls->pUnitGamma, controls->adaptPCR,
              ParInfo_min, ParInfo_max, controls->boundHandling.data,
@@ -113,16 +113,16 @@ namespace RAT
 
     //  Combine all chains....
     bayesResults->chain.set_size(0, 0);
-    i = static_cast<int32_T>(controls->nChains);
-    if (0 <= static_cast<int32_T>(controls->nChains) - 1) {
-      int32_T cutoff;
+    i = static_cast<int>(controls->nChains);
+    if (0 <= static_cast<int>(controls->nChains) - 1) {
+      int cutoff;
       if (1 > fitParamNames.size(0)) {
         i1 = 0;
       } else {
         i1 = fitParamNames.size(0);
       }
 
-      cutoff = static_cast<int32_T>(std::floor(static_cast<real_T>
+      cutoff = static_cast<int>(std::floor(static_cast<double>
         (bayesResults->dreamOutput.allChains.size(0)) * 0.25));
       if (cutoff > bayesResults->dreamOutput.allChains.size(0)) {
         i2 = -1;
@@ -136,12 +136,12 @@ namespace RAT
       b_loop_ub = i1 - 1;
     }
 
-    for (int32_T b_i{0}; b_i < i; b_i++) {
-      int32_T b_result;
-      int32_T c_loop_ub;
-      int32_T i5;
-      int32_T i6;
-      int32_T sizes_idx_0;
+    for (int b_i{0}; b_i < i; b_i++) {
+      int b_result;
+      int c_loop_ub;
+      int i5;
+      int i6;
+      int sizes_idx_0;
       boolean_T empty_non_axis_sizes;
 
       //  Keep only the last 75% of the chain..

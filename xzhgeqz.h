@@ -26,9 +26,9 @@ namespace RAT
     {
       namespace reflapack
       {
-        void xzhgeqz(::coder::array<creal_T, 2U> &A, int32_T ilo, int32_T ihi, ::
-                     coder::array<creal_T, 2U> &Z, int32_T *info, ::coder::array<
-                     creal_T, 1U> &alpha1, ::coder::array<creal_T, 1U> &beta1);
+        void xzhgeqz(::coder::array<creal_T, 2U> &A, int ilo, int ihi, ::coder::
+                     array<creal_T, 2U> &Z, int *info, ::coder::array<creal_T,
+                     1U> &alpha1, ::coder::array<creal_T, 1U> &beta1);
       }
     }
   }

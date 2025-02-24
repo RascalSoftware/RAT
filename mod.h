@@ -21,8 +21,8 @@ namespace RAT
 {
   namespace coder
   {
-    real_T b_mod(real_T x);
-    real_T b_mod(real_T x, real_T y);
+    double b_mod(double x);
+    double b_mod(double x, double y);
   }
 }
 

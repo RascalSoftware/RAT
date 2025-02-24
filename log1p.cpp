@@ -22,9 +22,9 @@ namespace RAT
     {
       namespace scalar
       {
-        void b_log1p(real_T *z)
+        void b_log1p(double *z)
         {
-          real_T absz;
+          double absz;
           absz = std::abs(*z);
           if ((absz > 4.503599627370496E+15) || (std::isinf(*z) || std::isnan(*z)))
           {

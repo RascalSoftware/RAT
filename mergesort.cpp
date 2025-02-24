@@ -21,11 +21,11 @@ namespace RAT
   {
     namespace internal
     {
-      void b_mergesort(int32_T idx[4], const real_T x[4])
+      void b_mergesort(int idx[4], const double x[4])
       {
-        int32_T iwork[4];
-        int32_T j;
-        int32_T qEnd;
+        int iwork[4];
+        int j;
+        int qEnd;
         if (sortLE(x, 1, 2)) {
           idx[0] = 1;
           idx[1] = 2;
@@ -43,17 +43,17 @@ namespace RAT
         }
 
         j = 1;
-        for (int32_T pEnd{3}; pEnd < 5; pEnd = qEnd + 2) {
-          int32_T k;
-          int32_T p;
-          int32_T q;
+        for (int pEnd{3}; pEnd < 5; pEnd = qEnd + 2) {
+          int k;
+          int p;
+          int q;
           p = j;
           q = pEnd;
           qEnd = j + 4;
           k = 0;
           while (k + 1 <= 4) {
-            int32_T i;
-            int32_T i1;
+            int i;
+            int i1;
             i = idx[q - 1];
             i1 = idx[p - 1];
             if (sortLE(x, i1, i)) {
@@ -89,14 +89,14 @@ namespace RAT
         }
       }
 
-      void b_mergesort(::coder::array<int32_T, 2U> &idx, const ::coder::array<
-                       real_T, 2U> &x, int32_T n)
+      void b_mergesort(::coder::array<int, 2U> &idx, const ::coder::array<double,
+                       2U> &x, int n)
       {
-        ::coder::array<int32_T, 1U> iwork;
-        int32_T b_i;
-        int32_T i;
-        int32_T k;
-        int32_T qEnd;
+        ::coder::array<int, 1U> iwork;
+        int b_i;
+        int i;
+        int k;
+        int qEnd;
         iwork.set_size(idx.size(1));
         i = n - 1;
         for (k = 1; k <= i; k += 2) {
@@ -115,14 +115,14 @@ namespace RAT
 
         b_i = 2;
         while (b_i < n) {
-          int32_T i2;
-          int32_T j;
+          int i2;
+          int j;
           i2 = b_i << 1;
           j = 1;
-          for (int32_T pEnd{b_i + 1}; pEnd < n + 1; pEnd = qEnd + b_i) {
-            int32_T kEnd;
-            int32_T p;
-            int32_T q;
+          for (int pEnd{b_i + 1}; pEnd < n + 1; pEnd = qEnd + b_i) {
+            int kEnd;
+            int p;
+            int q;
             p = j;
             q = pEnd;
             qEnd = j + i2;
@@ -133,7 +133,7 @@ namespace RAT
             k = 0;
             kEnd = qEnd - j;
             while (k + 1 <= kEnd) {
-              int32_T i1;
+              int i1;
               i = idx[q - 1];
               i1 = idx[p - 1];
               if (b_sortLE(x, i1, i)) {
@@ -172,14 +172,14 @@ namespace RAT
         }
       }
 
-      void b_mergesort(::coder::array<int32_T, 1U> &idx, const ::coder::array<
-                       real_T, 1U> &x, int32_T n)
+      void b_mergesort(::coder::array<int, 1U> &idx, const ::coder::array<double,
+                       1U> &x, int n)
       {
-        ::coder::array<int32_T, 1U> iwork;
-        int32_T b_i;
-        int32_T i;
-        int32_T k;
-        int32_T qEnd;
+        ::coder::array<int, 1U> iwork;
+        int b_i;
+        int i;
+        int k;
+        int qEnd;
         iwork.set_size(idx.size(0));
         i = n - 1;
         for (k = 1; k <= i; k += 2) {
@@ -198,14 +198,14 @@ namespace RAT
 
         b_i = 2;
         while (b_i < n) {
-          int32_T i2;
-          int32_T j;
+          int i2;
+          int j;
           i2 = b_i << 1;
           j = 1;
-          for (int32_T pEnd{b_i + 1}; pEnd < n + 1; pEnd = qEnd + b_i) {
-            int32_T kEnd;
-            int32_T p;
-            int32_T q;
+          for (int pEnd{b_i + 1}; pEnd < n + 1; pEnd = qEnd + b_i) {
+            int kEnd;
+            int p;
+            int q;
             p = j;
             q = pEnd;
             qEnd = j + i2;
@@ -216,7 +216,7 @@ namespace RAT
             k = 0;
             kEnd = qEnd - j;
             while (k + 1 <= kEnd) {
-              int32_T i1;
+              int i1;
               i = idx[q - 1];
               i1 = idx[p - 1];
               if (sortLE(x, i1, i)) {
@@ -255,14 +255,14 @@ namespace RAT
         }
       }
 
-      void b_mergesort(::coder::array<int32_T, 1U> &idx, const ::coder::array<
-                       real_T, 2U> &x, int32_T n)
+      void b_mergesort(::coder::array<int, 1U> &idx, const ::coder::array<double,
+                       2U> &x, int n)
       {
-        ::coder::array<int32_T, 1U> iwork;
-        int32_T b_i;
-        int32_T i;
-        int32_T k;
-        int32_T qEnd;
+        ::coder::array<int, 1U> iwork;
+        int b_i;
+        int i;
+        int k;
+        int qEnd;
         iwork.set_size(idx.size(0));
         i = n - 1;
         for (k = 1; k <= i; k += 2) {
@@ -281,14 +281,14 @@ namespace RAT
 
         b_i = 2;
         while (b_i < n) {
-          int32_T i2;
-          int32_T j;
+          int i2;
+          int j;
           i2 = b_i << 1;
           j = 1;
-          for (int32_T pEnd{b_i + 1}; pEnd < n + 1; pEnd = qEnd + b_i) {
-            int32_T kEnd;
-            int32_T p;
-            int32_T q;
+          for (int pEnd{b_i + 1}; pEnd < n + 1; pEnd = qEnd + b_i) {
+            int kEnd;
+            int p;
+            int q;
             p = j;
             q = pEnd;
             qEnd = j + i2;
@@ -299,7 +299,7 @@ namespace RAT
             k = 0;
             kEnd = qEnd - j;
             while (k + 1 <= kEnd) {
-              int32_T i1;
+              int i1;
               i = idx[q - 1];
               i1 = idx[p - 1];
               if (sortLE(x, i1, i)) {

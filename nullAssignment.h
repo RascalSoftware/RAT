@@ -24,8 +24,8 @@ namespace RAT
   {
     namespace internal
     {
-      void nullAssignment(::coder::array<real_T, 2U> &x, const ::coder::array<
-                          int32_T, 2U> &idx);
+      void nullAssignment(::coder::array<double, 2U> &x, const ::coder::array<
+                          int, 2U> &idx);
     }
   }
 }

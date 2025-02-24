@@ -20,11 +20,11 @@
 // Function Declarations
 namespace RAT
 {
-  void applyBackgroundCorrection(::coder::array<real_T, 2U> &reflectivity, ::
-    coder::array<real_T, 2U> &simulation, ::coder::array<real_T, 2U>
-    &shiftedData, const ::coder::array<real_T, 2U> &background, const char_T
-    backgroundAction_data[], const int32_T backgroundAction_size[2], ::coder::
-    array<real_T, 2U> &outputData);
+  void applyBackgroundCorrection(::coder::array<double, 2U> &reflectivity, ::
+    coder::array<double, 2U> &simulation, ::coder::array<double, 2U>
+    &shiftedData, const ::coder::array<double, 2U> &background, const char
+    backgroundAction_data[], const int backgroundAction_size[2], ::coder::array<
+    double, 2U> &outputData);
 }
 
 #endif

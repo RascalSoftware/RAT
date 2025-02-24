@@ -33,27 +33,27 @@ namespace RAT
 namespace RAT
 {
   static void b_packCellArray(const ::coder::array<cell_wrap_9, 2U> &cellArray, ::
-    coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
+    coder::array<double, 1U> &packedArray, ::coder::array<double, 1U> &dims);
   static void packCellArray(const ::coder::array<cell_wrap_7, 1U> &cellArray, ::
-    coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
+    coder::array<double, 1U> &packedArray, ::coder::array<double, 1U> &dims);
   static void packCellArray(const ::coder::array<cell_wrap_8, 1U> &cellArray, ::
-    coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
+    coder::array<double, 1U> &packedArray, ::coder::array<double, 1U> &dims);
   static void packCellArray(const ::coder::array<cell_wrap_9, 2U> &cellArray, ::
-    coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims);
+    coder::array<double, 1U> &packedArray, ::coder::array<double, 1U> &dims);
 }
 
 // Function Definitions
 namespace RAT
 {
   static void b_packCellArray(const ::coder::array<cell_wrap_9, 2U> &cellArray, ::
-    coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
+    coder::array<double, 1U> &packedArray, ::coder::array<double, 1U> &dims)
   {
-    real_T rowSize;
-    real_T start;
-    int32_T b_cellArray;
-    int32_T b_i;
-    int32_T i;
-    uint32_T b_index;
+    double rowSize;
+    double start;
+    int b_cellArray;
+    int b_i;
+    unsigned int b_index;
+    int i;
 
     //  Packs a specified column of a cell array with different sized arrays into a
     //  single row array and an array of the dimensions for each cell. For the example
@@ -69,18 +69,18 @@ namespace RAT
 
     i = cellArray.size(0);
     for (b_i = 0; b_i < i; b_i++) {
-      b_index = (static_cast<uint32_T>(b_i + 1) << 1) + MAX_uint32_T;
-      dims[static_cast<int32_T>(b_index) - 1] = static_cast<uint32_T>
+      b_index = (static_cast<unsigned int>(b_i + 1) << 1) + MAX_uint32_T;
+      dims[static_cast<int>(b_index) - 1] = static_cast<unsigned int>
         (cellArray[b_i + cellArray.size(0)].f1.size(0));
-      dims[static_cast<int32_T>(b_index)] = static_cast<uint32_T>(cellArray[b_i
+      dims[static_cast<int>(b_index)] = static_cast<unsigned int>(cellArray[b_i
         + cellArray.size(0)].f1.size(1));
-      rowSize += static_cast<real_T>(static_cast<uint32_T>(cellArray[b_i +
-        cellArray.size(0)].f1.size(0))) * static_cast<real_T>
-        (static_cast<uint32_T>(cellArray[b_i + cellArray.size(0)].f1.size(1)));
+      rowSize += static_cast<double>(static_cast<unsigned int>(cellArray[b_i +
+        cellArray.size(0)].f1.size(0))) * static_cast<double>(static_cast<
+        unsigned int>(cellArray[b_i + cellArray.size(0)].f1.size(1)));
     }
 
     start = 1.0;
-    b_cellArray = static_cast<int32_T>(rowSize);
+    b_cellArray = static_cast<int>(rowSize);
     packedArray.set_size(b_cellArray);
     for (i = 0; i < b_cellArray; i++) {
       packedArray[i] = 0.0;
@@ -88,21 +88,22 @@ namespace RAT
 
     i = cellArray.size(0);
     for (b_i = 0; b_i < i; b_i++) {
-      real_T stop;
-      int32_T i1;
-      b_index = (static_cast<uint32_T>(b_i + 1) << 1) - 1U;
-      stop = start + static_cast<real_T>(static_cast<uint32_T>(dims[static_cast<
-        int32_T>(b_index) - 1])) * static_cast<real_T>(static_cast<uint32_T>
-        (dims[static_cast<int32_T>(static_cast<real_T>(b_index) + 1.0) - 1]));
+      double stop;
+      int i1;
+      b_index = (static_cast<unsigned int>(b_i + 1) << 1) - 1U;
+      stop = start + static_cast<double>(static_cast<unsigned int>(dims[
+        static_cast<int>(b_index) - 1])) * static_cast<double>(static_cast<
+        unsigned int>(dims[static_cast<int>(static_cast<double>(b_index) + 1.0)
+                      - 1]));
       if (start > stop - 1.0) {
         i1 = 1;
       } else {
-        i1 = static_cast<int32_T>(start);
+        i1 = static_cast<int>(start);
       }
 
       b_cellArray = cellArray[b_i + cellArray.size(0)].f1.size(0) *
         cellArray[b_i + cellArray.size(0)].f1.size(1);
-      for (int32_T i2{0}; i2 < b_cellArray; i2++) {
+      for (int i2{0}; i2 < b_cellArray; i2++) {
         packedArray[(i1 + i2) - 1] = cellArray[b_i + cellArray.size(0)].f1[i2];
       }
 
@@ -111,14 +112,14 @@ namespace RAT
   }
 
   static void packCellArray(const ::coder::array<cell_wrap_7, 1U> &cellArray, ::
-    coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
+    coder::array<double, 1U> &packedArray, ::coder::array<double, 1U> &dims)
   {
-    real_T rowSize;
-    real_T start;
-    int32_T b_cellArray;
-    int32_T b_i;
-    int32_T i;
-    uint32_T b_index;
+    double rowSize;
+    double start;
+    int b_cellArray;
+    int b_i;
+    unsigned int b_index;
+    int i;
 
     //  Packs a specified column of a cell array with different sized arrays into a
     //  single row array and an array of the dimensions for each cell. For the example
@@ -134,16 +135,16 @@ namespace RAT
 
     i = cellArray.size(0);
     for (b_i = 0; b_i < i; b_i++) {
-      b_index = (static_cast<uint32_T>(b_i + 1) << 1) + MAX_uint32_T;
-      dims[static_cast<int32_T>(b_index) - 1] = static_cast<uint32_T>
+      b_index = (static_cast<unsigned int>(b_i + 1) << 1) + MAX_uint32_T;
+      dims[static_cast<int>(b_index) - 1] = static_cast<unsigned int>
         (cellArray[b_i].f1.size(0));
-      dims[static_cast<int32_T>(b_index)] = 2.0;
-      rowSize += static_cast<real_T>(static_cast<uint32_T>(cellArray[b_i].
+      dims[static_cast<int>(b_index)] = 2.0;
+      rowSize += static_cast<double>(static_cast<unsigned int>(cellArray[b_i].
         f1.size(0))) * 2.0;
     }
 
     start = 1.0;
-    b_cellArray = static_cast<int32_T>(rowSize);
+    b_cellArray = static_cast<int>(rowSize);
     packedArray.set_size(b_cellArray);
     for (i = 0; i < b_cellArray; i++) {
       packedArray[i] = 0.0;
@@ -151,20 +152,21 @@ namespace RAT
 
     i = cellArray.size(0);
     for (b_i = 0; b_i < i; b_i++) {
-      real_T stop;
-      int32_T i1;
-      b_index = (static_cast<uint32_T>(b_i + 1) << 1) - 1U;
-      stop = start + static_cast<real_T>(static_cast<uint32_T>(dims[static_cast<
-        int32_T>(b_index) - 1])) * static_cast<real_T>(static_cast<uint32_T>
-        (dims[static_cast<int32_T>(static_cast<real_T>(b_index) + 1.0) - 1]));
+      double stop;
+      int i1;
+      b_index = (static_cast<unsigned int>(b_i + 1) << 1) - 1U;
+      stop = start + static_cast<double>(static_cast<unsigned int>(dims[
+        static_cast<int>(b_index) - 1])) * static_cast<double>(static_cast<
+        unsigned int>(dims[static_cast<int>(static_cast<double>(b_index) + 1.0)
+                      - 1]));
       if (start > stop - 1.0) {
         i1 = 1;
       } else {
-        i1 = static_cast<int32_T>(start);
+        i1 = static_cast<int>(start);
       }
 
       b_cellArray = cellArray[b_i].f1.size(0) << 1;
-      for (int32_T i2{0}; i2 < b_cellArray; i2++) {
+      for (int i2{0}; i2 < b_cellArray; i2++) {
         packedArray[(i1 + i2) - 1] = cellArray[b_i].f1[i2];
       }
 
@@ -173,14 +175,14 @@ namespace RAT
   }
 
   static void packCellArray(const ::coder::array<cell_wrap_8, 1U> &cellArray, ::
-    coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
+    coder::array<double, 1U> &packedArray, ::coder::array<double, 1U> &dims)
   {
-    real_T rowSize;
-    real_T start;
-    int32_T b_cellArray;
-    int32_T b_i;
-    int32_T i;
-    uint32_T b_index;
+    double rowSize;
+    double start;
+    int b_cellArray;
+    int b_i;
+    unsigned int b_index;
+    int i;
 
     //  Packs a specified column of a cell array with different sized arrays into a
     //  single row array and an array of the dimensions for each cell. For the example
@@ -196,16 +198,16 @@ namespace RAT
 
     i = cellArray.size(0);
     for (b_i = 0; b_i < i; b_i++) {
-      b_index = (static_cast<uint32_T>(b_i + 1) << 1) + MAX_uint32_T;
-      dims[static_cast<int32_T>(b_index) - 1] = static_cast<uint32_T>
+      b_index = (static_cast<unsigned int>(b_i + 1) << 1) + MAX_uint32_T;
+      dims[static_cast<int>(b_index) - 1] = static_cast<unsigned int>
         (cellArray[b_i].f1.size(0));
-      dims[static_cast<int32_T>(b_index)] = 3.0;
-      rowSize += static_cast<real_T>(static_cast<uint32_T>(cellArray[b_i].
+      dims[static_cast<int>(b_index)] = 3.0;
+      rowSize += static_cast<double>(static_cast<unsigned int>(cellArray[b_i].
         f1.size(0))) * 3.0;
     }
 
     start = 1.0;
-    b_cellArray = static_cast<int32_T>(rowSize);
+    b_cellArray = static_cast<int>(rowSize);
     packedArray.set_size(b_cellArray);
     for (i = 0; i < b_cellArray; i++) {
       packedArray[i] = 0.0;
@@ -213,20 +215,21 @@ namespace RAT
 
     i = cellArray.size(0);
     for (b_i = 0; b_i < i; b_i++) {
-      real_T stop;
-      int32_T i1;
-      b_index = (static_cast<uint32_T>(b_i + 1) << 1) - 1U;
-      stop = start + static_cast<real_T>(static_cast<uint32_T>(dims[static_cast<
-        int32_T>(b_index) - 1])) * static_cast<real_T>(static_cast<uint32_T>
-        (dims[static_cast<int32_T>(static_cast<real_T>(b_index) + 1.0) - 1]));
+      double stop;
+      int i1;
+      b_index = (static_cast<unsigned int>(b_i + 1) << 1) - 1U;
+      stop = start + static_cast<double>(static_cast<unsigned int>(dims[
+        static_cast<int>(b_index) - 1])) * static_cast<double>(static_cast<
+        unsigned int>(dims[static_cast<int>(static_cast<double>(b_index) + 1.0)
+                      - 1]));
       if (start > stop - 1.0) {
         i1 = 1;
       } else {
-        i1 = static_cast<int32_T>(start);
+        i1 = static_cast<int>(start);
       }
 
       b_cellArray = cellArray[b_i].f1.size(0) * 3;
-      for (int32_T i2{0}; i2 < b_cellArray; i2++) {
+      for (int i2{0}; i2 < b_cellArray; i2++) {
         packedArray[(i1 + i2) - 1] = cellArray[b_i].f1[i2];
       }
 
@@ -235,14 +238,14 @@ namespace RAT
   }
 
   static void packCellArray(const ::coder::array<cell_wrap_9, 2U> &cellArray, ::
-    coder::array<real_T, 1U> &packedArray, ::coder::array<real_T, 1U> &dims)
+    coder::array<double, 1U> &packedArray, ::coder::array<double, 1U> &dims)
   {
-    real_T rowSize;
-    real_T start;
-    int32_T b_cellArray;
-    int32_T b_i;
-    int32_T i;
-    uint32_T b_index;
+    double rowSize;
+    double start;
+    int b_cellArray;
+    int b_i;
+    unsigned int b_index;
+    int i;
 
     //  Packs a specified column of a cell array with different sized arrays into a
     //  single row array and an array of the dimensions for each cell. For the example
@@ -258,18 +261,18 @@ namespace RAT
 
     i = cellArray.size(0);
     for (b_i = 0; b_i < i; b_i++) {
-      b_index = (static_cast<uint32_T>(b_i + 1) << 1) + MAX_uint32_T;
-      dims[static_cast<int32_T>(b_index) - 1] = static_cast<uint32_T>
+      b_index = (static_cast<unsigned int>(b_i + 1) << 1) + MAX_uint32_T;
+      dims[static_cast<int>(b_index) - 1] = static_cast<unsigned int>
         (cellArray[b_i].f1.size(0));
-      dims[static_cast<int32_T>(b_index)] = static_cast<uint32_T>(cellArray[b_i]
+      dims[static_cast<int>(b_index)] = static_cast<unsigned int>(cellArray[b_i]
         .f1.size(1));
-      rowSize += static_cast<real_T>(static_cast<uint32_T>(cellArray[b_i].
-        f1.size(0))) * static_cast<real_T>(static_cast<uint32_T>(cellArray[b_i].
-        f1.size(1)));
+      rowSize += static_cast<double>(static_cast<unsigned int>(cellArray[b_i].
+        f1.size(0))) * static_cast<double>(static_cast<unsigned int>
+        (cellArray[b_i].f1.size(1)));
     }
 
     start = 1.0;
-    b_cellArray = static_cast<int32_T>(rowSize);
+    b_cellArray = static_cast<int>(rowSize);
     packedArray.set_size(b_cellArray);
     for (i = 0; i < b_cellArray; i++) {
       packedArray[i] = 0.0;
@@ -277,21 +280,21 @@ namespace RAT
 
     i = cellArray.size(0);
     for (b_i = 0; b_i < i; b_i++) {
-      real_T stop;
-      int32_T i1;
-      b_index = (static_cast<uint32_T>(b_i + 1) << 1) - 1U;
-      stop = start + static_cast<real_T>(static_cast<uint32_T>(dims
-        [static_cast<int32_T>(b_index) - 1])) * static_cast<real_T>
-        (static_cast<uint32_T>(dims[static_cast<int32_T>(static_cast<real_T>
-           (b_index) + 1.0) - 1]));
+      double stop;
+      int i1;
+      b_index = (static_cast<unsigned int>(b_i + 1) << 1) - 1U;
+      stop = start + static_cast<double>(static_cast<unsigned int>(dims[
+        static_cast<int>(b_index) - 1])) * static_cast<double>(static_cast<
+        unsigned int>(dims[static_cast<int>(static_cast<double>(b_index) + 1.0)
+                      - 1]));
       if (start > stop - 1.0) {
         i1 = 1;
       } else {
-        i1 = static_cast<int32_T>(start);
+        i1 = static_cast<int>(start);
       }
 
       b_cellArray = cellArray[b_i].f1.size(0) * cellArray[b_i].f1.size(1);
-      for (int32_T i2{0}; i2 < b_cellArray; i2++) {
+      for (int i2{0}; i2 < b_cellArray; i2++) {
         packedArray[(i1 + i2) - 1] = cellArray[b_i].f1[i2];
       }
 
@@ -301,13 +304,13 @@ namespace RAT
 
   void b_triggerEvent()
   {
-    static const char_T b_cv1[57]{
+    static const char b_cv1[57]{
       "\n Iteration   Func-count     min f(x)         Procedure\n" };
 
-    ::coder::array<char_T, 2U> path;
-    ::coder::array<char_T, 2U> r;
-    int32_T i;
-    char_T b_cv[57];
+    ::coder::array<char, 2U> path;
+    ::coder::array<char, 2U> r;
+    int i;
+    char b_cv[57];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -321,7 +324,7 @@ namespace RAT
     //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
-      int32_T loop_ub;
+      int loop_ub;
 
       //  Declaration for coder
       helper_not_empty = true;
@@ -361,14 +364,14 @@ namespace RAT
     }
   }
 
-  void b_triggerEvent(real_T varargin_2)
+  void b_triggerEvent(double varargin_2)
   {
-    static const char_T b_cv1[8]{ "DREAM: " };
+    static const char b_cv1[8]{ "DREAM: " };
 
-    ::coder::array<char_T, 2U> path;
-    ::coder::array<char_T, 2U> r;
-    int32_T i;
-    char_T b_cv[8];
+    ::coder::array<char, 2U> path;
+    ::coder::array<char, 2U> r;
+    int i;
+    char b_cv[8];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -382,7 +385,7 @@ namespace RAT
     //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
-      int32_T loop_ub;
+      int loop_ub;
 
       //  Declaration for coder
       helper_not_empty = true;
@@ -420,12 +423,12 @@ namespace RAT
 
   void c_triggerEvent()
   {
-    static const char_T b_cv1[34]{ "\nOptimisation terminated by user\n" };
+    static const char b_cv1[34]{ "\nOptimisation terminated by user\n" };
 
-    ::coder::array<char_T, 2U> path;
-    ::coder::array<char_T, 2U> r;
-    int32_T i;
-    char_T b_cv[34];
+    ::coder::array<char, 2U> path;
+    ::coder::array<char, 2U> r;
+    int i;
+    char b_cv[34];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -439,7 +442,7 @@ namespace RAT
     //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
-      int32_T loop_ub;
+      int loop_ub;
 
       //  Declaration for coder
       helper_not_empty = true;
@@ -481,12 +484,12 @@ namespace RAT
 
   void d_triggerEvent()
   {
-    static const char_T b_cv1[34]{ "\nRunning Differential Evolution\n\n" };
+    static const char b_cv1[34]{ "\nRunning Differential Evolution\n\n" };
 
-    ::coder::array<char_T, 2U> path;
-    ::coder::array<char_T, 2U> r;
-    int32_T i;
-    char_T b_cv[34];
+    ::coder::array<char, 2U> path;
+    ::coder::array<char, 2U> r;
+    int i;
+    char b_cv[34];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -500,7 +503,7 @@ namespace RAT
     //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
-      int32_T loop_ub;
+      int loop_ub;
 
       //  Declaration for coder
       helper_not_empty = true;
@@ -542,12 +545,12 @@ namespace RAT
 
   void e_triggerEvent()
   {
-    static const char_T b_cv1[35]{ "I_NP increased to minimal value 5\n" };
+    static const char b_cv1[35]{ "I_NP increased to minimal value 5\n" };
 
-    ::coder::array<char_T, 2U> path;
-    ::coder::array<char_T, 2U> r;
-    int32_T i;
-    char_T b_cv[35];
+    ::coder::array<char, 2U> path;
+    ::coder::array<char, 2U> r;
+    int i;
+    char b_cv[35];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -561,7 +564,7 @@ namespace RAT
     //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
-      int32_T loop_ub;
+      int loop_ub;
 
       //  Declaration for coder
       helper_not_empty = true;
@@ -603,13 +606,13 @@ namespace RAT
 
   void f_triggerEvent()
   {
-    static const char_T b_cv1[62]{
+    static const char b_cv1[62]{
       "F_CR should be from interval [0,1]; set to default value 0.5\n" };
 
-    ::coder::array<char_T, 2U> path;
-    ::coder::array<char_T, 2U> r;
-    int32_T i;
-    char_T b_cv[62];
+    ::coder::array<char, 2U> path;
+    ::coder::array<char, 2U> r;
+    int i;
+    char b_cv[62];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -623,7 +626,7 @@ namespace RAT
     //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
-      int32_T loop_ub;
+      int loop_ub;
 
       //  Declaration for coder
       helper_not_empty = true;
@@ -666,13 +669,13 @@ namespace RAT
 
   void g_triggerEvent()
   {
-    static const char_T b_cv1[51]{
+    static const char b_cv1[51]{
       "I_itermax should be > 0; set to default value 200\n" };
 
-    ::coder::array<char_T, 2U> path;
-    ::coder::array<char_T, 2U> r;
-    int32_T i;
-    char_T b_cv[51];
+    ::coder::array<char, 2U> path;
+    ::coder::array<char, 2U> r;
+    int i;
+    char b_cv[51];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -686,7 +689,7 @@ namespace RAT
     //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
-      int32_T loop_ub;
+      int loop_ub;
 
       //  Declaration for coder
       helper_not_empty = true;
@@ -728,12 +731,12 @@ namespace RAT
 
   void h_triggerEvent()
   {
-    static const char_T b_cv1[33]{ "Optimisation terminated by user\n" };
+    static const char b_cv1[33]{ "Optimisation terminated by user\n" };
 
-    ::coder::array<char_T, 2U> path;
-    ::coder::array<char_T, 2U> r;
-    int32_T i;
-    char_T b_cv[33];
+    ::coder::array<char, 2U> path;
+    ::coder::array<char, 2U> r;
+    int i;
+    char b_cv[33];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -747,7 +750,7 @@ namespace RAT
     //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
-      int32_T loop_ub;
+      int loop_ub;
 
       //  Declaration for coder
       helper_not_empty = true;
@@ -794,12 +797,12 @@ namespace RAT
 
   void i_triggerEvent()
   {
-    static const char_T b_cv1[26]{ "\nRunning Nested Sampler\n\n" };
+    static const char b_cv1[26]{ "\nRunning Nested Sampler\n\n" };
 
-    ::coder::array<char_T, 2U> path;
-    ::coder::array<char_T, 2U> r;
-    int32_T i;
-    char_T b_cv[26];
+    ::coder::array<char, 2U> path;
+    ::coder::array<char, 2U> r;
+    int i;
+    char b_cv[26];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -813,7 +816,7 @@ namespace RAT
     //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
-      int32_T loop_ub;
+      int loop_ub;
 
       //  Declaration for coder
       helper_not_empty = true;
@@ -855,12 +858,12 @@ namespace RAT
 
   void j_triggerEvent()
   {
-    static const char_T b_cv1[17]{ "\nRunning DREAM\n\n" };
+    static const char b_cv1[17]{ "\nRunning DREAM\n\n" };
 
-    ::coder::array<char_T, 2U> path;
-    ::coder::array<char_T, 2U> r;
-    int32_T i;
-    char_T b_cv[17];
+    ::coder::array<char, 2U> path;
+    ::coder::array<char, 2U> r;
+    int i;
+    char b_cv[17];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -874,7 +877,7 @@ namespace RAT
     //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
-      int32_T loop_ub;
+      int loop_ub;
 
       //  Declaration for coder
       helper_not_empty = true;
@@ -914,14 +917,14 @@ namespace RAT
     }
   }
 
-  void triggerEvent(real_T varargin_2)
+  void triggerEvent(double varargin_2)
   {
-    static const char_T b_cv1[6]{ "DREAM" };
+    static const char b_cv1[6]{ "DREAM" };
 
-    ::coder::array<char_T, 2U> path;
-    ::coder::array<char_T, 2U> r;
-    int32_T i;
-    char_T b_cv[6];
+    ::coder::array<char, 2U> path;
+    ::coder::array<char, 2U> r;
+    int i;
+    char b_cv[6];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -935,7 +938,7 @@ namespace RAT
     //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
-      int32_T loop_ub;
+      int loop_ub;
 
       //  Declaration for coder
       helper_not_empty = true;
@@ -971,12 +974,12 @@ namespace RAT
     }
   }
 
-  void triggerEvent(const ::coder::array<char_T, 2U> &varargin_1)
+  void triggerEvent(const ::coder::array<char, 2U> &varargin_1)
   {
-    ::coder::array<char_T, 2U> b_varargin_1;
-    ::coder::array<char_T, 2U> path;
-    int32_T i;
-    int32_T loop_ub;
+    ::coder::array<char, 2U> b_varargin_1;
+    ::coder::array<char, 2U> path;
+    int i;
+    int loop_ub;
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -1038,40 +1041,40 @@ namespace RAT
     }
   }
 
-  void triggerEvent(const struct5_T *varargin_1, const char_T
-                    varargin_2_TF_data[], const int32_T varargin_2_TF_size[2],
-                    const ::coder::array<real_T, 2U> &varargin_2_resample, const
-                    ::coder::array<real_T, 2U> &varargin_2_dataPresent, const
-                    char_T varargin_2_modelType_data[], const int32_T
+  void triggerEvent(const Results *varargin_1, const char varargin_2_TF_data[],
+                    const int varargin_2_TF_size[2], const ::coder::array<double,
+                    2U> &varargin_2_resample, const ::coder::array<double, 2U>
+                    &varargin_2_dataPresent, const char
+                    varargin_2_modelType_data[], const int
                     varargin_2_modelType_size[2], const ::coder::array<
                     cell_wrap_10, 2U> &varargin_2_names_contrasts)
   {
-    ::coder::array<real_T, 2U> b_nSldProfiles2;
-    ::coder::array<real_T, 2U> dataPresent;
-    ::coder::array<real_T, 2U> layers2;
-    ::coder::array<real_T, 2U> nContrastNames;
-    ::coder::array<real_T, 2U> nLayers2;
-    ::coder::array<real_T, 2U> resample;
-    ::coder::array<real_T, 2U> sldProfiles2;
-    ::coder::array<real_T, 1U> b_sldProfiles2;
-    ::coder::array<real_T, 1U> layers;
-    ::coder::array<real_T, 1U> nLayers;
-    ::coder::array<real_T, 1U> nReflect;
-    ::coder::array<real_T, 1U> nShiftedData;
-    ::coder::array<real_T, 1U> nSldProfiles;
-    ::coder::array<real_T, 1U> nSldProfiles2;
-    ::coder::array<real_T, 1U> reflect;
-    ::coder::array<real_T, 1U> shiftedData;
-    ::coder::array<real_T, 1U> sldProfiles;
-    ::coder::array<real_T, 1U> subRoughs;
-    ::coder::array<char_T, 2U> contrastNames;
-    ::coder::array<char_T, 2U> path;
-    ::coder::array<char_T, 2U> r;
-    int32_T tmp_data[10000];
-    int32_T tmp_size[2];
-    int32_T i;
-    int32_T loop_ub;
-    char_T modelType_data[10001];
+    ::coder::array<double, 2U> b_nSldProfiles2;
+    ::coder::array<double, 2U> dataPresent;
+    ::coder::array<double, 2U> layers2;
+    ::coder::array<double, 2U> nContrastNames;
+    ::coder::array<double, 2U> nLayers2;
+    ::coder::array<double, 2U> resample;
+    ::coder::array<double, 2U> sldProfiles2;
+    ::coder::array<double, 1U> b_sldProfiles2;
+    ::coder::array<double, 1U> layers;
+    ::coder::array<double, 1U> nLayers;
+    ::coder::array<double, 1U> nReflect;
+    ::coder::array<double, 1U> nShiftedData;
+    ::coder::array<double, 1U> nSldProfiles;
+    ::coder::array<double, 1U> nSldProfiles2;
+    ::coder::array<double, 1U> reflect;
+    ::coder::array<double, 1U> shiftedData;
+    ::coder::array<double, 1U> sldProfiles;
+    ::coder::array<double, 1U> subRoughs;
+    ::coder::array<char, 2U> contrastNames;
+    ::coder::array<char, 2U> path;
+    ::coder::array<char, 2U> r;
+    int tmp_data[10000];
+    int tmp_size[2];
+    int i;
+    int loop_ub;
+    char modelType_data[10001];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -1133,7 +1136,7 @@ namespace RAT
         switch (i) {
          case 0:
           {
-            int32_T i1;
+            int i1;
             b_packCellArray(varargin_1->sldProfiles, b_sldProfiles2,
                             nSldProfiles2);
             loop_ub = b_sldProfiles2.size(0);
@@ -1199,7 +1202,7 @@ namespace RAT
           dataPresent[i] = varargin_2_dataPresent[i];
         }
 
-        std::mem_fn(&eventHelper::updatePlot)(helper, static_cast<real_T>
+        std::mem_fn(&eventHelper::updatePlot)(helper, static_cast<double>
           (varargin_1->reflectivity.size(0)), &(reflect.data())[0],
           &(nReflect.data())[0], &(shiftedData.data())[0], &(nShiftedData.data())
           [0], &(sldProfiles.data())[0], &(nSldProfiles.data())[0],
@@ -1221,12 +1224,12 @@ namespace RAT
 
   void triggerEvent()
   {
-    static const char_T b_cv1[19]{ "\nRunning simplex\n\n" };
+    static const char b_cv1[19]{ "\nRunning simplex\n\n" };
 
-    ::coder::array<char_T, 2U> path;
-    ::coder::array<char_T, 2U> r;
-    int32_T i;
-    char_T b_cv[19];
+    ::coder::array<char, 2U> path;
+    ::coder::array<char, 2U> r;
+    int i;
+    char b_cv[19];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -1240,7 +1243,7 @@ namespace RAT
     //  triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     //  triggerEvent(coderEnums.eventTypes.Progress, 'Hello world', 0.5);
     if (!helper_not_empty) {
-      int32_T loop_ub;
+      int loop_ub;
 
       //  Declaration for coder
       helper_not_empty = true;

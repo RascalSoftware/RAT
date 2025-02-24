@@ -20,7 +20,7 @@
 // Type Declarations
 namespace RAT
 {
-  struct struct5_T;
+  struct Results;
   struct cell_wrap_10;
 }
 
@@ -28,7 +28,7 @@ namespace RAT
 namespace RAT
 {
   void b_triggerEvent();
-  void b_triggerEvent(real_T varargin_2);
+  void b_triggerEvent(double varargin_2);
   void c_triggerEvent();
   void d_triggerEvent();
   void e_triggerEvent();
@@ -39,15 +39,15 @@ namespace RAT
   void i_triggerEvent();
   void j_triggerEvent();
   void triggerEvent();
-  void triggerEvent(const struct5_T *varargin_1, const char_T
-                    varargin_2_TF_data[], const int32_T varargin_2_TF_size[2],
-                    const ::coder::array<real_T, 2U> &varargin_2_resample, const
-                    ::coder::array<real_T, 2U> &varargin_2_dataPresent, const
-                    char_T varargin_2_modelType_data[], const int32_T
+  void triggerEvent(const Results *varargin_1, const char varargin_2_TF_data[],
+                    const int varargin_2_TF_size[2], const ::coder::array<double,
+                    2U> &varargin_2_resample, const ::coder::array<double, 2U>
+                    &varargin_2_dataPresent, const char
+                    varargin_2_modelType_data[], const int
                     varargin_2_modelType_size[2], const ::coder::array<
                     cell_wrap_10, 2U> &varargin_2_names_contrasts);
-  void triggerEvent(const ::coder::array<char_T, 2U> &varargin_1);
-  void triggerEvent(real_T varargin_2);
+  void triggerEvent(const ::coder::array<char, 2U> &varargin_1);
+  void triggerEvent(double varargin_2);
   void triggerEvent_init();
 }
 

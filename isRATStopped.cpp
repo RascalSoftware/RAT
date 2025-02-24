@@ -18,12 +18,11 @@
 // Function Definitions
 namespace RAT
 {
-  void isRATStopped(const char_T IPCFilePath_data[], const int32_T
-                    IPCFilePath_size[2], boolean_T state_data[], int32_T
-                    *state_size)
+  void isRATStopped(const char IPCFilePath_data[], const int IPCFilePath_size[2],
+                    boolean_T state_data[], int *state_size)
   {
-    int32_T tmp_size;
-    uint8_T tmp_data;
+    int tmp_size;
+    unsigned char tmp_data;
 
     //  Checks if the stop event was set via the IPC file. The expected input
     //  is the path to the inter-process communication file
@@ -33,23 +32,23 @@ namespace RAT
       *state_size = 1;
       state_data[0] = false;
     } else {
-      int32_T fileID;
+      int fileID;
       if (coder::internal::ab_strcmp(IPCFilePath_data, IPCFilePath_size)) {
         fileID = 0;
       } else {
-        int8_T fileid;
+        signed char fileid;
         fileid = coder::cfopen(IPCFilePath_data, IPCFilePath_size, "rb");
         fileID = fileid;
       }
 
-      coder::b_fread(static_cast<real_T>(fileID), (uint8_T *)&tmp_data,
+      coder::b_fread(static_cast<double>(fileID), (unsigned char *)&tmp_data,
                      &tmp_size);
       *state_size = tmp_size;
       if (0 <= tmp_size - 1) {
         state_data[0] = (tmp_data != 0);
       }
 
-      coder::cfclose(static_cast<real_T>(fileID));
+      coder::cfclose(static_cast<double>(fileID));
     }
   }
 }

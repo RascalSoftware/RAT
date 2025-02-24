@@ -24,9 +24,9 @@ namespace RAT
   {
     namespace internal
     {
-      void b_genloops(const ::coder::array<real_T, 2U> &x, boolean_T *p, int32_T
-                      varargin_1, int32_T varargin_2);
-      boolean_T vAllOrAny(const ::coder::array<real_T, 2U> &x);
+      void b_genloops(const ::coder::array<double, 2U> &x, boolean_T *p, int
+                      varargin_1, int varargin_2);
+      boolean_T vAllOrAny(const ::coder::array<double, 2U> &x);
     }
   }
 }

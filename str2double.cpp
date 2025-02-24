@@ -19,14 +19,14 @@ namespace RAT
 {
   namespace coder
   {
-    creal_T str2double(const char_T s_data[], const int32_T s_size[2])
+    creal_T str2double(const char s_data[], const int s_size[2])
     {
       creal_T x;
-      real_T v1;
-      real_T v2;
-      int32_T idx;
-      int32_T k;
-      char_T s1_data[10002];
+      double v1;
+      double v2;
+      int idx;
+      int k;
+      char s1_data[10002];
       boolean_T a__1;
       boolean_T foundsign;
       boolean_T isfinite1;
@@ -36,13 +36,13 @@ namespace RAT
       x.re = rtNaN;
       x.im = 0.0;
       if (s_size[1] >= 1) {
-        int32_T ntoread;
+        int ntoread;
         ntoread = 0;
         k = 1;
         internal::skipspaces(s_data, &k, s_size[1]);
-        idx = static_cast<int16_T>(s_size[1] + 2);
+        idx = static_cast<short>(s_size[1] + 2);
         if (0 <= idx - 1) {
-          std::memset(&s1_data[0], 0, idx * sizeof(char_T));
+          std::memset(&s1_data[0], 0, idx * sizeof(char));
         }
 
         idx = 1;
@@ -75,7 +75,7 @@ namespace RAT
           if (ntoread == 2) {
             internal::sscanfd(s1_data, &v1, &v2);
           } else if (ntoread == 1) {
-            real_T a;
+            double a;
             a = internal::sscanfd(s1_data);
             if (isfinite1) {
               v1 = a;

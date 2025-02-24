@@ -23,7 +23,7 @@ namespace RAT
   {
     namespace internal
     {
-      int32_T computeDimsData(real_T varargin_1);
+      int computeDimsData(double varargin_1);
     }
   }
 }

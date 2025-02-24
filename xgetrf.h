@@ -26,12 +26,11 @@ namespace RAT
     {
       namespace lapack
       {
-        void xgetrf(int32_T m, int32_T n, ::coder::array<real_T, 2U> &A, int32_T
-                    lda);
-        void xgetrf(int32_T m, int32_T n, ::coder::array<real_T, 2U> &A, int32_T
-                    lda, ::coder::array<int32_T, 2U> &ipiv);
-        void xgetrf(int32_T m, int32_T n, ::coder::array<real_T, 2U> &A, int32_T
-                    lda, ::coder::array<int32_T, 2U> &ipiv, int32_T *info);
+        void xgetrf(int m, int n, ::coder::array<double, 2U> &A, int lda);
+        void xgetrf(int m, int n, ::coder::array<double, 2U> &A, int lda, ::
+                    coder::array<int, 2U> &ipiv);
+        void xgetrf(int m, int n, ::coder::array<double, 2U> &A, int lda, ::
+                    coder::array<int, 2U> &ipiv, int *info);
       }
     }
   }

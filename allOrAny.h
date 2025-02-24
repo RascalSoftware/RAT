@@ -24,9 +24,9 @@ namespace RAT
   {
     namespace internal
     {
-      boolean_T c_anon(int32_T n, const ::coder::array<boolean_T, 1U> &X);
-      boolean_T d_anon(int32_T n, const boolean_T X_data[]);
-      void e_anon(int32_T n, const boolean_T X_data[], boolean_T Y_data[]);
+      boolean_T c_anon(int n, const ::coder::array<boolean_T, 1U> &X);
+      boolean_T d_anon(int n, const boolean_T X_data[]);
+      void e_anon(int n, const boolean_T X_data[], boolean_T Y_data[]);
     }
   }
 }

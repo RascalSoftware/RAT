@@ -23,32 +23,32 @@ namespace RAT
   {
     namespace internal
     {
-      void mrdiv(const ::coder::array<real_T, 2U> &A, const ::coder::array<
-                 real_T, 2U> &B, ::coder::array<real_T, 2U> &Y)
+      void mrdiv(const ::coder::array<double, 2U> &A, const ::coder::array<
+                 double, 2U> &B, ::coder::array<double, 2U> &Y)
       {
-        ::coder::array<real_T, 2U> b_A;
-        ::coder::array<real_T, 1U> c_A;
-        ::coder::array<real_T, 1U> r;
-        ::coder::array<real_T, 1U> tau;
-        ::coder::array<int32_T, 2U> jpvt;
+        ::coder::array<double, 2U> b_A;
+        ::coder::array<double, 1U> c_A;
+        ::coder::array<double, 1U> r;
+        ::coder::array<double, 1U> tau;
+        ::coder::array<int, 2U> jpvt;
         if ((A.size(1) == 0) || ((B.size(0) == 0) || (B.size(1) == 0))) {
-          int32_T loop_ub;
+          int loop_ub;
           Y.set_size(1, B.size(0));
           loop_ub = B.size(0);
-          for (int32_T i{0}; i < loop_ub; i++) {
+          for (int i{0}; i < loop_ub; i++) {
             Y[i] = 0.0;
           }
         } else if (B.size(0) == B.size(1)) {
           lusolve(B, A, Y);
         } else {
-          int32_T i;
-          int32_T loop_ub;
+          int i;
+          int loop_ub;
           b_A.set_size(B.size(1), B.size(0));
           loop_ub = B.size(0);
           for (i = 0; i < loop_ub; i++) {
-            int32_T b_loop_ub;
+            int b_loop_ub;
             b_loop_ub = B.size(1);
-            for (int32_T i1{0}; i1 < b_loop_ub; i1++) {
+            for (int i1{0}; i1 < b_loop_ub; i1++) {
               b_A[i1 + b_A.size(0) * i] = B[i + B.size(0) * i1];
             }
           }
@@ -69,29 +69,29 @@ namespace RAT
         }
       }
 
-      void mrdiv(const ::coder::array<real_T, 2U> &A, const ::coder::array<
-                 real_T, 2U> &B, ::coder::array<real_T, 1U> &Y)
+      void mrdiv(const ::coder::array<double, 2U> &A, const ::coder::array<
+                 double, 2U> &B, ::coder::array<double, 1U> &Y)
       {
-        ::coder::array<real_T, 2U> b_A;
-        ::coder::array<real_T, 2U> r;
-        ::coder::array<real_T, 1U> b_B;
+        ::coder::array<double, 2U> b_A;
+        ::coder::array<double, 2U> r;
+        ::coder::array<double, 1U> b_B;
         if ((A.size(0) == 0) || (A.size(1) == 0) || (B.size(1) == 0)) {
-          int32_T loop_ub;
+          int loop_ub;
           Y.set_size(A.size(0));
           loop_ub = A.size(0);
-          for (int32_T i{0}; i < loop_ub; i++) {
+          for (int i{0}; i < loop_ub; i++) {
             Y[i] = 0.0;
           }
         } else if (1 == B.size(1)) {
-          int32_T loop_ub;
+          int loop_ub;
           loop_ub = A.size(0);
           Y.set_size(A.size(0));
-          for (int32_T i{0}; i < loop_ub; i++) {
+          for (int i{0}; i < loop_ub; i++) {
             Y[i] = A[i] / B[0];
           }
         } else {
-          int32_T i;
-          int32_T loop_ub;
+          int i;
+          int loop_ub;
           b_B.set_size(B.size(1));
           loop_ub = B.size(1);
           for (i = 0; i < loop_ub; i++) {
@@ -101,9 +101,9 @@ namespace RAT
           b_A.set_size(A.size(1), A.size(0));
           loop_ub = A.size(0);
           for (i = 0; i < loop_ub; i++) {
-            int32_T b_loop_ub;
+            int b_loop_ub;
             b_loop_ub = A.size(1);
-            for (int32_T i1{0}; i1 < b_loop_ub; i1++) {
+            for (int i1{0}; i1 < b_loop_ub; i1++) {
               b_A[i1 + b_A.size(0) * i] = A[i + A.size(0) * i1];
             }
           }
@@ -117,16 +117,16 @@ namespace RAT
         }
       }
 
-      void mrdiv(const real_T A_data[], int32_T A_size, const real_T B_data[],
-                 int32_T B_size, real_T Y_data[], int32_T Y_size[2])
+      void mrdiv(const double A_data[], int A_size, const double B_data[], int
+                 B_size, double Y_data[], int Y_size[2])
       {
         if ((A_size == 0) || (B_size == 0)) {
-          int32_T loop_ub;
-          Y_size[0] = static_cast<int8_T>(A_size);
-          Y_size[1] = static_cast<int8_T>(B_size);
-          loop_ub = static_cast<int8_T>(B_size);
+          int loop_ub;
+          Y_size[0] = static_cast<signed char>(A_size);
+          Y_size[1] = static_cast<signed char>(B_size);
+          loop_ub = static_cast<signed char>(B_size);
           if (0 <= loop_ub - 1) {
-            loop_ub = static_cast<int8_T>(A_size);
+            loop_ub = static_cast<signed char>(A_size);
             if (0 <= loop_ub - 1) {
               Y_data[0] = 0.0;
             }

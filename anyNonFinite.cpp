@@ -21,16 +21,16 @@ namespace RAT
   {
     namespace internal
     {
-      boolean_T anyNonFinite(const ::coder::array<real_T, 2U> &x)
+      boolean_T anyNonFinite(const ::coder::array<double, 2U> &x)
       {
-        int32_T i;
+        int i;
         boolean_T p;
         p = true;
         i = x.size(1);
-        for (int32_T k{0}; k < i; k++) {
-          int32_T i1;
+        for (int k{0}; k < i; k++) {
+          int i1;
           i1 = x.size(0);
-          for (int32_T b_k{0}; b_k < i1; b_k++) {
+          for (int b_k{0}; b_k < i1; b_k++) {
             b_genloops(x, &p, b_k + 1, k + 1);
           }
         }

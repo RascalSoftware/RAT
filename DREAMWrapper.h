@@ -20,15 +20,15 @@
 // Type Declarations
 namespace RAT
 {
-  struct e_struct_T;
-  struct struct4_T;
+  struct ProblemDefinition;
+  struct Controls;
 }
 
 // Function Declarations
 namespace RAT
 {
-  real_T DREAMWrapper(const ::coder::array<real_T, 2U> &pars, const e_struct_T
-                      *ratInputs_problemStruct, const struct4_T
+  double DREAMWrapper(const ::coder::array<double, 2U> &pars, const
+                      ProblemDefinition *ratInputs_problemStruct, const Controls
                       *ratInputs_controls);
 }
 

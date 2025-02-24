@@ -25,9 +25,9 @@ namespace RAT
       {
         void d_sqrt(creal_T *x)
         {
-          real_T absxi;
-          real_T xi;
-          real_T xr;
+          double absxi;
+          double xi;
+          double xr;
           xr = x->re;
           xi = x->im;
           if (xi == 0.0) {
@@ -63,7 +63,7 @@ namespace RAT
               xr = 0.0;
             }
           } else {
-            real_T absxr;
+            double absxr;
             absxr = std::abs(xr);
             absxi = std::abs(xi);
             if ((absxr > 4.4942328371557893E+307) || (absxi >

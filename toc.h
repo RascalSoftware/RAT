@@ -21,7 +21,7 @@ namespace RAT
 {
   namespace coder
   {
-    real_T toc();
+    double toc();
   }
 }
 

@@ -24,13 +24,13 @@ namespace RAT
   {
     namespace internal
     {
-      void LSQFromQR(const ::coder::array<real_T, 2U> &A, const ::coder::array<
-                     real_T, 1U> &tau, const ::coder::array<int32_T, 2U> &jpvt, ::
-                     coder::array<real_T, 1U> &B, int32_T rankA, ::coder::array<
-                     real_T, 1U> &Y);
-      void qrsolve(const ::coder::array<real_T, 1U> &A, const ::coder::array<
-                   real_T, 2U> &B, ::coder::array<real_T, 2U> &Y);
-      int32_T rankFromQR(const ::coder::array<real_T, 2U> &A);
+      void LSQFromQR(const ::coder::array<double, 2U> &A, const ::coder::array<
+                     double, 1U> &tau, const ::coder::array<int, 2U> &jpvt, ::
+                     coder::array<double, 1U> &B, int rankA, ::coder::array<
+                     double, 1U> &Y);
+      void qrsolve(const ::coder::array<double, 1U> &A, const ::coder::array<
+                   double, 2U> &B, ::coder::array<double, 2U> &Y);
+      int rankFromQR(const ::coder::array<double, 2U> &A);
     }
   }
 }

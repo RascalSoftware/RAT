@@ -26,8 +26,8 @@ namespace RAT
     {
       namespace reflapack
       {
-        void xzgghrd(int32_T ilo, int32_T ihi, ::coder::array<creal_T, 2U> &A, ::
-                     coder::array<creal_T, 2U> &Z);
+        void xzgghrd(int ilo, int ihi, ::coder::array<creal_T, 2U> &A, ::coder::
+                     array<creal_T, 2U> &Z);
       }
     }
   }

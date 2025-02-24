@@ -20,21 +20,21 @@
 // Function Definitions
 namespace RAT
 {
-  real_T chiSquared(const ::coder::array<real_T, 2U> &thisData, const ::coder::
-                    array<real_T, 2U> &thisFit, real_T P)
+  double chiSquared(const ::coder::array<double, 2U> &thisData, const ::coder::
+                    array<double, 2U> &thisFit, double P)
   {
-    ::coder::array<real_T, 1U> b_i;
-    ::coder::array<real_T, 1U> b_thisData;
-    ::coder::array<real_T, 1U> terms;
-    ::coder::array<int32_T, 1U> r;
+    ::coder::array<double, 1U> b_i;
+    ::coder::array<double, 1U> b_thisData;
+    ::coder::array<double, 1U> terms;
+    ::coder::array<int, 1U> r;
     ::coder::array<boolean_T, 1U> terms_data;
-    real_T b_dv[2];
-    real_T N;
-    real_T y;
-    int32_T i;
-    int32_T loop_ub;
-    int32_T terms_size;
-    int16_T tmp_data[10000];
+    double b_dv[2];
+    double N;
+    double y;
+    int i;
+    int loop_ub;
+    int terms_size;
+    short tmp_data[10000];
     boolean_T b_terms_data[10000];
 
     //  Chi-squared function is used to evaluate the goodness of fit.
@@ -81,7 +81,7 @@ namespace RAT
       terms_size = b_i.size(0);
       loop_ub = b_i.size(0);
       for (i = 0; i < loop_ub; i++) {
-        tmp_data[i] = static_cast<int16_T>(static_cast<int32_T>(b_i[i]));
+        tmp_data[i] = static_cast<short>(static_cast<int>(b_i[i]));
       }
 
       for (i = 0; i < terms_size; i++) {

@@ -19,19 +19,19 @@
 // Type Declarations
 namespace RAT
 {
-  struct e_struct_T;
-  struct struct3_T;
-  struct struct4_T;
-  struct struct5_T;
-  struct g_struct_T;
+  struct ProblemDefinition;
+  struct ProblemLimits;
+  struct Controls;
+  struct Results;
+  struct d_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void runDREAM(const e_struct_T *problemStruct, const struct3_T *problemLimits,
-                const struct4_T *controls, e_struct_T *outProblemStruct,
-                struct5_T *result, g_struct_T *bayesResults);
+  void runDREAM(const ProblemDefinition *problemStruct, const ProblemLimits
+                *problemLimits, const Controls *controls, ProblemDefinition
+                *outProblemStruct, Results *result, d_struct_T *bayesResults);
 }
 
 #endif

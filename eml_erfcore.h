@@ -21,7 +21,7 @@ namespace RAT
 {
   namespace coder
   {
-    real_T scalar_erf(real_T x);
+    double scalar_erf(double x);
   }
 }
 

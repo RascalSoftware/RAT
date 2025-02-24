@@ -26,34 +26,34 @@ namespace RAT
     {
       namespace reflapack
       {
-        int32_T eml_dlahqr(::coder::array<real_T, 2U> &h, ::coder::array<real_T,
-                           2U> &z)
+        int eml_dlahqr(::coder::array<double, 2U> &h, ::coder::array<double, 2U>
+                       &z)
         {
-          real_T v[3];
-          real_T aa;
-          real_T ab;
-          real_T ba;
-          real_T bb;
-          real_T d;
-          real_T rt1r;
-          real_T rt2r;
-          real_T s;
-          real_T tst;
-          int32_T info;
-          int32_T ldh;
-          int32_T ldz;
-          int32_T n;
+          double v[3];
+          double aa;
+          double ab;
+          double ba;
+          double bb;
+          double d;
+          double rt1r;
+          double rt2r;
+          double s;
+          double tst;
+          int info;
+          int ldh;
+          int ldz;
+          int n;
           n = h.size(0);
           ldh = h.size(0);
           ldz = z.size(0);
           info = 0;
           if ((n != 0) && (1 != n)) {
-            real_T SMLNUM;
-            int32_T i;
-            int32_T itmax;
-            int32_T j;
-            int32_T kdefl;
-            int32_T nr;
+            double SMLNUM;
+            int i;
+            int itmax;
+            int j;
+            int kdefl;
+            int nr;
             boolean_T exitg1;
             v[0] = 0.0;
             v[1] = 0.0;
@@ -75,13 +75,13 @@ namespace RAT
 
             itmax = 30 * nr;
             kdefl = 0;
-            SMLNUM = 2.2250738585072014E-308 * (static_cast<real_T>(n) /
+            SMLNUM = 2.2250738585072014E-308 * (static_cast<double>(n) /
               2.2204460492503131E-16);
             i = n - 1;
             exitg1 = false;
             while ((!exitg1) && (i + 1 >= 1)) {
-              int32_T L;
-              int32_T its;
+              int L;
+              int its;
               boolean_T exitg2;
               boolean_T goto150;
               L = 1;
@@ -89,7 +89,7 @@ namespace RAT
               its = 0;
               exitg2 = false;
               while ((!exitg2) && (its <= itmax)) {
-                int32_T k;
+                int k;
                 boolean_T exitg3;
                 k = i;
                 exitg3 = false;
@@ -150,7 +150,7 @@ namespace RAT
                   goto150 = true;
                   exitg2 = true;
                 } else {
-                  int32_T m;
+                  int m;
                   kdefl++;
                   if (kdefl - kdefl / 20 * 20 == 0) {
                     s = std::abs(h[i + h.size(0) * (i - 1)]) + std::abs(h[(i +
@@ -237,14 +237,14 @@ namespace RAT
                     }
                   }
 
-                  for (int32_T b_k{m}; b_k <= i; b_k++) {
+                  for (int b_k{m}; b_k <= i; b_k++) {
                     nr = (i - b_k) + 2;
                     if (3 < nr) {
                       nr = 3;
                     }
 
                     if (b_k > m) {
-                      int32_T hoffset;
+                      int hoffset;
                       hoffset = (b_k + ldh * (b_k - 2)) - 1;
                       for (j = 0; j < nr; j++) {
                         v[j] = h[j + hoffset];

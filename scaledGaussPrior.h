@@ -20,9 +20,9 @@
 // Function Declarations
 namespace RAT
 {
-  real_T scaledGaussPrior(const ::coder::array<real_T, 2U> &m, const ::coder::
-    array<real_T, 2U> &extras_problemStruct_fitLimits, const ::coder::array<
-    real_T, 2U> &extras_priors);
+  double scaledGaussPrior(const ::coder::array<double, 2U> &m, const ::coder::
+    array<double, 2U> &extras_problemStruct_fitLimits, const ::coder::array<
+    double, 2U> &extras_priors);
 }
 
 #endif

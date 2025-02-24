@@ -18,27 +18,27 @@
 // Function Definitions
 namespace RAT
 {
-  void rescaleParameters(const ::coder::array<real_T, 2U> &prior, const ::coder::
-    array<real_T, 2U> &params, ::coder::array<real_T, 1U> &scaled)
+  void rescaleParameters(const ::coder::array<double, 2U> &prior, const ::coder::
+    array<double, 2U> &params, ::coder::array<double, 2U> &scaled)
   {
-    int32_T i;
-    int32_T loop_ub;
+    int i;
+    int loop_ub;
 
     //  scaled = rescaleParameters(prior, params)
     //
     //  This function will do the reverse of scaleParameters.
-    scaled.set_size(params.size(1));
+    scaled.set_size(1, params.size(1));
     loop_ub = params.size(1);
     for (i = 0; i < loop_ub; i++) {
       scaled[i] = 0.0;
     }
 
     i = params.size(1);
-    for (int32_T b_i{0}; b_i < i; b_i++) {
-      real_T priortype;
+    for (int b_i{0}; b_i < i; b_i++) {
+      double priortype;
       priortype = prior[b_i];
       if (priortype == 1.0) {
-        real_T p3;
+        double p3;
 
         // uniform
         p3 = prior[b_i + prior.size(0) * 3];
@@ -48,12 +48,12 @@ namespace RAT
         scaled[b_i] = params[b_i] * prior[b_i + prior.size(0) * 2] + prior[b_i +
           prior.size(0)];
       } else if (priortype == 3.0) {
-        real_T scaled_tmp;
+        double d;
 
         // jeffreys
-        scaled_tmp = std::log10(prior[b_i + prior.size(0)]);
+        d = std::log10(prior[b_i + prior.size(0)]);
         scaled[b_i] = rt_powd_snf(10.0, params[b_i] * (std::log10(prior[b_i +
-          prior.size(0) * 2]) - scaled_tmp) + scaled_tmp);
+          prior.size(0) * 2]) - d) + d);
       }
     }
   }

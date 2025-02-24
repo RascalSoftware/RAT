@@ -21,8 +21,8 @@ namespace RAT
 {
   namespace coder
   {
-    void normalize(const real_T a[2], real_T n[2]);
-    void normalize(const real_T a_data[], real_T n_data[], int32_T n_size[2]);
+    void normalize(const double a[2], double n[2]);
+    void normalize(const double a_data[], double n_data[], int n_size[2]);
   }
 }
 

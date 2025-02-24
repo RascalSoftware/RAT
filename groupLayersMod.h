@@ -20,10 +20,10 @@
 // Function Declarations
 namespace RAT
 {
-  void groupLayersMod(const ::coder::array<real_T, 2U> &resampledLayers, real_T
-                      subRoughs, const char_T geometry_data[], const int32_T
-                      geometry_size[2], real_T bulkIns, real_T bulkOuts, ::coder::
-                      array<real_T, 2U> &outLayers, real_T *ssubs);
+  void groupLayersMod(const ::coder::array<double, 2U> &resampledLayers, double
+                      subRoughs, const char geometry_data[], const int
+                      geometry_size[2], double bulkIns, double bulkOuts, ::coder::
+                      array<double, 2U> &outLayers, double *ssubs);
 }
 
 #endif

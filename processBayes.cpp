@@ -22,13 +22,13 @@
 // Function Definitions
 namespace RAT
 {
-  void processBayes(const ::coder::array<real_T, 2U> &bayesOutputs_bestParams,
-                    const ::coder::array<real_T, 2U> &bayesOutputs_chain,
-                    e_struct_T *problemStruct, struct4_T *controls, struct5_T
-                    *result, i_struct_T *bayesResults)
+  void processBayes(const ::coder::array<double, 2U> &bayesOutputs_bestParams,
+                    const ::coder::array<double, 2U> &bayesOutputs_chain,
+                    ProblemDefinition *problemStruct, Controls *controls,
+                    Results *result, f_struct_T *bayesResults)
   {
-    e_struct_T b_problemStruct;
-    int32_T loop_ub;
+    ProblemDefinition b_problemStruct;
+    int loop_ub;
 
     //  Need to impose that we calculate the SLD..
     controls->calcSldDuringFit = true;
@@ -36,7 +36,7 @@ namespace RAT
     //  ... and use the Bayes best params
     problemStruct->fitParams.set_size(1, bayesOutputs_bestParams.size(1));
     loop_ub = bayesOutputs_bestParams.size(1);
-    for (int32_T i{0}; i < loop_ub; i++) {
+    for (int i{0}; i < loop_ub; i++) {
       problemStruct->fitParams[i] = bayesOutputs_bestParams[i];
     }
 

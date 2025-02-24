@@ -24,35 +24,35 @@
 // Function Definitions
 namespace RAT
 {
-  void initializeDREAM(const struct11_T *DREAMPar, const ::coder::array<real_T,
-                       2U> &paramInfo_min, const ::coder::array<real_T, 2U>
-                       &paramInfo_max, const char_T
-                       paramInfo_boundhandling_data[], const int32_T
-                       paramInfo_boundhandling_size[2], ::coder::array<real_T,
-                       3U> &chain, j_struct_T *output, ::coder::array<real_T, 2U>
-                       &log_L, const e_struct_T *ratInputs_problemStruct, const
-                       struct4_T *ratInputs_controls, const ::coder::array<
-                       real_T, 2U> &ratInputs_priors, ::coder::array<real_T, 2U>
-                       &X, ::coder::array<real_T, 2U> &fx, ::coder::array<real_T,
-                       2U> &CR, real_T pCR_data[], int32_T pCR_size[2], real_T
-                       lCR_data[], int32_T lCR_size[2], real_T delta_tot_data[],
-                       int32_T delta_tot_size[2])
+  void initializeDREAM(const DreamParams *DREAMPar, const ::coder::array<double,
+                       2U> &paramInfo_min, const ::coder::array<double, 2U>
+                       &paramInfo_max, const char paramInfo_boundhandling_data[],
+                       const int paramInfo_boundhandling_size[2], ::coder::array<
+                       double, 3U> &chain, g_struct_T *output, ::coder::array<
+                       double, 2U> &log_L, const ProblemDefinition
+                       *ratInputs_problemStruct, const Controls
+                       *ratInputs_controls, const ::coder::array<double, 2U>
+                       &ratInputs_priors, ::coder::array<double, 2U> &X, ::coder::
+                       array<double, 2U> &fx, ::coder::array<double, 2U> &CR,
+                       double pCR_data[], int pCR_size[2], double lCR_data[],
+                       int lCR_size[2], double delta_tot_data[], int
+                       delta_tot_size[2])
   {
-    ::coder::array<real_T, 2U> b_X;
-    ::coder::array<real_T, 2U> b_paramInfo_max;
-    ::coder::array<real_T, 2U> r;
-    ::coder::array<real_T, 2U> r1;
-    ::coder::array<real_T, 2U> x;
-    ::coder::array<real_T, 1U> log_L_x;
-    ::coder::array<real_T, 1U> log_PR_x;
-    int32_T iv[2];
-    int32_T b_loop_ub;
-    int32_T i;
-    int32_T i1;
-    int32_T input_sizes_idx_1;
-    int32_T loop_ub;
-    int8_T b_input_sizes_idx_1;
-    int8_T sizes_idx_1;
+    ::coder::array<double, 2U> b_X;
+    ::coder::array<double, 2U> b_paramInfo_max;
+    ::coder::array<double, 2U> r;
+    ::coder::array<double, 2U> r1;
+    ::coder::array<double, 2U> x;
+    ::coder::array<double, 1U> log_L_x;
+    ::coder::array<double, 1U> log_PR_x;
+    int iv[2];
+    int b_loop_ub;
+    int i;
+    int i1;
+    int input_sizes_idx_1;
+    int loop_ub;
+    signed char b_input_sizes_idx_1;
+    signed char sizes_idx_1;
     boolean_T empty_non_axis_sizes;
 
     //  Initializes the starting positions of the Markov chains
@@ -182,8 +182,8 @@ namespace RAT
       }
     }
 
-    b_loop_ub = static_cast<int32_T>(DREAMPar->nParams + 2.0);
-    loop_ub = static_cast<int32_T>(DREAMPar->nChains);
+    b_loop_ub = static_cast<int>(DREAMPar->nParams + 2.0);
+    loop_ub = static_cast<int>(DREAMPar->nChains);
     for (i = 0; i < loop_ub; i++) {
       for (i1 = 0; i1 < b_loop_ub; i1++) {
         chain[chain.size(0) * i1 + chain.size(0) * chain.size(1) * i] = b_X[i1 +
@@ -203,9 +203,9 @@ namespace RAT
     pCR_data[2] = 0.33333333333333331;
 
     //  Generate the actula CR value, lCR and delta_tot
-    iv[0] = (*(int32_T (*)[2])b_paramInfo_max.size())[0];
-    iv[1] = (*(int32_T (*)[2])b_paramInfo_max.size())[1];
-    drawCR(DREAMPar, (const real_T *)b_paramInfo_max.data(), iv, CR);
+    iv[0] = (*(int (*)[2])b_paramInfo_max.size())[0];
+    iv[1] = (*(int (*)[2])b_paramInfo_max.size())[1];
+    drawCR(DREAMPar, (const double *)b_paramInfo_max.data(), iv, CR);
     lCR_size[0] = 1;
     lCR_size[1] = 3;
     delta_tot_size[0] = 1;
@@ -243,7 +243,7 @@ namespace RAT
     //  Compute the dimensions of chain
     //  Set the R-statistic to a large value
     output->R_stat[0] = DREAMPar->nChains;
-    loop_ub = static_cast<int32_T>(DREAMPar->nParams);
+    loop_ub = static_cast<int>(DREAMPar->nParams);
     for (i = 0; i < loop_ub; i++) {
       output->R_stat[output->R_stat.size(0) * (i + 1)] = rtNaN;
     }

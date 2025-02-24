@@ -20,19 +20,19 @@
 // Type Declarations
 namespace RAT
 {
-  struct struct11_T;
+  struct DreamParams;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void calcProposal(const ::coder::array<real_T, 2U> &X, real_T CR_data[], const
-                    struct11_T *DREAMPar, const ::coder::array<real_T, 2U>
-                    &Table_gamma, const ::coder::array<real_T, 2U>
-                    &paramInfo_min, const ::coder::array<real_T, 2U>
-                    &paramInfo_max, const char_T paramInfo_boundhandling_data[],
-                    const int32_T paramInfo_boundhandling_size[2], ::coder::
-                    array<real_T, 2U> &x_new);
+  void calcProposal(const ::coder::array<double, 2U> &X, double CR_data[], const
+                    DreamParams *DREAMPar, const ::coder::array<double, 2U>
+                    &Table_gamma, const ::coder::array<double, 2U>
+                    &paramInfo_min, const ::coder::array<double, 2U>
+                    &paramInfo_max, const char paramInfo_boundhandling_data[],
+                    const int paramInfo_boundhandling_size[2], ::coder::array<
+                    double, 2U> &x_new);
 }
 
 #endif

@@ -27,8 +27,8 @@ namespace RAT
       {
         namespace impl
         {
-          void timeKeeper(real_T newTime_tv_sec, real_T newTime_tv_nsec);
-          void timeKeeper(real_T *outTime_tv_sec, real_T *outTime_tv_nsec);
+          void timeKeeper(double newTime_tv_sec, double newTime_tv_nsec);
+          void timeKeeper(double *outTime_tv_sec, double *outTime_tv_nsec);
         }
       }
     }

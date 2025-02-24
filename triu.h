@@ -22,8 +22,8 @@ namespace RAT
 {
   namespace coder
   {
-    void b_triu(::coder::array<real_T, 2U> &x);
-    void triu(::coder::array<real_T, 2U> &x);
+    void b_triu(::coder::array<double, 2U> &x);
+    void triu(::coder::array<double, 2U> &x);
   }
 }
 

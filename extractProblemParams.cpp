@@ -20,32 +20,32 @@
 // Function Definitions
 namespace RAT
 {
-  void extractProblemParams(const struct0_T *problemStruct, real_T
-    *numberOfContrasts, char_T geometry_data[], int32_T geometry_size[2], ::
-    coder::array<cell_wrap_47, 2U> &contrastBackgroundParams, ::coder::array<
-    real_T, 2U> &contrastQzshifts, ::coder::array<real_T, 2U>
-    &contrastScalefactors, ::coder::array<real_T, 2U> &contrastBulkIns, ::coder::
-    array<real_T, 2U> &contrastBulkOuts, ::coder::array<cell_wrap_9, 2U>
-    &contrastResolutionParams, ::coder::array<real_T, 2U> &contrastDomainRatios,
-    ::coder::array<real_T, 2U> &backgroundParams, ::coder::array<real_T, 2U>
-    &qzshifts, ::coder::array<real_T, 2U> &scalefactors, ::coder::array<real_T,
-    2U> &bulkIns, ::coder::array<real_T, 2U> &bulkOuts, ::coder::array<real_T,
-    2U> &resolutionParams, ::coder::array<real_T, 2U> &domainRatios, ::coder::
-    array<real_T, 2U> &dataPresent, real_T *nParams, ::coder::array<real_T, 2U>
-    &params, real_T *numberOfLayers, ::coder::array<real_T, 2U> &resample, ::
-    coder::array<cell_wrap_10, 2U> &contrastBackgroundTypes, ::coder::array<
-    cell_wrap_10, 2U> &contrastBackgroundActions, ::coder::array<cell_wrap_10,
-    2U> &contrastResolutionTypes, ::coder::array<real_T, 2U>
-    &contrastCustomFiles, boolean_T *useImaginary, ::coder::array<cell_wrap_2,
-    2U> &repeatLayers, ::coder::array<cell_wrap_1, 2U> &data, ::coder::array<
-    cell_wrap_2, 2U> &dataLimits, ::coder::array<cell_wrap_2, 2U> &simLimits, ::
-    coder::array<cell_wrap_9, 2U> &contrastLayers, ::coder::array<cell_wrap_9,
-    2U> &layersDetails, ::coder::array<cell_wrap_10, 2U> &customFiles, ::coder::
+  void extractProblemParams(const b_ProblemDefinition *problemStruct, double
+    *numberOfContrasts, char geometry_data[], int geometry_size[2], ::coder::
+    array<cell_wrap_47, 2U> &contrastBackgroundParams, ::coder::array<double, 2U>
+    &contrastQzshifts, ::coder::array<double, 2U> &contrastScalefactors, ::coder::
+    array<double, 2U> &contrastBulkIns, ::coder::array<double, 2U>
+    &contrastBulkOuts, ::coder::array<cell_wrap_9, 2U> &contrastResolutionParams,
+    ::coder::array<double, 2U> &contrastDomainRatios, ::coder::array<double, 2U>
+    &backgroundParams, ::coder::array<double, 2U> &qzshifts, ::coder::array<
+    double, 2U> &scalefactors, ::coder::array<double, 2U> &bulkIns, ::coder::
+    array<double, 2U> &bulkOuts, ::coder::array<double, 2U> &resolutionParams, ::
+    coder::array<double, 2U> &domainRatios, ::coder::array<double, 2U>
+    &dataPresent, double *nParams, ::coder::array<double, 2U> &params, double
+    *numberOfLayers, ::coder::array<double, 2U> &resample, ::coder::array<
+    cell_wrap_10, 2U> &contrastBackgroundTypes, ::coder::array<cell_wrap_10, 2U>
+    &contrastBackgroundActions, ::coder::array<cell_wrap_10, 2U>
+    &contrastResolutionTypes, ::coder::array<double, 2U> &contrastCustomFiles,
+    boolean_T *useImaginary, ::coder::array<cell_wrap_2, 2U> &repeatLayers, ::
+    coder::array<cell_wrap_1, 2U> &data, ::coder::array<cell_wrap_2, 2U>
+    &dataLimits, ::coder::array<cell_wrap_2, 2U> &simLimits, ::coder::array<
+    cell_wrap_9, 2U> &contrastLayers, ::coder::array<cell_wrap_9, 2U>
+    &layersDetails, ::coder::array<cell_wrap_10, 2U> &customFiles, ::coder::
     array<cell_wrap_9, 2U> &domainContrastLayers)
   {
-    int32_T b_nParams;
-    int32_T i;
-    int32_T loop_ub;
+    int b_nParams;
+    int i;
+    int loop_ub;
     *numberOfContrasts = problemStruct->numberOfContrasts;
     geometry_size[0] = 1;
     geometry_size[1] = problemStruct->geometry.size[1];

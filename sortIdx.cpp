@@ -22,19 +22,17 @@ namespace RAT
   {
     namespace internal
     {
-      static void merge(::coder::array<int32_T, 2U> &idx, ::coder::array<real_T,
-                        2U> &x, int32_T offset, int32_T np, int32_T nq, ::coder::
-                        array<int32_T, 1U> &iwork, ::coder::array<real_T, 1U>
-                        &xwork);
-      static void merge(::coder::array<int32_T, 1U> &idx, ::coder::array<real_T,
-                        1U> &x, int32_T offset, int32_T np, int32_T nq, ::coder::
-                        array<int32_T, 1U> &iwork, ::coder::array<real_T, 1U>
-                        &xwork);
-      static void merge_block(::coder::array<int32_T, 1U> &idx, ::coder::array<
-        real_T, 1U> &x, int32_T offset, int32_T n, int32_T preSortLevel, ::coder::
-        array<int32_T, 1U> &iwork, ::coder::array<real_T, 1U> &xwork);
-      static void merge_pow2_block(::coder::array<int32_T, 1U> &idx, ::coder::
-        array<real_T, 1U> &x, int32_T offset);
+      static void merge(::coder::array<int, 2U> &idx, ::coder::array<double, 2U>
+                        &x, int offset, int np, int nq, ::coder::array<int, 1U>
+                        &iwork, ::coder::array<double, 1U> &xwork);
+      static void merge(::coder::array<int, 1U> &idx, ::coder::array<double, 1U>
+                        &x, int offset, int np, int nq, ::coder::array<int, 1U>
+                        &iwork, ::coder::array<double, 1U> &xwork);
+      static void merge_block(::coder::array<int, 1U> &idx, ::coder::array<
+        double, 1U> &x, int offset, int n, int preSortLevel, ::coder::array<int,
+        1U> &iwork, ::coder::array<double, 1U> &xwork);
+      static void merge_pow2_block(::coder::array<int, 1U> &idx, ::coder::array<
+        double, 1U> &x, int offset);
     }
   }
 }
@@ -46,17 +44,16 @@ namespace RAT
   {
     namespace internal
     {
-      static void merge(::coder::array<int32_T, 2U> &idx, ::coder::array<real_T,
-                        2U> &x, int32_T offset, int32_T np, int32_T nq, ::coder::
-                        array<int32_T, 1U> &iwork, ::coder::array<real_T, 1U>
-                        &xwork)
+      static void merge(::coder::array<int, 2U> &idx, ::coder::array<double, 2U>
+                        &x, int offset, int np, int nq, ::coder::array<int, 1U>
+                        &iwork, ::coder::array<double, 1U> &xwork)
       {
         if (nq != 0) {
-          int32_T iout;
-          int32_T j;
-          int32_T n_tmp;
-          int32_T p;
-          int32_T q;
+          int iout;
+          int j;
+          int n_tmp;
+          int p;
+          int q;
           n_tmp = np + nq;
           for (j = 0; j < n_tmp; j++) {
             iout = offset + j;
@@ -67,7 +64,7 @@ namespace RAT
           p = 0;
           q = np;
           iout = offset - 1;
-          int32_T exitg1;
+          int exitg1;
           do {
             exitg1 = 0;
             iout++;
@@ -99,17 +96,16 @@ namespace RAT
         }
       }
 
-      static void merge(::coder::array<int32_T, 1U> &idx, ::coder::array<real_T,
-                        1U> &x, int32_T offset, int32_T np, int32_T nq, ::coder::
-                        array<int32_T, 1U> &iwork, ::coder::array<real_T, 1U>
-                        &xwork)
+      static void merge(::coder::array<int, 1U> &idx, ::coder::array<double, 1U>
+                        &x, int offset, int np, int nq, ::coder::array<int, 1U>
+                        &iwork, ::coder::array<double, 1U> &xwork)
       {
         if (nq != 0) {
-          int32_T iout;
-          int32_T j;
-          int32_T n_tmp;
-          int32_T p;
-          int32_T q;
+          int iout;
+          int j;
+          int n_tmp;
+          int p;
+          int q;
           n_tmp = np + nq;
           for (j = 0; j < n_tmp; j++) {
             iout = offset + j;
@@ -120,7 +116,7 @@ namespace RAT
           p = 0;
           q = np;
           iout = offset - 1;
-          int32_T exitg1;
+          int exitg1;
           do {
             exitg1 = 0;
             iout++;
@@ -152,17 +148,17 @@ namespace RAT
         }
       }
 
-      static void merge_block(::coder::array<int32_T, 1U> &idx, ::coder::array<
-        real_T, 1U> &x, int32_T offset, int32_T n, int32_T preSortLevel, ::coder::
-        array<int32_T, 1U> &iwork, ::coder::array<real_T, 1U> &xwork)
+      static void merge_block(::coder::array<int, 1U> &idx, ::coder::array<
+        double, 1U> &x, int offset, int n, int preSortLevel, ::coder::array<int,
+        1U> &iwork, ::coder::array<double, 1U> &xwork)
       {
-        int32_T bLen;
-        int32_T nPairs;
+        int bLen;
+        int nPairs;
         nPairs = n >> preSortLevel;
         bLen = 1 << preSortLevel;
         while (nPairs > 1) {
-          int32_T nTail;
-          int32_T tailOffset;
+          int nTail;
+          int tailOffset;
           if ((nPairs & 1) != 0) {
             nPairs--;
             tailOffset = bLen * nPairs;
@@ -187,24 +183,24 @@ namespace RAT
         }
       }
 
-      static void merge_pow2_block(::coder::array<int32_T, 1U> &idx, ::coder::
-        array<real_T, 1U> &x, int32_T offset)
+      static void merge_pow2_block(::coder::array<int, 1U> &idx, ::coder::array<
+        double, 1U> &x, int offset)
       {
-        real_T xwork[256];
-        int32_T iwork[256];
-        for (int32_T b{0}; b < 6; b++) {
-          int32_T bLen;
-          int32_T bLen2;
-          int32_T nPairs;
+        double xwork[256];
+        int iwork[256];
+        for (int b{0}; b < 6; b++) {
+          int bLen;
+          int bLen2;
+          int nPairs;
           bLen = 1 << (b + 2);
           bLen2 = bLen << 1;
           nPairs = 256 >> (b + 3);
-          for (int32_T k{0}; k < nPairs; k++) {
-            int32_T blockOffset;
-            int32_T iout;
-            int32_T j;
-            int32_T p;
-            int32_T q;
+          for (int k{0}; k < nPairs; k++) {
+            int blockOffset;
+            int iout;
+            int j;
+            int p;
+            int q;
             blockOffset = offset + k * bLen2;
             for (j = 0; j < bLen2; j++) {
               iout = blockOffset + j;
@@ -215,7 +211,7 @@ namespace RAT
             p = 0;
             q = bLen;
             iout = blockOffset - 1;
-            int32_T exitg1;
+            int exitg1;
             do {
               exitg1 = 0;
               iout++;
@@ -248,18 +244,17 @@ namespace RAT
         }
       }
 
-      void b_sortIdx(::coder::array<real_T, 1U> &x, ::coder::array<int32_T, 1U>
-                     &idx)
+      void b_sortIdx(::coder::array<double, 1U> &x, ::coder::array<int, 1U> &idx)
       {
-        ::coder::array<real_T, 1U> b_x;
-        ::coder::array<real_T, 1U> xwork;
-        ::coder::array<int32_T, 1U> b_idx;
-        ::coder::array<int32_T, 1U> iwork;
-        real_T x4[4];
-        int32_T idx4[4];
-        int32_T i;
-        int32_T ib;
-        int8_T perm[4];
+        ::coder::array<double, 1U> b_x;
+        ::coder::array<double, 1U> xwork;
+        ::coder::array<int, 1U> b_idx;
+        ::coder::array<int, 1U> iwork;
+        double x4[4];
+        int idx4[4];
+        int i;
+        int ib;
+        signed char perm[4];
         ib = x.size(0);
         idx.set_size(ib);
         for (i = 0; i < ib; i++) {
@@ -267,13 +262,13 @@ namespace RAT
         }
 
         if (x.size(0) != 0) {
-          int32_T i2;
-          int32_T i3;
-          int32_T i4;
-          int32_T k;
-          int32_T n;
-          int32_T nNaNs;
-          int32_T quartetOffset;
+          int i2;
+          int i3;
+          int i4;
+          int k;
+          int n;
+          int nNaNs;
+          int quartetOffset;
           b_idx.set_size(ib);
           for (i = 0; i < ib; i++) {
             b_idx[i] = 0;
@@ -319,8 +314,8 @@ namespace RAT
               idx4[ib] = k + 1;
               x4[ib] = b_x[k];
               if (ib + 1 == 4) {
-                real_T d;
-                real_T d1;
+                double d;
+                double d1;
                 quartetOffset = k - nNaNs;
                 if (x4[0] <= x4[1]) {
                   ib = 1;
@@ -343,40 +338,40 @@ namespace RAT
                 if (d <= d1) {
                   d = x4[i2 - 1];
                   if (d <= d1) {
-                    perm[0] = static_cast<int8_T>(ib);
-                    perm[1] = static_cast<int8_T>(i2);
-                    perm[2] = static_cast<int8_T>(i3);
-                    perm[3] = static_cast<int8_T>(i4);
+                    perm[0] = static_cast<signed char>(ib);
+                    perm[1] = static_cast<signed char>(i2);
+                    perm[2] = static_cast<signed char>(i3);
+                    perm[3] = static_cast<signed char>(i4);
                   } else if (d <= x4[i4 - 1]) {
-                    perm[0] = static_cast<int8_T>(ib);
-                    perm[1] = static_cast<int8_T>(i3);
-                    perm[2] = static_cast<int8_T>(i2);
-                    perm[3] = static_cast<int8_T>(i4);
+                    perm[0] = static_cast<signed char>(ib);
+                    perm[1] = static_cast<signed char>(i3);
+                    perm[2] = static_cast<signed char>(i2);
+                    perm[3] = static_cast<signed char>(i4);
                   } else {
-                    perm[0] = static_cast<int8_T>(ib);
-                    perm[1] = static_cast<int8_T>(i3);
-                    perm[2] = static_cast<int8_T>(i4);
-                    perm[3] = static_cast<int8_T>(i2);
+                    perm[0] = static_cast<signed char>(ib);
+                    perm[1] = static_cast<signed char>(i3);
+                    perm[2] = static_cast<signed char>(i4);
+                    perm[3] = static_cast<signed char>(i2);
                   }
                 } else {
                   d1 = x4[i4 - 1];
                   if (d <= d1) {
                     if (x4[i2 - 1] <= d1) {
-                      perm[0] = static_cast<int8_T>(i3);
-                      perm[1] = static_cast<int8_T>(ib);
-                      perm[2] = static_cast<int8_T>(i2);
-                      perm[3] = static_cast<int8_T>(i4);
+                      perm[0] = static_cast<signed char>(i3);
+                      perm[1] = static_cast<signed char>(ib);
+                      perm[2] = static_cast<signed char>(i2);
+                      perm[3] = static_cast<signed char>(i4);
                     } else {
-                      perm[0] = static_cast<int8_T>(i3);
-                      perm[1] = static_cast<int8_T>(ib);
-                      perm[2] = static_cast<int8_T>(i4);
-                      perm[3] = static_cast<int8_T>(i2);
+                      perm[0] = static_cast<signed char>(i3);
+                      perm[1] = static_cast<signed char>(ib);
+                      perm[2] = static_cast<signed char>(i4);
+                      perm[3] = static_cast<signed char>(i2);
                     }
                   } else {
-                    perm[0] = static_cast<int8_T>(i3);
-                    perm[1] = static_cast<int8_T>(i4);
-                    perm[2] = static_cast<int8_T>(ib);
-                    perm[3] = static_cast<int8_T>(i2);
+                    perm[0] = static_cast<signed char>(i3);
+                    perm[1] = static_cast<signed char>(i4);
+                    perm[2] = static_cast<signed char>(ib);
+                    perm[3] = static_cast<signed char>(i2);
                   }
                 }
 
@@ -495,18 +490,17 @@ namespace RAT
         }
       }
 
-      void merge_block(::coder::array<int32_T, 2U> &idx, ::coder::array<real_T,
-                       2U> &x, int32_T offset, int32_T n, int32_T preSortLevel, ::
-                       coder::array<int32_T, 1U> &iwork, ::coder::array<real_T,
-                       1U> &xwork)
+      void merge_block(::coder::array<int, 2U> &idx, ::coder::array<double, 2U>
+                       &x, int offset, int n, int preSortLevel, ::coder::array<
+                       int, 1U> &iwork, ::coder::array<double, 1U> &xwork)
       {
-        int32_T bLen;
-        int32_T nPairs;
+        int bLen;
+        int nPairs;
         nPairs = n >> preSortLevel;
         bLen = 1 << preSortLevel;
         while (nPairs > 1) {
-          int32_T nTail;
-          int32_T tailOffset;
+          int nTail;
+          int tailOffset;
           if ((nPairs & 1) != 0) {
             nPairs--;
             tailOffset = bLen * nPairs;
@@ -531,24 +525,24 @@ namespace RAT
         }
       }
 
-      void merge_pow2_block(::coder::array<int32_T, 2U> &idx, ::coder::array<
-                            real_T, 2U> &x, int32_T offset)
+      void merge_pow2_block(::coder::array<int, 2U> &idx, ::coder::array<double,
+                            2U> &x, int offset)
       {
-        real_T xwork[256];
-        int32_T iwork[256];
-        for (int32_T b{0}; b < 6; b++) {
-          int32_T bLen;
-          int32_T bLen2;
-          int32_T nPairs;
+        double xwork[256];
+        int iwork[256];
+        for (int b{0}; b < 6; b++) {
+          int bLen;
+          int bLen2;
+          int nPairs;
           bLen = 1 << (b + 2);
           bLen2 = bLen << 1;
           nPairs = 256 >> (b + 3);
-          for (int32_T k{0}; k < nPairs; k++) {
-            int32_T blockOffset;
-            int32_T iout;
-            int32_T j;
-            int32_T p;
-            int32_T q;
+          for (int k{0}; k < nPairs; k++) {
+            int blockOffset;
+            int iout;
+            int j;
+            int p;
+            int q;
             blockOffset = offset + k * bLen2;
             for (j = 0; j < bLen2; j++) {
               iout = blockOffset + j;
@@ -559,7 +553,7 @@ namespace RAT
             p = 0;
             q = bLen;
             iout = blockOffset - 1;
-            int32_T exitg1;
+            int exitg1;
             do {
               exitg1 = 0;
               iout++;
@@ -592,13 +586,13 @@ namespace RAT
         }
       }
 
-      void sortIdx(const ::coder::array<real_T, 2U> &x, ::coder::array<int32_T,
-                   2U> &idx)
+      void sortIdx(const ::coder::array<double, 2U> &x, ::coder::array<int, 2U>
+                   &idx)
       {
-        int32_T loop_ub;
+        int loop_ub;
         idx.set_size(1, x.size(1));
         loop_ub = x.size(1);
-        for (int32_T i{0}; i < loop_ub; i++) {
+        for (int i{0}; i < loop_ub; i++) {
           idx[i] = 0;
         }
 
@@ -607,13 +601,13 @@ namespace RAT
         }
       }
 
-      void sortIdx(const ::coder::array<real_T, 1U> &x, ::coder::array<int32_T,
-                   1U> &idx)
+      void sortIdx(const ::coder::array<double, 1U> &x, ::coder::array<int, 1U>
+                   &idx)
       {
-        ::coder::array<real_T, 1U> b_x;
-        ::coder::array<int32_T, 1U> r;
-        int32_T i;
-        int32_T loop_ub;
+        ::coder::array<double, 1U> b_x;
+        ::coder::array<int, 1U> r;
+        int i;
+        int loop_ub;
         idx.set_size(x.size(0));
         loop_ub = x.size(0);
         for (i = 0; i < loop_ub; i++) {
@@ -639,15 +633,15 @@ namespace RAT
         }
       }
 
-      void sortIdx(const ::coder::array<real_T, 2U> &x, ::coder::array<int32_T,
-                   1U> &idx)
+      void sortIdx(const ::coder::array<double, 2U> &x, ::coder::array<int, 1U>
+                   &idx)
       {
-        int32_T k;
-        int32_T n;
+        int k;
+        int n;
         n = x.size(0);
         idx.set_size(x.size(0));
         k = x.size(0);
-        for (int32_T i{0}; i < k; i++) {
+        for (int i{0}; i < k; i++) {
           idx[i] = 0;
         }
 

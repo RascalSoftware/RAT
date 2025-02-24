@@ -22,9 +22,9 @@ namespace RAT
 {
   namespace coder
   {
-    real_T b_genpnorm(const ::coder::array<real_T, 2U> &x);
-    real_T b_norm(const ::coder::array<real_T, 2U> &x);
-    real_T b_norm(const ::coder::array<real_T, 1U> &x);
+    double b_genpnorm(const ::coder::array<double, 2U> &x);
+    double b_norm(const ::coder::array<double, 2U> &x);
+    double b_norm(const ::coder::array<double, 1U> &x);
   }
 }
 

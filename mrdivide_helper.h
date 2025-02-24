@@ -24,12 +24,12 @@ namespace RAT
   {
     namespace internal
     {
-      void mrdiv(const ::coder::array<real_T, 2U> &A, const ::coder::array<
-                 real_T, 2U> &B, ::coder::array<real_T, 2U> &Y);
-      void mrdiv(const ::coder::array<real_T, 2U> &A, const ::coder::array<
-                 real_T, 2U> &B, ::coder::array<real_T, 1U> &Y);
-      void mrdiv(const real_T A_data[], int32_T A_size, const real_T B_data[],
-                 int32_T B_size, real_T Y_data[], int32_T Y_size[2]);
+      void mrdiv(const ::coder::array<double, 2U> &A, const ::coder::array<
+                 double, 2U> &B, ::coder::array<double, 2U> &Y);
+      void mrdiv(const ::coder::array<double, 2U> &A, const ::coder::array<
+                 double, 2U> &B, ::coder::array<double, 1U> &Y);
+      void mrdiv(const double A_data[], int A_size, const double B_data[], int
+                 B_size, double Y_data[], int Y_size[2]);
     }
   }
 }

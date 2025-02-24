@@ -21,7 +21,7 @@ namespace RAT
 {
   namespace coder
   {
-    void b_fread(real_T fileID, uint8_T A_data[], int32_T *A_size);
+    void b_fread(double fileID, unsigned char A_data[], int *A_size);
   }
 }
 

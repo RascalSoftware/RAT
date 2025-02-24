@@ -20,8 +20,8 @@
 // Function Declarations
 namespace RAT
 {
-  void nest2pos(const ::coder::array<real_T, 2U> &nest_samples, real_T nLive, ::
-                coder::array<real_T, 2U> &post_samples);
+  void nest2pos(const ::coder::array<double, 2U> &nest_samples, double nLive, ::
+                coder::array<double, 2U> &post_samples);
 }
 
 #endif

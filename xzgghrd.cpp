@@ -24,18 +24,18 @@ namespace RAT
     {
       namespace reflapack
       {
-        void xzgghrd(int32_T ilo, int32_T ihi, ::coder::array<creal_T, 2U> &A, ::
-                     coder::array<creal_T, 2U> &Z)
+        void xzgghrd(int ilo, int ihi, ::coder::array<creal_T, 2U> &A, ::coder::
+                     array<creal_T, 2U> &Z)
         {
           ::coder::array<creal_T, 2U> b_A;
-          ::coder::array<real_T, 2U> r;
+          ::coder::array<double, 2U> r;
           creal_T s;
-          real_T c;
-          int32_T i;
-          int32_T i1;
-          int32_T j;
-          int32_T loop_ub;
-          int32_T n;
+          double c;
+          int i;
+          int i1;
+          int j;
+          int loop_ub;
+          int n;
           n = A.size(0);
           eye(A.size(0), r);
           Z.set_size(r.size(0), r.size(1));
@@ -49,14 +49,14 @@ namespace RAT
           }
 
           if ((A.size(0) > 1) && (ihi >= ilo + 2)) {
-            for (int32_T jcol{ilo - 1}; jcol + 1 < ihi - 1; jcol++) {
-              int32_T jcolp1;
+            for (int jcol{ilo - 1}; jcol + 1 < ihi - 1; jcol++) {
+              int jcolp1;
               jcolp1 = jcol + 2;
-              for (int32_T jrow{ihi - 1}; jrow + 1 > jcol + 2; jrow--) {
-                real_T d;
-                real_T d1;
-                real_T stemp_im;
-                real_T stemp_re;
+              for (int jrow{ihi - 1}; jrow + 1 > jcol + 2; jrow--) {
+                double d;
+                double d1;
+                double stemp_im;
+                double stemp_re;
                 xzlartg(A[(jrow + A.size(0) * jcol) - 1], A[jrow + A.size(0) *
                         jcol], &c, &s, &A[(jrow + A.size(0) * jcol) - 1]);
                 A[jrow + A.size(0) * jcol].re = 0.0;

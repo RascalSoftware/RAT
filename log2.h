@@ -22,9 +22,9 @@ namespace RAT
 {
   namespace coder
   {
-    void b_log2(const ::coder::array<real_T, 1U> &x, ::coder::array<real_T, 1U>
-                &f, ::coder::array<real_T, 1U> &e);
-    void b_log2(real_T x, real_T *f, real_T *e);
+    void b_log2(const ::coder::array<double, 1U> &x, ::coder::array<double, 1U>
+                &f, ::coder::array<double, 1U> &e);
+    void b_log2(double x, double *f, double *e);
   }
 }
 

@@ -20,9 +20,9 @@ namespace RAT
   {
     namespace internal
     {
-      int32_T nonSingletonDim(const ::coder::array<real_T, 1U> &x)
+      int nonSingletonDim(const ::coder::array<double, 1U> &x)
       {
-        int32_T dim;
+        int dim;
         dim = 2;
         if (x.size(0) != 1) {
           dim = 1;
@@ -31,9 +31,9 @@ namespace RAT
         return dim;
       }
 
-      int32_T nonSingletonDim(const ::coder::array<real_T, 2U> &x)
+      int nonSingletonDim(const ::coder::array<double, 2U> &x)
       {
-        int32_T dim;
+        int dim;
         dim = 2;
         if (x.size(0) != 1) {
           dim = 1;

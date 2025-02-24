@@ -17,13 +17,13 @@
 // Function Definitions
 namespace RAT
 {
-  void simplexXTransform(const ::coder::array<real_T, 1U> &x, const ::coder::
-    array<real_T, 1U> &params_LB, const ::coder::array<real_T, 1U> &params_UB,
-    const ::coder::array<real_T, 1U> &params_BoundClass, ::coder::array<real_T,
+  void simplexXTransform(const ::coder::array<double, 1U> &x, const ::coder::
+    array<double, 1U> &params_LB, const ::coder::array<double, 1U> &params_UB,
+    const ::coder::array<double, 1U> &params_BoundClass, ::coder::array<double,
     1U> &xtrans)
   {
-    int32_T i;
-    int32_T loop_ub;
+    int i;
+    int loop_ub;
 
     //  converts unconstrained variables into their original domains
     xtrans.set_size(x.size(0));
@@ -33,8 +33,8 @@ namespace RAT
     }
 
     i = x.size(0);
-    for (int32_T b_i{0}; b_i < i; b_i++) {
-      switch (static_cast<int32_T>(params_BoundClass[b_i])) {
+    for (int b_i{0}; b_i < i; b_i++) {
+      switch (static_cast<int>(params_BoundClass[b_i])) {
        case 1:
         //  lower bound only
         xtrans[b_i] = params_LB[b_i] + x[b_i] * x[b_i];

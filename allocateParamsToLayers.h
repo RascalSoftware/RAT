@@ -27,7 +27,7 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void allocateParamsToLayers(const ::coder::array<real_T, 2U> &params, const ::
+  void allocateParamsToLayers(const ::coder::array<double, 2U> &params, const ::
     coder::array<cell_wrap_9, 2U> &layersDetails, ::coder::array<cell_wrap_47,
     2U> &outLayers);
 }

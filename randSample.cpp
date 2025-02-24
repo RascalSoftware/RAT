@@ -20,14 +20,14 @@
 // Function Definitions
 namespace RAT
 {
-  void randSample(real_T numItems, const real_T weights[2], ::coder::array<
-                  real_T, 2U> &outputSample)
+  void randSample(double numItems, const double weights[2], ::coder::array<
+                  double, 2U> &outputSample)
   {
-    ::coder::array<real_T, 2U> r;
-    ::coder::array<real_T, 2U> randomIndices;
-    real_T bins[3];
-    real_T b_dv[2];
-    int32_T loop_ub;
+    ::coder::array<double, 2U> r;
+    ::coder::array<double, 2U> randomIndices;
+    double bins[3];
+    double b_dv[2];
+    int loop_ub;
 
     //  Take a random sample of values.
     //  GPL-licensed replacement for `randsample` from Statistics and Machine
@@ -66,23 +66,23 @@ namespace RAT
     coder::b_discretize(r, bins, randomIndices);
     outputSample.set_size(1, randomIndices.size(1));
     loop_ub = randomIndices.size(1);
-    for (int32_T i{0}; i < loop_ub; i++) {
-      outputSample[i] = static_cast<int8_T>(static_cast<int32_T>(randomIndices[i])
-        - 1);
+    for (int i{0}; i < loop_ub; i++) {
+      outputSample[i] = static_cast<signed char>(static_cast<int>
+        (randomIndices[i]) - 1);
     }
   }
 
-  void randSample(real_T population_data[], const int32_T population_size[2],
-                  real_T numItems, const real_T weights_data[], ::coder::array<
-                  real_T, 2U> &outputSample)
+  void randSample(double population_data[], const int population_size[2], double
+                  numItems, const double weights_data[], ::coder::array<double,
+                  2U> &outputSample)
   {
-    ::coder::array<real_T, 2U> randomIndices;
-    ::coder::array<real_T, 2U> y;
-    real_T bins_data[4];
-    real_T x_data[3];
-    int32_T x_size[2];
-    int32_T i;
-    int32_T loop_ub;
+    ::coder::array<double, 2U> randomIndices;
+    ::coder::array<double, 2U> y;
+    double bins_data[4];
+    double x_data[3];
+    int x_size[2];
+    int i;
+    int loop_ub;
 
     //  Take a random sample of values.
     //  GPL-licensed replacement for `randsample` from Statistics and Machine
@@ -120,10 +120,10 @@ namespace RAT
         y.set_size(1, 1);
         y[0] = rtNaN;
       } else {
-        loop_ub = static_cast<int32_T>(std::floor(population_data[0] - 1.0));
+        loop_ub = static_cast<int>(std::floor(population_data[0] - 1.0));
         y.set_size(1, loop_ub + 1);
         for (i = 0; i <= loop_ub; i++) {
-          y[i] = static_cast<real_T>(i) + 1.0;
+          y[i] = static_cast<double>(i) + 1.0;
         }
       }
 
@@ -148,8 +148,7 @@ namespace RAT
     outputSample.set_size(1, randomIndices.size(1));
     loop_ub = randomIndices.size(1);
     for (i = 0; i < loop_ub; i++) {
-      outputSample[i] = population_data[static_cast<int32_T>(randomIndices[i]) -
-        1];
+      outputSample[i] = population_data[static_cast<int>(randomIndices[i]) - 1];
     }
   }
 }

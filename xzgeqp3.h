@@ -26,10 +26,10 @@ namespace RAT
     {
       namespace reflapack
       {
-        void qrpf(::coder::array<real_T, 2U> &A, int32_T m, int32_T n, ::coder::
-                  array<real_T, 1U> &tau, ::coder::array<int32_T, 2U> &jpvt);
-        void xzgeqp3(::coder::array<real_T, 1U> &A, int32_T m, real_T tau_data[],
-                     int32_T *tau_size, int32_T *jpvt);
+        void qrpf(::coder::array<double, 2U> &A, int m, int n, ::coder::array<
+                  double, 1U> &tau, ::coder::array<int, 2U> &jpvt);
+        void xzgeqp3(::coder::array<double, 1U> &A, int m, double tau_data[],
+                     int *tau_size, int *jpvt);
       }
     }
   }

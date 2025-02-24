@@ -18,17 +18,17 @@
 // Function Definitions
 namespace RAT
 {
-  void makeSimulationRange(const ::coder::array<real_T, 2U> &data, const real_T
-    simulationLimits[2], ::coder::array<real_T, 1U> &simXdata, real_T splits[2])
+  void makeSimulationRange(const ::coder::array<double, 2U> &data, const double
+    simulationLimits[2], ::coder::array<double, 1U> &simXdata, double splits[2])
   {
-    ::coder::array<real_T, 2U> firstSection;
-    ::coder::array<real_T, 2U> lastSection;
-    real_T b;
-    real_T step;
-    int32_T b_loop_ub;
-    int32_T firstSection_idx_0;
-    int32_T i;
-    int32_T loop_ub;
+    ::coder::array<double, 2U> firstSection;
+    ::coder::array<double, 2U> lastSection;
+    double b;
+    double step;
+    int b_loop_ub;
+    int firstSection_idx_0;
+    int i;
+    int loop_ub;
 
     //  Construct the x data for the simulation. This consists of the x data from
     //  the supplied data, plus additional points above and below the data range
@@ -51,11 +51,10 @@ namespace RAT
         firstSection[0] = simulationLimits[0];
       } else if ((std::floor(simulationLimits[0]) == simulationLimits[0]) &&
                  (std::floor(step) == step)) {
-        loop_ub = static_cast<int32_T>(std::floor((b - simulationLimits[0]) /
-          step));
+        loop_ub = static_cast<int>(std::floor((b - simulationLimits[0]) / step));
         firstSection.set_size(1, loop_ub + 1);
         for (i = 0; i <= loop_ub; i++) {
-          firstSection[i] = simulationLimits[0] + step * static_cast<real_T>(i);
+          firstSection[i] = simulationLimits[0] + step * static_cast<double>(i);
         }
       } else {
         coder::eml_float_colon(simulationLimits[0], step, b, firstSection);
@@ -81,11 +80,10 @@ namespace RAT
         lastSection.set_size(1, 1);
         lastSection[0] = b;
       } else if ((std::floor(b) == b) && (std::floor(step) == step)) {
-        loop_ub = static_cast<int32_T>(std::floor((simulationLimits[1] - b) /
-          step));
+        loop_ub = static_cast<int>(std::floor((simulationLimits[1] - b) / step));
         lastSection.set_size(1, loop_ub + 1);
         for (i = 0; i <= loop_ub; i++) {
-          lastSection[i] = b + step * static_cast<real_T>(i);
+          lastSection[i] = b + step * static_cast<double>(i);
         }
       } else {
         coder::eml_float_colon(b, step, simulationLimits[1], lastSection);
@@ -112,7 +110,7 @@ namespace RAT
     }
 
     splits[0] = firstSection.size(1) + 1U;
-    splits[1] = static_cast<uint32_T>(firstSection.size(1)) + data.size(0);
+    splits[1] = static_cast<unsigned int>(firstSection.size(1)) + data.size(0);
   }
 }
 

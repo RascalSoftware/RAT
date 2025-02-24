@@ -22,18 +22,18 @@ namespace RAT
   {
     namespace internal
     {
-      void lusolve(const ::coder::array<real_T, 2U> &A, const ::coder::array<
-                   real_T, 2U> &B, ::coder::array<real_T, 2U> &X)
+      void lusolve(const ::coder::array<double, 2U> &A, const ::coder::array<
+                   double, 2U> &B, ::coder::array<double, 2U> &X)
       {
-        ::coder::array<real_T, 2U> b_A;
-        ::coder::array<int32_T, 2U> ipiv;
-        int32_T i;
-        int32_T i1;
-        int32_T info;
+        ::coder::array<double, 2U> b_A;
+        ::coder::array<int, 2U> ipiv;
+        int i;
+        int i1;
+        int info;
         b_A.set_size(A.size(0), A.size(1));
         info = A.size(1);
         for (i = 0; i < info; i++) {
-          int32_T loop_ub;
+          int loop_ub;
           loop_ub = A.size(0);
           for (i1 = 0; i1 < loop_ub; i1++) {
             b_A[i1 + b_A.size(0) * i] = A[i1 + A.size(0) * i];
@@ -53,7 +53,7 @@ namespace RAT
         for (info = i; info >= 1; info--) {
           i1 = ipiv[info - 1];
           if (i1 != info) {
-            real_T temp;
+            double temp;
             temp = X[info - 1];
             X[info - 1] = X[i1 - 1];
             X[i1 - 1] = temp;

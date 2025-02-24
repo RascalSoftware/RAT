@@ -19,13 +19,13 @@ namespace RAT
 {
   namespace coder
   {
-    void b_rem(const ::coder::array<real_T, 2U> &x, real_T y, ::coder::array<
-               real_T, 2U> &r)
+    void b_rem(const ::coder::array<double, 2U> &x, double y, ::coder::array<
+               double, 2U> &r)
     {
-      int32_T N;
+      int N;
       r.set_size(1, x.size(1));
       N = x.size(1);
-      for (int32_T k{0}; k < N; k++) {
+      for (int k{0}; k < N; k++) {
         r[k] = rt_remd_snf(x[k], y);
       }
     }

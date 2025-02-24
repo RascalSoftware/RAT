@@ -26,46 +26,46 @@
 // Function Definitions
 namespace RAT
 {
-  void calcProposal(const ::coder::array<real_T, 2U> &X, real_T CR_data[], const
-                    struct11_T *DREAMPar, const ::coder::array<real_T, 2U>
-                    &Table_gamma, const ::coder::array<real_T, 2U>
-                    &paramInfo_min, const ::coder::array<real_T, 2U>
-                    &paramInfo_max, const char_T paramInfo_boundhandling_data[],
-                    const int32_T paramInfo_boundhandling_size[2], ::coder::
-                    array<real_T, 2U> &x_new)
+  void calcProposal(const ::coder::array<double, 2U> &X, double CR_data[], const
+                    DreamParams *DREAMPar, const ::coder::array<double, 2U>
+                    &Table_gamma, const ::coder::array<double, 2U>
+                    &paramInfo_min, const ::coder::array<double, 2U>
+                    &paramInfo_max, const char paramInfo_boundhandling_data[],
+                    const int paramInfo_boundhandling_size[2], ::coder::array<
+                    double, 2U> &x_new)
   {
-    ::coder::array<real_T, 2U> A;
-    ::coder::array<real_T, 2U> DE_pairs;
-    ::coder::array<real_T, 2U> b;
-    ::coder::array<real_T, 2U> b_a;
-    ::coder::array<real_T, 2U> b_b;
-    ::coder::array<real_T, 2U> b_gamma;
-    ::coder::array<real_T, 2U> dx;
-    ::coder::array<real_T, 2U> eps;
-    ::coder::array<real_T, 2U> r2;
-    ::coder::array<real_T, 2U> r3;
-    ::coder::array<real_T, 2U> r4;
-    ::coder::array<real_T, 2U> rnd_cr;
-    ::coder::array<real_T, 2U> rnd_jump;
-    ::coder::array<real_T, 2U> y;
-    ::coder::array<real_T, 1U> r1;
-    ::coder::array<int32_T, 2U> iidx;
-    ::coder::array<int32_T, 2U> r;
+    ::coder::array<double, 2U> A;
+    ::coder::array<double, 2U> DE_pairs;
+    ::coder::array<double, 2U> b;
+    ::coder::array<double, 2U> b_a;
+    ::coder::array<double, 2U> b_b;
+    ::coder::array<double, 2U> b_gamma;
+    ::coder::array<double, 2U> dx;
+    ::coder::array<double, 2U> eps;
+    ::coder::array<double, 2U> r2;
+    ::coder::array<double, 2U> r3;
+    ::coder::array<double, 2U> r4;
+    ::coder::array<double, 2U> rnd_cr;
+    ::coder::array<double, 2U> rnd_jump;
+    ::coder::array<double, 2U> y;
+    ::coder::array<double, 1U> r1;
+    ::coder::array<int, 2U> iidx;
+    ::coder::array<int, 2U> r;
     ::coder::array<boolean_T, 2U> b_rnd_cr;
-    real_T r2_data[6];
-    real_T a_data[3];
-    real_T r1_data[3];
-    real_T y_data[3];
-    real_T b_dv[2];
-    real_T a;
-    int32_T b_y_size[2];
-    int32_T y_size[2];
-    int32_T b_loop_ub;
-    int32_T b_loop_ub_tmp;
-    int32_T i;
-    int32_T i1;
-    int32_T loop_ub;
-    int32_T loop_ub_tmp;
+    double r2_data[6];
+    double a_data[3];
+    double r1_data[3];
+    double y_data[3];
+    double b_dv[2];
+    double a;
+    int b_y_size[2];
+    int y_size[2];
+    int b_loop_ub;
+    int b_loop_ub_tmp;
+    int i;
+    int i1;
+    int loop_ub;
+    int loop_ub_tmp;
 
     //  Calculate candidate points using discrete proposal distribution
     //  % % % Calculate the ergodicity perturbation
@@ -181,10 +181,10 @@ namespace RAT
       y.set_size(1, 1);
       y[0] = rtNaN;
     } else {
-      loop_ub = static_cast<int32_T>(std::floor(DREAMPar->delta - 1.0));
+      loop_ub = static_cast<int>(std::floor(DREAMPar->delta - 1.0));
       y.set_size(1, loop_ub + 1);
       for (i = 0; i <= loop_ub; i++) {
-        y[i] = static_cast<real_T>(i) + 1.0;
+        y[i] = static_cast<double>(i) + 1.0;
       }
     }
 
@@ -242,8 +242,8 @@ namespace RAT
     coder::internal::b_sort(b, iidx);
 
     //  Set jump vectors equal to zero
-    loop_ub_tmp = static_cast<int32_T>(DREAMPar->nChains);
-    b_loop_ub_tmp = static_cast<int32_T>(DREAMPar->nParams);
+    loop_ub_tmp = static_cast<int>(DREAMPar->nChains);
+    b_loop_ub_tmp = static_cast<int>(DREAMPar->nParams);
     dx.set_size(loop_ub_tmp, b_loop_ub_tmp);
     for (i = 0; i < b_loop_ub_tmp; i++) {
       for (i1 = 0; i1 < loop_ub_tmp; i1++) {
@@ -257,12 +257,12 @@ namespace RAT
     randSample(DREAMPar->nChains, b_dv, b_gamma);
 
     //  Create N proposals
-    for (int32_T b_i{0}; b_i < loop_ub_tmp; b_i++) {
-      real_T d;
-      int32_T D;
+    for (int b_i{0}; b_i < loop_ub_tmp; b_i++) {
+      double d;
+      int D;
 
       //  Derive vector r1
-      b_loop_ub_tmp = static_cast<int32_T>(DE_pairs[b_i]);
+      b_loop_ub_tmp = static_cast<int>(DE_pairs[b_i]);
       for (i = 0; i < b_loop_ub_tmp; i++) {
         r1_data[i] = DREAMPar->R[b_i + DREAMPar->R.size(0) * (iidx[i + iidx.size
           (0) * b_i] - 1)];
@@ -275,8 +275,8 @@ namespace RAT
         i = 0;
         i1 = 0;
       } else {
-        i = static_cast<int32_T>(a + 1.0) - 1;
-        i1 = static_cast<int32_T>(d);
+        i = static_cast<int>(a + 1.0) - 1;
+        i1 = static_cast<int>(d);
       }
 
       loop_ub = i1 - i;
@@ -289,7 +289,7 @@ namespace RAT
       if (1.0 > DREAMPar->nParams) {
         b_loop_ub = 0;
       } else {
-        b_loop_ub = static_cast<int32_T>(DREAMPar->nParams);
+        b_loop_ub = static_cast<int>(DREAMPar->nParams);
       }
 
       a = CR_data[b_i];
@@ -318,8 +318,8 @@ namespace RAT
 
       //  Which gamma to use?
       if (b_gamma[b_i] == 1.0) {
-        int32_T c_loop_ub;
-        int32_T d_loop_ub;
+        int c_loop_ub;
+        int d_loop_ub;
 
         //  Calculate direct jump
         if (1.0 > DREAMPar->nParams) {
@@ -327,24 +327,24 @@ namespace RAT
           c_loop_ub = 0;
           d_loop_ub = 0;
         } else {
-          b_loop_ub = static_cast<int32_T>(DREAMPar->nParams);
-          c_loop_ub = static_cast<int32_T>(DREAMPar->nParams);
-          d_loop_ub = static_cast<int32_T>(DREAMPar->nParams);
+          b_loop_ub = static_cast<int>(DREAMPar->nParams);
+          c_loop_ub = static_cast<int>(DREAMPar->nParams);
+          d_loop_ub = static_cast<int>(DREAMPar->nParams);
         }
 
         b.set_size(b_loop_ub_tmp, c_loop_ub);
         for (i = 0; i < c_loop_ub; i++) {
           for (i1 = 0; i1 < b_loop_ub_tmp; i1++) {
-            b[i1 + b.size(0) * i] = X[(static_cast<int32_T>(r1_data[i1]) +
-              X.size(0) * i) - 1];
+            b[i1 + b.size(0) * i] = X[(static_cast<int>(r1_data[i1]) + X.size(0)
+              * i) - 1];
           }
         }
 
         r3.set_size(loop_ub, d_loop_ub);
         for (i = 0; i < d_loop_ub; i++) {
           for (i1 = 0; i1 < loop_ub; i1++) {
-            r3[i1 + r3.size(0) * i] = X[(static_cast<int32_T>(r2_data[i1]) +
-              X.size(0) * i) - 1];
+            r3[i1 + r3.size(0) * i] = X[(static_cast<int>(r2_data[i1]) + X.size
+              (0) * i) - 1];
           }
         }
 
@@ -367,7 +367,7 @@ namespace RAT
         //  Set CR to -1 so that this jump does not count for calculation of pCR
         CR_data[b_i] = -1.0;
       } else {
-        real_T gamma_D;
+        double gamma_D;
 
         //  Unpack jump rate
         gamma_D = Table_gamma[(D + Table_gamma.size(0) * (b_loop_ub_tmp - 1)) -
@@ -384,8 +384,8 @@ namespace RAT
         b_loop_ub = r1.size(0);
         for (i = 0; i < b_loop_ub; i++) {
           for (i1 = 0; i1 < b_loop_ub_tmp; i1++) {
-            r2[i1 + r2.size(0) * i] = X[(static_cast<int32_T>(r1_data[i1]) +
-              X.size(0) * (static_cast<int32_T>(r1[i]) - 1)) - 1];
+            r2[i1 + r2.size(0) * i] = X[(static_cast<int>(r1_data[i1]) + X.size
+              (0) * (static_cast<int>(r1[i]) - 1)) - 1];
           }
         }
 
@@ -393,8 +393,8 @@ namespace RAT
         b_loop_ub = r1.size(0);
         for (i = 0; i < b_loop_ub; i++) {
           for (i1 = 0; i1 < loop_ub; i1++) {
-            r4[i1 + r4.size(0) * i] = X[(static_cast<int32_T>(r2_data[i1]) +
-              X.size(0) * (static_cast<int32_T>(r1[i]) - 1)) - 1];
+            r4[i1 + r4.size(0) * i] = X[(static_cast<int>(r2_data[i1]) + X.size
+              (0) * (static_cast<int>(r1[i]) - 1)) - 1];
           }
         }
 
@@ -411,7 +411,7 @@ namespace RAT
         coder::blockedSummation(b_b, b_loop_ub_tmp, y);
         loop_ub = r1.size(0);
         for (i = 0; i < loop_ub; i++) {
-          b_loop_ub = static_cast<int32_T>(r1[i]) - 1;
+          b_loop_ub = static_cast<int>(r1[i]) - 1;
           dx[b_i + dx.size(0) * b_loop_ub] = (rnd_jump[b_i + rnd_jump.size(0) *
             b_loop_ub] + 1.0) * gamma_D * y[i] + eps[b_i + eps.size(0) *
             b_loop_ub];

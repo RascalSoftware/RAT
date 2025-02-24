@@ -22,7 +22,7 @@ namespace RAT
     {
       namespace scalar
       {
-        static real_T b_rescale(real_T *re, real_T *im);
+        static double b_rescale(double *re, double *im);
       }
     }
   }
@@ -37,10 +37,10 @@ namespace RAT
     {
       namespace scalar
       {
-        static real_T b_rescale(real_T *re, real_T *im)
+        static double b_rescale(double *re, double *im)
         {
-          real_T absim;
-          real_T scale;
+          double absim;
+          double scale;
           scale = std::abs(*re);
           absim = std::abs(*im);
           if (scale > absim) {
@@ -77,25 +77,25 @@ namespace RAT
           return scale;
         }
 
-        real_T complexTimes(real_T ar, real_T ai, real_T br, real_T bi)
+        double complexTimes(double ar, double ai, double br, double bi)
         {
-          real_T cr;
-          real_T sai;
-          real_T sar;
-          real_T sbi;
-          real_T sbr;
+          double cr;
+          double sai;
+          double sar;
+          double sbi;
+          double sbr;
           if ((ai == 0.0) && (bi == 0.0)) {
             cr = 0.0;
           } else {
-            real_T t3;
-            real_T t4;
+            double t3;
+            double t4;
             t3 = ar * bi;
             t4 = ai * br;
             cr = t3 + t4;
             if ((std::isinf(cr) || std::isnan(cr)) && (!std::isnan(ar)) && (!std::
                  isnan(ai)) && (!std::isnan(br)) && (!std::isnan(bi))) {
-              real_T scaleA;
-              real_T scaleB;
+              double scaleA;
+              double scaleB;
               boolean_T finiteScale;
               sar = ar;
               sai = ai;

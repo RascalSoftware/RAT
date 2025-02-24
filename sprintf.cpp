@@ -21,9 +21,9 @@ namespace RAT
 {
   namespace coder
   {
-    void b_snPrint(real_T varargin_1, ::coder::array<char_T, 2U> &str)
+    void b_snPrint(double varargin_1, ::coder::array<char, 2U> &str)
     {
-      int32_T nbytes;
+      int nbytes;
       nbytes = snprintf(nullptr, 0, "Acceptance ratio: %1.4f, \n\n", varargin_1);
       str.set_size(1, nbytes + 1);
       snprintf(&str[0], (size_t)(nbytes + 1), "Acceptance ratio: %1.4f, \n\n",
@@ -35,10 +35,10 @@ namespace RAT
       str.set_size(str.size(0), nbytes);
     }
 
-    void b_sprintf(real_T varargin_1, real_T varargin_2, ::coder::array<char_T,
-                   2U> &str)
+    void b_sprintf(double varargin_1, double varargin_2, ::coder::array<char, 2U>
+                   &str)
     {
-      int32_T nbytes;
+      int nbytes;
       nbytes = snprintf(nullptr, 0,
                         "Exiting - X satisfies termination criteria: TolX %e, TolF %e",
                         varargin_1, varargin_2);
@@ -53,11 +53,10 @@ namespace RAT
       str.set_size(str.size(0), nbytes);
     }
 
-    void b_sprintf(real_T varargin_1, real_T varargin_2, int32_T varargin_3,
-                   int32_T varargin_4, real_T varargin_5, ::coder::array<char_T,
-                   2U> &str)
+    void b_sprintf(double varargin_1, double varargin_2, int varargin_3, int
+                   varargin_4, double varargin_5, ::coder::array<char, 2U> &str)
     {
-      int32_T nbytes;
+      int nbytes;
       nbytes = snprintf(nullptr, 0,
                         "log(Z): %.5e, tol = %.5e, K = %d, iteration = %d, H = %.5e\n",
                         varargin_1, varargin_2, varargin_3, varargin_4,
@@ -73,9 +72,9 @@ namespace RAT
       str.set_size(str.size(0), nbytes);
     }
 
-    void c_snPrint(real_T varargin_1, ::coder::array<char_T, 2U> &str)
+    void c_snPrint(double varargin_1, ::coder::array<char, 2U> &str)
     {
-      int32_T nbytes;
+      int nbytes;
       nbytes = snprintf(nullptr, 0, "%.8g\n", varargin_1);
       str.set_size(1, nbytes + 1);
       snprintf(&str[0], (size_t)(nbytes + 1), "%.8g\n", varargin_1);
@@ -86,13 +85,13 @@ namespace RAT
       str.set_size(str.size(0), nbytes);
     }
 
-    void snPrint(real_T varargin_1, real_T varargin_2, real_T varargin_3, const
-                 char_T varargin_4_data[], const int32_T varargin_4_size[2], ::
-                 coder::array<char_T, 2U> &str)
+    void snPrint(double varargin_1, double varargin_2, double varargin_3, const
+                 char varargin_4_data[], const int varargin_4_size[2], ::coder::
+                 array<char, 2U> &str)
     {
-      int32_T loop_ub;
-      int32_T nbytes;
-      char_T b_varargin_4_data[17];
+      int loop_ub;
+      int nbytes;
+      char b_varargin_4_data[17];
       loop_ub = varargin_4_size[1];
       if (0 <= loop_ub - 1) {
         std::copy(&varargin_4_data[0], &varargin_4_data[loop_ub],
@@ -119,13 +118,13 @@ namespace RAT
       str.set_size(str.size(0), nbytes);
     }
 
-    void snPrint(const ::coder::array<char_T, 2U> &varargin_1, ::coder::array<
-                 char_T, 2U> &str)
+    void snPrint(const ::coder::array<char, 2U> &varargin_1, ::coder::array<char,
+                 2U> &str)
     {
-      ::coder::array<char_T, 2U> b_varargin_1;
-      int32_T i;
-      int32_T loop_ub;
-      int32_T nbytes;
+      ::coder::array<char, 2U> b_varargin_1;
+      int i;
+      int loop_ub;
+      int nbytes;
       b_varargin_1.set_size(1, varargin_1.size(1));
       loop_ub = varargin_1.size(1);
       for (i = 0; i < loop_ub; i++) {
@@ -148,10 +147,10 @@ namespace RAT
       str.set_size(str.size(0), nbytes);
     }
 
-    void snPrint(real_T varargin_1, real_T varargin_2, real_T varargin_3, real_T
-                 varargin_4, real_T varargin_5, ::coder::array<char_T, 2U> &str)
+    void snPrint(double varargin_1, double varargin_2, double varargin_3, double
+                 varargin_4, double varargin_5, ::coder::array<char, 2U> &str)
     {
-      int32_T nbytes;
+      int nbytes;
       nbytes = snprintf(nullptr, 0,
                         "Iteration: %g,  Best: %f,  fWeight: %f,  F_CR: %f,  I_NP: %g\n\n",
                         varargin_1, varargin_2, varargin_3, varargin_4,
@@ -167,9 +166,9 @@ namespace RAT
       str.set_size(str.size(0), nbytes);
     }
 
-    void snPrint(real_T varargin_1, ::coder::array<char_T, 2U> &str)
+    void snPrint(double varargin_1, ::coder::array<char, 2U> &str)
     {
-      int32_T nbytes;
+      int nbytes;
       nbytes = snprintf(nullptr, 0, "Final chi squared is %g\n", varargin_1);
       str.set_size(1, nbytes + 1);
       snprintf(&str[0], (size_t)(nbytes + 1), "Final chi squared is %g\n",
@@ -181,10 +180,10 @@ namespace RAT
       str.set_size(str.size(0), nbytes);
     }
 
-    void snPrint(const char_T varargin_1[4], ::coder::array<char_T, 2U> &str)
+    void snPrint(const char varargin_1[4], ::coder::array<char, 2U> &str)
     {
-      int32_T nbytes;
-      char_T b_varargin_1[4];
+      int nbytes;
+      char b_varargin_1[4];
       b_varargin_1[0] = varargin_1[0];
       b_varargin_1[1] = varargin_1[1];
       b_varargin_1[2] = varargin_1[2];
@@ -203,12 +202,12 @@ namespace RAT
       str.set_size(str.size(0), nbytes);
     }
 
-    void snPrint(const char_T varargin_1_data[], const int32_T varargin_1_size[2],
-                 ::coder::array<char_T, 2U> &str)
+    void snPrint(const char varargin_1_data[], const int varargin_1_size[2], ::
+                 coder::array<char, 2U> &str)
     {
-      int32_T loop_ub;
-      int32_T nbytes;
-      char_T b_varargin_1_data[6];
+      int loop_ub;
+      int nbytes;
+      char b_varargin_1_data[6];
       loop_ub = varargin_1_size[1];
       if (0 <= loop_ub - 1) {
         std::copy(&varargin_1_data[0], &varargin_1_data[loop_ub],
@@ -231,10 +230,10 @@ namespace RAT
       str.set_size(str.size(0), nbytes);
     }
 
-    void snPrint(real_T varargin_1, real_T varargin_2, const char_T *varargin_3,
-                 ::coder::array<char_T, 2U> &str)
+    void snPrint(double varargin_1, double varargin_2, const char *varargin_3, ::
+                 coder::array<char, 2U> &str)
     {
-      int32_T nbytes;
+      int nbytes;
       nbytes = snprintf(nullptr, 0, "[%gx%g %s]\n", varargin_1, varargin_2,
                         varargin_3);
       str.set_size(1, nbytes + 1);

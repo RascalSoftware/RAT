@@ -38,21 +38,20 @@ namespace RAT
   {
     namespace internal
     {
-      static void b_copysign(char_T s1_data[], int32_T *idx, const char_T
-        s_data[], int32_T *k, int32_T n, boolean_T *foundsign, boolean_T
-        *success);
-      static void b_readNonFinite(const char_T s_data[], int32_T *k, int32_T n,
-        boolean_T *b_finite, real_T *fv);
-      static void b_readfloat(char_T s1_data[], int32_T *idx, const char_T
-        s_data[], int32_T *k, int32_T n, boolean_T *isimag, boolean_T *b_finite,
-        real_T *nfv, boolean_T *foundsign, boolean_T *success);
-      static void b_skipspaces(const char_T s_data[], int32_T *k, int32_T n);
-      static boolean_T copydigits(char_T s1_data[], int32_T *idx, const char_T
-        s_data[], int32_T *k, int32_T n, boolean_T allowpoint);
-      static boolean_T copyexponent(char_T s1_data[], int32_T *idx, const char_T
-        s_data[], int32_T *k, int32_T n);
-      static boolean_T isUnitImag(const char_T s_data[], int32_T k, int32_T n);
-      static boolean_T readNonFinite(const char_T s_data[], int32_T k, int32_T n);
+      static void b_copysign(char s1_data[], int *idx, const char s_data[], int *
+        k, int n, boolean_T *foundsign, boolean_T *success);
+      static void b_readNonFinite(const char s_data[], int *k, int n, boolean_T *
+        b_finite, double *fv);
+      static void b_readfloat(char s1_data[], int *idx, const char s_data[], int
+        *k, int n, boolean_T *isimag, boolean_T *b_finite, double *nfv,
+        boolean_T *foundsign, boolean_T *success);
+      static void b_skipspaces(const char s_data[], int *k, int n);
+      static boolean_T copydigits(char s1_data[], int *idx, const char s_data[],
+        int *k, int n, boolean_T allowpoint);
+      static boolean_T copyexponent(char s1_data[], int *idx, const char s_data[],
+        int *k, int n);
+      static boolean_T isUnitImag(const char s_data[], int k, int n);
+      static boolean_T readNonFinite(const char s_data[], int k, int n);
     }
   }
 }
@@ -64,9 +63,8 @@ namespace RAT
   {
     namespace internal
     {
-      static void b_copysign(char_T s1_data[], int32_T *idx, const char_T
-        s_data[], int32_T *k, int32_T n, boolean_T *foundsign, boolean_T
-        *success)
+      static void b_copysign(char s1_data[], int *idx, const char s_data[], int *
+        k, int n, boolean_T *foundsign, boolean_T *success)
       {
         boolean_T exitg1;
         boolean_T isneg;
@@ -74,7 +72,7 @@ namespace RAT
         *foundsign = false;
         exitg1 = false;
         while ((!exitg1) && (*k <= n)) {
-          char_T c;
+          char c;
           c = s_data[*k - 1];
           if (c == '-') {
             isneg = !isneg;
@@ -85,7 +83,7 @@ namespace RAT
           } else if (c == '+') {
             *foundsign = true;
             (*k)++;
-          } else if (!bv[static_cast<uint8_T>(c) & 127]) {
+          } else if (!bv[static_cast<unsigned char>(c) & 127]) {
             exitg1 = true;
           } else {
             (*k)++;
@@ -103,13 +101,13 @@ namespace RAT
         }
       }
 
-      static void b_readNonFinite(const char_T s_data[], int32_T *k, int32_T n,
-        boolean_T *b_finite, real_T *fv)
+      static void b_readNonFinite(const char s_data[], int *k, int n, boolean_T *
+        b_finite, double *fv)
       {
-        int32_T ksaved;
-        char_T c_idx_0;
-        char_T c_idx_1;
-        char_T c_idx_2;
+        int ksaved;
+        char c_idx_0;
+        char c_idx_1;
+        char c_idx_2;
         ksaved = *k;
         c_idx_0 = '\x00';
         while ((*k <= n) && (s_data[*k - 1] == ',')) {
@@ -157,11 +155,11 @@ namespace RAT
         }
       }
 
-      static void b_readfloat(char_T s1_data[], int32_T *idx, const char_T
-        s_data[], int32_T *k, int32_T n, boolean_T *isimag, boolean_T *b_finite,
-        real_T *nfv, boolean_T *foundsign, boolean_T *success)
+      static void b_readfloat(char s1_data[], int *idx, const char s_data[], int
+        *k, int n, boolean_T *isimag, boolean_T *b_finite, double *nfv,
+        boolean_T *foundsign, boolean_T *success)
       {
-        int32_T b_idx;
+        int b_idx;
         *isimag = false;
         *b_finite = true;
         *nfv = 0.0;
@@ -191,7 +189,7 @@ namespace RAT
             }
 
             if (*k <= n) {
-              char_T c;
+              char c;
               c = s_data[*k - 1];
               if ((c == 'i') || (c == 'j')) {
                 (*k)++;
@@ -204,15 +202,15 @@ namespace RAT
         }
       }
 
-      static void b_skipspaces(const char_T s_data[], int32_T *k, int32_T n)
+      static void b_skipspaces(const char s_data[], int *k, int n)
       {
         boolean_T exitg1;
         exitg1 = false;
         while ((!exitg1) && (*k <= n)) {
-          char_T c;
+          char c;
           c = s_data[*k - 1];
-          if (bv[static_cast<uint8_T>(c) & 127] || (c == '\x00') || (c == ','))
-          {
+          if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00') || (c ==
+               ',')) {
             (*k)++;
           } else {
             exitg1 = true;
@@ -220,8 +218,8 @@ namespace RAT
         }
       }
 
-      static boolean_T copydigits(char_T s1_data[], int32_T *idx, const char_T
-        s_data[], int32_T *k, int32_T n, boolean_T allowpoint)
+      static boolean_T copydigits(char s1_data[], int *idx, const char s_data[],
+        int *k, int n, boolean_T allowpoint)
       {
         boolean_T exitg1;
         boolean_T haspoint;
@@ -230,7 +228,7 @@ namespace RAT
         haspoint = false;
         exitg1 = false;
         while ((!exitg1) && (success && (*k <= n))) {
-          char_T c;
+          char c;
           c = s_data[*k - 1];
           if ((c >= '0') && (c <= '9')) {
             s1_data[*idx - 1] = c;
@@ -260,16 +258,16 @@ namespace RAT
         return success;
       }
 
-      static boolean_T copyexponent(char_T s1_data[], int32_T *idx, const char_T
-        s_data[], int32_T *k, int32_T n)
+      static boolean_T copyexponent(char s1_data[], int *idx, const char s_data[],
+        int *k, int n)
       {
         boolean_T success;
         success = true;
         if (*k <= n) {
-          char_T c;
+          char c;
           c = s_data[*k - 1];
           if ((c == 'E') || (c == 'e')) {
-            int32_T kexp;
+            int kexp;
             boolean_T b_success;
             s1_data[*idx - 1] = 'e';
             (*idx)++;
@@ -299,12 +297,12 @@ namespace RAT
         return success;
       }
 
-      static boolean_T isUnitImag(const char_T s_data[], int32_T k, int32_T n)
+      static boolean_T isUnitImag(const char s_data[], int k, int n)
       {
         boolean_T p;
         p = false;
         if (k <= n) {
-          char_T c;
+          char c;
           c = s_data[k - 1];
           if (c == 'j') {
             p = true;
@@ -316,12 +314,12 @@ namespace RAT
         return p;
       }
 
-      static boolean_T readNonFinite(const char_T s_data[], int32_T k, int32_T n)
+      static boolean_T readNonFinite(const char s_data[], int k, int n)
       {
-        int32_T b_k;
-        char_T c_idx_0;
-        char_T c_idx_1;
-        char_T c_idx_2;
+        int b_k;
+        char c_idx_0;
+        char c_idx_1;
+        char c_idx_2;
         boolean_T b_finite;
         b_k = k;
         c_idx_0 = '\x00';
@@ -367,12 +365,11 @@ namespace RAT
         return b_finite;
       }
 
-      void readfloat(char_T s1_data[], int32_T *idx, const char_T s_data[],
-                     int32_T *k, int32_T n, boolean_T *isimag, boolean_T
-                     *b_finite, real_T *nfv, boolean_T *foundsign, boolean_T
-                     *success)
+      void readfloat(char s1_data[], int *idx, const char s_data[], int *k, int
+                     n, boolean_T *isimag, boolean_T *b_finite, double *nfv,
+                     boolean_T *foundsign, boolean_T *success)
       {
-        int32_T b_idx;
+        int b_idx;
         boolean_T a__2;
         boolean_T a__3;
         *isimag = false;
@@ -414,7 +411,7 @@ namespace RAT
             }
 
             if (*k <= n) {
-              char_T c;
+              char c;
               c = s_data[*k - 1];
               if ((c == 'i') || (c == 'j')) {
                 (*k)++;
@@ -427,15 +424,15 @@ namespace RAT
         }
       }
 
-      void skipspaces(const char_T s_data[], int32_T *k, int32_T n)
+      void skipspaces(const char s_data[], int *k, int n)
       {
         boolean_T exitg1;
         *k = 1;
         exitg1 = false;
         while ((!exitg1) && (*k <= n)) {
-          char_T c;
+          char c;
           c = s_data[*k - 1];
-          if (bv[static_cast<uint8_T>(c) & 127] || (c == '\x00')) {
+          if (bv[static_cast<unsigned char>(c) & 127] || (c == '\x00')) {
             (*k)++;
           } else {
             exitg1 = true;
@@ -443,10 +440,10 @@ namespace RAT
         }
       }
 
-      real_T sscanfd(const char_T s_data[])
+      double sscanfd(const char s_data[])
       {
-        real_T out1;
-        int32_T nread;
+        double out1;
+        int nread;
         nread = sscanf(&s_data[0], "%lf", &out1);
         if (nread != 1) {
           out1 = rtNaN;
@@ -455,9 +452,9 @@ namespace RAT
         return out1;
       }
 
-      void sscanfd(const char_T s_data[], real_T *out1, real_T *out2)
+      void sscanfd(const char s_data[], double *out1, double *out2)
       {
-        int32_T nread;
+        int nread;
         nread = sscanf(&s_data[0], "%lf %lf", out1, out2);
         if (nread != 2) {
           *out1 = rtNaN;

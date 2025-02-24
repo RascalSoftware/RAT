@@ -26,21 +26,20 @@ namespace RAT
     {
       namespace lapack
       {
-        void xgetrf(int32_T m, int32_T n, ::coder::array<real_T, 2U> &A, int32_T
-                    lda)
+        void xgetrf(int m, int n, ::coder::array<double, 2U> &A, int lda)
         {
           if ((m >= 1) && (n >= 1)) {
-            int32_T u0;
+            int u0;
             u0 = m - 1;
             if (u0 >= n) {
               u0 = n;
             }
 
-            for (int32_T j{0}; j < u0; j++) {
-              int32_T b_tmp;
-              int32_T jp1j;
-              int32_T jpiv_offset;
-              int32_T mmj;
+            for (int j{0}; j < u0; j++) {
+              int b_tmp;
+              int jp1j;
+              int jpiv_offset;
+              int mmj;
               mmj = m - j;
               b_tmp = j * (lda + 1);
               jp1j = b_tmp + 2;
@@ -51,7 +50,7 @@ namespace RAT
                 }
 
                 jpiv_offset = b_tmp + mmj;
-                for (int32_T i{jp1j}; i <= jpiv_offset; i++) {
+                for (int i{jp1j}; i <= jpiv_offset; i++) {
                   A[i - 1] = A[i - 1] / A[b_tmp];
                 }
               }
@@ -63,10 +62,10 @@ namespace RAT
           }
         }
 
-        void xgetrf(int32_T m, int32_T n, ::coder::array<real_T, 2U> &A, int32_T
-                    lda, ::coder::array<int32_T, 2U> &ipiv)
+        void xgetrf(int m, int n, ::coder::array<double, 2U> &A, int lda, ::
+                    coder::array<int, 2U> &ipiv)
         {
-          int32_T y;
+          int y;
           if (m < n) {
             y = m;
           } else {
@@ -75,17 +74,17 @@ namespace RAT
 
           eml_integer_colon_dispatcher(y, ipiv);
           if ((m >= 1) && (n >= 1)) {
-            int32_T u0;
+            int u0;
             u0 = m - 1;
             if (u0 >= n) {
               u0 = n;
             }
 
-            for (int32_T j{0}; j < u0; j++) {
-              int32_T b_tmp;
-              int32_T jp1j;
-              int32_T jpiv_offset;
-              int32_T mmj;
+            for (int j{0}; j < u0; j++) {
+              int b_tmp;
+              int jp1j;
+              int jpiv_offset;
+              int mmj;
               mmj = m - j;
               b_tmp = j * (lda + 1);
               jp1j = b_tmp + 2;
@@ -110,10 +109,10 @@ namespace RAT
           }
         }
 
-        void xgetrf(int32_T m, int32_T n, ::coder::array<real_T, 2U> &A, int32_T
-                    lda, ::coder::array<int32_T, 2U> &ipiv, int32_T *info)
+        void xgetrf(int m, int n, ::coder::array<double, 2U> &A, int lda, ::
+                    coder::array<int, 2U> &ipiv, int *info)
         {
-          int32_T y;
+          int y;
           if (m < n) {
             y = m;
           } else {
@@ -123,17 +122,17 @@ namespace RAT
           eml_integer_colon_dispatcher(y, ipiv);
           *info = 0;
           if ((m >= 1) && (n >= 1)) {
-            int32_T u0;
+            int u0;
             u0 = m - 1;
             if (u0 >= n) {
               u0 = n;
             }
 
-            for (int32_T j{0}; j < u0; j++) {
-              int32_T b_tmp;
-              int32_T jp1j;
-              int32_T jpiv_offset;
-              int32_T mmj;
+            for (int j{0}; j < u0; j++) {
+              int b_tmp;
+              int jp1j;
+              int jpiv_offset;
+              int mmj;
               mmj = m - j;
               b_tmp = j * (lda + 1);
               jp1j = b_tmp + 2;

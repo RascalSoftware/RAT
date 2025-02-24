@@ -19,9 +19,9 @@ namespace RAT
   {
     namespace internal
     {
-      void print_processing(real_T varargin_1, real_T varargin_2, real_T
-                            varargin_3, real_T varargin_4, real_T varargin_5,
-                            real_T validatedArgumetns[5])
+      void print_processing(double varargin_1, double varargin_2, double
+                            varargin_3, double varargin_4, double varargin_5,
+                            double validatedArgumetns[5])
       {
         validatedArgumetns[0] = varargin_1;
         validatedArgumetns[1] = varargin_2;
@@ -30,8 +30,8 @@ namespace RAT
         validatedArgumetns[4] = varargin_5;
       }
 
-      void print_processing(int32_T varargin_1, int32_T varargin_2, int32_T
-                            varargin_3, int32_T validatedArgumetns[3])
+      void print_processing(int varargin_1, int varargin_2, int varargin_3, int
+                            validatedArgumetns[3])
       {
         validatedArgumetns[0] = varargin_1;
         validatedArgumetns[1] = varargin_2;

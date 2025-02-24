@@ -22,18 +22,18 @@ namespace RAT
 {
   namespace coder
   {
-    real_T blockedSummation(const ::coder::array<real_T, 2U> &x, int32_T vlen);
-    void blockedSummation(const ::coder::array<real_T, 2U> &x, int32_T vlen, ::
-                          coder::array<real_T, 2U> &y);
-    void blockedSummation(const ::coder::array<real_T, 2U> &x, int32_T vlen, ::
-                          coder::array<real_T, 1U> &y);
-    creal_T nestedIter(const ::coder::array<creal_T, 2U> &x, int32_T vlen);
-    void nestedIter(const ::coder::array<real_T, 3U> &x, int32_T vlen, ::coder::
-                    array<real_T, 3U> &y);
-    void nestedIter(const ::coder::array<real_T, 2U> &x, int32_T vlen, ::coder::
-                    array<real_T, 2U> &y);
-    real_T nestedIter(const ::coder::array<real_T, 1U> &x, int32_T vlen);
-    real_T nestedIter(const ::coder::array<real_T, 2U> &x, int32_T vlen);
+    double blockedSummation(const ::coder::array<double, 2U> &x, int vlen);
+    void blockedSummation(const ::coder::array<double, 2U> &x, int vlen, ::coder::
+                          array<double, 2U> &y);
+    void blockedSummation(const ::coder::array<double, 2U> &x, int vlen, ::coder::
+                          array<double, 1U> &y);
+    creal_T nestedIter(const ::coder::array<creal_T, 2U> &x, int vlen);
+    void nestedIter(const ::coder::array<double, 3U> &x, int vlen, ::coder::
+                    array<double, 3U> &y);
+    void nestedIter(const ::coder::array<double, 2U> &x, int vlen, ::coder::
+                    array<double, 2U> &y);
+    double nestedIter(const ::coder::array<double, 1U> &x, int vlen);
+    double nestedIter(const ::coder::array<double, 2U> &x, int vlen);
   }
 }
 

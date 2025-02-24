@@ -22,22 +22,22 @@
 // Function Definitions
 namespace RAT
 {
-  void kmeans(const ::coder::array<real_T, 2U> &X, ::coder::array<real_T, 2U>
-              &means, real_T Nmeans[2])
+  void kmeans(const ::coder::array<double, 2U> &X, ::coder::array<double, 2U>
+              &means, double Nmeans[2])
   {
-    ::coder::array<real_T, 2U> b_X;
-    ::coder::array<real_T, 2U> b_class;
-    ::coder::array<real_T, 2U> c_X;
-    real_T dist[2];
-    real_T cmp;
-    int32_T index_min_data[2];
-    int32_T index_min_size[2];
-    int32_T b_loop_ub;
-    int32_T c_loop_ub;
-    int32_T i;
-    int32_T i1;
-    int32_T index_min_tmp_tmp;
-    int32_T loop_ub;
+    ::coder::array<double, 2U> b_X;
+    ::coder::array<double, 2U> b_class;
+    ::coder::array<double, 2U> c_X;
+    double dist[2];
+    double cmp;
+    int index_min_data[2];
+    int index_min_size[2];
+    int b_loop_ub;
+    int c_loop_ub;
+    int i;
+    int i1;
+    int index_min_tmp_tmp;
+    int loop_ub;
     boolean_T b_dist[2];
 
     //    Finds K prototypes representing the samples in data matrix X,
@@ -110,7 +110,7 @@ namespace RAT
 
     cmp = 1.0;
     while (cmp > 0.0) {
-      int32_T b_i;
+      int b_i;
 
       //  Sums (class) and data counters (Nclass) initialization
       b_class.set_size(2, X.size(1));
@@ -124,8 +124,8 @@ namespace RAT
 
       //  Groups each elements to the nearest prototype
       for (b_i = 0; b_i < i; b_i++) {
-        real_T a;
-        for (int32_T j{0}; j < 2; j++) {
+        double a;
+        for (int j{0}; j < 2; j++) {
           //  Euclidean distance from data to each prototype
           c_X.set_size(1, c_loop_ub);
           for (i1 = 0; i1 < c_loop_ub; i1++) {
@@ -148,10 +148,10 @@ namespace RAT
         coder::e_eml_find(b_dist, index_min_data, index_min_size);
 
         //  If there are multiple min distances, decide randomly
-        a = static_cast<real_T>(index_min_size[1]) * coder::b_rand();
+        a = static_cast<double>(index_min_size[1]) * coder::b_rand();
         a = std::ceil(a);
         b_loop_ub = b_class.size(1) - 1;
-        index_min_tmp_tmp = index_min_data[static_cast<int32_T>(a) - 1];
+        index_min_tmp_tmp = index_min_data[static_cast<int>(a) - 1];
         c_X.set_size(1, b_class.size(1));
         for (i1 = 0; i1 <= b_loop_ub; i1++) {
           c_X[i1] = b_class[(index_min_tmp_tmp + 2 * i1) - 1] + X[b_i + X.size(0)

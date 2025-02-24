@@ -20,12 +20,12 @@
 // Function Definitions
 namespace RAT
 {
-  void allocateParamsToLayers(const ::coder::array<real_T, 2U> &params, const ::
+  void allocateParamsToLayers(const ::coder::array<double, 2U> &params, const ::
     coder::array<cell_wrap_9, 2U> &layersDetails, ::coder::array<cell_wrap_47,
     2U> &outLayers)
   {
-    real_T thisOutLayer_data[10];
-    int32_T numberOfLayers;
+    double thisOutLayer_data[10];
+    int numberOfLayers;
 
     //  Allocates parameters from the parameter array to the correct layers
     //
@@ -36,21 +36,21 @@ namespace RAT
     numberOfLayers = coder::internal::intlength(layersDetails.size(0),
       layersDetails.size(1));
     outLayers.set_size(1, numberOfLayers);
-    for (int32_T i{0}; i < numberOfLayers; i++) {
-      int32_T b_i;
-      int32_T n;
+    for (int i{0}; i < numberOfLayers; i++) {
+      int b_i;
+      int n;
       n = coder::internal::intlength(layersDetails[i].f1.size(0),
         layersDetails[i].f1.size(1));
       if (0 <= n - 1) {
-        std::memset(&thisOutLayer_data[0], 0, n * sizeof(real_T));
+        std::memset(&thisOutLayer_data[0], 0, n * sizeof(double));
       }
 
       b_i = coder::internal::intlength(layersDetails[i].f1.size(0),
         layersDetails[i].f1.size(1));
-      for (int32_T b_n{0}; b_n <= b_i - 2; b_n++) {
+      for (int b_n{0}; b_n <= b_i - 2; b_n++) {
         if (!std::isnan(layersDetails[i].f1[b_n])) {
-          thisOutLayer_data[b_n] = params[static_cast<int32_T>(layersDetails[i].
-            f1[b_n]) - 1];
+          thisOutLayer_data[b_n] = params[static_cast<int>(layersDetails[i]
+            .f1[b_n]) - 1];
         } else {
           thisOutLayer_data[b_n] = rtNaN;
         }

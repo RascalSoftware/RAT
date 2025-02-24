@@ -19,14 +19,14 @@ namespace RAT
 {
   namespace coder
   {
-    void b_erf(const ::coder::array<real_T, 2U> &x, ::coder::array<real_T, 2U>
+    void b_erf(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U>
                &y)
     {
       y.set_size(1, x.size(1));
       if (x.size(1) != 0) {
-        int32_T i;
+        int i;
         i = x.size(1);
-        for (int32_T k{0}; k < i; k++) {
+        for (int k{0}; k < i; k++) {
           y[k] = scalar_erf(x[k]);
         }
       }

@@ -19,23 +19,23 @@ namespace RAT
 {
   namespace coder
   {
-    real_T det(const ::coder::array<real_T, 2U> &x)
+    double det(const ::coder::array<double, 2U> &x)
     {
-      ::coder::array<real_T, 2U> b_x;
-      ::coder::array<int32_T, 2U> ipiv;
-      real_T y;
+      ::coder::array<double, 2U> b_x;
+      ::coder::array<int, 2U> ipiv;
+      double y;
       if ((x.size(0) == 0) || (x.size(1) == 0)) {
         y = 1.0;
       } else {
-        int32_T i;
-        int32_T k;
+        int i;
+        int k;
         boolean_T isodd;
         b_x.set_size(x.size(0), x.size(1));
         k = x.size(1);
         for (i = 0; i < k; i++) {
-          int32_T loop_ub;
+          int loop_ub;
           loop_ub = x.size(0);
-          for (int32_T i1{0}; i1 < loop_ub; i1++) {
+          for (int i1{0}; i1 < loop_ub; i1++) {
             b_x[i1 + b_x.size(0) * i] = x[i1 + x.size(0) * i];
           }
         }

@@ -20,24 +20,24 @@
 // Type Declarations
 namespace RAT
 {
-  struct e_struct_T;
-  struct struct4_T;
-  struct struct5_T;
+  struct ProblemDefinition;
+  struct Controls;
+  struct Results;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void runSimplex(e_struct_T *problemStruct, const ::coder::array<real_T, 2U>
-                  &problemLimits_params, const ::coder::array<real_T, 2U>
-                  &problemLimits_backgroundParams, const ::coder::array<real_T,
-                  2U> &problemLimits_scalefactors, const ::coder::array<real_T,
-                  2U> &problemLimits_qzshifts, const ::coder::array<real_T, 2U>
-                  &problemLimits_bulkIns, const ::coder::array<real_T, 2U>
-                  &problemLimits_bulkOuts, const ::coder::array<real_T, 2U>
-                  &problemLimits_resolutionParams, const ::coder::array<real_T,
-                  2U> &problemLimits_domainRatios, const struct4_T *controls,
-                  struct5_T *result);
+  void runSimplex(ProblemDefinition *problemStruct, const ::coder::array<double,
+                  2U> &problemLimits_params, const ::coder::array<double, 2U>
+                  &problemLimits_backgroundParams, const ::coder::array<double,
+                  2U> &problemLimits_scalefactors, const ::coder::array<double,
+                  2U> &problemLimits_qzshifts, const ::coder::array<double, 2U>
+                  &problemLimits_bulkIns, const ::coder::array<double, 2U>
+                  &problemLimits_bulkOuts, const ::coder::array<double, 2U>
+                  &problemLimits_resolutionParams, const ::coder::array<double,
+                  2U> &problemLimits_domainRatios, const Controls *controls,
+                  Results *result);
 }
 
 #endif

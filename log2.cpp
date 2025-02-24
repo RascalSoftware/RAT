@@ -20,23 +20,23 @@ namespace RAT
 {
   namespace coder
   {
-    void b_log2(const ::coder::array<real_T, 1U> &x, ::coder::array<real_T, 1U>
-                &f, ::coder::array<real_T, 1U> &e)
+    void b_log2(const ::coder::array<double, 1U> &x, ::coder::array<double, 1U>
+                &f, ::coder::array<double, 1U> &e)
     {
       f.set_size(x.size(0));
       e.set_size(x.size(0));
       if (x.size(0) != 0) {
-        int32_T i;
+        int i;
         i = x.size(0);
-        for (int32_T k{0}; k < i; k++) {
+        for (int k{0}; k < i; k++) {
           b_log2(x[k], &f[k], &e[k]);
         }
       }
     }
 
-    void b_log2(real_T x, real_T *f, real_T *e)
+    void b_log2(double x, double *f, double *e)
     {
-      int32_T eint;
+      int eint;
       if ((!std::isinf(x)) && (!std::isnan(x))) {
         *f = frexp(x, &eint);
         *e = eint;

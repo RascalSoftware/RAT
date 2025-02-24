@@ -27,8 +27,8 @@ namespace RAT
 {
   namespace coder
   {
-    static FILE * fileManager(int8_T varargin_1);
-    static int8_T filedata();
+    static FILE * fileManager(signed char varargin_1);
+    static signed char filedata();
   }
 }
 
@@ -37,10 +37,10 @@ namespace RAT
 {
   namespace coder
   {
-    static FILE * fileManager(int8_T varargin_1)
+    static FILE * fileManager(signed char varargin_1)
     {
       FILE * f;
-      int8_T fileid;
+      signed char fileid;
       fileid = varargin_1;
       if (varargin_1 < 0) {
         fileid = -1;
@@ -61,17 +61,17 @@ namespace RAT
       return f;
     }
 
-    static int8_T filedata()
+    static signed char filedata()
     {
-      int32_T k;
-      int8_T f;
+      int k;
+      signed char f;
       boolean_T exitg1;
       f = 0;
       k = 0;
       exitg1 = false;
       while ((!exitg1) && (k < 20)) {
         if (eml_openfiles[k] == NULL) {
-          f = static_cast<int8_T>(k + 1);
+          f = static_cast<signed char>(k + 1);
           exitg1 = true;
         } else {
           k++;
@@ -81,20 +81,20 @@ namespace RAT
       return f;
     }
 
-    int32_T cfclose(real_T fid)
+    int cfclose(double fid)
     {
       FILE * filestar;
-      int32_T st;
-      int8_T fileid;
+      int st;
+      signed char fileid;
       st = -1;
-      fileid = static_cast<int8_T>(std::round(fid));
+      fileid = static_cast<signed char>(std::round(fid));
       if ((fileid < 0) || (fid != fileid)) {
         fileid = -1;
       }
 
       filestar = fileManager(fileid);
       if ((filestar != NULL) && (fileid >= 3)) {
-        int32_T cst;
+        int cst;
         cst = fclose(filestar);
         if (cst == 0) {
           st = 0;
@@ -106,17 +106,17 @@ namespace RAT
       return st;
     }
 
-    int8_T cfopen(const char_T cfilename_data[], const int32_T cfilename_size[2],
-                  const char_T *cpermission)
+    signed char cfopen(const char cfilename_data[], const int cfilename_size[2],
+                       const char *cpermission)
     {
-      char_T ccfilename_data[10001];
-      int8_T fileid;
-      int8_T j;
+      char ccfilename_data[10001];
+      signed char fileid;
+      signed char j;
       fileid = -1;
       j = filedata();
       if (j >= 1) {
         FILE * filestar;
-        int32_T loop_ub;
+        int loop_ub;
         loop_ub = cfilename_size[1];
         if (0 <= loop_ub - 1) {
           std::copy(&cfilename_data[0], &cfilename_data[loop_ub],
@@ -133,18 +133,18 @@ namespace RAT
             loop_ub = 127;
           }
 
-          fileid = static_cast<int8_T>(loop_ub);
+          fileid = static_cast<signed char>(loop_ub);
         }
       }
 
       return fileid;
     }
 
-    FILE * fileManager(real_T varargin_1)
+    FILE * fileManager(double varargin_1)
     {
       FILE * f;
-      int8_T fileid;
-      fileid = static_cast<int8_T>(std::round(varargin_1));
+      signed char fileid;
+      fileid = static_cast<signed char>(std::round(varargin_1));
       if ((fileid < 0) || (varargin_1 != fileid)) {
         fileid = -1;
       }
@@ -169,7 +169,7 @@ namespace RAT
   {
     FILE * a;
     a = NULL;
-    for (int32_T i{0}; i < 20; i++) {
+    for (int i{0}; i < 20; i++) {
       eml_autoflush[i] = false;
       eml_openfiles[i] = a;
     }

@@ -20,12 +20,12 @@ namespace RAT
 {
   namespace coder
   {
-    real_T scalar_erf(real_T x)
+    double scalar_erf(double x)
     {
-      real_T P;
-      real_T absx;
-      real_T s;
-      real_T y;
+      double P;
+      double absx;
+      double s;
+      double y;
 
       // ========================== COPYRIGHT NOTICE ============================
       //  The algorithms for calculating ERF(X) and ERFC(X) are derived
@@ -86,8 +86,8 @@ namespace RAT
           y = 1.0;
         }
       } else {
-        real_T R;
-        real_T S;
+        double R;
+        double S;
         s = 1.0 / (absx * absx);
         if (absx < 2.8571434020996094) {
           R = s * (s * (s * (s * (s * (s * (s * -9.8143293441691455 +

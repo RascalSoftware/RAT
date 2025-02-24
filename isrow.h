@@ -22,7 +22,7 @@ namespace RAT
 {
   namespace coder
   {
-    boolean_T isrow(const ::coder::array<real_T, 2U> &x);
+    boolean_T isrow(const ::coder::array<double, 2U> &x);
   }
 }
 

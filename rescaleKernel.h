@@ -22,8 +22,8 @@ namespace RAT
 {
   namespace coder
   {
-    void rescaleKernel(::coder::array<real_T, 1U> &A, const ::coder::array<
-                       real_T, 1U> &inputMin, const ::coder::array<real_T, 1U>
+    void rescaleKernel(::coder::array<double, 1U> &A, const ::coder::array<
+                       double, 1U> &inputMin, const ::coder::array<double, 1U>
                        &inputMax);
   }
 }

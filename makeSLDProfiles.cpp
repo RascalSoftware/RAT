@@ -17,32 +17,32 @@
 // Function Definitions
 namespace RAT
 {
-  void makeSLDProfiles(const ::coder::array<real_T, 2U> &sld, real_T ssub, const
-                       real_T repeats[2], ::coder::array<real_T, 2U> &sldProfile)
+  void makeSLDProfiles(const ::coder::array<double, 2U> &sld, double ssub, const
+                       double repeats[2], ::coder::array<double, 2U> &sldProfile)
   {
-    real_T b_repeats;
+    double b_repeats;
     if (repeats[0] == 0.0) {
       b_repeats = 1.0;
     } else {
       b_repeats = repeats[1];
     }
 
-    makeSLDProfileXY(ssub, sld, static_cast<real_T>(sld.size(0)), b_repeats,
+    makeSLDProfileXY(ssub, sld, static_cast<double>(sld.size(0)), b_repeats,
                      sldProfile);
   }
 
-  void makeSLDProfiles(real_T bulkIn, real_T bulkOut, const ::coder::array<
-                       real_T, 2U> &sld, real_T ssub, const real_T repeats[2], ::
-                       coder::array<real_T, 2U> &sldProfile)
+  void makeSLDProfiles(double bulkIn, double bulkOut, const ::coder::array<
+                       double, 2U> &sld, double ssub, const double repeats[2], ::
+                       coder::array<double, 2U> &sldProfile)
   {
-    real_T b_repeats;
+    double b_repeats;
     if (repeats[0] == 0.0) {
       b_repeats = 1.0;
     } else {
       b_repeats = repeats[1];
     }
 
-    makeSLDProfileXY(bulkIn, bulkOut, ssub, sld, static_cast<real_T>(sld.size(0)),
+    makeSLDProfileXY(bulkIn, bulkOut, ssub, sld, static_cast<double>(sld.size(0)),
                      b_repeats, sldProfile);
   }
 }

@@ -20,10 +20,10 @@
 // Function Declarations
 namespace RAT
 {
-  void boundaryHandling(::coder::array<real_T, 2U> &x, const ::coder::array<
-                        real_T, 2U> &paramInfo_min, const ::coder::array<real_T,
-                        2U> &paramInfo_max, const char_T
-                        paramInfo_boundhandling_data[], const int32_T
+  void boundaryHandling(::coder::array<double, 2U> &x, const ::coder::array<
+                        double, 2U> &paramInfo_min, const ::coder::array<double,
+                        2U> &paramInfo_max, const char
+                        paramInfo_boundhandling_data[], const int
                         paramInfo_boundhandling_size[2]);
 }
 

@@ -22,8 +22,8 @@ namespace RAT
 {
   namespace coder
   {
-    void apply_row_permutation(::coder::array<real_T, 2U> &y, const ::coder::
-      array<int32_T, 1U> &idx);
+    void apply_row_permutation(::coder::array<double, 2U> &y, const ::coder::
+      array<int, 1U> &idx);
   }
 }
 

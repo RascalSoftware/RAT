@@ -19,13 +19,13 @@ namespace RAT
 {
   namespace coder
   {
-    void pow2(const ::coder::array<real_T, 1U> &a, ::coder::array<real_T, 1U> &y)
+    void pow2(const ::coder::array<double, 1U> &a, ::coder::array<double, 1U> &y)
     {
       y.set_size(a.size(0));
       if (a.size(0) != 0) {
-        int32_T i;
+        int i;
         i = a.size(0);
-        for (int32_T k{0}; k < i; k++) {
+        for (int k{0}; k < i; k++) {
           y[k] = rt_powd_snf(2.0, a[k]);
         }
       }

@@ -26,15 +26,12 @@ namespace RAT
     {
       namespace reflapack
       {
-        void b_xzlarf(int32_T m, int32_T n, int32_T iv0, real_T tau, ::coder::
-                      array<real_T, 2U> &C, int32_T ic0, int32_T ldc, ::coder::
-                      array<real_T, 1U> &work);
-        void c_xzlarf(int32_T m, int32_T n, int32_T iv0, real_T tau, ::coder::
-                      array<real_T, 2U> &C, int32_T ic0, int32_T ldc, ::coder::
-                      array<real_T, 1U> &work);
-        void xzlarf(int32_T m, int32_T n, int32_T iv0, real_T tau, ::coder::
-                    array<real_T, 2U> &C, int32_T ic0, int32_T ldc, ::coder::
-                    array<real_T, 1U> &work);
+        void b_xzlarf(int m, int n, int iv0, double tau, ::coder::array<double,
+                      2U> &C, int ic0, int ldc, ::coder::array<double, 1U> &work);
+        void c_xzlarf(int m, int n, int iv0, double tau, ::coder::array<double,
+                      2U> &C, int ic0, int ldc, ::coder::array<double, 1U> &work);
+        void xzlarf(int m, int n, int iv0, double tau, ::coder::array<double, 2U>
+                    &C, int ic0, int ldc, ::coder::array<double, 1U> &work);
       }
     }
   }

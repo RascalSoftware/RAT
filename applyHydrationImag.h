@@ -20,8 +20,8 @@
 // Function Declarations
 namespace RAT
 {
-  void applyHydrationImag(::coder::array<real_T, 2U> &thisContrastLayers, real_T
-    bulkIn, real_T bulkOut);
+  void applyHydrationImag(::coder::array<double, 2U> &thisContrastLayers, double
+    bulkIn, double bulkOut);
 }
 
 #endif

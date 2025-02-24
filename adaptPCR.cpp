@@ -19,17 +19,17 @@
 // Function Definitions
 namespace RAT
 {
-  void adaptPCR(const struct11_T *DREAMPar, const ::coder::array<real_T, 2U> &CR,
-                const real_T delta_tot_data[], const real_T lCRold_data[],
-                real_T pCR_data[], int32_T pCR_size[2], real_T lCR_data[],
-                int32_T lCR_size[2])
+  void adaptPCR(const DreamParams *DREAMPar, const ::coder::array<double, 2U>
+                &CR, const double delta_tot_data[], const double lCRold_data[],
+                double pCR_data[], int pCR_size[2], double lCR_data[], int
+                lCR_size[2])
   {
-    ::coder::array<real_T, 2U> y;
-    ::coder::array<int32_T, 1U> r;
+    ::coder::array<double, 2U> y;
+    ::coder::array<int, 1U> r;
     ::coder::array<boolean_T, 1U> c_CR;
-    real_T b_zz;
-    int32_T b_CR;
-    int32_T i;
+    double b_zz;
+    int b_CR;
+    int i;
 
     //  Updates the probabilities of the various crossover values
     //  Make CR to be a single vector
@@ -40,17 +40,17 @@ namespace RAT
     //  Adapt pCR using information from averaged normalized jumping distance
     y.set_size(1, 3);
     b_CR = CR.size(0) * CR.size(1);
-    for (int32_T zz{0}; zz < 3; zz++) {
+    for (int zz{0}; zz < 3; zz++) {
       //  Determine how many times a particular CR value is used
       //  This is used to weight delta_tot
-      b_zz = (static_cast<real_T>(zz) + 1.0) / 3.0;
+      b_zz = (static_cast<double>(zz) + 1.0) / 3.0;
       c_CR.set_size(b_CR);
       for (i = 0; i < b_CR; i++) {
         c_CR[i] = (CR[i] == b_zz);
       }
 
       coder::eml_find(c_CR, r);
-      b_zz = lCRold_data[zz] + static_cast<real_T>(r.size(0));
+      b_zz = lCRold_data[zz] + static_cast<double>(r.size(0));
       lCR_data[zz] = b_zz;
       y[zz] = DREAMPar->nChains * (delta_tot_data[zz] / b_zz);
     }

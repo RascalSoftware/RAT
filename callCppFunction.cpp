@@ -19,23 +19,23 @@
 // Function Definitions
 namespace RAT
 {
-  void b_callCppFunction(const char_T pointer_data[], const int32_T
-    pointer_size[2], const ::coder::array<real_T, 2U> &varargin_1, real_T
-    varargin_2, const ::coder::array<real_T, 2U> &varargin_3, real_T varargin_4,
-    ::coder::array<real_T, 2U> &output, real_T *varargout_1)
+  void b_callCppFunction(const char pointer_data[], const int pointer_size[2],
+    const ::coder::array<double, 2U> &varargin_1, double varargin_2, const ::
+    coder::array<double, 2U> &varargin_3, double varargin_4, ::coder::array<
+    double, 2U> &output, double *varargout_1)
   {
     CallbackInterface * callback;
     ClassHandle<CallbackInterface> * callbackHandle;
     std::vector<double> outArray;
-    ::coder::array<real_T, 2U> bulkOut;
-    ::coder::array<real_T, 2U> params;
-    ::coder::array<real_T, 2U> tempOutput;
-    real_T outputSize[2];
-    real_T bulkIn;
-    int32_T i;
-    int32_T loop_ub;
-    int32_T num_tmp_tmp;
-    char_T b_pointer_data[10000];
+    ::coder::array<double, 2U> bulkOut;
+    ::coder::array<double, 2U> params;
+    ::coder::array<double, 2U> tempOutput;
+    double outputSize[2];
+    double bulkIn;
+    int i;
+    int loop_ub;
+    int num_tmp_tmp;
+    char b_pointer_data[10000];
 
     //  Calls a Cpp custom function stored at the given pointer address.
     //
@@ -67,11 +67,11 @@ namespace RAT
     std::vector<double> bulkInArray;
     std::vector<double> bulkOutArray;
     std::vector<double> paramsArray;
-    real_T actualSize;
-    paramsArray = convertPtr2Vector(&params[0], static_cast<real_T>
+    double actualSize;
+    paramsArray = convertPtr2Vector(&params[0], static_cast<double>
       (varargin_1.size(1)));
     bulkInArray = convertPtr2Vector(&bulkIn, 1.0);
-    bulkOutArray = convertPtr2Vector(&bulkOut[0], static_cast<real_T>
+    bulkOutArray = convertPtr2Vector(&bulkOut[0], static_cast<double>
       (varargin_3.size(1)));
 
     //  domain should either before 0 or 1. A value less than zero indicates no domains
@@ -80,40 +80,40 @@ namespace RAT
       (&CallbackInterface::invoke)(callback, paramsArray, bulkInArray,
       bulkOutArray, varargin_4, 0.0, outArray, &outputSize[0], varargout_1);
     actualSize = getVectorSize(outArray);
-    loop_ub = static_cast<int32_T>(actualSize);
-    tempOutput.set_size(1, static_cast<int32_T>(actualSize));
+    loop_ub = static_cast<int>(actualSize);
+    tempOutput.set_size(1, static_cast<int>(actualSize));
     for (i = 0; i < loop_ub; i++) {
       tempOutput[i] = 0.0;
     }
 
     convertVector2Ptr(outArray, &tempOutput[0]);
-    loop_ub = static_cast<int32_T>(outputSize[1]);
-    num_tmp_tmp = static_cast<int32_T>(outputSize[0]);
+    loop_ub = static_cast<int>(outputSize[1]);
+    num_tmp_tmp = static_cast<int>(outputSize[0]);
     output.set_size(num_tmp_tmp, loop_ub);
     for (i = 0; i < loop_ub; i++) {
-      for (int32_T i1{0}; i1 < num_tmp_tmp; i1++) {
+      for (int i1{0}; i1 < num_tmp_tmp; i1++) {
         output[i1 + output.size(0) * i] = tempOutput[i + loop_ub * i1];
       }
     }
   }
 
-  void c_callCppFunction(const char_T pointer_data[], const int32_T
-    pointer_size[2], const ::coder::array<real_T, 2U> &varargin_1, real_T
-    varargin_2, const ::coder::array<real_T, 2U> &varargin_3, real_T varargin_4,
-    ::coder::array<real_T, 2U> &output, real_T *varargout_1)
+  void c_callCppFunction(const char pointer_data[], const int pointer_size[2],
+    const ::coder::array<double, 2U> &varargin_1, double varargin_2, const ::
+    coder::array<double, 2U> &varargin_3, double varargin_4, ::coder::array<
+    double, 2U> &output, double *varargout_1)
   {
     CallbackInterface * callback;
     ClassHandle<CallbackInterface> * callbackHandle;
     std::vector<double> outArray;
-    ::coder::array<real_T, 2U> bulkOut;
-    ::coder::array<real_T, 2U> params;
-    ::coder::array<real_T, 2U> tempOutput;
-    real_T outputSize[2];
-    real_T bulkIn;
-    int32_T i;
-    int32_T loop_ub;
-    int32_T num_tmp_tmp;
-    char_T b_pointer_data[10000];
+    ::coder::array<double, 2U> bulkOut;
+    ::coder::array<double, 2U> params;
+    ::coder::array<double, 2U> tempOutput;
+    double outputSize[2];
+    double bulkIn;
+    int i;
+    int loop_ub;
+    int num_tmp_tmp;
+    char b_pointer_data[10000];
 
     //  Calls a Cpp custom function stored at the given pointer address.
     //
@@ -145,11 +145,11 @@ namespace RAT
     std::vector<double> bulkInArray;
     std::vector<double> bulkOutArray;
     std::vector<double> paramsArray;
-    real_T actualSize;
-    paramsArray = convertPtr2Vector(&params[0], static_cast<real_T>
+    double actualSize;
+    paramsArray = convertPtr2Vector(&params[0], static_cast<double>
       (varargin_1.size(1)));
     bulkInArray = convertPtr2Vector(&bulkIn, 1.0);
-    bulkOutArray = convertPtr2Vector(&bulkOut[0], static_cast<real_T>
+    bulkOutArray = convertPtr2Vector(&bulkOut[0], static_cast<double>
       (varargin_3.size(1)));
 
     //  domain should either before 0 or 1. A value less than zero indicates no domains
@@ -158,41 +158,41 @@ namespace RAT
       (&CallbackInterface::invoke)(callback, paramsArray, bulkInArray,
       bulkOutArray, varargin_4, 1.0, outArray, &outputSize[0], varargout_1);
     actualSize = getVectorSize(outArray);
-    loop_ub = static_cast<int32_T>(actualSize);
-    tempOutput.set_size(1, static_cast<int32_T>(actualSize));
+    loop_ub = static_cast<int>(actualSize);
+    tempOutput.set_size(1, static_cast<int>(actualSize));
     for (i = 0; i < loop_ub; i++) {
       tempOutput[i] = 0.0;
     }
 
     convertVector2Ptr(outArray, &tempOutput[0]);
-    loop_ub = static_cast<int32_T>(outputSize[1]);
-    num_tmp_tmp = static_cast<int32_T>(outputSize[0]);
+    loop_ub = static_cast<int>(outputSize[1]);
+    num_tmp_tmp = static_cast<int>(outputSize[0]);
     output.set_size(num_tmp_tmp, loop_ub);
     for (i = 0; i < loop_ub; i++) {
-      for (int32_T i1{0}; i1 < num_tmp_tmp; i1++) {
+      for (int i1{0}; i1 < num_tmp_tmp; i1++) {
         output[i1 + output.size(0) * i] = tempOutput[i + loop_ub * i1];
       }
     }
   }
 
-  void callCppFunction(const char_T pointer_data[], const int32_T pointer_size[2],
-                       const ::coder::array<real_T, 2U> &varargin_1, real_T
-                       varargin_2, const ::coder::array<real_T, 2U> &varargin_3,
-                       real_T varargin_4, ::coder::array<real_T, 2U> &output,
-                       real_T *varargout_1)
+  void callCppFunction(const char pointer_data[], const int pointer_size[2],
+                       const ::coder::array<double, 2U> &varargin_1, double
+                       varargin_2, const ::coder::array<double, 2U> &varargin_3,
+                       double varargin_4, ::coder::array<double, 2U> &output,
+                       double *varargout_1)
   {
     CallbackInterface * callback;
     ClassHandle<CallbackInterface> * callbackHandle;
     std::vector<double> outArray;
-    ::coder::array<real_T, 2U> bulkOut;
-    ::coder::array<real_T, 2U> params;
-    ::coder::array<real_T, 2U> tempOutput;
-    real_T outputSize[2];
-    real_T bulkIn;
-    int32_T i;
-    int32_T loop_ub;
-    int32_T num_tmp_tmp;
-    char_T b_pointer_data[10000];
+    ::coder::array<double, 2U> bulkOut;
+    ::coder::array<double, 2U> params;
+    ::coder::array<double, 2U> tempOutput;
+    double outputSize[2];
+    double bulkIn;
+    int i;
+    int loop_ub;
+    int num_tmp_tmp;
+    char b_pointer_data[10000];
 
     //  Calls a Cpp custom function stored at the given pointer address.
     //
@@ -224,11 +224,11 @@ namespace RAT
     std::vector<double> bulkInArray;
     std::vector<double> bulkOutArray;
     std::vector<double> paramsArray;
-    real_T actualSize;
-    paramsArray = convertPtr2Vector(&params[0], static_cast<real_T>
+    double actualSize;
+    paramsArray = convertPtr2Vector(&params[0], static_cast<double>
       (varargin_1.size(1)));
     bulkInArray = convertPtr2Vector(&bulkIn, 1.0);
-    bulkOutArray = convertPtr2Vector(&bulkOut[0], static_cast<real_T>
+    bulkOutArray = convertPtr2Vector(&bulkOut[0], static_cast<double>
       (varargin_3.size(1)));
 
     //  domain should either before 0 or 1. A value less than zero indicates no domains
@@ -237,39 +237,39 @@ namespace RAT
       (&CallbackInterface::invoke)(callback, paramsArray, bulkInArray,
       bulkOutArray, varargin_4, outArray, &outputSize[0], varargout_1);
     actualSize = getVectorSize(outArray);
-    loop_ub = static_cast<int32_T>(actualSize);
-    tempOutput.set_size(1, static_cast<int32_T>(actualSize));
+    loop_ub = static_cast<int>(actualSize);
+    tempOutput.set_size(1, static_cast<int>(actualSize));
     for (i = 0; i < loop_ub; i++) {
       tempOutput[i] = 0.0;
     }
 
     convertVector2Ptr(outArray, &tempOutput[0]);
-    loop_ub = static_cast<int32_T>(outputSize[1]);
-    num_tmp_tmp = static_cast<int32_T>(outputSize[0]);
+    loop_ub = static_cast<int>(outputSize[1]);
+    num_tmp_tmp = static_cast<int>(outputSize[0]);
     output.set_size(num_tmp_tmp, loop_ub);
     for (i = 0; i < loop_ub; i++) {
-      for (int32_T i1{0}; i1 < num_tmp_tmp; i1++) {
+      for (int i1{0}; i1 < num_tmp_tmp; i1++) {
         output[i1 + output.size(0) * i] = tempOutput[i + loop_ub * i1];
       }
     }
   }
 
-  void callCppFunction(const char_T pointer_data[], const int32_T pointer_size[2],
-                       const ::coder::array<real_T, 1U> &varargin_1, const
-                       real_T varargin_2_data[], const int32_T varargin_2_size[2],
-                       ::coder::array<real_T, 1U> &output)
+  void callCppFunction(const char pointer_data[], const int pointer_size[2],
+                       const ::coder::array<double, 1U> &varargin_1, const
+                       double varargin_2_data[], const int varargin_2_size[2], ::
+                       coder::array<double, 1U> &output)
   {
     CallbackInterface * callback;
     ClassHandle<CallbackInterface> * callbackHandle;
     std::vector<double> dataArray;
     std::vector<double> outArray;
     std::vector<double> paramsArray;
-    ::coder::array<real_T, 1U> xdata;
-    real_T params_data[5];
-    real_T actualSize;
-    int32_T i;
-    int32_T loop_ub;
-    char_T b_pointer_data[10000];
+    ::coder::array<double, 1U> xdata;
+    double params_data[5];
+    double actualSize;
+    int i;
+    int loop_ub;
+    char b_pointer_data[10000];
 
     //  Calls a Cpp custom function stored at the given pointer address.
     //
@@ -296,16 +296,16 @@ namespace RAT
       std::copy(&varargin_2_data[0], &varargin_2_data[loop_ub], &params_data[0]);
     }
 
-    dataArray = convertPtr2Vector(&(xdata.data())[0], static_cast<real_T>
+    dataArray = convertPtr2Vector(&(xdata.data())[0], static_cast<double>
       (varargin_1.size(0)));
-    paramsArray = convertPtr2Vector(&params_data[0], static_cast<real_T>
+    paramsArray = convertPtr2Vector(&params_data[0], static_cast<double>
       (varargin_2_size[1]));
     std::mem_fn<void(std::vector<double>&, std::vector<double>&, std::vector<
                      double>&)>(&CallbackInterface::invoke)(callback, dataArray,
       paramsArray, outArray);
     actualSize = getVectorSize(outArray);
-    loop_ub = static_cast<int32_T>(actualSize);
-    output.set_size(static_cast<int32_T>(actualSize));
+    loop_ub = static_cast<int>(actualSize);
+    output.set_size(static_cast<int>(actualSize));
     for (i = 0; i < loop_ub; i++) {
       output[i] = 0.0;
     }

@@ -20,25 +20,25 @@
 // Type Declarations
 namespace RAT
 {
-  struct e_struct_T;
-  struct struct4_T;
-  struct j_struct_T;
+  struct ProblemDefinition;
+  struct Controls;
+  struct g_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void ratDREAM(real_T dreamVariables_nParams, real_T dreamVariables_nChains,
-                real_T dreamVariables_nGenerations, real_T
-                dreamVariables_jumpProbability, real_T dreamVariables_pUnitGamma,
-                boolean_T dreamVariables_adaptPCR, const ::coder::array<real_T,
-                2U> &paramInfo_min, const ::coder::array<real_T, 2U>
-                &paramInfo_max, const char_T paramInfo_boundhandling_data[],
-                const int32_T paramInfo_boundhandling_size[2], const e_struct_T *
-                ratInputs_problemStruct, const struct4_T *ratInputs_controls,
-                const ::coder::array<real_T, 2U> &ratInputs_priors, ::coder::
-                array<real_T, 3U> &chain, j_struct_T *output, ::coder::array<
-                real_T, 2U> &fx);
+  void ratDREAM(double dreamVariables_nParams, double dreamVariables_nChains,
+                double dreamVariables_nGenerations, double
+                dreamVariables_jumpProbability, double dreamVariables_pUnitGamma,
+                boolean_T dreamVariables_adaptPCR, const ::coder::array<double,
+                2U> &paramInfo_min, const ::coder::array<double, 2U>
+                &paramInfo_max, const char paramInfo_boundhandling_data[], const
+                int paramInfo_boundhandling_size[2], const ProblemDefinition
+                *ratInputs_problemStruct, const Controls *ratInputs_controls,
+                const ::coder::array<double, 2U> &ratInputs_priors, ::coder::
+                array<double, 3U> &chain, g_struct_T *output, ::coder::array<
+                double, 2U> &fx);
 }
 
 #endif

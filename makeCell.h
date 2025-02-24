@@ -26,10 +26,10 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void b_makeCell(real_T m, const real_T vals[3], ::coder::array<cell_wrap_9, 2U>
+  void b_makeCell(double m, const double vals[3], ::coder::array<cell_wrap_9, 2U>
                   &x);
   void makeCell(cell_wrap_9 x[50]);
-  void makeCell(real_T m, const real_T vals[3], ::coder::array<cell_wrap_9, 2U>
+  void makeCell(double m, const double vals[3], ::coder::array<cell_wrap_9, 2U>
                 &x);
 }
 

@@ -22,13 +22,13 @@ namespace RAT
 {
   namespace coder
   {
-    void b_prctile(const ::coder::array<real_T, 2U> &x, ::coder::array<real_T,
+    void b_prctile(const ::coder::array<double, 2U> &x, ::coder::array<double,
                    2U> &y);
-    void b_prctile(const real_T x_data[], int32_T x_size, real_T y[2]);
-    void prctile(const ::coder::array<real_T, 2U> &x, real_T y[2]);
-    void prctile(const ::coder::array<real_T, 2U> &x, ::coder::array<real_T, 2U>
+    void b_prctile(const double x_data[], int x_size, double y[2]);
+    void prctile(const ::coder::array<double, 2U> &x, double y[2]);
+    void prctile(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U>
                  &y);
-    void prctile(const real_T x_data[], int32_T x_size, real_T y[2]);
+    void prctile(const double x_data[], int x_size, double y[2]);
   }
 }
 

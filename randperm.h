@@ -22,7 +22,7 @@ namespace RAT
 {
   namespace coder
   {
-    void randperm(real_T n, ::coder::array<real_T, 2U> &p);
+    void randperm(double n, ::coder::array<double, 2U> &p);
   }
 }
 

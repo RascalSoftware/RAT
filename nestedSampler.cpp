@@ -50,58 +50,58 @@
 // Function Definitions
 namespace RAT
 {
-  void nestedSampler(const e_struct_T *data_f1, const struct4_T *data_f2, real_T
-                     nLive, real_T nMCMC, real_T tolerance, const ::coder::array<
-                     real_T, 2U> &prior, real_T *logZ, ::coder::array<real_T, 2U>
-                     &nest_samples, ::coder::array<real_T, 2U> &post_samples,
-                     real_T *H)
+  void nestedSampler(const ProblemDefinition *data_f1, const Controls *data_f2,
+                     double nLive, double nMCMC, double tolerance, const ::coder::
+                     array<double, 2U> &prior, double *logZ, ::coder::array<
+                     double, 2U> &nest_samples, ::coder::array<double, 2U>
+                     &post_samples, double *H)
   {
-    ::coder::array<real_T, 2U> Bs;
-    ::coder::array<real_T, 2U> FS;
-    ::coder::array<real_T, 2U> VEs;
-    ::coder::array<real_T, 2U> Vtot;
-    ::coder::array<real_T, 2U> b_Bs;
-    ::coder::array<real_T, 2U> b_livepoints;
-    ::coder::array<real_T, 2U> b_nest_samples;
-    ::coder::array<real_T, 2U> b_ns;
-    ::coder::array<real_T, 2U> cholmat;
-    ::coder::array<real_T, 2U> l;
-    ::coder::array<real_T, 2U> livepoints;
-    ::coder::array<real_T, 2U> livepoints_sorted;
-    ::coder::array<real_T, 2U> mus;
-    ::coder::array<real_T, 2U> nest_samples_data;
-    ::coder::array<real_T, 2U> ns;
-    ::coder::array<real_T, 2U> r2;
-    ::coder::array<real_T, 2U> result;
-    ::coder::array<real_T, 2U> toAdd;
-    ::coder::array<real_T, 1U> b;
-    ::coder::array<real_T, 1U> logL;
-    ::coder::array<real_T, 1U> r;
-    ::coder::array<real_T, 1U> r3;
-    ::coder::array<int32_T, 1U> iidx;
-    ::coder::array<char_T, 2U> r1;
+    ::coder::array<double, 2U> Bs;
+    ::coder::array<double, 2U> FS;
+    ::coder::array<double, 2U> VEs;
+    ::coder::array<double, 2U> Vtot;
+    ::coder::array<double, 2U> b_Bs;
+    ::coder::array<double, 2U> b_livepoints;
+    ::coder::array<double, 2U> b_nest_samples;
+    ::coder::array<double, 2U> b_ns;
+    ::coder::array<double, 2U> cholmat;
+    ::coder::array<double, 2U> l;
+    ::coder::array<double, 2U> livepoints;
+    ::coder::array<double, 2U> livepoints_sorted;
+    ::coder::array<double, 2U> mus;
+    ::coder::array<double, 2U> nest_samples_data;
+    ::coder::array<double, 2U> ns;
+    ::coder::array<double, 2U> r2;
+    ::coder::array<double, 2U> r3;
+    ::coder::array<double, 2U> result;
+    ::coder::array<double, 2U> toAdd;
+    ::coder::array<double, 1U> b;
+    ::coder::array<double, 1U> logL;
+    ::coder::array<double, 1U> r;
+    ::coder::array<int, 1U> iidx;
+    ::coder::array<char, 2U> r1;
     ::coder::array<boolean_T, 2U> b_FS;
-    real_T b_nest_samples_data[49];
-    real_T b_dv[2];
-    real_T a;
-    real_T a_tmp;
-    real_T d;
-    real_T j;
-    real_T logLmax;
-    real_T logLmin;
-    real_T logw;
-    real_T tol;
-    int32_T D;
-    int32_T K;
-    int32_T b_i;
-    int32_T i;
-    int32_T i1;
-    int32_T i2;
-    int32_T iindx;
-    int32_T loop_ub;
-    int32_T loop_ub_tmp;
-    int32_T sizes_idx_1;
-    int8_T b_sizes_idx_1;
+    double b_nest_samples_data[49];
+    double b_dv[2];
+    double a;
+    double a_tmp;
+    double d;
+    double j;
+    double logLmax;
+    double logLmin;
+    double logw;
+    double tol;
+    int D;
+    int K;
+    int b_i;
+    int i;
+    int i1;
+    int i2;
+    int iindx;
+    int loop_ub;
+    int loop_ub_tmp;
+    int sizes_idx_1;
+    signed char b_sizes_idx_1;
     boolean_T empty_non_axis_sizes;
     boolean_T exitg1;
     boolean_T tmp_data;
@@ -179,7 +179,7 @@ namespace RAT
 
     //  check certain values are positive integers or zero
     //  draw the set of initial live points from the prior
-    loop_ub_tmp = static_cast<int32_T>(nLive);
+    loop_ub_tmp = static_cast<int>(nLive);
     livepoints.set_size(loop_ub_tmp, prior.size(0));
     loop_ub = prior.size(0);
     for (i = 0; i < loop_ub; i++) {
@@ -190,10 +190,10 @@ namespace RAT
 
     i = prior.size(0);
     for (b_i = 0; b_i < i; b_i++) {
-      real_T priortype;
+      double priortype;
       priortype = prior[b_i];
       if (priortype == 1.0) {
-        real_T p3;
+        double p3;
 
         // uniform
         p3 = prior[b_i + prior.size(0) * 3];
@@ -204,7 +204,7 @@ namespace RAT
           livepoints[i1 + livepoints.size(0) * b_i] = p3 + a * b[i1];
         }
       } else if (priortype == 2.0) {
-        real_T p3;
+        double p3;
 
         // gaussian
         p3 = prior[b_i + prior.size(0)];
@@ -312,9 +312,9 @@ namespace RAT
     //  MAIN LOOP
     exitg1 = false;
     while ((!exitg1) && ((tol > tolerance) || (j <= nLive))) {
-      real_T VS;
-      real_T logWt;
-      real_T logZold;
+      double VS;
+      double logWt;
+      double logZold;
 
       //  expected value of true remaining prior volume X
       VS = std::exp(-j / nLive);
@@ -475,32 +475,32 @@ namespace RAT
             b_dv[0] = 1.0;
           }
 
-          for (int32_T k{0}; k < K; k++) {
-            real_T scalefac;
+          for (int k{0}; k < K; k++) {
+            double scalefac;
             b_dv[1] = d * ns[k] / nLive / VEs[k];
             scalefac = coder::internal::maximum(b_dv);
 
             //  scale bounding matrix and volume
             if (scalefac != 1.0) {
-              a_tmp = ((static_cast<real_T>(k) + 1.0) - 1.0) *
-                static_cast<real_T>(D) + 1.0;
-              a = (static_cast<real_T>(k) + 1.0) * static_cast<real_T>(D);
+              a_tmp = ((static_cast<double>(k) + 1.0) - 1.0) * static_cast<
+                double>(D) + 1.0;
+              a = (static_cast<double>(k) + 1.0) * static_cast<double>(D);
               if (a_tmp > a) {
                 i = 0;
                 i1 = 0;
                 i2 = 1;
               } else {
-                i = static_cast<int32_T>(a_tmp) - 1;
-                i1 = static_cast<int32_T>(a);
-                i2 = static_cast<int32_T>(a_tmp);
+                i = static_cast<int>(a_tmp) - 1;
+                i1 = static_cast<int>(a);
+                i2 = static_cast<int>(a_tmp);
               }
 
-              a_tmp = rt_powd_snf(scalefac, 2.0 / static_cast<real_T>(D));
+              a_tmp = rt_powd_snf(scalefac, 2.0 / static_cast<double>(D));
               sizes_idx_1 = Bs.size(1) - 1;
               loop_ub = i1 - i;
               b_Bs.set_size(loop_ub, Bs.size(1));
               for (i1 = 0; i1 <= sizes_idx_1; i1++) {
-                for (int32_T i3{0}; i3 < loop_ub; i3++) {
+                for (int i3{0}; i3 < loop_ub; i3++) {
                   b_Bs[i3 + b_Bs.size(0) * i1] = Bs[(i + i3) + Bs.size(0) * i1] *
                     a_tmp;
                 }
@@ -567,7 +567,7 @@ namespace RAT
         data_f2->display.size);
       if (!empty_non_axis_sizes) {
         if (j < 2.147483648E+9) {
-          i = static_cast<int32_T>(j);
+          i = static_cast<int>(j);
         } else {
           i = MAX_int32_T;
         }
@@ -710,19 +710,14 @@ namespace RAT
       }
 
       nest_samples_data.set(&b_nest_samples_data[0], 1, loop_ub);
-      rescaleParameters(prior, nest_samples_data, b);
-      r3.set_size(b.size(0));
-      loop_ub = b.size(0);
+      rescaleParameters(prior, nest_samples_data, b_livepoints);
+      r3.set_size(1, b_livepoints.size(1));
+      loop_ub = b_livepoints.size(1);
       for (i1 = 0; i1 < loop_ub; i1++) {
-        r3[i1] = b[i1];
+        r3[i1] = b_livepoints[i1];
       }
 
-      if (1 > nest_samples.size(1) - 1) {
-        loop_ub = 0;
-      } else {
-        loop_ub = nest_samples.size(1) - 1;
-      }
-
+      loop_ub = r3.size(1);
       for (i1 = 0; i1 < loop_ub; i1++) {
         nest_samples[b_i + nest_samples.size(0) * i1] = r3[i1];
       }

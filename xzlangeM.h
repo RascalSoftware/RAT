@@ -26,7 +26,7 @@ namespace RAT
     {
       namespace reflapack
       {
-        real_T xzlangeM(const ::coder::array<creal_T, 2U> &x);
+        double xzlangeM(const ::coder::array<creal_T, 2U> &x);
       }
     }
   }

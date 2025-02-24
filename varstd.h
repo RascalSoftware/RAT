@@ -22,8 +22,8 @@ namespace RAT
 {
   namespace coder
   {
-    real_T anon(int32_T n, const ::coder::array<real_T, 1U> &x);
-    real_T b_anon(int32_T n, const ::coder::array<real_T, 1U> &x);
+    double anon(int n, const ::coder::array<double, 1U> &x);
+    double b_anon(int n, const ::coder::array<double, 1U> &x);
   }
 }
 

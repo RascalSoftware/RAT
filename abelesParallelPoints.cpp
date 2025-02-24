@@ -21,20 +21,20 @@
 // Function Declarations
 namespace RAT
 {
-  static creal_T findkn(real_T k0, const creal_T sld);
+  static creal_T findkn(double k0, const creal_T sld);
 }
 
 // Function Definitions
 namespace RAT
 {
-  static creal_T findkn(real_T k0, const creal_T sld)
+  static creal_T findkn(double k0, const creal_T sld)
   {
     creal_T dc;
     creal_T dc1;
     creal_T kn;
-    real_T k0_im;
-    real_T k0_re;
-    real_T re;
+    double k0_im;
+    double k0_re;
+    double re;
 
     //  sqrt function with branch cut in zarg from 0 to infinity along a ray
     //  at angle theta (in radians) measured from the +x axis in the usual way,
@@ -69,10 +69,10 @@ namespace RAT
     return kn;
   }
 
-  void abelesParallelPoints(const ::coder::array<real_T, 1U> &q, real_T N, const
-    ::coder::array<real_T, 1U> &layers_thick, const ::coder::array<creal_T, 1U>
-    &layers_rho, const ::coder::array<real_T, 1U> &layers_sig, ::coder::array<
-    real_T, 1U> &ref)
+  void abelesParallelPoints(const ::coder::array<double, 1U> &q, double N, const
+    ::coder::array<double, 1U> &layers_thick, const ::coder::array<creal_T, 1U>
+    &layers_rho, const ::coder::array<double, 1U> &layers_sig, ::coder::array<
+    double, 1U> &ref)
   {
     creal_T M_n[2][2];
     creal_T M_res[2][2];
@@ -95,28 +95,28 @@ namespace RAT
     creal_T r_n_np1;
     creal_T sld_1;
     creal_T sld_np1;
-    real_T R;
-    real_T b_d;
-    real_T brm;
-    real_T d;
-    real_T d1;
-    real_T d2;
-    real_T d3;
-    real_T d4;
-    real_T d5;
-    real_T k0;
-    real_T layers_sig_2;
-    real_T nom1_im;
-    real_T nom1_re;
-    real_T sigmasqrd;
-    int32_T i1;
-    int32_T i2;
-    int32_T loop_ub;
-    int32_T n;
-    int32_T points;
+    double R;
+    double b_d;
+    double brm;
+    double d;
+    double d1;
+    double d2;
+    double d3;
+    double d4;
+    double d5;
+    double k0;
+    double layers_sig_2;
+    double nom1_im;
+    double nom1_re;
+    double sigmasqrd;
+    int i1;
+    int i2;
+    int loop_ub;
+    int n;
+    int points;
     ref.set_size(q.size(0));
     loop_ub = q.size(0);
-    for (int32_T i{0}; i < loop_ub; i++) {
+    for (int i{0}; i < loop_ub; i++) {
       ref[i] = 0.0;
     }
 
@@ -206,7 +206,7 @@ namespace RAT
       M_tot[1][1].re = 1.0;
       M_tot[1][1].im = 0.0;
       kn_ptr = k1;
-      i1 = static_cast<int32_T>((N - 1.0) + -1.0);
+      i1 = static_cast<int>((N - 1.0) + -1.0);
       for (n = 0; n < i1; n++) {
         //  Find kn and k_n+1 (ex. k1 and k2 for n=1): $/
         sld_np1.re = layers_rho[n + 2].re - bulk_in_SLD.re;

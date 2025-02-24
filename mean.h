@@ -22,9 +22,9 @@ namespace RAT
 {
   namespace coder
   {
-    void mean(const ::coder::array<real_T, 3U> &x, ::coder::array<real_T, 3U> &y);
-    void mean(const ::coder::array<real_T, 2U> &x, ::coder::array<real_T, 2U> &y);
-    real_T mean(const real_T x_data[], int32_T x_size);
+    void mean(const ::coder::array<double, 3U> &x, ::coder::array<double, 3U> &y);
+    void mean(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U> &y);
+    double mean(const double x_data[], int x_size);
   }
 }
 

@@ -23,13 +23,12 @@ namespace RAT
   {
     namespace internal
     {
-      void readfloat(char_T s1_data[], int32_T *idx, const char_T s_data[],
-                     int32_T *k, int32_T n, boolean_T *isimag, boolean_T
-                     *b_finite, real_T *nfv, boolean_T *foundsign, boolean_T
-                     *success);
-      void skipspaces(const char_T s_data[], int32_T *k, int32_T n);
-      real_T sscanfd(const char_T s_data[]);
-      void sscanfd(const char_T s_data[], real_T *out1, real_T *out2);
+      void readfloat(char s1_data[], int *idx, const char s_data[], int *k, int
+                     n, boolean_T *isimag, boolean_T *b_finite, double *nfv,
+                     boolean_T *foundsign, boolean_T *success);
+      void skipspaces(const char s_data[], int *k, int n);
+      double sscanfd(const char s_data[]);
+      void sscanfd(const char s_data[], double *out1, double *out2);
     }
   }
 }

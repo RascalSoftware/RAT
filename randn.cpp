@@ -21,40 +21,40 @@ namespace RAT
 {
   namespace coder
   {
-    void randn(real_T varargin_2, ::coder::array<real_T, 2U> &r)
+    void randn(double varargin_2, ::coder::array<double, 2U> &r)
     {
-      int32_T i;
-      i = static_cast<int32_T>(varargin_2);
+      int i;
+      i = static_cast<int>(varargin_2);
       r.set_size(1, i);
-      for (int32_T k{0}; k < i; k++) {
+      for (int k{0}; k < i; k++) {
         r[k] = b_eml_rand_mt19937ar(state);
       }
     }
 
-    void randn(real_T varargin_1, ::coder::array<real_T, 1U> &r)
+    void randn(double varargin_1, ::coder::array<double, 1U> &r)
     {
-      int32_T i;
-      i = static_cast<int32_T>(varargin_1);
+      int i;
+      i = static_cast<int>(varargin_1);
       r.set_size(i);
-      for (int32_T k{0}; k < i; k++) {
+      for (int k{0}; k < i; k++) {
         r[k] = b_eml_rand_mt19937ar(state);
       }
     }
 
-    void randn(real_T r[2])
+    void randn(double r[2])
     {
-      real_T b_r;
-      real_T u;
-      real_T x;
-      int32_T exitg1;
-      int32_T i;
-      uint32_T u32[2];
+      double b_r;
+      double u;
+      double x;
+      unsigned int u32[2];
+      int exitg1;
+      int i;
       do {
         exitg1 = 0;
         genrand_uint32_vector(state, u32);
-        i = static_cast<int32_T>((u32[1] >> 24U) + 1U);
-        b_r = ((static_cast<real_T>(u32[0] >> 3U) * 1.6777216E+7 +
-                static_cast<real_T>(static_cast<int32_T>(u32[1]) & 16777215)) *
+        i = static_cast<int>((u32[1] >> 24U) + 1U);
+        b_r = ((static_cast<double>(u32[0] >> 3U) * 1.6777216E+7 + static_cast<
+                double>(static_cast<int>(u32[1]) & 16777215)) *
                2.2204460492503131E-16 - 1.0) * dv[i];
         if (std::abs(b_r) <= dv[i - 1]) {
           exitg1 = 1;
@@ -84,9 +84,9 @@ namespace RAT
       do {
         exitg1 = 0;
         genrand_uint32_vector(state, u32);
-        i = static_cast<int32_T>((u32[1] >> 24U) + 1U);
-        b_r = ((static_cast<real_T>(u32[0] >> 3U) * 1.6777216E+7 +
-                static_cast<real_T>(static_cast<int32_T>(u32[1]) & 16777215)) *
+        i = static_cast<int>((u32[1] >> 24U) + 1U);
+        b_r = ((static_cast<double>(u32[0] >> 3U) * 1.6777216E+7 + static_cast<
+                double>(static_cast<int>(u32[1]) & 16777215)) *
                2.2204460492503131E-16 - 1.0) * dv[i];
         if (std::abs(b_r) <= dv[i - 1]) {
           exitg1 = 1;
@@ -115,14 +115,13 @@ namespace RAT
       r[1] = b_r;
     }
 
-    void randn(real_T varargin_1, real_T varargin_2, ::coder::array<real_T, 2U>
+    void randn(double varargin_1, double varargin_2, ::coder::array<double, 2U>
                &r)
     {
-      int32_T i;
-      r.set_size(static_cast<int32_T>(varargin_1), static_cast<int32_T>
-                 (varargin_2));
-      i = static_cast<int32_T>(varargin_1) * static_cast<int32_T>(varargin_2);
-      for (int32_T k{0}; k < i; k++) {
+      int i;
+      r.set_size(static_cast<int>(varargin_1), static_cast<int>(varargin_2));
+      i = static_cast<int>(varargin_1) * static_cast<int>(varargin_2);
+      for (int k{0}; k < i; k++) {
         r[k] = b_eml_rand_mt19937ar(state);
       }
     }

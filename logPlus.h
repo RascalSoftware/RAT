@@ -19,7 +19,7 @@
 // Function Declarations
 namespace RAT
 {
-  real_T logPlus(real_T logx, real_T logy);
+  double logPlus(double logx, double logy);
 }
 
 #endif

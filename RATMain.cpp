@@ -10,7 +10,6 @@
 
 // Include files
 #include "RATMain.h"
-#include "RATMain_data.h"
 #include "RATMain_internal_types.h"
 #include "RATMain_rtwutil.h"
 #include "RATMain_types.h"
@@ -30,19 +29,19 @@
 // Function Declarations
 namespace RAT
 {
-  static void cast(const struct0_T *b, e_struct_T *c);
+  static void cast(const b_ProblemDefinition *b, ProblemDefinition *c);
   static void cast(const ::coder::array<cell_wrap_0, 1U> &b, ::coder::array<
                    cell_wrap_10, 1U> &c);
-  static void cast(const ::coder::array<cell_wrap_0, 2U> &t8_params, const ::
-                   coder::array<cell_wrap_0, 2U> &t8_backgroundParams, const ::
-                   coder::array<cell_wrap_0, 2U> &t8_scalefactors, const ::coder::
-                   array<cell_wrap_0, 2U> &t8_qzshifts, const ::coder::array<
-                   cell_wrap_0, 2U> &t8_bulkIns, const ::coder::array<
-                   cell_wrap_0, 2U> &t8_bulkOuts, const ::coder::array<
-                   cell_wrap_0, 2U> &t8_resolutionParams, const ::coder::array<
-                   cell_wrap_0, 2U> &t8_domainRatios, const ::coder::array<
-                   cell_wrap_0, 2U> &t8_contrasts, d_struct_T *b);
-  static void cast(const e_struct_T *b, struct0_T *c);
+  static void cast(const ::coder::array<cell_wrap_0, 2U> &t10_params, const ::
+                   coder::array<cell_wrap_0, 2U> &t10_backgroundParams, const ::
+                   coder::array<cell_wrap_0, 2U> &t10_scalefactors, const ::
+                   coder::array<cell_wrap_0, 2U> &t10_qzshifts, const ::coder::
+                   array<cell_wrap_0, 2U> &t10_bulkIns, const ::coder::array<
+                   cell_wrap_0, 2U> &t10_bulkOuts, const ::coder::array<
+                   cell_wrap_0, 2U> &t10_resolutionParams, const ::coder::array<
+                   cell_wrap_0, 2U> &t10_domainRatios, const ::coder::array<
+                   cell_wrap_0, 2U> &t10_contrasts, ParamNames *b);
+  static void cast(const ProblemDefinition *b, b_ProblemDefinition *c);
   static void cast(const ::coder::array<cell_wrap_47, 2U> &b, ::coder::array<
                    cell_wrap_3, 2U> &c);
   static void cast(const ::coder::array<cell_wrap_9, 2U> &b, ::coder::array<
@@ -53,15 +52,15 @@ namespace RAT
                    cell_wrap_5, 2U> &c);
   static void cast(const ::coder::array<cell_wrap_10, 1U> &b, ::coder::array<
                    cell_wrap_0, 1U> &c);
-  static void cast(const ::coder::array<cell_wrap_10, 2U> &t9_params, const ::
-                   coder::array<cell_wrap_10, 2U> &t9_backgroundParams, const ::
-                   coder::array<cell_wrap_10, 2U> &t9_scalefactors, const ::
-                   coder::array<cell_wrap_10, 2U> &t9_qzshifts, const ::coder::
-                   array<cell_wrap_10, 2U> &t9_bulkIns, const ::coder::array<
-                   cell_wrap_10, 2U> &t9_bulkOuts, const ::coder::array<
-                   cell_wrap_10, 2U> &t9_resolutionParams, const ::coder::array<
-                   cell_wrap_10, 2U> &t9_domainRatios, const ::coder::array<
-                   cell_wrap_10, 2U> &t9_contrasts, struct1_T *b);
+  static void cast(const ::coder::array<cell_wrap_10, 2U> &t11_params, const ::
+                   coder::array<cell_wrap_10, 2U> &t11_backgroundParams, const ::
+                   coder::array<cell_wrap_10, 2U> &t11_scalefactors, const ::
+                   coder::array<cell_wrap_10, 2U> &t11_qzshifts, const ::coder::
+                   array<cell_wrap_10, 2U> &t11_bulkIns, const ::coder::array<
+                   cell_wrap_10, 2U> &t11_bulkOuts, const ::coder::array<
+                   cell_wrap_10, 2U> &t11_resolutionParams, const ::coder::array<
+                   cell_wrap_10, 2U> &t11_domainRatios, const ::coder::array<
+                   cell_wrap_10, 2U> &t11_contrasts, b_ParamNames *b);
   static void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
                    cell_wrap_0, 2U> &c);
 }
@@ -69,12 +68,12 @@ namespace RAT
 // Function Definitions
 namespace RAT
 {
-  static void cast(const struct0_T *b, e_struct_T *c)
+  static void cast(const b_ProblemDefinition *b, ProblemDefinition *c)
   {
-    int32_T b_loop_ub;
-    int32_T i;
-    int32_T i1;
-    int32_T loop_ub;
+    int b_loop_ub;
+    int i;
+    int i1;
+    int loop_ub;
     c->TF.size[0] = 1;
     c->TF.size[1] = b->TF.size[1];
     loop_ub = b->TF.size[1];
@@ -285,46 +284,46 @@ namespace RAT
   static void cast(const ::coder::array<cell_wrap_0, 1U> &b, ::coder::array<
                    cell_wrap_10, 1U> &c)
   {
-    int32_T i;
+    int i;
     c.set_size(b.size(0));
     i = b.size(0);
-    for (int32_T i1{0}; i1 < i; i1++) {
-      int32_T loop_ub;
+    for (int i1{0}; i1 < i; i1++) {
+      int loop_ub;
       loop_ub = b[i1].f1.size[1];
       c[i1].f1.set_size(1, b[i1].f1.size[1]);
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
+      for (int i2{0}; i2 < loop_ub; i2++) {
         c[i1].f1[i2] = b[i1].f1.data[i2];
       }
     }
   }
 
-  static void cast(const ::coder::array<cell_wrap_0, 2U> &t8_params, const ::
-                   coder::array<cell_wrap_0, 2U> &t8_backgroundParams, const ::
-                   coder::array<cell_wrap_0, 2U> &t8_scalefactors, const ::coder::
-                   array<cell_wrap_0, 2U> &t8_qzshifts, const ::coder::array<
-                   cell_wrap_0, 2U> &t8_bulkIns, const ::coder::array<
-                   cell_wrap_0, 2U> &t8_bulkOuts, const ::coder::array<
-                   cell_wrap_0, 2U> &t8_resolutionParams, const ::coder::array<
-                   cell_wrap_0, 2U> &t8_domainRatios, const ::coder::array<
-                   cell_wrap_0, 2U> &t8_contrasts, d_struct_T *b)
+  static void cast(const ::coder::array<cell_wrap_0, 2U> &t10_params, const ::
+                   coder::array<cell_wrap_0, 2U> &t10_backgroundParams, const ::
+                   coder::array<cell_wrap_0, 2U> &t10_scalefactors, const ::
+                   coder::array<cell_wrap_0, 2U> &t10_qzshifts, const ::coder::
+                   array<cell_wrap_0, 2U> &t10_bulkIns, const ::coder::array<
+                   cell_wrap_0, 2U> &t10_bulkOuts, const ::coder::array<
+                   cell_wrap_0, 2U> &t10_resolutionParams, const ::coder::array<
+                   cell_wrap_0, 2U> &t10_domainRatios, const ::coder::array<
+                   cell_wrap_0, 2U> &t10_contrasts, ParamNames *b)
   {
-    cast(t8_params, b->params);
-    cast(t8_backgroundParams, b->backgroundParams);
-    cast(t8_scalefactors, b->scalefactors);
-    cast(t8_qzshifts, b->qzshifts);
-    cast(t8_bulkIns, b->bulkIns);
-    cast(t8_bulkOuts, b->bulkOuts);
-    cast(t8_resolutionParams, b->resolutionParams);
-    cast(t8_domainRatios, b->domainRatios);
-    cast(t8_contrasts, b->contrasts);
+    cast(t10_params, b->params);
+    cast(t10_backgroundParams, b->backgroundParams);
+    cast(t10_scalefactors, b->scalefactors);
+    cast(t10_qzshifts, b->qzshifts);
+    cast(t10_bulkIns, b->bulkIns);
+    cast(t10_bulkOuts, b->bulkOuts);
+    cast(t10_resolutionParams, b->resolutionParams);
+    cast(t10_domainRatios, b->domainRatios);
+    cast(t10_contrasts, b->contrasts);
   }
 
-  static void cast(const e_struct_T *b, struct0_T *c)
+  static void cast(const ProblemDefinition *b, b_ProblemDefinition *c)
   {
-    int32_T b_loop_ub;
-    int32_T i;
-    int32_T i1;
-    int32_T loop_ub;
+    int b_loop_ub;
+    int i;
+    int i1;
+    int loop_ub;
     c->TF.size[0] = 1;
     c->TF.size[1] = b->TF.size[1];
     loop_ub = b->TF.size[1];
@@ -535,15 +534,15 @@ namespace RAT
   static void cast(const ::coder::array<cell_wrap_47, 2U> &b, ::coder::array<
                    cell_wrap_3, 2U> &c)
   {
-    int32_T i;
+    int i;
     c.set_size(1, b.size(1));
     i = b.size(1) - 1;
-    for (int32_T i1{0}; i1 <= i; i1++) {
-      int32_T loop_ub;
+    for (int i1{0}; i1 <= i; i1++) {
+      int loop_ub;
       c[i1].f1.size[0] = 1;
       loop_ub = b[i1].f1.size(1);
       c[i1].f1.size[1] = b[i1].f1.size(1);
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
+      for (int i2{0}; i2 < loop_ub; i2++) {
         c[i1].f1.data[i2] = b[i1].f1[i2];
       }
     }
@@ -552,18 +551,18 @@ namespace RAT
   static void cast(const ::coder::array<cell_wrap_9, 2U> &b, ::coder::array<
                    cell_wrap_4, 2U> &c)
   {
-    int32_T i;
+    int i;
     c.set_size(1, b.size(1));
     i = b.size(1) - 1;
-    for (int32_T i1{0}; i1 <= i; i1++) {
-      int32_T loop_ub;
+    for (int i1{0}; i1 <= i; i1++) {
+      int loop_ub;
       c[i1].f1.size[0] = b[i1].f1.size(0);
       loop_ub = b[i1].f1.size(1);
       c[i1].f1.size[1] = b[i1].f1.size(1);
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
-        int32_T b_loop_ub;
+      for (int i2{0}; i2 < loop_ub; i2++) {
+        int b_loop_ub;
         b_loop_ub = b[i1].f1.size(0);
-        for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
+        for (int i3{0}; i3 < b_loop_ub; i3++) {
           c[i1].f1.data[i3 + c[i1].f1.size[0] * i2] = b[i1].f1[i3 + b[i1].
             f1.size(0) * i2];
         }
@@ -574,18 +573,18 @@ namespace RAT
   static void cast(const ::coder::array<cell_wrap_9, 2U> &b, ::coder::array<
                    cell_wrap_6, 2U> &c)
   {
-    int32_T i;
+    int i;
     c.set_size(b.size(0), b.size(1));
     i = b.size(0) * b.size(1);
-    for (int32_T i1{0}; i1 < i; i1++) {
-      int32_T loop_ub;
+    for (int i1{0}; i1 < i; i1++) {
+      int loop_ub;
       c[i1].f1.size[0] = b[i1].f1.size(0);
       loop_ub = b[i1].f1.size(1);
       c[i1].f1.size[1] = b[i1].f1.size(1);
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
-        int32_T b_loop_ub;
+      for (int i2{0}; i2 < loop_ub; i2++) {
+        int b_loop_ub;
         b_loop_ub = b[i1].f1.size(0);
-        for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
+        for (int i3{0}; i3 < b_loop_ub; i3++) {
           c[i1].f1.data[i3 + c[i1].f1.size[0] * i2] = b[i1].f1[i3 + b[i1].
             f1.size(0) * i2];
         }
@@ -596,18 +595,18 @@ namespace RAT
   static void cast(const ::coder::array<cell_wrap_9, 2U> &b, ::coder::array<
                    cell_wrap_5, 2U> &c)
   {
-    int32_T i;
+    int i;
     c.set_size(1, b.size(1));
     i = b.size(1) - 1;
-    for (int32_T i1{0}; i1 <= i; i1++) {
-      int32_T loop_ub;
+    for (int i1{0}; i1 <= i; i1++) {
+      int loop_ub;
       loop_ub = b[i1].f1.size(1);
       c[c.size(0) * i1].f1.set_size(b[b.size(0) * i1].f1.size(0), b[b.size(0) *
         i1].f1.size(1));
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
-        int32_T b_loop_ub;
+      for (int i2{0}; i2 < loop_ub; i2++) {
+        int b_loop_ub;
         b_loop_ub = b[i1].f1.size(0);
-        for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
+        for (int i3{0}; i3 < b_loop_ub; i3++) {
           c[i1].f1[i3 + c[i1].f1.size(0) * i2] = b[i1].f1[i3 + b[i1].f1.size(0) *
             i2];
         }
@@ -618,65 +617,69 @@ namespace RAT
   static void cast(const ::coder::array<cell_wrap_10, 1U> &b, ::coder::array<
                    cell_wrap_0, 1U> &c)
   {
-    int32_T i;
+    int i;
     c.set_size(b.size(0));
     i = b.size(0);
-    for (int32_T i1{0}; i1 < i; i1++) {
-      int32_T loop_ub;
+    for (int i1{0}; i1 < i; i1++) {
+      int loop_ub;
       c[i1].f1.size[0] = 1;
       loop_ub = b[i1].f1.size(1);
       c[i1].f1.size[1] = b[i1].f1.size(1);
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
+      for (int i2{0}; i2 < loop_ub; i2++) {
         c[i1].f1.data[i2] = b[i1].f1[i2];
       }
     }
   }
 
-  static void cast(const ::coder::array<cell_wrap_10, 2U> &t9_params, const ::
-                   coder::array<cell_wrap_10, 2U> &t9_backgroundParams, const ::
-                   coder::array<cell_wrap_10, 2U> &t9_scalefactors, const ::
-                   coder::array<cell_wrap_10, 2U> &t9_qzshifts, const ::coder::
-                   array<cell_wrap_10, 2U> &t9_bulkIns, const ::coder::array<
-                   cell_wrap_10, 2U> &t9_bulkOuts, const ::coder::array<
-                   cell_wrap_10, 2U> &t9_resolutionParams, const ::coder::array<
-                   cell_wrap_10, 2U> &t9_domainRatios, const ::coder::array<
-                   cell_wrap_10, 2U> &t9_contrasts, struct1_T *b)
+  static void cast(const ::coder::array<cell_wrap_10, 2U> &t11_params, const ::
+                   coder::array<cell_wrap_10, 2U> &t11_backgroundParams, const ::
+                   coder::array<cell_wrap_10, 2U> &t11_scalefactors, const ::
+                   coder::array<cell_wrap_10, 2U> &t11_qzshifts, const ::coder::
+                   array<cell_wrap_10, 2U> &t11_bulkIns, const ::coder::array<
+                   cell_wrap_10, 2U> &t11_bulkOuts, const ::coder::array<
+                   cell_wrap_10, 2U> &t11_resolutionParams, const ::coder::array<
+                   cell_wrap_10, 2U> &t11_domainRatios, const ::coder::array<
+                   cell_wrap_10, 2U> &t11_contrasts, b_ParamNames *b)
   {
-    cast(t9_params, b->params);
-    cast(t9_backgroundParams, b->backgroundParams);
-    cast(t9_scalefactors, b->scalefactors);
-    cast(t9_qzshifts, b->qzshifts);
-    cast(t9_bulkIns, b->bulkIns);
-    cast(t9_bulkOuts, b->bulkOuts);
-    cast(t9_resolutionParams, b->resolutionParams);
-    cast(t9_domainRatios, b->domainRatios);
-    cast(t9_contrasts, b->contrasts);
+    cast(t11_params, b->params);
+    cast(t11_backgroundParams, b->backgroundParams);
+    cast(t11_scalefactors, b->scalefactors);
+    cast(t11_qzshifts, b->qzshifts);
+    cast(t11_bulkIns, b->bulkIns);
+    cast(t11_bulkOuts, b->bulkOuts);
+    cast(t11_resolutionParams, b->resolutionParams);
+    cast(t11_domainRatios, b->domainRatios);
+    cast(t11_contrasts, b->contrasts);
   }
 
   static void cast(const ::coder::array<cell_wrap_10, 2U> &b, ::coder::array<
                    cell_wrap_0, 2U> &c)
   {
-    int32_T i;
+    int i;
     c.set_size(1, b.size(1));
     i = b.size(1) - 1;
-    for (int32_T i1{0}; i1 <= i; i1++) {
-      int32_T loop_ub;
+    for (int i1{0}; i1 <= i; i1++) {
+      int loop_ub;
       c[i1].f1.size[0] = 1;
       loop_ub = b[i1].f1.size(1);
       c[i1].f1.size[1] = b[i1].f1.size(1);
-      for (int32_T i2{0}; i2 < loop_ub; i2++) {
+      for (int i2{0}; i2 < loop_ub; i2++) {
         c[i1].f1.data[i2] = b[i1].f1[i2];
       }
     }
   }
 
-  void RATMain(struct0_T *problemStruct, const struct3_T *problemLimits,
-               struct4_T *controls, struct5_T *result, struct8_T *bayesResults)
+  void RATMain(b_ProblemDefinition *problemStruct, const ProblemLimits
+               *problemLimits, Controls *controls, Results *results,
+               BayesResults *bayesResults)
   {
-    static g_struct_T b_bayesResults;
+    static ProblemDefinition r;
+    static d_struct_T b_bayesResults;
+    ::coder::array<double, 2U> bayesResults_chain;
+    ProblemDefinition b_problemStruct;
     c_struct_T bayesResults_nestedSamplerOutput;
-    e_struct_T b_problemStruct;
-    e_struct_T r;
+
+    //  Adds C struct names for inputs
     makeEmptyBayesResultsStruct(problemStruct->numberOfContrasts, coder::
       internal::b_strcmp(problemStruct->TF.data, problemStruct->TF.size),
       controls->nChains, bayesResults->predictionIntervals.reflectivity,
@@ -705,8 +708,7 @@ namespace RAT
       [bayesResults->nestedSamplerOutput.postSamples.size(0)] =
       bayesResults_nestedSamplerOutput.postSamples.data[1];
     if (problemStruct->numberOfContrasts > 0.0) {
-      int32_T b_index;
-      int32_T i;
+      int b_index;
       if (coder::internal::c_strcmp(controls->procedure.data,
            controls->procedure.size)) {
         b_index = 0;
@@ -731,7 +733,7 @@ namespace RAT
         //  Just a single reflectivity calculation
         controls->calcSldDuringFit = true;
         cast(problemStruct, &r);
-        reflectivityCalculation(&r, controls, result);
+        reflectivityCalculation(&r, controls, results);
         break;
 
        case 1:
@@ -745,7 +747,7 @@ namespace RAT
                    problemLimits->backgroundParams, problemLimits->scalefactors,
                    problemLimits->qzshifts, problemLimits->bulkIns,
                    problemLimits->bulkOuts, problemLimits->resolutionParams,
-                   problemLimits->domainRatios, controls, result);
+                   problemLimits->domainRatios, controls, results);
         cast(&b_problemStruct, problemStruct);
         break;
 
@@ -760,28 +762,43 @@ namespace RAT
               problemLimits->backgroundParams, problemLimits->scalefactors,
               problemLimits->qzshifts, problemLimits->bulkIns,
               problemLimits->bulkOuts, problemLimits->resolutionParams,
-              problemLimits->domainRatios, controls, result);
+              problemLimits->domainRatios, controls, results);
         cast(&b_problemStruct, problemStruct);
         break;
 
        case 3:
-        if (!coder::internal::u_strcmp(controls->display.data,
-             controls->display.size)) {
-          i_triggerEvent();
-        }
+        {
+          if (!coder::internal::u_strcmp(controls->display.data,
+               controls->display.size)) {
+            i_triggerEvent();
+          }
 
-        cast(problemStruct, &b_problemStruct);
-        runNestedSampler(&b_problemStruct, problemLimits->params,
-                         problemLimits->backgroundParams,
-                         problemLimits->scalefactors, problemLimits->qzshifts,
-                         problemLimits->bulkIns, problemLimits->bulkOuts,
-                         problemLimits->resolutionParams,
-                         problemLimits->domainRatios, controls, result,
-                         &bayesResults->predictionIntervals,
-                         &bayesResults->confidenceIntervals,
-                         &bayesResults->dreamParams, &bayesResults->dreamOutput,
-                         &bayesResults->nestedSamplerOutput, bayesResults->chain);
-        cast(&b_problemStruct, problemStruct);
+          cast(problemStruct, &b_problemStruct);
+          runNestedSampler(&b_problemStruct, problemLimits->params,
+                           problemLimits->backgroundParams,
+                           problemLimits->scalefactors, problemLimits->qzshifts,
+                           problemLimits->bulkIns, problemLimits->bulkOuts,
+                           problemLimits->resolutionParams,
+                           problemLimits->domainRatios, controls, results,
+                           &bayesResults->predictionIntervals,
+                           &bayesResults->confidenceIntervals,
+                           &bayesResults->dreamParams,
+                           &bayesResults->dreamOutput,
+                           &bayesResults->nestedSamplerOutput,
+                           bayesResults_chain);
+          cast(&b_problemStruct, problemStruct);
+          bayesResults->chain.set_size(bayesResults_chain.size(0),
+            bayesResults_chain.size(1));
+          b_index = bayesResults_chain.size(1);
+          for (int i{0}; i < b_index; i++) {
+            int loop_ub;
+            loop_ub = bayesResults_chain.size(0);
+            for (int i1{0}; i1 < loop_ub; i1++) {
+              bayesResults->chain[i1 + bayesResults->chain.size(0) * i] =
+                bayesResults_chain[i1 + bayesResults_chain.size(0) * i];
+            }
+          }
+        }
         break;
 
        case 4:
@@ -792,7 +809,7 @@ namespace RAT
           }
 
           cast(problemStruct, &r);
-          runDREAM(&r, problemLimits, controls, &b_problemStruct, result,
+          runDREAM(&r, problemLimits, controls, &b_problemStruct, results,
                    &b_bayesResults);
           bayesResults->predictionIntervals = b_bayesResults.predictionIntervals;
           bayesResults->confidenceIntervals = b_bayesResults.confidenceIntervals;
@@ -813,10 +830,10 @@ namespace RAT
           bayesResults->chain.set_size(b_bayesResults.chain.size(0),
             b_bayesResults.chain.size(1));
           b_index = b_bayesResults.chain.size(1);
-          for (i = 0; i < b_index; i++) {
-            int32_T loop_ub;
+          for (int i{0}; i < b_index; i++) {
+            int loop_ub;
             loop_ub = b_bayesResults.chain.size(0);
-            for (int32_T i1{0}; i1 < loop_ub; i1++) {
+            for (int i1{0}; i1 < loop_ub; i1++) {
               bayesResults->chain[i1 + bayesResults->chain.size(0) * i] =
                 b_bayesResults.chain[i1 + b_bayesResults.chain.size(0) * i];
             }
@@ -847,15 +864,11 @@ namespace RAT
       //  (i.e. if calcSLD is no for fit)
       if (!controls->calcSldDuringFit) {
         controls->calcSldDuringFit = true;
-        controls->procedure.size[0] = 1;
-        controls->procedure.size[1] = 9;
-        for (i = 0; i < 9; i++) {
-          controls->procedure.data[i] = cv1[i];
-        }
-
-        reflectivityCalculation(problemStruct, controls, result);
+        reflectivityCalculation(problemStruct, controls, results);
       }
     }
+
+    //  Adds C struct names for outputs
   }
 }
 

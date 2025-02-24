@@ -25,7 +25,7 @@ namespace RAT
     {
       namespace scalar
       {
-        real_T complexTimes(real_T ar, real_T ai, real_T br, real_T bi);
+        double complexTimes(double ar, double ai, double br, double bi);
       }
     }
   }

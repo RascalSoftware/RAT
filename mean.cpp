@@ -19,19 +19,19 @@ namespace RAT
 {
   namespace coder
   {
-    void mean(const ::coder::array<real_T, 3U> &x, ::coder::array<real_T, 3U> &y)
+    void mean(const ::coder::array<double, 3U> &x, ::coder::array<double, 3U> &y)
     {
-      int32_T b_loop_ub;
-      int32_T i;
-      int32_T i1;
-      int32_T loop_ub;
+      int b_loop_ub;
+      int i;
+      int i1;
+      int loop_ub;
       if ((x.size(0) == 0) || (x.size(1) == 0) || (x.size(2) == 0)) {
-        uint32_T sz_idx_1;
-        sz_idx_1 = static_cast<uint32_T>(x.size(1));
+        unsigned int sz_idx_1;
+        sz_idx_1 = static_cast<unsigned int>(x.size(1));
         y.set_size(1, x.size(1), x.size(2));
         loop_ub = x.size(2);
         for (i = 0; i < loop_ub; i++) {
-          b_loop_ub = static_cast<int32_T>(sz_idx_1);
+          b_loop_ub = static_cast<int>(sz_idx_1);
           for (i1 = 0; i1 < b_loop_ub; i1++) {
             y[i1 + y.size(1) * i] = 0.0;
           }
@@ -45,16 +45,16 @@ namespace RAT
       for (i = 0; i < loop_ub; i++) {
         b_loop_ub = y.size(1);
         for (i1 = 0; i1 < b_loop_ub; i1++) {
-          y[i1 + y.size(1) * i] = y[i1 + y.size(1) * i] / static_cast<real_T>
+          y[i1 + y.size(1) * i] = y[i1 + y.size(1) * i] / static_cast<double>
             (x.size(0));
         }
       }
     }
 
-    void mean(const ::coder::array<real_T, 2U> &x, ::coder::array<real_T, 2U> &y)
+    void mean(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U> &y)
     {
-      int32_T i;
-      int32_T loop_ub;
+      int i;
+      int loop_ub;
       if ((x.size(0) == 0) || (x.size(1) == 0)) {
         y.set_size(1, x.size(1));
         loop_ub = x.size(1);
@@ -68,22 +68,22 @@ namespace RAT
       y.set_size(1, y.size(1));
       loop_ub = y.size(1);
       for (i = 0; i < loop_ub; i++) {
-        y[i] = y[i] / static_cast<real_T>(x.size(0));
+        y[i] = y[i] / static_cast<double>(x.size(0));
       }
     }
 
-    real_T mean(const real_T x_data[], int32_T x_size)
+    double mean(const double x_data[], int x_size)
     {
-      ::coder::array<real_T, 1U> b_x_data;
-      real_T y;
+      ::coder::array<double, 1U> b_x_data;
+      double y;
       if (x_size == 0) {
         y = 0.0;
       } else {
-        b_x_data.set((real_T *)&x_data[0], x_size);
+        b_x_data.set((double *)&x_data[0], x_size);
         y = nestedIter(b_x_data, x_size);
       }
 
-      y /= static_cast<real_T>(x_size);
+      y /= static_cast<double>(x_size);
       return y;
     }
   }

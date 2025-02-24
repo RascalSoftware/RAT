@@ -26,8 +26,8 @@ namespace RAT
     {
       namespace reflapack
       {
-        int32_T eml_dlahqr(::coder::array<real_T, 2U> &h, ::coder::array<real_T,
-                           2U> &z);
+        int eml_dlahqr(::coder::array<double, 2U> &h, ::coder::array<double, 2U>
+                       &z);
       }
     }
   }

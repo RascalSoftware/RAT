@@ -27,28 +27,28 @@ namespace RAT
     {
       namespace reflapack
       {
-        void xzhgeqz(::coder::array<creal_T, 2U> &A, int32_T ilo, int32_T ihi, ::
-                     coder::array<creal_T, 2U> &Z, int32_T *info, ::coder::array<
-                     creal_T, 1U> &alpha1, ::coder::array<creal_T, 1U> &beta1)
+        void xzhgeqz(::coder::array<creal_T, 2U> &A, int ilo, int ihi, ::coder::
+                     array<creal_T, 2U> &Z, int *info, ::coder::array<creal_T,
+                     1U> &alpha1, ::coder::array<creal_T, 1U> &beta1)
         {
           ::coder::array<creal_T, 2U> b_A;
           creal_T ctemp;
           creal_T stemp;
           creal_T y;
-          real_T anorm;
-          real_T ascale;
-          real_T b_atol;
-          real_T bscale;
-          real_T c;
-          real_T eshift_im;
-          real_T eshift_re;
-          int32_T i;
-          int32_T i1;
-          int32_T ilast;
-          int32_T j;
-          int32_T jm1;
-          int32_T jp1;
-          int32_T n;
+          double anorm;
+          double ascale;
+          double b_atol;
+          double bscale;
+          double c;
+          double eshift_im;
+          double eshift_re;
+          int i;
+          int i1;
+          int ilast;
+          int j;
+          int jm1;
+          int jp1;
+          int n;
           boolean_T compz;
           boolean_T failed;
           boolean_T guard1{ false };
@@ -93,7 +93,7 @@ namespace RAT
           }
 
           ascale = 1.0 / c;
-          bscale = 1.0 / std::sqrt(static_cast<real_T>(A.size(0)));
+          bscale = 1.0 / std::sqrt(static_cast<double>(A.size(0)));
           failed = true;
           i = ihi + 1;
           for (j = i; j <= n; j++) {
@@ -103,13 +103,13 @@ namespace RAT
           guard1 = false;
           guard2 = false;
           if (ihi >= ilo) {
-            int32_T ifirst;
-            int32_T ifrstm;
-            int32_T iiter;
-            int32_T ilastm;
-            int32_T ilastm1;
-            int32_T istart;
-            int32_T jiter;
+            int ifirst;
+            int ifrstm;
+            int iiter;
+            int ilastm;
+            int ilastm1;
+            int istart;
+            int jiter;
             boolean_T goto60;
             boolean_T goto70;
             boolean_T goto90;
@@ -130,7 +130,7 @@ namespace RAT
             goto70 = false;
             goto90 = false;
             jiter = 0;
-            int32_T exitg1;
+            int exitg1;
             do {
               exitg1 = 0;
               if (jiter <= 30 * ((ihi - ilo) + 1) - 1) {
@@ -243,11 +243,11 @@ namespace RAT
                     }
                   } else {
                     if (goto70) {
-                      real_T ad22_im;
-                      real_T ad22_re;
-                      real_T temp;
-                      real_T temp2;
-                      real_T y_im_tmp;
+                      double ad22_im;
+                      double ad22_re;
+                      double temp;
+                      double temp2;
+                      double y_im_tmp;
                       goto70 = false;
                       iiter++;
                       if (!compz) {
@@ -299,8 +299,8 @@ namespace RAT
                         ctemp.re = stemp.re * y.re - stemp.im * y.im;
                         ctemp.im = stemp.re * y.im + stemp.im * y.re;
                         if ((ctemp.re != 0.0) || (ctemp.im != 0.0)) {
-                          real_T x_im;
-                          real_T x_re;
+                          double x_im;
+                          double x_re;
                           anorm = ascale * A[ilastm1 + A.size(0) * ilastm1].re;
                           c = ascale * A[ilastm1 + A.size(0) * ilastm1].im;
                           if (c == 0.0) {

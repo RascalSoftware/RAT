@@ -28,8 +28,8 @@ namespace RAT
 {
   void getFittedPriors(const ::coder::array<cell_wrap_10, 1U> &paramNames, const
                        ::coder::array<cell_wrap_10, 1U> &priorNames, const ::
-                       coder::array<real_T, 2U> &priorValues, const ::coder::
-                       array<real_T, 2U> &fitLimits, ::coder::array<real_T, 2U>
+                       coder::array<double, 2U> &priorValues, const ::coder::
+                       array<double, 2U> &fitLimits, ::coder::array<double, 2U>
                        &priorFitList);
 }
 

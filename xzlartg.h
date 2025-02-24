@@ -25,8 +25,8 @@ namespace RAT
     {
       namespace reflapack
       {
-        void xzlartg(const creal_T f, const creal_T g, real_T *cs, creal_T *sn);
-        void xzlartg(const creal_T f, const creal_T g, real_T *cs, creal_T *sn,
+        void xzlartg(const creal_T f, const creal_T g, double *cs, creal_T *sn);
+        void xzlartg(const creal_T f, const creal_T g, double *cs, creal_T *sn,
                      creal_T *r);
       }
     }

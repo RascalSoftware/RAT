@@ -21,19 +21,19 @@ namespace RAT
 {
   void getFittedPriors(const ::coder::array<cell_wrap_10, 1U> &paramNames, const
                        ::coder::array<cell_wrap_10, 1U> &priorNames, const ::
-                       coder::array<real_T, 2U> &priorValues, const ::coder::
-                       array<real_T, 2U> &fitLimits, ::coder::array<real_T, 2U>
+                       coder::array<double, 2U> &priorValues, const ::coder::
+                       array<double, 2U> &fitLimits, ::coder::array<double, 2U>
                        &priorFitList)
   {
-    ::coder::array<int32_T, 1U> r1;
-    ::coder::array<char_T, 2U> f1;
+    ::coder::array<int, 1U> r1;
+    ::coder::array<char, 2U> f1;
     ::coder::array<boolean_T, 1U> b_tmp_data;
     ::coder::array<boolean_T, 1U> d_tmp_data;
     cell_wrap_10 r;
-    int32_T indices_data[10000];
-    int32_T i;
-    int32_T i1;
-    int32_T loop_ub;
+    int indices_data[10000];
+    int i;
+    int i1;
+    int loop_ub;
     boolean_T c_tmp_data[10000];
     boolean_T tmp_data[10000];
 
@@ -60,7 +60,7 @@ namespace RAT
     //  'gaussian' = 2
     //  'jeffreys' = 3
     i = paramNames.size(0);
-    for (int32_T b_i{0}; b_i < i; b_i++) {
+    for (int b_i{0}; b_i < i; b_i++) {
       loop_ub = paramNames[b_i].f1.size(1);
       f1.set_size(1, paramNames[b_i].f1.size(1));
       for (i1 = 0; i1 < loop_ub; i1++) {

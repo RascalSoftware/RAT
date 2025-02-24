@@ -26,9 +26,9 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void allocateLayersForContrast(const ::coder::array<real_T, 2U>
+  void allocateLayersForContrast(const ::coder::array<double, 2U>
     &contrastLayers, const ::coder::array<cell_wrap_47, 2U>
-    &outParameterisedLayers, boolean_T useImaginary, ::coder::array<real_T, 2U>
+    &outParameterisedLayers, boolean_T useImaginary, ::coder::array<double, 2U>
     &thisContrastLayers);
 }
 

@@ -22,10 +22,9 @@ namespace RAT
 {
   namespace coder
   {
-    real_T b_combineVectorElements(const ::coder::array<real_T, 1U> &x, int32_T
-      vlen);
-    int32_T c_combineVectorElements(const ::coder::array<boolean_T, 1U> &x);
-    int32_T combineVectorElements(const ::coder::array<boolean_T, 2U> &x);
+    double b_combineVectorElements(const ::coder::array<double, 1U> &x, int vlen);
+    int c_combineVectorElements(const ::coder::array<boolean_T, 1U> &x);
+    int combineVectorElements(const ::coder::array<boolean_T, 2U> &x);
   }
 }
 

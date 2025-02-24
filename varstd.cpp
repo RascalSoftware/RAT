@@ -21,10 +21,10 @@ namespace RAT
 {
   namespace coder
   {
-    real_T anon(int32_T n, const ::coder::array<real_T, 1U> &x)
+    double anon(int n, const ::coder::array<double, 1U> &x)
     {
-      ::coder::array<real_T, 1U> absdiff;
-      real_T varargout_1;
+      ::coder::array<double, 1U> absdiff;
+      double varargout_1;
       if (n == 0) {
         varargout_1 = rtNaN;
       } else if (n == 1) {
@@ -34,23 +34,23 @@ namespace RAT
           varargout_1 = rtNaN;
         }
       } else {
-        real_T xbar;
-        xbar = b_combineVectorElements(x, n) / static_cast<real_T>(n);
+        double xbar;
+        xbar = b_combineVectorElements(x, n) / static_cast<double>(n);
         absdiff.set_size(x.size(0));
-        for (int32_T k{0}; k < n; k++) {
+        for (int k{0}; k < n; k++) {
           absdiff[k] = std::abs(x[k] - xbar);
         }
 
         varargout_1 = internal::blas::b_xnrm2(n, absdiff) / std::sqrt(
-          static_cast<real_T>(n - 1));
+          static_cast<double>(n - 1));
       }
 
       return varargout_1;
     }
 
-    real_T b_anon(int32_T n, const ::coder::array<real_T, 1U> &x)
+    double b_anon(int n, const ::coder::array<double, 1U> &x)
     {
-      real_T varargout_1;
+      double varargout_1;
       if (n == 0) {
         varargout_1 = rtNaN;
       } else if (n == 1) {
@@ -60,16 +60,16 @@ namespace RAT
           varargout_1 = rtNaN;
         }
       } else {
-        real_T xbar;
-        xbar = b_combineVectorElements(x, n) / static_cast<real_T>(n);
+        double xbar;
+        xbar = b_combineVectorElements(x, n) / static_cast<double>(n);
         varargout_1 = 0.0;
-        for (int32_T k{0}; k < n; k++) {
-          real_T t;
+        for (int k{0}; k < n; k++) {
+          double t;
           t = x[k] - xbar;
           varargout_1 += t * t;
         }
 
-        varargout_1 /= static_cast<real_T>(n - 1);
+        varargout_1 /= static_cast<double>(n - 1);
       }
 
       return varargout_1;

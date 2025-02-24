@@ -24,8 +24,8 @@ namespace RAT
   {
     namespace internal
     {
-      void lusolve(const ::coder::array<real_T, 2U> &A, const ::coder::array<
-                   real_T, 2U> &B, ::coder::array<real_T, 2U> &X);
+      void lusolve(const ::coder::array<double, 2U> &A, const ::coder::array<
+                   double, 2U> &B, ::coder::array<double, 2U> &X);
     }
   }
 }

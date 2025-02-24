@@ -23,15 +23,15 @@ namespace RAT
     {
       namespace reflapack
       {
-        void xdlanv2(real_T *a, real_T *b, real_T *c, real_T *d, real_T *rt1r,
-                     real_T *rt1i, real_T *rt2r, real_T *rt2i, real_T *cs,
-                     real_T *sn)
+        void xdlanv2(double *a, double *b, double *c, double *d, double *rt1r,
+                     double *rt1i, double *rt2r, double *rt2i, double *cs,
+                     double *sn)
         {
           if (*c == 0.0) {
             *cs = 1.0;
             *sn = 0.0;
           } else if (*b == 0.0) {
-            real_T temp;
+            double temp;
             *cs = 0.0;
             *sn = 1.0;
             temp = *d;
@@ -40,19 +40,19 @@ namespace RAT
             *b = -*c;
             *c = 0.0;
           } else {
-            real_T temp;
+            double temp;
             temp = *a - *d;
             if ((temp == 0.0) && ((*b < 0.0) != (*c < 0.0))) {
               *cs = 1.0;
               *sn = 0.0;
             } else {
-              real_T bcmax;
-              real_T bcmis;
-              real_T p;
-              real_T scale;
-              real_T z;
-              int32_T b_c;
-              int32_T count;
+              double bcmax;
+              double bcmis;
+              double p;
+              double scale;
+              double z;
+              int b_c;
+              int count;
               p = 0.5 * temp;
               bcmis = std::abs(*b);
               scale = std::abs(*c);
@@ -69,12 +69,12 @@ namespace RAT
                 b_c = -1;
               }
 
-              bcmis = std::fmin(bcmis, scale) * static_cast<real_T>(count) *
-                static_cast<real_T>(b_c);
+              bcmis = std::fmin(bcmis, scale) * static_cast<double>(count) *
+                static_cast<double>(b_c);
               scale = std::fmax(std::abs(p), bcmax);
               z = p / scale * p + bcmax / scale * bcmis;
               if (z >= 8.8817841970012523E-16) {
-                real_T tau;
+                double tau;
                 *a = std::sqrt(scale) * std::sqrt(z);
                 if (p < 0.0) {
                   *a = -*a;
@@ -89,7 +89,7 @@ namespace RAT
                 *b -= *c;
                 *c = 0.0;
               } else {
-                real_T tau;
+                double tau;
                 bcmis = *b + *c;
                 scale = std::fmax(std::abs(temp), std::abs(bcmis));
                 count = 0;
@@ -115,7 +115,7 @@ namespace RAT
                   count = -1;
                 }
 
-                *sn = -(0.5 * temp / (tau * *cs)) * static_cast<real_T>(count);
+                *sn = -(0.5 * temp / (tau * *cs)) * static_cast<double>(count);
                 bcmax = *a * *cs + *b * *sn;
                 scale = -*a * *sn + *b * *cs;
                 z = *c * *cs + *d * *sn;

@@ -20,9 +20,9 @@
 // Function Declarations
 namespace RAT
 {
-  void simplexXTransform(const ::coder::array<real_T, 1U> &x, const ::coder::
-    array<real_T, 1U> &params_LB, const ::coder::array<real_T, 1U> &params_UB,
-    const ::coder::array<real_T, 1U> &params_BoundClass, ::coder::array<real_T,
+  void simplexXTransform(const ::coder::array<double, 1U> &x, const ::coder::
+    array<double, 1U> &params_LB, const ::coder::array<double, 1U> &params_UB,
+    const ::coder::array<double, 1U> &params_BoundClass, ::coder::array<double,
     1U> &xtrans);
 }
 

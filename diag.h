@@ -24,8 +24,8 @@ namespace RAT
   {
     void diag(const ::coder::array<creal_T, 2U> &v, ::coder::array<creal_T, 1U>
               &d);
-    void diag(const ::coder::array<real_T, 1U> &v, ::coder::array<real_T, 2U> &d);
-    void diag(const ::coder::array<real_T, 2U> &v, ::coder::array<real_T, 1U> &d);
+    void diag(const ::coder::array<double, 1U> &v, ::coder::array<double, 2U> &d);
+    void diag(const ::coder::array<double, 2U> &v, ::coder::array<double, 1U> &d);
   }
 }
 

@@ -28,8 +28,8 @@ namespace RAT
 {
   namespace coder
   {
-    void intstrlen(const ::coder::array<cell_wrap_10, 2U> &s, int32_T len_data[],
-                   int32_T len_size[2]);
+    void intstrlen(const ::coder::array<cell_wrap_10, 2U> &s, int len_data[],
+                   int len_size[2]);
   }
 }
 

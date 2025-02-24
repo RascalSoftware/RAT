@@ -20,9 +20,9 @@
 // Function Declarations
 namespace RAT
 {
-  void resolutionPolly(const ::coder::array<real_T, 1U> &xdata, const ::coder::
-                       array<real_T, 1U> &ydata, const ::coder::array<real_T, 1U>
-                       &resolutionValues, real_T points, ::coder::array<real_T,
+  void resolutionPolly(const ::coder::array<double, 1U> &xdata, const ::coder::
+                       array<double, 1U> &ydata, const ::coder::array<double, 1U>
+                       &resolutionValues, double points, ::coder::array<double,
                        1U> &resolutionCorrection);
 }
 

@@ -23,8 +23,8 @@
 // Function Definitions
 namespace RAT
 {
-  real_T inEllipsoids(const ::coder::array<real_T, 2U> &pnt, const ::coder::
-                      array<real_T, 2U> &Bs, const ::coder::array<real_T, 2U>
+  double inEllipsoids(const ::coder::array<double, 2U> &pnt, const ::coder::
+                      array<double, 2U> &Bs, const ::coder::array<double, 2U>
                       &mus)
   {
     ::coder::array<creal_T, 2U> E;
@@ -33,13 +33,13 @@ namespace RAT
     ::coder::array<creal_T, 2U> c_pnt;
     ::coder::array<creal_T, 2U> r1;
     ::coder::array<creal_T, 1U> r;
-    ::coder::array<real_T, 2U> b_Bs;
+    ::coder::array<double, 2U> b_Bs;
     creal_T dc;
-    real_T N;
-    int32_T b_loop_ub;
-    int32_T i;
-    int32_T loop_ub;
-    int32_T ndims;
+    double N;
+    int b_loop_ub;
+    int i;
+    int loop_ub;
+    int ndims;
 
     //  function N = inEllipsoids(pnt, Bs, mus)
     //
@@ -68,11 +68,11 @@ namespace RAT
       b_loop_ub = pnt.size(1);
     }
 
-    for (int32_T k{0}; k < i; k++) {
-      int32_T b_k;
-      int32_T c_loop_ub;
-      int32_T i1;
-      int32_T i2;
+    for (int k{0}; k < i; k++) {
+      int b_k;
+      int c_loop_ub;
+      int i1;
+      int i2;
 
       //  set the point to have the same origin as the ellipsoid
       //  extract the bounding matrix
@@ -114,10 +114,10 @@ namespace RAT
       c_loop_ub = V.size(1);
       c_pnt.set_size(1, V.size(1));
       for (i1 = 0; i1 < c_loop_ub; i1++) {
-        real_T bi;
-        real_T br;
-        real_T im;
-        real_T re;
+        double bi;
+        double br;
+        double im;
+        double re;
         re = 0.0;
         im = 0.0;
         b_k = b_pnt.size(1);
@@ -153,18 +153,18 @@ namespace RAT
             c_pnt[i1].im = -(re / bi);
           }
         } else {
-          real_T bim;
-          real_T brm;
+          double bim;
+          double brm;
           brm = std::abs(br);
           bim = std::abs(bi);
           if (brm > bim) {
-            real_T s;
+            double s;
             s = bi / br;
             bim = br + s * bi;
             c_pnt[i1].re = (re + s * im) / bim;
             c_pnt[i1].im = (im - s * re) / bim;
           } else if (bim == brm) {
-            real_T s;
+            double s;
             if (br > 0.0) {
               s = 0.5;
             } else {
@@ -180,7 +180,7 @@ namespace RAT
             c_pnt[i1].re = (re * s + im * bim) / brm;
             c_pnt[i1].im = (im * s - re * bim) / brm;
           } else {
-            real_T s;
+            double s;
             s = br / bi;
             bim = bi + s * br;
             c_pnt[i1].re = (s * re + im) / bim;

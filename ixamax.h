@@ -26,10 +26,8 @@ namespace RAT
     {
       namespace blas
       {
-        int32_T ixamax(int32_T n, const ::coder::array<real_T, 1U> &x, int32_T
-                       ix0);
-        int32_T ixamax(int32_T n, const ::coder::array<real_T, 2U> &x, int32_T
-                       ix0);
+        int ixamax(int n, const ::coder::array<double, 1U> &x, int ix0);
+        int ixamax(int n, const ::coder::array<double, 2U> &x, int ix0);
       }
     }
   }

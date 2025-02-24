@@ -23,24 +23,23 @@ namespace RAT
     {
       namespace reflapack
       {
-        real_T xzlanhs(const ::coder::array<creal_T, 2U> &A, int32_T ilo,
-                       int32_T ihi)
+        double xzlanhs(const ::coder::array<creal_T, 2U> &A, int ilo, int ihi)
         {
-          real_T f;
+          double f;
           f = 0.0;
           if (ilo <= ihi) {
-            real_T scale;
-            real_T ssq;
-            int32_T nm1;
+            double scale;
+            double ssq;
+            int nm1;
             scale = 3.3121686421112381E-170;
             ssq = 0.0;
             nm1 = ihi - ilo;
-            for (int32_T j{0}; j <= nm1; j++) {
-              real_T absxk;
-              real_T colscale;
-              real_T colssq;
-              int32_T col;
-              int32_T u0;
+            for (int j{0}; j <= nm1; j++) {
+              double absxk;
+              double colscale;
+              double colssq;
+              int col;
+              int u0;
               colscale = 3.3121686421112381E-170;
               colssq = 0.0;
               col = (ilo + j) - 1;
@@ -50,8 +49,8 @@ namespace RAT
               }
 
               u0 += ilo;
-              for (int32_T row{ilo}; row <= u0; row++) {
-                real_T t;
+              for (int row{ilo}; row <= u0; row++) {
+                double t;
                 absxk = std::abs(A[(row + A.size(0) * col) - 1].re);
                 if (absxk > colscale) {
                   t = colscale / absxk;

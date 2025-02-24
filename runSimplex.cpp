@@ -26,33 +26,33 @@
 // Function Definitions
 namespace RAT
 {
-  void runSimplex(e_struct_T *problemStruct, const ::coder::array<real_T, 2U>
-                  &problemLimits_params, const ::coder::array<real_T, 2U>
-                  &problemLimits_backgroundParams, const ::coder::array<real_T,
-                  2U> &problemLimits_scalefactors, const ::coder::array<real_T,
-                  2U> &problemLimits_qzshifts, const ::coder::array<real_T, 2U>
-                  &problemLimits_bulkIns, const ::coder::array<real_T, 2U>
-                  &problemLimits_bulkOuts, const ::coder::array<real_T, 2U>
-                  &problemLimits_resolutionParams, const ::coder::array<real_T,
-                  2U> &problemLimits_domainRatios, const struct4_T *controls,
-                  struct5_T *result)
+  void runSimplex(ProblemDefinition *problemStruct, const ::coder::array<double,
+                  2U> &problemLimits_params, const ::coder::array<double, 2U>
+                  &problemLimits_backgroundParams, const ::coder::array<double,
+                  2U> &problemLimits_scalefactors, const ::coder::array<double,
+                  2U> &problemLimits_qzshifts, const ::coder::array<double, 2U>
+                  &problemLimits_bulkIns, const ::coder::array<double, 2U>
+                  &problemLimits_bulkOuts, const ::coder::array<double, 2U>
+                  &problemLimits_resolutionParams, const ::coder::array<double,
+                  2U> &problemLimits_domainRatios, const Controls *controls,
+                  Results *result)
   {
-    static const char_T b_cv1[6]{ 'n', 'o', 't', 'i', 'f', 'y' };
+    static const char b_cv1[6]{ 'n', 'o', 't', 'i', 'f', 'y' };
 
-    static const char_T b_cv[5]{ 'f', 'i', 'n', 'a', 'l' };
+    static const char b_cv[5]{ 'f', 'i', 'n', 'a', 'l' };
 
     ::coder::array<cell_wrap_10, 1U> b_problemStruct;
-    ::coder::array<real_T, 1U> x;
-    ::coder::array<real_T, 1U> x0u;
-    k_struct_T a__4;
-    m_struct_T expl_temp;
-    real_T a__2;
-    real_T a__3;
-    int32_T dis_size[2];
-    int32_T b_i;
-    int32_T i;
-    int32_T outsize_idx_0;
-    char_T dis_data[6];
+    ::coder::array<double, 1U> x;
+    ::coder::array<double, 1U> x0u;
+    h_struct_T a__4;
+    j_struct_T expl_temp;
+    double a__2;
+    double a__3;
+    int dis_size[2];
+    int b_i;
+    int i;
+    int outsize_idx_0;
+    char dis_data[6];
     packParams(problemStruct, problemLimits_params,
                problemLimits_backgroundParams, problemLimits_scalefactors,
                problemLimits_qzshifts, problemLimits_bulkIns,
@@ -163,9 +163,9 @@ namespace RAT
 
     i = problemStruct->fitParams.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      expl_temp.BoundClass[b_i] = static_cast<real_T>((!std::isinf
+      expl_temp.BoundClass[b_i] = static_cast<double>((!std::isinf
         (expl_temp.LB[b_i])) && (!std::isnan(expl_temp.LB[b_i]))) + static_cast<
-        real_T>(((!std::isinf(expl_temp.UB[b_i])) && (!std::isnan
+        double>(((!std::isinf(expl_temp.UB[b_i])) && (!std::isnan
                   (expl_temp.UB[b_i]))) << 1);
     }
 
@@ -179,7 +179,7 @@ namespace RAT
 
     i = problemStruct->fitParams.size(1);
     for (b_i = 0; b_i < i; b_i++) {
-      switch (static_cast<int32_T>(expl_temp.BoundClass[b_i])) {
+      switch (static_cast<int>(expl_temp.BoundClass[b_i])) {
        case 1:
         //  lower bound only
         if (problemStruct->fitParams[b_i] <= expl_temp.LB[b_i]) {

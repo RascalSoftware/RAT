@@ -24,10 +24,10 @@ namespace RAT
     {
       namespace reflapack
       {
-        static int32_T ilazlc(int32_T m, int32_T n, const ::coder::array<real_T,
-                              2U> &A, int32_T ia0, int32_T lda);
-        static int32_T ilazlr(int32_T m, int32_T n, const ::coder::array<real_T,
-                              2U> &A, int32_T ia0, int32_T lda);
+        static int ilazlc(int m, int n, const ::coder::array<double, 2U> &A, int
+                          ia0, int lda);
+        static int ilazlr(int m, int n, const ::coder::array<double, 2U> &A, int
+                          ia0, int lda);
       }
     }
   }
@@ -42,17 +42,17 @@ namespace RAT
     {
       namespace reflapack
       {
-        static int32_T ilazlc(int32_T m, int32_T n, const ::coder::array<real_T,
-                              2U> &A, int32_T ia0, int32_T lda)
+        static int ilazlc(int m, int n, const ::coder::array<double, 2U> &A, int
+                          ia0, int lda)
         {
-          int32_T j;
+          int j;
           boolean_T exitg2;
           j = n;
           exitg2 = false;
           while ((!exitg2) && (j > 0)) {
-            int32_T coltop;
-            int32_T exitg1;
-            int32_T ia;
+            int coltop;
+            int exitg1;
+            int ia;
             coltop = ia0 + (j - 1) * lda;
             ia = coltop;
             do {
@@ -77,17 +77,17 @@ namespace RAT
           return j;
         }
 
-        static int32_T ilazlr(int32_T m, int32_T n, const ::coder::array<real_T,
-                              2U> &A, int32_T ia0, int32_T lda)
+        static int ilazlr(int m, int n, const ::coder::array<double, 2U> &A, int
+                          ia0, int lda)
         {
-          int32_T i;
+          int i;
           boolean_T exitg2;
           i = m;
           exitg2 = false;
           while ((!exitg2) && (i > 0)) {
-            int32_T exitg1;
-            int32_T rowleft;
-            int32_T rowright;
+            int exitg1;
+            int rowleft;
+            int rowright;
             rowleft = (ia0 + i) - 1;
             rowright = rowleft + (n - 1) * lda;
             do {
@@ -113,12 +113,11 @@ namespace RAT
           return i;
         }
 
-        void b_xzlarf(int32_T m, int32_T n, int32_T iv0, real_T tau, ::coder::
-                      array<real_T, 2U> &C, int32_T ic0, int32_T ldc, ::coder::
-                      array<real_T, 1U> &work)
+        void b_xzlarf(int m, int n, int iv0, double tau, ::coder::array<double,
+                      2U> &C, int ic0, int ldc, ::coder::array<double, 1U> &work)
         {
-          int32_T lastc;
-          int32_T lastv;
+          int lastc;
+          int lastv;
           if (tau != 0.0) {
             lastv = n;
             lastc = iv0 + n;
@@ -139,12 +138,11 @@ namespace RAT
           }
         }
 
-        void c_xzlarf(int32_T m, int32_T n, int32_T iv0, real_T tau, ::coder::
-                      array<real_T, 2U> &C, int32_T ic0, int32_T ldc, ::coder::
-                      array<real_T, 1U> &work)
+        void c_xzlarf(int m, int n, int iv0, double tau, ::coder::array<double,
+                      2U> &C, int ic0, int ldc, ::coder::array<double, 1U> &work)
         {
-          int32_T lastc;
-          int32_T lastv;
+          int lastc;
+          int lastv;
           if (tau != 0.0) {
             lastv = m;
             lastc = iv0 + m;
@@ -165,12 +163,11 @@ namespace RAT
           }
         }
 
-        void xzlarf(int32_T m, int32_T n, int32_T iv0, real_T tau, ::coder::
-                    array<real_T, 2U> &C, int32_T ic0, int32_T ldc, ::coder::
-                    array<real_T, 1U> &work)
+        void xzlarf(int m, int n, int iv0, double tau, ::coder::array<double, 2U>
+                    &C, int ic0, int ldc, ::coder::array<double, 1U> &work)
         {
-          int32_T lastc;
-          int32_T lastv;
+          int lastc;
+          int lastv;
           if (tau != 0.0) {
             lastv = m;
             lastc = iv0 + m;

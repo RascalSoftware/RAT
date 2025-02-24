@@ -19,15 +19,14 @@
 // Variable Declarations
 namespace RAT
 {
-  extern uint32_T state[625];
-  extern real_T DEBUG;
-  extern real_T freq;
+  extern unsigned int state[625];
+  extern double DEBUG;
+  extern double freq;
   extern boolean_T freq_not_empty;
   extern omp_nest_lock_t emlrtNestLockGlobal;
-  extern const char_T cv[128];
-  extern const char_T cv1[9];
-  extern const real_T dv[257];
-  extern const real_T dv1[257];
+  extern const char cv[128];
+  extern const double dv[257];
+  extern const double dv1[257];
 }
 
 #endif

@@ -22,24 +22,24 @@
 // Function Definitions
 namespace RAT
 {
-  void setupDREAM(real_T DREAMPar_nParams, real_T DREAMPar_nChains, real_T
-                  DREAMPar_nGenerations, real_T DREAMPar_jumpProbability, real_T
+  void setupDREAM(double DREAMPar_nParams, double DREAMPar_nChains, double
+                  DREAMPar_nGenerations, double DREAMPar_jumpProbability, double
                   DREAMPar_pUnitGamma, boolean_T DREAMPar_adaptPCR, b_struct_T
-                  *Meas_info, struct11_T *outDREAMPar, ::coder::array<real_T, 3U>
-                  &chain, j_struct_T *output, ::coder::array<real_T, 2U> &log_L,
-                  ::coder::array<real_T, 2U> &Table_gamma)
+                  *Meas_info, DreamParams *outDREAMPar, ::coder::array<double,
+                  3U> &chain, g_struct_T *output, ::coder::array<double, 2U>
+                  &log_L, ::coder::array<double, 2U> &Table_gamma)
   {
-    ::coder::array<real_T, 2U> c;
-    ::coder::array<real_T, 2U> y;
-    ::coder::array<real_T, 1U> r;
-    ::coder::array<int32_T, 1U> ia;
-    real_T value_f3_tmp;
-    int32_T b_loop_ub_tmp;
-    int32_T i;
-    int32_T i1;
-    int32_T k;
-    int32_T loop_ub;
-    int32_T loop_ub_tmp;
+    ::coder::array<double, 2U> c;
+    ::coder::array<double, 2U> y;
+    ::coder::array<double, 1U> r;
+    ::coder::array<int, 1U> ia;
+    double value_f3_tmp;
+    int b_loop_ub_tmp;
+    int i;
+    int i1;
+    int k;
+    int loop_ub;
+    int loop_ub_tmp;
 
     //  Initializes the main variables used in DREAM
     //  To keep coder happy, we have to define the full version of DREAMPar here
@@ -47,7 +47,7 @@ namespace RAT
     //      'zeta','outlier','adaptPCR','thinning','ABC','epsilon','IO','storeOutput','R'};
     //  values = cell(length(fieldNames),1);
     //  outDREAMPar = cell2struct(values,fieldNames);
-    loop_ub_tmp = static_cast<int32_T>(DREAMPar_nChains);
+    loop_ub_tmp = static_cast<int>(DREAMPar_nChains);
     outDREAMPar->R.set_size(loop_ub_tmp, loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
       for (i1 = 0; i1 < loop_ub_tmp; i1++) {
@@ -126,23 +126,23 @@ namespace RAT
     outDREAMPar->storeOutput = false;
 
     //  Matrix DREAMPar.R: Store for each chain (as row) the index of all other chains available for DE
-    if (0 <= static_cast<int32_T>(DREAMPar_nChains) - 1) {
+    if (0 <= static_cast<int>(DREAMPar_nChains) - 1) {
       if (DREAMPar_nChains < 1.0) {
         y.set_size(1, 0);
       } else if (std::isinf(DREAMPar_nChains) && (1.0 == DREAMPar_nChains)) {
         y.set_size(1, 1);
         y[0] = rtNaN;
       } else {
-        loop_ub = static_cast<int32_T>(std::floor(DREAMPar_nChains - 1.0));
+        loop_ub = static_cast<int>(std::floor(DREAMPar_nChains - 1.0));
         y.set_size(1, loop_ub + 1);
         for (i = 0; i <= loop_ub; i++) {
-          y[i] = static_cast<real_T>(i) + 1.0;
+          y[i] = static_cast<double>(i) + 1.0;
         }
       }
     }
 
-    for (int32_T b_i{0}; b_i < loop_ub_tmp; b_i++) {
-      coder::do_vectors(y, static_cast<real_T>(b_i) + 1.0, c, ia, &k);
+    for (int b_i{0}; b_i < loop_ub_tmp; b_i++) {
+      coder::do_vectors(y, static_cast<double>(b_i) + 1.0, c, ia, &k);
       loop_ub = c.size(1);
       for (i = 0; i < loop_ub; i++) {
         outDREAMPar->R[b_i + outDREAMPar->R.size(0) * i] = c[i];
@@ -165,8 +165,8 @@ namespace RAT
     output->modelOutput = 0.0;
 
     //  Initialize matrix with log_likelihood of each chain
-    loop_ub = static_cast<int32_T>(DREAMPar_nGenerations);
-    b_loop_ub_tmp = static_cast<int32_T>(DREAMPar_nChains + 1.0);
+    loop_ub = static_cast<int>(DREAMPar_nGenerations);
+    b_loop_ub_tmp = static_cast<int>(DREAMPar_nChains + 1.0);
     log_L.set_size(loop_ub, b_loop_ub_tmp);
     for (i = 0; i < b_loop_ub_tmp; i++) {
       for (i1 = 0; i1 < loop_ub; i1++) {
@@ -175,9 +175,9 @@ namespace RAT
     }
 
     //  Initialize vector with acceptance rates
-    b_loop_ub_tmp = static_cast<int32_T>(std::floor(DREAMPar_nGenerations /
+    b_loop_ub_tmp = static_cast<int>(std::floor(DREAMPar_nGenerations /
       value_f3_tmp) + 1.0);
-    output->AR.size[0] = static_cast<int32_T>(std::floor(DREAMPar_nGenerations /
+    output->AR.size[0] = static_cast<int>(std::floor(DREAMPar_nGenerations /
       value_f3_tmp) + 1.0);
     output->AR.size[1] = 2;
     for (i = 0; i < 2; i++) {
@@ -190,7 +190,7 @@ namespace RAT
     output->AR.data[0] = DREAMPar_nChains;
 
     //  Initialize matrix with potential scale reduction convergence diagnostic
-    k = static_cast<int32_T>(DREAMPar_nParams + 1.0);
+    k = static_cast<int>(DREAMPar_nParams + 1.0);
     output->R_stat.set_size(b_loop_ub_tmp, k);
     for (i = 0; i < k; i++) {
       for (i1 = 0; i1 < b_loop_ub_tmp; i1++) {
@@ -207,7 +207,7 @@ namespace RAT
     }
 
     //  Initialize array (3D-matrix) of chain trajectories
-    b_loop_ub_tmp = static_cast<int32_T>(DREAMPar_nParams + 2.0);
+    b_loop_ub_tmp = static_cast<int>(DREAMPar_nParams + 2.0);
     chain.set_size(loop_ub, b_loop_ub_tmp, loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
       for (i1 = 0; i1 < b_loop_ub_tmp; i1++) {
@@ -220,7 +220,7 @@ namespace RAT
 
     //  Generate Table with jump rates (dependent on DREAMPar.nParams and DREAMPar.delta)
     //  More efficient to read from Table
-    loop_ub_tmp = static_cast<int32_T>(DREAMPar_nParams);
+    loop_ub_tmp = static_cast<int>(DREAMPar_nParams);
     Table_gamma.set_size(loop_ub_tmp, 3);
     for (i = 0; i < 3; i++) {
       for (i1 = 0; i1 < loop_ub_tmp; i1++) {
@@ -237,19 +237,19 @@ namespace RAT
       y.set_size(1, 1);
       y[0] = rtNaN;
     } else {
-      loop_ub = static_cast<int32_T>(std::floor(DREAMPar_nParams - 1.0));
+      loop_ub = static_cast<int>(std::floor(DREAMPar_nParams - 1.0));
       y.set_size(1, loop_ub + 1);
       for (i = 0; i <= loop_ub; i++) {
-        y[i] = static_cast<real_T>(i) + 1.0;
+        y[i] = static_cast<double>(i) + 1.0;
       }
     }
 
     loop_ub = y.size(1);
-    for (int32_T zz{0}; zz < 3; zz++) {
+    for (int zz{0}; zz < 3; zz++) {
       k = (zz + 1) << 1;
       r.set_size(y.size(1));
       for (i = 0; i < loop_ub; i++) {
-        r[i] = static_cast<real_T>(k) * y[i];
+        r[i] = static_cast<double>(k) * y[i];
       }
 
       i = r.size(0);

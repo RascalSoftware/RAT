@@ -22,13 +22,12 @@ namespace RAT
     {
       namespace blas
       {
-        void xswap(int32_T n, ::coder::array<real_T, 2U> &x, int32_T ix0,
-                   int32_T iy0)
+        void xswap(int n, ::coder::array<double, 2U> &x, int ix0, int iy0)
         {
-          for (int32_T k{0}; k < n; k++) {
-            real_T temp;
-            int32_T i;
-            int32_T temp_tmp;
+          for (int k{0}; k < n; k++) {
+            double temp;
+            int i;
+            int temp_tmp;
             temp_tmp = (ix0 + k) - 1;
             temp = x[temp_tmp];
             i = (iy0 + k) - 1;
@@ -37,13 +36,13 @@ namespace RAT
           }
         }
 
-        void xswap(int32_T n, ::coder::array<real_T, 2U> &x, int32_T ix0,
-                   int32_T incx, int32_T iy0, int32_T incy)
+        void xswap(int n, ::coder::array<double, 2U> &x, int ix0, int incx, int
+                   iy0, int incy)
         {
-          for (int32_T k{0}; k < n; k++) {
-            real_T temp;
-            int32_T i;
-            int32_T temp_tmp;
+          for (int k{0}; k < n; k++) {
+            double temp;
+            int i;
+            int temp_tmp;
             temp_tmp = (ix0 + k * incx) - 1;
             temp = x[temp_tmp];
             i = (iy0 + k * incy) - 1;

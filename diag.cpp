@@ -18,10 +18,10 @@ namespace RAT
 {
   namespace coder
   {
-    static void calclen(const ::coder::array<creal_T, 2U> &A, int32_T *dlen,
-                        int32_T *i, int32_T *j);
-    static void calclen(const ::coder::array<real_T, 2U> &A, int32_T *dlen,
-                        int32_T *i, int32_T *j);
+    static void calclen(const ::coder::array<creal_T, 2U> &A, int *dlen, int *i,
+                        int *j);
+    static void calclen(const ::coder::array<double, 2U> &A, int *dlen, int *i,
+                        int *j);
   }
 }
 
@@ -30,11 +30,11 @@ namespace RAT
 {
   namespace coder
   {
-    static void calclen(const ::coder::array<creal_T, 2U> &A, int32_T *dlen,
-                        int32_T *i, int32_T *j)
+    static void calclen(const ::coder::array<creal_T, 2U> &A, int *dlen, int *i,
+                        int *j)
     {
       if (0 < A.size(1)) {
-        int32_T u0;
+        int u0;
         u0 = A.size(0);
         *dlen = A.size(1);
         if (u0 < *dlen) {
@@ -50,11 +50,11 @@ namespace RAT
       }
     }
 
-    static void calclen(const ::coder::array<real_T, 2U> &A, int32_T *dlen,
-                        int32_T *i, int32_T *j)
+    static void calclen(const ::coder::array<double, 2U> &A, int *dlen, int *i,
+                        int *j)
     {
       if (0 < A.size(1)) {
-        int32_T u0;
+        int u0;
         u0 = A.size(0);
         *dlen = A.size(1);
         if (u0 < *dlen) {
@@ -73,9 +73,9 @@ namespace RAT
     void diag(const ::coder::array<creal_T, 2U> &v, ::coder::array<creal_T, 1U>
               &d)
     {
-      int32_T dlen;
-      int32_T j;
-      int32_T k;
+      int dlen;
+      int j;
+      int k;
       if ((v.size(0) == 1) && (v.size(1) == 1)) {
         d.set_size(1);
         d[0] = v[0];
@@ -89,17 +89,17 @@ namespace RAT
       }
     }
 
-    void diag(const ::coder::array<real_T, 1U> &v, ::coder::array<real_T, 2U> &d)
+    void diag(const ::coder::array<double, 1U> &v, ::coder::array<double, 2U> &d)
     {
-      int32_T j;
-      int32_T nv;
+      int j;
+      int nv;
       nv = v.size(0);
       d.set_size(v.size(0), v.size(0));
       j = v.size(0);
-      for (int32_T i{0}; i < j; i++) {
-        int32_T loop_ub;
+      for (int i{0}; i < j; i++) {
+        int loop_ub;
         loop_ub = v.size(0);
-        for (int32_T i1{0}; i1 < loop_ub; i1++) {
+        for (int i1{0}; i1 < loop_ub; i1++) {
           d[i1 + d.size(0) * i] = 0.0;
         }
       }
@@ -109,11 +109,11 @@ namespace RAT
       }
     }
 
-    void diag(const ::coder::array<real_T, 2U> &v, ::coder::array<real_T, 1U> &d)
+    void diag(const ::coder::array<double, 2U> &v, ::coder::array<double, 1U> &d)
     {
-      int32_T dlen;
-      int32_T j;
-      int32_T k;
+      int dlen;
+      int j;
+      int k;
       if ((v.size(0) == 1) && (v.size(1) == 1)) {
         d.set_size(1);
         d[0] = v[0];

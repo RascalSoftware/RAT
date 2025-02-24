@@ -19,14 +19,14 @@
 // Function Definitions
 namespace RAT
 {
-  void b_resampleLayers(const ::coder::array<real_T, 2U> &sldProfile, real_T
-                        minAngle, real_T nPoints, ::coder::array<real_T, 2U>
+  void b_resampleLayers(const ::coder::array<double, 2U> &sldProfile, double
+                        minAngle, double nPoints, ::coder::array<double, 2U>
                         &newSLD)
   {
     cell_56 expl_temp;
-    real_T b_sldProfile[2];
-    int32_T i;
-    int32_T n;
+    double b_sldProfile[2];
+    int i;
+    int n;
 
     //  Function handle for adaptive resampling
     //  f = @(x) SLDFunction(x);
@@ -39,7 +39,7 @@ namespace RAT
     newSLD.set_size(n - 1, 3);
     n--;
     for (i = 0; i < 3; i++) {
-      for (int32_T i1{0}; i1 < n; i1++) {
+      for (int i1{0}; i1 < n; i1++) {
         newSLD[i1 + newSLD.size(0) * i] = 0.0;
       }
     }
@@ -47,9 +47,9 @@ namespace RAT
     //  Now build a layer model from these resampled points
     i = coder::internal::intlength(expl_temp.f1.size(0), 1);
     for (n = 0; n <= i - 2; n++) {
-      real_T d;
-      real_T d1;
-      real_T thisLayRho;
+      double d;
+      double d1;
+      double thisLayRho;
       d = expl_temp.f1[(n + expl_temp.f1.size(0)) + 1];
       d1 = expl_temp.f1[n + expl_temp.f1.size(0)];
       if (d > d1) {
@@ -64,14 +64,14 @@ namespace RAT
     }
   }
 
-  void resampleLayers(const ::coder::array<real_T, 2U> &sldProfile, real_T
-                      minAngle, real_T nPoints, ::coder::array<real_T, 2U>
+  void resampleLayers(const ::coder::array<double, 2U> &sldProfile, double
+                      minAngle, double nPoints, ::coder::array<double, 2U>
                       &newSLD)
   {
     cell_56 expl_temp;
-    real_T b_sldProfile[2];
-    int32_T i;
-    int32_T n;
+    double b_sldProfile[2];
+    int i;
+    int n;
 
     //  Function handle for adaptive resampling
     //  f = @(x) SLDFunction(x);
@@ -84,7 +84,7 @@ namespace RAT
     newSLD.set_size(n - 1, 3);
     n--;
     for (i = 0; i < 3; i++) {
-      for (int32_T i1{0}; i1 < n; i1++) {
+      for (int i1{0}; i1 < n; i1++) {
         newSLD[i1 + newSLD.size(0) * i] = 0.0;
       }
     }
@@ -92,9 +92,9 @@ namespace RAT
     //  Now build a layer model from these resampled points
     i = coder::internal::intlength(expl_temp.f1.size(0), 1);
     for (n = 0; n <= i - 2; n++) {
-      real_T d;
-      real_T d1;
-      real_T thisLayRho;
+      double d;
+      double d1;
+      double thisLayRho;
       d = expl_temp.f1[(n + expl_temp.f1.size(0)) + 1];
       d1 = expl_temp.f1[n + expl_temp.f1.size(0)];
       if (d > d1) {

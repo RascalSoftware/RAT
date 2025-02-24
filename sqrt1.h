@@ -22,8 +22,8 @@ namespace RAT
 {
   namespace coder
   {
-    void b_sqrt(::coder::array<real_T, 2U> &x);
-    void c_sqrt(::coder::array<real_T, 2U> &x);
+    void b_sqrt(::coder::array<double, 2U> &x);
+    void c_sqrt(::coder::array<double, 2U> &x);
   }
 }
 

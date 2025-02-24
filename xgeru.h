@@ -26,8 +26,8 @@ namespace RAT
     {
       namespace blas
       {
-        void xgeru(int32_T m, int32_T n, int32_T ix0, int32_T iy0, int32_T incy,
-                   ::coder::array<real_T, 2U> &A, int32_T ia0, int32_T lda);
+        void xgeru(int m, int n, int ix0, int iy0, int incy, ::coder::array<
+                   double, 2U> &A, int ia0, int lda);
       }
     }
   }

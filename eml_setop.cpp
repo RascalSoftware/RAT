@@ -21,8 +21,8 @@ namespace RAT
 {
   namespace coder
   {
-    static real_T skip_to_last_equal_value(int32_T *k, const ::coder::array<
-      real_T, 2U> &x);
+    static double skip_to_last_equal_value(int *k, const ::coder::array<double,
+      2U> &x);
   }
 }
 
@@ -31,10 +31,10 @@ namespace RAT
 {
   namespace coder
   {
-    static real_T skip_to_last_equal_value(int32_T *k, const ::coder::array<
-      real_T, 2U> &x)
+    static double skip_to_last_equal_value(int *k, const ::coder::array<double,
+      2U> &x)
     {
-      real_T xk;
+      double xk;
       xk = x[*k - 1];
       while ((*k < x.size(1)) && ((std::abs(xk - x[*k]) < eps(xk / 2.0)) || (std::
                isinf(x[*k]) && std::isinf(xk) && ((x[*k] > 0.0) == (xk > 0.0)))))
@@ -45,18 +45,18 @@ namespace RAT
       return xk;
     }
 
-    void do_vectors(const ::coder::array<real_T, 2U> &a, real_T b, ::coder::
-                    array<real_T, 2U> &c, ::coder::array<int32_T, 1U> &ia,
-                    int32_T *ib_size)
+    void do_vectors(const ::coder::array<double, 2U> &a, double b, ::coder::
+                    array<double, 2U> &c, ::coder::array<int, 1U> &ia, int
+                    *ib_size)
     {
-      real_T ak;
-      int32_T b_ialast;
-      int32_T iafirst;
-      int32_T ialast;
-      int32_T iblast;
-      int32_T na;
-      int32_T nc;
-      int32_T nia;
+      double ak;
+      int b_ialast;
+      int iafirst;
+      int ialast;
+      int iblast;
+      int na;
+      int nc;
+      int nia;
       na = a.size(1);
       c.set_size(1, a.size(1));
       ia.set_size(a.size(1));

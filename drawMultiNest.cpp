@@ -25,19 +25,19 @@
 // Function Definitions
 namespace RAT
 {
-  void drawMultiNest(const ::coder::array<real_T, 1U> &fracvol, const ::coder::
-                     array<real_T, 2U> &Bs, const ::coder::array<real_T, 2U>
-                     &mus, real_T logLmin, const ::coder::array<real_T, 2U>
-                     &prior, const e_struct_T *data_f1, const struct4_T *data_f2,
-                     ::coder::array<real_T, 2U> &sample, real_T *logL)
+  void drawMultiNest(const ::coder::array<double, 1U> &fracvol, const ::coder::
+                     array<double, 2U> &Bs, const ::coder::array<double, 2U>
+                     &mus, double logLmin, const ::coder::array<double, 2U>
+                     &prior, const ProblemDefinition *data_f1, const Controls
+                     *data_f2, ::coder::array<double, 2U> &sample, double *logL)
   {
-    ::coder::array<real_T, 2U> b_Bs;
-    ::coder::array<real_T, 2U> b_mus;
-    ::coder::array<real_T, 2U> b_pnt;
-    ::coder::array<real_T, 2U> pnt;
-    ::coder::array<real_T, 1U> r;
-    ::coder::array<real_T, 1U> rescaledpnt;
-    int32_T ndims;
+    ::coder::array<double, 2U> b_Bs;
+    ::coder::array<double, 2U> b_mus;
+    ::coder::array<double, 2U> b_pnt;
+    ::coder::array<double, 2U> pnt;
+    ::coder::array<double, 2U> r;
+    ::coder::array<double, 2U> rescaledpnt;
+    int ndims;
 
     //  This function draws a multi-dimensional sample from the prior volume
     //  for use in the nested sampling algorithm. The new point will have a
@@ -54,14 +54,14 @@ namespace RAT
     pnt[0] = 1.0;
     pnt[1] = 1.0;
     sample.set_size(1, 0);
-    real_T inN;
-    real_T rval;
-    int32_T k;
-    int32_T k0;
+    double inN;
+    double rval;
+    int k;
+    int k0;
     boolean_T exitg1;
     do {
-      int32_T i;
-      int32_T i1;
+      int i;
+      int i1;
 
       //  find the ellipsoid from which to draw a new point
       rval = coder::b_rand();
@@ -88,10 +88,10 @@ namespace RAT
       //  draw points from that ellipsoid until logL >= logLmin
       *logL = rtMinusInf;
       while (*logL < logLmin) {
-        int32_T b_loop_ub;
-        int32_T i2;
-        int32_T in_range;
-        int32_T loop_ub;
+        int b_loop_ub;
+        int i2;
+        int in_range;
+        int loop_ub;
         in_range = 1;
 
         //  default value
@@ -100,7 +100,7 @@ namespace RAT
         b_loop_ub = i1 - i;
         b_Bs.set_size(b_loop_ub, Bs.size(1));
         for (i2 = 0; i2 < loop_ub; i2++) {
-          for (int32_T i3{0}; i3 < b_loop_ub; i3++) {
+          for (int i3{0}; i3 < b_loop_ub; i3++) {
             b_Bs[i3 + b_Bs.size(0) * i2] = Bs[(i + i3) + Bs.size(0) * i2];
           }
         }
@@ -119,8 +119,8 @@ namespace RAT
         }
 
         //  make sure that the point lies in unit hypercube
-        for (int32_T ii{0}; ii < ndims; ii++) {
-          real_T d;
+        for (int ii{0}; ii < ndims; ii++) {
+          double d;
           d = b_pnt[ii];
           if ((d < 0.0) || (d > 1.0)) {
             in_range = 0;
@@ -141,8 +141,8 @@ namespace RAT
 
           //  rescale point back to full range
           rescaleParameters(prior, b_pnt, r);
-          rescaledpnt.set_size(r.size(0));
-          loop_ub = r.size(0);
+          rescaledpnt.set_size(1, r.size(1));
+          loop_ub = r.size(1);
           for (i2 = 0; i2 < loop_ub; i2++) {
             rescaledpnt[i2] = r[i2];
           }

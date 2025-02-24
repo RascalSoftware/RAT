@@ -22,12 +22,12 @@ namespace RAT
     {
       namespace lapack
       {
-        void xunormqr(const ::coder::array<real_T, 2U> &Q, ::coder::array<real_T,
-                      1U> &C, const ::coder::array<real_T, 1U> &tau)
+        void xunormqr(const ::coder::array<double, 2U> &Q, ::coder::array<double,
+                      1U> &C, const ::coder::array<double, 1U> &tau)
         {
-          int32_T m;
-          int32_T mn;
-          int32_T u0;
+          int m;
+          int mn;
+          int u0;
           m = Q.size(0);
           u0 = Q.size(0);
           mn = Q.size(1);
@@ -35,10 +35,10 @@ namespace RAT
             mn = u0;
           }
 
-          for (int32_T j{0}; j < mn; j++) {
+          for (int j{0}; j < mn; j++) {
             if (tau[j] != 0.0) {
-              real_T wj;
-              int32_T i;
+              double wj;
+              int i;
               wj = C[j];
               u0 = j + 2;
               for (i = u0; i <= m; i++) {
@@ -56,12 +56,12 @@ namespace RAT
           }
         }
 
-        void xunormqr(const ::coder::array<real_T, 1U> &Q, ::coder::array<real_T,
-                      2U> &C, const real_T tau_data[])
+        void xunormqr(const ::coder::array<double, 1U> &Q, ::coder::array<double,
+                      2U> &C, const double tau_data[])
         {
-          int32_T m;
-          int32_T mn;
-          int32_T nb;
+          int m;
+          int mn;
+          int nb;
           m = Q.size(0);
           nb = C.size(1);
           if (Q.size(0) < 1) {
@@ -70,11 +70,11 @@ namespace RAT
             mn = 0;
           }
 
-          for (int32_T j{0}; j <= mn; j++) {
+          for (int j{0}; j <= mn; j++) {
             if (tau_data[0] != 0.0) {
-              for (int32_T k{0}; k < nb; k++) {
-                real_T wj;
-                int32_T i;
+              for (int k{0}; k < nb; k++) {
+                double wj;
+                int i;
                 wj = C[C.size(0) * k];
                 for (i = 2; i <= m; i++) {
                   wj += Q[i - 1] * C[(i + C.size(0) * k) - 1];

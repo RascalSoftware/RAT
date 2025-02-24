@@ -20,12 +20,12 @@ namespace RAT
 {
   namespace coder
   {
-    void b_bsxfun(const ::coder::array<real_T, 1U> &a, const ::coder::array<
-                  real_T, 1U> &b, ::coder::array<real_T, 1U> &c)
+    void b_bsxfun(const ::coder::array<double, 1U> &a, const ::coder::array<
+                  double, 1U> &b, ::coder::array<double, 1U> &c)
     {
-      int32_T acoef;
-      int32_T csz_idx_0;
-      int32_T u0;
+      int acoef;
+      int csz_idx_0;
+      int u0;
       u0 = b.size(0);
       acoef = a.size(0);
       if (u0 < acoef) {
@@ -58,7 +58,7 @@ namespace RAT
 
       c.set_size(acoef);
       if (csz_idx_0 != 0) {
-        int32_T bcoef;
+        int bcoef;
         acoef = (a.size(0) != 1);
         bcoef = (b.size(0) != 1);
         u0 = csz_idx_0 - 1;
@@ -68,17 +68,17 @@ namespace RAT
       }
     }
 
-    void b_bsxfun(const ::coder::array<real_T, 1U> &a, ::coder::array<real_T, 1U>
+    void b_bsxfun(const ::coder::array<double, 1U> &a, ::coder::array<double, 1U>
                   &c)
     {
       c.set_size(a.size(0));
       if (a.size(0) != 0) {
-        int32_T acoef;
-        int32_T i;
+        int acoef;
+        int i;
         acoef = (a.size(0) != 1);
         i = a.size(0) - 1;
-        for (int32_T k{0}; k <= i; k++) {
-          real_T x;
+        for (int k{0}; k <= i; k++) {
+          double x;
           x = a[acoef * k];
           if ((!std::isnan(x)) && (x < 0.0)) {
             c[k] = 0.0;
@@ -89,12 +89,12 @@ namespace RAT
       }
     }
 
-    void bsxfun(const ::coder::array<real_T, 1U> &a, const ::coder::array<real_T,
-                1U> &b, ::coder::array<real_T, 1U> &c)
+    void bsxfun(const ::coder::array<double, 1U> &a, const ::coder::array<double,
+                1U> &b, ::coder::array<double, 1U> &c)
     {
-      int32_T acoef;
-      int32_T csz_idx_0;
-      int32_T u0;
+      int acoef;
+      int csz_idx_0;
+      int u0;
       u0 = b.size(0);
       acoef = a.size(0);
       if (u0 < acoef) {
@@ -127,7 +127,7 @@ namespace RAT
 
       c.set_size(acoef);
       if (csz_idx_0 != 0) {
-        int32_T bcoef;
+        int bcoef;
         acoef = (a.size(0) != 1);
         bcoef = (b.size(0) != 1);
         u0 = csz_idx_0 - 1;
@@ -137,27 +137,27 @@ namespace RAT
       }
     }
 
-    void bsxfun(const ::coder::array<real_T, 1U> &a, ::coder::array<real_T, 1U>
+    void bsxfun(const ::coder::array<double, 1U> &a, ::coder::array<double, 1U>
                 &c)
     {
       c.set_size(a.size(0));
       if (a.size(0) != 0) {
-        int32_T acoef;
-        int32_T i;
+        int acoef;
+        int i;
         acoef = (a.size(0) != 1);
         i = a.size(0) - 1;
-        for (int32_T k{0}; k <= i; k++) {
+        for (int k{0}; k <= i; k++) {
           c[k] = a[acoef * k];
         }
       }
     }
 
-    void c_bsxfun(const ::coder::array<real_T, 1U> &a, const ::coder::array<
-                  real_T, 1U> &b, ::coder::array<real_T, 1U> &c)
+    void c_bsxfun(const ::coder::array<double, 1U> &a, const ::coder::array<
+                  double, 1U> &b, ::coder::array<double, 1U> &c)
     {
-      int32_T acoef;
-      int32_T csz_idx_0;
-      int32_T u0;
+      int acoef;
+      int csz_idx_0;
+      int u0;
       u0 = b.size(0);
       acoef = a.size(0);
       if (u0 < acoef) {
@@ -190,7 +190,7 @@ namespace RAT
 
       c.set_size(acoef);
       if (csz_idx_0 != 0) {
-        int32_T bcoef;
+        int bcoef;
         acoef = (a.size(0) != 1);
         bcoef = (b.size(0) != 1);
         u0 = csz_idx_0 - 1;
@@ -200,17 +200,17 @@ namespace RAT
       }
     }
 
-    void c_bsxfun(const ::coder::array<real_T, 1U> &a, ::coder::array<real_T, 1U>
+    void c_bsxfun(const ::coder::array<double, 1U> &a, ::coder::array<double, 1U>
                   &c)
     {
       c.set_size(a.size(0));
       if (a.size(0) != 0) {
-        int32_T acoef;
-        int32_T i;
+        int acoef;
+        int i;
         acoef = (a.size(0) != 1);
         i = a.size(0) - 1;
-        for (int32_T k{0}; k <= i; k++) {
-          real_T x;
+        for (int k{0}; k <= i; k++) {
+          double x;
           x = a[acoef * k];
           if ((!std::isnan(x)) && (x > 1.0)) {
             c[k] = 1.0;
@@ -221,12 +221,12 @@ namespace RAT
       }
     }
 
-    void d_bsxfun(const ::coder::array<real_T, 1U> &a, const ::coder::array<
-                  real_T, 1U> &b, ::coder::array<real_T, 1U> &c)
+    void d_bsxfun(const ::coder::array<double, 1U> &a, const ::coder::array<
+                  double, 1U> &b, ::coder::array<double, 1U> &c)
     {
-      int32_T acoef;
-      int32_T csz_idx_0;
-      int32_T u0;
+      int acoef;
+      int csz_idx_0;
+      int u0;
       u0 = b.size(0);
       acoef = a.size(0);
       if (u0 < acoef) {
@@ -259,7 +259,7 @@ namespace RAT
 
       c.set_size(acoef);
       if (csz_idx_0 != 0) {
-        int32_T bcoef;
+        int bcoef;
         acoef = (a.size(0) != 1);
         bcoef = (b.size(0) != 1);
         u0 = csz_idx_0 - 1;
@@ -269,12 +269,12 @@ namespace RAT
       }
     }
 
-    void e_bsxfun(const ::coder::array<real_T, 1U> &a, const ::coder::array<
-                  real_T, 1U> &b, ::coder::array<real_T, 1U> &c)
+    void e_bsxfun(const ::coder::array<double, 1U> &a, const ::coder::array<
+                  double, 1U> &b, ::coder::array<double, 1U> &c)
     {
-      int32_T acoef;
-      int32_T csz_idx_0;
-      int32_T u0;
+      int acoef;
+      int csz_idx_0;
+      int u0;
       u0 = b.size(0);
       acoef = a.size(0);
       if (u0 < acoef) {
@@ -307,7 +307,7 @@ namespace RAT
 
       c.set_size(acoef);
       if (csz_idx_0 != 0) {
-        int32_T bcoef;
+        int bcoef;
         acoef = (a.size(0) != 1);
         bcoef = (b.size(0) != 1);
         u0 = csz_idx_0 - 1;
@@ -317,12 +317,12 @@ namespace RAT
       }
     }
 
-    void f_bsxfun(const ::coder::array<real_T, 1U> &a, const ::coder::array<
-                  real_T, 1U> &b, ::coder::array<real_T, 1U> &c)
+    void f_bsxfun(const ::coder::array<double, 1U> &a, const ::coder::array<
+                  double, 1U> &b, ::coder::array<double, 1U> &c)
     {
-      int32_T acoef;
-      int32_T csz_idx_0;
-      int32_T u0;
+      int acoef;
+      int csz_idx_0;
+      int u0;
       u0 = b.size(0);
       acoef = a.size(0);
       if (u0 < acoef) {
@@ -355,7 +355,7 @@ namespace RAT
 
       c.set_size(acoef);
       if (csz_idx_0 != 0) {
-        int32_T bcoef;
+        int bcoef;
         acoef = (a.size(0) != 1);
         bcoef = (b.size(0) != 1);
         u0 = csz_idx_0 - 1;

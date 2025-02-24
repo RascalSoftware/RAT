@@ -26,10 +26,10 @@ namespace RAT
     {
       namespace blas
       {
-        void xrot(int32_T n, ::coder::array<real_T, 2U> &x, int32_T ix0, int32_T
-                  incx, int32_T iy0, int32_T incy, real_T c, real_T s);
-        void xrot(int32_T n, ::coder::array<real_T, 2U> &x, int32_T ix0, int32_T
-                  iy0, real_T c, real_T s);
+        void xrot(int n, ::coder::array<double, 2U> &x, int ix0, int incx, int
+                  iy0, int incy, double c, double s);
+        void xrot(int n, ::coder::array<double, 2U> &x, int ix0, int iy0, double
+                  c, double s);
       }
     }
   }

@@ -22,7 +22,7 @@ namespace RAT
 {
   namespace coder
   {
-    void cov(const ::coder::array<real_T, 2U> &x, ::coder::array<real_T, 2U> &xy);
+    void cov(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U> &xy);
   }
 }
 

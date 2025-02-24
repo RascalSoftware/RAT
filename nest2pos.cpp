@@ -20,27 +20,27 @@
 // Function Definitions
 namespace RAT
 {
-  void nest2pos(const ::coder::array<real_T, 2U> &nest_samples, real_T nLive, ::
-                coder::array<real_T, 2U> &post_samples)
+  void nest2pos(const ::coder::array<double, 2U> &nest_samples, double nLive, ::
+                coder::array<double, 2U> &post_samples)
   {
-    ::coder::array<real_T, 2U> b_nest_samples;
-    ::coder::array<real_T, 2U> y;
-    ::coder::array<real_T, 1U> b_i;
-    ::coder::array<real_T, 1U> c_logWt;
-    ::coder::array<real_T, 1U> logWt;
-    ::coder::array<real_T, 1U> logrand;
-    ::coder::array<int32_T, 1U> idx;
-    ::coder::array<int32_T, 1U> r;
+    ::coder::array<double, 2U> b_nest_samples;
+    ::coder::array<double, 2U> y;
+    ::coder::array<double, 1U> b_i;
+    ::coder::array<double, 1U> c_logWt;
+    ::coder::array<double, 1U> logWt;
+    ::coder::array<double, 1U> logrand;
+    ::coder::array<int, 1U> idx;
+    ::coder::array<int, 1U> r;
     ::coder::array<boolean_T, 1U> b_logWt;
-    real_T b;
-    real_T logWtmax;
-    int32_T i;
-    int32_T i1;
-    int32_T k;
-    int32_T loop_ub;
-    int32_T result;
-    int8_T input_sizes_idx_1;
-    int8_T sizes_idx_1;
+    double b;
+    double logWtmax;
+    int i;
+    int i1;
+    int k;
+    int loop_ub;
+    int result;
+    signed char input_sizes_idx_1;
+    signed char sizes_idx_1;
     boolean_T empty_non_axis_sizes;
 
     //
@@ -53,7 +53,7 @@ namespace RAT
     //  John Veitch 2009 (modified by J. Romano 2012)
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     //  calculate logWt = log(L*w) = logL + logw = logL - i/nLive
-    b = static_cast<real_T>(nest_samples.size(0)) - nLive;
+    b = static_cast<double>(nest_samples.size(0)) - nLive;
     if (std::isnan(b)) {
       y.set_size(1, 1);
       y[0] = rtNaN;
@@ -63,16 +63,16 @@ namespace RAT
       y.set_size(1, 1);
       y[0] = rtNaN;
     } else {
-      k = static_cast<int32_T>(std::floor(b - 1.0));
+      k = static_cast<int>(std::floor(b - 1.0));
       y.set_size(1, k + 1);
       for (i = 0; i <= k; i++) {
-        y[i] = static_cast<real_T>(i) + 1.0;
+        y[i] = static_cast<double>(i) + 1.0;
       }
     }
 
-    b = static_cast<real_T>(nest_samples.size(0)) - nLive;
+    b = static_cast<double>(nest_samples.size(0)) - nLive;
     k = y.size(1);
-    i = static_cast<int32_T>(nLive) + y.size(1);
+    i = static_cast<int>(nLive) + y.size(1);
     logWt.set_size(i);
     for (i1 = 0; i1 < k; i1++) {
       logWt[i1] = nest_samples[i1 + nest_samples.size(0) * (nest_samples.size(1)
@@ -95,7 +95,7 @@ namespace RAT
     //  Wt -> Wt/Wtmax
     //  accept a nested sample as a posterior sample only if its
     //  value is > than a random number drawn from a unif distribution
-    coder::b_rand(static_cast<real_T>(nest_samples.size(0)), b_i);
+    coder::b_rand(static_cast<double>(nest_samples.size(0)), b_i);
     logrand.set_size(b_i.size(0));
     k = b_i.size(0);
     for (i = 0; i < k; i++) {
@@ -150,7 +150,7 @@ namespace RAT
     empty_non_axis_sizes = (result == 0);
     if (empty_non_axis_sizes || ((b_i.size(0) != 0) && (nest_samples.size(1) !=
           0))) {
-      input_sizes_idx_1 = static_cast<int8_T>(nest_samples.size(1));
+      input_sizes_idx_1 = static_cast<signed char>(nest_samples.size(1));
     } else {
       input_sizes_idx_1 = 0;
     }
@@ -174,7 +174,7 @@ namespace RAT
     c_logWt.set_size(b_i.size(0));
     k = b_i.size(0);
     for (i = 0; i < k; i++) {
-      c_logWt[i] = logWt[static_cast<int32_T>(b_i[i]) - 1];
+      c_logWt[i] = logWt[static_cast<int>(b_i[i]) - 1];
     }
 
     post_samples.set_size(result, input_sizes_idx_1 + sizes_idx_1);

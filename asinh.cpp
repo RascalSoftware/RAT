@@ -23,7 +23,7 @@ namespace RAT
     {
       namespace scalar
       {
-        void b_asinh(real_T *x)
+        void b_asinh(double *x)
         {
           boolean_T xneg;
           xneg = (*x < 0.0);
@@ -36,7 +36,7 @@ namespace RAT
           } else if (*x > 2.0) {
             *x = std::log(2.0 * *x + 1.0 / (std::sqrt(*x * *x + 1.0) + *x));
           } else {
-            real_T t;
+            double t;
             t = *x * *x;
             *x += t / (std::sqrt(t + 1.0) + 1.0);
             b_log1p(x);

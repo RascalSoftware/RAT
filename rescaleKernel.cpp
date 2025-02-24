@@ -24,21 +24,21 @@ namespace RAT
 {
   namespace coder
   {
-    void rescaleKernel(::coder::array<real_T, 1U> &A, const ::coder::array<
-                       real_T, 1U> &inputMin, const ::coder::array<real_T, 1U>
+    void rescaleKernel(::coder::array<double, 1U> &A, const ::coder::array<
+                       double, 1U> &inputMin, const ::coder::array<double, 1U>
                        &inputMax)
     {
-      ::coder::array<real_T, 1U> b_A;
-      ::coder::array<real_T, 1U> e1;
-      ::coder::array<real_T, 1U> iMax;
-      ::coder::array<real_T, 1U> iMin;
-      ::coder::array<real_T, 1U> r;
-      ::coder::array<real_T, 1U> r3;
-      ::coder::array<real_T, 1U> sigma;
+      ::coder::array<double, 1U> b_A;
+      ::coder::array<double, 1U> e1;
+      ::coder::array<double, 1U> iMax;
+      ::coder::array<double, 1U> iMin;
+      ::coder::array<double, 1U> r;
+      ::coder::array<double, 1U> r3;
+      ::coder::array<double, 1U> sigma;
       ::coder::array<boolean_T, 1U> constReg;
       if (A.size(0) != 0) {
-        int32_T i;
-        int32_T k;
+        int i;
+        int k;
         internal::minimum2(inputMax, r);
         c_bsxfun(r, inputMin, sigma);
         b_A.set_size(A.size(0));
@@ -103,14 +103,14 @@ namespace RAT
 
         k = iMax.size(0);
         for (i = 0; i < k; i++) {
-          iMax[i] = 1.0 / ((iMax[i] / r3[i] - iMin[i] / r3[i]) +
-                           static_cast<real_T>(constReg[i]) / r3[i]) / r3[i];
+          iMax[i] = 1.0 / ((iMax[i] / r3[i] - iMin[i] / r3[i]) + static_cast<
+                           double>(constReg[i]) / r3[i]) / r3[i];
         }
 
         k = r3.size(0);
         for (i = 0; i < k; i++) {
-          real_T r3_tmp;
-          r3_tmp = static_cast<real_T>(constReg[i]) / sigma[i];
+          double r3_tmp;
+          r3_tmp = static_cast<double>(constReg[i]) / sigma[i];
           r3[i] = r3[i] * (((b_A[i] * e1[i] - r[i] * (1.0 / r3[i])) + r3_tmp *
                             e1[i]) / ((b_A[i] - r[i]) + r3_tmp));
         }

@@ -21,7 +21,7 @@ namespace RAT
 {
   namespace coder
   {
-    void b_getenv(::coder::array<char_T, 2U> &value)
+    void b_getenv(::coder::array<char, 2U> &value)
     {
       char *rawValue;
       rawValue = getenv("RAT_PATH");
@@ -30,9 +30,9 @@ namespace RAT
       } else {
         size_t length;
         length = strlen(rawValue);
-        value.set_size(1, (int32_T)length);
-        memcpy((void *)&value[0], (void *)rawValue, (size_t)(int32_T)length *
-               sizeof(char));
+        value.set_size(1, (int)length);
+        memcpy((void *)&value[0], (void *)rawValue, (size_t)(int)length * sizeof
+               (char));
       }
     }
   }

@@ -20,24 +20,24 @@
 // Function Definitions
 namespace RAT
 {
-  void applyBackgroundCorrection(::coder::array<real_T, 2U> &reflectivity, ::
-    coder::array<real_T, 2U> &simulation, ::coder::array<real_T, 2U>
-    &shiftedData, const ::coder::array<real_T, 2U> &background, const char_T
-    backgroundAction_data[], const int32_T backgroundAction_size[2], ::coder::
-    array<real_T, 2U> &outputData)
+  void applyBackgroundCorrection(::coder::array<double, 2U> &reflectivity, ::
+    coder::array<double, 2U> &simulation, ::coder::array<double, 2U>
+    &shiftedData, const ::coder::array<double, 2U> &background, const char
+    backgroundAction_data[], const int backgroundAction_size[2], ::coder::array<
+    double, 2U> &outputData)
   {
-    ::coder::array<real_T, 1U> b_background;
-    ::coder::array<real_T, 1U> b_reflectivity;
-    ::coder::array<real_T, 1U> c_shiftedData;
-    ::coder::array<real_T, 1U> r;
-    ::coder::array<int32_T, 1U> highXVals;
-    ::coder::array<int32_T, 1U> lowXVals;
+    ::coder::array<double, 1U> b_background;
+    ::coder::array<double, 1U> b_reflectivity;
+    ::coder::array<double, 1U> c_shiftedData;
+    ::coder::array<double, 1U> r;
+    ::coder::array<int, 1U> highXVals;
+    ::coder::array<int, 1U> lowXVals;
     ::coder::array<boolean_T, 1U> b_simulation;
-    real_T b_shiftedData;
-    int32_T i;
-    int32_T i1;
-    int32_T i2;
-    int32_T k;
+    double b_shiftedData;
+    int i;
+    int i1;
+    int i2;
+    int k;
 
     //  Find where the data range lies within the simulation range
     b_shiftedData = shiftedData[0];
@@ -116,7 +116,7 @@ namespace RAT
       //  Subtract the background data from the shiftedData
       k = shiftedData.size(0) - 1;
       c_shiftedData.set_size(shiftedData.size(0));
-      for (int32_T i3{0}; i3 <= k; i3++) {
+      for (int i3{0}; i3 <= k; i3++) {
         c_shiftedData[i3] = shiftedData[i3 + shiftedData.size(0)] - background
           [(i + i3) + background.size(0)];
       }

@@ -22,15 +22,15 @@ namespace RAT
 {
   namespace coder
   {
-    void b_power(const ::coder::array<real_T, 1U> &b, ::coder::array<real_T, 1U>
+    void b_power(const ::coder::array<double, 1U> &b, ::coder::array<double, 1U>
                  &y);
-    void b_power(const ::coder::array<real_T, 2U> &a, ::coder::array<real_T, 2U>
+    void b_power(const ::coder::array<double, 2U> &a, ::coder::array<double, 2U>
                  &y);
     void power(const ::coder::array<creal_T, 2U> &a, ::coder::array<creal_T, 2U>
                &y);
-    void power(const ::coder::array<real_T, 2U> &a, ::coder::array<real_T, 2U>
+    void power(const ::coder::array<double, 2U> &a, ::coder::array<double, 2U>
                &y);
-    void power(const ::coder::array<real_T, 1U> &a, ::coder::array<real_T, 1U>
+    void power(const ::coder::array<double, 1U> &a, ::coder::array<double, 1U>
                &y);
   }
 }

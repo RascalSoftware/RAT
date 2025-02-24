@@ -20,9 +20,9 @@ namespace RAT
   {
     namespace internal
     {
-      boolean_T c_anon(int32_T n, const ::coder::array<boolean_T, 1U> &X)
+      boolean_T c_anon(int n, const ::coder::array<boolean_T, 1U> &X)
       {
-        int32_T k;
+        int k;
         boolean_T exitg1;
         boolean_T varargout_1;
         varargout_1 = false;
@@ -40,9 +40,9 @@ namespace RAT
         return varargout_1;
       }
 
-      boolean_T d_anon(int32_T n, const boolean_T X_data[])
+      boolean_T d_anon(int n, const boolean_T X_data[])
       {
-        int32_T k;
+        int k;
         boolean_T exitg1;
         boolean_T varargout_1;
         varargout_1 = true;
@@ -60,9 +60,9 @@ namespace RAT
         return varargout_1;
       }
 
-      void e_anon(int32_T n, const boolean_T X_data[], boolean_T Y_data[])
+      void e_anon(int n, const boolean_T X_data[], boolean_T Y_data[])
       {
-        int32_T k;
+        int k;
         boolean_T exitg1;
         Y_data[0] = true;
         k = 0;

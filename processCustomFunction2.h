@@ -31,14 +31,14 @@ namespace RAT
   {
     namespace customLayers
     {
-      void processCustomFunction(const ::coder::array<real_T, 2U>
-        &contrastBulkIns, const ::coder::array<real_T, 2U> &contrastBulkOuts,
-        const ::coder::array<real_T, 2U> &bulkInArray, const ::coder::array<
-        real_T, 2U> &bulkOutArray, const ::coder::array<real_T, 2U> &cCustFiles,
-        real_T numberOfContrasts, const ::coder::array<cell_wrap_10, 2U>
-        &customFiles, const ::coder::array<real_T, 2U> &params, boolean_T
+      void processCustomFunction(const ::coder::array<double, 2U>
+        &contrastBulkIns, const ::coder::array<double, 2U> &contrastBulkOuts,
+        const ::coder::array<double, 2U> &bulkInArray, const ::coder::array<
+        double, 2U> &bulkOutArray, const ::coder::array<double, 2U> &cCustFiles,
+        double numberOfContrasts, const ::coder::array<cell_wrap_10, 2U>
+        &customFiles, const ::coder::array<double, 2U> &params, boolean_T
         useImaginary, ::coder::array<cell_wrap_9, 2U> &resampledLayers, ::coder::
-        array<real_T, 1U> &subRoughs);
+        array<double, 1U> &subRoughs);
     }
   }
 }

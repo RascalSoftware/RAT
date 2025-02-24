@@ -20,11 +20,11 @@ namespace RAT
 {
   namespace coder
   {
-    void b_discretize(const ::coder::array<real_T, 2U> &x, const real_T
-                      edgesInput[3], ::coder::array<real_T, 2U> &bins)
+    void b_discretize(const ::coder::array<double, 2U> &x, const double
+                      edgesInput[3], ::coder::array<double, 2U> &bins)
     {
-      int32_T i;
-      int32_T nx;
+      int i;
+      int nx;
       bins.set_size(1, x.size(1));
       nx = x.size(1);
       for (i = 0; i < nx; i++) {
@@ -32,13 +32,13 @@ namespace RAT
       }
 
       nx = x.size(1);
-      for (int32_T k{0}; k < nx; k++) {
-        real_T bGuess;
-        real_T d;
+      for (int k{0}; k < nx; k++) {
+        double bGuess;
+        double d;
         d = x[k];
         bGuess = std::ceil(d / edgesInput[1]);
         if ((bGuess >= 1.0) && (bGuess < 3.0)) {
-          i = static_cast<int32_T>(bGuess);
+          i = static_cast<int>(bGuess);
           if ((d >= edgesInput[i - 1]) && (d < edgesInput[i])) {
             bins[k] = bGuess;
           } else {
@@ -50,13 +50,13 @@ namespace RAT
       }
     }
 
-    void discretize(const ::coder::array<real_T, 2U> &x, const real_T
-                    edgesInput_data[], ::coder::array<real_T, 2U> &bins)
+    void discretize(const ::coder::array<double, 2U> &x, const double
+                    edgesInput_data[], ::coder::array<double, 2U> &bins)
     {
-      real_T delta;
-      real_T leftEdge;
-      int32_T i;
-      int32_T nx;
+      double delta;
+      double leftEdge;
+      int i;
+      int nx;
       bins.set_size(1, x.size(1));
       nx = x.size(1);
       for (i = 0; i < nx; i++) {
@@ -66,14 +66,14 @@ namespace RAT
       nx = x.size(1);
       leftEdge = edgesInput_data[0];
       delta = edgesInput_data[1] - edgesInput_data[0];
-      for (int32_T k{0}; k < nx; k++) {
-        real_T d;
+      for (int k{0}; k < nx; k++) {
+        double d;
         d = x[k];
         if ((d >= leftEdge) && (d <= edgesInput_data[3])) {
-          real_T bGuess;
+          double bGuess;
           bGuess = std::ceil((d - leftEdge) / delta);
           if ((bGuess >= 1.0) && (bGuess < 4.0)) {
-            i = static_cast<int32_T>(bGuess);
+            i = static_cast<int>(bGuess);
             if ((d >= edgesInput_data[i - 1]) && (d < edgesInput_data[i])) {
               bins[k] = bGuess;
             } else {

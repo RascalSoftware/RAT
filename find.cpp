@@ -18,11 +18,11 @@ namespace RAT
 {
   namespace coder
   {
-    void b_eml_find(const ::coder::array<boolean_T, 1U> &x, int32_T i_data[],
-                    int32_T *i_size)
+    void b_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[], int
+                    *i_size)
     {
-      int32_T idx;
-      int32_T ii;
+      int idx;
+      int ii;
       boolean_T exitg1;
       *i_size = (1 <= x.size(0));
       ii = x.size(0);
@@ -47,12 +47,12 @@ namespace RAT
       }
     }
 
-    void c_eml_find(const ::coder::array<boolean_T, 1U> &x, ::coder::array<
-                    int32_T, 1U> &i)
+    void c_eml_find(const ::coder::array<boolean_T, 1U> &x, ::coder::array<int,
+                    1U> &i)
     {
-      int32_T idx;
-      int32_T ii;
-      int32_T k;
+      int idx;
+      int ii;
+      int k;
       boolean_T exitg1;
       k = (1 <= x.size(0));
       idx = 0;
@@ -78,16 +78,16 @@ namespace RAT
           i.set_size(0);
         }
       } else {
-        i.set_size(static_cast<int32_T>(1 <= idx));
+        i.set_size(static_cast<int>(1 <= idx));
       }
     }
 
-    void d_eml_find(const ::coder::array<real_T, 2U> &x, int32_T i_data[],
-                    int32_T i_size[2])
+    void d_eml_find(const ::coder::array<double, 2U> &x, int i_data[], int
+                    i_size[2])
     {
-      int32_T idx;
-      int32_T ii;
-      int32_T nx;
+      int idx;
+      int ii;
+      int nx;
       boolean_T exitg1;
       nx = x.size(1);
       idx = 0;
@@ -121,10 +121,10 @@ namespace RAT
       }
     }
 
-    void e_eml_find(const boolean_T x[2], int32_T i_data[], int32_T i_size[2])
+    void e_eml_find(const boolean_T x[2], int i_data[], int i_size[2])
     {
-      int32_T idx;
-      int32_T ii;
+      int idx;
+      int ii;
       boolean_T exitg1;
       idx = 0;
       i_size[0] = 1;
@@ -151,12 +151,12 @@ namespace RAT
       }
     }
 
-    void eml_find(const ::coder::array<boolean_T, 1U> &x, ::coder::array<int32_T,
-                  1U> &i)
+    void eml_find(const ::coder::array<boolean_T, 1U> &x, ::coder::array<int, 1U>
+                  &i)
     {
-      int32_T idx;
-      int32_T ii;
-      int32_T nx;
+      int idx;
+      int ii;
+      int nx;
       boolean_T exitg1;
       nx = x.size(0);
       idx = 0;
@@ -190,12 +190,12 @@ namespace RAT
       }
     }
 
-    void f_eml_find(const ::coder::array<boolean_T, 2U> &x, ::coder::array<
-                    int32_T, 1U> &i)
+    void f_eml_find(const ::coder::array<boolean_T, 2U> &x, ::coder::array<int,
+                    1U> &i)
     {
-      int32_T idx;
-      int32_T ii;
-      int32_T nx;
+      int idx;
+      int ii;
+      int nx;
       boolean_T exitg1;
       nx = x.size(0) * x.size(1);
       idx = 0;
@@ -229,12 +229,12 @@ namespace RAT
       }
     }
 
-    void g_eml_find(const ::coder::array<boolean_T, 2U> &x, ::coder::array<
-                    int32_T, 2U> &i)
+    void g_eml_find(const ::coder::array<boolean_T, 2U> &x, ::coder::array<int,
+                    2U> &i)
     {
-      int32_T idx;
-      int32_T ii;
-      int32_T nx;
+      int idx;
+      int ii;
+      int nx;
       boolean_T exitg1;
       nx = x.size(1);
       idx = 0;

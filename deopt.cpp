@@ -34,76 +34,75 @@
 // Function Definitions
 namespace RAT
 {
-  void deopt(const e_struct_T *problem, const char_T controls_parallel_data[],
-             const int32_T controls_parallel_size[2], real_T
-             controls_resampleMinAngle, real_T controls_resampleNPoints,
-             boolean_T controls_calcSldDuringFit, const char_T
-             controls_display_data[], const int32_T controls_display_size[2],
-             real_T controls_updateFreq, real_T controls_updatePlotFreq, const
-             char_T controls_IPCFilePath_data[], const int32_T
-             controls_IPCFilePath_size[2], const l_struct_T *S_struct, ::coder::
-             array<real_T, 2U> &FVr_bestmem)
+  void deopt(const ProblemDefinition *problem, const char
+             controls_parallel_data[], const int controls_parallel_size[2],
+             double controls_resampleMinAngle, double controls_resampleNPoints,
+             boolean_T controls_calcSldDuringFit, const char
+             controls_display_data[], const int controls_display_size[2], double
+             controls_updateFreq, double controls_updatePlotFreq, const char
+             controls_IPCFilePath_data[], const int controls_IPCFilePath_size[2],
+             const i_struct_T *S_struct, ::coder::array<double, 2U> &FVr_bestmem)
   {
     ::coder::array<struct_T, 1U> S_val;
-    ::coder::array<real_T, 2U> FM_bm;
-    ::coder::array<real_T, 2U> FM_origin;
-    ::coder::array<real_T, 2U> FM_pm1;
-    ::coder::array<real_T, 2U> FM_pm2;
-    ::coder::array<real_T, 2U> FM_pm3;
-    ::coder::array<real_T, 2U> FM_pm5;
-    ::coder::array<real_T, 2U> FM_pop;
-    ::coder::array<real_T, 2U> FM_ui;
-    ::coder::array<real_T, 2U> FVr_a1;
-    ::coder::array<real_T, 2U> FVr_a2;
-    ::coder::array<real_T, 2U> FVr_a3;
-    ::coder::array<real_T, 2U> FVr_a4;
-    ::coder::array<real_T, 2U> FVr_a5;
-    ::coder::array<real_T, 2U> FVr_bestmemit;
-    ::coder::array<real_T, 2U> FVr_rot;
-    ::coder::array<real_T, 2U> FVr_rt;
-    ::coder::array<real_T, 2U> b;
-    ::coder::array<real_T, 2U> b_FM_pop;
-    ::coder::array<real_T, 2U> b_FVr_rot;
-    ::coder::array<real_T, 2U> b_FVr_rt;
-    ::coder::array<real_T, 2U> r;
-    ::coder::array<real_T, 1U> b_b;
-    ::coder::array<real_T, 1U> f1;
-    ::coder::array<char_T, 2U> charStr;
+    ::coder::array<double, 2U> FM_bm;
+    ::coder::array<double, 2U> FM_origin;
+    ::coder::array<double, 2U> FM_pm1;
+    ::coder::array<double, 2U> FM_pm2;
+    ::coder::array<double, 2U> FM_pm3;
+    ::coder::array<double, 2U> FM_pm5;
+    ::coder::array<double, 2U> FM_pop;
+    ::coder::array<double, 2U> FM_ui;
+    ::coder::array<double, 2U> FVr_a1;
+    ::coder::array<double, 2U> FVr_a2;
+    ::coder::array<double, 2U> FVr_a3;
+    ::coder::array<double, 2U> FVr_a4;
+    ::coder::array<double, 2U> FVr_a5;
+    ::coder::array<double, 2U> FVr_bestmemit;
+    ::coder::array<double, 2U> FVr_rot;
+    ::coder::array<double, 2U> FVr_rt;
+    ::coder::array<double, 2U> b;
+    ::coder::array<double, 2U> b_FM_pop;
+    ::coder::array<double, 2U> b_FVr_rot;
+    ::coder::array<double, 2U> b_FVr_rt;
+    ::coder::array<double, 2U> r;
+    ::coder::array<double, 1U> b_b;
+    ::coder::array<double, 1U> f1;
+    ::coder::array<char, 2U> charStr;
     ::coder::array<boolean_T, 2U> FM_mpo;
     ::coder::array<boolean_T, 2U> FM_mui;
-    e_struct_T b_problem;
-    struct5_T a__1;
-    struct5_T a__2;
-    struct5_T a__3;
-    struct5_T result;
-    real_T validatedHoleFilling[5];
-    real_T p[4];
-    real_T F_CR;
-    real_T I_D;
-    real_T I_NP;
-    real_T I_iter;
-    real_T I_itermax;
-    real_T I_strategy;
-    real_T S_bestval_FVr_oa;
-    real_T S_tempval_FVr_ca;
-    real_T S_tempval_FVr_oa;
-    real_T S_tempval_I_nc;
-    real_T S_tempval_I_no;
-    real_T b_expl_temp;
-    real_T c_expl_temp;
-    real_T d;
-    real_T d_expl_temp;
-    real_T expl_temp;
-    real_T fWeight;
-    int32_T iv[4];
-    int32_T b_FVr_a1;
-    int32_T b_loop_ub_tmp;
-    int32_T i;
-    int32_T i1;
-    int32_T k;
-    int32_T loop_ub;
-    int32_T loop_ub_tmp;
-    uint32_T I_best_index;
+    ProblemDefinition b_problem;
+    Results a__1;
+    Results a__2;
+    Results a__3;
+    Results result;
+    double validatedHoleFilling[5];
+    double p[4];
+    double F_CR;
+    double I_D;
+    double I_NP;
+    double I_iter;
+    double I_itermax;
+    double I_strategy;
+    double S_bestval_FVr_oa;
+    double S_tempval_FVr_ca;
+    double S_tempval_FVr_oa;
+    double S_tempval_I_nc;
+    double S_tempval_I_no;
+    double b_expl_temp;
+    double c_expl_temp;
+    double d;
+    double d_expl_temp;
+    double expl_temp;
+    double fWeight;
+    int iv[4];
+    unsigned int I_best_index;
+    int b_FVr_a1;
+    int b_loop_ub_tmp;
+    int i;
+    int i1;
+    int k;
+    int loop_ub;
+    int loop_ub_tmp;
     boolean_T exitg1;
     boolean_T tmp_data;
 
@@ -212,8 +211,8 @@ namespace RAT
     }
 
     // -----Initialize population and some arrays-------------------------------
-    loop_ub_tmp = static_cast<int32_T>(I_NP);
-    b_loop_ub_tmp = static_cast<int32_T>(S_struct->I_D);
+    loop_ub_tmp = static_cast<int>(I_NP);
+    b_loop_ub_tmp = static_cast<int>(S_struct->I_D);
     FM_pop.set_size(loop_ub_tmp, b_loop_ub_tmp);
 
     // initialise FM_pop to gain speed
@@ -250,7 +249,7 @@ namespace RAT
     S_bestval_FVr_oa = S_val[0].FVr_oa;
 
     //  best objective function value so far
-    i = static_cast<int32_T>(I_NP + -1.0);
+    i = static_cast<int>(I_NP + -1.0);
     for (k = 0; k < i; k++) {
       //  check the remaining members
       loop_ub = FM_pop.size(1);
@@ -277,8 +276,8 @@ namespace RAT
     loop_ub = FM_pop.size(1);
     FVr_bestmemit.set_size(1, FM_pop.size(1));
     for (i = 0; i < loop_ub; i++) {
-      FVr_bestmemit[i] = FM_pop[(static_cast<int32_T>(I_best_index) +
-        FM_pop.size(0) * i) - 1];
+      FVr_bestmemit[i] = FM_pop[(static_cast<int>(I_best_index) + FM_pop.size(0)
+        * i) - 1];
     }
 
     //  best member of current iteration
@@ -309,7 +308,7 @@ namespace RAT
       FVr_rot.set_size(1, 1);
       FVr_rot[0] = rtNaN;
     } else {
-      loop_ub = static_cast<int32_T>(std::floor(I_NP - 1.0));
+      loop_ub = static_cast<int>(std::floor(I_NP - 1.0));
       FVr_rot.set_size(1, loop_ub + 1);
       for (i = 0; i <= loop_ub; i++) {
         FVr_rot[i] = i;
@@ -359,7 +358,7 @@ namespace RAT
     exitg1 = false;
     while ((!exitg1) && ((I_iter < I_itermax) && (S_bestval_FVr_oa >
              S_struct->F_VTR))) {
-      real_T a;
+      double a;
 
       //  save the old population
       // S_struct.FM_pop = FM_pop;
@@ -401,7 +400,7 @@ namespace RAT
       loop_ub = FVr_rt.size(1);
       for (i = 0; i < loop_ub; i++) {
         for (i1 = 0; i1 < 1; i1++) {
-          FVr_a2[FVr_a2.size(0) * i] = FVr_a1[static_cast<int32_T>
+          FVr_a2[FVr_a2.size(0) * i] = FVr_a1[static_cast<int>
             (FVr_rt[FVr_rt.size(0) * i] + 1.0) - 1];
         }
       }
@@ -417,7 +416,7 @@ namespace RAT
       FVr_a3.set_size(1, r.size(1));
       loop_ub = r.size(1);
       for (i = 0; i < loop_ub; i++) {
-        FVr_a3[FVr_a3.size(0) * i] = FVr_a2[static_cast<int32_T>(r[i] + 1.0) - 1];
+        FVr_a3[FVr_a3.size(0) * i] = FVr_a2[static_cast<int>(r[i] + 1.0) - 1];
       }
 
       b_FVr_rot.set_size(1, FVr_rot.size(1));
@@ -437,8 +436,8 @@ namespace RAT
       FVr_a4.set_size(1, b_FM_pop.size(1));
       loop_ub = b_FM_pop.size(1);
       for (i = 0; i < loop_ub; i++) {
-        FVr_a4[FVr_a4.size(0) * i] = FVr_a3[static_cast<int32_T>(b_FM_pop[i] +
-          1.0) - 1];
+        FVr_a4[FVr_a4.size(0) * i] = FVr_a3[static_cast<int>(b_FM_pop[i] + 1.0)
+          - 1];
       }
 
       b_FVr_rot.set_size(1, FVr_rot.size(1));
@@ -458,8 +457,8 @@ namespace RAT
       FVr_a5.set_size(1, b_FVr_rt.size(1));
       loop_ub = b_FVr_rt.size(1);
       for (i = 0; i < loop_ub; i++) {
-        FVr_a5[FVr_a5.size(0) * i] = FVr_a4[static_cast<int32_T>(b_FVr_rt[i] +
-          1.0) - 1];
+        FVr_a5[FVr_a5.size(0) * i] = FVr_a4[static_cast<int>(b_FVr_rt[i] + 1.0)
+          - 1];
       }
 
       b_FVr_a1 = FVr_a1.size(1);
@@ -467,8 +466,8 @@ namespace RAT
       FM_pm1.set_size(FVr_a1.size(1), FM_pop.size(1));
       for (i = 0; i < loop_ub; i++) {
         for (i1 = 0; i1 < b_FVr_a1; i1++) {
-          FM_pm1[i1 + FM_pm1.size(0) * i] = FM_pop[(static_cast<int32_T>
-            (FVr_a1[i1]) + FM_pop.size(0) * i) - 1];
+          FM_pm1[i1 + FM_pm1.size(0) * i] = FM_pop[(static_cast<int>(FVr_a1[i1])
+            + FM_pop.size(0) * i) - 1];
         }
       }
 
@@ -478,8 +477,8 @@ namespace RAT
       FM_pm2.set_size(FVr_rt.size(1), FM_pop.size(1));
       for (i = 0; i < loop_ub; i++) {
         for (i1 = 0; i1 < b_FVr_a1; i1++) {
-          FM_pm2[i1 + FM_pm2.size(0) * i] = FM_pop[(static_cast<int32_T>
-            (FVr_a2[i1]) + FM_pop.size(0) * i) - 1];
+          FM_pm2[i1 + FM_pm2.size(0) * i] = FM_pop[(static_cast<int>(FVr_a2[i1])
+            + FM_pop.size(0) * i) - 1];
         }
       }
 
@@ -497,8 +496,8 @@ namespace RAT
       FM_pm3.set_size(r.size(1), FM_pop.size(1));
       for (i = 0; i < loop_ub; i++) {
         for (i1 = 0; i1 < b_FVr_a1; i1++) {
-          FM_pm3[i1 + FM_pm3.size(0) * i] = FM_pop[(static_cast<int32_T>
-            (FVr_a3[i1]) + FM_pop.size(0) * i) - 1];
+          FM_pm3[i1 + FM_pm3.size(0) * i] = FM_pop[(static_cast<int>(FVr_a3[i1])
+            + FM_pop.size(0) * i) - 1];
         }
       }
 
@@ -509,8 +508,8 @@ namespace RAT
       FM_pm5.set_size(b_FVr_rt.size(1), FM_pop.size(1));
       for (i = 0; i < loop_ub; i++) {
         for (i1 = 0; i1 < b_FVr_a1; i1++) {
-          FM_pm5[i1 + FM_pm5.size(0) * i] = FM_pop[(static_cast<int32_T>
-            (FVr_a5[i1]) + FM_pop.size(0) * i) - 1];
+          FM_pm5[i1 + FM_pm5.size(0) * i] = FM_pop[(static_cast<int>(FVr_a5[i1])
+            + FM_pop.size(0) * i) - 1];
         }
       }
 
@@ -552,7 +551,7 @@ namespace RAT
       for (i = 0; i < loop_ub; i++) {
         b_FVr_a1 = FM_mui.size(0);
         for (i1 = 0; i1 < b_FVr_a1; i1++) {
-          FM_mpo[i1 + FM_mpo.size(0) * i] = (static_cast<real_T>(FM_mui[i1 +
+          FM_mpo[i1 + FM_mpo.size(0) * i] = (static_cast<double>(FM_mui[i1 +
             FM_mui.size(0) * i]) < 0.5);
         }
       }
@@ -574,9 +573,9 @@ namespace RAT
           b_FVr_a1 = FM_pop.size(0);
           for (i1 = 0; i1 < b_FVr_a1; i1++) {
             FM_ui[i1 + FM_ui.size(0) * i] = FM_pop[i1 + FM_pop.size(0) * i] *
-              static_cast<real_T>(FM_mpo[i1 + FM_mpo.size(0) * i]) + (FM_pm3[i1
+              static_cast<double>(FM_mpo[i1 + FM_mpo.size(0) * i]) + (FM_pm3[i1
               + FM_pm3.size(0) * i] + fWeight * (FM_pm1[i1 + FM_pm1.size(0) * i]
-              - FM_pm2[i1 + FM_pm2.size(0) * i])) * static_cast<real_T>
+              - FM_pm2[i1 + FM_pm2.size(0) * i])) * static_cast<double>
               (FM_mui[i1 + FM_mui.size(0) * i]);
           }
         }
@@ -600,10 +599,10 @@ namespace RAT
           b_FVr_a1 = FM_pop.size(0);
           for (i1 = 0; i1 < b_FVr_a1; i1++) {
             d = FM_pop[i1 + FM_pop.size(0) * i];
-            FM_ui[i1 + FM_ui.size(0) * i] = d * static_cast<real_T>(FM_mpo[i1 +
+            FM_ui[i1 + FM_ui.size(0) * i] = d * static_cast<double>(FM_mpo[i1 +
               FM_mpo.size(0) * i]) + ((d + fWeight * (FM_bm[i1 + FM_bm.size(0) *
               i] - d)) + fWeight * (FM_pm1[i1 + FM_pm1.size(0) * i] - FM_pm2[i1
-              + FM_pm2.size(0) * i])) * static_cast<real_T>(FM_mui[i1 +
+              + FM_pm2.size(0) * i])) * static_cast<double>(FM_mui[i1 +
               FM_mui.size(0) * i]);
             FM_origin[i1 + FM_origin.size(0) * i] = d;
           }
@@ -617,10 +616,10 @@ namespace RAT
           b_FVr_a1 = FM_pop.size(0);
           for (i1 = 0; i1 < b_FVr_a1; i1++) {
             FM_ui[i1 + FM_ui.size(0) * i] = FM_pop[i1 + FM_pop.size(0) * i] *
-              static_cast<real_T>(FM_mpo[i1 + FM_mpo.size(0) * i]) + (FM_bm[i1 +
+              static_cast<double>(FM_mpo[i1 + FM_mpo.size(0) * i]) + (FM_bm[i1 +
               FM_bm.size(0) * i] + (FM_pm1[i1 + FM_pm1.size(0) * i] - FM_pm2[i1
               + FM_pm2.size(0) * i]) * (9.9999999999988987E-5 * b[i1 + b.size(0)
-              * i] + fWeight)) * static_cast<real_T>(FM_mui[i1 + FM_mui.size(0) *
+              * i] + fWeight)) * static_cast<double>(FM_mui[i1 + FM_mui.size(0) *
               i]);
           }
         }
@@ -666,10 +665,10 @@ namespace RAT
           b_FVr_a1 = FM_pop.size(0);
           for (i1 = 0; i1 < b_FVr_a1; i1++) {
             FM_ui[i1 + FM_ui.size(0) * i] = FM_pop[i1 + FM_pop.size(0) * i] *
-              static_cast<real_T>(FM_mpo[i1 + FM_mpo.size(0) * i]) + (FM_pm3[i1
+              static_cast<double>(FM_mpo[i1 + FM_mpo.size(0) * i]) + (FM_pm3[i1
               + FM_pm3.size(0) * i] + (FM_pm1[i1 + FM_pm1.size(0) * i] -
               FM_pm2[i1 + FM_pm2.size(0) * i]) * FM_pm5[i1 + FM_pm5.size(0) * i])
-              * static_cast<real_T>(FM_mui[i1 + FM_mui.size(0) * i]);
+              * static_cast<double>(FM_mui[i1 + FM_mui.size(0) * i]);
           }
         }
 
@@ -695,9 +694,9 @@ namespace RAT
           b_FVr_a1 = FM_pop.size(0);
           for (i1 = 0; i1 < b_FVr_a1; i1++) {
             FM_ui[i1 + FM_ui.size(0) * i] = FM_pop[i1 + FM_pop.size(0) * i] *
-              static_cast<real_T>(FM_mpo[i1 + FM_mpo.size(0) * i]) + (FM_pm3[i1
+              static_cast<double>(FM_mpo[i1 + FM_mpo.size(0) * i]) + (FM_pm3[i1
               + FM_pm3.size(0) * i] + (FM_pm1[i1 + FM_pm1.size(0) * i] -
-              FM_pm2[i1 + FM_pm2.size(0) * i]) * a) * static_cast<real_T>
+              FM_pm2[i1 + FM_pm2.size(0) * i]) * a) * static_cast<double>
               (FM_mui[i1 + FM_mui.size(0) * i]);
           }
         }
@@ -749,8 +748,8 @@ namespace RAT
           b_FVr_a1 = FM_pop.size(0);
           for (i1 = 0; i1 < b_FVr_a1; i1++) {
             FM_ui[i1 + FM_ui.size(0) * i] = FM_pop[i1 + FM_pop.size(0) * i] *
-              static_cast<real_T>(FM_mpo[i1 + FM_mpo.size(0) * i]) + FM_ui[i1 +
-              FM_ui.size(0) * i] * static_cast<real_T>(FM_mui[i1 + FM_mui.size(0)
+              static_cast<double>(FM_mpo[i1 + FM_mpo.size(0) * i]) + FM_ui[i1 +
+              FM_ui.size(0) * i] * static_cast<double>(FM_mui[i1 + FM_mui.size(0)
               * i]);
           }
         }
@@ -762,7 +761,7 @@ namespace RAT
       // -----Select which vectors are allowed to enter the new population------------
       for (k = 0; k < loop_ub_tmp; k++) {
         // =====Only use this if boundary constraints are needed==================
-        for (int32_T j{0}; j < b_loop_ub_tmp; j++) {
+        for (int j{0}; j < b_loop_ub_tmp; j++) {
           // ----boundary constraints via bounce back-------
           d = FM_ui[k + FM_ui.size(0) * j];
           a = S_struct->FVr_maxbound[j];

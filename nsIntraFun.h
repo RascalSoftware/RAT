@@ -20,17 +20,15 @@
 // Type Declarations
 namespace RAT
 {
-  struct e_struct_T;
-  struct struct4_T;
+  struct ProblemDefinition;
+  struct Controls;
 }
 
 // Function Declarations
 namespace RAT
 {
-  real_T nsIntraFun(const e_struct_T *data_f1, const struct4_T *data_f2, const ::
-                    coder::array<real_T, 2U> &p);
-  real_T nsIntraFun(const e_struct_T *data_f1, const struct4_T *data_f2, const ::
-                    coder::array<real_T, 1U> &p);
+  double nsIntraFun(const ProblemDefinition *data_f1, const Controls *data_f2,
+                    const ::coder::array<double, 2U> &p);
 }
 
 #endif

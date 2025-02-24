@@ -19,24 +19,21 @@
 // Type Declarations
 namespace RAT
 {
-  struct e_struct_T;
-  struct struct4_T;
-  struct struct5_T;
-  struct f_struct_T;
-  struct struct0_T;
+  struct ProblemDefinition;
+  struct Controls;
+  struct Results;
+  struct b_ProblemDefinition;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void b_reflectivityCalculation(const e_struct_T *problemStruct, const
-    struct4_T *controls, struct5_T *result);
-  void reflectivityCalculation(const e_struct_T *problemStruct, const struct4_T *
-    controls, struct5_T *result);
-  void reflectivityCalculation(const e_struct_T *problemStruct, const struct4_T *
-    controls, f_struct_T *result);
-  void reflectivityCalculation(const struct0_T *problemStruct, const struct4_T
-    *controls, struct5_T *result);
+  void b_reflectivityCalculation(const ProblemDefinition *problemStruct, const
+    Controls *controls, Results *result);
+  void reflectivityCalculation(const ProblemDefinition *problemStruct, const
+    Controls *controls, Results *result);
+  void reflectivityCalculation(const b_ProblemDefinition *problemStruct, const
+    Controls *controls, Results *result);
 }
 
 #endif

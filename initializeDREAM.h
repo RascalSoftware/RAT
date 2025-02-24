@@ -20,28 +20,28 @@
 // Type Declarations
 namespace RAT
 {
-  struct struct11_T;
-  struct j_struct_T;
-  struct e_struct_T;
-  struct struct4_T;
+  struct DreamParams;
+  struct g_struct_T;
+  struct ProblemDefinition;
+  struct Controls;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void initializeDREAM(const struct11_T *DREAMPar, const ::coder::array<real_T,
-                       2U> &paramInfo_min, const ::coder::array<real_T, 2U>
-                       &paramInfo_max, const char_T
-                       paramInfo_boundhandling_data[], const int32_T
-                       paramInfo_boundhandling_size[2], ::coder::array<real_T,
-                       3U> &chain, j_struct_T *output, ::coder::array<real_T, 2U>
-                       &log_L, const e_struct_T *ratInputs_problemStruct, const
-                       struct4_T *ratInputs_controls, const ::coder::array<
-                       real_T, 2U> &ratInputs_priors, ::coder::array<real_T, 2U>
-                       &X, ::coder::array<real_T, 2U> &fx, ::coder::array<real_T,
-                       2U> &CR, real_T pCR_data[], int32_T pCR_size[2], real_T
-                       lCR_data[], int32_T lCR_size[2], real_T delta_tot_data[],
-                       int32_T delta_tot_size[2]);
+  void initializeDREAM(const DreamParams *DREAMPar, const ::coder::array<double,
+                       2U> &paramInfo_min, const ::coder::array<double, 2U>
+                       &paramInfo_max, const char paramInfo_boundhandling_data[],
+                       const int paramInfo_boundhandling_size[2], ::coder::array<
+                       double, 3U> &chain, g_struct_T *output, ::coder::array<
+                       double, 2U> &log_L, const ProblemDefinition
+                       *ratInputs_problemStruct, const Controls
+                       *ratInputs_controls, const ::coder::array<double, 2U>
+                       &ratInputs_priors, ::coder::array<double, 2U> &X, ::coder::
+                       array<double, 2U> &fx, ::coder::array<double, 2U> &CR,
+                       double pCR_data[], int pCR_size[2], double lCR_data[],
+                       int lCR_size[2], double delta_tot_data[], int
+                       delta_tot_size[2]);
 }
 
 #endif

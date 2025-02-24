@@ -33,7 +33,7 @@
 // Variable Definitions
 namespace RAT
 {
-  static const char_T cv2[33]{ 'N', 'e', 'l', 'd', 'e', 'r', '-', 'M', 'e', 'a',
+  static const char cv1[33]{ 'N', 'e', 'l', 'd', 'e', 'r', '-', 'M', 'e', 'a',
     'd', ' ', 's', 'i', 'm', 'p', 'l', 'e', 'x', ' ', 'd', 'i', 'r', 'e', 'c',
     't', ' ', 's', 'e', 'a', 'r', 'c', 'h' };
 }
@@ -41,23 +41,23 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  static void cleanUpInterrupt(real_T optVal, real_T iteration, real_T funccount,
-    real_T display, real_T *fval, real_T *output_iterations, real_T
-    *output_funcCount, char_T output_algorithm[33], char_T output_message[31]);
+  static void cleanUpInterrupt(double optVal, double iteration, double funccount,
+    double display, double *fval, double *output_iterations, double
+    *output_funcCount, char output_algorithm[33], char output_message[31]);
 }
 
 // Function Definitions
 namespace RAT
 {
-  static void cleanUpInterrupt(real_T optVal, real_T iteration, real_T funccount,
-    real_T display, real_T *fval, real_T *output_iterations, real_T
-    *output_funcCount, char_T output_algorithm[33], char_T output_message[31])
+  static void cleanUpInterrupt(double optVal, double iteration, double funccount,
+    double display, double *fval, double *output_iterations, double
+    *output_funcCount, char output_algorithm[33], char output_message[31])
   {
-    static const char_T b_cv[31]{ 'O', 'p', 't', 'i', 'm', 'i', 's', 'a', 't',
-      'i', 'o', 'n', ' ', 't', 'e', 'r', 'm', 'i', 'n', 'a', 't', 'e', 'd', ' ',
-      'b', 'y', ' ', 'u', 's', 'e', 'r' };
+    static const char b_cv[31]{ 'O', 'p', 't', 'i', 'm', 'i', 's', 'a', 't', 'i',
+      'o', 'n', ' ', 't', 'e', 'r', 'm', 'i', 'n', 'a', 't', 'e', 'd', ' ', 'b',
+      'y', ' ', 'u', 's', 'e', 'r' };
 
-    int32_T i;
+    int i;
 
     // --------------------------------------------------------------------------
     //  function [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,x,xOutputfcn,state,iter,...
@@ -100,7 +100,7 @@ namespace RAT
     *output_iterations = iteration;
     *output_funcCount = funccount;
     for (i = 0; i < 33; i++) {
-      output_algorithm[i] = cv2[i];
+      output_algorithm[i] = cv1[i];
     }
 
     for (i = 0; i < 31; i++) {
@@ -112,90 +112,90 @@ namespace RAT
     }
   }
 
-  void fMinSearch(::coder::array<real_T, 1U> &x, real_T options_MaxIter, real_T
-                  options_MaxFunEvals, real_T options_TolX, real_T
-                  options_TolFun, const char_T dis_data[], const int32_T
-                  dis_size[2], const e_struct_T *varargin_1, const char_T
-                  varargin_2_parallel_data[], const int32_T
-                  varargin_2_parallel_size[2], real_T
-                  varargin_2_resampleMinAngle, real_T varargin_2_resampleNPoints,
-                  boolean_T varargin_2_calcSldDuringFit, real_T
-                  varargin_2_updateFreq, real_T varargin_2_updatePlotFreq, const
-                  char_T varargin_2_IPCFilePath_data[], const int32_T
-                  varargin_2_IPCFilePath_size[2], const m_struct_T *varargin_3,
-                  real_T *fval, real_T *exitflag, k_struct_T *output)
+  void fMinSearch(::coder::array<double, 1U> &x, double options_MaxIter, double
+                  options_MaxFunEvals, double options_TolX, double
+                  options_TolFun, const char dis_data[], const int dis_size[2],
+                  const ProblemDefinition *varargin_1, const char
+                  varargin_2_parallel_data[], const int
+                  varargin_2_parallel_size[2], double
+                  varargin_2_resampleMinAngle, double varargin_2_resampleNPoints,
+                  boolean_T varargin_2_calcSldDuringFit, double
+                  varargin_2_updateFreq, double varargin_2_updatePlotFreq, const
+                  char varargin_2_IPCFilePath_data[], const int
+                  varargin_2_IPCFilePath_size[2], const j_struct_T *varargin_3,
+                  double *fval, double *exitflag, h_struct_T *output)
   {
-    static const char_T cv6[35]{ 'E', 'x', 'i', 't', 'i', 'n', 'g', ':', ' ',
-      'M', 'a', 'x', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'e', 'v',
-      'a', 'l', 's', ' ', 'r', 'e', 'a', 'c', 'h', 'e', 'd' };
+    static const char cv6[35]{ 'E', 'x', 'i', 't', 'i', 'n', 'g', ':', ' ', 'M',
+      'a', 'x', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'e', 'v', 'a',
+      'l', 's', ' ', 'r', 'e', 'a', 'c', 'h', 'e', 'd' };
 
-    static const char_T cv7[31]{ 'E', 'x', 'i', 't', 'i', 'n', 'g', ':', ' ',
-      'M', 'a', 'x', ' ', 'i', 't', 'e', 'r', 'a', 't', 'i', 'o', 'n', 's', ' ',
-      'r', 'e', 'a', 'c', 'h', 'e', 'd' };
+    static const char cv7[31]{ 'E', 'x', 'i', 't', 'i', 'n', 'g', ':', ' ', 'M',
+      'a', 'x', ' ', 'i', 't', 'e', 'r', 'a', 't', 'i', 'o', 'n', 's', ' ', 'r',
+      'e', 'a', 'c', 'h', 'e', 'd' };
 
-    static const char_T cv12[16]{ 'c', 'o', 'n', 't', 'r', 'a', 'c', 't', ' ',
-      'o', 'u', 't', 's', 'i', 'd', 'e' };
+    static const char cv12[16]{ 'c', 'o', 'n', 't', 'r', 'a', 'c', 't', ' ', 'o',
+      'u', 't', 's', 'i', 'd', 'e' };
 
-    static const char_T cv11[15]{ 'c', 'o', 'n', 't', 'r', 'a', 'c', 't', ' ',
-      'i', 'n', 's', 'i', 'd', 'e' };
+    static const char cv11[15]{ 'c', 'o', 'n', 't', 'r', 'a', 'c', 't', ' ', 'i',
+      'n', 's', 'i', 'd', 'e' };
 
-    static const char_T cv5[15]{ 'i', 'n', 'i', 't', 'i', 'a', 'l', ' ', 's',
-      'i', 'm', 'p', 'l', 'e', 'x' };
+    static const char cv5[15]{ 'i', 'n', 'i', 't', 'i', 'a', 'l', ' ', 's', 'i',
+      'm', 'p', 'l', 'e', 'x' };
 
-    static const char_T cv8[7]{ 'r', 'e', 'f', 'l', 'e', 'c', 't' };
+    static const char cv8[7]{ 'r', 'e', 'f', 'l', 'e', 'c', 't' };
 
-    static const char_T b_cv[6]{ 'n', 'o', 't', 'i', 'f', 'y' };
+    static const char b_cv[6]{ 'n', 'o', 't', 'i', 'f', 'y' };
 
-    static const char_T cv10[6]{ 's', 'h', 'r', 'i', 'n', 'k' };
+    static const char cv10[6]{ 's', 'h', 'r', 'i', 'n', 'k' };
 
-    static const char_T cv9[6]{ 'e', 'x', 'p', 'a', 'n', 'd' };
+    static const char cv9[6]{ 'e', 'x', 'p', 'a', 'n', 'd' };
 
-    static const char_T cv4[5]{ 'f', 'i', 'n', 'a', 'l' };
+    static const char cv4[5]{ 'f', 'i', 'n', 'a', 'l' };
 
-    static const char_T b_cv1[4]{ 'n', 'o', 'n', 'e' };
+    static const char b_cv1[4]{ 'n', 'o', 'n', 'e' };
 
-    static const char_T cv3[4]{ 'i', 't', 'e', 'r' };
+    static const char cv3[4]{ 'i', 't', 'e', 'r' };
 
-    static const char_T b_cv2[3]{ 'o', 'f', 'f' };
+    static const char cv2[3]{ 'o', 'f', 'f' };
 
-    ::coder::array<real_T, 2U> b_v;
-    ::coder::array<real_T, 2U> c_fv;
-    ::coder::array<real_T, 2U> fv;
-    ::coder::array<real_T, 2U> r;
-    ::coder::array<real_T, 2U> r1;
-    ::coder::array<real_T, 2U> v;
-    ::coder::array<real_T, 1U> c_v;
-    ::coder::array<real_T, 1U> xbar;
-    ::coder::array<real_T, 1U> xc;
-    ::coder::array<real_T, 1U> xcc;
-    ::coder::array<real_T, 1U> xe;
-    ::coder::array<real_T, 1U> xr;
-    ::coder::array<real_T, 1U> y;
-    ::coder::array<int32_T, 2U> iidx;
-    ::coder::array<char_T, 2U> b_output;
-    ::coder::array<char_T, 2U> charStr;
-    e_struct_T b_varargin_1;
-    struct5_T result;
-    real_T b_fv;
-    real_T b_y;
-    real_T func_evals;
-    real_T fxc;
-    real_T fxcc;
-    real_T fxe;
-    real_T fxr;
-    real_T itercount;
-    int32_T b_how_size[2];
-    int32_T how_size[2];
-    int32_T b_index;
-    int32_T i;
-    int32_T i1;
-    int32_T j;
-    int32_T n;
-    int32_T prnt;
-    int32_T x_idx_1;
-    char_T output_message[31];
-    char_T how_data[17];
-    char_T b_how_data[16];
+    ::coder::array<double, 2U> b_v;
+    ::coder::array<double, 2U> c_fv;
+    ::coder::array<double, 2U> fv;
+    ::coder::array<double, 2U> r;
+    ::coder::array<double, 2U> r1;
+    ::coder::array<double, 2U> v;
+    ::coder::array<double, 1U> c_v;
+    ::coder::array<double, 1U> xbar;
+    ::coder::array<double, 1U> xc;
+    ::coder::array<double, 1U> xcc;
+    ::coder::array<double, 1U> xe;
+    ::coder::array<double, 1U> xr;
+    ::coder::array<double, 1U> y;
+    ::coder::array<int, 2U> iidx;
+    ::coder::array<char, 2U> b_output;
+    ::coder::array<char, 2U> charStr;
+    ProblemDefinition b_varargin_1;
+    Results result;
+    double b_fv;
+    double b_y;
+    double func_evals;
+    double fxc;
+    double fxcc;
+    double fxe;
+    double fxr;
+    double itercount;
+    int b_how_size[2];
+    int how_size[2];
+    int b_index;
+    int i;
+    int i1;
+    int j;
+    int n;
+    int prnt;
+    int x_idx_1;
+    char output_message[31];
+    char how_data[17];
+    char b_how_data[16];
     boolean_T tmp_data;
 
     // FMINSEARCH Multidimensional unconstrained nonlinear minimization (Nelder-Mead).
@@ -313,7 +313,7 @@ namespace RAT
       b_index = 0;
     } else if (coder::internal::c_strcmp(dis_data, dis_size, b_cv1)) {
       b_index = 1;
-    } else if (coder::internal::d_strcmp(dis_data, dis_size, b_cv2)) {
+    } else if (coder::internal::d_strcmp(dis_data, dis_size, cv2)) {
       b_index = 1;
     } else if (coder::internal::c_strcmp(dis_data, dis_size, cv3)) {
       b_index = 2;
@@ -532,7 +532,7 @@ namespace RAT
     }
 
     itercount = 1.0;
-    func_evals = static_cast<real_T>(x.size(0)) + 1.0;
+    func_evals = static_cast<double>(x.size(0)) + 1.0;
     if ((prnt == 3) && (rt_remd_snf(1.0, varargin_2_updateFreq) == 0.0)) {
       how_size[0] = 1;
       how_size[1] = 16;
@@ -541,7 +541,7 @@ namespace RAT
       }
 
       how_data[15] = '\x00';
-      coder::snPrint(1.0, static_cast<real_T>(x.size(0)) + 1.0, fv[0], how_data,
+      coder::snPrint(1.0, static_cast<double>(x.size(0)) + 1.0, fv[0], how_data,
                      how_size, charStr);
       triggerEvent(charStr);
 
@@ -572,9 +572,9 @@ namespace RAT
         x[i] = v[i];
       }
 
-      cleanUpInterrupt(fv[0], 1.0, static_cast<real_T>(n) + 1.0,
-                       static_cast<real_T>(prnt), fval, &b_y, &b_fv,
-                       output->algorithm, output_message);
+      cleanUpInterrupt(fv[0], 1.0, static_cast<double>(n) + 1.0, static_cast<
+                       double>(prnt), fval, &b_y, &b_fv, output->algorithm,
+                       output_message);
       b_index = -1;
       output->iterations = b_y;
       output->funcCount = b_fv;
@@ -609,14 +609,14 @@ namespace RAT
       //  The iteration stops if the maximum number of iterations or function evaluations
       //  are exceeded
       guard1 = false;
-      int32_T exitg1;
+      int exitg1;
       do {
         exitg1 = 0;
         if ((func_evals < options_MaxFunEvals) && (itercount < options_MaxIter))
         {
           boolean_T b_guard1{ false };
 
-          if (2.0 > static_cast<real_T>(n) + 1.0) {
+          if (2.0 > static_cast<double>(n) + 1.0) {
             i = 0;
             i1 = -1;
           } else {
@@ -635,8 +635,8 @@ namespace RAT
           coder::b_abs(c_fv, r);
           b_guard1 = false;
           if (coder::internal::maximum(r) <= std::fmax(options_TolFun, b_y)) {
-            int32_T i2;
-            if (2.0 > static_cast<real_T>(n) + 1.0) {
+            int i2;
+            if (2.0 > static_cast<double>(n) + 1.0) {
               i = 0;
               i1 = -1;
             } else {
@@ -693,7 +693,7 @@ namespace RAT
             xbar.set_size(c_v.size(0));
             x_idx_1 = c_v.size(0);
             for (i = 0; i < x_idx_1; i++) {
-              xbar[i] = c_v[i] / static_cast<real_T>(n);
+              xbar[i] = c_v[i] / static_cast<double>(n);
             }
 
             xr.set_size(xbar.size(0));
@@ -850,7 +850,7 @@ namespace RAT
               }
 
               if (coder::internal::bb_strcmp(b_how_data, b_how_size)) {
-                i = static_cast<int32_T>((static_cast<real_T>(n) + 1.0) + -1.0);
+                i = static_cast<int>((static_cast<double>(n) + 1.0) + -1.0);
                 for (j = 0; j < i; j++) {
                   b_index = v.size(0) - 1;
                   c_v.set_size(v.size(0));
@@ -880,7 +880,7 @@ namespace RAT
                                   + 1], &result);
                 }
 
-                func_evals += static_cast<real_T>(n);
+                func_evals += static_cast<double>(n);
               }
             }
 
@@ -948,7 +948,7 @@ namespace RAT
                 x[i] = v[i];
               }
 
-              cleanUpInterrupt(fv[0], itercount, func_evals, static_cast<real_T>
+              cleanUpInterrupt(fv[0], itercount, func_evals, static_cast<double>
                                (prnt), fval, &b_y, &b_fv, output->algorithm,
                                output_message);
               b_index = -1;
@@ -1050,7 +1050,7 @@ namespace RAT
         output->iterations = itercount;
         output->funcCount = func_evals;
         for (i = 0; i < 33; i++) {
-          output->algorithm[i] = cv2[i];
+          output->algorithm[i] = cv1[i];
         }
 
         if (printMsg) {

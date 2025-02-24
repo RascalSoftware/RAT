@@ -6,6 +6,7 @@ function cornerPlot(results, options)
     % 
     %    cornerPlot(result, 'smooth', false);
     %    cornerPlot(result, 'smooth', false, 'params', [1, 3]);  % should plot 1st and 3rd fitted parameters only. 
+    %    cornerPlot(result, 'smooth', true, 'smoothingFactor', 0.5);
     %
     % Parameters
     % ----------
@@ -16,12 +17,15 @@ function cornerPlot(results, options)
     %       * figure ('matlab.ui.Figure' or int, default: []) figure or number of the figure to use for the plot.
     %       * smooth (logical, default: true) indicates if moving average smoothing is applied to the plot.
     %       * params (1D 'array of int', 'array of string' or 'cell array of char vectors', default: []) indices or names of a subset of parameters to the plot.
+    %       * smoothingFactor (float [0, 1], default: 0.25) adjusts the level of smoothing by scaling the window size, values near 0 produce smaller moving window sizes, 
+    %             resulting in less smoothing and values near 1 produce larger moving window sizes, resulting in more smoothing.
 
     arguments
         results
         options.figure {isFigure} = []
         options.smooth {logical} = true
         options.params {mustBeVector(options.params,'allow-all-empties')} = []
+        options.smoothingFactor {mustBeInRange(options.smoothingFactor, 0, 1)} = 0.25
     end
    
     chain = results.chain;
@@ -86,7 +90,7 @@ function cornerPlot(results, options)
                 xx = chain(:,params(j));
                 yy = chain(:,params(i));
         
-                plotContours(xx, yy, subAxes(i,j), options.smooth);
+                plotContours(xx, yy, subAxes(i,j), options.smooth, options.smoothingFactor);
                 
                 set(subAxes(i,j),'Visible','on','Tag','corrAxis','xlimmode','auto','ylimmode','auto','xgrid','off','ygrid','off');
                 
@@ -108,7 +112,7 @@ function cornerPlot(results, options)
                 [N,edges] = histcounts(chain(:, params(i)), 25, 'Normalization','pdf');
                 edges2 = edges(2:end) - (edges(2)-edges(1))/2;
                 if (options.smooth)
-                    N = smoothdata(N, 'movmean');
+                    N = smoothdata(N, 'movmean', 'SmoothingFactor', options.smoothingFactor);
                 end
                 bar(edges2(:), N(:), 1, 'w');
                 
@@ -130,7 +134,7 @@ function cornerPlot(results, options)
     drawnow;
 end
 
-function plotContours(x, y, activeAxis, smooth)
+function plotContours(x, y, activeAxis, smooth, smoothingFactor)
     % Make contour subplot in the corner plot.
     %
     % Parameters
@@ -140,16 +144,18 @@ function plotContours(x, y, activeAxis, smooth)
     % y : double
     %    1D array data for Y axis. 
     % activeAxis : matlab.graphics.axes.Axes
-    %    axes object to make plot on
+    %    axes object to make plot on.
     % smooth : bool
-    %    indicates if moving average smoothing is applied to the plot
+    %    indicates if moving average smoothing is applied to the plot.
+    % smoothingFactor : float
+    %    adjusts the level of smoothing by scaling the window size.
     
     nbins = [50, 50];
 
     [N, xEdges, yEdges] = histcounts2(x, y, nbins, 'Normalization', 'pdf');
 
     if (smooth)
-        N = smoothdata(N, 'movmean');
+        N = smoothdata(N, 'movmean', 'SmoothingFactor', smoothingFactor);
     end
 
     histogram2('XBinEdges', xEdges, 'YBinEdges', yEdges, 'BinCounts', N)
@@ -170,5 +176,4 @@ function plotContours(x, y, activeAxis, smooth)
     colormap(flipud(gray(5)));
 
     hold on
-
 end

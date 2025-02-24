@@ -50,7 +50,6 @@ function [problemStruct,results,bayesResults] = RATMain(problemStruct,problemLim
         % (i.e. if calcSLD is no for fit)
         if ~controls.calcSldDuringFit
             controls.calcSldDuringFit = true;
-            controls.procedure = coderEnums.procedures.Calculate;
             results = reflectivityCalculation(problemStruct,controls);
         end
     

@@ -6,7 +6,7 @@ function scaled = rescaleParameters(prior, params)
 
 lp = length(params);
 
-scaled = zeros(lp,1);
+scaled = zeros(1, lp);
 
 for i=1:lp
     priortype = prior(i,1);

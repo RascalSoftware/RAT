@@ -16,9 +16,9 @@ cfg.CppNamespace = 'RAT';
 cfg.PreserveArrayDimensions = true;
 cfg.CodeFormattingTool = 'MathWorks';
 cfg.RunInitializeFcn = false;
-cfg.DataTypeReplacement = 'CoderTypeDefs';
+cfg.DataTypeReplacement = 'CBuiltIn';
 
-% Define the input argument types..
+% Define the input argument types.
 ARGS = makeCompileArgsFull();
 
 % Run the compile

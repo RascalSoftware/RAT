@@ -64,7 +64,7 @@ classdef layersClass < tableUtilities
             % parameters or numbers
             newRow = [name, repmat({''}, 1, obj.varCount - 2), hydration];
             
-            % Must be a parameter name or number . . .
+            % Must be a parameter name or number
             for i = 2:(obj.varCount - 2)
                 newRow{i} = obj.findParameter(layerDetails{i}, paramNames);
             end
@@ -191,18 +191,19 @@ classdef layersClass < tableUtilities
             % The expected inputs are the potential layer parameter value
             % (either name or index) and a list of parameter names.
 
-            if isText(inputVal)
-                if ~any(strcmpi(inputVal, paramNames))
+            paramNames = cellstr(paramNames);
+            if isText(inputVal)    
+                found = strcmpi(inputVal, paramNames);
+                if ~any(found)
                     throw(exceptions.nameNotRecognised(sprintf('Parameter %s not recognized', inputVal)));
                 end
-                param = inputVal;
+                param = paramNames{find(found, 1)};
 
             elseif isnumeric(inputVal)
-                paramIndex = floor(inputVal);
-                if paramIndex < 1 || paramIndex > length(paramNames)
-                    throw(exceptions.indexOutOfRange(sprintf('Parameter ''%d'' is out of range 1 - %d', paramIndex, length(paramNames))));
+                if inputVal < 1 || inputVal > length(paramNames)
+                    throw(exceptions.indexOutOfRange(sprintf('Parameter ''%d'' is out of range 1 - %d', inputVal, length(paramNames))));
                 end
-                param = paramNames{paramIndex};
+                param = paramNames{inputVal};
 
             else
                 throw(exceptions.invalidType(sprintf('Parameter %s is not in a recognizable format', inputVal)));

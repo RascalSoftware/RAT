@@ -53,23 +53,34 @@ classdef domainContrastsClass < baseContrasts
             p = inputParser;
             p.PartialMatching = false;
 
-            addParameter(p,'name',          defaultName,  @isText);
-            addParameter(p,'model',         defaultModel, @(x) obj.validateDomainContrastModel(x,expectedModel));
+            addParameter(p,'name',  defaultName,  @isText);
+            addParameter(p,'model', defaultModel)          
 
             parse(p, inputValues{:});
             inputBlock = p.Results;
+
+            inputBlock.model = obj.validateDomainContrastModel(inputBlock.model, expectedModel);
+
         end
     end
 
     methods(Access = private)
 
-        function validateDomainContrastModel(~, model, allowedModelNames)
-            modelArray = cellstr(model);
-    
-            for i = 1:length(modelArray)
-                if ~strcmpi(modelArray{i}, allowedModelNames)
+        function model = validateDomainContrastModel(~, input, allowedModelNames)
+            if isempty(input)
+                model = '';
+                return
+            end
+            
+            inputArray = cellstr(input);
+            modelSize = length(inputArray);
+            model = cell(1, modelSize);
+            for i = 1:modelSize 
+                found = strcmpi(inputArray{i}, allowedModelNames);
+                if ~any(found)
                     throw(exceptions.nameNotRecognised(sprintf('Model component name "%s" is not recognised. The allowed names are: "%s".', modelArray{i}, strjoin(allowedModelNames, '", "'))));
                 end
+                model{i} = allowedModelNames{find(found, 1)};
             end
         end
 

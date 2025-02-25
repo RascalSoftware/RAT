@@ -31,8 +31,8 @@
       end
 
       function createTestNames(testCase)
-          testCase.names.customFileNames = 'function_name';
-          testCase.names.dataNames = 'data_name';
+          testCase.names.customFileNames = "function_name";
+          testCase.names.dataNames = "data_name";
       end
    end
 
@@ -81,7 +81,7 @@
          testCase.background.addBackground(testCase.names, testCase.backgrounds{4, 1:3});
          testCase.verifyEqual(string(testCase.background.backgrounds.varTable{end, :}),...
                               string(testCase.backgrounds(4, :)), 'addBackground method not working');
-         testCase.background.addBackground(testCase.names, 'background 5', allowedTypes.Function, 'function_name', 1, 3);
+         testCase.background.addBackground(testCase.names, 'background 5', allowedTypes.Function, 'function_name', "BACKGROUND PARAM 1", 3);
          testCase.verifyEqual(string(testCase.background.backgrounds.varTable{end, :}),...
                               ["background 5", string(allowedTypes.Function.value), "function_name", "background param 1", "background param 3", "", "", ""], ...
                               'addBackground method not working');
@@ -143,7 +143,7 @@
          testCase.verifyError(@() testCase.background.setBackground(2, testCase.names, 'type', 'random'), exceptions.invalidOption.errorID);
          
          testCase.background.setBackground('Background 2', testCase.names, 'Source', 'Background param 1');
-         testCase.verifyEqual(testCase.background.backgrounds.varTable{2, 3}, "Background param 1", 'setBackground method not working');
+         testCase.verifyEqual(testCase.background.backgrounds.varTable{2, 3}, "background param 1", 'setBackground method not working');
          
          testCase.background.setBackground(2, testCase.names, 'Value2', 'Background param 1');
          testCase.verifyEqual(testCase.background.backgrounds.varTable{2, 5}, "Background param 1", 'setBackground method not working');
@@ -153,11 +153,9 @@
          
          testCase.background.setBackground(3, testCase.names, 'name', 'New Name', 'type', allowedTypes.Constant.value, 'source', 'Background param 3', 'value1', '');
 
-
-
          testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 1}, "New Name", 'setBackground method not working');
          testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 2}, string(allowedTypes.Constant.value), 'setBackground method not working');
-         testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 3}, "Background param 3", 'setBackground method not working');
+         testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 3}, "background param 3", 'setBackground method not working');
          testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 4}, "", 'setBackground method not working');
       end
 

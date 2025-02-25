@@ -293,11 +293,11 @@ classdef backgroundsClass < handle
                     thisPar = paramList(param);
                 end
             elseif isText(param)
-                if ~strcmpi(param, paramList)
+                found = strcmpi(param, paramList);
+                if ~any(found)
                     throw(exceptions.nameNotRecognised(sprintf('Unrecognised %s name %s', parameterType, param)));
-                else
-                    thisPar = param;
                 end
+                thisPar = paramList(find(found, 1));
             end
         end
     end

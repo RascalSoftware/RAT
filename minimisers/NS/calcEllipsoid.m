@@ -16,8 +16,6 @@ function [B, mu, VE, flag] = calcEllipsoid(u, VS)
 %          has bad condition number; otherwise = 0
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-global DEBUG
-
 % default values
 B = [];
 mu = [];
@@ -30,9 +28,7 @@ ndims = size(u, 2);
 
 % check that total number of points is large enough
 if N < ndims+1
-    if DEBUG; fprintf('number of samples too small to calculate bounding matrix for ellipsoid\n'); end;
-    flag = 1;
-    return;
+    coderException(coderEnums.errorCodes.domainError, 'The number of live points must be larger than the number of fit parameters for MultiNest.'); 
 end
 
 % constant factor for volume of ellipsoid
@@ -43,10 +39,8 @@ C = cov(u);
 mu = mean(u);
 
 % check condition number of C (eps = 2.2204e-16)
-if rcond(C)<eps || isnan(rcond(C)) 
-    if DEBUG; fprintf('bad condition number!\n'); end
-    flag = 1;
-    return;
+if rcond(C)<eps || isnan(rcond(C))
+    coderException(coderEnums.errorCodes.domainError, 'Bad condition number for covariance matrix of ellipsoid.'); 
 end
 
 % find scale factor for bounding ellipsoid E

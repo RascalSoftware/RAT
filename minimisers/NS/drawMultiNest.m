@@ -9,8 +9,6 @@ function [sample, logL] = drawMultiNest(fracvol, Bs, mus, ...
     % extraparvals is a vector of additional parameters needed by the model.
     %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    global DEBUG
-    
     % extra number of ellipsoids, number of dimensions 
     K = size(mus, 1);
     ndims = size(mus,2);
@@ -51,7 +49,6 @@ function [sample, logL] = drawMultiNest(fracvol, Bs, mus, ...
             for ii=1:ndims
                  if pnt(ii)<0 || pnt(ii)>1
                      in_range = 0;
-                     if DEBUG; fprintf('new point not in range!!!!\n'); end
                  end
             end
                 

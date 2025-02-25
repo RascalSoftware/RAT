@@ -223,9 +223,7 @@ end
 
 % Initialise the lists of fitting parameters    
 problemStruct.fitParams = [];
-problemStruct.otherParams = [];
 problemStruct.fitLimits = [];
-problemStruct.otherLimits = [];
 
 %% Put the priors into their fields
 
@@ -336,7 +334,7 @@ controls.boundHandling = inputControls.boundHandling;
 controls.adaptPCR = inputControls.adaptPCR;
 controls.IPCFilePath = inputControls.getIPCFilePath();
 
-%% Finally, populate the fitParams, otherParams, fitLimits, otherLimits arrays
+%% Finally, populate the fitParams and fitLimits arrays
 [problemStruct,~] = packParams(problemStruct,problemLimits);
 
 end

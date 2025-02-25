@@ -26,8 +26,6 @@ namespace RAT
       void print_processing(double varargin_1, double varargin_2, double
                             varargin_3, double varargin_4, double varargin_5,
                             double validatedArgumetns[5]);
-      void print_processing(int varargin_1, int varargin_2, int varargin_3, int
-                            validatedArgumetns[3]);
     }
   }
 }

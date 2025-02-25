@@ -26,7 +26,6 @@ namespace RAT
     {
       namespace lapack
       {
-        void xgetrf(int m, int n, ::coder::array<double, 2U> &A, int lda);
         void xgetrf(int m, int n, ::coder::array<double, 2U> &A, int lda, ::
                     coder::array<int, 2U> &ipiv);
         void xgetrf(int m, int n, ::coder::array<double, 2U> &A, int lda, ::

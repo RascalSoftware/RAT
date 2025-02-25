@@ -135,7 +135,7 @@ namespace RAT
           if (c_X.size(1) == 0) {
             a = 0.0;
           } else {
-            a = coder::b_genpnorm(c_X);
+            a = coder::genpnorm(c_X);
           }
 
           dist[j] = a * a;
@@ -191,7 +191,7 @@ namespace RAT
         if (c_X.size(1) == 0) {
           cmp = 0.0;
         } else {
-          cmp = coder::b_genpnorm(c_X);
+          cmp = coder::genpnorm(c_X);
         }
       }
 

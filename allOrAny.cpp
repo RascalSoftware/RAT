@@ -40,40 +40,22 @@ namespace RAT
         return varargout_1;
       }
 
-      boolean_T d_anon(int n, const boolean_T X_data[])
+      boolean_T d_anon(const boolean_T X_data[])
       {
-        int k;
-        boolean_T exitg1;
         boolean_T varargout_1;
         varargout_1 = true;
-        k = 0;
-        exitg1 = false;
-        while ((!exitg1) && (k <= n - 1)) {
-          if (!X_data[0]) {
-            varargout_1 = false;
-            exitg1 = true;
-          } else {
-            k++;
-          }
+        if (!X_data[0]) {
+          varargout_1 = false;
         }
 
         return varargout_1;
       }
 
-      void e_anon(int n, const boolean_T X_data[], boolean_T Y_data[])
+      void e_anon(const boolean_T X_data[], boolean_T Y_data[])
       {
-        int k;
-        boolean_T exitg1;
         Y_data[0] = true;
-        k = 0;
-        exitg1 = false;
-        while ((!exitg1) && (k <= n - 1)) {
-          if (!X_data[0]) {
-            Y_data[0] = false;
-            exitg1 = true;
-          } else {
-            k++;
-          }
+        if (!X_data[0]) {
+          Y_data[0] = false;
         }
       }
     }

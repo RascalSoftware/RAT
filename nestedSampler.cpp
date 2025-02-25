@@ -10,7 +10,6 @@
 
 // Include files
 #include "nestedSampler.h"
-#include "RATMain_data.h"
 #include "RATMain_internal_types.h"
 #include "RATMain_rtwutil.h"
 #include "RATMain_types.h"
@@ -151,10 +150,6 @@ namespace RAT
     //                       'x', 4};
     //
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    //  global verbose;
-    //  verbose = 1;
-    DEBUG = 0.0;
-
     //  get the number of parameters from the prior array
     ns.set_size(1, 1);
     ns[0] = 1.0;
@@ -449,7 +444,7 @@ namespace RAT
         b_FS.set_size(1, FS.size(1));
         loop_ub = FS.size(1);
         for (i = 0; i < loop_ub; i++) {
-          b_FS[b_FS.size(0) * i] = (FS[i] >= 1.1);
+          b_FS[i] = (FS[i] >= 1.1);
         }
 
         if (coder::internal::c_ifWhileCond(b_FS)) {

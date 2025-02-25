@@ -10,7 +10,6 @@
 
 // Include files
 #include "drawMultiNest.h"
-#include "RATMain_data.h"
 #include "RATMain_internal_types.h"
 #include "RATMain_types.h"
 #include "drawEllipsoidPoints.h"
@@ -20,7 +19,6 @@
 #include "rescaleParameters.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
-#include <stdio.h>
 
 // Function Definitions
 namespace RAT
@@ -124,10 +122,6 @@ namespace RAT
           d = b_pnt[ii];
           if ((d < 0.0) || (d > 1.0)) {
             in_range = 0;
-            if (DEBUG != 0.0) {
-              printf("new point not in range!!!!\n");
-              fflush(stdout);
-            }
           }
         }
 

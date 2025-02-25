@@ -58,15 +58,13 @@ namespace RAT
 
       static boolean_T c_checkNoNaNs(const ::coder::array<boolean_T, 2U> &x)
       {
-        int i;
         int k;
         boolean_T exitg1;
         boolean_T y;
         y = true;
-        i = x.size(0) * x.size(1);
         k = 0;
         exitg1 = false;
-        while ((!exitg1) && (k <= i - 1)) {
+        while ((!exitg1) && (k <= x.size(1) - 1)) {
           if (!x[k]) {
             y = false;
             exitg1 = true;
@@ -112,7 +110,7 @@ namespace RAT
       boolean_T c_ifWhileCond(const ::coder::array<boolean_T, 2U> &x)
       {
         boolean_T y;
-        y = ((x.size(0) != 0) && (x.size(1) != 0));
+        y = (x.size(1) != 0);
         if (y) {
           y = c_checkNoNaNs(x);
         }

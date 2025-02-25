@@ -22,7 +22,7 @@ namespace RAT
 {
   void calcEllipsoid(const ::coder::array<double, 2U> &u, double VS, ::coder::
                      array<double, 2U> &B, ::coder::array<double, 2U> &mu,
-                     double VE_data[], int VE_size[2], double *flag);
+                     double VE_data[], int VE_size[2]);
 }
 
 #endif

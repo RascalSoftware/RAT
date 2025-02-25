@@ -10,7 +10,6 @@
 
 // Include files
 #include "splitEllipsoid.h"
-#include "RATMain_data.h"
 #include "RATMain_types.h"
 #include "calcEllipsoid.h"
 #include "ifWhileCond.h"
@@ -20,7 +19,6 @@
 #include "mrdivide_helper.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
-#include <stdio.h>
 
 // Function Definitions
 namespace RAT
@@ -41,19 +39,23 @@ namespace RAT
     ::coder::array<double, 2U> u2new;
     ::coder::array<int, 1U> r;
     ::coder::array<int, 1U> r1;
-    ::coder::array<boolean_T, 2U> b_VE1_data;
+    ::coder::array<boolean_T, 2U> d_VE1_data;
     cell_wrap_9 temp_u1[50];
     cell_wrap_9 temp_u2[50];
     double FS[50];
     double temp_VE1[50];
     double temp_VE2[50];
     double mu[2];
-    double flag1;
-    double flag2;
-    double minFS;
+    double b_VE1_data;
+    double b_VE2_data;
+    int b_VE1_size[2];
     int D;
     int N;
+    int b_loop_ub;
     int b_nosplit;
+    int c_loop_ub;
+    int i1;
+    int i2;
     int iindx;
     boolean_T c_VE1_data;
 
@@ -87,18 +89,11 @@ namespace RAT
 
     //  check total number of samples
     if (u.size(0) < 2.0 * (static_cast<double>(u.size(1)) + 1.0)) {
-      if (DEBUG != 0.0) {
-        printf("CANT SPLIT: total number of samples is too small!  N = %d\n",
-               u.size(0));
-        fflush(stdout);
-      }
-
       b_nosplit = 1;
     } else {
       int b_i;
       int end;
       int i;
-      int i1;
       int loop_ub;
       int n1;
       int n2;
@@ -122,12 +117,12 @@ namespace RAT
         }
       }
 
-      end = u.size(1);
+      loop_ub = u.size(1);
       u1.set_size(r.size(0), u.size(1));
-      for (b_i = 0; b_i < end; b_i++) {
-        loop_ub = r.size(0);
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          u1[i1 + u1.size(0) * b_i] = u[(r[i1] + u.size(0) * b_i) - 1];
+      for (b_i = 0; b_i < loop_ub; b_i++) {
+        end = r.size(0);
+        for (i = 0; i < end; i++) {
+          u1[i + u1.size(0) * b_i] = u[(r[i] + u.size(0) * b_i) - 1];
         }
       }
 
@@ -148,12 +143,12 @@ namespace RAT
         }
       }
 
-      end = u.size(1);
+      loop_ub = u.size(1);
       u2.set_size(r1.size(0), u.size(1));
-      for (b_i = 0; b_i < end; b_i++) {
-        loop_ub = r1.size(0);
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          u2[i1 + u2.size(0) * b_i] = u[(r1[i1] + u.size(0) * b_i) - 1];
+      for (b_i = 0; b_i < loop_ub; b_i++) {
+        end = r1.size(0);
+        for (i = 0; i < end; i++) {
+          u2[i + u2.size(0) * b_i] = u[(r1[i] + u.size(0) * b_i) - 1];
         }
       }
 
@@ -166,12 +161,6 @@ namespace RAT
       //  check number of points in subclusters
       if ((static_cast<unsigned int>(r.size(0)) < u.size(1) + 1U) || (
            static_cast<unsigned int>(r1.size(0)) < u.size(1) + 1U)) {
-        if (DEBUG != 0.0) {
-          printf("CANT SPLIT: number of samples in subclusters is too small! n1 = %d, n2 = %d\n",
-                 r.size(0), r1.size(0));
-          fflush(stdout);
-        }
-
         b_nosplit = 1;
       } else {
         int counter;
@@ -189,213 +178,183 @@ namespace RAT
         counter = 0;
         double VS1;
         double VS2;
-        int exitg1;
+        int reassign;
         do {
-          exitg1 = 0;
+          unsigned int m1;
+          unsigned int m2;
 
           //  calculate minimum volume of ellipsoids
           VS1 = VS * static_cast<double>(n1) / static_cast<double>(N);
           VS2 = VS * static_cast<double>(n2) / static_cast<double>(N);
 
           //  calculate properties of bounding ellipsoids for the two subclusters
-          calcEllipsoid(u1, VS1, B1, mu1, VE1_data, VE1_size, &flag1);
-          calcEllipsoid(u2, VS2, B2, mu2, VE2_data, VE2_size, &flag2);
+          calcEllipsoid(u1, VS1, B1, mu1, (double *)&b_VE1_data, b_VE1_size);
+          calcEllipsoid(u2, VS2, B2, mu2, (double *)&b_VE2_data, b_VE1_size);
 
           //  check flags
-          if ((flag1 != 0.0) || (flag2 != 0.0)) {
-            if (DEBUG != 0.0) {
-              printf("CANT SPLIT!!\n");
-              fflush(stdout);
-            }
-
-            b_nosplit = 1;
-            exitg1 = 1;
-          } else {
-            unsigned int m1;
-            unsigned int m2;
-            int reassign;
-
-            //  construct temporary arrays and cell arrays containing results for
-            //  each pass through the loop
-            temp_u1[counter].f1.set_size(u1.size(0), u1.size(1));
-            end = u1.size(1);
-            for (b_i = 0; b_i < end; b_i++) {
-              loop_ub = u1.size(0);
-              for (i1 = 0; i1 < loop_ub; i1++) {
-                temp_u1[counter].f1[i1 + temp_u1[counter].f1.size(0) * b_i] =
-                  u1[i1 + u1.size(0) * b_i];
-              }
-            }
-
-            temp_u2[counter].f1.set_size(u2.size(0), u2.size(1));
-            end = u2.size(1);
-            for (b_i = 0; b_i < end; b_i++) {
-              loop_ub = u2.size(0);
-              for (i1 = 0; i1 < loop_ub; i1++) {
-                temp_u2[counter].f1[i1 + temp_u2[counter].f1.size(0) * b_i] =
-                  u2[i1 + u2.size(0) * b_i];
-              }
-            }
-
-            temp_VE1[counter] = VE1_data[0];
-            temp_VE2[counter] = VE2_data[0];
-            FS[counter] = (VE1_data[0] + VE2_data[0]) / VS;
-
-            //  DEBUG print statement
-            //      if DEBUG
-            //          fprintf('SPLIT ELLIPSOID: counter = %d, numreassigned = %d\n', ...
-            //                  int32(counter), int32(numreassigned));
-            //      end
-            // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            //  check if points need to be reassigned to the other subcluster
-            reassign = 0;
-            m1 = 0U;
-            m2 = 0U;
-            u1new.set_size(N, D);
-            u2new.set_size(N, D);
-            for (b_i = 0; b_i < D; b_i++) {
-              for (i1 = 0; i1 < N; i1++) {
-                u1new[i1 + u1new.size(0) * b_i] = 0.0;
-                u2new[i1 + u2new.size(0) * b_i] = 0.0;
-              }
-            }
-
-            //  for all points get the Mahalanobis distance between each point and
-            //  the centroid of each ellipse and assign accordingly
-            for (i = 0; i < N; i++) {
-              double b;
-              double b_b;
-
-              //  get d = (u-mu)^T * B^-1 * (u-mu)
-              end = u.size(1);
-              b_u.set_size(1, u.size(1));
-              for (b_i = 0; b_i < end; b_i++) {
-                b_u[b_i] = u[i + u.size(0) * b_i] - mu1[mu1.size(0) * b_i];
-              }
-
-              coder::internal::mrdiv(b_u, B1, r2);
-              b = 0.0;
-              end = r2.size(1);
-              for (b_i = 0; b_i < end; b_i++) {
-                b += r2[b_i] * (u[i + u.size(0) * b_i] - mu1[mu1.size(0) * b_i]);
-              }
-
-              end = u.size(1);
-              b_u.set_size(1, u.size(1));
-              for (b_i = 0; b_i < end; b_i++) {
-                b_u[b_i] = u[i + u.size(0) * b_i] - mu2[mu2.size(0) * b_i];
-              }
-
-              coder::internal::mrdiv(b_u, B2, r2);
-              b_b = 0.0;
-              end = r2.size(1);
-              for (b_i = 0; b_i < end; b_i++) {
-                b_b += r2[b_i] * (u[i + u.size(0) * b_i] - mu2[mu2.size(0) * b_i]);
-              }
-
-              //  calculate hk = VEk * duk / VSk;
-              end = VE1_size[1];
-              for (b_i = 0; b_i < end; b_i++) {
-                loop_ub = VE1_size[0];
-                for (i1 = 0; i1 < loop_ub; i1++) {
-                  c_VE1_data = (VE1_data[0] * b / VS1 < VE2_data[0] * b_b / VS2);
-                }
-              }
-
-              b_VE1_data.set(&c_VE1_data, VE1_size[0], VE1_size[1]);
-              if (coder::internal::c_ifWhileCond(b_VE1_data)) {
-                m1++;
-                end = u.size(1);
-                for (b_i = 0; b_i < end; b_i++) {
-                  u1new[(static_cast<int>(m1) + u1new.size(0) * b_i) - 1] = u[i
-                    + u.size(0) * b_i];
-                }
-
-                //  check if point has been reassigned or not
-                if (idx[i] != 1.0) {
-                  reassign = 1;
-                  idx[i] = 1.0;
-                }
-              } else {
-                m2++;
-                end = u.size(1);
-                for (b_i = 0; b_i < end; b_i++) {
-                  u2new[(static_cast<int>(m2) + u2new.size(0) * b_i) - 1] = u[i
-                    + u.size(0) * b_i];
-                }
-
-                //  check if point has been reassigned or not
-                if (idx[i] != 2.0) {
-                  reassign = 1;
-                  idx[i] = 2.0;
-                }
-              }
-            }
-
-            n1 = static_cast<int>(m1);
-            n2 = static_cast<int>(m2);
-            if (1 > static_cast<int>(m1)) {
-              end = 0;
-            } else {
-              end = static_cast<int>(m1);
-            }
-
-            loop_ub = u1new.size(1);
-            u1.set_size(end, u1new.size(1));
-            for (b_i = 0; b_i < loop_ub; b_i++) {
-              for (i1 = 0; i1 < end; i1++) {
-                u1[i1 + u1.size(0) * b_i] = u1new[i1 + u1new.size(0) * b_i];
-              }
-            }
-
-            if (1 > static_cast<int>(m2)) {
-              end = 0;
-            } else {
-              end = static_cast<int>(m2);
-            }
-
-            loop_ub = u2new.size(1);
-            u2.set_size(end, u2new.size(1));
-            for (b_i = 0; b_i < loop_ub; b_i++) {
-              for (i1 = 0; i1 < end; i1++) {
-                u2[i1 + u2.size(0) * b_i] = u2new[i1 + u2new.size(0) * b_i];
-              }
-            }
-
-            //  update counter
-            counter++;
-            if ((reassign == 0) || (counter + 1 > 50)) {
-              //  DEBUG print statement
-              //          if DEBUG
-              //              %fprintf('SPLIT ELLIPSOID: counter = %d, FS = %f, numreassigned = %d\n', counter, (VE1+VE2)/VS, numreassigned);
-              //              if counter > max_attempt
-              //                  fprintf('SPLIT ELLIPSOID: exceeded maximum attempts; take min F(S).\n');
-              //              end
-              //          end
-              exitg1 = 1;
+          //  construct temporary arrays and cell arrays containing results for
+          //  each pass through the loop
+          temp_u1[counter].f1.set_size(u1.size(0), u1.size(1));
+          loop_ub = u1.size(1);
+          for (b_i = 0; b_i < loop_ub; b_i++) {
+            end = u1.size(0);
+            for (i = 0; i < end; i++) {
+              temp_u1[counter].f1[i + temp_u1[counter].f1.size(0) * b_i] = u1[i
+                + u1.size(0) * b_i];
             }
           }
-        } while (exitg1 == 0);
+
+          temp_u2[counter].f1.set_size(u2.size(0), u2.size(1));
+          loop_ub = u2.size(1);
+          for (b_i = 0; b_i < loop_ub; b_i++) {
+            end = u2.size(0);
+            for (i = 0; i < end; i++) {
+              temp_u2[counter].f1[i + temp_u2[counter].f1.size(0) * b_i] = u2[i
+                + u2.size(0) * b_i];
+            }
+          }
+
+          temp_VE1[counter] = b_VE1_data;
+          temp_VE2[counter] = b_VE2_data;
+          FS[counter] = (b_VE1_data + b_VE2_data) / VS;
+
+          // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+          //  check if points need to be reassigned to the other subcluster
+          reassign = 0;
+          m1 = 0U;
+          m2 = 0U;
+          u1new.set_size(N, D);
+          u2new.set_size(N, D);
+          for (b_i = 0; b_i < D; b_i++) {
+            for (i = 0; i < N; i++) {
+              u1new[i + u1new.size(0) * b_i] = 0.0;
+              u2new[i + u2new.size(0) * b_i] = 0.0;
+            }
+          }
+
+          //  for all points get the Mahalanobis distance between each point and
+          //  the centroid of each ellipse and assign accordingly
+          if (0 <= N - 1) {
+            i1 = u.size(1);
+            b_loop_ub = u.size(1);
+            i2 = u.size(1);
+            c_loop_ub = u.size(1);
+          }
+
+          for (i = 0; i < N; i++) {
+            double b;
+            double b_b;
+
+            //  get d = (u-mu)^T * B^-1 * (u-mu)
+            b_u.set_size(1, i1);
+            for (b_i = 0; b_i < b_loop_ub; b_i++) {
+              b_u[b_i] = u[i + u.size(0) * b_i] - mu1[b_i];
+            }
+
+            coder::internal::mrdiv(b_u, B1, r2);
+            b = 0.0;
+            loop_ub = r2.size(1);
+            for (b_i = 0; b_i < loop_ub; b_i++) {
+              b += r2[b_i] * (u[i + u.size(0) * b_i] - mu1[b_i]);
+            }
+
+            b_u.set_size(1, i2);
+            for (b_i = 0; b_i < c_loop_ub; b_i++) {
+              b_u[b_i] = u[i + u.size(0) * b_i] - mu2[b_i];
+            }
+
+            coder::internal::mrdiv(b_u, B2, r2);
+            b_b = 0.0;
+            loop_ub = r2.size(1);
+            for (b_i = 0; b_i < loop_ub; b_i++) {
+              b_b += r2[b_i] * (u[i + u.size(0) * b_i] - mu2[b_i]);
+            }
+
+            //  calculate hk = VEk * duk / VSk;
+            c_VE1_data = (b_VE1_data * b / VS1 < b_VE2_data * b_b / VS2);
+            d_VE1_data.set(&c_VE1_data, 1, 1);
+            if (coder::internal::c_ifWhileCond(d_VE1_data)) {
+              m1++;
+              loop_ub = u.size(1);
+              for (b_i = 0; b_i < loop_ub; b_i++) {
+                u1new[(static_cast<int>(m1) + u1new.size(0) * b_i) - 1] = u[i +
+                  u.size(0) * b_i];
+              }
+
+              //  check if point has been reassigned or not
+              if (idx[i] != 1.0) {
+                reassign = 1;
+                idx[i] = 1.0;
+              }
+            } else {
+              m2++;
+              loop_ub = u.size(1);
+              for (b_i = 0; b_i < loop_ub; b_i++) {
+                u2new[(static_cast<int>(m2) + u2new.size(0) * b_i) - 1] = u[i +
+                  u.size(0) * b_i];
+              }
+
+              //  check if point has been reassigned or not
+              if (idx[i] != 2.0) {
+                reassign = 1;
+                idx[i] = 2.0;
+              }
+            }
+          }
+
+          n1 = static_cast<int>(m1);
+          n2 = static_cast<int>(m2);
+          if (1 > static_cast<int>(m1)) {
+            loop_ub = 0;
+          } else {
+            loop_ub = static_cast<int>(m1);
+          }
+
+          end = u1new.size(1);
+          u1.set_size(loop_ub, u1new.size(1));
+          for (b_i = 0; b_i < end; b_i++) {
+            for (i = 0; i < loop_ub; i++) {
+              u1[i + u1.size(0) * b_i] = u1new[i + u1new.size(0) * b_i];
+            }
+          }
+
+          if (1 > static_cast<int>(m2)) {
+            loop_ub = 0;
+          } else {
+            loop_ub = static_cast<int>(m2);
+          }
+
+          end = u2new.size(1);
+          u2.set_size(loop_ub, u2new.size(1));
+          for (b_i = 0; b_i < end; b_i++) {
+            for (i = 0; i < loop_ub; i++) {
+              u2[i + u2.size(0) * b_i] = u2new[i + u2new.size(0) * b_i];
+            }
+          }
+
+          //  update counter
+          counter++;
+        } while ((reassign != 0) && (counter + 1 <= 50));
 
         //  find minimum F(S) and return
-        coder::internal::minimum(FS, &minFS, &iindx);
+        coder::internal::minimum(FS, &b_VE1_data, &iindx);
         u1.set_size(temp_u1[iindx - 1].f1.size(0), temp_u1[iindx - 1].f1.size(1));
-        end = temp_u1[iindx - 1].f1.size(1);
-        for (b_i = 0; b_i < end; b_i++) {
-          loop_ub = temp_u1[iindx - 1].f1.size(0);
-          for (i1 = 0; i1 < loop_ub; i1++) {
-            u1[i1 + u1.size(0) * b_i] = temp_u1[iindx - 1].f1[i1 + temp_u1[iindx
-              - 1].f1.size(0) * b_i];
+        loop_ub = temp_u1[iindx - 1].f1.size(1);
+        for (b_i = 0; b_i < loop_ub; b_i++) {
+          end = temp_u1[iindx - 1].f1.size(0);
+          for (i = 0; i < end; i++) {
+            u1[i + u1.size(0) * b_i] = temp_u1[iindx - 1].f1[i + temp_u1[iindx -
+              1].f1.size(0) * b_i];
           }
         }
 
         u2.set_size(temp_u2[iindx - 1].f1.size(0), temp_u2[iindx - 1].f1.size(1));
-        end = temp_u2[iindx - 1].f1.size(1);
-        for (b_i = 0; b_i < end; b_i++) {
-          loop_ub = temp_u2[iindx - 1].f1.size(0);
-          for (i1 = 0; i1 < loop_ub; i1++) {
-            u2[i1 + u2.size(0) * b_i] = temp_u2[iindx - 1].f1[i1 + temp_u2[iindx
-              - 1].f1.size(0) * b_i];
+        loop_ub = temp_u2[iindx - 1].f1.size(1);
+        for (b_i = 0; b_i < loop_ub; b_i++) {
+          end = temp_u2[iindx - 1].f1.size(0);
+          for (i = 0; i < end; i++) {
+            u2[i + u2.size(0) * b_i] = temp_u2[iindx - 1].f1[i + temp_u2[iindx -
+              1].f1.size(0) * b_i];
           }
         }
 
@@ -405,10 +364,6 @@ namespace RAT
         VE2_size[0] = 1;
         VE2_size[1] = 1;
         VE2_data[0] = temp_VE2[iindx - 1];
-        if (DEBUG != 0.0) {
-          printf("SPLIT ELLIPSOID: min F(S) = %f\n", minFS);
-          fflush(stdout);
-        }
       }
     }
 

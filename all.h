@@ -21,9 +21,8 @@ namespace RAT
 {
   namespace coder
   {
-    void all(const boolean_T x_data[], const int x_size[2], boolean_T y_data[],
-             int y_size[2]);
-    boolean_T b_all(const boolean_T x_data[], const int x_size[2]);
+    void all(const boolean_T x_data[], boolean_T y_data[], int y_size[2]);
+    boolean_T b_all(const boolean_T x_data[]);
   }
 }
 

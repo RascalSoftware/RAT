@@ -26,7 +26,6 @@ namespace RAT
     omp_init_nest_lock(&emlrtNestLockGlobal);
     savedTime_not_empty_init();
     freq_not_empty_init();
-    DEBUG = 0.0;
     helper_not_empty_init();
     triggerEvent_init();
     filedata_init();

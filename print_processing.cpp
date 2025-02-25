@@ -29,14 +29,6 @@ namespace RAT
         validatedArgumetns[3] = varargin_4;
         validatedArgumetns[4] = varargin_5;
       }
-
-      void print_processing(int varargin_1, int varargin_2, int varargin_3, int
-                            validatedArgumetns[3])
-      {
-        validatedArgumetns[0] = varargin_1;
-        validatedArgumetns[1] = varargin_2;
-        validatedArgumetns[2] = varargin_3;
-      }
     }
   }
 }

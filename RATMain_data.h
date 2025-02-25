@@ -20,7 +20,6 @@
 namespace RAT
 {
   extern unsigned int state[625];
-  extern double DEBUG;
   extern double freq;
   extern boolean_T freq_not_empty;
   extern omp_nest_lock_t emlrtNestLockGlobal;

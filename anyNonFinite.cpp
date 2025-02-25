@@ -31,7 +31,7 @@ namespace RAT
           int i1;
           i1 = x.size(0);
           for (int b_k{0}; b_k < i1; b_k++) {
-            b_genloops(x, &p, b_k + 1, k + 1);
+            genloops(x, &p, b_k + 1, k + 1);
           }
         }
 

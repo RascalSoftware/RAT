@@ -16,7 +16,6 @@
 namespace RAT
 {
   unsigned int state[625];
-  double DEBUG;
   double freq;
   boolean_T freq_not_empty;
   omp_nest_lock_t emlrtNestLockGlobal;

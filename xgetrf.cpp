@@ -26,42 +26,6 @@ namespace RAT
     {
       namespace lapack
       {
-        void xgetrf(int m, int n, ::coder::array<double, 2U> &A, int lda)
-        {
-          if ((m >= 1) && (n >= 1)) {
-            int u0;
-            u0 = m - 1;
-            if (u0 >= n) {
-              u0 = n;
-            }
-
-            for (int j{0}; j < u0; j++) {
-              int b_tmp;
-              int jp1j;
-              int jpiv_offset;
-              int mmj;
-              mmj = m - j;
-              b_tmp = j * (lda + 1);
-              jp1j = b_tmp + 2;
-              jpiv_offset = blas::ixamax(mmj, A, b_tmp + 1) - 1;
-              if (A[b_tmp + jpiv_offset] != 0.0) {
-                if (blas::ixamax(mmj, A, b_tmp + 1) - 1 != 0) {
-                  blas::xswap(n, A, j + 1, lda, (j + jpiv_offset) + 1, lda);
-                }
-
-                jpiv_offset = b_tmp + mmj;
-                for (int i{jp1j}; i <= jpiv_offset; i++) {
-                  A[i - 1] = A[i - 1] / A[b_tmp];
-                }
-              }
-
-              jpiv_offset = b_tmp + lda;
-              blas::xgeru(mmj - 1, (n - j) - 1, b_tmp + 2, jpiv_offset + 1, lda,
-                          A, jpiv_offset + 2, lda);
-            }
-          }
-        }
-
         void xgetrf(int m, int n, ::coder::array<double, 2U> &A, int lda, ::
                     coder::array<int, 2U> &ipiv)
         {

@@ -2,11 +2,11 @@ function cornerPlot(results, options)
     % Creates a corner plot from chain data in the result struct, with or without smoothing.
     % If selected, smoothing is via a moving average algorithm.
     %
-    % Example Usage::
-    % 
-    %    cornerPlot(result, 'smooth', false);
-    %    cornerPlot(result, 'smooth', false, 'params', [1, 3]);  % should plot 1st and 3rd fitted parameters only. 
-    %    cornerPlot(result, 'smooth', true, 'smoothingFactor', 0.5);
+    % Examples
+    % --------
+    % >>> cornerPlot(result, 'smooth', false);
+    % >>> cornerPlot(result, 'smooth', false, 'params', [1, 3]);  % should plot 1st and 3rd fitted parameters only. 
+    % >>> cornerPlot(result, 'smooth', true, 'smoothingFactor', 0.5);
     %
     % Parameters
     % ----------
@@ -17,7 +17,7 @@ function cornerPlot(results, options)
     %       * figure ('matlab.ui.Figure' or int, default: []) figure or number of the figure to use for the plot.
     %       * smooth (logical, default: true) indicates if moving average smoothing is applied to the plot.
     %       * params (1D 'array of int', 'array of string' or 'cell array of char vectors', default: []) indices or names of a subset of parameters to the plot.
-    %       * smoothingFactor (float [0, 1], default: 0.25) adjusts the level of smoothing by scaling the window size, values near 0 produce smaller moving window sizes, 
+    %       * smoothingFactor (double [0, 1], default: 0.25) adjusts the level of smoothing by scaling the window size, values near 0 produce smaller moving window sizes, 
     %             resulting in less smoothing and values near 1 produce larger moving window sizes, resulting in more smoothing.
 
     arguments
@@ -132,48 +132,4 @@ function cornerPlot(results, options)
         end
     end 
     drawnow;
-end
-
-function plotContours(x, y, activeAxis, smooth, smoothingFactor)
-    % Make contour subplot in the corner plot.
-    %
-    % Parameters
-    % ----------
-    % x : double
-    %    1D array data for X axis. 
-    % y : double
-    %    1D array data for Y axis. 
-    % activeAxis : matlab.graphics.axes.Axes
-    %    axes object to make plot on.
-    % smooth : bool
-    %    indicates if moving average smoothing is applied to the plot.
-    % smoothingFactor : float
-    %    adjusts the level of smoothing by scaling the window size.
-    
-    nbins = [50, 50];
-
-    [N, xEdges, yEdges] = histcounts2(x, y, nbins, 'Normalization', 'pdf');
-
-    if (smooth)
-        N = smoothdata(N, 'movmean', 'SmoothingFactor', smoothingFactor);
-    end
-
-    histogram2('XBinEdges', xEdges, 'YBinEdges', yEdges, 'BinCounts', N)
-    C{1} = xEdges(2:end) - (xEdges(2)-xEdges(1))/2;
-    C{2} = yEdges(2:end) - (yEdges(2)-yEdges(1))/2;
-
-    K=(1/10)*ones(5);
-    N=conv2(N,K,'same');
-
-    NN = N/sum(N(:));
-    NS = sort(NN(:));
-
-    [c, ind, ~] = unique(cumsum(NS),'stable');
-    levels = interp1(c, NS(ind), [0.015 0.1 0.3 0.65 0.9],'linear','extrap');
-
-    contourf(C{1}, C{2}, NN', levels, 'parent', activeAxis);
-
-    colormap(flipud(gray(5)));
-
-    hold on
 end

@@ -13,7 +13,7 @@ function input = validateNumber(input, message, validateInt)
     
     if ~isnumeric(input)
         throw(exceptions.invalidType(message));
-    elseif validateInt && mod(input, 1) ~= 0
+    elseif validateInt && any(mod(input, 1) ~= 0)
         throw(exceptions.invalidValue(message));
     end
 end

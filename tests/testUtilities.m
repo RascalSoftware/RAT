@@ -136,5 +136,24 @@ classdef testUtilities < matlab.unittest.TestCase
             testCase.assertEqual(mock.callCount, 2);
             testCase.assertEqual(mock.arguments{end}, {'delete', fakeID});
         end
+
+        function testCornerPlot(testCase)
+            results = struct();
+            results.chain = zeros(3);
+            results.fitNames = ["A", "B", "C"];
+            
+            testCase.verifyError(@() cornerPlot(results, 'params', "D"), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() cornerPlot(results, 'params', [1.2, 3]), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() cornerPlot(results, 'params', [-1, 4]), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() cornerPlot(results, 'params', {'a', "B"}), exceptions.invalidValue.errorID);
+            h1 = figure();
+            cornerPlot(results, 'figure', h1, 'params', [1, 3]);
+            testCase.verifyLength(findall(h1,'type','axes'), 4, 'cornerPlot did not create correct number of axes')
+            cornerPlot(results, 'figure', h1, 'params', ["C", "B", "A"]);
+            testCase.verifyLength(findall(h1,'type','axes'), 7, 'cornerPlot did not create correct number of axes')
+            cornerPlot(results, 'figure', h1, 'params', {'C'});
+            testCase.verifyLength(findall(h1,'type','axes'), 2, 'cornerPlot did not create correct number of axes')
+            close(h1);
+        end
     end
 end

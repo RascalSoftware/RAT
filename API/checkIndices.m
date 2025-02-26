@@ -27,14 +27,6 @@ function checkIndices(problemStruct, customFiles)
 
     end
 
-    numQzshifts = length(problemStruct.qzshifts);
-    for i = 1:length(problemStruct.contrastQzshifts)
-        index = problemStruct.contrastQzshifts(i);
-        if index < 1 || index > numQzshifts
-            throw(exceptions.indexOutOfRange(sprintf('contrastQzshifts(%i) is %i, which is outside the range of qzshifts', i, index)));
-        end
-    end
-
     numScalefactors = length(problemStruct.scalefactors);
     for i = 1:length(problemStruct.contrastScalefactors)
         index = problemStruct.contrastScalefactors(i);

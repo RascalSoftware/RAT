@@ -40,10 +40,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         protectedParameters
     end
 
-    properties (SetAccess = immutable, Hidden)
-        qzshifts = parametersClass('Qz shift 1',-1e-4,0,1e-4,false,priorTypes.Uniform,0,Inf)
-    end
-
     properties(Access = protected, Constant, Hidden)
         classes = struct(name = ["parameters", "bulkIn", "bulkOut", "scalefactors", "backgroundParams", "resolutionParams", "domainRatio", "layers", "customFile", "backgrounds", "resolutions", "data", "contrast"], ...
                          addRoutine = ["addParameter", "addBulkIn", "addBulkOut", "addScalefactor", "addBackgroundParam", "addResolutionParam", "addDomainRatio", "addLayer", "addCustomFile", "addBackground", "addResolution", "addData", "addContrast"], ...
@@ -208,7 +204,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             names.resolutionParamNames = obj.resolution.resolutionParams.getNames();
             names.dataNames = obj.data.getNames();
             names.scalefactorNames = obj.scalefactors.getNames();
-            names.qzShiftNames = obj.qzshifts.getNames();
             names.customFileNames = obj.customFile.getNames();
             if isa(obj.layers, 'layersClass')
                 names.layerNames = obj.layers.getNames();
@@ -863,11 +858,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             scalefactorStruct = cell2struct(struct2cell(scalefactorStruct),{'scalefactorNames',...
                 'scalefactorLimits','scalefactorValues','fitScalefactor','scalefactorPriors'});
             
-            % Qzshifts
-            qzshiftStruct = obj.qzshifts.toStruct();
-            qzshiftStruct = cell2struct(struct2cell(qzshiftStruct),{'qzshiftNames',...
-                'qzshiftLimits','qzshiftValues','fitQzshift','qzshiftPriors'});
-            
             % Layers
             if isa(obj.layers, 'layersClass')
                 layersStruct = obj.layers.toStruct(paramStruct.paramNames);
@@ -897,7 +887,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                                      bulkInStruct, ...
                                      bulkOutStruct, ...
                                      scalefactorStruct, ...
-                                     qzshiftStruct, ...
                                      layersStruct, ...
                                      customFileStruct, ...
                                      dataStruct, ...

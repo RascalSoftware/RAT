@@ -17,20 +17,15 @@ fittingScales = problem.scalefac(find(fitWhichScales));
 fittingScalesConstr = problem.scalefactorLimits(find(fitWhichScales),:);
 fittingScalesNames = problem.scalefactorNames(find(fitWhichScales));
 
-fitWhichShifts = problem.fitQzshift;
-fittingShifts = problem.qzshifts(find(fitWhichShifts));
-fittingShiftsConstr = problem.qzshiftLimit(find(fitWhichShifts),:);
-fittingShiftsNames = problem.qzshiftNames(find(fitWhichShifts));
-
-fitWhichNbas = problem.fitBulkIn;
-fittingNbas = problem.bulkIn(find(fitWhichNbas));
-fittingNbaConstr = problem.bulkInLimits(find(fitWhichNbas),:);
-fittingNbaNames = problem.bulkInNames(find(fitWhichNbas));
+fitWhichBulkIns = problem.fitBulkIn;
+fittingBulkIns = problem.bulkIn(find(fitWhichBulkIns));
+fittingBulkInConstr = problem.bulkInLimits(find(fitWhichBulkIns),:);
+fittingBulkInNames = problem.bulkInNames(find(fitWhichBulkIns));
 
 
-fittingParams = [fittingParams(:) ; fittingBackgroundParam(:) ; fittingScales(:) ; fittingShifts(:) ; fittingNbas(:)];
-fittingConstr = [fittingConstr ; fittingBackgroundParamConstr ; fittingScalesConstr ; fittingShiftsConstr ; fittingNbaConstr];
-fittingNames = [fittingNames(:) ; fittingBackgroundParamNames(:) ; fittingScalesNames(:) ; fittingShiftsNames(:) ; fittingNbaNames(:)];
+fittingParams = [fittingParams(:) ; fittingBackgroundParam(:) ; fittingScales(:) ; fittingBulkIns(:)];
+fittingConstr = [fittingConstr ; fittingBackgroundParamConstr ; fittingScalesConstr ; fittingBulkInConstr];
+fittingNames = [fittingNames(:) ; fittingBackgroundParamNames(:) ; fittingScalesNames(:) ; fittingBulkInNames(:)];
 
 if isempty(fittingParams)
     out{1} = 'fail';

@@ -34,12 +34,11 @@ end
 %     priors.resolutionParams ; ...
 %     priors.bulkIns ; ...
 %     priors.bulkOuts ; ...
-%     priors.qzshifts ; 
 %     priors.scalefactors];
 
 % totalNumber = size(priors.param,1) + size(priors.backgroundParam,1) + ...
 %     size(priors.resolutionParam,1) + size(priors.bulkIn,1) + size(priors.bulkOut,1) + ...
-%     size(priors.qzshift,1) + size(priors.scalefactor,1);
+%     size(priors.scalefactor,1);
 
 % Expand the individual cells..
 %allPriors = cell(totalNumber,2);    %Will be a char type....
@@ -83,14 +82,6 @@ end
 %     allPriors(cellCount,2) = priors.bulkOuts{i}{2};
 %     allPriorVals{cellCount,1} = priors.bulkOuts{i}{3};
 %     allPriorVals{cellCount,2} = priors.bulkOuts{i}{4};
-%     cellCount = cellCount + 1;
-% end
-% 
-% for i = 1:size(priors.qzshifts,1)
-%     allPriors(cellCount,1) = priors.qzshifts{i}{1};
-%     allPriors(cellCount,2) = priors.qzshifts{i}{2};
-%     allPriorVals{cellCount,1} = priors.qzshifts{i}{3};
-%     allPriorVals{cellCount,2} = priors.qzshifts{i}{4};
 %     cellCount = cellCount + 1;
 % end
 % 

@@ -5,8 +5,8 @@ function [problemStruct,fitNames] = packParams(problemStruct,limits)
 
     % Note that this order of parameters fields is hard-coded by this
     % routine, packParamsPriors, unpackParams, and getFitNames
-    fields = {"params", "backgroundParams", "scalefactors", "qzshifts",...
-        "bulkIns", "bulkOuts", "resolutionParams", "domainRatios"};
+    fields = {"params", "backgroundParams", "scalefactors", "bulkIns",...
+        "bulkOuts", "resolutionParams", "domainRatios"};
 
     numberOfFitted = 0;
     for i = 1:length(fields)

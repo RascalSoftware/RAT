@@ -67,7 +67,6 @@ classdef contrastsClass < baseContrasts
             contrastBulkIns = ones(1,nContrasts);
             contrastBulkOuts = ones(1,nContrasts);
             contrastDomainRatios = zeros(1,nContrasts);
-            contrastQzshifts = ones(1,nContrasts);
             contrastScalefactors = ones(1,nContrasts);
             contrastResolutions = ones(1,nContrasts);
             resample = ones(1,nContrasts);
@@ -116,7 +115,6 @@ classdef contrastsClass < baseContrasts
                 contrastBackgroundActions{i} = thisContrast.backgroundAction;
                 contrastBulkIns(i) = find(strcmpi(thisContrast.bulkIn,allowedNames.bulkInNames));
                 contrastBulkOuts(i) = find(strcmpi(thisContrast.bulkOut,allowedNames.bulkOutNames));
-                contrastQzshifts(i) = 1;  %Todo
                 contrastScalefactors(i) = find(strcmpi(thisContrast.scalefactor,allowedNames.scalefactorNames));
                 contrastResolutions(i) = find(strcmpi(thisContrast.resolution,allowedNames.resolutionNames));
                 resample(i) = thisContrast.resample;
@@ -148,7 +146,6 @@ classdef contrastsClass < baseContrasts
             contrastStruct.contrastBackgroundActions = contrastBackgroundActions;
             contrastStruct.contrastBulkIns = contrastBulkIns;
             contrastStruct.contrastBulkOuts = contrastBulkOuts;
-            contrastStruct.contrastQzshifts = contrastQzshifts;
             contrastStruct.contrastScalefactors = contrastScalefactors;
             contrastStruct.contrastResolutions = contrastResolutions;
             contrastStruct.contrastData = contrastData;

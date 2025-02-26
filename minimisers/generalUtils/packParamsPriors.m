@@ -5,8 +5,8 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
 
     % Note that this order of parameters fields is hard-coded by this
     % routine, packParams, unpackParams, and getFitNames
-    fields = {"params", "backgroundParams", "scalefactors", "qzshifts",...
-        "bulkIns", "bulkOuts", "resolutionParams", "domainRatios"};
+    fields = {"params", "backgroundParams", "scalefactors", "bulkIns",...
+        "bulkOuts", "resolutionParams", "domainRatios"};
 
     numberOfFitted = 0;
     for i = 1:length(fields)
@@ -20,7 +20,6 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
     fitPriors = zeros(numberOfFitted, 2);
 
     fitCounter = 1;
-    otherCounter = 1;
 
     for i = 1:length(fields)
         fitIndices = find(problemStruct.checks.(fields{i}));

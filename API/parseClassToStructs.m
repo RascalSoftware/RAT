@@ -142,10 +142,6 @@ for i = 1:length(inputStruct.scalefactorLimits)
     problemLimits.scalefactors(i,:) = inputStruct.scalefactorLimits{i};
 end
 
-for i = 1:length(inputStruct.qzshiftLimits)
-    problemLimits.qzshifts(i,:) = inputStruct.qzshiftLimits{i};
-end
-
 for i = 1:length(inputStruct.bulkInLimits)
     problemLimits.bulkIns(i,:) = inputStruct.bulkInLimits{i};
 end
@@ -182,14 +178,12 @@ problemStruct.repeatLayers = inputStruct.contrastRepeatSLDs;
 problemStruct.contrastBackgroundParams = contrastBackgroundParams;
 problemStruct.contrastBackgroundTypes = contrastBackgroundTypes;
 problemStruct.contrastBackgroundActions = inputStruct.contrastBackgroundActions;
-problemStruct.contrastQzshifts = inputStruct.contrastQzshifts;
 problemStruct.contrastScalefactors = inputStruct.contrastScalefactors;
 problemStruct.contrastBulkIns = inputStruct.contrastBulkIns;
 problemStruct.contrastBulkOuts = inputStruct.contrastBulkOuts;
 problemStruct.contrastResolutionParams = contrastResolutionParams;
 problemStruct.contrastResolutionTypes = contrastResolutionTypes;
 problemStruct.backgroundParams = inputStruct.backgroundParamValues;
-problemStruct.qzshifts = inputStruct.qzshiftValues;
 problemStruct.scalefactors = inputStruct.scalefactorValues;
 problemStruct.bulkIns = inputStruct.bulkInValues;
 problemStruct.bulkOuts = inputStruct.bulkOutValues;
@@ -227,8 +221,8 @@ problemStruct.fitLimits = [];
 %% Put the priors into their fields
 
 priorFields = ["paramPriors", "backgroundParamPriors", ...
-               "scalefactorPriors","qzshiftPriors", "bulkInPriors", ...
-               "bulkOutPriors", "resolutionParamPriors"];
+               "scalefactorPriors", "bulkInPriors", "bulkOutPriors", ...
+               "resolutionParamPriors"];
 
 if isa(project, 'domainsClass')
     priorFields(end+1) = "domainRatioPriors";
@@ -274,7 +268,6 @@ problemStruct.priorValues = cell2mat(priorsCell(:, 2:end));
 problemStruct.names.params = inputStruct.paramNames;
 problemStruct.names.backgroundParams = inputStruct.backgroundParamNames;
 problemStruct.names.scalefactors = inputStruct.scalefactorNames;
-problemStruct.names.qzshifts = inputStruct.qzshiftNames;
 problemStruct.names.bulkIns = inputStruct.bulkInNames;
 problemStruct.names.bulkOuts = inputStruct.bulkOutNames;
 problemStruct.names.resolutionParams = inputStruct.resolutionParamNames;
@@ -289,7 +282,6 @@ problemStruct.names.contrasts = inputStruct.contrastNames;
 problemStruct.checks.params = inputStruct.fitParam;
 problemStruct.checks.backgroundParams = inputStruct.fitBackgroundParam;
 problemStruct.checks.scalefactors = inputStruct.fitScalefactor;
-problemStruct.checks.qzshifts = inputStruct.fitQzshift;
 problemStruct.checks.bulkIns = inputStruct.fitBulkIn;
 problemStruct.checks.bulkOuts = inputStruct.fitBulkOut;
 problemStruct.checks.resolutionParams = inputStruct.fitResolutionParam;

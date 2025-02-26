@@ -175,7 +175,6 @@ problemStruct.data = inputData;
 problemStruct.dataPresent = inputStruct.dataPresent;
 problemStruct.dataLimits = inputStruct.dataLimits;
 problemStruct.simulationLimits = inputStruct.simLimits;
-problemStruct.oilChiDataPresent = inputStruct.oilChiDataPresent;
 problemStruct.numberOfContrasts = inputStruct.numberOfContrasts;
 problemStruct.geometry = inputStruct.geometry;
 problemStruct.useImaginary = inputStruct.useImaginary;

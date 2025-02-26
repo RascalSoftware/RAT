@@ -33,22 +33,10 @@ function obj = createProject(options)
     options.geometry = validateOption(options.geometry, 'geometryOptions', invalidGeometryMessage).value;
 
     % Initialise object, including domains if necessary
-    if any(strcmp(options.calcType, {calculationTypes.Domains.value, calculationTypes.MagneticDomains.value}))
+    if strcmpi(options.calcType, calculationTypes.Domains.value)
         obj = domainsClass(options.name, options.calcType, options.model, options.geometry, options.absorption);
     else
         obj = projectClass(options.name, options.calcType, options.model, options.geometry, options.absorption);
-    end
-
-    % Set specific options depending on the calculation type
-    switch obj.calculationType
-        case {calculationTypes.Magnetic.value, calculationTypes.MagneticDomains.value}
-            obj.layers = layersClass({'SLD Real', 'SLD Imaginary', 'SLD Magnetic Real', 'SLD Magnetic Imaginary'});
-        case calculationTypes.OilWater.value
-            if isa(obj, 'domainsClass')
-                obj.contrasts = contrastsClass(domains=true, oilWater=true);
-            else
-                obj.contrasts = contrastsClass(domains=false, oilWater=true);
-            end
     end
 
 end

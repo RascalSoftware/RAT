@@ -19,7 +19,6 @@ ARG = coder.typeof(0,[1 2]);
 ARGS_1_1.dataLimits = coder.typeof({ARG}, [1 maxArraySize],[0 1]);
 ARG = coder.typeof(0,[1 2]);
 ARGS_1_1.simulationLimits = coder.typeof({ARG}, [1 maxArraySize],[0 1]);
-ARGS_1_1.oilChiDataPresent = coder.typeof(0,[1 maxArraySize],[0 1]);
 ARGS_1_1.numberOfContrasts = coder.typeof(0);
 ARGS_1_1.geometry = coder.typeof('X',[1 maxArraySize],[0 1]);
 ARGS_1_1.useImaginary = coder.typeof(true);

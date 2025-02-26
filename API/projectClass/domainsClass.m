@@ -250,7 +250,7 @@ classdef domainsClass < projectClass
 
             % Need to treat contrasts separately due to changes in the
             % class for domains calculations
-            projectObj.contrasts = copyProperties(obj.contrasts, contrastsClass(oilWater=obj.contrasts.oilWaterCalc));
+            projectObj.contrasts = copyProperties(obj.contrasts, contrastsClass(domains=false));
         end
 
     end

@@ -7,26 +7,21 @@ classdef contrastsClass < baseContrasts
     methods   
         function obj = contrastsClass(calcType)
             % Class Constructor
-            % The (optional) inputs are logical flags to state whether
-            % or not this is a domains calculation and whether or not this
-            % is an oil-water calculation.
+            % The (optional) inputs is a logical flag to state whether
+            % or not this is a domains calculation.
             %
             % contrasts = contrastsClass()
             arguments
                 calcType.domains {mustBeA(calcType.domains,'logical')} = false
-                calcType.oilWater {mustBeA(calcType.oilWater,'logical')} = false
             end
 
-            obj@baseContrasts(calcType.domains, calcType.oilWater)
+            obj@baseContrasts(calcType.domains)
         end
 
         function names = getDisplayNames(obj)
             names = ["Name"; "Data"; "Background"; "Background Action"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Model"];
             if obj.domainsCalc
                 names = [names(1:end-1); "Domain Ratio"; names(end)];
-            end
-            if obj.oilWaterCalc
-                names = [names(1:2); "Oil Chi Data"; names(3:end)];
             end
         end
 
@@ -81,9 +76,6 @@ classdef contrastsClass < baseContrasts
             dataLimits = cell(1,nContrasts);
             simLimits = cell(1,nContrasts);
             contrastData = cell(1,nContrasts);
-
-            oilChiDataPresent = zeros(1,nContrasts);
-            oilChiData = cell(1,nContrasts);
 
             for i = 1:nContrasts
 
@@ -149,22 +141,6 @@ classdef contrastsClass < baseContrasts
                 end
             end
 
-            if obj.oilWaterCalc
-                for i = 1:nContrasts    
-                    thisContrast = obj.contrasts{i};
-                    thisOilChiDataVal = find(strcmpi(thisContrast.oilChiData,allowedNames.dataNames));
-                    if ~isempty(thisOilChiDataVal)
-                        actualOilChiData = dataTable{thisOilChiDataVal,2}{:};
-                        if ~isempty(actualOilChiData)
-                            oilChiDataPresent(i) = 1;
-                        end
-                        oilChiData{i} = dataTable{thisOilChiDataVal,2}{:};
-                    else
-                        oilChiData{i} = [0 0 0];
-                    end
-                end
-            end
-
             contrastStruct.contrastLayers = contrastLayers;
             contrastStruct.contrastCustomFile = contrastCustomFile;
             contrastStruct.contrastDomainRatios = contrastDomainRatios;
@@ -180,8 +156,6 @@ classdef contrastsClass < baseContrasts
             contrastStruct.dataLimits = dataLimits;
             contrastStruct.simLimits = simLimits;
             contrastStruct.resample = resample;
-            contrastStruct.oilChiDataPresent = oilChiDataPresent;
-            contrastStruct.oilChiData = oilChiData;
 
         end
 
@@ -217,12 +191,6 @@ classdef contrastsClass < baseContrasts
 
             addParameter(p,'name',          defaultName,        @isText);
             addParameter(p,'data',          defaultData,        @(x) obj.validateExactString(x,expectedData));
-
-            if obj.oilWaterCalc
-                defaultOilChiData = '';
-                addParameter(p,'oilChiData',    defaultOilChiData,  @(x) obj.validateExactString(x,expectedData));
-            end
-
             addParameter(p,'background',       defaultBackground,         @(x) obj.validateExactString(x,expectedBackground));
             addParameter(p,'backgroundAction', defaultBackgroundAction,   @(x) isText(x) || isenum(x))
             addParameter(p,'bulkIn',           defaultBulkIn,             @(x) obj.validateExactString(x,expectedBulkIn));

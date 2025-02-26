@@ -17,6 +17,5 @@ classdef hydrationTypes < customEnum
         None ('none')
         BulkIn ('bulk in')
         BulkOut ('bulk out')
-        Oil ('oil')
     end
 end

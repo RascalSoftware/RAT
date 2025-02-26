@@ -13,7 +13,6 @@ classdef (Abstract) baseContrasts < handle
 
     properties (SetAccess = immutable)
         domainsCalc
-        oilWaterCalc
     end
 
     properties (Dependent, SetAccess = private)
@@ -24,8 +23,8 @@ classdef (Abstract) baseContrasts < handle
     properties(Access = protected, Constant, Hidden)
         invalidTypeMessage = sprintf('Model type must be a modelTypes enum or one of the following strings (%s)', ...
                                      strjoin(modelTypes.values(), ', '))
-        rowHeaders = struct('key', ["Name"; "Data"; "Oil Chi Data"; "Background"; "Background Action"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"], ...
-                            'field', ["name"; "data"; "oilChiData"; "background"; "backgroundAction"; "bulkIn"; "bulkOut"; "scalefactor"; "resolution"; "resample"; "domainRatio"; "model"])
+        rowHeaders = struct('key', ["Name"; "Data"; "Background"; "Background Action"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"], ...
+                            'field', ["name"; "data"; "background"; "backgroundAction"; "bulkIn"; "bulkOut"; "scalefactor"; "resolution"; "resample"; "domainRatio"; "model"])
     end
 
     methods (Abstract)
@@ -40,20 +39,17 @@ classdef (Abstract) baseContrasts < handle
 
     methods
         
-        function obj = baseContrasts(domainsCalc, oilWaterCalc)
+        function obj = baseContrasts(domainsCalc)
             % Class Constructor
-            % The (optional) inputs are logical flags to state whether
-            % or not this is a domains calculation and wheter or not this
-            % is an oil-water calculation.
+            % The (optional) input is a logical flags to state whether
+            % or not this is a domains calculation.
             %
             % contrasts = contrastsClass()
             arguments
                 domainsCalc {mustBeA(domainsCalc,'logical')} = false
-                oilWaterCalc {mustBeA(oilWaterCalc,'logical')} = false
             end
 
             obj.domainsCalc = domainsCalc;
-            obj.oilWaterCalc = oilWaterCalc;
             obj.contrastAutoNameCounter = 1;
         end
 
@@ -196,10 +192,6 @@ classdef (Abstract) baseContrasts < handle
 
             if isfield(inputBlock, 'data') && ~isempty(inputBlock.data)
                 thisContrast.data = inputBlock.data;
-            end
-
-            if isfield(inputBlock, 'oilChiData') && ~isempty(inputBlock.oilChiData)
-                thisContrast.oilChiData = inputBlock.oilChiData;
             end
             
             if isfield(inputBlock, 'background') && ~isempty(inputBlock.background)

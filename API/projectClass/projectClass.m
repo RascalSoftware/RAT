@@ -89,13 +89,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.experimentName = experimentName;
 
             % Initialise the Parameters Table
-            obj.parameters = parametersClass('Substrate Roughness',1,3,5,true,priorTypes.Uniform,0,Inf);
-
-            if isequal(calculationType, calculationTypes.OilWater.value)
-                obj.addParameter('Oil Thickness');
-                obj.addParameter('Oil Roughness');
-            end
-            
+            obj.parameters = parametersClass('Substrate Roughness',1,3,5,true,priorTypes.Uniform,0,Inf);           
             obj.protectedParameters = cellstr(obj.parameters.getNames');
 
             % Initialise the layers table. Then set the value of
@@ -1095,7 +1089,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
             % Need to treat contrasts separately due to changes in the
             % class for domains calculations
-            domainsObj.contrasts = copyProperties(obj.contrasts, contrastsClass(domains=true, oilWater=obj.contrasts.oilWaterCalc));
+            domainsObj.contrasts = copyProperties(obj.contrasts, contrastsClass(domains=true));
             for i=1:domainsObj.contrasts.numberOfContrasts
                 domainsObj.contrasts.contrasts{i}.domainRatio = '';
             end

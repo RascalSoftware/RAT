@@ -10,12 +10,8 @@ function result = reflectivityCalculation(problemStruct,controls)
 %
 % * normal    - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples.
 %
-% * oil water - Target function for oil-water samples
-%
 % * domains   - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
 %
-% * magnetic  - Target function for cases for polarised neutrons with polarisation analysis.
-%                       
 
 % Decide which target function we are calling and call the relevant routines
 targetFunction = problemStruct.TF;
@@ -50,11 +46,6 @@ switch targetFunction
             otherwise
                 coderException(coderEnums.errorCodes.invalidOption, 'The model type "%s" is not supported', modelType);
         end
-
-    %case coderEnums.calculationTypes.OilWater
-        %contrastParams = oilWaterTFReflectivityCalculation(problemStruct,controls);    
-    %case coderEnums.calculationTypes.Magnetic
-        %contrastParams = polarisedTFReflectivityCalculation(problemStruct,controls);
 
     case coderEnums.calculationTypes.Domains
 

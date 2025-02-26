@@ -31,6 +31,12 @@ end
 
 [problemStruct,fitParamNames] = packParams(problemStruct,problemLimits);
 
+% TODO remove when Jeffreys prior is implemented to RAT
+% https://github.com/RascalSoftware/RAT/issues/353
+if ismember(3, problemStruct.priorValues(:,1))
+    coderException(coderEnums.errorCodes.invalidOption, 'Jeffreys priors are not available in DREAM.')
+end
+
 % Get the priors for the fitted parameters...
 priorList = getFittedPriors(fitParamNames, problemStruct.priorNames, ...
                             problemStruct.priorValues, problemStruct.fitLimits);

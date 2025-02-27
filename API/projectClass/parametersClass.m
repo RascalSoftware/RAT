@@ -1,26 +1,48 @@
 classdef parametersClass < tableUtilities
-    % This is the class definition for
-    % the parameters block.
-    
+    % ``parametersClass`` manages the parameters for the project. It provides methods to add, update and remove parameters.
+    % Each parameter is stored as a row in a table and consist of a name, a value with its minimum and maximum limits, a flag indicating 
+    % if the parameter should be fitted in the calculation, and information for Bayesian calculations i.e. prior_type, mu and sigma.
+    % ``parametersClass`` will be initialised with an default first parameter if no arguments are provided otherwise the provided arguments 
+    % will be used to create the first parameter.  
+    %
+    % Examples
+    % --------
+    % Default values are used when adding the parameter if no arguments are provided
+    % >>> params = parametersClass();
+    % for 2 inputs, the min value provided would be used to set the value and max value
+    % >>> params = parametersClass('Tails', 10);
+    % The code above is equivalent to 
+    % >>> params = parametersClass('Tails', 10, 10, 10);
+    % Other ways of initialisation
+    % >>> params = parametersClass('Tails', 10, 20, 30, true);
+    % >>> params = parametersClass('Tails', 10, 20, 30, true, priorTypes.Uniform.value, 0, Inf);
+    %
+    % Parameters
+    % ----------
+    % name : string or char array, default: auto-generated name
+    %     The name of the first parameter. 
+    % min : double, default: 0.0
+    %     The minimum value that the first parameter could take when fitted.
+    % value : double, default: 0.0
+    %     The value of the parameter
+    % max : double, default: 0.0
+    %     The maximum value that the first parameter could take when fitted.
+    % fit : logical, default: false
+    %     Whether the first parameter should be fitted in a calculation.
+    % prior_type : PriorTypes, default: PriorTypes.Uniform 
+    %     For Bayesian calculations, whether the prior likelihood is assumed to be ‘uniform’ or ‘gaussian’.
+    % mu : double, default: 0
+    %     If the prior type is Gaussian, the mu and sigma values describing the Gaussian function for the prior likelihood.
+    % sigma : double, default: Inf
+    %     If the prior type is Gaussian, the mu and sigma values describing the Gaussian function for the prior likelihood.
+    %
+    % Attributes
+    % ----------
+    % varTable : table
+    %     The table which contains the properties for each parameter. 
+
     methods
         function obj = parametersClass(varargin)
-            % Class constructor.
-            % Creates a Parameter object. The arguments should be 
-            % the content of the first parameter. A parameter consists of
-            % a name (string), min (double), value (double), max (double),
-            % fit flag (logical), prior type (string), mu (double), and
-            % sigma (double) values in that order.
-            % Default values are used when adding the parameter if no
-            % arguments are provided, otherwise a subset of the arguments
-            % can be provided.
-            % The following are assumed from number of arguments: 
-            % for 1 input, the name only is provided
-            % for 2 inputs, the name and value are provided
-            % for 4 inputs, the name, min, value, and max are provided
-            % for 5 inputs, the name, min, value, max, and fit? are provided
-            % for 8 inputs, all parameter properties are provided
-            %
-            % params = parametersClass('Tails', 10, 20, 30, true, priorTypes.Uniform.value, 0, Inf);
             sz = [0, 8];
             varTypes = {'string','double','double','double','logical','string','double','double'};
             varNames = {'Name','Min','Value','Max','Fit?','Prior Type','mu','sigma'};
@@ -69,31 +91,42 @@ classdef parametersClass < tableUtilities
                 % If length is 1, assume name only
                 % and fill in the rest with defaults
                 name = inputCell{1};
-                
+               
                 switch length(inputCell)
                     case 1                           
                     case 2
-                        % If length is 2, assume name and value
-                        % pair. Fill in the rest automatically
                         values = [inputCell{2} inputCell{2} inputCell{2}];
+                    case 3
+                        % If length is 3, the value is used to set the max value
+                        values = [inputCell{2} inputCell{3} inputCell{3}];
                     case 4
                         % If length is 4, assume we are getting the
                         % limits as well as the values
                         values = [inputCell{2} inputCell{3} inputCell{4}]; 
                     case 5
-                         % If length is 5, then assume we are setting
-                         % everything except priors
+                        % If length is 5, then assume we are setting
+                        % everything except priors
                         values = [inputCell{2} inputCell{3} inputCell{4}];
                         fit = inputCell{5};
+                    case 6
+                        % Case 8 must be everything including the prior
+                        values = [inputCell{2} inputCell{3} inputCell{4}];
+                        fit = inputCell{5};
+                        priorType = inputCell{6};
+                    case 7
+                        % Case 8 must be everything including the prior
+                        values = [inputCell{2} inputCell{3} inputCell{4}];
+                        fit = inputCell{5};
+                        priorType = inputCell{6};
+                        priorValues(1) = inputCell{7};
                     case 8
                         % Case 8 must be everything including the prior
                         values = [inputCell{2} inputCell{3} inputCell{4}];
                         fit = inputCell{5};
                         priorType = inputCell{6};
                         priorValues = [inputCell{7} inputCell{8}];
-                       
-                    % If not one of these options, throw an error
                     otherwise
+                        % If not one of these options, throw an error
                         throw(exceptions.invalidNumberOfInputs('Unrecognised inputs to ''addParameter'''));
                 end
                 
@@ -112,15 +145,24 @@ classdef parametersClass < tableUtilities
         
         function obj = removeParameter(obj, row)
             % Removes a parameter from the parameters table. 
-            % Expects a single parameter name or index/array of parameter
-            % names or indices to remove
             %
-            % params.removeParameter(2);
+            % Examples
+            % --------
+            % To remove the second parameter in the table (parameter in row 2)  
+            % >>> params.removeParameter(2);
+            % To remove parameter with a specific name
+            % >>> params.removeParameter('Tails');
+            %
+            % Parameters
+            % ----------
+            % row : string or char array or int
+            %     if row is an integer, it is the row number of the parameter to remove. If it is text, 
+            %     it is the name of the parameter to remove.
             obj.removeRow(row);
         end
         
         function obj = setParameter(obj, row, varargin)
-            % General purpose set parameter method. Expects index or name
+            % General purpose set parameter method . Expects index or name
             % of parameter and keyword/value pairs to set
             %
             % params.setParameter(2, 'value', 50);

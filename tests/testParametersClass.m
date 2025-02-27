@@ -64,7 +64,6 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyEqual(params.varTable{end, 1}, "Another Param", 'addParameter method not working');
             testCase.verifyEqual(params.varTable{end, 2:4}, [6.7, 6.7, 6.7], 'addParameter method not working');
             testCase.verifySize(params.varTable, [4, 8], 'Parameters has wrong dimension');
-            testCase.verifyError(@() params.addParameter('c', 1, 6.7), exceptions.invalidNumberOfInputs.errorID);  % 3 values not accepted
             testCase.verifyError(@() params.addParameter('Another Param'), exceptions.duplicateName.errorID);  % duplicate names not accepted
             testCase.verifyError(@() params.addParameter('c', '1', '2', 3), exceptions.invalidType.errorID);  % value 2-4 should be number
             testCase.verifyError(@() params.addParameter('c', 30, 20, 10), exceptions.invalidValue.errorID);  % lower limit should be less than upper
@@ -80,8 +79,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyEqual(params.varTable{end, 2:4}, [0, 1, 2], 'addParameter method not working');
             testCase.verifyTrue(params.varTable{end, 5}, 'addParameter method not working');
             testCase.verifySize(params.varTable, [6, 8], 'Parameters has wrong dimension');          
-            testCase.verifyError(@() params.addParameter('c', 1, 1, 1, true, 'u'), exceptions.invalidNumberOfInputs.errorID);  % 6 values not accepted
-            testCase.verifyError(@() params.addParameter('c', 1, 1, 1, true, 'u', 1), exceptions.invalidNumberOfInputs.errorID);  % 7 values not accepted
+            testCase.verifyError(@() params.addParameter('c', 1, 1, 1, true, 'u', 1, 2, 3), exceptions.invalidNumberOfInputs.errorID);  % 9 values not accepted
             testCase.verifyError(@() params.addParameter('Param 7', 0, 1, 2, false, 'jeff', -1, 1), exceptions.invalidOption.errorID); % bad prior type
             testCase.verifyError(@() params.addParameter('Param 7', 0, 1, 2, false, priorTypes.Uniform, '-1', 1), exceptions.invalidType.errorID); % bad prior value
             params.addParameter('Param 7', 0, 1, 2, false, priorTypes.Jeffreys, -1, 1);

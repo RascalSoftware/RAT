@@ -30,8 +30,7 @@ namespace RAT
                   2U> &problemLimits_params, const ::coder::array<double, 2U>
                   &problemLimits_backgroundParams, const ::coder::array<double,
                   2U> &problemLimits_scalefactors, const ::coder::array<double,
-                  2U> &problemLimits_qzshifts, const ::coder::array<double, 2U>
-                  &problemLimits_bulkIns, const ::coder::array<double, 2U>
+                  2U> &problemLimits_bulkIns, const ::coder::array<double, 2U>
                   &problemLimits_bulkOuts, const ::coder::array<double, 2U>
                   &problemLimits_resolutionParams, const ::coder::array<double,
                   2U> &problemLimits_domainRatios, const Controls *controls,
@@ -55,9 +54,9 @@ namespace RAT
     char dis_data[6];
     packParams(problemStruct, problemLimits_params,
                problemLimits_backgroundParams, problemLimits_scalefactors,
-               problemLimits_qzshifts, problemLimits_bulkIns,
-               problemLimits_bulkOuts, problemLimits_resolutionParams,
-               problemLimits_domainRatios, b_problemStruct);
+               problemLimits_bulkIns, problemLimits_bulkOuts,
+               problemLimits_resolutionParams, problemLimits_domainRatios,
+               b_problemStruct);
     if (coder::internal::v_strcmp(controls->display.data, controls->display.size))
     {
       outsize_idx_0 = 0;

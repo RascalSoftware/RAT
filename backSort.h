@@ -20,12 +20,11 @@
 // Function Declarations
 namespace RAT
 {
-  void backSort(double contrastQzshifts, double contrastScalefactors, double
-                contrastBulkIns, double contrastBulkOuts, const ::coder::array<
-                double, 2U> &qzshifts, const ::coder::array<double, 2U>
-                &scalefactors, const ::coder::array<double, 2U> &bulkIn, const ::
-                coder::array<double, 2U> &bulkOut, double *outQzshift, double
-                *outScalefactor, double *outBulkIn, double *outBulkOut);
+  void backSort(double contrastScalefactors, double contrastBulkIns, double
+                contrastBulkOuts, const ::coder::array<double, 2U> &scalefactors,
+                const ::coder::array<double, 2U> &bulkIn, const ::coder::array<
+                double, 2U> &bulkOut, double *outQzshift, double *outScalefactor,
+                double *outBulkIn, double *outBulkOut);
 }
 
 #endif

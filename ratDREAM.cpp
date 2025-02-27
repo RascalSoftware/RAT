@@ -61,86 +61,86 @@ namespace RAT
       '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-',
       '-', '\x0a' };
 
-    static const char t31_f2[72]{ '-', '-', '-', '-', '-', '-', '-', '-', '-',
+    static const char t33_f2[72]{ '-', '-', '-', '-', '-', '-', '-', '-', '-',
       '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-',
       '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-',
       '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-',
       '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-',
       '-', '-', '\x0a' };
 
-    static const char t12_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t14_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'n', 'P', 'a', 'r', 'a', 'm',
       's', ':', ' ' };
 
-    static const char t13_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t15_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'n', 'C', 'h', 'a', 'i', 'n',
       's', ':', ' ' };
 
-    static const char t14_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t16_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', 'n', 'G', 'e', 'n', 'e', 'r', 'a', 't', 'i', 'o', 'n',
       's', ':', ' ' };
 
-    static const char t15_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t17_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'a', 'r', 'a', 'l', 'l', 'e',
       'l', ':', ' ' };
 
-    static const char t16_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t18_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'C', 'P',
       'U', ':', ' ' };
 
-    static const char t17_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t19_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', 'j', 'u', 'm', 'p', 'P', 'r', 'o', 'b', 'a', 'b', 'i', 'l', 'i', 't',
       'y', ':', ' ' };
 
-    static const char t18_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t20_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'U', 'n', 'i', 't', 'G', 'a', 'm', 'm',
       'a', ':', ' ' };
 
-    static const char t19_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t21_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'n', 'C',
       'R', ':', ' ' };
 
-    static const char t20_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t22_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'd', 'e', 'l', 't',
       'a', ':', ' ' };
 
-    static const char t21_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t23_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 's', 't', 'e', 'p',
       's', ':', ' ' };
 
-    static const char t22_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t24_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'z', 'e', 't',
       'a', ':', ' ' };
 
-    static const char t23_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t25_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', 'u', 't', 'l', 'i', 'e',
       'r', ':', ' ' };
 
-    static const char t24_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t26_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'd', 'a', 'p', 't', 'P', 'C',
       'R', ':', ' ' };
 
-    static const char t25_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t27_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 't', 'h', 'i', 'n', 'n', 'i', 'n',
       'g', ':', ' ' };
 
-    static const char t26_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t28_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'B',
       'C', ':', ' ' };
 
-    static const char t27_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t29_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'p', 's', 'i', 'l', 'o',
       'n', ':', ' ' };
 
-    static const char t28_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t30_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'I',
       'O', ':', ' ' };
 
-    static const char t29_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t31_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', 's', 't', 'o', 'r', 'e', 'O', 'u', 't', 'p', 'u',
       't', ':', ' ' };
 
-    static const char t30_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t32_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       'R', ':', ' ' };
 
@@ -181,7 +181,7 @@ namespace RAT
     ::coder::array<char, 2U> r;
     ::coder::array<char, 2U> r_f1;
     ::coder::array<char, 2U> s_f1;
-    ::coder::array<char, 2U> t12_f1;
+    ::coder::array<char, 2U> t14_f1;
     ::coder::array<char, 2U> t_f1;
     ::coder::array<char, 2U> u_f1;
     ::coder::array<char, 2U> v_f1;
@@ -197,9 +197,9 @@ namespace RAT
     char b_DREAMPar[4];
 
     //  Print the dream parameters
-    t12_f1.set_size(1, 72);
+    t14_f1.set_size(1, 72);
     for (i = 0; i < 72; i++) {
-      t12_f1[i] = b_cv[i];
+      t14_f1[i] = b_cv[i];
     }
 
     f1.set_size(1, 5);
@@ -214,7 +214,7 @@ namespace RAT
     b_f1[3] = 'e';
     bools[0].f1 = f1;
     bools[1].f1 = b_f1;
-    coder::strjoin(t12_f1, t12_f2, tmp_data, tmp_size);
+    coder::strjoin(t14_f1, t14_f2, tmp_data, tmp_size);
     c_f1.set_size(1, 100);
     for (i = 0; i < 100; i++) {
       c_f1[i] = tmp_data[i];
@@ -224,65 +224,65 @@ namespace RAT
     rv[0].f1 = c_f1;
     rv[1].f1 = d_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t13_f2, e_f1);
+    coder::strjoin(r, t15_f2, e_f1);
     coder::c_snPrint(DREAMPar->nChains, f_f1);
     rv[0].f1 = e_f1;
     rv[1].f1 = f_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t14_f2, g_f1);
+    coder::strjoin(r, t16_f2, g_f1);
     coder::c_snPrint(DREAMPar->nGenerations, h_f1);
     rv[0].f1 = g_f1;
     rv[1].f1 = h_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t15_f2, i_f1);
-    t12_f1.set_size(1, 6);
+    coder::strjoin(r, t17_f2, i_f1);
+    t14_f1.set_size(1, 6);
     for (i = 0; i < 5; i++) {
-      t12_f1[i] = f1[i];
+      t14_f1[i] = f1[i];
     }
 
-    t12_f1[5] = '\x00';
-    tmp_size[0] = (*(int (*)[2])t12_f1.size())[0];
-    tmp_size[1] = (*(int (*)[2])t12_f1.size())[1];
-    coder::snPrint((const char *)t12_f1.data(), tmp_size, j_f1);
+    t14_f1[5] = '\x00';
+    tmp_size[0] = (*(int (*)[2])t14_f1.size())[0];
+    tmp_size[1] = (*(int (*)[2])t14_f1.size())[1];
+    coder::snPrint((const char *)t14_f1.data(), tmp_size, j_f1);
     rv[0].f1 = i_f1;
     rv[1].f1 = j_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t16_f2, k_f1);
+    coder::strjoin(r, t18_f2, k_f1);
     coder::c_snPrint(1.0, l_f1);
     rv[0].f1 = k_f1;
     rv[1].f1 = l_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t17_f2, m_f1);
+    coder::strjoin(r, t19_f2, m_f1);
     coder::c_snPrint(DREAMPar->jumpProbability, n_f1);
     rv[0].f1 = m_f1;
     rv[1].f1 = n_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t18_f2, o_f1);
+    coder::strjoin(r, t20_f2, o_f1);
     coder::c_snPrint(DREAMPar->pUnitGamma, p_f1);
     rv[0].f1 = o_f1;
     rv[1].f1 = p_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t19_f2, q_f1);
+    coder::strjoin(r, t21_f2, q_f1);
     coder::c_snPrint(3.0, r_f1);
     rv[0].f1 = q_f1;
     rv[1].f1 = r_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t20_f2, s_f1);
+    coder::strjoin(r, t22_f2, s_f1);
     coder::c_snPrint(3.0, t_f1);
     rv[0].f1 = s_f1;
     rv[1].f1 = t_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t21_f2, u_f1);
+    coder::strjoin(r, t23_f2, u_f1);
     coder::c_snPrint(DREAMPar->steps, v_f1);
     rv[0].f1 = u_f1;
     rv[1].f1 = v_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t22_f2, w_f1);
+    coder::strjoin(r, t24_f2, w_f1);
     coder::c_snPrint(1.0E-12, x_f1);
     rv[0].f1 = w_f1;
     rv[1].f1 = x_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t23_f2, y_f1);
+    coder::strjoin(r, t25_f2, y_f1);
     b_DREAMPar[0] = DREAMPar->outlier[0];
     b_DREAMPar[1] = DREAMPar->outlier[1];
     b_DREAMPar[2] = DREAMPar->outlier[2];
@@ -291,86 +291,86 @@ namespace RAT
     rv[0].f1 = y_f1;
     rv[1].f1 = ab_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t24_f2, bb_f1);
+    coder::strjoin(r, t26_f2, bb_f1);
     i = DREAMPar->adaptPCR;
-    t12_f1.set_size(1, bools[i].f1.size(1) + 1);
+    t14_f1.set_size(1, bools[i].f1.size(1) + 1);
     loop_ub = bools[i].f1.size(1);
     for (int i1{0}; i1 < loop_ub; i1++) {
-      t12_f1[i1] = bools[static_cast<int>(DREAMPar->adaptPCR)].f1[i1];
+      t14_f1[i1] = bools[static_cast<int>(DREAMPar->adaptPCR)].f1[i1];
     }
 
-    t12_f1[bools[i].f1.size(1)] = '\x00';
-    tmp_size[0] = (*(int (*)[2])t12_f1.size())[0];
-    tmp_size[1] = (*(int (*)[2])t12_f1.size())[1];
-    coder::snPrint((const char *)t12_f1.data(), tmp_size, cb_f1);
+    t14_f1[bools[i].f1.size(1)] = '\x00';
+    tmp_size[0] = (*(int (*)[2])t14_f1.size())[0];
+    tmp_size[1] = (*(int (*)[2])t14_f1.size())[1];
+    coder::snPrint((const char *)t14_f1.data(), tmp_size, cb_f1);
     rv[0].f1 = bb_f1;
     rv[1].f1 = cb_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t25_f2, db_f1);
+    coder::strjoin(r, t27_f2, db_f1);
     coder::c_snPrint(1.0, eb_f1);
     rv[0].f1 = db_f1;
     rv[1].f1 = eb_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t26_f2, fb_f1);
-    t12_f1.set_size(1, 6);
+    coder::strjoin(r, t28_f2, fb_f1);
+    t14_f1.set_size(1, 6);
     for (i = 0; i < 5; i++) {
-      t12_f1[i] = f1[i];
+      t14_f1[i] = f1[i];
     }
 
-    t12_f1[5] = '\x00';
-    tmp_size[0] = (*(int (*)[2])t12_f1.size())[0];
-    tmp_size[1] = (*(int (*)[2])t12_f1.size())[1];
-    coder::snPrint((const char *)t12_f1.data(), tmp_size, gb_f1);
+    t14_f1[5] = '\x00';
+    tmp_size[0] = (*(int (*)[2])t14_f1.size())[0];
+    tmp_size[1] = (*(int (*)[2])t14_f1.size())[1];
+    coder::snPrint((const char *)t14_f1.data(), tmp_size, gb_f1);
     rv[0].f1 = fb_f1;
     rv[1].f1 = gb_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t27_f2, hb_f1);
+    coder::strjoin(r, t29_f2, hb_f1);
     coder::c_snPrint(0.025, ib_f1);
     rv[0].f1 = hb_f1;
     rv[1].f1 = ib_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t28_f2, jb_f1);
-    t12_f1.set_size(1, 6);
+    coder::strjoin(r, t30_f2, jb_f1);
+    t14_f1.set_size(1, 6);
     for (i = 0; i < 5; i++) {
-      t12_f1[i] = f1[i];
+      t14_f1[i] = f1[i];
     }
 
-    t12_f1[5] = '\x00';
-    tmp_size[0] = (*(int (*)[2])t12_f1.size())[0];
-    tmp_size[1] = (*(int (*)[2])t12_f1.size())[1];
-    coder::snPrint((const char *)t12_f1.data(), tmp_size, kb_f1);
+    t14_f1[5] = '\x00';
+    tmp_size[0] = (*(int (*)[2])t14_f1.size())[0];
+    tmp_size[1] = (*(int (*)[2])t14_f1.size())[1];
+    coder::snPrint((const char *)t14_f1.data(), tmp_size, kb_f1);
     rv[0].f1 = jb_f1;
     rv[1].f1 = kb_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t29_f2, lb_f1);
-    t12_f1.set_size(1, 6);
+    coder::strjoin(r, t31_f2, lb_f1);
+    t14_f1.set_size(1, 6);
     for (i = 0; i < 5; i++) {
-      t12_f1[i] = f1[i];
+      t14_f1[i] = f1[i];
     }
 
-    t12_f1[5] = '\x00';
-    tmp_size[0] = (*(int (*)[2])t12_f1.size())[0];
-    tmp_size[1] = (*(int (*)[2])t12_f1.size())[1];
-    coder::snPrint((const char *)t12_f1.data(), tmp_size, mb_f1);
+    t14_f1[5] = '\x00';
+    tmp_size[0] = (*(int (*)[2])t14_f1.size())[0];
+    tmp_size[1] = (*(int (*)[2])t14_f1.size())[1];
+    coder::snPrint((const char *)t14_f1.data(), tmp_size, mb_f1);
     rv[0].f1 = lb_f1;
     rv[1].f1 = mb_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t30_f2, nb_f1);
+    coder::strjoin(r, t32_f2, nb_f1);
     if (DREAMPar->R.size(0) * DREAMPar->R.size(1) != 1) {
       coder::snPrint(static_cast<double>(static_cast<short>(DREAMPar->R.size(0))),
                      static_cast<double>(static_cast<short>(DREAMPar->R.size(1))),
                      "double", ob_f1);
       rv[0].f1 = nb_f1;
       rv[1].f1 = ob_f1;
-      coder::strjoin(rv, t12_f1);
+      coder::strjoin(rv, t14_f1);
     } else {
       coder::c_snPrint(DREAMPar->R[0], ob_f1);
       rv[0].f1 = nb_f1;
       rv[1].f1 = ob_f1;
-      coder::strjoin(rv, t12_f1);
+      coder::strjoin(rv, t14_f1);
     }
 
-    coder::b_strjoin(t12_f1, t31_f2, r);
+    coder::b_strjoin(t14_f1, t33_f2, r);
     triggerEvent(r);
   }
 

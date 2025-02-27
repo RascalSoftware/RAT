@@ -69,9 +69,9 @@ namespace RAT
     *outProblemStruct = *problemStruct;
     packParams(outProblemStruct, problemLimits->params,
                problemLimits->backgroundParams, problemLimits->scalefactors,
-               problemLimits->qzshifts, problemLimits->bulkIns,
-               problemLimits->bulkOuts, problemLimits->resolutionParams,
-               problemLimits->domainRatios, fitParamNames);
+               problemLimits->bulkIns, problemLimits->bulkOuts,
+               problemLimits->resolutionParams, problemLimits->domainRatios,
+               fitParamNames);
 
     //  Get the priors for the fitted parameters...
     //  Put all the RAT parameters together into one array...

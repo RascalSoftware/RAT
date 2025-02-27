@@ -53,11 +53,7 @@ namespace RAT
     //
     //  * normal    - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples.
     //
-    //  * oil water - Target function for oil-water samples
-    //
     //  * domains   - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
-    //
-    //  * magnetic  - Target function for cases for polarised neutrons with polarisation analysis.
     //
     //  Decide which target function we are calling and call the relevant routines
     if (coder::internal::h_strcmp(problemStruct->TF.data, problemStruct->TF.size))
@@ -169,11 +165,6 @@ namespace RAT
         }
         break;
       }
-
-      // case coderEnums.calculationTypes.OilWater
-      // contrastParams = oilWaterTFReflectivityCalculation(problemStruct,controls);
-      // case coderEnums.calculationTypes.Magnetic
-      // contrastParams = polarisedTFReflectivityCalculation(problemStruct,controls);
       break;
 
      case 1:
@@ -336,14 +327,13 @@ namespace RAT
 
     getFitNames(problemStruct->names.params,
                 problemStruct->names.backgroundParams,
-                problemStruct->names.scalefactors, problemStruct->names.qzshifts,
-                problemStruct->names.bulkIns, problemStruct->names.bulkOuts,
+                problemStruct->names.scalefactors, problemStruct->names.bulkIns,
+                problemStruct->names.bulkOuts,
                 problemStruct->names.resolutionParams,
                 problemStruct->names.domainRatios, problemStruct->checks.params,
                 problemStruct->checks.backgroundParams,
                 problemStruct->checks.scalefactors,
-                problemStruct->checks.qzshifts, problemStruct->checks.bulkIns,
-                problemStruct->checks.bulkOuts,
+                problemStruct->checks.bulkIns, problemStruct->checks.bulkOuts,
                 problemStruct->checks.resolutionParams,
                 problemStruct->checks.domainRatios, result->fitNames);
   }
@@ -372,11 +362,7 @@ namespace RAT
     //
     //  * normal    - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples.
     //
-    //  * oil water - Target function for oil-water samples
-    //
     //  * domains   - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
-    //
-    //  * magnetic  - Target function for cases for polarised neutrons with polarisation analysis.
     //
     //  Decide which target function we are calling and call the relevant routines
     if (coder::internal::h_strcmp(problemStruct->TF.data, problemStruct->TF.size))
@@ -488,11 +474,6 @@ namespace RAT
         }
         break;
       }
-
-      // case coderEnums.calculationTypes.OilWater
-      // contrastParams = oilWaterTFReflectivityCalculation(problemStruct,controls);
-      // case coderEnums.calculationTypes.Magnetic
-      // contrastParams = polarisedTFReflectivityCalculation(problemStruct,controls);
       break;
 
      case 1:
@@ -655,14 +636,13 @@ namespace RAT
 
     getFitNames(problemStruct->names.params,
                 problemStruct->names.backgroundParams,
-                problemStruct->names.scalefactors, problemStruct->names.qzshifts,
-                problemStruct->names.bulkIns, problemStruct->names.bulkOuts,
+                problemStruct->names.scalefactors, problemStruct->names.bulkIns,
+                problemStruct->names.bulkOuts,
                 problemStruct->names.resolutionParams,
                 problemStruct->names.domainRatios, problemStruct->checks.params,
                 problemStruct->checks.backgroundParams,
                 problemStruct->checks.scalefactors,
-                problemStruct->checks.qzshifts, problemStruct->checks.bulkIns,
-                problemStruct->checks.bulkOuts,
+                problemStruct->checks.bulkIns, problemStruct->checks.bulkOuts,
                 problemStruct->checks.resolutionParams,
                 problemStruct->checks.domainRatios, result->fitNames);
   }
@@ -691,11 +671,7 @@ namespace RAT
     //
     //  * normal    - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples.
     //
-    //  * oil water - Target function for oil-water samples
-    //
     //  * domains   - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
-    //
-    //  * magnetic  - Target function for cases for polarised neutrons with polarisation analysis.
     //
     //  Decide which target function we are calling and call the relevant routines
     if (coder::internal::h_strcmp(problemStruct->TF.data, problemStruct->TF.size))
@@ -807,11 +783,6 @@ namespace RAT
         }
         break;
       }
-
-      // case coderEnums.calculationTypes.OilWater
-      // contrastParams = oilWaterTFReflectivityCalculation(problemStruct,controls);
-      // case coderEnums.calculationTypes.Magnetic
-      // contrastParams = polarisedTFReflectivityCalculation(problemStruct,controls);
       break;
 
      case 1:
@@ -974,14 +945,13 @@ namespace RAT
 
     getFitNames(problemStruct->names.params,
                 problemStruct->names.backgroundParams,
-                problemStruct->names.scalefactors, problemStruct->names.qzshifts,
-                problemStruct->names.bulkIns, problemStruct->names.bulkOuts,
+                problemStruct->names.scalefactors, problemStruct->names.bulkIns,
+                problemStruct->names.bulkOuts,
                 problemStruct->names.resolutionParams,
                 problemStruct->names.domainRatios, problemStruct->checks.params,
                 problemStruct->checks.backgroundParams,
                 problemStruct->checks.scalefactors,
-                problemStruct->checks.qzshifts, problemStruct->checks.bulkIns,
-                problemStruct->checks.bulkOuts,
+                problemStruct->checks.bulkIns, problemStruct->checks.bulkOuts,
                 problemStruct->checks.resolutionParams,
                 problemStruct->checks.domainRatios, result->fitNames);
   }

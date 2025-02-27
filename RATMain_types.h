@@ -89,7 +89,6 @@ namespace RAT
     ::coder::array<double, 2U> params;
     ::coder::array<double, 2U> backgroundParams;
     ::coder::array<double, 2U> scalefactors;
-    ::coder::array<double, 2U> qzshifts;
     ::coder::array<double, 2U> bulkIns;
     ::coder::array<double, 2U> bulkOuts;
     ::coder::array<double, 2U> resolutionParams;
@@ -175,7 +174,6 @@ namespace RAT
     ::coder::array<double, 2U> params;
     ::coder::array<double, 2U> backgroundParams;
     ::coder::array<double, 2U> scalefactors;
-    ::coder::array<double, 2U> qzshifts;
     ::coder::array<double, 2U> bulkIns;
     ::coder::array<double, 2U> bulkOuts;
     ::coder::array<double, 2U> resolutionParams;
@@ -226,7 +224,6 @@ namespace RAT
     ::coder::array<cell_wrap_0, 2U> params;
     ::coder::array<cell_wrap_0, 2U> backgroundParams;
     ::coder::array<cell_wrap_0, 2U> scalefactors;
-    ::coder::array<cell_wrap_0, 2U> qzshifts;
     ::coder::array<cell_wrap_0, 2U> bulkIns;
     ::coder::array<cell_wrap_0, 2U> bulkOuts;
     ::coder::array<cell_wrap_0, 2U> resolutionParams;
@@ -242,7 +239,6 @@ namespace RAT
     ::coder::array<double, 2U> dataPresent;
     ::coder::array<cell_wrap_2, 2U> dataLimits;
     ::coder::array<cell_wrap_2, 2U> simulationLimits;
-    ::coder::array<double, 2U> oilChiDataPresent;
     double numberOfContrasts;
     ::coder::bounded_array<char, 10000U, 2U> geometry;
     boolean_T useImaginary;
@@ -250,14 +246,12 @@ namespace RAT
     ::coder::array<cell_wrap_3, 2U> contrastBackgroundParams;
     ::coder::array<cell_wrap_0, 2U> contrastBackgroundTypes;
     ::coder::array<cell_wrap_0, 2U> contrastBackgroundActions;
-    ::coder::array<double, 2U> contrastQzshifts;
     ::coder::array<double, 2U> contrastScalefactors;
     ::coder::array<double, 2U> contrastBulkIns;
     ::coder::array<double, 2U> contrastBulkOuts;
     ::coder::array<cell_wrap_4, 2U> contrastResolutionParams;
     ::coder::array<cell_wrap_0, 2U> contrastResolutionTypes;
     ::coder::array<double, 2U> backgroundParams;
-    ::coder::array<double, 2U> qzshifts;
     ::coder::array<double, 2U> scalefactors;
     ::coder::array<double, 2U> bulkIns;
     ::coder::array<double, 2U> bulkOuts;
@@ -274,9 +268,7 @@ namespace RAT
     double numberOfDomainContrasts;
     ::coder::array<cell_wrap_5, 2U> domainContrastLayers;
     ::coder::array<double, 2U> fitParams;
-    ::coder::array<double, 2U> otherParams;
     ::coder::array<double, 2U> fitLimits;
-    ::coder::array<double, 2U> otherLimits;
     ::coder::array<cell_wrap_0, 1U> priorNames;
     ::coder::array<double, 2U> priorValues;
     b_ParamNames names;

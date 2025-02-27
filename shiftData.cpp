@@ -18,9 +18,9 @@
 // Function Definitions
 namespace RAT
 {
-  void shiftData(double scalefactor, double qzshift, double dataPresent, ::coder::
-                 array<double, 2U> &data, const double dataLimits[2], const
-                 double simLimits[2], ::coder::array<double, 2U> &shiftedData)
+  void shiftData(double scalefactor, double dataPresent, ::coder::array<double,
+                 2U> &data, const double dataLimits[2], const double simLimits[2],
+                 ::coder::array<double, 2U> &shiftedData)
   {
     ::coder::array<double, 1U> c_data;
     ::coder::array<int, 1U> b_i;
@@ -52,17 +52,6 @@ namespace RAT
         int lowIndex;
         if (scalefactor == 0.0) {
           scalefactor = 1.0E-30;
-        }
-
-        b_data = data.size(0) - 1;
-        c_data.set_size(data.size(0));
-        for (i = 0; i <= b_data; i++) {
-          c_data[i] = data[i] + qzshift;
-        }
-
-        loop_ub = c_data.size(0);
-        for (i = 0; i < loop_ub; i++) {
-          data[i] = c_data[i];
         }
 
         b_data = data.size(0) - 1;

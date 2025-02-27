@@ -32,8 +32,7 @@ namespace RAT
                   2U> &problemLimits_params, const ::coder::array<double, 2U>
                   &problemLimits_backgroundParams, const ::coder::array<double,
                   2U> &problemLimits_scalefactors, const ::coder::array<double,
-                  2U> &problemLimits_qzshifts, const ::coder::array<double, 2U>
-                  &problemLimits_bulkIns, const ::coder::array<double, 2U>
+                  2U> &problemLimits_bulkIns, const ::coder::array<double, 2U>
                   &problemLimits_bulkOuts, const ::coder::array<double, 2U>
                   &problemLimits_resolutionParams, const ::coder::array<double,
                   2U> &problemLimits_domainRatios, const Controls *controls,

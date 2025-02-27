@@ -35,11 +35,10 @@ namespace RAT
   namespace normalTF
   {
     static void c_contrastCalculation(const double backgroundParamIndex_data[],
-      const int backgroundParamIndex_size[2], double qzshiftIndex, double
-      scalefactorIndex, double bulkInIndex, double bulkOutIndex, const double
-      resolutionParamIndex_data[], const int resolutionParamIndex_size[2], const
-      ::coder::array<double, 2U> &backgroundParams, const ::coder::array<double,
-      2U> &qzshifts, const ::coder::array<double, 2U> &scalefactors, const ::
+      const int backgroundParamIndex_size[2], double scalefactorIndex, double
+      bulkInIndex, double bulkOutIndex, const double resolutionParamIndex_data[],
+      const int resolutionParamIndex_size[2], const ::coder::array<double, 2U>
+      &backgroundParams, const ::coder::array<double, 2U> &scalefactors, const ::
       coder::array<double, 2U> &bulkIns, const ::coder::array<double, 2U>
       &bulkOuts, const ::coder::array<double, 2U> &resolutionParams, double
       dataPresent, const ::coder::array<double, 2U> &data, const double
@@ -65,11 +64,10 @@ namespace RAT
   namespace normalTF
   {
     static void c_contrastCalculation(const double backgroundParamIndex_data[],
-      const int backgroundParamIndex_size[2], double qzshiftIndex, double
-      scalefactorIndex, double bulkInIndex, double bulkOutIndex, const double
-      resolutionParamIndex_data[], const int resolutionParamIndex_size[2], const
-      ::coder::array<double, 2U> &backgroundParams, const ::coder::array<double,
-      2U> &qzshifts, const ::coder::array<double, 2U> &scalefactors, const ::
+      const int backgroundParamIndex_size[2], double scalefactorIndex, double
+      bulkInIndex, double bulkOutIndex, const double resolutionParamIndex_data[],
+      const int resolutionParamIndex_size[2], const ::coder::array<double, 2U>
+      &backgroundParams, const ::coder::array<double, 2U> &scalefactors, const ::
       coder::array<double, 2U> &bulkIns, const ::coder::array<double, 2U>
       &bulkOuts, const ::coder::array<double, 2U> &resolutionParams, double
       dataPresent, const ::coder::array<double, 2U> &data, const double
@@ -104,9 +102,9 @@ namespace RAT
       //  from the input arrays.
       //  First need to decide which values of the backgrounds, scalefactors
       //  data shifts and bulk contrasts are associated with this contrast
-      backSort(qzshiftIndex, scalefactorIndex, bulkInIndex, bulkOutIndex,
-               qzshifts, scalefactors, bulkIns, bulkOuts, qzshiftValue,
-               scalefactorValue, bulkInValue, bulkOutValue);
+      backSort(scalefactorIndex, bulkInIndex, bulkOutIndex, scalefactors,
+               bulkIns, bulkOuts, qzshiftValue, scalefactorValue, bulkInValue,
+               bulkOutValue);
 
       //  Resample the layers
       if (!useImaginary) {
@@ -169,8 +167,8 @@ namespace RAT
         }
       }
 
-      shiftData(*scalefactorValue, *qzshiftValue, dataPresent, b_data,
-                dataLimits, simLimits, b_shiftedData);
+      shiftData(*scalefactorValue, dataPresent, b_data, dataLimits, simLimits,
+                b_shiftedData);
       makeSimulationRange(b_shiftedData, simLimits, simulationXData, dataIndices);
       constructBackground(backgroundType_data, backgroundType_size,
                           backgroundParamIndex_data, backgroundParamIndex_size,
@@ -201,6 +199,8 @@ namespace RAT
       } else {
         *chi = 0.0;
       }
+
+      *qzshiftValue = 0.0;
     }
 
     void b_customXY(const ProblemDefinition *problemStruct, const Controls
@@ -230,6 +230,7 @@ namespace RAT
       double d2;
       double d3;
       double d4;
+      double d5;
       double resampleMinAngle;
       double resampleNPoints;
       int iv[2];
@@ -256,6 +257,8 @@ namespace RAT
       boolean_T useImaginary;
 
       //  Extract parameters from problemStruct
+      //  qzshifts are not included as a parameter in RAT, so we set up dummy
+      //  values for the reflectivity calculation
       nParams = problemStruct->params.size(1);
       useImaginary = problemStruct->useImaginary;
       resampleMinAngle = controls->resampleMinAngle;
@@ -300,7 +303,7 @@ namespace RAT
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
- private(r1,r3,r4,r5,d,d1,d2,d3,d4,c_loop_ub,c_i,i3,iv5,d_loop_ub,i4,iv6,iv7,iv8,iv9)
+ private(r1,r3,r4,r5,d1,d2,d3,d4,d5,c_loop_ub,c_i,i3,iv5,d_loop_ub,i4,iv6,iv7,iv8,iv9)
 
         for (c_i = 0; c_i <= loop_ub; c_i++) {
           c_loop_ub = sldProfiles[c_i].f1.size(1);
@@ -341,14 +344,12 @@ namespace RAT
                      &problemStruct->contrastResolutionTypes[c_i].f1)->size())[1];
           c_contrastCalculation((const double *)((::coder::array<double, 2U> *)
             &problemStruct->contrastBackgroundParams[c_i].f1)->data(), iv5,
-                                problemStruct->contrastQzshifts[c_i],
                                 problemStruct->contrastScalefactors[c_i],
                                 problemStruct->contrastBulkIns[c_i],
                                 problemStruct->contrastBulkOuts[c_i], (const
             double *)((::coder::array<double, 2U> *)
                       &problemStruct->contrastResolutionParams[c_i].f1)->data(),
                                 iv6, problemStruct->backgroundParams,
-                                problemStruct->qzshifts,
                                 problemStruct->scalefactors,
                                 problemStruct->bulkIns, problemStruct->bulkOuts,
                                 problemStruct->resolutionParams,
@@ -367,8 +368,8 @@ namespace RAT
                                 double>(nParams), controls->parallel.data,
                                 controls->parallel.size, resampleMinAngle,
                                 resampleNPoints, useImaginary, subRoughs[c_i],
-                                r5, &d4, &d3, &d2, &d1, &d, reflectivity[c_i].f1,
-                                simulation[c_i].f1, r4, backgrounds[c_i].f1,
+                                r5, &d5, &d4, &d3, &d2, &d1, reflectivity[c_i].
+                                f1, simulation[c_i].f1, r4, backgrounds[c_i].f1,
                                 resolutions[c_i].f1, r3, r1);
           c_loop_ub = r4.size(0);
           shiftedData[c_i].f1.set_size(r4.size(0), 3);
@@ -409,11 +410,11 @@ namespace RAT
             }
           }
 
-          qzshifts[c_i] = d4;
-          scalefactors[c_i] = d3;
-          bulkIns[c_i] = d2;
-          bulkOuts[c_i] = d1;
-          chis[c_i] = d;
+          qzshifts[c_i] = 0.0;
+          scalefactors[c_i] = d4;
+          bulkIns[c_i] = d3;
+          bulkOuts[c_i] = d2;
+          chis[c_i] = d1;
         }
       } else {
         i = static_cast<int>(problemStruct->numberOfContrasts);
@@ -466,14 +467,12 @@ namespace RAT
                      &problemStruct->contrastResolutionTypes[b_i].f1)->size())[1];
           c_contrastCalculation((const double *)((::coder::array<double, 2U> *)
             &problemStruct->contrastBackgroundParams[b_i].f1)->data(), iv,
-                                problemStruct->contrastQzshifts[b_i],
                                 problemStruct->contrastScalefactors[b_i],
                                 problemStruct->contrastBulkIns[b_i],
                                 problemStruct->contrastBulkOuts[b_i], (const
             double *)((::coder::array<double, 2U> *)
                       &problemStruct->contrastResolutionParams[b_i].f1)->data(),
                                 iv1, problemStruct->backgroundParams,
-                                problemStruct->qzshifts,
                                 problemStruct->scalefactors,
                                 problemStruct->bulkIns, problemStruct->bulkOuts,
                                 problemStruct->resolutionParams,
@@ -493,7 +492,7 @@ namespace RAT
                                 controls->parallel.data, controls->parallel.size,
                                 resampleMinAngle, resampleNPoints,
                                 problemStruct->useImaginary, subRoughs[b_i], r2,
-                                &qzshifts[b_i], &scalefactors[b_i], &bulkIns[b_i],
+                                &d, &scalefactors[b_i], &bulkIns[b_i],
                                 &bulkOuts[b_i], &chis[b_i], reflectivity[b_i].f1,
                                 simulation[b_i].f1, r6, backgrounds[b_i].f1,
                                 resolutions[b_i].f1, r7, r8);
@@ -535,6 +534,8 @@ namespace RAT
                 = r8[i2 + r8.size(0) * i1];
             }
           }
+
+          qzshifts[b_i] = 0.0;
         }
       }
     }
@@ -579,7 +580,6 @@ namespace RAT
       ::coder::array<double, 2U> contrastScalefactorIndices;
       ::coder::array<double, 2U> dataPresent;
       ::coder::array<double, 2U> params;
-      ::coder::array<double, 2U> qzshiftArray;
       ::coder::array<double, 2U> r1;
       ::coder::array<double, 2U> r2;
       ::coder::array<double, 2U> r3;
@@ -596,6 +596,7 @@ namespace RAT
       double d2;
       double d3;
       double d4;
+      double d5;
       double nParams;
       double numberOfContrasts;
       double resampleMinAngle;
@@ -629,13 +630,12 @@ namespace RAT
                            contrastQzshiftIndices, contrastScalefactorIndices,
                            contrastBulkInIndices, contrastBulkOutIndices,
                            contrastResolutionIndices, a__2, backgroundParamArray,
-                           qzshiftArray, scalefactorArray, bulkInArray,
-                           bulkOutArray, resolutionParamArray, a__3, dataPresent,
-                           &nParams, params, &a__4, a__5,
-                           contrastBackgroundTypes, contrastBackgroundActions,
-                           contrastResolutionTypes, cCustFiles, &useImaginary,
-                           repeatLayers, data, dataLimits, simLimits, a__6, a__7,
-                           customFiles, a__8);
+                           scalefactorArray, bulkInArray, bulkOutArray,
+                           resolutionParamArray, a__3, dataPresent, &nParams,
+                           params, &a__4, a__5, contrastBackgroundTypes,
+                           contrastBackgroundActions, contrastResolutionTypes,
+                           cCustFiles, &useImaginary, repeatLayers, data,
+                           dataLimits, simLimits, a__6, a__7, customFiles, a__8);
       resampleMinAngle = controls->resampleMinAngle;
       resampleNPoints = controls->resampleNPoints;
 
@@ -675,7 +675,7 @@ namespace RAT
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
- private(r1,r3,r4,r5,d,d1,d2,d3,d4,c_loop_ub,c_i,i3,iv4,d_loop_ub,i4,iv5,iv6,iv7,iv8)
+ private(r1,r3,r4,r5,d1,d2,d3,d4,d5,c_loop_ub,c_i,i3,iv4,d_loop_ub,i4,iv5,iv6,iv7,iv8)
 
         for (c_i = 0; c_i <= loop_ub; c_i++) {
           c_loop_ub = sldProfiles[c_i].f1.size(1);
@@ -699,24 +699,22 @@ namespace RAT
           iv8[0] = (*(int (*)[2])contrastResolutionTypes[c_i].f1.size())[0];
           iv8[1] = (*(int (*)[2])contrastResolutionTypes[c_i].f1.size())[1];
           c_contrastCalculation((const double *)contrastBackgroundIndices[c_i].
-                                f1.data(), iv4, contrastQzshiftIndices[c_i],
-                                contrastScalefactorIndices[c_i],
+                                f1.data(), iv4, contrastScalefactorIndices[c_i],
                                 contrastBulkInIndices[c_i],
                                 contrastBulkOutIndices[c_i], (const double *)
                                 contrastResolutionIndices[c_i].f1.data(), iv5,
-                                backgroundParamArray, qzshiftArray,
-                                scalefactorArray, bulkInArray, bulkOutArray,
-                                resolutionParamArray, dataPresent[c_i], data[c_i]
-                                .f1, dataLimits[c_i].f1, simLimits[c_i].f1,
-                                repeatLayers[c_i].f1, (const char *)
-                                contrastBackgroundTypes[c_i].f1.data(), iv6, (
-            const char *)contrastBackgroundActions[c_i].f1.data(), iv7, (const
-            char *)contrastResolutionTypes[c_i].f1.data(), iv8, customFiles,
-                                nParams, controls->parallel.data,
+                                backgroundParamArray, scalefactorArray,
+                                bulkInArray, bulkOutArray, resolutionParamArray,
+                                dataPresent[c_i], data[c_i].f1, dataLimits[c_i].
+                                f1, simLimits[c_i].f1, repeatLayers[c_i].f1, (
+            const char *)contrastBackgroundTypes[c_i].f1.data(), iv6, (const
+            char *)contrastBackgroundActions[c_i].f1.data(), iv7, (const char *)
+                                contrastResolutionTypes[c_i].f1.data(), iv8,
+                                customFiles, nParams, controls->parallel.data,
                                 controls->parallel.size, resampleMinAngle,
                                 resampleNPoints, useImaginary, subRoughs[c_i],
-                                r5, &d4, &d3, &d2, &d1, &d, reflectivity[c_i].f1,
-                                simulation[c_i].f1, r4, backgrounds[c_i].f1,
+                                r5, &d5, &d4, &d3, &d2, &d1, reflectivity[c_i].
+                                f1, simulation[c_i].f1, r4, backgrounds[c_i].f1,
                                 resolutions[c_i].f1, r3, r1);
           c_loop_ub = r4.size(0);
           shiftedData[c_i].f1.set_size(r4.size(0), 3);
@@ -757,11 +755,11 @@ namespace RAT
             }
           }
 
-          qzshifts[c_i] = d4;
-          scalefactors[c_i] = d3;
-          bulkIns[c_i] = d2;
-          bulkOuts[c_i] = d1;
-          chis[c_i] = d;
+          qzshifts[c_i] = 0.0;
+          scalefactors[c_i] = d4;
+          bulkIns[c_i] = d3;
+          bulkOuts[c_i] = d2;
+          chis[c_i] = d1;
         }
       } else {
         i = static_cast<int>(numberOfContrasts);
@@ -801,26 +799,25 @@ namespace RAT
           iv3[0] = (*(int (*)[2])contrastResolutionTypes[b_i].f1.size())[0];
           iv3[1] = (*(int (*)[2])contrastResolutionTypes[b_i].f1.size())[1];
           c_contrastCalculation((const double *)contrastBackgroundIndices[b_i].
-                                f1.data(), a__1_size, contrastQzshiftIndices[b_i],
+                                f1.data(), a__1_size,
                                 contrastScalefactorIndices[b_i],
                                 contrastBulkInIndices[b_i],
                                 contrastBulkOutIndices[b_i], (const double *)
                                 contrastResolutionIndices[b_i].f1.data(), iv,
-                                backgroundParamArray, qzshiftArray,
-                                scalefactorArray, bulkInArray, bulkOutArray,
-                                resolutionParamArray, dataPresent[b_i], data[b_i]
-                                .f1, dataLimits[b_i].f1, simLimits[b_i].f1,
-                                repeatLayers[b_i].f1, (const char *)
-                                contrastBackgroundTypes[b_i].f1.data(), iv1, (
-            const char *)contrastBackgroundActions[b_i].f1.data(), iv2, (const
-            char *)contrastResolutionTypes[b_i].f1.data(), iv3, customFiles,
-                                nParams, controls->parallel.data,
+                                backgroundParamArray, scalefactorArray,
+                                bulkInArray, bulkOutArray, resolutionParamArray,
+                                dataPresent[b_i], data[b_i].f1, dataLimits[b_i].
+                                f1, simLimits[b_i].f1, repeatLayers[b_i].f1, (
+            const char *)contrastBackgroundTypes[b_i].f1.data(), iv1, (const
+            char *)contrastBackgroundActions[b_i].f1.data(), iv2, (const char *)
+                                contrastResolutionTypes[b_i].f1.data(), iv3,
+                                customFiles, nParams, controls->parallel.data,
                                 controls->parallel.size, resampleMinAngle,
                                 resampleNPoints, useImaginary, subRoughs[b_i],
-                                r2, &qzshifts[b_i], &scalefactors[b_i],
-                                &bulkIns[b_i], &bulkOuts[b_i], &chis[b_i],
-                                reflectivity[b_i].f1, simulation[b_i].f1, r6,
-                                backgrounds[b_i].f1, resolutions[b_i].f1, r7, r8);
+                                r2, &d, &scalefactors[b_i], &bulkIns[b_i],
+                                &bulkOuts[b_i], &chis[b_i], reflectivity[b_i].f1,
+                                simulation[b_i].f1, r6, backgrounds[b_i].f1,
+                                resolutions[b_i].f1, r7, r8);
           loop_ub = r6.size(0);
           shiftedData[b_i].f1.set_size(r6.size(0), 3);
           for (i1 = 0; i1 < 3; i1++) {
@@ -859,6 +856,8 @@ namespace RAT
                 = r8[i2 + r8.size(0) * i1];
             }
           }
+
+          qzshifts[b_i] = 0.0;
         }
       }
     }

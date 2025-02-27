@@ -16,12 +16,11 @@
 // Function Definitions
 namespace RAT
 {
-  void backSort(double contrastQzshifts, double contrastScalefactors, double
-                contrastBulkIns, double contrastBulkOuts, const ::coder::array<
-                double, 2U> &qzshifts, const ::coder::array<double, 2U>
-                &scalefactors, const ::coder::array<double, 2U> &bulkIn, const ::
-                coder::array<double, 2U> &bulkOut, double *outQzshift, double
-                *outScalefactor, double *outBulkIn, double *outBulkOut)
+  void backSort(double contrastScalefactors, double contrastBulkIns, double
+                contrastBulkOuts, const ::coder::array<double, 2U> &scalefactors,
+                const ::coder::array<double, 2U> &bulkIn, const ::coder::array<
+                double, 2U> &bulkOut, double *outQzshift, double *outScalefactor,
+                double *outBulkIn, double *outBulkOut)
   {
     //  Distributes the background and shift values among the different contrasts
     //
@@ -40,7 +39,7 @@ namespace RAT
     //     * outScalefactor: list of actual scalefactor values for each contrast
     //     * outBulkIn: list of actual bulkIn values for each contrast
     //     * outBulkOut: list of actual bulkOut values for each contrast
-    *outQzshift = qzshifts[static_cast<int>(contrastQzshifts) - 1];
+    *outQzshift = 0.0;
     *outScalefactor = scalefactors[static_cast<int>(contrastScalefactors) - 1];
     *outBulkIn = bulkIn[static_cast<int>(contrastBulkIns) - 1];
     *outBulkOut = bulkOut[static_cast<int>(contrastBulkOuts) - 1];

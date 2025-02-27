@@ -25,18 +25,15 @@ namespace RAT
                    cell_wrap_10, 2U> &problemStruct_names_backgroundParams,
                    const ::coder::array<cell_wrap_10, 2U>
                    &problemStruct_names_scalefactors, const ::coder::array<
-                   cell_wrap_10, 2U> &problemStruct_names_qzshifts, const ::
-                   coder::array<cell_wrap_10, 2U> &problemStruct_names_bulkIns,
-                   const ::coder::array<cell_wrap_10, 2U>
-                   &problemStruct_names_bulkOuts, const ::coder::array<
-                   cell_wrap_10, 2U> &problemStruct_names_resolutionParams,
-                   const ::coder::array<cell_wrap_10, 2U>
-                   &problemStruct_names_domainRatios, const ::coder::array<
-                   double, 2U> &problemStruct_checks_params, const ::coder::
-                   array<double, 2U> &problemStruct_checks_backgroundParams,
-                   const ::coder::array<double, 2U>
-                   &problemStruct_checks_scalefactors, const ::coder::array<
-                   double, 2U> &problemStruct_checks_qzshifts, const ::coder::
+                   cell_wrap_10, 2U> &problemStruct_names_bulkIns, const ::coder::
+                   array<cell_wrap_10, 2U> &problemStruct_names_bulkOuts, const ::
+                   coder::array<cell_wrap_10, 2U>
+                   &problemStruct_names_resolutionParams, const ::coder::array<
+                   cell_wrap_10, 2U> &problemStruct_names_domainRatios, const ::
+                   coder::array<double, 2U> &problemStruct_checks_params, const ::
+                   coder::array<double, 2U>
+                   &problemStruct_checks_backgroundParams, const ::coder::array<
+                   double, 2U> &problemStruct_checks_scalefactors, const ::coder::
                    array<double, 2U> &problemStruct_checks_bulkIns, const ::
                    coder::array<double, 2U> &problemStruct_checks_bulkOuts,
                    const ::coder::array<double, 2U>
@@ -53,21 +50,19 @@ namespace RAT
     int n;
 
     //  Note that this order of parameters fields is hard-coded by this
-    //  routine, packParams, and packParamsPriors
-    i = static_cast<int>(((((((coder::sum(problemStruct_checks_params) + coder::
+    //  routine, packParams, packParamsPriors, and unpackParams
+    i = static_cast<int>((((((coder::sum(problemStruct_checks_params) + coder::
       sum(problemStruct_checks_backgroundParams)) + coder::sum
       (problemStruct_checks_scalefactors)) + coder::sum
-      (problemStruct_checks_qzshifts)) + coder::sum(problemStruct_checks_bulkIns))
-      + coder::sum(problemStruct_checks_bulkOuts)) + coder::sum
-                          (problemStruct_checks_resolutionParams)) + coder::sum
-                         (problemStruct_checks_domainRatios));
-    fitNames.set_size(static_cast<int>(((((((coder::sum
+      (problemStruct_checks_bulkIns)) + coder::sum(problemStruct_checks_bulkOuts))
+                          + coder::sum(problemStruct_checks_resolutionParams)) +
+                         coder::sum(problemStruct_checks_domainRatios));
+    fitNames.set_size(static_cast<int>((((((coder::sum
       (problemStruct_checks_params) + coder::sum
       (problemStruct_checks_backgroundParams)) + coder::sum
       (problemStruct_checks_scalefactors)) + coder::sum
-      (problemStruct_checks_qzshifts)) + coder::sum(problemStruct_checks_bulkIns))
-      + coder::sum(problemStruct_checks_bulkOuts)) + coder::sum
-      (problemStruct_checks_resolutionParams)) + coder::sum
+      (problemStruct_checks_bulkIns)) + coder::sum(problemStruct_checks_bulkOuts))
+      + coder::sum(problemStruct_checks_resolutionParams)) + coder::sum
       (problemStruct_checks_domainRatios)));
     for (int b_i{0}; b_i < i; b_i++) {
       fitNames[b_i].f1.set_size(1, 0);
@@ -116,21 +111,6 @@ namespace RAT
       for (i1 = 0; i1 < loop_ub; i1++) {
         fitNames[(static_cast<int>(fitCounter) + n) - 1].f1[i1] =
           problemStruct_names_scalefactors[fitIndices_data[n] - 1].f1[i1];
-      }
-    }
-
-    fitCounter += static_cast<double>(fitIndices_size[1] - 1) + 1.0;
-    coder::d_eml_find(problemStruct_checks_qzshifts, fitIndices_data,
-                      fitIndices_size);
-    i = fitIndices_size[1];
-    for (n = 0; n < i; n++) {
-      fitNames[(static_cast<int>(fitCounter) + n) - 1].f1.set_size(1,
-        problemStruct_names_qzshifts[problemStruct_names_qzshifts.size(0) *
-        (fitIndices_data[fitIndices_size[0] * n] - 1)].f1.size(1));
-      loop_ub = problemStruct_names_qzshifts[fitIndices_data[n] - 1].f1.size(1);
-      for (i1 = 0; i1 < loop_ub; i1++) {
-        fitNames[(static_cast<int>(fitCounter) + n) - 1].f1[i1] =
-          problemStruct_names_qzshifts[fitIndices_data[n] - 1].f1[i1];
       }
     }
 
@@ -202,20 +182,18 @@ namespace RAT
                    2U> &problemStruct_names_backgroundParams, const ::coder::
                    array<cell_wrap_0, 2U> &problemStruct_names_scalefactors,
                    const ::coder::array<cell_wrap_0, 2U>
-                   &problemStruct_names_qzshifts, const ::coder::array<
-                   cell_wrap_0, 2U> &problemStruct_names_bulkIns, const ::coder::
-                   array<cell_wrap_0, 2U> &problemStruct_names_bulkOuts, const ::
-                   coder::array<cell_wrap_0, 2U>
-                   &problemStruct_names_resolutionParams, const ::coder::array<
-                   cell_wrap_0, 2U> &problemStruct_names_domainRatios, const ::
-                   coder::array<double, 2U> &problemStruct_checks_params, const ::
-                   coder::array<double, 2U>
-                   &problemStruct_checks_backgroundParams, const ::coder::array<
-                   double, 2U> &problemStruct_checks_scalefactors, const ::coder::
-                   array<double, 2U> &problemStruct_checks_qzshifts, const ::
-                   coder::array<double, 2U> &problemStruct_checks_bulkIns, const
-                   ::coder::array<double, 2U> &problemStruct_checks_bulkOuts,
+                   &problemStruct_names_bulkIns, const ::coder::array<
+                   cell_wrap_0, 2U> &problemStruct_names_bulkOuts, const ::coder::
+                   array<cell_wrap_0, 2U> &problemStruct_names_resolutionParams,
+                   const ::coder::array<cell_wrap_0, 2U>
+                   &problemStruct_names_domainRatios, const ::coder::array<
+                   double, 2U> &problemStruct_checks_params, const ::coder::
+                   array<double, 2U> &problemStruct_checks_backgroundParams,
                    const ::coder::array<double, 2U>
+                   &problemStruct_checks_scalefactors, const ::coder::array<
+                   double, 2U> &problemStruct_checks_bulkIns, const ::coder::
+                   array<double, 2U> &problemStruct_checks_bulkOuts, const ::
+                   coder::array<double, 2U>
                    &problemStruct_checks_resolutionParams, const ::coder::array<
                    double, 2U> &problemStruct_checks_domainRatios, ::coder::
                    array<cell_wrap_10, 1U> &fitNames)
@@ -229,21 +207,19 @@ namespace RAT
     int n;
 
     //  Note that this order of parameters fields is hard-coded by this
-    //  routine, packParams, and packParamsPriors
-    i = static_cast<int>(((((((coder::sum(problemStruct_checks_params) + coder::
+    //  routine, packParams, packParamsPriors, and unpackParams
+    i = static_cast<int>((((((coder::sum(problemStruct_checks_params) + coder::
       sum(problemStruct_checks_backgroundParams)) + coder::sum
       (problemStruct_checks_scalefactors)) + coder::sum
-      (problemStruct_checks_qzshifts)) + coder::sum(problemStruct_checks_bulkIns))
-      + coder::sum(problemStruct_checks_bulkOuts)) + coder::sum
-                          (problemStruct_checks_resolutionParams)) + coder::sum
-                         (problemStruct_checks_domainRatios));
-    fitNames.set_size(static_cast<int>(((((((coder::sum
+      (problemStruct_checks_bulkIns)) + coder::sum(problemStruct_checks_bulkOuts))
+                          + coder::sum(problemStruct_checks_resolutionParams)) +
+                         coder::sum(problemStruct_checks_domainRatios));
+    fitNames.set_size(static_cast<int>((((((coder::sum
       (problemStruct_checks_params) + coder::sum
       (problemStruct_checks_backgroundParams)) + coder::sum
       (problemStruct_checks_scalefactors)) + coder::sum
-      (problemStruct_checks_qzshifts)) + coder::sum(problemStruct_checks_bulkIns))
-      + coder::sum(problemStruct_checks_bulkOuts)) + coder::sum
-      (problemStruct_checks_resolutionParams)) + coder::sum
+      (problemStruct_checks_bulkIns)) + coder::sum(problemStruct_checks_bulkOuts))
+      + coder::sum(problemStruct_checks_resolutionParams)) + coder::sum
       (problemStruct_checks_domainRatios)));
     for (int b_i{0}; b_i < i; b_i++) {
       fitNames[b_i].f1.set_size(1, 0);
@@ -293,21 +269,6 @@ namespace RAT
       for (i1 = 0; i1 < loop_ub; i1++) {
         fitNames[(static_cast<int>(fitCounter) + n) - 1].f1[i1] =
           problemStruct_names_scalefactors[fitIndices_data[n] - 1].f1.data[i1];
-      }
-    }
-
-    fitCounter += static_cast<double>(fitIndices_size[1] - 1) + 1.0;
-    coder::d_eml_find(problemStruct_checks_qzshifts, fitIndices_data,
-                      fitIndices_size);
-    i = fitIndices_size[1];
-    for (n = 0; n < i; n++) {
-      fitNames[(static_cast<int>(fitCounter) + n) - 1].f1.set_size(1,
-        problemStruct_names_qzshifts[problemStruct_names_qzshifts.size(0) *
-        (fitIndices_data[fitIndices_size[0] * n] - 1)].f1.size[1]);
-      loop_ub = problemStruct_names_qzshifts[fitIndices_data[n] - 1].f1.size[1];
-      for (i1 = 0; i1 < loop_ub; i1++) {
-        fitNames[(static_cast<int>(fitCounter) + n) - 1].f1[i1] =
-          problemStruct_names_qzshifts[fitIndices_data[n] - 1].f1.data[i1];
       }
     }
 

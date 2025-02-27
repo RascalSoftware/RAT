@@ -161,7 +161,6 @@ namespace RAT
                         double, 2U> &problemLimits_params, const ::coder::array<
                         double, 2U> &problemLimits_backgroundParams, const ::
                         coder::array<double, 2U> &problemLimits_scalefactors,
-                        const ::coder::array<double, 2U> &problemLimits_qzshifts,
                         const ::coder::array<double, 2U> &problemLimits_bulkIns,
                         const ::coder::array<double, 2U> &problemLimits_bulkOuts,
                         const ::coder::array<double, 2U>
@@ -199,9 +198,9 @@ namespace RAT
     int t8_predictionIntervals_sampleChi_size;
     packParams(problemStruct, problemLimits_params,
                problemLimits_backgroundParams, problemLimits_scalefactors,
-               problemLimits_qzshifts, problemLimits_bulkIns,
-               problemLimits_bulkOuts, problemLimits_resolutionParams,
-               problemLimits_domainRatios, fitNames);
+               problemLimits_bulkIns, problemLimits_bulkOuts,
+               problemLimits_resolutionParams, problemLimits_domainRatios,
+               fitNames);
 
     //  Make an empty struct for bayesResults to hold the outputs of the
     //  calculation

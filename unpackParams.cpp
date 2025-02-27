@@ -12,6 +12,7 @@
 #include "unpackParams.h"
 #include "RATMain_internal_types.h"
 #include "RATMain_types.h"
+#include "find.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 
@@ -20,234 +21,76 @@ namespace RAT
 {
   void unpackParams(ProblemDefinition *problemStruct)
   {
-    ::coder::array<double, 2U> uppars;
+    int fitIndices_data[10000];
+    int fitIndices_size[2];
+    unsigned int fitCounter;
     int i;
+    int i1;
     int j;
-    int packed_counter;
-    int unnamed_idx_1;
-    unsigned int unpacked_counter;
-    int uppars_counter;
 
-    //  Unpack the params out of the fitParams and otherParams arrays
-    //  back into problem.params
+    //  Unpack the params out of the fitParams and array back into
+    //  problem.params
     //  Note that this order of parameters fields is hard-coded by this
     //  routine, packParams, packParamsPriors, and getFitNames
-    unpacked_counter = 1U;
-    packed_counter = 0;
-    unnamed_idx_1 = problemStruct->params.size(1);
-    uppars.set_size(1, unnamed_idx_1);
-    for (i = 0; i < unnamed_idx_1; i++) {
-      uppars[i] = 0.0;
-    }
-
-    uppars_counter = 0;
-    i = problemStruct->checks.params.size(1);
+    coder::d_eml_find(problemStruct->checks.params, fitIndices_data,
+                      fitIndices_size);
+    i = fitIndices_size[1];
     for (j = 0; j < i; j++) {
-      if (problemStruct->checks.params[j] == 1.0) {
-        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int>
-          (unpacked_counter) - 1];
-        unpacked_counter++;
-        uppars_counter++;
-      } else {
-        uppars[uppars_counter] = problemStruct->otherParams[packed_counter];
-        packed_counter++;
-        uppars_counter++;
-      }
+      problemStruct->params[fitIndices_data[j] - 1] = problemStruct->fitParams[j];
     }
 
-    problemStruct->params.set_size(1, uppars.size(1));
-    unnamed_idx_1 = uppars.size(1);
-    for (i = 0; i < unnamed_idx_1; i++) {
-      problemStruct->params[i] = uppars[i];
+    coder::d_eml_find(problemStruct->checks.backgroundParams, fitIndices_data,
+                      fitIndices_size);
+    i1 = fitIndices_size[1];
+    for (j = 0; j < i1; j++) {
+      problemStruct->backgroundParams[fitIndices_data[j] - 1] =
+        problemStruct->fitParams[static_cast<int>(static_cast<unsigned int>(i) +
+        j)];
     }
 
-    unnamed_idx_1 = problemStruct->backgroundParams.size(1);
-    uppars.set_size(1, unnamed_idx_1);
-    for (i = 0; i < unnamed_idx_1; i++) {
-      uppars[i] = 0.0;
-    }
-
-    uppars_counter = 0;
-    i = problemStruct->checks.backgroundParams.size(1);
+    fitCounter = (static_cast<unsigned int>(i) + fitIndices_size[1]) + 1U;
+    coder::d_eml_find(problemStruct->checks.scalefactors, fitIndices_data,
+                      fitIndices_size);
+    i = fitIndices_size[1];
     for (j = 0; j < i; j++) {
-      if (problemStruct->checks.backgroundParams[j] == 1.0) {
-        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int>
-          (unpacked_counter) - 1];
-        unpacked_counter++;
-        uppars_counter++;
-      } else {
-        uppars[uppars_counter] = problemStruct->otherParams[packed_counter];
-        packed_counter++;
-        uppars_counter++;
-      }
+      problemStruct->scalefactors[fitIndices_data[j] - 1] =
+        problemStruct->fitParams[static_cast<int>(fitCounter + j) - 1];
     }
 
-    problemStruct->backgroundParams.set_size(1, uppars.size(1));
-    unnamed_idx_1 = uppars.size(1);
-    for (i = 0; i < unnamed_idx_1; i++) {
-      problemStruct->backgroundParams[i] = uppars[i];
-    }
-
-    unnamed_idx_1 = problemStruct->scalefactors.size(1);
-    uppars.set_size(1, unnamed_idx_1);
-    for (i = 0; i < unnamed_idx_1; i++) {
-      uppars[i] = 0.0;
-    }
-
-    uppars_counter = 0;
-    i = problemStruct->checks.scalefactors.size(1);
+    fitCounter += fitIndices_size[1];
+    coder::d_eml_find(problemStruct->checks.bulkIns, fitIndices_data,
+                      fitIndices_size);
+    i = fitIndices_size[1];
     for (j = 0; j < i; j++) {
-      if (problemStruct->checks.scalefactors[j] == 1.0) {
-        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int>
-          (unpacked_counter) - 1];
-        unpacked_counter++;
-        uppars_counter++;
-      } else {
-        uppars[uppars_counter] = problemStruct->otherParams[packed_counter];
-        packed_counter++;
-        uppars_counter++;
-      }
+      problemStruct->bulkIns[fitIndices_data[j] - 1] = problemStruct->fitParams[
+        static_cast<int>(fitCounter + j) - 1];
     }
 
-    problemStruct->scalefactors.set_size(1, uppars.size(1));
-    unnamed_idx_1 = uppars.size(1);
-    for (i = 0; i < unnamed_idx_1; i++) {
-      problemStruct->scalefactors[i] = uppars[i];
-    }
-
-    unnamed_idx_1 = problemStruct->qzshifts.size(1);
-    uppars.set_size(1, unnamed_idx_1);
-    for (i = 0; i < unnamed_idx_1; i++) {
-      uppars[i] = 0.0;
-    }
-
-    uppars_counter = 0;
-    i = problemStruct->checks.qzshifts.size(1);
+    fitCounter += fitIndices_size[1];
+    coder::d_eml_find(problemStruct->checks.bulkOuts, fitIndices_data,
+                      fitIndices_size);
+    i = fitIndices_size[1];
     for (j = 0; j < i; j++) {
-      if (problemStruct->checks.qzshifts[j] == 1.0) {
-        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int>
-          (unpacked_counter) - 1];
-        unpacked_counter++;
-        uppars_counter++;
-      } else {
-        uppars[uppars_counter] = problemStruct->otherParams[packed_counter];
-        packed_counter++;
-        uppars_counter++;
-      }
+      problemStruct->bulkOuts[fitIndices_data[j] - 1] = problemStruct->
+        fitParams[static_cast<int>(fitCounter + j) - 1];
     }
 
-    problemStruct->qzshifts.set_size(1, uppars.size(1));
-    unnamed_idx_1 = uppars.size(1);
-    for (i = 0; i < unnamed_idx_1; i++) {
-      problemStruct->qzshifts[i] = uppars[i];
-    }
-
-    unnamed_idx_1 = problemStruct->bulkIns.size(1);
-    uppars.set_size(1, unnamed_idx_1);
-    for (i = 0; i < unnamed_idx_1; i++) {
-      uppars[i] = 0.0;
-    }
-
-    uppars_counter = 0;
-    i = problemStruct->checks.bulkIns.size(1);
+    fitCounter += fitIndices_size[1];
+    coder::d_eml_find(problemStruct->checks.resolutionParams, fitIndices_data,
+                      fitIndices_size);
+    i = fitIndices_size[1];
     for (j = 0; j < i; j++) {
-      if (problemStruct->checks.bulkIns[j] == 1.0) {
-        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int>
-          (unpacked_counter) - 1];
-        unpacked_counter++;
-        uppars_counter++;
-      } else {
-        uppars[uppars_counter] = problemStruct->otherParams[packed_counter];
-        packed_counter++;
-        uppars_counter++;
-      }
+      problemStruct->resolutionParams[fitIndices_data[j] - 1] =
+        problemStruct->fitParams[static_cast<int>(fitCounter + j) - 1];
     }
 
-    problemStruct->bulkIns.set_size(1, uppars.size(1));
-    unnamed_idx_1 = uppars.size(1);
-    for (i = 0; i < unnamed_idx_1; i++) {
-      problemStruct->bulkIns[i] = uppars[i];
-    }
-
-    unnamed_idx_1 = problemStruct->bulkOuts.size(1);
-    uppars.set_size(1, unnamed_idx_1);
-    for (i = 0; i < unnamed_idx_1; i++) {
-      uppars[i] = 0.0;
-    }
-
-    uppars_counter = 0;
-    i = problemStruct->checks.bulkOuts.size(1);
+    fitCounter += fitIndices_size[1];
+    coder::d_eml_find(problemStruct->checks.domainRatios, fitIndices_data,
+                      fitIndices_size);
+    i = fitIndices_size[1];
     for (j = 0; j < i; j++) {
-      if (problemStruct->checks.bulkOuts[j] == 1.0) {
-        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int>
-          (unpacked_counter) - 1];
-        unpacked_counter++;
-        uppars_counter++;
-      } else {
-        uppars[uppars_counter] = problemStruct->otherParams[packed_counter];
-        packed_counter++;
-        uppars_counter++;
-      }
-    }
-
-    problemStruct->bulkOuts.set_size(1, uppars.size(1));
-    unnamed_idx_1 = uppars.size(1);
-    for (i = 0; i < unnamed_idx_1; i++) {
-      problemStruct->bulkOuts[i] = uppars[i];
-    }
-
-    unnamed_idx_1 = problemStruct->resolutionParams.size(1);
-    uppars.set_size(1, unnamed_idx_1);
-    for (i = 0; i < unnamed_idx_1; i++) {
-      uppars[i] = 0.0;
-    }
-
-    uppars_counter = 0;
-    i = problemStruct->checks.resolutionParams.size(1);
-    for (j = 0; j < i; j++) {
-      if (problemStruct->checks.resolutionParams[j] == 1.0) {
-        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int>
-          (unpacked_counter) - 1];
-        unpacked_counter++;
-        uppars_counter++;
-      } else {
-        uppars[uppars_counter] = problemStruct->otherParams[packed_counter];
-        packed_counter++;
-        uppars_counter++;
-      }
-    }
-
-    problemStruct->resolutionParams.set_size(1, uppars.size(1));
-    unnamed_idx_1 = uppars.size(1);
-    for (i = 0; i < unnamed_idx_1; i++) {
-      problemStruct->resolutionParams[i] = uppars[i];
-    }
-
-    unnamed_idx_1 = problemStruct->domainRatios.size(1);
-    uppars.set_size(1, unnamed_idx_1);
-    for (i = 0; i < unnamed_idx_1; i++) {
-      uppars[i] = 0.0;
-    }
-
-    uppars_counter = 0;
-    i = problemStruct->checks.domainRatios.size(1);
-    for (j = 0; j < i; j++) {
-      if (problemStruct->checks.domainRatios[j] == 1.0) {
-        uppars[uppars_counter] = problemStruct->fitParams[static_cast<int>
-          (unpacked_counter) - 1];
-        unpacked_counter++;
-        uppars_counter++;
-      } else {
-        uppars[uppars_counter] = problemStruct->otherParams[packed_counter];
-        packed_counter++;
-        uppars_counter++;
-      }
-    }
-
-    problemStruct->domainRatios.set_size(1, uppars.size(1));
-    unnamed_idx_1 = uppars.size(1);
-    for (i = 0; i < unnamed_idx_1; i++) {
-      problemStruct->domainRatios[i] = uppars[i];
+      problemStruct->domainRatios[fitIndices_data[j] - 1] =
+        problemStruct->fitParams[static_cast<int>(fitCounter + j) - 1];
     }
   }
 }

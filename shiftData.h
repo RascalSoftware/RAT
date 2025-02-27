@@ -20,9 +20,9 @@
 // Function Declarations
 namespace RAT
 {
-  void shiftData(double scalefactor, double qzshift, double dataPresent, ::coder::
-                 array<double, 2U> &data, const double dataLimits[2], const
-                 double simLimits[2], ::coder::array<double, 2U> &shiftedData);
+  void shiftData(double scalefactor, double dataPresent, ::coder::array<double,
+                 2U> &data, const double dataLimits[2], const double simLimits[2],
+                 ::coder::array<double, 2U> &shiftedData);
 }
 
 #endif

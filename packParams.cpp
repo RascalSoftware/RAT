@@ -13,6 +13,7 @@
 #include "RATMain_internal_types.h"
 #include "RATMain_types.h"
 #include "blockedSummation.h"
+#include "find.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 
@@ -23,7 +24,6 @@ namespace RAT
                   2U> &limits_params, const ::coder::array<double, 2U>
                   &limits_backgroundParams, const ::coder::array<double, 2U>
                   &limits_scalefactors, const ::coder::array<double, 2U>
-                  &limits_qzshifts, const ::coder::array<double, 2U>
                   &limits_bulkIns, const ::coder::array<double, 2U>
                   &limits_bulkOuts, const ::coder::array<double, 2U>
                   &limits_resolutionParams, const ::coder::array<double, 2U>
@@ -36,22 +36,20 @@ namespace RAT
     double e_y;
     double f_y;
     double g_y;
-    double h_y;
-    double numberOfFitted;
     double y;
+    int fitIndices_data[10000];
+    int fitIndices_size[2];
     unsigned int fitCounter;
     int i;
     int i1;
+    int i2;
+    int j;
     int loop_ub_tmp;
-    int n;
-    int numberOfFitted_idx_1_tmp;
-    int numberOfTotal;
-    int otherCounter;
 
-    //  We need to pack the parameters into separate vectors of those that
-    //  are being fitted, and those that are held constant.
+    //  We need to pack the parameters into an array consisting of those
+    //  that are being fitted.
     //  Note that this order of parameters fields is hard-coded by this
-    //  routine, packParamsPriors, and getFitNames
+    //  routine, packParamsPriors, unpackParams, and getFitNames
     if (problemStruct->checks.params.size(1) == 0) {
       y = 0.0;
     } else {
@@ -73,63 +71,41 @@ namespace RAT
         problemStruct->checks.scalefactors.size(1));
     }
 
-    if (problemStruct->checks.qzshifts.size(1) == 0) {
+    if (problemStruct->checks.bulkIns.size(1) == 0) {
       d_y = 0.0;
     } else {
-      d_y = coder::nestedIter(problemStruct->checks.qzshifts,
-        problemStruct->checks.qzshifts.size(1));
-    }
-
-    if (problemStruct->checks.bulkIns.size(1) == 0) {
-      e_y = 0.0;
-    } else {
-      e_y = coder::nestedIter(problemStruct->checks.bulkIns,
+      d_y = coder::nestedIter(problemStruct->checks.bulkIns,
         problemStruct->checks.bulkIns.size(1));
     }
 
     if (problemStruct->checks.bulkOuts.size(1) == 0) {
-      f_y = 0.0;
+      e_y = 0.0;
     } else {
-      f_y = coder::nestedIter(problemStruct->checks.bulkOuts,
+      e_y = coder::nestedIter(problemStruct->checks.bulkOuts,
         problemStruct->checks.bulkOuts.size(1));
     }
 
     if (problemStruct->checks.resolutionParams.size(1) == 0) {
-      g_y = 0.0;
+      f_y = 0.0;
     } else {
-      g_y = coder::nestedIter(problemStruct->checks.resolutionParams,
+      f_y = coder::nestedIter(problemStruct->checks.resolutionParams,
         problemStruct->checks.resolutionParams.size(1));
     }
 
     if (problemStruct->checks.domainRatios.size(1) == 0) {
-      h_y = 0.0;
+      g_y = 0.0;
     } else {
-      h_y = coder::nestedIter(problemStruct->checks.domainRatios,
+      g_y = coder::nestedIter(problemStruct->checks.domainRatios,
         problemStruct->checks.domainRatios.size(1));
     }
 
-    numberOfFitted = ((((((y + b_y) + c_y) + d_y) + e_y) + f_y) + g_y) + h_y;
-    numberOfTotal = ((((((problemStruct->params.size(1) +
-                          problemStruct->backgroundParams.size(1)) +
-                         problemStruct->scalefactors.size(1)) +
-                        problemStruct->qzshifts.size(1)) +
-                       problemStruct->bulkIns.size(1)) +
-                      problemStruct->bulkOuts.size(1)) +
-                     problemStruct->resolutionParams.size(1)) +
-      problemStruct->domainRatios.size(1);
     problemStruct->fitParams.set_size(1, problemStruct->fitParams.size(1));
-    loop_ub_tmp = static_cast<int>(numberOfFitted);
+    loop_ub_tmp = static_cast<int>((((((y + b_y) + c_y) + d_y) + e_y) + f_y) +
+      g_y);
     problemStruct->fitParams.set_size(problemStruct->fitParams.size(0),
       loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
       problemStruct->fitParams[i] = 0.0;
-    }
-
-    numberOfFitted_idx_1_tmp = static_cast<int>(static_cast<double>
-      (numberOfTotal) - numberOfFitted);
-    problemStruct->otherParams.set_size(1, numberOfFitted_idx_1_tmp);
-    for (i = 0; i < numberOfFitted_idx_1_tmp; i++) {
-      problemStruct->otherParams[i] = 0.0;
     }
 
     problemStruct->fitLimits.set_size(loop_ub_tmp, 2);
@@ -140,264 +116,163 @@ namespace RAT
       }
     }
 
-    problemStruct->otherLimits.set_size(numberOfFitted_idx_1_tmp, 2);
-    for (i = 0; i < 2; i++) {
-      for (i1 = 0; i1 < numberOfFitted_idx_1_tmp; i1++) {
-        problemStruct->otherLimits[i1 + problemStruct->otherLimits.size(0) * i] =
-          0.0;
-      }
-    }
-
     fitNames.set_size(loop_ub_tmp);
     for (int b_i{0}; b_i < loop_ub_tmp; b_i++) {
       fitNames[b_i].f1.set_size(1, 0);
     }
 
-    fitCounter = 1U;
-    otherCounter = 0;
-    i = problemStruct->checks.params.size(1);
-    for (n = 0; n < i; n++) {
-      if (problemStruct->checks.params[n] == 1.0) {
-        problemStruct->fitParams[static_cast<int>(fitCounter) - 1] =
-          problemStruct->params[n];
-        problemStruct->fitLimits[static_cast<int>(fitCounter) - 1] =
-          limits_params[n];
-        problemStruct->fitLimits[(static_cast<int>(fitCounter) +
-          problemStruct->fitLimits.size(0)) - 1] = limits_params[n +
-          limits_params.size(0)];
-        fitNames[static_cast<int>(fitCounter) - 1].f1.set_size(1,
-          problemStruct->names.params[problemStruct->names.params.size(0) * n].
-          f1.size(1));
-        numberOfFitted_idx_1_tmp = problemStruct->names.params[n].f1.size(1);
-        for (i1 = 0; i1 < numberOfFitted_idx_1_tmp; i1++) {
-          fitNames[static_cast<int>(fitCounter) - 1].f1[i1] =
-            problemStruct->names.params[n].f1[i1];
-        }
-
-        fitCounter++;
-      } else {
-        problemStruct->otherParams[otherCounter] = problemStruct->params[n];
-        problemStruct->otherLimits[otherCounter] = limits_params[n];
-        problemStruct->otherLimits[otherCounter +
-          problemStruct->otherLimits.size(0)] = limits_params[n +
-          limits_params.size(0)];
-        otherCounter++;
+    coder::d_eml_find(problemStruct->checks.params, fitIndices_data,
+                      fitIndices_size);
+    i = fitIndices_size[1];
+    for (j = 0; j < i; j++) {
+      i1 = fitIndices_data[j];
+      problemStruct->fitParams[j] = problemStruct->params[i1 - 1];
+      problemStruct->fitLimits[j] = limits_params[i1 - 1];
+      problemStruct->fitLimits[j + problemStruct->fitLimits.size(0)] =
+        limits_params[(i1 + limits_params.size(0)) - 1];
+      fitNames[j].f1.set_size(1, problemStruct->names.params
+        [problemStruct->names.params.size(0) * (fitIndices_data[fitIndices_size
+        [0] * j] - 1)].f1.size(1));
+      loop_ub_tmp = problemStruct->names.params[fitIndices_data[j] - 1].f1.size
+        (1);
+      for (i1 = 0; i1 < loop_ub_tmp; i1++) {
+        fitNames[j].f1[i1] = problemStruct->names.params[fitIndices_data[j] - 1]
+          .f1[i1];
       }
     }
 
-    i = problemStruct->checks.backgroundParams.size(1);
-    for (n = 0; n < i; n++) {
-      if (problemStruct->checks.backgroundParams[n] == 1.0) {
-        problemStruct->fitParams[static_cast<int>(fitCounter) - 1] =
-          problemStruct->backgroundParams[n];
-        problemStruct->fitLimits[static_cast<int>(fitCounter) - 1] =
-          limits_backgroundParams[n];
-        problemStruct->fitLimits[(static_cast<int>(fitCounter) +
-          problemStruct->fitLimits.size(0)) - 1] = limits_backgroundParams[n +
-          limits_backgroundParams.size(0)];
-        fitNames[static_cast<int>(fitCounter) - 1].f1.set_size(1,
-          problemStruct->names.backgroundParams
-          [problemStruct->names.backgroundParams.size(0) * n].f1.size(1));
-        numberOfFitted_idx_1_tmp = problemStruct->names.backgroundParams[n].
-          f1.size(1);
-        for (i1 = 0; i1 < numberOfFitted_idx_1_tmp; i1++) {
-          fitNames[static_cast<int>(fitCounter) - 1].f1[i1] =
-            problemStruct->names.backgroundParams[n].f1[i1];
-        }
-
-        fitCounter++;
-      } else {
-        problemStruct->otherParams[otherCounter] =
-          problemStruct->backgroundParams[n];
-        problemStruct->otherLimits[otherCounter] = limits_backgroundParams[n];
-        problemStruct->otherLimits[otherCounter +
-          problemStruct->otherLimits.size(0)] = limits_backgroundParams[n +
-          limits_backgroundParams.size(0)];
-        otherCounter++;
+    coder::d_eml_find(problemStruct->checks.backgroundParams, fitIndices_data,
+                      fitIndices_size);
+    i1 = fitIndices_size[1];
+    for (j = 0; j < i1; j++) {
+      i2 = fitIndices_data[j];
+      problemStruct->fitParams[static_cast<int>(static_cast<unsigned int>(i) + j)]
+        = problemStruct->backgroundParams[i2 - 1];
+      problemStruct->fitLimits[static_cast<int>(static_cast<unsigned int>(i) + j)]
+        = limits_backgroundParams[i2 - 1];
+      problemStruct->fitLimits[static_cast<int>(static_cast<unsigned int>(i) + j)
+        + problemStruct->fitLimits.size(0)] = limits_backgroundParams[(i2 +
+        limits_backgroundParams.size(0)) - 1];
+      fitNames[static_cast<int>(static_cast<unsigned int>(i) + j)].f1.set_size(1,
+        problemStruct->names.backgroundParams
+        [problemStruct->names.backgroundParams.size(0) *
+        (fitIndices_data[fitIndices_size[0] * j] - 1)].f1.size(1));
+      loop_ub_tmp = problemStruct->names.backgroundParams[fitIndices_data[j] - 1]
+        .f1.size(1);
+      for (i2 = 0; i2 < loop_ub_tmp; i2++) {
+        fitNames[static_cast<int>(static_cast<unsigned int>(i) + j)].f1[i2] =
+          problemStruct->names.backgroundParams[fitIndices_data[j] - 1].f1[i2];
       }
     }
 
-    i = problemStruct->checks.scalefactors.size(1);
-    for (n = 0; n < i; n++) {
-      if (problemStruct->checks.scalefactors[n] == 1.0) {
-        problemStruct->fitParams[static_cast<int>(fitCounter) - 1] =
-          problemStruct->scalefactors[n];
-        problemStruct->fitLimits[static_cast<int>(fitCounter) - 1] =
-          limits_scalefactors[n];
-        problemStruct->fitLimits[(static_cast<int>(fitCounter) +
-          problemStruct->fitLimits.size(0)) - 1] = limits_scalefactors[n +
-          limits_scalefactors.size(0)];
-        fitNames[static_cast<int>(fitCounter) - 1].f1.set_size(1,
-          problemStruct->names.scalefactors
-          [problemStruct->names.scalefactors.size(0) * n].f1.size(1));
-        numberOfFitted_idx_1_tmp = problemStruct->names.scalefactors[n].f1.size
-          (1);
-        for (i1 = 0; i1 < numberOfFitted_idx_1_tmp; i1++) {
-          fitNames[static_cast<int>(fitCounter) - 1].f1[i1] =
-            problemStruct->names.scalefactors[n].f1[i1];
-        }
-
-        fitCounter++;
-      } else {
-        problemStruct->otherParams[otherCounter] = problemStruct->scalefactors[n];
-        problemStruct->otherLimits[otherCounter] = limits_scalefactors[n];
-        problemStruct->otherLimits[otherCounter +
-          problemStruct->otherLimits.size(0)] = limits_scalefactors[n +
-          limits_scalefactors.size(0)];
-        otherCounter++;
+    fitCounter = (static_cast<unsigned int>(i) + fitIndices_size[1]) + 1U;
+    coder::d_eml_find(problemStruct->checks.scalefactors, fitIndices_data,
+                      fitIndices_size);
+    i = fitIndices_size[1];
+    for (j = 0; j < i; j++) {
+      i1 = fitIndices_data[j];
+      i2 = static_cast<int>(fitCounter + j) - 1;
+      problemStruct->fitParams[i2] = problemStruct->scalefactors[i1 - 1];
+      problemStruct->fitLimits[i2] = limits_scalefactors[i1 - 1];
+      problemStruct->fitLimits[i2 + problemStruct->fitLimits.size(0)] =
+        limits_scalefactors[(i1 + limits_scalefactors.size(0)) - 1];
+      fitNames[static_cast<int>(fitCounter + j) - 1].f1.set_size(1,
+        problemStruct->names.scalefactors[problemStruct->names.scalefactors.size
+        (0) * (fitIndices_data[fitIndices_size[0] * j] - 1)].f1.size(1));
+      loop_ub_tmp = problemStruct->names.scalefactors[fitIndices_data[j] - 1].
+        f1.size(1);
+      for (i1 = 0; i1 < loop_ub_tmp; i1++) {
+        fitNames[static_cast<int>(fitCounter + j) - 1].f1[i1] =
+          problemStruct->names.scalefactors[fitIndices_data[j] - 1].f1[i1];
       }
     }
 
-    i = problemStruct->checks.qzshifts.size(1);
-    for (n = 0; n < i; n++) {
-      if (problemStruct->checks.qzshifts[n] == 1.0) {
-        problemStruct->fitParams[static_cast<int>(fitCounter) - 1] =
-          problemStruct->qzshifts[n];
-        problemStruct->fitLimits[static_cast<int>(fitCounter) - 1] =
-          limits_qzshifts[n];
-        problemStruct->fitLimits[(static_cast<int>(fitCounter) +
-          problemStruct->fitLimits.size(0)) - 1] = limits_qzshifts[n +
-          limits_qzshifts.size(0)];
-        fitNames[static_cast<int>(fitCounter) - 1].f1.set_size(1,
-          problemStruct->names.qzshifts[problemStruct->names.qzshifts.size(0) *
-          n].f1.size(1));
-        numberOfFitted_idx_1_tmp = problemStruct->names.qzshifts[n].f1.size(1);
-        for (i1 = 0; i1 < numberOfFitted_idx_1_tmp; i1++) {
-          fitNames[static_cast<int>(fitCounter) - 1].f1[i1] =
-            problemStruct->names.qzshifts[n].f1[i1];
-        }
-
-        fitCounter++;
-      } else {
-        problemStruct->otherParams[otherCounter] = problemStruct->qzshifts[n];
-        problemStruct->otherLimits[otherCounter] = limits_qzshifts[n];
-        problemStruct->otherLimits[otherCounter +
-          problemStruct->otherLimits.size(0)] = limits_qzshifts[n +
-          limits_qzshifts.size(0)];
-        otherCounter++;
+    fitCounter += fitIndices_size[1];
+    coder::d_eml_find(problemStruct->checks.bulkIns, fitIndices_data,
+                      fitIndices_size);
+    i = fitIndices_size[1];
+    for (j = 0; j < i; j++) {
+      i1 = fitIndices_data[j];
+      i2 = static_cast<int>(fitCounter + j) - 1;
+      problemStruct->fitParams[i2] = problemStruct->bulkIns[i1 - 1];
+      problemStruct->fitLimits[i2] = limits_bulkIns[i1 - 1];
+      problemStruct->fitLimits[i2 + problemStruct->fitLimits.size(0)] =
+        limits_bulkIns[(i1 + limits_bulkIns.size(0)) - 1];
+      fitNames[static_cast<int>(fitCounter + j) - 1].f1.set_size(1,
+        problemStruct->names.bulkIns[problemStruct->names.bulkIns.size(0) *
+        (fitIndices_data[fitIndices_size[0] * j] - 1)].f1.size(1));
+      loop_ub_tmp = problemStruct->names.bulkIns[fitIndices_data[j] - 1].f1.size
+        (1);
+      for (i1 = 0; i1 < loop_ub_tmp; i1++) {
+        fitNames[static_cast<int>(fitCounter + j) - 1].f1[i1] =
+          problemStruct->names.bulkIns[fitIndices_data[j] - 1].f1[i1];
       }
     }
 
-    i = problemStruct->checks.bulkIns.size(1);
-    for (n = 0; n < i; n++) {
-      if (problemStruct->checks.bulkIns[n] == 1.0) {
-        problemStruct->fitParams[static_cast<int>(fitCounter) - 1] =
-          problemStruct->bulkIns[n];
-        problemStruct->fitLimits[static_cast<int>(fitCounter) - 1] =
-          limits_bulkIns[n];
-        problemStruct->fitLimits[(static_cast<int>(fitCounter) +
-          problemStruct->fitLimits.size(0)) - 1] = limits_bulkIns[n +
-          limits_bulkIns.size(0)];
-        fitNames[static_cast<int>(fitCounter) - 1].f1.set_size(1,
-          problemStruct->names.bulkIns[problemStruct->names.bulkIns.size(0) * n]
-          .f1.size(1));
-        numberOfFitted_idx_1_tmp = problemStruct->names.bulkIns[n].f1.size(1);
-        for (i1 = 0; i1 < numberOfFitted_idx_1_tmp; i1++) {
-          fitNames[static_cast<int>(fitCounter) - 1].f1[i1] =
-            problemStruct->names.bulkIns[n].f1[i1];
-        }
-
-        fitCounter++;
-      } else {
-        problemStruct->otherParams[otherCounter] = problemStruct->bulkIns[n];
-        problemStruct->otherLimits[otherCounter] = limits_bulkIns[n];
-        problemStruct->otherLimits[otherCounter +
-          problemStruct->otherLimits.size(0)] = limits_bulkIns[n +
-          limits_bulkIns.size(0)];
-        otherCounter++;
+    fitCounter += fitIndices_size[1];
+    coder::d_eml_find(problemStruct->checks.bulkOuts, fitIndices_data,
+                      fitIndices_size);
+    i = fitIndices_size[1];
+    for (j = 0; j < i; j++) {
+      i1 = fitIndices_data[j];
+      i2 = static_cast<int>(fitCounter + j) - 1;
+      problemStruct->fitParams[i2] = problemStruct->bulkOuts[i1 - 1];
+      problemStruct->fitLimits[i2] = limits_bulkOuts[i1 - 1];
+      problemStruct->fitLimits[i2 + problemStruct->fitLimits.size(0)] =
+        limits_bulkOuts[(i1 + limits_bulkOuts.size(0)) - 1];
+      fitNames[static_cast<int>(fitCounter + j) - 1].f1.set_size(1,
+        problemStruct->names.bulkOuts[problemStruct->names.bulkOuts.size(0) *
+        (fitIndices_data[fitIndices_size[0] * j] - 1)].f1.size(1));
+      loop_ub_tmp = problemStruct->names.bulkOuts[fitIndices_data[j] - 1].
+        f1.size(1);
+      for (i1 = 0; i1 < loop_ub_tmp; i1++) {
+        fitNames[static_cast<int>(fitCounter + j) - 1].f1[i1] =
+          problemStruct->names.bulkOuts[fitIndices_data[j] - 1].f1[i1];
       }
     }
 
-    i = problemStruct->checks.bulkOuts.size(1);
-    for (n = 0; n < i; n++) {
-      if (problemStruct->checks.bulkOuts[n] == 1.0) {
-        problemStruct->fitParams[static_cast<int>(fitCounter) - 1] =
-          problemStruct->bulkOuts[n];
-        problemStruct->fitLimits[static_cast<int>(fitCounter) - 1] =
-          limits_bulkOuts[n];
-        problemStruct->fitLimits[(static_cast<int>(fitCounter) +
-          problemStruct->fitLimits.size(0)) - 1] = limits_bulkOuts[n +
-          limits_bulkOuts.size(0)];
-        fitNames[static_cast<int>(fitCounter) - 1].f1.set_size(1,
-          problemStruct->names.bulkOuts[problemStruct->names.bulkOuts.size(0) *
-          n].f1.size(1));
-        numberOfFitted_idx_1_tmp = problemStruct->names.bulkOuts[n].f1.size(1);
-        for (i1 = 0; i1 < numberOfFitted_idx_1_tmp; i1++) {
-          fitNames[static_cast<int>(fitCounter) - 1].f1[i1] =
-            problemStruct->names.bulkOuts[n].f1[i1];
-        }
-
-        fitCounter++;
-      } else {
-        problemStruct->otherParams[otherCounter] = problemStruct->bulkOuts[n];
-        problemStruct->otherLimits[otherCounter] = limits_bulkOuts[n];
-        problemStruct->otherLimits[otherCounter +
-          problemStruct->otherLimits.size(0)] = limits_bulkOuts[n +
-          limits_bulkOuts.size(0)];
-        otherCounter++;
+    fitCounter += fitIndices_size[1];
+    coder::d_eml_find(problemStruct->checks.resolutionParams, fitIndices_data,
+                      fitIndices_size);
+    i = fitIndices_size[1];
+    for (j = 0; j < i; j++) {
+      i1 = fitIndices_data[j];
+      i2 = static_cast<int>(fitCounter + j) - 1;
+      problemStruct->fitParams[i2] = problemStruct->resolutionParams[i1 - 1];
+      problemStruct->fitLimits[i2] = limits_resolutionParams[i1 - 1];
+      problemStruct->fitLimits[i2 + problemStruct->fitLimits.size(0)] =
+        limits_resolutionParams[(i1 + limits_resolutionParams.size(0)) - 1];
+      fitNames[static_cast<int>(fitCounter + j) - 1].f1.set_size(1,
+        problemStruct->names.resolutionParams
+        [problemStruct->names.resolutionParams.size(0) *
+        (fitIndices_data[fitIndices_size[0] * j] - 1)].f1.size(1));
+      loop_ub_tmp = problemStruct->names.resolutionParams[fitIndices_data[j] - 1]
+        .f1.size(1);
+      for (i1 = 0; i1 < loop_ub_tmp; i1++) {
+        fitNames[static_cast<int>(fitCounter + j) - 1].f1[i1] =
+          problemStruct->names.resolutionParams[fitIndices_data[j] - 1].f1[i1];
       }
     }
 
-    i = problemStruct->checks.resolutionParams.size(1);
-    for (n = 0; n < i; n++) {
-      if (problemStruct->checks.resolutionParams[n] == 1.0) {
-        problemStruct->fitParams[static_cast<int>(fitCounter) - 1] =
-          problemStruct->resolutionParams[n];
-        problemStruct->fitLimits[static_cast<int>(fitCounter) - 1] =
-          limits_resolutionParams[n];
-        problemStruct->fitLimits[(static_cast<int>(fitCounter) +
-          problemStruct->fitLimits.size(0)) - 1] = limits_resolutionParams[n +
-          limits_resolutionParams.size(0)];
-        fitNames[static_cast<int>(fitCounter) - 1].f1.set_size(1,
-          problemStruct->names.resolutionParams
-          [problemStruct->names.resolutionParams.size(0) * n].f1.size(1));
-        numberOfFitted_idx_1_tmp = problemStruct->names.resolutionParams[n].
-          f1.size(1);
-        for (i1 = 0; i1 < numberOfFitted_idx_1_tmp; i1++) {
-          fitNames[static_cast<int>(fitCounter) - 1].f1[i1] =
-            problemStruct->names.resolutionParams[n].f1[i1];
-        }
-
-        fitCounter++;
-      } else {
-        problemStruct->otherParams[otherCounter] =
-          problemStruct->resolutionParams[n];
-        problemStruct->otherLimits[otherCounter] = limits_resolutionParams[n];
-        problemStruct->otherLimits[otherCounter +
-          problemStruct->otherLimits.size(0)] = limits_resolutionParams[n +
-          limits_resolutionParams.size(0)];
-        otherCounter++;
-      }
-    }
-
-    i = problemStruct->checks.domainRatios.size(1);
-    for (n = 0; n < i; n++) {
-      if (problemStruct->checks.domainRatios[n] == 1.0) {
-        problemStruct->fitParams[static_cast<int>(fitCounter) - 1] =
-          problemStruct->domainRatios[n];
-        problemStruct->fitLimits[static_cast<int>(fitCounter) - 1] =
-          limits_domainRatios[n];
-        problemStruct->fitLimits[(static_cast<int>(fitCounter) +
-          problemStruct->fitLimits.size(0)) - 1] = limits_domainRatios[n +
-          limits_domainRatios.size(0)];
-        fitNames[static_cast<int>(fitCounter) - 1].f1.set_size(1,
-          problemStruct->names.domainRatios
-          [problemStruct->names.domainRatios.size(0) * n].f1.size(1));
-        numberOfFitted_idx_1_tmp = problemStruct->names.domainRatios[n].f1.size
-          (1);
-        for (i1 = 0; i1 < numberOfFitted_idx_1_tmp; i1++) {
-          fitNames[static_cast<int>(fitCounter) - 1].f1[i1] =
-            problemStruct->names.domainRatios[n].f1[i1];
-        }
-
-        fitCounter++;
-      } else {
-        problemStruct->otherParams[otherCounter] = problemStruct->domainRatios[n];
-        problemStruct->otherLimits[otherCounter] = limits_domainRatios[n];
-        problemStruct->otherLimits[otherCounter +
-          problemStruct->otherLimits.size(0)] = limits_domainRatios[n +
-          limits_domainRatios.size(0)];
-        otherCounter++;
+    fitCounter += fitIndices_size[1];
+    coder::d_eml_find(problemStruct->checks.domainRatios, fitIndices_data,
+                      fitIndices_size);
+    i = fitIndices_size[1];
+    for (j = 0; j < i; j++) {
+      i1 = fitIndices_data[j];
+      i2 = static_cast<int>(fitCounter + j) - 1;
+      problemStruct->fitParams[i2] = problemStruct->domainRatios[i1 - 1];
+      problemStruct->fitLimits[i2] = limits_domainRatios[i1 - 1];
+      problemStruct->fitLimits[i2 + problemStruct->fitLimits.size(0)] =
+        limits_domainRatios[(i1 + limits_domainRatios.size(0)) - 1];
+      fitNames[static_cast<int>(fitCounter + j) - 1].f1.set_size(1,
+        problemStruct->names.domainRatios[problemStruct->names.domainRatios.size
+        (0) * (fitIndices_data[fitIndices_size[0] * j] - 1)].f1.size(1));
+      loop_ub_tmp = problemStruct->names.domainRatios[fitIndices_data[j] - 1].
+        f1.size(1);
+      for (i1 = 0; i1 < loop_ub_tmp; i1++) {
+        fitNames[static_cast<int>(fitCounter + j) - 1].f1[i1] =
+          problemStruct->names.domainRatios[fitIndices_data[j] - 1].f1[i1];
       }
     }
   }

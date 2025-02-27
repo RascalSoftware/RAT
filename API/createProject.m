@@ -15,28 +15,18 @@ function obj = createProject(options)
         options.geometry = geometryOptions.AirSubstrate
         options.absorption {mustBeA(options.absorption,'logical')} = false
     end
-    
-    % Validate input options
-    invalidCalcMessage = sprintf('calculation type must be a calculationTypes enum or one of the following strings (%s)', ...
-                                 strjoin(calculationTypes.values(), ', '));
 
-    options.calcType = validateOption(options.calcType, 'calculationTypes', invalidCalcMessage).value;
-
-    invalidModelMessage = sprintf('model type must be a modelTypes enum or one of the following strings (%s)', ...
-                                  strjoin(modelTypes.values(), ', '));
-
-    options.model = validateOption(options.model, 'modelTypes', invalidModelMessage).value;
-
-    invalidGeometryMessage = sprintf('geometry must be a geometryOptions enum or one of the following strings (%s)', ...
-                                     strjoin(geometryOptions.values(), ', '));
-
-    options.geometry = validateOption(options.geometry, 'geometryOptions', invalidGeometryMessage).value;
+    invalidCalcMessage = sprintf('Calculation type must be a calculationTypes enum or one of the following strings (%s)', ...
+                             strjoin(calculationTypes.values(), ', '));
 
     % Initialise object, including domains if necessary
-    if strcmpi(options.calcType, calculationTypes.Domains.value)
-        obj = domainsClass(options.name, options.calcType, options.model, options.geometry, options.absorption);
-    else
-        obj = projectClass(options.name, options.calcType, options.model, options.geometry, options.absorption);
+    switch validateOption(options.calcType, 'calculationTypes', invalidCalcMessage)
+        case calculationTypes.Normal
+            obj = projectClass(options.name, options.model, options.geometry, options.absorption);
+        case calculationTypes.Domains
+            obj = domainsClass(options.name, options.model, options.geometry, options.absorption);
+        otherwise
+            throw(exceptions.invalidOption(invalidCalcMessage));
     end
 
 end

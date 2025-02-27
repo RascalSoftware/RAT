@@ -36,8 +36,11 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     end
 
     properties (SetAccess = immutable)
-        calculationType
         protectedParameters
+    end
+
+    properties (SetAccess = protected)
+        calculationType
     end
 
     properties(Access = protected, Constant, Hidden)
@@ -48,10 +51,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
     methods
 
-        function obj = projectClass(experimentName, calculationType, modelType, geometry, absorption)
+        function obj = projectClass(experimentName, modelType, geometry, absorption)
             % Creates a Project object. The input arguments are the
-            % experiment name which is a char array; the calculation type,
-            % which is a calculationTypes enum; the model type,
+            % experiment name which is a char array; the model type,
             % which is a modelTypes enum; the geometry, which is a
             % geometryOptions enum; and a logical to state whether or not
             % absorption terms are included in the refractive index.
@@ -60,20 +62,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % project = projectClass('New experiment');
             arguments
                 experimentName {mustBeTextScalar} = ''
-                calculationType = calculationTypes.Normal
                 modelType = modelTypes.StandardLayers
                 geometry = geometryOptions.AirSubstrate
                 absorption {logical} = false
             end
 
             % Validate input options
-            invalidTypeMessage = sprintf('calculationType must be a calculationTypes enum or one of the following strings (%s)', ...
-                                 strjoin(calculationTypes.values(), ', '));
-
-            obj.calculationType = validateOption(calculationType, 'calculationTypes', invalidTypeMessage).value;
-
             invalidModelMessage = sprintf('modelType must be a modelTypes enum or one of the following strings (%s)', ...
-                             strjoin(modelTypes.values(), ', '));
+                                  strjoin(modelTypes.values(), ', '));
 
             obj.modelType = validateOption(modelType, 'modelTypes', invalidModelMessage).value;
 
@@ -83,6 +79,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.geometry = validateOption(geometry, 'geometryOptions', invalidGeometryMessage).value;
 
             obj.experimentName = experimentName;
+            obj.calculationType = calculationTypes.Normal.value;
 
             % Initialise the Parameters Table
             obj.parameters = parametersClass('Substrate Roughness',1,3,5,true,priorTypes.Uniform,0,Inf);           
@@ -1073,7 +1070,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % currently defined properties.
             %
             % domainsProject = project.domainsClass();
-            domainsObj = domainsClass(obj.experimentName, calculationTypes.Domains, obj.modelType, obj.geometry, obj.absorption);
+            domainsObj = domainsClass(obj.experimentName, obj.modelType, obj.geometry, obj.absorption);
             domainsObj = copyProperties(obj, domainsObj);
 
             % Need to treat contrasts separately due to changes in the

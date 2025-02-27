@@ -299,7 +299,7 @@ classdef testProjectClass < matlab.unittest.TestCase
         function testLayersExceptions(testCase)
             % Ensure layers are not defined for a custom model,
             % and the routines modifying the layers raise an error
-            customProject = projectClass('custom project', calculationTypes.Normal, modelTypes.CustomLayers);
+            customProject = projectClass('custom project', modelTypes.CustomLayers);
             testCase.verifyEmpty(customProject.layers);
             testCase.verifyError(@() customProject.addLayerGroup({{'New Layer'}, {'Another Layer'}}), exceptions.invalidProperty.errorID)
             testCase.verifyError(@() customProject.addLayer('New Layer'), exceptions.invalidProperty.errorID)

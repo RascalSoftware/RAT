@@ -191,7 +191,7 @@ classdef testDomainsClass < matlab.unittest.TestCase
             % Ensure a domains contrast is not defined for a custom model,
             % and the routines modifying the domains contrast raise an
             % error
-            customProject = domainsClass('custom project', calculationTypes.Domains, modelTypes.CustomLayers);
+            customProject = domainsClass('custom project', modelTypes.CustomLayers);
             testCase.verifyEmpty(customProject.domainContrasts);
             testCase.verifyError(@() customProject.addDomainContrast('name', 'Bilayer / H2O'), exceptions.invalidProperty.errorID)
             testCase.verifyError(@() customProject.removeDomainContrast(1), exceptions.invalidProperty.errorID)

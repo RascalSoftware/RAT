@@ -12,18 +12,18 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
     %
     % Each procedure has their own unique set of options so the relevant procedure is listed in square brackets before the options description.
     %
-    % Example Usage::
-    % 
-    %    controls = controlsClass();
-    %    controls.procedure = procedures.Dream;
-    %    controls.nSamples = 6000;
-    %    controls.nChains = 10;
-    %    controls.parallel = parallelOptions.Contrasts;
+    % Examples
+    % --------
+    % >>> controls = controlsClass();
+    % >>> controls.procedure = procedures.Dream;
+    % >>> controls.nSamples = 6000;
+    % >>> controls.nChains = 10;
+    % >>> controls.parallel = parallelOptions.Contrasts;
     %  
-    % Alternatively use the ``setProcedure``::
+    % Alternatively use the ``setProcedure`` method
     %
-    %    controls = controlsClass();
-    %    controls.setProcedure('dream', 'nSamples', 6000, 'nChains', 10, 'parallel', 'contrasts');
+    % >>> controls = controlsClass();
+    % >>> controls.setProcedure('dream', 'nSamples', 6000, 'nChains', 10, 'parallel', 'contrasts');
     %
     % Attributes
     % ----------

@@ -16,8 +16,5 @@ classdef calculationTypes < customEnum
     enumeration
         Normal ('normal')
         Domains ('domains')
-        OilWater ('oil water')
-        Magnetic ('magnetic')
-        MagneticDomains ('magnetic domains')
     end
 end

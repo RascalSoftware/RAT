@@ -219,14 +219,6 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             testInput.contrastBackgroundParams{1} = [4 1 2 3];
             testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
 
-            % Test Qzshift Error
-            testInput = testCase.problemStruct;
-            testInput.contrastQzshifts(1) = 0;
-            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
-            testInput = testCase.problemStruct;
-            testInput.contrastQzshifts(1) = 4;
-            testCase.verifyError(@() checkIndices(testInput, customFiles), exceptions.indexOutOfRange.errorID);
-
             % Test Scalefactor Error
             testInput = testCase.problemStruct;
             testInput.contrastScalefactors(1) = 0;
@@ -276,22 +268,20 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
         end       
 
         function testExtractProblemParams(testCase)
-            [numberOfContrasts, geometry, contrastBackgroundParams, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
-            contrastResolutionParams, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIns, bulkOuts, resolutionParams, domainRatios,...
+            [numberOfContrasts, geometry, contrastBackgroundParams, ~, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
+            contrastResolutionParams, contrastDomainRatios, backgroundParams, ~, scalefactors, bulkIns, bulkOuts, resolutionParams, domainRatios,...
             dataPresent, nParams, params, numberOfLayers, resample, backgroundTypes, backgroundActions, resolutionTypes, contrastCustomFiles, useImaginary,...
             repeatLayers, data, dataLimits, simLimits, contrastLayers, layersDetails, customFiles, domainContrastLayers] = extractProblemParams(testCase.problemStruct);
 
             testCase.verifyEqual(numberOfContrasts, testCase.problemStruct.numberOfContrasts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(geometry, testCase.problemStruct.geometry, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastBackgroundParams, testCase.problemStruct.contrastBackgroundParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(contrastQzshifts, testCase.problemStruct.contrastQzshifts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastScalefactors, testCase.problemStruct.contrastScalefactors, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastBulkIns, testCase.problemStruct.contrastBulkIns, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastBulkOuts, testCase.problemStruct.contrastBulkOuts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastResolutionParams, testCase.problemStruct.contrastResolutionParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastDomainRatios, testCase.problemStruct.contrastDomainRatios, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(backgroundParams, testCase.problemStruct.backgroundParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(qzshifts, testCase.problemStruct.qzshifts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(scalefactors, testCase.problemStruct.scalefactors, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(bulkIns, testCase.problemStruct.bulkIns, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(bulkOuts, testCase.problemStruct.bulkOuts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);

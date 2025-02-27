@@ -8,7 +8,6 @@ geometry = problemStruct.geometry;
 contrastBackgroundParams = problemStruct.contrastBackgroundParams;
 contrastBackgroundTypes = problemStruct.contrastBackgroundTypes;
 contrastBackgroundActions = problemStruct.contrastBackgroundActions;
-contrastQzshifts = problemStruct.contrastQzshifts;
 contrastScalefactors = problemStruct.contrastScalefactors;
 contrastBulkIns = problemStruct.contrastBulkIns;
 contrastBulkOuts = problemStruct.contrastBulkOuts;
@@ -17,7 +16,6 @@ contrastResolutionTypes = problemStruct.contrastResolutionTypes;
 contrastDomainRatios = problemStruct.contrastDomainRatios;
 contrastCustomFiles = problemStruct.contrastCustomFiles;
 backgroundParams = problemStruct.backgroundParams;
-qzshifts = problemStruct.qzshifts;
 scalefactors = problemStruct.scalefactors;
 bulkIns = problemStruct.bulkIns;
 bulkOuts = problemStruct.bulkOuts;
@@ -37,5 +35,10 @@ contrastLayers = problemStruct.contrastLayers;
 layersDetails = problemStruct.layersDetails;
 customFiles = problemStruct.customFiles;
 domainContrastLayers = problemStruct.domainContrastLayers;
+
+% qzshifts are not included as a parameter in RAT, so we set up dummy
+% values for the reflectivity calculation
+contrastQzshifts = ones(1,problemStruct.numberOfContrasts);
+qzshifts = 0.0;
 
 end

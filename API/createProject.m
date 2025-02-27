@@ -15,40 +15,18 @@ function obj = createProject(options)
         options.geometry = geometryOptions.AirSubstrate
         options.absorption {mustBeA(options.absorption,'logical')} = false
     end
-    
-    % Validate input options
-    invalidCalcMessage = sprintf('calculation type must be a calculationTypes enum or one of the following strings (%s)', ...
-                                 strjoin(calculationTypes.values(), ', '));
 
-    options.calcType = validateOption(options.calcType, 'calculationTypes', invalidCalcMessage).value;
-
-    invalidModelMessage = sprintf('model type must be a modelTypes enum or one of the following strings (%s)', ...
-                                  strjoin(modelTypes.values(), ', '));
-
-    options.model = validateOption(options.model, 'modelTypes', invalidModelMessage).value;
-
-    invalidGeometryMessage = sprintf('geometry must be a geometryOptions enum or one of the following strings (%s)', ...
-                                     strjoin(geometryOptions.values(), ', '));
-
-    options.geometry = validateOption(options.geometry, 'geometryOptions', invalidGeometryMessage).value;
+    invalidCalcMessage = sprintf('Calculation type must be a calculationTypes enum or one of the following strings (%s)', ...
+                             strjoin(calculationTypes.values(), ', '));
 
     % Initialise object, including domains if necessary
-    if any(strcmp(options.calcType, {calculationTypes.Domains.value, calculationTypes.MagneticDomains.value}))
-        obj = domainsClass(options.name, options.calcType, options.model, options.geometry, options.absorption);
-    else
-        obj = projectClass(options.name, options.calcType, options.model, options.geometry, options.absorption);
-    end
-
-    % Set specific options depending on the calculation type
-    switch obj.calculationType
-        case {calculationTypes.Magnetic.value, calculationTypes.MagneticDomains.value}
-            obj.layers = layersClass({'SLD Real', 'SLD Imaginary', 'SLD Magnetic Real', 'SLD Magnetic Imaginary'});
-        case calculationTypes.OilWater.value
-            if isa(obj, 'domainsClass')
-                obj.contrasts = contrastsClass(domains=true, oilWater=true);
-            else
-                obj.contrasts = contrastsClass(domains=false, oilWater=true);
-            end
+    switch validateOption(options.calcType, 'calculationTypes', invalidCalcMessage)
+        case calculationTypes.Normal
+            obj = projectClass(options.name, options.model, options.geometry, options.absorption);
+        case calculationTypes.Domains
+            obj = domainsClass(options.name, options.model, options.geometry, options.absorption);
+        otherwise
+            throw(exceptions.invalidOption(invalidCalcMessage));
     end
 
 end

@@ -191,7 +191,7 @@ classdef testDomainsClass < matlab.unittest.TestCase
             % Ensure a domains contrast is not defined for a custom model,
             % and the routines modifying the domains contrast raise an
             % error
-            customProject = domainsClass('custom project', calculationTypes.Domains, modelTypes.CustomLayers);
+            customProject = domainsClass('custom project', modelTypes.CustomLayers);
             testCase.verifyEmpty(customProject.domainContrasts);
             testCase.verifyError(@() customProject.addDomainContrast('name', 'Bilayer / H2O'), exceptions.invalidProperty.errorID)
             testCase.verifyError(@() customProject.removeDomainContrast(1), exceptions.invalidProperty.errorID)
@@ -216,7 +216,6 @@ classdef testDomainsClass < matlab.unittest.TestCase
                                  {convertStringsToChars(testCase.project.resolution.resolutionParams.varTable{:, 1})}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.resolutionNames, testCase.project.resolution.resolutions.varTable{:, 1}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.scalefactorNames, {convertStringsToChars(testCase.project.scalefactors.varTable{:, 1})}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.qzshiftNames, {convertStringsToChars(testCase.project.qzshifts.varTable{:, 1})}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.bulkInNames, {convertStringsToChars(testCase.project.bulkIn.varTable{:, 1})}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.bulkOutNames, {convertStringsToChars(testCase.project.bulkOut.varTable{:, 1})}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.layerNames, testCase.project.layers.varTable{:, 1}, 'toStruct method not working');

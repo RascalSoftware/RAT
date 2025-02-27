@@ -67,7 +67,6 @@ result = reflectivityCalculation(problemStruct,controls);
 % Pre-processor directives for Matlab Coder.
 coder.varsize('problem.ssubs',[Inf 1],[1 0]);
 coder.varsize('problem.backgroundParams',[Inf 1],[1 0]);
-coder.varsize('problem.qzshifts',[Inf 1],[1 0]);
 coder.varsize('problem.scalefactors',[Inf 1],[1 0]);
 coder.varsize('problem.bulkIn',[Inf 1],[1 0]);
 coder.varsize('problem.bulkOut',[Inf 1],[1 0]);

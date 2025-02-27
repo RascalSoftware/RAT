@@ -2,8 +2,7 @@
 
 This folder contains examples of how to use RAT to analyse what are referred
 to as 'Normal TF' samples. This refers to reflectivity data that does not use
-absorption (i.e. an imaginary SLD), and is not analysed as magnetic, polarised or
-oil-water data. 
+absorption (i.e. an imaginary SLD) or domains.
 
 As is the case for RasCAL1, it is possible to use either 'Standard Layers', in
 which case the model is defined as [d, rho, sigma] layers, or to use an external function

@@ -15,11 +15,10 @@ classdef domainsClass < projectClass
 
     methods
 
-        function obj = domainsClass(experimentName, calculationType, modelType, geometry, absorption)
+        function obj = domainsClass(experimentName, modelType, geometry, absorption)
             % Creates a Project object for a domains calculation.
             % The input arguments are the experiment name which is a char
-            % array; the calculation type, which is a calculationTypes
-            % enum; the model type, which is a modelTypes enum; the
+            % array; the model type, which is a modelTypes enum; the
             % geometry, which is a geometryOptions enum; and a logical to
             % state whether or not absorption terms are included in the
             % refractive index.
@@ -28,14 +27,14 @@ classdef domainsClass < projectClass
             % project = domainsClass('New experiment');
             arguments
                 experimentName {mustBeTextScalar} = ''
-                calculationType = calculationTypes.Domains
                 modelType = modelTypes.StandardLayers
                 geometry = geometryOptions.AirSubstrate
                 absorption {mustBeA(absorption,'logical')} = false
             end
             
             % Call projectClass constructor
-            obj@projectClass(experimentName, calculationType, modelType, geometry, absorption);
+            obj@projectClass(experimentName, modelType, geometry, absorption);
+            obj.calculationType = calculationTypes.Domains.value;
 
             % Create a contrasts class for a domains calculation
             obj.contrasts = contrastsClass(domains=true);
@@ -245,12 +244,12 @@ classdef domainsClass < projectClass
             % currently defined properties.
             %
             % normalProject = project.projectClass();
-            projectObj = projectClass(obj.experimentName, calculationTypes.Normal, obj.modelType, obj.geometry, obj.absorption);
+            projectObj = projectClass(obj.experimentName, obj.modelType, obj.geometry, obj.absorption);
             projectObj = copyProperties(obj, projectObj);
 
             % Need to treat contrasts separately due to changes in the
             % class for domains calculations
-            projectObj.contrasts = copyProperties(obj.contrasts, contrastsClass(oilWater=obj.contrasts.oilWaterCalc));
+            projectObj.contrasts = copyProperties(obj.contrasts, contrastsClass(domains=false));
         end
 
     end

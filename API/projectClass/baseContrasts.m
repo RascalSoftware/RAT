@@ -41,7 +41,7 @@ classdef (Abstract) baseContrasts < handle
         
         function obj = baseContrasts(domainsCalc)
             % Class Constructor
-            % The (optional) input is a logical flags to state whether
+            % The (optional) input is a logical flag to state whether
             % or not this is a domains calculation.
             %
             % contrasts = contrastsClass()
@@ -120,7 +120,7 @@ classdef (Abstract) baseContrasts < handle
             % contrast...
             if isText(row)
                 contrastNames = getAllContrastNames(obj);
-                row = find(strcmp(contrastNames,row));
+                row = find(strcmpi(contrastNames,row));
                 
                 % Throw an error if the name is not matched
                 if isempty(row)
@@ -171,11 +171,11 @@ classdef (Abstract) baseContrasts < handle
                 contrastIndex = row;
                 
             elseif isText(row)
-                [present,idx] = ismember(row, obj.getAllContrastNames());
-                if ~present
+                present = strcmpi(row, obj.getAllContrastNames());
+                if ~any(present)
                     throw(exceptions.nameNotRecognised(sprintf('Contrast %s is not recognised',row)));
                 end
-                contrastIndex = idx;
+                contrastIndex = find(present, 1);
                 
             end
 

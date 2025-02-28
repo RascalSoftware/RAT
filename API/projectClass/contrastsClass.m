@@ -187,56 +187,82 @@ classdef contrastsClass < baseContrasts
             p.PartialMatching = false;
 
             addParameter(p,'name',          defaultName,        @isText);
-            addParameter(p,'data',          defaultData,        @(x) obj.validateExactString(x,expectedData));
-            addParameter(p,'background',       defaultBackground,         @(x) obj.validateExactString(x,expectedBackground));
+            addParameter(p,'data',          defaultData,        @isText);
+            addParameter(p,'background',       defaultBackground,         @isText);
             addParameter(p,'backgroundAction', defaultBackgroundAction,   @(x) isText(x) || isenum(x))
-            addParameter(p,'bulkIn',           defaultBulkIn,             @(x) obj.validateExactString(x,expectedBulkIn));
-            addParameter(p,'bulkOut',          defaultBulkOut,            @(x) obj.validateExactString(x,expectedBulkOut));
-            addParameter(p,'scalefactor',      defaultScalefactor,        @(x) obj.validateExactString(x,expectedScalefactor));
-            addParameter(p,'resolution',       defaultResolution,         @(x) obj.validateExactString(x,expectedResolution));
+            addParameter(p,'bulkIn',           defaultBulkIn,             @isText);
+            addParameter(p,'bulkOut',          defaultBulkOut,            @isText);
+            addParameter(p,'scalefactor',      defaultScalefactor,        @isText);
+            addParameter(p,'resolution',       defaultResolution,         @isText);
             addParameter(p,'resample',         defaultResample,           @islogical);
 
             if obj.domainsCalc
                 defaultDomainRatio = '';
                 expectedDomainRatio = cellstr(allowedNames.domainRatioNames);
-                addParameter(p,'domainRatio',   defaultDomainRatio, @(x) obj.validateExactString(x,expectedDomainRatio));
+                addParameter(p,'domainRatio',   defaultDomainRatio,       @isText);
             end
 
-            addParameter(p,'model',            defaultModel, @(x) obj.validateContrastModel(x,allowedNames));
+            addParameter(p,'model',            defaultModel);
             
             parse(p, inputValues{:});
-            inputBlock = p.Results;        
+            inputBlock = p.Results;
+            inputBlock.data = obj.validateExactString(inputBlock.data, expectedData);
+            inputBlock.background = obj.validateExactString(inputBlock.background, expectedBackground);
+            inputBlock.bulkIn = obj.validateExactString(inputBlock.bulkIn, expectedBulkIn);
+            inputBlock.bulkOut = obj.validateExactString(inputBlock.bulkOut, expectedBulkOut);
+            inputBlock.scalefactor = obj.validateExactString(inputBlock.scalefactor, expectedScalefactor);
+            inputBlock.resolution = obj.validateExactString(inputBlock.resolution, expectedResolution);
+            inputBlock.model = obj.validateContrastModel(inputBlock.model, allowedNames);
+            if obj.domainsCalc
+                inputBlock.domainRatio = obj.validateExactString(inputBlock.domainRatio, expectedDomainRatio);
+            end
         end
 
     end
 
     methods(Access = private)
 
-        function validateExactString(~, input, allowedNames)
-            if ~strcmpi(input, allowedNames)
+        function output = validateExactString(~, input, allowedNames)
+            if isempty(input)
+                output = '';
+                return
+            end
+            found = strcmpi(input, allowedNames);
+            if ~any(found)
                 throw(exceptions.nameNotRecognised(sprintf('The input "%s" is not recognised. The allowed names are: "%s".', input, strjoin(allowedNames, '", "'))));
             end
+            output = allowedNames{find(found, 1)};
         end
 
-        function validateContrastModel(obj, model, allowedNames)
-            modelArray = cellstr(model);
+        function model = validateContrastModel(obj, input, allowedNames)
+            if isempty(input)
+                model = '';
+                return
+            end
+            
+            inputArray = cellstr(input);
 
             % Check the input is as expected - modelNames tells us what the
             % model type is
             if all(size(allowedNames.modelNames) == size(allowedNames.customFileNames)) && all(cellfun(@strcmp, allowedNames.modelNames, allowedNames.customFileNames))
-                if length(modelArray) > 1
+                if length(inputArray) > 1
                     throw(exceptions.invalidValue('Only one model value is allowed for custom models'));
                 end
             elseif obj.domainsCalc && all(size(allowedNames.modelNames) == size(allowedNames.domainContrastNames)) && all(cellfun(@strcmp, allowedNames.modelNames, allowedNames.domainContrastNames))
-                if length(modelArray) ~= 2
+                if length(inputArray) ~= 2
                     throw(exceptions.invalidValue('Exactly two model values are required for ''standard layers'' with domains'));
                 end
             end
 
-            for i = 1:length(modelArray)
-                if ~strcmpi(modelArray{i}, allowedNames.modelNames)
-                    throw(exceptions.nameNotRecognised(sprintf('Model component name "%s" is not recognised. The allowed names are: "%s".', modelArray{i}, strjoin(allowedNames.modelNames, '", "'))));
+            modelSize = length(inputArray);
+            model = cell(1, modelSize);
+            modelNames = cellstr(allowedNames.modelNames);
+            for i = 1:modelSize 
+                found = strcmpi(inputArray{i}, modelNames);
+                if ~any(found)
+                    throw(exceptions.nameNotRecognised(sprintf('Model component name "%s" is not recognised. The allowed names are: "%s".', inputArray{i}, strjoin(allowedNames.modelNames, '", "'))));
                 end
+                model{i} = modelNames{find(found, 1)};
             end
         end
 

@@ -32,8 +32,8 @@ classdef testResolutionsClass < matlab.unittest.TestCase
         end
 
         function createTestNames(testCase)
-          testCase.names.customFileNames = 'function_name';
-          testCase.names.dataNames = '';
+          testCase.names.customFileNames = "function_name";
+          testCase.names.dataNames = "";
         end
     end
 
@@ -78,9 +78,9 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             testCase.resolution.addResolution(testCase.resolutions{3, 1:5});
             testCase.verifyEqual(string(testCase.resolution.resolutions.varTable{end, :}),...
                                     string(testCase.resolutions(3, :)), 'addResolution method not working');
-            % testCase.resolution.addResolution(testCase.resolutions{4, :});
-            % testCase.verifyEqual(string(testCase.resolution.resolutions.varTable{end, :}),...
-            %                         string(testCase.resolutions(4, :)), 'addResolution method not working');
+            testCase.resolution.addResolution('New Resolution 4', allowedTypes.Constant, 'RESOLUTION PARAM 1');
+            testCase.verifyEqual(string(testCase.resolution.resolutions.varTable{end, :}),...
+                                 ["New Resolution 4", string(allowedTypes.Constant.value), "Resolution param 1", "", "", "", "", ""], 'addResolution method not working');
             % testCase.resolution.addResolution('Resolution 5', allowedTypes.Function, 'function_name', 1, 3);
             % testCase.verifyEqual(string(testCase.resolution.resolutions.varTable{end, :}),...
             %                         ["Resolution 5", string(allowedTypes.Function.value), "function_name", "Resolution param 1", "Resolution param 3", "", "", ""], ...

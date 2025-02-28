@@ -59,6 +59,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifySize(params.varTable, [3, 8], 'Parameters has wrong dimension');
             testCase.verifyError(@() params.addParameter(6.7), exceptions.invalidType.errorID)  % first value must be a char
             testCase.verifyError(@() params.addParameter('c', '1'), exceptions.invalidType.errorID)  % 2 value should be number
+            testCase.verifyError(@() params.addParameter('newParam2'), exceptions.duplicateName.errorID);
             params.addParameter('Another Param', 6.7);
             testCase.verifyEqual(params.varTable{end, 1}, "Another Param", 'addParameter method not working');
             testCase.verifyEqual(params.varTable{end, 2:4}, [6.7, 6.7, 6.7], 'addParameter method not working');

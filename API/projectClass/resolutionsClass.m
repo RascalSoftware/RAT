@@ -85,7 +85,7 @@ classdef resolutionsClass < handle
                switch typeVal
                    case allowedTypes.Constant.value
                        % Param 3 (source) must be a valid resolution parameter
-                       newRow{3} = obj.validateParam(in(3), obj.resolutionParams.getNames(), 'Resolution Param');
+                       newRow{3} = validateParameter(in{3}, obj.resolutionParams.getNames(), 'Resolution Param');
                        if sum(~(cellfun(@(x) isequal(x,""), in))) > 3
                            warning('warnings:invalidNumberOfInputs', 'Value fields 1 - 5 are not required for type ''constant'' resolutions, they will not be included')
                        end
@@ -151,7 +151,7 @@ classdef resolutionsClass < handle
             source = convertStringsToChars(inputBlock.source);
             if ~isempty(source) 
                 if strcmpi(inputBlock.type, allowedTypes.Constant.value)
-                    source = obj.validateParam(source, obj.resolutionParams.getNames(), 'Resolution Param');
+                    source = validateParameter(source, obj.resolutionParams.getNames(), 'Resolution Param');
                 elseif strcmpi(inputBlock.type, allowedTypes.Data.value)
                     warning('warnings:invalidNumberOfInputs', 'The Source field is not required for type ''Data'' resolutions, they will be ignored by RAT')
                 end
@@ -161,7 +161,7 @@ classdef resolutionsClass < handle
             for i = 1:5
                 value = convertStringsToChars(values{i});
                 if ~isempty(value)
-                    obj.validateParam(value, obj.resolutionParams.getNames(), 'Resolution Param');
+                    validateParameter(value, obj.resolutionParams.getNames(), 'Resolution Param');
                     warning('warnings:invalidNumberOfInputs', 'Value fields 1 - 5 are not required for type ''%s'' backgrounds, they will be ignored by RAT', inputBlock.type)
                     break
                 end
@@ -241,31 +241,6 @@ classdef resolutionsClass < handle
 
             parse(p, varargin{:});
             inputBlock = p.Results;
-        end
-    end
-
-    methods (Static, Access = protected)
-        function thisPar = validateParam(param, paramList, parameterType)
-            % Checks that given parameter index or name is valid, then returns the
-            % parameter name. 
-            %
-            % param = obj.validateParam('param_name');
-            if iscell(param)
-                param = param{:};
-            end
-            if isnumeric(param)
-                if (param < 1) || (param > length(paramList))
-                    throw(exceptions.indexOutOfRange(sprintf('%s %d is out of range', parameterType, param)));
-                else
-                    thisPar = paramList(param);
-                end
-            elseif isText(param)
-                if ~strcmpi(param, paramList)
-                    throw(exceptions.nameNotRecognised(sprintf('Unrecognised %s name %s', parameterType, param)));
-                else
-                    thisPar = param;
-                end
-            end
         end
     end
 end 

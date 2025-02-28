@@ -155,5 +155,13 @@ classdef testUtilities < matlab.unittest.TestCase
             testCase.verifyLength(findall(h1,'type','axes'), 2, 'cornerPlot did not create correct number of axes')
             close(h1);
         end
+
+        function testValidateParameter(testCase)
+            testCase.verifyEqual(validateParameter('d2o', {'D2O', 'SMW'}), 'D2O', 'validateParameter does not work correctly');
+            testCase.verifyEqual(validateParameter(2, {'D2O', 'SMW'}), 'SMW', 'validateParameter does not work correctly');
+            
+            testCase.verifyError(@() validateParameter('H2O', {'D2O', 'SMW'}), exceptions.nameNotRecognised.errorID);
+            testCase.verifyError(@() validateParameter(3, {'D2O', 'SMW'}), exceptions.indexOutOfRange.errorID);
+        end
     end
 end

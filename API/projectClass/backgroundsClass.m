@@ -90,22 +90,22 @@ classdef backgroundsClass < handle
                switch typeVal
                    case allowedTypes.Constant.value
                        % Param 3 (source) must be a valid background parameter
-                       newRow{3} = obj.validateParam(in(3), obj.backgroundParams.getNames(), 'Background Param');
+                       newRow{3} = validateParameter(in{3}, obj.backgroundParams.getNames(), 'Background Param');
 
 
                    case allowedTypes.Data.value
                        % Background is contained within a data file.
-                       newRow{3} = obj.validateParam(in(3), allowedNames.dataNames, 'Data');
+                       newRow{3} = validateParameter(in{3}, allowedNames.dataNames, 'Data');
                        % We also allow for an optional data offset
                        if length(in) >= 4
-                           newRow{4} = obj.validateParam(in(4), obj.backgroundParams.getNames(), 'Background Param');
+                           newRow{4} = validateParameter(in{4}, obj.backgroundParams.getNames(), 'Background Param');
                        end
 
 
                    case allowedTypes.Function.value
                        % Param 3 (source) is the function name, defined in
                        % the custom files table
-                       newRow{3} = obj.validateParam(in(3), allowedNames.customFileNames, 'Custom File');
+                       newRow{3} = validateParameter(in{3}, allowedNames.customFileNames, 'Custom File');
 
                        if length(in) >= 4
                            % Any other given parameters must be valid
@@ -113,7 +113,7 @@ classdef backgroundsClass < handle
                            params = in(4:end);
                            params = params(~(cellfun(@(x) isequal(x,""), params)));
                            for i = 1:length(params)
-                              thisParam = obj.validateParam(params(i), obj.backgroundParams.getNames(), 'Background Param');
+                              thisParam = validateParameter(params{i}, obj.backgroundParams.getNames(), 'Background Param');
                               newRow{i+3} = thisParam;
                            end
                        end
@@ -177,13 +177,13 @@ classdef backgroundsClass < handle
             source = convertStringsToChars(inputBlock.source);
             if ~isempty(source)
                 if strcmpi(inputBlock.type, allowedTypes.Constant.value)
-                    source = obj.validateParam(source, obj.backgroundParams.getNames(), 'Background Param');
+                    source = validateParameter(source, obj.backgroundParams.getNames(), 'Background Param');
                 end
                 if strcmpi(inputBlock.type, allowedTypes.Data.value)
-                    source = obj.validateParam(source, allowedNames.dataNames, 'Data');
+                    source = validateParameter(source, allowedNames.dataNames, 'Data');
                 end
                 if strcmpi(inputBlock.type, allowedTypes.Function.value)
-                    source = obj.validateParam(source, allowedNames.customFileNames, 'Custom File');
+                    source = validateParameter(source, allowedNames.customFileNames, 'Custom File');
                 end
             end
 
@@ -191,7 +191,7 @@ classdef backgroundsClass < handle
             for i = 1:5
                 value = convertStringsToChars(values{i});
                 if ~isempty(value)
-                    obj.validateParam(value, obj.backgroundParams.getNames(), 'Background Param');
+                    validateParameter(value, obj.backgroundParams.getNames(), 'Background Param');
                     if i > obj.maxValues.(inputBlock.type)
                         warning('warnings:invalidNumberOfInputs', 'Value fields %d - 5 are not required for type ''%s'' backgrounds, they will be ignored by RAT', obj.maxValues.(inputBlock.type) + 1, inputBlock.type)
                         break
@@ -274,31 +274,6 @@ classdef backgroundsClass < handle
 
             parse(p, varargin{:});
             inputBlock = p.Results;
-        end
-    end
-
-    methods (Static, Access = protected)
-        function thisPar = validateParam(param, paramList, parameterType)
-            % Checks that given parameter index or name is valid, then returns the
-            % parameter name. 
-            %
-            % param = obj.validateParam('param_name', paramNames, 'Background Param');
-            if iscell(param)
-                param = param{:};
-            end
-            if isnumeric(param)
-                if (param < 1) || (param > length(paramList))
-                    throw(exceptions.indexOutOfRange(sprintf('%s %d is out of range', parameterType, param)));
-                else
-                    thisPar = paramList(param);
-                end
-            elseif isText(param)
-                if ~strcmpi(param, paramList)
-                    throw(exceptions.nameNotRecognised(sprintf('Unrecognised %s name %s', parameterType, param)));
-                else
-                    thisPar = param;
-                end
-            end
         end
     end
 end

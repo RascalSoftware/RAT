@@ -217,8 +217,6 @@ namespace RAT
           //  rescale sample back to its proper range for likelihood
           //  get the likelihood of the new sample
           // likestart = tic;
-          //  logLnew = likelihood(data, model, parnames, ...
-          //                loopCell(sc));
           rescaleParameters(prior, sampletmp, r1);
           logLnew = nsIntraFun(data_f1, data_f2, r1);
 

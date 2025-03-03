@@ -59,14 +59,6 @@ namespace RAT
     coder::rng();
 
     // randn('state', sum(100*clock));     % random number generator state
-    //  Now make sure that all strings are lower case --> **TURNS OUT THIS BREAKS
-    //  THINGS IF IMPLEMENTED!**
-    //  for i = 1 : numel(field_names)
-    //      % evalstr = strcat('DREAMPar.',field_names(i),' = lower(DREAMPar.',field_names(i),');');
-    //      % Now evaluate
-    //      %eval(char(evalstr));
-    //      DREAMPar = lowerCaseStruct(DREAMPar);
-    //  end
     //  Do an initial copy of all set fields from DREAMPar to outDREAMPar....
     outDREAMPar->nParams = DREAMPar_nParams;
     outDREAMPar->nChains = DREAMPar_nChains;

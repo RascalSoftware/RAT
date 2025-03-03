@@ -230,7 +230,6 @@ namespace RAT
     //  calculate the log likelihood of all the live points
     logL.set_size(loop_ub_tmp);
     for (b_i = 0; b_i < loop_ub_tmp; b_i++) {
-      // parvals = loopCell(livepoints(i,:));
       loop_ub = livepoints.size(1);
       b_livepoints.set_size(1, livepoints.size(1));
       for (i = 0; i < loop_ub; i++) {

@@ -142,7 +142,6 @@ namespace RAT
           }
 
           //  get new likelihood
-          //  logL = likelihood(data, model, parnames, loopCell(rescaledpnt));
           *logL = nsIntraFun(data_f1, data_f2, rescaledpnt);
         }
       }

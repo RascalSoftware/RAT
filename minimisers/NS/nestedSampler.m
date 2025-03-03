@@ -46,19 +46,10 @@ function [logZ, nest_samples, post_samples,H] = nestedSampler(data, ...
 %                      'x', 4};
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-extraparvals = [];
-
 controls = data{2};
 
-% get the number of parameters from the prior array
-D = size(prior,1);
-
 ns = 1;
-% coder.varsize('ns');
-
 mus = 1;
-% coder.varsize('mus');
-
 cholmat = 1;
 coder.varsize('cholmat');
 
@@ -76,6 +67,11 @@ end
 
 if mod(nLive, 1) ~= 0 || nLive < 0
     coderException(coderEnums.errorCodes.domainError, 'NS Error: nLive must be an integer >= 0')
+end
+
+% check total number of points is large enough if using MultiNest
+if nMCMC == 0 && nLive < D+1
+    coderException(coderEnums.errorCodes.domainError, 'NS Error: The number of live points must be larger than the number of fit parameters for MultiNest.'); 
 end
 
 % draw the set of initial live points from the unit hypercube
@@ -111,10 +107,16 @@ propscale = 0.1;
 
 %%%%%%%%%%%%%%%
 % some initial values if MultiNest sampling is used
-h = 1.1; % h values from bottom of p. 1605 of Feroz and Hobson
-FS = h; % start FS at h, so ellipsoidal partitioning is done first time
+% FS is the ratio of the total volume of all our sample ellipsoids
+% to the estimated volume of the region from which live points are sampled
+% we recalculate the ellipsoids if that ratio is larger than h (i.e. the
+% ellipsoids are more than 10% larger than they need to be)
+% h is arbitrary; we choose 1.1 in line with
+% section 5.2 of Feroz, Hobson & Bridges (https://arxiv.org/pdf/0809.3437)
+h = 1.1; 
+FS = h; 
 coder.varsize('FS');
-K = 1; % start with one cluster of live points
+K = 1;  % number of ellipsoids; doesn't actually need to be defined here but coder complains
 
 % get maximum likelihood
 logLmax = max(logL);
@@ -169,23 +171,17 @@ while tol > tolerance || j <= nLive
         % do MCMC nested sampling
  
         % get the Cholesky decomposed covariance of the live points
-        % (do every 100th iteration - CAN CHANGE THIS IF REQUIRED)
+        % (we do this every 100th iteration - this is arbitrary!)
         if mod(j-1, 100) == 0
             % NOTE that for numbers of parameters >~10 covariances are often
             % not positive definite and cholcov will have "problems".
-            %cholmat = cholcov(propscale*cov(livepoints));
-        
             % use modified Cholesky decomposition, which works even for
             % matrices that are not quite positive definite
-            % from http://infohost.nmt.edu/~borchers/ldlt.html 
             % (via http://stats.stackexchange.com/questions/6364
             % /making-square-root-of-covariance-matrix-positive-definite-matlab
             cv = cov(livepoints);
             [l, d] = mchol(propscale*cv);
             cholmat = l.'*sqrt(d);
-            
-            %plot3(livepoints(:,1), livepoints(:,2), livepoints(:,3), 'r.');
-            %drawnow();
         end
     
         % draw a new sample using mcmc algorithm
@@ -197,7 +193,6 @@ while tol > tolerance || j <= nLive
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % do MultiNest nested sampling
         
-        % separate out ellipsoids
         if FS >= h
             % NOTE: THIS CODE IS GUARANTEED TO RUN THE 1ST TIME THROUGH
             % calculate optimal ellipsoids        
@@ -214,10 +209,8 @@ while tol > tolerance || j <= nLive
                     Bs((k-1)*D+1:k*D,:) = Bs((k-1)*D+1:k*D,:)*scalefac^(2/D);
                     VEs(k) = scalefac*VEs(k);
                 end
-           end
-
+            end
         end
-
 
         % calculate ratio of volumes (FS>=1) and cumulative fractional volume
         Vtot = sum(VEs);

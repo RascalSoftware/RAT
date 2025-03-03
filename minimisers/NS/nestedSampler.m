@@ -105,7 +105,6 @@ end
 logL = zeros(nLive,1);
 extraparvals = [];
 for i=1:nLive
-    %parvals = loopCell(livepoints(i,:));
     parvals = livepoints(i,:);
     logL(i) = flike(data,parvals);
 end

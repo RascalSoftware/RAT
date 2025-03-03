@@ -60,7 +60,6 @@ function [sample, logL] = drawMultiNest(fracvol, Bs, mus, ...
                 rescaledpnt = rescaleParameters(prior, pnt); 
                     
                 % get new likelihood
-                % logL = likelihood(data, model, parnames, loopCell(rescaledpnt));
                 logL = likelihood(data,rescaledpnt);
             end
             

@@ -157,8 +157,6 @@ while 1
         
         % get the likelihood of the new sample
         %likestart = tic;
-        % logLnew = likelihood(data, model, parnames, ...
-        %               loopCell(sc));
         logLnew = likelihood(data,sc);
         %likedur = toc(likestart);
         %fprintf(1, 'liketime = %.6f\n', likedur);

@@ -78,42 +78,19 @@ if mod(nLive, 1) ~= 0 || nLive < 0
     coderException(coderEnums.errorCodes.domainError, 'NS Error: nLive must be an integer >= 0')
 end
 
-% draw the set of initial live points from the prior
-livepoints = zeros(nLive, D);
-
-for i=1:D
-    priortype = prior(i,1);
-
-    if priortype == 1      %uniform
-        p3 = prior(i,4);
-        p4 = prior(i,5);
-        livepoints(:,i) = p3 + (p4-p3)*rand(nLive,1);
-    elseif priortype == 2  %gaussian
-        p3 = prior(i,2);
-        p4 = prior(i,3);
-        livepoints(:,i) = p3 + p4*randn(nLive,1);
-    elseif priortype == 3   %jeffreys
-        p3 = prior(i,2);
-        p4 = prior(i,3);
-        livepoints(:,i) = 10.^(log10(p3) + (log10(p4)-log10(p3))*rand(nLive,1));
-    else
-        coderException(coderEnums.errorCodes.invalidOption, 'Unrecognised prior for param %d', int32(i));
-    end
-end
+% draw the set of initial live points from the unit hypercube
+% (they will be rescaled below)
+livepoints = rand(nLive, D);
 
 % calculate the log likelihood of all the live points
 logL = zeros(nLive,1);
 extraparvals = [];
 for i=1:nLive
-    parvals = livepoints(i,:);
+    % rescale parameters based on their priors 
+    parvals = rescaleParameters(prior, livepoints(i,:));
     logL(i) = flike(data,parvals);
 end
 
-% now scale the parameters, so that uniform parameters range from 0->1, 
-% and Gaussian parameters have a mean of zero and unit standard deviation
-for i=1:nLive
-    livepoints(i,:) = scaleParameters(prior, livepoints(i,:));
-end
 
 % initial tolerance
 tol = inf;

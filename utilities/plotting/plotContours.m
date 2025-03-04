@@ -8,18 +8,18 @@ function plotContours(x, y, parent, smooth, smoothingFactor)
     % y : double
     %    1D array data for Y axis. 
     % parent : matlab.graphics.axes.Axes or matlab.ui.Figure, or figure number, default: []
-    %    axes or fiure object to make plot on.
-    % smooth : bool, default: false 
+    %    axes or figure object to make plot on.
+    % smooth : logical, default: false 
     %    indicates if moving average smoothing is applied to the plot.
     % smoothingFactor : double [0, 1], default: 0.25
     %    adjusts the level of smoothing by scaling the window size, values near 0 produce smaller moving window sizes, 
-    %    resulting in less smoothing and values near 1 produce larger moving window sizes, resulting in more smoothing
+    %    resulting in less smoothing and values near 1 produce larger moving window sizes, resulting in more smoothing.
     
     arguments
-        x double
-        y double
+        x {mustBeNumeric}
+        y {mustBeNumeric}
         parent {mustBeA(parent, ["matlab.graphics.axis.Axes", "matlab.ui.Figure", "double"])} = []
-        smooth logical = false
+        smooth {mustBeA(smooth, 'logical')} = false
         smoothingFactor {mustBeInRange(smoothingFactor, 0, 1)} = 0.25
     end
 

@@ -23,7 +23,7 @@ function cornerPlot(results, options)
     arguments
         results
         options.figure {isFigure} = []
-        options.smooth {logical} = true
+        options.smooth {mustBeA(options.smooth, 'logical')} = true
         options.params {mustBeVector(options.params,'allow-all-empties')} = []
         options.smoothingFactor {mustBeInRange(options.smoothingFactor, 0, 1)} = 0.25
     end

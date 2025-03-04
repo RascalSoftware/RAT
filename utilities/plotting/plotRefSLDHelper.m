@@ -43,12 +43,12 @@ function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, sh
 
     arguments
         data
-        noDelay {logical} = true
-        linearX {logical} = false
-        q4 {logical} = false
-        showErrorBar {logical} = true
-        showGrid {logical} = false
-        showLegend {logical} = true
+        noDelay {mustBeA(noDelay, 'logical')} = true
+        linearX {mustBeA(linearX, 'logical')} = false
+        q4 {mustBeA(q4, 'logical')} = false
+        showErrorBar {mustBeA(showErrorBar, 'logical')} = true
+        showGrid {mustBeA(showGrid, 'logical')} = false
+        showLegend {mustBeA(showLegend, 'logical')} = true
     end
 
     defaultState = 'on';

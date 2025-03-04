@@ -28,7 +28,7 @@ classdef customEnum
          % structure = enum.toStruct('priorTypes')
          arguments
             name
-            useIndexAsValue {logical} = false
+            useIndexAsValue {mustBeA(useIndexAsValue, 'logical')} = false
          end         
          values = customEnum.values(name);
          if useIndexAsValue
@@ -61,7 +61,7 @@ classdef customEnum
          arguments
             name
             value
-            acceptIndex {logical} = false
+            acceptIndex {mustBeA(acceptIndex, 'logical')} = false
          end
          values = customEnum.values(name);
          if isText(value)

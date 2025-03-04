@@ -21,10 +21,10 @@ function bayesShadedPlot(project, result, options)
 arguments
     project
     result
-    options.q4 {logical} = false
-    options.keepAxes {logical} = false
+    options.q4 {mustBeA(options.q4, 'logical')} = false
+    options.keepAxes {mustBeA(options.keepAxes, 'logical')} = false
     options.interval {mustBeMember(options.interval, [65, 95])} = 95
-    options.showLegend {logical} = true
+    options.showLegend {mustBeA(options.showLegend, 'logical')} = true
 end
 
 if isa(project,'domainsClass')

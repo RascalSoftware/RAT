@@ -31,10 +31,6 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         absorption {mustBeA(absorption,'logical')} = false
     end
 
-    properties (SetAccess = immutable)
-        protectedParameters
-    end
-
     properties (SetAccess = protected)
         calculationType
     end
@@ -76,9 +72,6 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
 
             obj.experimentName = experimentName;
             obj.calculationType = calculationTypes.Normal.value;
-
-            % Initialise the Parameters Table
-            obj.protectedParameters = cellstr(obj.parameters.getNames');
 
             % Initialise the layers table. Then set the value of
             % absorption, which will modify the layers table accordingly
@@ -299,33 +292,6 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % project.setBackgroundParam(1, 'name', 'Backs Value H2O');
             obj.background.backgroundParams.setParameter(varargin{:});
         end
-
-        function obj = setBackgroundParamValue(obj, row, value)
-            % Sets the value of existing background            
-            % parameter. Expects index or name of parameter 
-            % and new value to set
-            %
-            % project.setBackgroundParamValue(1, 5.5e-6);
-            obj.background.backgroundParams.setValue(row, value);
-        end
-        
-        function obj = setBackgroundParamLimits(obj, row, min, max)
-            % Sets the constraints of existing background
-            % parameter. Expects index or name of parameter 
-            % and new min and max of the parameter's value
-            %
-            % project.setBackgroundParamLimits(1, 0, 1);
-            obj.background.backgroundParams.setLimits(row, min, max);
-        end
-        
-        function obj = setBackgroundParamName(obj, row, name)
-            % Sets the name of an existing background 
-            % parameter. Expects index or name of parameter 
-            % and the new name
-            %
-            % project.setBackgroundParamName(2, 'new name');
-            obj.background.backgroundParams.setName(row, name);
-        end
         
         % (2) Backgrounds
         function obj = addBackground(obj, varargin)
@@ -364,7 +330,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         % -------------------------------------------------------------
         %   Editing of Resolutions block
         
-        % Resol Pars       
+        % Resolution Params       
         function obj = addResolutionParam(obj, varargin)
             % Adds a new resolution parameter. A parameter consists 
             % of a name, min, value, max, fit flag, prior type', mu,
@@ -388,33 +354,6 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             %
             % project.setResolutionParam(1, 'name', 'Resolution Param');
             obj.resolution.resolutionParams.setParameter(varargin{:});
-        end
-
-        function obj = setResolutionParamValue(obj, row, value)
-            % Sets the value of existing resolution            
-            % parameter. Expects index or name of parameter 
-            % and new value to set
-            %
-            % project.setResolutionParamValue(1, 5.5e-6);
-            obj.resolution.resolutionParams.setValue(row, value);
-        end
-
-        function obj = setResolutionParamLimits(obj, row, min, max)
-            % Sets the constraints of existing resolution
-            % parameter. Expects index or name of parameter 
-            % and new min and max of the parameter's value
-            %
-            % project.setResolutionParamLimits(1, 0, 1);
-            obj.resolution.resolutionParams.setLimits(row, min, max);
-        end
-        
-        function obj = setResolutionParamName(obj, row, name)
-            % Sets the name of an existing resolution 
-            % parameter. Expects index or name of parameter 
-            % and the new name
-            %
-            % project.setResolutionParamName(2, 'new name');
-            obj.resolution.resolutionParams.setName(row, name);
         end
 
         % Resolutions
@@ -441,14 +380,6 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             %
             % project.setResolution(1, 'name', 'Resolution ACMW');
             obj.resolution.setResolution(row, varargin{:});
-        end
-        
-        function obj = setResolutionName(obj, row, name)
-            % Sets the name of an existing resolution.
-            % Expects index or name of resolution and the new name
-            %
-            % project.setResolutionName(2, 'new name');
-            obj.resolution.setResolutionName(row, name);
         end
         
         % ------------------------------------------------------------

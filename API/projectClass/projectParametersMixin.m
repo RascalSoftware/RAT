@@ -6,10 +6,14 @@ classdef projectParametersMixin < handle
         scalefactors        % parametersClass object
     end
     
+    properties (SetAccess = immutable)
+        protectedParameters
+    end
     methods
-        function obj = projectParametersMixin(varargin)
+        function obj = projectParametersMixin()
             % Initialise parameters objects
             obj.parameters = parametersClass('Substrate Roughness',1,3,5,true,priorTypes.Uniform,0,Inf);
+            obj.protectedParameters = cellstr(obj.parameters.getNames');
 
             % Initialise bulkIn objects
             obj.bulkIn = parametersClass('SLD Air',0,0,0,false,priorTypes.Uniform,0,Inf);
@@ -193,126 +197,16 @@ classdef projectParametersMixin < handle
                 options.mu {mustBeScalarOrEmpty, mustBeNumeric} = []
                 options.sigma {mustBeScalarOrEmpty, mustBeNumeric} = []
             end
+            % Make sure we don't remove any protected parameters
+            if ~isempty(options.name) && ((isnumeric(row) && row <= length(obj.protectedParameters)) || any((strcmpi(row, obj.protectedParameters))))
+                throw(exceptions.invalidOption(sprintf('Can''t remove protected parameters')));
+            end
+
             obj.parameters.setParameter(row, 'name', options.name, 'min', options.min, 'value', options.value, ... 
                                         'max', options.max, 'fit', options.fit, 'priorType', options.priorType, ...
                                         'mu', options.mu, 'sigma', options.sigma);
         end
 
-        function obj = setParameterName(obj, row, name)
-            % Sets the name of an existing parameter.
-            %
-            % Examples
-            % --------
-            % To change the name of the second parameter in the table (parameter in row 2)
-            % >>> params.setParameterName(2, 'new name');
-            % To change the name of a parameter called 'Tails' to 'Heads'
-            % >>> params.setParameterName('Tails', 'Heads');
-            %
-            % Parameters
-            % ----------
-            % row : string or char array or integer
-            %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
-            %     it is the name of the parameter to update.
-            % name : string or char array
-            %     The new name of the parameter.
-            if (isnumeric(row) && row <= length(obj.protectedParameters)) || any((strcmpi(row, obj.protectedParameters)))
-                throw(exceptions.invalidOption('Can''t rename protected parameters'));
-            end
-            obj.parameters.setName(row, name);
-        end
-                
-        function obj = setParameterValue(obj, row, value)
-            % Sets the value of an existing parameter.
-            %
-            % Examples
-            % --------
-            % To change the value of the second parameter in the table (parameter in row 2)
-            % >>> params.setParameterValue(2, 3.4);
-            % To change the value of a parameter called 'Tails'
-            % >>> params.setParameterValue('Tails', 3.4);
-            %
-            % Parameters
-            % ----------
-            % row : string or char array or integer
-            %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
-            %     it is the name of the parameter to update.
-            % value : double
-            %     The new value of the parameter.
-            obj.parameters.setValue(row, value);
-        end
-        
-        function obj = setParameterLimits(obj, row, min, max)
-            % Sets the limits of an existing parameter. 
-            %
-            % Examples
-            % --------
-            % To change the limits of the second parameter in the table (parameter in row 2)
-            % >>> params.setParameterLimits(2, 0, 100);
-            % To change the limits of a parameter with name 'Tails'
-            % >>> params.setParameterLimits('Tails', 0, 100);
-            %
-            % Parameters
-            % ----------
-            % row : string or char array or integer
-            %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
-            %     it is the name of the parameter to update.
-            % min : double
-            %     The new minimum value of the parameter.
-            % max : double
-            %     The new maximum value of the parameter.
-            obj.parameters.setLimits(row, min, max);
-        end
-        
-        function obj = setParameterFit(obj, row, fitFlag)
-            % Sets the fit to off or on for an existing parameter.
-            % 
-            % Examples
-            % --------
-            % To change the fit flag of the second parameter in the table (parameter in row 2)
-            % >>> params.setParameterFit(2, 0, 100);
-            % To change the fit flag of a parameter with name 'Tails'
-            % >>> params.setParameterFit('Tails', 0, 100);
-            %
-            % Parameters
-            % ----------
-            % row : string or char array or integer
-            %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
-            %     it is the name of the parameter to update.
-            % fit : logical
-            %     The new fit flag of the parameter.
-            obj.parameters.setFit(row, fitFlag);
-        end
-        
-        function obj = setParameterPrior(obj, row, priorType, mu, sigma)
-            % Sets the prior information of an existing parameter.
-            %
-            % Examples
-            % --------
-            % To change the prior of the second parameter in the table (parameter in row 2)
-            % >>> params.setParameterPrior(2, priorTypes.Gaussian, 1, 2);
-            % To change the prior of a parameter called 'Tails'
-            % >>> params.setParameterPrior('Tails', 'uniform');
-            %
-            % Parameters
-            % ----------
-            % row : string or char array or integer
-            %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
-            %     it is the name of the parameter to update.
-            % priorType : PriorTypes 
-            %     The new prior type of the parameter.
-            % mu : double, default: []
-            %     The new mu value describing the Gaussian function for the prior likelihood, the value is not changed if empty.
-            % sigma : double, default: []
-            %     The new sigma value describing the Gaussian function for the prior likelihood, the value is not changed if empty.          
-            arguments
-                obj
-                row
-                priorType
-                mu {mustBeScalarOrEmpty, mustBeNumeric} = []
-                sigma {mustBeScalarOrEmpty, mustBeNumeric} = []
-            end
-            obj.parameters.setPrior(row, priorType, mu, sigma);  
-        end
         %----------------------------------------------------------------------------
         %   Editing of Bulk out block
         %----------------------------------------------------------------------------

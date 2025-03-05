@@ -238,19 +238,23 @@ classdef testProjectClass < matlab.unittest.TestCase
              % Test setting the different parameter properties
             testCase.project.setParameter(2, 'value', 15);
             testCase.verifyEqual(testCase.project.parameters.varTable{2, 3}, 15, 'setParameter method not working');
-            testCase.project.setParameterValue(2, 13);
+            testCase.project.setParameter(2, 'value', 13);
             testCase.verifyEqual(testCase.project.parameters.varTable{2, 3}, 13, 'setParameterValue method not working');
-            testCase.project.setParameterLimits('Tails Thickness', 0, 100);
+            testCase.project.setParameter('Tails Thickness', 'min', 0, 'max', 100);
             testCase.verifyEqual(testCase.project.parameters.varTable{2, 2}, 0, 'setParameterLimits method not working');
             testCase.verifyEqual(testCase.project.parameters.varTable{2, 4}, 100, 'setParameterLimits method not working');
-            testCase.project.setParameterName(2, 'NewParam');
+            testCase.project.setParameter(2, 'name', 'NewParam');
             testCase.verifyEqual(testCase.project.parameters.varTable{2, 1}, "NewParam", 'setParameterName method not working');
-            testCase.project.setParameterName(2, 'Tails Thickness');
-            testCase.verifyError(@() testCase.project.setParameterName(1, 'name'), exceptions.invalidOption.errorID) % can't rename substrate roughness
-            testCase.project.setParameterFit('Tails Thickness', false);
+            testCase.project.setParameter(2, 'name', 'Tails Thickness');
+            testCase.verifyError(@() testCase.project.setParameter(1, 'name', 'name'), exceptions.invalidOption.errorID) % can't rename substrate roughness
+            testCase.verifyError(@() testCase.project.setParameter('substrate roughness', 'name', 'name'), exceptions.invalidOption.errorID) % can't rename substrate roughness
+            testCase.project.setParameter('Tails Thickness', 'fit', false);
             testCase.verifyEqual(testCase.project.parameters.varTable{2, 5}, false, 'setParameterFit method not working');
-            testCase.project.setParameterPrior(2, priorTypes.Uniform);
+            testCase.project.setParameter(2, 'priorType', priorTypes.Uniform);
             testCase.verifyEqual(testCase.project.parameters.varTable{2, 6}, "uniform", 'setParameterPrior method not working');
+            testCase.project.setParameter(1, 'min', 4, 'value', 5, 'max', 6, 'fit', true, 'priorType', priorTypes.Gaussian, 'mu', 2, 'sigma', 5);
+            testCase.verifyEqual(string(testCase.project.parameters.varTable{1, :}),...
+                                 string({'Substrate Roughness', 4, 5, 6, true, priorTypes.Gaussian.value, 2, 5}), 'setParameterPrior method not working');
         end
 
         function testLayers(testCase)
@@ -412,15 +416,15 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(string(testCase.project.resolution.resolutionParams.varTable{2, :}),...
                                     string({'ResolutionParam', 0, 0.5, 1, true, priorTypes.Uniform.value, 0, Inf}), 'setResolutionParam method not working');
             % Checks that resolution parameter value can be modified
-            testCase.project.setResolutionParamValue('Resolution par 1', 0.02325);
+            testCase.project.setResolutionParam('Resolution par 1', 'value', 0.02325);
             testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{1, 3}, 0.02325, 'setResolutionParamValue method not working with name value pair');
-            testCase.project.setResolutionParamValue(2, 0.4);
+            testCase.project.setResolutionParam(2, 'value', 0.4);
             testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{2, 3}, 0.4, 'setResolutionParamValue method not working with index value pair');    
             % Checks that resolution parameter name can be modified
-            testCase.project.setResolutionParamName(2, 'Resolution par 2');
+            testCase.project.setResolutionParam(2, 'name', 'Resolution par 2');
             testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{2, 1}, "Resolution par 2", 'setResolutionParamName method not working');
             % Checks that resolution parameter limits can be modified
-            testCase.project.setResolutionParamLimits(1, 0, 1);
+            testCase.project.setResolutionParam(1, 'min', 0, 'max', 1);
             testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{1, 2}, 0, 'setResolutionParamLimits method not working');
             testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{1, 4}, 1, 'setResolutionParamLimits method not working');
             % Checks the default resolution parameter 
@@ -439,7 +443,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.project.setResolution(1, 'name', 'New Resolution Name');
             testCase.verifyEqual(testCase.project.resolution.resolutions.varTable{1, 1}, "New Resolution Name", 'setResolution method not working');
             % Checks that resolution name can be modified
-            testCase.project.setResolutionName(1, 'Resolution 1');
+            testCase.project.setResolution(1, 'name', 'Resolution 1');
             testCase.verifyEqual(testCase.project.resolution.resolutions.varTable{1, 1}, "Resolution 1", 'setResolutionName method not working');
         end
 
@@ -460,13 +464,13 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifySize(testCase.project.background.backgroundParams.varTable, [1, 8], 'background has wrong dimension');
             testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{:, 1}, "Backs Value H2O", 'removeBackgroundParam method not working');
             % Checks that background parameter value can be modified
-            testCase.project.setBackgroundParamValue(1, 0.15232);
+            testCase.project.setBackgroundParam(1, 'value', 0.15232);
             testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{1, 3}, 0.15232, 'setBackgroundParamValue method not working');
             % Checks that background parameter name can be modified
-            testCase.project.setBackgroundParamName(1, 'Backs Value D2O');
+            testCase.project.setBackgroundParam(1, 'name', 'Backs Value D2O');
             testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{1, 1}, "Backs Value D2O", 'setBackgroundParamName method not working');
             % Checks that background parameter limits can be modified
-            testCase.project.setBackgroundParamLimits(1, 0, 1);
+            testCase.project.setBackgroundParam(1, 'min', 0, 'max', 1);
             testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{1, 2}, 0, 'setBackgroundParamLimits method not working');
             testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{1, 4}, 1, 'setBackgroundParamLimits method not working');
             % Checks the default background parameter 

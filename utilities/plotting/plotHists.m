@@ -12,7 +12,7 @@ function h = plotHists(result, options)
     %    The result of the RAT Bayesian calculation. 
     % options
     %    Keyword/value pair to configure plotting, the following are allowed
-    %       * figure ('matlab.ui.Figure' or int, default: []) figure or number of the figure to use for the plot.
+    %       * figure ('matlab.ui.Figure' or whole number, default: []) figure or number of the figure to use for the plot.
     %       * smooth (logical, default: true) indicates if moving average smoothing is applied to the plot.
 
     arguments

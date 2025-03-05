@@ -493,7 +493,7 @@ classdef parametersClass < tableUtilities
             % 
             % Returns
             % -------
-            % index : integer
+            % index : whole number
             %     A valid row index.
             %
             % Raises
@@ -585,7 +585,7 @@ classdef parametersClass < tableUtilities
             %
             % Returns
             % -------
-            % index : integer
+            % index : whole number
             %     A valid row index.
             %
             % Raises

@@ -9,7 +9,7 @@ classdef useLivePlot < handle
     %
     % Parameters
     % ----------
-    % figureId : 'matlab.ui.Figure' or int, default: []
+    % figureId : 'matlab.ui.Figure' or whole number, default: []
     %     The number of the figure to use for the live plot.
     
     properties (Hidden)

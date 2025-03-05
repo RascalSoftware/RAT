@@ -14,9 +14,9 @@ function cornerPlot(results, options)
     %    The result of the RAT Bayesian calculation. 
     % options
     %    Keyword/value pair to configure plotting, the following are allowed
-    %       * figure ('matlab.ui.Figure' or int, default: []) figure or number of the figure to use for the plot.
+    %       * figure ('matlab.ui.Figure' or  whole number, default: []) figure or number of the figure to use for the plot.
     %       * smooth (logical, default: true) indicates if moving average smoothing is applied to the plot.
-    %       * params (1D 'array of int', 'array of string' or 'cell array of char vectors', default: []) indices or names of a subset of parameters to the plot.
+    %       * params (1D 'array of whole numbers', 'array of string' or 'cell array of char vectors', default: []) indices or names of a subset of parameters to the plot.
     %       * smoothingFactor (double [0, 1], default: 0.25) adjusts the level of smoothing by scaling the window size, values near 0 produce smaller moving window sizes, 
     %             resulting in less smoothing and values near 1 produce larger moving window sizes, resulting in more smoothing.
 

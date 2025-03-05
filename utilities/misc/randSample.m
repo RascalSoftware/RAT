@@ -8,10 +8,10 @@ function outputSample = randSample(population, numItems, weights)
   % 
   % Parameters
   % ----------
-  % population : vector or int
+  % population : vector or a whole number
   %   if a vector, sample k values from the vector.
-  %   if an int, sample k values from 1:n.
-  % numItems : int
+  %   if an whole number, sample k values from 1:n.
+  % numItems : whole number
   %   the number of items to sample.
   % weights : vector, optional
   %   a weight vector, where the i'th index of ``weights`` is the 

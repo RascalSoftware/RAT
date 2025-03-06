@@ -32,7 +32,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifySize(params.varTable, [1, 8], 'Parameters has wrong dimension');
             
             % bad start type
-            testCase.verifyError(@() parametersClass(2, 10, 20, 30, true, 'fred', 0, Inf), exceptions.invalidType.errorID);
+            testCase.verifyError(@() parametersClass(2, 10, 20, 30, true, 'fred', 0, Inf), 'MATLAB:validators:mustBeTextScalar');
         end
 
         function testGetNames(testCase)
@@ -57,16 +57,15 @@ classdef testParametersClass < matlab.unittest.TestCase
             params.addParameter('NewParam2');
             testCase.verifyEqual(params.varTable{end, 1}, "NewParam2", 'addParameter method not working');
             testCase.verifySize(params.varTable, [3, 8], 'Parameters has wrong dimension');
-            testCase.verifyError(@() params.addParameter(6.7), exceptions.invalidType.errorID)  % first value must be a char
-            testCase.verifyError(@() params.addParameter('c', '1'), exceptions.invalidType.errorID)  % 2 value should be number
+            testCase.verifyError(@() params.addParameter(6.7), 'MATLAB:validators:mustBeTextScalar')  % first value must be a char
+            testCase.verifyError(@() params.addParameter('c', '1'), 'MATLAB:validators:mustBeNumeric')  % 2 value should be number
             testCase.verifyError(@() params.addParameter('newParam2'), exceptions.duplicateName.errorID);
             params.addParameter('Another Param', 6.7);
             testCase.verifyEqual(params.varTable{end, 1}, "Another Param", 'addParameter method not working');
             testCase.verifyEqual(params.varTable{end, 2:4}, [6.7, 6.7, 6.7], 'addParameter method not working');
             testCase.verifySize(params.varTable, [4, 8], 'Parameters has wrong dimension');
-            testCase.verifyError(@() params.addParameter('c', 1, 6.7), exceptions.invalidNumberOfInputs.errorID);  % 3 values not accepted
             testCase.verifyError(@() params.addParameter('Another Param'), exceptions.duplicateName.errorID);  % duplicate names not accepted
-            testCase.verifyError(@() params.addParameter('c', '1', '2', 3), exceptions.invalidType.errorID);  % value 2-4 should be number
+            testCase.verifyError(@() params.addParameter('c', '1', '2', 3), 'MATLAB:validators:mustBeNumeric');  % value 2-4 should be number
             testCase.verifyError(@() params.addParameter('c', 30, 20, 10), exceptions.invalidValue.errorID);  % lower limit should be less than upper
             testCase.verifyError(@() params.addParameter('c', 10, 0, 30), exceptions.invalidValue.errorID);  % value outside of limits - too low
             testCase.verifyError(@() params.addParameter('c', 10, 40, 30), exceptions.invalidValue.errorID);  % value outside of limits - too high
@@ -74,22 +73,20 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyEqual(params.varTable{end, 1}, "Param 5", 'addParameter method not working');
             testCase.verifyEqual(params.varTable{end, 2:4}, [0, 6.7, 10], 'addParameter method not working');
             testCase.verifySize(params.varTable, [5, 8], 'Parameters has wrong dimension'); 
-            testCase.verifyError(@() params.addParameter('Param 6', 0, 1, 2, 'false'), exceptions.invalidType.errorID) % bad fit type
+            testCase.verifyError(@() params.addParameter('Param 6', 0, 1, 2, 'false'), 'MATLAB:validators:mustBeA') % bad fit type
             params.addParameter('Param 6', 0, 1, 2, true);
             testCase.verifyEqual(params.varTable{end, 1}, "Param 6", 'addParameter method not working');
             testCase.verifyEqual(params.varTable{end, 2:4}, [0, 1, 2], 'addParameter method not working');
             testCase.verifyTrue(params.varTable{end, 5}, 'addParameter method not working');
-            testCase.verifySize(params.varTable, [6, 8], 'Parameters has wrong dimension');          
-            testCase.verifyError(@() params.addParameter('c', 1, 1, 1, true, 'u'), exceptions.invalidNumberOfInputs.errorID);  % 6 values not accepted
-            testCase.verifyError(@() params.addParameter('c', 1, 1, 1, true, 'u', 1), exceptions.invalidNumberOfInputs.errorID);  % 7 values not accepted
+            testCase.verifySize(params.varTable, [6, 8], 'Parameters has wrong dimension');
             testCase.verifyError(@() params.addParameter('Param 7', 0, 1, 2, false, 'jeff', -1, 1), exceptions.invalidOption.errorID); % bad prior type
-            testCase.verifyError(@() params.addParameter('Param 7', 0, 1, 2, false, priorTypes.Uniform, '-1', 1), exceptions.invalidType.errorID); % bad prior value
+            testCase.verifyError(@() params.addParameter('Param 7', 0, 1, 2, false, priorTypes.Uniform, '-1', 1), 'MATLAB:validators:mustBeNumeric'); % bad prior value
             params.addParameter('Param 7', 0, 1, 2, false, priorTypes.Jeffreys, -1, 1);
             testCase.verifyEqual(params.varTable{end, 1}, "Param 7", 'addParameter method not working');
             testCase.verifyEqual(params.varTable{end, 2:4}, [0, 1, 2], 'addParameter method not working');
             testCase.verifyFalse(params.varTable{end, 5}, 'addParameter method not working');
             testCase.verifyEqual(params.varTable{end, 6}, string(priorTypes.Jeffreys.value), 'addParameter method not working');
-            testCase.verifyEqual(params.varTable{end, 7:8}, [-1, 1], 'addParameter method not working');
+            testCase.verifyEqual(params.varTable{end, 7:8}, [0, Inf], 'addParameter method not working');
             testCase.verifySize(params.varTable, [7, 8], 'Parameters has wrong dimension');
             params.addParameter('Param 8', 0, 1, 2, false, priorTypes.Gaussian, -1, 1);
             testCase.verifyEqual(params.varTable{end, 6}, string(priorTypes.Gaussian.value), 'addParameter method not working');
@@ -118,8 +115,6 @@ classdef testParametersClass < matlab.unittest.TestCase
             params = parametersClass(testCase.parameters{1, :});
             params.varTable = [params.varTable; vertcat(testCase.parameters(2:end, :))];
             % Checks that parameter can be modified
-            testCase.verifyError(@() params.setParameter(0, 'Tails', 2), exceptions.indexOutOfRange.errorID);
-            testCase.verifyError(@() params.setParameter(0, 'Tails'), exceptions.invalidNumberOfInputs.errorID);
             params.setParameter(1, 'name', 'Heads');
             testCase.verifyEqual(params.varTable{1, 1}, "Heads", 'setParameter method not working');
             params.setParameter('Tails Roughness', 'name', 'Tails?', 'min', 1, 'value', 1, 'max', 1, 'fit', false);
@@ -148,13 +143,13 @@ classdef testParametersClass < matlab.unittest.TestCase
             params = parametersClass(testCase.parameters{1, :});
             params.varTable = [params.varTable; vertcat(testCase.parameters(2:end, :))];          
             % Checks that parameter name can be modified
-            testCase.verifyError(@() params.setName(1, 2), exceptions.invalidType.errorID);
+            testCase.verifyError(@() params.setName(1, 2), 'MATLAB:validators:mustBeTextScalar');
             params.setName(1, 'Tails');
             testCase.verifyEqual(params.varTable{1, 1}, "Tails", 'setParameter method not working');
             params.setName('Tails', 'Heads');
             testCase.verifyEqual(params.varTable{1, 1}, "Heads", 'setParameter method not working');
             % Checks that parameter value can be modified
-            testCase.verifyError(@() params.setValue(1, '2'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() params.setValue(1, '2'), 'MATLAB:validators:mustBeNumeric');
             params.setValue(1, 15);
             testCase.verifyEqual(params.varTable{1, 3}, 15, 'setParameter method not working');
             params.setValue('Heads', 20);
@@ -162,14 +157,14 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyError(@() params.setValue(1, 0), exceptions.invalidValue.errorID);  % value outside of limits - too low
             testCase.verifyError(@() params.setValue(1, 50), exceptions.invalidValue.errorID);  % value outside of limits - too high            
             % Checks that parameter limits can be modified
-            testCase.verifyError(@() params.setLimits(1, '3', '4'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() params.setLimits(1, '3', '4'), 'MATLAB:validators:mustBeNumeric');
             params.setLimits(1, 1, 45);
             testCase.verifyEqual(params.varTable{1, [2, 4]}, [1, 45], 'setParameter method not working');
             params.setLimits('Heads', 10, 30);
             testCase.verifyEqual(params.varTable{1, [2, 4]}, [10, 30], 'setParameter method not working');
             testCase.verifyError(@() params.setLimits(1, 30, 10), exceptions.invalidValue.errorID);  % lower limit should be less than upper
             % Checks that parameter fit can be modified
-            testCase.verifyError(@() params.setFit(1, '2'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() params.setFit(1, '2'), 'MATLAB:validators:mustBeA');
             params.setFit(1, false);
             testCase.verifyFalse(params.varTable{1, 5}, 'setParameter method not working');
             params.setFit('Heads', true);
@@ -184,8 +179,6 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyEqual(params.varTable{1, 6:8}, [string(priorTypes.Uniform.value), 0, Inf], 'setPrior method not working');
             params.setPrior('Heads', priorTypes.Jeffreys);
             % testCase.verifyEqual(params.varTable{1, 6}, string(priorTypes.Jeffreys.value), 'setParameter method not working');
-            testCase.verifyError(@() params.setPrior(), exceptions.invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() params.setPrior(1, 2, 3, 4, 5), exceptions.invalidNumberOfInputs.errorID);
             params.setPrior(3, 'gaussian', 2);
             testCase.verifyEqual(params.varTable{3, 6:8}, [string(priorTypes.Gaussian.value), 2, Inf], 'setPrior method not working');
         end

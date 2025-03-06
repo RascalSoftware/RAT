@@ -1,244 +1,439 @@
 classdef parametersClass < tableUtilities
-    % This is the class definition for
-    % the parameters block.
-    
+    % ``parametersClass`` manages the parameters for the project. It provides methods to add, update and remove parameters.
+    % Each parameter is stored as a row in a table and consists of a name, a value with its minimum and maximum limits, a flag indicating 
+    % if the parameter should be fitted in the calculation, and priors for Bayesian calculations. The type of the prior (either "uniform", 
+    % "gaussian", or "jeffreys") is included alongside the mean (mu) and standard deviation (sigma) of the Gaussian distribution for Gaussian 
+    % priors. ``parametersClass`` will be initialised with a default first parameter if no arguments are provided otherwise the provided 
+    % arguments will be used to create the first parameter.  
+    %
+    % Examples
+    % --------
+    % Default values are used when adding the parameter if no arguments are provided.
+    % 
+    % >>> params = parametersClass();
+    % 
+    % for 2 inputs, the min value provided would be used to set the value and max value.
+    % 
+    % >>> params = parametersClass('Tails', 10);
+    % 
+    % The code above is equivalent to 
+    % 
+    % >>> params = parametersClass('Tails', 10, 10, 10);
+    % 
+    % Other ways of initialisation
+    % 
+    % >>> params = parametersClass('Tails', 10, 20, 30, true);
+    % >>> params = parametersClass('Tails', 10, 20, 30, true, priorTypes.Uniform.value, 0, Inf);
+    %
+    % Parameters
+    % ----------
+    % name : string or char array, default: auto-generated name
+    %     The name of the first parameter. 
+    % min : double, default: 0.0
+    %     The minimum value that the first parameter could take when fitted.
+    % value : double, default: 0.0
+    %     The value of the parameter
+    % max : double, default: 0.0
+    %     The maximum value that the first parameter could take when fitted.
+    % fit : logical, default: false
+    %     Whether the first parameter should be fitted in a calculation.
+    % priorType : PriorTypes, default: PriorTypes.Uniform 
+    %     For Bayesian calculations, whether the prior likelihood is assumed to be ‘uniform’ or ‘gaussian’.
+    % mu : double, default: 0
+    %     If the prior type is Gaussian, the mean of the Gaussian function for the prior likelihood.
+    % sigma : double, default: Inf
+    %     If the prior type is Gaussian, the standard deviation of the Gaussian function for the prior likelihood.
+    %
+    % Attributes
+    % ----------
+    % varTable : table
+    %     The table which contains the properties for each parameter. 
+
     methods
-        function obj = parametersClass(varargin)
-            % Class constructor.
-            % Creates a Parameter object. The arguments should be 
-            % the content of the first parameter. A parameter consists of
-            % a name (string), min (double), value (double), max (double),
-            % fit flag (logical), prior type (string), mu (double), and
-            % sigma (double) values in that order.
-            % Default values are used when adding the parameter if no
-            % arguments are provided, otherwise a subset of the arguments
-            % can be provided.
-            % The following are assumed from number of arguments: 
-            % for 1 input, the name only is provided
-            % for 2 inputs, the name and value are provided
-            % for 4 inputs, the name, min, value, and max are provided
-            % for 5 inputs, the name, min, value, max, and fit? are provided
-            % for 8 inputs, all parameter properties are provided
-            %
-            % params = parametersClass('Tails', 10, 20, 30, true, priorTypes.Uniform.value, 0, Inf);
+        function obj = parametersClass(name, min, value, max, fit, priorType, mu, sigma)
+            arguments
+                name {mustBeTextScalar} = ''
+                min {mustBeNumeric, isscalar} = 0.0
+                value {mustBeScalarOrEmpty, mustBeNumeric} = []
+                max {mustBeScalarOrEmpty, mustBeNumeric} = []
+                fit {mustBeA(fit, 'logical')} = false
+                priorType = priorTypes.Uniform
+                mu {mustBeNumeric, isscalar} = 0.0
+                sigma {mustBeNumeric, isscalar} = Inf
+            end
             sz = [0, 8];
             varTypes = {'string','double','double','double','logical','string','double','double'};
             varNames = {'Name','Min','Value','Max','Fit?','Prior Type','mu','sigma'};
             obj.varTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-            if isempty(varargin)
+            if isempty(name)
                 obj.addParameter();
             else
-                obj.addParameter(varargin{:});
+                obj.addParameter(name, min, value, max, fit, priorType, mu, sigma);
             end
         end
         
-        function obj = addParameter(obj, varargin)
-            % Adds an new parameter to the parameters table. Default 
-            % values are used when adding the parameter if no arguments are 
-            % provided, otherwise a subset of the arguments can be provided.
-            % The following are assumed from number of arguments: 
-            % for 1 input, the name only is provided
-            % for 2 inputs, the name and value are provided
-            % for 4 inputs, the name, min, value, and max are provided
-            % for 5 inputs, the name, min, value, max, and fit? are provided
-            % for 8 inputs, all parameter properties are provided
+        function obj = addParameter(obj, name, min, value, max, fit, priorType, mu, sigma)
+            % Adds an new parameter to the parameters table. 
             %
-            % params.addParameter('Tails Roughness');  
-
-            % Set the default parameters
-            values = [0.0, 0.0, 0.0];
-            fit = false;
-            priorType = priorTypes.Uniform.value;
-            priorValues = [0, Inf];
-
-            if isempty(varargin)
-                % No input parameter - create name and add defaults
-                name = sprintf('new parameter %d',obj.autoNameCounter);
-                newRow = {name, values(1), values(2), values(3), fit, priorType, priorValues(1), priorValues(2)};
-                obj.addRow(newRow{:});
+            % Examples
+            % --------
+            % To add a new parameter with no properties and an autogenerated name.
+            % 
+            % >>> params.addParameter();
+            % 
+            % To add a parameter with all available properties.
+            % 
+            % >>> params.addParameter('Tails', 20, 50, 60, true, 'gaussian', 1, 5);
+            % 
+            % Other examples of adding parameters with a subset of properties.
+            % 
+            % >>> params.addParameter('Tails');  % Parameter name only with others set to default
+            % >>> params.addParameter('Tails', 23);  % Parameter name and min only. Value and max will be set to 23 to keep limits valid
+            % >>> params.addParameter('Tails', 23, 24, 25, true);  % priors will be default
+            % 
+            % Parameters
+            % ----------
+            % name : string or char array, default: auto-generated name
+            %     The name of the parameter. 
+            % min : double, default: 0.0
+            %     The minimum value that the parameter could take when fitted.
+            % value : double, default: 0.0
+            %     The value of the parameter, default will be equal to ``min`` if this is not set.
+            % max : double, default: 0.0
+            %     The maximum value that the parameter could take when fitted, default will be equal to ``value`` if this is not set.
+            % fit : logical, default: false
+            %     Whether the parameter should be fitted in a calculation.
+            % priorType : PriorTypes, default: PriorTypes.Uniform 
+            %     For Bayesian calculations, whether the prior likelihood is assumed to be ‘uniform’ or ‘gaussian’.
+            % mu : double, default: 0.0
+            %     If the prior type is Gaussian, the mean of the Gaussian function for the prior likelihood.
+            % sigma : double, default: Inf
+            %     If the prior type is Gaussian, the standard deviation of the Gaussian function for the prior likelihood.
+            arguments
+                obj
+                name {mustBeTextScalar} = ''
+                min {mustBeNumeric, isscalar} = 0.0
+                value {mustBeScalarOrEmpty, mustBeNumeric} = []
+                max {mustBeScalarOrEmpty, mustBeNumeric} = []
+                fit {mustBeA(fit, 'logical')} = false
+                priorType = priorTypes.Uniform
+                mu {mustBeNumeric, isscalar} = 0.0
+                sigma {mustBeNumeric, isscalar} = Inf
             end
             
-            if iscell(varargin) && ~isempty(varargin)
-                inputCell = varargin;
-                
-                % First input must be a parameter name
-                if ~isText(inputCell{1})
-                    throw(exceptions.invalidType('First value must be param name (text)'));
-                end
-                
-                % If length is 1, assume name only
-                % and fill in the rest with defaults
-                name = inputCell{1};
-                
-                switch length(inputCell)
-                    case 1                           
-                    case 2
-                        % If length is 2, assume name and value
-                        % pair. Fill in the rest automatically
-                        values = [inputCell{2} inputCell{2} inputCell{2}];
-                    case 4
-                        % If length is 4, assume we are getting the
-                        % limits as well as the values
-                        values = [inputCell{2} inputCell{3} inputCell{4}]; 
-                    case 5
-                         % If length is 5, then assume we are setting
-                         % everything except priors
-                        values = [inputCell{2} inputCell{3} inputCell{4}];
-                        fit = inputCell{5};
-                    case 8
-                        % Case 8 must be everything including the prior
-                        values = [inputCell{2} inputCell{3} inputCell{4}];
-                        fit = inputCell{5};
-                        priorType = inputCell{6};
-                        priorValues = [inputCell{7} inputCell{8}];
-                       
-                    % If not one of these options, throw an error
-                    otherwise
-                        throw(exceptions.invalidNumberOfInputs('Unrecognised inputs to ''addParameter'''));
-                end
-                
-                obj.validateLimits(values(1), values(2), values(3));
-
-                if ~islogical(fit)
-                    throw(exceptions.invalidType('Parameter "fit" must be a logical value i.e. true or false'));
-                end
-                
-                priors = obj.validatePriors(priorType, priorValues(1), priorValues(2));
-                newRow = {name, values(1), values(2), values(3), fit, priors{1}, priors{2}, priors{3}};
-                obj.addRow(newRow{:});
-
+            if isempty(value) && isempty(max)
+                max = min;
+                value = min;
+            elseif ~isempty(value) && isempty(max)
+                max = value;
             end
+            values = [min, value, max];
+            priorValues = [mu, sigma];
+
+            if isempty(name)
+                % No input parameter - create name and add defaults
+                name = sprintf('new parameter %d',obj.autoNameCounter);
+                newRow = {name, values(1), values(2), values(3), fit, priorType.value, priorValues(1), priorValues(2)};
+            else                                  
+                validateLimits(values(1), values(2), values(3));
+                priors = validatePriors(priorType, priorValues(1), priorValues(2));
+                newRow = {name, values(1), values(2), values(3), fit, priors{1}, priors{2}, priors{3}};    
+            end
+            obj.addRow(newRow{:});
         end
         
         function obj = removeParameter(obj, row)
             % Removes a parameter from the parameters table. 
-            % Expects a single parameter name or index/array of parameter
-            % names or indices to remove
             %
-            % params.removeParameter(2);
+            % Examples
+            % --------
+            % To remove the second parameter in the table (parameter in row 2).  
+            % 
+            % >>> params.removeParameter(2);
+            % 
+            % To remove parameter with a specific name.
+            % 
+            % >>> params.removeParameter('Tails');
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or integer
+            %     If ``row`` is an integer, it is the row number of the parameter to remove. If it is text, 
+            %     it is the name of the parameter to remove.
             obj.removeRow(row);
         end
         
-        function obj = setParameter(obj, row, varargin)
-            % General purpose set parameter method. Expects index or name
-            % of parameter and keyword/value pairs to set
+        function obj = setParameter(obj, row, options)
+            % General purpose method for updating properties of an existing parameter. 
+            % Any unset property will remain unchanged.
             %
-            % params.setParameter(2, 'value', 50);
-
-            % Always need three or more inputs to set parameter value
-            if length(varargin) < 2 || mod(length(varargin), 2) ~= 0
-                throw(exceptions.invalidNumberOfInputs('The input to ''setParameter'' should be a index/parameter name and a set of name-value pairs'));
+            % Examples
+            % --------
+            % To change the name and value of the second parameter in the table (parameter in row 2).
+            % 
+            % >>> params.setParameter(2, 'name', 'Heads', 'value', 50);
+            % 
+            % To change the all properties of a parameter called 'Tails'.
+            % 
+            % >>> params.setParameter('Tails', 'name', 'Heads', 'min', 20, 'value', 50, 'max', 60, ...
+            % >>>                     'fit', true, 'priorType', 'gaussian', 'mu', 1, 'sigma', 5);
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or integer
+            %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
+            %     it is the name of the parameter to update.
+            % options
+            %    Keyword/value pair to properties to update for the specific parameter.
+            %       * name (char array or string, default: '') the new name of the parameter.
+            %       * min (double, default: []) the new minimum value of the parameter.
+            %       * value (double, default: []) the new value of the parameter.
+            %       * max (double, default: []) the new maximum value of the parameter.
+            %       * fit (logical, default: logical.empty()) the new fit flag of the parameter.
+            %       * priorTypes (priorTypes, priorTypes.empty()) the new prior type of the parameter.            
+            %       * mu (double, default: []) the new mean of the Gaussian function for the prior.            
+            %       * sigma (double, default: []) The new standard deviation of the Gaussian function for the prior.            
+            arguments
+                obj
+                row
+                options.name {mustBeTextScalar} = ''
+                options.min {mustBeScalarOrEmpty, mustBeNumeric} = []
+                options.value {mustBeScalarOrEmpty, mustBeNumeric} = []
+                options.max {mustBeScalarOrEmpty, mustBeNumeric} = []
+                options.fit {mustBeScalarOrEmptyLogical} = logical.empty()
+                options.priorType = priorTypes.empty()
+                options.mu {mustBeScalarOrEmpty, mustBeNumeric} = []
+                options.sigma {mustBeScalarOrEmpty, mustBeNumeric} = []
+            end
+            row = obj.getValidRow(row);
+            if isempty(options.name)
+                options.name = obj.varTable{row, 1}{:};
+            end
+            
+            if isempty(options.min)
+                options.min = obj.varTable{row, 2};
+            end
+            
+            if isempty(options.value)
+                options.value = obj.varTable{row, 3};
+            end
+            
+            if isempty(options.max)
+                options.max = obj.varTable{row, 4};
+            end
+            
+            if isempty(options.fit)
+                options.fit = obj.varTable{row, 5};
+            end
+            
+            if isempty(options.priorType)
+                options.priorType = obj.varTable{row, 6};
+            end
+            
+            if isempty(options.mu)
+                options.mu = obj.varTable{row, 7};
+            end
+            
+            if isempty(options.sigma)
+                options.sigma = obj.varTable{row, 8};
             end
 
-            row = obj.getValidRow(row);
-            p = inputParser;
-            p.PartialMatching = false;
-            addParameter(p, 'name', obj.varTable{row, 1}{:}, @isText);
-            addParameter(p, 'min', obj.varTable{row, 2}, @isnumeric);
-            addParameter(p, 'value', obj.varTable{row, 3}, @isnumeric);
-            addParameter(p, 'max', obj.varTable{row, 4}, @isnumeric);
-            addParameter(p, 'fit', obj.varTable{row, 5}, @islogical);
-            addParameter(p, 'priorType', obj.varTable{row, 6}{:}, @(x) isText(x) || isenum(x));
-            addParameter(p, 'mu', obj.varTable{row, 7}, @isnumeric);
-            addParameter(p, 'sigma', obj.varTable{row, 8}, @isnumeric);
-
-            parse(p, varargin{:});
-            inputs = p.Results;
-
-            obj.validateLimits(inputs.min, inputs.value, inputs.max);
+            validateLimits(options.min, options.value, options.max);
             % Apply values
-            obj.setName(row, inputs.name);
-            obj.varTable{row, 2} = inputs.min;
-            obj.varTable{row, 3} = inputs.value;
-            obj.varTable{row, 4} = inputs.max;
-            obj.setFit(row, inputs.fit);
-            obj.setPrior(row, inputs.priorType, inputs.mu, inputs.sigma);
+            obj.setName(row, options.name);
+            obj.varTable{row, 2} = options.min;
+            obj.varTable{row, 3} = options.value;
+            obj.varTable{row, 4} = options.max;
+            obj.setFit(row, options.fit);
+            obj.setPrior(row, options.priorType, options.mu, options.sigma);
         end
         
-        function obj = setPrior(obj, row, varargin)
-            % Sets the prior of an existing parameter. Expects index or
-            % name of parameter and the new prior type ('uniform',
-            % 'gaussian', 'jeffreys') with mu and sigma value if applicable
+        function obj = setPrior(obj, row, priorType, mu, sigma)
+            % Sets the prior information of an existing parameter.
             %
-            % params.setPrior(2, priorTypes.Gaussian, 1, 2);
-            if isempty(varargin) || length(varargin) > 3
-                throw(exceptions.invalidNumberOfInputs('''setPrior'' requires 1 to 3 arguments i.e. priorType then optional mu and sigma'));
+            % Examples
+            % --------
+            % To change the prior of the second parameter in the table (parameter in row 2)
+            % 
+            % >>> params.setPrior(2, priorTypes.Gaussian, 1, 2);
+            % 
+            % To change the prior of a parameter called 'Tails'
+            % 
+            % >>> params.setPrior('Tails', 'uniform');
+            %            
+            % Parameters
+            % ----------
+            % row : string or char array or integer
+            %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
+            %     it is the name of the parameter to update.
+            % priorType : PriorTypes 
+            %     The new prior type of the parameter.
+            % mu : double, default: []
+            %     If the prior type is Gaussian, the mean of the Gaussian function for the prior likelihood, the value is not changed if empty.
+            % sigma : double, default: []
+            %     The new standard deviation of the Gaussian function for the prior likelihood, the value is not changed if empty.
+            arguments
+                obj
+                row
+                priorType
+                mu {mustBeScalarOrEmpty, mustBeNumeric} = []
+                sigma {mustBeScalarOrEmpty, mustBeNumeric} = []
             end
             
             row = obj.getValidRow(row);
-            switch length(varargin)
-                case 1
-                    varargin{end + 1} = obj.varTable{row, 7};
-                    varargin{end + 1} = obj.varTable{row, 8};
-                case 2
-                    varargin{end + 1} = obj.varTable{row, 8};
+            if isempty(mu)
+                mu = obj.varTable{row, 7};
+            end
+            if isempty(sigma)
+                sigma = obj.varTable{row, 8};
             end
             
-            priors = obj.validatePriors(varargin{1}, varargin{2}, varargin{3});
+            priors = validatePriors(priorType, mu, sigma);
             obj.varTable{row, 6} = priors(1);
             obj.varTable{row, 7} = priors{2};
             obj.varTable{row, 8} = priors{3};
         end
         
         function obj = setValue(obj, row, value)
-            % Sets the value of an existing parameter. Expects index or
-            % name of parameter and the new value
+            % Sets the value of an existing parameter.
             %
-            % params.setValue(2, 3.4);           
+            % Examples
+            % --------
+            % To change the value of the second parameter in the table (parameter in row 2)
+            % 
+            % >>> params.setValue(2, 3.4);
+            % 
+            % To change the value of a parameter called 'Tails'
+            % 
+            % >>> params.setValue('Tails', 3.4);
+            %
+            % Parameters
+            % ----------
+            % row : string or char array or integer
+            %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
+            %     it is the name of the parameter to update.
+            % value : double
+            %     The new value of the parameter.
+            arguments
+                obj
+                row
+                value {isscalar, mustBeNumeric}
+            end
             row = obj.getValidRow(row);
-            obj.validateLimits(obj.varTable{row, 2}, value, obj.varTable{row, 4});
+            validateLimits(obj.varTable{row, 2}, value, obj.varTable{row, 4});
             obj.varTable{row, 3} = value;
         end
         
         function obj = setName(obj, row, name)
             % Sets the name of an existing parameter.
-            % Expects index or name of parameter and the new name
             %
-            % params.setName(2, 'new name');          
-            row = obj.getValidRow(row);
-
-            if ~isText(name)
-                throw(exceptions.invalidType('New name must be char'));
+            % Examples
+            % --------
+            % To change the name of the second parameter in the table (parameter in row 2)
+            % 
+            % >>> params.setName(2, 'new name');
+            % 
+            % To change the name of a parameter called 'Tails' to 'Heads'
+            % 
+            % >>> params.setName('Tails', 'Heads');
+            %
+            % Parameters
+            % ----------
+            % row : string or char array or integer
+            %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
+            %     it is the name of the parameter to update.
+            % name : string or char array
+            %     The new name of the parameter.
+            arguments
+                obj
+                row
+                name {mustBeTextScalar}
             end
-
+            row = obj.getValidRow(row);
             obj.varTable{row, 1} = {name};
         end
         
-        function obj = setLimits(obj, row, minValue, maxValue)
-            % Sets the limits of an existing parameter. Expects index
-            % or name of parameter and new min and max of the parameter's
-            % value
+        function obj = setLimits(obj, row, min, max)
+            % Sets the limits of an existing parameter. 
             %
-            % params.setLimits({2, 0, 100});
+            % Examples
+            % --------
+            % To change the limits of the second parameter in the table (parameter in row 2)
+            % 
+            % >>> params.setLimits(2, 0, 100);
+            % 
+            % To change the limits of a parameter with name 'Tails'
+            % 
+            % >>> params.setLimits('Tails', 0, 100);
+            %
+            % Parameters
+            % ----------
+            % row : string or char array or integer
+            %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
+            %     it is the name of the parameter to update.
+            % min : double
+            %     The new minimum value of the parameter.
+            % max : double
+            %     The new maximum value of the parameter.
+            arguments
+                obj
+                row
+                min {isscalar, mustBeNumeric}
+                max {isscalar, mustBeNumeric}
+            end
             row = obj.getValidRow(row);
-            obj.validateLimits(minValue, obj.varTable{row, 3}, maxValue);
+            validateLimits(min, obj.varTable{row, 3}, max);
        
-            obj.varTable{row, 2} = minValue;
-            obj.varTable{row, 4} = maxValue;
+            obj.varTable{row, 2} = min;
+            obj.varTable{row, 4} = max;
         end
                 
-        function obj = setFit(obj, row, fitFlag)
-            % Sets the 'fit' to off or on for parameter.
-            % Expects index or name of parameter and new fit flag
+        function obj = setFit(obj, row, fit)
+            % Sets the fit to off or on for an existing parameter.
+            % 
+            % Examples
+            % --------
+            % To change the fit flag of the second parameter in the table (parameter in row 2)
+            % 
+            % >>> params.setFit(2, true);
+            % 
+            % To change the fit flag of a parameter with name 'Tails'
+            % 
+            % >>> params.setFit('Tails', true);
             %
-            % params.setFit(2, true);
-            row = obj.getValidRow(row);
-
-            if ~islogical(fitFlag)
-                throw(exceptions.invalidType('Parameter "fit" must be a logical value i.e. true or false'));
+            % Parameters
+            % ----------
+            % row : string or char array or integer
+            %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
+            %     it is the name of the parameter to update.
+            % fit : logical
+            %     The new fit flag of the parameter.
+            arguments
+                obj
+                row
+                fit {mustBeA(fit, 'logical')}
             end
+            row = obj.getValidRow(row);
            
-            obj.varTable{row, 5} = fitFlag;
+            obj.varTable{row, 5} = fit;
         end
         
         function displayTable(obj, showPriors)
-            % Displays the parameter table. Optional showPriors to display
-            % the priors default is false
+            % Prints the parameter table to the console.
             %
-            % params.displayTable(true);
+            % Examples
+            % --------
+            % To print the table with the prior information.
+            % 
+            % >>> params.displayTable(true);
+            %
+            % Parameters
+            % ----------
+            % showPriors : logical, default: false
+            %     Indicates if the prior type, mu, and sigma columns should be displayed.
             arguments
                 obj
-                showPriors {logical} = false
+                showPriors {mustBeA(showPriors, 'logical')} = false
             end
 
             numParams = height(obj.varTable);
@@ -264,6 +459,11 @@ classdef parametersClass < tableUtilities
         
         function outStruct = toStruct(obj)
             % Converts the class parameters into a structure array.
+            %
+            % Returns
+            % -------
+            % outStruct : struct
+            %     A struct which contains the properties for all the parameters.
             names = table2cell(obj.varTable(:,1));
             
             % Want these to be class 'char' rather than 'string'
@@ -321,9 +521,35 @@ classdef parametersClass < tableUtilities
     methods (Access = protected)
         
         function index = getValidRow(obj, row)
-            % Gets valid row with given name or index  
+            % Gets a valid row index, if ``row`` is a parameter name; or validates the index, if ``row`` is an integer.
+            % 
+            % Examples
+            % --------
+            % To validate a row index is in table bounds.
+            % 
+            % >>> index = obj.getValidRow(2);
+            % 
+            % To find the index for a name.
+            % 
+            % >>> index = obj.getValidRow('Tails');
             %
-            % obj.getValidRow('param name')
+            % Parameters
+            % ----------
+            % row : string or char array or integer
+            %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
+            %     it is the name of the parameter to update.
+            % 
+            % Returns
+            % -------
+            % index : whole number
+            %     A valid row index.
+            %
+            % Raises
+            % ------
+            % indexOutOfRange
+            %     If ``row`` is an integer and it is less than 1 or more than the number of parameters.
+            % nameNotRecognised
+            %     If ``row`` is a parameter name and it cannot be found in the table.
             if isText(row)
                 index = obj.findRowIndex(row, obj.varTable{:,1}, 'Unrecognised row name');
             else
@@ -332,48 +558,6 @@ classdef parametersClass < tableUtilities
                     throw(exceptions.indexOutOfRange(sprintf('Row index out out of range 1 - %d', obj.rowCount)));
                 end     
             end
-        end
+        end    
     end
-
-    methods (Static)
-        function priors = validatePriors(priorType, muValue, sigmaValue)
-            % Validate the prior types, mu and sigma variables
-            invalidPriorsMessage = sprintf('Prior type must be a priorTypes enum or one of the following strings (%s)', ...
-                                           strjoin(priorTypes.values(), ', '));
-            priorType = validateOption(priorType, 'priorTypes', invalidPriorsMessage).value;
-                               
-            if ~isnumeric(muValue) || ~isnumeric(sigmaValue)
-                throw(exceptions.invalidType('Prior values mu and sigma must be a number.'));
-            end
-
-            if strcmp(priorType, priorTypes.Uniform.value)
-                if muValue ~= 0 
-                    warning('mu cannot be %d when the prior types is uniform - resetting to 0', muValue);
-                end
-                if sigmaValue ~= Inf
-                    warning('sigma cannot be %d when the prior types is uniform - resetting to Inf', sigmaValue);
-                end
-                muValue = 0;
-                sigmaValue = Inf;
-            end
-            priors = {priorType, muValue, sigmaValue};
-        end
-
-        function validateLimits(minLimit, value, maxLimit)
-            % Validate the value, lower and upper limit variables
-            if ~(isnumeric(minLimit) && isnumeric(value) && isnumeric(maxLimit))
-                throw(exceptions.invalidType('min, value, and max must be numbers'));
-            end
-                
-            if minLimit > maxLimit
-                throw(exceptions.invalidValue(sprintf('min limit %d must be less than or equal to max limit %d', minLimit, maxLimit)));
-            end
-
-            if value < minLimit || value > maxLimit
-                throw(exceptions.invalidValue(sprintf('Parameter value %d must be within the limits %d to %d', value, minLimit, maxLimit)));
-            end
-        end
-
-    end
-
 end

@@ -2,10 +2,10 @@ function project = r1ToProjectClass(r1Problem)
 % Converts RasCAL1 (r1) struct to an equivalent ``projectClass`` instance. The function takes the path of the 
 % r1 struct .mat file.
 %
-% Example Usage::
-% 
-%    project = r1ToProjectClass('DSPCBilayerStructInput.mat');  % Load from current directory
-%    project = r1ToProjectClass('examples/DSPCBilayerStructInput.mat');  % Load from the example subdirectory
+% Examples
+% --------
+% >>> project = r1ToProjectClass('DSPCBilayerStructInput.mat');  % Load from current directory
+% >>> project = r1ToProjectClass('examples/DSPCBilayerStructInput.mat');  % Load from the example subdirectory
 %
 % Parameters
 % ----------
@@ -62,8 +62,7 @@ project.setParameter(1, ...
     'min', problem.constr(1,1)', ...
     'max', problem.constr(1,2)', ...
     'value', problem.params(1), ...
-    'fit', logical(problem.fityesno(1)), ...
-    'name', problem.paramnames{1});
+    'fit', logical(problem.fityesno(1)));
 
 switch lower(problem.module.type)
     case modelTypes.StandardLayers.value

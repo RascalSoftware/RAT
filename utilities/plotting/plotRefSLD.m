@@ -1,9 +1,9 @@
 function plotRefSLD(project, result, options)
     % Plots the reflectivity and SLD profiles
     %
-    % Example Usage::
-    % 
-    %    plotRefSLD(problem, result, 'showGrid', true, 'q4', true);
+    % Examples
+    % --------
+    % >>> plotRefSLD(problem, result, 'showGrid', true, 'q4', true);
     % 
     % Parameters
     % ----------
@@ -22,11 +22,11 @@ function plotRefSLD(project, result, options)
     arguments
         project
         result
-        options.linearX {logical} = false
-        options.q4 {logical} = false
-        options.showErrorBar {logical} = true
-        options.showGrid {logical} = false
-        options.showLegend {logical} = true
+        options.linearX {mustBeA(options.linearX, 'logical')} = false
+        options.q4 {mustBeA(options.q4, 'logical')} = false
+        options.showErrorBar {mustBeA(options.showErrorBar, 'logical')} = true
+        options.showGrid {mustBeA(options.showGrid, 'logical')} = false
+        options.showLegend {mustBeA(options.showLegend, 'logical')} = true
     end
     % Convert the project class to a struct.
     controls = controlsClass();

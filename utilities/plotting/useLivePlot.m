@@ -2,14 +2,14 @@ classdef useLivePlot < handle
     % Sets up a live plot on a given figure. The live plot listens for plot events from the RAT calculation and
     % redraws the plot every time an event is received.	
     %
-    % Example Usage::
-    % 
-    %    useLivePlot();   % Opens a new figure for plot
-    %    useLivePlot(1);  % Use figure 1 for plot
+    % Examples
+    % --------
+    % >>> useLivePlot();   % Opens a new figure for plot
+    % >>> useLivePlot(1);  % Use figure 1 for plot
     %
     % Parameters
     % ----------
-    % figureId : 'matlab.ui.Figure' or int, default: []
+    % figureId : 'matlab.ui.Figure' or whole number, default: []
     %     The number of the figure to use for the live plot.
     
     properties (Hidden)

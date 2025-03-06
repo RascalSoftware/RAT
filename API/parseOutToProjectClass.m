@@ -6,13 +6,13 @@ function project = parseOutToProjectClass(project,problemStruct)
 %(1) Parameters
 params = problemStruct.params;
 for i = 1:length(params)
-    project.setParameterValue(i,params(i));
+    project.setParameter(i, 'value', params(i));
 end
 
 %(2) Backgrounds
 backgroundParams = problemStruct.backgroundParams;
 for i = 1:length(backgroundParams)
-    project.setBackgroundParamValue(i,backgroundParams(i));
+    project.setBackgroundParam(i, 'value', backgroundParams(i));
 end
 
 %(3) Scalefactors

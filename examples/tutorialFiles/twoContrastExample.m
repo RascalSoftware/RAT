@@ -39,8 +39,7 @@ H_Tails = {'Hydrogenated Tails',...
            'Tails Roughness'};
 
 problem.addLayerGroup({H_Heads; D_Heads; H_Tails; D_Tails});
-problem.setBackgroundParamName(1, 'Backs Value ACMW'); % Use existing backsPar
-problem.setBackgroundParamValue(1, 5.5e-6);
+problem.setBackgroundParam(1, 'name', 'Backs Value ACMW', 'value', 5.5e-6);
 problem.addBackgroundParam('Backs Value D2O', 1e-8, 2.8e-6, 1e-5);
 problem.addBackground('Background D2O', 'constant', 'Backs Value D2O');
 problem.setBackground(1, 'name', 'Background ACMW', 'source', 'Backs Value ACMW');

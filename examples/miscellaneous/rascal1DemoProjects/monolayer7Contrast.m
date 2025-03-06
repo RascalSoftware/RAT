@@ -1,8 +1,6 @@
 problem = createProject(name='20nM_data', calcType='normal', model='standard layers', geometry='air/substrate', absorption=false);
 
-problem.setParameter(1, 'min', 3, 'max', 7, 'value', 6.99082582831175);
-problem.setParameterFit(1, true);
-problem.setParameterPrior(1, 'uniform', 0, Inf);
+problem.setParameter(1, 'min', 3, 'max', 7, 'value', 6.99082582831175, 'fit', true, 'priorType', 'uniform', 'mu', 0, 'sigma', Inf);
 
 paramGroup = {
               {'Tails thick', 12, 18.7690679408915, 20, true, 'uniform', 0, Inf};

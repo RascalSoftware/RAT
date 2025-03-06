@@ -213,7 +213,7 @@ classdef resolutionsClass < handle
             % resolution.displayResolutionsObject(true);
             arguments
                 obj
-                showPriors {logical} = false
+                showPriors {mustBeA(showPriors, 'logical')} = false
             end
             fprintf('    (a) Resolutions Parameters: \n\n');
             obj.resolutionParams.displayTable(showPriors);

@@ -31,7 +31,7 @@ function param = validateParameter(param, paramList, paramDesc)
     elseif isText(param)
         found = strcmpi(param, paramList);
         if ~any(found)
-            throw(exceptions.nameNotRecognised(sprintf('Unrecognised %s name %s', paramDesc, param)));
+            throw(exceptions.nameNotRecognised(sprintf('Unrecognised %s name "%s"', paramDesc, param)));
         end
         param = paramList{find(found, 1)};
     end

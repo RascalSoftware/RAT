@@ -2,9 +2,9 @@ function h = plotHists(result, options)
     % Plots the Bayes histogram plot from the chain, with or without smoothing.
     % If selected, smoothing is via a moving average algorithm.
     %
-    % Example Usage::
-    % 
-    %    plotHists(result, 'smooth', false);
+    % Examples
+    % --------
+    % >>> plotHists(result, 'smooth', false);
     %
     % Parameters
     % ----------
@@ -12,13 +12,13 @@ function h = plotHists(result, options)
     %    The result of the RAT Bayesian calculation. 
     % options
     %    Keyword/value pair to configure plotting, the following are allowed
-    %       * figure ('matlab.ui.Figure' or int, default: []) figure or number of the figure to use for the plot.
-    %       * smooth (logical, default: true) indicates if moving average smoothing is applied to the plot
+    %       * figure ('matlab.ui.Figure' or whole number, default: []) figure or number of the figure to use for the plot.
+    %       * smooth (logical, default: true) indicates if moving average smoothing is applied to the plot.
 
     arguments
       result
       options.figure {isFigure} = []
-      options.smooth {logical} = true
+      options.smooth {mustBeA(options.smooth, 'logical')} = true
     end
     
     % Parse the inputs...

@@ -1,9 +1,7 @@
 
 problem = createProject(name='monolayerVolumeModel', calcType='normal', model='custom layers', geometry='air/substrate', absorption=false);
 
-problem.setParameter(1, 'min', 1, 'value', 2.65087499568656, 'max', 8);
-problem.setParameterFit(1, true);
-problem.setParameterPrior(1, 'uniform', 0, Inf);
+problem.setParameter(1, 'min', 1, 'value', 2.65087499568656, 'max', 8, 'fit', true, 'priorType', 'uniform', 'mu', 0, 'sigma', Inf);
 
 paramGroup = {
               {'Area per molecule', 47, 50.6256672137588, 100, true, 'uniform', 0, Inf};

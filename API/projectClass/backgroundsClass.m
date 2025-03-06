@@ -227,7 +227,7 @@ classdef backgroundsClass < handle
             % background.displayBackgroundsObject(true);
             arguments
                 obj
-                showPriors {logical} = false
+                showPriors {mustBeA(showPriors, 'logical')} = false
             end
             fprintf('    (a) Background Parameters: \n\n');
             obj.backgroundParams.displayTable(showPriors);

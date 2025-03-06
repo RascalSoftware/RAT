@@ -147,25 +147,6 @@ classdef projectParametersMixin < handle
                 % No need to check validity of the parameter
                 % as this is done in the parameters class
                 obj.parameters.removeParameter(thisParam);
-                
-                % Need to check if it is used in the layers
-                % array and remove it if so. Should be able
-                % to do this with array indexing, but can't quite figure
-                % that out atm, so just use a (dirty) loop over all
-                % the elements for now..
-                if isa(obj.layers, 'layersClass')
-                    findParam = string(thisParam);
-                    laysTable = obj.layers.varTable;
-                    dims = size(laysTable);
-                    for m = 1:dims(1)
-                        for n = 1:dims(2)
-                            tablePar = laysTable{m,n};   % Should be a string
-                            if isequal(findParam, tablePar)
-                                obj.layers.varTable(m,n) = {''};
-                            end
-                        end
-                    end
-                end
             end
             
         end
@@ -198,8 +179,8 @@ classdef projectParametersMixin < handle
             %       * max (double, default: []) the new maximum value of the parameter.
             %       * fit (logical, default: logical.empty()) the new fit flag of the parameter.
             %       * priorTypes (priorTypes, priorTypes.empty()) the new prior type of the parameter.            
-            %       * mu (double, default: []) the new mu value describing the Gaussian function for the prior.            
-            %       * sigma (double, default: []) The new sigma value describing the Gaussian function for the prior.   
+            %       * mu (double, default: []) the new mean of the Gaussian function for the prior.            
+            %       * sigma (double, default: []) The new standard deviation of the Gaussian function for the prior.   
             arguments
                 obj
                 row
@@ -326,8 +307,8 @@ classdef projectParametersMixin < handle
             %       * max (double, default: []) the new maximum value of the bulk-out parameter.
             %       * fit (logical, default: logical.empty()) the new fit flag of the bulk-out parameter.
             %       * priorTypes (priorTypes, priorTypes.empty()) the new prior type of the bulk-out parameter.            
-            %       * mu (double, default: []) the new mu value describing the Gaussian function for the prior.            
-            %       * sigma (double, default: []) The new sigma value describing the Gaussian function for the prior.   
+            %       * mu (double, default: []) the new mean of the Gaussian function for the prior.            
+            %       * sigma (double, default: []) The new standard deviation of the Gaussian function for the prior.   
             arguments
                 obj
                 row
@@ -450,8 +431,8 @@ classdef projectParametersMixin < handle
             %       * max (double, default: []) the new maximum value of the bulk-in parameter.
             %       * fit (logical, default: logical.empty()) the new fit flag of the bulk-in parameter.
             %       * priorTypes (priorTypes, priorTypes.empty()) the new prior type of the bulk-in parameter.            
-            %       * mu (double, default: []) the new mu value describing the Gaussian function for the prior.            
-            %       * sigma (double, default: []) The new sigma value describing the Gaussian function for the prior.   
+            %       * mu (double, default: []) the new mean of the Gaussian function for the prior.            
+            %       * sigma (double, default: []) The new standard deviation of the Gaussian function for the prior.   
             arguments
                 obj
                 row
@@ -573,8 +554,8 @@ classdef projectParametersMixin < handle
             %       * max (double, default: []) the new maximum value of the scalefactor parameter.
             %       * fit (logical, default: logical.empty()) the new fit flag of the scalefactor parameter.
             %       * priorTypes (priorTypes, priorTypes.empty()) the new prior type of the scalefactor parameter.            
-            %       * mu (double, default: []) the new mu value describing the Gaussian function for the prior.            
-            %       * sigma (double, default: []) The new sigma value describing the Gaussian function for the prior.   
+            %       * mu (double, default: []) the new mean of the Gaussian function for the prior.            
+            %       * sigma (double, default: []) The new standard deviation of the Gaussian function for the prior.   
             arguments
                 obj
                 row

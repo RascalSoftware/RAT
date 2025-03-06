@@ -86,7 +86,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyEqual(params.varTable{end, 2:4}, [0, 1, 2], 'addParameter method not working');
             testCase.verifyFalse(params.varTable{end, 5}, 'addParameter method not working');
             testCase.verifyEqual(params.varTable{end, 6}, string(priorTypes.Jeffreys.value), 'addParameter method not working');
-            testCase.verifyEqual(params.varTable{end, 7:8}, [-1, 1], 'addParameter method not working');
+            testCase.verifyEqual(params.varTable{end, 7:8}, [0, Inf], 'addParameter method not working');
             testCase.verifySize(params.varTable, [7, 8], 'Parameters has wrong dimension');
             params.addParameter('Param 8', 0, 1, 2, false, priorTypes.Gaussian, -1, 1);
             testCase.verifyEqual(params.varTable{end, 6}, string(priorTypes.Gaussian.value), 'addParameter method not working');

@@ -1,9 +1,10 @@
 classdef parametersClass < tableUtilities
     % ``parametersClass`` manages the parameters for the project. It provides methods to add, update and remove parameters.
-    % Each parameter is stored as a row in a table and consist of a name, a value with its minimum and maximum limits, a flag indicating 
-    % if the parameter should be fitted in the calculation, and information for Bayesian calculations such as whether the prior is uniform 
-    % or gaussian, then mu and sigma for gaussian priors. ``parametersClass`` will be initialised with a default first parameter if no 
-    % arguments are provided otherwise the provided arguments will be used to create the first parameter.  
+    % Each parameter is stored as a row in a table and consists of a name, a value with its minimum and maximum limits, a flag indicating 
+    % if the parameter should be fitted in the calculation, and priors for Bayesian calculations. The type of the prior (either "uniform", 
+    % "gaussian", or "jeffreys") is included alongside the mean (mu) and standard deviation (sigma) of the Gaussian distribution for Gaussian 
+    % priors. ``parametersClass`` will be initialised with a default first parameter if no arguments are provided otherwise the provided 
+    % arguments will be used to create the first parameter.  
     %
     % Examples
     % --------
@@ -39,9 +40,9 @@ classdef parametersClass < tableUtilities
     % priorType : PriorTypes, default: PriorTypes.Uniform 
     %     For Bayesian calculations, whether the prior likelihood is assumed to be ‘uniform’ or ‘gaussian’.
     % mu : double, default: 0
-    %     If the prior type is Gaussian, the mu and sigma values describing the Gaussian function for the prior likelihood.
+    %     If the prior type is Gaussian, the mean of the Gaussian function for the prior likelihood.
     % sigma : double, default: Inf
-    %     If the prior type is Gaussian, the mu and sigma values describing the Gaussian function for the prior likelihood.
+    %     If the prior type is Gaussian, the standard deviation of the Gaussian function for the prior likelihood.
     %
     % Attributes
     % ----------
@@ -134,8 +135,8 @@ classdef parametersClass < tableUtilities
                 name = sprintf('new parameter %d',obj.autoNameCounter);
                 newRow = {name, values(1), values(2), values(3), fit, priorType.value, priorValues(1), priorValues(2)};
             else                                  
-                obj.validateLimits(values(1), values(2), values(3));
-                priors = obj.validatePriors(priorType, priorValues(1), priorValues(2));
+                validateLimits(values(1), values(2), values(3));
+                priors = validatePriors(priorType, priorValues(1), priorValues(2));
                 newRow = {name, values(1), values(2), values(3), fit, priors{1}, priors{2}, priors{3}};    
             end
             obj.addRow(newRow{:});
@@ -190,8 +191,8 @@ classdef parametersClass < tableUtilities
             %       * max (double, default: []) the new maximum value of the parameter.
             %       * fit (logical, default: logical.empty()) the new fit flag of the parameter.
             %       * priorTypes (priorTypes, priorTypes.empty()) the new prior type of the parameter.            
-            %       * mu (double, default: []) the new mu value describing the Gaussian function for the prior.            
-            %       * sigma (double, default: []) The new sigma value describing the Gaussian function for the prior.            
+            %       * mu (double, default: []) the new mean of the Gaussian function for the prior.            
+            %       * sigma (double, default: []) The new standard deviation of the Gaussian function for the prior.            
             arguments
                 obj
                 row
@@ -237,7 +238,7 @@ classdef parametersClass < tableUtilities
                 options.sigma = obj.varTable{row, 8};
             end
 
-            obj.validateLimits(options.min, options.value, options.max);
+            validateLimits(options.min, options.value, options.max);
             % Apply values
             obj.setName(row, options.name);
             obj.varTable{row, 2} = options.min;
@@ -268,9 +269,9 @@ classdef parametersClass < tableUtilities
             % priorType : PriorTypes 
             %     The new prior type of the parameter.
             % mu : double, default: []
-            %     The new mu value describing the Gaussian function for the prior likelihood, the value is not changed if empty.
+            %     If the prior type is Gaussian, the mean of the Gaussian function for the prior likelihood, the value is not changed if empty.
             % sigma : double, default: []
-            %     The new sigma value describing the Gaussian function for the prior likelihood, the value is not changed if empty.
+            %     The new standard deviation of the Gaussian function for the prior likelihood, the value is not changed if empty.
             arguments
                 obj
                 row
@@ -287,7 +288,7 @@ classdef parametersClass < tableUtilities
                 sigma = obj.varTable{row, 8};
             end
             
-            priors = obj.validatePriors(priorType, mu, sigma);
+            priors = validatePriors(priorType, mu, sigma);
             obj.varTable{row, 6} = priors(1);
             obj.varTable{row, 7} = priors{2};
             obj.varTable{row, 8} = priors{3};
@@ -319,7 +320,7 @@ classdef parametersClass < tableUtilities
                 value {isscalar, mustBeNumeric}
             end
             row = obj.getValidRow(row);
-            obj.validateLimits(obj.varTable{row, 2}, value, obj.varTable{row, 4});
+            validateLimits(obj.varTable{row, 2}, value, obj.varTable{row, 4});
             obj.varTable{row, 3} = value;
         end
         
@@ -381,7 +382,7 @@ classdef parametersClass < tableUtilities
                 max {isscalar, mustBeNumeric}
             end
             row = obj.getValidRow(row);
-            obj.validateLimits(min, obj.varTable{row, 3}, max);
+            validateLimits(min, obj.varTable{row, 3}, max);
        
             obj.varTable{row, 2} = min;
             obj.varTable{row, 4} = max;
@@ -394,11 +395,11 @@ classdef parametersClass < tableUtilities
             % --------
             % To change the fit flag of the second parameter in the table (parameter in row 2)
             % 
-            % >>> params.setFit(2, 0, 100);
+            % >>> params.setFit(2, true);
             % 
             % To change the fit flag of a parameter with name 'Tails'
             % 
-            % >>> params.setFit('Tails', 0, 100);
+            % >>> params.setFit('Tails', true);
             %
             % Parameters
             % ----------
@@ -520,7 +521,7 @@ classdef parametersClass < tableUtilities
     methods (Access = protected)
         
         function index = getValidRow(obj, row)
-            % Gets a valid row index, if ``row`` is a parameter name or validates the index, if ``row`` is an integer.
+            % Gets a valid row index, if ``row`` is a parameter name; or validates the index, if ``row`` is an integer.
             % 
             % Examples
             % --------
@@ -557,107 +558,6 @@ classdef parametersClass < tableUtilities
                     throw(exceptions.indexOutOfRange(sprintf('Row index out out of range 1 - %d', obj.rowCount)));
                 end     
             end
-        end
-
-        function priors = validatePriors(~, priorType, mu, sigma)
-            % Validates the prior types, mu and sigma variables. If mu and sigma are set on a uniform prior, 
-            % they would be changed to 0 and Inf respectively and a warning issues.
-            % 
-            % Examples
-            % --------
-            % To validate a uniform prior.
-            % 
-            % >>> prior = obj.validatePriors('uniform', 2, 3); 
-            % >>> prior
-            % 
-            % ans =
-            %    1×3 cell array
-            %      {'uniform'}    {[0]}    {[Inf]}
-            %
-            % Parameters
-            % ----------
-            % priorType : PriorTypes 
-            %     The prior type to validate.
-            % mu : double, default: []
-            %     The mu value to validate.
-            % sigma : double, default: []
-            %     The sigma value to validate.
-            %
-            % Returns
-            % -------
-            % priors : cell
-            %     A cell array containing the valid prior type, mu and sigma.
-            %
-            % Warns
-            % -----
-            % generic warning
-            %     If ``mu`` or ``sigma`` is set on a uniform prior.
-            arguments
-                ~
-                priorType
-                mu {isscalar, mustBeNumeric}
-                sigma {isscalar, mustBeNumeric}
-            end
-            invalidPriorsMessage = sprintf('Prior type must be a priorTypes enum or one of the following strings (%s)', ...
-                                           strjoin(priorTypes.values(), ', '));
-            priorType = validateOption(priorType, 'priorTypes', invalidPriorsMessage).value;
-
-            if strcmp(priorType, priorTypes.Uniform.value)
-                if mu ~= 0 
-                    warning('mu cannot be %d when the prior types is uniform - resetting to 0', mu);
-                end
-                if sigma ~= Inf
-                    warning('sigma cannot be %d when the prior types is uniform - resetting to Inf', sigma);
-                end
-                mu = 0;
-                sigma = Inf;
-            end
-            priors = {priorType, mu, sigma};
-        end
-
-        function validateLimits(~, min, value, max)
-            % Validates the value, minimum and maximum limit variables.
-            % 
-            % Examples
-            % --------
-            % Incorrect bounds throws exception.
-            % 
-            % >>> obj.validateLimits(2, 4, 1);  % throws exception as max is less than min 
-            % 
-            % Parameters
-            % ----------
-            % min : double
-            %     The minimum value to validate.
-            % value : double
-            %     The value to validate.
-            % max : double
-            %     The maximum value to validate.
-            %
-            % Returns
-            % -------
-            % index : whole number
-            %     A valid row index.
-            %
-            % Raises
-            % ------
-            % invalidValue
-            %     If ``min`` is greater than ``max`` or ``value`` is outside the limits.
-            arguments
-                ~
-                min {isscalar, mustBeNumeric}
-                value {isscalar, mustBeNumeric}
-                max {isscalar, mustBeNumeric}
-            end
-                
-            if min > max
-                throw(exceptions.invalidValue(sprintf('min limit %d must be less than or equal to max limit %d', min, max)));
-            end
-
-            if value < min || value > max
-                throw(exceptions.invalidValue(sprintf('Parameter value %d must be within the limits %d to %d', value, min, max)));
-            end
-        end
-
+        end    
     end
-
 end

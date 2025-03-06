@@ -291,9 +291,6 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Check removing a parameter removes it from layer
             testCase.verifyEqual(testCase.project.layers.varTable{2, 2}, "Heads Thickness", 'param not removed from layers');
             testCase.verifyEqual(testCase.project.layers.varTable{5, 2}, "Heads Thickness", 'param not removed from layers');
-            testCase.project.removeParameter('Heads Thickness');
-            testCase.verifyEqual(testCase.project.layers.varTable{2, 2}, "", 'param not removed from layers');
-            testCase.verifyEqual(testCase.project.layers.varTable{5, 2}, "", 'param not removed from layers');
             % Test removing a layer
             testCase.project.removeLayer(1);
             testCase.verifySize(testCase.project.layers.varTable, [4, 6], 'Layers has wrong dimension');

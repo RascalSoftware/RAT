@@ -92,9 +92,9 @@ classdef projectParametersMixin < handle
             % priorType : PriorTypes, default: PriorTypes.Uniform 
             %     For Bayesian calculations, whether the prior likelihood is assumed to be ‘uniform’ or ‘gaussian’.
             % mu : double, default: 0.0
-            %     If the prior type is Gaussian, the mu and sigma values describing the Gaussian function for the prior likelihood.
+            %     If the prior type is Gaussian, the mean of the Gaussian function for the prior likelihood.
             % sigma : double, default: Inf
-            %     If the prior type is Gaussian, the mu and sigma values describing the Gaussian function for the prior likelihood.
+            %     If the prior type is Gaussian, the standard deviation of the Gaussian function for the prior likelihood.
             arguments
                 obj
                 name {mustBeTextScalar} = ''
@@ -241,9 +241,9 @@ classdef projectParametersMixin < handle
             % priorType : PriorTypes, default: PriorTypes.Uniform 
             %     For Bayesian calculations, whether the prior likelihood is assumed to be ‘uniform’ or ‘gaussian’.
             % mu : double, default: 0.0
-            %     If the prior type is Gaussian, the mu and sigma values describing the Gaussian function for the prior likelihood.
+            %     If the prior type is Gaussian, the mean of the Gaussian function for the prior likelihood.
             % sigma : double, default: Inf
-            %     If the prior type is Gaussian, the mu and sigma values describing the Gaussian function for the prior likelihood.
+            %     If the prior type is Gaussian, the standard deviation of the Gaussian function for the prior likelihood.
             arguments
                 obj
                 name {mustBeTextScalar} = ''
@@ -365,9 +365,9 @@ classdef projectParametersMixin < handle
             % priorType : PriorTypes, default: PriorTypes.Uniform 
             %     For Bayesian calculations, whether the prior likelihood is assumed to be ‘uniform’ or ‘gaussian’.
             % mu : double, default: 0.0
-            %     If the prior type is Gaussian, the mu and sigma values describing the Gaussian function for the prior likelihood.
+            %     If the prior type is Gaussian, the mean of the Gaussian function for the prior likelihood.
             % sigma : double, default: Inf
-            %     If the prior type is Gaussian, the mu and sigma values describing the Gaussian function for the prior likelihood.
+            %     If the prior type is Gaussian, the standard deviation of the Gaussian function for the prior likelihood.
             arguments
                 obj
                 name {mustBeTextScalar} = ''
@@ -488,9 +488,9 @@ classdef projectParametersMixin < handle
             % priorType : PriorTypes, default: PriorTypes.Uniform 
             %     For Bayesian calculations, whether the prior likelihood is assumed to be ‘uniform’ or ‘gaussian’.
             % mu : double, default: 0.0
-            %     If the prior type is Gaussian, the mu and sigma values describing the Gaussian function for the prior likelihood.
+            %     If the prior type is Gaussian, the mean of the Gaussian function for the prior likelihood.
             % sigma : double, default: Inf
-            %     If the prior type is Gaussian, the mu and sigma values describing the Gaussian function for the prior likelihood.
+            %     If the prior type is Gaussian, the standard deviation of the Gaussian function for the prior likelihood.
             arguments
                 obj
                 name {mustBeTextScalar} = ''

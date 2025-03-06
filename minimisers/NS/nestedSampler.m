@@ -116,7 +116,9 @@ propscale = 0.1;
 h = 1.1; 
 FS = h; 
 coder.varsize('FS');
-K = 1;  % number of ellipsoids; doesn't actually need to be defined here but coder complains
+% number of ellipsoids; doesn't necessarily need to be defined here,
+% but coder doesn't recognise that FS >= h is guaranteed on the first iteration
+K = 1;  
 
 % get maximum likelihood
 logLmax = max(logL);

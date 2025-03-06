@@ -2,9 +2,9 @@ function newR1Problem = projectClassToR1(project, varargin)
 % Converts ``projectClass`` instance to RasCAL1 (r1) struct. Also creates the datafiles directory and saves the 
 % data if asked. The functions takes in a ``projectClass`` instance and other optional arguments then outputs r1 struct.
 %
-% Example Usage::
-% 
-%     r1Struct = projectClassToR1(project, 'saveProject', false);
+% Examples
+% --------
+% >>> r1Struct = projectClassToR1(project, 'saveProject', false);
 %
 % Parameters
 % ----------

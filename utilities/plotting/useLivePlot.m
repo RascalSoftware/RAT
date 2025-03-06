@@ -2,10 +2,10 @@ classdef useLivePlot < handle
     % Sets up a live plot on a given figure. The live plot listens for plot events from the RAT calculation and
     % redraws the plot every time an event is received.	
     %
-    % Example Usage::
-    % 
-    %    useLivePlot();   % Opens a new figure for plot
-    %    useLivePlot(1);  % Use figure 1 for plot
+    % Examples
+    % --------
+    % >>> useLivePlot();   % Opens a new figure for plot
+    % >>> useLivePlot(1);  % Use figure 1 for plot
     %
     % Parameters
     % ----------

@@ -3,23 +3,23 @@ function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, sh
     % Most users never need to use this function, rather use ``useLivePlot`` for live 
     % plotting or ``plotRefSLD`` for simple SLD plots. 
     %
-    % Example Usage::
-    % 
-    %    plotRefSLDHelper(data, false);
+    % Examples
+    % --------
+    % >>> plotRefSLDHelper(data, false);
     %
     % `data` is a struct created by the RAT plot event. This struct can be created as shown below::
     % 
-    %    [projectStruct,~,~] = parseClassToStructs(project,controls);
-    %
-    %    data.modelType = project.modelType;
-    %    data.reflectivity = result.reflectivity;
-    %    data.shiftedData = result.shiftedData;
-    %    data.sldProfiles = result.sldProfiles;
-    %    data.resampledLayers = result.resampledLayers;
-    %    data.dataPresent = projectStruct.dataPresent;
-    %    data.subRoughs = result.contrastParams.subRoughs;
-    %    data.resample = projectStruct.resample;
-    %    data.contrastNames = projectStruct.names.contrasts;
+    % >>> [projectStruct,~,~] = parseClassToStructs(project,controls);
+    % >>> 
+    % >>> data.modelType = project.modelType;
+    % >>> data.reflectivity = result.reflectivity;
+    % >>> data.shiftedData = result.shiftedData;
+    % >>> data.sldProfiles = result.sldProfiles;
+    % >>> data.resampledLayers = result.resampledLayers;
+    % >>> data.dataPresent = projectStruct.dataPresent;
+    % >>> data.subRoughs = result.contrastParams.subRoughs;
+    % >>> data.resample = projectStruct.resample;
+    % >>> data.contrastNames = projectStruct.names.contrasts;
     %
     % Where `project` is an instance of the ``projectClass``, `controls` is an instance of ``controlsClass`` and `result` is 
     % the result struct from the RAT calculation. 

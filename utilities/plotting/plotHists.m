@@ -2,9 +2,9 @@ function h = plotHists(result, options)
     % Plots the Bayes histogram plot from the chain, with or without smoothing.
     % If selected, smoothing is via a moving average algorithm.
     %
-    % Example Usage::
-    % 
-    %    plotHists(result, 'smooth', false);
+    % Examples
+    % --------
+    % >>> plotHists(result, 'smooth', false);
     %
     % Parameters
     % ----------

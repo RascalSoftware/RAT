@@ -1,9 +1,9 @@
 function plotRefSLD(project, result, options)
     % Plots the reflectivity and SLD profiles
     %
-    % Example Usage::
-    % 
-    %    plotRefSLD(problem, result, 'showGrid', true, 'q4', true);
+    % Examples
+    % --------
+    % >>> plotRefSLD(problem, result, 'showGrid', true, 'q4', true);
     % 
     % Parameters
     % ----------

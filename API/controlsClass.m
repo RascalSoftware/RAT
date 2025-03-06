@@ -333,12 +333,12 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         function obj = setProcedure(obj, procedure, varargin)
             % Sets the properties of the controls object based on the selected procedures
             % 
-            % Example Usage::
-            % 
-            %    controls = controlsClass();
-            %    controls.setProcedure('simplex', 'xTolerance', 1e-6, 'funcTolerance', 1e-6,'maxFuncEvals', 1000);
-            %    controls.setProcedure('dream');  % This will use default DREAM options 
-            %    controls.setProcedure('ns', 'nLive', 150,'nMCMC', 0, 'propScale', 0.1, 'nsTolerance', 0.1);
+            % Examples
+            % --------
+            % >>> controls = controlsClass();
+            % >>> controls.setProcedure('simplex', 'xTolerance', 1e-6, 'funcTolerance', 1e-6,'maxFuncEvals', 1000);
+            % >>> controls.setProcedure('dream');  % This will use default DREAM options 
+            % >>> controls.setProcedure('ns', 'nLive', 150,'nMCMC', 0, 'propScale', 0.1, 'nsTolerance', 0.1);
             %
             % Parameters
             % ----------
@@ -397,10 +397,10 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         function obj = initialiseIPC(obj)
             % Creates and initialises the inter-process communication file
             %
-            % Usage::
-            % 
-            %    controls = controlsClass();
-            %    controls.initialiseIPC(); 
+            % Examples
+            % --------
+            % >>> controls = controlsClass();
+            % >>> controls.initialiseIPC(); 
             obj.IPCFilePath = tempname();
             fileID = fopen(obj.IPCFilePath, 'w');
             fwrite(fileID, false, 'uchar');
@@ -410,10 +410,10 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         function path = getIPCFilePath(obj)
             % Returns the path of the IPC file.
             %
-            % Usage::
-            % 
-            %    controls = controlsClass();
-            %    path = controls.getIPCFilePath();
+            % Examples
+            % --------
+            % >>> controls = controlsClass();
+            % >>> path = controls.getIPCFilePath();
             %
             % Returns
             % -------
@@ -425,10 +425,10 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         function obj = sendStopEvent(obj)
             % Sends the stop event via IPC file.
             %
-            % Usage::
-            % 
-            %    controls = controlsClass();
-            %    controls.sendStopEvent();
+            % Examples
+            % --------
+            % >>> controls = controlsClass();
+            % >>> controls.sendStopEvent();
             if isempty(obj.IPCFilePath)
                 return
             end

@@ -32,7 +32,7 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
 
     % Process the custom models
     [sldProfiles,subRoughs] = normalTF.customXY.processCustomFunction(contrastBulkInIndices,contrastBulkOutIndices,...
-        bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params);
+        bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
     
     if strcmpi(parallel, coderEnums.parallelOptions.Contrasts)
     
@@ -75,6 +75,15 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
     
     end
 
+    % Remove dummy imaginary column if present
+    if ~useImaginary
+        for i=1:numberOfContrasts
+            sldProfiles{i}(:,3) = [];
+            layerSlds{i}(:,3) = [];
+            resampledLayers{i}(:,3) = [];
+        end
+    end
+
 end
 
 
@@ -95,13 +104,13 @@ function [qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue,chi,...
      scalefactorIndex,bulkInIndex,bulkOutIndex,qzshifts,scalefactors,bulkIns,bulkOuts);
      
     % Resample the layers
-    if ~useImaginary
-        layerSld = resampleLayers(sldProfile,resampleMinAngle,resampleNPoints);
-    else
-        reSLD = sldProfile(:,1:2);
-        imSLD = [sldProfile(:,1),sldProfile(:,3)];
-        layerSld = resampleLayersReIm(reSLD,imSLD,resampleMinAngle,resampleNPoints);
-    end
+    % if ~useImaginary
+    %     layerSld = resampleLayers(sldProfile,resampleMinAngle,resampleNPoints);
+    % else
+    reSLD = sldProfile(:,1:2);
+    imSLD = [sldProfile(:,1),sldProfile(:,3)];
+    layerSld = resampleLayersReIm(reSLD,imSLD,resampleMinAngle,resampleNPoints);
+    %end
     
     resampledLayer = layerSld;
 

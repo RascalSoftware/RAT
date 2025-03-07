@@ -122,6 +122,16 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
     
     end
 
+    % Remove dummy imaginary column if present
+    if ~useImaginary
+        for i=1:numberOfContrasts
+            domainLayerSlds{i,1}(:,3) = [];
+            domainLayerSlds{i,2}(:,3) = [];
+            domainResampledLayers{i,1}(:,3) = [];
+            domainResampledLayers{i,2}(:,3) = [];
+        end
+    end
+
 end
 
 

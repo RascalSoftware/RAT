@@ -11,16 +11,29 @@ function outLayers = allocateParamsToLayers(params, layersDetails)
 
     for i = 1:numberOfLayers
         thisLayer = layersDetails{i};
-        thisOutLayer = zeros(1,length(thisLayer));
-        for n = 1:(length(thisLayer)-1)
+        layerLength = length(thisLayer);
+        thisOutLayer = zeros(1,6);
+
+        % Find thickness, roughness and SLD
+        % If SLD is real, the imaginary column is set to zero
+        for n = 1:(layerLength-3)
             thisVal = thisLayer(n);
-            if ~isnan(thisVal)
-                thisOutLayer(n) = params(thisVal);
-            else
-                thisOutLayer(n) = NaN;
-            end
+            thisOutLayer(n) = params(thisVal);
         end
-        thisOutLayer(length(thisLayer)) = thisLayer(end);
+
+        % Layer Thickness
+        thisOutLayer(4) = params(thisLayer(layerLength-2));
+
+        % Get hydration value, which may be NaN
+        if ~isnan(thisLayer(layerLength-1))
+            thisOutLayer(5) = params(thisLayer(layerLength-1));
+        else
+            thisOutLayer(5) = NaN;
+        end
+
+        % Fill in hydrate with value
+        thisOutLayer(6) = thisLayer(end);
+
         outLayers{i} = thisOutLayer;
     end
 

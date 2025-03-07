@@ -84,6 +84,14 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
     
     end
 
+    % Remove dummy imaginary column if present
+    if ~useImaginary
+        for i=1:numberOfContrasts
+            layerSlds{i}(:,3) = [];
+            resampledLayers{i}(:,3) = [];
+        end
+    end
+
 end
 
 

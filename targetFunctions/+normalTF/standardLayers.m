@@ -91,6 +91,15 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
 
         end
     end
+
+    % Remove dummy imaginary column if present
+    if ~useImaginary
+        for i=1:numberOfContrasts
+            layerSlds{i}(:,3) = [];
+            resampledLayers{i}(:,3) = [];
+        end
+    end
+
 end
 
 
@@ -114,7 +123,7 @@ function [qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue,chi,...
     % Also need to determine which layers from the overall layers list
     % are required for this contrast, and put them in the correct order 
     % according to geometry
-    thisContrastLayers = allocateLayersForContrast(contrastLayers,outParameterisedLayers,useImaginary);
+    thisContrastLayers = allocateLayersForContrast(contrastLayers,outParameterisedLayers);
 
     % Apply scale factors and q shifts to the data
     shiftedData = shiftData(scalefactorValue,qzshiftValue,dataPresent,data,dataLimits,simLimits);

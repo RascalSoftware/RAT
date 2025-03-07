@@ -125,6 +125,16 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
     
     end
 
+    % Remove dummy imaginary column if present
+    if ~useImaginary
+        for i=1:numberOfContrasts
+            domainLayerSlds{i,1}(:,3) = [];
+            domainLayerSlds{i,2}(:,3) = [];
+            domainResampledLayers{i,1}(:,3) = [];
+            domainResampledLayers{i,2}(:,3) = [];
+        end
+    end
+
 end
 
 
@@ -164,8 +174,8 @@ function [qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue,chi,...
     % Also need to determine which layers from the overall layers list
     % are required for this contrast, and put them in the correct order 
     % according to geometry. We run it twice, once for each domain...
-    thisContrastLayers1 = allocateLayersForContrast(domainContrastLayers1,outParameterisedLayers,useImaginary);
-    thisContrastLayers2 = allocateLayersForContrast(domainContrastLayers2,outParameterisedLayers,useImaginary);
+    thisContrastLayers1 = allocateLayersForContrast(domainContrastLayers1,outParameterisedLayers);
+    thisContrastLayers2 = allocateLayersForContrast(domainContrastLayers2,outParameterisedLayers);
        
     % Call the core layers calculation - need to do this once for each
     % domain

@@ -25,11 +25,11 @@ sldProfile = [0 0];
 sldProfileIm = [0 0];
 
 % Build up the layers matrix for this contrast
-if ~useImaginary
-    [theseLayers, ssubs] = groupLayersMod(layers,rough,geometry,bulkIn,bulkOut);
-else
-    [theseLayers, ssubs] = groupLayersModImaginary(layers,rough,geometry,bulkIn,bulkOut);
-end
+%if ~useImaginary
+%    [theseLayers, ssubs] = groupLayersMod(layers,rough,geometry,bulkIn,bulkOut);
+%else
+[theseLayers, ssubs] = groupLayersModImaginary(layers,rough,geometry,bulkIn,bulkOut);
+%end
 
 % Make the SLD profiles.
 % If resampling is needed, then enforce the calcSLD flag, so as to catch
@@ -45,14 +45,14 @@ if calcSld
 
     % If we need them both, we process real and imaginary parts of the SLD
     % separately
-    if useImaginary
-        thisSldLays = [theseLayers(:,1:2) theseLayers(:,4:end)];
-        thisSldLaysIm = [theseLayers(:,1) theseLayers(:,3:end)];
+    %if useImaginary
+    thisSldLays = [theseLayers(:,1:2) theseLayers(:,4:end)];
+    thisSldLaysIm = [theseLayers(:,1) theseLayers(:,3:end)];
 
-        % Note bulkIn and bulkOut = 0 since there is never any imaginary part for
-        % the bulk phases..
-        sldProfileIm = makeSLDProfiles(0,0,thisSldLaysIm,ssubs,repeatLayers);
-    end
+    % Note bulkIn and bulkOut = 0 since there is never any imaginary part for
+    % the bulk phases..
+    sldProfileIm = makeSLDProfiles(0,0,thisSldLaysIm,ssubs,repeatLayers);
+    %end
     
     sldProfile = makeSLDProfiles(bulkIn,bulkOut,thisSldLays,ssubs,repeatLayers);
 
@@ -60,15 +60,15 @@ end
 
 % If required, then resample the SLD
 if resample == 1
-    if ~useImaginary
-        layerSld = resampleLayers(sldProfile,resampleMinAngle,resampleNPoints);
-    else
-        layerSld = resampleLayersReIm(sldProfile,sldProfileIm,resampleMinAngle,resampleNPoints);
-    end
+    %if ~useImaginary
+    %    layerSld = resampleLayers(sldProfile,resampleMinAngle,resampleNPoints);
+    %else
+    layerSld = resampleLayersReIm(sldProfile,sldProfileIm,resampleMinAngle,resampleNPoints);
+    %end
     resamLayers = layerSld;
 else
     layerSld = theseLayers;
-    resamLayers = [0 0 0];
+    resamLayers = [0 0 0 0];
 end
 
 % Calculate the reflectivity

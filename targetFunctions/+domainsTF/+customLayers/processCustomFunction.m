@@ -43,13 +43,8 @@ function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,con
         % If the output layers has 6 columns, then we need to do
         % the hydration correction (the user has not done it in the
         % custom function).
-        if ~useImaginary
-           thisContrastLayers1 = applyHydrationReal(thisContrastLayers1,thisBulkIn,thisBulkOut);
-           thisContrastLayers2 = applyHydrationReal(thisContrastLayers2,thisBulkIn,thisBulkOut);
-        else
-           thisContrastLayers1 = applyHydrationImag(thisContrastLayers1,thisBulkIn,thisBulkOut);
-           thisContrastLayers2 = applyHydrationImag(thisContrastLayers2,thisBulkIn,thisBulkOut);
-        end
+        thisContrastLayers1 = applyHydration(thisContrastLayers1,thisBulkIn,thisBulkOut);
+        thisContrastLayers2 = applyHydration(thisContrastLayers2,thisBulkIn,thisBulkOut);
 
         resampledLayers{i,1} = thisContrastLayers1;
         resampledLayers{i,2} = thisContrastLayers2;

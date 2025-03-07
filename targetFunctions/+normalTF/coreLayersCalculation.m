@@ -2,7 +2,7 @@ function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiS
     coreLayersCalculation(layers,rough,geometry,bulkIn,bulkOut,resample,...
     calcSld,shiftedData,simulationXData,dataIndices,repeatLayers,resolution,...
     background,backgroundAction,params,parallelPoints,resampleMinAngle,...
-    resampleNPoints,useImaginary)
+    resampleNPoints)
 
 %   This is the main reflectivity calculation for all layers models in the 
 %   normal target function.
@@ -25,11 +25,7 @@ sldProfile = [0 0];
 sldProfileIm = [0 0];
 
 % Build up the layers matrix for this contrast
-%if ~useImaginary
-%    [theseLayers, ssubs] = groupLayersMod(layers,rough,geometry,bulkIn,bulkOut);
-%else
-[theseLayers, ssubs] = groupLayersModImaginary(layers,rough,geometry,bulkIn,bulkOut);
-%end
+[theseLayers, ssubs] = groupLayersMod(layers,rough,geometry,bulkIn,bulkOut);
 
 % Make the SLD profiles.
 % If resampling is needed, then enforce the calcSLD flag, so as to catch
@@ -41,30 +37,20 @@ end
 % If calc SLD flag is set, then calculate the SLD profile
 if calcSld
 
-    thisSldLays = theseLayers;
-
-    % If we need them both, we process real and imaginary parts of the SLD
-    % separately
-    %if useImaginary
+    % We process real and imaginary parts of the SLD separately
     thisSldLays = [theseLayers(:,1:2) theseLayers(:,4:end)];
     thisSldLaysIm = [theseLayers(:,1) theseLayers(:,3:end)];
 
-    % Note bulkIn and bulkOut = 0 since there is never any imaginary part for
-    % the bulk phases..
-    sldProfileIm = makeSLDProfiles(0,0,thisSldLaysIm,ssubs,repeatLayers);
-    %end
-    
+    % Note bulkIn and bulkOut = 0 since there is never any imaginary part
+    % for the bulk phases.
     sldProfile = makeSLDProfiles(bulkIn,bulkOut,thisSldLays,ssubs,repeatLayers);
+    sldProfileIm = makeSLDProfiles(0,0,thisSldLaysIm,ssubs,repeatLayers);
 
 end
 
 % If required, then resample the SLD
 if resample == 1
-    %if ~useImaginary
-    %    layerSld = resampleLayers(sldProfile,resampleMinAngle,resampleNPoints);
-    %else
-    layerSld = resampleLayersReIm(sldProfile,sldProfileIm,resampleMinAngle,resampleNPoints);
-    %end
+    layerSld = resampleLayers(sldProfile,sldProfileIm,resampleMinAngle,resampleNPoints);
     resamLayers = layerSld;
 else
     layerSld = theseLayers;
@@ -73,7 +59,7 @@ end
 
 % Calculate the reflectivity
 reflectivityType = 'standardAbeles';
-[reflect,simulation] = callReflectivity(bulkIn,bulkOut,simulationXData,dataIndices,repeatLayers,layerSld,ssubs,resolution,parallelPoints,reflectivityType,useImaginary);
+[reflect,simulation] = callReflectivity(bulkIn,bulkOut,simulationXData,dataIndices,repeatLayers,layerSld,ssubs,resolution,parallelPoints,reflectivityType);
 
 % Apply background correction
 [reflect,simulation,shiftedData] = applyBackgroundCorrection(reflect,simulation,shiftedData,background,backgroundAction);

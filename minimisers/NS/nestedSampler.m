@@ -46,19 +46,10 @@ function [logZ, nest_samples, post_samples,H] = nestedSampler(data, ...
 %                      'x', 4};
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-extraparvals = [];
-
 controls = data{2};
 
-% get the number of parameters from the prior array
-D = size(prior,1);
-
 ns = 1;
-% coder.varsize('ns');
-
 mus = 1;
-% coder.varsize('mus');
-
 cholmat = 1;
 coder.varsize('cholmat');
 
@@ -78,42 +69,24 @@ if mod(nLive, 1) ~= 0 || nLive < 0
     coderException(coderEnums.errorCodes.domainError, 'NS Error: nLive must be an integer >= 0')
 end
 
-% draw the set of initial live points from the prior
-livepoints = zeros(nLive, D);
-
-for i=1:D
-    priortype = prior(i,1);
-
-    if priortype == 1      %uniform
-        p3 = prior(i,4);
-        p4 = prior(i,5);
-        livepoints(:,i) = p3 + (p4-p3)*rand(nLive,1);
-    elseif priortype == 2  %gaussian
-        p3 = prior(i,2);
-        p4 = prior(i,3);
-        livepoints(:,i) = p3 + p4*randn(nLive,1);
-    elseif priortype == 3   %jeffreys
-        p3 = prior(i,2);
-        p4 = prior(i,3);
-        livepoints(:,i) = 10.^(log10(p3) + (log10(p4)-log10(p3))*rand(nLive,1));
-    else
-        coderException(coderEnums.errorCodes.invalidOption, 'Unrecognised prior for param %d', int32(i));
-    end
+% check total number of points is large enough if using MultiNest
+if nMCMC == 0 && nLive < D+1
+    coderException(coderEnums.errorCodes.domainError, 'NS Error: The number of live points must be larger than the number of fit parameters for MultiNest.'); 
 end
+
+% draw the set of initial live points from the unit hypercube
+% (they will be rescaled below)
+livepoints = rand(nLive, D);
 
 % calculate the log likelihood of all the live points
 logL = zeros(nLive,1);
 extraparvals = [];
 for i=1:nLive
-    parvals = livepoints(i,:);
+    % rescale parameters based on their priors 
+    parvals = rescaleParameters(prior, livepoints(i,:));
     logL(i) = flike(data,parvals);
 end
 
-% now scale the parameters, so that uniform parameters range from 0->1, 
-% and Gaussian parameters have a mean of zero and unit standard deviation
-for i=1:nLive
-    livepoints(i,:) = scaleParameters(prior, livepoints(i,:));
-end
 
 % initial tolerance
 tol = inf;
@@ -134,10 +107,18 @@ propscale = 0.1;
 
 %%%%%%%%%%%%%%%
 % some initial values if MultiNest sampling is used
-h = 1.1; % h values from bottom of p. 1605 of Feroz and Hobson
-FS = h; % start FS at h, so ellipsoidal partitioning is done first time
+% FS is the ratio of the total volume of all our sample ellipsoids
+% to the estimated volume of the region from which live points are sampled
+% we recalculate the ellipsoids if that ratio is larger than h (i.e. the
+% ellipsoids are more than 10% larger than they need to be)
+% h is arbitrary; we choose 1.1 in line with
+% section 5.2 of Feroz, Hobson & Bridges (https://arxiv.org/pdf/0809.3437)
+h = 1.1; 
+FS = h; 
 coder.varsize('FS');
-K = 1; % start with one cluster of live points
+% number of ellipsoids; doesn't necessarily need to be defined here,
+% but coder doesn't recognise that FS >= h is guaranteed on the first iteration
+K = 1;  
 
 % get maximum likelihood
 logLmax = max(logL);
@@ -192,23 +173,17 @@ while tol > tolerance || j <= nLive
         % do MCMC nested sampling
  
         % get the Cholesky decomposed covariance of the live points
-        % (do every 100th iteration - CAN CHANGE THIS IF REQUIRED)
+        % (we do this every 100th iteration - this is arbitrary!)
         if mod(j-1, 100) == 0
             % NOTE that for numbers of parameters >~10 covariances are often
             % not positive definite and cholcov will have "problems".
-            %cholmat = cholcov(propscale*cov(livepoints));
-        
             % use modified Cholesky decomposition, which works even for
             % matrices that are not quite positive definite
-            % from http://infohost.nmt.edu/~borchers/ldlt.html 
             % (via http://stats.stackexchange.com/questions/6364
             % /making-square-root-of-covariance-matrix-positive-definite-matlab
             cv = cov(livepoints);
             [l, d] = mchol(propscale*cv);
             cholmat = l.'*sqrt(d);
-            
-            %plot3(livepoints(:,1), livepoints(:,2), livepoints(:,3), 'r.');
-            %drawnow();
         end
     
         % draw a new sample using mcmc algorithm
@@ -220,7 +195,6 @@ while tol > tolerance || j <= nLive
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % do MultiNest nested sampling
         
-        % separate out ellipsoids
         if FS >= h
             % NOTE: THIS CODE IS GUARANTEED TO RUN THE 1ST TIME THROUGH
             % calculate optimal ellipsoids        
@@ -237,10 +211,8 @@ while tol > tolerance || j <= nLive
                     Bs((k-1)*D+1:k*D,:) = Bs((k-1)*D+1:k*D,:)*scalefac^(2/D);
                     VEs(k) = scalefac*VEs(k);
                 end
-           end
-
+            end
         end
-
 
         % calculate ratio of volumes (FS>=1) and cumulative fractional volume
         Vtot = sum(VEs);

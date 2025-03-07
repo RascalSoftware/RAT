@@ -1,6 +1,6 @@
 function [u1, u2, VE1, VE2, nosplit] = splitEllipsoid(u, VS)
 
-% function [u1, u2, VE1, VE2, nosplit] = split_ellipsiod(u, VS)
+% function [u1, u2, VE1, VE2, nosplit] = split_ellipsoid(u, VS)
 %
 % This function takes in a set of multi-dimensional data points u and the
 % sample volume (VS) that they occupy. It uses the k-means algorthim to

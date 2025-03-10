@@ -10,7 +10,7 @@
 
 // Include files
 #include "percentileConfidenceIntervals.h"
-#include "mean.h"
+#include "blockedSummation.h"
 #include "prctile.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
@@ -23,9 +23,16 @@ namespace RAT
     double, 2U> &confidenceIntervals_percentile65, ::coder::array<double, 2U>
     &confidenceIntervals_mean)
   {
+    ::coder::array<double, 2U> r;
+    int loop_ub;
     coder::prctile(chain, confidenceIntervals_percentile95);
     coder::b_prctile(chain, confidenceIntervals_percentile65);
-    coder::mean(chain, confidenceIntervals_mean);
+    coder::blockedSummation(chain, chain.size(0), r);
+    confidenceIntervals_mean.set_size(1, r.size(1));
+    loop_ub = r.size(1);
+    for (int i{0}; i < loop_ub; i++) {
+      confidenceIntervals_mean[i] = r[i] / static_cast<double>(chain.size(0));
+    }
   }
 }
 

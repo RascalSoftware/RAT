@@ -30,6 +30,9 @@ coder.varsize('ns',[1e4 1e4],[1 1]);
 % calculate bounding matrix, etc. for bounding ellipsoid associated
 % with the original set of points u
 [B, mu, VE, flag] = calcEllipsoid(u, VS);
+if flag
+  coderException(coderEnums.errorCodes.domainError, 'NS Error: Failed to calculate bounding ellipsoid. Consider increasing nLive.')
+end
 
 % attempt to split u into two subclusters
 [u1, u2, VE1, VE2, nosplit] = splitEllipsoid(u, VS);

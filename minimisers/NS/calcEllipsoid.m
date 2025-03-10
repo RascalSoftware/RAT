@@ -28,7 +28,8 @@ ndims = size(u, 2);
 
 % check that total number of points is large enough
 if N < ndims+1
-    coderException(coderEnums.errorCodes.domainError, 'The number of live points must be larger than the number of fit parameters for MultiNest.'); 
+  flag = 1;
+  return;
 end
 
 % constant factor for volume of ellipsoid
@@ -40,12 +41,12 @@ mu = mean(u);
 
 % check condition number of C (eps = 2.2204e-16)
 if rcond(C)<eps || isnan(rcond(C))
-    coderException(coderEnums.errorCodes.domainError, 'Bad condition number for covariance matrix of ellipsoid.'); 
+  flag = 1;
+  return;
 end
 
 % find scale factor for bounding ellipsoid E
 fB = 0;
-%coder.varsize('fB');
 for i=1:N
     f = ( (u(i,:)-mu) / C ) * (u(i,:)-mu)';
     if f > fB

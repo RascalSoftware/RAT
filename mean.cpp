@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // mean.cpp
 //
@@ -22,17 +22,15 @@ namespace RAT
     void mean(const ::coder::array<double, 3U> &x, ::coder::array<double, 3U> &y)
     {
       int b_loop_ub;
-      int i;
-      int i1;
       int loop_ub;
       if ((x.size(0) == 0) || (x.size(1) == 0) || (x.size(2) == 0)) {
         unsigned int sz_idx_1;
         sz_idx_1 = static_cast<unsigned int>(x.size(1));
         y.set_size(1, x.size(1), x.size(2));
         loop_ub = x.size(2);
-        for (i = 0; i < loop_ub; i++) {
+        for (int i{0}; i < loop_ub; i++) {
           b_loop_ub = static_cast<int>(sz_idx_1);
-          for (i1 = 0; i1 < b_loop_ub; i1++) {
+          for (int i1{0}; i1 < b_loop_ub; i1++) {
             y[i1 + y.size(1) * i] = 0.0;
           }
         }
@@ -42,9 +40,9 @@ namespace RAT
 
       y.set_size(1, y.size(1), y.size(2));
       loop_ub = y.size(2);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         b_loop_ub = y.size(1);
-        for (i1 = 0; i1 < b_loop_ub; i1++) {
+        for (int i1{0}; i1 < b_loop_ub; i1++) {
           y[i1 + y.size(1) * i] = y[i1 + y.size(1) * i] / static_cast<double>
             (x.size(0));
         }
@@ -53,12 +51,11 @@ namespace RAT
 
     void mean(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U> &y)
     {
-      int i;
       int loop_ub;
       if ((x.size(0) == 0) || (x.size(1) == 0)) {
         y.set_size(1, x.size(1));
         loop_ub = x.size(1);
-        for (i = 0; i < loop_ub; i++) {
+        for (int i{0}; i < loop_ub; i++) {
           y[i] = 0.0;
         }
       } else {
@@ -67,7 +64,7 @@ namespace RAT
 
       y.set_size(1, y.size(1));
       loop_ub = y.size(1);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         y[i] = y[i] / static_cast<double>(x.size(0));
       }
     }

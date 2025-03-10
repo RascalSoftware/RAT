@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // eml_erfcore.h
 //
@@ -12,7 +12,6 @@
 
 // Include files
 #include "rtwtypes.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -21,6 +20,8 @@ namespace RAT
 {
   namespace coder
   {
+    double b_eml_erfcore(double x);
+    double eml_erfcore(double x);
     double scalar_erf(double x);
   }
 }

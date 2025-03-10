@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // reflectivityCalculation.h
 //
@@ -12,7 +12,6 @@
 
 // Include files
 #include "rtwtypes.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -28,9 +27,9 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void b_reflectivityCalculation(const ProblemDefinition *problemStruct, const
+  void b_reflectivityCalculation(const ProblemDefinition &problemStruct, const
     Controls *controls, Results *result);
-  void reflectivityCalculation(const ProblemDefinition *problemStruct, const
+  void reflectivityCalculation(const ProblemDefinition &problemStruct, const
     Controls *controls, Results *result);
   void reflectivityCalculation(const b_ProblemDefinition *problemStruct, const
     Controls *controls, Results *result);

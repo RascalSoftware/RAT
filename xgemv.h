@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // xgemv.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -29,9 +28,8 @@ namespace RAT
         void b_xgemv(int m, int n, const ::coder::array<double, 2U> &A, int ia0,
                      int lda, const ::coder::array<double, 2U> &x, int ix0, ::
                      coder::array<double, 1U> &y);
-        void c_xgemv(int m, int n, const ::coder::array<double, 2U> &A, int ia0,
-                     int lda, const ::coder::array<double, 2U> &x, int ix0, ::
-                     coder::array<double, 1U> &y);
+        void xgemv(int m, int n, int lda, const ::coder::array<double, 2U> &x,
+                   int ix0, double beta1, ::coder::array<double, 2U> &y, int iy0);
         void xgemv(int m, int n, const ::coder::array<double, 2U> &A, int ia0,
                    int lda, const ::coder::array<double, 2U> &x, int ix0, ::
                    coder::array<double, 1U> &y);

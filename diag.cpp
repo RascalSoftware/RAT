@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // diag.cpp
 //
@@ -18,10 +18,8 @@ namespace RAT
 {
   namespace coder
   {
-    static void calclen(const ::coder::array<creal_T, 2U> &A, int *dlen, int *i,
-                        int *j);
-    static void calclen(const ::coder::array<double, 2U> &A, int *dlen, int *i,
-                        int *j);
+    static int calclen(const ::coder::array<creal_T, 2U> &A, int &i, int &j);
+    static int calclen(const ::coder::array<double, 2U> &A, int &i, int &j);
   }
 }
 
@@ -30,57 +28,61 @@ namespace RAT
 {
   namespace coder
   {
-    static void calclen(const ::coder::array<creal_T, 2U> &A, int *dlen, int *i,
-                        int *j)
+    static int calclen(const ::coder::array<creal_T, 2U> &A, int &i, int &j)
     {
-      if (0 < A.size(1)) {
+      int dlen;
+      if (A.size(1) > 0) {
         int u0;
         u0 = A.size(0);
-        *dlen = A.size(1);
-        if (u0 < *dlen) {
-          *dlen = u0;
+        dlen = A.size(1);
+        if (u0 <= dlen) {
+          dlen = u0;
         }
 
-        *i = 1;
-        *j = 1;
+        i = 1;
+        j = 1;
       } else {
-        *dlen = 0;
-        *i = 1;
-        *j = 1;
+        dlen = 0;
+        i = 1;
+        j = 1;
       }
+
+      return dlen;
     }
 
-    static void calclen(const ::coder::array<double, 2U> &A, int *dlen, int *i,
-                        int *j)
+    static int calclen(const ::coder::array<double, 2U> &A, int &i, int &j)
     {
-      if (0 < A.size(1)) {
+      int dlen;
+      if (A.size(1) > 0) {
         int u0;
         u0 = A.size(0);
-        *dlen = A.size(1);
-        if (u0 < *dlen) {
-          *dlen = u0;
+        dlen = A.size(1);
+        if (u0 <= dlen) {
+          dlen = u0;
         }
 
-        *i = 1;
-        *j = 1;
+        i = 1;
+        j = 1;
       } else {
-        *dlen = 0;
-        *i = 1;
-        *j = 1;
+        dlen = 0;
+        i = 1;
+        j = 1;
       }
+
+      return dlen;
     }
 
     void diag(const ::coder::array<creal_T, 2U> &v, ::coder::array<creal_T, 1U>
               &d)
     {
-      int dlen;
       int j;
       int k;
       if ((v.size(0) == 1) && (v.size(1) == 1)) {
         d.set_size(1);
         d[0] = v[0];
       } else {
-        calclen(v, &dlen, &k, &j);
+        int dlen;
+        dlen = calclen(v, k, j);
         d.set_size(dlen);
         dlen--;
         for (k = 0; k <= dlen; k++) {
@@ -111,14 +113,14 @@ namespace RAT
 
     void diag(const ::coder::array<double, 2U> &v, ::coder::array<double, 1U> &d)
     {
-      int dlen;
       int j;
       int k;
       if ((v.size(0) == 1) && (v.size(1) == 1)) {
         d.set_size(1);
         d[0] = v[0];
       } else {
-        calclen(v, &dlen, &k, &j);
+        int dlen;
+        dlen = calclen(v, k, j);
         d.set_size(dlen);
         dlen--;
         for (k = 0; k <= dlen; k++) {

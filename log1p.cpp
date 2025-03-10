@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // log1p.cpp
 //
@@ -22,16 +22,16 @@ namespace RAT
     {
       namespace scalar
       {
-        void b_log1p(double *z)
+        void b_log1p(double &z)
         {
           double absz;
-          absz = std::abs(*z);
-          if ((absz > 4.503599627370496E+15) || (std::isinf(*z) || std::isnan(*z)))
+          absz = std::abs(z);
+          if ((absz > 4.503599627370496E+15) || (std::isinf(z) || std::isnan(z)))
           {
-            (*z)++;
-            *z = std::log(*z);
+            z++;
+            z = std::log(z);
           } else if (!(absz < 2.2204460492503131E-16)) {
-            *z = std::log(*z + 1.0) * (*z / ((*z + 1.0) - 1.0));
+            z = std::log(z + 1.0) * (z / ((z + 1.0) - 1.0));
           }
         }
       }

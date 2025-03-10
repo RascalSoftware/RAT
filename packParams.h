@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // packParams.h
 //
@@ -11,9 +11,9 @@
 #define PACKPARAMS_H
 
 // Include files
+#include "RATMain_types.h"
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -21,13 +21,12 @@
 namespace RAT
 {
   struct ProblemDefinition;
-  struct cell_wrap_10;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void packParams(ProblemDefinition *problemStruct, const ::coder::array<double,
+  void packParams(ProblemDefinition &problemStruct, const ::coder::array<double,
                   2U> &limits_params, const ::coder::array<double, 2U>
                   &limits_backgroundParams, const ::coder::array<double, 2U>
                   &limits_scalefactors, const ::coder::array<double, 2U>

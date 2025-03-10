@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // abelesSingle.cpp
 //
@@ -53,13 +53,13 @@ namespace RAT
     }
 
     i = q.size(0);
-    if (0 <= i - 1) {
+    if (i - 1 >= 0) {
       bulk_in_SLD_re = layers_rho[0].re;
       bulk_in_SLD_im = layers_rho[0].im + 1.0E-30;
       k0_im = 0.0 - 12.566370614359172 * (layers_rho[1].im - (layers_rho[0].im +
         1.0E-30));
       d = layers_sig[1] * layers_sig[1];
-      i1 = static_cast<int>((N - 1.0) + -1.0);
+      i1 = static_cast<int>((N - 1.0) - 1.0);
     }
 
     for (int points{0}; points < i; points++) {
@@ -90,10 +90,10 @@ namespace RAT
       //  y = sqrtbc(theta,zarg)
       dc.re = 0.0;
       dc.im = -0.78539816339744828;
-      coder::b_exp(&dc);
+      coder::b_exp(dc);
       M_n_tmp.re = 0.0;
       M_n_tmp.im = 1.5707963267948966;
-      coder::b_exp(&M_n_tmp);
+      coder::b_exp(M_n_tmp);
       k0_re_tmp = k0 * k0;
       k0_re = k0_re_tmp - 12.566370614359172 * (layers_rho[1].re - layers_rho[0]
         .re);
@@ -115,7 +115,7 @@ namespace RAT
       //  Find r01
       dc.re = d * (k0 * (-2.0 * k1_re));
       dc.im = d * (k0 * (-2.0 * k1_im));
-      coder::b_exp(&dc);
+      coder::b_exp(dc);
       ar = k0 - k1_re;
       br = k0 + k1_re;
       if (k1_im == 0.0) {
@@ -188,7 +188,7 @@ namespace RAT
         double r_n_np1_im;
         double r_n_np1_re;
 
-        //  Find kn and k_n+1 (ex. k1 and k2 for n=1): $/
+        //  Find kn and k_n+1 (ex. k1 and k2 for n=1): _/
         //  sqrt function with branch cut in zarg from 0 to infinity along a ray
         //  at angle theta (in radians) measured from the +x axis in the usual way,
         //  with -pi<=theta<=pi.  theta = pi is the usual square root.
@@ -198,10 +198,10 @@ namespace RAT
         //  y = sqrtbc(theta,zarg)
         dc.re = 0.0;
         dc.im = -0.78539816339744828;
-        coder::b_exp(&dc);
+        coder::b_exp(dc);
         M_n_tmp.re = 0.0;
         M_n_tmp.im = 1.5707963267948966;
-        coder::b_exp(&M_n_tmp);
+        coder::b_exp(M_n_tmp);
         k0_re = k0_re_tmp - 12.566370614359172 * (layers_rho[n + 2].re -
           bulk_in_SLD_re);
         im = 0.0 - 12.566370614359172 * (layers_rho[n + 2].im - bulk_in_SLD_im);
@@ -227,7 +227,7 @@ namespace RAT
         d1 *= d1;
         dc.re = d1 * (re * knp1_re - im * knp1_im);
         dc.im = d1 * (re * knp1_im + im * knp1_re);
-        coder::b_exp(&dc);
+        coder::b_exp(dc);
         ar = kn_ptr_re - knp1_re;
         ai = kn_ptr_im - knp1_im;
         br = kn_ptr_re + knp1_re;
@@ -295,16 +295,16 @@ namespace RAT
         beta_re = kn_ptr_re * 0.0 - kn_ptr_im;
         beta_im = kn_ptr_re + kn_ptr_im * 0.0;
 
-        //  Create the M_n matrix: $/
+        //  Create the M_n matrix: _/
         M_n_tmp.re = beta_re;
         M_n_tmp.im = beta_im;
-        coder::b_exp(&M_n_tmp);
+        coder::b_exp(M_n_tmp);
         M_n[0][0] = M_n_tmp;
         M_n[1][0].re = r_n_np1_re * M_n_tmp.re - r_n_np1_im * M_n_tmp.im;
         M_n[1][0].im = r_n_np1_re * M_n_tmp.im + r_n_np1_im * M_n_tmp.re;
         M_n_tmp.re = -beta_re;
         M_n_tmp.im = -beta_im;
-        coder::b_exp(&M_n_tmp);
+        coder::b_exp(M_n_tmp);
 
         //  Multiply the matrices
         d1 = M_n[0][0].re;

@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // repmat.cpp
 //
@@ -19,14 +19,12 @@ namespace RAT
 {
   namespace coder
   {
-    void repmat(double varargin_1, ::coder::array<struct_T, 1U> &b)
+    void repmat(double varargin_1, ::coder::array<j_struct_T, 1U> &b)
     {
       int loop_ub_tmp;
       loop_ub_tmp = static_cast<int>(varargin_1);
       b.set_size(loop_ub_tmp);
       for (int i{0}; i < loop_ub_tmp; i++) {
-        b[i].I_nc = 0.0;
-        b[i].FVr_ca = 0.0;
         b[i].I_no = 0.0;
         b[i].FVr_oa = 0.0;
       }
@@ -37,11 +35,11 @@ namespace RAT
     {
       b.set_size(static_cast<int>(varargin_1), a.size(1));
       if ((static_cast<int>(varargin_1) != 0) && (a.size(1) != 0)) {
+        int i;
         int na;
         na = a.size(1);
+        i = static_cast<int>(varargin_1) - 1;
         for (int k{0}; k < na; k++) {
-          int i;
-          i = static_cast<int>(varargin_1) - 1;
           for (int t{0}; t <= i; t++) {
             b[t + b.size(0) * k] = a[k];
           }

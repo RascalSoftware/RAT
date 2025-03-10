@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // boundaryHandling.cpp
 //
@@ -17,9 +17,43 @@
 #include "strcmp.h"
 #include "coder_array.h"
 
+// Function Declarations
+namespace RAT
+{
+  static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<int, 1U> &in2, const ::coder::array<double, 2U> &in3, const ::coder::
+    array<double, 1U> &in4, const ::coder::array<double, 2U> &in5);
+}
+
 // Function Definitions
 namespace RAT
 {
+  static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<int, 1U> &in2, const ::coder::array<double, 2U> &in3, const ::coder::
+    array<double, 1U> &in4, const ::coder::array<double, 2U> &in5)
+  {
+    int loop_ub_tmp;
+    int stride_0_0_tmp;
+    int stride_1_0;
+    stride_0_0_tmp = (in2.size(0) != 1);
+    stride_1_0 = (in4.size(0) != 1);
+    if (in2.size(0) == 1) {
+      loop_ub_tmp = in4.size(0);
+    } else {
+      loop_ub_tmp = in2.size(0);
+    }
+
+    if (loop_ub_tmp == 1) {
+      loop_ub_tmp = in2.size(0);
+    }
+
+    for (int i{0}; i < loop_ub_tmp; i++) {
+      int i1;
+      i1 = in2[i * stride_0_0_tmp] - 1;
+      in1[in2[i] - 1] = in3[i1] + in4[i * stride_1_0] * (in5[i1] - in3[i1]);
+    }
+  }
+
   void boundaryHandling(::coder::array<double, 2U> &x, const ::coder::array<
                         double, 2U> &paramInfo_min, const ::coder::array<double,
                         2U> &paramInfo_max, const char
@@ -28,7 +62,6 @@ namespace RAT
   {
     ::coder::array<double, 2U> max_d;
     ::coder::array<double, 2U> min_d;
-    ::coder::array<double, 2U> r;
     ::coder::array<double, 1U> b_max_d;
     ::coder::array<int, 1U> ii_low;
     ::coder::array<int, 1U> ii_up;
@@ -36,7 +69,6 @@ namespace RAT
     double b_ii_low[2];
     int b_loop_ub;
     int i;
-    int i1;
     int loop_ub;
 
     //  Function to check whether parameter values remain within prior bounds
@@ -46,17 +78,22 @@ namespace RAT
     coder::repmat(paramInfo_max, static_cast<double>(x.size(0)), max_d);
 
     //  Now find which elements of x are smaller than their respective bound
-    b_x.set_size(x.size(0), x.size(1));
-    loop_ub = x.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = x.size(0);
-      for (i1 = 0; i1 < b_loop_ub; i1++) {
-        b_x[i1 + b_x.size(0) * i] = (x[i1 + x.size(0) * i] < min_d[i1 +
-          min_d.size(0) * i]);
+    if ((x.size(0) == min_d.size(0)) && (x.size(1) == min_d.size(1))) {
+      b_x.set_size(x.size(0), x.size(1));
+      loop_ub = x.size(1);
+      for (i = 0; i < loop_ub; i++) {
+        b_loop_ub = x.size(0);
+        for (int i1{0}; i1 < b_loop_ub; i1++) {
+          b_x[i1 + b_x.size(0) * i] = (x[i1 + x.size(0) * i] < min_d[i1 +
+            min_d.size(0) * i]);
+        }
       }
+
+      coder::f_eml_find(b_x, ii_up);
+    } else {
+      c_binary_expand_op(ii_up, x, min_d);
     }
 
-    coder::f_eml_find(b_x, ii_up);
     ii_low.set_size(ii_up.size(0));
     loop_ub = ii_up.size(0);
     for (i = 0; i < loop_ub; i++) {
@@ -64,17 +101,21 @@ namespace RAT
     }
 
     //  Now find which elements of x are larger than their respective bound
-    b_x.set_size(x.size(0), x.size(1));
-    loop_ub = x.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = x.size(0);
-      for (i1 = 0; i1 < b_loop_ub; i1++) {
-        b_x[i1 + b_x.size(0) * i] = (x[i1 + x.size(0) * i] > max_d[i1 +
-          max_d.size(0) * i]);
+    if ((x.size(0) == max_d.size(0)) && (x.size(1) == max_d.size(1))) {
+      b_x.set_size(x.size(0), x.size(1));
+      loop_ub = x.size(1);
+      for (i = 0; i < loop_ub; i++) {
+        b_loop_ub = x.size(0);
+        for (int i1{0}; i1 < b_loop_ub; i1++) {
+          b_x[i1 + b_x.size(0) * i] = (x[i1 + x.size(0) * i] > max_d[i1 +
+            max_d.size(0) * i]);
+        }
       }
-    }
 
-    coder::f_eml_find(b_x, ii_up);
+      coder::f_eml_find(b_x, ii_up);
+    } else {
+      binary_expand_op(ii_up, x, max_d);
+    }
 
     //  Reflection
     if (coder::internal::eb_strcmp(paramInfo_boundhandling_data,
@@ -152,17 +193,22 @@ namespace RAT
     //  Now double check in case elements are still out of bound -- this is
     //  theoretically possible if values are very small or large
     //  Now double check if all elements are within bounds
-    b_x.set_size(x.size(0), x.size(1));
-    loop_ub = x.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = x.size(0);
-      for (i1 = 0; i1 < b_loop_ub; i1++) {
-        b_x[i1 + b_x.size(0) * i] = (x[i1 + x.size(0) * i] < min_d[i1 +
-          min_d.size(0) * i]);
+    if ((x.size(0) == min_d.size(0)) && (x.size(1) == min_d.size(1))) {
+      b_x.set_size(x.size(0), x.size(1));
+      loop_ub = x.size(1);
+      for (i = 0; i < loop_ub; i++) {
+        b_loop_ub = x.size(0);
+        for (int i1{0}; i1 < b_loop_ub; i1++) {
+          b_x[i1 + b_x.size(0) * i] = (x[i1 + x.size(0) * i] < min_d[i1 +
+            min_d.size(0) * i]);
+        }
       }
+
+      coder::f_eml_find(b_x, ii_up);
+    } else {
+      c_binary_expand_op(ii_up, x, min_d);
     }
 
-    coder::f_eml_find(b_x, ii_up);
     ii_low.set_size(ii_up.size(0));
     loop_ub = ii_up.size(0);
     for (i = 0; i < loop_ub; i++) {
@@ -171,31 +217,56 @@ namespace RAT
 
     b_ii_low[0] = ii_low.size(0);
     b_ii_low[1] = 1.0;
-    coder::b_rand(b_ii_low, r);
-    loop_ub = ii_low.size(0);
-    for (i = 0; i < loop_ub; i++) {
-      x[ii_low[i] - 1] = min_d[ii_low[i] - 1] + r[i] * (max_d[ii_low[i] - 1] -
-        min_d[ii_low[i] - 1]);
+    coder::b_rand(b_ii_low, b_max_d);
+    if (b_max_d.size(0) == 1) {
+      i = ii_low.size(0);
+    } else {
+      i = b_max_d.size(0);
     }
 
-    b_x.set_size(x.size(0), x.size(1));
-    loop_ub = x.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = x.size(0);
-      for (i1 = 0; i1 < b_loop_ub; i1++) {
-        b_x[i1 + b_x.size(0) * i] = (x[i1 + x.size(0) * i] > max_d[i1 +
-          max_d.size(0) * i]);
+    if ((b_max_d.size(0) == ii_low.size(0)) && (ii_low.size(0) == i)) {
+      loop_ub = ii_low.size(0);
+      for (i = 0; i < loop_ub; i++) {
+        x[ii_low[i] - 1] = min_d[ii_low[i] - 1] + b_max_d[i] * (max_d[ii_low[i]
+          - 1] - min_d[ii_low[i] - 1]);
       }
+    } else {
+      binary_expand_op(x, ii_low, min_d, b_max_d, max_d);
     }
 
-    coder::f_eml_find(b_x, ii_up);
+    if ((x.size(0) == max_d.size(0)) && (x.size(1) == max_d.size(1))) {
+      b_x.set_size(x.size(0), x.size(1));
+      loop_ub = x.size(1);
+      for (i = 0; i < loop_ub; i++) {
+        b_loop_ub = x.size(0);
+        for (int i1{0}; i1 < b_loop_ub; i1++) {
+          b_x[i1 + b_x.size(0) * i] = (x[i1 + x.size(0) * i] > max_d[i1 +
+            max_d.size(0) * i]);
+        }
+      }
+
+      coder::f_eml_find(b_x, ii_up);
+    } else {
+      binary_expand_op(ii_up, x, max_d);
+    }
+
     b_ii_low[0] = ii_up.size(0);
     b_ii_low[1] = 1.0;
-    coder::b_rand(b_ii_low, r);
-    loop_ub = ii_up.size(0);
-    for (i = 0; i < loop_ub; i++) {
-      x[ii_up[i] - 1] = min_d[ii_up[i] - 1] + r[i] * (max_d[ii_up[i] - 1] -
-        min_d[ii_up[i] - 1]);
+    coder::b_rand(b_ii_low, b_max_d);
+    if (b_max_d.size(0) == 1) {
+      i = ii_up.size(0);
+    } else {
+      i = b_max_d.size(0);
+    }
+
+    if ((b_max_d.size(0) == ii_up.size(0)) && (ii_up.size(0) == i)) {
+      loop_ub = ii_up.size(0);
+      for (i = 0; i < loop_ub; i++) {
+        x[ii_up[i] - 1] = min_d[ii_up[i] - 1] + b_max_d[i] * (max_d[ii_up[i] - 1]
+          - min_d[ii_up[i] - 1]);
+      }
+    } else {
+      binary_expand_op(x, ii_up, min_d, b_max_d, max_d);
     }
   }
 }

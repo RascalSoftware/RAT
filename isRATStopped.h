@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // isRATStopped.h
 //
@@ -12,15 +12,14 @@
 
 // Include files
 #include "rtwtypes.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
 // Function Declarations
 namespace RAT
 {
-  void isRATStopped(const char IPCFilePath_data[], const int IPCFilePath_size[2],
-                    boolean_T state_data[], int *state_size);
+  int isRATStopped(const char IPCFilePath_data[], const int IPCFilePath_size[2],
+                   boolean_T state_data[]);
 }
 
 #endif

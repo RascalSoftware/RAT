@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // mrdivide_helper.h
 //
@@ -13,13 +13,25 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
 // Function Declarations
 namespace RAT
 {
+  void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::array<
+                        double, 2U> &in2, int in3, const ::coder::array<double,
+                        2U> &in4, const ::coder::array<double, 2U> &in5);
+  void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::array<
+                        double, 1U> &in2, const ::coder::array<double, 2U> &in3,
+                        const ::coder::array<int, 1U> &in4, const int in5_data[],
+                        const int &in5_size);
+  void c_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::array<
+    double, 2U> &in2, int in3, const ::coder::array<double, 2U> &in4, const ::
+    coder::array<double, 2U> &in5);
+  void c_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::array<
+    double, 1U> &in2, const ::coder::array<double, 2U> &in3, const ::coder::
+    array<int, 1U> &in4, const int in5_data[], const int &in5_size);
   namespace coder
   {
     namespace internal
@@ -28,8 +40,8 @@ namespace RAT
                  double, 2U> &B, ::coder::array<double, 2U> &Y);
       void mrdiv(const ::coder::array<double, 2U> &A, const ::coder::array<
                  double, 2U> &B, ::coder::array<double, 1U> &Y);
-      void mrdiv(const double A_data[], int A_size, const double B_data[], int
-                 B_size, double Y_data[], int Y_size[2]);
+      void mrdiv(const ::coder::array<double, 1U> &A, const ::coder::array<
+                 double, 1U> &B, ::coder::array<double, 2U> &Y);
     }
   }
 }

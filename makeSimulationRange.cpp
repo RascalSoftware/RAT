@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // makeSimulationRange.cpp
 //
@@ -25,9 +25,7 @@ namespace RAT
     ::coder::array<double, 2U> lastSection;
     double b;
     double step;
-    int b_loop_ub;
     int firstSection_idx_0;
-    int i;
     int loop_ub;
 
     //  Construct the x data for the simulation. This consists of the x data from
@@ -51,9 +49,9 @@ namespace RAT
         firstSection[0] = simulationLimits[0];
       } else if ((std::floor(simulationLimits[0]) == simulationLimits[0]) &&
                  (std::floor(step) == step)) {
-        loop_ub = static_cast<int>(std::floor((b - simulationLimits[0]) / step));
+        loop_ub = static_cast<int>((b - simulationLimits[0]) / step);
         firstSection.set_size(1, loop_ub + 1);
-        for (i = 0; i <= loop_ub; i++) {
+        for (int i{0}; i <= loop_ub; i++) {
           firstSection[i] = simulationLimits[0] + step * static_cast<double>(i);
         }
       } else {
@@ -63,9 +61,10 @@ namespace RAT
       firstSection.set_size(1, 0);
     }
 
-    if (simulationLimits[1] > data[data.size(0) - 1]) {
-      step = data[data.size(0) - 1] - data[data.size(0) - 2];
-      b = data[data.size(0) - 1] + step;
+    b = data[data.size(0) - 1];
+    if (simulationLimits[1] > b) {
+      step = b - data[data.size(0) - 2];
+      b += step;
       if (std::isnan(b) || std::isnan(step)) {
         lastSection.set_size(1, 1);
         lastSection[0] = rtNaN;
@@ -80,9 +79,9 @@ namespace RAT
         lastSection.set_size(1, 1);
         lastSection[0] = b;
       } else if ((std::floor(b) == b) && (std::floor(step) == step)) {
-        loop_ub = static_cast<int>(std::floor((simulationLimits[1] - b) / step));
+        loop_ub = static_cast<int>((simulationLimits[1] - b) / step);
         lastSection.set_size(1, loop_ub + 1);
-        for (i = 0; i <= loop_ub; i++) {
+        for (int i{0}; i <= loop_ub; i++) {
           lastSection[i] = b + step * static_cast<double>(i);
         }
       } else {
@@ -93,24 +92,25 @@ namespace RAT
     }
 
     firstSection_idx_0 = firstSection.size(1);
-    loop_ub = data.size(0);
     simXdata.set_size((data.size(0) + firstSection.size(1)) + lastSection.size(1));
-    b_loop_ub = firstSection.size(1);
-    for (i = 0; i < b_loop_ub; i++) {
+    loop_ub = firstSection.size(1);
+    for (int i{0}; i < loop_ub; i++) {
       simXdata[i] = firstSection[i];
     }
 
-    for (i = 0; i < loop_ub; i++) {
+    loop_ub = data.size(0);
+    for (int i{0}; i < loop_ub; i++) {
       simXdata[i + firstSection_idx_0] = data[i];
     }
 
-    b_loop_ub = lastSection.size(1);
-    for (i = 0; i < b_loop_ub; i++) {
-      simXdata[(i + firstSection_idx_0) + loop_ub] = lastSection[i];
+    loop_ub = lastSection.size(1);
+    for (int i{0}; i < loop_ub; i++) {
+      simXdata[(i + firstSection_idx_0) + data.size(0)] = lastSection[i];
     }
 
-    splits[0] = firstSection.size(1) + 1U;
-    splits[1] = static_cast<unsigned int>(firstSection.size(1)) + data.size(0);
+    splits[0] = static_cast<unsigned int>(firstSection.size(1)) + 1U;
+    splits[1] = static_cast<unsigned int>(firstSection.size(1)) + static_cast<
+      unsigned int>(data.size(0));
   }
 }
 

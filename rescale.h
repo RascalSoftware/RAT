@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // rescale.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -22,11 +21,11 @@ namespace RAT
 {
   namespace coder
   {
-    double anon(double x, double y);
-    double b_anon(double x, double y);
     void rescale(::coder::array<double, 1U> &A, const ::coder::array<double, 1U>
                  &varargin_2, const ::coder::array<double, 1U> &varargin_4, ::
                  coder::array<double, 1U> &R);
+    double rescale_anonFcn1(double x, double y);
+    double rescale_anonFcn2(double x, double y);
   }
 }
 

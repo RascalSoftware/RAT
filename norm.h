@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // norm.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -22,7 +21,9 @@ namespace RAT
 {
   namespace coder
   {
-    double genpnorm(const ::coder::array<double, 2U> &x);
+    double b_norm(const ::coder::array<double, 2U> &x);
+    double b_norm(const ::coder::array<double, 1U> &x);
+    double c_norm(const ::coder::array<double, 2U> &x);
   }
 }
 

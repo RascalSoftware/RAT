@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // fMinSearch.cpp
 //
@@ -27,13 +27,12 @@
 #include "triggerEvent.h"
 #include "coder_array.h"
 #include "coder_bounded_array.h"
-#include <algorithm>
 #include <cmath>
 
 // Variable Definitions
 namespace RAT
 {
-  static const char cv1[33]{ 'N', 'e', 'l', 'd', 'e', 'r', '-', 'M', 'e', 'a',
+  static const char cv2[33]{ 'N', 'e', 'l', 'd', 'e', 'r', '-', 'M', 'e', 'a',
     'd', ' ', 's', 'i', 'm', 'p', 'l', 'e', 'x', ' ', 'd', 'i', 'r', 'e', 'c',
     't', ' ', 's', 'e', 'a', 'r', 'c', 'h' };
 }
@@ -41,23 +40,111 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  static void cleanUpInterrupt(double optVal, double iteration, double funccount,
-    double display, double *fval, double *output_iterations, double
-    *output_funcCount, char output_algorithm[33], char output_message[31]);
+  static void binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
+    array<double, 1U> &in2, const ::coder::array<double, 2U> &in3);
+  static void c_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<double, 2U> &in2, int in3, int in4, int in5);
+  static void c_binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
+    array<double, 1U> &in2, const ::coder::array<double, 2U> &in3);
+  static double cleanUpInterrupt(double optVal, double iteration, double
+    funccount, double display, double &output_iterations, double
+    &output_funcCount, char output_algorithm[33], char output_message[31]);
+  static void f_binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
+    array<double, 1U> &in2, const ::coder::array<double, 2U> &in3);
+  static void g_binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
+    array<double, 1U> &in2, const ::coder::array<double, 2U> &in3);
 }
 
 // Function Definitions
 namespace RAT
 {
-  static void cleanUpInterrupt(double optVal, double iteration, double funccount,
-    double display, double *fval, double *output_iterations, double
-    *output_funcCount, char output_algorithm[33], char output_message[31])
+  static void binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
+    array<double, 1U> &in2, const ::coder::array<double, 2U> &in3)
+  {
+    int b_in3;
+    int loop_ub;
+    int stride_0_0;
+    int stride_1_0;
+    b_in3 = in3.size(1);
+    if (in3.size(0) == 1) {
+      loop_ub = in2.size(0);
+    } else {
+      loop_ub = in3.size(0);
+    }
+
+    in1.set_size(loop_ub);
+    stride_0_0 = (in2.size(0) != 1);
+    stride_1_0 = (in3.size(0) != 1);
+    for (int i{0}; i < loop_ub; i++) {
+      in1[i] = 3.0 * in2[i * stride_0_0] - 2.0 * in3[i * stride_1_0 + in3.size(0)
+        * (b_in3 - 1)];
+    }
+  }
+
+  static void c_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<double, 2U> &in2, int in3, int in4, int in5)
+  {
+    ::coder::array<double, 2U> b_in2;
+    int aux_0_1;
+    int i;
+    int loop_ub;
+    int stride_0_1;
+    i = (in4 - in3) + 1;
+    if (in5 == 1) {
+      loop_ub = i;
+    } else {
+      loop_ub = in5;
+    }
+
+    b_in2.set_size(in2.size(0), loop_ub);
+    stride_0_1 = (i != 1);
+    aux_0_1 = 0;
+    for (i = 0; i < loop_ub; i++) {
+      int b_loop_ub;
+      b_loop_ub = in2.size(0);
+      for (int i1{0}; i1 < b_loop_ub; i1++) {
+        b_in2[i1 + b_in2.size(0) * i] = in2[i1 + in2.size(0) * (in3 + aux_0_1)]
+          - in2[i1];
+      }
+
+      aux_0_1 += stride_0_1;
+    }
+
+    coder::c_abs(b_in2, in1);
+  }
+
+  static void c_binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
+    array<double, 1U> &in2, const ::coder::array<double, 2U> &in3)
+  {
+    int b_in3;
+    int loop_ub;
+    int stride_0_0;
+    int stride_1_0;
+    b_in3 = in3.size(1);
+    if (in3.size(0) == 1) {
+      loop_ub = in2.size(0);
+    } else {
+      loop_ub = in3.size(0);
+    }
+
+    in1.set_size(loop_ub);
+    stride_0_0 = (in2.size(0) != 1);
+    stride_1_0 = (in3.size(0) != 1);
+    for (int i{0}; i < loop_ub; i++) {
+      in1[i] = 1.5 * in2[i * stride_0_0] - 0.5 * in3[i * stride_1_0 + in3.size(0)
+        * (b_in3 - 1)];
+    }
+  }
+
+  static double cleanUpInterrupt(double optVal, double iteration, double
+    funccount, double display, double &output_iterations, double
+    &output_funcCount, char output_algorithm[33], char output_message[31])
   {
     static const char b_cv[31]{ 'O', 'p', 't', 'i', 'm', 'i', 's', 'a', 't', 'i',
       'o', 'n', ' ', 't', 'e', 'r', 'm', 'i', 'n', 'a', 't', 'e', 'd', ' ', 'b',
       'y', ' ', 'u', 's', 'e', 'r' };
 
-    int i;
+    double fval;
 
     // --------------------------------------------------------------------------
     //  function [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,x,xOutputfcn,state,iter,...
@@ -96,34 +183,83 @@ namespace RAT
     //  end
     //  -----------------------------------
     // --------------------------------------------------------------------------
-    *fval = optVal;
-    *output_iterations = iteration;
-    *output_funcCount = funccount;
-    for (i = 0; i < 33; i++) {
-      output_algorithm[i] = cv1[i];
+    fval = optVal;
+    output_iterations = iteration;
+    output_funcCount = funccount;
+    for (int i{0}; i < 33; i++) {
+      output_algorithm[i] = cv2[i];
     }
 
-    for (i = 0; i < 31; i++) {
+    for (int i{0}; i < 31; i++) {
       output_message[i] = b_cv[i];
     }
 
     if (display > 0.0) {
       c_triggerEvent();
     }
+
+    return fval;
   }
 
-  void fMinSearch(::coder::array<double, 1U> &x, double options_MaxIter, double
-                  options_MaxFunEvals, double options_TolX, double
-                  options_TolFun, const char dis_data[], const int dis_size[2],
-                  const ProblemDefinition *varargin_1, const char
-                  varargin_2_parallel_data[], const int
-                  varargin_2_parallel_size[2], double
-                  varargin_2_resampleMinAngle, double varargin_2_resampleNPoints,
-                  boolean_T varargin_2_calcSldDuringFit, double
-                  varargin_2_updateFreq, double varargin_2_updatePlotFreq, const
-                  char varargin_2_IPCFilePath_data[], const int
-                  varargin_2_IPCFilePath_size[2], const j_struct_T *varargin_3,
-                  double *fval, double *exitflag, h_struct_T *output)
+  static void f_binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
+    array<double, 1U> &in2, const ::coder::array<double, 2U> &in3)
+  {
+    int b_in3;
+    int loop_ub;
+    int stride_0_0;
+    int stride_1_0;
+    b_in3 = in3.size(1);
+    if (in3.size(0) == 1) {
+      loop_ub = in2.size(0);
+    } else {
+      loop_ub = in3.size(0);
+    }
+
+    in1.set_size(loop_ub);
+    stride_0_0 = (in2.size(0) != 1);
+    stride_1_0 = (in3.size(0) != 1);
+    for (int i{0}; i < loop_ub; i++) {
+      in1[i] = 0.5 * in2[i * stride_0_0] + 0.5 * in3[i * stride_1_0 + in3.size(0)
+        * (b_in3 - 1)];
+    }
+  }
+
+  static void g_binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
+    array<double, 1U> &in2, const ::coder::array<double, 2U> &in3)
+  {
+    int b_in3;
+    int loop_ub;
+    int stride_0_0;
+    int stride_1_0;
+    b_in3 = in3.size(1);
+    if (in3.size(0) == 1) {
+      loop_ub = in2.size(0);
+    } else {
+      loop_ub = in3.size(0);
+    }
+
+    in1.set_size(loop_ub);
+    stride_0_0 = (in2.size(0) != 1);
+    stride_1_0 = (in3.size(0) != 1);
+    for (int i{0}; i < loop_ub; i++) {
+      in1[i] = 2.0 * in2[i * stride_0_0] - in3[i * stride_1_0 + in3.size(0) *
+        (b_in3 - 1)];
+    }
+  }
+
+  double fMinSearch(::coder::array<double, 1U> &x, double options_MaxIter,
+                    double options_MaxFunEvals, double options_TolX, double
+                    options_TolFun, const char dis_data[], const int dis_size[2],
+                    const ProblemDefinition &varargin_1, const char
+                    varargin_2_parallel_data[], const int
+                    varargin_2_parallel_size[2], double
+                    varargin_2_resampleMinAngle, double
+                    varargin_2_resampleNPoints, boolean_T
+                    varargin_2_calcSldDuringFit, double varargin_2_updateFreq,
+                    double varargin_2_updatePlotFreq, const char
+                    varargin_2_IPCFilePath_data[], const int
+                    varargin_2_IPCFilePath_size[2], const i_struct_T &varargin_3,
+                    g_struct_T &output, double &exitflag)
   {
     static const char cv6[35]{ 'E', 'x', 'i', 't', 'i', 'n', 'g', ':', ' ', 'M',
       'a', 'x', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'e', 'v', 'a',
@@ -156,13 +292,13 @@ namespace RAT
 
     static const char cv3[4]{ 'i', 't', 'e', 'r' };
 
-    static const char cv2[3]{ 'o', 'f', 'f' };
+    static const char b_cv2[3]{ 'o', 'f', 'f' };
 
     ::coder::array<double, 2U> b_v;
     ::coder::array<double, 2U> c_fv;
     ::coder::array<double, 2U> fv;
-    ::coder::array<double, 2U> r;
     ::coder::array<double, 2U> r1;
+    ::coder::array<double, 2U> r2;
     ::coder::array<double, 2U> v;
     ::coder::array<double, 1U> c_v;
     ::coder::array<double, 1U> xbar;
@@ -172,30 +308,24 @@ namespace RAT
     ::coder::array<double, 1U> xr;
     ::coder::array<double, 1U> y;
     ::coder::array<int, 2U> iidx;
-    ::coder::array<char, 2U> b_output;
-    ::coder::array<char, 2U> charStr;
+    ::coder::array<char, 2U> r;
+    ::coder::array<boolean_T, 1U> b_tmp_data;
+    ::coder::array<boolean_T, 1U> c_tmp_data;
     ProblemDefinition b_varargin_1;
     Results result;
     double b_fv;
-    double b_y;
     double func_evals;
-    double fxc;
-    double fxcc;
-    double fxe;
-    double fxr;
+    double fval;
     double itercount;
-    int b_how_size[2];
+    double output_funcCount;
     int how_size[2];
     int b_index;
     int i;
     int i1;
-    int j;
     int n;
     int prnt;
-    int x_idx_1;
-    char output_message[31];
-    char how_data[17];
-    char b_how_data[16];
+    int x_idx_1_tmp;
+    char how_data[16];
     boolean_T tmp_data;
 
     // FMINSEARCH Multidimensional unconstrained nonlinear minimization (Nelder-Mead).
@@ -275,7 +405,6 @@ namespace RAT
     //          sprintf('MATLAB:optimfun:fminsearch:NotEnoughInputs'));
     //  end
     //
-    //
     //  % Check for non-double inputs
     //  if ~isa(x,'double')
     //    error('MATLAB:fminsearch:NonDoubleInput',...
@@ -313,7 +442,7 @@ namespace RAT
       b_index = 0;
     } else if (coder::internal::c_strcmp(dis_data, dis_size, b_cv1)) {
       b_index = 1;
-    } else if (coder::internal::d_strcmp(dis_data, dis_size, cv2)) {
+    } else if (coder::internal::d_strcmp(dis_data, dis_size, b_cv2)) {
       b_index = 1;
     } else if (coder::internal::c_strcmp(dis_data, dis_size, cv3)) {
       b_index = 2;
@@ -384,33 +513,29 @@ namespace RAT
     //  Set up a simplex near the initial guess.
     //  Force xin to be a column vector
     b_index = x.size(0);
-    x_idx_1 = x.size(0) + 1;
-    v.set_size(b_index, x_idx_1);
-    for (i = 0; i < x_idx_1; i++) {
+    x_idx_1_tmp = x.size(0) + 1;
+    v.set_size(b_index, x_idx_1_tmp);
+    fv.set_size(1, x_idx_1_tmp);
+    for (i = 0; i < x_idx_1_tmp; i++) {
       for (i1 = 0; i1 < b_index; i1++) {
         v[i1 + v.size(0) * i] = 0.0;
       }
-    }
 
-    x_idx_1 = x.size(0) + 1;
-    fv.set_size(1, x_idx_1);
-    for (i = 0; i < x_idx_1; i++) {
       fv[i] = 0.0;
     }
 
-    x_idx_1 = x.size(0);
-    for (i = 0; i < x_idx_1; i++) {
+    x_idx_1_tmp = x.size(0);
+    for (i = 0; i < x_idx_1_tmp; i++) {
       v[i] = x[i];
     }
 
     //  Place input guess in the simplex! (credit L.Pfeffer at Stanford)
     //  Change x to the form expected by funfcn
-    b_varargin_1 = *varargin_1;
-    simplexIntrafun(x, &b_varargin_1, varargin_2_parallel_data,
-                    varargin_2_parallel_size, varargin_2_resampleMinAngle,
-                    varargin_2_resampleNPoints, varargin_2_calcSldDuringFit,
-                    varargin_3->LB, varargin_3->UB, varargin_3->BoundClass, &fv
-                    [0], &result);
+    b_varargin_1 = varargin_1;
+    fv[0] = simplexIntrafun(x, b_varargin_1, varargin_2_parallel_data,
+      varargin_2_parallel_size, varargin_2_resampleMinAngle,
+      varargin_2_resampleNPoints, varargin_2_calcSldDuringFit, varargin_3.LB,
+      varargin_3.UB, varargin_3.BoundClass, result);
 
     //  Initial simplex setup continues later
     //  Initialize the output and plot functions.
@@ -433,11 +558,8 @@ namespace RAT
     //  Print out initial f(x) as 0th iteration
     if (prnt == 3) {
       b_triggerEvent();
-      how_size[0] = 1;
-      how_size[1] = 1;
-      how_data[0] = '\x00';
-      coder::snPrint(0.0, 1.0, fv[0], how_data, how_size, charStr);
-      triggerEvent(charStr);
+      coder::b_sprintf(fv[0], r);
+      triggerEvent(r);
 
       //  elseif prnt == 4
       //  Option never used in RAT
@@ -458,10 +580,10 @@ namespace RAT
       //      fprintf('%g \n', func_evals)
     }
 
-    triggerEvent(&result, varargin_1->TF.data, varargin_1->TF.size,
-                 varargin_1->resample, varargin_1->dataPresent,
-                 varargin_1->modelType.data, varargin_1->modelType.size,
-                 varargin_1->names.contrasts);
+    triggerEvent(result, varargin_1.TF.data, varargin_1.TF.size,
+                 varargin_1.resample, varargin_1.dataPresent,
+                 varargin_1.modelType.data, varargin_1.modelType.size,
+                 varargin_1.names.contrasts);
 
     //  OutputFcn and PlotFcns call
     //  if haveoutputfcn || haveplotfcn
@@ -480,10 +602,10 @@ namespace RAT
     //  5 percent deltas for non-zero terms
     //  Even smaller delta for zero elements of x
     i = x.size(0);
-    for (j = 0; j < i; j++) {
-      y.set_size(x.size(0));
-      x_idx_1 = x.size(0);
-      for (i1 = 0; i1 < x_idx_1; i1++) {
+    for (int j{0}; j < i; j++) {
+      x_idx_1_tmp = x.size(0);
+      y.set_size(x_idx_1_tmp);
+      for (i1 = 0; i1 < x_idx_1_tmp; i1++) {
         y[i1] = x[i1];
       }
 
@@ -493,57 +615,49 @@ namespace RAT
         y[j] = 0.00025;
       }
 
-      x_idx_1 = y.size(0);
-      for (i1 = 0; i1 < x_idx_1; i1++) {
+      x_idx_1_tmp = v.size(0);
+      for (i1 = 0; i1 < x_idx_1_tmp; i1++) {
         v[i1 + v.size(0) * (j + 1)] = y[i1];
       }
 
-      b_varargin_1 = *varargin_1;
-      simplexIntrafun(y, &b_varargin_1, varargin_2_parallel_data,
-                      varargin_2_parallel_size, varargin_2_resampleMinAngle,
-                      varargin_2_resampleNPoints, varargin_2_calcSldDuringFit,
-                      varargin_3->LB, varargin_3->UB, varargin_3->BoundClass,
-                      &fv[j + 1], &result);
+      b_varargin_1 = varargin_1;
+      fv[j + 1] = simplexIntrafun(y, b_varargin_1, varargin_2_parallel_data,
+        varargin_2_parallel_size, varargin_2_resampleMinAngle,
+        varargin_2_resampleNPoints, varargin_2_calcSldDuringFit, varargin_3.LB,
+        varargin_3.UB, varargin_3.BoundClass, result);
     }
 
     //  sort so v(1,:) has the lowest function value
     coder::internal::sort(fv, iidx);
-    b_index = v.size(0) - 1;
+    b_index = v.size(0);
     b_v.set_size(v.size(0), iidx.size(1));
-    x_idx_1 = iidx.size(1);
-    for (i = 0; i < x_idx_1; i++) {
-      for (i1 = 0; i1 <= b_index; i1++) {
+    x_idx_1_tmp = iidx.size(1);
+    for (i = 0; i < x_idx_1_tmp; i++) {
+      for (i1 = 0; i1 < b_index; i1++) {
         b_v[i1 + b_v.size(0) * i] = v[i1 + v.size(0) * (iidx[i] - 1)];
       }
     }
 
     v.set_size(b_v.size(0), b_v.size(1));
-    x_idx_1 = b_v.size(1);
-    for (i = 0; i < x_idx_1; i++) {
+    x_idx_1_tmp = b_v.size(1);
+    for (i = 0; i < x_idx_1_tmp; i++) {
       b_index = b_v.size(0);
       for (i1 = 0; i1 < b_index; i1++) {
         v[i1 + v.size(0) * i] = b_v[i1 + b_v.size(0) * i];
       }
     }
 
-    b_how_size[1] = 15;
+    how_size[0] = 1;
+    how_size[1] = 15;
     for (i = 0; i < 15; i++) {
-      b_how_data[i] = cv5[i];
+      how_data[i] = cv5[i];
     }
 
     itercount = 1.0;
     func_evals = static_cast<double>(x.size(0)) + 1.0;
     if ((prnt == 3) && (rt_remd_snf(1.0, varargin_2_updateFreq) == 0.0)) {
-      how_size[0] = 1;
-      how_size[1] = 16;
-      for (i = 0; i < 15; i++) {
-        how_data[i] = b_how_data[i];
-      }
-
-      how_data[15] = '\x00';
-      coder::snPrint(1.0, static_cast<double>(x.size(0)) + 1.0, fv[0], how_data,
-                     how_size, charStr);
-      triggerEvent(charStr);
+      coder::b_sprintf(static_cast<double>(x.size(0)) + 1.0, fv[0], how_data, r);
+      triggerEvent(r);
 
       //  elseif prnt == 4
       //      fprintf('%s \n', ' ')
@@ -557,33 +671,35 @@ namespace RAT
     }
 
     if (rt_remd_snf(1.0, varargin_2_updatePlotFreq) == 0.0) {
-      triggerEvent(&result, varargin_1->TF.data, varargin_1->TF.size,
-                   varargin_1->resample, varargin_1->dataPresent,
-                   varargin_1->modelType.data, varargin_1->modelType.size,
-                   varargin_1->names.contrasts);
+      triggerEvent(result, varargin_1.TF.data, varargin_1.TF.size,
+                   varargin_1.resample, varargin_1.dataPresent,
+                   varargin_1.modelType.data, varargin_1.modelType.size,
+                   varargin_1.names.contrasts);
     }
 
-    isRATStopped(varargin_2_IPCFilePath_data, varargin_2_IPCFilePath_size,
-                 (boolean_T *)&tmp_data, &b_index);
-    if (coder::internal::ifWhileCond((const boolean_T *)&tmp_data, b_index)) {
-      x_idx_1 = v.size(0);
+    b_index = isRATStopped(varargin_2_IPCFilePath_data,
+      varargin_2_IPCFilePath_size, (boolean_T *)&tmp_data);
+    b_tmp_data.set(&tmp_data, b_index);
+    if (coder::internal::ifWhileCond(b_tmp_data)) {
+      char output_message[31];
       x.set_size(v.size(0));
-      for (i = 0; i < x_idx_1; i++) {
+      x_idx_1_tmp = v.size(0);
+      for (i = 0; i < x_idx_1_tmp; i++) {
         x[i] = v[i];
       }
 
-      cleanUpInterrupt(fv[0], 1.0, static_cast<double>(n) + 1.0, static_cast<
-                       double>(prnt), fval, &b_y, &b_fv, output->algorithm,
-                       output_message);
+      fval = cleanUpInterrupt(fv[0], 1.0, static_cast<double>(n) + 1.0,
+        static_cast<double>(prnt), b_fv, output_funcCount, output.algorithm,
+        output_message);
       b_index = -1;
-      output->iterations = b_y;
-      output->funcCount = b_fv;
-      output->message.set_size(1, 31);
+      output.iterations = b_fv;
+      output.funcCount = output_funcCount;
+      output.message.set_size(1, 31);
       for (i = 0; i < 31; i++) {
-        output->message[i] = output_message[i];
+        output.message[i] = output_message[i];
       }
     } else {
-      boolean_T guard1{ false };
+      boolean_T guard1;
 
       //  OutputFcn and PlotFcns call
       //  if haveoutputfcn || haveplotfcn
@@ -614,9 +730,8 @@ namespace RAT
         exitg1 = 0;
         if ((func_evals < options_MaxFunEvals) && (itercount < options_MaxIter))
         {
-          boolean_T b_guard1{ false };
-
-          if (2.0 > static_cast<double>(n) + 1.0) {
+          boolean_T b_guard1;
+          if (static_cast<unsigned int>(n) + 1U < 2U) {
             i = 0;
             i1 = -1;
           } else {
@@ -624,19 +739,18 @@ namespace RAT
             i1 = n;
           }
 
-          b_y = 10.0 * coder::eps(fv[0]);
           b_fv = fv[0];
-          x_idx_1 = i1 - i;
-          c_fv.set_size(1, x_idx_1 + 1);
-          for (i1 = 0; i1 <= x_idx_1; i1++) {
+          x_idx_1_tmp = i1 - i;
+          c_fv.set_size(1, x_idx_1_tmp + 1);
+          for (i1 = 0; i1 <= x_idx_1_tmp; i1++) {
             c_fv[i1] = b_fv - fv[i + i1];
           }
 
-          coder::b_abs(c_fv, r);
+          coder::b_abs(c_fv, r1);
           b_guard1 = false;
-          if (coder::internal::maximum(r) <= std::fmax(options_TolFun, b_y)) {
-            int i2;
-            if (2.0 > static_cast<double>(n) + 1.0) {
+          if (coder::internal::maximum(r1) <= std::fmax(options_TolFun, 10.0 *
+               coder::eps(fv[0]))) {
+            if (static_cast<unsigned int>(n) + 1U < 2U) {
               i = 0;
               i1 = -1;
             } else {
@@ -644,25 +758,31 @@ namespace RAT
               i1 = n;
             }
 
-            x_idx_1 = v.size(0);
-            c_v.set_size(v.size(0));
-            for (i2 = 0; i2 < x_idx_1; i2++) {
-              c_v[i2] = v[i2];
-            }
-
-            b_y = 10.0 * coder::eps(coder::internal::maximum(c_v));
-            x_idx_1 = v.size(0);
-            b_index = i1 - i;
-            b_v.set_size(v.size(0), b_index + 1);
-            for (i1 = 0; i1 <= b_index; i1++) {
-              for (i2 = 0; i2 < x_idx_1; i2++) {
-                b_v[i2 + b_v.size(0) * i1] = v[i2 + v.size(0) * (i + i1)] - v[i2];
+            x_idx_1_tmp = i1 - i;
+            if (x_idx_1_tmp + 1 == n) {
+              b_v.set_size(v.size(0), x_idx_1_tmp + 1);
+              for (i1 = 0; i1 <= x_idx_1_tmp; i1++) {
+                b_index = v.size(0);
+                for (int i2{0}; i2 < b_index; i2++) {
+                  b_v[i2 + b_v.size(0) * i1] = v[i2 + v.size(0) * (i + i1)] -
+                    v[i2];
+                }
               }
+
+              coder::c_abs(b_v, r2);
+            } else {
+              c_binary_expand_op(r2, v, i, i1, n);
             }
 
-            coder::c_abs(b_v, r1);
-            coder::internal::maximum(r1, r);
-            if (coder::internal::maximum(r) <= std::fmax(options_TolX, b_y)) {
+            c_v.set_size(v.size(0));
+            x_idx_1_tmp = v.size(0);
+            for (i = 0; i < x_idx_1_tmp; i++) {
+              c_v[i] = v[i];
+            }
+
+            coder::internal::maximum(r2, r1);
+            if (coder::internal::maximum(r1) <= std::fmax(options_TolX, 10.0 *
+                 coder::eps(coder::internal::maximum(c_v)))) {
               guard1 = true;
               exitg1 = 1;
             } else {
@@ -673,211 +793,228 @@ namespace RAT
           }
 
           if (b_guard1) {
+            double fxr;
+
             //  Compute the reflection point
             //  xbar = average of the n (NOT n+1) best points
-            if (1 > n) {
-              x_idx_1 = 0;
+            if (n < 1) {
+              x_idx_1_tmp = 0;
             } else {
-              x_idx_1 = n;
+              x_idx_1_tmp = n;
             }
 
-            b_index = v.size(0);
-            b_v.set_size(v.size(0), x_idx_1);
-            for (i = 0; i < x_idx_1; i++) {
+            b_v.set_size(v.size(0), x_idx_1_tmp);
+            for (i = 0; i < x_idx_1_tmp; i++) {
+              b_index = v.size(0);
               for (i1 = 0; i1 < b_index; i1++) {
                 b_v[i1 + b_v.size(0) * i] = v[i1 + v.size(0) * i];
               }
             }
 
-            coder::blockedSummation(b_v, x_idx_1, c_v);
+            coder::blockedSummation(b_v, x_idx_1_tmp, c_v);
             xbar.set_size(c_v.size(0));
-            x_idx_1 = c_v.size(0);
-            for (i = 0; i < x_idx_1; i++) {
+            x_idx_1_tmp = c_v.size(0);
+            for (i = 0; i < x_idx_1_tmp; i++) {
               xbar[i] = c_v[i] / static_cast<double>(n);
             }
 
-            xr.set_size(xbar.size(0));
-            x_idx_1 = xbar.size(0);
-            for (i = 0; i < x_idx_1; i++) {
-              xr[i] = 2.0 * xbar[i] - v[i + v.size(0) * (v.size(1) - 1)];
+            if (xbar.size(0) == v.size(0)) {
+              xr.set_size(xbar.size(0));
+              x_idx_1_tmp = xbar.size(0);
+              for (i = 0; i < x_idx_1_tmp; i++) {
+                xr[i] = 2.0 * xbar[i] - v[i + v.size(0) * (v.size(1) - 1)];
+              }
+            } else {
+              g_binary_expand_op(xr, xbar, v);
             }
 
-            b_varargin_1 = *varargin_1;
-            simplexIntrafun(xr, &b_varargin_1, varargin_2_parallel_data,
-                            varargin_2_parallel_size,
-                            varargin_2_resampleMinAngle,
-                            varargin_2_resampleNPoints,
-                            varargin_2_calcSldDuringFit, varargin_3->LB,
-                            varargin_3->UB, varargin_3->BoundClass, &fxr,
-                            &result);
+            b_varargin_1 = varargin_1;
+            fxr = simplexIntrafun(xr, b_varargin_1, varargin_2_parallel_data,
+                                  varargin_2_parallel_size,
+                                  varargin_2_resampleMinAngle,
+                                  varargin_2_resampleNPoints,
+                                  varargin_2_calcSldDuringFit, varargin_3.LB,
+                                  varargin_3.UB, varargin_3.BoundClass, result);
             func_evals++;
             if (fxr < fv[0]) {
+              double fxe;
+
               //  Calculate the expansion point
-              xe.set_size(xbar.size(0));
-              x_idx_1 = xbar.size(0);
-              for (i = 0; i < x_idx_1; i++) {
-                xe[i] = 3.0 * xbar[i] - 2.0 * v[i + v.size(0) * (v.size(1) - 1)];
+              if (xbar.size(0) == v.size(0)) {
+                xe.set_size(xbar.size(0));
+                x_idx_1_tmp = xbar.size(0);
+                for (i = 0; i < x_idx_1_tmp; i++) {
+                  xe[i] = 3.0 * xbar[i] - 2.0 * v[i + v.size(0) * (v.size(1) - 1)];
+                }
+              } else {
+                binary_expand_op(xe, xbar, v);
               }
 
-              b_varargin_1 = *varargin_1;
-              simplexIntrafun(xe, &b_varargin_1, varargin_2_parallel_data,
-                              varargin_2_parallel_size,
-                              varargin_2_resampleMinAngle,
-                              varargin_2_resampleNPoints,
-                              varargin_2_calcSldDuringFit, varargin_3->LB,
-                              varargin_3->UB, varargin_3->BoundClass, &fxe,
-                              &result);
+              b_varargin_1 = varargin_1;
+              fxe = simplexIntrafun(xe, b_varargin_1, varargin_2_parallel_data,
+                                    varargin_2_parallel_size,
+                                    varargin_2_resampleMinAngle,
+                                    varargin_2_resampleNPoints,
+                                    varargin_2_calcSldDuringFit, varargin_3.LB,
+                                    varargin_3.UB, varargin_3.BoundClass, result);
               func_evals++;
               if (fxe < fxr) {
-                b_index = v.size(1) - 1;
-                x_idx_1 = xe.size(0);
-                for (i = 0; i < x_idx_1; i++) {
-                  v[i + v.size(0) * b_index] = xe[i];
+                x_idx_1_tmp = v.size(0);
+                for (i = 0; i < x_idx_1_tmp; i++) {
+                  v[i + v.size(0) * (v.size(1) - 1)] = xe[i];
                 }
 
                 fv[fv.size(1) - 1] = fxe;
-                b_how_size[1] = 6;
+                how_size[0] = 1;
+                how_size[1] = 6;
                 for (i = 0; i < 6; i++) {
-                  b_how_data[i] = cv9[i];
+                  how_data[i] = cv9[i];
                 }
               } else {
-                b_index = v.size(1) - 1;
-                x_idx_1 = xr.size(0);
-                for (i = 0; i < x_idx_1; i++) {
-                  v[i + v.size(0) * b_index] = xr[i];
+                x_idx_1_tmp = v.size(0);
+                for (i = 0; i < x_idx_1_tmp; i++) {
+                  v[i + v.size(0) * (v.size(1) - 1)] = xr[i];
                 }
 
                 fv[fv.size(1) - 1] = fxr;
-                b_how_size[1] = 7;
+                how_size[0] = 1;
+                how_size[1] = 7;
                 for (i = 0; i < 7; i++) {
-                  b_how_data[i] = cv8[i];
+                  how_data[i] = cv8[i];
                 }
               }
 
               //  fv(:,1) <= fxr
             } else if (fxr < fv[n - 1]) {
-              b_index = v.size(1) - 1;
-              x_idx_1 = xr.size(0);
-              for (i = 0; i < x_idx_1; i++) {
-                v[i + v.size(0) * b_index] = xr[i];
+              x_idx_1_tmp = v.size(0);
+              for (i = 0; i < x_idx_1_tmp; i++) {
+                v[i + v.size(0) * (v.size(1) - 1)] = xr[i];
               }
 
               fv[fv.size(1) - 1] = fxr;
-              b_how_size[1] = 7;
+              how_size[0] = 1;
+              how_size[1] = 7;
               for (i = 0; i < 7; i++) {
-                b_how_data[i] = cv8[i];
+                how_data[i] = cv8[i];
               }
             } else {
               //  fxr >= fv(:,n)
               //  Perform contraction
-              if (fxr < fv[fv.size(1) - 1]) {
+              b_fv = fv[fv.size(1) - 1];
+              if (fxr < b_fv) {
+                double fxc;
+
                 //  Perform an outside contraction
-                xc.set_size(xbar.size(0));
-                x_idx_1 = xbar.size(0);
-                for (i = 0; i < x_idx_1; i++) {
-                  xc[i] = 1.5 * xbar[i] - 0.5 * v[i + v.size(0) * (v.size(1) - 1)];
+                if (xbar.size(0) == v.size(0)) {
+                  xc.set_size(xbar.size(0));
+                  x_idx_1_tmp = xbar.size(0);
+                  for (i = 0; i < x_idx_1_tmp; i++) {
+                    xc[i] = 1.5 * xbar[i] - 0.5 * v[i + v.size(0) * (v.size(1) -
+                      1)];
+                  }
+                } else {
+                  c_binary_expand_op(xc, xbar, v);
                 }
 
-                b_varargin_1 = *varargin_1;
-                simplexIntrafun(xc, &b_varargin_1, varargin_2_parallel_data,
-                                varargin_2_parallel_size,
-                                varargin_2_resampleMinAngle,
-                                varargin_2_resampleNPoints,
-                                varargin_2_calcSldDuringFit, varargin_3->LB,
-                                varargin_3->UB, varargin_3->BoundClass, &fxc,
-                                &result);
+                b_varargin_1 = varargin_1;
+                fxc = simplexIntrafun(xc, b_varargin_1, varargin_2_parallel_data,
+                                      varargin_2_parallel_size,
+                                      varargin_2_resampleMinAngle,
+                                      varargin_2_resampleNPoints,
+                                      varargin_2_calcSldDuringFit, varargin_3.LB,
+                                      varargin_3.UB, varargin_3.BoundClass,
+                                      result);
                 func_evals++;
                 if (fxc <= fxr) {
-                  b_index = v.size(1) - 1;
-                  x_idx_1 = xc.size(0);
-                  for (i = 0; i < x_idx_1; i++) {
-                    v[i + v.size(0) * b_index] = xc[i];
+                  x_idx_1_tmp = v.size(0);
+                  for (i = 0; i < x_idx_1_tmp; i++) {
+                    v[i + v.size(0) * (v.size(1) - 1)] = xc[i];
                   }
 
                   fv[fv.size(1) - 1] = fxc;
-                  b_how_size[0] = 1;
-                  b_how_size[1] = 16;
+                  how_size[0] = 1;
+                  how_size[1] = 16;
                   for (i = 0; i < 16; i++) {
-                    b_how_data[i] = cv12[i];
+                    how_data[i] = cv12[i];
                   }
                 } else {
                   //  perform a shrink
-                  b_how_size[0] = 1;
-                  b_how_size[1] = 6;
+                  how_size[0] = 1;
+                  how_size[1] = 6;
                   for (i = 0; i < 6; i++) {
-                    b_how_data[i] = cv10[i];
+                    how_data[i] = cv10[i];
                   }
                 }
               } else {
+                double fxcc;
+
                 //  Perform an inside contraction
-                xcc.set_size(xbar.size(0));
-                x_idx_1 = xbar.size(0);
-                for (i = 0; i < x_idx_1; i++) {
-                  xcc[i] = 0.5 * xbar[i] + 0.5 * v[i + v.size(0) * (v.size(1) -
-                    1)];
+                if (xbar.size(0) == v.size(0)) {
+                  xcc.set_size(xbar.size(0));
+                  x_idx_1_tmp = xbar.size(0);
+                  for (i = 0; i < x_idx_1_tmp; i++) {
+                    xcc[i] = 0.5 * xbar[i] + 0.5 * v[i + v.size(0) * (v.size(1)
+                      - 1)];
+                  }
+                } else {
+                  f_binary_expand_op(xcc, xbar, v);
                 }
 
-                b_varargin_1 = *varargin_1;
-                simplexIntrafun(xcc, &b_varargin_1, varargin_2_parallel_data,
-                                varargin_2_parallel_size,
-                                varargin_2_resampleMinAngle,
-                                varargin_2_resampleNPoints,
-                                varargin_2_calcSldDuringFit, varargin_3->LB,
-                                varargin_3->UB, varargin_3->BoundClass, &fxcc,
-                                &result);
+                b_varargin_1 = varargin_1;
+                fxcc = simplexIntrafun(xcc, b_varargin_1,
+                  varargin_2_parallel_data, varargin_2_parallel_size,
+                  varargin_2_resampleMinAngle, varargin_2_resampleNPoints,
+                  varargin_2_calcSldDuringFit, varargin_3.LB, varargin_3.UB,
+                  varargin_3.BoundClass, result);
                 func_evals++;
-                if (fxcc < fv[fv.size(1) - 1]) {
-                  b_index = v.size(1) - 1;
-                  x_idx_1 = xcc.size(0);
-                  for (i = 0; i < x_idx_1; i++) {
-                    v[i + v.size(0) * b_index] = xcc[i];
+                if (fxcc < b_fv) {
+                  x_idx_1_tmp = v.size(0);
+                  for (i = 0; i < x_idx_1_tmp; i++) {
+                    v[i + v.size(0) * (v.size(1) - 1)] = xcc[i];
                   }
 
                   fv[fv.size(1) - 1] = fxcc;
-                  b_how_size[0] = 1;
-                  b_how_size[1] = 15;
+                  how_size[0] = 1;
+                  how_size[1] = 15;
                   for (i = 0; i < 15; i++) {
-                    b_how_data[i] = cv11[i];
+                    how_data[i] = cv11[i];
                   }
                 } else {
                   //  perform a shrink
-                  b_how_size[0] = 1;
-                  b_how_size[1] = 6;
+                  how_size[0] = 1;
+                  how_size[1] = 6;
                   for (i = 0; i < 6; i++) {
-                    b_how_data[i] = cv10[i];
+                    how_data[i] = cv10[i];
                   }
                 }
               }
 
-              if (coder::internal::bb_strcmp(b_how_data, b_how_size)) {
-                i = static_cast<int>((static_cast<double>(n) + 1.0) + -1.0);
-                for (j = 0; j < i; j++) {
-                  b_index = v.size(0) - 1;
+              if (coder::internal::ab_strcmp(how_data, how_size)) {
+                for (int j{0}; j < n; j++) {
                   c_v.set_size(v.size(0));
-                  for (i1 = 0; i1 <= b_index; i1++) {
-                    b_y = v[i1];
-                    c_v[i1] = b_y + 0.5 * (v[i1 + v.size(0) * (j + 1)] - b_y);
+                  x_idx_1_tmp = v.size(0);
+                  for (i = 0; i < x_idx_1_tmp; i++) {
+                    b_fv = v[i];
+                    c_v[i] = b_fv + 0.5 * (v[i + v.size(0) * (j + 1)] - b_fv);
                   }
 
-                  x_idx_1 = c_v.size(0);
-                  for (i1 = 0; i1 < x_idx_1; i1++) {
-                    v[i1 + v.size(0) * (j + 1)] = c_v[i1];
+                  x_idx_1_tmp = c_v.size(0);
+                  for (i = 0; i < x_idx_1_tmp; i++) {
+                    v[i + v.size(0) * (j + 1)] = c_v[i];
                   }
 
-                  x_idx_1 = v.size(0);
+                  x_idx_1_tmp = v.size(0);
                   c_v.set_size(v.size(0));
-                  for (i1 = 0; i1 < x_idx_1; i1++) {
-                    c_v[i1] = v[i1 + v.size(0) * (j + 1)];
+                  for (i = 0; i < x_idx_1_tmp; i++) {
+                    c_v[i] = v[i + v.size(0) * (j + 1)];
                   }
 
-                  b_varargin_1 = *varargin_1;
-                  simplexIntrafun(c_v, &b_varargin_1, varargin_2_parallel_data,
-                                  varargin_2_parallel_size,
-                                  varargin_2_resampleMinAngle,
-                                  varargin_2_resampleNPoints,
-                                  varargin_2_calcSldDuringFit, varargin_3->LB,
-                                  varargin_3->UB, varargin_3->BoundClass, &fv[j
-                                  + 1], &result);
+                  b_varargin_1 = varargin_1;
+                  fv[j + 1] = simplexIntrafun(c_v, b_varargin_1,
+                    varargin_2_parallel_data, varargin_2_parallel_size,
+                    varargin_2_resampleMinAngle, varargin_2_resampleNPoints,
+                    varargin_2_calcSldDuringFit, varargin_3.LB, varargin_3.UB,
+                    varargin_3.BoundClass, result);
                 }
 
                 func_evals += static_cast<double>(n);
@@ -885,18 +1022,18 @@ namespace RAT
             }
 
             coder::internal::sort(fv, iidx);
-            b_index = v.size(0) - 1;
+            b_index = v.size(0);
             b_v.set_size(v.size(0), iidx.size(1));
-            x_idx_1 = iidx.size(1);
-            for (i = 0; i < x_idx_1; i++) {
-              for (i1 = 0; i1 <= b_index; i1++) {
+            x_idx_1_tmp = iidx.size(1);
+            for (i = 0; i < x_idx_1_tmp; i++) {
+              for (i1 = 0; i1 < b_index; i1++) {
                 b_v[i1 + b_v.size(0) * i] = v[i1 + v.size(0) * (iidx[i] - 1)];
               }
             }
 
             v.set_size(b_v.size(0), b_v.size(1));
-            x_idx_1 = b_v.size(1);
-            for (i = 0; i < x_idx_1; i++) {
+            x_idx_1_tmp = b_v.size(1);
+            for (i = 0; i < x_idx_1_tmp; i++) {
               b_index = b_v.size(0);
               for (i1 = 0; i1 < b_index; i1++) {
                 v[i1 + v.size(0) * i] = b_v[i1 + b_v.size(0) * i];
@@ -906,17 +1043,9 @@ namespace RAT
             itercount++;
             if ((prnt == 3) && (rt_remd_snf(itercount, varargin_2_updateFreq) ==
                                 0.0)) {
-              how_size[0] = 1;
-              how_size[1] = b_how_size[1] + 1;
-              x_idx_1 = b_how_size[1];
-              if (0 <= x_idx_1 - 1) {
-                std::copy(&b_how_data[0], &b_how_data[x_idx_1], &how_data[0]);
-              }
-
-              how_data[b_how_size[1]] = '\x00';
-              coder::snPrint(itercount, func_evals, fv[0], how_data, how_size,
-                             charStr);
-              triggerEvent(charStr);
+              coder::b_sprintf(itercount, func_evals, fv[0], how_data, how_size,
+                               r);
+              triggerEvent(r);
 
               //      elseif prnt == 4
               //          fprintf('%s \n', ' ')
@@ -930,33 +1059,32 @@ namespace RAT
             }
 
             if (rt_remd_snf(itercount, varargin_2_updatePlotFreq) == 0.0) {
-              triggerEvent(&result, varargin_1->TF.data, varargin_1->TF.size,
-                           varargin_1->resample, varargin_1->dataPresent,
-                           varargin_1->modelType.data,
-                           varargin_1->modelType.size,
-                           varargin_1->names.contrasts);
+              triggerEvent(result, varargin_1.TF.data, varargin_1.TF.size,
+                           varargin_1.resample, varargin_1.dataPresent,
+                           varargin_1.modelType.data, varargin_1.modelType.size,
+                           varargin_1.names.contrasts);
             }
 
-            isRATStopped(varargin_2_IPCFilePath_data,
-                         varargin_2_IPCFilePath_size, (boolean_T *)&tmp_data,
-                         &b_index);
-            if (coder::internal::ifWhileCond((const boolean_T *)&tmp_data,
-                 b_index)) {
-              x_idx_1 = v.size(0);
+            b_index = isRATStopped(varargin_2_IPCFilePath_data,
+              varargin_2_IPCFilePath_size, (boolean_T *)&tmp_data);
+            c_tmp_data.set(&tmp_data, b_index);
+            if (coder::internal::ifWhileCond(c_tmp_data)) {
+              char output_message[31];
               x.set_size(v.size(0));
-              for (i = 0; i < x_idx_1; i++) {
+              x_idx_1_tmp = v.size(0);
+              for (i = 0; i < x_idx_1_tmp; i++) {
                 x[i] = v[i];
               }
 
-              cleanUpInterrupt(fv[0], itercount, func_evals, static_cast<double>
-                               (prnt), fval, &b_y, &b_fv, output->algorithm,
-                               output_message);
+              fval = cleanUpInterrupt(fv[0], itercount, func_evals, static_cast<
+                double>(prnt), b_fv, output_funcCount, output.algorithm,
+                output_message);
               b_index = -1;
-              output->iterations = b_y;
-              output->funcCount = b_fv;
-              output->message.set_size(1, 31);
+              output.iterations = b_fv;
+              output.funcCount = output_funcCount;
+              output.message.set_size(1, 31);
               for (i = 0; i < 31; i++) {
-                output->message[i] = output_message[i];
+                output.message[i] = output_message[i];
               }
 
               exitg1 = 1;
@@ -986,35 +1114,26 @@ namespace RAT
         boolean_T printMsg;
 
         //  while
-        x_idx_1 = v.size(0);
         x.set_size(v.size(0));
-        for (i = 0; i < x_idx_1; i++) {
+        x_idx_1_tmp = v.size(0);
+        for (i = 0; i < x_idx_1_tmp; i++) {
           x[i] = v[i];
         }
 
-        *fval = fv[0];
+        fval = fv[0];
         if ((prnt == 3) && (rt_remd_snf(itercount, varargin_2_updateFreq) != 0.0))
         {
           //  This should ensure the final result is printed at the end of a run irrespective of update frequency
-          how_size[0] = 1;
-          how_size[1] = b_how_size[1] + 1;
-          x_idx_1 = b_how_size[1];
-          if (0 <= x_idx_1 - 1) {
-            std::copy(&b_how_data[0], &b_how_data[x_idx_1], &how_data[0]);
-          }
-
-          how_data[b_how_size[1]] = '\x00';
-          coder::snPrint(itercount, func_evals, fv[0], how_data, how_size,
-                         charStr);
-          triggerEvent(charStr);
+          coder::b_sprintf(itercount, func_evals, fv[0], how_data, how_size, r);
+          triggerEvent(r);
         }
 
         if (rt_remd_snf(itercount, varargin_2_updatePlotFreq) != 0.0) {
           //  This should ensure the final result is always plotted irrespective of update frequency
-          triggerEvent(&result, varargin_1->TF.data, varargin_1->TF.size,
-                       varargin_1->resample, varargin_1->dataPresent,
-                       varargin_1->modelType.data, varargin_1->modelType.size,
-                       varargin_1->names.contrasts);
+          triggerEvent(result, varargin_1.TF.data, varargin_1.TF.size,
+                       varargin_1.resample, varargin_1.dataPresent,
+                       varargin_1.modelType.data, varargin_1.modelType.size,
+                       varargin_1.names.contrasts);
         }
 
         //  OutputFcn and PlotFcns call
@@ -1025,9 +1144,9 @@ namespace RAT
           printMsg = (prnt > 0);
 
           // msg = getString(message('MATLAB:optimfun:fminsearch:ExitingMaxFunctionEvals', sprintf('%f',fval)));
-          output->message.set_size(1, 35);
+          output.message.set_size(1, 35);
           for (i = 0; i < 35; i++) {
-            output->message[i] = cv6[i];
+            output.message[i] = cv6[i];
           }
 
           b_index = 0;
@@ -1035,39 +1154,33 @@ namespace RAT
           printMsg = (prnt > 0);
 
           // msg = getString(message('MATLAB:optimfun:fminsearch:ExitingMaxIterations', sprintf('%f',fval)));
-          output->message.set_size(1, 31);
+          output.message.set_size(1, 31);
           for (i = 0; i < 31; i++) {
-            output->message[i] = cv7[i];
+            output.message[i] = cv7[i];
           }
 
           b_index = 0;
         } else {
           printMsg = (prnt > 1);
-          coder::b_sprintf(options_TolX, options_TolFun, output->message);
+          coder::b_sprintf(options_TolX, options_TolFun, output.message);
           b_index = 1;
         }
 
-        output->iterations = itercount;
-        output->funcCount = func_evals;
+        output.iterations = itercount;
+        output.funcCount = func_evals;
         for (i = 0; i < 33; i++) {
-          output->algorithm[i] = cv1[i];
+          output.algorithm[i] = cv2[i];
         }
 
         if (printMsg) {
-          b_output.set_size(1, output->message.size(1) + 1);
-          x_idx_1 = output->message.size(1);
-          for (i = 0; i < x_idx_1; i++) {
-            b_output[i] = output->message[i];
-          }
-
-          b_output[output->message.size(1)] = '\x00';
-          coder::snPrint(b_output, charStr);
-          triggerEvent(charStr);
+          coder::b_sprintf(output.message, r);
+          triggerEvent(r);
         }
       }
     }
 
-    *exitflag = b_index;
+    exitflag = b_index;
+    return fval;
   }
 }
 

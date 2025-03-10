@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // colon.cpp
 //
@@ -19,8 +19,8 @@ namespace RAT
 {
   namespace coder
   {
-    static void float_colon_length(double a, double d, double b, int *n, double *
-      anew, double *bnew, boolean_T *n_too_large);
+    static int float_colon_length(double a, double d, double b, double &anew,
+      double &bnew, boolean_T &n_too_large);
   }
 }
 
@@ -29,36 +29,39 @@ namespace RAT
 {
   namespace coder
   {
-    static void float_colon_length(double a, double d, double b, int *n, double *
-      anew, double *bnew, boolean_T *n_too_large)
+    static int float_colon_length(double a, double d, double b, double &anew,
+      double &bnew, boolean_T &n_too_large)
     {
       double cdiff;
       double ndbl;
-      *anew = a;
+      int n;
+      anew = a;
       ndbl = std::floor((b - a) / d + 0.5);
-      *bnew = a + ndbl * d;
+      bnew = a + ndbl * d;
       if (d > 0.0) {
-        cdiff = *bnew - b;
+        cdiff = bnew - b;
       } else {
-        cdiff = b - *bnew;
+        cdiff = b - bnew;
       }
 
       if (std::abs(cdiff) < 4.4408920985006262E-16 * std::fmax(std::abs(a), std::
            abs(b))) {
         ndbl++;
-        *bnew = b;
+        bnew = b;
       } else if (cdiff > 0.0) {
-        *bnew = a + (ndbl - 1.0) * d;
+        bnew = a + (ndbl - 1.0) * d;
       } else {
         ndbl++;
       }
 
-      *n_too_large = (ndbl > 2.147483647E+9);
+      n_too_large = (ndbl > 2.147483647E+9);
       if (ndbl >= 0.0) {
-        *n = static_cast<int>(ndbl);
+        n = static_cast<int>(ndbl);
       } else {
-        *n = 0;
+        n = 0;
       }
+
+      return n;
     }
 
     void eml_float_colon(double a, double d, double b, ::coder::array<double, 2U>
@@ -68,7 +71,7 @@ namespace RAT
       double b1;
       int n;
       boolean_T n_too_large;
-      float_colon_length(a, d, b, &n, &a1, &b1, &n_too_large);
+      n = float_colon_length(a, d, b, a1, b1, n_too_large);
       y.set_size(1, n);
       if (n > 0) {
         y[0] = a1;

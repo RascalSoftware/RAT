@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // lusolve.cpp
 //
@@ -27,36 +27,43 @@ namespace RAT
       {
         ::coder::array<double, 2U> b_A;
         ::coder::array<int, 2U> ipiv;
+        int b_i;
         int i;
         int i1;
-        int info;
+        int j;
+        int nb;
         b_A.set_size(A.size(0), A.size(1));
-        info = A.size(1);
-        for (i = 0; i < info; i++) {
-          int loop_ub;
-          loop_ub = A.size(0);
-          for (i1 = 0; i1 < loop_ub; i1++) {
+        j = A.size(1);
+        for (i = 0; i < j; i++) {
+          b_i = A.size(0);
+          for (i1 = 0; i1 < b_i; i1++) {
             b_A[i1 + b_A.size(0) * i] = A[i1 + A.size(0) * i];
           }
         }
 
-        lapack::xgetrf(A.size(1), A.size(1), b_A, A.size(1), ipiv, &info);
-        X.set_size(1, B.size(1));
-        info = B.size(1);
-        for (i = 0; i < info; i++) {
-          X[i] = B[i];
+        lapack::xgetrf(A.size(1), A.size(1), b_A, A.size(1), ipiv);
+        nb = B.size(0);
+        X.set_size(B.size(0), B.size(1));
+        j = B.size(1);
+        for (i = 0; i < j; i++) {
+          b_i = B.size(0);
+          for (i1 = 0; i1 < b_i; i1++) {
+            X[X.size(0) * i] = B[B.size(0) * i];
+          }
         }
 
-        blas::xtrsm(A.size(1), b_A, A.size(1), X);
-        blas::b_xtrsm(A.size(1), b_A, A.size(1), X);
+        blas::xtrsm(B.size(0), A.size(1), b_A, A.size(1), X, B.size(0));
+        blas::b_xtrsm(B.size(0), A.size(1), b_A, A.size(1), X, B.size(0));
         i = A.size(1) - 1;
-        for (info = i; info >= 1; info--) {
-          i1 = ipiv[info - 1];
-          if (i1 != info) {
-            double temp;
-            temp = X[info - 1];
-            X[info - 1] = X[i1 - 1];
-            X[i1 - 1] = temp;
+        for (j = i; j >= 1; j--) {
+          i1 = ipiv[j - 1];
+          if (i1 != j) {
+            for (b_i = 0; b_i < nb; b_i++) {
+              double temp;
+              temp = X[X.size(0) * (j - 1)];
+              X[X.size(0) * (j - 1)] = X[X.size(0) * (i1 - 1)];
+              X[X.size(0) * (i1 - 1)] = temp;
+            }
           }
         }
       }

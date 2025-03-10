@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // getenv.cpp
 //
@@ -12,27 +12,27 @@
 #include "getenv.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
+#include <algorithm>
 #include <cstddef>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 // Function Definitions
 namespace RAT
 {
   namespace coder
   {
-    void b_getenv(::coder::array<char, 2U> &value)
+    void b_getenv(::coder::array<char, 2U> &b_value)
     {
       char *rawValue;
-      rawValue = getenv("RAT_PATH");
-      if (rawValue == NULL) {
-        value.set_size(1, 0);
+      rawValue = std::getenv("RAT_PATH");
+      if (rawValue == nullptr) {
+        b_value.set_size(1, 0);
       } else {
         size_t length;
-        length = strlen(rawValue);
-        value.set_size(1, (int)length);
-        memcpy((void *)&value[0], (void *)rawValue, (size_t)(int)length * sizeof
-               (char));
+        length = std::strlen(rawValue);
+        b_value.set_size(1, (int)length);
+        std::copy(rawValue, rawValue + (size_t)(int)length, (char *)&b_value[0]);
       }
     }
   }

@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // qrsolve.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -26,8 +25,12 @@ namespace RAT
     {
       void LSQFromQR(const ::coder::array<double, 2U> &A, const ::coder::array<
                      double, 1U> &tau, const ::coder::array<int, 2U> &jpvt, ::
-                     coder::array<double, 1U> &B, int rankA, ::coder::array<
-                     double, 1U> &Y);
+                     coder::array<double, 2U> &B, int rankA, ::coder::array<
+                     double, 2U> &Y);
+      void LSQFromQR(const ::coder::array<double, 2U> &A, const ::coder::array<
+                     int, 2U> &jpvt, const ::coder::array<double, 2U> &B, int
+                     rankA, ::coder::array<double, 2U> &Y);
+      int b_rankFromQR(const ::coder::array<double, 2U> &A);
       void qrsolve(const ::coder::array<double, 1U> &A, const ::coder::array<
                    double, 2U> &B, ::coder::array<double, 2U> &Y);
       int rankFromQR(const ::coder::array<double, 2U> &A);

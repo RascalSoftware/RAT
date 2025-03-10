@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // DREAMWrapper.cpp
 //
@@ -21,7 +21,7 @@
 namespace RAT
 {
   double DREAMWrapper(const ::coder::array<double, 2U> &pars, const
-                      ProblemDefinition *ratInputs_problemStruct, const Controls
+                      ProblemDefinition &ratInputs_problemStruct, const Controls
                       *ratInputs_controls)
   {
     ProblemDefinition problemStruct;
@@ -29,7 +29,7 @@ namespace RAT
     int loop_ub;
 
     //  Get the inputs for Reflectivity Calculation
-    problemStruct = *ratInputs_problemStruct;
+    problemStruct = ratInputs_problemStruct;
 
     //  Put the current parameters into problem
     problemStruct.fitParams.set_size(1, pars.size(1));
@@ -39,10 +39,10 @@ namespace RAT
     }
 
     //  Distribute them to the right parts
-    unpackParams(&problemStruct);
+    unpackParams(problemStruct);
 
     //  Calculate....
-    b_reflectivityCalculation(&problemStruct, ratInputs_controls, &expl_temp);
+    b_reflectivityCalculation(problemStruct, ratInputs_controls, &expl_temp);
 
     //  Function value is chi-squared....
     return -expl_temp.calculationResults.sumChi / 2.0;

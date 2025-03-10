@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // getFittedPriors.cpp
 //
@@ -30,9 +30,7 @@ namespace RAT
     ::coder::array<boolean_T, 1U> b_tmp_data;
     ::coder::array<boolean_T, 1U> d_tmp_data;
     cell_wrap_10 r;
-    int indices_data[10000];
     int i;
-    int i1;
     int loop_ub;
     boolean_T c_tmp_data[10000];
     boolean_T tmp_data[10000];
@@ -49,7 +47,7 @@ namespace RAT
     priorFitList.set_size(paramNames.size(0), 5);
     loop_ub = paramNames.size(0);
     for (i = 0; i < 5; i++) {
-      for (i1 = 0; i1 < loop_ub; i1++) {
+      for (int i1{0}; i1 < loop_ub; i1++) {
         priorFitList[i1 + priorFitList.size(0) * i] = 0.0;
       }
     }
@@ -61,23 +59,24 @@ namespace RAT
     //  'jeffreys' = 3
     i = paramNames.size(0);
     for (int b_i{0}; b_i < i; b_i++) {
+      int indices_data[10000];
       loop_ub = paramNames[b_i].f1.size(1);
       f1.set_size(1, paramNames[b_i].f1.size(1));
-      for (i1 = 0; i1 < loop_ub; i1++) {
+      for (int i1{0}; i1 < loop_ub; i1++) {
         f1[i1] = paramNames[b_i].f1[i1];
       }
 
       r.f1 = f1;
-      coder::internal::db_strcmp(&r, priorNames, tmp_data, &loop_ub);
+      loop_ub = coder::internal::db_strcmp(r, priorNames, tmp_data);
       b_tmp_data.set(&tmp_data[0], loop_ub);
       coder::eml_find(b_tmp_data, r1);
       loop_ub = r1.size(0);
-      for (i1 = 0; i1 < loop_ub; i1++) {
+      for (int i1{0}; i1 < loop_ub; i1++) {
         indices_data[i1] = r1[i1];
       }
 
       r.f1 = f1;
-      coder::internal::db_strcmp(&r, priorNames, c_tmp_data, &loop_ub);
+      loop_ub = coder::internal::db_strcmp(r, priorNames, c_tmp_data);
       d_tmp_data.set(&c_tmp_data[0], loop_ub);
       coder::eml_find(d_tmp_data, r1);
       if (r1.size(0) != 0) {

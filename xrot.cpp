@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // xrot.cpp
 //
@@ -30,8 +30,8 @@ namespace RAT
               double temp;
               int b_temp_tmp;
               int temp_tmp;
-              temp_tmp = (iy0 + k * incx) - 1;
-              b_temp_tmp = (ix0 + k * incy) - 1;
+              temp_tmp = (iy0 + k * incy) - 1;
+              b_temp_tmp = (ix0 + k * incx) - 1;
               temp = c * x[b_temp_tmp] + s * x[temp_tmp];
               x[temp_tmp] = c * x[temp_tmp] - s * x[b_temp_tmp];
               x[b_temp_tmp] = temp;

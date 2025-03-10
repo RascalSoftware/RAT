@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // str2double.h
 //
@@ -12,7 +12,6 @@
 
 // Include files
 #include "rtwtypes.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -21,7 +20,10 @@ namespace RAT
 {
   namespace coder
   {
-    creal_T str2double(const char s_data[], const int s_size[2]);
+    namespace internal
+    {
+      creal_T str2double(const char s_data[], const int s_size[2]);
+    }
   }
 }
 

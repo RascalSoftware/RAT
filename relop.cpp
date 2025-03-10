@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // relop.cpp
 //
@@ -43,20 +43,6 @@ namespace RAT
           p = false;
         } else {
           p = (a < b);
-        }
-
-        return p;
-      }
-
-      boolean_T d_relop(double a, double b)
-      {
-        boolean_T p;
-        if (std::isnan(b)) {
-          p = !std::isnan(a);
-        } else if (std::isnan(a)) {
-          p = false;
-        } else {
-          p = (a > b);
         }
 
         return p;

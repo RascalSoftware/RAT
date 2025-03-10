@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // RATMain_terminate.cpp
 //
@@ -12,13 +12,14 @@
 #include "RATMain_terminate.h"
 #include "RATMain_data.h"
 #include "rt_nonfinite.h"
+#include "omp.h"
 
 // Function Definitions
 namespace RAT
 {
   void RATMain_terminate()
   {
-    omp_destroy_nest_lock(&emlrtNestLockGlobal);
+    omp_destroy_nest_lock(&RATMain_nestLockGlobal);
   }
 }
 

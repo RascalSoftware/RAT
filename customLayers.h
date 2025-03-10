@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // customLayers.h
 //
@@ -11,9 +11,9 @@
 #define CUSTOMLAYERS_H
 
 // Include files
+#include "RATMain_types.h"
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -21,11 +21,6 @@
 namespace RAT
 {
   struct ProblemDefinition;
-  struct Controls;
-  struct cell_wrap_7;
-  struct cell_wrap_8;
-  struct cell_wrap_9;
-  struct b_ProblemDefinition;
 }
 
 // Function Declarations
@@ -33,7 +28,7 @@ namespace RAT
 {
   namespace normalTF
   {
-    void b_customLayers(const ProblemDefinition *problemStruct, const Controls
+    void b_customLayers(const ProblemDefinition &problemStruct, const Controls
                         *controls, ::coder::array<double, 1U> &qzshifts, ::coder::
                         array<double, 1U> &scalefactors, ::coder::array<double,
                         1U> &bulkIns, ::coder::array<double, 1U> &bulkOuts, ::
@@ -59,7 +54,7 @@ namespace RAT
                         ::coder::array<cell_wrap_9, 2U> &sldProfiles, ::coder::
                         array<cell_wrap_9, 2U> &resampledLayers, ::coder::array<
                         double, 1U> &subRoughs);
-    void c_customLayers(const ProblemDefinition *problemStruct, const Controls
+    void c_customLayers(const ProblemDefinition &problemStruct, const Controls
                         *controls, ::coder::array<double, 1U> &qzshifts, ::coder::
                         array<double, 1U> &scalefactors, ::coder::array<double,
                         1U> &bulkIns, ::coder::array<double, 1U> &bulkOuts, ::

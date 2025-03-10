@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // xdlanv2.h
 //
@@ -12,7 +12,6 @@
 
 // Include files
 #include "rtwtypes.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -25,9 +24,8 @@ namespace RAT
     {
       namespace reflapack
       {
-        void xdlanv2(double *a, double *b, double *c, double *d, double *rt1r,
-                     double *rt1i, double *rt2r, double *rt2i, double *cs,
-                     double *sn);
+        double xdlanv2(double *a, double &b, double &c, double &d, double &rt1i,
+                       double &rt2r, double &rt2i, double &cs, double &sn);
       }
     }
   }

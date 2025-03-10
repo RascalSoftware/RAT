@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // randSample.cpp
 //
@@ -14,6 +14,7 @@
 #include "normalize.h"
 #include "rand.h"
 #include "rt_nonfinite.h"
+#include "coderException.hpp"
 #include "coder_array.h"
 #include <cmath>
 
@@ -72,16 +73,20 @@ namespace RAT
     }
   }
 
-  void randSample(double population_data[], const int population_size[2], double
+  void randSample(double population_data[], int population_size[2], double
                   numItems, const double weights_data[], ::coder::array<double,
                   2U> &outputSample)
   {
+    static const char b_cv1[47]{ 'W', 'e', 'i', 'g', 'h', 't', 's', ' ', 'a',
+      'n', 'd', ' ', 'p', 'o', 'p', 'u', 'l', 'a', 't', 'i', 'o', 'n', ' ', 'm',
+      'u', 's', 't', ' ', 'b', 'e', ' ', 't', 'h', 'e', ' ', 's', 'a', 'm', 'e',
+      ' ', 'l', 'e', 'n', 'g', 't', 'h', '.' };
+
     ::coder::array<double, 2U> randomIndices;
     ::coder::array<double, 2U> y;
     double bins_data[4];
     double x_data[3];
     int x_size[2];
-    int i;
     int loop_ub;
 
     //  Take a random sample of values.
@@ -115,22 +120,37 @@ namespace RAT
         y[0] = rtNaN;
       } else if (population_data[0] < 1.0) {
         y.set_size(1, 0);
-      } else if (std::isinf(population_data[0]) && (1.0 == population_data[0]))
-      {
-        y.set_size(1, 1);
-        y[0] = rtNaN;
       } else {
-        loop_ub = static_cast<int>(std::floor(population_data[0] - 1.0));
-        y.set_size(1, loop_ub + 1);
-        for (i = 0; i <= loop_ub; i++) {
+        double d;
+        d = population_data[0];
+        y.set_size(1, static_cast<int>(d - 1.0) + 1);
+        loop_ub = static_cast<int>(d - 1.0);
+        for (int i{0}; i <= loop_ub; i++) {
           y[i] = static_cast<double>(i) + 1.0;
         }
       }
 
+      population_size[1] = y.size(1);
       loop_ub = y.size(1);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         population_data[i] = y[i];
       }
+    }
+
+    if (population_size[1] != 3) {
+      char b_cv[47];
+
+      //  Ensures a proper exception is thrown in the generated C++ code.
+      //  The arguments should be the errorCode integer, error message as a char array (which can be a formatspec)
+      //  and other parameters if message is a formatspec.
+      //
+      //  coderException(coderEnums.errorCodes.invalidOption, 'The model type is not supported')
+      //  coderException(coderEnums.errorCodes.invalidOption, 'The model type "%s" is not supported', modelType)
+      for (int i{0}; i < 47; i++) {
+        b_cv[i] = b_cv1[i];
+      }
+
+      coderException(1.0, &b_cv[0]);
     }
 
     //  we generate weighted random integers with replacement by creating bins from our weights
@@ -147,7 +167,7 @@ namespace RAT
     coder::discretize(y, bins_data, randomIndices);
     outputSample.set_size(1, randomIndices.size(1));
     loop_ub = randomIndices.size(1);
-    for (i = 0; i < loop_ub; i++) {
+    for (int i{0}; i < loop_ub; i++) {
       outputSample[i] = population_data[static_cast<int>(randomIndices[i]) - 1];
     }
   }

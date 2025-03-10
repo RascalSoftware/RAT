@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // adaptPCR.cpp
 //
@@ -11,15 +11,15 @@
 // Include files
 #include "adaptPCR.h"
 #include "RATMain_types.h"
-#include "blockedSummation.h"
 #include "find.h"
 #include "rt_nonfinite.h"
+#include "sum.h"
 #include "coder_array.h"
 
 // Function Definitions
 namespace RAT
 {
-  void adaptPCR(const DreamParams *DREAMPar, const ::coder::array<double, 2U>
+  void adaptPCR(const DreamParams &DREAMPar, const ::coder::array<double, 2U>
                 &CR, const double delta_tot_data[], const double lCRold_data[],
                 double pCR_data[], int pCR_size[2], double lCR_data[], int
                 lCR_size[2])
@@ -29,7 +29,6 @@ namespace RAT
     ::coder::array<boolean_T, 1U> c_CR;
     double b_zz;
     int b_CR;
-    int i;
 
     //  Updates the probabilities of the various crossover values
     //  Make CR to be a single vector
@@ -45,27 +44,22 @@ namespace RAT
       //  This is used to weight delta_tot
       b_zz = (static_cast<double>(zz) + 1.0) / 3.0;
       c_CR.set_size(b_CR);
-      for (i = 0; i < b_CR; i++) {
+      for (int i{0}; i < b_CR; i++) {
         c_CR[i] = (CR[i] == b_zz);
       }
 
       coder::eml_find(c_CR, r);
       b_zz = lCRold_data[zz] + static_cast<double>(r.size(0));
       lCR_data[zz] = b_zz;
-      y[zz] = DREAMPar->nChains * (delta_tot_data[zz] / b_zz);
+      y[zz] = DREAMPar.nChains * (delta_tot_data[zz] / b_zz);
     }
 
     //  / sum(delta_tot);
     //  Normalize pCR so that selection probabilities add up to 1
-    if (y.size(1) == 0) {
-      b_zz = 0.0;
-    } else {
-      b_zz = coder::nestedIter(y, y.size(1));
-    }
-
+    b_zz = coder::sum(y);
     pCR_size[0] = 1;
     pCR_size[1] = 3;
-    for (i = 0; i < 3; i++) {
+    for (int i{0}; i < 3; i++) {
       pCR_data[i] = y[i] / b_zz;
     }
   }

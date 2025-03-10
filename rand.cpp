@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // rand.cpp
 //
@@ -221,7 +221,6 @@ namespace RAT
     double b_rand()
     {
       double r;
-      unsigned int u[2];
 
       // ========================= COPYRIGHT NOTICE ============================
       //  This is a uniform (0,1) pseudorandom number generator based on:
@@ -261,6 +260,7 @@ namespace RAT
       //  OF THIS  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       //
       // =============================   END   =================================
+      unsigned int u[2];
       do {
         genrand_uint32_vector(state, u);
         u[0] >>= 5U;
@@ -283,11 +283,11 @@ namespace RAT
       }
     }
 
-    void b_rand(const double varargin_1[2], ::coder::array<double, 2U> &r)
+    void b_rand(const double varargin_1[2], ::coder::array<double, 1U> &r)
     {
       int i;
       i = static_cast<int>(varargin_1[0]);
-      r.set_size(i, 1);
+      r.set_size(i);
       for (int k{0}; k < i; k++) {
         r[k] = eml_rand_mt19937ar(state);
       }
@@ -315,7 +315,6 @@ namespace RAT
 
     void c_rand(double r[1000])
     {
-      unsigned int u[2];
       for (int k{0}; k < 1000; k++) {
         double b_r;
 
@@ -357,6 +356,7 @@ namespace RAT
         //  OF THIS  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         //
         // =============================   END   =================================
+        unsigned int u[2];
         do {
           genrand_uint32_vector(state, u);
           u[0] >>= 5U;

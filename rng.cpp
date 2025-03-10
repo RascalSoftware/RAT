@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // rng.cpp
 //
@@ -26,7 +26,7 @@ namespace RAT
       r = 5489U;
       state[0] = 5489U;
       for (int mti{0}; mti < 623; mti++) {
-        r = ((r ^ r >> 30U) * 1812433253U + mti) + 1U;
+        r = ((r ^ r >> 30U) * 1812433253U + static_cast<unsigned int>(mti)) + 1U;
         state[mti + 1] = r;
       }
 

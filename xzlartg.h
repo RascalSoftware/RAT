@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // xzlartg.h
 //
@@ -12,7 +12,6 @@
 
 // Include files
 #include "rtwtypes.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -25,9 +24,8 @@ namespace RAT
     {
       namespace reflapack
       {
-        void xzlartg(const creal_T f, const creal_T g, double *cs, creal_T *sn);
-        void xzlartg(const creal_T f, const creal_T g, double *cs, creal_T *sn,
-                     creal_T *r);
+        double xzlartg(double f, double g, double &sn);
+        double xzlartg(double f, double g, double &sn, double &r);
       }
     }
   }

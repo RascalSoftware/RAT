@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // getTime.cpp
 //
@@ -21,19 +21,21 @@ namespace RAT
   {
     namespace internal
     {
-      namespace time
+      namespace b_time
       {
-        void getTime(double *t_tv_sec, double *t_tv_nsec)
+        double getTime(double &t_tv_nsec)
         {
           coderTimespec b_timespec;
+          double t_tv_sec;
           if (!freq_not_empty) {
             freq_not_empty = true;
             coderInitTimeFunctions(&freq);
           }
 
           coderTimeClockGettimeMonotonic(&b_timespec, freq);
-          *t_tv_sec = b_timespec.tv_sec;
-          *t_tv_nsec = b_timespec.tv_nsec;
+          t_tv_sec = b_timespec.tv_sec;
+          t_tv_nsec = b_timespec.tv_nsec;
+          return t_tv_sec;
         }
       }
     }

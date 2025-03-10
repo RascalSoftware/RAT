@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // xswap.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -26,9 +25,10 @@ namespace RAT
     {
       namespace blas
       {
-        void xswap(int n, ::coder::array<double, 2U> &x, int ix0, int iy0);
         void xswap(int n, ::coder::array<double, 2U> &x, int ix0, int incx, int
                    iy0, int incy);
+        void xswap(int n, ::coder::array<double, 2U> &x, int ix0, int iy0);
+        void xswap(::coder::array<double, 2U> &x, int ix0);
       }
     }
   }

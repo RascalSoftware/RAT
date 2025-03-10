@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // constructBackground.cpp
 //
@@ -20,9 +20,37 @@
 #include <cmath>
 #include <cstring>
 
+// Function Declarations
+namespace RAT
+{
+  static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<double, 1U> &in2);
+}
+
 // Function Definitions
 namespace RAT
 {
+  static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<double, 1U> &in2)
+  {
+    ::coder::array<double, 1U> b_in1;
+    int in1_idx_0;
+    int stride_0_0;
+    int stride_1_0;
+    in1_idx_0 = in1.size(0);
+    b_in1.set_size(in1_idx_0);
+    stride_0_0 = (in1.size(0) != 1);
+    stride_1_0 = (in2.size(0) != 1);
+    for (int i{0}; i < in1_idx_0; i++) {
+      b_in1[i] = in1[i * stride_0_0 + in1.size(0)] + in2[i * stride_1_0];
+    }
+
+    in1_idx_0 = b_in1.size(0);
+    for (int i{0}; i < in1_idx_0; i++) {
+      in1[i + in1.size(0)] = b_in1[i];
+    }
+  }
+
   void constructBackground(const ::coder::array<cell_wrap_10, 2U>
     &backgroundType, const double backgroundParamIndices_data[], const int
     backgroundParamIndices_size[2], const ::coder::array<double, 2U>
@@ -60,59 +88,61 @@ namespace RAT
     }
 
     if (dataIndices[0] > dataIndices[1]) {
-      i = 1;
+      i = 0;
+      i1 = 0;
     } else {
-      i = static_cast<int>(dataIndices[0]);
+      i = static_cast<int>(dataIndices[0]) - 1;
+      i1 = static_cast<int>(dataIndices[1]);
     }
 
-    loop_ub = shiftedData.size(0);
+    loop_ub = i1 - i;
     for (i1 = 0; i1 < loop_ub; i1++) {
-      background[((i + i1) + background.size(0)) - 1] = shiftedData[i1 +
+      background[(i + i1) + background.size(0)] = shiftedData[i1 +
         shiftedData.size(0) * 4];
     }
 
     if (dataIndices[0] > dataIndices[1]) {
-      i = 1;
+      i = 0;
+      i1 = 0;
     } else {
-      i = static_cast<int>(dataIndices[0]);
+      i = static_cast<int>(dataIndices[0]) - 1;
+      i1 = static_cast<int>(dataIndices[1]);
     }
 
-    loop_ub = shiftedData.size(0);
+    loop_ub = i1 - i;
     for (i1 = 0; i1 < loop_ub; i1++) {
-      background[((i + i1) + background.size(0) * 2) - 1] = shiftedData[i1 +
+      background[(i + i1) + background.size(0) * 2] = shiftedData[i1 +
         shiftedData.size(0) * 5];
     }
 
-    coder::internal::t_strcmp(backgroundType, tmp_data, tmp_size);
+    coder::internal::u_strcmp(backgroundType, tmp_data, tmp_size);
     if (coder::internal::b_ifWhileCond(tmp_data, tmp_size)) {
       creal_T x;
-      signed char unnamed_idx_1;
 
       //  For a function background, the first index is actually that of the
       //  custom function
       //  The rest of the backgroundParamIndices are indicies to
       //  backgroundParams
-      if (2 > backgroundParamIndices_size[1]) {
-        i = -1;
-        i1 = -1;
-      } else {
+      if (backgroundParamIndices_size[1] < 2) {
         i = 0;
-        i1 = backgroundParamIndices_size[1] - 1;
+        i1 = 0;
+      } else {
+        i = 1;
+        i1 = backgroundParamIndices_size[1];
       }
 
       //  Make an array of real params
-      unnamed_idx_1 = static_cast<signed char>(i1 - i);
+      loop_ub = i1 - i;
       paramsArray_size[0] = 1;
-      paramsArray_size[1] = unnamed_idx_1;
-      loop_ub = unnamed_idx_1;
-      if (0 <= loop_ub - 1) {
-        std::memset(&paramsArray_data[0], 0, loop_ub * sizeof(double));
+      paramsArray_size[1] = loop_ub;
+      if (loop_ub - 1 >= 0) {
+        std::memset(&paramsArray_data[0], 0, static_cast<unsigned int>(loop_ub) *
+                    sizeof(double));
       }
 
-      i1 = static_cast<signed char>(i1 - i);
-      for (int b_i{0}; b_i < i1; b_i++) {
+      for (int b_i{0}; b_i < loop_ub; b_i++) {
         paramsArray_data[b_i] = backgroundParamArray[static_cast<int>
-          (backgroundParamIndices_data[(i + b_i) + 1]) - 1];
+          (backgroundParamIndices_data[i + b_i]) - 1];
       }
 
       //  Evaluate the background function with these params...
@@ -127,12 +157,12 @@ namespace RAT
         static_cast<int>(backgroundParamIndices_data[0]) - 1].f1)->size())[0];
       tmp_size[1] = (*(int (*)[2])((::coder::array<char, 2U> *)&customFiles[
         static_cast<int>(backgroundParamIndices_data[0]) - 1].f1)->size())[1];
-      x = coder::str2double((const char *)((::coder::array<char, 2U> *)
+      x = coder::internal::str2double((const char *)((::coder::array<char, 2U> *)
         &customFiles[static_cast<int>(backgroundParamIndices_data[0]) - 1].f1)
-                            ->data(), tmp_size);
+        ->data(), tmp_size);
       if ((!std::isnan(x.re)) && (!std::isnan(x.im))) {
-        loop_ub = background.size(0);
         b_background.set_size(background.size(0));
+        loop_ub = background.size(0);
         for (i = 0; i < loop_ub; i++) {
           b_background[i] = background[i];
         }
@@ -147,15 +177,20 @@ namespace RAT
                         paramsArray_size, thisBackground);
       }
 
-      loop_ub = background.size(0) - 1;
-      b_background.set_size(background.size(0));
-      for (i = 0; i <= loop_ub; i++) {
-        b_background[i] = background[i + background.size(0)] + thisBackground[i];
-      }
+      if (background.size(0) == thisBackground.size(0)) {
+        b_background.set_size(background.size(0));
+        loop_ub = background.size(0);
+        for (i = 0; i < loop_ub; i++) {
+          b_background[i] = background[i + background.size(0)] +
+            thisBackground[i];
+        }
 
-      loop_ub = b_background.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        background[i + background.size(0)] = b_background[i];
+        loop_ub = b_background.size(0);
+        for (i = 0; i < loop_ub; i++) {
+          background[i + background.size(0)] = b_background[i];
+        }
+      } else {
+        binary_expand_op(background, thisBackground);
       }
     } else {
       //  We have either a constant background, or a data background with an
@@ -165,11 +200,11 @@ namespace RAT
       i = backgroundParamIndices_size[1];
       for (int b_i{0}; b_i < i; b_i++) {
         double b_backgroundParamArray;
-        loop_ub = background.size(0) - 1;
         b_backgroundParamArray = backgroundParamArray[static_cast<int>
           (backgroundParamIndices_data[b_i]) - 1];
         b_background.set_size(background.size(0));
-        for (i1 = 0; i1 <= loop_ub; i1++) {
+        loop_ub = background.size(0);
+        for (i1 = 0; i1 < loop_ub; i1++) {
           b_background[i1] = background[i1 + background.size(0)] +
             b_backgroundParamArray;
         }
@@ -193,7 +228,6 @@ namespace RAT
     ::coder::array<double, 1U> b_background;
     ::coder::array<double, 1U> thisBackground;
     double paramsArray_data[5];
-    int iv[2];
     int paramsArray_size[2];
     int i;
     int i1;
@@ -218,58 +252,61 @@ namespace RAT
     }
 
     if (dataIndices[0] > dataIndices[1]) {
-      i = 1;
+      i = 0;
+      i1 = 0;
     } else {
-      i = static_cast<int>(dataIndices[0]);
+      i = static_cast<int>(dataIndices[0]) - 1;
+      i1 = static_cast<int>(dataIndices[1]);
     }
 
-    loop_ub = shiftedData.size(0);
+    loop_ub = i1 - i;
     for (i1 = 0; i1 < loop_ub; i1++) {
-      background[((i + i1) + background.size(0)) - 1] = shiftedData[i1 +
+      background[(i + i1) + background.size(0)] = shiftedData[i1 +
         shiftedData.size(0) * 4];
     }
 
     if (dataIndices[0] > dataIndices[1]) {
-      i = 1;
+      i = 0;
+      i1 = 0;
     } else {
-      i = static_cast<int>(dataIndices[0]);
+      i = static_cast<int>(dataIndices[0]) - 1;
+      i1 = static_cast<int>(dataIndices[1]);
     }
 
-    loop_ub = shiftedData.size(0);
+    loop_ub = i1 - i;
     for (i1 = 0; i1 < loop_ub; i1++) {
-      background[((i + i1) + background.size(0) * 2) - 1] = shiftedData[i1 +
+      background[(i + i1) + background.size(0) * 2] = shiftedData[i1 +
         shiftedData.size(0) * 5];
     }
 
-    if (coder::internal::n_strcmp(backgroundType_data, backgroundType_size)) {
+    if (coder::internal::o_strcmp(backgroundType_data, backgroundType_size)) {
       creal_T x;
-      signed char unnamed_idx_1;
+      int iv[2];
 
       //  For a function background, the first index is actually that of the
       //  custom function
       //  The rest of the backgroundParamIndices are indicies to
       //  backgroundParams
-      if (2 > backgroundParamIndices_size[1]) {
-        i = -1;
-        i1 = -1;
-      } else {
+      if (backgroundParamIndices_size[1] < 2) {
         i = 0;
-        i1 = backgroundParamIndices_size[1] - 1;
+        i1 = 0;
+      } else {
+        i = 1;
+        i1 = backgroundParamIndices_size[1];
       }
 
       //  Make an array of real params
-      unnamed_idx_1 = static_cast<signed char>(i1 - i);
+      loop_ub = i1 - i;
       paramsArray_size[0] = 1;
-      paramsArray_size[1] = unnamed_idx_1;
-      loop_ub = unnamed_idx_1;
-      if (0 <= loop_ub - 1) {
-        std::memset(&paramsArray_data[0], 0, loop_ub * sizeof(double));
+      paramsArray_size[1] = loop_ub;
+      if (loop_ub - 1 >= 0) {
+        std::memset(&paramsArray_data[0], 0, static_cast<unsigned int>(loop_ub) *
+                    sizeof(double));
       }
 
-      i1 = static_cast<signed char>(i1 - i);
-      for (int b_i{0}; b_i < i1; b_i++) {
+      for (int b_i{0}; b_i < loop_ub; b_i++) {
         paramsArray_data[b_i] = backgroundParamArray[static_cast<int>
-          (backgroundParamIndices_data[(i + b_i) + 1]) - 1];
+          (backgroundParamIndices_data[i + b_i]) - 1];
       }
 
       //  Evaluate the background function with these params...
@@ -286,12 +323,12 @@ namespace RAT
       iv[1] = (*(int (*)[2])((::coder::array<char, 2U> *)&customFiles[
                 static_cast<int>(backgroundParamIndices_data[0]) - 1].f1)->size())
         [1];
-      x = coder::str2double((const char *)((::coder::array<char, 2U> *)
+      x = coder::internal::str2double((const char *)((::coder::array<char, 2U> *)
         &customFiles[static_cast<int>(backgroundParamIndices_data[0]) - 1].f1)
-                            ->data(), iv);
+        ->data(), iv);
       if ((!std::isnan(x.re)) && (!std::isnan(x.im))) {
-        loop_ub = background.size(0);
         b_background.set_size(background.size(0));
+        loop_ub = background.size(0);
         for (i = 0; i < loop_ub; i++) {
           b_background[i] = background[i];
         }
@@ -308,15 +345,20 @@ namespace RAT
                         thisBackground);
       }
 
-      loop_ub = background.size(0) - 1;
-      b_background.set_size(background.size(0));
-      for (i = 0; i <= loop_ub; i++) {
-        b_background[i] = background[i + background.size(0)] + thisBackground[i];
-      }
+      if (background.size(0) == thisBackground.size(0)) {
+        b_background.set_size(background.size(0));
+        loop_ub = background.size(0);
+        for (i = 0; i < loop_ub; i++) {
+          b_background[i] = background[i + background.size(0)] +
+            thisBackground[i];
+        }
 
-      loop_ub = b_background.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        background[i + background.size(0)] = b_background[i];
+        loop_ub = b_background.size(0);
+        for (i = 0; i < loop_ub; i++) {
+          background[i + background.size(0)] = b_background[i];
+        }
+      } else {
+        binary_expand_op(background, thisBackground);
       }
     } else {
       //  We have either a constant background, or a data background with an
@@ -326,11 +368,11 @@ namespace RAT
       i = backgroundParamIndices_size[1];
       for (int b_i{0}; b_i < i; b_i++) {
         double b_backgroundParamArray;
-        loop_ub = background.size(0) - 1;
         b_backgroundParamArray = backgroundParamArray[static_cast<int>
           (backgroundParamIndices_data[b_i]) - 1];
         b_background.set_size(background.size(0));
-        for (i1 = 0; i1 <= loop_ub; i1++) {
+        loop_ub = background.size(0);
+        for (i1 = 0; i1 < loop_ub; i1++) {
           b_background[i1] = background[i1 + background.size(0)] +
             b_backgroundParamArray;
         }

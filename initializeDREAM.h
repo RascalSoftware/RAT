@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // initializeDREAM.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -21,7 +20,7 @@
 namespace RAT
 {
   struct DreamParams;
-  struct g_struct_T;
+  struct f_struct_T;
   struct ProblemDefinition;
   struct Controls;
 }
@@ -29,13 +28,13 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void initializeDREAM(const DreamParams *DREAMPar, const ::coder::array<double,
+  void initializeDREAM(const DreamParams &DREAMPar, const ::coder::array<double,
                        2U> &paramInfo_min, const ::coder::array<double, 2U>
                        &paramInfo_max, const char paramInfo_boundhandling_data[],
                        const int paramInfo_boundhandling_size[2], ::coder::array<
-                       double, 3U> &chain, g_struct_T *output, ::coder::array<
-                       double, 2U> &log_L, const ProblemDefinition
-                       *ratInputs_problemStruct, const Controls
+                       double, 3U> &chain, f_struct_T &output, ::coder::array<
+                       double, 2U> &log_L, const ProblemDefinition &
+                       ratInputs_problemStruct, const Controls
                        *ratInputs_controls, const ::coder::array<double, 2U>
                        &ratInputs_priors, ::coder::array<double, 2U> &X, ::coder::
                        array<double, 2U> &fx, ::coder::array<double, 2U> &CR,

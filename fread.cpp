@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // fread.cpp
 //
@@ -10,38 +10,42 @@
 
 // Include files
 #include "fread.h"
-#include "fileManager.h"
+#include "RATMain_data.h"
+#include "coderFread.h"
 #include "rt_nonfinite.h"
 #include <cstddef>
-#include <stdio.h>
-
-// Function Declarations
-namespace RAT
-{
-  namespace coder
-  {
-    static FILE * getFileStar(double fileID);
-    static boolean_T isImplementedFilestar(double fileID);
-  }
-}
+#include <cstdio>
 
 // Function Definitions
 namespace RAT
 {
   namespace coder
   {
-    static FILE * getFileStar(double fileID)
+    int b_fread(double fileID, unsigned char A_data[])
     {
-      FILE * filestar;
-      filestar = fileManager(fileID);
-      if (!isImplementedFilestar(fileID)) {
-        filestar = NULL;
+      std::FILE *filestar;
+      int A_size;
+      filestar = internal::getFileStar(fileID);
+      if (filestar == nullptr) {
+        A_size = 0;
+      } else {
+        size_t numReadSizeT;
+        A_size = 1;
+        numReadSizeT = std::fread(&A_data[0], sizeof(unsigned char), (size_t)1,
+          filestar);
+        if ((int)numReadSizeT + 1 <= 1) {
+          A_data[0] = 0U;
+        }
+
+        if ((int)numReadSizeT < 1) {
+          A_size = 0;
+        }
       }
 
-      return filestar;
+      return A_size;
     }
 
-    static boolean_T isImplementedFilestar(double fileID)
+    boolean_T isImplementedFilestar(double fileID)
     {
       boolean_T p;
       if ((fileID != 0.0) && (fileID != 1.0) && (fileID != 2.0)) {
@@ -51,28 +55,6 @@ namespace RAT
       }
 
       return p;
-    }
-
-    void b_fread(double fileID, unsigned char A_data[], int *A_size)
-    {
-      FILE * filestar;
-      unsigned char b_A_data;
-      filestar = getFileStar(fileID);
-      if (filestar == NULL) {
-        *A_size = 0;
-      } else {
-        size_t numReadSizeT;
-        numReadSizeT = fread(&b_A_data, sizeof(unsigned char), 1, filestar);
-        if ((int)numReadSizeT + 1 <= 1) {
-          b_A_data = 0U;
-        }
-
-        *A_size = 1;
-        A_data[0] = b_A_data;
-        if ((int)numReadSizeT < 1) {
-          *A_size = 0;
-        }
-      }
     }
   }
 }

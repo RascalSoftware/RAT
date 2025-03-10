@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // sortIdx.cpp
 //
@@ -50,12 +50,11 @@ namespace RAT
       {
         if (nq != 0) {
           int iout;
-          int j;
           int n_tmp;
           int p;
           int q;
           n_tmp = np + nq;
-          for (j = 0; j < n_tmp; j++) {
+          for (int j{0}; j < n_tmp; j++) {
             iout = offset + j;
             iwork[j] = idx[iout];
             xwork[j] = x[iout];
@@ -83,7 +82,7 @@ namespace RAT
                 q++;
               } else {
                 q = iout - p;
-                for (j = p + 1; j <= np; j++) {
+                for (int j{p + 1}; j <= np; j++) {
                   iout = q + j;
                   idx[iout] = iwork[j - 1];
                   x[iout] = xwork[j - 1];
@@ -102,12 +101,11 @@ namespace RAT
       {
         if (nq != 0) {
           int iout;
-          int j;
           int n_tmp;
           int p;
           int q;
           n_tmp = np + nq;
-          for (j = 0; j < n_tmp; j++) {
+          for (int j{0}; j < n_tmp; j++) {
             iout = offset + j;
             iwork[j] = idx[iout];
             xwork[j] = x[iout];
@@ -135,7 +133,7 @@ namespace RAT
                 q++;
               } else {
                 q = iout - p;
-                for (j = p + 1; j <= np; j++) {
+                for (int j{p + 1}; j <= np; j++) {
                   iout = q + j;
                   idx[iout] = iwork[j - 1];
                   x[iout] = xwork[j - 1];
@@ -191,18 +189,17 @@ namespace RAT
         for (int b{0}; b < 6; b++) {
           int bLen;
           int bLen2;
-          int nPairs;
+          int i;
           bLen = 1 << (b + 2);
           bLen2 = bLen << 1;
-          nPairs = 256 >> (b + 3);
-          for (int k{0}; k < nPairs; k++) {
+          i = 256 >> (b + 3);
+          for (int k{0}; k < i; k++) {
             int blockOffset;
             int iout;
-            int j;
             int p;
             int q;
             blockOffset = offset + k * bLen2;
-            for (j = 0; j < bLen2; j++) {
+            for (int j{0}; j < bLen2; j++) {
               iout = blockOffset + j;
               iwork[j] = idx[iout];
               xwork[j] = x[iout];
@@ -230,7 +227,7 @@ namespace RAT
                   q++;
                 } else {
                   iout -= p;
-                  for (j = p + 1; j <= bLen; j++) {
+                  for (int j{p + 1}; j <= bLen; j++) {
                     q = iout + j;
                     idx[q] = iwork[j - 1];
                     x[q] = xwork[j - 1];
@@ -250,37 +247,36 @@ namespace RAT
         ::coder::array<double, 1U> xwork;
         ::coder::array<int, 1U> b_idx;
         ::coder::array<int, 1U> iwork;
-        double x4[4];
-        int idx4[4];
-        int i;
-        int ib;
-        signed char perm[4];
-        ib = x.size(0);
-        idx.set_size(ib);
-        for (i = 0; i < ib; i++) {
-          idx[i] = 0;
+        int i2;
+        int loop_ub_tmp;
+        unsigned int unnamed_idx_0;
+        unnamed_idx_0 = static_cast<unsigned int>(x.size(0));
+        idx.set_size(static_cast<int>(unnamed_idx_0));
+        loop_ub_tmp = static_cast<int>(unnamed_idx_0);
+        for (i2 = 0; i2 < loop_ub_tmp; i2++) {
+          idx[i2] = 0;
         }
 
         if (x.size(0) != 0) {
-          int i2;
+          double x4[4];
+          int idx4[4];
           int i3;
           int i4;
-          int k;
+          int ib;
           int n;
           int nNaNs;
           int quartetOffset;
-          b_idx.set_size(ib);
-          for (i = 0; i < ib; i++) {
-            b_idx[i] = 0;
+          b_idx.set_size(static_cast<int>(unnamed_idx_0));
+          for (i2 = 0; i2 < loop_ub_tmp; i2++) {
+            b_idx[i2] = 0;
           }
 
-          i2 = x.size(0);
-          b_x.set_size(i2);
-          for (i = 0; i < i2; i++) {
-            b_x[i] = x[i];
+          b_x.set_size(x.size(0));
+          ib = x.size(0);
+          for (i2 = 0; i2 < ib; i2++) {
+            b_x[i2] = x[i2];
           }
 
-          i = x.size(0);
           n = x.size(0);
           x4[0] = 0.0;
           idx4[0] = 0;
@@ -290,32 +286,36 @@ namespace RAT
           idx4[2] = 0;
           x4[3] = 0.0;
           idx4[3] = 0;
-          iwork.set_size(ib);
-          for (quartetOffset = 0; quartetOffset < ib; quartetOffset++) {
-            iwork[quartetOffset] = 0;
+          iwork.set_size(static_cast<int>(unnamed_idx_0));
+          for (i2 = 0; i2 < loop_ub_tmp; i2++) {
+            iwork[i2] = 0;
           }
 
-          i2 = x.size(0);
-          xwork.set_size(i2);
-          for (quartetOffset = 0; quartetOffset < i2; quartetOffset++) {
-            xwork[quartetOffset] = 0.0;
+          ib = x.size(0);
+          xwork.set_size(ib);
+          for (i2 = 0; i2 < ib; i2++) {
+            xwork[i2] = 0.0;
           }
 
           nNaNs = 0;
-          ib = -1;
-          for (k = 0; k < n; k++) {
+          ib = 0;
+          for (int k{0}; k < n; k++) {
             if (std::isnan(b_x[k])) {
-              i4 = (i - nNaNs) - 1;
-              b_idx[i4] = k + 1;
-              xwork[i4] = b_x[k];
+              i3 = (n - nNaNs) - 1;
+              b_idx[i3] = k + 1;
+              xwork[i3] = b_x[k];
               nNaNs++;
             } else {
               ib++;
-              idx4[ib] = k + 1;
-              x4[ib] = b_x[k];
-              if (ib + 1 == 4) {
+              idx4[ib - 1] = k + 1;
+              x4[ib - 1] = b_x[k];
+              if (ib == 4) {
                 double d;
                 double d1;
+                signed char b_i2;
+                signed char b_i3;
+                signed char i;
+                signed char i1;
                 quartetOffset = k - nNaNs;
                 if (x4[0] <= x4[1]) {
                   ib = 1;
@@ -333,69 +333,70 @@ namespace RAT
                   i4 = 3;
                 }
 
-                d = x4[ib - 1];
-                d1 = x4[i3 - 1];
-                if (d <= d1) {
-                  d = x4[i2 - 1];
-                  if (d <= d1) {
-                    perm[0] = static_cast<signed char>(ib);
-                    perm[1] = static_cast<signed char>(i2);
-                    perm[2] = static_cast<signed char>(i3);
-                    perm[3] = static_cast<signed char>(i4);
-                  } else if (d <= x4[i4 - 1]) {
-                    perm[0] = static_cast<signed char>(ib);
-                    perm[1] = static_cast<signed char>(i3);
-                    perm[2] = static_cast<signed char>(i2);
-                    perm[3] = static_cast<signed char>(i4);
+                d = x4[i3 - 1];
+                d1 = x4[ib - 1];
+                if (d1 <= d) {
+                  d1 = x4[i2 - 1];
+                  if (d1 <= d) {
+                    i = static_cast<signed char>(ib);
+                    i1 = static_cast<signed char>(i2);
+                    b_i2 = static_cast<signed char>(i3);
+                    b_i3 = static_cast<signed char>(i4);
+                  } else if (d1 <= x4[i4 - 1]) {
+                    i = static_cast<signed char>(ib);
+                    i1 = static_cast<signed char>(i3);
+                    b_i2 = static_cast<signed char>(i2);
+                    b_i3 = static_cast<signed char>(i4);
                   } else {
-                    perm[0] = static_cast<signed char>(ib);
-                    perm[1] = static_cast<signed char>(i3);
-                    perm[2] = static_cast<signed char>(i4);
-                    perm[3] = static_cast<signed char>(i2);
+                    i = static_cast<signed char>(ib);
+                    i1 = static_cast<signed char>(i3);
+                    b_i2 = static_cast<signed char>(i4);
+                    b_i3 = static_cast<signed char>(i2);
                   }
                 } else {
-                  d1 = x4[i4 - 1];
-                  if (d <= d1) {
-                    if (x4[i2 - 1] <= d1) {
-                      perm[0] = static_cast<signed char>(i3);
-                      perm[1] = static_cast<signed char>(ib);
-                      perm[2] = static_cast<signed char>(i2);
-                      perm[3] = static_cast<signed char>(i4);
+                  d = x4[i4 - 1];
+                  if (d1 <= d) {
+                    if (x4[i2 - 1] <= d) {
+                      i = static_cast<signed char>(i3);
+                      i1 = static_cast<signed char>(ib);
+                      b_i2 = static_cast<signed char>(i2);
+                      b_i3 = static_cast<signed char>(i4);
                     } else {
-                      perm[0] = static_cast<signed char>(i3);
-                      perm[1] = static_cast<signed char>(ib);
-                      perm[2] = static_cast<signed char>(i4);
-                      perm[3] = static_cast<signed char>(i2);
+                      i = static_cast<signed char>(i3);
+                      i1 = static_cast<signed char>(ib);
+                      b_i2 = static_cast<signed char>(i4);
+                      b_i3 = static_cast<signed char>(i2);
                     }
                   } else {
-                    perm[0] = static_cast<signed char>(i3);
-                    perm[1] = static_cast<signed char>(i4);
-                    perm[2] = static_cast<signed char>(ib);
-                    perm[3] = static_cast<signed char>(i2);
+                    i = static_cast<signed char>(i3);
+                    i1 = static_cast<signed char>(i4);
+                    b_i2 = static_cast<signed char>(ib);
+                    b_i3 = static_cast<signed char>(i2);
                   }
                 }
 
-                b_idx[quartetOffset - 3] = idx4[perm[0] - 1];
-                b_idx[quartetOffset - 2] = idx4[perm[1] - 1];
-                b_idx[quartetOffset - 1] = idx4[perm[2] - 1];
-                b_idx[quartetOffset] = idx4[perm[3] - 1];
-                b_x[quartetOffset - 3] = x4[perm[0] - 1];
-                b_x[quartetOffset - 2] = x4[perm[1] - 1];
-                b_x[quartetOffset - 1] = x4[perm[2] - 1];
-                b_x[quartetOffset] = x4[perm[3] - 1];
-                ib = -1;
+                b_idx[quartetOffset - 3] = idx4[i - 1];
+                b_idx[quartetOffset - 2] = idx4[i1 - 1];
+                b_idx[quartetOffset - 1] = idx4[b_i2 - 1];
+                b_idx[quartetOffset] = idx4[b_i3 - 1];
+                b_x[quartetOffset - 3] = x4[i - 1];
+                b_x[quartetOffset - 2] = x4[i1 - 1];
+                b_x[quartetOffset - 1] = x4[b_i2 - 1];
+                b_x[quartetOffset] = x4[b_i3 - 1];
+                ib = 0;
               }
             }
           }
 
-          i3 = (x.size(0) - nNaNs) - 1;
-          if (ib + 1 > 0) {
+          i4 = b_x.size(0) - nNaNs;
+          if (ib > 0) {
+            signed char perm[4];
             perm[1] = 0;
             perm[2] = 0;
             perm[3] = 0;
-            if (ib + 1 == 1) {
+            if (ib == 1) {
               perm[0] = 1;
-            } else if (ib + 1 == 2) {
+            } else if (ib == 2) {
               if (x4[0] <= x4[1]) {
                 perm[0] = 1;
                 perm[1] = 2;
@@ -431,61 +432,60 @@ namespace RAT
               perm[2] = 1;
             }
 
-            for (k = 0; k <= ib; k++) {
-              i4 = perm[k] - 1;
-              i2 = (i3 - ib) + k;
-              b_idx[i2] = idx4[i4];
-              b_x[i2] = x4[i4];
+            i2 = static_cast<unsigned char>(ib);
+            for (int k{0}; k < i2; k++) {
+              i3 = perm[k] - 1;
+              quartetOffset = (i4 - ib) + k;
+              b_idx[quartetOffset] = idx4[i3];
+              b_x[quartetOffset] = x4[i3];
             }
           }
 
-          i2 = (nNaNs >> 1) + 1;
-          for (k = 0; k <= i2 - 2; k++) {
-            quartetOffset = (i3 + k) + 1;
-            ib = b_idx[quartetOffset];
-            i4 = (i - k) - 1;
-            b_idx[quartetOffset] = b_idx[i4];
-            b_idx[i4] = ib;
-            b_x[quartetOffset] = xwork[i4];
-            b_x[i4] = xwork[quartetOffset];
+          ib = nNaNs >> 1;
+          for (int k{0}; k < ib; k++) {
+            quartetOffset = i4 + k;
+            i2 = b_idx[quartetOffset];
+            i3 = (n - k) - 1;
+            b_idx[quartetOffset] = b_idx[i3];
+            b_idx[i3] = i2;
+            b_x[quartetOffset] = xwork[i3];
+            b_x[i3] = xwork[quartetOffset];
           }
 
           if ((nNaNs & 1) != 0) {
-            i2 += i3;
-            b_x[i2] = xwork[i2];
+            ib += i4;
+            b_x[ib] = xwork[ib];
           }
 
-          quartetOffset = x.size(0) - nNaNs;
-          i2 = 2;
-          if (quartetOffset > 1) {
-            if (x.size(0) >= 256) {
-              ib = quartetOffset >> 8;
-              if (ib > 0) {
-                for (i2 = 0; i2 < ib; i2++) {
-                  merge_pow2_block(b_idx, b_x, i2 << 8);
+          ib = 2;
+          if (i4 > 1) {
+            if (b_x.size(0) >= 256) {
+              quartetOffset = i4 >> 8;
+              if (quartetOffset > 0) {
+                for (ib = 0; ib < quartetOffset; ib++) {
+                  merge_pow2_block(b_idx, b_x, ib << 8);
                 }
 
-                i2 = ib << 8;
-                ib = quartetOffset - i2;
-                if (ib > 0) {
-                  merge_block(b_idx, b_x, i2, ib, 2, iwork, xwork);
+                ib = quartetOffset << 8;
+                quartetOffset = i4 - ib;
+                if (quartetOffset > 0) {
+                  merge_block(b_idx, b_x, ib, quartetOffset, 2, iwork, xwork);
                 }
 
-                i2 = 8;
+                ib = 8;
               }
             }
 
-            merge_block(b_idx, b_x, 0, quartetOffset, i2, iwork, xwork);
+            merge_block(b_idx, b_x, 0, i4, ib, iwork, xwork);
           }
 
-          i2 = b_idx.size(0);
-          for (i = 0; i < i2; i++) {
-            idx[i] = b_idx[i];
+          for (i2 = 0; i2 < loop_ub_tmp; i2++) {
+            idx[i2] = b_idx[i2];
           }
 
-          i2 = b_x.size(0);
-          for (i = 0; i < i2; i++) {
-            x[i] = b_x[i];
+          ib = x.size(0);
+          for (i2 = 0; i2 < ib; i2++) {
+            x[i2] = b_x[i2];
           }
         }
       }
@@ -533,18 +533,17 @@ namespace RAT
         for (int b{0}; b < 6; b++) {
           int bLen;
           int bLen2;
-          int nPairs;
+          int i;
           bLen = 1 << (b + 2);
           bLen2 = bLen << 1;
-          nPairs = 256 >> (b + 3);
-          for (int k{0}; k < nPairs; k++) {
+          i = 256 >> (b + 3);
+          for (int k{0}; k < i; k++) {
             int blockOffset;
             int iout;
-            int j;
             int p;
             int q;
             blockOffset = offset + k * bLen2;
-            for (j = 0; j < bLen2; j++) {
+            for (int j{0}; j < bLen2; j++) {
               iout = blockOffset + j;
               iwork[j] = idx[iout];
               xwork[j] = x[iout];
@@ -572,7 +571,7 @@ namespace RAT
                   q++;
                 } else {
                   iout -= p;
-                  for (j = p + 1; j <= bLen; j++) {
+                  for (int j{p + 1}; j <= bLen; j++) {
                     q = iout + j;
                     idx[q] = iwork[j - 1];
                     x[q] = xwork[j - 1];
@@ -606,29 +605,28 @@ namespace RAT
       {
         ::coder::array<double, 1U> b_x;
         ::coder::array<int, 1U> r;
-        int i;
         int loop_ub;
         idx.set_size(x.size(0));
         loop_ub = x.size(0);
-        for (i = 0; i < loop_ub; i++) {
+        for (int i{0}; i < loop_ub; i++) {
           idx[i] = 0;
         }
 
         loop_ub = x.size(0);
         r.set_size(x.size(0));
-        for (i = 0; i < loop_ub; i++) {
+        for (int i{0}; i < loop_ub; i++) {
           r[i] = 0;
         }
 
-        loop_ub = x.size(0);
         b_x.set_size(x.size(0));
-        for (i = 0; i < loop_ub; i++) {
+        loop_ub = x.size(0);
+        for (int i{0}; i < loop_ub; i++) {
           b_x[i] = x[i];
         }
 
         b_mergesort(r, b_x, x.size(0));
-        loop_ub = r.size(0);
-        for (i = 0; i < loop_ub; i++) {
+        loop_ub = x.size(0);
+        for (int i{0}; i < loop_ub; i++) {
           idx[i] = r[i];
         }
       }

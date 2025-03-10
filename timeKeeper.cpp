@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // timeKeeper.cpp
 //
@@ -28,14 +28,14 @@ namespace RAT
   {
     namespace internal
     {
-      namespace time
+      namespace b_time
       {
         namespace impl
         {
           void timeKeeper(double newTime_tv_sec, double newTime_tv_nsec)
           {
             if (!savedTime_not_empty) {
-              getTime(&savedTime.tv_sec, &savedTime.tv_nsec);
+              savedTime.tv_sec = getTime(savedTime.tv_nsec);
               savedTime_not_empty = true;
             }
 
@@ -43,10 +43,12 @@ namespace RAT
             savedTime.tv_nsec = newTime_tv_nsec;
           }
 
-          void timeKeeper(double *outTime_tv_sec, double *outTime_tv_nsec)
+          double timeKeeper(double &outTime_tv_nsec)
           {
-            *outTime_tv_sec = savedTime.tv_sec;
-            *outTime_tv_nsec = savedTime.tv_nsec;
+            double outTime_tv_sec;
+            outTime_tv_sec = savedTime.tv_sec;
+            outTime_tv_nsec = savedTime.tv_nsec;
+            return outTime_tv_sec;
           }
         }
       }

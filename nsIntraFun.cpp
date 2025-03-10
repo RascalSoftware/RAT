@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // nsIntraFun.cpp
 //
@@ -20,13 +20,13 @@
 // Function Definitions
 namespace RAT
 {
-  double nsIntraFun(const ProblemDefinition *data_f1, const Controls *data_f2,
+  double nsIntraFun(const ProblemDefinition &data_f1, const Controls *data_f2,
                     const ::coder::array<double, 2U> &p)
   {
     ProblemDefinition problemStruct;
     Results expl_temp;
     int loop_ub;
-    problemStruct = *data_f1;
+    problemStruct = data_f1;
 
     //  Removed use of cells....
     problemStruct.fitParams.set_size(1, p.size(1));
@@ -35,8 +35,8 @@ namespace RAT
       problemStruct.fitParams[i] = p[i];
     }
 
-    unpackParams(&problemStruct);
-    b_reflectivityCalculation(&problemStruct, data_f2, &expl_temp);
+    unpackParams(problemStruct);
+    b_reflectivityCalculation(problemStruct, data_f2, &expl_temp);
     return -expl_temp.calculationResults.sumChi / 2.0;
   }
 }

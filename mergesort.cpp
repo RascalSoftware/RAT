@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // mergesort.cpp
 //
@@ -54,10 +54,10 @@ namespace RAT
           while (k + 1 <= 4) {
             int i;
             int i1;
-            i = idx[q - 1];
-            i1 = idx[p - 1];
-            if (sortLE(x, i1, i)) {
-              iwork[k] = i1;
+            i = idx[p - 1];
+            i1 = idx[q - 1];
+            if (sortLE(x, i, i1)) {
+              iwork[k] = i;
               p++;
               if (p == pEnd) {
                 while (q < j + 4) {
@@ -67,7 +67,7 @@ namespace RAT
                 }
               }
             } else {
-              iwork[k] = i;
+              iwork[k] = i1;
               q++;
               if (q == j + 4) {
                 while (p < pEnd) {
@@ -134,10 +134,10 @@ namespace RAT
             kEnd = qEnd - j;
             while (k + 1 <= kEnd) {
               int i1;
-              i = idx[q - 1];
-              i1 = idx[p - 1];
-              if (b_sortLE(x, i1, i)) {
-                iwork[k] = i1;
+              i = idx[p - 1];
+              i1 = idx[q - 1];
+              if (b_sortLE(x, i, i1)) {
+                iwork[k] = i;
                 p++;
                 if (p == pEnd) {
                   while (q < qEnd) {
@@ -147,7 +147,7 @@ namespace RAT
                   }
                 }
               } else {
-                iwork[k] = i;
+                iwork[k] = i1;
                 q++;
                 if (q == qEnd) {
                   while (p < pEnd) {
@@ -217,10 +217,10 @@ namespace RAT
             kEnd = qEnd - j;
             while (k + 1 <= kEnd) {
               int i1;
-              i = idx[q - 1];
-              i1 = idx[p - 1];
-              if (sortLE(x, i1, i)) {
-                iwork[k] = i1;
+              i = idx[p - 1];
+              i1 = idx[q - 1];
+              if (sortLE(x, i, i1)) {
+                iwork[k] = i;
                 p++;
                 if (p == pEnd) {
                   while (q < qEnd) {
@@ -230,7 +230,7 @@ namespace RAT
                   }
                 }
               } else {
-                iwork[k] = i;
+                iwork[k] = i1;
                 q++;
                 if (q == qEnd) {
                   while (p < pEnd) {
@@ -300,10 +300,10 @@ namespace RAT
             kEnd = qEnd - j;
             while (k + 1 <= kEnd) {
               int i1;
-              i = idx[q - 1];
-              i1 = idx[p - 1];
-              if (sortLE(x, i1, i)) {
-                iwork[k] = i1;
+              i = idx[p - 1];
+              i1 = idx[q - 1];
+              if (sortLE(x, i, i1)) {
+                iwork[k] = i;
                 p++;
                 if (p == pEnd) {
                   while (q < qEnd) {
@@ -313,7 +313,7 @@ namespace RAT
                   }
                 }
               } else {
-                iwork[k] = i;
+                iwork[k] = i1;
                 q++;
                 if (q == qEnd) {
                   while (p < pEnd) {

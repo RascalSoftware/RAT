@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // multrnd.cpp
 //
@@ -10,26 +10,67 @@
 
 // Include files
 #include "multrnd.h"
-#include "blockedSummation.h"
 #include "combineVectorElements.h"
 #include "rand.h"
 #include "rt_nonfinite.h"
+#include "sum.h"
+#include "coderException.hpp"
 #include "coder_array.h"
+#include <cmath>
+
+// Function Declarations
+namespace RAT
+{
+  static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<double, 2U> &in2, const double in3_data[], int in4);
+}
 
 // Function Definitions
 namespace RAT
 {
+  static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<double, 2U> &in2, const double in3_data[], int in4)
+  {
+    ::coder::array<double, 2U> b_in1;
+    double in3;
+    int loop_ub;
+    int stride_0_1;
+    int stride_1_1;
+    in3 = in3_data[in4];
+    if (in2.size(1) == 1) {
+      loop_ub = in1.size(1);
+    } else {
+      loop_ub = in2.size(1);
+    }
+
+    b_in1.set_size(1, loop_ub);
+    stride_0_1 = (in1.size(1) != 1);
+    stride_1_1 = (in2.size(1) != 1);
+    for (int i{0}; i < loop_ub; i++) {
+      b_in1[i] = in1[i * stride_0_1] + static_cast<double>(in2[i * stride_1_1] >
+        in3);
+    }
+
+    in1.set_size(1, b_in1.size(1));
+    loop_ub = b_in1.size(1);
+    for (int i{0}; i < loop_ub; i++) {
+      in1[i] = b_in1[i];
+    }
+  }
+
   void multrnd(double n, const double p_data[], const int p_size[2], double
                X_data[], int X_size[2])
   {
+    static const char b_cv1[29]{ 'n', ' ', 'm', 'u', 's', 't', ' ', 'b', 'e',
+      ' ', 'a', ' ', 'p', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', 'i', 'n', 't',
+      'e', 'g', 'e', 'r', '.' };
+
     ::coder::array<double, 2U> b_p_data;
     ::coder::array<double, 2U> o;
     ::coder::array<double, 2U> r;
     ::coder::array<boolean_T, 2U> b_o;
     double s_data[3];
     double P;
-    int i;
-    int j;
     int loop_ub_tmp;
 
     //  MULTRND Multinomial random sequence of m simulations of k outcomes with p probabiltites
@@ -110,12 +151,24 @@ namespace RAT
     //            Functions, Government Printing Office, 26.1.20. Available on
     //            Internet at the URL address http://hcohl.shell42.com/as/frameindex.htm
     //
-    b_p_data.set((double *)&p_data[0], p_size[0], p_size[1]);
-    if (b_p_data.size(1) == 0) {
-      P = 0.0;
-    } else {
-      P = coder::nestedIter(b_p_data, b_p_data.size(1));
+    if ((std::trunc(n) != n) || (n < 0.0)) {
+      char b_cv[29];
+
+      //  Ensures a proper exception is thrown in the generated C++ code.
+      //  The arguments should be the errorCode integer, error message as a char array (which can be a formatspec)
+      //  and other parameters if message is a formatspec.
+      //
+      //  coderException(coderEnums.errorCodes.invalidOption, 'The model type is not supported')
+      //  coderException(coderEnums.errorCodes.invalidOption, 'The model type "%s" is not supported', modelType)
+      for (int i{0}; i < 29; i++) {
+        b_cv[i] = b_cv1[i];
+      }
+
+      coderException(2.0, &b_cv[0]);
     }
+
+    b_p_data.set((double *)&p_data[0], p_size[0], p_size[1]);
+    P = coder::sum(b_p_data);
 
     // if P ~= 1,
     //     error('The sum of the input probabilities must be equal 1.')
@@ -123,7 +176,7 @@ namespace RAT
     // end;
     loop_ub_tmp = static_cast<int>(n);
     o.set_size(1, loop_ub_tmp);
-    for (i = 0; i < loop_ub_tmp; i++) {
+    for (int i{0}; i < loop_ub_tmp; i++) {
       o[i] = 1.0;
     }
 
@@ -133,20 +186,24 @@ namespace RAT
     s_data[1] += s_data[0];
     s_data[2] += s_data[1];
     coder::b_rand(n, r);
-    for (j = 0; j < 3; j++) {
-      o.set_size(1, o.size(1));
+    for (int j{0}; j < 3; j++) {
       loop_ub_tmp = o.size(1);
-      for (i = 0; i < loop_ub_tmp; i++) {
-        o[i] = o[i] + static_cast<double>(r[i] > s_data[j]);
+      if (o.size(1) == r.size(1)) {
+        o.set_size(1, o.size(1));
+        for (int i{0}; i < loop_ub_tmp; i++) {
+          o[i] = o[i] + static_cast<double>(r[i] > s_data[j]);
+        }
+      } else {
+        binary_expand_op(o, r, s_data, j);
       }
     }
 
     X_size[0] = 1;
     X_size[1] = 3;
     loop_ub_tmp = o.size(1);
-    for (j = 0; j < 3; j++) {
+    for (int j{0}; j < 3; j++) {
       b_o.set_size(1, o.size(1));
-      for (i = 0; i < loop_ub_tmp; i++) {
+      for (int i{0}; i < loop_ub_tmp; i++) {
         b_o[i] = (o[i] == static_cast<double>(j) + 1.0);
       }
 

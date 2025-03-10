@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // prctile.cpp
 //
@@ -134,7 +134,6 @@ namespace RAT
                    2U> &y)
     {
       ::coder::array<double, 1U> wk;
-      double pctv[2];
       y.set_size(2, x.size(1));
       if ((x.size(0) == 0) || (x.size(1) == 0)) {
         int vlen;
@@ -153,13 +152,19 @@ namespace RAT
         npages = x.size(1);
         ix = -1;
         for (int xi{0}; xi < npages; xi++) {
+          double pctv[2];
           int k;
           wk[0] = x[ix + 1];
           for (k = 2; k <= vlen; k++) {
             wk[k - 1] = x[ix + k];
           }
 
-          ix += vlen;
+          if (vlen < 2) {
+            ix++;
+          } else {
+            ix += vlen;
+          }
+
           b_percentile_vector(wk, pctv);
           k = xi << 1;
           y[k] = pctv[0];
@@ -270,7 +275,6 @@ namespace RAT
                  &y)
     {
       ::coder::array<double, 1U> wk;
-      double pctv[2];
       y.set_size(2, x.size(1));
       if ((x.size(0) == 0) || (x.size(1) == 0)) {
         int vlen;
@@ -289,13 +293,19 @@ namespace RAT
         npages = x.size(1);
         ix = -1;
         for (int xi{0}; xi < npages; xi++) {
+          double pctv[2];
           int k;
           wk[0] = x[ix + 1];
           for (k = 2; k <= vlen; k++) {
             wk[k - 1] = x[ix + k];
           }
 
-          ix += vlen;
+          if (vlen < 2) {
+            ix++;
+          } else {
+            ix += vlen;
+          }
+
           percentile_vector(wk, pctv);
           k = xi << 1;
           y[k] = pctv[0];

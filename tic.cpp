@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // tic.cpp
 //
@@ -29,7 +29,7 @@ namespace RAT
       }
 
       coderTimeClockGettimeMonotonic(&b_timespec, freq);
-      internal::time::impl::timeKeeper(b_timespec.tv_sec, b_timespec.tv_nsec);
+      internal::b_time::impl::timeKeeper(b_timespec.tv_sec, b_timespec.tv_nsec);
     }
   }
 }

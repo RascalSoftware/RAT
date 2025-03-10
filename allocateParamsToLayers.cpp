@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // allocateParamsToLayers.cpp
 //
@@ -41,8 +41,9 @@ namespace RAT
       int n;
       n = coder::internal::intlength(layersDetails[i].f1.size(0),
         layersDetails[i].f1.size(1));
-      if (0 <= n - 1) {
-        std::memset(&thisOutLayer_data[0], 0, n * sizeof(double));
+      if (n - 1 >= 0) {
+        std::memset(&thisOutLayer_data[0], 0, static_cast<unsigned int>(n) *
+                    sizeof(double));
       }
 
       b_i = coder::internal::intlength(layersDetails[i].f1.size(0),

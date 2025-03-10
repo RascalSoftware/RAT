@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // drawMCMC.cpp
 //
@@ -27,23 +27,79 @@
 #include "coder_bounded_array.h"
 #include <cmath>
 
+// Function Declarations
+namespace RAT
+{
+  static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<double, 2U> &in2, const ::coder::array<double, 2U> &in3, double in4,
+    double in5);
+  static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<double, 2U> &in2, const ::coder::array<double, 1U> &in3, double in4);
+}
+
 // Function Definitions
 namespace RAT
 {
-  void drawMCMC(const ::coder::array<double, 2U> &livepoints, const ::coder::
-                array<double, 2U> &cholmat, double logLmin, const ::coder::array<
-                double, 2U> &prior, const ProblemDefinition *data_f1, const
-                Controls *data_f2, double nMCMC, ::coder::array<double, 2U>
-                &sample, double *logL)
+  static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<double, 2U> &in2, const ::coder::array<double, 2U> &in3, double in4,
+    double in5)
+  {
+    int loop_ub;
+    int stride_0_1;
+    int stride_1_1;
+    in1.set_size(1, in1.size(1));
+    if (in3.size(1) == 1) {
+      loop_ub = in2.size(1);
+    } else {
+      loop_ub = in3.size(1);
+    }
+
+    in1.set_size(in1.size(0), loop_ub);
+    stride_0_1 = (in2.size(1) != 1);
+    stride_1_1 = (in3.size(1) != 1);
+    for (int i{0}; i < loop_ub; i++) {
+      int i1;
+      i1 = i * stride_1_1;
+      in1[i] = in2[i * stride_0_1] + (in3[(static_cast<int>(in4) + in3.size(0) *
+        i1) - 1] - in3[(static_cast<int>(in5) + in3.size(0) * i1) - 1]);
+    }
+  }
+
+  static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<double, 2U> &in2, const ::coder::array<double, 1U> &in3, double in4)
+  {
+    int loop_ub;
+    int stride_0_1;
+    int stride_1_1;
+    in1.set_size(1, in1.size(1));
+    if (in3.size(0) == 1) {
+      loop_ub = in2.size(1);
+    } else {
+      loop_ub = in3.size(0);
+    }
+
+    in1.set_size(in1.size(0), loop_ub);
+    stride_0_1 = (in2.size(1) != 1);
+    stride_1_1 = (in3.size(0) != 1);
+    for (int i{0}; i < loop_ub; i++) {
+      in1[i] = in2[i * stride_0_1] + in3[i * stride_1_1] * in4;
+    }
+  }
+
+  double drawMCMC(const ::coder::array<double, 2U> &livepoints, const ::coder::
+                  array<double, 2U> &cholmat, double logLmin, const ::coder::
+                  array<double, 2U> &prior, const ProblemDefinition &data_f1,
+                  const Controls *data_f2, double nMCMC, ::coder::array<double,
+                  2U> &sample)
   {
     ::coder::array<double, 2U> r1;
     ::coder::array<double, 2U> sampletmp;
     ::coder::array<double, 1U> gasdevs;
     ::coder::array<double, 1U> r;
     ::coder::array<char, 2U> charStr;
-    double a[2];
     double Ntimes;
     double acc;
+    double logL;
     int i;
     int loop_ub;
     int nLive;
@@ -62,7 +118,7 @@ namespace RAT
     //
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     //  global verbose;
-    *logL = logLmin;
+    logL = logLmin;
 
     //  useful constant
     nLive = livepoints.size(0);
@@ -79,7 +135,6 @@ namespace RAT
       double currentPrior;
       double priortype;
       double pv_tmp;
-      int i1;
       int j;
       exitg1 = 0;
       acc = 0.0;
@@ -87,8 +142,8 @@ namespace RAT
       //  get random point from live point array
       sampidx = coder::b_rand() * static_cast<double>(nLive);
       sampidx = std::ceil(sampidx);
-      sample.set_size(1, loop_ub);
-      for (i1 = 0; i1 < loop_ub; i1++) {
+      sample.set_size(1, livepoints.size(1));
+      for (int i1{0}; i1 < loop_ub; i1++) {
         sample[i1] = livepoints[(static_cast<int>(sampidx) + livepoints.size(0) *
           i1) - 1];
       }
@@ -122,6 +177,8 @@ namespace RAT
         int b_loop_ub;
         boolean_T exitg2;
         if (coder::b_rand() < 0.9) {
+          double a[2];
+
           //  use Students-t proposal
           //  draw points from mulitvariate Gaussian distribution
           coder::randn(static_cast<double>(nParams + 1), gasdevs);
@@ -134,9 +191,13 @@ namespace RAT
             2.0)));
           coder::internal::blas::mtimes(cholmat, gasdevs, r);
           b_loop_ub = sample.size(1);
-          sampletmp.set_size(1, sample.size(1));
-          for (i1 = 0; i1 < b_loop_ub; i1++) {
-            sampletmp[i1] = sample[i1] + r[i1] * pv_tmp;
+          if (r.size(0) == sample.size(1)) {
+            sampletmp.set_size(1, sample.size(1));
+            for (int i1{0}; i1 < b_loop_ub; i1++) {
+              sampletmp[i1] = sample[i1] + r[i1] * pv_tmp;
+            }
+          } else {
+            binary_expand_op(sampletmp, sample, r, pv_tmp);
           }
         } else {
           double idx1;
@@ -154,11 +215,15 @@ namespace RAT
           }
 
           b_loop_ub = sample.size(1);
-          sampletmp.set_size(1, sample.size(1));
-          for (i1 = 0; i1 < b_loop_ub; i1++) {
-            sampletmp[i1] = sample[i1] + (livepoints[(static_cast<int>(idx2) +
-              livepoints.size(0) * i1) - 1] - livepoints[(static_cast<int>(idx1)
-              + livepoints.size(0) * i1) - 1]);
+          if (sample.size(1) == livepoints.size(1)) {
+            sampletmp.set_size(1, sample.size(1));
+            for (int i1{0}; i1 < b_loop_ub; i1++) {
+              sampletmp[i1] = sample[i1] + (livepoints[(static_cast<int>(idx2) +
+                livepoints.size(0) * i1) - 1] - livepoints[(static_cast<int>
+                (idx1) + livepoints.size(0) * i1) - 1]);
+            }
+          } else {
+            binary_expand_op(sampletmp, sample, livepoints, idx2, idx1);
           }
         }
 
@@ -228,11 +293,11 @@ namespace RAT
             currentPrior = newPrior;
             sample.set_size(1, sampletmp.size(1));
             b_loop_ub = sampletmp.size(1);
-            for (i1 = 0; i1 < b_loop_ub; i1++) {
+            for (int i1{0}; i1 < b_loop_ub; i1++) {
               sample[i1] = sampletmp[i1];
             }
 
-            *logL = logLnew;
+            logL = logLnew;
           }
         } else {
           //  reject point
@@ -248,11 +313,13 @@ namespace RAT
     } while (exitg1 == 0);
 
     //  print out acceptance ratio
-    if (!coder::internal::u_strcmp(data_f2->display.data, data_f2->display.size))
+    if (!coder::internal::d_strcmp(data_f2->display.data, data_f2->display.size))
     {
       coder::b_snPrint(acc / (Ntimes * nMCMC), charStr);
       triggerEvent(charStr);
     }
+
+    return logL;
   }
 }
 

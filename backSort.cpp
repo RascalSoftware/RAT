@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // backSort.cpp
 //
@@ -16,12 +16,14 @@
 // Function Definitions
 namespace RAT
 {
-  void backSort(double contrastScalefactors, double contrastBulkIns, double
-                contrastBulkOuts, const ::coder::array<double, 2U> &scalefactors,
-                const ::coder::array<double, 2U> &bulkIn, const ::coder::array<
-                double, 2U> &bulkOut, double *outQzshift, double *outScalefactor,
-                double *outBulkIn, double *outBulkOut)
+  double backSort(double contrastScalefactors, double contrastBulkIns, double
+                  contrastBulkOuts, const ::coder::array<double, 2U>
+                  &scalefactors, const ::coder::array<double, 2U> &bulkIn, const
+                  ::coder::array<double, 2U> &bulkOut, double &outScalefactor,
+                  double &outBulkIn, double &outBulkOut)
   {
+    double outQzshift;
+
     //  Distributes the background and shift values among the different contrasts
     //
     //  INPUTS:
@@ -39,10 +41,11 @@ namespace RAT
     //     * outScalefactor: list of actual scalefactor values for each contrast
     //     * outBulkIn: list of actual bulkIn values for each contrast
     //     * outBulkOut: list of actual bulkOut values for each contrast
-    *outQzshift = 0.0;
-    *outScalefactor = scalefactors[static_cast<int>(contrastScalefactors) - 1];
-    *outBulkIn = bulkIn[static_cast<int>(contrastBulkIns) - 1];
-    *outBulkOut = bulkOut[static_cast<int>(contrastBulkOuts) - 1];
+    outQzshift = 0.0;
+    outScalefactor = scalefactors[static_cast<int>(contrastScalefactors) - 1];
+    outBulkIn = bulkIn[static_cast<int>(contrastBulkIns) - 1];
+    outBulkOut = bulkOut[static_cast<int>(contrastBulkOuts) - 1];
+    return outQzshift;
   }
 }
 

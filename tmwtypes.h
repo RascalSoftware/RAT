@@ -837,6 +837,8 @@ typedef ptrdiff_t mwSignedIndex;  /* a signed pointer-width integer */
 #endif
 
                                   /* for the individual dim */
+/* If updating SLSize or SLIndex, update defintions in sl_types_def.h
+   as well. */
 #ifndef SLSIZE_SLINDEX
   #define SLSIZE_SLINDEX
   #ifdef INT_TYPE_64_IS_SUPPORTED

@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // simplexXTransform.cpp
 //
@@ -22,34 +22,28 @@ namespace RAT
     const ::coder::array<double, 1U> &params_BoundClass, ::coder::array<double,
     1U> &xtrans)
   {
-    int i;
     int loop_ub;
 
     //  converts unconstrained variables into their original domains
     xtrans.set_size(x.size(0));
     loop_ub = x.size(0);
-    for (i = 0; i < loop_ub; i++) {
+    for (int i{0}; i < loop_ub; i++) {
       xtrans[i] = x[i];
-    }
-
-    i = x.size(0);
-    for (int b_i{0}; b_i < i; b_i++) {
-      switch (static_cast<int>(params_BoundClass[b_i])) {
+      switch (static_cast<int>(params_BoundClass[i])) {
        case 1:
         //  lower bound only
-        xtrans[b_i] = params_LB[b_i] + x[b_i] * x[b_i];
+        xtrans[i] = params_LB[i] + x[i] * x[i];
         break;
 
        case 2:
         //  upper bound only
-        xtrans[b_i] = params_UB[b_i] - x[b_i] * x[b_i];
+        xtrans[i] = params_UB[i] - x[i] * x[i];
         break;
 
        case 3:
         //  lower and upper bounds
-        xtrans[b_i] = (std::sin(x[b_i]) + 1.0) / 2.0;
-        xtrans[b_i] = xtrans[b_i] * (params_UB[b_i] - params_LB[b_i]) +
-          params_LB[b_i];
+        xtrans[i] = (std::sin(x[i]) + 1.0) / 2.0 * (params_UB[i] - params_LB[i])
+          + params_LB[i];
         break;
 
        default:

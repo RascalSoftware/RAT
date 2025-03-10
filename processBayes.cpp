@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // processBayes.cpp
 //
@@ -22,41 +22,82 @@
 // Function Definitions
 namespace RAT
 {
-  void processBayes(const ::coder::array<double, 2U> &bayesOutputs_bestParams,
-                    const ::coder::array<double, 2U> &bayesOutputs_chain,
-                    ProblemDefinition *problemStruct, Controls *controls,
-                    Results *result, f_struct_T *bayesResults)
+  void processBayes(const double bayesOutputs_bestParams_data[], const int
+                    bayesOutputs_bestParams_size[2], const ::coder::array<double,
+                    2U> &bayesOutputs_chain, ProblemDefinition &problemStruct,
+                    Controls &controls, Results *result, e_struct_T
+                    &bayesResults)
   {
-    ProblemDefinition b_problemStruct;
     int loop_ub;
 
     //  Need to impose that we calculate the SLD..
-    controls->calcSldDuringFit = true;
+    controls.calcSldDuringFit = true;
 
     //  ... and use the Bayes best params
-    problemStruct->fitParams.set_size(1, bayesOutputs_bestParams.size(1));
-    loop_ub = bayesOutputs_bestParams.size(1);
+    problemStruct.fitParams.set_size(1, bayesOutputs_bestParams_size[1]);
+    loop_ub = bayesOutputs_bestParams_size[1];
     for (int i{0}; i < loop_ub; i++) {
-      problemStruct->fitParams[i] = bayesOutputs_bestParams[i];
+      problemStruct.fitParams[i] = bayesOutputs_bestParams_data[i];
     }
 
+    ProblemDefinition b_problemStruct;
     unpackParams(problemStruct);
     percentileConfidenceIntervals(bayesOutputs_chain,
-      bayesResults->confidenceIntervals.percentile95,
-      bayesResults->confidenceIntervals.percentile65,
-      bayesResults->confidenceIntervals.mean);
+      bayesResults.confidenceIntervals.percentile95,
+      bayesResults.confidenceIntervals.percentile65,
+      bayesResults.confidenceIntervals.mean);
 
     // iterShortest(output.chain,length(fitNames),[],0.95);
     //  Calculate 'mean' best fit curves
-    b_reflectivityCalculation(problemStruct, controls, result);
+    b_reflectivityCalculation(problemStruct, &controls, result);
 
     //  2. Reflectivity and SLD shading
-    b_problemStruct = *problemStruct;
-    refPercentileConfidenceIntervals(bayesOutputs_chain, &b_problemStruct,
+    b_problemStruct = problemStruct;
+    refPercentileConfidenceIntervals(bayesOutputs_chain, b_problemStruct,
       controls, result->reflectivity, result->sldProfiles,
-      bayesResults->predictionIntervals.reflectivity,
-      bayesResults->predictionIntervals.sld,
-      bayesResults->predictionIntervals.sampleChi);
+      bayesResults.predictionIntervals.reflectivity,
+      bayesResults.predictionIntervals.sld,
+      bayesResults.predictionIntervals.sampleChi);
+
+    //  ---------------------------------
+    //  bayesResults.chain = bayesOutputs.chain;
+  }
+
+  void processBayes(const ::coder::array<double, 2U> &bayesOutputs_bestParams,
+                    const ::coder::array<double, 2U> &bayesOutputs_chain,
+                    ProblemDefinition &problemStruct, Controls &controls,
+                    Results *result, e_struct_T &bayesResults)
+  {
+    int loop_ub;
+
+    //  Need to impose that we calculate the SLD..
+    controls.calcSldDuringFit = true;
+
+    //  ... and use the Bayes best params
+    problemStruct.fitParams.set_size(1, bayesOutputs_bestParams.size(1));
+    loop_ub = bayesOutputs_bestParams.size(1);
+    for (int i{0}; i < loop_ub; i++) {
+      problemStruct.fitParams[i] = bayesOutputs_bestParams[i];
+    }
+
+    ProblemDefinition b_problemStruct;
+    unpackParams(problemStruct);
+    percentileConfidenceIntervals(bayesOutputs_chain,
+      bayesResults.confidenceIntervals.percentile95,
+      bayesResults.confidenceIntervals.percentile65,
+      bayesResults.confidenceIntervals.mean);
+
+    // iterShortest(output.chain,length(fitNames),[],0.95);
+    //  Calculate 'mean' best fit curves
+    b_reflectivityCalculation(problemStruct, &controls, result);
+
+    //  2. Reflectivity and SLD shading
+    b_problemStruct = problemStruct;
+    refPercentileConfidenceIntervals(bayesOutputs_chain, b_problemStruct,
+      controls, result->reflectivity, result->sldProfiles,
+      bayesResults.predictionIntervals.reflectivity,
+      bayesResults.predictionIntervals.sld,
+      bayesResults.predictionIntervals.sampleChi);
 
     //  ---------------------------------
     //  bayesResults.chain = bayesOutputs.chain;

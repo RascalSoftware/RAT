@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // randn.cpp
 //
@@ -43,76 +43,48 @@ namespace RAT
 
     void randn(double r[2])
     {
-      double b_r;
-      double u;
-      double x;
-      unsigned int u32[2];
-      int exitg1;
-      int i;
-      do {
-        exitg1 = 0;
-        genrand_uint32_vector(state, u32);
-        i = static_cast<int>((u32[1] >> 24U) + 1U);
-        b_r = ((static_cast<double>(u32[0] >> 3U) * 1.6777216E+7 + static_cast<
-                double>(static_cast<int>(u32[1]) & 16777215)) *
-               2.2204460492503131E-16 - 1.0) * dv[i];
-        if (std::abs(b_r) <= dv[i - 1]) {
-          exitg1 = 1;
-        } else if (i < 256) {
-          u = eml_rand_mt19937ar(state);
-          if (dv1[i] + u * (dv1[i - 1] - dv1[i]) < std::exp(-0.5 * b_r * b_r)) {
+      for (int k{0}; k < 2; k++) {
+        double b_r;
+        unsigned int u32[2];
+        int exitg1;
+        int i;
+        do {
+          exitg1 = 0;
+          genrand_uint32_vector(state, u32);
+          i = static_cast<int>((u32[1] >> 24U) + 1U);
+          b_r = ((static_cast<double>(u32[0] >> 3U) * 1.6777216E+7 +
+                  static_cast<double>(static_cast<int>(u32[1]) & 16777215)) *
+                 2.2204460492503131E-16 - 1.0) * dv[i];
+          if (std::abs(b_r) <= dv[i - 1]) {
+            exitg1 = 1;
+          } else if (i < 256) {
+            double u;
+            u = eml_rand_mt19937ar(state);
+            if (dv1[i] + u * (dv1[i - 1] - dv1[i]) < std::exp(-0.5 * b_r * b_r))
+            {
+              exitg1 = 1;
+            }
+          } else {
+            double u;
+            double x;
+            do {
+              u = eml_rand_mt19937ar(state);
+              x = std::log(u) * 0.273661237329758;
+              u = eml_rand_mt19937ar(state);
+            } while (!(-2.0 * std::log(u) > x * x));
+
+            if (b_r < 0.0) {
+              b_r = x - 3.65415288536101;
+            } else {
+              b_r = 3.65415288536101 - x;
+            }
+
             exitg1 = 1;
           }
-        } else {
-          do {
-            u = eml_rand_mt19937ar(state);
-            x = std::log(u) * 0.273661237329758;
-            u = eml_rand_mt19937ar(state);
-          } while (!(-2.0 * std::log(u) > x * x));
+        } while (exitg1 == 0);
 
-          if (b_r < 0.0) {
-            b_r = x - 3.65415288536101;
-          } else {
-            b_r = 3.65415288536101 - x;
-          }
-
-          exitg1 = 1;
-        }
-      } while (exitg1 == 0);
-
-      r[0] = b_r;
-      do {
-        exitg1 = 0;
-        genrand_uint32_vector(state, u32);
-        i = static_cast<int>((u32[1] >> 24U) + 1U);
-        b_r = ((static_cast<double>(u32[0] >> 3U) * 1.6777216E+7 + static_cast<
-                double>(static_cast<int>(u32[1]) & 16777215)) *
-               2.2204460492503131E-16 - 1.0) * dv[i];
-        if (std::abs(b_r) <= dv[i - 1]) {
-          exitg1 = 1;
-        } else if (i < 256) {
-          u = eml_rand_mt19937ar(state);
-          if (dv1[i] + u * (dv1[i - 1] - dv1[i]) < std::exp(-0.5 * b_r * b_r)) {
-            exitg1 = 1;
-          }
-        } else {
-          do {
-            u = eml_rand_mt19937ar(state);
-            x = std::log(u) * 0.273661237329758;
-            u = eml_rand_mt19937ar(state);
-          } while (!(-2.0 * std::log(u) > x * x));
-
-          if (b_r < 0.0) {
-            b_r = x - 3.65415288536101;
-          } else {
-            b_r = 3.65415288536101 - x;
-          }
-
-          exitg1 = 1;
-        }
-      } while (exitg1 == 0);
-
-      r[1] = b_r;
+        r[k] = b_r;
+      }
     }
 
     void randn(double varargin_1, double varargin_2, ::coder::array<double, 2U>

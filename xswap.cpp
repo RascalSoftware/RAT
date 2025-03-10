@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // xswap.cpp
 //
@@ -22,6 +22,21 @@ namespace RAT
     {
       namespace blas
       {
+        void xswap(int n, ::coder::array<double, 2U> &x, int ix0, int incx, int
+                   iy0, int incy)
+        {
+          for (int k{0}; k < n; k++) {
+            double temp;
+            int i;
+            int temp_tmp;
+            temp_tmp = (ix0 + k * incx) - 1;
+            temp = x[temp_tmp];
+            i = (iy0 + k * incy) - 1;
+            x[temp_tmp] = x[i];
+            x[i] = temp;
+          }
+        }
+
         void xswap(int n, ::coder::array<double, 2U> &x, int ix0, int iy0)
         {
           for (int k{0}; k < n; k++) {
@@ -36,19 +51,12 @@ namespace RAT
           }
         }
 
-        void xswap(int n, ::coder::array<double, 2U> &x, int ix0, int incx, int
-                   iy0, int incy)
+        void xswap(::coder::array<double, 2U> &x, int ix0)
         {
-          for (int k{0}; k < n; k++) {
-            double temp;
-            int i;
-            int temp_tmp;
-            temp_tmp = (ix0 + k * incx) - 1;
-            temp = x[temp_tmp];
-            i = (iy0 + k * incy) - 1;
-            x[temp_tmp] = x[i];
-            x[i] = temp;
-          }
+          double temp;
+          temp = x[ix0 - 1];
+          x[ix0 - 1] = x[0];
+          x[0] = temp;
         }
       }
     }

@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // triggerEvent.h
 //
@@ -11,18 +11,11 @@
 #define TRIGGEREVENT_H
 
 // Include files
+#include "RATMain_types.h"
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
-
-// Type Declarations
-namespace RAT
-{
-  struct Results;
-  struct cell_wrap_10;
-}
 
 // Function Declarations
 namespace RAT
@@ -39,7 +32,7 @@ namespace RAT
   void i_triggerEvent();
   void j_triggerEvent();
   void triggerEvent();
-  void triggerEvent(const Results *varargin_1, const char varargin_2_TF_data[],
+  void triggerEvent(const Results &varargin_1, const char varargin_2_TF_data[],
                     const int varargin_2_TF_size[2], const ::coder::array<double,
                     2U> &varargin_2_resample, const ::coder::array<double, 2U>
                     &varargin_2_dataPresent, const char

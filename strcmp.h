@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // strcmp.h
 //
@@ -11,17 +11,11 @@
 #define STRCMP_H
 
 // Include files
+#include "RATMain_types.h"
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
-
-// Type Declarations
-namespace RAT
-{
-  struct cell_wrap_10;
-}
 
 // Function Declarations
 namespace RAT
@@ -42,8 +36,8 @@ namespace RAT
       boolean_T d_strcmp(const char a_data[], const int a_size[2]);
       boolean_T d_strcmp(const char a_data[], const int a_size[2], const char b
                          [3]);
-      void db_strcmp(const cell_wrap_10 *a, const ::coder::array<cell_wrap_10,
-                     1U> &b, boolean_T bool_data[], int *bool_size);
+      int db_strcmp(const cell_wrap_10 &a, const ::coder::array<cell_wrap_10, 1U>
+                    &b, boolean_T bool_data[]);
       boolean_T e_strcmp(const char a_data[], const int a_size[2]);
       boolean_T e_strcmp(const char a_data[], const int a_size[2], const char b
                          [5]);
@@ -64,9 +58,9 @@ namespace RAT
       boolean_T q_strcmp(const char a_data[], const int a_size[2]);
       boolean_T r_strcmp(const char a_data[], const int a_size[2]);
       boolean_T s_strcmp(const char a_data[], const int a_size[2]);
-      void t_strcmp(const ::coder::array<cell_wrap_10, 2U> &a, boolean_T
+      boolean_T t_strcmp(const char a_data[], const int a_size[2]);
+      void u_strcmp(const ::coder::array<cell_wrap_10, 2U> &a, boolean_T
                     bool_data[], int bool_size[2]);
-      boolean_T u_strcmp(const char a_data[], const int a_size[2]);
       boolean_T v_strcmp(const char a_data[], const int a_size[2]);
       boolean_T w_strcmp(const char a_data[], const int a_size[2]);
       boolean_T x_strcmp(const char a_data[], const int a_size[2]);

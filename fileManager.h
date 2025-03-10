@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // fileManager.h
 //
@@ -12,20 +12,21 @@
 
 // Include files
 #include "rtwtypes.h"
-#include "omp.h"
 #include <cstddef>
+#include <cstdio>
 #include <cstdlib>
-#include <stdio.h>
 
 // Function Declarations
 namespace RAT
 {
   namespace coder
   {
-    int cfclose(double fid);
-    signed char cfopen(const char cfilename_data[], const int cfilename_size[2],
-                       const char *cpermission);
-    FILE * fileManager(double varargin_1);
+    namespace internal
+    {
+      int cfclose(double fid);
+      signed char cfopen(const char cfilename_data[], const int cfilename_size[2]);
+      std::FILE *fileManager(double varargin_1);
+    }
   }
 
   void filedata_init();

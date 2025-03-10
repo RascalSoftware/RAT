@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // makeCell.cpp
 //
@@ -17,8 +17,7 @@
 // Function Definitions
 namespace RAT
 {
-  void b_makeCell(double m, const double vals[3], ::coder::array<cell_wrap_9, 2U>
-                  &x)
+  void b_makeCell(double m, ::coder::array<cell_wrap_9, 2U> &x)
   {
     int i;
 
@@ -29,17 +28,11 @@ namespace RAT
     i = static_cast<int>(m);
     x.set_size(i, 2);
     for (int b_i{0}; b_i < i; b_i++) {
-      double d;
-      double d1;
-      double d2;
-      d = vals[0];
-      d1 = vals[1];
-      d2 = vals[2];
       for (int j{0}; j < 2; j++) {
         x[b_i + x.size(0) * j].f1.set_size(1, 3);
-        x[b_i + x.size(0) * j].f1[0] = d;
-        x[b_i + x.size(0) * j].f1[x[b_i + x.size(0) * j].f1.size(0)] = d1;
-        x[b_i + x.size(0) * j].f1[x[b_i + x.size(0) * j].f1.size(0) * 2] = d2;
+        x[b_i + x.size(0) * j].f1[0] = 0.0;
+        x[b_i + x.size(0) * j].f1[x[b_i + x.size(0) * j].f1.size(0)] = 0.0;
+        x[b_i + x.size(0) * j].f1[x[b_i + x.size(0) * j].f1.size(0) * 2] = 0.0;
       }
     }
   }
@@ -152,8 +145,7 @@ namespace RAT
     x[49].f1[0] = 1.0;
   }
 
-  void makeCell(double m, const double vals[3], ::coder::array<cell_wrap_9, 2U>
-                &x)
+  void makeCell(double m, ::coder::array<cell_wrap_9, 2U> &x)
   {
     int i;
 
@@ -165,9 +157,9 @@ namespace RAT
     x.set_size(i, 1);
     for (int b_i{0}; b_i < i; b_i++) {
       x[b_i].f1.set_size(1, 3);
-      x[b_i].f1[0] = vals[0];
-      x[b_i].f1[x[b_i].f1.size(0)] = vals[1];
-      x[b_i].f1[x[b_i].f1.size(0) * 2] = vals[2];
+      x[b_i].f1[0] = 0.0;
+      x[b_i].f1[x[b_i].f1.size(0)] = 0.0;
+      x[b_i].f1[x[b_i].f1.size(0) * 2] = 0.0;
     }
   }
 }

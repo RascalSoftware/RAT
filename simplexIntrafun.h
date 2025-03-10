@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // simplexIntrafun.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -27,15 +26,12 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void simplexIntrafun(const ::coder::array<double, 1U> &x, ProblemDefinition
-                       *problemStruct, const char controls_parallel_data[],
-                       const int controls_parallel_size[2], double
-                       controls_resampleMinAngle, double
-                       controls_resampleNPoints, boolean_T
-                       controls_calcSldDuringFit, const ::coder::array<double,
-                       1U> &params_LB, const ::coder::array<double, 1U>
-                       &params_UB, const ::coder::array<double, 1U>
-                       &params_BoundClass, double *fval, Results *result);
+  double simplexIntrafun(const ::coder::array<double, 1U> &x, ProblemDefinition
+    &problemStruct, const char controls_parallel_data[], const int
+    controls_parallel_size[2], double controls_resampleMinAngle, double
+    controls_resampleNPoints, boolean_T controls_calcSldDuringFit, const ::coder::
+    array<double, 1U> &params_LB, const ::coder::array<double, 1U> &params_UB,
+    const ::coder::array<double, 1U> &params_BoundClass, Results &result);
 }
 
 #endif

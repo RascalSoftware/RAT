@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // xzlangeM.cpp
 //
@@ -10,7 +10,6 @@
 
 // Include files
 #include "xzlangeM.h"
-#include "RATMain_rtwutil.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include <cmath>
@@ -24,7 +23,7 @@ namespace RAT
     {
       namespace reflapack
       {
-        double xzlangeM(const ::coder::array<creal_T, 2U> &x)
+        double xzlangeM(const ::coder::array<double, 2U> &x)
         {
           double y;
           boolean_T b;
@@ -34,23 +33,29 @@ namespace RAT
           b1 = (x.size(1) == 0);
           if ((!b) && (!b1)) {
             int k;
-            boolean_T exitg1;
             k = 0;
-            exitg1 = false;
-            while ((!exitg1) && (k <= x.size(0) * x.size(1) - 1)) {
-              double absxk;
-              absxk = rt_hypotd_snf(x[k].re, x[k].im);
-              if (std::isnan(absxk)) {
-                y = rtNaN;
-                exitg1 = true;
-              } else {
-                if (absxk > y) {
-                  y = absxk;
-                }
+            int exitg1;
+            int i;
+            do {
+              exitg1 = 0;
+              i = x.size(0) * x.size(1);
+              if (k <= i - 1) {
+                double absxk;
+                absxk = std::abs(x[k]);
+                if (std::isnan(absxk)) {
+                  y = rtNaN;
+                  exitg1 = 1;
+                } else {
+                  if (absxk > y) {
+                    y = absxk;
+                  }
 
-                k++;
+                  k++;
+                }
+              } else {
+                exitg1 = 1;
               }
-            }
+            } while (exitg1 == 0);
           }
 
           return y;

@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // linspace.cpp
 //
@@ -34,17 +34,15 @@ namespace RAT
           if (y.size(1) >= 2) {
             y[0] = d1;
             if (y.size(1) >= 3) {
-              if ((d1 == -d2) && (static_cast<int>(delta1) > 2)) {
-                double delta2;
-                delta2 = d2 / (static_cast<double>(static_cast<int>(delta1)) -
-                               1.0);
+              if (d1 == -d2) {
+                delta1 = d2 / (static_cast<double>(y.size(1)) - 1.0);
                 for (int k{2}; k <= y_tmp; k++) {
-                  y[k - 1] = static_cast<double>(((k << 1) - static_cast<int>
-                    (delta1)) - 1) * delta2;
+                  y[k - 1] = static_cast<double>(((k << 1) - y.size(1)) - 1) *
+                    delta1;
                 }
 
-                if ((static_cast<int>(delta1) & 1) == 1) {
-                  y[static_cast<int>(delta1) >> 1] = 0.0;
+                if ((y.size(1) & 1) == 1) {
+                  y[y.size(1) >> 1] = 0.0;
                 }
               } else if (((d1 < 0.0) != (d2 < 0.0)) && ((std::abs(d1) >
                            8.9884656743115785E+307) || (std::abs(d2) >

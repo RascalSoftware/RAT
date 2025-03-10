@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // log2.cpp
 //
@@ -13,7 +13,6 @@
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include <cmath>
-#include <math.h>
 
 // Function Definitions
 namespace RAT
@@ -29,21 +28,24 @@ namespace RAT
         int i;
         i = x.size(0);
         for (int k{0}; k < i; k++) {
-          b_log2(x[k], &f[k], &e[k]);
+          f[k] = b_log2(x[k], &e[k]);
         }
       }
     }
 
-    void b_log2(double x, double *f, double *e)
+    double b_log2(double x, double *e)
     {
+      double f;
       int eint;
       if ((!std::isinf(x)) && (!std::isnan(x))) {
-        *f = frexp(x, &eint);
+        f = std::frexp(x, &eint);
         *e = eint;
       } else {
-        *f = x;
+        f = x;
         *e = 0.0;
       }
+
+      return f;
     }
   }
 }

@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // strlength.cpp
 //
@@ -23,16 +23,17 @@ namespace RAT
     void intstrlen(const ::coder::array<cell_wrap_10, 2U> &s, int len_data[],
                    int len_size[2])
     {
-      int ns;
+      int loop_ub;
       len_size[0] = 1;
       len_size[1] = static_cast<short>(s.size(1));
-      ns = static_cast<short>(s.size(1));
-      if (0 <= ns - 1) {
-        std::memset(&len_data[0], 0, ns * sizeof(int));
+      loop_ub = static_cast<short>(s.size(1));
+      if (loop_ub - 1 >= 0) {
+        std::memset(&len_data[0], 0, static_cast<unsigned int>(loop_ub) * sizeof
+                    (int));
       }
 
-      ns = s.size(1);
-      for (int idx{0}; idx < ns; idx++) {
+      loop_ub = s.size(1);
+      for (int idx{0}; idx < loop_ub; idx++) {
         len_data[idx] = s[idx].f1.size(1);
       }
     }

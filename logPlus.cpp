@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // logPlus.cpp
 //
@@ -10,6 +10,7 @@
 
 // Include files
 #include "logPlus.h"
+#include "log1p.h"
 #include "rt_nonfinite.h"
 #include <cmath>
 
@@ -18,6 +19,7 @@ namespace RAT
 {
   double logPlus(double logx, double logy)
   {
+    double d;
     double logz;
 
     //
@@ -31,9 +33,13 @@ namespace RAT
     if (std::isinf(logx) && std::isinf(logy)) {
       logz = rtMinusInf;
     } else if (logx > logy) {
-      logz = logx + std::log(std::exp(logy - logx) + 1.0);
+      d = std::exp(logy - logx);
+      coder::internal::scalar::b_log1p(d);
+      logz = logx + d;
     } else {
-      logz = logy + std::log(std::exp(logx - logy) + 1.0);
+      d = std::exp(logx - logy);
+      coder::internal::scalar::b_log1p(d);
+      logz = logy + d;
     }
 
     return logz;

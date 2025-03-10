@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // simplexIntrafun.cpp
 //
@@ -23,15 +23,12 @@
 // Function Definitions
 namespace RAT
 {
-  void simplexIntrafun(const ::coder::array<double, 1U> &x, ProblemDefinition
-                       *problemStruct, const char controls_parallel_data[],
-                       const int controls_parallel_size[2], double
-                       controls_resampleMinAngle, double
-                       controls_resampleNPoints, boolean_T
-                       controls_calcSldDuringFit, const ::coder::array<double,
-                       1U> &params_LB, const ::coder::array<double, 1U>
-                       &params_UB, const ::coder::array<double, 1U>
-                       &params_BoundClass, double *fval, Results *result)
+  double simplexIntrafun(const ::coder::array<double, 1U> &x, ProblemDefinition
+    &problemStruct, const char controls_parallel_data[], const int
+    controls_parallel_size[2], double controls_resampleMinAngle, double
+    controls_resampleNPoints, boolean_T controls_calcSldDuringFit, const ::coder::
+    array<double, 1U> &params_LB, const ::coder::array<double, 1U> &params_UB,
+    const ::coder::array<double, 1U> &params_BoundClass, Results &result)
   {
     ::coder::array<double, 1U> xtrans;
     Controls expl_temp;
@@ -41,10 +38,10 @@ namespace RAT
     simplexXTransform(x, params_LB, params_UB, params_BoundClass, xtrans);
 
     // Unpck the params..
-    problemStruct->fitParams.set_size(1, xtrans.size(0));
+    problemStruct.fitParams.set_size(1, xtrans.size(0));
     loop_ub = xtrans.size(0);
     for (int i{0}; i < loop_ub; i++) {
-      problemStruct->fitParams[i] = xtrans[i];
+      problemStruct.fitParams[i] = xtrans[i];
     }
 
     unpackParams(problemStruct);
@@ -54,13 +51,13 @@ namespace RAT
     expl_temp.parallel.size[0] = 1;
     expl_temp.parallel.size[1] = controls_parallel_size[1];
     loop_ub = controls_parallel_size[1];
-    if (0 <= loop_ub - 1) {
+    if (loop_ub - 1 >= 0) {
       std::copy(&controls_parallel_data[0], &controls_parallel_data[loop_ub],
                 &expl_temp.parallel.data[0]);
     }
 
-    b_reflectivityCalculation(problemStruct, &expl_temp, result);
-    *fval = result->calculationResults.sumChi;
+    b_reflectivityCalculation(problemStruct, &expl_temp, &result);
+    return result.calculationResults.sumChi;
   }
 }
 

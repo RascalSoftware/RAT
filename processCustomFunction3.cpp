@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // processCustomFunction3.cpp
 //
@@ -10,11 +10,13 @@
 
 // Include files
 #include "processCustomFunction3.h"
+#include "RATMain_data.h"
 #include "RATMain_internal_types.h"
 #include "RATMain_types.h"
 #include "callCppFunction.h"
 #include "rt_nonfinite.h"
 #include "str2double.h"
+#include "coderException.hpp"
 #include "coder_array.h"
 #include <cmath>
 
@@ -35,10 +37,7 @@ namespace RAT
       {
         ::coder::array<double, 2U> bulkOuts;
         ::coder::array<double, 2U> r;
-        double a__2;
-        int iv[2];
         int i;
-        int i1;
         int loop_ub;
 
         //  Top-level function for processing custom XY profiles for all the
@@ -49,7 +48,7 @@ namespace RAT
         //  3 columns to allow for potential imaginary curve
         bulkOuts.set_size(1, contrastBulkOuts.size(1));
         loop_ub = contrastBulkOuts.size(1);
-        for (i1 = 0; i1 < loop_ub; i1++) {
+        for (int i1{0}; i1 < loop_ub; i1++) {
           bulkOuts[i1] = bulkOutArray[static_cast<int>(contrastBulkOuts[i1]) - 1];
         }
 
@@ -57,6 +56,7 @@ namespace RAT
         for (int b_i{0}; b_i < i; b_i++) {
           creal_T x;
           double d;
+          int iv[2];
 
           //  TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..
           //  Choose which custom file is associated with this contrast
@@ -66,25 +66,40 @@ namespace RAT
                     static_cast<int>(d) - 1].f1)->size())[0];
           iv[1] = (*(int (*)[2])((::coder::array<char, 2U> *)&customFiles[
                     static_cast<int>(d) - 1].f1)->size())[1];
-          x = coder::str2double((const char *)((::coder::array<char, 2U> *)
-            &customFiles[static_cast<int>(d) - 1].f1)->data(), iv);
-          if ((!std::isnan(x.re)) && (!std::isnan(x.im))) {
+          x = coder::internal::str2double((const char *)((::coder::array<char,
+            2U> *)&customFiles[static_cast<int>(d) - 1].f1)->data(), iv);
+          if (std::isnan(x.re) || std::isnan(x.im)) {
+            char b_cv[22];
+
+            //  Excecute a custom model function in the base Matlab workspace.
+            //  Calling matlab from other languages should be implemented in their wrapper
+            //  Ensures a proper exception is thrown in the generated C++ code.
+            //  The arguments should be the errorCode integer, error message as a char array (which can be a formatspec)
+            //  and other parameters if message is a formatspec.
+            //
+            //  coderException(coderEnums.errorCodes.invalidOption, 'The model type is not supported')
+            //  coderException(coderEnums.errorCodes.invalidOption, 'The model type "%s" is not supported', modelType)
+            for (int i1{0}; i1 < 22; i1++) {
+              b_cv[i1] = cv1[i1];
+            }
+
+            coderException(0.0, &b_cv[0]);
+          } else {
+            double d1;
             int b_loop_ub;
-            int i2;
+            d1 = bulkInArray[static_cast<int>(contrastBulkIns[b_i]) - 1];
             iv[0] = (*(int (*)[2])((::coder::array<char, 2U> *)&customFiles[
                       static_cast<int>(d) - 1].f1)->size())[0];
             iv[1] = (*(int (*)[2])((::coder::array<char, 2U> *)&customFiles[
                       static_cast<int>(d) - 1].f1)->size())[1];
-            b_callCppFunction((const char *)((::coder::array<char, 2U> *)
-              &customFiles[static_cast<int>(d) - 1].f1)->data(), iv, params,
-                              bulkInArray[static_cast<int>(contrastBulkIns[b_i])
-                              - 1], bulkOuts, (static_cast<double>(b_i) + 1.0) -
-                              1.0, r, &subRoughs[b_i]);
+            subRoughs[b_i] = b_callCppFunction((const char *)((::coder::array<
+              char, 2U> *)&customFiles[static_cast<int>(d) - 1].f1)->data(), iv,
+              params, d1, bulkOuts, (static_cast<double>(b_i) + 1.0) - 1.0, r);
             loop_ub = r.size(1);
             slds[b_i].f1.set_size(r.size(0), r.size(1));
-            for (i1 = 0; i1 < loop_ub; i1++) {
+            for (int i1{0}; i1 < loop_ub; i1++) {
               b_loop_ub = r.size(0);
-              for (i2 = 0; i2 < b_loop_ub; i2++) {
+              for (int i2{0}; i2 < b_loop_ub; i2++) {
                 slds[b_i].f1[i2 + slds[b_i].f1.size(0) * i1] = r[i2 + r.size(0) *
                   i1];
               }
@@ -96,14 +111,13 @@ namespace RAT
                       static_cast<int>(cCustFiles[b_i]) - 1].f1)->size())[1];
             c_callCppFunction((const char *)((::coder::array<char, 2U> *)
               &customFiles[static_cast<int>(cCustFiles[b_i]) - 1].f1)->data(),
-                              iv, params, bulkInArray[static_cast<int>
-                              (contrastBulkIns[b_i]) - 1], bulkOuts, (
-              static_cast<double>(b_i) + 1.0) - 1.0, r, &a__2);
+                              iv, params, d1, bulkOuts, (static_cast<double>(b_i)
+              + 1.0) - 1.0, r);
             loop_ub = r.size(1);
             slds[b_i + slds.size(0)].f1.set_size(r.size(0), r.size(1));
-            for (i1 = 0; i1 < loop_ub; i1++) {
+            for (int i1{0}; i1 < loop_ub; i1++) {
               b_loop_ub = r.size(0);
-              for (i2 = 0; i2 < b_loop_ub; i2++) {
+              for (int i2{0}; i2 < b_loop_ub; i2++) {
                 slds[b_i + slds.size(0)].f1[i2 + slds[b_i + slds.size(0)].
                   f1.size(0) * i1] = r[i2 + r.size(0) * i1];
               }

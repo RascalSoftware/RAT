@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // xzlascl.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -26,8 +25,10 @@ namespace RAT
     {
       namespace reflapack
       {
-        void xzlascl(double cfrom, double cto, ::coder::array<creal_T, 1U> &A);
-        void xzlascl(double cfrom, double cto, ::coder::array<creal_T, 2U> &A);
+        void xzlascl(double cfrom, double cto, int m, ::coder::array<double, 1U>
+                     &A, int iA0);
+        void xzlascl(double cfrom, double cto, int m, int n, ::coder::array<
+                     double, 2U> &A, int lda);
       }
     }
   }

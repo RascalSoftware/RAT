@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // RATMain_rtwutil.h
 //
@@ -14,24 +14,22 @@
 #include "RATMain_types.h"
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
 // Function Declarations
 namespace RAT
 {
-  extern void cast(const ::coder::array<cell_wrap_3, 2U> &b, ::coder::array<
-                   cell_wrap_47, 2U> &c);
-  extern void cast(const ::coder::array<cell_wrap_4, 2U> &b, ::coder::array<
-                   cell_wrap_9, 2U> &c);
-  extern void cast(const ::coder::array<cell_wrap_6, 2U> &b, ::coder::array<
-                   cell_wrap_9, 2U> &c);
-  extern void cast(const ::coder::array<cell_wrap_0, 2U> &b, ::coder::array<
-                   cell_wrap_10, 2U> &c);
-  extern void cast(const ::coder::array<cell_wrap_5, 2U> &b, ::coder::array<
-                   cell_wrap_9, 2U> &c);
-  extern double rt_atan2d_snf(double u0, double u1);
+  extern void cast(const ::coder::array<cell_wrap_3, 2U> &r, ::coder::array<
+                   cell_wrap_47, 2U> &r1);
+  extern void cast(const ::coder::array<cell_wrap_4, 2U> &r, ::coder::array<
+                   cell_wrap_9, 2U> &r1);
+  extern void cast(const ::coder::array<cell_wrap_6, 2U> &r, ::coder::array<
+                   cell_wrap_9, 2U> &r1);
+  extern void cast(const ::coder::array<cell_wrap_0, 2U> &r, ::coder::array<
+                   cell_wrap_10, 2U> &r1);
+  extern void cast(const ::coder::array<cell_wrap_5, 2U> &r, ::coder::array<
+                   cell_wrap_9, 2U> &r1);
   extern double rt_hypotd_snf(double u0, double u1);
   extern double rt_powd_snf(double u0, double u1);
   extern double rt_remd_snf(double u0, double u1);

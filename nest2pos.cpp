@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // nest2pos.cpp
 //
@@ -17,30 +17,76 @@
 #include "coder_array.h"
 #include <cmath>
 
+// Function Declarations
+namespace RAT
+{
+  static void binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
+    array<double, 2U> &in2, const ::coder::array<double, 2U> &in3, const int
+    in4[2], double in5, double in6);
+}
+
 // Function Definitions
 namespace RAT
 {
+  static void binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
+    array<double, 2U> &in2, const ::coder::array<double, 2U> &in3, const int
+    in4[2], double in5, double in6)
+  {
+    ::coder::array<double, 1U> c_in2;
+    int b_in2;
+    int loop_ub;
+    int stride_0_0;
+    int stride_1_0;
+    b_in2 = in2.size(1);
+    in1.set_size(static_cast<int>(in5) + in4[1]);
+    loop_ub = in4[1];
+    for (int i{0}; i < loop_ub; i++) {
+      in1[i] = -in3[i] / in5;
+    }
+
+    loop_ub = static_cast<int>(in5);
+    for (int i{0}; i < loop_ub; i++) {
+      in1[i + in4[1]] = -in6 / in5;
+    }
+
+    if (in1.size(0) == 1) {
+      loop_ub = in2.size(0);
+    } else {
+      loop_ub = in1.size(0);
+    }
+
+    c_in2.set_size(loop_ub);
+    stride_0_0 = (in2.size(0) != 1);
+    stride_1_0 = (in1.size(0) != 1);
+    for (int i{0}; i < loop_ub; i++) {
+      c_in2[i] = in2[i * stride_0_0 + in2.size(0) * (b_in2 - 1)] + in1[i *
+        stride_1_0];
+    }
+
+    in1.set_size(c_in2.size(0));
+    loop_ub = c_in2.size(0);
+    for (int i{0}; i < loop_ub; i++) {
+      in1[i] = c_in2[i];
+    }
+  }
+
   void nest2pos(const ::coder::array<double, 2U> &nest_samples, double nLive, ::
                 coder::array<double, 2U> &post_samples)
   {
     ::coder::array<double, 2U> b_nest_samples;
     ::coder::array<double, 2U> y;
-    ::coder::array<double, 1U> b_i;
-    ::coder::array<double, 1U> c_logWt;
+    ::coder::array<double, 1U> b_y;
     ::coder::array<double, 1U> logWt;
-    ::coder::array<double, 1U> logrand;
     ::coder::array<int, 1U> idx;
-    ::coder::array<int, 1U> r;
     ::coder::array<boolean_T, 1U> b_logWt;
-    double b;
+    double b_tmp;
     double logWtmax;
+    int sizes[2];
     int i;
-    int i1;
     int k;
-    int loop_ub;
     int result;
     signed char input_sizes_idx_1;
-    signed char sizes_idx_1;
+    boolean_T b;
     boolean_T empty_non_axis_sizes;
 
     //
@@ -53,36 +99,48 @@ namespace RAT
     //  John Veitch 2009 (modified by J. Romano 2012)
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     //  calculate logWt = log(L*w) = logL + logw = logL - i/nLive
-    b = static_cast<double>(nest_samples.size(0)) - nLive;
-    if (std::isnan(b)) {
+    b_tmp = static_cast<double>(nest_samples.size(0)) - nLive;
+    if (std::isnan(b_tmp)) {
+      sizes[0] = 1;
+      sizes[1] = 1;
       y.set_size(1, 1);
       y[0] = rtNaN;
-    } else if (b < 1.0) {
+    } else if (b_tmp < 1.0) {
+      sizes[0] = 1;
+      sizes[1] = 0;
       y.set_size(1, 0);
-    } else if (std::isinf(b) && (1.0 == b)) {
-      y.set_size(1, 1);
-      y[0] = rtNaN;
     } else {
-      k = static_cast<int>(std::floor(b - 1.0));
-      y.set_size(1, k + 1);
+      sizes[0] = 1;
+      k = static_cast<int>(b_tmp - 1.0) + 1;
+      sizes[1] = static_cast<int>(b_tmp - 1.0) + 1;
+      y.set_size(1, k);
+      k = static_cast<int>(b_tmp - 1.0);
       for (i = 0; i <= k; i++) {
         y[i] = static_cast<double>(i) + 1.0;
       }
     }
 
-    b = static_cast<double>(nest_samples.size(0)) - nLive;
-    k = y.size(1);
-    i = static_cast<int>(nLive) + y.size(1);
-    logWt.set_size(i);
-    for (i1 = 0; i1 < k; i1++) {
-      logWt[i1] = nest_samples[i1 + nest_samples.size(0) * (nest_samples.size(1)
-        - 1)] + -y[i1] / nLive;
-    }
+    i = static_cast<int>(nLive) + sizes[1];
+    if (nest_samples.size(0) == i) {
+      b_y.set_size(i);
+      k = sizes[1];
+      for (i = 0; i < k; i++) {
+        b_y[i] = -y[i] / nLive;
+      }
 
-    loop_ub = i - y.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      logWt[i + k] = nest_samples[(y.size(1) + i) + nest_samples.size(0) *
-        (nest_samples.size(1) - 1)] + -b / nLive;
+      k = static_cast<int>(nLive);
+      for (i = 0; i < k; i++) {
+        b_y[i + sizes[1]] = -b_tmp / nLive;
+      }
+
+      logWt.set_size(nest_samples.size(0));
+      k = nest_samples.size(0);
+      for (i = 0; i < k; i++) {
+        logWt[i] = nest_samples[i + nest_samples.size(0) * (nest_samples.size(1)
+          - 1)] + b_y[i];
+      }
+    } else {
+      binary_expand_op(logWt, nest_samples, y, sizes, nLive, b_tmp);
     }
 
     //  posterior samples are given by the normalized weight
@@ -95,101 +153,79 @@ namespace RAT
     //  Wt -> Wt/Wtmax
     //  accept a nested sample as a posterior sample only if its
     //  value is > than a random number drawn from a unif distribution
-    coder::b_rand(static_cast<double>(nest_samples.size(0)), b_i);
-    logrand.set_size(b_i.size(0));
-    k = b_i.size(0);
-    for (i = 0; i < k; i++) {
-      logrand[i] = b_i[i];
-    }
-
-    i = logrand.size(0);
+    coder::b_rand(static_cast<double>(nest_samples.size(0)), b_y);
+    i = b_y.size(0);
     for (k = 0; k < i; k++) {
-      logrand[k] = std::log(logrand[k]);
+      b_y[k] = std::log(b_y[k]);
     }
 
-    b_logWt.set_size(logWt.size(0));
-    k = logWt.size(0);
-    for (i = 0; i < k; i++) {
-      b_logWt[i] = (logWt[i] > logrand[i]);
-    }
+    if (logWt.size(0) == b_y.size(0)) {
+      b_logWt.set_size(logWt.size(0));
+      k = logWt.size(0);
+      for (i = 0; i < k; i++) {
+        b_logWt[i] = (logWt[i] > b_y[i]);
+      }
 
-    coder::eml_find(b_logWt, r);
-    b_i.set_size(r.size(0));
-    k = r.size(0);
-    for (i = 0; i < k; i++) {
-      b_i[i] = r[i];
-    }
-
-    b_logWt.set_size(logWt.size(0));
-    k = logWt.size(0);
-    for (i = 0; i < k; i++) {
-      b_logWt[i] = (logWt[i] > logrand[i]);
-    }
-
-    coder::eml_find(b_logWt, r);
-    idx.set_size(r.size(0));
-    k = r.size(0);
-    for (i = 0; i < k; i++) {
-      idx[i] = r[i];
+      coder::eml_find(b_logWt, idx);
+    } else {
+      binary_expand_op(idx, logWt, b_y);
     }
 
     //  attach log of posterior probabilities as final column of
     //  the posterior samples
     // post_samples(:,Ncol+1) = logWt(idx);
-    if ((b_i.size(0) != 0) && (nest_samples.size(1) != 0)) {
-      result = b_i.size(0);
-    } else if (b_i.size(0) != 0) {
+    b = ((idx.size(0) != 0) && (nest_samples.size(1) != 0));
+    if (b) {
+      result = idx.size(0);
+    } else if (idx.size(0) != 0) {
       result = idx.size(0);
     } else {
       result = 0;
-      if (idx.size(0) > 0) {
-        result = idx.size(0);
-      }
     }
 
     empty_non_axis_sizes = (result == 0);
-    if (empty_non_axis_sizes || ((b_i.size(0) != 0) && (nest_samples.size(1) !=
-          0))) {
+    if (empty_non_axis_sizes || b) {
       input_sizes_idx_1 = static_cast<signed char>(nest_samples.size(1));
     } else {
       input_sizes_idx_1 = 0;
     }
 
-    if (empty_non_axis_sizes || (b_i.size(0) != 0)) {
-      sizes_idx_1 = 1;
+    if (empty_non_axis_sizes || (idx.size(0) != 0)) {
+      sizes[1] = 1;
     } else {
-      sizes_idx_1 = 0;
+      sizes[1] = 0;
     }
 
-    k = nest_samples.size(1);
     b_nest_samples.set_size(idx.size(0), nest_samples.size(1));
+    k = nest_samples.size(1);
     for (i = 0; i < k; i++) {
+      int loop_ub;
       loop_ub = idx.size(0);
-      for (i1 = 0; i1 < loop_ub; i1++) {
+      for (int i1{0}; i1 < loop_ub; i1++) {
         b_nest_samples[i1 + b_nest_samples.size(0) * i] = nest_samples[(idx[i1]
           + nest_samples.size(0) * i) - 1];
       }
     }
 
-    c_logWt.set_size(b_i.size(0));
-    k = b_i.size(0);
+    b_y.set_size(idx.size(0));
+    k = idx.size(0);
     for (i = 0; i < k; i++) {
-      c_logWt[i] = logWt[static_cast<int>(b_i[i]) - 1];
+      b_y[i] = logWt[idx[i] - 1];
     }
 
-    post_samples.set_size(result, input_sizes_idx_1 + sizes_idx_1);
+    post_samples.set_size(result, input_sizes_idx_1 + sizes[1]);
     k = input_sizes_idx_1;
     for (i = 0; i < k; i++) {
-      for (i1 = 0; i1 < result; i1++) {
+      for (int i1{0}; i1 < result; i1++) {
         post_samples[i1 + post_samples.size(0) * i] = b_nest_samples[i1 + result
           * i];
       }
     }
 
-    k = sizes_idx_1;
+    k = sizes[1];
     for (i = 0; i < k; i++) {
-      for (i1 = 0; i1 < result; i1++) {
-        post_samples[i1 + post_samples.size(0) * input_sizes_idx_1] = c_logWt[i1];
+      for (int i1{0}; i1 < result; i1++) {
+        post_samples[i1 + post_samples.size(0) * input_sizes_idx_1] = b_y[i1];
       }
     }
   }

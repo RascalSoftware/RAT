@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // runNestedSampler.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -25,15 +24,15 @@ namespace RAT
   struct Results;
   struct PredictionIntervals;
   struct ConfidenceIntervals;
+  struct NestedSamplerOutput;
   struct DreamParams;
   struct DreamOutput;
-  struct NestedSamplerOutput;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void runNestedSampler(ProblemDefinition *problemStruct, const ::coder::array<
+  void runNestedSampler(ProblemDefinition &problemStruct, const ::coder::array<
                         double, 2U> &problemLimits_params, const ::coder::array<
                         double, 2U> &problemLimits_backgroundParams, const ::
                         coder::array<double, 2U> &problemLimits_scalefactors,
@@ -42,13 +41,13 @@ namespace RAT
                         const ::coder::array<double, 2U>
                         &problemLimits_resolutionParams, const ::coder::array<
                         double, 2U> &problemLimits_domainRatios, const Controls *
-                        controls, Results *result, PredictionIntervals
-                        *bayesResults_predictionIntervals, ConfidenceIntervals
-                        *bayesResults_confidenceIntervals, DreamParams
-                        *bayesResults_dreamParams, DreamOutput
-                        *bayesResults_dreamOutput, NestedSamplerOutput
-                        *bayesResults_nestedSamplerOutput, ::coder::array<double,
-                        2U> &bayesResults_chain);
+                        controls, Results *result, PredictionIntervals &
+                        bayesResults_predictionIntervals, ConfidenceIntervals &
+                        bayesResults_confidenceIntervals, NestedSamplerOutput &
+                        bayesResults_nestedSamplerOutput, ::coder::array<double,
+                        2U> &bayesResults_chain, DreamParams &
+                        bayesResults_dreamParams, DreamOutput &
+                        bayesResults_dreamOutput);
 }
 
 #endif

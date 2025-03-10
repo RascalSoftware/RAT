@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // eml_setop.cpp
 //
@@ -10,18 +10,16 @@
 
 // Include files
 #include "eml_setop.h"
-#include "eps.h"
 #include "relop.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
-#include <cmath>
 
 // Function Declarations
 namespace RAT
 {
   namespace coder
   {
-    static double skip_to_last_equal_value(int *k, const ::coder::array<double,
+    static double skip_to_last_equal_value(int &k, const ::coder::array<double,
       2U> &x);
   }
 }
@@ -31,28 +29,25 @@ namespace RAT
 {
   namespace coder
   {
-    static double skip_to_last_equal_value(int *k, const ::coder::array<double,
+    static double skip_to_last_equal_value(int &k, const ::coder::array<double,
       2U> &x)
     {
       double xk;
-      xk = x[*k - 1];
-      while ((*k < x.size(1)) && ((std::abs(xk - x[*k]) < eps(xk / 2.0)) || (std::
-               isinf(x[*k]) && std::isinf(xk) && ((x[*k] > 0.0) == (xk > 0.0)))))
-      {
-        (*k)++;
+      xk = x[k - 1];
+      while ((k < x.size(1)) && (x[k] == xk)) {
+        k++;
       }
 
       return xk;
     }
 
-    void do_vectors(const ::coder::array<double, 2U> &a, double b, ::coder::
-                    array<double, 2U> &c, ::coder::array<int, 1U> &ia, int
-                    *ib_size)
+    int do_vectors(const ::coder::array<double, 2U> &a, double b, ::coder::array<
+                   double, 2U> &c, ::coder::array<int, 1U> &ia)
     {
       double ak;
-      int b_ialast;
       int iafirst;
       int ialast;
+      int ib_size;
       int iblast;
       int na;
       int nc;
@@ -60,25 +55,25 @@ namespace RAT
       na = a.size(1);
       c.set_size(1, a.size(1));
       ia.set_size(a.size(1));
-      *ib_size = 0;
+      ib_size = 0;
       nc = 0;
       nia = 0;
       iafirst = 0;
       ialast = 1;
       iblast = 1;
       while ((ialast <= na) && (iblast <= 1)) {
+        int b_ialast;
         b_ialast = ialast;
-        ak = skip_to_last_equal_value(&b_ialast, a);
+        ak = skip_to_last_equal_value(b_ialast, a);
         ialast = b_ialast;
-        if ((std::abs(b - ak) < eps(b / 2.0)) || (std::isinf(ak) && std::isinf(b)
-             && ((ak > 0.0) == (b > 0.0)))) {
+        if (ak == b) {
           ialast = b_ialast + 1;
           iafirst = b_ialast;
           iblast = 2;
         } else if (internal::c_relop(ak, b)) {
+          nia = nc + 1;
           nc++;
-          nia++;
-          c[nc - 1] = ak;
+          c[nia - 1] = ak;
           ia[nia - 1] = iafirst + 1;
           ialast = b_ialast + 1;
           iafirst = b_ialast;
@@ -89,27 +84,27 @@ namespace RAT
 
       while (ialast <= na) {
         iblast = ialast;
-        ak = skip_to_last_equal_value(&iblast, a);
+        ak = skip_to_last_equal_value(iblast, a);
+        nia = nc + 1;
         nc++;
-        nia++;
-        c[nc - 1] = ak;
+        c[nia - 1] = ak;
         ia[nia - 1] = iafirst + 1;
         ialast = iblast + 1;
         iafirst = iblast;
       }
 
       if (a.size(1) > 0) {
-        if (1 > nia) {
-          nia = 0;
+        if (nia < 1) {
+          iblast = 0;
+        } else {
+          iblast = nia;
         }
 
-        ia.set_size(nia);
-        if (1 > nc) {
-          nc = 0;
-        }
-
-        c.set_size(c.size(0), nc);
+        ia.set_size(iblast);
+        c.set_size(c.size(0), iblast);
       }
+
+      return ib_size;
     }
   }
 }

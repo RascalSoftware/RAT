@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // interp1.cpp
 //
@@ -14,6 +14,7 @@
 #include "flip.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
+#include "omp.h"
 #include <cmath>
 
 // Function Declarations
@@ -44,7 +45,6 @@ namespace RAT
       double minx;
       double penx;
       double r;
-      int k;
       int n;
       int ub_loop;
       minx = varargin_1[0];
@@ -54,9 +54,9 @@ namespace RAT
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
- private(d,k,r,n)
+ private(d,r,n)
 
-      for (k = 0; k <= ub_loop; k++) {
+      for (int k = 0; k <= ub_loop; k++) {
         d = xi[k];
         if (std::isnan(d)) {
           yi[k] = rtNaN;
@@ -95,7 +95,6 @@ namespace RAT
       double minx;
       double penx;
       double r;
-      int k;
       int n;
       int ub_loop;
       minx = varargin_1[0];
@@ -105,9 +104,9 @@ namespace RAT
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
- private(k,d,n,r)
+ private(d,n,r)
 
-      for (k = 0; k <= ub_loop; k++) {
+      for (int k = 0; k <= ub_loop; k++) {
         if (std::isnan(xi[k])) {
           yi[k] = rtNaN;
         } else if (xi[k] > maxx) {

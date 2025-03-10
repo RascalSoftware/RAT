@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // runDREAM.h
 //
@@ -12,7 +12,6 @@
 
 // Include files
 #include "rtwtypes.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -23,15 +22,15 @@ namespace RAT
   struct ProblemLimits;
   struct Controls;
   struct Results;
-  struct d_struct_T;
+  struct c_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void runDREAM(const ProblemDefinition *problemStruct, const ProblemLimits
-                *problemLimits, const Controls *controls, ProblemDefinition
-                *outProblemStruct, Results *result, d_struct_T *bayesResults);
+  void runDREAM(const ProblemDefinition &problemStruct, const ProblemLimits
+                *problemLimits, const Controls *controls, Results *result,
+                c_struct_T &bayesResults, ProblemDefinition &outProblemStruct);
 }
 
 #endif

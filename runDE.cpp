@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // runDE.cpp
 //
@@ -27,20 +27,20 @@
 // Function Definitions
 namespace RAT
 {
-  void intrafun(const ::coder::array<double, 2U> &p, ProblemDefinition
-                *problemStruct, const char controls_parallel_data[], const int
-                controls_parallel_size[2], double controls_resampleMinAngle,
-                double controls_resampleNPoints, boolean_T
-                controls_calcSldDuringFit, double *S_MSE_I_nc, double
-                *S_MSE_FVr_ca, double *S_MSE_I_no, double *S_MSE_FVr_oa, Results
-                *result)
+  double intrafun(const ::coder::array<double, 2U> &p, ProblemDefinition &
+                  problemStruct, const char controls_parallel_data[], const int
+                  controls_parallel_size[2], double controls_resampleMinAngle,
+                  double controls_resampleNPoints, boolean_T
+                  controls_calcSldDuringFit, Results &result, double
+                  &S_MSE_FVr_ca, double &S_MSE_I_no, double &S_MSE_FVr_oa)
   {
     Controls expl_temp;
+    double S_MSE_I_nc;
     int loop_ub;
-    problemStruct->fitParams.set_size(1, p.size(1));
+    problemStruct.fitParams.set_size(1, p.size(1));
     loop_ub = p.size(1);
     for (int i{0}; i < loop_ub; i++) {
-      problemStruct->fitParams[i] = p[i];
+      problemStruct.fitParams[i] = p[i];
     }
 
     unpackParams(problemStruct);
@@ -50,23 +50,24 @@ namespace RAT
     expl_temp.parallel.size[0] = 1;
     expl_temp.parallel.size[1] = controls_parallel_size[1];
     loop_ub = controls_parallel_size[1];
-    if (0 <= loop_ub - 1) {
+    if (loop_ub - 1 >= 0) {
       std::copy(&controls_parallel_data[0], &controls_parallel_data[loop_ub],
                 &expl_temp.parallel.data[0]);
     }
 
-    b_reflectivityCalculation(problemStruct, &expl_temp, result);
+    b_reflectivityCalculation(problemStruct, &expl_temp, &result);
 
     // no constraints                 THESE FIRST FEW VALS MAY BE WRONG
     // no constraint array
     // number of objectives (costs)
-    *S_MSE_I_nc = 0.0;
-    *S_MSE_FVr_ca = 0.0;
-    *S_MSE_I_no = 1.0;
-    *S_MSE_FVr_oa = result->calculationResults.sumChi;
+    S_MSE_I_nc = 0.0;
+    S_MSE_FVr_ca = 0.0;
+    S_MSE_I_no = 1.0;
+    S_MSE_FVr_oa = result.calculationResults.sumChi;
+    return S_MSE_I_nc;
   }
 
-  void runDE(ProblemDefinition *problemStruct, const ::coder::array<double, 2U>
+  void runDE(ProblemDefinition &problemStruct, const ::coder::array<double, 2U>
              &problemLimits_params, const ::coder::array<double, 2U>
              &problemLimits_backgroundParams, const ::coder::array<double, 2U>
              &problemLimits_scalefactors, const ::coder::array<double, 2U>
@@ -98,9 +99,7 @@ namespace RAT
     ::coder::array<double, 2U> r;
     ::coder::array<signed char, 2U> S_struct_FM_pop;
     ::coder::array<char, 2U> charStr;
-    i_struct_T expl_temp;
-    int i;
-    int i1;
+    h_struct_T expl_temp;
     int loop_ub;
     packParams(problemStruct, problemLimits_params,
                problemLimits_backgroundParams, problemLimits_scalefactors,
@@ -109,17 +108,13 @@ namespace RAT
                b_problemStruct);
 
     // Value to reach
-    loop_ub = problemStruct->fitLimits.size(0);
-    expl_temp.FVr_minbound.set_size(1, loop_ub);
-    for (i = 0; i < loop_ub; i++) {
-      expl_temp.FVr_minbound[i] = problemStruct->fitLimits[i];
-    }
-
-    loop_ub = problemStruct->fitLimits.size(0);
-    expl_temp.FVr_maxbound.set_size(1, loop_ub);
-    for (i = 0; i < loop_ub; i++) {
-      expl_temp.FVr_maxbound[i] = problemStruct->fitLimits[i +
-        problemStruct->fitLimits.size(0)];
+    expl_temp.FVr_minbound.set_size(1, problemStruct.fitLimits.size(0));
+    loop_ub = problemStruct.fitLimits.size(0);
+    expl_temp.FVr_maxbound.set_size(1, problemStruct.fitLimits.size(0));
+    for (int i{0}; i < loop_ub; i++) {
+      expl_temp.FVr_minbound[i] = problemStruct.fitLimits[i];
+      expl_temp.FVr_maxbound[i] = problemStruct.fitLimits[i +
+        problemStruct.fitLimits.size(0)];
     }
 
     // 1: use bounds as bound constraints, 0: no bound constraints
@@ -158,8 +153,8 @@ namespace RAT
     loop_ub = static_cast<int>(controls->populationSize);
     S_struct_FM_pop.set_size(loop_ub, 2);
     expl_temp.FVr_bestmem.set_size(1, 2);
-    for (i = 0; i < 2; i++) {
-      for (i1 = 0; i1 < loop_ub; i1++) {
+    for (int i{0}; i < 2; i++) {
+      for (int i1{0}; i1 < loop_ub; i1++) {
         S_struct_FM_pop[i1 + S_struct_FM_pop.size(0) * i] = 0;
       }
 
@@ -168,8 +163,8 @@ namespace RAT
 
     expl_temp.FM_pop.set_size(S_struct_FM_pop.size(0), 2);
     loop_ub = S_struct_FM_pop.size(0);
-    for (i = 0; i < 2; i++) {
-      for (i1 = 0; i1 < loop_ub; i1++) {
+    for (int i{0}; i < 2; i++) {
+      for (int i1{0}; i1 < loop_ub; i1++) {
         expl_temp.FM_pop[i1 + expl_temp.FM_pop.size(0) * i] = 0.0;
       }
     }
@@ -180,11 +175,11 @@ namespace RAT
     expl_temp.F_VTR = controls->targetValue;
     expl_temp.I_itermax = controls->numGenerations;
     expl_temp.I_bnd_constr = 1.0;
-    expl_temp.I_D = problemStruct->fitParams.size(1);
+    expl_temp.I_D = problemStruct.fitParams.size(1);
     expl_temp.F_CR = controls->crossoverProbability;
     expl_temp.fWeight = controls->fWeight;
     expl_temp.I_NP = controls->populationSize;
-    for (i = 0; i < 50; i++) {
+    for (int i{0}; i < 50; i++) {
       expl_temp.FVr_lim_lo[i] = -1.0;
       expl_temp.FVr_lim_up[i] = 1.0;
       expl_temp.FVr_x[i] = S_struct_FVr_x[i];
@@ -195,16 +190,16 @@ namespace RAT
           controls->resampleMinAngle, controls->resampleNPoints,
           controls->calcSldDuringFit, controls->display.data,
           controls->display.size, controls->updateFreq, controls->updatePlotFreq,
-          controls->IPCFilePath.data, controls->IPCFilePath.size, &expl_temp, r);
-    problemStruct->fitParams.set_size(1, r.size(1));
+          controls->IPCFilePath.data, controls->IPCFilePath.size, expl_temp, r);
+    problemStruct.fitParams.set_size(1, r.size(1));
     loop_ub = r.size(1) - 1;
-    for (i = 0; i <= loop_ub; i++) {
-      problemStruct->fitParams[i] = r[i];
+    for (int i{0}; i <= loop_ub; i++) {
+      problemStruct.fitParams[i] = r[i];
     }
 
     unpackParams(problemStruct);
     b_reflectivityCalculation(problemStruct, controls, result);
-    if (!coder::internal::u_strcmp(controls->display.data,
+    if (!coder::internal::d_strcmp(controls->display.data,
          controls->display.size)) {
       coder::snPrint(result->calculationResults.sumChi, charStr);
       triggerEvent(charStr);

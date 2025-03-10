@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // xgetrf.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -26,10 +25,11 @@ namespace RAT
     {
       namespace lapack
       {
-        void xgetrf(int m, int n, ::coder::array<double, 2U> &A, int lda, ::
-                    coder::array<int, 2U> &ipiv);
-        void xgetrf(int m, int n, ::coder::array<double, 2U> &A, int lda, ::
-                    coder::array<int, 2U> &ipiv, int *info);
+        void b_xgetrf(int m, int n, ::coder::array<double, 2U> &A, int lda, ::
+                      coder::array<int, 2U> &ipiv);
+        void xgetrf(int m, int n, ::coder::array<double, 2U> &A, int lda);
+        int xgetrf(int m, int n, ::coder::array<double, 2U> &A, int lda, ::coder::
+                   array<int, 2U> &ipiv);
       }
     }
   }

@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // all.h
 //
@@ -12,7 +12,6 @@
 
 // Include files
 #include "rtwtypes.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -21,8 +20,9 @@ namespace RAT
 {
   namespace coder
   {
-    void all(const boolean_T x_data[], boolean_T y_data[], int y_size[2]);
-    boolean_T b_all(const boolean_T x_data[]);
+    void all(const boolean_T x_data[], const int x_size[2], boolean_T y_data[],
+             int y_size[2]);
+    boolean_T b_all(const boolean_T x_data[], const int x_size[2]);
   }
 }
 

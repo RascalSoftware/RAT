@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // reshapeSizeChecks.cpp
 //
@@ -23,10 +23,11 @@ namespace RAT
       {
         int b_calclen;
         if (static_cast<int>(varargin_1) > 0) {
-          if (static_cast<int>(varargin_1) == 0) {
+          if (static_cast<unsigned int>(static_cast<int>(varargin_1)) == 0U) {
             b_calclen = MAX_int32_T;
           } else {
-            b_calclen = 1000000 / static_cast<int>(varargin_1);
+            b_calclen = static_cast<int>(1000000U / static_cast<unsigned int>(
+              static_cast<int>(varargin_1)));
           }
         } else {
           b_calclen = 0;

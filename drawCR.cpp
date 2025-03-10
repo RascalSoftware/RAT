@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // drawCR.cpp
 //
@@ -21,29 +21,29 @@
 // Function Definitions
 namespace RAT
 {
-  void drawCR(const DreamParams *DREAMPar, const double pCR_data[], const int
+  void drawCR(const DreamParams &DREAMPar, const double pCR_data[], const int
               pCR_size[2], ::coder::array<double, 2U> &CR)
   {
     ::coder::array<double, 2U> b_r;
     ::coder::array<double, 2U> r;
     ::coder::array<double, 1U> cCR;
     ::coder::array<int, 1U> r1;
-    double L2_data[4];
     double L_data[3];
-    double tmp_data[3];
     int tmp_size[2];
 
     //  Generates CR values based on current crossover probabilities
-    if (DREAMPar->adaptPCR) {
+    if (DREAMPar.adaptPCR) {
+      double L2_data[4];
+      double L_tmp;
       int DREAMPar_idx_0_tmp;
-      int DREAMPar_tmp_tmp;
       int i;
       int i1;
+      int loop_ub;
 
       //  If crossover probabilities are updated
       //  How many candidate points for each crossover value?
-      multrnd(DREAMPar->nChains * DREAMPar->steps, pCR_data, pCR_size, L_data,
-              tmp_size);
+      L_tmp = DREAMPar.nChains * DREAMPar.steps;
+      multrnd(L_tmp, pCR_data, pCR_size, L_data, tmp_size);
       L_data[1] += L_data[0];
       L_data[2] += L_data[1];
       L2_data[0] = 0.0;
@@ -52,7 +52,7 @@ namespace RAT
       L2_data[3] = L_data[2];
 
       //  Then select which candidate points are selected with what CR
-      coder::randperm(DREAMPar->nChains * DREAMPar->steps, b_r);
+      coder::randperm(L_tmp, b_r);
 
       //  Then generate CR values for each chain
       cCR.set_size(1000000);
@@ -62,44 +62,46 @@ namespace RAT
 
       for (int zz{0}; zz < 3; zz++) {
         double d;
-        double d1;
 
         //  Define start and end
         //  Take the appropriate elements of r
-        d = L2_data[zz + 1];
-        d1 = L2_data[zz];
-        if (d1 + 1.0 > d) {
+        L_tmp = L2_data[zz + 1];
+        d = L2_data[zz];
+        if (d + 1.0 > L_tmp) {
           i = 0;
           i1 = 0;
         } else {
-          i = static_cast<int>(d1 + 1.0) - 1;
-          i1 = static_cast<int>(d);
+          i = static_cast<int>(d + 1.0) - 1;
+          i1 = static_cast<int>(L_tmp);
         }
 
         //  Assign these indices DREAMPar.CR(zz)
-        DREAMPar_tmp_tmp = i1 - i;
-        r1.set_size(DREAMPar_tmp_tmp);
-        for (i1 = 0; i1 < DREAMPar_tmp_tmp; i1++) {
+        loop_ub = i1 - i;
+        r1.set_size(loop_ub);
+        for (i1 = 0; i1 < loop_ub; i1++) {
           r1[i1] = static_cast<int>(b_r[i + i1]);
         }
 
-        DREAMPar_tmp_tmp = r1.size(0);
-        for (i = 0; i < DREAMPar_tmp_tmp; i++) {
+        loop_ub = r1.size(0);
+        for (i = 0; i < loop_ub; i++) {
           cCR[r1[i] - 1] = (static_cast<double>(zz) + 1.0) / 3.0;
         }
       }
 
       //  Now reshape CR
       //  CR = reshape(cCR,DREAMPar.nChains,DREAMPar.steps);
-      DREAMPar_tmp_tmp = coder::internal::computeDimsData(DREAMPar->nChains);
-      DREAMPar_idx_0_tmp = static_cast<int>(DREAMPar->nChains);
-      CR.set_size(DREAMPar_idx_0_tmp, DREAMPar_tmp_tmp);
-      for (i = 0; i < DREAMPar_tmp_tmp; i++) {
-        for (i1 = 0; i1 < DREAMPar_idx_0_tmp; i1++) {
+      loop_ub = coder::internal::computeDimsData(DREAMPar.nChains);
+      DREAMPar_idx_0_tmp = static_cast<int>(DREAMPar.nChains);
+      CR.set_size(static_cast<int>(DREAMPar.nChains), loop_ub);
+      for (i = 0; i < loop_ub; i++) {
+        int DREAMPar_tmp_tmp;
+        DREAMPar_tmp_tmp = static_cast<int>(DREAMPar.nChains);
+        for (i1 = 0; i1 < DREAMPar_tmp_tmp; i1++) {
           CR[i1 + CR.size(0) * i] = cCR[i1 + DREAMPar_idx_0_tmp * i];
         }
       }
     } else {
+      double tmp_data[3];
       int DREAMPar_idx_0_tmp;
       int DREAMPar_tmp_tmp;
 
@@ -109,10 +111,10 @@ namespace RAT
       tmp_data[0] = 0.33333333333333331;
       tmp_data[1] = 0.66666666666666663;
       tmp_data[2] = 1.0;
-      randSample(tmp_data, tmp_size, DREAMPar->steps * DREAMPar->nChains,
-                 pCR_data, r);
-      DREAMPar_idx_0_tmp = static_cast<int>(DREAMPar->nChains);
-      DREAMPar_tmp_tmp = static_cast<int>(DREAMPar->steps);
+      randSample(tmp_data, tmp_size, DREAMPar.steps * DREAMPar.nChains, pCR_data,
+                 r);
+      DREAMPar_idx_0_tmp = static_cast<int>(DREAMPar.nChains);
+      DREAMPar_tmp_tmp = static_cast<int>(DREAMPar.steps);
       CR.set_size(DREAMPar_idx_0_tmp, DREAMPar_tmp_tmp);
       for (int i{0}; i < DREAMPar_tmp_tmp; i++) {
         for (int i1{0}; i1 < DREAMPar_idx_0_tmp; i1++) {

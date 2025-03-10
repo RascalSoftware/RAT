@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // runSimplex.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -28,7 +27,7 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void runSimplex(ProblemDefinition *problemStruct, const ::coder::array<double,
+  void runSimplex(ProblemDefinition &problemStruct, const ::coder::array<double,
                   2U> &problemLimits_params, const ::coder::array<double, 2U>
                   &problemLimits_backgroundParams, const ::coder::array<double,
                   2U> &problemLimits_scalefactors, const ::coder::array<double,

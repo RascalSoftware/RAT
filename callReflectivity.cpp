@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // callReflectivity.cpp
 //
@@ -31,7 +31,7 @@ namespace RAT
   {
     ::coder::array<creal_T, 1U> slds;
     ::coder::array<double, 1U> b_resolution;
-    ::coder::array<double, 1U> r;
+    ::coder::array<double, 1U> b_simRef;
     ::coder::array<double, 1U> roughs;
     ::coder::array<double, 1U> simRef;
     ::coder::array<double, 1U> thicks;
@@ -62,12 +62,18 @@ namespace RAT
     //  Make arrays for thick, sld, rough
     loop_ub_tmp = static_cast<int>(nLayersTot);
     thicks.set_size(loop_ub_tmp);
-    slds.set_size(loop_ub_tmp);
-    roughs.set_size(loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
       thicks[i] = 0.0;
+    }
+
+    slds.set_size(loop_ub_tmp);
+    for (i = 0; i < loop_ub_tmp; i++) {
       slds[i].re = 0.0;
       slds[i].im = 0.0;
+    }
+
+    roughs.set_size(loop_ub_tmp);
+    for (i = 0; i < loop_ub_tmp; i++) {
       roughs[i] = 0.0;
     }
 
@@ -77,7 +83,8 @@ namespace RAT
     for (int m{0}; m < i; m++) {
       i1 = layers.size(0);
       for (int n{0}; n < i1; n++) {
-        loop_ub_tmp = static_cast<int>(layerCount + n) - 1;
+        loop_ub_tmp = static_cast<int>(layerCount + static_cast<unsigned int>(n))
+          - 1;
         thicks[loop_ub_tmp] = layers[n];
         if (!useImaginary) {
           slds[loop_ub_tmp].re = layers[n + layers.size(0)];
@@ -90,7 +97,7 @@ namespace RAT
         }
       }
 
-      layerCount += layers.size(0);
+      layerCount += static_cast<unsigned int>(layers.size(0));
     }
 
     //  Add the air and substrate parameters
@@ -112,38 +119,40 @@ namespace RAT
       simulation[i] = simulationXData[i];
     }
 
-    if (coder::internal::q_strcmp(parallel_data, parallel_size)) {
+    if (coder::internal::r_strcmp(parallel_data, parallel_size)) {
       i = 0;
     } else {
       i = -1;
     }
 
-    switch (i) {
-     case 0:
+    if (i == 0) {
       //  Parallelise over points
       //  Calculate reflectivity
       abelesParallelPoints(simulationXData, nLayersTot, thicks, slds, roughs,
                            simRef);
-      break;
-
-     default:
+    } else {
       //  Calculate reflectivity
       abelesSingle(simulationXData, nLayersTot, thicks, slds, roughs, simRef);
-      break;
     }
 
     //  Apply resolution correction
-    loop_ub_tmp = resolution.size(0);
     b_resolution.set_size(resolution.size(0));
+    loop_ub_tmp = resolution.size(0);
     for (i = 0; i < loop_ub_tmp; i++) {
       b_resolution[i] = resolution[i + resolution.size(0)];
     }
 
-    resolutionPolly(simulationXData, simRef, b_resolution, static_cast<double>
-                    (simulationXData.size(0)), r);
-    loop_ub_tmp = r.size(0);
+    b_simRef.set_size(simRef.size(0));
+    loop_ub_tmp = simRef.size(0) - 1;
+    for (i = 0; i <= loop_ub_tmp; i++) {
+      b_simRef[i] = simRef[i];
+    }
+
+    resolutionPolly(simulationXData, b_simRef, b_resolution, static_cast<double>
+                    (simulationXData.size(0)), simRef);
+    loop_ub_tmp = simulation.size(0);
     for (i = 0; i < loop_ub_tmp; i++) {
-      simulation[i + simulation.size(0)] = r[i];
+      simulation[i + simulation.size(0)] = simRef[i];
     }
 
     if (dataIndices[0] > dataIndices[1]) {

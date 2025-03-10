@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // xdlanv2.cpp
 //
@@ -23,54 +23,54 @@ namespace RAT
     {
       namespace reflapack
       {
-        void xdlanv2(double *a, double *b, double *c, double *d, double *rt1r,
-                     double *rt1i, double *rt2r, double *rt2i, double *cs,
-                     double *sn)
+        double xdlanv2(double *a, double &b, double &c, double &d, double &rt1i,
+                       double &rt2r, double &rt2i, double &cs, double &sn)
         {
-          if (*c == 0.0) {
-            *cs = 1.0;
-            *sn = 0.0;
-          } else if (*b == 0.0) {
+          double rt1r;
+          if (c == 0.0) {
+            cs = 1.0;
+            sn = 0.0;
+          } else if (b == 0.0) {
             double temp;
-            *cs = 0.0;
-            *sn = 1.0;
-            temp = *d;
-            *d = *a;
+            cs = 0.0;
+            sn = 1.0;
+            temp = d;
+            d = *a;
             *a = temp;
-            *b = -*c;
-            *c = 0.0;
+            b = -c;
+            c = 0.0;
           } else {
             double temp;
-            temp = *a - *d;
-            if ((temp == 0.0) && ((*b < 0.0) != (*c < 0.0))) {
-              *cs = 1.0;
-              *sn = 0.0;
+            temp = *a - d;
+            if ((temp == 0.0) && ((b < 0.0) != (c < 0.0))) {
+              cs = 1.0;
+              sn = 0.0;
             } else {
               double bcmax;
               double bcmis;
               double p;
               double scale;
               double z;
-              int b_c;
               int count;
+              int i;
               p = 0.5 * temp;
-              bcmis = std::abs(*b);
-              scale = std::abs(*c);
+              bcmis = std::abs(b);
+              scale = std::abs(c);
               bcmax = std::fmax(bcmis, scale);
-              if (!(*b < 0.0)) {
+              if (!(b < 0.0)) {
                 count = 1;
               } else {
                 count = -1;
               }
 
-              if (!(*c < 0.0)) {
-                b_c = 1;
+              if (!(c < 0.0)) {
+                i = 1;
               } else {
-                b_c = -1;
+                i = -1;
               }
 
               bcmis = std::fmin(bcmis, scale) * static_cast<double>(count) *
-                static_cast<double>(b_c);
+                static_cast<double>(i);
               scale = std::fmax(std::abs(p), bcmax);
               z = p / scale * p + bcmax / scale * bcmis;
               if (z >= 8.8817841970012523E-16) {
@@ -81,16 +81,16 @@ namespace RAT
                 }
 
                 z = p + *a;
-                *a = *d + z;
-                *d -= bcmax / z * bcmis;
-                tau = rt_hypotd_snf(*c, z);
-                *cs = z / tau;
-                *sn = *c / tau;
-                *b -= *c;
-                *c = 0.0;
+                *a = d + z;
+                d -= bcmax / z * bcmis;
+                tau = rt_hypotd_snf(c, z);
+                cs = z / tau;
+                sn = c / tau;
+                b -= c;
+                c = 0.0;
               } else {
                 double tau;
-                bcmis = *b + *c;
+                bcmis = b + c;
                 scale = std::fmax(std::abs(temp), std::abs(bcmis));
                 count = 0;
                 while ((scale >= 7.4428285367870146E+137) && (count <= 20)) {
@@ -108,68 +108,69 @@ namespace RAT
                 }
 
                 tau = rt_hypotd_snf(bcmis, temp);
-                *cs = std::sqrt(0.5 * (std::abs(bcmis) / tau + 1.0));
+                cs = std::sqrt(0.5 * (std::abs(bcmis) / tau + 1.0));
                 if (!(bcmis < 0.0)) {
                   count = 1;
                 } else {
                   count = -1;
                 }
 
-                *sn = -(0.5 * temp / (tau * *cs)) * static_cast<double>(count);
-                bcmax = *a * *cs + *b * *sn;
-                scale = -*a * *sn + *b * *cs;
-                z = *c * *cs + *d * *sn;
-                bcmis = -*c * *sn + *d * *cs;
-                *b = scale * *cs + bcmis * *sn;
-                *c = -bcmax * *sn + z * *cs;
-                temp = 0.5 * ((bcmax * *cs + z * *sn) + (-scale * *sn + bcmis * *
-                  cs));
+                sn = -(0.5 * temp / (tau * cs)) * static_cast<double>(count);
+                bcmax = *a * cs + b * sn;
+                scale = -*a * sn + b * cs;
+                z = c * cs + d * sn;
+                bcmis = -c * sn + d * cs;
+                b = scale * cs + bcmis * sn;
+                c = -bcmax * sn + z * cs;
+                temp = 0.5 * ((bcmax * cs + z * sn) + (-scale * sn + bcmis * cs));
                 *a = temp;
-                *d = temp;
-                if (*c != 0.0) {
-                  if (*b != 0.0) {
-                    if ((*b < 0.0) == (*c < 0.0)) {
-                      bcmis = std::sqrt(std::abs(*b));
-                      scale = std::sqrt(std::abs(*c));
+                d = temp;
+                if (c != 0.0) {
+                  if (b != 0.0) {
+                    if ((b < 0.0) == (c < 0.0)) {
+                      bcmis = std::sqrt(std::abs(b));
+                      scale = std::sqrt(std::abs(c));
                       *a = bcmis * scale;
-                      if (!(*c < 0.0)) {
+                      if (!(c < 0.0)) {
                         p = *a;
                       } else {
                         p = -*a;
                       }
 
-                      tau = 1.0 / std::sqrt(std::abs(*b + *c));
+                      tau = 1.0 / std::sqrt(std::abs(b + c));
                       *a = temp + p;
-                      *d = temp - p;
-                      *b -= *c;
-                      *c = 0.0;
+                      d = temp - p;
+                      b -= c;
+                      c = 0.0;
                       bcmax = bcmis * tau;
                       bcmis = scale * tau;
-                      temp = *cs * bcmax - *sn * bcmis;
-                      *sn = *cs * bcmis + *sn * bcmax;
-                      *cs = temp;
+                      temp = cs * bcmax - sn * bcmis;
+                      sn = cs * bcmis + sn * bcmax;
+                      cs = temp;
                     }
                   } else {
-                    *b = -*c;
-                    *c = 0.0;
-                    temp = *cs;
-                    *cs = -*sn;
-                    *sn = temp;
+                    b = -c;
+                    c = 0.0;
+                    temp = cs;
+                    cs = -sn;
+                    sn = temp;
                   }
                 }
               }
             }
           }
 
-          *rt1r = *a;
-          *rt2r = *d;
-          if (*c == 0.0) {
-            *rt1i = 0.0;
-            *rt2i = 0.0;
+          rt1r = *a;
+          rt2r = d;
+          if (c == 0.0) {
+            rt1i = 0.0;
+            rt2i = 0.0;
           } else {
-            *rt1i = std::sqrt(std::abs(*b)) * std::sqrt(std::abs(*c));
-            *rt2i = -*rt1i;
+            rt1i = std::sqrt(std::abs(b)) * std::sqrt(std::abs(c));
+            rt2i = -rt1i;
           }
+
+          return rt1r;
         }
       }
     }

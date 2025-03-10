@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // triggerEvent.cpp
 //
@@ -19,7 +19,7 @@
 #include "coder_array.h"
 #include "eventHelper.hpp"
 #include <algorithm>
-#include <stdio.h>
+#include <cstdio>
 
 // Variable Definitions
 namespace RAT
@@ -51,7 +51,6 @@ namespace RAT
     double rowSize;
     double start;
     int b_cellArray;
-    int b_i;
     unsigned int b_index;
     int i;
 
@@ -68,15 +67,14 @@ namespace RAT
     }
 
     i = cellArray.size(0);
-    for (b_i = 0; b_i < i; b_i++) {
+    for (int b_i{0}; b_i < i; b_i++) {
       b_index = (static_cast<unsigned int>(b_i + 1) << 1) + MAX_uint32_T;
-      dims[static_cast<int>(b_index) - 1] = static_cast<unsigned int>
-        (cellArray[b_i + cellArray.size(0)].f1.size(0));
-      dims[static_cast<int>(b_index)] = static_cast<unsigned int>(cellArray[b_i
-        + cellArray.size(0)].f1.size(1));
-      rowSize += static_cast<double>(static_cast<unsigned int>(cellArray[b_i +
-        cellArray.size(0)].f1.size(0))) * static_cast<double>(static_cast<
-        unsigned int>(cellArray[b_i + cellArray.size(0)].f1.size(1)));
+      dims[static_cast<int>(b_index) - 1] = cellArray[b_i + cellArray.size(0)].
+        f1.size(0);
+      dims[static_cast<int>(b_index)] = cellArray[b_i + cellArray.size(0)].
+        f1.size(1);
+      rowSize += static_cast<double>(cellArray[b_i + cellArray.size(0)].f1.size
+        (0)) * static_cast<double>(cellArray[b_i + cellArray.size(0)].f1.size(1));
     }
 
     start = 1.0;
@@ -87,24 +85,24 @@ namespace RAT
     }
 
     i = cellArray.size(0);
-    for (b_i = 0; b_i < i; b_i++) {
+    for (int b_i{0}; b_i < i; b_i++) {
       double stop;
       int i1;
+      int i2;
       b_index = (static_cast<unsigned int>(b_i + 1) << 1) - 1U;
-      stop = start + static_cast<double>(static_cast<unsigned int>(dims[
-        static_cast<int>(b_index) - 1])) * static_cast<double>(static_cast<
-        unsigned int>(dims[static_cast<int>(static_cast<double>(b_index) + 1.0)
-                      - 1]));
+      stop = start + dims[static_cast<int>(b_index) - 1] * dims[static_cast<int>
+        (static_cast<double>(b_index) + 1.0) - 1];
       if (start > stop - 1.0) {
-        i1 = 1;
+        i1 = 0;
+        i2 = 0;
       } else {
-        i1 = static_cast<int>(start);
+        i1 = static_cast<int>(start) - 1;
+        i2 = static_cast<int>(stop - 1.0);
       }
 
-      b_cellArray = cellArray[b_i + cellArray.size(0)].f1.size(0) *
-        cellArray[b_i + cellArray.size(0)].f1.size(1);
-      for (int i2{0}; i2 < b_cellArray; i2++) {
-        packedArray[(i1 + i2) - 1] = cellArray[b_i + cellArray.size(0)].f1[i2];
+      b_cellArray = i2 - i1;
+      for (i2 = 0; i2 < b_cellArray; i2++) {
+        packedArray[i1 + i2] = cellArray[b_i + cellArray.size(0)].f1[i2];
       }
 
       start = stop;
@@ -117,7 +115,6 @@ namespace RAT
     double rowSize;
     double start;
     int b_cellArray;
-    int b_i;
     unsigned int b_index;
     int i;
 
@@ -134,13 +131,11 @@ namespace RAT
     }
 
     i = cellArray.size(0);
-    for (b_i = 0; b_i < i; b_i++) {
+    for (int b_i{0}; b_i < i; b_i++) {
       b_index = (static_cast<unsigned int>(b_i + 1) << 1) + MAX_uint32_T;
-      dims[static_cast<int>(b_index) - 1] = static_cast<unsigned int>
-        (cellArray[b_i].f1.size(0));
+      dims[static_cast<int>(b_index) - 1] = cellArray[b_i].f1.size(0);
       dims[static_cast<int>(b_index)] = 2.0;
-      rowSize += static_cast<double>(static_cast<unsigned int>(cellArray[b_i].
-        f1.size(0))) * 2.0;
+      rowSize += static_cast<double>(cellArray[b_i].f1.size(0)) * 2.0;
     }
 
     start = 1.0;
@@ -151,23 +146,24 @@ namespace RAT
     }
 
     i = cellArray.size(0);
-    for (b_i = 0; b_i < i; b_i++) {
+    for (int b_i{0}; b_i < i; b_i++) {
       double stop;
       int i1;
+      int i2;
       b_index = (static_cast<unsigned int>(b_i + 1) << 1) - 1U;
-      stop = start + static_cast<double>(static_cast<unsigned int>(dims[
-        static_cast<int>(b_index) - 1])) * static_cast<double>(static_cast<
-        unsigned int>(dims[static_cast<int>(static_cast<double>(b_index) + 1.0)
-                      - 1]));
+      stop = start + dims[static_cast<int>(b_index) - 1] * dims[static_cast<int>
+        (static_cast<double>(b_index) + 1.0) - 1];
       if (start > stop - 1.0) {
-        i1 = 1;
+        i1 = 0;
+        i2 = 0;
       } else {
-        i1 = static_cast<int>(start);
+        i1 = static_cast<int>(start) - 1;
+        i2 = static_cast<int>(stop - 1.0);
       }
 
-      b_cellArray = cellArray[b_i].f1.size(0) << 1;
-      for (int i2{0}; i2 < b_cellArray; i2++) {
-        packedArray[(i1 + i2) - 1] = cellArray[b_i].f1[i2];
+      b_cellArray = i2 - i1;
+      for (i2 = 0; i2 < b_cellArray; i2++) {
+        packedArray[i1 + i2] = cellArray[b_i].f1[i2];
       }
 
       start = stop;
@@ -180,7 +176,6 @@ namespace RAT
     double rowSize;
     double start;
     int b_cellArray;
-    int b_i;
     unsigned int b_index;
     int i;
 
@@ -197,13 +192,11 @@ namespace RAT
     }
 
     i = cellArray.size(0);
-    for (b_i = 0; b_i < i; b_i++) {
+    for (int b_i{0}; b_i < i; b_i++) {
       b_index = (static_cast<unsigned int>(b_i + 1) << 1) + MAX_uint32_T;
-      dims[static_cast<int>(b_index) - 1] = static_cast<unsigned int>
-        (cellArray[b_i].f1.size(0));
+      dims[static_cast<int>(b_index) - 1] = cellArray[b_i].f1.size(0);
       dims[static_cast<int>(b_index)] = 3.0;
-      rowSize += static_cast<double>(static_cast<unsigned int>(cellArray[b_i].
-        f1.size(0))) * 3.0;
+      rowSize += static_cast<double>(cellArray[b_i].f1.size(0)) * 3.0;
     }
 
     start = 1.0;
@@ -214,23 +207,24 @@ namespace RAT
     }
 
     i = cellArray.size(0);
-    for (b_i = 0; b_i < i; b_i++) {
+    for (int b_i{0}; b_i < i; b_i++) {
       double stop;
       int i1;
+      int i2;
       b_index = (static_cast<unsigned int>(b_i + 1) << 1) - 1U;
-      stop = start + static_cast<double>(static_cast<unsigned int>(dims[
-        static_cast<int>(b_index) - 1])) * static_cast<double>(static_cast<
-        unsigned int>(dims[static_cast<int>(static_cast<double>(b_index) + 1.0)
-                      - 1]));
+      stop = start + dims[static_cast<int>(b_index) - 1] * dims[static_cast<int>
+        (static_cast<double>(b_index) + 1.0) - 1];
       if (start > stop - 1.0) {
-        i1 = 1;
+        i1 = 0;
+        i2 = 0;
       } else {
-        i1 = static_cast<int>(start);
+        i1 = static_cast<int>(start) - 1;
+        i2 = static_cast<int>(stop - 1.0);
       }
 
-      b_cellArray = cellArray[b_i].f1.size(0) * 3;
-      for (int i2{0}; i2 < b_cellArray; i2++) {
-        packedArray[(i1 + i2) - 1] = cellArray[b_i].f1[i2];
+      b_cellArray = i2 - i1;
+      for (i2 = 0; i2 < b_cellArray; i2++) {
+        packedArray[i1 + i2] = cellArray[b_i].f1[i2];
       }
 
       start = stop;
@@ -243,7 +237,6 @@ namespace RAT
     double rowSize;
     double start;
     int b_cellArray;
-    int b_i;
     unsigned int b_index;
     int i;
 
@@ -260,15 +253,12 @@ namespace RAT
     }
 
     i = cellArray.size(0);
-    for (b_i = 0; b_i < i; b_i++) {
+    for (int b_i{0}; b_i < i; b_i++) {
       b_index = (static_cast<unsigned int>(b_i + 1) << 1) + MAX_uint32_T;
-      dims[static_cast<int>(b_index) - 1] = static_cast<unsigned int>
-        (cellArray[b_i].f1.size(0));
-      dims[static_cast<int>(b_index)] = static_cast<unsigned int>(cellArray[b_i]
-        .f1.size(1));
-      rowSize += static_cast<double>(static_cast<unsigned int>(cellArray[b_i].
-        f1.size(0))) * static_cast<double>(static_cast<unsigned int>
-        (cellArray[b_i].f1.size(1)));
+      dims[static_cast<int>(b_index) - 1] = cellArray[b_i].f1.size(0);
+      dims[static_cast<int>(b_index)] = cellArray[b_i].f1.size(1);
+      rowSize += static_cast<double>(cellArray[b_i].f1.size(0)) * static_cast<
+        double>(cellArray[b_i].f1.size(1));
     }
 
     start = 1.0;
@@ -279,23 +269,24 @@ namespace RAT
     }
 
     i = cellArray.size(0);
-    for (b_i = 0; b_i < i; b_i++) {
+    for (int b_i{0}; b_i < i; b_i++) {
       double stop;
       int i1;
+      int i2;
       b_index = (static_cast<unsigned int>(b_i + 1) << 1) - 1U;
-      stop = start + static_cast<double>(static_cast<unsigned int>(dims[
-        static_cast<int>(b_index) - 1])) * static_cast<double>(static_cast<
-        unsigned int>(dims[static_cast<int>(static_cast<double>(b_index) + 1.0)
-                      - 1]));
+      stop = start + dims[static_cast<int>(b_index) - 1] * dims[static_cast<int>
+        (static_cast<double>(b_index) + 1.0) - 1];
       if (start > stop - 1.0) {
-        i1 = 1;
+        i1 = 0;
+        i2 = 0;
       } else {
-        i1 = static_cast<int>(start);
+        i1 = static_cast<int>(start) - 1;
+        i2 = static_cast<int>(stop - 1.0);
       }
 
-      b_cellArray = cellArray[b_i].f1.size(0) * cellArray[b_i].f1.size(1);
-      for (int i2{0}; i2 < b_cellArray; i2++) {
-        packedArray[(i1 + i2) - 1] = cellArray[b_i].f1[i2];
+      b_cellArray = i2 - i1;
+      for (i2 = 0; i2 < b_cellArray; i2++) {
+        packedArray[i1 + i2] = cellArray[b_i].f1[i2];
       }
 
       start = stop;
@@ -309,8 +300,6 @@ namespace RAT
 
     ::coder::array<char, 2U> path;
     ::coder::array<char, 2U> r;
-    int i;
-    char b_cv[57];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -334,7 +323,7 @@ namespace RAT
       coder::b_getenv(r);
       path.set_size(1, r.size(1) + 1);
       loop_ub = r.size(1);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         path[i] = r[i];
       }
 
@@ -344,7 +333,8 @@ namespace RAT
 
     initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
     if (initialised) {
-      for (i = 0; i < 57; i++) {
+      char b_cv[57];
+      for (int i{0}; i < 57; i++) {
         b_cv[i] = b_cv1[i];
       }
 
@@ -353,14 +343,15 @@ namespace RAT
     } else {
       //  This avoids printing the error message multiple times during the optimization.
       if (!notified) {
-        fprintf(stderr,
-                "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
-        fflush(stderr);
+        std::fprintf(stderr,
+                     "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+        std::fflush(stderr);
         notified = true;
       }
 
-      printf("%s", "\n Iteration   Func-count     min f(x)         Procedure\n");
-      fflush(stdout);
+      std::printf("%s",
+                  "\n Iteration   Func-count     min f(x)         Procedure\n");
+      std::fflush(stdout);
     }
   }
 
@@ -370,8 +361,6 @@ namespace RAT
 
     ::coder::array<char, 2U> path;
     ::coder::array<char, 2U> r;
-    int i;
-    char b_cv[8];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -395,7 +384,7 @@ namespace RAT
       coder::b_getenv(r);
       path.set_size(1, r.size(1) + 1);
       loop_ub = r.size(1);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         path[i] = r[i];
       }
 
@@ -405,7 +394,8 @@ namespace RAT
 
     initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
     if (initialised) {
-      for (i = 0; i < 8; i++) {
+      char b_cv[8];
+      for (int i{0}; i < 8; i++) {
         b_cv[i] = b_cv1[i];
       }
 
@@ -414,9 +404,9 @@ namespace RAT
 
       //  This avoids printing the error message multiple times during the optimization.
     } else if (!notified) {
-      fprintf(stderr,
-              "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
-      fflush(stderr);
+      std::fprintf(stderr,
+                   "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+      std::fflush(stderr);
       notified = true;
     }
   }
@@ -427,8 +417,6 @@ namespace RAT
 
     ::coder::array<char, 2U> path;
     ::coder::array<char, 2U> r;
-    int i;
-    char b_cv[34];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -452,7 +440,7 @@ namespace RAT
       coder::b_getenv(r);
       path.set_size(1, r.size(1) + 1);
       loop_ub = r.size(1);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         path[i] = r[i];
       }
 
@@ -462,7 +450,8 @@ namespace RAT
 
     initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
     if (initialised) {
-      for (i = 0; i < 34; i++) {
+      char b_cv[34];
+      for (int i{0}; i < 34; i++) {
         b_cv[i] = b_cv1[i];
       }
 
@@ -471,14 +460,14 @@ namespace RAT
     } else {
       //  This avoids printing the error message multiple times during the optimization.
       if (!notified) {
-        fprintf(stderr,
-                "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
-        fflush(stderr);
+        std::fprintf(stderr,
+                     "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+        std::fflush(stderr);
         notified = true;
       }
 
-      printf("%s", "\nOptimisation terminated by user\n");
-      fflush(stdout);
+      std::printf("%s", "\nOptimisation terminated by user\n");
+      std::fflush(stdout);
     }
   }
 
@@ -488,8 +477,6 @@ namespace RAT
 
     ::coder::array<char, 2U> path;
     ::coder::array<char, 2U> r;
-    int i;
-    char b_cv[34];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -513,7 +500,7 @@ namespace RAT
       coder::b_getenv(r);
       path.set_size(1, r.size(1) + 1);
       loop_ub = r.size(1);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         path[i] = r[i];
       }
 
@@ -523,7 +510,8 @@ namespace RAT
 
     initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
     if (initialised) {
-      for (i = 0; i < 34; i++) {
+      char b_cv[34];
+      for (int i{0}; i < 34; i++) {
         b_cv[i] = b_cv1[i];
       }
 
@@ -532,14 +520,14 @@ namespace RAT
     } else {
       //  This avoids printing the error message multiple times during the optimization.
       if (!notified) {
-        fprintf(stderr,
-                "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
-        fflush(stderr);
+        std::fprintf(stderr,
+                     "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+        std::fflush(stderr);
         notified = true;
       }
 
-      printf("%s", "\nRunning Differential Evolution\n\n");
-      fflush(stdout);
+      std::printf("%s", "\nRunning Differential Evolution\n\n");
+      std::fflush(stdout);
     }
   }
 
@@ -549,8 +537,6 @@ namespace RAT
 
     ::coder::array<char, 2U> path;
     ::coder::array<char, 2U> r;
-    int i;
-    char b_cv[35];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -574,7 +560,7 @@ namespace RAT
       coder::b_getenv(r);
       path.set_size(1, r.size(1) + 1);
       loop_ub = r.size(1);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         path[i] = r[i];
       }
 
@@ -584,7 +570,8 @@ namespace RAT
 
     initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
     if (initialised) {
-      for (i = 0; i < 35; i++) {
+      char b_cv[35];
+      for (int i{0}; i < 35; i++) {
         b_cv[i] = b_cv1[i];
       }
 
@@ -593,14 +580,14 @@ namespace RAT
     } else {
       //  This avoids printing the error message multiple times during the optimization.
       if (!notified) {
-        fprintf(stderr,
-                "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
-        fflush(stderr);
+        std::fprintf(stderr,
+                     "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+        std::fflush(stderr);
         notified = true;
       }
 
-      printf("%s", "I_NP increased to minimal value 5\n");
-      fflush(stdout);
+      std::printf("%s", "I_NP increased to minimal value 5\n");
+      std::fflush(stdout);
     }
   }
 
@@ -611,8 +598,6 @@ namespace RAT
 
     ::coder::array<char, 2U> path;
     ::coder::array<char, 2U> r;
-    int i;
-    char b_cv[62];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -636,7 +621,7 @@ namespace RAT
       coder::b_getenv(r);
       path.set_size(1, r.size(1) + 1);
       loop_ub = r.size(1);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         path[i] = r[i];
       }
 
@@ -646,7 +631,8 @@ namespace RAT
 
     initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
     if (initialised) {
-      for (i = 0; i < 62; i++) {
+      char b_cv[62];
+      for (int i{0}; i < 62; i++) {
         b_cv[i] = b_cv1[i];
       }
 
@@ -655,15 +641,15 @@ namespace RAT
     } else {
       //  This avoids printing the error message multiple times during the optimization.
       if (!notified) {
-        fprintf(stderr,
-                "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
-        fflush(stderr);
+        std::fprintf(stderr,
+                     "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+        std::fflush(stderr);
         notified = true;
       }
 
-      printf("%s",
-             "F_CR should be from interval [0,1]; set to default value 0.5\n");
-      fflush(stdout);
+      std::printf("%s",
+                  "F_CR should be from interval [0,1]; set to default value 0.5\n");
+      std::fflush(stdout);
     }
   }
 
@@ -674,8 +660,6 @@ namespace RAT
 
     ::coder::array<char, 2U> path;
     ::coder::array<char, 2U> r;
-    int i;
-    char b_cv[51];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -699,7 +683,7 @@ namespace RAT
       coder::b_getenv(r);
       path.set_size(1, r.size(1) + 1);
       loop_ub = r.size(1);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         path[i] = r[i];
       }
 
@@ -709,7 +693,8 @@ namespace RAT
 
     initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
     if (initialised) {
-      for (i = 0; i < 51; i++) {
+      char b_cv[51];
+      for (int i{0}; i < 51; i++) {
         b_cv[i] = b_cv1[i];
       }
 
@@ -718,14 +703,14 @@ namespace RAT
     } else {
       //  This avoids printing the error message multiple times during the optimization.
       if (!notified) {
-        fprintf(stderr,
-                "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
-        fflush(stderr);
+        std::fprintf(stderr,
+                     "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+        std::fflush(stderr);
         notified = true;
       }
 
-      printf("%s", "I_itermax should be > 0; set to default value 200\n");
-      fflush(stdout);
+      std::printf("%s", "I_itermax should be > 0; set to default value 200\n");
+      std::fflush(stdout);
     }
   }
 
@@ -735,8 +720,6 @@ namespace RAT
 
     ::coder::array<char, 2U> path;
     ::coder::array<char, 2U> r;
-    int i;
-    char b_cv[33];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -760,7 +743,7 @@ namespace RAT
       coder::b_getenv(r);
       path.set_size(1, r.size(1) + 1);
       loop_ub = r.size(1);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         path[i] = r[i];
       }
 
@@ -770,7 +753,8 @@ namespace RAT
 
     initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
     if (initialised) {
-      for (i = 0; i < 33; i++) {
+      char b_cv[33];
+      for (int i{0}; i < 33; i++) {
         b_cv[i] = b_cv1[i];
       }
 
@@ -779,14 +763,14 @@ namespace RAT
     } else {
       //  This avoids printing the error message multiple times during the optimization.
       if (!notified) {
-        fprintf(stderr,
-                "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
-        fflush(stderr);
+        std::fprintf(stderr,
+                     "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+        std::fflush(stderr);
         notified = true;
       }
 
-      printf("%s", "Optimisation terminated by user\n");
-      fflush(stdout);
+      std::printf("%s", "Optimisation terminated by user\n");
+      std::fflush(stdout);
     }
   }
 
@@ -801,8 +785,6 @@ namespace RAT
 
     ::coder::array<char, 2U> path;
     ::coder::array<char, 2U> r;
-    int i;
-    char b_cv[26];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -826,7 +808,7 @@ namespace RAT
       coder::b_getenv(r);
       path.set_size(1, r.size(1) + 1);
       loop_ub = r.size(1);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         path[i] = r[i];
       }
 
@@ -836,7 +818,8 @@ namespace RAT
 
     initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
     if (initialised) {
-      for (i = 0; i < 26; i++) {
+      char b_cv[26];
+      for (int i{0}; i < 26; i++) {
         b_cv[i] = b_cv1[i];
       }
 
@@ -845,14 +828,14 @@ namespace RAT
     } else {
       //  This avoids printing the error message multiple times during the optimization.
       if (!notified) {
-        fprintf(stderr,
-                "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
-        fflush(stderr);
+        std::fprintf(stderr,
+                     "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+        std::fflush(stderr);
         notified = true;
       }
 
-      printf("%s", "\nRunning Nested Sampler\n\n");
-      fflush(stdout);
+      std::printf("%s", "\nRunning Nested Sampler\n\n");
+      std::fflush(stdout);
     }
   }
 
@@ -862,8 +845,6 @@ namespace RAT
 
     ::coder::array<char, 2U> path;
     ::coder::array<char, 2U> r;
-    int i;
-    char b_cv[17];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -887,7 +868,7 @@ namespace RAT
       coder::b_getenv(r);
       path.set_size(1, r.size(1) + 1);
       loop_ub = r.size(1);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         path[i] = r[i];
       }
 
@@ -897,7 +878,8 @@ namespace RAT
 
     initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
     if (initialised) {
-      for (i = 0; i < 17; i++) {
+      char b_cv[17];
+      for (int i{0}; i < 17; i++) {
         b_cv[i] = b_cv1[i];
       }
 
@@ -906,14 +888,14 @@ namespace RAT
     } else {
       //  This avoids printing the error message multiple times during the optimization.
       if (!notified) {
-        fprintf(stderr,
-                "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
-        fflush(stderr);
+        std::fprintf(stderr,
+                     "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+        std::fflush(stderr);
         notified = true;
       }
 
-      printf("%s", "\nRunning DREAM\n\n");
-      fflush(stdout);
+      std::printf("%s", "\nRunning DREAM\n\n");
+      std::fflush(stdout);
     }
   }
 
@@ -923,8 +905,6 @@ namespace RAT
 
     ::coder::array<char, 2U> path;
     ::coder::array<char, 2U> r;
-    int i;
-    char b_cv[6];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -948,7 +928,7 @@ namespace RAT
       coder::b_getenv(r);
       path.set_size(1, r.size(1) + 1);
       loop_ub = r.size(1);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         path[i] = r[i];
       }
 
@@ -958,7 +938,8 @@ namespace RAT
 
     initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
     if (initialised) {
-      for (i = 0; i < 6; i++) {
+      char b_cv[6];
+      for (int i{0}; i < 6; i++) {
         b_cv[i] = b_cv1[i];
       }
 
@@ -967,9 +948,9 @@ namespace RAT
 
       //  This avoids printing the error message multiple times during the optimization.
     } else if (!notified) {
-      fprintf(stderr,
-              "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
-      fflush(stderr);
+      std::fprintf(stderr,
+                   "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+      std::fflush(stderr);
       notified = true;
     }
   }
@@ -978,7 +959,6 @@ namespace RAT
   {
     ::coder::array<char, 2U> b_varargin_1;
     ::coder::array<char, 2U> path;
-    int i;
     int loop_ub;
     boolean_T initialised;
 
@@ -1001,7 +981,7 @@ namespace RAT
       coder::b_getenv(b_varargin_1);
       path.set_size(1, b_varargin_1.size(1) + 1);
       loop_ub = b_varargin_1.size(1);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         path[i] = b_varargin_1[i];
       }
 
@@ -1013,7 +993,7 @@ namespace RAT
     if (initialised) {
       b_varargin_1.set_size(1, varargin_1.size(1) + 1);
       loop_ub = varargin_1.size(1);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         b_varargin_1[i] = varargin_1[i];
       }
 
@@ -1023,25 +1003,25 @@ namespace RAT
     } else {
       //  This avoids printing the error message multiple times during the optimization.
       if (!notified) {
-        fprintf(stderr,
-                "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
-        fflush(stderr);
+        std::fprintf(stderr,
+                     "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+        std::fflush(stderr);
         notified = true;
       }
 
       b_varargin_1.set_size(1, varargin_1.size(1) + 1);
       loop_ub = varargin_1.size(1);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         b_varargin_1[i] = varargin_1[i];
       }
 
       b_varargin_1[varargin_1.size(1)] = '\x00';
-      printf("%s", &b_varargin_1[0]);
-      fflush(stdout);
+      std::printf("%s", &b_varargin_1[0]);
+      std::fflush(stdout);
     }
   }
 
-  void triggerEvent(const Results *varargin_1, const char varargin_2_TF_data[],
+  void triggerEvent(const Results &varargin_1, const char varargin_2_TF_data[],
                     const int varargin_2_TF_size[2], const ::coder::array<double,
                     2U> &varargin_2_resample, const ::coder::array<double, 2U>
                     &varargin_2_dataPresent, const char
@@ -1071,7 +1051,6 @@ namespace RAT
     ::coder::array<char, 2U> path;
     ::coder::array<char, 2U> r;
     int tmp_data[10000];
-    int tmp_size[2];
     int i;
     int loop_ub;
     char modelType_data[10001];
@@ -1109,16 +1088,17 @@ namespace RAT
       boolean_T hasPlotHandler;
       hasPlotHandler = std::mem_fn(&eventHelper::hasPlotHandler)(helper);
       if (hasPlotHandler) {
-        subRoughs.set_size(varargin_1->contrastParams.subRoughs.size(0));
-        loop_ub = varargin_1->contrastParams.subRoughs.size(0);
+        subRoughs.set_size(varargin_1.contrastParams.subRoughs.size(0));
+        loop_ub = varargin_1.contrastParams.subRoughs.size(0);
         for (i = 0; i < loop_ub; i++) {
-          subRoughs[i] = varargin_1->contrastParams.subRoughs[i];
+          subRoughs[i] = varargin_1.contrastParams.subRoughs[i];
         }
 
-        packCellArray(varargin_1->reflectivity, reflect, nReflect);
-        packCellArray(varargin_1->shiftedData, shiftedData, nShiftedData);
-        packCellArray(varargin_1->sldProfiles, sldProfiles, nSldProfiles);
-        packCellArray(varargin_1->resampledLayers, layers, nLayers);
+        int tmp_size[2];
+        packCellArray(varargin_1.reflectivity, reflect, nReflect);
+        packCellArray(varargin_1.shiftedData, shiftedData, nShiftedData);
+        packCellArray(varargin_1.sldProfiles, sldProfiles, nSldProfiles);
+        packCellArray(varargin_1.resampledLayers, layers, nLayers);
         coder::strjoin(varargin_2_names_contrasts, contrastNames);
         coder::intstrlen(varargin_2_names_contrasts, tmp_data, tmp_size);
         nContrastNames.set_size(1, tmp_size[1]);
@@ -1127,64 +1107,48 @@ namespace RAT
           nContrastNames[i] = tmp_data[i];
         }
 
-        if (coder::internal::i_strcmp(varargin_2_TF_data, varargin_2_TF_size)) {
+        if (coder::internal::m_strcmp(varargin_2_TF_data, varargin_2_TF_size)) {
           i = 0;
         } else {
           i = -1;
         }
 
-        switch (i) {
-         case 0:
-          {
-            int i1;
-            b_packCellArray(varargin_1->sldProfiles, b_sldProfiles2,
-                            nSldProfiles2);
-            loop_ub = b_sldProfiles2.size(0);
-            sldProfiles2.set_size(b_sldProfiles2.size(0), 1);
-            for (i = 0; i < 1; i++) {
-              for (i1 = 0; i1 < loop_ub; i1++) {
-                sldProfiles2[i1] = b_sldProfiles2[i1];
-              }
-            }
-
-            loop_ub = nSldProfiles2.size(0);
-            b_nSldProfiles2.set_size(nSldProfiles2.size(0), 1);
-            for (i = 0; i < 1; i++) {
-              for (i1 = 0; i1 < loop_ub; i1++) {
-                b_nSldProfiles2[i1] = nSldProfiles2[i1];
-              }
-            }
-
-            b_packCellArray(varargin_1->resampledLayers, b_sldProfiles2,
-                            nSldProfiles2);
-            loop_ub = b_sldProfiles2.size(0);
-            layers2.set_size(b_sldProfiles2.size(0), 1);
-            for (i = 0; i < 1; i++) {
-              for (i1 = 0; i1 < loop_ub; i1++) {
-                layers2[i1] = b_sldProfiles2[i1];
-              }
-            }
-
-            loop_ub = nSldProfiles2.size(0);
-            nLayers2.set_size(nSldProfiles2.size(0), 1);
-            for (i = 0; i < 1; i++) {
-              for (i1 = 0; i1 < loop_ub; i1++) {
-                nLayers2[i1] = nSldProfiles2[i1];
-              }
-            }
+        if (i == 0) {
+          b_packCellArray(varargin_1.sldProfiles, b_sldProfiles2, nSldProfiles2);
+          loop_ub = b_sldProfiles2.size(0);
+          sldProfiles2.set_size(b_sldProfiles2.size(0), 1);
+          for (i = 0; i < loop_ub; i++) {
+            sldProfiles2[i] = b_sldProfiles2[i];
           }
-          break;
 
-         default:
+          loop_ub = nSldProfiles2.size(0);
+          b_nSldProfiles2.set_size(nSldProfiles2.size(0), 1);
+          for (i = 0; i < loop_ub; i++) {
+            b_nSldProfiles2[i] = nSldProfiles2[i];
+          }
+
+          b_packCellArray(varargin_1.resampledLayers, b_sldProfiles2,
+                          nSldProfiles2);
+          loop_ub = b_sldProfiles2.size(0);
+          layers2.set_size(b_sldProfiles2.size(0), 1);
+          for (i = 0; i < loop_ub; i++) {
+            layers2[i] = b_sldProfiles2[i];
+          }
+
+          loop_ub = nSldProfiles2.size(0);
+          nLayers2.set_size(nSldProfiles2.size(0), 1);
+          for (i = 0; i < loop_ub; i++) {
+            nLayers2[i] = nSldProfiles2[i];
+          }
+        } else {
           sldProfiles2.set_size(0, 0);
           b_nSldProfiles2.set_size(0, 0);
           layers2.set_size(0, 0);
           nLayers2.set_size(0, 0);
-          break;
         }
 
         loop_ub = varargin_2_modelType_size[1];
-        if (0 <= loop_ub - 1) {
+        if (loop_ub - 1 >= 0) {
           std::copy(&varargin_2_modelType_data[0],
                     &varargin_2_modelType_data[loop_ub], &modelType_data[0]);
         }
@@ -1203,7 +1167,7 @@ namespace RAT
         }
 
         std::mem_fn(&eventHelper::updatePlot)(helper, static_cast<double>
-          (varargin_1->reflectivity.size(0)), &(reflect.data())[0],
+          (varargin_1.reflectivity.size(0)), &(reflect.data())[0],
           &(nReflect.data())[0], &(shiftedData.data())[0], &(nShiftedData.data())
           [0], &(sldProfiles.data())[0], &(nSldProfiles.data())[0],
           &(layers.data())[0], &(nLayers.data())[0], &sldProfiles2[0],
@@ -1215,9 +1179,9 @@ namespace RAT
 
       //  This avoids printing the error message multiple times during the optimization.
     } else if (!notified) {
-      fprintf(stderr,
-              "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
-      fflush(stderr);
+      std::fprintf(stderr,
+                   "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+      std::fflush(stderr);
       notified = true;
     }
   }
@@ -1228,8 +1192,6 @@ namespace RAT
 
     ::coder::array<char, 2U> path;
     ::coder::array<char, 2U> r;
-    int i;
-    char b_cv[19];
     boolean_T initialised;
 
     //  Triggers the event type with the given varargin. The supported event types are
@@ -1253,7 +1215,7 @@ namespace RAT
       coder::b_getenv(r);
       path.set_size(1, r.size(1) + 1);
       loop_ub = r.size(1);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         path[i] = r[i];
       }
 
@@ -1263,7 +1225,8 @@ namespace RAT
 
     initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
     if (initialised) {
-      for (i = 0; i < 19; i++) {
+      char b_cv[19];
+      for (int i{0}; i < 19; i++) {
         b_cv[i] = b_cv1[i];
       }
 
@@ -1272,14 +1235,14 @@ namespace RAT
     } else {
       //  This avoids printing the error message multiple times during the optimization.
       if (!notified) {
-        fprintf(stderr,
-                "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
-        fflush(stderr);
+        std::fprintf(stderr,
+                     "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+        std::fflush(stderr);
         notified = true;
       }
 
-      printf("%s", "\nRunning simplex\n\n");
-      fflush(stdout);
+      std::printf("%s", "\nRunning simplex\n\n");
+      std::fflush(stdout);
     }
   }
 

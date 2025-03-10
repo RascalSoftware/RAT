@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // groupLayersMod.h
 //
@@ -13,17 +13,16 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
 // Function Declarations
 namespace RAT
 {
-  void groupLayersMod(const ::coder::array<double, 2U> &resampledLayers, double
-                      subRoughs, const char geometry_data[], const int
-                      geometry_size[2], double bulkIns, double bulkOuts, ::coder::
-                      array<double, 2U> &outLayers, double *ssubs);
+  double groupLayersMod(const ::coder::array<double, 2U> &resampledLayers,
+                        double subRoughs, const char geometry_data[], const int
+                        geometry_size[2], double bulkIns, double bulkOuts, ::
+                        coder::array<double, 2U> &outLayers);
 }
 
 #endif

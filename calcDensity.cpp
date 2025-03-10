@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // calcDensity.cpp
 //
@@ -19,16 +19,14 @@
 namespace RAT
 {
   void calcDensity(const ::coder::array<double, 2U> &x, const ::coder::array<
-                   double, 2U> &fx, const DreamParams *DREAMPar, const ::coder::
+                   double, 2U> &fx, const DreamParams &DREAMPar, const ::coder::
                    array<double, 2U> &ratInputs_problemStruct_fitLimits, const ::
                    coder::array<double, 2U> &ratInputs_priors, ::coder::array<
                    double, 1U> &log_L, ::coder::array<double, 1U> &log_PR)
   {
     ::coder::array<double, 2U> PR;
     ::coder::array<double, 2U> b_x;
-    int b_i;
     int i;
-    int i1;
     int loop_ub;
     int loop_ub_tmp;
 
@@ -76,20 +74,19 @@ namespace RAT
     //
     //      elseif isfield(paramInfo,'mvnpdf')
     //  RAT specific prior funtion (mvnpdf)
-    loop_ub_tmp = static_cast<int>(DREAMPar->nChains);
+    loop_ub_tmp = static_cast<int>(DREAMPar.nChains);
     PR.set_size(1, loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
       PR[i] = 0.0;
     }
 
-    if (0 <= loop_ub_tmp - 1) {
-      i1 = x.size(1);
+    if (loop_ub_tmp - 1 >= 0) {
       loop_ub = x.size(1);
     }
 
-    for (b_i = 0; b_i < loop_ub_tmp; b_i++) {
+    for (int b_i{0}; b_i < loop_ub_tmp; b_i++) {
       //  Loop over all the chains..
-      b_x.set_size(1, i1);
+      b_x.set_size(1, x.size(1));
       for (i = 0; i < loop_ub; i++) {
         b_x[i] = x[b_i + x.size(0) * i];
       }
@@ -107,7 +104,7 @@ namespace RAT
     }
 
     i = PR.size(1);
-    for (b_i = 0; b_i < i; b_i++) {
+    for (int b_i{0}; b_i < i; b_i++) {
       double d;
       d = PR[b_i];
       if (d != 0.0) {

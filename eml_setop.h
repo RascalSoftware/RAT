@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // eml_setop.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -22,9 +21,8 @@ namespace RAT
 {
   namespace coder
   {
-    void do_vectors(const ::coder::array<double, 2U> &a, double b, ::coder::
-                    array<double, 2U> &c, ::coder::array<int, 1U> &ia, int
-                    *ib_size);
+    int do_vectors(const ::coder::array<double, 2U> &a, double b, ::coder::array<
+                   double, 2U> &c, ::coder::array<int, 1U> &ia);
   }
 }
 

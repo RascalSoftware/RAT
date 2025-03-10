@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // asymconvstep.cpp
 //
@@ -10,6 +10,7 @@
 
 // Include files
 #include "asymconvstep.h"
+#include "eml_mtimes_helper.h"
 #include "erf.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
@@ -27,7 +28,6 @@ namespace RAT
     double bFactor;
     double l;
     double r;
-    int i;
     int loop_ub;
 
     //  Produces a step function convoluted with differnt error functions
@@ -68,22 +68,26 @@ namespace RAT
     bFactor = 1.4142135623730951 * s2;
     b_x.set_size(1, x.size(1));
     loop_ub = x.size(1);
-    for (i = 0; i < loop_ub; i++) {
+    for (int i{0}; i < loop_ub; i++) {
       b_x[i] = (x[i] - l) / aFactor;
     }
 
     coder::b_erf(b_x, b_r);
     b_x.set_size(1, x.size(1));
     loop_ub = x.size(1);
-    for (i = 0; i < loop_ub; i++) {
+    for (int i{0}; i < loop_ub; i++) {
       b_x[i] = (x[i] - r) / bFactor;
     }
 
     coder::b_erf(b_x, r1);
-    f.set_size(1, b_r.size(1));
-    loop_ub = b_r.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      f[i] = 0.0 * (b_r[i] - r1[i]);
+    if (b_r.size(1) == r1.size(1)) {
+      f.set_size(1, b_r.size(1));
+      loop_ub = b_r.size(1);
+      for (int i{0}; i < loop_ub; i++) {
+        f[i] = 0.0 * (b_r[i] - r1[i]);
+      }
+    } else {
+      binary_expand_op(f, b_r, r1);
     }
   }
 
@@ -99,7 +103,6 @@ namespace RAT
     double bFactor;
     double l;
     double r;
-    int i;
     int loop_ub;
 
     //  Produces a step function convoluted with differnt error functions
@@ -138,25 +141,29 @@ namespace RAT
     l = xcen - xw / 2.0;
     aFactor = 1.4142135623730951 * s1;
     bFactor = 1.4142135623730951 * s2;
+    a = h / 2.0;
     b_x.set_size(1, x.size(1));
     loop_ub = x.size(1);
-    for (i = 0; i < loop_ub; i++) {
+    for (int i{0}; i < loop_ub; i++) {
       b_x[i] = (x[i] - l) / aFactor;
     }
 
     coder::b_erf(b_x, b_r);
     b_x.set_size(1, x.size(1));
     loop_ub = x.size(1);
-    for (i = 0; i < loop_ub; i++) {
+    for (int i{0}; i < loop_ub; i++) {
       b_x[i] = (x[i] - r) / bFactor;
     }
 
     coder::b_erf(b_x, r1);
-    a = h / 2.0;
-    f.set_size(1, b_r.size(1));
-    loop_ub = b_r.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      f[i] = a * (b_r[i] - r1[i]);
+    if (b_r.size(1) == r1.size(1)) {
+      f.set_size(1, b_r.size(1));
+      loop_ub = b_r.size(1);
+      for (int i{0}; i < loop_ub; i++) {
+        f[i] = a * (b_r[i] - r1[i]);
+      }
+    } else {
+      binary_expand_op(f, a, b_r, r1);
     }
   }
 }

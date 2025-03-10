@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // strjoin.h
 //
@@ -11,17 +11,11 @@
 #define STRJOIN_H
 
 // Include files
+#include "RATMain_types.h"
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
-
-// Type Declarations
-namespace RAT
-{
-  struct cell_wrap_10;
-}
 
 // Function Declarations
 namespace RAT
@@ -30,6 +24,7 @@ namespace RAT
   {
     void b_strjoin(const ::coder::array<char, 2U> &c_f1, const char c_f2[72], ::
                    coder::array<char, 2U> &joinedStr);
+    void strjoin(char joinedStr_data[], int joinedStr_size[2]);
     void strjoin(const ::coder::array<cell_wrap_10, 2U> &c, ::coder::array<char,
                  2U> &joinedStr);
     void strjoin(const ::coder::array<char, 2U> &c_f1, const char c_f2[27], char

@@ -1,4 +1,4 @@
-/* Copyright 2019 The Mathworks, Inc. */
+/* Copyright 2019-2023 The MathWorks, Inc. */
 /* Copied from
  * fullfile(matlabroot,'extern','include','coder','coder_array','coder_array_rtw_cpp11.h') */
 
@@ -46,19 +46,18 @@
 #include <string>
 #include <vector>
 
-#ifndef INT32_T
-#include "rtwtypes.h"
-#endif
-
 namespace coder {
 
-#ifndef CODER_ARRAY_NEW_DELETE
-#define CODER_ARRAY_NEW_DELETE
-#define CODER_NEW(T, N) new T[N]
-#define CODER_DELETE(P) delete[](P)
+#ifndef CODER_ARRAY_ALLOC
+#define CODER_ARRAY_ALLOC
+#define CODER_ALLOC(T, N) reinterpret_cast<T *>(new char[sizeof(T)*static_cast<size_t>(N)])
+#define CODER_DEALLOC(P) delete[](reinterpret_cast<char *>(P))
 #endif
 
-using SizeType = int32_T;
+#ifndef CODER_ARRAY_SIZE_TYPE_DEFINED
+using SizeType = int;
+#endif
+
 namespace std = ::std;
 
 namespace detail {
@@ -93,10 +92,10 @@ class data_ptr {
             (void)std::copy(_other.data_, _other.data_ + size_, data_);
         }
     }
-
     ~data_ptr() {
         if (owner_) {
-            CODER_DELETE(data_);
+            destroy_last_n(data_, size_);
+            CODER_DEALLOC(data_);
         }
     }
     SZ capacity() const {
@@ -104,29 +103,79 @@ class data_ptr {
     }
     void reserve(SZ _n) {
         if (_n > capacity_) {
-            T* const new_data{CODER_NEW(T, _n)};
-            (void)std::copy(data_, data_ + size_, new_data);
+            T* const new_data{CODER_ALLOC(T, _n)};
+            construct_last_n(new_data, size_);
+            (void)std::move(data_, data_ + size_, new_data);
             if (owner_) {
-                CODER_DELETE(data_);
+                destroy_last_n(data_, size_);
+                CODER_DEALLOC(data_);
             }
             data_ = new_data;
             capacity_ = _n;
             owner_ = true;
         }
     }
+
     void resize(SZ _n) {
-        reserve(_n);
-        size_ = _n;
+        SZ old_size{size_};
+        if (_n > old_size) {
+            reserve(_n);
+            size_ = _n;
+            construct_last_n(data_, _n - old_size);
+        } else {
+            destroy_last_n(data_, old_size - _n);
+            size_ = _n;
+        }
     }
 
   private:
     // Prohibit use of assignment operator to prevent subtle bugs
     void operator=(data_ptr<T, SZ> const& _other);
 
+    void construct_last_n(T *_data, SZ _n) {
+        if (_data == nullptr) {
+            return;
+        }
+        if (_n > size_) {
+            _n = size_;
+        }
+        SZ i;
+#if defined(__cpp_exceptions)
+        try {
+            for (i = size_ - _n; i < size_; i++) {
+                new (&_data[i]) T();
+            }
+        } catch (...) {
+            for (SZ j{size_ - _n}; j < i; j++) {
+                _data[j].~T();
+            }
+            throw;
+        }
+#else
+        for (i = size_ - _n; i < size_; i++) {
+            new (&_data[i]) T();
+        }
+#endif
+
+    }
+
+    void destroy_last_n(T *_data, SZ _n) {
+        if (_data == nullptr) {
+            return;
+        }
+        if (_n > size_) {
+            _n = size_;
+        }
+        for (SZ i{size_ - _n}; i < size_; i++) {
+            _data[i].~T();
+        }
+    }
+
   public:
     void set(T* _data, SZ _sz) {
         if (owner_) {
-            CODER_DELETE(data_);
+            destroy_last_n(data_, size_);
+            CODER_DEALLOC(data_);
         }
         data_ = _data;
         size_ = _sz;
@@ -139,15 +188,18 @@ class data_ptr {
             size_ = _size;
             return;
         }
-        if (owner_) {
-            CODER_DELETE(data_);
-        }
-        data_ = CODER_NEW(T, _size);
-        owner_ = true;
+        resize(_size);
         size_ = _size;
-        capacity_ = size_;
         (void)std::copy(_data, _data + _size, data_);
     }
+
+    void shallow_copy(data_ptr<T, SZ> const& _other){
+        data_ = _other.data_;
+        size_ = _other.size_;
+        capacity_ = _other.capacity_;
+        owner_ = false;
+    }
+
 
     void copy(data_ptr<T, SZ> const& _other) {
         copy(_other.data_, _other.size_);
@@ -182,7 +234,8 @@ class data_ptr {
 
     void clear() {
         if (owner_) {
-            CODER_DELETE(data_);
+            destroy_last_n(data_, size_);
+            CODER_DEALLOC(data_);
         }
         data_ = nullptr;
         size_ = 0;
@@ -426,7 +479,7 @@ class numel<0> {
     }
 };
 
-// Compute the product for a set of numeric arguments: product<int32_T>(10, 20, 30, ...) =>
+// Compute the product for a set of numeric arguments: product<int32_t>(10, 20, 30, ...) =>
 // 10*20*30*...
 template <typename SZ, typename First, typename... Rest>
 struct product_i {
@@ -490,13 +543,30 @@ class array_base {
         (void)::memset(size_, 0, sizeof(SZ) * N);
     }
 
+    array_base(std::initializer_list<T> _l) {
+        set_size_ones();
+        set_size_dim(static_cast<SZ>(N-1), static_cast<SZ>(_l.size()));
+        reserve(numel());
+        SZ i{0};
+        for (auto const &e : _l)  {
+            operator [](i) = e;
+            i++;
+        }
+    }
+
     array_base(T* _data, SZ const* _sz)
         : data_(_data, coder::detail::numel<N>::compute(_sz)) {
         (void)std::copy(_sz, _sz + N, size_);
     }
 
+    array_base(array_base const&) = default;
+
     array_base& operator=(array_base const& _other) {
-        data_.copy(_other.data_);
+        if(_other.data_.is_owner()){
+            data_.copy(_other.data_);
+        }else{
+            data_.shallow_copy(_other.data_);
+        }
         (void)std::copy(_other.size_, _other.size_ + N, size_);
         return *this;
     }
@@ -531,7 +601,21 @@ class array_base {
         size_[_i] = l;
     }
 
+    void set_size_ones() {
+        for (SZ i{0}; i < N; i++) {
+            size_[i] = 1;
+        }
+    }
+
+    void set_size_dim(SZ _dim, SZ _n) {
+        size_[_dim] = _n;
+    }
+
   public:
+    void reserve(SZ _n) {
+        ensureCapacity(_n);
+    }
+
     template <typename... Dims>
     void set_size(Dims... dims) {
         coder::detail::match_dimensions<N == sizeof...(dims)>::check();
@@ -539,9 +623,9 @@ class array_base {
         ensureCapacity(numel());
     }
 
-    template <SizeType N1>
-    array_base<T, SZ, N1> reshape_n(SZ const (&_ns)[N1]) const {
-        array_base<T, SZ, N1> reshaped{const_cast<T*>(&data_[0]), _ns};
+    template <size_t N1>
+    array_base<T, SZ, static_cast<SZ>(N1)> reshape_n(SZ const (&_ns)[N1]) const {
+        array_base<T, SZ, static_cast<SZ>(N1)> reshaped{const_cast<T*>(&data_[0]), _ns};
         return reshaped;
     }
 
@@ -569,6 +653,10 @@ class array_base {
 
     T const* data() const {
         return data_;
+    }
+
+    SZ* size() {
+        return &size_[0];
     }
 
     SZ const* size() const {
@@ -602,22 +690,22 @@ class array_base {
         return data_[index(_i...)];
     }
 
-    array_iterator<array_base<T, SZ, N>> begin() {
-        return array_iterator<array_base<T, SZ, N>>(this, 0);
+    array_iterator<array_base<T, SZ, N> > begin() {
+        return array_iterator<array_base<T, SZ, N> >(this, 0);
     }
-    array_iterator<array_base<T, SZ, N>> end() {
-        return array_iterator<array_base<T, SZ, N>>(this, this->numel());
+    array_iterator<array_base<T, SZ, N> > end() {
+        return array_iterator<array_base<T, SZ, N> >(this, this->numel());
     }
-    const_array_iterator<array_base<T, SZ, N>> begin() const {
-        return const_array_iterator<array_base<T, SZ, N>>(this, 0);
+    const_array_iterator<array_base<T, SZ, N> > begin() const {
+        return const_array_iterator<array_base<T, SZ, N> >(this, 0);
     }
-    const_array_iterator<array_base<T, SZ, N>> end() const {
-        return const_array_iterator<array_base<T, SZ, N>>(this, this->numel());
+    const_array_iterator<array_base<T, SZ, N> > end() const {
+        return const_array_iterator<array_base<T, SZ, N> >(this, this->numel());
     }
 
   protected:
     coder::detail::data_ptr<T, SZ> data_;
-    SZ size_[N];
+    SZ size_[static_cast<size_t>(N)];
 
   private:
     void ensureCapacity(SZ _newNumel) {
@@ -629,9 +717,9 @@ class array_base {
 
             while (i < _newNumel) {
                 if (i > 1073741823) {
-                    i = MAX_int32_T;
+                    i = 2147483647; // INT32_MAX
                 } else {
-                    i *= 2;
+                    i <<= 1;
                 }
             }
             data_.reserve(i);
@@ -659,34 +747,54 @@ class array : public array_base<T, SizeType, N> {
     array(T* _data, SizeType const* _sz)
         : Base(_data, _sz) {
     }
+
+    array(std::initializer_list<T> _l)
+        : Base(_l) {
+    }
+
+    array & operator = (array<T,N> const& _other) {
+        Base::operator = (_other);
+        return *this;
+    }
 };
 
-// Specialize on char_T (row vector) for better support on strings.
+// Specialize on char (row vector) for better support on strings.
 template <>
-class array<char_T, 2> : public array_base<char_T, SizeType, 2> {
+class array<char, 2> : public array_base<char, SizeType, 2> {
   private:
-    using Base = array_base<char_T, SizeType, 2>;
+    using Base = array_base<char, SizeType, 2>;
 
   public:
     array()
         : array_base() {
     }
-    array(array<char_T, 2> const& _other)
+    array(array<char, 2> const& _other)
         : Base(_other) {
     }
+
+    array& operator=(const array<char, 2>&) = default;
+
     array(Base const& _other)
         : Base(_other) {
+    }
+
+    array(char* _data, SizeType const* _sz)
+        : Base(_data, _sz) {
+    }
+
+    array(std::initializer_list<char> _l)
+        : Base(_l) {
     }
 
     array(std::string const& _str) {
         operator=(_str);
     }
 
-    array(char_T const* const _str) {
+    array(char const* const _str) {
         operator=(_str);
     }
 
-    array(std::vector<char_T> const& _vec) {
+    array(std::vector<char> const& _vec) {
         SizeType const n{static_cast<SizeType>(_vec.size())};
         set_size(1, n);
         data_.copy(&_vec[0], n);
@@ -699,7 +807,7 @@ class array<char_T, 2> : public array_base<char_T, SizeType, 2> {
         return *this;
     }
 
-    array& operator=(char_T const* const _str) {
+    array& operator=(char const* const _str) {
         SizeType const n{static_cast<SizeType>(strlen(_str))};
         set_size(1, n);
         data_.copy(_str, n);
@@ -707,7 +815,7 @@ class array<char_T, 2> : public array_base<char_T, SizeType, 2> {
     }
 
     operator std::string() const {
-        return std::string(static_cast<char const*>(&(*this)[0]), static_cast<int>(size(1)));
+        return std::string(static_cast<char const*>(&(*this)[0]), static_cast<size_t>(size(1)));
     }
 };
 
@@ -725,9 +833,17 @@ class array<T, 2> : public array_base<T, SizeType, 2> {
     array(array<T, 2> const& _other)
         : Base(_other) {
     }
+    array& operator=(const array<T, 2>& _other) = default;
     array(Base const& _other)
         : Base(_other) {
     }
+    array(T* _data, SizeType const* _sz)
+        : Base(_data, _sz) {
+    }
+    array(std::initializer_list<T> _l)
+        : Base(_l) {
+    }
+
     array(std::vector<T> const& _vec) {
         operator=(_vec);
     }
@@ -759,8 +875,15 @@ class array<T, 1> : public array_base<T, SizeType, 1> {
     array(array<T, 1> const& _other)
         : Base(_other) {
     }
+    array& operator=(const array<T, 1>& _other) = default;
     array(Base const& _other)
         : Base(_other) {
+    }
+    array(T* _data, SizeType const* _sz)
+        : Base(_data, _sz) {
+    }
+    array(std::initializer_list<T> _l)
+        : Base(_l) {
     }
     array(std::vector<T> const& _vec) {
         operator=(_vec);
@@ -781,3 +904,5 @@ class array<T, 1> : public array_base<T, SizeType, 1> {
 } // namespace coder
 
 #endif
+
+// LocalWords: sz SZ variadic

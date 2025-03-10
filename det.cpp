@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // det.cpp
 //
@@ -29,18 +29,18 @@ namespace RAT
       } else {
         int i;
         int k;
+        int loop_ub;
         boolean_T isodd;
         b_x.set_size(x.size(0), x.size(1));
         k = x.size(1);
+        loop_ub = x.size(0);
         for (i = 0; i < k; i++) {
-          int loop_ub;
-          loop_ub = x.size(0);
           for (int i1{0}; i1 < loop_ub; i1++) {
             b_x[i1 + b_x.size(0) * i] = x[i1 + x.size(0) * i];
           }
         }
 
-        internal::lapack::xgetrf(x.size(0), x.size(1), b_x, x.size(0), ipiv);
+        internal::lapack::b_xgetrf(x.size(0), x.size(1), b_x, x.size(0), ipiv);
         y = b_x[0];
         i = b_x.size(0);
         for (k = 0; k <= i - 2; k++) {

@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // calcProposal.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -27,7 +26,7 @@ namespace RAT
 namespace RAT
 {
   void calcProposal(const ::coder::array<double, 2U> &X, double CR_data[], const
-                    DreamParams *DREAMPar, const ::coder::array<double, 2U>
+                    DreamParams &DREAMPar, const ::coder::array<double, 2U>
                     &Table_gamma, const ::coder::array<double, 2U>
                     &paramInfo_min, const ::coder::array<double, 2U>
                     &paramInfo_max, const char paramInfo_boundhandling_data[],

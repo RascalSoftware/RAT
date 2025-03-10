@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // rescale.cpp
 //
@@ -11,7 +11,6 @@
 // Include files
 #include "rescale.h"
 #include "bsxfun.h"
-#include "minOrMax.h"
 #include "rescaleKernel.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
@@ -22,7 +21,72 @@ namespace RAT
 {
   namespace coder
   {
-    double anon(double x, double y)
+    void rescale(::coder::array<double, 1U> &A, const ::coder::array<double, 1U>
+                 &varargin_2, const ::coder::array<double, 1U> &varargin_4, ::
+                 coder::array<double, 1U> &R)
+    {
+      ::coder::array<double, 1U> b_A;
+      double b_varargin_2;
+      double varargin_1;
+      int loop_ub;
+      boolean_T p;
+      if (varargin_2.size(0) == 1) {
+        loop_ub = A.size(0);
+        for (int i{0}; i < loop_ub; i++) {
+          varargin_1 = A[i];
+          b_varargin_2 = varargin_2[0];
+          if (std::isnan(b_varargin_2)) {
+            p = !std::isnan(varargin_1);
+          } else if (std::isnan(varargin_1)) {
+            p = false;
+          } else {
+            p = (varargin_1 < b_varargin_2);
+          }
+
+          if (p) {
+            A[i] = b_varargin_2;
+          } else {
+            A[i] = varargin_1;
+          }
+        }
+      } else {
+        b_A.set_size(A.size(0));
+        loop_ub = A.size(0) - 1;
+        for (int i{0}; i <= loop_ub; i++) {
+          b_A[i] = A[i];
+        }
+
+        bsxfun(b_A, varargin_2, A);
+      }
+
+      if (varargin_4.size(0) == 1) {
+        R.set_size(A.size(0));
+        loop_ub = A.size(0);
+        for (int i{0}; i < loop_ub; i++) {
+          varargin_1 = A[i];
+          b_varargin_2 = varargin_4[0];
+          if (std::isnan(b_varargin_2)) {
+            p = !std::isnan(varargin_1);
+          } else if (std::isnan(varargin_1)) {
+            p = false;
+          } else {
+            p = (varargin_1 > b_varargin_2);
+          }
+
+          if (p) {
+            R[i] = b_varargin_2;
+          } else {
+            R[i] = varargin_1;
+          }
+        }
+      } else {
+        b_bsxfun(A, varargin_4, R);
+      }
+
+      rescaleKernel(R, varargin_2, varargin_4);
+    }
+
+    double rescale_anonFcn1(double x, double y)
     {
       double varargout_1;
       boolean_T p;
@@ -43,7 +107,7 @@ namespace RAT
       return varargout_1;
     }
 
-    double b_anon(double x, double y)
+    double rescale_anonFcn2(double x, double y)
     {
       double varargout_1;
       boolean_T p;
@@ -62,40 +126,6 @@ namespace RAT
       }
 
       return varargout_1;
-    }
-
-    void rescale(::coder::array<double, 1U> &A, const ::coder::array<double, 1U>
-                 &varargin_2, const ::coder::array<double, 1U> &varargin_4, ::
-                 coder::array<double, 1U> &R)
-    {
-      ::coder::array<double, 1U> b_A;
-      if (varargin_2.size(0) == 1) {
-        int loop_ub;
-        b_A.set_size(A.size(0));
-        loop_ub = A.size(0) - 1;
-        for (int i{0}; i <= loop_ub; i++) {
-          b_A[i] = A[i];
-        }
-
-        internal::maximum2(b_A, varargin_2[0], A);
-      } else {
-        int loop_ub;
-        b_A.set_size(A.size(0));
-        loop_ub = A.size(0) - 1;
-        for (int i{0}; i <= loop_ub; i++) {
-          b_A[i] = A[i];
-        }
-
-        bsxfun(b_A, varargin_2, A);
-      }
-
-      if (varargin_4.size(0) == 1) {
-        internal::minimum2(A, varargin_4[0], R);
-      } else {
-        b_bsxfun(A, varargin_4, R);
-      }
-
-      rescaleKernel(R, varargin_2, varargin_4);
     }
   }
 }

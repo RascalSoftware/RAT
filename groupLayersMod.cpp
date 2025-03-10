@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // groupLayersMod.cpp
 //
@@ -18,15 +18,15 @@
 // Function Definitions
 namespace RAT
 {
-  void groupLayersMod(const ::coder::array<double, 2U> &resampledLayers, double
-                      subRoughs, const char geometry_data[], const int
-                      geometry_size[2], double bulkIns, double bulkOuts, ::coder::
-                      array<double, 2U> &outLayers, double *ssubs)
+  double groupLayersMod(const ::coder::array<double, 2U> &resampledLayers,
+                        double subRoughs, const char geometry_data[], const int
+                        geometry_size[2], double bulkIns, double bulkOuts, ::
+                        coder::array<double, 2U> &outLayers)
   {
     ::coder::array<double, 2U> layers;
     ::coder::array<double, 1U> roughs;
+    double ssubs;
     int b_loop_ub;
-    int c_loop_ub;
     int i;
     int loop_ub;
     unsigned int unnamed_idx_0;
@@ -51,35 +51,35 @@ namespace RAT
     //  Outputs:
     //      * outLayers: cell array of layers param values for each contrast.
     //      * ssubs: vector of ssub values.
-    *ssubs = subRoughs;
+    ssubs = subRoughs;
     unnamed_idx_0 = static_cast<unsigned int>(resampledLayers.size(0));
     layers.set_size(resampledLayers.size(0), resampledLayers.size(1));
     loop_ub = resampledLayers.size(1);
     for (i = 0; i < loop_ub; i++) {
       b_loop_ub = static_cast<int>(unnamed_idx_0);
-      for (c_loop_ub = 0; c_loop_ub < b_loop_ub; c_loop_ub++) {
-        layers[c_loop_ub + layers.size(0) * i] = 0.0;
+      for (int i1{0}; i1 < b_loop_ub; i1++) {
+        layers[i1 + layers.size(0) * i] = 0.0;
       }
     }
 
     if ((resampledLayers.size(0) != 0) && (resampledLayers.size(1) != 0)) {
-      if (coder::internal::p_strcmp(geometry_data, geometry_size)) {
+      if (coder::internal::q_strcmp(geometry_data, geometry_size)) {
         layers.set_size(resampledLayers.size(0), resampledLayers.size(1));
         loop_ub = resampledLayers.size(1);
         for (i = 0; i < loop_ub; i++) {
           b_loop_ub = resampledLayers.size(0);
-          for (c_loop_ub = 0; c_loop_ub < b_loop_ub; c_loop_ub++) {
-            layers[c_loop_ub + layers.size(0) * i] = resampledLayers[c_loop_ub +
+          for (int i1{0}; i1 < b_loop_ub; i1++) {
+            layers[i1 + layers.size(0) * i] = resampledLayers[i1 +
               resampledLayers.size(0) * i];
           }
         }
       } else {
-        *ssubs = resampledLayers[(resampledLayers.size(0) + resampledLayers.size
+        ssubs = resampledLayers[(resampledLayers.size(0) + resampledLayers.size
           (0) * 2) - 1];
         if (resampledLayers.size(0) > 1) {
-          loop_ub = resampledLayers.size(0);
           roughs.set_size(resampledLayers.size(0));
           roughs[0] = subRoughs;
+          loop_ub = resampledLayers.size(0);
           for (i = 0; i <= loop_ub - 2; i++) {
             roughs[i + 1] = resampledLayers[i + resampledLayers.size(0) * 2];
           }
@@ -89,15 +89,10 @@ namespace RAT
         }
 
         if (resampledLayers.size(1) == 5) {
-          loop_ub = resampledLayers.size(0);
-          b_loop_ub = resampledLayers.size(0);
-          c_loop_ub = resampledLayers.size(0);
           layers.set_size(resampledLayers.size(0), 4);
+          loop_ub = resampledLayers.size(0);
           for (i = 0; i < loop_ub; i++) {
             layers[i] = resampledLayers[i];
-          }
-
-          for (i = 0; i < b_loop_ub; i++) {
             layers[i + layers.size(0)] = resampledLayers[i +
               resampledLayers.size(0)];
           }
@@ -107,19 +102,16 @@ namespace RAT
             layers[i + layers.size(0) * 2] = roughs[i];
           }
 
-          for (i = 0; i < c_loop_ub; i++) {
+          loop_ub = resampledLayers.size(0);
+          for (i = 0; i < loop_ub; i++) {
             layers[i + layers.size(0) * 3] = resampledLayers[i +
               resampledLayers.size(0) * 3];
           }
         } else {
-          loop_ub = resampledLayers.size(0);
-          b_loop_ub = resampledLayers.size(0);
           layers.set_size(resampledLayers.size(0), 3);
+          loop_ub = resampledLayers.size(0);
           for (i = 0; i < loop_ub; i++) {
             layers[i] = resampledLayers[i];
-          }
-
-          for (i = 0; i < b_loop_ub; i++) {
             layers[i + layers.size(0)] = resampledLayers[i +
               resampledLayers.size(0)];
           }
@@ -135,17 +127,17 @@ namespace RAT
       if (resampledLayers.size(1) == 5) {
         i = resampledLayers.size(0);
         for (int j{0}; j < i; j++) {
-          double pc_add;
           double this_pcw;
           this_pcw = resampledLayers[j + resampledLayers.size(0) * 3];
-          if (resampledLayers[j + resampledLayers.size(0) * 4] == 1.0) {
-            pc_add = bulkIns;
-          } else {
-            pc_add = bulkOuts;
-          }
-
           if (!std::isnan(this_pcw)) {
-            layers[j + layers.size(0)] = pc_add * (this_pcw / 100.0) + (1.0 -
+            double d;
+            if (resampledLayers[j + resampledLayers.size(0) * 4] == 1.0) {
+              d = bulkIns;
+            } else {
+              d = bulkOuts;
+            }
+
+            layers[j + layers.size(0)] = d * (this_pcw / 100.0) + (1.0 -
               this_pcw / 100.0) * layers[j + layers.size(0)];
           }
         }
@@ -153,12 +145,11 @@ namespace RAT
     }
 
     if ((layers.size(0) != 0) && (layers.size(1) != 0)) {
-      loop_ub = layers.size(0);
       outLayers.set_size(layers.size(0), 3);
+      loop_ub = layers.size(0);
       for (i = 0; i < 3; i++) {
-        for (c_loop_ub = 0; c_loop_ub < loop_ub; c_loop_ub++) {
-          outLayers[c_loop_ub + outLayers.size(0) * i] = layers[c_loop_ub +
-            layers.size(0) * i];
+        for (int i1{0}; i1 < loop_ub; i1++) {
+          outLayers[i1 + outLayers.size(0) * i] = layers[i1 + layers.size(0) * i];
         }
       }
     } else {
@@ -167,6 +158,8 @@ namespace RAT
       outLayers[outLayers.size(0)] = 0.0;
       outLayers[outLayers.size(0) * 2] = 0.0;
     }
+
+    return ssubs;
   }
 }
 

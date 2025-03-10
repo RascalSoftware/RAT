@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // constructResolution.cpp
 //
@@ -47,7 +47,7 @@ namespace RAT
       resolution[i] = simulationXData[i];
     }
 
-    if (coder::internal::o_strcmp(resolutionType_data, resolutionType_size)) {
+    if (coder::internal::p_strcmp(resolutionType_data, resolutionType_size)) {
       //  If we are using data resolutions and the simulation range is larger
       //  than the data range, we extend the data resolution to the simulation
       //  range using the resolution values at the ends of the curve.
@@ -57,14 +57,16 @@ namespace RAT
       }
 
       if (dataIndices[0] > dataIndices[1]) {
-        i = 1;
+        i = 0;
+        i1 = 0;
       } else {
-        i = static_cast<int>(dataIndices[0]);
+        i = static_cast<int>(dataIndices[0]) - 1;
+        i1 = static_cast<int>(dataIndices[1]);
       }
 
-      loop_ub = shiftedData.size(0);
+      loop_ub = i1 - i;
       for (i1 = 0; i1 < loop_ub; i1++) {
-        resolution[((i + i1) + resolution.size(0)) - 1] = shiftedData[i1 +
+        resolution[(i + i1) + resolution.size(0)] = shiftedData[i1 +
           shiftedData.size(0) * 3];
       }
 
@@ -88,11 +90,11 @@ namespace RAT
         resolutionParamIndex_size[1]);
       for (int b_i{0}; b_i < i; b_i++) {
         double b_resolutionParamArray;
-        loop_ub = resolution.size(0) - 1;
         b_resolutionParamArray = resolutionParamArray[static_cast<int>
           (resolutionParamIndex_data[b_i]) - 1];
         b_resolution.set_size(resolution.size(0));
-        for (i1 = 0; i1 <= loop_ub; i1++) {
+        loop_ub = resolution.size(0);
+        for (i1 = 0; i1 < loop_ub; i1++) {
           b_resolution[i1] = resolution[i1 + resolution.size(0)] +
             b_resolutionParamArray;
         }
@@ -107,9 +109,9 @@ namespace RAT
     //  We must add eps (~10^-16) here in order to ensure we do not have any
     //  values identical to 0.0 in the resolution as this will cause a divide by
     //  zero error when the resolution correction is applied to the reflectivity.
-    loop_ub = resolution.size(0) - 1;
     b_resolution.set_size(resolution.size(0));
-    for (i = 0; i <= loop_ub; i++) {
+    loop_ub = resolution.size(0);
+    for (i = 0; i < loop_ub; i++) {
       b_resolution[i] = resolution[i + resolution.size(0)] +
         2.2204460492503131E-16;
     }

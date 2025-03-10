@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // ratDREAM.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -22,7 +21,7 @@ namespace RAT
 {
   struct ProblemDefinition;
   struct Controls;
-  struct g_struct_T;
+  struct f_struct_T;
 }
 
 // Function Declarations
@@ -34,10 +33,10 @@ namespace RAT
                 boolean_T dreamVariables_adaptPCR, const ::coder::array<double,
                 2U> &paramInfo_min, const ::coder::array<double, 2U>
                 &paramInfo_max, const char paramInfo_boundhandling_data[], const
-                int paramInfo_boundhandling_size[2], const ProblemDefinition
-                *ratInputs_problemStruct, const Controls *ratInputs_controls,
+                int paramInfo_boundhandling_size[2], const ProblemDefinition &
+                ratInputs_problemStruct, const Controls *ratInputs_controls,
                 const ::coder::array<double, 2U> &ratInputs_priors, ::coder::
-                array<double, 3U> &chain, g_struct_T *output, ::coder::array<
+                array<double, 3U> &chain, f_struct_T &output, ::coder::array<
                 double, 2U> &fx);
 }
 

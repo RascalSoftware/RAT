@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // runDE.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -28,14 +27,13 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void intrafun(const ::coder::array<double, 2U> &p, ProblemDefinition
-                *problemStruct, const char controls_parallel_data[], const int
-                controls_parallel_size[2], double controls_resampleMinAngle,
-                double controls_resampleNPoints, boolean_T
-                controls_calcSldDuringFit, double *S_MSE_I_nc, double
-                *S_MSE_FVr_ca, double *S_MSE_I_no, double *S_MSE_FVr_oa, Results
-                *result);
-  void runDE(ProblemDefinition *problemStruct, const ::coder::array<double, 2U>
+  double intrafun(const ::coder::array<double, 2U> &p, ProblemDefinition &
+                  problemStruct, const char controls_parallel_data[], const int
+                  controls_parallel_size[2], double controls_resampleMinAngle,
+                  double controls_resampleNPoints, boolean_T
+                  controls_calcSldDuringFit, Results &result, double
+                  &S_MSE_FVr_ca, double &S_MSE_I_no, double &S_MSE_FVr_oa);
+  void runDE(ProblemDefinition &problemStruct, const ::coder::array<double, 2U>
              &problemLimits_params, const ::coder::array<double, 2U>
              &problemLimits_backgroundParams, const ::coder::array<double, 2U>
              &problemLimits_scalefactors, const ::coder::array<double, 2U>

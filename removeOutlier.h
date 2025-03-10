@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // removeOutlier.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -28,7 +27,7 @@ namespace RAT
 {
   void removeOutlier(::coder::array<double, 2U> &X, ::coder::array<double, 2U>
                      &log_L, const double outlier_data[], const int
-                     outlier_size[2], const DreamParams *DREAMPar, ::coder::
+                     outlier_size[2], const DreamParams &DREAMPar, ::coder::
                      array<double, 2U> &outputOutlier);
 }
 

@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // useConstantDim.cpp
 //
@@ -23,14 +23,14 @@ namespace RAT
       void useConstantDim(::coder::array<double, 2U> &varargin_2, int varargin_3)
       {
         int subsb_idx_1;
-        if (1 == varargin_3) {
+        if (varargin_3 == 1) {
           if ((varargin_2.size(0) != 0) && (varargin_2.size(1) != 0)) {
             int i;
             i = varargin_2.size(1);
             for (int k{0}; k < i; k++) {
               int i1;
               i1 = varargin_2.size(0);
-              if (0 <= i1 - 2) {
+              if (i1 - 2 >= 0) {
                 subsb_idx_1 = k + 1;
               }
 

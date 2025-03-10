@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // find.cpp
 //
@@ -16,15 +16,126 @@
 // Function Definitions
 namespace RAT
 {
+  void binary_expand_op(::coder::array<int, 1U> &in1, const ::coder::array<
+                        double, 1U> &in2, const ::coder::array<double, 1U> &in3)
+  {
+    ::coder::array<boolean_T, 1U> b_in2;
+    int loop_ub;
+    int stride_0_0;
+    int stride_1_0;
+    if (in3.size(0) == 1) {
+      loop_ub = in2.size(0);
+    } else {
+      loop_ub = in3.size(0);
+    }
+
+    b_in2.set_size(loop_ub);
+    stride_0_0 = (in2.size(0) != 1);
+    stride_1_0 = (in3.size(0) != 1);
+    for (int i{0}; i < loop_ub; i++) {
+      b_in2[i] = (in2[i * stride_0_0] > in3[i * stride_1_0]);
+    }
+
+    coder::eml_find(b_in2, in1);
+  }
+
+  void binary_expand_op(::coder::array<int, 1U> &in1, const ::coder::array<
+                        double, 2U> &in2, const ::coder::array<double, 2U> &in3)
+  {
+    ::coder::array<boolean_T, 2U> b_in2;
+    int aux_0_1;
+    int aux_1_1;
+    int b_loop_ub;
+    int loop_ub;
+    int stride_0_0;
+    int stride_0_1;
+    int stride_1_0;
+    int stride_1_1;
+    if (in3.size(0) == 1) {
+      loop_ub = in2.size(0);
+    } else {
+      loop_ub = in3.size(0);
+    }
+
+    if (in3.size(1) == 1) {
+      b_loop_ub = in2.size(1);
+    } else {
+      b_loop_ub = in3.size(1);
+    }
+
+    b_in2.set_size(loop_ub, b_loop_ub);
+    stride_0_0 = (in2.size(0) != 1);
+    stride_0_1 = (in2.size(1) != 1);
+    stride_1_0 = (in3.size(0) != 1);
+    stride_1_1 = (in3.size(1) != 1);
+    aux_0_1 = 0;
+    aux_1_1 = 0;
+    for (int i{0}; i < b_loop_ub; i++) {
+      for (int i1{0}; i1 < loop_ub; i1++) {
+        b_in2[i1 + b_in2.size(0) * i] = (in2[i1 * stride_0_0 + in2.size(0) *
+          aux_0_1] > in3[i1 * stride_1_0 + in3.size(0) * aux_1_1]);
+      }
+
+      aux_1_1 += stride_1_1;
+      aux_0_1 += stride_0_1;
+    }
+
+    coder::f_eml_find(b_in2, in1);
+  }
+
+  void c_binary_expand_op(::coder::array<int, 1U> &in1, const ::coder::array<
+    double, 2U> &in2, const ::coder::array<double, 2U> &in3)
+  {
+    ::coder::array<boolean_T, 2U> b_in2;
+    int aux_0_1;
+    int aux_1_1;
+    int b_loop_ub;
+    int loop_ub;
+    int stride_0_0;
+    int stride_0_1;
+    int stride_1_0;
+    int stride_1_1;
+    if (in3.size(0) == 1) {
+      loop_ub = in2.size(0);
+    } else {
+      loop_ub = in3.size(0);
+    }
+
+    if (in3.size(1) == 1) {
+      b_loop_ub = in2.size(1);
+    } else {
+      b_loop_ub = in3.size(1);
+    }
+
+    b_in2.set_size(loop_ub, b_loop_ub);
+    stride_0_0 = (in2.size(0) != 1);
+    stride_0_1 = (in2.size(1) != 1);
+    stride_1_0 = (in3.size(0) != 1);
+    stride_1_1 = (in3.size(1) != 1);
+    aux_0_1 = 0;
+    aux_1_1 = 0;
+    for (int i{0}; i < b_loop_ub; i++) {
+      for (int i1{0}; i1 < loop_ub; i1++) {
+        b_in2[i1 + b_in2.size(0) * i] = (in2[i1 * stride_0_0 + in2.size(0) *
+          aux_0_1] < in3[i1 * stride_1_0 + in3.size(0) * aux_1_1]);
+      }
+
+      aux_1_1 += stride_1_1;
+      aux_0_1 += stride_0_1;
+    }
+
+    coder::f_eml_find(b_in2, in1);
+  }
+
   namespace coder
   {
-    void b_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[], int
-                    *i_size)
+    int b_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[])
     {
+      int i_size;
       int idx;
       int ii;
       boolean_T exitg1;
-      *i_size = (1 <= x.size(0));
+      i_size = (x.size(0) >= 1);
       ii = x.size(0);
       idx = 0;
       exitg1 = false;
@@ -38,13 +149,15 @@ namespace RAT
         }
       }
 
-      if (*i_size == 1) {
+      if (i_size == 1) {
         if (idx == 0) {
-          *i_size = 0;
+          i_size = 0;
         }
       } else {
-        *i_size = (1 <= idx);
+        i_size = (idx >= 1);
       }
+
+      return i_size;
     }
 
     void c_eml_find(const ::coder::array<boolean_T, 1U> &x, ::coder::array<int,
@@ -54,7 +167,7 @@ namespace RAT
       int ii;
       int k;
       boolean_T exitg1;
-      k = (1 <= x.size(0));
+      k = (x.size(0) >= 1);
       idx = 0;
       i.set_size(k);
       ii = 0;
@@ -78,7 +191,7 @@ namespace RAT
           i.set_size(0);
         }
       } else {
-        i.set_size(static_cast<int>(1 <= idx));
+        i.set_size(static_cast<int>(idx >= 1));
       }
     }
 
@@ -114,7 +227,7 @@ namespace RAT
           i_size[0] = 1;
           i_size[1] = 0;
         }
-      } else if (1 > idx) {
+      } else if (idx < 1) {
         i_size[1] = 0;
       } else {
         i_size[1] = idx;
@@ -144,7 +257,7 @@ namespace RAT
         }
       }
 
-      if (1 > idx) {
+      if (idx < 1) {
         i_size[1] = 0;
       } else {
         i_size[1] = idx;
@@ -182,7 +295,7 @@ namespace RAT
           i.set_size(0);
         }
       } else {
-        if (1 > idx) {
+        if (idx < 1) {
           idx = 0;
         }
 
@@ -195,18 +308,18 @@ namespace RAT
     {
       int idx;
       int ii;
-      int nx;
+      int nx_tmp;
       boolean_T exitg1;
-      nx = x.size(0) * x.size(1);
+      nx_tmp = x.size(0) * x.size(1);
       idx = 0;
-      i.set_size(nx);
+      i.set_size(nx_tmp);
       ii = 0;
       exitg1 = false;
-      while ((!exitg1) && (ii <= nx - 1)) {
+      while ((!exitg1) && (ii <= nx_tmp - 1)) {
         if (x[ii]) {
           idx++;
           i[idx - 1] = ii + 1;
-          if (idx >= nx) {
+          if (idx >= nx_tmp) {
             exitg1 = true;
           } else {
             ii++;
@@ -216,12 +329,12 @@ namespace RAT
         }
       }
 
-      if (nx == 1) {
+      if (nx_tmp == 1) {
         if (idx == 0) {
           i.set_size(0);
         }
       } else {
-        if (1 > idx) {
+        if (idx < 1) {
           idx = 0;
         }
 
@@ -260,7 +373,7 @@ namespace RAT
           i.set_size(1, 0);
         }
       } else {
-        if (1 > idx) {
+        if (idx < 1) {
           idx = 0;
         }
 

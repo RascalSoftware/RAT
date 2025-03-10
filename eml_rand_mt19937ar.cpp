@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // eml_rand_mt19937ar.cpp
 //
@@ -65,7 +65,6 @@ namespace RAT
     double eml_rand_mt19937ar(unsigned int b_state[625])
     {
       double r;
-      unsigned int u[2];
 
       // ========================= COPYRIGHT NOTICE ============================
       //  This is a uniform (0,1) pseudorandom number generator based on:
@@ -105,6 +104,7 @@ namespace RAT
       //  OF THIS  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       //
       // =============================   END   =================================
+      unsigned int u[2];
       do {
         genrand_uint32_vector(b_state, u);
         u[0] >>= 5U;
@@ -123,8 +123,7 @@ namespace RAT
         unsigned int y;
         mti = mt[624] + 1U;
         if (mti >= 625U) {
-          int kk;
-          for (kk = 0; kk < 227; kk++) {
+          for (int kk{0}; kk < 227; kk++) {
             y = (mt[kk] & 2147483648U) | (mt[kk + 1] & 2147483647U);
             if ((y & 1U) == 0U) {
               y >>= 1U;
@@ -135,7 +134,7 @@ namespace RAT
             mt[kk] = mt[kk + 397] ^ y;
           }
 
-          for (kk = 0; kk < 396; kk++) {
+          for (int kk{0}; kk < 396; kk++) {
             y = (mt[kk + 227] & 2147483648U) | (mt[kk + 228] & 2147483647U);
             if ((y & 1U) == 0U) {
               y >>= 1U;

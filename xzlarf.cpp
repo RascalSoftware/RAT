@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // xzlarf.cpp
 //
@@ -135,31 +135,6 @@ namespace RAT
           if (lastv > 0) {
             blas::b_xgemv(lastc, lastv, C, ic0, ldc, C, iv0, work);
             blas::xgerc(lastc, lastv, -tau, work, iv0, C, ic0, ldc);
-          }
-        }
-
-        void c_xzlarf(int m, int n, int iv0, double tau, ::coder::array<double,
-                      2U> &C, int ic0, int ldc, ::coder::array<double, 1U> &work)
-        {
-          int lastc;
-          int lastv;
-          if (tau != 0.0) {
-            lastv = m;
-            lastc = iv0 + m;
-            while ((lastv > 0) && (C[lastc - 2] == 0.0)) {
-              lastv--;
-              lastc--;
-            }
-
-            lastc = ilazlc(lastv, n, C, ic0, ldc);
-          } else {
-            lastv = 0;
-            lastc = 0;
-          }
-
-          if (lastv > 0) {
-            blas::c_xgemv(lastv, lastc, C, ic0, ldc, C, iv0, work);
-            blas::xgerc(lastv, lastc, -tau, iv0, work, C, ic0, ldc);
           }
         }
 

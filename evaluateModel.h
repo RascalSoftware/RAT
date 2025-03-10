@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // evaluateModel.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -28,8 +27,8 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void evaluateModel(const ::coder::array<double, 2U> &x, const DreamParams
-                     *DREAMPar, const ProblemDefinition *ratInputs_problemStruct,
+  void evaluateModel(const ::coder::array<double, 2U> &x, const DreamParams &
+                     DREAMPar, const ProblemDefinition &ratInputs_problemStruct,
                      const Controls *ratInputs_controls, ::coder::array<double,
                      2U> &fx);
 }

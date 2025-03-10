@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // mtimes.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -28,6 +27,10 @@ namespace RAT
       {
         void b_mtimes(const ::coder::array<double, 2U> &A, const ::coder::array<
                       double, 2U> &B, ::coder::array<double, 2U> &C);
+        void mtimes(const ::coder::array<double, 2U> &A, const ::coder::array<
+                    double, 2U> &B, double C_data[], int C_size[2]);
+        void mtimes(const double A_data[], const int A_size[2], const double
+                    B_data[], const int B_size[2], double C_data[], int C_size[2]);
         void mtimes(const ::coder::array<creal_T, 2U> &A, const ::coder::array<
                     creal_T, 2U> &B, ::coder::array<creal_T, 2U> &C);
         void mtimes(const ::coder::array<double, 2U> &A, const ::coder::array<

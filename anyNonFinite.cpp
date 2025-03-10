@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // anyNonFinite.cpp
 //
@@ -31,7 +31,7 @@ namespace RAT
           int i1;
           i1 = x.size(0);
           for (int b_k{0}; b_k < i1; b_k++) {
-            genloops(x, &p, b_k + 1, k + 1);
+            b_genloops(x, p, b_k + 1, k + 1);
           }
         }
 

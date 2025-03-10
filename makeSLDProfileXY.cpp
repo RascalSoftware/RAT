@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // makeSLDProfileXY.cpp
 //
@@ -14,6 +14,7 @@
 #include "blockedSummation.h"
 #include "minOrMax.h"
 #include "rt_nonfinite.h"
+#include "sum.h"
 #include "coder_array.h"
 #include <cmath>
 
@@ -29,10 +30,9 @@ namespace RAT
     ::coder::array<double, 2U> airBox;
     ::coder::array<double, 2U> r;
     ::coder::array<double, 2U> r1;
-    ::coder::array<double, 2U> thisBox;
+    ::coder::array<double, 2U> r2;
     ::coder::array<double, 2U> x;
     ::coder::array<double, 1U> b_layers;
-    double subBox_data[101];
     int b_loop_ub;
     int i;
     int loop_ub;
@@ -40,39 +40,31 @@ namespace RAT
       double lastBoxEdge;
       double nextLayRough;
       double subsBoxCen_tmp;
+      double x_tmp;
       int i1;
-      loop_ub = layers.size(0);
       b_layers.set_size(layers.size(0));
+      loop_ub = layers.size(0);
       for (i = 0; i < loop_ub; i++) {
         b_layers[i] = layers[i];
       }
 
-      if (b_layers.size(0) == 0) {
-        subsBoxCen_tmp = 0.0;
-      } else {
-        subsBoxCen_tmp = coder::nestedIter(b_layers, b_layers.size(0));
-      }
-
-      subsBoxCen_tmp = subsBoxCen_tmp * nrepeats + 150.0;
+      subsBoxCen_tmp = coder::sum(b_layers) * nrepeats + 150.0;
       if (std::isnan(subsBoxCen_tmp)) {
         x.set_size(1, 1);
         x[0] = rtNaN;
       } else if (subsBoxCen_tmp < 0.0) {
         x.set_size(1, 0);
-      } else if (std::isinf(subsBoxCen_tmp) && (0.0 == subsBoxCen_tmp)) {
-        x.set_size(1, 1);
-        x[0] = rtNaN;
       } else {
-        loop_ub = static_cast<int>(std::floor(subsBoxCen_tmp));
-        x.set_size(1, loop_ub + 1);
+        x.set_size(1, static_cast<int>(subsBoxCen_tmp) + 1);
+        loop_ub = static_cast<int>(subsBoxCen_tmp);
         for (i = 0; i <= loop_ub; i++) {
           x[i] = i;
         }
       }
 
-      subsBoxCen_tmp = numberOfLayers * nrepeats;
-      Lays.set_size(x.size(1), static_cast<int>(subsBoxCen_tmp + 2.0));
-      loop_ub = static_cast<int>(subsBoxCen_tmp + 2.0);
+      x_tmp = numberOfLayers * nrepeats;
+      Lays.set_size(x.size(1), static_cast<int>(x_tmp + 2.0));
+      loop_ub = static_cast<int>(x_tmp + 2.0);
       for (i = 0; i < loop_ub; i++) {
         b_loop_ub = x.size(1);
         for (i1 = 0; i1 < b_loop_ub; i1++) {
@@ -100,14 +92,13 @@ namespace RAT
           }
 
           thisBoxCentre = lastBoxEdge + thisLayThick / 2.0;
-          asymconvstep(x, thisLayThick, thisBoxCentre, layers[b_i + layers.size
-                       (0) * 2], nextLayRough, layers[b_i + layers.size(0)],
-                       thisBox);
           b_loop_ub = static_cast<int>((static_cast<double>(b_i) + 1.0) +
             numberOfLayers * ((static_cast<double>(n) + 1.0) - 1.0)) - 1;
+          asymconvstep(x, thisLayThick, thisBoxCentre, layers[b_i + layers.size
+                       (0) * 2], nextLayRough, layers[b_i + layers.size(0)], r1);
           loop_ub = Lays.size(0);
           for (int i2{0}; i2 < loop_ub; i2++) {
-            Lays[i2 + Lays.size(0) * b_loop_ub] = thisBox[i2];
+            Lays[i2 + Lays.size(0) * b_loop_ub] = r1[i2];
           }
 
           lastBoxEdge = thisBoxCentre + thisLayThick / 2.0;
@@ -117,29 +108,26 @@ namespace RAT
       }
 
       // layers(end,3);
-      asymconvstep(x, (x[x.size(1) - 1] - lastBoxEdge) * 2.0, x[x.size(1) - 1],
+      subsBoxCen_tmp = x[x.size(1) - 1];
+      asymconvstep(x, (subsBoxCen_tmp - lastBoxEdge) * 2.0, subsBoxCen_tmp,
                    nextLayRough, ssub, r1);
       loop_ub = Lays.size(0);
       for (i = 0; i < loop_ub; i++) {
-        Lays[i + Lays.size(0) * (static_cast<int>(subsBoxCen_tmp + 1.0) - 1)] =
-          r1[i];
+        Lays[i + Lays.size(0) * (static_cast<int>(x_tmp + 1.0) - 1)] = r1[i];
       }
 
       // plot(x,Lays(:,(numberOfLayers*nrepeats)+1))
       loop_ub = Lays.size(0);
       for (i = 0; i < loop_ub; i++) {
-        Lays[i + Lays.size(0) * (static_cast<int>(subsBoxCen_tmp + 2.0) - 1)] =
-          airBox[i];
+        Lays[i + Lays.size(0) * (static_cast<int>(x_tmp + 2.0) - 1)] = airBox[i];
       }
 
       // plot(x,Lays(:,(numberOfLayers*nrepeats)+2))
       coder::blockedSummation(Lays, Lays.size(1), b_layers);
       b_loop_ub = b_layers.size(0);
       SLD.set_size(b_layers.size(0), 1);
-      for (i = 0; i < 1; i++) {
-        for (i1 = 0; i1 < b_loop_ub; i1++) {
-          SLD[i1] = b_layers[i1];
-        }
+      for (i = 0; i < b_loop_ub; i++) {
+        SLD[i] = b_layers[i];
       }
     } else {
       double subsBoxCen_tmp;
@@ -156,22 +144,17 @@ namespace RAT
         r[i] = i;
       }
 
-      asymconvstep(r, subsBoxCen_tmp, 0.0, ssub, ssub, airBox);
+      asymconvstep(r, subsBoxCen_tmp, 0.0, ssub, ssub, r1);
       r.set_size(1, 101);
       for (i = 0; i < 101; i++) {
         r[i] = i;
       }
 
-      asymconvstep(r, subsBoxCen_tmp, subsBoxCen_tmp, ssub, ssub, r1);
+      asymconvstep(r, subsBoxCen_tmp, subsBoxCen_tmp, ssub, ssub, r2);
+      SLD.set_size(1, r1.size(1));
       loop_ub = r1.size(1);
       for (i = 0; i < loop_ub; i++) {
-        subBox_data[i] = r1[i];
-      }
-
-      SLD.set_size(1, airBox.size(1));
-      loop_ub = airBox.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        SLD[SLD.size(0) * i] = airBox[i] + subBox_data[i];
+        SLD[SLD.size(0) * i] = r1[i] + r2[i];
       }
     }
 
@@ -197,10 +180,9 @@ namespace RAT
     ::coder::array<double, 2U> airBox;
     ::coder::array<double, 2U> r;
     ::coder::array<double, 2U> r1;
-    ::coder::array<double, 2U> thisBox;
+    ::coder::array<double, 2U> r2;
     ::coder::array<double, 2U> x;
     ::coder::array<double, 1U> b_layers;
-    double subBox_data[101];
     int b_loop_ub;
     int i;
     int loop_ub;
@@ -208,39 +190,31 @@ namespace RAT
       double lastBoxEdge;
       double nextLayRough;
       double subsBoxCen_tmp;
+      double x_tmp;
       int i1;
-      loop_ub = layers.size(0);
       b_layers.set_size(layers.size(0));
+      loop_ub = layers.size(0);
       for (i = 0; i < loop_ub; i++) {
         b_layers[i] = layers[i];
       }
 
-      if (b_layers.size(0) == 0) {
-        subsBoxCen_tmp = 0.0;
-      } else {
-        subsBoxCen_tmp = coder::nestedIter(b_layers, b_layers.size(0));
-      }
-
-      subsBoxCen_tmp = subsBoxCen_tmp * nrepeats + 150.0;
+      subsBoxCen_tmp = coder::sum(b_layers) * nrepeats + 150.0;
       if (std::isnan(subsBoxCen_tmp)) {
         x.set_size(1, 1);
         x[0] = rtNaN;
       } else if (subsBoxCen_tmp < 0.0) {
         x.set_size(1, 0);
-      } else if (std::isinf(subsBoxCen_tmp) && (0.0 == subsBoxCen_tmp)) {
-        x.set_size(1, 1);
-        x[0] = rtNaN;
       } else {
-        loop_ub = static_cast<int>(std::floor(subsBoxCen_tmp));
-        x.set_size(1, loop_ub + 1);
+        x.set_size(1, static_cast<int>(subsBoxCen_tmp) + 1);
+        loop_ub = static_cast<int>(subsBoxCen_tmp);
         for (i = 0; i <= loop_ub; i++) {
           x[i] = i;
         }
       }
 
-      subsBoxCen_tmp = numberOfLayers * nrepeats;
-      Lays.set_size(x.size(1), static_cast<int>(subsBoxCen_tmp + 2.0));
-      loop_ub = static_cast<int>(subsBoxCen_tmp + 2.0);
+      x_tmp = numberOfLayers * nrepeats;
+      Lays.set_size(x.size(1), static_cast<int>(x_tmp + 2.0));
+      loop_ub = static_cast<int>(x_tmp + 2.0);
       for (i = 0; i < loop_ub; i++) {
         b_loop_ub = x.size(1);
         for (i1 = 0; i1 < b_loop_ub; i1++) {
@@ -268,14 +242,13 @@ namespace RAT
           }
 
           thisBoxCentre = lastBoxEdge + thisLayThick / 2.0;
-          asymconvstep(x, thisLayThick, thisBoxCentre, layers[b_i + layers.size
-                       (0) * 2], nextLayRough, layers[b_i + layers.size(0)],
-                       thisBox);
           b_loop_ub = static_cast<int>((static_cast<double>(b_i) + 1.0) +
             numberOfLayers * ((static_cast<double>(n) + 1.0) - 1.0)) - 1;
+          asymconvstep(x, thisLayThick, thisBoxCentre, layers[b_i + layers.size
+                       (0) * 2], nextLayRough, layers[b_i + layers.size(0)], r1);
           loop_ub = Lays.size(0);
           for (int i2{0}; i2 < loop_ub; i2++) {
-            Lays[i2 + Lays.size(0) * b_loop_ub] = thisBox[i2];
+            Lays[i2 + Lays.size(0) * b_loop_ub] = r1[i2];
           }
 
           lastBoxEdge = thisBoxCentre + thisLayThick / 2.0;
@@ -285,29 +258,26 @@ namespace RAT
       }
 
       // layers(end,3);
-      asymconvstep(x, (x[x.size(1) - 1] - lastBoxEdge) * 2.0, x[x.size(1) - 1],
+      subsBoxCen_tmp = x[x.size(1) - 1];
+      asymconvstep(x, (subsBoxCen_tmp - lastBoxEdge) * 2.0, subsBoxCen_tmp,
                    nextLayRough, ssub, bulkOut, r1);
       loop_ub = Lays.size(0);
       for (i = 0; i < loop_ub; i++) {
-        Lays[i + Lays.size(0) * (static_cast<int>(subsBoxCen_tmp + 1.0) - 1)] =
-          r1[i];
+        Lays[i + Lays.size(0) * (static_cast<int>(x_tmp + 1.0) - 1)] = r1[i];
       }
 
       // plot(x,Lays(:,(numberOfLayers*nrepeats)+1))
       loop_ub = Lays.size(0);
       for (i = 0; i < loop_ub; i++) {
-        Lays[i + Lays.size(0) * (static_cast<int>(subsBoxCen_tmp + 2.0) - 1)] =
-          airBox[i];
+        Lays[i + Lays.size(0) * (static_cast<int>(x_tmp + 2.0) - 1)] = airBox[i];
       }
 
       // plot(x,Lays(:,(numberOfLayers*nrepeats)+2))
       coder::blockedSummation(Lays, Lays.size(1), b_layers);
       b_loop_ub = b_layers.size(0);
       SLD.set_size(b_layers.size(0), 1);
-      for (i = 0; i < 1; i++) {
-        for (i1 = 0; i1 < b_loop_ub; i1++) {
-          SLD[i1] = b_layers[i1];
-        }
+      for (i = 0; i < b_loop_ub; i++) {
+        SLD[i] = b_layers[i];
       }
     } else {
       double subsBoxCen_tmp;
@@ -324,22 +294,17 @@ namespace RAT
         r[i] = i;
       }
 
-      asymconvstep(r, subsBoxCen_tmp, 0.0, ssub, ssub, bulkIn, airBox);
+      asymconvstep(r, subsBoxCen_tmp, 0.0, ssub, ssub, bulkIn, r1);
       r.set_size(1, 101);
       for (i = 0; i < 101; i++) {
         r[i] = i;
       }
 
-      asymconvstep(r, subsBoxCen_tmp, subsBoxCen_tmp, ssub, ssub, bulkOut, r1);
+      asymconvstep(r, subsBoxCen_tmp, subsBoxCen_tmp, ssub, ssub, bulkOut, r2);
+      SLD.set_size(1, r1.size(1));
       loop_ub = r1.size(1);
       for (i = 0; i < loop_ub; i++) {
-        subBox_data[i] = r1[i];
-      }
-
-      SLD.set_size(1, airBox.size(1));
-      loop_ub = airBox.size(1);
-      for (i = 0; i < loop_ub; i++) {
-        SLD[SLD.size(0) * i] = airBox[i] + subBox_data[i];
+        SLD[SLD.size(0) * i] = r1[i] + r2[i];
       }
     }
 

@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // processBayes.h
 //
@@ -13,7 +13,6 @@
 // Include files
 #include "rtwtypes.h"
 #include "coder_array.h"
-#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -23,16 +22,21 @@ namespace RAT
   struct ProblemDefinition;
   struct Controls;
   struct Results;
-  struct f_struct_T;
+  struct e_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
+  void processBayes(const double bayesOutputs_bestParams_data[], const int
+                    bayesOutputs_bestParams_size[2], const ::coder::array<double,
+                    2U> &bayesOutputs_chain, ProblemDefinition &problemStruct,
+                    Controls &controls, Results *result, e_struct_T
+                    &bayesResults);
   void processBayes(const ::coder::array<double, 2U> &bayesOutputs_bestParams,
                     const ::coder::array<double, 2U> &bayesOutputs_chain,
-                    ProblemDefinition *problemStruct, Controls *controls,
-                    Results *result, f_struct_T *bayesResults);
+                    ProblemDefinition &problemStruct, Controls &controls,
+                    Results *result, e_struct_T &bayesResults);
 }
 
 #endif

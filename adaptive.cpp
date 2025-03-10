@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // adaptive.cpp
 //
@@ -16,7 +16,6 @@
 #include "allOrAny.h"
 #include "linspace.h"
 #include "minOrMax.h"
-#include "power.h"
 #include "repmat.h"
 #include "rt_nonfinite.h"
 #include "sortIdx.h"
@@ -27,11 +26,27 @@
 // Function Declarations
 namespace RAT
 {
+  static void b_binary_expand_op(::coder::array<boolean_T, 1U> &in1, const
+    cell_56 &in2, const ::coder::array<double, 1U> &in3, double in4);
   static void b_increaseSampling(::coder::array<double, 2U> &dataPoints, const ::
     coder::array<boolean_T, 1U> &segmentsToSplit, const ::coder::array<double,
     2U> &sldProfile);
   static void b_normalizeFunction(const ::coder::array<double, 1U> &x, const ::
     coder::array<double, 2U> &sldProfile, ::coder::array<double, 1U> &y);
+  static void binary_expand_op(const ::coder::array<double, 2U> &in1, const ::
+    coder::array<double, 2U> &in2, const ::coder::array<double, 2U> &in3, ::
+    coder::array<double, 2U> &in4, ::coder::array<double, 2U> &in5, ::coder::
+    array<double, 2U> &in6);
+  static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<double, 2U> &in2, int in3, int in4, int in5, int in6);
+  static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<double, 2U> &in2, int in3, int in4, int in5);
+  static void binary_expand_op(::coder::array<creal_T, 1U> &in1, const ::coder::
+    array<double, 1U> &in2, const ::coder::array<double, 1U> &in3, const ::coder::
+    array<double, 2U> &in5, const ::coder::array<double, 1U> &in6);
+  static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<int, 1U> &in2, const ::coder::array<double, 2U> &in3, const ::coder::
+    array<int, 1U> &in4, const ::coder::array<int, 1U> &in5);
   static void calculateCentralAngles(const ::coder::array<double, 2U> &XYdata,
     const double dataBoxSize[2], ::coder::array<double, 1U> &cornerAngle);
   static void calculateTrianglesSides(const ::coder::array<double, 2U> &XYdata, ::
@@ -42,11 +57,31 @@ namespace RAT
     2U> &sldProfile);
   static void normalizeFunction(const ::coder::array<double, 1U> &x, const ::
     coder::array<double, 2U> &sldProfile, ::coder::array<double, 1U> &y);
+  static void times(::coder::array<double, 1U> &in1, const ::coder::array<double,
+                    1U> &in2, const ::coder::array<double, 1U> &in3);
 }
 
 // Function Definitions
 namespace RAT
 {
+  static void b_binary_expand_op(::coder::array<boolean_T, 1U> &in1, const
+    cell_56 &in2, const ::coder::array<double, 1U> &in3, double in4)
+  {
+    int loop_ub;
+    int stride_1_0;
+    if (in3.size(0) == 1) {
+      loop_ub = in2.f1.size(0) - 2;
+    } else {
+      loop_ub = in3.size(0);
+    }
+
+    in1.set_size(loop_ub);
+    stride_1_0 = (in3.size(0) != 1);
+    for (int i{0}; i < loop_ub; i++) {
+      in1[i] = (in3[i * stride_1_0] < in4);
+    }
+  }
+
   static void b_increaseSampling(::coder::array<double, 2U> &dataPoints, const ::
     coder::array<boolean_T, 1U> &segmentsToSplit, const ::coder::array<double,
     2U> &sldProfile)
@@ -54,66 +89,54 @@ namespace RAT
     ::coder::array<double, 2U> b_dataPoints;
     ::coder::array<double, 2U> newDataPoints;
     ::coder::array<double, 1U> b_newDataPoints;
-    ::coder::array<double, 1U> r4;
-    ::coder::array<int, 1U> r2;
+    ::coder::array<double, 1U> r5;
+    ::coder::array<int, 1U> r;
     ::coder::array<int, 1U> r3;
-    ::coder::array<boolean_T, 1U> r;
+    ::coder::array<int, 1U> r4;
     ::coder::array<boolean_T, 1U> r1;
+    ::coder::array<boolean_T, 1U> r2;
     int end;
-    int i;
     int trueCount;
 
     //  increaseSampling increase the sampling of an input function
-    end = segmentsToSplit.size(0);
-    trueCount = -1;
-    for (i = 0; i < end; i++) {
+    end = segmentsToSplit.size(0) - 1;
+    trueCount = 0;
+    for (int i{0}; i <= end; i++) {
       if (segmentsToSplit[i]) {
         trueCount++;
       }
     }
 
-    newDataPoints.set_size(trueCount + 1, 2);
-    trueCount++;
-    for (i = 0; i < 2; i++) {
-      for (end = 0; end < trueCount; end++) {
-        newDataPoints[end + newDataPoints.size(0) * i] = 0.0;
+    r.set_size(trueCount);
+    trueCount = 0;
+    for (int i{0}; i <= end; i++) {
+      if (segmentsToSplit[i]) {
+        r[trueCount] = i;
+        trueCount++;
       }
     }
 
-    r.set_size(segmentsToSplit.size(0) + 1);
-    trueCount = segmentsToSplit.size(0);
-    for (i = 0; i < trueCount; i++) {
-      r[i] = segmentsToSplit[i];
+    newDataPoints.set_size(r.size(0), 2);
+    end = r.size(0);
+    for (trueCount = 0; trueCount < 2; trueCount++) {
+      for (int i{0}; i < end; i++) {
+        newDataPoints[i + newDataPoints.size(0) * trueCount] = 0.0;
+      }
     }
 
-    r[segmentsToSplit.size(0)] = false;
     r1.set_size(segmentsToSplit.size(0) + 1);
-    r1[0] = false;
-    trueCount = segmentsToSplit.size(0);
-    for (i = 0; i < trueCount; i++) {
-      r1[i + 1] = segmentsToSplit[i];
+    end = segmentsToSplit.size(0);
+    r2.set_size(segmentsToSplit.size(0) + 1);
+    r2[0] = false;
+    for (trueCount = 0; trueCount < end; trueCount++) {
+      r1[trueCount] = segmentsToSplit[trueCount];
+      r2[trueCount + 1] = segmentsToSplit[trueCount];
     }
 
-    end = r.size(0) - 1;
-    trueCount = 0;
-    for (i = 0; i <= end; i++) {
-      if (r[i]) {
-        trueCount++;
-      }
-    }
-
-    r2.set_size(trueCount);
-    trueCount = 0;
-    for (i = 0; i <= end; i++) {
-      if (r[i]) {
-        r2[trueCount] = i + 1;
-        trueCount++;
-      }
-    }
-
+    r1[segmentsToSplit.size(0)] = false;
     end = r1.size(0) - 1;
     trueCount = 0;
-    for (i = 0; i <= end; i++) {
+    for (int i{0}; i <= end; i++) {
       if (r1[i]) {
         trueCount++;
       }
@@ -121,65 +144,86 @@ namespace RAT
 
     r3.set_size(trueCount);
     trueCount = 0;
-    for (i = 0; i <= end; i++) {
+    for (int i{0}; i <= end; i++) {
       if (r1[i]) {
-        r3[trueCount] = i + 1;
+        r3[trueCount] = i;
         trueCount++;
       }
     }
 
-    trueCount = r2.size(0);
-    for (i = 0; i < trueCount; i++) {
-      newDataPoints[i] = 0.5 * (dataPoints[r2[i] - 1] + dataPoints[r3[i] - 1]);
+    trueCount = 0;
+    for (int i{0}; i <= end; i++) {
+      if (r2[i]) {
+        trueCount++;
+      }
     }
 
-    trueCount = newDataPoints.size(0) - 1;
+    r4.set_size(trueCount);
+    trueCount = 0;
+    for (int i{0}; i <= end; i++) {
+      if (r2[i]) {
+        r4[trueCount] = i;
+        trueCount++;
+      }
+    }
+
+    if (r3.size(0) == r4.size(0)) {
+      end = r.size(0);
+      for (trueCount = 0; trueCount < end; trueCount++) {
+        newDataPoints[trueCount] = 0.5 * (dataPoints[r3[trueCount]] +
+          dataPoints[r4[trueCount]]);
+      }
+    } else {
+      binary_expand_op(newDataPoints, r, dataPoints, r3, r4);
+    }
+
     b_newDataPoints.set_size(newDataPoints.size(0));
-    for (i = 0; i <= trueCount; i++) {
-      b_newDataPoints[i] = newDataPoints[i];
+    end = newDataPoints.size(0);
+    for (trueCount = 0; trueCount < end; trueCount++) {
+      b_newDataPoints[trueCount] = newDataPoints[trueCount];
     }
 
-    b_normalizeFunction(b_newDataPoints, sldProfile, r4);
-    trueCount = r4.size(0);
-    for (i = 0; i < trueCount; i++) {
-      newDataPoints[i + newDataPoints.size(0)] = r4[i];
+    b_normalizeFunction(b_newDataPoints, sldProfile, r5);
+    end = newDataPoints.size(0);
+    for (trueCount = 0; trueCount < end; trueCount++) {
+      newDataPoints[trueCount + newDataPoints.size(0)] = r5[trueCount];
     }
 
     //  For simplicity append the new points at the end and then sort.
     b_dataPoints.set_size(dataPoints.size(0) + newDataPoints.size(0), 2);
-    trueCount = dataPoints.size(0);
-    for (i = 0; i < 2; i++) {
-      for (end = 0; end < trueCount; end++) {
-        b_dataPoints[end + b_dataPoints.size(0) * i] = dataPoints[end +
-          dataPoints.size(0) * i];
+    end = dataPoints.size(0);
+    for (trueCount = 0; trueCount < 2; trueCount++) {
+      for (int i{0}; i < end; i++) {
+        b_dataPoints[i + b_dataPoints.size(0) * trueCount] = dataPoints[i +
+          dataPoints.size(0) * trueCount];
       }
     }
 
-    trueCount = newDataPoints.size(0);
-    for (i = 0; i < 2; i++) {
-      for (end = 0; end < trueCount; end++) {
-        b_dataPoints[(end + dataPoints.size(0)) + b_dataPoints.size(0) * i] =
-          newDataPoints[end + newDataPoints.size(0) * i];
+    end = newDataPoints.size(0);
+    for (trueCount = 0; trueCount < 2; trueCount++) {
+      for (int i{0}; i < end; i++) {
+        b_dataPoints[(i + dataPoints.size(0)) + b_dataPoints.size(0) * trueCount]
+          = newDataPoints[i + newDataPoints.size(0) * trueCount];
       }
     }
 
     dataPoints.set_size(b_dataPoints.size(0), 2);
-    trueCount = b_dataPoints.size(0);
-    for (i = 0; i < 2; i++) {
-      for (end = 0; end < trueCount; end++) {
-        dataPoints[end + dataPoints.size(0) * i] = b_dataPoints[end +
-          b_dataPoints.size(0) * i];
+    end = b_dataPoints.size(0);
+    for (trueCount = 0; trueCount < 2; trueCount++) {
+      for (int i{0}; i < end; i++) {
+        dataPoints[i + dataPoints.size(0) * trueCount] = b_dataPoints[i +
+          b_dataPoints.size(0) * trueCount];
       }
     }
 
-    coder::internal::sortIdx(dataPoints, r2);
-    coder::apply_row_permutation(dataPoints, r2);
+    coder::internal::sortIdx(dataPoints, r);
+    coder::apply_row_permutation(dataPoints, r);
   }
 
   static void b_normalizeFunction(const ::coder::array<double, 1U> &x, const ::
     coder::array<double, 2U> &sldProfile, ::coder::array<double, 1U> &y)
   {
-    ::coder::array<double, 1U> r;
+    ::coder::array<double, 2U> r;
     int i;
 
     //  Subfunctions
@@ -214,22 +258,166 @@ namespace RAT
     // end
   }
 
+  static void binary_expand_op(const ::coder::array<double, 2U> &in1, const ::
+    coder::array<double, 2U> &in2, const ::coder::array<double, 2U> &in3, ::
+    coder::array<double, 2U> &in4, ::coder::array<double, 2U> &in5, ::coder::
+    array<double, 2U> &in6)
+  {
+    ::coder::array<double, 2U> b_in1;
+    int loop_ub;
+    int stride_0_0;
+    int stride_1_0;
+    int stride_2_0;
+    if (in3.size(0) == 1) {
+      if (in2.size(0) == 1) {
+        loop_ub = in1.size(0);
+      } else {
+        loop_ub = in2.size(0);
+      }
+    } else {
+      loop_ub = in3.size(0);
+    }
+
+    b_in1.set_size(loop_ub, 2);
+    stride_0_0 = (in1.size(0) != 1);
+    stride_1_0 = (in2.size(0) != 1);
+    stride_2_0 = (in3.size(0) != 1);
+    for (int i{0}; i < 2; i++) {
+      for (int i1{0}; i1 < loop_ub; i1++) {
+        b_in1[i1 + b_in1.size(0) * i] = in1[i1 * stride_0_0 + in1.size(0) * i] /
+          in2[i1 * stride_1_0 + in2.size(0) * i] - in3[i1 * stride_2_0 +
+          in3.size(0) * i];
+      }
+    }
+
+    calculateTrianglesSides(b_in1, in4, in5, in6);
+  }
+
+  static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<double, 2U> &in2, int in3, int in4, int in5, int in6)
+  {
+    int i;
+    int i1;
+    int loop_ub;
+    int stride_0_0;
+    int stride_1_0;
+    i = (in6 - in5) + 1;
+    i1 = (in4 - in3) + 1;
+    if (i == 1) {
+      loop_ub = i1;
+    } else {
+      loop_ub = i;
+    }
+
+    in1.set_size(loop_ub, 2);
+    stride_0_0 = (i1 != 1);
+    stride_1_0 = (i != 1);
+    for (i = 0; i < 2; i++) {
+      for (i1 = 0; i1 < loop_ub; i1++) {
+        in1[i1 + in1.size(0) * i] = in2[(in3 + i1 * stride_0_0) + in2.size(0) *
+          i] - in2[(in5 + i1 * stride_1_0) + in2.size(0) * i];
+      }
+    }
+  }
+
+  static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<double, 2U> &in2, int in3, int in4, int in5)
+  {
+    int i;
+    int loop_ub;
+    int stride_0_0;
+    int stride_1_0;
+    i = (in4 - in3) + 1;
+    if (in5 + 1 == 1) {
+      loop_ub = i;
+    } else {
+      loop_ub = in5 + 1;
+    }
+
+    in1.set_size(loop_ub, 2);
+    stride_0_0 = (i != 1);
+    stride_1_0 = (in5 + 1 != 1);
+    for (i = 0; i < 2; i++) {
+      for (int i1{0}; i1 < loop_ub; i1++) {
+        in1[i1 + in1.size(0) * i] = in2[(in3 + i1 * stride_0_0) + in2.size(0) *
+          i] - in2[i1 * stride_1_0 + in2.size(0) * i];
+      }
+    }
+  }
+
+  static void binary_expand_op(::coder::array<creal_T, 1U> &in1, const ::coder::
+    array<double, 1U> &in2, const ::coder::array<double, 1U> &in3, const ::coder::
+    array<double, 2U> &in5, const ::coder::array<double, 1U> &in6)
+  {
+    int loop_ub;
+    int stride_0_0;
+    int stride_1_0;
+    int stride_2_0;
+    int stride_3_0;
+    if (in6.size(0) == 1) {
+      if (in5.size(0) == 1) {
+        if (in3.size(0) == 1) {
+          loop_ub = in2.size(0);
+        } else {
+          loop_ub = in3.size(0);
+        }
+      } else {
+        loop_ub = in5.size(0);
+      }
+    } else {
+      loop_ub = in6.size(0);
+    }
+
+    in1.set_size(loop_ub);
+    stride_0_0 = (in2.size(0) != 1);
+    stride_1_0 = (in3.size(0) != 1);
+    stride_2_0 = (in5.size(0) != 1);
+    stride_3_0 = (in6.size(0) != 1);
+    for (int i{0}; i < loop_ub; i++) {
+      double b_varargin_1;
+      double varargin_1;
+      int i1;
+      i1 = i * stride_2_0;
+      varargin_1 = in5[i1];
+      b_varargin_1 = in5[i1 + in5.size(0)];
+      in1[i].re = ((in2[i * stride_0_0] + in3[i * stride_1_0]) - (varargin_1 *
+        varargin_1 + b_varargin_1 * b_varargin_1)) / 2.0 / in6[i * stride_3_0];
+      in1[i].im = 0.0;
+    }
+  }
+
+  static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<int, 1U> &in2, const ::coder::array<double, 2U> &in3, const ::coder::
+    array<int, 1U> &in4, const ::coder::array<int, 1U> &in5)
+  {
+    int loop_ub;
+    int stride_0_0;
+    int stride_1_0;
+    stride_0_0 = (in4.size(0) != 1);
+    stride_1_0 = (in5.size(0) != 1);
+    loop_ub = in2.size(0);
+    for (int i{0}; i < loop_ub; i++) {
+      in1[i] = 0.5 * (in3[in4[i * stride_0_0]] + in3[in5[i * stride_1_0]]);
+    }
+  }
+
   static void calculateCentralAngles(const ::coder::array<double, 2U> &XYdata,
     const double dataBoxSize[2], ::coder::array<double, 1U> &cornerAngle)
   {
-    ::coder::array<creal_T, 1U> r3;
+    ::coder::array<creal_T, 1U> r2;
     ::coder::array<double, 2U> b_XYdata;
     ::coder::array<double, 2U> firstStep;
     ::coder::array<double, 2U> longStep;
     ::coder::array<double, 2U> r;
     ::coder::array<double, 2U> secondStep;
-    ::coder::array<double, 1U> b_firstStep;
     ::coder::array<double, 1U> firstStepSquared;
     ::coder::array<double, 1U> r1;
-    ::coder::array<double, 1U> r2;
     ::coder::array<double, 1U> secondStepSquared;
     double b_dv[2];
+    double b_varargin_1;
+    double varargin_1;
     int i;
+    int i1;
     int k;
 
     //  Calculate the central angle of the triangles formed by data points.
@@ -240,100 +428,97 @@ namespace RAT
     coder::repmat(dataBoxSize, static_cast<double>(XYdata.size(0)), b_XYdata);
     coder::internal::minimum(XYdata, b_dv);
     coder::repmat(b_dv, static_cast<double>(XYdata.size(0)), r);
-    b_XYdata.set_size(XYdata.size(0), 2);
-    k = XYdata.size(0);
-    for (i = 0; i < 2; i++) {
-      for (int i1{0}; i1 < k; i1++) {
-        b_XYdata[i1 + b_XYdata.size(0) * i] = XYdata[i1 + XYdata.size(0) * i] /
-          b_XYdata[i1 + b_XYdata.size(0) * i] - r[i1 + r.size(0) * i];
-      }
+    if (XYdata.size(0) == 1) {
+      i = b_XYdata.size(0);
+    } else {
+      i = XYdata.size(0);
     }
 
-    calculateTrianglesSides(b_XYdata, firstStep, secondStep, longStep);
+    if ((XYdata.size(0) == b_XYdata.size(0)) && (i == r.size(0))) {
+      b_XYdata.set_size(XYdata.size(0), 2);
+      k = XYdata.size(0);
+      for (i = 0; i < 2; i++) {
+        for (i1 = 0; i1 < k; i1++) {
+          b_XYdata[i1 + b_XYdata.size(0) * i] = XYdata[i1 + XYdata.size(0) * i] /
+            b_XYdata[i1 + b_XYdata.size(0) * i] - r[i1 + r.size(0) * i];
+        }
+      }
+
+      calculateTrianglesSides(b_XYdata, firstStep, secondStep, longStep);
+    } else {
+      binary_expand_op(XYdata, b_XYdata, r, firstStep, secondStep, longStep);
+    }
 
     //  calculate area of squares of length of triangle sides
+    firstStepSquared.set_size(firstStep.size(0));
     k = firstStep.size(0);
-    b_firstStep.set_size(firstStep.size(0));
     for (i = 0; i < k; i++) {
-      b_firstStep[i] = firstStep[i];
+      varargin_1 = firstStep[i];
+      b_varargin_1 = firstStep[i + firstStep.size(0)];
+      firstStepSquared[i] = varargin_1 * varargin_1 + b_varargin_1 *
+        b_varargin_1;
     }
 
-    coder::power(b_firstStep, r1);
-    k = firstStep.size(0);
-    b_firstStep.set_size(firstStep.size(0));
-    for (i = 0; i < k; i++) {
-      b_firstStep[i] = firstStep[i + firstStep.size(0)];
-    }
-
-    coder::power(b_firstStep, r2);
-    firstStepSquared.set_size(r1.size(0));
-    k = r1.size(0);
-    for (i = 0; i < k; i++) {
-      firstStepSquared[i] = r1[i] + r2[i];
-    }
-
+    secondStepSquared.set_size(secondStep.size(0));
     k = secondStep.size(0);
-    b_firstStep.set_size(secondStep.size(0));
     for (i = 0; i < k; i++) {
-      b_firstStep[i] = secondStep[i];
+      varargin_1 = secondStep[i];
+      b_varargin_1 = secondStep[i + secondStep.size(0)];
+      secondStepSquared[i] = varargin_1 * varargin_1 + b_varargin_1 *
+        b_varargin_1;
     }
 
-    coder::power(b_firstStep, r1);
-    k = secondStep.size(0);
-    b_firstStep.set_size(secondStep.size(0));
-    for (i = 0; i < k; i++) {
-      b_firstStep[i] = secondStep[i + secondStep.size(0)];
+    if (firstStepSquared.size(0) == secondStepSquared.size(0)) {
+      r1.set_size(firstStepSquared.size(0));
+      k = firstStepSquared.size(0);
+      for (i = 0; i < k; i++) {
+        r1[i] = firstStepSquared[i] * secondStepSquared[i];
+      }
+    } else {
+      times(r1, firstStepSquared, secondStepSquared);
     }
 
-    coder::power(b_firstStep, r2);
-    secondStepSquared.set_size(r1.size(0));
-    k = r1.size(0);
-    for (i = 0; i < k; i++) {
-      secondStepSquared[i] = r1[i] + r2[i];
-    }
-
-    k = longStep.size(0);
-    b_firstStep.set_size(longStep.size(0));
-    for (i = 0; i < k; i++) {
-      b_firstStep[i] = longStep[i];
-    }
-
-    coder::power(b_firstStep, r1);
-    k = longStep.size(0);
-    b_firstStep.set_size(longStep.size(0));
-    for (i = 0; i < k; i++) {
-      b_firstStep[i] = longStep[i + longStep.size(0)];
-    }
-
-    coder::power(b_firstStep, r2);
-    b_firstStep.set_size(firstStepSquared.size(0));
-    k = firstStepSquared.size(0);
-    for (i = 0; i < k; i++) {
-      b_firstStep[i] = firstStepSquared[i] * secondStepSquared[i];
-    }
-
-    i = b_firstStep.size(0);
+    i = r1.size(0);
     for (k = 0; k < i; k++) {
-      b_firstStep[k] = std::sqrt(b_firstStep[k]);
+      r1[k] = std::sqrt(r1[k]);
     }
 
-    r3.set_size(firstStepSquared.size(0));
-    k = firstStepSquared.size(0);
-    for (i = 0; i < k; i++) {
-      r3[i].re = ((firstStepSquared[i] + secondStepSquared[i]) - (r1[i] + r2[i]))
-        / 2.0 / b_firstStep[i];
-      r3[i].im = 0.0;
+    if (firstStepSquared.size(0) == 1) {
+      i = secondStepSquared.size(0);
+    } else {
+      i = firstStepSquared.size(0);
     }
 
-    i = r3.size(0);
+    if (i == 1) {
+      i1 = longStep.size(0);
+    } else {
+      i1 = i;
+    }
+
+    if ((firstStepSquared.size(0) == secondStepSquared.size(0)) && (i ==
+         longStep.size(0)) && (i1 == r1.size(0))) {
+      r2.set_size(firstStepSquared.size(0));
+      k = firstStepSquared.size(0);
+      for (i = 0; i < k; i++) {
+        varargin_1 = longStep[i];
+        b_varargin_1 = longStep[i + longStep.size(0)];
+        r2[i].re = ((firstStepSquared[i] + secondStepSquared[i]) - (varargin_1 *
+          varargin_1 + b_varargin_1 * b_varargin_1)) / 2.0 / r1[i];
+        r2[i].im = 0.0;
+      }
+    } else {
+      binary_expand_op(r2, firstStepSquared, secondStepSquared, longStep, r1);
+    }
+
+    i = r2.size(0);
     for (k = 0; k < i; k++) {
-      coder::internal::scalar::b_acos(&r3[k]);
+      coder::internal::scalar::b_acos(&r2[k]);
     }
 
-    cornerAngle.set_size(r3.size(0));
-    k = r3.size(0);
+    cornerAngle.set_size(r2.size(0));
+    k = r2.size(0);
     for (i = 0; i < k; i++) {
-      cornerAngle[i] = r3[i].re;
+      cornerAngle[i] = r2[i].re;
     }
   }
 
@@ -344,12 +529,14 @@ namespace RAT
     int i;
     int i1;
     int i2;
+    int i3;
+    int i4;
     int loop_ub;
 
     //  Return the sides (deltaX, deltaY) of the triangles formed by data points.
     //  For input size NxM, the output size is (N-2)xN, because the first and the
     //  last point are not the central corner of any triangle.
-    if (2 > XYdata.size(0) - 1) {
+    if (XYdata.size(0) - 1 < 2) {
       i = 0;
       i1 = 0;
     } else {
@@ -357,35 +544,51 @@ namespace RAT
       i1 = XYdata.size(0) - 1;
     }
 
-    loop_ub = i1 - i;
-    firstStep.set_size(loop_ub, 2);
-    for (i1 = 0; i1 < 2; i1++) {
-      for (i2 = 0; i2 < loop_ub; i2++) {
-        firstStep[i2 + firstStep.size(0) * i1] = XYdata[(i + i2) + XYdata.size(0)
-          * i1] - XYdata[i2 + XYdata.size(0) * i1];
-      }
-    }
-
-    if (3 > XYdata.size(0)) {
-      i = 0;
-      i1 = 0;
+    if (XYdata.size(0) - 2 < 1) {
       i2 = 0;
     } else {
-      i = 2;
-      i1 = XYdata.size(0);
-      i2 = 1;
+      i2 = XYdata.size(0) - 2;
     }
 
     loop_ub = i1 - i;
-    secondStep.set_size(loop_ub, 2);
-    for (i1 = 0; i1 < 2; i1++) {
-      for (int i3{0}; i3 < loop_ub; i3++) {
-        secondStep[i3 + secondStep.size(0) * i1] = XYdata[(i + i3) + XYdata.size
-          (0) * i1] - XYdata[(i2 + i3) + XYdata.size(0) * i1];
+    if (loop_ub == i2) {
+      firstStep.set_size(loop_ub, 2);
+      for (i1 = 0; i1 < 2; i1++) {
+        for (i3 = 0; i3 < loop_ub; i3++) {
+          firstStep[i3 + firstStep.size(0) * i1] = XYdata[(i + i3) + XYdata.size
+            (0) * i1] - XYdata[i3 + XYdata.size(0) * i1];
+        }
       }
+    } else {
+      binary_expand_op(firstStep, XYdata, i, i1 - 1, i2 - 1);
     }
 
-    if (3 > XYdata.size(0)) {
+    if (XYdata.size(0) < 3) {
+      i = 0;
+      i1 = 0;
+      i3 = 0;
+      i4 = 0;
+    } else {
+      i = 2;
+      i1 = XYdata.size(0);
+      i3 = 1;
+      i4 = XYdata.size(0) - 1;
+    }
+
+    loop_ub = i1 - i;
+    if (loop_ub == i4 - i3) {
+      secondStep.set_size(loop_ub, 2);
+      for (i1 = 0; i1 < 2; i1++) {
+        for (i4 = 0; i4 < loop_ub; i4++) {
+          secondStep[i4 + secondStep.size(0) * i1] = XYdata[(i + i4) +
+            XYdata.size(0) * i1] - XYdata[(i3 + i4) + XYdata.size(0) * i1];
+        }
+      }
+    } else {
+      binary_expand_op(secondStep, XYdata, i, i1 - 1, i3, i4 - 1);
+    }
+
+    if (XYdata.size(0) < 3) {
       i = 0;
       i1 = 0;
     } else {
@@ -394,12 +597,16 @@ namespace RAT
     }
 
     loop_ub = i1 - i;
-    longStep.set_size(loop_ub, 2);
-    for (i1 = 0; i1 < 2; i1++) {
-      for (i2 = 0; i2 < loop_ub; i2++) {
-        longStep[i2 + longStep.size(0) * i1] = XYdata[(i + i2) + XYdata.size(0) *
-          i1] - XYdata[i2 + XYdata.size(0) * i1];
+    if (loop_ub == i2) {
+      longStep.set_size(loop_ub, 2);
+      for (i1 = 0; i1 < 2; i1++) {
+        for (i2 = 0; i2 < loop_ub; i2++) {
+          longStep[i2 + longStep.size(0) * i1] = XYdata[(i + i2) + XYdata.size(0)
+            * i1] - XYdata[i2 + XYdata.size(0) * i1];
+        }
       }
+    } else {
+      binary_expand_op(longStep, XYdata, i, i1 - 1, i2 - 1);
     }
   }
 
@@ -410,66 +617,54 @@ namespace RAT
     ::coder::array<double, 2U> b_dataPoints;
     ::coder::array<double, 2U> newDataPoints;
     ::coder::array<double, 1U> b_newDataPoints;
-    ::coder::array<double, 1U> r4;
-    ::coder::array<int, 1U> r2;
+    ::coder::array<double, 1U> r5;
+    ::coder::array<int, 1U> r;
     ::coder::array<int, 1U> r3;
-    ::coder::array<boolean_T, 1U> r;
+    ::coder::array<int, 1U> r4;
     ::coder::array<boolean_T, 1U> r1;
+    ::coder::array<boolean_T, 1U> r2;
     int end;
-    int i;
     int trueCount;
 
     //  increaseSampling increase the sampling of an input function
-    end = segmentsToSplit.size(0);
-    trueCount = -1;
-    for (i = 0; i < end; i++) {
+    end = segmentsToSplit.size(0) - 1;
+    trueCount = 0;
+    for (int i{0}; i <= end; i++) {
       if (segmentsToSplit[i]) {
         trueCount++;
       }
     }
 
-    newDataPoints.set_size(trueCount + 1, 2);
-    trueCount++;
-    for (i = 0; i < 2; i++) {
-      for (end = 0; end < trueCount; end++) {
-        newDataPoints[end + newDataPoints.size(0) * i] = 0.0;
+    r.set_size(trueCount);
+    trueCount = 0;
+    for (int i{0}; i <= end; i++) {
+      if (segmentsToSplit[i]) {
+        r[trueCount] = i;
+        trueCount++;
       }
     }
 
-    r.set_size(segmentsToSplit.size(0) + 1);
-    trueCount = segmentsToSplit.size(0);
-    for (i = 0; i < trueCount; i++) {
-      r[i] = segmentsToSplit[i];
+    newDataPoints.set_size(r.size(0), 2);
+    end = r.size(0);
+    for (trueCount = 0; trueCount < 2; trueCount++) {
+      for (int i{0}; i < end; i++) {
+        newDataPoints[i + newDataPoints.size(0) * trueCount] = 0.0;
+      }
     }
 
-    r[segmentsToSplit.size(0)] = false;
     r1.set_size(segmentsToSplit.size(0) + 1);
-    r1[0] = false;
-    trueCount = segmentsToSplit.size(0);
-    for (i = 0; i < trueCount; i++) {
-      r1[i + 1] = segmentsToSplit[i];
+    end = segmentsToSplit.size(0);
+    r2.set_size(segmentsToSplit.size(0) + 1);
+    r2[0] = false;
+    for (trueCount = 0; trueCount < end; trueCount++) {
+      r1[trueCount] = segmentsToSplit[trueCount];
+      r2[trueCount + 1] = segmentsToSplit[trueCount];
     }
 
-    end = r.size(0) - 1;
-    trueCount = 0;
-    for (i = 0; i <= end; i++) {
-      if (r[i]) {
-        trueCount++;
-      }
-    }
-
-    r2.set_size(trueCount);
-    trueCount = 0;
-    for (i = 0; i <= end; i++) {
-      if (r[i]) {
-        r2[trueCount] = i + 1;
-        trueCount++;
-      }
-    }
-
+    r1[segmentsToSplit.size(0)] = false;
     end = r1.size(0) - 1;
     trueCount = 0;
-    for (i = 0; i <= end; i++) {
+    for (int i{0}; i <= end; i++) {
       if (r1[i]) {
         trueCount++;
       }
@@ -477,65 +672,86 @@ namespace RAT
 
     r3.set_size(trueCount);
     trueCount = 0;
-    for (i = 0; i <= end; i++) {
+    for (int i{0}; i <= end; i++) {
       if (r1[i]) {
-        r3[trueCount] = i + 1;
+        r3[trueCount] = i;
         trueCount++;
       }
     }
 
-    trueCount = r2.size(0);
-    for (i = 0; i < trueCount; i++) {
-      newDataPoints[i] = 0.5 * (dataPoints[r2[i] - 1] + dataPoints[r3[i] - 1]);
+    trueCount = 0;
+    for (int i{0}; i <= end; i++) {
+      if (r2[i]) {
+        trueCount++;
+      }
     }
 
-    trueCount = newDataPoints.size(0) - 1;
+    r4.set_size(trueCount);
+    trueCount = 0;
+    for (int i{0}; i <= end; i++) {
+      if (r2[i]) {
+        r4[trueCount] = i;
+        trueCount++;
+      }
+    }
+
+    if (r3.size(0) == r4.size(0)) {
+      end = r.size(0);
+      for (trueCount = 0; trueCount < end; trueCount++) {
+        newDataPoints[trueCount] = 0.5 * (dataPoints[r3[trueCount]] +
+          dataPoints[r4[trueCount]]);
+      }
+    } else {
+      binary_expand_op(newDataPoints, r, dataPoints, r3, r4);
+    }
+
     b_newDataPoints.set_size(newDataPoints.size(0));
-    for (i = 0; i <= trueCount; i++) {
-      b_newDataPoints[i] = newDataPoints[i];
+    end = newDataPoints.size(0);
+    for (trueCount = 0; trueCount < end; trueCount++) {
+      b_newDataPoints[trueCount] = newDataPoints[trueCount];
     }
 
-    normalizeFunction(b_newDataPoints, sldProfile, r4);
-    trueCount = r4.size(0);
-    for (i = 0; i < trueCount; i++) {
-      newDataPoints[i + newDataPoints.size(0)] = r4[i];
+    normalizeFunction(b_newDataPoints, sldProfile, r5);
+    end = newDataPoints.size(0);
+    for (trueCount = 0; trueCount < end; trueCount++) {
+      newDataPoints[trueCount + newDataPoints.size(0)] = r5[trueCount];
     }
 
     //  For simplicity append the new points at the end and then sort.
     b_dataPoints.set_size(dataPoints.size(0) + newDataPoints.size(0), 2);
-    trueCount = dataPoints.size(0);
-    for (i = 0; i < 2; i++) {
-      for (end = 0; end < trueCount; end++) {
-        b_dataPoints[end + b_dataPoints.size(0) * i] = dataPoints[end +
-          dataPoints.size(0) * i];
+    end = dataPoints.size(0);
+    for (trueCount = 0; trueCount < 2; trueCount++) {
+      for (int i{0}; i < end; i++) {
+        b_dataPoints[i + b_dataPoints.size(0) * trueCount] = dataPoints[i +
+          dataPoints.size(0) * trueCount];
       }
     }
 
-    trueCount = newDataPoints.size(0);
-    for (i = 0; i < 2; i++) {
-      for (end = 0; end < trueCount; end++) {
-        b_dataPoints[(end + dataPoints.size(0)) + b_dataPoints.size(0) * i] =
-          newDataPoints[end + newDataPoints.size(0) * i];
+    end = newDataPoints.size(0);
+    for (trueCount = 0; trueCount < 2; trueCount++) {
+      for (int i{0}; i < end; i++) {
+        b_dataPoints[(i + dataPoints.size(0)) + b_dataPoints.size(0) * trueCount]
+          = newDataPoints[i + newDataPoints.size(0) * trueCount];
       }
     }
 
     dataPoints.set_size(b_dataPoints.size(0), 2);
-    trueCount = b_dataPoints.size(0);
-    for (i = 0; i < 2; i++) {
-      for (end = 0; end < trueCount; end++) {
-        dataPoints[end + dataPoints.size(0) * i] = b_dataPoints[end +
-          b_dataPoints.size(0) * i];
+    end = b_dataPoints.size(0);
+    for (trueCount = 0; trueCount < 2; trueCount++) {
+      for (int i{0}; i < end; i++) {
+        dataPoints[i + dataPoints.size(0) * trueCount] = b_dataPoints[i +
+          b_dataPoints.size(0) * trueCount];
       }
     }
 
-    coder::internal::sortIdx(dataPoints, r2);
-    coder::apply_row_permutation(dataPoints, r2);
+    coder::internal::sortIdx(dataPoints, r);
+    coder::apply_row_permutation(dataPoints, r);
   }
 
   static void normalizeFunction(const ::coder::array<double, 1U> &x, const ::
     coder::array<double, 2U> &sldProfile, ::coder::array<double, 1U> &y)
   {
-    ::coder::array<double, 1U> r;
+    ::coder::array<double, 2U> r;
     int i;
 
     //  Subfunctions
@@ -570,8 +786,28 @@ namespace RAT
     // end
   }
 
+  static void times(::coder::array<double, 1U> &in1, const ::coder::array<double,
+                    1U> &in2, const ::coder::array<double, 1U> &in3)
+  {
+    int loop_ub;
+    int stride_0_0;
+    int stride_1_0;
+    if (in3.size(0) == 1) {
+      loop_ub = in2.size(0);
+    } else {
+      loop_ub = in3.size(0);
+    }
+
+    in1.set_size(loop_ub);
+    stride_0_0 = (in2.size(0) != 1);
+    stride_1_0 = (in3.size(0) != 1);
+    for (int i{0}; i < loop_ub; i++) {
+      in1[i] = in2[i * stride_0_0] * in3[i * stride_1_0];
+    }
+  }
+
   void adaptive(const ::coder::array<double, 2U> &sldProfile, const double
-                startDomain[2], double minAngle, double nPoints, cell_56 *out)
+                startDomain[2], double minAngle, double nPoints, cell_56 &out)
   {
     ::coder::array<double, 2U> b_out;
     ::coder::array<double, 2U> r;
@@ -582,9 +818,6 @@ namespace RAT
     ::coder::array<boolean_T, 1U> r1;
     ::coder::array<boolean_T, 1U> segmentsToSplit;
     ::coder::array<boolean_T, 1U> trianglesToRefine;
-    double b_dv[2];
-    double b_dv1[2];
-    int i;
     int loop_ub;
     int nRefinements;
     boolean_T exitg1;
@@ -664,7 +897,6 @@ namespace RAT
     //   - a NxM array where N is the number of domain points and M is the number
     //     of output parameters of the input function.
     //
-    //
     //  Examples:
     //
     //    % Refine a function near sharp corners. The option 'minAngle' is useful
@@ -720,9 +952,6 @@ namespace RAT
     //  Default settings
     // nPoints = 20;
     // minAngle = 0.8*pi;
-    //  units normalized to data range
-    //  units normalized to data range
-    //  units normalized to data range
     //  units normalized to data range
     //  Test-mode
     //  The test mode is activated by calling 'adaptive.m' with no input.
@@ -806,7 +1035,7 @@ namespace RAT
     coder::linspace(startDomain[0], startDomain[1], nPoints, r);
     newDomain.set_size(r.size(1));
     loop_ub = r.size(1);
-    for (i = 0; i < loop_ub; i++) {
+    for (int i{0}; i < loop_ub; i++) {
       newDomain[i] = r[i];
     }
 
@@ -818,15 +1047,15 @@ namespace RAT
     normalizeFunction(newDomain, sldProfile, hiVal);
 
     // dataPoints = [initialDomain(:), func(initialDomain(:))];
-    out->f1.set_size(newDomain.size(0), 2);
+    out.f1.set_size(newDomain.size(0), 2);
     loop_ub = newDomain.size(0);
-    for (i = 0; i < loop_ub; i++) {
-      out->f1[i] = newDomain[i];
+    for (int i{0}; i < loop_ub; i++) {
+      out.f1[i] = newDomain[i];
     }
 
     loop_ub = hiVal.size(0);
-    for (i = 0; i < loop_ub; i++) {
-      out->f1[i + out->f1.size(0)] = hiVal[i];
+    for (int i{0}; i < loop_ub; i++) {
+      out.f1[i + out.f1.size(0)] = hiVal[i];
     }
 
     //  Iterative function refinement
@@ -838,7 +1067,8 @@ namespace RAT
     nRefinements = 0;
     exitg1 = false;
     while ((!exitg1) && (nRefinements < 10)) {
-      int i1;
+      double b_dv[2];
+      double b_dv1[2];
       boolean_T y;
 
       //  calculate the box which encloses the current data points:
@@ -851,39 +1081,43 @@ namespace RAT
       //      bigTriangles = triangleArea > (maxArea * dataBoxArea);
       //      trianglesToRefine = trianglesToRefine | bigTriangles;
       //    end
-      loop_ub = out->f1.size(0);
-      b_out.set_size(out->f1.size(0), 2);
-      for (i = 0; i < 2; i++) {
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          b_out[i1 + b_out.size(0) * i] = out->f1[i1 + out->f1.size(0) * i];
+      b_out.set_size(out.f1.size(0), 2);
+      loop_ub = out.f1.size(0);
+      for (int i{0}; i < 2; i++) {
+        for (int i1{0}; i1 < loop_ub; i1++) {
+          b_out[i1 + b_out.size(0) * i] = out.f1[i1 + out.f1.size(0) * i];
         }
       }
 
       coder::internal::maximum(b_out, b_dv);
-      loop_ub = out->f1.size(0);
-      b_out.set_size(out->f1.size(0), 2);
-      for (i = 0; i < 2; i++) {
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          b_out[i1 + b_out.size(0) * i] = out->f1[i1 + out->f1.size(0) * i];
+      b_out.set_size(out.f1.size(0), 2);
+      loop_ub = out.f1.size(0);
+      for (int i{0}; i < 2; i++) {
+        for (int i1{0}; i1 < loop_ub; i1++) {
+          b_out[i1 + b_out.size(0) * i] = out.f1[i1 + out.f1.size(0) * i];
         }
       }
 
       coder::internal::minimum(b_out, b_dv1);
-      loop_ub = out->f1.size(0);
-      b_out.set_size(out->f1.size(0), 2);
-      for (i = 0; i < 2; i++) {
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          b_out[i1 + b_out.size(0) * i] = out->f1[i1 + out->f1.size(0) * i];
+      b_out.set_size(out.f1.size(0), 2);
+      loop_ub = out.f1.size(0);
+      for (int i{0}; i < 2; i++) {
+        for (int i1{0}; i1 < loop_ub; i1++) {
+          b_out[i1 + b_out.size(0) * i] = out.f1[i1 + out.f1.size(0) * i];
         }
 
         b_dv[i] -= b_dv1[i];
       }
 
       calculateCentralAngles(b_out, b_dv, cornerAngle);
-      trianglesToRefine.set_size(out->f1.size(0) - 2);
-      loop_ub = out->f1.size(0) - 2;
-      for (i = 0; i < loop_ub; i++) {
-        trianglesToRefine[i] = (cornerAngle[i] < minAngle);
+      if (out.f1.size(0) - 2 == cornerAngle.size(0)) {
+        trianglesToRefine.set_size(out.f1.size(0) - 2);
+        loop_ub = out.f1.size(0) - 2;
+        for (int i{0}; i < loop_ub; i++) {
+          trianglesToRefine[i] = (cornerAngle[i] < minAngle);
+        }
+      } else {
+        b_binary_expand_op(trianglesToRefine, out, cornerAngle, minAngle);
       }
 
       //  For N points there are N-2 triangles and N-1 triangle sides. Each
@@ -891,21 +1125,17 @@ namespace RAT
       //  refinement parameters.
       b_trianglesToRefine.set_size(trianglesToRefine.size(0) + 1);
       loop_ub = trianglesToRefine.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_trianglesToRefine[i] = trianglesToRefine[i];
-      }
-
-      b_trianglesToRefine[trianglesToRefine.size(0)] = false;
       r1.set_size(trianglesToRefine.size(0) + 1);
       r1[0] = false;
-      loop_ub = trianglesToRefine.size(0);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
+        b_trianglesToRefine[i] = trianglesToRefine[i];
         r1[i + 1] = trianglesToRefine[i];
       }
 
+      b_trianglesToRefine[trianglesToRefine.size(0)] = false;
       segmentsToSplit.set_size(b_trianglesToRefine.size(0));
       loop_ub = b_trianglesToRefine.size(0);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         segmentsToSplit[i] = (b_trianglesToRefine[i] || r1[i]);
       }
 
@@ -922,9 +1152,10 @@ namespace RAT
       //      centerAboveThreshold = segmentsCenters > minSignal * max(abs(dataPoints(:,2)));
       //      segmentsToSplit = segmentsToSplit & centerAboveThreshold;
       //    end
-      y = coder::internal::c_anon(segmentsToSplit.size(0), segmentsToSplit);
+      y = coder::internal::allOrAny_anonFcn3(segmentsToSplit.size(0),
+        segmentsToSplit);
       if (y) {
-        increaseSampling(out->f1, segmentsToSplit, sldProfile);
+        increaseSampling(out.f1, segmentsToSplit, sldProfile);
 
         //  Removed waitbar for compile - AVH
         //    if displayWaitbar
@@ -956,7 +1187,7 @@ namespace RAT
   }
 
   void b_adaptive(const ::coder::array<double, 2U> &sldProfile, const double
-                  startDomain[2], double minAngle, double nPoints, cell_56 *out)
+                  startDomain[2], double minAngle, double nPoints, cell_56 &out)
   {
     ::coder::array<double, 2U> b_out;
     ::coder::array<double, 2U> r;
@@ -967,9 +1198,6 @@ namespace RAT
     ::coder::array<boolean_T, 1U> r1;
     ::coder::array<boolean_T, 1U> segmentsToSplit;
     ::coder::array<boolean_T, 1U> trianglesToRefine;
-    double b_dv[2];
-    double b_dv1[2];
-    int i;
     int loop_ub;
     int nRefinements;
     boolean_T exitg1;
@@ -1049,7 +1277,6 @@ namespace RAT
     //   - a NxM array where N is the number of domain points and M is the number
     //     of output parameters of the input function.
     //
-    //
     //  Examples:
     //
     //    % Refine a function near sharp corners. The option 'minAngle' is useful
@@ -1105,9 +1332,6 @@ namespace RAT
     //  Default settings
     // nPoints = 20;
     // minAngle = 0.8*pi;
-    //  units normalized to data range
-    //  units normalized to data range
-    //  units normalized to data range
     //  units normalized to data range
     //  Test-mode
     //  The test mode is activated by calling 'adaptive.m' with no input.
@@ -1191,7 +1415,7 @@ namespace RAT
     coder::linspace(startDomain[0], startDomain[1], nPoints, r);
     newDomain.set_size(r.size(1));
     loop_ub = r.size(1);
-    for (i = 0; i < loop_ub; i++) {
+    for (int i{0}; i < loop_ub; i++) {
       newDomain[i] = r[i];
     }
 
@@ -1203,15 +1427,15 @@ namespace RAT
     b_normalizeFunction(newDomain, sldProfile, hiVal);
 
     // dataPoints = [initialDomain(:), func(initialDomain(:))];
-    out->f1.set_size(newDomain.size(0), 2);
+    out.f1.set_size(newDomain.size(0), 2);
     loop_ub = newDomain.size(0);
-    for (i = 0; i < loop_ub; i++) {
-      out->f1[i] = newDomain[i];
+    for (int i{0}; i < loop_ub; i++) {
+      out.f1[i] = newDomain[i];
     }
 
     loop_ub = hiVal.size(0);
-    for (i = 0; i < loop_ub; i++) {
-      out->f1[i + out->f1.size(0)] = hiVal[i];
+    for (int i{0}; i < loop_ub; i++) {
+      out.f1[i + out.f1.size(0)] = hiVal[i];
     }
 
     //  Iterative function refinement
@@ -1223,7 +1447,8 @@ namespace RAT
     nRefinements = 0;
     exitg1 = false;
     while ((!exitg1) && (nRefinements < 10)) {
-      int i1;
+      double b_dv[2];
+      double b_dv1[2];
       boolean_T y;
 
       //  calculate the box which encloses the current data points:
@@ -1236,39 +1461,43 @@ namespace RAT
       //      bigTriangles = triangleArea > (maxArea * dataBoxArea);
       //      trianglesToRefine = trianglesToRefine | bigTriangles;
       //    end
-      loop_ub = out->f1.size(0);
-      b_out.set_size(out->f1.size(0), 2);
-      for (i = 0; i < 2; i++) {
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          b_out[i1 + b_out.size(0) * i] = out->f1[i1 + out->f1.size(0) * i];
+      b_out.set_size(out.f1.size(0), 2);
+      loop_ub = out.f1.size(0);
+      for (int i{0}; i < 2; i++) {
+        for (int i1{0}; i1 < loop_ub; i1++) {
+          b_out[i1 + b_out.size(0) * i] = out.f1[i1 + out.f1.size(0) * i];
         }
       }
 
       coder::internal::maximum(b_out, b_dv);
-      loop_ub = out->f1.size(0);
-      b_out.set_size(out->f1.size(0), 2);
-      for (i = 0; i < 2; i++) {
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          b_out[i1 + b_out.size(0) * i] = out->f1[i1 + out->f1.size(0) * i];
+      b_out.set_size(out.f1.size(0), 2);
+      loop_ub = out.f1.size(0);
+      for (int i{0}; i < 2; i++) {
+        for (int i1{0}; i1 < loop_ub; i1++) {
+          b_out[i1 + b_out.size(0) * i] = out.f1[i1 + out.f1.size(0) * i];
         }
       }
 
       coder::internal::minimum(b_out, b_dv1);
-      loop_ub = out->f1.size(0);
-      b_out.set_size(out->f1.size(0), 2);
-      for (i = 0; i < 2; i++) {
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          b_out[i1 + b_out.size(0) * i] = out->f1[i1 + out->f1.size(0) * i];
+      b_out.set_size(out.f1.size(0), 2);
+      loop_ub = out.f1.size(0);
+      for (int i{0}; i < 2; i++) {
+        for (int i1{0}; i1 < loop_ub; i1++) {
+          b_out[i1 + b_out.size(0) * i] = out.f1[i1 + out.f1.size(0) * i];
         }
 
         b_dv[i] -= b_dv1[i];
       }
 
       calculateCentralAngles(b_out, b_dv, cornerAngle);
-      trianglesToRefine.set_size(out->f1.size(0) - 2);
-      loop_ub = out->f1.size(0) - 2;
-      for (i = 0; i < loop_ub; i++) {
-        trianglesToRefine[i] = (cornerAngle[i] < minAngle);
+      if (out.f1.size(0) - 2 == cornerAngle.size(0)) {
+        trianglesToRefine.set_size(out.f1.size(0) - 2);
+        loop_ub = out.f1.size(0) - 2;
+        for (int i{0}; i < loop_ub; i++) {
+          trianglesToRefine[i] = (cornerAngle[i] < minAngle);
+        }
+      } else {
+        b_binary_expand_op(trianglesToRefine, out, cornerAngle, minAngle);
       }
 
       //  For N points there are N-2 triangles and N-1 triangle sides. Each
@@ -1276,21 +1505,17 @@ namespace RAT
       //  refinement parameters.
       b_trianglesToRefine.set_size(trianglesToRefine.size(0) + 1);
       loop_ub = trianglesToRefine.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        b_trianglesToRefine[i] = trianglesToRefine[i];
-      }
-
-      b_trianglesToRefine[trianglesToRefine.size(0)] = false;
       r1.set_size(trianglesToRefine.size(0) + 1);
       r1[0] = false;
-      loop_ub = trianglesToRefine.size(0);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
+        b_trianglesToRefine[i] = trianglesToRefine[i];
         r1[i + 1] = trianglesToRefine[i];
       }
 
+      b_trianglesToRefine[trianglesToRefine.size(0)] = false;
       segmentsToSplit.set_size(b_trianglesToRefine.size(0));
       loop_ub = b_trianglesToRefine.size(0);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         segmentsToSplit[i] = (b_trianglesToRefine[i] || r1[i]);
       }
 
@@ -1307,9 +1532,10 @@ namespace RAT
       //      centerAboveThreshold = segmentsCenters > minSignal * max(abs(dataPoints(:,2)));
       //      segmentsToSplit = segmentsToSplit & centerAboveThreshold;
       //    end
-      y = coder::internal::c_anon(segmentsToSplit.size(0), segmentsToSplit);
+      y = coder::internal::allOrAny_anonFcn3(segmentsToSplit.size(0),
+        segmentsToSplit);
       if (y) {
-        b_increaseSampling(out->f1, segmentsToSplit, sldProfile);
+        b_increaseSampling(out.f1, segmentsToSplit, sldProfile);
 
         //  Removed waitbar for compile - AVH
         //    if displayWaitbar

@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // ifWhileCond.cpp
 //
@@ -23,7 +23,7 @@ namespace RAT
       static boolean_T b_checkNoNaNs(const boolean_T x_data[], const int x_size
         [2]);
       static boolean_T c_checkNoNaNs(const ::coder::array<boolean_T, 2U> &x);
-      static boolean_T checkNoNaNs(const boolean_T x_data[], int x_size);
+      static boolean_T checkNoNaNs(const ::coder::array<boolean_T, 1U> &x);
     }
   }
 }
@@ -58,13 +58,15 @@ namespace RAT
 
       static boolean_T c_checkNoNaNs(const ::coder::array<boolean_T, 2U> &x)
       {
+        int i;
         int k;
         boolean_T exitg1;
         boolean_T y;
         y = true;
+        i = x.size(0) * x.size(1);
         k = 0;
         exitg1 = false;
-        while ((!exitg1) && (k <= x.size(1) - 1)) {
+        while ((!exitg1) && (k <= i - 1)) {
           if (!x[k]) {
             y = false;
             exitg1 = true;
@@ -76,7 +78,7 @@ namespace RAT
         return y;
       }
 
-      static boolean_T checkNoNaNs(const boolean_T x_data[], int x_size)
+      static boolean_T checkNoNaNs(const ::coder::array<boolean_T, 1U> &x)
       {
         int k;
         boolean_T exitg1;
@@ -84,12 +86,12 @@ namespace RAT
         y = true;
         k = 0;
         exitg1 = false;
-        while ((!exitg1) && (k <= x_size - 1)) {
-          if (!x_data[0]) {
+        while ((!exitg1) && (k <= x.size(0) - 1)) {
+          if (!x[k]) {
             y = false;
             exitg1 = true;
           } else {
-            k = 1;
+            k++;
           }
         }
 
@@ -110,7 +112,7 @@ namespace RAT
       boolean_T c_ifWhileCond(const ::coder::array<boolean_T, 2U> &x)
       {
         boolean_T y;
-        y = (x.size(1) != 0);
+        y = ((x.size(0) != 0) && (x.size(1) != 0));
         if (y) {
           y = c_checkNoNaNs(x);
         }
@@ -118,12 +120,12 @@ namespace RAT
         return y;
       }
 
-      boolean_T ifWhileCond(const boolean_T x_data[], int x_size)
+      boolean_T ifWhileCond(const ::coder::array<boolean_T, 1U> &x)
       {
         boolean_T y;
-        y = (x_size != 0);
+        y = (x.size(0) != 0);
         if (y) {
-          y = checkNoNaNs(x_data, x_size);
+          y = checkNoNaNs(x);
         }
 
         return y;

@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // RATMain_internal_types.h
 //
@@ -21,19 +21,11 @@ namespace RAT
 {
   struct struct_T
   {
-    double I_nc;
-    double FVr_ca;
-    double I_no;
-    double FVr_oa;
-  };
-
-  struct b_struct_T
-  {
     double Y;
     double N;
   };
 
-  struct c_struct_T
+  struct b_struct_T
   {
     double LogZ;
     double LogZErr;
@@ -117,45 +109,45 @@ namespace RAT
     ::coder::array<double, 2U> f1;
   };
 
-  struct cell_wrap_63
+  struct cell_wrap_64
   {
     cell_wrap_9 f1[2];
   };
 
-  struct cell_wrap_64
+  struct cell_wrap_65
   {
     cell_wrap_7 f1[2];
   };
 
-  struct d_struct_T
+  struct c_struct_T
   {
     PredictionIntervals predictionIntervals;
     ConfidenceIntervals confidenceIntervals;
     DreamParams dreamParams;
     DreamOutput dreamOutput;
-    c_struct_T nestedSamplerOutput;
+    b_struct_T nestedSamplerOutput;
     ::coder::array<double, 2U> chain;
   };
 
-  struct e_struct_T
+  struct d_struct_T
   {
     ::coder::array<cell_wrap_11, 1U> reflectivity;
     ::coder::array<cell_wrap_11, 2U> sld;
     double sampleChi[1000];
   };
 
-  struct f_struct_T
+  struct e_struct_T
   {
-    e_struct_T predictionIntervals;
+    d_struct_T predictionIntervals;
     ConfidenceIntervals confidenceIntervals;
   };
 
-  struct g_struct_T
+  struct f_struct_T
   {
     ::coder::bounded_array<double, 2000U, 2U> outlierChains;
     double runtime;
     DreamParams DREAMPar;
-    b_struct_T Meas_info;
+    struct_T Meas_info;
     double iteration;
     double iloc;
     double modelOutput;
@@ -164,7 +156,7 @@ namespace RAT
     ::coder::array<double, 2U> CR;
   };
 
-  struct h_struct_T
+  struct g_struct_T
   {
     double iterations;
     double funcCount;
@@ -172,7 +164,7 @@ namespace RAT
     ::coder::array<char, 2U> message;
   };
 
-  struct i_struct_T
+  struct h_struct_T
   {
     double I_lentol;
     double FVr_x[50];
@@ -199,11 +191,17 @@ namespace RAT
     ::coder::array<double, 2U> f1;
   };
 
-  struct j_struct_T
+  struct i_struct_T
   {
     ::coder::array<double, 1U> LB;
     ::coder::array<double, 1U> UB;
     ::coder::array<double, 1U> BoundClass;
+  };
+
+  struct j_struct_T
+  {
+    double I_no;
+    double FVr_oa;
   };
 }
 

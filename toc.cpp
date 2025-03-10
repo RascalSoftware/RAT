@@ -1,7 +1,7 @@
 //
 // Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+// granting, nonprofit, education, and research organizations only. Not
+// for commercial or industrial use.
 //
 // toc.cpp
 //
@@ -25,8 +25,8 @@ namespace RAT
       double tnow_tv_sec;
       double tstart_tv_nsec;
       double tstart_tv_sec;
-      internal::time::impl::timeKeeper(&tstart_tv_sec, &tstart_tv_nsec);
-      internal::time::getTime(&tnow_tv_sec, &tnow_tv_nsec);
+      tstart_tv_sec = internal::b_time::impl::timeKeeper(tstart_tv_nsec);
+      tnow_tv_sec = internal::b_time::getTime(tnow_tv_nsec);
       return (tnow_tv_sec - tstart_tv_sec) + (tnow_tv_nsec - tstart_tv_nsec) /
         1.0E+9;
     }

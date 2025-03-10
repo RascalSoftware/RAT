@@ -101,17 +101,16 @@ for i = 1:numContrastBackgrounds
 end
 
 % Here we need to do the same with the contrastResolutions array
-contrastResolutions = inputStruct.contrastResolutions;
+numContrastResolutions = length(inputStruct.contrastResolutions);
 
-resolutionParamNames = inputStruct.resolutionParamNames;
-contrastResolutionTypes = cell(1, length(contrastResolutions));
-contrastResolutionParams = cell(1, length(contrastResolutions));
+contrastResolutionTypes = cell(1, numContrastResolutions);
+contrastResolutionParams = cell(1, numContrastResolutions);
 
-for i = 1:length(contrastResolutions)
+for i = 1:numContrastResolutions
     % Check the type of the resolution that each contrast is pointing to.
     % If it is a constant, point to the number of the corresponding
     % resolution param. If it's data, then set it to -1
-    thisResol = contrastResolutions(i);                                  % Which resolution
+    thisResol = inputStruct.contrastResolutions(i);                      % Which resolution
     contrastResolutionTypes{i} = inputStruct.resolutionTypes{thisResol}; % What type is it?
     
     if strcmpi(contrastResolutionTypes{i},'data')
@@ -124,7 +123,7 @@ for i = 1:length(contrastResolutions)
         whichResolutionParamName = inputStruct.resolutionValues{thisResol,1};
         
         % Find which resolutionParam this is, and set contrastResolutionParams to this number
-        contrastResolutionParams{i} = find(strcmpi(whichResolutionParamName,resolutionParamNames));
+        contrastResolutionParams{i} = find(strcmpi(whichResolutionParamName,inputStruct.resolutionParamNames));
     end
 end
         
@@ -295,34 +294,12 @@ end
 checkIndices(problemStruct, inputStruct.files);
 
 %% Now deal with the controls class
-controls.procedure = inputControls.procedure;
-controls.parallel = inputControls.parallel;
-controls.resampleMinAngle = inputControls.resampleMinAngle;
-controls.resampleNPoints = inputControls.resampleNPoints;
-controls.calcSldDuringFit = inputControls.calcSldDuringFit;
-controls.display = inputControls.display;
-controls.xTolerance = inputControls.xTolerance;
-controls.funcTolerance = inputControls.funcTolerance;
-controls.maxFuncEvals = inputControls.maxFuncEvals;
-controls.maxIterations = inputControls.maxIterations;
-controls.updateFreq = inputControls.updateFreq;
-controls.updatePlotFreq = inputControls.updatePlotFreq;
-controls.populationSize = inputControls.populationSize;
-controls.fWeight = inputControls.fWeight;
-controls.crossoverProbability = inputControls.crossoverProbability;
-controls.strategy = inputControls.strategy;
-controls.targetValue = inputControls.targetValue;
-controls.numGenerations = inputControls.numGenerations;
-controls.nLive = inputControls.nLive;
-controls.nMCMC = inputControls.nMCMC;
-controls.propScale = inputControls.propScale;
-controls.nsTolerance = inputControls.nsTolerance;
-controls.nSamples = inputControls.nSamples;
-controls.nChains = inputControls.nChains;   
-controls.jumpProbability = inputControls.jumpProbability;      
-controls.pUnitGamma = inputControls.pUnitGamma;
-controls.boundHandling = inputControls.boundHandling;
-controls.adaptPCR = inputControls.adaptPCR;
+controlsFields = fieldnames(inputControls);
+
+for i=1:length(controlsFields)
+    controls.(controlsFields{i}) = inputControls.(controlsFields{i});
+end
+
 controls.IPCFilePath = inputControls.getIPCFilePath();
 
 %% Finally, populate the fitParams and fitLimits arrays

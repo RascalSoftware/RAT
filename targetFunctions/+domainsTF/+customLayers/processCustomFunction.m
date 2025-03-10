@@ -1,9 +1,9 @@
-function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
+function [contrastLayers,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
     bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)
 
     % Top-level function for processing custom layers for all the
     % contrasts.
-    resampledLayers = cell(numberOfContrasts,2);
+    contrastLayers = cell(numberOfContrasts,2);
     subRoughs = zeros(numberOfContrasts,1);
     
     bulkOuts = bulkOutArray(contrastBulkOuts);
@@ -18,36 +18,33 @@ function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,con
         thisBulkIn = bulkInArray(contrastBulkIns(i));
         thisBulkOut = bulkOuts(i);
 
-        thisContrastLayers1 = [1 1 1 1]; % typeDef
-        coder.varsize('thisContrastLayers1',[10000 6],[1 1]);
+        layers1 = [1 1 1 1]; % typeDef
+        coder.varsize('layers1',[10000 6],[1 1]);
 
-        thisContrastLayers2 = [1 1 1 1]; % typeDef
-        coder.varsize('thisContrastLayers2',[10000 6],[1 1]);
+        layers2 = [1 1 1 1]; % typeDef
+        coder.varsize('layers2',[10000 6],[1 1]);
 
         if isnan(str2double(functionHandle))
-            [thisContrastLayers1, subRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOuts, i, 1);
-            [thisContrastLayers2, ~] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOuts, i, 2);
+            [layers1, subRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOuts, i, 1);
+            [layers2, ~] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOuts, i, 2);
         else
-            [thisContrastLayers1, subRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, bulkOuts, i-1, 0);
-            [thisContrastLayers2, ~] = callCppFunction(functionHandle, params, thisBulkIn, bulkOuts, i-1, 1);
+            [layers1, subRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, bulkOuts, i-1, 0);
+            [layers2, ~] = callCppFunction(functionHandle, params, thisBulkIn, bulkOuts, i-1, 1);
         end
 
         % If SLD is real, add dummy imaginary column
-        contrastLayers1Size = size(thisContrastLayers1);
-        contrastLayers2Size = size(thisContrastLayers2);
+        layers1Size = size(layers1);
+        layers2Size = size(layers2);
         if ~useImaginary
-            thisContrastLayers1 = [thisContrastLayers1(:,1:2) zeros(contrastLayers1Size(1), 1) thisContrastLayers1(:,3:end)];
-            thisContrastLayers2 = [thisContrastLayers2(:,1:2) zeros(contrastLayers2Size(1), 1) thisContrastLayers2(:,3:end)];
+            layers1 = [layers1(:,1:2) zeros(layers1Size(1), 1) layers1(:,3:end)];
+            layers2 = [layers2(:,1:2) zeros(layers2Size(1), 1) layers2(:,3:end)];
         end
 
         % If the output layers has 6 columns, then we need to do
         % the hydration correction (the user has not done it in the
         % custom function).
-        thisContrastLayers1 = applyHydration(thisContrastLayers1,thisBulkIn,thisBulkOut);
-        thisContrastLayers2 = applyHydration(thisContrastLayers2,thisBulkIn,thisBulkOut);
-
-        resampledLayers{i,1} = thisContrastLayers1;
-        resampledLayers{i,2} = thisContrastLayers2;
+        contrastLayers{i,1} = applyHydration(layers1,thisBulkIn,thisBulkOut);
+        contrastLayers{i,2} = applyHydration(layers2,thisBulkIn,thisBulkOut);
     end
 
 end

@@ -1,4 +1,4 @@
-function [reflectivity, simulation] = callReflectivity(bulkIn,bulkOut,simulationXData,dataIndices,repeatLayers,layers,ssubs,resolution,parallel,refType)
+function [reflectivity,simulation] = callReflectivity(bulkIn,bulkOut,simulationXData,dataIndices,repeatLayers,layers,ssubs,resolution,parallel,refType)
 
 repeatFlag = repeatLayers(1);
 if repeatFlag
@@ -61,13 +61,12 @@ switch refType
         end
 
         % Apply resolution correction
-        simRef = resolutionPolly(simulationXData,simRef,resolution(:,2),length(simulationXData));
+        simulation(:,2) = resolutionPolly(simulationXData,simRef,resolution(:,2),length(simulationXData));
 
     otherwise
         coderException(coderEnums.errorCodes.invalidOption, 'The reflectivity type "%s" is not supported', refType);
 end
 
-simulation(:,2) = simRef(:);
 reflectivity = simulation(dataIndices(1):dataIndices(2),:);
 
 end

@@ -1,9 +1,9 @@
-function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
+function [contrastLayers,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
     bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)
 
     % Top-level function for processing custom layers for all the
     % contrasts.
-    resampledLayers = cell(numberOfContrasts,1);
+    contrastLayers = cell(numberOfContrasts,1);
     subRoughs = zeros(numberOfContrasts,1);
 
     bulkOuts = bulkOutArray(contrastBulkOuts);
@@ -18,25 +18,24 @@ function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,con
         thisBulkIn = bulkInArray(contrastBulkIns(i));
         thisBulkOut = bulkOuts(i);
 
-        thisContrastLayers = [1 1 1 1]; % typeDef
-        coder.varsize('thisContrastLayers',[10000 6],[1 1]);
+        layers = [1 1 1 1]; % typeDef
+        coder.varsize('layers',[10000 6],[1 1]);
         if isnan(str2double(functionHandle))
-            [thisContrastLayers, subRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOuts, i, 0);
+            [layers, subRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOuts, i, 0);
         else
-            [thisContrastLayers, subRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, bulkOuts, i-1, -1);
+            [layers, subRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, bulkOuts, i-1, -1);
         end
 
         % If SLD is real, add dummy imaginary column
-        contrastLayersSize = size(thisContrastLayers);
+        layersSize = size(layers);
         if ~useImaginary
-            thisContrastLayers = [thisContrastLayers(:,1:2) zeros(contrastLayersSize(1), 1) thisContrastLayers(:,3:end)];
+            layers = [layers(:,1:2) zeros(layersSize(1), 1) layers(:,3:end)];
         end
 
         % If the output layers has 6 columns, then we need to do
         % the hydration correction (the user has not done it in the
         % custom function).
-        thisContrastLayers = applyHydration(thisContrastLayers,thisBulkIn,thisBulkOut);
-        resampledLayers{i} = thisContrastLayers;
+        contrastLayers{i} = applyHydration(layers,thisBulkIn,thisBulkOut);
 
     end
 

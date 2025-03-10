@@ -8,7 +8,6 @@ else
     reps = repeats(2);
 end
 
-
 sldProfile = makeSLDProfileXY(bulkIn,bulkOut,ssub,sld,lays,reps);
 
 end

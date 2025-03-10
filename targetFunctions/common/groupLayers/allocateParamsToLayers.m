@@ -15,7 +15,8 @@ function outLayers = allocateParamsToLayers(params, layersDetails)
         thisOutLayer = zeros(1,6);
 
         % Find thickness, roughness and SLD
-        % If SLD is real, the imaginary column is set to zero
+        % Input layer contains either 5 (real SLD) or 6 (complex SLD)
+        % values. If SLD is real, the imaginary column is set to zero
         for n = 1:(layerLength-3)
             thisVal = thisLayer(n);
             thisOutLayer(n) = params(thisVal);

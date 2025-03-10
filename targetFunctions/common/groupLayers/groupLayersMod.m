@@ -1,9 +1,11 @@
 function [outLayers, ssubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)
-% Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the 
-% z,rho,rough stack, and the parameter 'ssub' is the final roughness encountered. 
+% Arrange layers according to geometry and apply any coverage correction.
+% The paratt calculation proceeds through the z,rho,rough stack; and the
+% parameter 'ssub' is the final roughness encountered.
 %
-% * For air liquid 'ssub' is therefore the substrate roughness.
-% * For solid liquid, the substrate roughness is the first roughness encountered, and 'ssub' is then the roughness of the outermost layer
+% * For air/liquid 'ssub' is therefore the substrate roughness.
+% * For solid/liquid, the substrate roughness is the first roughness
+%   encountered, and 'ssub' is then the roughness of the outermost layer.
 %
 % USAGE::
 %
@@ -13,8 +15,8 @@ function [outLayers, ssubs] = groupLayersMod(resampledLayers,subRoughs,geometry,
 %     * resampledLayers: cell array, one for each contrast. Each cell is the list of layer values for each contrast.
 %     * subRoughs:  Double of substrate roughness for each contrast.
 %     * geometry: 'Air / Liquid (or solid)' or 'Solid / Liquid'
-%     * bulkIns: vector of bulkIn values.
-%     * bulkOuts: vector of bulkOut values.
+%     * bulkIns: array of bulkIn values.
+%     * bulkOuts: array of bulkOut values.
 %
 % Outputs:
 %     * outLayers: cell array of layers param values for each contrast.
@@ -46,9 +48,8 @@ if ~isempty(resampledLayers)
     end
     
     % Deal with the %coverage if present
-    n = size(resampledLayers,2);
-    l = size(resampledLayers,1);
-    if n == 6
+    if size(resampledLayers,2) == 6
+        l = size(resampledLayers,1);
         for j = 1:l
             this_pcw = resampledLayers(j,5);
             if resampledLayers(j,6) == 1

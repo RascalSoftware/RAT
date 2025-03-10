@@ -64,9 +64,8 @@ function [project,result] = RAT(project,controls)
 [problemStruct,problemLimits,controls] = parseClassToStructs(project,controls);
 
 % Set controls.calcSLD to 1 if we are doing customXY
-switch lower(problemStruct.modelType)
-    case modelTypes.CustomXY.value
-        controls.calcSldDuringFit = true;
+if strcmpi(problemStruct.modelType, modelTypes.CustomXY.value)
+    controls.calcSldDuringFit = true;
 end
 
 % Call the main RAT routine...

@@ -1,4 +1,5 @@
 function [problemStruct,results,bayesResults] = RATMain(problemStruct,problemLimits,controls)
+
     % Adds C struct names for inputs
     coder.cstructname(problemStruct.names, 'ParamNames');
     coder.cstructname(problemStruct.checks, 'CheckFlags');
@@ -67,4 +68,5 @@ function [problemStruct,results,bayesResults] = RATMain(problemStruct,problemLim
     coder.cstructname(bayesResults.dreamOutput, 'DreamOutput');
     coder.cstructname(bayesResults.nestedSamplerOutput, 'NestedSamplerOutput');
     coder.cstructname(bayesResults, 'BayesResults');
+    
 end

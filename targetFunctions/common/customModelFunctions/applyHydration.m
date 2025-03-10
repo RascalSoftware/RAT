@@ -1,32 +1,32 @@
-function thisContrastLayers = applyHydration(thisContrastLayers,bulkIn,bulkOut)
+function contrastLayers = applyHydration(contrastLayers,bulkIn,bulkOut)
 
-% Applies the hydration correction to real value of layers
-% if it is necessary.. (This is for when im(SLD) is used) 
-
+% Applies the hydration correction to real value of the SLD of the layers
+% if it is necessary.
 
 % The only guidance we have to whether the user is using hydration
 % in their custom model is the number of columns of the output
-outSize = size(thisContrastLayers);     % [nlayers x nCols] 
+outSize = size(contrastLayers);     % [nlayers x nCols] 
 
 if  outSize(2) == 6   % we need to calculate the hydrated SLD
 
-    newOutLayers = zeros(outSize(1),4);
-    newOutLayers(:,1) = thisContrastLayers(:,1);               % Thickness'
-    newOutLayers(:,3) = thisContrastLayers(:,3);               % We never hydrate im(SLD)
-    newOutLayers(:,4) = thisContrastLayers(:,4);               % Roughness
-
     for n = 1:outSize(1)
-        thisSLD = thisContrastLayers(n,2);
-        thisHydration = thisContrastLayers(n,5) / 100;   % Assume percent for backwards compatability
-        thisHydrWhat = thisContrastLayers(n,6);
-        if thisHydrWhat == 0                            
-            thisBulkHydr = bulkIn;
+        SLD = contrastLayers(n,2);
+        hydration = 0.01 * contrastLayers(n,5);   % Assume percent for backwards compatability
+
+        % Index 6 determines what we hydrate with
+        if contrastLayers(n,6) == 0                            
+            bulkHydration = bulkIn;
         else
-            thisBulkHydr = bulkOut;
+            bulkHydration = bulkOut;
         end
-        newSld = (thisHydration * thisBulkHydr) + ((1-thisHydration) * thisSLD);
-        thisSldVal = newSld(1,1);                        % Reassignment to keep codegen happy
-        newOutLayers(n,2) = thisSldVal;
+
+        %newSld = (hydration * bulkHydration) + ((1 - hydration) * SLD);
+        %thisSldVal = newSld(1,1);                        % Reassignment to keep codegen happy
+
+        % Hydrate the real component of the SLD.
+        % Note that we never hydrate the imaginary component of the SLD.
+        contrastLayers(n,2) = (hydration * bulkHydration) + ((1 - hydration) * SLD);
+
     end
-    thisContrastLayers = newOutLayers;
+
 end

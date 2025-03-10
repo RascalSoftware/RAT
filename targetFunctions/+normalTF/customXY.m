@@ -28,10 +28,11 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
     backgrounds = cell(numberOfContrasts,1);
     resolutions = cell(numberOfContrasts,1);
     layerSlds = cell(numberOfContrasts,1);
+    sldProfiles = cell(numberOfContrasts,1);
     resampledLayers = cell(numberOfContrasts,1);
 
     % Process the custom models
-    [sldProfiles,subRoughs] = normalTF.customXY.processCustomFunction(contrastBulkInIndices,contrastBulkOutIndices,...
+    [inputSldProfiles, subRoughs] = normalTF.customXY.processCustomFunction(contrastBulkInIndices,contrastBulkOutIndices,...
         bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
     
     if strcmpi(parallel, coderEnums.parallelOptions.Contrasts)
@@ -49,7 +50,7 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
              dataPresent(i),data{i},dataLimits{i},simLimits{i},repeatLayers{i},...
              contrastBackgroundTypes{i},contrastBackgroundActions{i},...
              contrastResolutionTypes{i},customFiles,nParams,parallel,...
-             resampleMinAngle,resampleNPoints,subRoughs(i),sldProfiles{i});
+             resampleMinAngle,resampleNPoints,subRoughs(i),inputSldProfiles{i});
         end
     
     else
@@ -67,7 +68,7 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
              dataPresent(i),data{i},dataLimits{i},simLimits{i},repeatLayers{i},...
              contrastBackgroundTypes{i},contrastBackgroundActions{i},...
              contrastResolutionTypes{i},customFiles,nParams,parallel,...
-             resampleMinAngle,resampleNPoints,subRoughs(i),sldProfiles{i});
+             resampleMinAngle,resampleNPoints,subRoughs(i),inputSldProfiles{i});
 
         end
     
@@ -102,8 +103,8 @@ function [qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue,chi,...
      scalefactorIndex,bulkInIndex,bulkOutIndex,qzshifts,scalefactors,bulkIns,bulkOuts);
      
     % Resample the layers
-    reSLD = sldProfile(:,1:2);
-    imSLD = [sldProfile(:,1),sldProfile(:,3)];
+    reSLD = sldProfile(:,[1,2]);
+    imSLD = sldProfile(:,[1,3]);
     layerSld = resampleLayers(reSLD,imSLD,resampleMinAngle,resampleNPoints);
     
     resampledLayer = layerSld;
@@ -117,14 +118,10 @@ function [qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue,chi,...
         shiftedData,customFiles,resolutionParams,simulationXData,dataIndices);
 
     reflectivityType = 'standardAbeles';
-    [reflect,simul] = callReflectivity(bulkInValue,bulkOutValue,simulationXData,dataIndices,repeatLayers,layerSld,roughness,resolution,parallel,reflectivityType);
+    [reflectivity,simulation] = callReflectivity(bulkInValue,bulkOutValue,simulationXData,dataIndices,repeatLayers,layerSld,roughness,resolution,parallel,reflectivityType);
 
-    [reflectivity,simulation,shiftedData] = applyBackgroundCorrection(reflect,simul,shiftedData,background,backgroundAction);
+    [reflectivity,simulation,shiftedData] = applyBackgroundCorrection(reflectivity,simulation,shiftedData,background,backgroundAction);
     
-    if dataPresent
-        chi = chiSquared(shiftedData,reflectivity,nParams);
-    else
-        chi = 0;
-    end
+    chi = chiSquared(shiftedData,reflectivity,nParams);
 
 end

@@ -152,11 +152,11 @@ function [qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue,chi,...
      scalefactorIndex,bulkInIndex,bulkOutIndex,qzshifts,scalefactors,bulkIns,bulkOuts);
      
     % Resample the sld profiles
-    reSLD1 = sldProfile1(:,1:2);
-    imSLD1 = [sldProfile1(:,1),sldProfile1(:,3)];
+    reSLD1 = sldProfile1(:,[1,2]);
+    imSLD1 = sldProfile1(:,[1,3]);
 
-    reSLD2 = sldProfile2(:,1:2);
-    imSLD2 = [sldProfile2(:,1),sldProfile2(:,3)];
+    reSLD2 = sldProfile2(:,[1,2]);
+    imSLD2 = sldProfile2(:,[1,3]);
 
     layerSld1 = resampleLayers(reSLD1,imSLD1,resampleMinAngle,resampleNPoints);
     layerSld2 = resampleLayers(reSLD2,imSLD2,resampleMinAngle,resampleNPoints);
@@ -183,10 +183,6 @@ function [qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue,chi,...
      % Calculate the average reflectivities....
     [reflectivity,simulation] = domainsTF.averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio);
 
-    if dataPresent
-        chi = chiSquared(shiftedData,reflectivity,nParams);
-    else
-        chi = 0;
-    end
+    chi = chiSquared(shiftedData,reflectivity,nParams);
 
 end

@@ -1,4 +1,4 @@
-function sldProfile= makeSLDProfiles(bulkIn,bulkOut,sld,ssub,repeats)
+function sldProfile = makeSLDProfiles(bulkIn,bulkOut,sld,ssub,repeats)
 
 
 lays = size(sld,1);

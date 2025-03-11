@@ -1,4 +1,4 @@
-function shiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simLimits)
+function shiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simulationLimits)
 % Shifts the data according to scale factor. If there is no data, makes 
 % x-data over the simulation range.
 %
@@ -8,7 +8,7 @@ function shiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits
 %     * dataPresent: problemStruct.dataPresent
 %     * data: problemStruct.data
 %     * dataLimits: problemStruct.dataLimits
-%     * simLimits: problemStruct.simLimits
+%     * simulationLimits: problemStruct.simulationLimits
 %
 % OUTPUTS:
 %     * shiftedData: Data shifted using given scale factor
@@ -46,8 +46,8 @@ switch dataPresent
     otherwise
 
         simPoints = 500;
-        simLo = simLimits(1);
-        simHi = simLimits(2);
+        simLo = simulationLimits(1);
+        simHi = simulationLimits(2);
         simXData = linspace(simLo,simHi,simPoints);
         shiftedData = zeros(length(simXData),6);
         shiftedData(:, 1) = linspace(simLo,simHi,simPoints);

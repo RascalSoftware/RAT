@@ -73,7 +73,7 @@ classdef contrastsClass < baseContrasts
 
             dataPresent = zeros(1,nContrasts);
             dataLimits = cell(1,nContrasts);
-            simLimits = cell(1,nContrasts);
+            simulationLimits = cell(1,nContrasts);
             contrastData = cell(1,nContrasts);
 
             for i = 1:nContrasts
@@ -130,11 +130,11 @@ classdef contrastsClass < baseContrasts
                         thisDataLimit = [0 0];
                     end
                     dataLimits{i} = thisDataLimit;
-                    simLimits{i} = dataTable{thisDataVal,4}{:};
+                    simulationLimits{i} = dataTable{thisDataVal,4}{:};
                     contrastData{i} = dataTable{thisDataVal,2}{:};
                 else
                     dataLimits{i} = [0 0];
-                    simLimits{i} = [0 0];
+                    simulationLimits{i} = [0 0];
                     contrastData{i} = [0 0 0];
                 end
             end
@@ -151,7 +151,7 @@ classdef contrastsClass < baseContrasts
             contrastStruct.contrastData = contrastData;
             contrastStruct.dataPresent = dataPresent;
             contrastStruct.dataLimits = dataLimits;
-            contrastStruct.simLimits = simLimits;
+            contrastStruct.simulationLimits = simulationLimits;
             contrastStruct.resample = resample;
 
         end

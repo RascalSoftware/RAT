@@ -1,4 +1,4 @@
-function background = constructBackground(backgroundType,backgroundParamIndices,shiftedData,customFiles,backgroundParamArray,simulationXData,dataIndices)
+function background = constructBackground(backgroundType,backgroundParamIndices,shiftedData,customFiles,backgroundParamValues,simulationXData,dataIndices)
 
 % Apply background parameters to the background.
 %
@@ -17,32 +17,32 @@ if strcmpi(backgroundType, coderEnums.allowedTypes.Function)
     % custom function
     functionHandle = customFiles{backgroundParamIndices(1)};
 
-    % The rest of the backgroundParamIndices are indicies to
+    % The rest of the backgroundParamIndices are indices to
     % backgroundParams
-    funcBackParams = backgroundParamIndices(2:end);
+    functionBackgroundParams = backgroundParamIndices(2:end);
 
     % Make an array of real params
-    paramsArray = zeros(1,length(funcBackParams));
-    for i = 1:length(funcBackParams)
-        paramsArray(i) = backgroundParamArray(funcBackParams(i));
+    paramsArray = zeros(1,length(functionBackgroundParams));
+    for i = 1:length(functionBackgroundParams)
+        paramsArray(i) = backgroundParamValues(functionBackgroundParams(i));
     end
 
     % Evaluate the background function with these params...
-    thisBackground = zeros(length(background(:,2)), 1); % This is the correct type - for compilation
+    functionBackground = zeros(length(background(:,2)), 1); % This is the correct type - for compilation
 
     if isnan(str2double(functionHandle))
         if coder.target('MATLAB')
             fileHandle = str2func(functionHandle);
-            thisBackground = fileHandle(background(:,1), paramsArray);
+            functionBackground = fileHandle(background(:,1), paramsArray);
         elseif coder.target('MEX')        
             % 'feval' generates an automatic coder.extrinsic call.
-            thisBackground = feval(functionHandle, background(:,1), paramsArray);
+            functionBackground = feval(functionHandle, background(:,1), paramsArray);
         end
     else
-        thisBackground = callCppFunction(functionHandle, background(:,1), paramsArray);
+        functionBackground = callCppFunction(functionHandle, background(:,1), paramsArray);
     end
 
-    background(:,2) = background(:,2) + thisBackground;
+    background(:,2) = background(:,2) + functionBackground;
 
 else
 
@@ -51,7 +51,7 @@ else
     % the data. Hence we expect to run either zero or one iterations
     % of this loop.
     for i = 1:length(backgroundParamIndices)
-        backgroundParameter = backgroundParamArray(backgroundParamIndices(i));
+        backgroundParameter = backgroundParamValues(backgroundParamIndices(i));
         background(:,2) = background(:,2) + backgroundParameter;
     end
 

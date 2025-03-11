@@ -20,10 +20,10 @@ if numberOfLayers>0
             else
                 nextLayerRoughness = ssub;
             end
-            thisBoxCentre = lastBoxEdge + (layerThickness/2);
+            thisBoxCentre = lastBoxEdge + (0.5 * layerThickness);
             thisBox = asymconvstep(x,layerThickness,thisBoxCentre,layerRoughness,nextLayerRoughness,layerSLD);
             Lays(:,i+(numberOfLayers*(n-1))) = thisBox;
-            lastBoxEdge = thisBoxCentre + (layerThickness/2);
+            lastBoxEdge = thisBoxCentre + (0.5 * layerThickness);
         end
     end
     layerRoughness = nextLayerRoughness;
@@ -47,6 +47,4 @@ end
 
 SLDProfile = [x(:), SLD(:)];
 
-
-
-
+end

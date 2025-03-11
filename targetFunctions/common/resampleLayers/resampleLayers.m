@@ -1,4 +1,4 @@
-function newSLD = resampleLayers(sldProfile,sldProfileIm,minAngle,nPoints)
+function layers = resampleLayers(sldProfile, sldProfileIm, minAngle, nPoints)
 
 % Resample the SLD profile. In this case we have an imaginary SLD also, and
 % so we resample that onto the same points as the real one 
@@ -19,9 +19,9 @@ newY = yy(:,2);
 
 % Now interpolate the imaginary profile so that it is on the same x points
 % as the resampled real one....
-newYIm = interp1(sldProfileIm(:,1),sldProfileIm(:,2),newX,'linear','extrap');
+newYIm = interp1(sldProfileIm(:,1), sldProfileIm(:,2), newX, 'linear', 'extrap');
 
-layers = zeros(length(newX)-1,4);
+layers = zeros(length(newX)-1, 4);
 
 % Now build a layer model from these resampled points
 for n = 1:length(newX)-1
@@ -50,6 +50,5 @@ for n = 1:length(newX)-1
     layers(n,:) = [layerThickness layerRhoRe layerRhoIm eps];
 
 end
-newSLD = layers;
 
 end

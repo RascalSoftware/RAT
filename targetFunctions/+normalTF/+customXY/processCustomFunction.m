@@ -1,5 +1,5 @@
 function [slds,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
-    bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)
+    bulkInValues,bulkOutValues,contrastCustomFiles,numberOfContrasts,customFiles,paramValues,useImaginary)
 
     % Top-level function for processing custom XY profiles for all the
     % contrasts.
@@ -11,20 +11,20 @@ function [slds,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOu
     end
     coder.varsize('slds{:}',[10000 3],[1 1]);    % 3 columns to allow for imaginary curve
     
-    bulkOuts = bulkOutArray(contrastBulkOuts);
+    bulkOuts = bulkOutValues(contrastBulkOuts);
     for i = 1:numberOfContrasts     % TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..
 
         % Choose which custom file is associated with this contrast
-        functionHandle = customFiles{cCustFiles(i)};
+        functionHandle = customFiles{contrastCustomFiles(i)};
 
         % Find values of 'bulkIn' and 'bulkOut' for this
         % contrast
-        thisBulkIn = bulkInArray(contrastBulkIns(i));
+        thisBulkIn = bulkInValues(contrastBulkIns(i));
         
         if isnan(str2double(functionHandle))
-            [sld, subRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOuts, i, 0);
+            [sld, subRoughs(i)] = callMatlabFunction(functionHandle, paramValues, thisBulkIn, bulkOuts, i, 0);
         else
-            [sld, subRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, bulkOuts, i-1, -1);
+            [sld, subRoughs(i)] = callCppFunction(functionHandle, paramValues, thisBulkIn, bulkOuts, i-1, -1);
         end
 
         % If SLD is real, add dummy imaginary column

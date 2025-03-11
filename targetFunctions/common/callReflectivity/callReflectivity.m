@@ -20,19 +20,19 @@ nLayers = size(layers,1);
 nLayersTot = (nLayers * nRepeats) + 2;
 
 % Make arrays for thick, sld, rough
-thicks = zeros(nLayersTot,1);
+thicknesses = zeros(nLayersTot,1);
 sldArray = zeros(nLayersTot,1);
 slds = complex(sldArray,sldArray);
-roughs = zeros(nLayersTot,1);
+roughnesses = zeros(nLayersTot,1);
 
 % Populate the d,rho,sig arrays...
 layerCount = 2;
 for m = 1:nRepeats
     for n = 1:nLayers
         thisLayer = layers(n,:);
-        thicks(layerCount) = thisLayer(1);
+        thicknesses(layerCount) = thisLayer(1);
         slds(layerCount) = complex(thisLayer(2), thisLayer(3));
-        roughs(layerCount) = thisLayer(4);
+        roughnesses(layerCount) = thisLayer(4);
         layerCount = layerCount + 1;
     end
 end
@@ -40,7 +40,7 @@ end
 % Add the air and substrate parameters
 slds(1) = complex(bulkIn, eps);
 slds(end) = complex(bulkOut, eps);
-roughs(end) = ssubs;
+roughnesses(end) = ssubs;
 
 simulation = zeros(length(simulationXData),2);
 simulation(:,1) = simulationXData;
@@ -52,11 +52,11 @@ switch refType
                 % Parallelise over points
                 
                 % Calculate reflectivity
-                simRef = abelesParallelPoints(simulationXData,nLayersTot,thicks,slds,roughs);
+                simRef = abelesParallelPoints(simulationXData,nLayersTot,thicknesses,slds,roughnesses);
 
             otherwise
                 % Calculate reflectivity
-                simRef = abelesSingle(simulationXData,nLayersTot,thicks,slds,roughs);
+                simRef = abelesSingle(simulationXData,nLayersTot,thicknesses,slds,roughnesses);
                 
         end
 

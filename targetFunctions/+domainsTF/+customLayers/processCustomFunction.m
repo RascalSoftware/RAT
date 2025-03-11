@@ -1,21 +1,21 @@
 function [contrastLayers,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOuts,...
-    bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)
+    bulkInValues,bulkOutValues,contrastCustomFiles,numberOfContrasts,customFiles,paramValues,useImaginary)
 
     % Top-level function for processing custom layers for all the
     % contrasts.
     contrastLayers = cell(numberOfContrasts,2);
     subRoughs = zeros(numberOfContrasts,1);
     
-    bulkOuts = bulkOutArray(contrastBulkOuts);
+    bulkOuts = bulkOutValues(contrastBulkOuts);
 
     for i = 1:numberOfContrasts
 
         % Choose which custom file is associated with this contrast
-        functionHandle = customFiles{cCustFiles(i)};
+        functionHandle = customFiles{contrastCustomFiles(i)};
 
         % Find values of 'bulkIn' and 'bulkOut' for this
         % contrast
-        thisBulkIn = bulkInArray(contrastBulkIns(i));
+        thisBulkIn = bulkInValues(contrastBulkIns(i));
         thisBulkOut = bulkOuts(i);
 
         layers1 = [1 1 1 1]; % typeDef
@@ -25,11 +25,11 @@ function [contrastLayers,subRoughs] = processCustomFunction(contrastBulkIns,cont
         coder.varsize('layers2',[10000 6],[1 1]);
 
         if isnan(str2double(functionHandle))
-            [layers1, subRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOuts, i, 1);
-            [layers2, ~] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOuts, i, 2);
+            [layers1, subRoughs(i)] = callMatlabFunction(functionHandle, paramValues, thisBulkIn, bulkOuts, i, 1);
+            [layers2, ~] = callMatlabFunction(functionHandle, paramValues, thisBulkIn, bulkOuts, i, 2);
         else
-            [layers1, subRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, bulkOuts, i-1, 0);
-            [layers2, ~] = callCppFunction(functionHandle, params, thisBulkIn, bulkOuts, i-1, 1);
+            [layers1, subRoughs(i)] = callCppFunction(functionHandle, paramValues, thisBulkIn, bulkOuts, i-1, 0);
+            [layers2, ~] = callCppFunction(functionHandle, paramValues, thisBulkIn, bulkOuts, i-1, 1);
         end
 
         % If SLD is real, add dummy imaginary column

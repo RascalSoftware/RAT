@@ -1,25 +1,25 @@
-function [outQzshift,outScalefactor,outBulkIn,outBulkOut] = backSort(contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,qzshifts,scalefactors,bulkIn,bulkOut)
+function [qzshift,scalefactor,bulkIn,bulkOut] = backSort(qzshiftIndex,scalefactorIndex,bulkInIndex,bulkOutIndex,qzshiftValues,scalefactorValues,bulkInValues,bulkOutValues)
     % Distributes the background and shift values among the different contrasts
     %
     % INPUTS:
-    %    * contrastQzshifts: Which qz_shift value is associated with each contrast
-    %    * contrastScalefactors: Which scalefactor value is associated with each contrast
-    %    * contrastBulkIns: Which BulkIn value is associated with each contrast
-    %    * contrastBulkOuts: Which BulkOut value is associated with each contrast
-    %    * qzshifts: List of all qzshift values
-    %    * scalefactors: List of all scalefactor values
-    %    * bulkIn: List of all bulkIn values
-    %    * bulkOut: List of all bulkOut values
+    %    * qzshiftIndex: Index of the qzshift value associated with this contrast
+    %    * scalefactorIndex: Index of the scalefactor value  associated with this contrast
+    %    * bulkInIndex: Index of the BulkIn value associated with this contrast
+    %    * bulkOutIndex: Index of the BulkOut value associated with this contrast
+    %    * qzshiftValues: List of all qzshift values
+    %    * scalefactorValues: List of all scalefactor values
+    %    * bulkInValues: List of all bulk In values
+    %    * bulkOutValues: List of all bulk Out values
     % 
     % OUTPUTS:
-    %    * outQzshift: list of actual qzshift values for each contrast      
-    %    * outScalefactor: list of actual scalefactor values for each contrast     
-    %    * outBulkIn: list of actual bulkIn values for each contrast     
-    %    * outBulkOut: list of actual bulkOut values for each contrast
+    %    * qzshift: qzshift value for this contrast      
+    %    * scalefactor: scalefactor value for this contrast     
+    %    * bulkIn: bulk In value for this contrast     
+    %    * bulkOut: bulk Out value for this contrast
     
-        outQzshift = qzshifts(contrastQzshifts);        
-        outScalefactor = scalefactors(contrastScalefactors);        
-        outBulkIn = bulkIn(contrastBulkIns);
-        outBulkOut = bulkOut(contrastBulkOuts);
+        qzshift = qzshiftValues(qzshiftIndex);        
+        scalefactor = scalefactorValues(scalefactorIndex);        
+        bulkIn = bulkInValues(bulkInIndex);
+        bulkOut = bulkOutValues(bulkOutIndex);
 
 end

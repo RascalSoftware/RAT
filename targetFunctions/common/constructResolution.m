@@ -1,4 +1,4 @@
-function resolution = constructResolution(resolutionType,resolutionParamIndex,shiftedData,customFiles,resolutionParamArray,simulationXData,dataIndices)
+function resolution = constructResolution(resolutionType,resolutionParamIndex,shiftedData,customFiles,resolutionParamValues,simulationXData,dataIndices)
 
 % Apply resolution parameters to the resolution.
 %
@@ -19,7 +19,7 @@ else
     % For a constant resolution, we expect exactly one index here, but must
     % account for the case where resolutionParamIndex is empty.
     for i = 1:length(resolutionParamIndex)
-        resolutionParameter = resolutionParamArray(resolutionParamIndex(i));
+        resolutionParameter = resolutionParamValues(resolutionParamIndex(i));
         resolution(:,2) = resolution(:,2) + resolutionParameter;
     end
 end

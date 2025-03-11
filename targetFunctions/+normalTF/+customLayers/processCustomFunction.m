@@ -12,30 +12,22 @@ function [contrastLayers,subRoughs] = processCustomFunction(contrastBulkIns,cont
 
         % Choose which custom file is associated with this contrast
         functionHandle = customFiles{contrastCustomFiles(i)};
-
-        % Find values of 'bulkIn' and 'bulkOut' for this
-        % contrast
-        thisBulkIn = bulkInValues(contrastBulkIns(i));
-        thisBulkOut = bulkOuts(i);
+        bulkIn = bulkInValues(contrastBulkIns(i));
 
         layers = [1 1 1 1]; % typeDef
         coder.varsize('layers',[10000 6],[1 1]);
         if isnan(str2double(functionHandle))
-            [layers, subRoughs(i)] = callMatlabFunction(functionHandle, paramValues, thisBulkIn, bulkOuts, i, 0);
+            [layers, subRoughs(i)] = callMatlabFunction(functionHandle, paramValues, bulkIn, bulkOuts, i, 0);
         else
-            [layers, subRoughs(i)] = callCppFunction(functionHandle, paramValues, thisBulkIn, bulkOuts, i-1, -1);
+            [layers, subRoughs(i)] = callCppFunction(functionHandle, paramValues, bulkIn, bulkOuts, i-1, -1);
         end
 
         % If SLD is real, add dummy imaginary column
-        layersSize = size(layers);
         if ~useImaginary
-            layers = [layers(:,1:2) zeros(layersSize(1), 1) layers(:,3:end)];
+            contrastLayers{i} = [layers(:,1:2) zeros(size(layers, 1), 1) layers(:,3:end)];
+        else
+            contrastLayers{i} = layers;
         end
-
-        % If the output layers has 6 columns, then we need to do
-        % the hydration correction (the user has not done it in the
-        % custom function).
-        contrastLayers{i} = applyHydration(layers,thisBulkIn,thisBulkOut);
 
     end
 

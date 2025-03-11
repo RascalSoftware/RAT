@@ -163,6 +163,12 @@ function [qzshift,scalefactor,bulkIn,bulkOut,chi,reflectivity,simulation,...
     [qzshift,scalefactor,bulkIn,bulkOut] = backSort( ...
         qzshiftIndex,scalefactorIndex,bulkInIndex,bulkOutIndex, ...
         qzshiftValues,scalefactorValues,bulkInValues,bulkOutValues);
+    
+    % Also need to determine which layers from the overall layers list
+    % are required for this contrast, and put them in the correct order 
+    % according to geometry. We run it twice, once for each domain...
+    layers1 = allocateLayersForContrast(domainLayersIndices1,layerValues);
+    layers2 = allocateLayersForContrast(domainLayersIndices2,layerValues);
 
     % Apply scale factors and q shifts to the data
     shiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simulationLimits);
@@ -172,13 +178,7 @@ function [qzshift,scalefactor,bulkIn,bulkOut,chi,reflectivity,simulation,...
         shiftedData,customFiles,backgroundParamValues,simulationXData,dataIndices);
     resolution = constructResolution(resolutionType,resolutionParamIndex,...
         shiftedData,customFiles,resolutionParamValues,simulationXData,dataIndices);
-
-    % Also need to determine which layers from the overall layers list
-    % are required for this contrast, and put them in the correct order 
-    % according to geometry. We run it twice, once for each domain...
-    layers1 = allocateLayersForContrast(domainLayersIndices1,layerValues);
-    layers2 = allocateLayersForContrast(domainLayersIndices2,layerValues);
-       
+      
     % Call the core layers calculation - need to do this once for each
     % domain
     [reflect1,simul1,~,layerSld1,sldProfile1,resampledLayer1,~] = normalTF.coreLayersCalculation(layers1,roughness,...

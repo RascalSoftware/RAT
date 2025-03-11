@@ -16,21 +16,17 @@ function [slds,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOu
 
         % Choose which custom file is associated with this contrast
         functionHandle = customFiles{contrastCustomFiles(i)};
-
-        % Find values of 'bulkIn' and 'bulkOut' for this
-        % contrast
-        thisBulkIn = bulkInValues(contrastBulkIns(i));
+        bulkIn = bulkInValues(contrastBulkIns(i));
         
         if isnan(str2double(functionHandle))
-            [sld, subRoughs(i)] = callMatlabFunction(functionHandle, paramValues, thisBulkIn, bulkOuts, i, 0);
+            [sld, subRoughs(i)] = callMatlabFunction(functionHandle, paramValues, bulkIn, bulkOuts, i, 0);
         else
-            [sld, subRoughs(i)] = callCppFunction(functionHandle, paramValues, thisBulkIn, bulkOuts, i-1, -1);
+            [sld, subRoughs(i)] = callCppFunction(functionHandle, paramValues, bulkIn, bulkOuts, i-1, -1);
         end
 
         % If SLD is real, add dummy imaginary column
-        sldSize = size(sld);
         if ~useImaginary
-            slds{i} = [sld zeros(sldSize(1), 1)];
+            slds{i} = [sld zeros(size(sld, 1), 1)];
         else
             slds{i} = sld;
         end

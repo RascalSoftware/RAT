@@ -108,7 +108,7 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
             layerSlds{i} = layerSldCell;
         end
     end
-    coder.varsize('layerSlds{:}',[maxArraySize 6],[1 1]);
+    coder.varsize('layerSlds{:}',[maxArraySize 4],[1 1]);
     
     sldProfileCell = ones(2,2);
     if domains

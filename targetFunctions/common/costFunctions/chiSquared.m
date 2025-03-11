@@ -15,6 +15,6 @@ function chi2 = chiSquared(thisData,thisFit,P)
     if ~isempty(n)
         terms(n) = 0;
     end
-    chi2 = 1/(N-P)*sum(terms);
+    chi2 = sum(terms)/(N-P);
 
 end

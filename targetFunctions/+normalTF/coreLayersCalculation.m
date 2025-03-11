@@ -26,7 +26,8 @@ sldProfileIm = [0 0];
 resampledLayers = [0 0 0 0];
 
 % Build up the layers matrix for this contrast
-[layerSld, ssubs] = groupLayersMod(layers,roughness,geometry,bulkIn,bulkOut);
+[layerSld, ssubs] = groupLayersMod(layers,roughness,geometry);
+layerSld = applyHydration(layerSld,bulkIn,bulkOut);
 
 % Make the SLD profiles.
 % If resampling is needed, then enforce the SLD calculation, so as to

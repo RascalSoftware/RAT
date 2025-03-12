@@ -7,7 +7,7 @@ function [outLayers, ssubs] = groupLayersMod(resampledLayers,subRoughs,geometry,
 %
 % USAGE::
 %
-%     [outLayers, ssubs] = groupLayersModImaginary(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)
+%     [outLayers, ssubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)
 %
 % INPUTS:
 %     * resampledLayers: cell array, one for each contrast. Each cell is the list of layer values for each contrast.

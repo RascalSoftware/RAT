@@ -7,12 +7,10 @@ function newSLD = resampleLayers(sldProfile,sldProfileIm,minAngle, nPoints)
 % f = @(x) SLDFunction(x);
 % 
 x = sldProfile(:,1);
-prof = sldProfile(:,2);
 
 xstart = x(1);
 xend = x(end);
 
-%newX = linspace(xstart,xend,100);
 out = adaptive(sldProfile, [xstart xend], minAngle*pi, nPoints);
 yy = out{1};
 

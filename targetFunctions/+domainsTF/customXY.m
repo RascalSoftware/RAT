@@ -35,22 +35,23 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
     sldProfiles = cell(numberOfContrasts,1);  
     resampledLayers = cell(numberOfContrasts,1);
 
-    inputSldProfiles1 = cell(numberOfContrasts,1);
+    slds1 = cell(numberOfContrasts,1);
     for i = 1:numberOfContrasts
-        inputSldProfiles1{i} = [1; 1];
+        slds1{i} = [1; 1];
     end
     
-    inputSldProfiles2 = cell(numberOfContrasts,1);
+    slds2 = cell(numberOfContrasts,1);
     for i = 1:numberOfContrasts
-        inputSldProfiles2{i} = [1; 1];
+        slds2{i} = [1; 1];
     end
 
-    [inputSldProfiles,subRoughs] = domainsTF.customXY.processCustomFunction(contrastBulkInIndices,contrastBulkOutIndices,...
-        bulkInValues,bulkOutValues,contrastCustomFiles,numberOfContrasts,customFiles,params,useImaginary);
+    numberOfOutputColumns = 3;
+    [slds,subRoughs] = domainsTF.processCustomFunction(contrastBulkInIndices,contrastBulkOutIndices,...
+        bulkInValues,bulkOutValues,contrastCustomFiles,numberOfContrasts,numberOfOutputColumns,customFiles,params,useImaginary);
     
-    for i = 1:size(inputSldProfiles,1)
-        inputSldProfiles1{i} = inputSldProfiles{i,1};
-        inputSldProfiles2{i} = inputSldProfiles{i,2};
+    for i = 1:size(slds,1)
+        slds1{i} = slds{i,1};
+        slds2{i} = slds{i,2};
     end
 
     if strcmpi(parallel, coderEnums.parallelOptions.Contrasts)
@@ -68,9 +69,8 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
              bulkOutValues,resolutionParamValues,domainRatioValues,dataPresent(i),...
              data{i},dataLimits{i},simulationLimits{i},repeatLayers{i},...
              contrastBackgroundTypes{i},contrastBackgroundActions{i},...
-             contrastResolutionTypes{i},customFiles,nParams,parallel, ...
-             resampleMinAngle,resampleNPoints,subRoughs(i),...
-             inputSldProfiles1{i},inputSldProfiles2{i});
+             contrastResolutionTypes{i},customFiles,nParams,parallel,...
+             resampleMinAngle,resampleNPoints,subRoughs(i),slds1{i},slds2{i});
 
         end
     
@@ -90,8 +90,7 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
              data{i},dataLimits{i},simulationLimits{i},repeatLayers{i},...
              contrastBackgroundTypes,contrastBackgroundActions{i},...
              contrastResolutionTypes{i},customFiles,nParams,parallel,...
-             resampleMinAngle,resampleNPoints,subRoughs(i),...
-             inputSldProfiles1{i},inputSldProfiles2{i});
+             resampleMinAngle,resampleNPoints,subRoughs(i),slds1{i},slds2{i});
 
         end
     

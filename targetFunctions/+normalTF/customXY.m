@@ -33,8 +33,9 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
     resampledLayers = cell(numberOfContrasts,1);
 
     % Process the custom models
-    [slds, subRoughs] = normalTF.customXY.processCustomFunction(contrastBulkInIndices,contrastBulkOutIndices,...
-        bulkInValues,bulkOutValues,contrastCustomFiles,numberOfContrasts,customFiles,paramValues,useImaginary);
+    numberOfOutputColumns = 3;
+    [slds,subRoughs] = normalTF.processCustomFunction(contrastBulkInIndices,contrastBulkOutIndices,...
+        bulkInValues,bulkOutValues,contrastCustomFiles,numberOfContrasts,numberOfOutputColumns,customFiles,paramValues,useImaginary);
     
     if strcmpi(parallel, coderEnums.parallelOptions.Contrasts)
     

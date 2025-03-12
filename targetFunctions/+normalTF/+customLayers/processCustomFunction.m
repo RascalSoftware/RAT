@@ -18,7 +18,7 @@ function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,con
         thisBulkIn = bulkInArray(contrastBulkIns(i));
         thisBulkOut = bulkOuts(i);
 
-        thisContrastLayers = [1 1 1]; % typeDef
+        thisContrastLayers = [1 1 1 1]; % typeDef
         coder.varsize('thisContrastLayers',[10000 6],[1 1]);
         if isnan(str2double(functionHandle))
             [thisContrastLayers, subRoughs(i)] = callMatlabFunction(functionHandle, params, thisBulkIn, bulkOuts, i, 0);
@@ -26,16 +26,18 @@ function [resampledLayers,subRoughs] = processCustomFunction(contrastBulkIns,con
             [thisContrastLayers, subRoughs(i)] = callCppFunction(functionHandle, params, thisBulkIn, bulkOuts, i-1, -1);
         end
 
-        % If the output layers has 5 columns, then we need to do
-        % the hydration correction (the user has not done it in the
-        % custom function).
+        % If SLD is real, add dummy imaginary column
+        contrastLayersSize = size(thisContrastLayers);
         if ~useImaginary
-           thisContrastLayers = applyHydrationReal(thisContrastLayers,thisBulkIn,thisBulkOut);
-        else
-           thisContrastLayers = applyHydrationImag(thisContrastLayers,thisBulkIn,thisBulkOut);
+            thisContrastLayers = [thisContrastLayers(:,1:2) zeros(contrastLayersSize(1), 1) thisContrastLayers(:,3:end)];
         end
 
+        % If the output layers has 6 columns, then we need to do
+        % the hydration correction (the user has not done it in the
+        % custom function).
+        thisContrastLayers = applyHydration(thisContrastLayers,thisBulkIn,thisBulkOut);
         resampledLayers{i} = thisContrastLayers;
+
     end
 
 end

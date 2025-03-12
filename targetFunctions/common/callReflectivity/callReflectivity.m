@@ -1,4 +1,4 @@
-function [reflectivity, simulation] = callReflectivity(bulkIn,bulkOut,simulationXData,dataIndices,repeatLayers,layers,ssubs,resolution,parallel,refType,useImaginary)
+function [reflectivity, simulation] = callReflectivity(bulkIn,bulkOut,simulationXData,dataIndices,repeatLayers,layers,ssubs,resolution,parallel,refType)
 
 repeatFlag = repeatLayers(1);
 if repeatFlag
@@ -11,7 +11,7 @@ end
 
 if isempty(layers)
     % No layers defined. Make a zeros dummy zero layer 
-    layers = [0 bulkIn 0];
+    layers = [0 bulkIn 0 0];
 end
 
 nLayers = size(layers,1);
@@ -31,13 +31,8 @@ for m = 1:nRepeats
     for n = 1:nLayers
         thisLayer = layers(n,:);
         thicks(layerCount) = thisLayer(1);
-        if ~useImaginary
-            slds(layerCount) = complex(thisLayer(2), eps);
-            roughs(layerCount) = thisLayer(3);
-        else
-            slds(layerCount) = complex(thisLayer(2),thisLayer(3));
-            roughs(layerCount) = thisLayer(4);
-        end
+        slds(layerCount) = complex(thisLayer(2), thisLayer(3));
+        roughs(layerCount) = thisLayer(4);
         layerCount = layerCount + 1;
     end
 end

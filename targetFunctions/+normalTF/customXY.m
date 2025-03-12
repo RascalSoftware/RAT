@@ -32,7 +32,7 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
 
     % Process the custom models
     [sldProfiles,subRoughs] = normalTF.customXY.processCustomFunction(contrastBulkInIndices,contrastBulkOutIndices,...
-        bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params);
+        bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
     
     if strcmpi(parallel, coderEnums.parallelOptions.Contrasts)
     
@@ -49,8 +49,7 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
              dataPresent(i),data{i},dataLimits{i},simLimits{i},repeatLayers{i},...
              contrastBackgroundTypes{i},contrastBackgroundActions{i},...
              contrastResolutionTypes{i},customFiles,nParams,parallel,...
-             resampleMinAngle,resampleNPoints,useImaginary,subRoughs(i),...
-             sldProfiles{i});
+             resampleMinAngle,resampleNPoints,subRoughs(i),sldProfiles{i});
         end
     
     else
@@ -68,11 +67,19 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
              dataPresent(i),data{i},dataLimits{i},simLimits{i},repeatLayers{i},...
              contrastBackgroundTypes{i},contrastBackgroundActions{i},...
              contrastResolutionTypes{i},customFiles,nParams,parallel,...
-             resampleMinAngle,resampleNPoints,useImaginary,subRoughs(i),...
-             sldProfiles{i});
+             resampleMinAngle,resampleNPoints,subRoughs(i),sldProfiles{i});
 
         end
     
+    end
+
+    % Remove dummy imaginary column if present
+    if ~useImaginary
+        for i=1:numberOfContrasts
+            sldProfiles{i}(:,3) = [];
+            layerSlds{i}(:,3) = [];
+            resampledLayers{i}(:,3) = [];
+        end
     end
 
 end
@@ -85,7 +92,7 @@ function [qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue,chi,...
     backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,...
     dataPresent,data,dataLimits,simLimits,repeatLayers,backgroundType,...
     backgroundAction,resolutionType,customFiles,nParams,parallel,...
-    resampleMinAngle,resampleNPoints,useImaginary,roughness,sldProfile)
+    resampleMinAngle,resampleNPoints,roughness,sldProfile)
 
     % Extract the relevant parameter values for this contrast
     % from the input arrays.
@@ -95,13 +102,9 @@ function [qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue,chi,...
      scalefactorIndex,bulkInIndex,bulkOutIndex,qzshifts,scalefactors,bulkIns,bulkOuts);
      
     % Resample the layers
-    if ~useImaginary
-        layerSld = resampleLayers(sldProfile,resampleMinAngle,resampleNPoints);
-    else
-        reSLD = sldProfile(:,1:2);
-        imSLD = [sldProfile(:,1),sldProfile(:,3)];
-        layerSld = resampleLayersReIm(reSLD,imSLD,resampleMinAngle,resampleNPoints);
-    end
+    reSLD = sldProfile(:,1:2);
+    imSLD = [sldProfile(:,1),sldProfile(:,3)];
+    layerSld = resampleLayers(reSLD,imSLD,resampleMinAngle,resampleNPoints);
     
     resampledLayer = layerSld;
 
@@ -114,7 +117,7 @@ function [qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue,chi,...
         shiftedData,customFiles,resolutionParams,simulationXData,dataIndices);
 
     reflectivityType = 'standardAbeles';
-    [reflect,simul] = callReflectivity(bulkInValue,bulkOutValue,simulationXData,dataIndices,repeatLayers,layerSld,roughness,resolution,parallel,reflectivityType,useImaginary);
+    [reflect,simul] = callReflectivity(bulkInValue,bulkOutValue,simulationXData,dataIndices,repeatLayers,layerSld,roughness,resolution,parallel,reflectivityType);
 
     [reflectivity,simulation,shiftedData] = applyBackgroundCorrection(reflect,simul,shiftedData,background,backgroundAction);
     

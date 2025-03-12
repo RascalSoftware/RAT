@@ -46,7 +46,7 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
     end
 
     [inputSldProfiles,subRoughs] = domainsTF.customXY.processCustomFunction(contrastBulkInIndices,contrastBulkOutIndices,...
-        bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params);
+        bulkInArray,bulkOutArray,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
     
     for i = 1:size(inputSldProfiles,1)
         inputSldProfiles1{i} = inputSldProfiles{i,1};
@@ -69,7 +69,7 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
              data{i},dataLimits{i},simLimits{i},repeatLayers{i},...
              contrastBackgroundTypes{i},contrastBackgroundActions{i},...
              contrastResolutionTypes{i},customFiles,nParams,parallel, ...
-             resampleMinAngle,resampleNPoints,useImaginary,subRoughs(i),...
+             resampleMinAngle,resampleNPoints,subRoughs(i),...
              inputSldProfiles1{i},inputSldProfiles2{i});
 
         end
@@ -90,7 +90,7 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
              data{i},dataLimits{i},simLimits{i},repeatLayers{i},...
              contrastBackgroundTypes,contrastBackgroundActions{i},...
              contrastResolutionTypes{i},customFiles,nParams,parallel,...
-             resampleMinAngle,resampleNPoints,useImaginary,subRoughs(i),...
+             resampleMinAngle,resampleNPoints,subRoughs(i),...
              inputSldProfiles1{i},inputSldProfiles2{i});
 
         end
@@ -113,6 +113,18 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
     
     end
 
+    % Remove dummy imaginary column if present
+    if ~useImaginary
+        for i=1:numberOfContrasts
+            domainSldProfiles{i,1}(:,3) = [];
+            domainSldProfiles{i,2}(:,3) = [];
+            domainLayerSlds{i,1}(:,3) = [];
+            domainLayerSlds{i,2}(:,3) = [];
+            domainResampledLayers{i,1}(:,3) = [];
+            domainResampledLayers{i,2}(:,3) = [];
+        end
+    end
+
 end
 
 
@@ -123,7 +135,7 @@ function [qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue,chi,...
     domainRatioIndex,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,...
     resolutionParams,domainRatios,dataPresent,data,dataLimits,simLimits,...
     repeatLayers,backgroundType,backgroundAction,resolutionType,customFiles,...
-    nParams,parallel,resampleMinAngle,resampleNPoints,useImaginary,roughness,...
+    nParams,parallel,resampleMinAngle,resampleNPoints,roughness,...
     sldProfile1,sldProfile2)
 
     % Get the domain ratio for this contrast
@@ -140,19 +152,14 @@ function [qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue,chi,...
      scalefactorIndex,bulkInIndex,bulkOutIndex,qzshifts,scalefactors,bulkIns,bulkOuts);
      
     % Resample the sld profiles
-    if ~useImaginary
-        layerSld1 = resampleLayers(sldProfile1,resampleMinAngle,resampleNPoints);
-        layerSld2 = resampleLayers(sldProfile2,resampleMinAngle,resampleNPoints);
-    else
-        reSLD1 = sldProfile1(:,1:2);
-        imSLD1 = [sldProfile1(:,1),sldProfile1(:,3)];
+    reSLD1 = sldProfile1(:,1:2);
+    imSLD1 = [sldProfile1(:,1),sldProfile1(:,3)];
 
-        reSLD2 = sldProfile2(:,1:2);
-        imSLD2 = [sldProfile2(:,1),sldProfile2(:,3)];
+    reSLD2 = sldProfile2(:,1:2);
+    imSLD2 = [sldProfile2(:,1),sldProfile2(:,3)];
 
-        layerSld1 = resampleLayersReIm(reSLD1,imSLD1,resampleMinAngle,resampleNPoints);
-        layerSld2 = resampleLayersReIm(reSLD2,imSLD2,resampleMinAngle,resampleNPoints);
-    end
+    layerSld1 = resampleLayers(reSLD1,imSLD1,resampleMinAngle,resampleNPoints);
+    layerSld2 = resampleLayers(reSLD2,imSLD2,resampleMinAngle,resampleNPoints);
 
     layerSld = {layerSld1, layerSld2};
     resampledLayer = {layerSld1, layerSld2};
@@ -167,8 +174,8 @@ function [qzshiftValue,scalefactorValue,bulkInValue,bulkOutValue,chi,...
         shiftedData,customFiles,resolutionParams,simulationXData,dataIndices);
 
     reflectivityType = 'standardAbeles';
-    [reflect1,simul1] = callReflectivity(bulkInValue,bulkOutValue,simulationXData,dataIndices,repeatLayers,layerSld1,roughness,resolution,parallel,reflectivityType,useImaginary);
-    [reflect2,simul2] = callReflectivity(bulkInValue,bulkOutValue,simulationXData,dataIndices,repeatLayers,layerSld2,roughness,resolution,parallel,reflectivityType,useImaginary);
+    [reflect1,simul1] = callReflectivity(bulkInValue,bulkOutValue,simulationXData,dataIndices,repeatLayers,layerSld1,roughness,resolution,parallel,reflectivityType);
+    [reflect2,simul2] = callReflectivity(bulkInValue,bulkOutValue,simulationXData,dataIndices,repeatLayers,layerSld2,roughness,resolution,parallel,reflectivityType);
 
     [reflect1,simul1,~] = applyBackgroundCorrection(reflect1,simul1,shiftedData,background,backgroundAction);
     [reflect2,simul2,shiftedData] = applyBackgroundCorrection(reflect2,simul2,shiftedData,background,backgroundAction);

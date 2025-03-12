@@ -1,4 +1,4 @@
-function thisContrastLayers = applyHydrationImag(thisContrastLayers,bulkIn,bulkOut)
+function thisContrastLayers = applyHydration(thisContrastLayers,bulkIn,bulkOut)
 
 % Applies the hydration correction to real value of layers
 % if it is necessary.. (This is for when im(SLD) is used) 

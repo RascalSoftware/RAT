@@ -26,8 +26,8 @@ if ~isempty(resampledLayers)
     if strcmpi(geometry, coderEnums.geometryOptions.AirSubstrate)
             layers = resampledLayers;
     else
-            roughs = resampledLayers(:,3);
-            sldss = resampledLayers(:,2);
+            roughs = resampledLayers(:,4);
+            sldss = resampledLayers(:,2:3);
             thicks = resampledLayers(:,1);
             rsub = roughs(end);
             if length(roughs) > 1
@@ -37,10 +37,10 @@ if ~isempty(resampledLayers)
             end
             n = size(resampledLayers,2);
             if n == 5
-                cov = resampledLayers(:,4);
-                layers = [thicks(:) sldss(:) roughs(:) cov(:)];
+                cov = resampledLayers(:,5);
+                layers = [thicks sldss roughs cov];
             else
-                layers = [thicks(:) sldss(:) roughs(:)];
+                layers = [thicks sldss roughs];
             end
             ssubs = rsub;
     end
@@ -48,10 +48,10 @@ if ~isempty(resampledLayers)
     % Deal with the %coverage if present
     n = size(resampledLayers,2);
     l = size(resampledLayers,1);
-    if n == 5
+    if n == 6
         for j = 1:l
-            this_pcw = resampledLayers(j,4);
-            if resampledLayers(j,5) == 1
+            this_pcw = resampledLayers(j,5);
+            if resampledLayers(j,6) == 1
                 pc_add = bulkIns;
             else
                 pc_add = bulkOuts;
@@ -64,9 +64,9 @@ if ~isempty(resampledLayers)
 end
 
 if ~isempty(layers)
-    outLayers = layers(:,1:3);
+    outLayers = layers(:,1:4);
 else
-    outLayers = zeros(1,3);
+    outLayers = zeros(1,4);
 end
 
 end

@@ -1,7 +1,7 @@
-function [reflectivity,simulation,shiftedData,layerSld,sldProfile,resampledLayers,chi] = ...
+function [reflectivity,simulation,shiftedData,layerSld,sldProfile,resampledLayers] = ...
     coreLayersCalculation(layers,roughness,geometry,bulkIn,bulkOut,resample,...
     calcSld,shiftedData,simulationXData,dataIndices,repeatLayers,resolution,...
-    background,backgroundAction,nParams,parallelPoints,resampleMinAngle,...
+    background,backgroundAction,parallelPoints,resampleMinAngle,...
     resampleNPoints)
 
 %   This is the main reflectivity calculation for all layers models in the 
@@ -17,8 +17,7 @@ function [reflectivity,simulation,shiftedData,layerSld,sldProfile,resampledLayer
 %   called, including the resolution function. The calculation outputs two
 %   profiles - 'reflect' which is the same range as the points, and
 %   'simulation' which can be a different range to allow extrapolation.
-%   The background correction is the applied, and finally chi-squared is 
-%   calculated.
+%   Finally, the background correction is applied.
 
 % Pre-definition for Coder
 sldProfile = [0 0];
@@ -59,8 +58,5 @@ reflectivityType = 'standardAbeles';
 
 % Apply background correction
 [reflectivity,simulation,shiftedData] = applyBackgroundCorrection(reflectivity,simulation,shiftedData,background,backgroundAction);
-
-% Calculate chi squared
-chi = chiSquared(shiftedData,reflectivity,nParams);
 
 end

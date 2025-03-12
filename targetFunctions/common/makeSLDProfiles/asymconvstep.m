@@ -1,5 +1,5 @@
 function f = asymconvstep(x,xw,xcen,s1,s2,h)
-% Produces a step function convoluted with differnt error functions
+% Produces a step function convoluted with different error functions
 % on each side.
 % Convstep (x,xw,xcen,s1,s2,h)
 %       x = vector of x values
@@ -42,6 +42,6 @@ bFactor = (2^0.5)*s2;
 a = (x-l)/aFactor;
 b = (x-r)/bFactor;
 
-f = (h/2)*(erf(a)-erf(b));
+f = (0.5*h) * (erf(a)-erf(b));
 
 

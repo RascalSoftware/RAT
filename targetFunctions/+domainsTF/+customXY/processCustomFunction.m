@@ -6,12 +6,6 @@ function [slds,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOu
     slds = cell(numberOfContrasts,2);
     subRoughs = zeros(numberOfContrasts,1);
 
-    for i = 1:numberOfContrasts
-        slds{i,1} = [0 0 0];
-        slds{i,2} = [0 0 0];
-    end
-    coder.varsize('slds{:}',[10000 3],[1 1]);    % 3 columns to allow for potential imaginary curve
-    
     bulkOuts = bulkOutValues(contrastBulkOuts);
 
     for i = 1:numberOfContrasts     % TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..
@@ -19,7 +13,13 @@ function [slds,subRoughs] = processCustomFunction(contrastBulkIns,contrastBulkOu
         % Choose which custom file is associated with this contrast
         functionHandle = customFiles{contrastCustomFiles(i)};
         bulkIn = bulkInValues(contrastBulkIns(i));
-        
+
+        sld1 = [0 0 0]; % typeDef
+        coder.varsize('sld1',[10000 3],[1 1]);
+
+        sld2 = [0 0 0]; % typeDef
+        coder.varsize('sld2',[10000 3],[1 1]);
+
         if isnan(str2double(functionHandle))
             [sld1, subRoughs(i)] = callMatlabFunction(functionHandle, paramValues, bulkIn, bulkOuts, i, 1);
             [sld2, ~] = callMatlabFunction(functionHandle, paramValues, bulkIn, bulkOuts, i, 2);

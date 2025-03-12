@@ -31,7 +31,7 @@ function layerValues = allocateParamsToLayers(paramValues, layersDetails)
             outputLayer(5) = NaN;
         end
 
-        % Fill in hydrate with value
+        % Fill in "hydrate with" value
         outputLayer(6) = layer(end);
 
         layerValues{i} = outputLayer;

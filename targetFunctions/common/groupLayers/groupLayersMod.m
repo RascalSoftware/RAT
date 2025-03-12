@@ -9,14 +9,12 @@ function [outputLayers, ssubs] = groupLayersMod(layers,subRoughs,geometry)
 %
 % USAGE::
 %
-%     [outLayers, ssubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)
+%     [outLayers, ssubs] = groupLayersMod(resampledLayers,subRoughs,geometry)
 %
 % INPUTS:
 %     * layers: List of layer values for this contrast.
 %     * subRoughs:  Double of substrate roughness for this contrast.
 %     * geometry: 'Air / Liquid (or solid)' or 'Solid / Liquid'
-%     * bulkIns: Bulk In value.
-%     * bulkOuts: Bulk Out value.
 %
 % Outputs:
 %     * outputLayers: Layers parameter values for this contrast.
@@ -36,17 +34,14 @@ if ~isempty(layers)
             else
                 roughnesses = ssubs;
             end
-            n = size(layers,2);
-            if n == 6
-                outputLayers = [layers(:, 1:3) roughnesses layers(:, 5:6)];
-            else
-                outputLayers = [layers(:, 1:3) roughnesses];
-            end
+            outputLayers = [layers(:, 1:3) roughnesses layers(:, 5:end)];
             ssubs = rsub;
     end
 
 else
+
     outputLayers = zeros(1, 4);
+    
 end
 
 end

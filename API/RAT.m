@@ -63,11 +63,6 @@ function [project,result] = RAT(project,controls)
 
 [problemStruct,problemLimits,controls] = parseClassToStructs(project,controls);
 
-% Set controls.calcSLD to 1 if we are doing customXY
-if strcmpi(problemStruct.modelType, modelTypes.CustomXY.value)
-    controls.calcSldDuringFit = true;
-end
-
 % Call the main RAT routine...
 display = ~strcmpi(controls.display, displayOptions.Off.value);
 textProgressBar(0, 0, display);

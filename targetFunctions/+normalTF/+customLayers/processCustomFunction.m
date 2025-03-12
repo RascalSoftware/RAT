@@ -5,7 +5,7 @@ function [contrastLayers,subRoughs] = processCustomFunction(contrastBulkIns,cont
     % contrasts.
     contrastLayers = cell(numberOfContrasts,1);
     subRoughs = zeros(numberOfContrasts,1);
-
+    
     bulkOuts = bulkOutValues(contrastBulkOuts);
 
     for i = 1:numberOfContrasts     % TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..
@@ -14,7 +14,7 @@ function [contrastLayers,subRoughs] = processCustomFunction(contrastBulkIns,cont
         functionHandle = customFiles{contrastCustomFiles(i)};
         bulkIn = bulkInValues(contrastBulkIns(i));
 
-        layers = [1 1 1 1]; % typeDef
+        layers = [0 0 0 0]; % typeDef
         coder.varsize('layers',[10000 6],[1 1]);
         if isnan(str2double(functionHandle))
             [layers, subRoughs(i)] = callMatlabFunction(functionHandle, paramValues, bulkIn, bulkOuts, i, 0);

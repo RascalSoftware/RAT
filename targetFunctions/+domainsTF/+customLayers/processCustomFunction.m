@@ -14,10 +14,10 @@ function [contrastLayers,subRoughs] = processCustomFunction(contrastBulkIns,cont
         functionHandle = customFiles{contrastCustomFiles(i)};
         bulkIn = bulkInValues(contrastBulkIns(i));
 
-        layers1 = [1 1 1 1]; % typeDef
+        layers1 = [0 0 0 0]; % typeDef
         coder.varsize('layers1',[10000 6],[1 1]);
 
-        layers2 = [1 1 1 1]; % typeDef
+        layers2 = [0 0 0 0]; % typeDef
         coder.varsize('layers2',[10000 6],[1 1]);
 
         if isnan(str2double(functionHandle))

@@ -15,7 +15,7 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
     resampleMinAngle = controls.resampleMinAngle;
     resampleNPoints = controls.resampleNPoints;
 
-    %Pre-Allocation...
+    %Pre-Allocation
     qzshifts = zeros(numberOfContrasts,1);
     scalefactors = zeros(numberOfContrasts,1);
     bulkIns = zeros(numberOfContrasts,1);
@@ -149,8 +149,9 @@ function [qzshift,scalefactor,bulkIn,bulkOut,chi,reflectivity,simulation,...
     % from the input arrays.
     % First need to decide which values of the backgrounds, scalefactors
     % data shifts and bulk contrasts are associated with this contrast
-    [qzshift,scalefactor,bulkIn,bulkOut] = backSort(qzshiftIndex,...
-     scalefactorIndex,bulkInIndex,bulkOutIndex,qzshiftValues,scalefactorValues,bulkInValues,bulkOutValues);
+    [qzshift,scalefactor,bulkIn,bulkOut] = backSort( ...
+        qzshiftIndex,scalefactorIndex,bulkInIndex,bulkOutIndex, ...
+        qzshiftValues,scalefactorValues,bulkInValues,bulkOutValues);
      
     % Resample the sld profiles
     reSLD1 = sldProfile1(:,[1,2]);
@@ -175,14 +176,16 @@ function [qzshift,scalefactor,bulkIn,bulkOut,chi,reflectivity,simulation,...
         shiftedData,customFiles,resolutionParamValues,simulationXData,dataIndices);
 
     reflectivityType = 'standardAbeles';
-    [reflect1,simul1] = callReflectivity(bulkIn,bulkOut,simulationXData,dataIndices,repeatLayers,layerSld1,roughness,resolution,parallel,reflectivityType);
-    [reflect2,simul2] = callReflectivity(bulkIn,bulkOut,simulationXData,dataIndices,repeatLayers,layerSld2,roughness,resolution,parallel,reflectivityType);
+    [reflectivity1,simulation1] = callReflectivity(bulkIn,bulkOut,simulationXData, ...
+        dataIndices,repeatLayers,layerSld1,roughness,resolution,parallel,reflectivityType);
+    [reflectivity2,simulation2] = callReflectivity(bulkIn,bulkOut,simulationXData, ...
+        dataIndices,repeatLayers,layerSld2,roughness,resolution,parallel,reflectivityType);
 
-    [reflect1,simul1,~] = applyBackgroundCorrection(reflect1,simul1,shiftedData,background,backgroundAction);
-    [reflect2,simul2,shiftedData] = applyBackgroundCorrection(reflect2,simul2,shiftedData,background,backgroundAction);
+    [reflectivity1,simulation1,~] = applyBackgroundCorrection(reflectivity1,simulation1,shiftedData,background,backgroundAction);
+    [reflectivity2,simulation2,shiftedData] = applyBackgroundCorrection(reflectivity2,simulation2,shiftedData,background,backgroundAction);
 
-     % Calculate the average reflectivities....
-    [reflectivity,simulation] = domainsTF.averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio);
+     % Calculate the average reflectivities
+    [reflectivity,simulation] = domainsTF.averageReflectivity(reflectivity1,reflectivity2,simulation1,simulation2,domainRatio);
 
     chi = chiSquared(shiftedData,reflectivity,nParams);
 

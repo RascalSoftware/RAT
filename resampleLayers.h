@@ -19,12 +19,9 @@
 // Function Declarations
 namespace RAT
 {
-  void b_resampleLayers(const ::coder::array<double, 2U> &sldProfile, double
-                        minAngle, double nPoints, ::coder::array<double, 2U>
-                        &newSLD);
-  void resampleLayers(const ::coder::array<double, 2U> &sldProfile, double
-                      minAngle, double nPoints, ::coder::array<double, 2U>
-                      &newSLD);
+  void resampleLayers(const ::coder::array<double, 2U> &sldProfile, const ::
+                      coder::array<double, 2U> &sldProfileIm, double minAngle,
+                      double nPoints, ::coder::array<double, 2U> &newSLD);
 }
 
 #endif

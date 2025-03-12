@@ -11,7 +11,7 @@
 #define ALLOCATELAYERSFORCONTRAST_H
 
 // Include files
-#include "RATMain_types.h"
+#include "RATMain_internal_types.h"
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -21,9 +21,8 @@
 namespace RAT
 {
   void allocateLayersForContrast(const ::coder::array<double, 2U>
-    &contrastLayers, const ::coder::array<cell_wrap_47, 2U>
-    &outParameterisedLayers, boolean_T useImaginary, ::coder::array<double, 2U>
-    &thisContrastLayers);
+    &contrastLayers, const ::coder::array<cell_wrap_54, 2U>
+    &outParameterisedLayers, ::coder::array<double, 2U> &thisContrastLayers);
 }
 
 #endif

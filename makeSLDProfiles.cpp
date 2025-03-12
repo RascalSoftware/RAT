@@ -17,19 +17,6 @@
 // Function Definitions
 namespace RAT
 {
-  void makeSLDProfiles(const ::coder::array<double, 2U> &sld, double ssub, const
-                       double repeats[2], ::coder::array<double, 2U> &sldProfile)
-  {
-    double d;
-    if (repeats[0] == 0.0) {
-      d = 1.0;
-    } else {
-      d = repeats[1];
-    }
-
-    makeSLDProfileXY(ssub, sld, static_cast<double>(sld.size(0)), d, sldProfile);
-  }
-
   void makeSLDProfiles(double bulkIn, double bulkOut, const ::coder::array<
                        double, 2U> &sld, double ssub, const double repeats[2], ::
                        coder::array<double, 2U> &sldProfile)
@@ -43,6 +30,19 @@ namespace RAT
 
     makeSLDProfileXY(bulkIn, bulkOut, ssub, sld, static_cast<double>(sld.size(0)),
                      d, sldProfile);
+  }
+
+  void makeSLDProfiles(const ::coder::array<double, 2U> &sld, double ssub, const
+                       double repeats[2], ::coder::array<double, 2U> &sldProfile)
+  {
+    double d;
+    if (repeats[0] == 0.0) {
+      d = 1.0;
+    } else {
+      d = repeats[1];
+    }
+
+    makeSLDProfileXY(ssub, sld, static_cast<double>(sld.size(0)), d, sldProfile);
   }
 }
 

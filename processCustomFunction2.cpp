@@ -12,8 +12,7 @@
 #include "processCustomFunction2.h"
 #include "RATMain_data.h"
 #include "RATMain_types.h"
-#include "applyHydrationImag.h"
-#include "applyHydrationReal.h"
+#include "applyHydration.h"
 #include "callCppFunction.h"
 #include "rt_nonfinite.h"
 #include "str2double.h"
@@ -39,8 +38,12 @@ namespace RAT
       {
         ::coder::array<double, 2U> b_thisContrastLayers1;
         ::coder::array<double, 2U> bulkOuts;
+        ::coder::array<double, 2U> c_thisContrastLayers1;
+        ::coder::array<double, 2U> e_thisContrastLayers1;
         ::coder::array<double, 2U> thisContrastLayers1;
+        ::coder::array<double, 2U> thisContrastLayers2;
         int i;
+        int i1;
         int loop_ub;
 
         //  Top-level function for processing custom layers for all the
@@ -49,7 +52,7 @@ namespace RAT
         subRoughs.set_size(i);
         bulkOuts.set_size(1, contrastBulkOuts.size(1));
         loop_ub = contrastBulkOuts.size(1);
-        for (int i1{0}; i1 < loop_ub; i1++) {
+        for (i1 = 0; i1 < loop_ub; i1++) {
           bulkOuts[i1] = bulkOutArray[static_cast<int>(contrastBulkOuts[i1]) - 1];
         }
 
@@ -59,6 +62,7 @@ namespace RAT
           double d;
           int iv[2];
           int b_loop_ub;
+          int i2;
 
           //  Choose which custom file is associated with this contrast
           //  Find values of 'bulkIn' and 'bulkOut' for this
@@ -82,7 +86,7 @@ namespace RAT
             //
             //  coderException(coderEnums.errorCodes.invalidOption, 'The model type is not supported')
             //  coderException(coderEnums.errorCodes.invalidOption, 'The model type "%s" is not supported', modelType)
-            for (int i1{0}; i1 < 22; i1++) {
+            for (i1 = 0; i1 < 22; i1++) {
               b_cv[i1] = cv1[i1];
             }
 
@@ -98,12 +102,12 @@ namespace RAT
               char, 2U> *)&customFiles[static_cast<int>(d) - 1].f1)->data(), iv,
               params, d1, bulkOuts, (static_cast<double>(b_i) + 1.0) - 1.0,
               thisContrastLayers1);
-            loop_ub = thisContrastLayers1.size(1);
             b_thisContrastLayers1.set_size(thisContrastLayers1.size(0),
               thisContrastLayers1.size(1));
-            for (int i1{0}; i1 < loop_ub; i1++) {
+            loop_ub = thisContrastLayers1.size(1);
+            for (i1 = 0; i1 < loop_ub; i1++) {
               b_loop_ub = thisContrastLayers1.size(0);
-              for (int i2{0}; i2 < b_loop_ub; i2++) {
+              for (i2 = 0; i2 < b_loop_ub; i2++) {
                 b_thisContrastLayers1[i2 + b_thisContrastLayers1.size(0) * i1] =
                   thisContrastLayers1[i2 + thisContrastLayers1.size(0) * i1];
               }
@@ -119,39 +123,231 @@ namespace RAT
               + 1.0) - 1.0, thisContrastLayers1);
           }
 
-          //  If the output layers has 5 columns, then we need to do
-          //  the hydration correction (the user has not done it in the
-          //  custom function).
+          //  If SLD is real, add dummy imaginary column
           if (!useImaginary) {
-            d = bulkInArray[static_cast<int>(contrastBulkIns[b_i]) - 1];
-            applyHydrationReal(b_thisContrastLayers1, d, bulkOuts[b_i]);
-            applyHydrationReal(thisContrastLayers1, d, bulkOuts[b_i]);
-          } else {
-            d = bulkInArray[static_cast<int>(contrastBulkIns[b_i]) - 1];
-            applyHydrationImag(b_thisContrastLayers1, d, bulkOuts[b_i]);
-            applyHydrationImag(thisContrastLayers1, d, bulkOuts[b_i]);
-          }
+            int d_thisContrastLayers1;
+            int sizes_idx_1;
+            signed char b_input_sizes_idx_1;
+            signed char input_sizes_idx_1;
+            boolean_T empty_non_axis_sizes;
+            if (b_thisContrastLayers1.size(1) < 3) {
+              i1 = 0;
+              i2 = 0;
+            } else {
+              i1 = 2;
+              i2 = b_thisContrastLayers1.size(1);
+            }
 
-          resampledLayers[b_i].f1.set_size(b_thisContrastLayers1.size(0),
-            b_thisContrastLayers1.size(1));
-          loop_ub = b_thisContrastLayers1.size(1);
-          for (int i1{0}; i1 < loop_ub; i1++) {
-            b_loop_ub = b_thisContrastLayers1.size(0);
-            for (int i2{0}; i2 < b_loop_ub; i2++) {
-              resampledLayers[b_i].f1[i2 + resampledLayers[b_i].f1.size(0) * i1]
-                = b_thisContrastLayers1[i2 + b_thisContrastLayers1.size(0) * i1];
+            if (b_thisContrastLayers1.size(0) != 0) {
+              b_loop_ub = b_thisContrastLayers1.size(0);
+            } else if (static_cast<short>(b_thisContrastLayers1.size(0)) != 0) {
+              b_loop_ub = static_cast<short>(b_thisContrastLayers1.size(0));
+            } else {
+              b_loop_ub = 0;
+            }
+
+            empty_non_axis_sizes = (b_loop_ub == 0);
+            if (empty_non_axis_sizes || (b_thisContrastLayers1.size(0) != 0)) {
+              input_sizes_idx_1 = 2;
+            } else {
+              input_sizes_idx_1 = 0;
+            }
+
+            if (empty_non_axis_sizes || (static_cast<short>
+                 (b_thisContrastLayers1.size(0)) != 0)) {
+              b_input_sizes_idx_1 = 1;
+            } else {
+              b_input_sizes_idx_1 = 0;
+            }
+
+            if (empty_non_axis_sizes || ((b_thisContrastLayers1.size(0) != 0) &&
+                 (i2 - i1 != 0))) {
+              sizes_idx_1 = i2 - i1;
+            } else {
+              sizes_idx_1 = 0;
+            }
+
+            d_thisContrastLayers1 = b_thisContrastLayers1.size(0);
+            e_thisContrastLayers1.set_size(b_thisContrastLayers1.size(0), 2);
+            for (int i3{0}; i3 < 2; i3++) {
+              for (loop_ub = 0; loop_ub < d_thisContrastLayers1; loop_ub++) {
+                e_thisContrastLayers1[loop_ub + e_thisContrastLayers1.size(0) *
+                  i3] = b_thisContrastLayers1[loop_ub +
+                  b_thisContrastLayers1.size(0) * i3];
+              }
+            }
+
+            d_thisContrastLayers1 = b_thisContrastLayers1.size(0);
+            loop_ub = i2 - i1;
+            c_thisContrastLayers1.set_size(b_thisContrastLayers1.size(0),
+              loop_ub);
+            for (i2 = 0; i2 < loop_ub; i2++) {
+              for (int i3{0}; i3 < d_thisContrastLayers1; i3++) {
+                c_thisContrastLayers1[i3 + c_thisContrastLayers1.size(0) * i2] =
+                  b_thisContrastLayers1[i3 + b_thisContrastLayers1.size(0) * (i1
+                  + i2)];
+              }
+            }
+
+            b_thisContrastLayers1.set_size(b_loop_ub, (input_sizes_idx_1 +
+              b_input_sizes_idx_1) + sizes_idx_1);
+            loop_ub = input_sizes_idx_1;
+            for (i1 = 0; i1 < loop_ub; i1++) {
+              for (i2 = 0; i2 < b_loop_ub; i2++) {
+                b_thisContrastLayers1[i2 + b_thisContrastLayers1.size(0) * i1] =
+                  e_thisContrastLayers1[i2 + b_loop_ub * i1];
+              }
+            }
+
+            loop_ub = b_input_sizes_idx_1;
+            for (i1 = 0; i1 < loop_ub; i1++) {
+              for (i2 = 0; i2 < b_loop_ub; i2++) {
+                b_thisContrastLayers1[i2 + b_thisContrastLayers1.size(0) *
+                  input_sizes_idx_1] = 0.0;
+              }
+            }
+
+            for (i1 = 0; i1 < sizes_idx_1; i1++) {
+              for (i2 = 0; i2 < b_loop_ub; i2++) {
+                b_thisContrastLayers1[i2 + b_thisContrastLayers1.size(0) * ((i1
+                  + input_sizes_idx_1) + b_input_sizes_idx_1)] =
+                  c_thisContrastLayers1[i2 + b_loop_ub * i1];
+              }
+            }
+
+            if (thisContrastLayers1.size(1) < 3) {
+              i1 = 0;
+              i2 = 0;
+            } else {
+              i1 = 2;
+              i2 = thisContrastLayers1.size(1);
+            }
+
+            if (thisContrastLayers1.size(0) != 0) {
+              b_loop_ub = thisContrastLayers1.size(0);
+            } else if (static_cast<short>(thisContrastLayers1.size(0)) != 0) {
+              b_loop_ub = static_cast<short>(thisContrastLayers1.size(0));
+            } else {
+              b_loop_ub = 0;
+            }
+
+            empty_non_axis_sizes = (b_loop_ub == 0);
+            if (empty_non_axis_sizes || (thisContrastLayers1.size(0) != 0)) {
+              input_sizes_idx_1 = 2;
+            } else {
+              input_sizes_idx_1 = 0;
+            }
+
+            if (empty_non_axis_sizes || (static_cast<short>
+                 (thisContrastLayers1.size(0)) != 0)) {
+              b_input_sizes_idx_1 = 1;
+            } else {
+              b_input_sizes_idx_1 = 0;
+            }
+
+            if (empty_non_axis_sizes || ((thisContrastLayers1.size(0) != 0) &&
+                 (i2 - i1 != 0))) {
+              sizes_idx_1 = i2 - i1;
+            } else {
+              sizes_idx_1 = 0;
+            }
+
+            d_thisContrastLayers1 = thisContrastLayers1.size(0);
+            e_thisContrastLayers1.set_size(thisContrastLayers1.size(0), 2);
+            for (int i3{0}; i3 < 2; i3++) {
+              for (loop_ub = 0; loop_ub < d_thisContrastLayers1; loop_ub++) {
+                e_thisContrastLayers1[loop_ub + e_thisContrastLayers1.size(0) *
+                  i3] = thisContrastLayers1[loop_ub + thisContrastLayers1.size(0)
+                  * i3];
+              }
+            }
+
+            d_thisContrastLayers1 = thisContrastLayers1.size(0);
+            loop_ub = i2 - i1;
+            c_thisContrastLayers1.set_size(thisContrastLayers1.size(0), loop_ub);
+            for (i2 = 0; i2 < loop_ub; i2++) {
+              for (int i3{0}; i3 < d_thisContrastLayers1; i3++) {
+                c_thisContrastLayers1[i3 + c_thisContrastLayers1.size(0) * i2] =
+                  thisContrastLayers1[i3 + thisContrastLayers1.size(0) * (i1 +
+                  i2)];
+              }
+            }
+
+            thisContrastLayers1.set_size(b_loop_ub, (input_sizes_idx_1 +
+              b_input_sizes_idx_1) + sizes_idx_1);
+            loop_ub = input_sizes_idx_1;
+            for (i1 = 0; i1 < loop_ub; i1++) {
+              for (i2 = 0; i2 < b_loop_ub; i2++) {
+                thisContrastLayers1[i2 + thisContrastLayers1.size(0) * i1] =
+                  e_thisContrastLayers1[i2 + b_loop_ub * i1];
+              }
+            }
+
+            loop_ub = b_input_sizes_idx_1;
+            for (i1 = 0; i1 < loop_ub; i1++) {
+              for (i2 = 0; i2 < b_loop_ub; i2++) {
+                thisContrastLayers1[i2 + thisContrastLayers1.size(0) *
+                  input_sizes_idx_1] = 0.0;
+              }
+            }
+
+            for (i1 = 0; i1 < sizes_idx_1; i1++) {
+              for (i2 = 0; i2 < b_loop_ub; i2++) {
+                thisContrastLayers1[i2 + thisContrastLayers1.size(0) * ((i1 +
+                  input_sizes_idx_1) + b_input_sizes_idx_1)] =
+                  c_thisContrastLayers1[i2 + b_loop_ub * i1];
+              }
             }
           }
 
+          //  If the output layers has 6 columns, then we need to do
+          //  the hydration correction (the user has not done it in the
+          //  custom function).
+          c_thisContrastLayers1.set_size(b_thisContrastLayers1.size(0),
+            b_thisContrastLayers1.size(1));
+          loop_ub = b_thisContrastLayers1.size(1);
+          for (i1 = 0; i1 < loop_ub; i1++) {
+            b_loop_ub = b_thisContrastLayers1.size(0);
+            for (i2 = 0; i2 < b_loop_ub; i2++) {
+              c_thisContrastLayers1[i2 + c_thisContrastLayers1.size(0) * i1] =
+                b_thisContrastLayers1[i2 + b_thisContrastLayers1.size(0) * i1];
+            }
+          }
+
+          d = bulkInArray[static_cast<int>(contrastBulkIns[b_i]) - 1];
+          applyHydration(c_thisContrastLayers1, d, bulkOuts[b_i]);
+          thisContrastLayers2.set_size(thisContrastLayers1.size(0),
+            thisContrastLayers1.size(1));
           loop_ub = thisContrastLayers1.size(1);
-          resampledLayers[b_i + resampledLayers.size(0)].f1.set_size
-            (thisContrastLayers1.size(0), thisContrastLayers1.size(1));
-          for (int i1{0}; i1 < loop_ub; i1++) {
+          for (i1 = 0; i1 < loop_ub; i1++) {
             b_loop_ub = thisContrastLayers1.size(0);
-            for (int i2{0}; i2 < b_loop_ub; i2++) {
+            for (i2 = 0; i2 < b_loop_ub; i2++) {
+              thisContrastLayers2[i2 + thisContrastLayers2.size(0) * i1] =
+                thisContrastLayers1[i2 + thisContrastLayers1.size(0) * i1];
+            }
+          }
+
+          applyHydration(thisContrastLayers2, d, bulkOuts[b_i]);
+          resampledLayers[b_i].f1.set_size(c_thisContrastLayers1.size(0),
+            c_thisContrastLayers1.size(1));
+          loop_ub = c_thisContrastLayers1.size(1);
+          for (i1 = 0; i1 < loop_ub; i1++) {
+            b_loop_ub = c_thisContrastLayers1.size(0);
+            for (i2 = 0; i2 < b_loop_ub; i2++) {
+              resampledLayers[b_i].f1[i2 + resampledLayers[b_i].f1.size(0) * i1]
+                = c_thisContrastLayers1[i2 + c_thisContrastLayers1.size(0) * i1];
+            }
+          }
+
+          resampledLayers[b_i + resampledLayers.size(0)].f1.set_size
+            (thisContrastLayers2.size(0), thisContrastLayers2.size(1));
+          loop_ub = thisContrastLayers2.size(1);
+          for (i1 = 0; i1 < loop_ub; i1++) {
+            b_loop_ub = thisContrastLayers2.size(0);
+            for (i2 = 0; i2 < b_loop_ub; i2++) {
               resampledLayers[b_i + resampledLayers.size(0)].f1[i2 +
                 resampledLayers[b_i + resampledLayers.size(0)].f1.size(0) * i1] =
-                thisContrastLayers1[i2 + thisContrastLayers1.size(0) * i1];
+                thisContrastLayers2[i2 + thisContrastLayers2.size(0) * i1];
             }
           }
         }

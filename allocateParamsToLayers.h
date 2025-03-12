@@ -11,6 +11,7 @@
 #define ALLOCATEPARAMSTOLAYERS_H
 
 // Include files
+#include "RATMain_internal_types.h"
 #include "RATMain_types.h"
 #include "rtwtypes.h"
 #include "coder_array.h"
@@ -21,7 +22,7 @@
 namespace RAT
 {
   void allocateParamsToLayers(const ::coder::array<double, 2U> &params, const ::
-    coder::array<cell_wrap_9, 2U> &layersDetails, ::coder::array<cell_wrap_47,
+    coder::array<cell_wrap_9, 2U> &layersDetails, ::coder::array<cell_wrap_54,
     2U> &outLayers);
 }
 

@@ -25,9 +25,8 @@ namespace RAT
                         const double repeatLayers[2], ::coder::array<double, 2U>
                         &layers, double ssubs, const ::coder::array<double, 2U>
                         &resolution, const char parallel_data[], const int
-                        parallel_size[2], boolean_T useImaginary, ::coder::array<
-                        double, 2U> &reflectivity, ::coder::array<double, 2U>
-                        &simulation)
+                        parallel_size[2], ::coder::array<double, 2U>
+                        &reflectivity, ::coder::array<double, 2U> &simulation)
   {
     ::coder::array<creal_T, 1U> slds;
     ::coder::array<double, 1U> b_resolution;
@@ -50,10 +49,11 @@ namespace RAT
     //  Build the input arrays for thick, sld and rough
     if (layers.size(0) == 0) {
       //  No layers defined. Make a zeros dummy zero layer
-      layers.set_size(1, 3);
+      layers.set_size(1, 4);
       layers[0] = 0.0;
       layers[layers.size(0)] = bulkIn;
       layers[layers.size(0) * 2] = 0.0;
+      layers[layers.size(0) * 3] = 0.0;
     }
 
     //  Number of layers (including repeats)
@@ -86,15 +86,9 @@ namespace RAT
         loop_ub_tmp = static_cast<int>(layerCount + static_cast<unsigned int>(n))
           - 1;
         thicks[loop_ub_tmp] = layers[n];
-        if (!useImaginary) {
-          slds[loop_ub_tmp].re = layers[n + layers.size(0)];
-          slds[loop_ub_tmp].im = 2.2204460492503131E-16;
-          roughs[loop_ub_tmp] = layers[n + layers.size(0) * 2];
-        } else {
-          slds[loop_ub_tmp].re = layers[n + layers.size(0)];
-          slds[loop_ub_tmp].im = layers[n + layers.size(0) * 2];
-          roughs[loop_ub_tmp] = layers[n + layers.size(0) * 3];
-        }
+        slds[loop_ub_tmp].re = layers[n + layers.size(0)];
+        slds[loop_ub_tmp].im = layers[n + layers.size(0) * 2];
+        roughs[loop_ub_tmp] = layers[n + layers.size(0) * 3];
       }
 
       layerCount += static_cast<unsigned int>(layers.size(0));

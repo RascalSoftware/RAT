@@ -25,6 +25,11 @@ namespace RAT
     double N;
   };
 
+  struct cell_wrap_54
+  {
+    double f1[6];
+  };
+
   struct b_struct_T
   {
     double LogZ;
@@ -109,12 +114,17 @@ namespace RAT
     ::coder::array<double, 2U> f1;
   };
 
-  struct cell_wrap_64
+  struct cell_wrap_65
   {
-    cell_wrap_9 f1[2];
+    ::coder::array<double, 2U> f1;
   };
 
-  struct cell_wrap_65
+  struct cell_wrap_66
+  {
+    cell_wrap_65 f1[2];
+  };
+
+  struct cell_wrap_67
   {
     cell_wrap_7 f1[2];
   };
@@ -186,7 +196,7 @@ namespace RAT
     ::coder::array<double, 2U> FVr_bestmem;
   };
 
-  struct cell_56
+  struct cell_57
   {
     ::coder::array<double, 2U> f1;
   };

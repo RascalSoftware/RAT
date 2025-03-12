@@ -10,21 +10,20 @@
 
 // Include files
 #include "allocateParamsToLayers.h"
+#include "RATMain_internal_types.h"
 #include "RATMain_types.h"
 #include "length.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include <cmath>
-#include <cstring>
 
 // Function Definitions
 namespace RAT
 {
   void allocateParamsToLayers(const ::coder::array<double, 2U> &params, const ::
-    coder::array<cell_wrap_9, 2U> &layersDetails, ::coder::array<cell_wrap_47,
+    coder::array<cell_wrap_9, 2U> &layersDetails, ::coder::array<cell_wrap_54,
     2U> &outLayers)
   {
-    double thisOutLayer_data[10];
     int numberOfLayers;
 
     //  Allocates parameters from the parameter array to the correct layers
@@ -37,33 +36,34 @@ namespace RAT
       layersDetails.size(1));
     outLayers.set_size(1, numberOfLayers);
     for (int i{0}; i < numberOfLayers; i++) {
-      int b_i;
-      int n;
-      n = coder::internal::intlength(layersDetails[i].f1.size(0),
+      int layerLength;
+      layerLength = coder::internal::intlength(layersDetails[i].f1.size(0),
         layersDetails[i].f1.size(1));
-      if (n - 1 >= 0) {
-        std::memset(&thisOutLayer_data[0], 0, static_cast<unsigned int>(n) *
-                    sizeof(double));
+      for (int b_i{0}; b_i < 6; b_i++) {
+        outLayers[i].f1[b_i] = 0.0;
       }
 
-      b_i = coder::internal::intlength(layersDetails[i].f1.size(0),
-        layersDetails[i].f1.size(1));
-      for (int b_n{0}; b_n <= b_i - 2; b_n++) {
-        if (!std::isnan(layersDetails[i].f1[b_n])) {
-          thisOutLayer_data[b_n] = params[static_cast<int>(layersDetails[i]
-            .f1[b_n]) - 1];
-        } else {
-          thisOutLayer_data[b_n] = rtNaN;
-        }
+      //  Find thickness, roughness and SLD
+      //  If SLD is real, the imaginary column is set to zero
+      for (int n{0}; n <= layerLength - 4; n++) {
+        outLayers[i].f1[n] = params[static_cast<int>(layersDetails[i].f1[n]) - 1];
       }
 
-      thisOutLayer_data[coder::internal::intlength(layersDetails[i].f1.size(0),
-        layersDetails[i].f1.size(1)) - 1] = layersDetails[i].f1[layersDetails[i]
-        .f1.size(0) * layersDetails[i].f1.size(1) - 1];
-      outLayers[outLayers.size(0) * i].f1.set_size(1, n);
-      for (b_i = 0; b_i < n; b_i++) {
-        outLayers[i].f1[b_i] = thisOutLayer_data[b_i];
+      //  Layer Thickness
+      outLayers[i].f1[3] = params[static_cast<int>(layersDetails[i]
+        .f1[layerLength - 3]) - 1];
+
+      //  Get hydration value, which may be NaN
+      if (!std::isnan(layersDetails[i].f1[layerLength - 2])) {
+        outLayers[i].f1[4] = params[static_cast<int>(layersDetails[i]
+          .f1[layerLength - 2]) - 1];
+      } else {
+        outLayers[i].f1[4] = rtNaN;
       }
+
+      //  Fill in hydrate with value
+      outLayers[i].f1[5] = layersDetails[i].f1[layersDetails[i].f1.size(0) *
+        layersDetails[i].f1.size(1) - 1];
     }
   }
 }

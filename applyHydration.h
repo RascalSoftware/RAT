@@ -3,12 +3,12 @@
 // granting, nonprofit, education, and research organizations only. Not
 // for commercial or industrial use.
 //
-// applyHydrationReal.h
+// applyHydration.h
 //
-// Code generation for function 'applyHydrationReal'
+// Code generation for function 'applyHydration'
 //
-#ifndef APPLYHYDRATIONREAL_H
-#define APPLYHYDRATIONREAL_H
+#ifndef APPLYHYDRATION_H
+#define APPLYHYDRATION_H
 
 // Include files
 #include "rtwtypes.h"
@@ -19,10 +19,10 @@
 // Function Declarations
 namespace RAT
 {
-  void applyHydrationReal(::coder::array<double, 2U> &thisContrastLayers, double
-    bulkIn, double bulkOut);
+  void applyHydration(::coder::array<double, 2U> &thisContrastLayers, double
+                      bulkIn, double bulkOut);
 }
 
 #endif
 
-// End of code generation (applyHydrationReal.h)
+// End of code generation (applyHydration.h)

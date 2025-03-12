@@ -10,7 +10,7 @@
 
 // Include files
 #include "allocateLayersForContrast.h"
-#include "RATMain_types.h"
+#include "RATMain_internal_types.h"
 #include "length.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
@@ -19,12 +19,10 @@
 namespace RAT
 {
   void allocateLayersForContrast(const ::coder::array<double, 2U>
-    &contrastLayers, const ::coder::array<cell_wrap_47, 2U>
-    &outParameterisedLayers, boolean_T useImaginary, ::coder::array<double, 2U>
-    &thisContrastLayers)
+    &contrastLayers, const ::coder::array<cell_wrap_54, 2U>
+    &outParameterisedLayers, ::coder::array<double, 2U> &thisContrastLayers)
   {
-    int i;
-    int n;
+    int n_tmp;
 
     //  Decide which layers are needed for a particular contrast.
     //  This function takes the master array of all layers
@@ -34,33 +32,19 @@ namespace RAT
     //  INPUTS:
     //      outParameterisedLayers - List of all the available layers
     //      thisContrastLayers     - Array detailing which layers are required for this contrast
-    if (useImaginary) {
-      n = coder::internal::intlength(contrastLayers.size(0), contrastLayers.size
-        (1));
-      thisContrastLayers.set_size(n, 6);
-      for (i = 0; i < 6; i++) {
-        for (int i1{0}; i1 < n; i1++) {
-          thisContrastLayers[i1 + thisContrastLayers.size(0) * i] = 0.0;
-        }
-      }
-    } else {
-      n = coder::internal::intlength(contrastLayers.size(0), contrastLayers.size
-        (1));
-      thisContrastLayers.set_size(n, 5);
-      for (i = 0; i < 5; i++) {
-        for (int i1{0}; i1 < n; i1++) {
-          thisContrastLayers[i1 + thisContrastLayers.size(0) * i] = 0.0;
-        }
+    n_tmp = coder::internal::intlength(contrastLayers.size(0),
+      contrastLayers.size(1));
+    thisContrastLayers.set_size(n_tmp, 6);
+    for (int i{0}; i < 6; i++) {
+      for (int i1{0}; i1 < n_tmp; i1++) {
+        thisContrastLayers[i1 + thisContrastLayers.size(0) * i] = 0.0;
       }
     }
 
-    i = coder::internal::intlength(contrastLayers.size(0), contrastLayers.size(1));
-    for (int b_i{0}; b_i < i; b_i++) {
-      n = thisContrastLayers.size(1);
-      for (int i1{0}; i1 < n; i1++) {
-        thisContrastLayers[b_i + thisContrastLayers.size(0) * i1] =
-          outParameterisedLayers[static_cast<int>(contrastLayers[b_i]) - 1]
-          .f1[i1];
+    for (int b_i{0}; b_i < n_tmp; b_i++) {
+      for (int i{0}; i < 6; i++) {
+        thisContrastLayers[b_i + thisContrastLayers.size(0) * i] =
+          outParameterisedLayers[static_cast<int>(contrastLayers[b_i]) - 1].f1[i];
       }
     }
   }

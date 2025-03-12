@@ -71,27 +71,6 @@ namespace RAT
     coder::internal::blas::mtimes(b_in2, in4, in1);
   }
 
-  void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::array<
-                        double, 2U> &in2, const ::coder::array<double, 2U> &in3)
-  {
-    int loop_ub;
-    int stride_0_1;
-    int stride_1_1;
-    in1.set_size(1, in1.size(1));
-    if (in3.size(1) == 1) {
-      loop_ub = in2.size(1);
-    } else {
-      loop_ub = in3.size(1);
-    }
-
-    in1.set_size(in1.size(0), loop_ub);
-    stride_0_1 = (in2.size(1) != 1);
-    stride_1_1 = (in3.size(1) != 1);
-    for (int i{0}; i < loop_ub; i++) {
-      in1[i] = 0.0 * (in2[i * stride_0_1] - in3[i * stride_1_1]);
-    }
-  }
-
   void binary_expand_op(::coder::array<double, 2U> &in1, double in2, const ::
                         coder::array<double, 2U> &in3, const ::coder::array<
                         double, 2U> &in4)
@@ -111,6 +90,27 @@ namespace RAT
     stride_1_1 = (in4.size(1) != 1);
     for (int i{0}; i < loop_ub; i++) {
       in1[i] = in2 * (in3[i * stride_0_1] - in4[i * stride_1_1]);
+    }
+  }
+
+  void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::array<
+                        double, 2U> &in2, const ::coder::array<double, 2U> &in3)
+  {
+    int loop_ub;
+    int stride_0_1;
+    int stride_1_1;
+    in1.set_size(1, in1.size(1));
+    if (in3.size(1) == 1) {
+      loop_ub = in2.size(1);
+    } else {
+      loop_ub = in3.size(1);
+    }
+
+    in1.set_size(in1.size(0), loop_ub);
+    stride_0_1 = (in2.size(1) != 1);
+    stride_1_1 = (in3.size(1) != 1);
+    for (int i{0}; i < loop_ub; i++) {
+      in1[i] = 0.0 * (in2[i * stride_0_1] - in3[i * stride_1_1]);
     }
   }
 

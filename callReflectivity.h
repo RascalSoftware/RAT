@@ -24,9 +24,8 @@ namespace RAT
                         const double repeatLayers[2], ::coder::array<double, 2U>
                         &layers, double ssubs, const ::coder::array<double, 2U>
                         &resolution, const char parallel_data[], const int
-                        parallel_size[2], boolean_T useImaginary, ::coder::array<
-                        double, 2U> &reflectivity, ::coder::array<double, 2U>
-                        &simulation);
+                        parallel_size[2], ::coder::array<double, 2U>
+                        &reflectivity, ::coder::array<double, 2U> &simulation);
 }
 
 #endif

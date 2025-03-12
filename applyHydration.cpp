@@ -3,21 +3,21 @@
 // granting, nonprofit, education, and research organizations only. Not
 // for commercial or industrial use.
 //
-// applyHydrationImag.cpp
+// applyHydration.cpp
 //
-// Code generation for function 'applyHydrationImag'
+// Code generation for function 'applyHydration'
 //
 
 // Include files
-#include "applyHydrationImag.h"
+#include "applyHydration.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 
 // Function Definitions
 namespace RAT
 {
-  void applyHydrationImag(::coder::array<double, 2U> &thisContrastLayers, double
-    bulkIn, double bulkOut)
+  void applyHydration(::coder::array<double, 2U> &thisContrastLayers, double
+                      bulkIn, double bulkOut)
   {
     ::coder::array<double, 2U> newOutLayers;
     short outSize_idx_0;
@@ -92,4 +92,4 @@ namespace RAT
   }
 }
 
-// End of code generation (applyHydrationImag.cpp)
+// End of code generation (applyHydration.cpp)

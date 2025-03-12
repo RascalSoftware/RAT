@@ -106,31 +106,6 @@ namespace RAT
     coder::internal::mrdiv(b_in2, in5, in1);
   }
 
-  void c_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::array<
-    double, 1U> &in2, const ::coder::array<double, 2U> &in3, const ::coder::
-    array<int, 1U> &in4, const int in5_data[], const int &in5_size)
-  {
-    ::coder::array<double, 1U> b_in3_data;
-    double in3_data;
-    int loop_ub;
-    int stride_0_0;
-    int stride_1_0;
-    if (in5_size == 1) {
-      loop_ub = in4.size(0);
-    } else {
-      loop_ub = in5_size;
-    }
-
-    stride_0_0 = (in4.size(0) != 1);
-    stride_1_0 = (in5_size != 1);
-    for (int i{0}; i < loop_ub; i++) {
-      in3_data = in3[in4[i * stride_0_0] - 1] - in3[in5_data[i * stride_1_0] - 1];
-    }
-
-    b_in3_data.set(&in3_data, loop_ub);
-    coder::internal::mrdiv(in2, b_in3_data, in1);
-  }
-
   namespace coder
   {
     namespace internal

@@ -32,11 +32,13 @@ namespace RAT
         const ::coder::array<double, 2U> &bulkInArray, const ::coder::array<
         double, 2U> &bulkOutArray, const ::coder::array<double, 2U> &cCustFiles,
         double numberOfContrasts, const ::coder::array<cell_wrap_10, 2U>
-        &customFiles, const ::coder::array<double, 2U> &params, ::coder::array<
-        cell_wrap_33, 2U> &slds, ::coder::array<double, 1U> &subRoughs)
+        &customFiles, const ::coder::array<double, 2U> &params, boolean_T
+        useImaginary, ::coder::array<cell_wrap_33, 2U> &slds, ::coder::array<
+        double, 1U> &subRoughs)
       {
         ::coder::array<double, 2U> bulkOuts;
-        ::coder::array<double, 2U> r;
+        ::coder::array<double, 2U> sld1;
+        ::coder::array<double, 2U> sld2;
         int i;
         int loop_ub;
 
@@ -86,7 +88,6 @@ namespace RAT
             coderException(0.0, &b_cv[0]);
           } else {
             double d1;
-            int b_loop_ub;
             d1 = bulkInArray[static_cast<int>(contrastBulkIns[b_i]) - 1];
             iv[0] = (*(int (*)[2])((::coder::array<char, 2U> *)&customFiles[
                       static_cast<int>(d) - 1].f1)->size())[0];
@@ -94,32 +95,116 @@ namespace RAT
                       static_cast<int>(d) - 1].f1)->size())[1];
             subRoughs[b_i] = b_callCppFunction((const char *)((::coder::array<
               char, 2U> *)&customFiles[static_cast<int>(d) - 1].f1)->data(), iv,
-              params, d1, bulkOuts, (static_cast<double>(b_i) + 1.0) - 1.0, r);
-            loop_ub = r.size(1);
-            slds[b_i].f1.set_size(r.size(0), r.size(1));
+              params, d1, bulkOuts, (static_cast<double>(b_i) + 1.0) - 1.0, sld1);
+            iv[0] = (*(int (*)[2])((::coder::array<char, 2U> *)&customFiles[
+                      static_cast<int>(d) - 1].f1)->size())[0];
+            iv[1] = (*(int (*)[2])((::coder::array<char, 2U> *)&customFiles[
+                      static_cast<int>(d) - 1].f1)->size())[1];
+            c_callCppFunction((const char *)((::coder::array<char, 2U> *)
+              &customFiles[static_cast<int>(d) - 1].f1)->data(), iv, params, d1,
+                              bulkOuts, (static_cast<double>(b_i) + 1.0) - 1.0,
+                              sld2);
+          }
+
+          //  If SLD is real, add dummy imaginary column
+          if (!useImaginary) {
+            int b_loop_ub;
+            int result;
+            signed char i3;
+            boolean_T b;
+            boolean_T empty_non_axis_sizes;
+            b = ((sld1.size(0) != 0) && (sld1.size(1) != 0));
+            if (b) {
+              result = sld1.size(0);
+            } else if (sld1.size(0) != 0) {
+              result = sld1.size(0);
+            } else {
+              result = sld1.size(0);
+            }
+
+            empty_non_axis_sizes = (result == 0);
+            if (empty_non_axis_sizes || b) {
+              loop_ub = sld1.size(1);
+            } else {
+              loop_ub = 0;
+            }
+
+            if (empty_non_axis_sizes || (sld1.size(0) != 0)) {
+              i3 = 1;
+            } else {
+              i3 = 0;
+            }
+
+            slds[b_i].f1.set_size(result, loop_ub + i3);
             for (int i1{0}; i1 < loop_ub; i1++) {
-              b_loop_ub = r.size(0);
-              for (int i2{0}; i2 < b_loop_ub; i2++) {
-                slds[b_i].f1[i2 + slds[b_i].f1.size(0) * i1] = r[i2 + r.size(0) *
+              for (int i2{0}; i2 < result; i2++) {
+                slds[b_i].f1[i2 + slds[b_i].f1.size(0) * i1] = sld1[i2 + result *
                   i1];
               }
             }
 
-            iv[0] = (*(int (*)[2])((::coder::array<char, 2U> *)&customFiles[
-                      static_cast<int>(cCustFiles[b_i]) - 1].f1)->size())[0];
-            iv[1] = (*(int (*)[2])((::coder::array<char, 2U> *)&customFiles[
-                      static_cast<int>(cCustFiles[b_i]) - 1].f1)->size())[1];
-            c_callCppFunction((const char *)((::coder::array<char, 2U> *)
-              &customFiles[static_cast<int>(cCustFiles[b_i]) - 1].f1)->data(),
-                              iv, params, d1, bulkOuts, (static_cast<double>(b_i)
-              + 1.0) - 1.0, r);
-            loop_ub = r.size(1);
-            slds[b_i + slds.size(0)].f1.set_size(r.size(0), r.size(1));
+            b_loop_ub = i3;
+            for (int i1{0}; i1 < b_loop_ub; i1++) {
+              for (int i2{0}; i2 < result; i2++) {
+                slds[b_i].f1[i2 + slds[b_i].f1.size(0) * loop_ub] = 0.0;
+              }
+            }
+
+            b = ((sld2.size(0) != 0) && (sld2.size(1) != 0));
+            if (b) {
+              result = sld2.size(0);
+            } else if (sld2.size(0) != 0) {
+              result = sld2.size(0);
+            } else {
+              result = sld2.size(0);
+            }
+
+            empty_non_axis_sizes = (result == 0);
+            if (empty_non_axis_sizes || b) {
+              loop_ub = sld2.size(1);
+            } else {
+              loop_ub = 0;
+            }
+
+            if (empty_non_axis_sizes || (sld2.size(0) != 0)) {
+              b_loop_ub = 1;
+            } else {
+              b_loop_ub = 0;
+            }
+
+            slds[b_i + slds.size(0)].f1.set_size(result, loop_ub + b_loop_ub);
             for (int i1{0}; i1 < loop_ub; i1++) {
-              b_loop_ub = r.size(0);
+              for (int i2{0}; i2 < result; i2++) {
+                slds[b_i + slds.size(0)].f1[i2 + slds[b_i + slds.size(0)].
+                  f1.size(0) * i1] = sld2[i2 + result * i1];
+              }
+            }
+
+            for (int i1{0}; i1 < b_loop_ub; i1++) {
+              for (int i2{0}; i2 < result; i2++) {
+                slds[b_i + slds.size(0)].f1[i2 + slds[b_i + slds.size(0)].
+                  f1.size(0) * loop_ub] = 0.0;
+              }
+            }
+          } else {
+            int b_loop_ub;
+            loop_ub = sld1.size(1);
+            slds[b_i].f1.set_size(sld1.size(0), sld1.size(1));
+            for (int i1{0}; i1 < loop_ub; i1++) {
+              b_loop_ub = sld1.size(0);
+              for (int i2{0}; i2 < b_loop_ub; i2++) {
+                slds[b_i].f1[i2 + slds[b_i].f1.size(0) * i1] = sld1[i2 +
+                  sld1.size(0) * i1];
+              }
+            }
+
+            loop_ub = sld2.size(1);
+            slds[b_i + slds.size(0)].f1.set_size(sld2.size(0), sld2.size(1));
+            for (int i1{0}; i1 < loop_ub; i1++) {
+              b_loop_ub = sld2.size(0);
               for (int i2{0}; i2 < b_loop_ub; i2++) {
                 slds[b_i + slds.size(0)].f1[i2 + slds[b_i + slds.size(0)].
-                  f1.size(0) * i1] = r[i2 + r.size(0) * i1];
+                  f1.size(0) * i1] = sld2[i2 + sld2.size(0) * i1];
               }
             }
           }

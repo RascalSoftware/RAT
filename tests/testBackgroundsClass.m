@@ -112,7 +112,7 @@
          testCase.background.setBackgroundName(3, 'background three');
          testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 1}, ...
                               "background three", 'setBackgroundName method not working');
-         testCase.verifyError(@() testCase.background.setBackgroundName(2, 2), exceptions.invalidType.errorID);
+         testCase.verifyError(@() testCase.background.setBackgroundName(2, 2), 'MATLAB:validators:mustBeTextScalar');
       end
 
       function testSetBackground(testCase)
@@ -120,12 +120,9 @@
           testCase.applyFixture(SuppressedWarningsFixture('warnings:invalidNumberOfInputs'))
           testCase.applyFixture(SuppressedWarningsFixture('warnings:fieldsCleared'))
 
-
          % Checks that background can be modified
          testCase.background.backgrounds.varTable = [testCase.background.backgrounds.varTable; vertcat(testCase.backgrounds(2:end, :))];
          testCase.background.backgroundParams.varTable = [testCase.background.backgroundParams.varTable; vertcat(testCase.parameters(2:end, :))];
-
-
          
          testCase.background.setBackground('Background 1',testCase.names, 'name', 'Back 1');
          testCase.verifyEqual(testCase.background.backgrounds.varTable{1, 1}, "Back 1", 'setBackground method not working');
@@ -136,17 +133,14 @@
          testCase.verifyEqual(testCase.background.backgrounds.varTable{1, 2}, string(allowedTypes.Constant.value), 'setBackground method not working');
          testCase.background.setBackground('Background 1', testCase.names, 'type', allowedTypes.Function.value); 
 
-
-
-
          testCase.verifyEqual(testCase.background.backgrounds.varTable{1, 2}, string(allowedTypes.Function.value), 'setBackground method not working');
          testCase.verifyError(@() testCase.background.setBackground(2, testCase.names, 'type', 'random'), exceptions.invalidOption.errorID);
          
-         testCase.background.setBackground('Background 2', testCase.names, 'Source', 'Background param 1');
+         testCase.background.setBackground('Background 2', testCase.names, 'Source', 1);
          testCase.verifyEqual(testCase.background.backgrounds.varTable{2, 3}, "background param 1", 'setBackground method not working');
          
          testCase.background.setBackground(2, testCase.names, 'Value2', 'Background param 1');
-         testCase.verifyEqual(testCase.background.backgrounds.varTable{2, 5}, "Background param 1", 'setBackground method not working');
+         testCase.verifyEqual(testCase.background.backgrounds.varTable{2, 5}, "background param 1", 'setBackground method not working');
          testCase.verifyError(@() testCase.background.setBackground(2, testCase.names, 'Value2', 'random'), exceptions.nameNotRecognised.errorID);
          testCase.verifyError(@() testCase.background.setBackground(5, testCase.names, 'Value2', 'random'), exceptions.indexOutOfRange.errorID);
          testCase.verifyError(@() testCase.background.setBackground(true, testCase.names, 'Value2', 'random'), exceptions.invalidType.errorID);
@@ -167,11 +161,11 @@
           testCase.verifyWarning(@() testCase.background.setBackground(4, testCase.names, "Value2", "Background param 1"), 'warnings:invalidNumberOfInputs');
       end
 
-      function testDisplayBackgroundsObject(testCase)
+      function testDisplayTable(testCase)
          % Check that the contents of the background are printed
          paramHeader = {'p', 'Name', 'Min', 'Value', 'Max', 'Fit?'};
-         display = evalc('testCase.background.displayBackgroundsObject()');
-         testCase.verifyNotEmpty(display, 'displayBackgroundsObject method not working');
+         display = evalc('testCase.background.displayTable()');
+         testCase.verifyNotEmpty(display, 'displayTable method not working');
          display = split(display, ["(a)", "(b)"]);  % splits background parameter table from background table
          testCase.verifyLength(display, 3);
 
@@ -187,7 +181,7 @@
          row = regexp(displayArray{4}, '\s{2,}', 'split');
          row = string(replace(row, '"', ''));
          testCase.verifyLength(row, length(paramHeader));
-         testCase.verifyEqual(row, string({1, testCase.parameters{1, 1:5}}), 'displayBackgroundsObject method not working')
+         testCase.verifyEqual(row, string({1, testCase.parameters{1, 1:5}}), 'displayTable method not working')
 
          paramHeader = {'p', 'Name', 'Type', 'Source', 'Value 1', 'Value 2', 'Value 3', 'Value 4', 'Value 5'};
          displayArray = textscan(display{3},'%s','Delimiter','\r','TextType','string');
@@ -200,10 +194,10 @@
          row = regexp(displayArray{4}, '\s{2,}', 'split');
          row = string(replace(row, '"', ''));
          testCase.verifyLength(row, length(paramHeader));
-         testCase.verifyEqual(row, string({1, testCase.backgrounds{1, :}}), 'displayBackgroundsObject method not working')
+         testCase.verifyEqual(row, string({1, testCase.backgrounds{1, :}}), 'displayTable method not working')
 
          paramHeader = {'p', 'Name', 'Min', 'Value', 'Max', 'Fit?', 'Prior Type', 'mu', 'sigma'};
-         display = evalc('testCase.background.displayBackgroundsObject(true)');
+         display = evalc('testCase.background.displayTable(true)');
          display = split(display, ["(a)", "(b)"]); 
          displayArray = textscan(display{2},'%s','Delimiter','\r','TextType','string');
          displayArray = strip(displayArray{1});
@@ -213,7 +207,7 @@
          row = regexp(displayArray{4}, '\s{2,}', 'split');
          row = string(replace(row, '"', ''));
          testCase.verifyLength(row, length(paramHeader));
-         testCase.verifyEqual(row, string({1, testCase.parameters{1, :}}), 'displayBackgroundsObject method not working')
+         testCase.verifyEqual(row, string({1, testCase.parameters{1, :}}), 'displayTable method not working')
       end
 
       function testToStruct(testCase)

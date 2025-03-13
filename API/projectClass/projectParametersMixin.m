@@ -124,7 +124,7 @@ classdef projectParametersMixin < handle
             % 
             % Parameters
             % ----------
-            % row : string or char array or integer
+            % row : string or char array or whole number
             %     If ``row`` is an integer, it is the row number of the parameter to remove. If it is text, 
             %     it is the name of the parameter to remove.
             if isa(row, 'double')
@@ -168,7 +168,7 @@ classdef projectParametersMixin < handle
             % 
             % Parameters
             % ----------
-            % row : string or char array or integer
+            % row : string or char array or whole number
             %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
             %     it is the name of the parameter to update.
             % options
@@ -178,7 +178,7 @@ classdef projectParametersMixin < handle
             %       * value (double, default: []) the new value of the parameter.
             %       * max (double, default: []) the new maximum value of the parameter.
             %       * fit (logical, default: logical.empty()) the new fit flag of the parameter.
-            %       * priorTypes (priorTypes, priorTypes.empty()) the new prior type of the parameter.            
+            %       * priorTypes (priorTypes, default: priorTypes.empty()) the new prior type of the parameter.            
             %       * mu (double, default: []) the new mean of the Gaussian function for the prior.            
             %       * sigma (double, default: []) The new standard deviation of the Gaussian function for the prior.   
             arguments
@@ -273,7 +273,7 @@ classdef projectParametersMixin < handle
             % 
             % Parameters
             % ----------
-            % row : string or char array or integer
+            % row : string or char array or whole number
             %     If ``row`` is an integer, it is the row number of the bulk-out parameter to remove. If it is text, 
             %     it is the name of the bulk-out parameter to remove.
             obj.bulkOut.removeParameter(row);
@@ -296,7 +296,7 @@ classdef projectParametersMixin < handle
             % 
             % Parameters
             % ----------
-            % row : string or char array or integer
+            % row : string or char array or whole number
             %     If ``row`` is an integer, it is the row number of the bulk-out parameter to update. If it is text, 
             %     it is the name of the bulk-out parameter to update.
             % options
@@ -306,7 +306,7 @@ classdef projectParametersMixin < handle
             %       * value (double, default: []) the new value of the bulk-out parameter.
             %       * max (double, default: []) the new maximum value of the bulk-out parameter.
             %       * fit (logical, default: logical.empty()) the new fit flag of the bulk-out parameter.
-            %       * priorTypes (priorTypes, priorTypes.empty()) the new prior type of the bulk-out parameter.            
+            %       * priorTypes (priorTypes, default: priorTypes.empty()) the new prior type of the bulk-out parameter.            
             %       * mu (double, default: []) the new mean of the Gaussian function for the prior.            
             %       * sigma (double, default: []) The new standard deviation of the Gaussian function for the prior.   
             arguments
@@ -397,7 +397,7 @@ classdef projectParametersMixin < handle
             % 
             % Parameters
             % ----------
-            % row : string or char array or integer
+            % row : string or char array or whole number
             %     If ``row`` is an integer, it is the row number of the bulk-in parameter to remove. If it is text, 
             %     it is the name of the bulk-in parameter to remove.
             obj.bulkIn.removeParameter(row);
@@ -420,7 +420,7 @@ classdef projectParametersMixin < handle
             % 
             % Parameters
             % ----------
-            % row : string or char array or integer
+            % row : string or char array or whole number
             %     If ``row`` is an integer, it is the row number of the bulk-in parameter to update. If it is text, 
             %     it is the name of the bulk-in parameter to update.
             % options
@@ -430,7 +430,7 @@ classdef projectParametersMixin < handle
             %       * value (double, default: []) the new value of the bulk-in parameter.
             %       * max (double, default: []) the new maximum value of the bulk-in parameter.
             %       * fit (logical, default: logical.empty()) the new fit flag of the bulk-in parameter.
-            %       * priorTypes (priorTypes, priorTypes.empty()) the new prior type of the bulk-in parameter.            
+            %       * priorTypes (priorTypes, default: priorTypes.empty()) the new prior type of the bulk-in parameter.            
             %       * mu (double, default: []) the new mean of the Gaussian function for the prior.            
             %       * sigma (double, default: []) The new standard deviation of the Gaussian function for the prior.   
             arguments
@@ -520,7 +520,7 @@ classdef projectParametersMixin < handle
             % 
             % Parameters
             % ----------
-            % row : string or char array or integer
+            % row : string or char array or whole number
             %     If ``row`` is an integer, it is the row number of the parameter to remove. If it is text, 
             %     it is the name of the parameter to remove.
            obj.scalefactors.removeParameter(row); 
@@ -543,7 +543,7 @@ classdef projectParametersMixin < handle
             % 
             % Parameters
             % ----------
-            % row : string or char array or integer
+            % row : string or char array or whole number
             %     If ``row`` is an integer, it is the row number of the scalefactor parameter to update. If it is text, 
             %     it is the name of the scalefactor parameter to update.
             % options
@@ -553,7 +553,7 @@ classdef projectParametersMixin < handle
             %       * value (double, default: []) the new value of the scalefactor parameter.
             %       * max (double, default: []) the new maximum value of the scalefactor parameter.
             %       * fit (logical, default: logical.empty()) the new fit flag of the scalefactor parameter.
-            %       * priorTypes (priorTypes, priorTypes.empty()) the new prior type of the scalefactor parameter.            
+            %       * priorTypes (priorTypes, default: priorTypes.empty()) the new prior type of the scalefactor parameter.            
             %       * mu (double, default: []) the new mean of the Gaussian function for the prior.            
             %       * sigma (double, default: []) The new standard deviation of the Gaussian function for the prior.   
             arguments

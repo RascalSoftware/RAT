@@ -133,15 +133,14 @@ classdef testResolutionsClass < matlab.unittest.TestCase
  
             testCase.resolution.setResolution(1, 'type', allowedTypes.Constant.value);
             testCase.verifyEqual(testCase.resolution.resolutions.varTable{1, 2}, string(allowedTypes.Constant.value), 'setResolutionValue method not working');
-            testCase.resolution.setResolution('Resolution 1', 'type', allowedTypes.Function.value); 
-            testCase.verifyEqual(testCase.resolution.resolutions.varTable{1, 2}, string(allowedTypes.Function.value), 'setResolutionValue method not working');
+            testCase.verifyError(@() testCase.resolution.setResolution('Resolution 1', 'type', allowedTypes.Function.value), exceptions.invalidOption.errorID);
             testCase.verifyError(@() testCase.resolution.setResolution(2, 'type', 'random'), exceptions.invalidOption.errorID);
             
             testCase.resolution.setResolution('Resolution 2', 'Source', 'Resolution param 1');
             testCase.verifyEqual(testCase.resolution.resolutions.varTable{2, 3}, "Resolution param 1", 'setResolutionValue method not working');
             
             testCase.resolution.setResolution(2, 'Value2', 'Resolution param 1');
-            testCase.verifyEqual(testCase.resolution.resolutions.varTable{2, 5}, "Resolution param 1", 'setResolutionValue method not working');
+            testCase.verifyEqual(testCase.resolution.resolutions.varTable{2, 5}, "", 'setResolutionValue method not working');
             testCase.verifyError(@() testCase.resolution.setResolution(2, 'Value2', 'random'), exceptions.nameNotRecognised.errorID);
             testCase.verifyError(@() testCase.resolution.setResolution(5, 'Value2', 'random'), exceptions.indexOutOfRange.errorID);
             testCase.verifyError(@() testCase.resolution.setResolution(true, 'Value2', 'random'), exceptions.invalidType.errorID);
@@ -151,6 +150,11 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.resolution.resolutions.varTable{3, 2}, string(allowedTypes.Constant.value), 'setResolutionValue method not working');
             testCase.verifyEqual(testCase.resolution.resolutions.varTable{3, 3}, "Resolution param 3", 'setResolutionValue method not working');
             testCase.verifyEqual(testCase.resolution.resolutions.varTable{3, 4}, "", 'setResolutionValue method not working');
+
+            testCase.resolution.setResolution(3, 'type', allowedTypes.Data.value);
+            testCase.verifyEqual(testCase.resolution.resolutions.varTable{3, 1}, "New Name", 'setResolutionValue method not working');
+            testCase.verifyEqual(testCase.resolution.resolutions.varTable{3, 2}, string(allowedTypes.Data.value), 'setResolutionValue method not working');
+            testCase.verifyEqual(testCase.resolution.resolutions.varTable{3, 3}, "", 'setResolutionValue method not working');
         end
 
         function testSetResolutionWarnings(testCase)
@@ -161,11 +165,11 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             testCase.verifyWarning(@() testCase.resolution.setResolution(3, "Value2", "Resolution param 1"), 'warnings:invalidNumberOfInputs');
         end
 
-        function testDisplayResolutionsObject(testCase)
+        function testDisplayTable(testCase)
             % Check that the contents of the resolution are printed
             paramHeader = {'p', 'Name', 'Min', 'Value', 'Max', 'Fit?'};
-            display = evalc('testCase.resolution.displayResolutionsObject()');
-            testCase.verifyNotEmpty(display, 'displayResolutionsObject method not working');
+            display = evalc('testCase.resolution.displayTable()');
+            testCase.verifyNotEmpty(display, 'displayTable method not working');
             display = split(display, ["(a)", "(b)"]);  % splits resolution parameter table from resolution table
             testCase.verifyLength(display, 3);
 
@@ -181,7 +185,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             row = regexp(displayArray{4}, '\s{2,}', 'split');
             row = string(replace(row, '"', ''));
             testCase.verifyLength(row, length(paramHeader));
-            testCase.verifyEqual(row, string({1, testCase.parameters{1, 1:5}}), 'displayResolutionsObject method not working')
+            testCase.verifyEqual(row, string({1, testCase.parameters{1, 1:5}}), 'displayTable method not working')
 
             paramHeader = {'p', 'Name', 'Type', 'Source', 'Value 1', 'Value 2', 'Value 3', 'Value 4', 'Value 5'};
             displayArray = textscan(display{3},'%s','Delimiter','\r','TextType','string');
@@ -194,10 +198,10 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             row = regexp(displayArray{4}, '\s{2,}', 'split');
             row = string(replace(row, '"', ''));
             testCase.verifyLength(row, length(paramHeader));
-            testCase.verifyEqual(row, string({1, testCase.resolutions{1, :}}), 'displayResolutionsObject method not working')
+            testCase.verifyEqual(row, string({1, testCase.resolutions{1, :}}), 'displayTable method not working')
 
             paramHeader = {'p', 'Name', 'Min', 'Value', 'Max', 'Fit?', 'Prior Type', 'mu', 'sigma'};
-            display = evalc('testCase.resolution.displayResolutionsObject(true)');
+            display = evalc('testCase.resolution.displayTable(true)');
             display = split(display, ["(a)", "(b)"]); 
             displayArray = textscan(display{2},'%s','Delimiter','\r','TextType','string');
             displayArray = strip(displayArray{1});
@@ -207,7 +211,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             row = regexp(displayArray{4}, '\s{2,}', 'split');
             row = string(replace(row, '"', ''));
             testCase.verifyLength(row, length(paramHeader));
-            testCase.verifyEqual(row, string({1, testCase.parameters{1, :}}), 'displayResolutionsObject method not working')
+            testCase.verifyEqual(row, string({1, testCase.parameters{1, :}}), 'displayTable method not working')
         end
             
         function testToStruct(testCase)

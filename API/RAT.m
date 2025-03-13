@@ -55,7 +55,7 @@ function [project,result] = RAT(project,controls)
 % dreamParams         [1 x 1] struct       Parameters used to configure dream. 
 % dreamOutput         [1 x 1] struct       Diagnostic output information from a DREAM run. The fields 
 %                                          are ``allChains``, ``outlierChains``, ``runtime``, 
-%                                          ``iteration``, ``AR``, ``R_stat``, and ``CR``.
+%                                          ``iteration``, ``modelOutput``, ``AR``, ``R_stat``, and ``CR``.
 % nestedSamplerOutput [1 x 1] struct       Output from a nested sampler run. The fields are ``LogZ``, 
 %                                          ``LogZErr``, ``nestSamples``, and ``postSamples``.
 % chain               [M x nParams] double MCMC chains where M is the length of each chain.

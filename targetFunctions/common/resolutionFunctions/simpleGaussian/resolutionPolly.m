@@ -1,7 +1,7 @@
-function resolutionCorrection = resolutionPolly(xdata,ydata,resolutionValues,points)
+function simulation = resolutionPolly(xdata,rawSimulation,resolutionValues,points)
 % Apply resolution correction
 
-resolutionCorrection = zeros(points,1);
+simulation = zeros(points,1);
 
 for j = 1:points
 
@@ -12,11 +12,11 @@ for j = 1:points
     for i = ilow:ihi
         g = exp(-1*((xdata(j+i)-xdata(j))/(resolutionValues(j)*xdata(j)))^2);
         sumg = sumg + g;
-        resolutionCorrection(j) = resolutionCorrection(j) + ydata(i+j) * g;
+        simulation(j) = simulation(j) + rawSimulation(i+j) * g;
     end
     
     if (sumg ~= 0)
-        resolutionCorrection(j) = resolutionCorrection(j) / sumg;
+        simulation(j) = simulation(j) / sumg;
     end
 
 end

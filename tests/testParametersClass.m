@@ -49,6 +49,9 @@ classdef testParametersClass < matlab.unittest.TestCase
         end
 
         function testAddParams(testCase)
+            import matlab.unittest.fixtures.SuppressedWarningsFixture
+            testCase.applyFixture(SuppressedWarningsFixture('warnings:nonGaussianPriors'))
+
             params = parametersClass(testCase.parameters{1, :});
             % Checks that parameter can be added
             params.addParameter();
@@ -133,9 +136,9 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyEqual(params.varTable{3, 6:8}, [string(priorTypes.Gaussian.value), 0, Inf], 'setParameter method not working');
             params.setParameter('Tails?', 'mu', 1, 'sigma', 5);
             testCase.verifyEqual(params.varTable{3, 6:8}, [string(priorTypes.Gaussian.value), 1, 5], 'setParameter method not working');
-            testCase.verifyWarning(@() params.setParameter('Tails?', 'priorType', priorTypes.Uniform.value), '');
+            testCase.verifyWarning(@() params.setParameter('Tails?', 'priorType', priorTypes.Uniform.value), 'warnings:nonGaussianPriors');
             testCase.verifyEqual(params.varTable{3, 6:8}, [string(priorTypes.Uniform.value), 0, inf], 'setParameter method not working');
-            testCase.verifyWarning(@() params.setParameter('Tails?', 'sigma', 6), '');
+            testCase.verifyWarning(@() params.setParameter('Tails?', 'sigma', 6), 'warnings:nonGaussianPriors');
             testCase.verifyEqual(params.varTable{3, 6:8}, [string(priorTypes.Uniform.value), 0, inf], 'setParameter method not working');
         end
 
@@ -175,7 +178,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             params.setPrior(1, priorTypes.Gaussian, 1, 2);
             testCase.verifyEqual(params.varTable{1, 6:8}, [string(priorTypes.Gaussian.value), 1, 2], 'setPrior method not working');
             % setPriors changes mu and sigma from [1, 2] to [0, Inf] and throws warning
-            testCase.verifyWarning(@() params.setPrior('Heads', priorTypes.Uniform), '');
+            testCase.verifyWarning(@() params.setPrior('Heads', priorTypes.Uniform), 'warnings:nonGaussianPriors');
             testCase.verifyEqual(params.varTable{1, 6:8}, [string(priorTypes.Uniform.value), 0, Inf], 'setPrior method not working');
             params.setPrior('Heads', priorTypes.Jeffreys);
             % testCase.verifyEqual(params.varTable{1, 6}, string(priorTypes.Jeffreys.value), 'setParameter method not working');

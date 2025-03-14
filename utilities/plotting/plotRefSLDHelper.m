@@ -144,7 +144,7 @@ function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, sh
                 % Because we plot only real SLD, if we have imaginary in
                 % layers then take it out...
                 if size(layers,2) == 4
-                    layer = [layer(:,1:2),layer(:,4)];
+                    layer = layer(:,[1:2,4]);
                 end
                 numberOfLayers = size(layer, 1);
                 nrepeats = 1;

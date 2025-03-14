@@ -1,7 +1,7 @@
-function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiSq] = ...
-    coreLayersCalculation(layers,rough,geometry,bulkIn,bulkOut,resample,...
+function [reflectivity,simulation,shiftedData,layerSld,sldProfile,resampledLayers] = ...
+    coreLayersCalculation(layers,roughness,geometry,bulkIn,bulkOut,resample,...
     calcSld,shiftedData,simulationXData,dataIndices,repeatLayers,resolution,...
-    background,backgroundAction,params,parallelPoints,resampleMinAngle,...
+    background,backgroundAction,parallelPoints,resampleMinAngle,...
     resampleNPoints)
 
 %   This is the main reflectivity calculation for all layers models in the 
@@ -17,54 +17,46 @@ function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiS
 %   called, including the resolution function. The calculation outputs two
 %   profiles - 'reflect' which is the same range as the points, and
 %   'simulation' which can be a different range to allow extrapolation.
-%   The background correction is the applied, and finally chi-squared is 
-%   calculated.
+%   Finally, the background correction is applied.
 
 % Pre-definition for Coder
 sldProfile = [0 0];
 sldProfileIm = [0 0];
+resampledLayers = [0 0 0 0];
 
 % Build up the layers matrix for this contrast
-[theseLayers, ssubs] = groupLayersMod(layers,rough,geometry,bulkIn,bulkOut);
+[layerSld, ssubs] = groupLayersMod(layers,roughness,geometry);
+layerSld = applyHydration(layerSld,bulkIn,bulkOut);
 
 % Make the SLD profiles.
-% If resampling is needed, then enforce the calcSLD flag, so as to catch
-% the error af trying to resample a non-existent profile.
-if (resample == 1 && ~calcSld)
-    calcSld = true;
-end
-
-% If calc SLD flag is set, then calculate the SLD profile
-if calcSld
+% If resampling is needed, then enforce the SLD calculation, so as to
+% prevent the error of trying to resample a non-existent profile.
+if calcSld || resample == 1
 
     % We process real and imaginary parts of the SLD separately
-    thisSldLays = [theseLayers(:,1:2) theseLayers(:,4:end)];
-    thisSldLaysIm = [theseLayers(:,1) theseLayers(:,3:end)];
+    ReSLDLayers = layerSld(:, [1:2,4:end]);
+    ImSLDLayers = layerSld(:, [1,3:end]);
 
     % Note bulkIn and bulkOut = 0 since there is never any imaginary part
     % for the bulk phases.
-    sldProfile = makeSLDProfiles(bulkIn,bulkOut,thisSldLays,ssubs,repeatLayers);
-    sldProfileIm = makeSLDProfiles(0,0,thisSldLaysIm,ssubs,repeatLayers);
+    sldProfile = makeSLDProfiles(bulkIn,bulkOut,ReSLDLayers,ssubs,repeatLayers);
+    sldProfileIm = makeSLDProfiles(0,0,ImSLDLayers,ssubs,repeatLayers);
 
 end
 
 % If required, then resample the SLD
 if resample == 1
-    layerSld = resampleLayers(sldProfile,sldProfileIm,resampleMinAngle,resampleNPoints);
-    resamLayers = layerSld;
+    resampledLayers = resampleLayers(sldProfile,sldProfileIm,resampleMinAngle,resampleNPoints);
+    inputLayers = resampledLayers;
 else
-    layerSld = theseLayers;
-    resamLayers = [0 0 0 0];
+    inputLayers = layerSld;
 end
 
 % Calculate the reflectivity
 reflectivityType = 'standardAbeles';
-[reflect,simulation] = callReflectivity(bulkIn,bulkOut,simulationXData,dataIndices,repeatLayers,layerSld,ssubs,resolution,parallelPoints,reflectivityType);
+[reflectivity,simulation] = callReflectivity(bulkIn,bulkOut,simulationXData,dataIndices,repeatLayers,inputLayers,ssubs,resolution,parallelPoints,reflectivityType);
 
 % Apply background correction
-[reflect,simulation,shiftedData] = applyBackgroundCorrection(reflect,simulation,shiftedData,background,backgroundAction);
-
-% Calculate chi squared.
-chiSq = chiSquared(shiftedData,reflect,params);
+[reflectivity,simulation,shiftedData] = applyBackgroundCorrection(reflectivity,simulation,shiftedData,background,backgroundAction);
 
 end

@@ -90,19 +90,20 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
 
     properties
         
-        parallel = parallelOptions.Single.value
         procedure = procedures.Calculate.value
+        parallel = parallelOptions.Single.value
         calcSldDuringFit = false
         resampleMinAngle = 0.9
         resampleNPoints = 50
         display = displayOptions.Iter.value
-        updateFreq = 1
-        updatePlotFreq = 20
         
         xTolerance = 1e-6
         funcTolerance = 1e-6
         maxFuncEvals = 10000
         maxIterations = 1000
+
+        updateFreq = 1
+        updatePlotFreq = 20
 
         populationSize = 20
         fWeight = 0.5

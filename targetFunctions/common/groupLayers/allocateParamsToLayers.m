@@ -1,40 +1,40 @@
-function outLayers = allocateParamsToLayers(params, layersDetails)
+function layerValues = allocateParamsToLayers(paramValues, layersDetails)
 % Allocates parameters from the parameter array to the correct layers
 %
 % This function takes the list of all layers in 'layersDetails', 
 % then loops over all the layers, putting in the correct
 % parameter value from the parameters array into each layer in
-% the 'outLayers' cell array
+% the 'layerValues' cell array
 
     numberOfLayers = length(layersDetails);
-    outLayers = cell(1,numberOfLayers);
+    layerValues = cell(1,numberOfLayers);
 
     for i = 1:numberOfLayers
-        thisLayer = layersDetails{i};
-        layerLength = length(thisLayer);
-        thisOutLayer = zeros(1,6);
+        layer = layersDetails{i};
+        layerLength = length(layer);
+        outputLayer = zeros(1,6);
 
         % Find thickness, roughness and SLD
-        % If SLD is real, the imaginary column is set to zero
-        for n = 1:(layerLength-3)
-            thisVal = thisLayer(n);
-            thisOutLayer(n) = params(thisVal);
+        % Input layer contains either 5 (real SLD) or 6 (complex SLD)
+        % values. If SLD is real, the imaginary column is set to zero
+        for j = 1:(layerLength-3)
+            outputLayer(j) = paramValues(layer(j));
         end
 
         % Layer Thickness
-        thisOutLayer(4) = params(thisLayer(layerLength-2));
+        outputLayer(4) = paramValues(layer(layerLength-2));
 
         % Get hydration value, which may be NaN
-        if ~isnan(thisLayer(layerLength-1))
-            thisOutLayer(5) = params(thisLayer(layerLength-1));
+        if ~isnan(layer(layerLength-1))
+            outputLayer(5) = paramValues(layer(layerLength-1));
         else
-            thisOutLayer(5) = NaN;
+            outputLayer(5) = NaN;
         end
 
-        % Fill in hydrate with value
-        thisOutLayer(6) = thisLayer(end);
+        % Fill in "hydrate with" value
+        outputLayer(6) = layer(end);
 
-        outLayers{i} = thisOutLayer;
+        layerValues{i} = outputLayer;
     end
 
 end

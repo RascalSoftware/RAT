@@ -1,4 +1,5 @@
 function [problemStruct,results,bayesResults] = RATMain(problemStruct,problemLimits,controls)
+
     % Adds C struct names for inputs
     coder.cstructname(problemStruct.names, 'ParamNames');
     coder.cstructname(problemStruct.checks, 'CheckFlags');
@@ -16,7 +17,12 @@ function [problemStruct,results,bayesResults] = RATMain(problemStruct,problemLim
     
     results = makeEmptyResultStruct(problemStruct.numberOfContrasts, length(problemStruct.fitParams), domains);
     bayesResults = makeEmptyBayesResultsStruct(problemStruct.numberOfContrasts, domains, controls.nChains);
-    
+
+    % Set controls.calcSLD to 1 if we are doing customXY
+    if strcmpi(problemStruct.modelType, coderEnums.modelTypes.CustomXY)
+        controls.calcSldDuringFit = true;
+    end
+
     if problemStruct.numberOfContrasts > 0
         switch controls.procedure
             case coderEnums.procedures.Calculate % Just a single reflectivity calculation
@@ -67,4 +73,5 @@ function [problemStruct,results,bayesResults] = RATMain(problemStruct,problemLim
     coder.cstructname(bayesResults.dreamOutput, 'DreamOutput');
     coder.cstructname(bayesResults.nestedSamplerOutput, 'NestedSamplerOutput');
     coder.cstructname(bayesResults, 'BayesResults');
+    
 end

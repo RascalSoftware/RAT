@@ -42,10 +42,10 @@ function priors = validatePriors(priorType, mu, sigma)
 
     if ~strcmp(priorType, priorTypes.Gaussian.value)
         if mu ~= 0 
-            warning('mu cannot be %d when the prior types is not Gaussian - resetting to 0', mu);
+            warning('warnings:nonGaussianPriors', 'mu cannot be %d when the prior types is not Gaussian - resetting to 0', mu);
         end
         if sigma ~= Inf
-            warning('sigma cannot be %d when the prior types is not Gaussian - resetting to Inf', sigma);
+            warning('warnings:nonGaussianPriors', 'sigma cannot be %d when the prior types is not Gaussian - resetting to Inf', sigma);
         end
         mu = 0;
         sigma = Inf;

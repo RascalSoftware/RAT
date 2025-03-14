@@ -1,7 +1,7 @@
 function [numberOfContrasts, geometry, contrastBackgroundParams, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
 contrastResolutionParams, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIns, bulkOuts, resolutionParams,...
 domainRatios, dataPresent, nParams, params, numberOfLayers, resample, contrastBackgroundTypes, contrastBackgroundActions, contrastResolutionTypes,...
-contrastCustomFiles, useImaginary, repeatLayers, data, dataLimits, simLimits, contrastLayers, layersDetails, customFiles, domainContrastLayers] = extractProblemParams(problemStruct)
+contrastCustomFiles, useImaginary, repeatLayers, data, dataLimits, simulationLimits, contrastLayers, layersDetails, customFiles, domainContrastLayers] = extractProblemParams(problemStruct)
 
 numberOfContrasts = problemStruct.numberOfContrasts;
 geometry = problemStruct.geometry;
@@ -30,7 +30,7 @@ useImaginary = problemStruct.useImaginary;
 repeatLayers = problemStruct.repeatLayers;
 data = problemStruct.data;
 dataLimits = problemStruct.dataLimits;
-simLimits = problemStruct.simulationLimits;
+simulationLimits = problemStruct.simulationLimits;
 contrastLayers = problemStruct.contrastLayers;
 layersDetails = problemStruct.layersDetails;
 customFiles = problemStruct.customFiles;

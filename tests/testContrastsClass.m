@@ -240,7 +240,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testCase.exampleStruct.contrastLayers = {[1 2] [1 2] [1 2]};
             testCase.exampleStruct.contrastRepeatSLDs = {[0 1] [0 1] [0 1]};
             testCase.exampleStruct.dataLimits = {[0.0130 0.3500] [0.0130 0.3500] [0.0130 0.3500]};
-            testCase.exampleStruct.simLimits = {[0.0057 0.3961] [0.0076 0.3300] [0.0063 0.3305]};
+            testCase.exampleStruct.simulationLimits = {[0.0057 0.3961] [0.0076 0.3300] [0.0063 0.3305]};
             testCase.exampleStruct.contrastData = {testCase.D2OData(:,1:3) testCase.SMWData(:,1:3) testCase.H2OData(:,1:3)};
         end
 
@@ -534,7 +534,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
             testCase.exampleStruct.dataPresent(contrastIndex) = 0;
             testCase.exampleStruct.dataLimits{contrastIndex} = [0 0];
-            testCase.exampleStruct.simLimits{contrastIndex} = [0 0];
+            testCase.exampleStruct.simulationLimits{contrastIndex} = [0 0];
             testCase.exampleStruct.contrastData{contrastIndex} = [0 0 0];
 
             testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'standard layers', testCase.varTable), testCase.exampleStruct);

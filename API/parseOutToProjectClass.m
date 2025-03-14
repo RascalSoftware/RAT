@@ -1,7 +1,7 @@
 function project = parseOutToProjectClass(project,problemStruct)
 
-%Reconstruct the project class as an output
-%Using the outputs from the calculation(s)
+% Reconstruct the project class as an output
+% using the outputs from the calculation(s)
 
 %(1) Parameters
 params = problemStruct.params;

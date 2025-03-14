@@ -184,10 +184,10 @@ namespace RAT
       i3 = highXVals[highXVals.size(0) - 1];
     }
 
-    if (coder::internal::s_strcmp(backgroundAction_data, backgroundAction_size))
+    if (coder::internal::t_strcmp(backgroundAction_data, backgroundAction_size))
     {
       k = 0;
-    } else if (coder::internal::t_strcmp(backgroundAction_data,
+    } else if (coder::internal::u_strcmp(backgroundAction_data,
                 backgroundAction_size)) {
       k = 1;
     } else {

@@ -13,8 +13,8 @@
 #include "RATMain_data.h"
 #include "RATMain_rtwutil.h"
 #include "exp.h"
+#include "findkn.h"
 #include "rt_nonfinite.h"
-#include "sqrt.h"
 #include "coder_array.h"
 #include <cmath>
 
@@ -22,19 +22,18 @@
 namespace RAT
 {
   void abelesSingle(const ::coder::array<double, 1U> &q, double N, const ::coder::
-                    array<double, 1U> &layers_thick, const ::coder::array<
-                    creal_T, 1U> &layers_rho, const ::coder::array<double, 1U>
-                    &layers_sig, ::coder::array<double, 1U> &ref)
+                    array<double, 1U> &layersThick, const ::coder::array<creal_T,
+                    1U> &layersRho, const ::coder::array<double, 1U>
+                    &layersSigma, ::coder::array<double, 1U> &ref)
   {
     creal_T M_n[2][2];
     creal_T M_res[2][2];
     creal_T M_tot[2][2];
     creal_T M_n_tmp;
-    creal_T dc;
-    double bulk_in_SLD_im;
-    double bulk_in_SLD_re;
-    double d;
-    double k0_im;
+    creal_T b_layersRho;
+    double M_n_tmp_tmp;
+    double bulkInSLD_im;
+    double bulkInSLD_re;
     int i;
     int i1;
     int loop_ub;
@@ -54,117 +53,84 @@ namespace RAT
 
     i = q.size(0);
     if (i - 1 >= 0) {
-      bulk_in_SLD_re = layers_rho[0].re;
-      bulk_in_SLD_im = layers_rho[0].im + 1.0E-30;
-      k0_im = 0.0 - 12.566370614359172 * (layers_rho[1].im - (layers_rho[0].im +
-        1.0E-30));
-      d = layers_sig[1] * layers_sig[1];
+      bulkInSLD_re = layersRho[0].re;
+      bulkInSLD_im = layersRho[0].im + 1.0E-30;
+      b_layersRho.re = layersRho[1].re - layersRho[0].re;
+      b_layersRho.im = layersRho[1].im - (layersRho[0].im + 1.0E-30);
+      M_n_tmp_tmp = layersSigma[1] * layersSigma[1];
       i1 = static_cast<int>((N - 1.0) - 1.0);
     }
 
     for (int points{0}; points < i; points++) {
+      creal_T k1;
       double ar;
       double br;
       double brm;
-      double im;
       double k0;
+      double k0_im;
       double k0_re;
-      double k0_re_tmp;
-      double k1_im;
-      double k1_re;
       double kn_ptr_im;
       double kn_ptr_re;
       double r01_im;
       double r01_re;
-      double re;
-      double sgnbr;
       k0 = q[points] / 2.0;
 
       //  Find k1..
-      //  sqrt function with branch cut in zarg from 0 to infinity along a ray
-      //  at angle theta (in radians) measured from the +x axis in the usual way,
-      //  with -pi<=theta<=pi.  theta = pi is the usual square root.
-      //  for zarg on the +x axis, sqrt behavior is conserved,
-      //  i.e. sqrtbc(theta,zarg) is positive and real for any theta.
-      //
-      //  y = sqrtbc(theta,zarg)
-      dc.re = 0.0;
-      dc.im = -0.78539816339744828;
-      coder::b_exp(dc);
-      M_n_tmp.re = 0.0;
-      M_n_tmp.im = 1.5707963267948966;
-      coder::b_exp(M_n_tmp);
-      k0_re_tmp = k0 * k0;
-      k0_re = k0_re_tmp - 12.566370614359172 * (layers_rho[1].re - layers_rho[0]
-        .re);
-      re = k0_re * M_n_tmp.re - k0_im * M_n_tmp.im;
-      im = k0_re * M_n_tmp.im + k0_im * M_n_tmp.re;
-      M_n_tmp.re = re;
-      M_n_tmp.im = im;
-      coder::internal::scalar::d_sqrt(&M_n_tmp);
-      k1_re = dc.re * M_n_tmp.re - dc.im * M_n_tmp.im;
-      k1_im = dc.re * M_n_tmp.im + dc.im * M_n_tmp.re;
+      k1 = findkn(k0, b_layersRho);
 
-      //  translations:  sqrtbc(theta, z-b) has branch cut in the z plane from
-      //  branch point z = b out to infinity, along a ray at angle theta.
-      //
-      //  for the usual square root with branch cut along -x,
-      //  the real part of sqrt(z) is positive (or 0) for all z.
-      //  for the modified square root with branch cut along +x,
-      //  the imaginary part of sqrt(z) is positive (or 0) for all z.
       //  Find r01
-      dc.re = d * (k0 * (-2.0 * k1_re));
-      dc.im = d * (k0 * (-2.0 * k1_im));
-      coder::b_exp(dc);
-      ar = k0 - k1_re;
-      br = k0 + k1_re;
-      if (k1_im == 0.0) {
+      M_n_tmp.re = M_n_tmp_tmp * (k0 * (-2.0 * k1.re));
+      M_n_tmp.im = M_n_tmp_tmp * (k0 * (-2.0 * k1.im));
+      coder::b_exp(M_n_tmp);
+      ar = k0 - k1.re;
+      br = k0 + k1.re;
+      if (k1.im == 0.0) {
         k0_re = ar / br;
-        im = 0.0;
+        k0_im = 0.0;
       } else if (br == 0.0) {
         if (ar == 0.0) {
-          k0_re = (0.0 - k1_im) / k1_im;
-          im = 0.0;
-        } else if (0.0 - k1_im == 0.0) {
+          k0_re = (0.0 - k1.im) / k1.im;
+          k0_im = 0.0;
+        } else if (0.0 - k1.im == 0.0) {
           k0_re = 0.0;
-          im = -(ar / k1_im);
+          k0_im = -(ar / k1.im);
         } else {
-          k0_re = (0.0 - k1_im) / k1_im;
-          im = -(ar / k1_im);
+          k0_re = (0.0 - k1.im) / k1.im;
+          k0_im = -(ar / k1.im);
         }
       } else {
         brm = std::abs(br);
-        im = std::abs(k1_im);
-        if (brm > im) {
-          brm = k1_im / br;
-          im = br + brm * k1_im;
-          k0_re = (ar + brm * (0.0 - k1_im)) / im;
-          im = ((0.0 - k1_im) - brm * ar) / im;
-        } else if (im == brm) {
+        k0_im = std::abs(k1.im);
+        if (brm > k0_im) {
+          brm = k1.im / br;
+          k0_im = br + brm * k1.im;
+          k0_re = (ar + brm * (0.0 - k1.im)) / k0_im;
+          k0_im = ((0.0 - k1.im) - brm * ar) / k0_im;
+        } else if (k0_im == brm) {
           if (br > 0.0) {
-            sgnbr = 0.5;
+            br = 0.5;
           } else {
-            sgnbr = -0.5;
+            br = -0.5;
           }
 
-          if (k1_im > 0.0) {
-            im = 0.5;
+          if (k1.im > 0.0) {
+            k0_im = 0.5;
           } else {
-            im = -0.5;
+            k0_im = -0.5;
           }
 
-          k0_re = (ar * sgnbr + (0.0 - k1_im) * im) / brm;
-          im = ((0.0 - k1_im) * sgnbr - ar * im) / brm;
+          k0_re = (ar * br + (0.0 - k1.im) * k0_im) / brm;
+          k0_im = ((0.0 - k1.im) * br - ar * k0_im) / brm;
         } else {
-          brm = br / k1_im;
-          im = k1_im + brm * br;
-          k0_re = (brm * ar + (0.0 - k1_im)) / im;
-          im = (brm * (0.0 - k1_im) - ar) / im;
+          brm = br / k1.im;
+          k0_im = k1.im + brm * br;
+          k0_re = (brm * ar + (0.0 - k1.im)) / k0_im;
+          k0_im = (brm * (0.0 - k1.im) - ar) / k0_im;
         }
       }
 
-      r01_re = k0_re * dc.re - im * dc.im;
-      r01_im = k0_re * dc.im + im * dc.re;
+      r01_re = k0_re * M_n_tmp.re - k0_im * M_n_tmp.im;
+      r01_im = k0_re * M_n_tmp.im + k0_im * M_n_tmp.re;
 
       //  Generate the M1 matrix:
       M_tot[0][0].re = 1.0;
@@ -175,123 +141,98 @@ namespace RAT
       M_tot[0][1].im = r01_im;
       M_tot[1][1].re = 1.0;
       M_tot[1][1].im = 0.0;
-      kn_ptr_re = k1_re;
-      kn_ptr_im = k1_im;
+      kn_ptr_re = k1.re;
+      kn_ptr_im = k1.im;
       for (int n{0}; n < i1; n++) {
+        creal_T c_layersRho;
+        creal_T knp1;
         double ai;
         double b_kn_ptr_re;
         double beta_im;
         double beta_re;
+        double d;
         double d1;
-        double knp1_im;
-        double knp1_re;
+        double d2;
         double r_n_np1_im;
         double r_n_np1_re;
 
         //  Find kn and k_n+1 (ex. k1 and k2 for n=1): _/
-        //  sqrt function with branch cut in zarg from 0 to infinity along a ray
-        //  at angle theta (in radians) measured from the +x axis in the usual way,
-        //  with -pi<=theta<=pi.  theta = pi is the usual square root.
-        //  for zarg on the +x axis, sqrt behavior is conserved,
-        //  i.e. sqrtbc(theta,zarg) is positive and real for any theta.
-        //
-        //  y = sqrtbc(theta,zarg)
-        dc.re = 0.0;
-        dc.im = -0.78539816339744828;
-        coder::b_exp(dc);
-        M_n_tmp.re = 0.0;
-        M_n_tmp.im = 1.5707963267948966;
-        coder::b_exp(M_n_tmp);
-        k0_re = k0_re_tmp - 12.566370614359172 * (layers_rho[n + 2].re -
-          bulk_in_SLD_re);
-        im = 0.0 - 12.566370614359172 * (layers_rho[n + 2].im - bulk_in_SLD_im);
-        re = k0_re * M_n_tmp.re - im * M_n_tmp.im;
-        im = k0_re * M_n_tmp.im + im * M_n_tmp.re;
-        M_n_tmp.re = re;
-        M_n_tmp.im = im;
-        coder::internal::scalar::d_sqrt(&M_n_tmp);
-        knp1_re = dc.re * M_n_tmp.re - dc.im * M_n_tmp.im;
-        knp1_im = dc.re * M_n_tmp.im + dc.im * M_n_tmp.re;
+        c_layersRho.re = layersRho[n + 2].re - bulkInSLD_re;
+        c_layersRho.im = layersRho[n + 2].im - bulkInSLD_im;
+        knp1 = findkn(k0, c_layersRho);
 
-        //  translations:  sqrtbc(theta, z-b) has branch cut in the z plane from
-        //  branch point z = b out to infinity, along a ray at angle theta.
-        //
-        //  for the usual square root with branch cut along -x,
-        //  the real part of sqrt(z) is positive (or 0) for all z.
-        //  for the modified square root with branch cut along +x,
-        //  the imaginary part of sqrt(z) is positive (or 0) for all z.
         //  Find r_n,n+1:
-        re = -2.0 * kn_ptr_re;
-        im = -2.0 * kn_ptr_im;
-        d1 = layers_sig[n + 2];
-        d1 *= d1;
-        dc.re = d1 * (re * knp1_re - im * knp1_im);
-        dc.im = d1 * (re * knp1_im + im * knp1_re);
-        coder::b_exp(dc);
-        ar = kn_ptr_re - knp1_re;
-        ai = kn_ptr_im - knp1_im;
-        br = kn_ptr_re + knp1_re;
-        re = kn_ptr_im + knp1_im;
-        if (re == 0.0) {
+        k0_im = -2.0 * kn_ptr_re;
+        k0_re = -2.0 * kn_ptr_im;
+        br = layersSigma[n + 2];
+        br *= br;
+        M_n_tmp.re = br * (k0_im * knp1.re - k0_re * knp1.im);
+        M_n_tmp.im = br * (k0_im * knp1.im + k0_re * knp1.re);
+        coder::b_exp(M_n_tmp);
+        ar = kn_ptr_re - knp1.re;
+        ai = kn_ptr_im - knp1.im;
+        br = kn_ptr_re + knp1.re;
+        k0_re = kn_ptr_im + knp1.im;
+        if (k0_re == 0.0) {
           if (ai == 0.0) {
             b_kn_ptr_re = ar / br;
-            im = 0.0;
+            k0_im = 0.0;
           } else if (ar == 0.0) {
             b_kn_ptr_re = 0.0;
-            im = ai / br;
+            k0_im = ai / br;
           } else {
             b_kn_ptr_re = ar / br;
-            im = ai / br;
+            k0_im = ai / br;
           }
         } else if (br == 0.0) {
           if (ar == 0.0) {
-            b_kn_ptr_re = ai / re;
-            im = 0.0;
+            b_kn_ptr_re = ai / k0_re;
+            k0_im = 0.0;
           } else if (ai == 0.0) {
             b_kn_ptr_re = 0.0;
-            im = -(ar / re);
+            k0_im = -(ar / k0_re);
           } else {
-            b_kn_ptr_re = ai / re;
-            im = -(ar / re);
+            b_kn_ptr_re = ai / k0_re;
+            k0_im = -(ar / k0_re);
           }
         } else {
           brm = std::abs(br);
-          im = std::abs(re);
-          if (brm > im) {
-            brm = re / br;
-            im = br + brm * re;
-            b_kn_ptr_re = (ar + brm * ai) / im;
-            im = (ai - brm * ar) / im;
-          } else if (im == brm) {
+          k0_im = std::abs(k0_re);
+          if (brm > k0_im) {
+            brm = k0_re / br;
+            k0_im = br + brm * k0_re;
+            b_kn_ptr_re = (ar + brm * ai) / k0_im;
+            k0_im = (ai - brm * ar) / k0_im;
+          } else if (k0_im == brm) {
             if (br > 0.0) {
-              sgnbr = 0.5;
+              br = 0.5;
             } else {
-              sgnbr = -0.5;
+              br = -0.5;
             }
 
-            if (re > 0.0) {
-              im = 0.5;
+            if (k0_re > 0.0) {
+              k0_im = 0.5;
             } else {
-              im = -0.5;
+              k0_im = -0.5;
             }
 
-            b_kn_ptr_re = (ar * sgnbr + ai * im) / brm;
-            im = (ai * sgnbr - ar * im) / brm;
+            b_kn_ptr_re = (ar * br + ai * k0_im) / brm;
+            k0_im = (ai * br - ar * k0_im) / brm;
           } else {
-            brm = br / re;
-            im = re + brm * br;
-            b_kn_ptr_re = (brm * ar + ai) / im;
-            im = (brm * ai - ar) / im;
+            brm = br / k0_re;
+            k0_im = k0_re + brm * br;
+            b_kn_ptr_re = (brm * ar + ai) / k0_im;
+            k0_im = (brm * ai - ar) / k0_im;
           }
         }
 
-        r_n_np1_re = b_kn_ptr_re * dc.re - im * dc.im;
-        r_n_np1_im = b_kn_ptr_re * dc.im + im * dc.re;
+        r_n_np1_re = b_kn_ptr_re * M_n_tmp.re - k0_im * M_n_tmp.im;
+        r_n_np1_im = b_kn_ptr_re * M_n_tmp.im + k0_im * M_n_tmp.re;
 
         //  Find the Phase Factor = (k_n * d_n)
-        im = layers_thick[n + 1];
-        kn_ptr_re *= im;
-        kn_ptr_im *= im;
+        k0_im = layersThick[n + 1];
+        kn_ptr_re *= k0_im;
+        kn_ptr_im *= k0_im;
         beta_re = kn_ptr_re * 0.0 - kn_ptr_im;
         beta_im = kn_ptr_re + kn_ptr_im * 0.0;
 
@@ -307,25 +248,25 @@ namespace RAT
         coder::b_exp(M_n_tmp);
 
         //  Multiply the matrices
-        d1 = M_n[0][0].re;
-        b_kn_ptr_re = M_n[0][0].im;
-        ar = r_n_np1_re * M_n_tmp.re - r_n_np1_im * M_n_tmp.im;
-        im = r_n_np1_re * M_n_tmp.im + r_n_np1_im * M_n_tmp.re;
-        re = M_n[1][0].re;
+        d = M_n[0][0].re;
+        d1 = M_n[0][0].im;
+        d2 = r_n_np1_re * M_n_tmp.re - r_n_np1_im * M_n_tmp.im;
+        k0_im = r_n_np1_re * M_n_tmp.im + r_n_np1_im * M_n_tmp.re;
+        k0_re = M_n[1][0].re;
         br = M_n[1][0].im;
         for (loop_ub = 0; loop_ub < 2; loop_ub++) {
           brm = M_tot[0][loop_ub].re;
-          sgnbr = M_tot[0][loop_ub].im;
-          k0_re = M_tot[1][loop_ub].re;
-          ai = M_tot[1][loop_ub].im;
-          M_res[0][loop_ub].re = (brm * d1 - sgnbr * b_kn_ptr_re) + (k0_re * ar
-            - ai * im);
-          M_res[0][loop_ub].im = (brm * b_kn_ptr_re + sgnbr * d1) + (k0_re * im
-            + ai * ar);
-          M_res[1][loop_ub].re = (brm * re - sgnbr * br) + (k0_re * M_n_tmp.re -
-            ai * M_n_tmp.im);
-          M_res[1][loop_ub].im = (brm * br + sgnbr * re) + (k0_re * M_n_tmp.im +
-            ai * M_n_tmp.re);
+          ai = M_tot[0][loop_ub].im;
+          ar = M_tot[1][loop_ub].re;
+          b_kn_ptr_re = M_tot[1][loop_ub].im;
+          M_res[0][loop_ub].re = (brm * d - ai * d1) + (ar * d2 - b_kn_ptr_re *
+            k0_im);
+          M_res[0][loop_ub].im = (brm * d1 + ai * d) + (ar * k0_im + b_kn_ptr_re
+            * d2);
+          M_res[1][loop_ub].re = (brm * k0_re - ai * br) + (ar * M_n_tmp.re -
+            b_kn_ptr_re * M_n_tmp.im);
+          M_res[1][loop_ub].im = (brm * br + ai * k0_re) + (ar * M_n_tmp.im +
+            b_kn_ptr_re * M_n_tmp.re);
         }
 
         //  Reassign the values back to M_tot:
@@ -335,8 +276,8 @@ namespace RAT
         M_tot[1][1] = M_res[1][1];
 
         //  Point to k_n+1 and sld_n+1 via kn_ptr sld_n_ptr:
-        kn_ptr_re = knp1_re;
-        kn_ptr_im = knp1_im;
+        kn_ptr_re = knp1.re;
+        kn_ptr_im = knp1.im;
       }
 
       if (M_res[0][0].im == 0.0) {
@@ -363,37 +304,37 @@ namespace RAT
         }
       } else {
         brm = std::abs(M_res[0][0].re);
-        im = std::abs(M_res[0][0].im);
-        if (brm > im) {
+        k0_im = std::abs(M_res[0][0].im);
+        if (brm > k0_im) {
           brm = M_res[0][0].im / M_res[0][0].re;
-          im = M_res[0][0].re + brm * M_res[0][0].im;
-          M_n_tmp.re = (M_res[0][1].re + brm * M_res[0][1].im) / im;
-          M_n_tmp.im = (M_res[0][1].im - brm * M_res[0][1].re) / im;
-        } else if (im == brm) {
+          k0_im = M_res[0][0].re + brm * M_res[0][0].im;
+          M_n_tmp.re = (M_res[0][1].re + brm * M_res[0][1].im) / k0_im;
+          M_n_tmp.im = (M_res[0][1].im - brm * M_res[0][1].re) / k0_im;
+        } else if (k0_im == brm) {
           if (M_res[0][0].re > 0.0) {
-            sgnbr = 0.5;
+            br = 0.5;
           } else {
-            sgnbr = -0.5;
+            br = -0.5;
           }
 
           if (M_res[0][0].im > 0.0) {
-            im = 0.5;
+            k0_im = 0.5;
           } else {
-            im = -0.5;
+            k0_im = -0.5;
           }
 
-          M_n_tmp.re = (M_res[0][1].re * sgnbr + M_res[0][1].im * im) / brm;
-          M_n_tmp.im = (M_res[0][1].im * sgnbr - M_res[0][1].re * im) / brm;
+          M_n_tmp.re = (M_res[0][1].re * br + M_res[0][1].im * k0_im) / brm;
+          M_n_tmp.im = (M_res[0][1].im * br - M_res[0][1].re * k0_im) / brm;
         } else {
           brm = M_res[0][0].re / M_res[0][0].im;
-          im = M_res[0][0].im + brm * M_res[0][0].re;
-          M_n_tmp.re = (brm * M_res[0][1].re + M_res[0][1].im) / im;
-          M_n_tmp.im = (brm * M_res[0][1].im - M_res[0][1].re) / im;
+          k0_im = M_res[0][0].im + brm * M_res[0][0].re;
+          M_n_tmp.re = (brm * M_res[0][1].re + M_res[0][1].im) / k0_im;
+          M_n_tmp.im = (brm * M_res[0][1].im - M_res[0][1].re) / k0_im;
         }
       }
 
-      im = rt_hypotd_snf(M_n_tmp.re, M_n_tmp.im);
-      ref[points] = im * im;
+      k0_im = rt_hypotd_snf(M_n_tmp.re, M_n_tmp.im);
+      ref[points] = k0_im * k0_im;
     }
   }
 }

@@ -20,46 +20,46 @@
 // Function Definitions
 namespace RAT
 {
-  double chiSquared(const ::coder::array<double, 2U> &thisData, const ::coder::
-                    array<double, 2U> &thisFit, double P)
+  double chiSquared(const ::coder::array<double, 2U> &shiftedData, const ::coder::
+                    array<double, 2U> &reflectivity, double nParams)
   {
     ::coder::array<double, 1U> terms;
     ::coder::array<int, 1U> n;
     ::coder::array<boolean_T, 1U> b_terms;
-    double b_thisData[2];
+    double b_shiftedData[2];
     double N;
     int i;
     int loop_ub;
 
     //  Chi-squared function is used to evaluate the goodness of fit.
-    //  It is a measure of the difference between the observed and expected.
-    // chiValues = zeros(1,numberOfContrasts);
-    //      thisData = data{i};
-    //      thisFit = allFits{i};
-    b_thisData[0] = thisData.size(0);
-    b_thisData[1] = 1.0;
-    N = coder::internal::maximum(b_thisData);
-    if (N <= P) {
-      N = P + 1.0;
+    //  It is a measure of the difference between the observed and expected
+    //  reflectivity.
+    b_shiftedData[0] = shiftedData.size(0);
+    b_shiftedData[1] = 1.0;
+    N = coder::internal::maximum(b_shiftedData);
+    if (N <= nParams) {
+      N = nParams + 1.0;
     }
 
-    if (thisData.size(0) == 1) {
-      i = thisFit.size(0);
+    if (shiftedData.size(0) == 1) {
+      i = reflectivity.size(0);
     } else {
-      i = thisData.size(0);
+      i = shiftedData.size(0);
     }
 
-    if ((thisData.size(0) == thisFit.size(0)) && (i == thisData.size(0))) {
-      terms.set_size(thisData.size(0));
-      loop_ub = thisData.size(0);
+    if ((shiftedData.size(0) == reflectivity.size(0)) && (i == shiftedData.size
+         (0))) {
+      terms.set_size(shiftedData.size(0));
+      loop_ub = shiftedData.size(0);
       for (i = 0; i < loop_ub; i++) {
         double varargin_1;
-        varargin_1 = (thisData[i + thisData.size(0)] - thisFit[i + thisFit.size
-                      (0)]) / thisData[i + thisData.size(0) * 2];
+        varargin_1 = (shiftedData[i + shiftedData.size(0)] - reflectivity[i +
+                      reflectivity.size(0)]) / shiftedData[i + shiftedData.size
+          (0) * 2];
         terms[i] = varargin_1 * varargin_1;
       }
     } else {
-      binary_expand_op(terms, thisData, thisFit);
+      binary_expand_op(terms, shiftedData, reflectivity);
     }
 
     b_terms.set_size(terms.size(0));
@@ -76,9 +76,7 @@ namespace RAT
       }
     }
 
-    return 1.0 / (N - P) * coder::sum(terms);
-
-    // chiValues(i) = chi2;
+    return coder::sum(terms) / (N - nParams);
   }
 }
 

@@ -25,6 +25,8 @@ namespace RAT
     {
       void nullAssignment(::coder::array<double, 2U> &x, const ::coder::array<
                           int, 2U> &idx);
+      void nullAssignment(::coder::array<double, 2U> &x, const int idx_data[],
+                          const int idx_size[2]);
       void nullAssignment(const ::coder::array<double, 2U> &x, ::coder::array<
                           double, 2U> &b_x);
       void nullAssignment(::coder::array<double, 2U> &x);

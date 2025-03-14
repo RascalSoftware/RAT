@@ -16,36 +16,36 @@
 // Function Definitions
 namespace RAT
 {
-  double backSort(double contrastScalefactors, double contrastBulkIns, double
-                  contrastBulkOuts, const ::coder::array<double, 2U>
-                  &scalefactors, const ::coder::array<double, 2U> &bulkIn, const
-                  ::coder::array<double, 2U> &bulkOut, double &outScalefactor,
-                  double &outBulkIn, double &outBulkOut)
+  double backSort(double scalefactorIndex, double bulkInIndex, double
+                  bulkOutIndex, const ::coder::array<double, 2U>
+                  &scalefactorValues, const ::coder::array<double, 2U>
+                  &bulkInValues, const ::coder::array<double, 2U> &bulkOutValues,
+                  double &scalefactor, double &bulkIn, double &bulkOut)
   {
-    double outQzshift;
+    double qzshift;
 
     //  Distributes the background and shift values among the different contrasts
     //
     //  INPUTS:
-    //     * contrastQzshifts: Which qz_shift value is associated with each contrast
-    //     * contrastScalefactors: Which scalefactor value is associated with each contrast
-    //     * contrastBulkIns: Which BulkIn value is associated with each contrast
-    //     * contrastBulkOuts: Which BulkOut value is associated with each contrast
-    //     * qzshifts: List of all qzshift values
-    //     * scalefactors: List of all scalefactor values
-    //     * bulkIn: List of all bulkIn values
-    //     * bulkOut: List of all bulkOut values
+    //     * qzshiftIndex: Index of the qzshift value associated with this contrast
+    //     * scalefactorIndex: Index of the scalefactor value  associated with this contrast
+    //     * bulkInIndex: Index of the BulkIn value associated with this contrast
+    //     * bulkOutIndex: Index of the BulkOut value associated with this contrast
+    //     * qzshiftValues: List of all qzshift values
+    //     * scalefactorValues: List of all scalefactor values
+    //     * bulkInValues: List of all bulk In values
+    //     * bulkOutValues: List of all bulk Out values
     //
     //  OUTPUTS:
-    //     * outQzshift: list of actual qzshift values for each contrast
-    //     * outScalefactor: list of actual scalefactor values for each contrast
-    //     * outBulkIn: list of actual bulkIn values for each contrast
-    //     * outBulkOut: list of actual bulkOut values for each contrast
-    outQzshift = 0.0;
-    outScalefactor = scalefactors[static_cast<int>(contrastScalefactors) - 1];
-    outBulkIn = bulkIn[static_cast<int>(contrastBulkIns) - 1];
-    outBulkOut = bulkOut[static_cast<int>(contrastBulkOuts) - 1];
-    return outQzshift;
+    //     * qzshift: qzshift value for this contrast
+    //     * scalefactor: scalefactor value for this contrast
+    //     * bulkIn: bulk In value for this contrast
+    //     * bulkOut: bulk Out value for this contrast
+    qzshift = 0.0;
+    scalefactor = scalefactorValues[static_cast<int>(scalefactorIndex) - 1];
+    bulkIn = bulkInValues[static_cast<int>(bulkInIndex) - 1];
+    bulkOut = bulkOutValues[static_cast<int>(bulkOutIndex) - 1];
+    return qzshift;
   }
 }
 

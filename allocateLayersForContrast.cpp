@@ -18,9 +18,9 @@
 // Function Definitions
 namespace RAT
 {
-  void allocateLayersForContrast(const ::coder::array<double, 2U>
-    &contrastLayers, const ::coder::array<cell_wrap_54, 2U>
-    &outParameterisedLayers, ::coder::array<double, 2U> &thisContrastLayers)
+  void allocateLayersForContrast(const ::coder::array<double, 2U> &layerIndices,
+    const ::coder::array<cell_wrap_52, 2U> &layerValues, ::coder::array<double,
+    2U> &layers)
   {
     int n_tmp;
 
@@ -30,21 +30,20 @@ namespace RAT
     //  a particular contrast.
     //
     //  INPUTS:
-    //      outParameterisedLayers - List of all the available layers
-    //      thisContrastLayers     - Array detailing which layers are required for this contrast
-    n_tmp = coder::internal::intlength(contrastLayers.size(0),
-      contrastLayers.size(1));
-    thisContrastLayers.set_size(n_tmp, 6);
+    //      layerValues      - List of all the available layers
+    //      layerIndices     - Array detailing which layers are required for this contrast
+    n_tmp = coder::internal::intlength(layerIndices.size(0), layerIndices.size(1));
+    layers.set_size(n_tmp, 6);
     for (int i{0}; i < 6; i++) {
       for (int i1{0}; i1 < n_tmp; i1++) {
-        thisContrastLayers[i1 + thisContrastLayers.size(0) * i] = 0.0;
+        layers[i1 + layers.size(0) * i] = 0.0;
       }
     }
 
     for (int b_i{0}; b_i < n_tmp; b_i++) {
       for (int i{0}; i < 6; i++) {
-        thisContrastLayers[b_i + thisContrastLayers.size(0) * i] =
-          outParameterisedLayers[static_cast<int>(contrastLayers[b_i]) - 1].f1[i];
+        layers[b_i + layers.size(0) * i] = layerValues[static_cast<int>
+          (layerIndices[b_i]) - 1].f1[i];
       }
     }
   }

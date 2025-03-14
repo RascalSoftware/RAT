@@ -19,8 +19,8 @@
 namespace RAT
 {
   void shiftData(double scalefactor, double dataPresent, ::coder::array<double,
-                 2U> &data, const double dataLimits[2], const double simLimits[2],
-                 ::coder::array<double, 2U> &shiftedData)
+                 2U> &data, const double dataLimits[2], const double
+                 simulationLimits[2], ::coder::array<double, 2U> &shiftedData)
   {
     ::coder::array<double, 1U> b_data;
     ::coder::array<int, 1U> b_i;
@@ -33,22 +33,22 @@ namespace RAT
     //
     //  INPUTS:
     //      * scalefactor: problemStruct.scalefactors
-    //      * qzshift: problemStruct.qzhifts
+    //      * qzshift: problemStruct.qzshifts
     //      * dataPresent: problemStruct.dataPresent
     //      * data: problemStruct.data
     //      * dataLimits: problemStruct.dataLimits
-    //      * simLimits: problemStruct.simLimits
+    //      * simulationLimits: problemStruct.simulationLimits
     //
     //  OUTPUTS:
     //      * shiftedData: Data shifted using given scale factor
-    if (static_cast<int>(dataPresent) == 1) {
+    if (dataPresent != 0.0) {
       int data_size;
       int hiIndex;
       int i;
       int loop_ub;
       int lowIndex;
       if (scalefactor == 0.0) {
-        scalefactor = 1.0E-30;
+        scalefactor = 2.2204460492503131E-16;
       }
 
       b_data.set_size(data.size(0));
@@ -137,7 +137,7 @@ namespace RAT
         }
       }
 
-      coder::linspace(simLimits[0], simLimits[1], b_dv);
+      coder::linspace(simulationLimits[0], simulationLimits[1], b_dv);
       for (int i{0}; i < 500; i++) {
         shiftedData[i] = b_dv[i];
       }

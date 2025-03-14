@@ -25,7 +25,7 @@ namespace RAT
     double N;
   };
 
-  struct cell_wrap_54
+  struct cell_wrap_52
   {
     double f1[6];
   };
@@ -38,17 +38,17 @@ namespace RAT
     ::coder::bounded_array<double, 2U, 2U> postSamples;
   };
 
-  struct cell_wrap_52
+  struct cell_wrap_50
   {
     ::coder::array<double, 1U> f1;
   };
 
-  struct cell_wrap_48
+  struct cell_wrap_46
   {
     ::coder::array<cell_wrap_11, 1U> f1;
   };
 
-  struct cell_wrap_49
+  struct cell_wrap_47
   {
     ::coder::array<cell_wrap_11, 2U> f1;
   };
@@ -77,7 +77,7 @@ namespace RAT
     ::coder::bounded_array<char, 10000U, 2U> geometry;
     boolean_T useImaginary;
     ::coder::array<cell_wrap_2, 2U> repeatLayers;
-    ::coder::array<cell_wrap_47, 2U> contrastBackgroundParams;
+    ::coder::array<cell_wrap_45, 2U> contrastBackgroundParams;
     ::coder::array<cell_wrap_10, 2U> contrastBackgroundTypes;
     ::coder::array<cell_wrap_10, 2U> contrastBackgroundActions;
     ::coder::array<double, 2U> contrastScalefactors;
@@ -109,9 +109,14 @@ namespace RAT
     CheckFlags checks;
   };
 
-  struct cell_wrap_33
+  struct cell_wrap_63
   {
-    ::coder::array<double, 2U> f1;
+    cell_wrap_9 f1[2];
+  };
+
+  struct cell_wrap_64
+  {
+    cell_wrap_7 f1[2];
   };
 
   struct cell_wrap_65
@@ -122,11 +127,6 @@ namespace RAT
   struct cell_wrap_66
   {
     cell_wrap_65 f1[2];
-  };
-
-  struct cell_wrap_67
-  {
-    cell_wrap_7 f1[2];
   };
 
   struct c_struct_T
@@ -196,7 +196,7 @@ namespace RAT
     ::coder::array<double, 2U> FVr_bestmem;
   };
 
-  struct cell_57
+  struct cell_55
   {
     ::coder::array<double, 2U> f1;
   };

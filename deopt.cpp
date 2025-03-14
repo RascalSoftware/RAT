@@ -949,12 +949,13 @@ namespace RAT
 
   void deopt(const ProblemDefinition &problem, const char
              controls_parallel_data[], const int controls_parallel_size[2],
-             double controls_resampleMinAngle, double controls_resampleNPoints,
-             boolean_T controls_calcSldDuringFit, const char
-             controls_display_data[], const int controls_display_size[2], double
-             controls_updateFreq, double controls_updatePlotFreq, const char
-             controls_IPCFilePath_data[], const int controls_IPCFilePath_size[2],
-             const h_struct_T &S_struct, ::coder::array<double, 2U> &FVr_bestmem)
+             boolean_T controls_calcSldDuringFit, double
+             controls_resampleMinAngle, double controls_resampleNPoints, const
+             char controls_display_data[], const int controls_display_size[2],
+             double controls_updateFreq, double controls_updatePlotFreq, const
+             char controls_IPCFilePath_data[], const int
+             controls_IPCFilePath_size[2], const h_struct_T &S_struct, ::coder::
+             array<double, 2U> &FVr_bestmem)
   {
     ::coder::array<j_struct_T, 1U> S_val;
     ::coder::array<double, 2U> FM_bm;
@@ -1168,8 +1169,8 @@ namespace RAT
 
     b_problem = problem;
     intrafun(b_FM_pop, b_problem, controls_parallel_data, controls_parallel_size,
-             controls_resampleMinAngle, controls_resampleNPoints,
-             controls_calcSldDuringFit, a__1, a, d1, d2);
+             controls_calcSldDuringFit, controls_resampleMinAngle,
+             controls_resampleNPoints, a__1, a, d1, d2);
     S_val[0].FVr_oa = d2;
     S_val[0].I_no = d1;
     S_bestval_FVr_oa = S_val[0].FVr_oa;
@@ -1186,8 +1187,8 @@ namespace RAT
 
       b_problem = problem;
       intrafun(b_FM_pop, b_problem, controls_parallel_data,
-               controls_parallel_size, controls_resampleMinAngle,
-               controls_resampleNPoints, controls_calcSldDuringFit, a__2, a, d1,
+               controls_parallel_size, controls_calcSldDuringFit,
+               controls_resampleMinAngle, controls_resampleNPoints, a__2, a, d1,
                d2);
       S_val[k + 1].FVr_oa = d2;
       S_val[k + 1].I_no = d1;
@@ -1250,7 +1251,7 @@ namespace RAT
         FVr_bestmem[i] = problem.params[i];
       }
     } else {
-      if (coder::internal::cb_strcmp(controls_display_data,
+      if (coder::internal::db_strcmp(controls_display_data,
            controls_display_size)) {
         //  This should ensure the first result is printed.
         coder::internal::validate_print_arguments(0.0, S_bestval_FVr_oa,
@@ -1937,8 +1938,8 @@ namespace RAT
 
         b_problem = problem;
         intrafun(b_FM_pop, b_problem, controls_parallel_data,
-                 controls_parallel_size, controls_resampleMinAngle,
-                 controls_resampleNPoints, controls_calcSldDuringFit, a__3,
+                 controls_parallel_size, controls_calcSldDuringFit,
+                 controls_resampleMinAngle, controls_resampleNPoints, a__3,
                  S_tempval_FVr_ca, S_tempval_I_no, S_tempval_FVr_oa);
 
         //  check cost of competitor
@@ -1981,7 +1982,7 @@ namespace RAT
       //  iteration. This is needed for some of the strategies.
       // ----Output section----------------------------------------------------------
       if (((rt_remd_snf(I_iter, 1.0) == 0.0) || (I_iter == 1.0)) && coder::
-          internal::cb_strcmp(controls_display_data, controls_display_size) &&
+          internal::db_strcmp(controls_display_data, controls_display_size) &&
           (rt_remd_snf(I_iter, controls_updateFreq) == 0.0)) {
         coder::internal::validate_print_arguments(I_iter, S_bestval_FVr_oa,
           fWeight, F_CR, I_NP, validatedHoleFilling);
@@ -2006,8 +2007,8 @@ namespace RAT
       if (rt_remd_snf(I_iter, controls_updatePlotFreq) == 0.0) {
         b_problem = problem;
         intrafun(FVr_bestmem, b_problem, controls_parallel_data,
-                 controls_parallel_size, controls_resampleMinAngle,
-                 controls_resampleNPoints, controls_calcSldDuringFit, result,
+                 controls_parallel_size, controls_calcSldDuringFit,
+                 controls_resampleMinAngle, controls_resampleNPoints, result,
                  expl_temp, b_expl_temp, c_expl_temp);
         triggerEvent(result, problem.TF.data, problem.TF.size, problem.resample,
                      problem.dataPresent, problem.modelType.data,
@@ -2018,7 +2019,7 @@ namespace RAT
         controls_IPCFilePath_size, (boolean_T *)&tmp_data);
       b_tmp_data.set(&tmp_data, b_FVr_a1);
       if (coder::internal::ifWhileCond(b_tmp_data)) {
-        if (!coder::internal::d_strcmp(controls_display_data,
+        if (!coder::internal::e_strcmp(controls_display_data,
              controls_display_size)) {
           h_triggerEvent();
         }
@@ -2035,7 +2036,7 @@ namespace RAT
     }
 
     // ---end while ((I_iter < I_itermax) ...
-    if (coder::internal::cb_strcmp(controls_display_data, controls_display_size)
+    if (coder::internal::db_strcmp(controls_display_data, controls_display_size)
         && (rt_remd_snf(I_iter - 1.0, controls_updateFreq) != 0.0)) {
       //  This should ensure the final result is printed at the end of a run irrespective of update frequency
       coder::internal::validate_print_arguments(I_iter - 1.0, S_bestval_FVr_oa,
@@ -2050,8 +2051,8 @@ namespace RAT
       //  This should ensure the final result is always plotted irrespective of update frequency
       b_problem = problem;
       intrafun(FVr_bestmem, b_problem, controls_parallel_data,
-               controls_parallel_size, controls_resampleMinAngle,
-               controls_resampleNPoints, controls_calcSldDuringFit, result,
+               controls_parallel_size, controls_calcSldDuringFit,
+               controls_resampleMinAngle, controls_resampleNPoints, result,
                expl_temp, b_expl_temp, c_expl_temp);
       triggerEvent(result, problem.TF.data, problem.TF.size, problem.resample,
                    problem.dataPresent, problem.modelType.data,

@@ -29,9 +29,9 @@ namespace RAT
 {
   double intrafun(const ::coder::array<double, 2U> &p, ProblemDefinition &
                   problemStruct, const char controls_parallel_data[], const int
-                  controls_parallel_size[2], double controls_resampleMinAngle,
-                  double controls_resampleNPoints, boolean_T
-                  controls_calcSldDuringFit, Results &result, double
+                  controls_parallel_size[2], boolean_T controls_calcSldDuringFit,
+                  double controls_resampleMinAngle, double
+                  controls_resampleNPoints, Results &result, double
                   &S_MSE_FVr_ca, double &S_MSE_I_no, double &S_MSE_FVr_oa)
   {
     Controls expl_temp;
@@ -44,9 +44,9 @@ namespace RAT
     }
 
     unpackParams(problemStruct);
-    expl_temp.calcSldDuringFit = controls_calcSldDuringFit;
     expl_temp.resampleNPoints = controls_resampleNPoints;
     expl_temp.resampleMinAngle = controls_resampleMinAngle;
+    expl_temp.calcSldDuringFit = controls_calcSldDuringFit;
     expl_temp.parallel.size[0] = 1;
     expl_temp.parallel.size[1] = controls_parallel_size[1];
     loop_ub = controls_parallel_size[1];
@@ -187,8 +187,8 @@ namespace RAT
 
     expl_temp.I_lentol = 50.0;
     deopt(problemStruct, controls->parallel.data, controls->parallel.size,
-          controls->resampleMinAngle, controls->resampleNPoints,
-          controls->calcSldDuringFit, controls->display.data,
+          controls->calcSldDuringFit, controls->resampleMinAngle,
+          controls->resampleNPoints, controls->display.data,
           controls->display.size, controls->updateFreq, controls->updatePlotFreq,
           controls->IPCFilePath.data, controls->IPCFilePath.size, expl_temp, r);
     problemStruct.fitParams.set_size(1, r.size(1));
@@ -199,7 +199,7 @@ namespace RAT
 
     unpackParams(problemStruct);
     b_reflectivityCalculation(problemStruct, controls, result);
-    if (!coder::internal::d_strcmp(controls->display.data,
+    if (!coder::internal::e_strcmp(controls->display.data,
          controls->display.size)) {
       coder::snPrint(result->calculationResults.sumChi, charStr);
       triggerEvent(charStr);

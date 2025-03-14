@@ -19,11 +19,11 @@
 // Function Declarations
 namespace RAT
 {
-  double backSort(double contrastScalefactors, double contrastBulkIns, double
-                  contrastBulkOuts, const ::coder::array<double, 2U>
-                  &scalefactors, const ::coder::array<double, 2U> &bulkIn, const
-                  ::coder::array<double, 2U> &bulkOut, double &outScalefactor,
-                  double &outBulkIn, double &outBulkOut);
+  double backSort(double scalefactorIndex, double bulkInIndex, double
+                  bulkOutIndex, const ::coder::array<double, 2U>
+                  &scalefactorValues, const ::coder::array<double, 2U>
+                  &bulkInValues, const ::coder::array<double, 2U> &bulkOutValues,
+                  double &scalefactor, double &bulkIn, double &bulkOut);
 }
 
 #endif

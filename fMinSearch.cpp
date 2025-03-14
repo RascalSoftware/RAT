@@ -32,7 +32,7 @@
 // Variable Definitions
 namespace RAT
 {
-  static const char cv2[33]{ 'N', 'e', 'l', 'd', 'e', 'r', '-', 'M', 'e', 'a',
+  static const char cv3[33]{ 'N', 'e', 'l', 'd', 'e', 'r', '-', 'M', 'e', 'a',
     'd', ' ', 's', 'i', 'm', 'p', 'l', 'e', 'x', ' ', 'd', 'i', 'r', 'e', 'c',
     't', ' ', 's', 'e', 'a', 'r', 'c', 'h' };
 }
@@ -187,7 +187,7 @@ namespace RAT
     output_iterations = iteration;
     output_funcCount = funccount;
     for (int i{0}; i < 33; i++) {
-      output_algorithm[i] = cv2[i];
+      output_algorithm[i] = cv3[i];
     }
 
     for (int i{0}; i < 31; i++) {
@@ -252,10 +252,10 @@ namespace RAT
                     options_TolFun, const char dis_data[], const int dis_size[2],
                     const ProblemDefinition &varargin_1, const char
                     varargin_2_parallel_data[], const int
-                    varargin_2_parallel_size[2], double
+                    varargin_2_parallel_size[2], boolean_T
+                    varargin_2_calcSldDuringFit, double
                     varargin_2_resampleMinAngle, double
-                    varargin_2_resampleNPoints, boolean_T
-                    varargin_2_calcSldDuringFit, double varargin_2_updateFreq,
+                    varargin_2_resampleNPoints, double varargin_2_updateFreq,
                     double varargin_2_updatePlotFreq, const char
                     varargin_2_IPCFilePath_data[], const int
                     varargin_2_IPCFilePath_size[2], const i_struct_T &varargin_3,
@@ -290,7 +290,7 @@ namespace RAT
 
     static const char b_cv1[4]{ 'n', 'o', 'n', 'e' };
 
-    static const char cv3[4]{ 'i', 't', 'e', 'r' };
+    static const char b_cv3[4]{ 'i', 't', 'e', 'r' };
 
     static const char b_cv2[3]{ 'o', 'f', 'f' };
 
@@ -444,7 +444,7 @@ namespace RAT
       b_index = 1;
     } else if (coder::internal::d_strcmp(dis_data, dis_size, b_cv2)) {
       b_index = 1;
-    } else if (coder::internal::c_strcmp(dis_data, dis_size, cv3)) {
+    } else if (coder::internal::c_strcmp(dis_data, dis_size, b_cv3)) {
       b_index = 2;
     } else if (coder::internal::e_strcmp(dis_data, dis_size, cv4)) {
       b_index = 3;
@@ -533,8 +533,8 @@ namespace RAT
     //  Change x to the form expected by funfcn
     b_varargin_1 = varargin_1;
     fv[0] = simplexIntrafun(x, b_varargin_1, varargin_2_parallel_data,
-      varargin_2_parallel_size, varargin_2_resampleMinAngle,
-      varargin_2_resampleNPoints, varargin_2_calcSldDuringFit, varargin_3.LB,
+      varargin_2_parallel_size, varargin_2_calcSldDuringFit,
+      varargin_2_resampleMinAngle, varargin_2_resampleNPoints, varargin_3.LB,
       varargin_3.UB, varargin_3.BoundClass, result);
 
     //  Initial simplex setup continues later
@@ -622,8 +622,8 @@ namespace RAT
 
       b_varargin_1 = varargin_1;
       fv[j + 1] = simplexIntrafun(y, b_varargin_1, varargin_2_parallel_data,
-        varargin_2_parallel_size, varargin_2_resampleMinAngle,
-        varargin_2_resampleNPoints, varargin_2_calcSldDuringFit, varargin_3.LB,
+        varargin_2_parallel_size, varargin_2_calcSldDuringFit,
+        varargin_2_resampleMinAngle, varargin_2_resampleNPoints, varargin_3.LB,
         varargin_3.UB, varargin_3.BoundClass, result);
     }
 
@@ -831,9 +831,9 @@ namespace RAT
             b_varargin_1 = varargin_1;
             fxr = simplexIntrafun(xr, b_varargin_1, varargin_2_parallel_data,
                                   varargin_2_parallel_size,
+                                  varargin_2_calcSldDuringFit,
                                   varargin_2_resampleMinAngle,
-                                  varargin_2_resampleNPoints,
-                                  varargin_2_calcSldDuringFit, varargin_3.LB,
+                                  varargin_2_resampleNPoints, varargin_3.LB,
                                   varargin_3.UB, varargin_3.BoundClass, result);
             func_evals++;
             if (fxr < fv[0]) {
@@ -853,9 +853,9 @@ namespace RAT
               b_varargin_1 = varargin_1;
               fxe = simplexIntrafun(xe, b_varargin_1, varargin_2_parallel_data,
                                     varargin_2_parallel_size,
+                                    varargin_2_calcSldDuringFit,
                                     varargin_2_resampleMinAngle,
-                                    varargin_2_resampleNPoints,
-                                    varargin_2_calcSldDuringFit, varargin_3.LB,
+                                    varargin_2_resampleNPoints, varargin_3.LB,
                                     varargin_3.UB, varargin_3.BoundClass, result);
               func_evals++;
               if (fxe < fxr) {
@@ -919,9 +919,9 @@ namespace RAT
                 b_varargin_1 = varargin_1;
                 fxc = simplexIntrafun(xc, b_varargin_1, varargin_2_parallel_data,
                                       varargin_2_parallel_size,
+                                      varargin_2_calcSldDuringFit,
                                       varargin_2_resampleMinAngle,
-                                      varargin_2_resampleNPoints,
-                                      varargin_2_calcSldDuringFit, varargin_3.LB,
+                                      varargin_2_resampleNPoints, varargin_3.LB,
                                       varargin_3.UB, varargin_3.BoundClass,
                                       result);
                 func_evals++;
@@ -963,8 +963,8 @@ namespace RAT
                 b_varargin_1 = varargin_1;
                 fxcc = simplexIntrafun(xcc, b_varargin_1,
                   varargin_2_parallel_data, varargin_2_parallel_size,
-                  varargin_2_resampleMinAngle, varargin_2_resampleNPoints,
-                  varargin_2_calcSldDuringFit, varargin_3.LB, varargin_3.UB,
+                  varargin_2_calcSldDuringFit, varargin_2_resampleMinAngle,
+                  varargin_2_resampleNPoints, varargin_3.LB, varargin_3.UB,
                   varargin_3.BoundClass, result);
                 func_evals++;
                 if (fxcc < b_fv) {
@@ -989,7 +989,7 @@ namespace RAT
                 }
               }
 
-              if (coder::internal::ab_strcmp(how_data, how_size)) {
+              if (coder::internal::bb_strcmp(how_data, how_size)) {
                 for (int j{0}; j < n; j++) {
                   c_v.set_size(v.size(0));
                   x_idx_1_tmp = v.size(0);
@@ -1012,8 +1012,8 @@ namespace RAT
                   b_varargin_1 = varargin_1;
                   fv[j + 1] = simplexIntrafun(c_v, b_varargin_1,
                     varargin_2_parallel_data, varargin_2_parallel_size,
-                    varargin_2_resampleMinAngle, varargin_2_resampleNPoints,
-                    varargin_2_calcSldDuringFit, varargin_3.LB, varargin_3.UB,
+                    varargin_2_calcSldDuringFit, varargin_2_resampleMinAngle,
+                    varargin_2_resampleNPoints, varargin_3.LB, varargin_3.UB,
                     varargin_3.BoundClass, result);
                 }
 
@@ -1169,7 +1169,7 @@ namespace RAT
         output.iterations = itercount;
         output.funcCount = func_evals;
         for (i = 0; i < 33; i++) {
-          output.algorithm[i] = cv2[i];
+          output.algorithm[i] = cv3[i];
         }
 
         if (printMsg) {

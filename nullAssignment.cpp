@@ -87,6 +87,58 @@ namespace RAT
         x.set_size(x.size(0), nxout);
       }
 
+      void nullAssignment(::coder::array<double, 2U> &x, const int idx_data[],
+                          const int idx_size[2])
+      {
+        ::coder::array<int, 2U> b_idx_data;
+        ::coder::array<boolean_T, 2U> r;
+        int k;
+        int ncols;
+        int ncolx;
+        int nrowx;
+        nrowx = x.size(0) - 1;
+        ncolx = x.size(1);
+        if (idx_size[1] == 1) {
+          ncols = x.size(1) - 1;
+          k = idx_data[0];
+          for (int j{k}; j <= ncols; j++) {
+            for (int i{0}; i <= nrowx; i++) {
+              x[i + x.size(0) * (j - 1)] = x[i + x.size(0) * j];
+            }
+          }
+        } else {
+          int j;
+          b_idx_data.set((int *)&idx_data[0], idx_size[0], idx_size[1]);
+          make_bitarray(x.size(1), b_idx_data, r);
+          ncols = x.size(1) - num_true(r);
+          j = 0;
+          for (k = 0; k < ncolx; k++) {
+            if ((k + 1 > r.size(1)) || (!r[k])) {
+              for (int i{0}; i <= nrowx; i++) {
+                x[i + x.size(0) * j] = x[i + x.size(0) * k];
+              }
+
+              j++;
+            }
+          }
+        }
+
+        if (ncols < 1) {
+          ncolx = 0;
+        } else {
+          ncolx = ncols;
+        }
+
+        nrowx = x.size(0);
+        for (k = 0; k < ncolx; k++) {
+          for (ncols = 0; ncols < nrowx; ncols++) {
+            x[ncols + nrowx * k] = x[ncols + x.size(0) * k];
+          }
+        }
+
+        x.set_size(nrowx, ncolx);
+      }
+
       void nullAssignment(const ::coder::array<double, 2U> &x, ::coder::array<
                           double, 2U> &b_x)
       {

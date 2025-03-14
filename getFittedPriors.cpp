@@ -67,7 +67,7 @@ namespace RAT
       }
 
       r.f1 = f1;
-      loop_ub = coder::internal::db_strcmp(r, priorNames, tmp_data);
+      loop_ub = coder::internal::eb_strcmp(r, priorNames, tmp_data);
       b_tmp_data.set(&tmp_data[0], loop_ub);
       coder::eml_find(b_tmp_data, r1);
       loop_ub = r1.size(0);
@@ -76,7 +76,7 @@ namespace RAT
       }
 
       r.f1 = f1;
-      loop_ub = coder::internal::db_strcmp(r, priorNames, c_tmp_data);
+      loop_ub = coder::internal::eb_strcmp(r, priorNames, c_tmp_data);
       d_tmp_data.set(&c_tmp_data[0], loop_ub);
       coder::eml_find(d_tmp_data, r1);
       if (r1.size(0) != 0) {

@@ -21,7 +21,8 @@ namespace RAT
 {
   void resampleLayers(const ::coder::array<double, 2U> &sldProfile, const ::
                       coder::array<double, 2U> &sldProfileIm, double minAngle,
-                      double nPoints, ::coder::array<double, 2U> &newSLD);
+                      double nPoints, ::coder::array<double, 2U>
+                      &resampledLayers);
 }
 
 #endif

@@ -67,9 +67,10 @@ namespace RAT
       'a', 'n', ' ', 'i', 'n', 't', 'e', 'g', 'e', 'r', ' ', '>', '=', ' ', '0'
     };
 
-    static const char cv3[39]{ 'N', 'S', ' ', 'E', 'r', 'r', 'o', 'r', ':', ' ',
-      'n', 'L', 'i', 'v', 'e', ' ', 'm', 'u', 's', 't', ' ', 'b', 'e', ' ', 'a',
-      'n', ' ', 'i', 'n', 't', 'e', 'g', 'e', 'r', ' ', '>', '=', ' ', '0' };
+    static const char b_cv3[39]{ 'N', 'S', ' ', 'E', 'r', 'r', 'o', 'r', ':',
+      ' ', 'n', 'L', 'i', 'v', 'e', ' ', 'm', 'u', 's', 't', ' ', 'b', 'e', ' ',
+      'a', 'n', ' ', 'i', 'n', 't', 'e', 'g', 'e', 'r', ' ', '>', '=', ' ', '0'
+    };
 
     ::coder::array<double, 2U> Bs;
     ::coder::array<double, 2U> FS;
@@ -206,7 +207,7 @@ namespace RAT
       //  coderException(coderEnums.errorCodes.invalidOption, 'The model type is not supported')
       //  coderException(coderEnums.errorCodes.invalidOption, 'The model type "%s" is not supported', modelType)
       for (i = 0; i < 39; i++) {
-        b_cv[i] = cv3[i];
+        b_cv[i] = b_cv3[i];
       }
 
       coderException(2.0, &b_cv[0]);
@@ -528,7 +529,7 @@ namespace RAT
       tol = logPlus(logZ, logLmax - j / nLive) - logZ;
 
       //  display progress (optional)
-      b = !coder::internal::d_strcmp(data_f2->display.data,
+      b = !coder::internal::e_strcmp(data_f2->display.data,
         data_f2->display.size);
       if (b) {
         if (j < 2.147483648E+9) {

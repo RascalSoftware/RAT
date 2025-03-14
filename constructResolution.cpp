@@ -21,9 +21,9 @@ namespace RAT
   void constructResolution(const char resolutionType_data[], const int
     resolutionType_size[2], const double resolutionParamIndex_data[], const int
     resolutionParamIndex_size[2], const ::coder::array<double, 2U> &shiftedData,
-    const ::coder::array<double, 2U> &resolutionParamArray, const ::coder::array<
-    double, 1U> &simulationXData, const double dataIndices[2], ::coder::array<
-    double, 2U> &resolution)
+    const ::coder::array<double, 2U> &resolutionParamValues, const ::coder::
+    array<double, 1U> &simulationXData, const double dataIndices[2], ::coder::
+    array<double, 2U> &resolution)
   {
     ::coder::array<double, 1U> b_resolution;
     int i;
@@ -47,7 +47,7 @@ namespace RAT
       resolution[i] = simulationXData[i];
     }
 
-    if (coder::internal::p_strcmp(resolutionType_data, resolutionType_size)) {
+    if (coder::internal::q_strcmp(resolutionType_data, resolutionType_size)) {
       //  If we are using data resolutions and the simulation range is larger
       //  than the data range, we extend the data resolution to the simulation
       //  range using the resolution values at the ends of the curve.
@@ -89,14 +89,14 @@ namespace RAT
       i = coder::internal::intlength(resolutionParamIndex_size[0],
         resolutionParamIndex_size[1]);
       for (int b_i{0}; b_i < i; b_i++) {
-        double b_resolutionParamArray;
-        b_resolutionParamArray = resolutionParamArray[static_cast<int>
+        double b_resolutionParamValues;
+        b_resolutionParamValues = resolutionParamValues[static_cast<int>
           (resolutionParamIndex_data[b_i]) - 1];
         b_resolution.set_size(resolution.size(0));
         loop_ub = resolution.size(0);
         for (i1 = 0; i1 < loop_ub; i1++) {
           b_resolution[i1] = resolution[i1 + resolution.size(0)] +
-            b_resolutionParamArray;
+            b_resolutionParamValues;
         }
 
         loop_ub = b_resolution.size(0);

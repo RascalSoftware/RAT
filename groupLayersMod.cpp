@@ -13,333 +13,245 @@
 #include "rt_nonfinite.h"
 #include "strcmp.h"
 #include "coder_array.h"
-#include <cmath>
 
 // Function Definitions
 namespace RAT
 {
-  double b_groupLayersMod(const ::coder::array<double, 2U> &resampledLayers,
-    double subRoughs, const char geometry_data[], const int geometry_size[2],
-    double bulkIns, double bulkOuts, ::coder::array<double, 2U> &outLayers)
+  double b_groupLayersMod(const ::coder::array<double, 2U> &layers, double
+    subRoughs, const char geometry_data[], const int geometry_size[2], ::coder::
+    array<double, 2U> &outputLayers)
   {
-    ::coder::array<double, 2U> layers;
-    ::coder::array<double, 2U> sldss;
-    ::coder::array<double, 1U> b_resampledLayers;
-    ::coder::array<double, 1U> c_resampledLayers;
-    ::coder::array<double, 1U> roughs;
+    ::coder::array<double, 2U> b_layers;
+    ::coder::array<double, 2U> c_layers;
+    ::coder::array<double, 1U> roughnesses;
     double ssubs;
-    int b_loop_ub;
-    int i;
-    int loop_ub;
-    unsigned int unnamed_idx_0;
 
-    //  Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the
-    //  z,rho,rough stack, and the parameter 'ssub' is the final roughness encountered.
+    //  Arrange layers according to geometry.
+    //  The paratt calculation proceeds through the z,rho,rough stack; and the
+    //  parameter 'ssub' is the final roughness encountered.
     //
-    //  * For air liquid 'ssub' is therefore the substrate roughness.
-    //  * For solid liquid, the substrate roughness is the first roughness encountered, and 'ssub' is then the roughness of the outermost layer
+    //  * For air/liquid 'ssub' is therefore the substrate roughness.
+    //  * For solid/liquid, the substrate roughness is the first roughness
+    //    encountered, and 'ssub' is then the roughness of the outermost layer.
     //
     //  USAGE::
     //
-    //      [outLayers, ssubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)
+    //      [outLayers, ssubs] = groupLayersMod(resampledLayers,subRoughs,geometry)
     //
     //  INPUTS:
-    //      * resampledLayers: cell array, one for each contrast. Each cell is the list of layer values for each contrast.
-    //      * subRoughs:  Double of substrate roughness for each contrast.
+    //      * layers: List of layer values for this contrast.
+    //      * subRoughs:  Double of substrate roughness for this contrast.
     //      * geometry: 'Air / Liquid (or solid)' or 'Solid / Liquid'
-    //      * bulkIns: vector of bulkIn values.
-    //      * bulkOuts: vector of bulkOut values.
     //
     //  Outputs:
-    //      * outLayers: cell array of layers param values for each contrast.
+    //      * outputLayers: Layers parameter values for this contrast.
     //      * ssubs: vector of ssub values.
     ssubs = subRoughs;
-    unnamed_idx_0 = static_cast<unsigned int>(resampledLayers.size(0));
-    layers.set_size(resampledLayers.size(0), resampledLayers.size(1));
-    loop_ub = resampledLayers.size(1);
-    for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = static_cast<int>(unnamed_idx_0);
-      for (int i1{0}; i1 < b_loop_ub; i1++) {
-        layers[i1 + layers.size(0) * i] = 0.0;
-      }
-    }
-
-    if ((resampledLayers.size(0) != 0) && (resampledLayers.size(1) != 0)) {
-      if (coder::internal::q_strcmp(geometry_data, geometry_size)) {
-        layers.set_size(resampledLayers.size(0), resampledLayers.size(1));
-        loop_ub = resampledLayers.size(1);
-        for (i = 0; i < loop_ub; i++) {
-          b_loop_ub = resampledLayers.size(0);
-          for (int i1{0}; i1 < b_loop_ub; i1++) {
-            layers[i1 + layers.size(0) * i] = resampledLayers[i1 +
-              resampledLayers.size(0) * i];
+    if ((layers.size(0) != 0) && (layers.size(1) != 0)) {
+      if (coder::internal::r_strcmp(geometry_data, geometry_size)) {
+        int loop_ub;
+        outputLayers.set_size(layers.size(0), layers.size(1));
+        loop_ub = layers.size(1);
+        for (int i{0}; i < loop_ub; i++) {
+          int sizes_idx_1_tmp;
+          sizes_idx_1_tmp = layers.size(0);
+          for (int i1{0}; i1 < sizes_idx_1_tmp; i1++) {
+            outputLayers[i1 + outputLayers.size(0) * i] = layers[i1 +
+              layers.size(0) * i];
           }
         }
       } else {
-        sldss.set_size(resampledLayers.size(0), 2);
-        loop_ub = resampledLayers.size(0);
-        for (i = 0; i < 2; i++) {
-          for (int i1{0}; i1 < loop_ub; i1++) {
-            sldss[i1 + sldss.size(0) * i] = resampledLayers[i1 +
-              resampledLayers.size(0) * (i + 1)];
-          }
-        }
-
-        ssubs = resampledLayers[(resampledLayers.size(0) + resampledLayers.size
-          (0) * 3) - 1];
-        if (resampledLayers.size(0) > 1) {
-          roughs.set_size(resampledLayers.size(0));
-          roughs[0] = subRoughs;
-          loop_ub = resampledLayers.size(0);
+        int b_sizes_idx_0;
+        int i;
+        int i1;
+        int loop_ub;
+        int sizes_idx_0;
+        int sizes_idx_1_tmp;
+        short b_sizes_idx_1_tmp;
+        ssubs = layers[(layers.size(0) + layers.size(0) * 3) - 1];
+        if (layers.size(0) > 1) {
+          roughnesses.set_size(layers.size(0));
+          roughnesses[0] = subRoughs;
+          loop_ub = layers.size(0);
           for (i = 0; i <= loop_ub - 2; i++) {
-            roughs[i + 1] = resampledLayers[i + resampledLayers.size(0) * 3];
+            roughnesses[i + 1] = layers[i + layers.size(0) * 3];
           }
         } else {
-          roughs.set_size(1);
-          roughs[0] = subRoughs;
+          roughnesses.set_size(1);
+          roughnesses[0] = subRoughs;
         }
 
-        if (resampledLayers.size(1) == 5) {
-          int b_sizes_idx_0;
-          int sizes_idx_0;
-          b_resampledLayers.set_size(resampledLayers.size(0));
-          loop_ub = resampledLayers.size(0);
-          b_loop_ub = resampledLayers.size(0);
-          sizes_idx_0 = resampledLayers.size(0);
-          b_sizes_idx_0 = resampledLayers.size(0);
-          c_resampledLayers.set_size(resampledLayers.size(0));
-          for (i = 0; i < loop_ub; i++) {
-            b_resampledLayers[i] = resampledLayers[i];
-            c_resampledLayers[i] = resampledLayers[i + resampledLayers.size(0) *
-              4];
-          }
-
-          loop_ub = resampledLayers.size(0);
-          layers.set_size(resampledLayers.size(0), 5);
-          for (i = 0; i < b_loop_ub; i++) {
-            layers[i] = b_resampledLayers[i];
-          }
-
-          for (i = 0; i < 2; i++) {
-            for (int i1{0}; i1 < sizes_idx_0; i1++) {
-              layers[i1 + layers.size(0) * (i + 1)] = sldss[i1 + sizes_idx_0 * i];
-            }
-          }
-
-          for (i = 0; i < b_sizes_idx_0; i++) {
-            layers[i + layers.size(0) * 3] = roughs[i];
-          }
-
-          for (i = 0; i < loop_ub; i++) {
-            layers[i + layers.size(0) * 4] = c_resampledLayers[i];
-          }
+        if (layers.size(1) < 5) {
+          i = 0;
+          i1 = 0;
         } else {
-          int b_sizes_idx_0;
-          int sizes_idx_0;
-          b_resampledLayers.set_size(resampledLayers.size(0));
-          loop_ub = resampledLayers.size(0);
-          for (i = 0; i < loop_ub; i++) {
-            b_resampledLayers[i] = resampledLayers[i];
-          }
+          i = 4;
+          i1 = layers.size(1);
+        }
 
-          b_loop_ub = resampledLayers.size(0);
-          sizes_idx_0 = resampledLayers.size(0);
-          b_sizes_idx_0 = resampledLayers.size(0);
-          layers.set_size(resampledLayers.size(0), 4);
-          for (i = 0; i < b_loop_ub; i++) {
-            layers[i] = b_resampledLayers[i];
-          }
+        sizes_idx_1_tmp = i1 - i;
+        if (sizes_idx_1_tmp != 0) {
+          b_sizes_idx_1_tmp = static_cast<short>(sizes_idx_1_tmp);
+        } else {
+          b_sizes_idx_1_tmp = 0;
+        }
 
-          for (i = 0; i < 2; i++) {
-            for (int i1{0}; i1 < sizes_idx_0; i1++) {
-              layers[i1 + layers.size(0) * (i + 1)] = sldss[i1 + sizes_idx_0 * i];
-            }
-          }
-
-          for (i = 0; i < b_sizes_idx_0; i++) {
-            layers[i + layers.size(0) * 3] = roughs[i];
+        b_layers.set_size(layers.size(0), 3);
+        loop_ub = layers.size(0);
+        for (i1 = 0; i1 < 3; i1++) {
+          for (int i2{0}; i2 < loop_ub; i2++) {
+            b_layers[i2 + b_layers.size(0) * i1] = layers[i2 + layers.size(0) *
+              i1];
           }
         }
-      }
 
-      //  Deal with the %coverage if present
-      if (resampledLayers.size(1) == 6) {
-        i = resampledLayers.size(0);
-        for (int j{0}; j < i; j++) {
-          double this_pcw;
-          this_pcw = resampledLayers[j + resampledLayers.size(0) * 4];
-          if (!std::isnan(this_pcw)) {
-            double d;
-            if (resampledLayers[j + resampledLayers.size(0) * 5] == 1.0) {
-              d = bulkIns;
-            } else {
-              d = bulkOuts;
-            }
-
-            layers[j + layers.size(0)] = d * (this_pcw / 100.0) + (1.0 -
-              this_pcw / 100.0) * layers[j + layers.size(0)];
+        sizes_idx_0 = layers.size(0);
+        b_sizes_idx_0 = layers.size(0);
+        c_layers.set_size(layers.size(0), sizes_idx_1_tmp);
+        for (i1 = 0; i1 < sizes_idx_1_tmp; i1++) {
+          loop_ub = layers.size(0);
+          for (int i2{0}; i2 < loop_ub; i2++) {
+            c_layers[i2 + c_layers.size(0) * i1] = layers[i2 + layers.size(0) *
+              (i + i1)];
           }
         }
-      }
-    }
 
-    if ((layers.size(0) != 0) && (layers.size(1) != 0)) {
-      outLayers.set_size(layers.size(0), 4);
-      loop_ub = layers.size(0);
-      for (i = 0; i < 4; i++) {
-        for (int i1{0}; i1 < loop_ub; i1++) {
-          outLayers[i1 + outLayers.size(0) * i] = layers[i1 + layers.size(0) * i];
+        sizes_idx_1_tmp = layers.size(0);
+        loop_ub = b_sizes_idx_1_tmp;
+        outputLayers.set_size(layers.size(0), b_sizes_idx_1_tmp + 4);
+        for (i = 0; i < 3; i++) {
+          for (i1 = 0; i1 < sizes_idx_0; i1++) {
+            outputLayers[i1 + outputLayers.size(0) * i] = b_layers[i1 +
+              sizes_idx_0 * i];
+          }
+        }
+
+        for (i = 0; i < b_sizes_idx_0; i++) {
+          outputLayers[i + outputLayers.size(0) * 3] = roughnesses[i];
+        }
+
+        for (i = 0; i < loop_ub; i++) {
+          for (i1 = 0; i1 < sizes_idx_1_tmp; i1++) {
+            outputLayers[i1 + outputLayers.size(0) * (i + 4)] = c_layers[i1 +
+              sizes_idx_1_tmp * i];
+          }
         }
       }
     } else {
-      outLayers.set_size(1, 4);
-      outLayers[0] = 0.0;
-      outLayers[outLayers.size(0)] = 0.0;
-      outLayers[outLayers.size(0) * 2] = 0.0;
-      outLayers[outLayers.size(0) * 3] = 0.0;
+      outputLayers.set_size(1, 4);
+      outputLayers[0] = 0.0;
+      outputLayers[outputLayers.size(0)] = 0.0;
+      outputLayers[outputLayers.size(0) * 2] = 0.0;
+      outputLayers[outputLayers.size(0) * 3] = 0.0;
     }
 
     return ssubs;
   }
 
-  double groupLayersMod(const ::coder::array<double, 2U> &resampledLayers,
-                        double subRoughs, const char geometry_data[], const int
-                        geometry_size[2], double bulkIns, double bulkOuts, ::
-                        coder::array<double, 2U> &outLayers)
+  double groupLayersMod(const ::coder::array<double, 2U> &layers, double
+                        subRoughs, const char geometry_data[], const int
+                        geometry_size[2], ::coder::array<double, 2U>
+                        &outputLayers)
   {
-    ::coder::array<double, 2U> c_resampledLayers;
-    ::coder::array<double, 2U> layers;
-    ::coder::array<double, 1U> b_resampledLayers;
-    ::coder::array<double, 1U> roughs;
+    ::coder::array<double, 2U> b_layers;
+    ::coder::array<double, 2U> c_layers;
+    ::coder::array<double, 1U> roughnesses;
     double ssubs;
-    int i;
-    int loop_ub;
 
-    //  Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the
-    //  z,rho,rough stack, and the parameter 'ssub' is the final roughness encountered.
+    //  Arrange layers according to geometry.
+    //  The paratt calculation proceeds through the z,rho,rough stack; and the
+    //  parameter 'ssub' is the final roughness encountered.
     //
-    //  * For air liquid 'ssub' is therefore the substrate roughness.
-    //  * For solid liquid, the substrate roughness is the first roughness encountered, and 'ssub' is then the roughness of the outermost layer
+    //  * For air/liquid 'ssub' is therefore the substrate roughness.
+    //  * For solid/liquid, the substrate roughness is the first roughness
+    //    encountered, and 'ssub' is then the roughness of the outermost layer.
     //
     //  USAGE::
     //
-    //      [outLayers, ssubs] = groupLayersMod(resampledLayers,subRoughs,geometry,bulkIns,bulkOuts)
+    //      [outLayers, ssubs] = groupLayersMod(resampledLayers,subRoughs,geometry)
     //
     //  INPUTS:
-    //      * resampledLayers: cell array, one for each contrast. Each cell is the list of layer values for each contrast.
-    //      * subRoughs:  Double of substrate roughness for each contrast.
+    //      * layers: List of layer values for this contrast.
+    //      * subRoughs:  Double of substrate roughness for this contrast.
     //      * geometry: 'Air / Liquid (or solid)' or 'Solid / Liquid'
-    //      * bulkIns: vector of bulkIn values.
-    //      * bulkOuts: vector of bulkOut values.
     //
     //  Outputs:
-    //      * outLayers: cell array of layers param values for each contrast.
+    //      * outputLayers: Layers parameter values for this contrast.
     //      * ssubs: vector of ssub values.
     ssubs = subRoughs;
-    layers.set_size(static_cast<int>(static_cast<short>(resampledLayers.size(0))),
-                    6);
-    loop_ub = static_cast<short>(resampledLayers.size(0));
-    for (i = 0; i < 6; i++) {
-      for (int i1{0}; i1 < loop_ub; i1++) {
-        layers[i1 + layers.size(0) * i] = 0.0;
-      }
-    }
-
-    if (resampledLayers.size(0) != 0) {
-      if (coder::internal::q_strcmp(geometry_data, geometry_size)) {
-        layers.set_size(resampledLayers.size(0), 6);
-        loop_ub = resampledLayers.size(0);
-        for (i = 0; i < 6; i++) {
+    if (layers.size(0) != 0) {
+      if (coder::internal::r_strcmp(geometry_data, geometry_size)) {
+        int loop_ub;
+        outputLayers.set_size(layers.size(0), 6);
+        loop_ub = layers.size(0);
+        for (int i{0}; i < 6; i++) {
           for (int i1{0}; i1 < loop_ub; i1++) {
-            layers[i1 + layers.size(0) * i] = resampledLayers[i1 +
-              resampledLayers.size(0) * i];
+            outputLayers[i1 + outputLayers.size(0) * i] = layers[i1 +
+              layers.size(0) * i];
           }
         }
       } else {
         int b_sizes_idx_0;
+        int loop_ub;
         int sizes_idx_0;
-        ssubs = resampledLayers[(resampledLayers.size(0) + resampledLayers.size
-          (0) * 3) - 1];
-        if (resampledLayers.size(0) > 1) {
-          roughs.set_size(resampledLayers.size(0));
-          roughs[0] = subRoughs;
-          loop_ub = resampledLayers.size(0);
-          for (i = 0; i <= loop_ub - 2; i++) {
-            roughs[i + 1] = resampledLayers[i + resampledLayers.size(0) * 3];
+        ssubs = layers[(layers.size(0) + layers.size(0) * 3) - 1];
+        if (layers.size(0) > 1) {
+          roughnesses.set_size(layers.size(0));
+          roughnesses[0] = subRoughs;
+          loop_ub = layers.size(0);
+          for (int i{0}; i <= loop_ub - 2; i++) {
+            roughnesses[i + 1] = layers[i + layers.size(0) * 3];
           }
         } else {
-          roughs.set_size(1);
-          roughs[0] = subRoughs;
+          roughnesses.set_size(1);
+          roughnesses[0] = subRoughs;
         }
 
-        b_resampledLayers.set_size(resampledLayers.size(0));
-        loop_ub = resampledLayers.size(0);
-        for (i = 0; i < loop_ub; i++) {
-          b_resampledLayers[i] = resampledLayers[i];
-        }
-
-        sizes_idx_0 = resampledLayers.size(0);
-        c_resampledLayers.set_size(resampledLayers.size(0), 2);
-        loop_ub = resampledLayers.size(0);
-        for (i = 0; i < 2; i++) {
+        b_layers.set_size(layers.size(0), 3);
+        loop_ub = layers.size(0);
+        for (int i{0}; i < 3; i++) {
           for (int i1{0}; i1 < loop_ub; i1++) {
-            c_resampledLayers[i1 + c_resampledLayers.size(0) * i] =
-              resampledLayers[i1 + resampledLayers.size(0) * (i + 1)];
+            b_layers[i1 + b_layers.size(0) * i] = layers[i1 + layers.size(0) * i];
           }
         }
 
-        loop_ub = resampledLayers.size(0);
-        b_sizes_idx_0 = resampledLayers.size(0);
-        layers.set_size(resampledLayers.size(0), 4);
-        for (i = 0; i < sizes_idx_0; i++) {
-          layers[i] = b_resampledLayers[i];
+        sizes_idx_0 = layers.size(0);
+        b_sizes_idx_0 = layers.size(0);
+        c_layers.set_size(layers.size(0), 2);
+        loop_ub = layers.size(0);
+        for (int i{0}; i < 2; i++) {
+          for (int i1{0}; i1 < loop_ub; i1++) {
+            c_layers[i1 + c_layers.size(0) * i] = layers[i1 + layers.size(0) *
+              (i + 4)];
+          }
         }
 
-        for (i = 0; i < 2; i++) {
+        loop_ub = layers.size(0);
+        outputLayers.set_size(layers.size(0), 6);
+        for (int i{0}; i < 3; i++) {
+          for (int i1{0}; i1 < sizes_idx_0; i1++) {
+            outputLayers[i1 + outputLayers.size(0) * i] = b_layers[i1 +
+              sizes_idx_0 * i];
+          }
+        }
+
+        for (int i{0}; i < b_sizes_idx_0; i++) {
+          outputLayers[i + outputLayers.size(0) * 3] = roughnesses[i];
+        }
+
+        for (int i{0}; i < 2; i++) {
           for (int i1{0}; i1 < loop_ub; i1++) {
-            layers[i1 + layers.size(0) * (i + 1)] = c_resampledLayers[i1 +
+            outputLayers[i1 + outputLayers.size(0) * (i + 4)] = c_layers[i1 +
               loop_ub * i];
           }
         }
-
-        for (i = 0; i < b_sizes_idx_0; i++) {
-          layers[i + layers.size(0) * 3] = roughs[i];
-        }
-      }
-
-      //  Deal with the %coverage if present
-      i = resampledLayers.size(0);
-      for (int j{0}; j < i; j++) {
-        double this_pcw;
-        this_pcw = resampledLayers[j + resampledLayers.size(0) * 4];
-        if (!std::isnan(this_pcw)) {
-          double d;
-          if (resampledLayers[j + resampledLayers.size(0) * 5] == 1.0) {
-            d = bulkIns;
-          } else {
-            d = bulkOuts;
-          }
-
-          layers[j + layers.size(0)] = d * (this_pcw / 100.0) + (1.0 - this_pcw /
-            100.0) * layers[j + layers.size(0)];
-        }
-      }
-    }
-
-    if (layers.size(0) != 0) {
-      outLayers.set_size(layers.size(0), 4);
-      loop_ub = layers.size(0);
-      for (i = 0; i < 4; i++) {
-        for (int i1{0}; i1 < loop_ub; i1++) {
-          outLayers[i1 + outLayers.size(0) * i] = layers[i1 + layers.size(0) * i];
-        }
       }
     } else {
-      outLayers.set_size(1, 4);
-      outLayers[0] = 0.0;
-      outLayers[outLayers.size(0)] = 0.0;
-      outLayers[outLayers.size(0) * 2] = 0.0;
-      outLayers[outLayers.size(0) * 3] = 0.0;
+      outputLayers.set_size(1, 4);
+      outputLayers[0] = 0.0;
+      outputLayers[outputLayers.size(0)] = 0.0;
+      outputLayers[outputLayers.size(0) * 2] = 0.0;
+      outputLayers[outputLayers.size(0) * 3] = 0.0;
     }
 
     return ssubs;

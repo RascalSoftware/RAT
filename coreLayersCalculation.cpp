@@ -11,8 +11,8 @@
 // Include files
 #include "coreLayersCalculation.h"
 #include "applyBackgroundCorrection.h"
+#include "applyHydration.h"
 #include "callReflectivity.h"
-#include "chiSquared.h"
 #include "groupLayersMod.h"
 #include "makeSLDProfiles.h"
 #include "resampleLayers.h"
@@ -24,28 +24,28 @@ namespace RAT
 {
   namespace normalTF
   {
-    double b_coreLayersCalculation(const ::coder::array<double, 2U> &layers,
-      double rough, const char geometry_data[], const int geometry_size[2],
+    void b_coreLayersCalculation(const ::coder::array<double, 2U> &layers,
+      double roughness, const char geometry_data[], const int geometry_size[2],
       double bulkIn, double bulkOut, double resample, boolean_T calcSld, const ::
       coder::array<double, 2U> &shiftedData, const ::coder::array<double, 1U>
       &simulationXData, const double dataIndices[2], const double repeatLayers[2],
       const ::coder::array<double, 2U> &resolution, const ::coder::array<double,
       2U> &background, const char backgroundAction_data[], const int
-      backgroundAction_size[2], double params, const char parallelPoints_data[],
-      const int parallelPoints_size[2], double resampleMinAngle, double
-      resampleNPoints, ::coder::array<double, 2U> &sldProfile, ::coder::array<
-      double, 2U> &reflect, ::coder::array<double, 2U> &simulation, ::coder::
-      array<double, 2U> &b_shiftedData, ::coder::array<double, 2U> &theseLayers,
-      ::coder::array<double, 2U> &resamLayers)
+      backgroundAction_size[2], const char parallelPoints_data[], const int
+      parallelPoints_size[2], double resampleMinAngle, double resampleNPoints, ::
+      coder::array<double, 2U> &reflectivity, ::coder::array<double, 2U>
+      &simulation, ::coder::array<double, 2U> &b_shiftedData, ::coder::array<
+      double, 2U> &layerSld, ::coder::array<double, 2U> &sldProfile, ::coder::
+      array<double, 2U> &resampledLayers)
     {
-      ::coder::array<double, 2U> b_theseLayers;
+      ::coder::array<double, 2U> ImSLDLayers;
+      ::coder::array<double, 2U> ReSLDLayers;
       ::coder::array<double, 2U> c_shiftedData;
-      ::coder::array<double, 2U> d_theseLayers;
-      ::coder::array<double, 2U> layerSld;
+      ::coder::array<double, 2U> inputLayers;
       ::coder::array<double, 2U> sldProfileIm;
-      ::coder::array<double, 1U> c_theseLayers;
       double ssubs;
       int loop_ub;
+      int y_size_idx_1;
 
       //    This is the main reflectivity calculation for all layers models in the
       //    normal target function.
@@ -60,8 +60,7 @@ namespace RAT
       //    called, including the resolution function. The calculation outputs two
       //    profiles - 'reflect' which is the same range as the points, and
       //    'simulation' which can be a different range to allow extrapolation.
-      //    The background correction is the applied, and finally chi-squared is
-      //    calculated.
+      //    Finally, the background correction is applied.
       //  Pre-definition for Coder
       sldProfile.set_size(1, 2);
       sldProfileIm.set_size(1, 2);
@@ -69,160 +68,113 @@ namespace RAT
       sldProfileIm[0] = 0.0;
       sldProfile[sldProfile.size(0)] = 0.0;
       sldProfileIm[sldProfileIm.size(0)] = 0.0;
+      resampledLayers.set_size(1, 4);
+      resampledLayers[0] = 0.0;
+      resampledLayers[resampledLayers.size(0)] = 0.0;
+      resampledLayers[resampledLayers.size(0) * 2] = 0.0;
+      resampledLayers[resampledLayers.size(0) * 3] = 0.0;
 
       //  Build up the layers matrix for this contrast
-      ssubs = b_groupLayersMod(layers, rough, geometry_data, geometry_size,
-        bulkIn, bulkOut, theseLayers);
+      ssubs = b_groupLayersMod(layers, roughness, geometry_data, geometry_size,
+        layerSld);
+      applyHydration(layerSld, bulkIn, bulkOut);
 
       //  Make the SLD profiles.
-      //  If resampling is needed, then enforce the calcSLD flag, so as to catch
-      //  the error af trying to resample a non-existent profile.
-      if ((resample == 1.0) && (!calcSld)) {
-        calcSld = true;
-      }
-
-      //  If calc SLD flag is set, then calculate the SLD profile
-      if (calcSld) {
-        int result_tmp;
-        signed char b_input_sizes_idx_1;
-        signed char b_sizes_idx_1;
-        signed char input_sizes_idx_1;
-        signed char sizes_idx_1;
-        boolean_T empty_non_axis_sizes;
+      //  If resampling is needed, then enforce the SLD calculation, so as to
+      //  prevent the error of trying to resample a non-existent profile.
+      if (calcSld || (resample == 1.0)) {
+        int tmp_size;
+        short tmp_data[12];
+        signed char b_y_data[11];
+        signed char y_data[10];
 
         //  We process real and imaginary parts of the SLD separately
-        if (theseLayers.size(0) != 0) {
-          result_tmp = theseLayers.size(0);
+        if (layerSld.size(1) < 4) {
+          y_size_idx_1 = 0;
         } else {
-          result_tmp = 0;
+          y_size_idx_1 = layerSld.size(1) - 3;
+          loop_ub = layerSld.size(1) - 4;
+          for (int i{0}; i <= loop_ub; i++) {
+            y_data[i] = static_cast<signed char>(i + 4);
+          }
         }
 
-        empty_non_axis_sizes = (result_tmp == 0);
-        if (empty_non_axis_sizes || (theseLayers.size(0) != 0)) {
-          input_sizes_idx_1 = 2;
-        } else {
-          input_sizes_idx_1 = 0;
+        tmp_size = y_size_idx_1 + 2;
+        tmp_data[0] = 0;
+        tmp_data[1] = 1;
+        for (int i{0}; i < y_size_idx_1; i++) {
+          tmp_data[i + 2] = static_cast<short>(y_data[i] - 1);
         }
 
-        if (empty_non_axis_sizes || (theseLayers.size(0) != 0)) {
-          sizes_idx_1 = 1;
-        } else {
-          sizes_idx_1 = 0;
+        ReSLDLayers.set_size(layerSld.size(0), tmp_size);
+        for (int i{0}; i < tmp_size; i++) {
+          loop_ub = layerSld.size(0);
+          for (int i1{0}; i1 < loop_ub; i1++) {
+            ReSLDLayers[i1 + ReSLDLayers.size(0) * i] = layerSld[i1 +
+              layerSld.size(0) * tmp_data[i]];
+          }
         }
 
-        empty_non_axis_sizes = (result_tmp == 0);
-        if (empty_non_axis_sizes || (theseLayers.size(0) != 0)) {
-          b_input_sizes_idx_1 = 1;
+        if (layerSld.size(1) < 3) {
+          y_size_idx_1 = 0;
         } else {
-          b_input_sizes_idx_1 = 0;
+          y_size_idx_1 = layerSld.size(1) - 2;
+          loop_ub = layerSld.size(1) - 3;
+          for (int i{0}; i <= loop_ub; i++) {
+            b_y_data[i] = static_cast<signed char>(i + 3);
+          }
         }
 
-        if (empty_non_axis_sizes || (theseLayers.size(0) != 0)) {
-          b_sizes_idx_1 = 2;
-        } else {
-          b_sizes_idx_1 = 0;
+        tmp_size = y_size_idx_1 + 1;
+        tmp_data[0] = 0;
+        for (int i{0}; i < y_size_idx_1; i++) {
+          tmp_data[i + 1] = static_cast<short>(b_y_data[i] - 1);
+        }
+
+        ImSLDLayers.set_size(layerSld.size(0), tmp_size);
+        for (int i{0}; i < tmp_size; i++) {
+          loop_ub = layerSld.size(0);
+          for (int i1{0}; i1 < loop_ub; i1++) {
+            ImSLDLayers[i1 + ImSLDLayers.size(0) * i] = layerSld[i1 +
+              layerSld.size(0) * tmp_data[i]];
+          }
         }
 
         //  Note bulkIn and bulkOut = 0 since there is never any imaginary part
         //  for the bulk phases.
-        b_theseLayers.set_size(theseLayers.size(0), 2);
-        loop_ub = theseLayers.size(0);
-        for (int i{0}; i < 2; i++) {
-          for (int i1{0}; i1 < loop_ub; i1++) {
-            b_theseLayers[i1 + b_theseLayers.size(0) * i] = theseLayers[i1 +
-              theseLayers.size(0) * i];
-          }
-        }
-
-        c_theseLayers.set_size(theseLayers.size(0));
-        loop_ub = theseLayers.size(0);
-        for (int i{0}; i < loop_ub; i++) {
-          c_theseLayers[i] = theseLayers[i + theseLayers.size(0) * 3];
-        }
-
-        d_theseLayers.set_size(result_tmp, input_sizes_idx_1 + sizes_idx_1);
-        loop_ub = input_sizes_idx_1;
-        for (int i{0}; i < loop_ub; i++) {
-          for (int i1{0}; i1 < result_tmp; i1++) {
-            d_theseLayers[i1 + d_theseLayers.size(0) * i] = b_theseLayers[i1 +
-              result_tmp * i];
-          }
-        }
-
-        loop_ub = sizes_idx_1;
-        for (int i{0}; i < loop_ub; i++) {
-          for (int i1{0}; i1 < result_tmp; i1++) {
-            d_theseLayers[i1 + d_theseLayers.size(0) * input_sizes_idx_1] =
-              c_theseLayers[i1];
-          }
-        }
-
-        makeSLDProfiles(bulkIn, bulkOut, d_theseLayers, ssubs, repeatLayers,
+        makeSLDProfiles(bulkIn, bulkOut, ReSLDLayers, ssubs, repeatLayers,
                         sldProfile);
-        c_theseLayers.set_size(theseLayers.size(0));
-        loop_ub = theseLayers.size(0);
-        for (int i{0}; i < loop_ub; i++) {
-          c_theseLayers[i] = theseLayers[i];
-        }
-
-        b_theseLayers.set_size(theseLayers.size(0), 2);
-        loop_ub = theseLayers.size(0);
-        for (int i{0}; i < 2; i++) {
-          for (int i1{0}; i1 < loop_ub; i1++) {
-            b_theseLayers[i1 + b_theseLayers.size(0) * i] = theseLayers[i1 +
-              theseLayers.size(0) * (i + 2)];
-          }
-        }
-
-        d_theseLayers.set_size(result_tmp, b_input_sizes_idx_1 + b_sizes_idx_1);
-        loop_ub = b_input_sizes_idx_1;
-        for (int i{0}; i < loop_ub; i++) {
-          for (int i1{0}; i1 < result_tmp; i1++) {
-            d_theseLayers[i1] = c_theseLayers[i1];
-          }
-        }
-
-        loop_ub = b_sizes_idx_1;
-        for (int i{0}; i < loop_ub; i++) {
-          for (int i1{0}; i1 < result_tmp; i1++) {
-            d_theseLayers[i1 + d_theseLayers.size(0) * (i + b_input_sizes_idx_1)]
-              = b_theseLayers[i1 + result_tmp * i];
-          }
-        }
-
-        makeSLDProfiles(d_theseLayers, ssubs, repeatLayers, sldProfileIm);
+        makeSLDProfiles(ImSLDLayers, ssubs, repeatLayers, sldProfileIm);
       }
 
       //  If required, then resample the SLD
       if (resample == 1.0) {
         resampleLayers(sldProfile, sldProfileIm, resampleMinAngle,
-                       resampleNPoints, layerSld);
-        resamLayers.set_size(layerSld.size(0), 4);
-        loop_ub = layerSld.size(0);
+                       resampleNPoints, resampledLayers);
+        inputLayers.set_size(resampledLayers.size(0), 4);
+        loop_ub = resampledLayers.size(0);
         for (int i{0}; i < 4; i++) {
           for (int i1{0}; i1 < loop_ub; i1++) {
-            resamLayers[i1 + resamLayers.size(0) * i] = layerSld[i1 +
-              layerSld.size(0) * i];
+            inputLayers[i1 + inputLayers.size(0) * i] = resampledLayers[i1 +
+              resampledLayers.size(0) * i];
           }
         }
       } else {
-        layerSld.set_size(theseLayers.size(0), 4);
-        resamLayers.set_size(1, 4);
-        loop_ub = theseLayers.size(0);
-        for (int i{0}; i < 4; i++) {
-          for (int i1{0}; i1 < loop_ub; i1++) {
-            layerSld[i1 + layerSld.size(0) * i] = theseLayers[i1 +
-              theseLayers.size(0) * i];
+        inputLayers.set_size(layerSld.size(0), layerSld.size(1));
+        loop_ub = layerSld.size(1);
+        for (int i{0}; i < loop_ub; i++) {
+          y_size_idx_1 = layerSld.size(0);
+          for (int i1{0}; i1 < y_size_idx_1; i1++) {
+            inputLayers[i1 + inputLayers.size(0) * i] = layerSld[i1 +
+              layerSld.size(0) * i];
           }
-
-          resamLayers[resamLayers.size(0) * i] = 0.0;
         }
       }
 
       //  Calculate the reflectivity
       callReflectivity(bulkIn, bulkOut, simulationXData, dataIndices,
-                       repeatLayers, layerSld, ssubs, resolution,
-                       parallelPoints_data, parallelPoints_size, reflect,
+                       repeatLayers, inputLayers, ssubs, resolution,
+                       parallelPoints_data, parallelPoints_size, reflectivity,
                        simulation);
 
       //  Apply background correction
@@ -235,34 +187,32 @@ namespace RAT
         }
       }
 
-      applyBackgroundCorrection(reflect, simulation, c_shiftedData, background,
-        backgroundAction_data, backgroundAction_size, b_shiftedData);
-
-      //  Calculate chi squared.
-      return chiSquared(b_shiftedData, reflect, params);
+      applyBackgroundCorrection(reflectivity, simulation, c_shiftedData,
+        background, backgroundAction_data, backgroundAction_size, b_shiftedData);
     }
 
-    double coreLayersCalculation(const ::coder::array<double, 2U> &layers,
-      double rough, const char geometry_data[], const int geometry_size[2],
-      double bulkIn, double bulkOut, double resample, boolean_T calcSld, const ::
-      coder::array<double, 2U> &shiftedData, const ::coder::array<double, 1U>
+    void coreLayersCalculation(const ::coder::array<double, 2U> &layers, double
+      roughness, const char geometry_data[], const int geometry_size[2], double
+      bulkIn, double bulkOut, double resample, boolean_T calcSld, const ::coder::
+      array<double, 2U> &shiftedData, const ::coder::array<double, 1U>
       &simulationXData, const double dataIndices[2], const double repeatLayers[2],
       const ::coder::array<double, 2U> &resolution, const ::coder::array<double,
       2U> &background, const char backgroundAction_data[], const int
-      backgroundAction_size[2], double params, const char parallelPoints_data[],
-      const int parallelPoints_size[2], double resampleMinAngle, double
-      resampleNPoints, ::coder::array<double, 2U> &sldProfile, ::coder::array<
-      double, 2U> &reflect, ::coder::array<double, 2U> &simulation, ::coder::
-      array<double, 2U> &b_shiftedData, ::coder::array<double, 2U> &theseLayers,
-      ::coder::array<double, 2U> &resamLayers)
+      backgroundAction_size[2], const char parallelPoints_data[], const int
+      parallelPoints_size[2], double resampleMinAngle, double resampleNPoints, ::
+      coder::array<double, 2U> &reflectivity, ::coder::array<double, 2U>
+      &simulation, ::coder::array<double, 2U> &b_shiftedData, ::coder::array<
+      double, 2U> &layerSld, ::coder::array<double, 2U> &sldProfile, ::coder::
+      array<double, 2U> &resampledLayers)
     {
-      ::coder::array<double, 2U> b_theseLayers;
+      ::coder::array<double, 2U> ImSLDLayers;
+      ::coder::array<double, 2U> ReSLDLayers;
       ::coder::array<double, 2U> c_shiftedData;
-      ::coder::array<double, 2U> d_theseLayers;
-      ::coder::array<double, 2U> layerSld;
+      ::coder::array<double, 2U> inputLayers;
+      ::coder::array<double, 2U> r;
       ::coder::array<double, 2U> sldProfileIm;
-      ::coder::array<double, 1U> c_theseLayers;
       double ssubs;
+      int b_loop_ub;
       int loop_ub;
 
       //    This is the main reflectivity calculation for all layers models in the
@@ -278,8 +228,7 @@ namespace RAT
       //    called, including the resolution function. The calculation outputs two
       //    profiles - 'reflect' which is the same range as the points, and
       //    'simulation' which can be a different range to allow extrapolation.
-      //    The background correction is the applied, and finally chi-squared is
-      //    calculated.
+      //    Finally, the background correction is applied.
       //  Pre-definition for Coder
       sldProfile.set_size(1, 2);
       sldProfileIm.set_size(1, 2);
@@ -287,160 +236,130 @@ namespace RAT
       sldProfileIm[0] = 0.0;
       sldProfile[sldProfile.size(0)] = 0.0;
       sldProfileIm[sldProfileIm.size(0)] = 0.0;
+      resampledLayers.set_size(1, 4);
+      resampledLayers[0] = 0.0;
+      resampledLayers[resampledLayers.size(0)] = 0.0;
+      resampledLayers[resampledLayers.size(0) * 2] = 0.0;
+      resampledLayers[resampledLayers.size(0) * 3] = 0.0;
 
       //  Build up the layers matrix for this contrast
-      ssubs = groupLayersMod(layers, rough, geometry_data, geometry_size, bulkIn,
-        bulkOut, theseLayers);
-
-      //  Make the SLD profiles.
-      //  If resampling is needed, then enforce the calcSLD flag, so as to catch
-      //  the error af trying to resample a non-existent profile.
-      if ((resample == 1.0) && (!calcSld)) {
-        calcSld = true;
+      ssubs = groupLayersMod(layers, roughness, geometry_data, geometry_size,
+        layerSld);
+      r.set_size(layerSld.size(0), layerSld.size(1));
+      loop_ub = layerSld.size(1);
+      for (int i{0}; i < loop_ub; i++) {
+        b_loop_ub = layerSld.size(0);
+        for (int i1{0}; i1 < b_loop_ub; i1++) {
+          r[i1 + r.size(0) * i] = layerSld[i1 + layerSld.size(0) * i];
+        }
       }
 
-      //  If calc SLD flag is set, then calculate the SLD profile
-      if (calcSld) {
-        int result_tmp;
-        signed char b_input_sizes_idx_1;
-        signed char b_sizes_idx_1;
-        signed char input_sizes_idx_1;
-        signed char sizes_idx_1;
-        boolean_T empty_non_axis_sizes;
+      applyHydration(r, bulkIn, bulkOut);
+      layerSld.set_size(r.size(0), r.size(1));
+      loop_ub = r.size(1);
+      for (int i{0}; i < loop_ub; i++) {
+        b_loop_ub = r.size(0);
+        for (int i1{0}; i1 < b_loop_ub; i1++) {
+          layerSld[i1 + layerSld.size(0) * i] = r[i1 + r.size(0) * i];
+        }
+      }
+
+      //  Make the SLD profiles.
+      //  If resampling is needed, then enforce the SLD calculation, so as to
+      //  prevent the error of trying to resample a non-existent profile.
+      if (calcSld || (resample == 1.0)) {
+        int tmp_size;
+        short tmp_data[5];
+        signed char b_y_data[11];
+        signed char y_data[10];
 
         //  We process real and imaginary parts of the SLD separately
-        if (theseLayers.size(0) != 0) {
-          result_tmp = theseLayers.size(0);
+        if (layerSld.size(1) < 4) {
+          b_loop_ub = 0;
         } else {
-          result_tmp = 0;
+          b_loop_ub = layerSld.size(1) - 3;
+          loop_ub = layerSld.size(1) - 4;
+          for (int i{0}; i <= loop_ub; i++) {
+            y_data[i] = static_cast<signed char>(i + 4);
+          }
         }
 
-        empty_non_axis_sizes = (result_tmp == 0);
-        if (empty_non_axis_sizes || (theseLayers.size(0) != 0)) {
-          input_sizes_idx_1 = 2;
-        } else {
-          input_sizes_idx_1 = 0;
+        tmp_size = b_loop_ub + 2;
+        tmp_data[0] = 0;
+        tmp_data[1] = 1;
+        for (int i{0}; i < b_loop_ub; i++) {
+          tmp_data[i + 2] = static_cast<short>(y_data[i] - 1);
         }
 
-        if (empty_non_axis_sizes || (theseLayers.size(0) != 0)) {
-          sizes_idx_1 = 1;
-        } else {
-          sizes_idx_1 = 0;
+        ReSLDLayers.set_size(layerSld.size(0), tmp_size);
+        for (int i{0}; i < tmp_size; i++) {
+          loop_ub = layerSld.size(0);
+          for (int i1{0}; i1 < loop_ub; i1++) {
+            ReSLDLayers[i1 + ReSLDLayers.size(0) * i] = layerSld[i1 +
+              layerSld.size(0) * tmp_data[i]];
+          }
         }
 
-        empty_non_axis_sizes = (result_tmp == 0);
-        if (empty_non_axis_sizes || (theseLayers.size(0) != 0)) {
-          b_input_sizes_idx_1 = 1;
+        if (layerSld.size(1) < 3) {
+          b_loop_ub = 0;
         } else {
-          b_input_sizes_idx_1 = 0;
+          b_loop_ub = layerSld.size(1) - 2;
+          loop_ub = layerSld.size(1) - 3;
+          for (int i{0}; i <= loop_ub; i++) {
+            b_y_data[i] = static_cast<signed char>(i + 3);
+          }
         }
 
-        if (empty_non_axis_sizes || (theseLayers.size(0) != 0)) {
-          b_sizes_idx_1 = 2;
-        } else {
-          b_sizes_idx_1 = 0;
+        tmp_size = b_loop_ub + 1;
+        tmp_data[0] = 0;
+        for (int i{0}; i < b_loop_ub; i++) {
+          tmp_data[i + 1] = static_cast<short>(b_y_data[i] - 1);
+        }
+
+        ImSLDLayers.set_size(layerSld.size(0), tmp_size);
+        for (int i{0}; i < tmp_size; i++) {
+          loop_ub = layerSld.size(0);
+          for (int i1{0}; i1 < loop_ub; i1++) {
+            ImSLDLayers[i1 + ImSLDLayers.size(0) * i] = layerSld[i1 +
+              layerSld.size(0) * tmp_data[i]];
+          }
         }
 
         //  Note bulkIn and bulkOut = 0 since there is never any imaginary part
         //  for the bulk phases.
-        b_theseLayers.set_size(theseLayers.size(0), 2);
-        loop_ub = theseLayers.size(0);
-        for (int i{0}; i < 2; i++) {
-          for (int i1{0}; i1 < loop_ub; i1++) {
-            b_theseLayers[i1 + b_theseLayers.size(0) * i] = theseLayers[i1 +
-              theseLayers.size(0) * i];
-          }
-        }
-
-        c_theseLayers.set_size(theseLayers.size(0));
-        loop_ub = theseLayers.size(0);
-        for (int i{0}; i < loop_ub; i++) {
-          c_theseLayers[i] = theseLayers[i + theseLayers.size(0) * 3];
-        }
-
-        d_theseLayers.set_size(result_tmp, input_sizes_idx_1 + sizes_idx_1);
-        loop_ub = input_sizes_idx_1;
-        for (int i{0}; i < loop_ub; i++) {
-          for (int i1{0}; i1 < result_tmp; i1++) {
-            d_theseLayers[i1 + d_theseLayers.size(0) * i] = b_theseLayers[i1 +
-              result_tmp * i];
-          }
-        }
-
-        loop_ub = sizes_idx_1;
-        for (int i{0}; i < loop_ub; i++) {
-          for (int i1{0}; i1 < result_tmp; i1++) {
-            d_theseLayers[i1 + d_theseLayers.size(0) * input_sizes_idx_1] =
-              c_theseLayers[i1];
-          }
-        }
-
-        makeSLDProfiles(bulkIn, bulkOut, d_theseLayers, ssubs, repeatLayers,
+        makeSLDProfiles(bulkIn, bulkOut, ReSLDLayers, ssubs, repeatLayers,
                         sldProfile);
-        c_theseLayers.set_size(theseLayers.size(0));
-        loop_ub = theseLayers.size(0);
-        for (int i{0}; i < loop_ub; i++) {
-          c_theseLayers[i] = theseLayers[i];
-        }
-
-        b_theseLayers.set_size(theseLayers.size(0), 2);
-        loop_ub = theseLayers.size(0);
-        for (int i{0}; i < 2; i++) {
-          for (int i1{0}; i1 < loop_ub; i1++) {
-            b_theseLayers[i1 + b_theseLayers.size(0) * i] = theseLayers[i1 +
-              theseLayers.size(0) * (i + 2)];
-          }
-        }
-
-        d_theseLayers.set_size(result_tmp, b_input_sizes_idx_1 + b_sizes_idx_1);
-        loop_ub = b_input_sizes_idx_1;
-        for (int i{0}; i < loop_ub; i++) {
-          for (int i1{0}; i1 < result_tmp; i1++) {
-            d_theseLayers[i1] = c_theseLayers[i1];
-          }
-        }
-
-        loop_ub = b_sizes_idx_1;
-        for (int i{0}; i < loop_ub; i++) {
-          for (int i1{0}; i1 < result_tmp; i1++) {
-            d_theseLayers[i1 + d_theseLayers.size(0) * (i + b_input_sizes_idx_1)]
-              = b_theseLayers[i1 + result_tmp * i];
-          }
-        }
-
-        makeSLDProfiles(d_theseLayers, ssubs, repeatLayers, sldProfileIm);
+        makeSLDProfiles(ImSLDLayers, ssubs, repeatLayers, sldProfileIm);
       }
 
       //  If required, then resample the SLD
       if (resample == 1.0) {
         resampleLayers(sldProfile, sldProfileIm, resampleMinAngle,
-                       resampleNPoints, layerSld);
-        resamLayers.set_size(layerSld.size(0), 4);
-        loop_ub = layerSld.size(0);
+                       resampleNPoints, resampledLayers);
+        inputLayers.set_size(resampledLayers.size(0), 4);
+        loop_ub = resampledLayers.size(0);
         for (int i{0}; i < 4; i++) {
           for (int i1{0}; i1 < loop_ub; i1++) {
-            resamLayers[i1 + resamLayers.size(0) * i] = layerSld[i1 +
-              layerSld.size(0) * i];
+            inputLayers[i1 + inputLayers.size(0) * i] = resampledLayers[i1 +
+              resampledLayers.size(0) * i];
           }
         }
       } else {
-        layerSld.set_size(theseLayers.size(0), 4);
-        resamLayers.set_size(1, 4);
-        loop_ub = theseLayers.size(0);
-        for (int i{0}; i < 4; i++) {
-          for (int i1{0}; i1 < loop_ub; i1++) {
-            layerSld[i1 + layerSld.size(0) * i] = theseLayers[i1 +
-              theseLayers.size(0) * i];
+        inputLayers.set_size(layerSld.size(0), layerSld.size(1));
+        loop_ub = layerSld.size(1);
+        for (int i{0}; i < loop_ub; i++) {
+          b_loop_ub = layerSld.size(0);
+          for (int i1{0}; i1 < b_loop_ub; i1++) {
+            inputLayers[i1 + inputLayers.size(0) * i] = layerSld[i1 +
+              layerSld.size(0) * i];
           }
-
-          resamLayers[resamLayers.size(0) * i] = 0.0;
         }
       }
 
       //  Calculate the reflectivity
       callReflectivity(bulkIn, bulkOut, simulationXData, dataIndices,
-                       repeatLayers, layerSld, ssubs, resolution,
-                       parallelPoints_data, parallelPoints_size, reflect,
+                       repeatLayers, inputLayers, ssubs, resolution,
+                       parallelPoints_data, parallelPoints_size, reflectivity,
                        simulation);
 
       //  Apply background correction
@@ -453,11 +372,8 @@ namespace RAT
         }
       }
 
-      applyBackgroundCorrection(reflect, simulation, c_shiftedData, background,
-        backgroundAction_data, backgroundAction_size, b_shiftedData);
-
-      //  Calculate chi squared.
-      return chiSquared(b_shiftedData, reflect, params);
+      applyBackgroundCorrection(reflectivity, simulation, c_shiftedData,
+        background, backgroundAction_data, backgroundAction_size, b_shiftedData);
     }
   }
 }

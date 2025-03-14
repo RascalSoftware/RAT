@@ -32,7 +32,7 @@ namespace RAT
     double r;
     int loop_ub;
 
-    //  Produces a step function convoluted with differnt error functions
+    //  Produces a step function convoluted with different error functions
     //  on each side.
     //  Convstep (x,xw,xcen,s1,s2,h)
     //        x = vector of x values
@@ -68,7 +68,7 @@ namespace RAT
     l = xcen - xw / 2.0;
     aFactor = 1.4142135623730951 * s1;
     bFactor = 1.4142135623730951 * s2;
-    a = h / 2.0;
+    a = 0.5 * h;
     b_x.set_size(1, x.size(1));
     loop_ub = x.size(1);
     for (int i{0}; i < loop_ub; i++) {
@@ -106,7 +106,7 @@ namespace RAT
     double r;
     int loop_ub;
 
-    //  Produces a step function convoluted with differnt error functions
+    //  Produces a step function convoluted with different error functions
     //  on each side.
     //  Convstep (x,xw,xcen,s1,s2,h)
     //        x = vector of x values

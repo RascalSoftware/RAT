@@ -22,9 +22,9 @@ namespace RAT
   void constructResolution(const char resolutionType_data[], const int
     resolutionType_size[2], const double resolutionParamIndex_data[], const int
     resolutionParamIndex_size[2], const ::coder::array<double, 2U> &shiftedData,
-    const ::coder::array<double, 2U> &resolutionParamArray, const ::coder::array<
-    double, 1U> &simulationXData, const double dataIndices[2], ::coder::array<
-    double, 2U> &resolution);
+    const ::coder::array<double, 2U> &resolutionParamValues, const ::coder::
+    array<double, 1U> &simulationXData, const double dataIndices[2], ::coder::
+    array<double, 2U> &resolution);
 }
 
 #endif

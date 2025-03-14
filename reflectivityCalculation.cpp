@@ -56,10 +56,10 @@ namespace RAT
     //  * domains   - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
     //
     //  Decide which target function we are calling and call the relevant routines
-    if (coder::internal::i_strcmp(problemStruct.TF.data, problemStruct.TF.size))
+    if (coder::internal::j_strcmp(problemStruct.TF.data, problemStruct.TF.size))
     {
       b_index = 0;
-    } else if (coder::internal::m_strcmp(problemStruct.TF.data,
+    } else if (coder::internal::n_strcmp(problemStruct.TF.data,
                 problemStruct.TF.size)) {
       b_index = 1;
     } else {
@@ -72,13 +72,13 @@ namespace RAT
         int switch_expression_size[2];
         coder::lower(problemStruct.modelType.data, problemStruct.modelType.size,
                      switch_expression_data, switch_expression_size);
-        if (coder::internal::j_strcmp(switch_expression_data,
+        if (coder::internal::k_strcmp(switch_expression_data,
              switch_expression_size)) {
           b_index = 0;
-        } else if (coder::internal::k_strcmp(switch_expression_data,
+        } else if (coder::internal::l_strcmp(switch_expression_data,
                     switch_expression_size)) {
           b_index = 1;
-        } else if (coder::internal::l_strcmp(switch_expression_data,
+        } else if (coder::internal::m_strcmp(switch_expression_data,
                     switch_expression_size)) {
           b_index = 2;
         } else {
@@ -113,7 +113,7 @@ namespace RAT
           break;
 
          case 1:
-          normalTF::c_customLayers(problemStruct, controls, qzshifts,
+          normalTF::b_customLayers(problemStruct, controls, qzshifts,
             result->contrastParams.scalefactors, result->contrastParams.bulkIn,
             result->contrastParams.bulkOut, result->calculationResults.chiValues,
             result->reflectivity, result->simulation, result->shiftedData,
@@ -139,15 +139,15 @@ namespace RAT
           break;
 
          case 2:
-          normalTF::b_customXY(problemStruct, controls, qzshifts,
-                               result->contrastParams.scalefactors,
-                               result->contrastParams.bulkIn,
-                               result->contrastParams.bulkOut,
-                               result->calculationResults.chiValues,
-                               result->reflectivity, result->simulation,
-                               result->shiftedData, result->backgrounds,
-                               result->resolutions, layerSlds, sldProfiles,
-                               resampledLayers, result->contrastParams.subRoughs);
+          normalTF::customXY(problemStruct, controls, qzshifts,
+                             result->contrastParams.scalefactors,
+                             result->contrastParams.bulkIn,
+                             result->contrastParams.bulkOut,
+                             result->calculationResults.chiValues,
+                             result->reflectivity, result->simulation,
+                             result->shiftedData, result->backgrounds,
+                             result->resolutions, layerSlds, sldProfiles,
+                             resampledLayers, result->contrastParams.subRoughs);
           result->layerSlds.set_size(layerSlds.size(0), 1);
           b_index = layerSlds.size(0);
           for (int i{0}; i < b_index; i++) {
@@ -187,13 +187,13 @@ namespace RAT
         int switch_expression_size[2];
         coder::lower(problemStruct.modelType.data, problemStruct.modelType.size,
                      switch_expression_data, switch_expression_size);
-        if (coder::internal::j_strcmp(switch_expression_data,
+        if (coder::internal::k_strcmp(switch_expression_data,
              switch_expression_size)) {
           b_index = 0;
-        } else if (coder::internal::k_strcmp(switch_expression_data,
+        } else if (coder::internal::l_strcmp(switch_expression_data,
                     switch_expression_size)) {
           b_index = 1;
-        } else if (coder::internal::l_strcmp(switch_expression_data,
+        } else if (coder::internal::m_strcmp(switch_expression_data,
                     switch_expression_size)) {
           b_index = 2;
         } else {
@@ -241,7 +241,7 @@ namespace RAT
           {
             int b_loop_ub;
             int loop_ub;
-            domainsTF::c_customLayers(problemStruct, controls, qzshifts,
+            domainsTF::b_customLayers(problemStruct, controls, qzshifts,
               result->contrastParams.scalefactors, result->contrastParams.bulkIn,
               result->contrastParams.bulkOut,
               result->calculationResults.chiValues, result->reflectivity,
@@ -277,16 +277,16 @@ namespace RAT
           {
             int b_loop_ub;
             int loop_ub;
-            domainsTF::b_customXY(problemStruct, controls, qzshifts,
-                                  result->contrastParams.scalefactors,
-                                  result->contrastParams.bulkIn,
-                                  result->contrastParams.bulkOut,
-                                  result->calculationResults.chiValues,
-                                  result->reflectivity, result->simulation,
-                                  result->shiftedData, result->backgrounds,
-                                  result->resolutions, layerSlds, sldProfiles,
-                                  resampledLayers,
-                                  result->contrastParams.subRoughs);
+            domainsTF::customXY(problemStruct, controls, qzshifts,
+                                result->contrastParams.scalefactors,
+                                result->contrastParams.bulkIn,
+                                result->contrastParams.bulkOut,
+                                result->calculationResults.chiValues,
+                                result->reflectivity, result->simulation,
+                                result->shiftedData, result->backgrounds,
+                                result->resolutions, layerSlds, sldProfiles,
+                                resampledLayers,
+                                result->contrastParams.subRoughs);
             result->layerSlds.set_size(layerSlds.size(0), 2);
             result->sldProfiles.set_size(sldProfiles.size(0), 2);
             result->resampledLayers.set_size(resampledLayers.size(0), 2);
@@ -391,10 +391,10 @@ namespace RAT
     //  * domains   - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
     //
     //  Decide which target function we are calling and call the relevant routines
-    if (coder::internal::i_strcmp(problemStruct.TF.data, problemStruct.TF.size))
+    if (coder::internal::j_strcmp(problemStruct.TF.data, problemStruct.TF.size))
     {
       b_index = 0;
-    } else if (coder::internal::m_strcmp(problemStruct.TF.data,
+    } else if (coder::internal::n_strcmp(problemStruct.TF.data,
                 problemStruct.TF.size)) {
       b_index = 1;
     } else {
@@ -407,13 +407,13 @@ namespace RAT
         int switch_expression_size[2];
         coder::lower(problemStruct.modelType.data, problemStruct.modelType.size,
                      switch_expression_data, switch_expression_size);
-        if (coder::internal::j_strcmp(switch_expression_data,
+        if (coder::internal::k_strcmp(switch_expression_data,
              switch_expression_size)) {
           b_index = 0;
-        } else if (coder::internal::k_strcmp(switch_expression_data,
+        } else if (coder::internal::l_strcmp(switch_expression_data,
                     switch_expression_size)) {
           b_index = 1;
-        } else if (coder::internal::l_strcmp(switch_expression_data,
+        } else if (coder::internal::m_strcmp(switch_expression_data,
                     switch_expression_size)) {
           b_index = 2;
         } else {
@@ -448,7 +448,7 @@ namespace RAT
           break;
 
          case 1:
-          normalTF::b_customLayers(problemStruct, controls, qzshifts,
+          normalTF::customLayers(problemStruct, controls, qzshifts,
             result->contrastParams.scalefactors, result->contrastParams.bulkIn,
             result->contrastParams.bulkOut, result->calculationResults.chiValues,
             result->reflectivity, result->simulation, result->shiftedData,
@@ -474,15 +474,15 @@ namespace RAT
           break;
 
          case 2:
-          normalTF::b_customXY(problemStruct, controls, qzshifts,
-                               result->contrastParams.scalefactors,
-                               result->contrastParams.bulkIn,
-                               result->contrastParams.bulkOut,
-                               result->calculationResults.chiValues,
-                               result->reflectivity, result->simulation,
-                               result->shiftedData, result->backgrounds,
-                               result->resolutions, layerSlds, sldProfiles,
-                               resampledLayers, result->contrastParams.subRoughs);
+          normalTF::customXY(problemStruct, controls, qzshifts,
+                             result->contrastParams.scalefactors,
+                             result->contrastParams.bulkIn,
+                             result->contrastParams.bulkOut,
+                             result->calculationResults.chiValues,
+                             result->reflectivity, result->simulation,
+                             result->shiftedData, result->backgrounds,
+                             result->resolutions, layerSlds, sldProfiles,
+                             resampledLayers, result->contrastParams.subRoughs);
           result->layerSlds.set_size(layerSlds.size(0), 1);
           b_index = layerSlds.size(0);
           for (int i{0}; i < b_index; i++) {
@@ -522,13 +522,13 @@ namespace RAT
         int switch_expression_size[2];
         coder::lower(problemStruct.modelType.data, problemStruct.modelType.size,
                      switch_expression_data, switch_expression_size);
-        if (coder::internal::j_strcmp(switch_expression_data,
+        if (coder::internal::k_strcmp(switch_expression_data,
              switch_expression_size)) {
           b_index = 0;
-        } else if (coder::internal::k_strcmp(switch_expression_data,
+        } else if (coder::internal::l_strcmp(switch_expression_data,
                     switch_expression_size)) {
           b_index = 1;
-        } else if (coder::internal::l_strcmp(switch_expression_data,
+        } else if (coder::internal::m_strcmp(switch_expression_data,
                     switch_expression_size)) {
           b_index = 2;
         } else {
@@ -576,7 +576,7 @@ namespace RAT
           {
             int b_loop_ub;
             int loop_ub;
-            domainsTF::b_customLayers(problemStruct, controls, qzshifts,
+            domainsTF::customLayers(problemStruct, controls, qzshifts,
               result->contrastParams.scalefactors, result->contrastParams.bulkIn,
               result->contrastParams.bulkOut,
               result->calculationResults.chiValues, result->reflectivity,
@@ -612,16 +612,16 @@ namespace RAT
           {
             int b_loop_ub;
             int loop_ub;
-            domainsTF::b_customXY(problemStruct, controls, qzshifts,
-                                  result->contrastParams.scalefactors,
-                                  result->contrastParams.bulkIn,
-                                  result->contrastParams.bulkOut,
-                                  result->calculationResults.chiValues,
-                                  result->reflectivity, result->simulation,
-                                  result->shiftedData, result->backgrounds,
-                                  result->resolutions, layerSlds, sldProfiles,
-                                  resampledLayers,
-                                  result->contrastParams.subRoughs);
+            domainsTF::customXY(problemStruct, controls, qzshifts,
+                                result->contrastParams.scalefactors,
+                                result->contrastParams.bulkIn,
+                                result->contrastParams.bulkOut,
+                                result->calculationResults.chiValues,
+                                result->reflectivity, result->simulation,
+                                result->shiftedData, result->backgrounds,
+                                result->resolutions, layerSlds, sldProfiles,
+                                resampledLayers,
+                                result->contrastParams.subRoughs);
             result->layerSlds.set_size(layerSlds.size(0), 2);
             result->sldProfiles.set_size(sldProfiles.size(0), 2);
             result->resampledLayers.set_size(resampledLayers.size(0), 2);
@@ -726,10 +726,10 @@ namespace RAT
     //  * domains   - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
     //
     //  Decide which target function we are calling and call the relevant routines
-    if (coder::internal::i_strcmp(problemStruct->TF.data, problemStruct->TF.size))
+    if (coder::internal::j_strcmp(problemStruct->TF.data, problemStruct->TF.size))
     {
       b_index = 0;
-    } else if (coder::internal::m_strcmp(problemStruct->TF.data,
+    } else if (coder::internal::n_strcmp(problemStruct->TF.data,
                 problemStruct->TF.size)) {
       b_index = 1;
     } else {
@@ -743,13 +743,13 @@ namespace RAT
         coder::lower(problemStruct->modelType.data,
                      problemStruct->modelType.size, switch_expression_data,
                      switch_expression_size);
-        if (coder::internal::j_strcmp(switch_expression_data,
+        if (coder::internal::k_strcmp(switch_expression_data,
              switch_expression_size)) {
           b_index = 0;
-        } else if (coder::internal::k_strcmp(switch_expression_data,
+        } else if (coder::internal::l_strcmp(switch_expression_data,
                     switch_expression_size)) {
           b_index = 1;
-        } else if (coder::internal::l_strcmp(switch_expression_data,
+        } else if (coder::internal::m_strcmp(switch_expression_data,
                     switch_expression_size)) {
           b_index = 2;
         } else {
@@ -784,7 +784,7 @@ namespace RAT
           break;
 
          case 1:
-          normalTF::b_customLayers(problemStruct, controls, qzshifts,
+          normalTF::customLayers(problemStruct, controls, qzshifts,
             result->contrastParams.scalefactors, result->contrastParams.bulkIn,
             result->contrastParams.bulkOut, result->calculationResults.chiValues,
             result->reflectivity, result->simulation, result->shiftedData,
@@ -810,15 +810,15 @@ namespace RAT
           break;
 
          case 2:
-          normalTF::b_customXY(problemStruct, controls, qzshifts,
-                               result->contrastParams.scalefactors,
-                               result->contrastParams.bulkIn,
-                               result->contrastParams.bulkOut,
-                               result->calculationResults.chiValues,
-                               result->reflectivity, result->simulation,
-                               result->shiftedData, result->backgrounds,
-                               result->resolutions, layerSlds, sldProfiles,
-                               resampledLayers, result->contrastParams.subRoughs);
+          normalTF::customXY(problemStruct, controls, qzshifts,
+                             result->contrastParams.scalefactors,
+                             result->contrastParams.bulkIn,
+                             result->contrastParams.bulkOut,
+                             result->calculationResults.chiValues,
+                             result->reflectivity, result->simulation,
+                             result->shiftedData, result->backgrounds,
+                             result->resolutions, layerSlds, sldProfiles,
+                             resampledLayers, result->contrastParams.subRoughs);
           result->layerSlds.set_size(layerSlds.size(0), 1);
           b_index = layerSlds.size(0);
           for (int i{0}; i < b_index; i++) {
@@ -859,13 +859,13 @@ namespace RAT
         coder::lower(problemStruct->modelType.data,
                      problemStruct->modelType.size, switch_expression_data,
                      switch_expression_size);
-        if (coder::internal::j_strcmp(switch_expression_data,
+        if (coder::internal::k_strcmp(switch_expression_data,
              switch_expression_size)) {
           b_index = 0;
-        } else if (coder::internal::k_strcmp(switch_expression_data,
+        } else if (coder::internal::l_strcmp(switch_expression_data,
                     switch_expression_size)) {
           b_index = 1;
-        } else if (coder::internal::l_strcmp(switch_expression_data,
+        } else if (coder::internal::m_strcmp(switch_expression_data,
                     switch_expression_size)) {
           b_index = 2;
         } else {
@@ -913,7 +913,7 @@ namespace RAT
           {
             int b_loop_ub;
             int loop_ub;
-            domainsTF::b_customLayers(problemStruct, controls, qzshifts,
+            domainsTF::customLayers(problemStruct, controls, qzshifts,
               result->contrastParams.scalefactors, result->contrastParams.bulkIn,
               result->contrastParams.bulkOut,
               result->calculationResults.chiValues, result->reflectivity,
@@ -949,16 +949,16 @@ namespace RAT
           {
             int b_loop_ub;
             int loop_ub;
-            domainsTF::b_customXY(problemStruct, controls, qzshifts,
-                                  result->contrastParams.scalefactors,
-                                  result->contrastParams.bulkIn,
-                                  result->contrastParams.bulkOut,
-                                  result->calculationResults.chiValues,
-                                  result->reflectivity, result->simulation,
-                                  result->shiftedData, result->backgrounds,
-                                  result->resolutions, layerSlds, sldProfiles,
-                                  resampledLayers,
-                                  result->contrastParams.subRoughs);
+            domainsTF::customXY(problemStruct, controls, qzshifts,
+                                result->contrastParams.scalefactors,
+                                result->contrastParams.bulkIn,
+                                result->contrastParams.bulkOut,
+                                result->calculationResults.chiValues,
+                                result->reflectivity, result->simulation,
+                                result->shiftedData, result->backgrounds,
+                                result->resolutions, layerSlds, sldProfiles,
+                                resampledLayers,
+                                result->contrastParams.subRoughs);
             result->layerSlds.set_size(layerSlds.size(0), 2);
             result->sldProfiles.set_size(sldProfiles.size(0), 2);
             result->resampledLayers.set_size(resampledLayers.size(0), 2);

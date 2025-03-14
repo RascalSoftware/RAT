@@ -3,26 +3,24 @@
 // granting, nonprofit, education, and research organizations only. Not
 // for commercial or industrial use.
 //
-// applyHydration.h
+// findkn.h
 //
-// Code generation for function 'applyHydration'
+// Code generation for function 'findkn'
 //
-#ifndef APPLYHYDRATION_H
-#define APPLYHYDRATION_H
+#ifndef FINDKN_H
+#define FINDKN_H
 
 // Include files
 #include "rtwtypes.h"
-#include "coder_array.h"
 #include <cstddef>
 #include <cstdlib>
 
 // Function Declarations
 namespace RAT
 {
-  void applyHydration(::coder::array<double, 2U> &layers, double bulkIn, double
-                      bulkOut);
+  creal_T findkn(double k0, const creal_T sld);
 }
 
 #endif
 
-// End of code generation (applyHydration.h)
+// End of code generation (findkn.h)

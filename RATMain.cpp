@@ -51,7 +51,7 @@ namespace RAT
                    coder::array<cell_wrap_10, 2U> &t11_domainRatios, ::coder::
                    array<cell_wrap_10, 2U> &t11_contrasts);
   static void cast(const ProblemDefinition &r, b_ProblemDefinition *r1);
-  static void cast(const ::coder::array<cell_wrap_47, 2U> &r, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_45, 2U> &r, ::coder::array<
                    cell_wrap_3, 2U> &r1);
   static void cast(const ::coder::array<cell_wrap_9, 2U> &r, ::coder::array<
                    cell_wrap_4, 2U> &r1);
@@ -487,7 +487,7 @@ namespace RAT
     r1->checks = r.checks;
   }
 
-  static void cast(const ::coder::array<cell_wrap_47, 2U> &r, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_45, 2U> &r, ::coder::array<
                    cell_wrap_3, 2U> &r1)
   {
     int i;
@@ -678,21 +678,28 @@ namespace RAT
     bayesResults->nestedSamplerOutput.postSamples
       [bayesResults->nestedSamplerOutput.postSamples.size(0)] =
       b_bayesResults.nestedSamplerOutput.postSamples.data[1];
+
+    //  Set controls.calcSLD to 1 if we are doing customXY
+    if (coder::internal::c_strcmp(problemStruct->modelType.data,
+         problemStruct->modelType.size)) {
+      controls->calcSldDuringFit = true;
+    }
+
     if (problemStruct->numberOfContrasts > 0.0) {
       int b_index;
-      if (coder::internal::c_strcmp(controls->procedure.data,
+      if (coder::internal::d_strcmp(controls->procedure.data,
            controls->procedure.size)) {
         b_index = 0;
-      } else if (coder::internal::e_strcmp(controls->procedure.data,
-                  controls->procedure.size)) {
-        b_index = 1;
       } else if (coder::internal::f_strcmp(controls->procedure.data,
                   controls->procedure.size)) {
-        b_index = 2;
+        b_index = 1;
       } else if (coder::internal::g_strcmp(controls->procedure.data,
                   controls->procedure.size)) {
-        b_index = 3;
+        b_index = 2;
       } else if (coder::internal::h_strcmp(controls->procedure.data,
+                  controls->procedure.size)) {
+        b_index = 3;
+      } else if (coder::internal::i_strcmp(controls->procedure.data,
                   controls->procedure.size)) {
         b_index = 4;
       } else {
@@ -708,7 +715,7 @@ namespace RAT
         break;
 
        case 1:
-        if (!coder::internal::d_strcmp(controls->display.data,
+        if (!coder::internal::e_strcmp(controls->display.data,
              controls->display.size)) {
           triggerEvent();
         }
@@ -723,7 +730,7 @@ namespace RAT
         break;
 
        case 2:
-        if (!coder::internal::d_strcmp(controls->display.data,
+        if (!coder::internal::e_strcmp(controls->display.data,
              controls->display.size)) {
           d_triggerEvent();
         }
@@ -738,7 +745,7 @@ namespace RAT
         break;
 
        case 3:
-        if (!coder::internal::d_strcmp(controls->display.data,
+        if (!coder::internal::e_strcmp(controls->display.data,
              controls->display.size)) {
           i_triggerEvent();
         }
@@ -759,7 +766,7 @@ namespace RAT
 
        case 4:
         {
-          if (!coder::internal::d_strcmp(controls->display.data,
+          if (!coder::internal::e_strcmp(controls->display.data,
                controls->display.size)) {
             j_triggerEvent();
           }

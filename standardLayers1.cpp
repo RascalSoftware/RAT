@@ -39,27 +39,28 @@ namespace RAT
       const int backgroundParamIndex_size[2], double scalefactorIndex, double
       bulkInIndex, double bulkOutIndex, const double resolutionParamIndex_data[],
       const int resolutionParamIndex_size[2], double domainRatioIndex, const ::
-      coder::array<double, 2U> &backgroundParams, const ::coder::array<double,
-      2U> &scalefactors, const ::coder::array<double, 2U> &bulkIns, const ::
-      coder::array<double, 2U> &bulkOuts, const ::coder::array<double, 2U>
-      &resolutionParams, const ::coder::array<double, 2U> &domainRatios, double
-      dataPresent, const ::coder::array<double, 2U> &data, const double
-      dataLimits[2], const double simLimits[2], const double repeatLayers[2],
-      const char backgroundType_data[], const int backgroundType_size[2], const
-      char backgroundAction_data[], const int backgroundAction_size[2], const
-      char resolutionType_data[], const int resolutionType_size[2], const ::
-      coder::array<cell_wrap_10, 2U> &customFiles, double nParams, const char
+      coder::array<double, 2U> &backgroundParamValues, const ::coder::array<
+      double, 2U> &scalefactorValues, const ::coder::array<double, 2U>
+      &bulkInValues, const ::coder::array<double, 2U> &bulkOutValues, const ::
+      coder::array<double, 2U> &resolutionParamValues, const ::coder::array<
+      double, 2U> &domainRatioValues, double dataPresent, const ::coder::array<
+      double, 2U> &data, const double dataLimits[2], const double
+      simulationLimits[2], const double repeatLayers[2], const char
+      backgroundType_data[], const int backgroundType_size[2], const char
+      backgroundAction_data[], const int backgroundAction_size[2], const char
+      resolutionType_data[], const int resolutionType_size[2], const ::coder::
+      array<cell_wrap_10, 2U> &customFiles, double nParams, const char
       parallel_data[], const int parallel_size[2], double resampleMinAngle,
       double resampleNPoints, double resample, const char geometry_data[], const
       int geometry_size[2], double roughness, boolean_T calcSld, const ::coder::
-      array<double, 2U> &domainContrastLayers1, const ::coder::array<double, 2U>
-      &domainContrastLayers2, const ::coder::array<cell_wrap_54, 2U>
-      &outParameterisedLayers, ::coder::array<double, 2U> &reflectivity, ::coder::
-      array<double, 2U> &simulation, ::coder::array<double, 2U> &shiftedData, ::
-      coder::array<double, 2U> &background, ::coder::array<double, 2U>
-      &resolution, cell_wrap_65 layerSld[2], cell_wrap_7 sldProfile[2],
-      cell_wrap_65 resampledLayer[2], double &scalefactorValue, double
-      &bulkInValue, double &bulkOutValue, double &chi);
+      array<double, 2U> &domainLayersIndices1, const ::coder::array<double, 2U>
+      &domainLayersIndices2, const ::coder::array<cell_wrap_52, 2U> &layerValues,
+      ::coder::array<double, 2U> &reflectivity, ::coder::array<double, 2U>
+      &simulation, ::coder::array<double, 2U> &shiftedData, ::coder::array<
+      double, 2U> &background, ::coder::array<double, 2U> &resolution,
+      cell_wrap_9 layerSld[2], cell_wrap_7 sldProfile[2], cell_wrap_65
+      resampledLayer[2], double &scalefactor, double &bulkIn, double &bulkOut,
+      double &chi);
   }
 }
 
@@ -72,44 +73,45 @@ namespace RAT
       const int backgroundParamIndex_size[2], double scalefactorIndex, double
       bulkInIndex, double bulkOutIndex, const double resolutionParamIndex_data[],
       const int resolutionParamIndex_size[2], double domainRatioIndex, const ::
-      coder::array<double, 2U> &backgroundParams, const ::coder::array<double,
-      2U> &scalefactors, const ::coder::array<double, 2U> &bulkIns, const ::
-      coder::array<double, 2U> &bulkOuts, const ::coder::array<double, 2U>
-      &resolutionParams, const ::coder::array<double, 2U> &domainRatios, double
-      dataPresent, const ::coder::array<double, 2U> &data, const double
-      dataLimits[2], const double simLimits[2], const double repeatLayers[2],
-      const char backgroundType_data[], const int backgroundType_size[2], const
-      char backgroundAction_data[], const int backgroundAction_size[2], const
-      char resolutionType_data[], const int resolutionType_size[2], const ::
-      coder::array<cell_wrap_10, 2U> &customFiles, double nParams, const char
+      coder::array<double, 2U> &backgroundParamValues, const ::coder::array<
+      double, 2U> &scalefactorValues, const ::coder::array<double, 2U>
+      &bulkInValues, const ::coder::array<double, 2U> &bulkOutValues, const ::
+      coder::array<double, 2U> &resolutionParamValues, const ::coder::array<
+      double, 2U> &domainRatioValues, double dataPresent, const ::coder::array<
+      double, 2U> &data, const double dataLimits[2], const double
+      simulationLimits[2], const double repeatLayers[2], const char
+      backgroundType_data[], const int backgroundType_size[2], const char
+      backgroundAction_data[], const int backgroundAction_size[2], const char
+      resolutionType_data[], const int resolutionType_size[2], const ::coder::
+      array<cell_wrap_10, 2U> &customFiles, double nParams, const char
       parallel_data[], const int parallel_size[2], double resampleMinAngle,
       double resampleNPoints, double resample, const char geometry_data[], const
       int geometry_size[2], double roughness, boolean_T calcSld, const ::coder::
-      array<double, 2U> &domainContrastLayers1, const ::coder::array<double, 2U>
-      &domainContrastLayers2, const ::coder::array<cell_wrap_54, 2U>
-      &outParameterisedLayers, ::coder::array<double, 2U> &reflectivity, ::coder::
-      array<double, 2U> &simulation, ::coder::array<double, 2U> &shiftedData, ::
-      coder::array<double, 2U> &background, ::coder::array<double, 2U>
-      &resolution, cell_wrap_65 layerSld[2], cell_wrap_7 sldProfile[2],
-      cell_wrap_65 resampledLayer[2], double &scalefactorValue, double
-      &bulkInValue, double &bulkOutValue, double &chi)
+      array<double, 2U> &domainLayersIndices1, const ::coder::array<double, 2U>
+      &domainLayersIndices2, const ::coder::array<cell_wrap_52, 2U> &layerValues,
+      ::coder::array<double, 2U> &reflectivity, ::coder::array<double, 2U>
+      &simulation, ::coder::array<double, 2U> &shiftedData, ::coder::array<
+      double, 2U> &background, ::coder::array<double, 2U> &resolution,
+      cell_wrap_9 layerSld[2], cell_wrap_7 sldProfile[2], cell_wrap_65
+      resampledLayer[2], double &scalefactor, double &bulkIn, double &bulkOut,
+      double &chi)
     {
       ::coder::array<double, 2U> a__3;
       ::coder::array<double, 2U> b_data;
       ::coder::array<double, 2U> b_shiftedData;
-      ::coder::array<double, 2U> reflect1;
-      ::coder::array<double, 2U> reflect2;
-      ::coder::array<double, 2U> simul1;
-      ::coder::array<double, 2U> simul2;
+      ::coder::array<double, 2U> reflectivity1;
+      ::coder::array<double, 2U> reflectivity2;
+      ::coder::array<double, 2U> simulation1;
+      ::coder::array<double, 2U> simulation2;
       ::coder::array<double, 1U> simulationXData;
-      cell_wrap_65 r1;
       cell_wrap_65 r2;
-      cell_wrap_65 r4;
       cell_wrap_65 r5;
-      cell_wrap_7 r;
-      cell_wrap_7 r3;
+      cell_wrap_7 r1;
+      cell_wrap_7 r4;
+      cell_wrap_9 r;
+      cell_wrap_9 r3;
       double dataIndices[2];
-      double domainRatios_tmp;
+      double domainRatioValues_tmp;
       int loop_ub;
 
       //  Get the domain ratio for this contrast
@@ -117,9 +119,12 @@ namespace RAT
       //  from the input arrays.
       //  First need to decide which values of the backgrounds, scalefactors
       //  data shifts and bulk contrasts are associated with this contrast
-      backSort(scalefactorIndex, bulkInIndex, bulkOutIndex, scalefactors,
-               bulkIns, bulkOuts, scalefactorValue, bulkInValue, bulkOutValue);
+      backSort(scalefactorIndex, bulkInIndex, bulkOutIndex, scalefactorValues,
+               bulkInValues, bulkOutValues, scalefactor, bulkIn, bulkOut);
 
+      //  Also need to determine which layers from the overall layers list
+      //  are required for this contrast, and put them in the correct order
+      //  according to geometry. We run it twice, once for each domain
       //  Apply scale factors and q shifts to the data
       b_data.set_size(data.size(0), 6);
       for (int i{0}; i < 6; i++) {
@@ -129,81 +134,79 @@ namespace RAT
         }
       }
 
-      shiftData(scalefactorValue, dataPresent, b_data, dataLimits, simLimits,
+      shiftData(scalefactor, dataPresent, b_data, dataLimits, simulationLimits,
                 b_shiftedData);
-      makeSimulationRange(b_shiftedData, simLimits, simulationXData, dataIndices);
+      makeSimulationRange(b_shiftedData, simulationLimits, simulationXData,
+                          dataIndices);
       constructBackground(backgroundType_data, backgroundType_size,
                           backgroundParamIndex_data, backgroundParamIndex_size,
-                          b_shiftedData, customFiles, backgroundParams,
+                          b_shiftedData, customFiles, backgroundParamValues,
                           simulationXData, dataIndices, background);
       constructResolution(resolutionType_data, resolutionType_size,
                           resolutionParamIndex_data, resolutionParamIndex_size,
-                          b_shiftedData, resolutionParams, simulationXData,
+                          b_shiftedData, resolutionParamValues, simulationXData,
                           dataIndices, resolution);
 
-      //  Also need to determine which layers from the overall layers list
-      //  are required for this contrast, and put them in the correct order
-      //  according to geometry. We run it twice, once for each domain...
       //  Call the core layers calculation - need to do this once for each
       //  domain
-      allocateLayersForContrast(domainContrastLayers1, outParameterisedLayers,
-        b_data);
+      allocateLayersForContrast(domainLayersIndices1, layerValues, b_data);
       normalTF::coreLayersCalculation(b_data, roughness, geometry_data,
-        geometry_size, bulkInValue, bulkOutValue, resample, calcSld,
-        b_shiftedData, simulationXData, dataIndices, repeatLayers, resolution,
-        background, backgroundAction_data, backgroundAction_size, nParams,
-        parallel_data, parallel_size, resampleMinAngle, resampleNPoints, r.f1,
-        reflect1, simul1, a__3, r1.f1, r2.f1);
-      allocateLayersForContrast(domainContrastLayers2, outParameterisedLayers,
-        b_data);
+        geometry_size, bulkIn, bulkOut, resample, calcSld, b_shiftedData,
+        simulationXData, dataIndices, repeatLayers, resolution, background,
+        backgroundAction_data, backgroundAction_size, parallel_data,
+        parallel_size, resampleMinAngle, resampleNPoints, reflectivity1,
+        simulation1, a__3, r.f1, r1.f1, r2.f1);
+      allocateLayersForContrast(domainLayersIndices2, layerValues, b_data);
       normalTF::coreLayersCalculation(b_data, roughness, geometry_data,
-        geometry_size, bulkInValue, bulkOutValue, resample, calcSld,
-        b_shiftedData, simulationXData, dataIndices, repeatLayers, resolution,
-        background, backgroundAction_data, backgroundAction_size, nParams,
-        parallel_data, parallel_size, resampleMinAngle, resampleNPoints, r3.f1,
-        reflect2, simul2, shiftedData, r4.f1, r5.f1);
+        geometry_size, bulkIn, bulkOut, resample, calcSld, b_shiftedData,
+        simulationXData, dataIndices, repeatLayers, resolution, background,
+        backgroundAction_data, backgroundAction_size, parallel_data,
+        parallel_size, resampleMinAngle, resampleNPoints, reflectivity2,
+        simulation2, shiftedData, r3.f1, r4.f1, r5.f1);
 
-      //  Calculate the average reflectivities....
+      //  Calculate the average reflectivities
       //  Calculates the averaged reflectivity for domains samples (incoherent
       //  sum)
-      if (reflect1.size(0) == reflect2.size(0)) {
-        domainRatios_tmp = domainRatios[static_cast<int>(domainRatioIndex) - 1];
-        reflectivity.set_size(reflect1.size(0), 2);
-        loop_ub = reflect1.size(0);
+      if (reflectivity1.size(0) == reflectivity2.size(0)) {
+        domainRatioValues_tmp = domainRatioValues[static_cast<int>
+          (domainRatioIndex) - 1];
+        reflectivity.set_size(reflectivity1.size(0), 2);
+        loop_ub = reflectivity1.size(0);
         for (int i{0}; i < loop_ub; i++) {
-          reflectivity[i] = reflect1[i];
-          reflectivity[i + reflectivity.size(0)] = domainRatios_tmp * reflect1[i
-            + reflect1.size(0)] + (1.0 - domainRatios_tmp) * reflect2[i +
-            reflect2.size(0)];
+          reflectivity[i] = reflectivity1[i];
+          reflectivity[i + reflectivity.size(0)] = domainRatioValues_tmp *
+            reflectivity1[i + reflectivity1.size(0)] + (1.0 -
+            domainRatioValues_tmp) * reflectivity2[i + reflectivity2.size(0)];
         }
       } else {
-        binary_expand_op(reflectivity, reflect1, domainRatios, domainRatioIndex,
-                         reflect2);
+        binary_expand_op(reflectivity, reflectivity1, domainRatioValues,
+                         domainRatioIndex, reflectivity2);
       }
 
-      if (simul1.size(0) == simul2.size(0)) {
-        domainRatios_tmp = domainRatios[static_cast<int>(domainRatioIndex) - 1];
-        simulation.set_size(simul1.size(0), 2);
-        loop_ub = simul1.size(0);
+      if (simulation1.size(0) == simulation2.size(0)) {
+        domainRatioValues_tmp = domainRatioValues[static_cast<int>
+          (domainRatioIndex) - 1];
+        simulation.set_size(simulation1.size(0), 2);
+        loop_ub = simulation1.size(0);
         for (int i{0}; i < loop_ub; i++) {
-          simulation[i] = simul1[i];
-          simulation[i + simulation.size(0)] = domainRatios_tmp * simul1[i +
-            simul1.size(0)] + (1.0 - domainRatios_tmp) * simul2[i + simul2.size
-            (0)];
+          simulation[i] = simulation1[i];
+          simulation[i + simulation.size(0)] = domainRatioValues_tmp *
+            simulation1[i + simulation1.size(0)] + (1.0 - domainRatioValues_tmp)
+            * simulation2[i + simulation2.size(0)];
         }
       } else {
-        binary_expand_op(simulation, simul1, domainRatios, domainRatioIndex,
-                         simul2);
+        binary_expand_op(simulation, simulation1, domainRatioValues,
+                         domainRatioIndex, simulation2);
       }
 
-      //  Get an overall chi-squared for the new averaged curve..
+      //  Get an overall chi-squared for the new averaged curve
       chi = chiSquared(shiftedData, reflectivity, nParams);
 
-      //  Store returned values for this contrast in the output arrays.
-      sldProfile[0] = r;
-      sldProfile[1] = r3;
-      layerSld[0] = r1;
-      layerSld[1] = r4;
+      //  Store returned values for this contrast in the output arrays
+      sldProfile[0] = r1;
+      sldProfile[1] = r4;
+      layerSld[0] = r;
+      layerSld[1] = r3;
       resampledLayer[0] = r2;
       resampledLayer[1] = r5;
       return 0.0;
@@ -224,10 +227,10 @@ namespace RAT
                           cell_wrap_9, 2U> &domainResampledLayers, ::coder::
                           array<double, 1U> &subRoughs)
     {
-      ::coder::array<cell_wrap_54, 2U> outParameterisedLayers;
-      ::coder::array<cell_wrap_66, 1U> layerSlds;
+      ::coder::array<cell_wrap_52, 2U> layerValues;
+      ::coder::array<cell_wrap_63, 1U> layerSlds;
+      ::coder::array<cell_wrap_64, 1U> sldProfiles;
       ::coder::array<cell_wrap_66, 1U> resampledLayers;
-      ::coder::array<cell_wrap_67, 1U> sldProfiles;
       ::coder::array<cell_wrap_9, 1U> domainContrastLayers1;
       ::coder::array<cell_wrap_9, 1U> domainContrastLayers2;
       ::coder::array<double, 2U> r;
@@ -248,12 +251,11 @@ namespace RAT
       int iv8[2];
       int iv9[2];
       int b_loop_ub;
-      int d_loop_ub;
+      int c_loop_ub;
       int i2;
       int i3;
       int loop_ub;
       int nParams;
-      int ub_loop;
       int unnamed_idx_0_tmp_tmp_tmp;
       boolean_T calcSld;
       boolean_T useImaginary;
@@ -281,7 +283,7 @@ namespace RAT
       //  parameters to all the layers in the layers list. This only needs
       //  to be done once, and so is done outside the contrasts loop
       allocateParamsToLayers(problemStruct.params, problemStruct.layersDetails,
-        outParameterisedLayers);
+        layerValues);
 
       //  Substrate roughness is always first parameter for standard layers
       subRoughs.set_size(unnamed_idx_0_tmp_tmp_tmp);
@@ -339,7 +341,7 @@ namespace RAT
         }
       }
 
-      if (coder::internal::n_strcmp(controls->parallel.data,
+      if (coder::internal::o_strcmp(controls->parallel.data,
            controls->parallel.size)) {
         //  Loop over all the contrasts
         resampledLayers.set_size(unnamed_idx_0_tmp_tmp_tmp);
@@ -355,13 +357,13 @@ namespace RAT
         bulkIns.set_size(unnamed_idx_0_tmp_tmp_tmp);
         bulkOuts.set_size(unnamed_idx_0_tmp_tmp_tmp);
         chis.set_size(unnamed_idx_0_tmp_tmp_tmp);
-        ub_loop = unnamed_idx_0_tmp_tmp_tmp - 1;
+        loop_ub = unnamed_idx_0_tmp_tmp_tmp - 1;
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
- private(r,d,d1,d2,d3,iv5,iv6,dv3,dv4,dv5,iv7,iv8,iv9,d_loop_ub,i2,i3)
+ private(r,d,d1,d2,d3,iv5,iv6,dv3,dv4,dv5,iv7,iv8,iv9,c_loop_ub,i2,i3)
 
-        for (int c_i = 0; c_i <= ub_loop; c_i++) {
+        for (int c_i = 0; c_i <= loop_ub; c_i++) {
           iv5[0] = (*(int (*)[2])((::coder::array<double, 2U> *)
                      &problemStruct.contrastBackgroundParams[c_i].f1)->size())[0];
           iv5[1] = (*(int (*)[2])((::coder::array<double, 2U> *)
@@ -418,16 +420,15 @@ namespace RAT
                               problemStruct.geometry.data,
                               problemStruct.geometry.size, subRoughs[c_i],
                               calcSld, domainContrastLayers1[c_i].f1,
-                              domainContrastLayers2[c_i].f1,
-                              outParameterisedLayers, reflectivity[c_i].f1,
-                              simulation[c_i].f1, r, backgrounds[c_i].f1,
-                              resolutions[c_i].f1, layerSlds[c_i].f1,
-                              sldProfiles[c_i].f1, resampledLayers[c_i].f1, d3,
-                              d2, d1, d);
-          d_loop_ub = r.size(0);
+                              domainContrastLayers2[c_i].f1, layerValues,
+                              reflectivity[c_i].f1, simulation[c_i].f1, r,
+                              backgrounds[c_i].f1, resolutions[c_i].f1,
+                              layerSlds[c_i].f1, sldProfiles[c_i].f1,
+                              resampledLayers[c_i].f1, d3, d2, d1, d);
+          c_loop_ub = r.size(0);
           shiftedData[c_i].f1.set_size(r.size(0), 3);
           for (i2 = 0; i2 < 3; i2++) {
-            for (i3 = 0; i3 < d_loop_ub; i3++) {
+            for (i3 = 0; i3 < c_loop_ub; i3++) {
               shiftedData[c_i].f1[i3 + shiftedData[c_i].f1.size(0) * i2] = r[i3
                 + r.size(0) * i2];
             }
@@ -522,11 +523,11 @@ namespace RAT
                               problemStruct.geometry.data,
                               problemStruct.geometry.size, subRoughs[i], calcSld,
                               domainContrastLayers1[i].f1,
-                              domainContrastLayers2[i].f1,
-                              outParameterisedLayers, reflectivity[i].f1,
-                              simulation[i].f1, r2, backgrounds[i].f1,
-                              resolutions[i].f1, layerSlds[i].f1, sldProfiles[i]
-                              .f1, resampledLayers[i].f1, d4, d5, d6, d7);
+                              domainContrastLayers2[i].f1, layerValues,
+                              reflectivity[i].f1, simulation[i].f1, r2,
+                              backgrounds[i].f1, resolutions[i].f1, layerSlds[i]
+                              .f1, sldProfiles[i].f1, resampledLayers[i].f1, d4,
+                              d5, d6, d7);
           chis[i] = d7;
           bulkOuts[i] = d6;
           bulkIns[i] = d5;
@@ -548,7 +549,6 @@ namespace RAT
       domainLayerSlds.set_size(unnamed_idx_0_tmp_tmp_tmp, 2);
       domainResampledLayers.set_size(unnamed_idx_0_tmp_tmp_tmp, 2);
       for (int i{0}; i < unnamed_idx_0_tmp_tmp_tmp; i++) {
-        int c_loop_ub;
         loop_ub = sldProfiles[i].f1[0].f1.size(0);
         domainSldProfiles[i].f1.set_size(sldProfiles[i].f1[0].f1.size(0), 2);
         b_loop_ub = sldProfiles[i].f1[1].f1.size(0);
@@ -568,36 +568,43 @@ namespace RAT
           }
         }
 
-        loop_ub = layerSlds[i].f1[0].f1.size(0);
-        domainLayerSlds[i].f1.set_size(layerSlds[i].f1[0].f1.size(0), 4);
-        b_loop_ub = layerSlds[i].f1[1].f1.size(0);
-        domainLayerSlds[i + domainLayerSlds.size(0)].f1.set_size(layerSlds[i]
-          .f1[1].f1.size(0), 4);
-        ub_loop = resampledLayers[i].f1[0].f1.size(0);
-        domainResampledLayers[i].f1.set_size(resampledLayers[i].f1[0].f1.size(0),
-          4);
-        c_loop_ub = resampledLayers[i].f1[1].f1.size(0);
-        domainResampledLayers[i + domainResampledLayers.size(0)].f1.set_size
-          (resampledLayers[i].f1[1].f1.size(0), 4);
-        for (int b_i{0}; b_i < 4; b_i++) {
-          for (int i1{0}; i1 < loop_ub; i1++) {
+        loop_ub = layerSlds[i].f1[0].f1.size(1);
+        domainLayerSlds[i].f1.set_size(layerSlds[i].f1[0].f1.size(0),
+          layerSlds[i].f1[0].f1.size(1));
+        for (int b_i{0}; b_i < loop_ub; b_i++) {
+          b_loop_ub = layerSlds[i].f1[0].f1.size(0);
+          for (int i1{0}; i1 < b_loop_ub; i1++) {
             domainLayerSlds[i].f1[i1 + domainLayerSlds[i].f1.size(0) * b_i] =
               layerSlds[i].f1[0].f1[i1 + layerSlds[i].f1[0].f1.size(0) * b_i];
           }
+        }
 
+        loop_ub = layerSlds[i].f1[1].f1.size(1);
+        domainLayerSlds[i + domainLayerSlds.size(0)].f1.set_size(layerSlds[i]
+          .f1[1].f1.size(0), layerSlds[i].f1[1].f1.size(1));
+        for (int b_i{0}; b_i < loop_ub; b_i++) {
+          b_loop_ub = layerSlds[i].f1[1].f1.size(0);
           for (int i1{0}; i1 < b_loop_ub; i1++) {
             domainLayerSlds[i + domainLayerSlds.size(0)].f1[i1 +
               domainLayerSlds[i + domainLayerSlds.size(0)].f1.size(0) * b_i] =
               layerSlds[i].f1[1].f1[i1 + layerSlds[i].f1[1].f1.size(0) * b_i];
           }
+        }
 
-          for (int i1{0}; i1 < ub_loop; i1++) {
+        loop_ub = resampledLayers[i].f1[0].f1.size(0);
+        domainResampledLayers[i].f1.set_size(resampledLayers[i].f1[0].f1.size(0),
+          4);
+        b_loop_ub = resampledLayers[i].f1[1].f1.size(0);
+        domainResampledLayers[i + domainResampledLayers.size(0)].f1.set_size
+          (resampledLayers[i].f1[1].f1.size(0), 4);
+        for (int b_i{0}; b_i < 4; b_i++) {
+          for (int i1{0}; i1 < loop_ub; i1++) {
             domainResampledLayers[i].f1[i1 + domainResampledLayers[i].f1.size(0)
               * b_i] = resampledLayers[i].f1[0].f1[i1 + resampledLayers[i].f1[0]
               .f1.size(0) * b_i];
           }
 
-          for (int i1{0}; i1 < c_loop_ub; i1++) {
+          for (int i1{0}; i1 < b_loop_ub; i1++) {
             domainResampledLayers[i + domainResampledLayers.size(0)].f1[i1 +
               domainResampledLayers[i + domainResampledLayers.size(0)].f1.size(0)
               * b_i] = resampledLayers[i].f1[1].f1[i1 + resampledLayers[i].f1[1]
@@ -609,16 +616,7 @@ namespace RAT
       //  Remove dummy imaginary column if present
       if (!useImaginary) {
         for (int i{0}; i < unnamed_idx_0_tmp_tmp_tmp; i++) {
-          coder::internal::nullAssignment(domainLayerSlds[i].f1, r1);
-          domainLayerSlds[i].f1.set_size(r1.size(0), 3);
-          loop_ub = r1.size(0);
-          for (int b_i{0}; b_i < 3; b_i++) {
-            for (int i1{0}; i1 < loop_ub; i1++) {
-              domainLayerSlds[i].f1[i1 + domainLayerSlds[i].f1.size(0) * b_i] =
-                r1[i1 + r1.size(0) * b_i];
-            }
-          }
-
+          coder::internal::nullAssignment(domainLayerSlds[i].f1);
           coder::internal::nullAssignment(domainLayerSlds[i +
             domainLayerSlds.size(0)].f1);
           coder::internal::nullAssignment(domainResampledLayers[i].f1, r1);
@@ -652,10 +650,10 @@ namespace RAT
                         &domainResampledLayers, ::coder::array<double, 1U>
                         &subRoughs)
     {
-      ::coder::array<cell_wrap_54, 2U> outParameterisedLayers;
-      ::coder::array<cell_wrap_66, 1U> layerSlds;
+      ::coder::array<cell_wrap_52, 2U> layerValues;
+      ::coder::array<cell_wrap_63, 1U> layerSlds;
+      ::coder::array<cell_wrap_64, 1U> sldProfiles;
       ::coder::array<cell_wrap_66, 1U> resampledLayers;
-      ::coder::array<cell_wrap_67, 1U> sldProfiles;
       ::coder::array<cell_wrap_9, 1U> domainContrastLayers1;
       ::coder::array<cell_wrap_9, 1U> domainContrastLayers2;
       ::coder::array<double, 2U> r;
@@ -676,12 +674,11 @@ namespace RAT
       int iv8[2];
       int iv9[2];
       int b_loop_ub;
-      int d_loop_ub;
+      int c_loop_ub;
       int i2;
       int i3;
       int loop_ub;
       int nParams;
-      int ub_loop;
       int unnamed_idx_0_tmp_tmp_tmp;
       boolean_T useImaginary;
 
@@ -707,7 +704,7 @@ namespace RAT
       //  parameters to all the layers in the layers list. This only needs
       //  to be done once, and so is done outside the contrasts loop
       allocateParamsToLayers(problemStruct.params, problemStruct.layersDetails,
-        outParameterisedLayers);
+        layerValues);
 
       //  Substrate roughness is always first parameter for standard layers
       subRoughs.set_size(unnamed_idx_0_tmp_tmp_tmp);
@@ -765,7 +762,7 @@ namespace RAT
         }
       }
 
-      if (coder::internal::n_strcmp(controls->parallel.data,
+      if (coder::internal::o_strcmp(controls->parallel.data,
            controls->parallel.size)) {
         //  Loop over all the contrasts
         resampledLayers.set_size(unnamed_idx_0_tmp_tmp_tmp);
@@ -781,13 +778,13 @@ namespace RAT
         bulkIns.set_size(unnamed_idx_0_tmp_tmp_tmp);
         bulkOuts.set_size(unnamed_idx_0_tmp_tmp_tmp);
         chis.set_size(unnamed_idx_0_tmp_tmp_tmp);
-        ub_loop = unnamed_idx_0_tmp_tmp_tmp - 1;
+        loop_ub = unnamed_idx_0_tmp_tmp_tmp - 1;
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
- private(r,d,d1,d2,d3,iv5,iv6,dv3,dv4,dv5,iv7,iv8,iv9,d_loop_ub,i2,i3)
+ private(r,d,d1,d2,d3,iv5,iv6,dv3,dv4,dv5,iv7,iv8,iv9,c_loop_ub,i2,i3)
 
-        for (int c_i = 0; c_i <= ub_loop; c_i++) {
+        for (int c_i = 0; c_i <= loop_ub; c_i++) {
           iv5[0] = (*(int (*)[2])((::coder::array<double, 2U> *)
                      &problemStruct.contrastBackgroundParams[c_i].f1)->size())[0];
           iv5[1] = (*(int (*)[2])((::coder::array<double, 2U> *)
@@ -844,16 +841,15 @@ namespace RAT
                               problemStruct.geometry.data,
                               problemStruct.geometry.size, subRoughs[c_i], true,
                               domainContrastLayers1[c_i].f1,
-                              domainContrastLayers2[c_i].f1,
-                              outParameterisedLayers, reflectivity[c_i].f1,
-                              simulation[c_i].f1, r, backgrounds[c_i].f1,
-                              resolutions[c_i].f1, layerSlds[c_i].f1,
-                              sldProfiles[c_i].f1, resampledLayers[c_i].f1, d3,
-                              d2, d1, d);
-          d_loop_ub = r.size(0);
+                              domainContrastLayers2[c_i].f1, layerValues,
+                              reflectivity[c_i].f1, simulation[c_i].f1, r,
+                              backgrounds[c_i].f1, resolutions[c_i].f1,
+                              layerSlds[c_i].f1, sldProfiles[c_i].f1,
+                              resampledLayers[c_i].f1, d3, d2, d1, d);
+          c_loop_ub = r.size(0);
           shiftedData[c_i].f1.set_size(r.size(0), 3);
           for (i2 = 0; i2 < 3; i2++) {
-            for (i3 = 0; i3 < d_loop_ub; i3++) {
+            for (i3 = 0; i3 < c_loop_ub; i3++) {
               shiftedData[c_i].f1[i3 + shiftedData[c_i].f1.size(0) * i2] = r[i3
                 + r.size(0) * i2];
             }
@@ -948,11 +944,11 @@ namespace RAT
                               problemStruct.geometry.data,
                               problemStruct.geometry.size, subRoughs[i], true,
                               domainContrastLayers1[i].f1,
-                              domainContrastLayers2[i].f1,
-                              outParameterisedLayers, reflectivity[i].f1,
-                              simulation[i].f1, r2, backgrounds[i].f1,
-                              resolutions[i].f1, layerSlds[i].f1, sldProfiles[i]
-                              .f1, resampledLayers[i].f1, d4, d5, d6, d7);
+                              domainContrastLayers2[i].f1, layerValues,
+                              reflectivity[i].f1, simulation[i].f1, r2,
+                              backgrounds[i].f1, resolutions[i].f1, layerSlds[i]
+                              .f1, sldProfiles[i].f1, resampledLayers[i].f1, d4,
+                              d5, d6, d7);
           chis[i] = d7;
           bulkOuts[i] = d6;
           bulkIns[i] = d5;
@@ -974,7 +970,6 @@ namespace RAT
       domainLayerSlds.set_size(unnamed_idx_0_tmp_tmp_tmp, 2);
       domainResampledLayers.set_size(unnamed_idx_0_tmp_tmp_tmp, 2);
       for (int i{0}; i < unnamed_idx_0_tmp_tmp_tmp; i++) {
-        int c_loop_ub;
         loop_ub = sldProfiles[i].f1[0].f1.size(0);
         domainSldProfiles[i].f1.set_size(sldProfiles[i].f1[0].f1.size(0), 2);
         b_loop_ub = sldProfiles[i].f1[1].f1.size(0);
@@ -994,36 +989,43 @@ namespace RAT
           }
         }
 
-        loop_ub = layerSlds[i].f1[0].f1.size(0);
-        domainLayerSlds[i].f1.set_size(layerSlds[i].f1[0].f1.size(0), 4);
-        b_loop_ub = layerSlds[i].f1[1].f1.size(0);
-        domainLayerSlds[i + domainLayerSlds.size(0)].f1.set_size(layerSlds[i]
-          .f1[1].f1.size(0), 4);
-        ub_loop = resampledLayers[i].f1[0].f1.size(0);
-        domainResampledLayers[i].f1.set_size(resampledLayers[i].f1[0].f1.size(0),
-          4);
-        c_loop_ub = resampledLayers[i].f1[1].f1.size(0);
-        domainResampledLayers[i + domainResampledLayers.size(0)].f1.set_size
-          (resampledLayers[i].f1[1].f1.size(0), 4);
-        for (int b_i{0}; b_i < 4; b_i++) {
-          for (int i1{0}; i1 < loop_ub; i1++) {
+        loop_ub = layerSlds[i].f1[0].f1.size(1);
+        domainLayerSlds[i].f1.set_size(layerSlds[i].f1[0].f1.size(0),
+          layerSlds[i].f1[0].f1.size(1));
+        for (int b_i{0}; b_i < loop_ub; b_i++) {
+          b_loop_ub = layerSlds[i].f1[0].f1.size(0);
+          for (int i1{0}; i1 < b_loop_ub; i1++) {
             domainLayerSlds[i].f1[i1 + domainLayerSlds[i].f1.size(0) * b_i] =
               layerSlds[i].f1[0].f1[i1 + layerSlds[i].f1[0].f1.size(0) * b_i];
           }
+        }
 
+        loop_ub = layerSlds[i].f1[1].f1.size(1);
+        domainLayerSlds[i + domainLayerSlds.size(0)].f1.set_size(layerSlds[i]
+          .f1[1].f1.size(0), layerSlds[i].f1[1].f1.size(1));
+        for (int b_i{0}; b_i < loop_ub; b_i++) {
+          b_loop_ub = layerSlds[i].f1[1].f1.size(0);
           for (int i1{0}; i1 < b_loop_ub; i1++) {
             domainLayerSlds[i + domainLayerSlds.size(0)].f1[i1 +
               domainLayerSlds[i + domainLayerSlds.size(0)].f1.size(0) * b_i] =
               layerSlds[i].f1[1].f1[i1 + layerSlds[i].f1[1].f1.size(0) * b_i];
           }
+        }
 
-          for (int i1{0}; i1 < ub_loop; i1++) {
+        loop_ub = resampledLayers[i].f1[0].f1.size(0);
+        domainResampledLayers[i].f1.set_size(resampledLayers[i].f1[0].f1.size(0),
+          4);
+        b_loop_ub = resampledLayers[i].f1[1].f1.size(0);
+        domainResampledLayers[i + domainResampledLayers.size(0)].f1.set_size
+          (resampledLayers[i].f1[1].f1.size(0), 4);
+        for (int b_i{0}; b_i < 4; b_i++) {
+          for (int i1{0}; i1 < loop_ub; i1++) {
             domainResampledLayers[i].f1[i1 + domainResampledLayers[i].f1.size(0)
               * b_i] = resampledLayers[i].f1[0].f1[i1 + resampledLayers[i].f1[0]
               .f1.size(0) * b_i];
           }
 
-          for (int i1{0}; i1 < c_loop_ub; i1++) {
+          for (int i1{0}; i1 < b_loop_ub; i1++) {
             domainResampledLayers[i + domainResampledLayers.size(0)].f1[i1 +
               domainResampledLayers[i + domainResampledLayers.size(0)].f1.size(0)
               * b_i] = resampledLayers[i].f1[1].f1[i1 + resampledLayers[i].f1[1]
@@ -1035,16 +1037,7 @@ namespace RAT
       //  Remove dummy imaginary column if present
       if (!useImaginary) {
         for (int i{0}; i < unnamed_idx_0_tmp_tmp_tmp; i++) {
-          coder::internal::nullAssignment(domainLayerSlds[i].f1, r1);
-          domainLayerSlds[i].f1.set_size(r1.size(0), 3);
-          loop_ub = r1.size(0);
-          for (int b_i{0}; b_i < 3; b_i++) {
-            for (int i1{0}; i1 < loop_ub; i1++) {
-              domainLayerSlds[i].f1[i1 + domainLayerSlds[i].f1.size(0) * b_i] =
-                r1[i1 + r1.size(0) * b_i];
-            }
-          }
-
+          coder::internal::nullAssignment(domainLayerSlds[i].f1);
           coder::internal::nullAssignment(domainLayerSlds[i +
             domainLayerSlds.size(0)].f1);
           coder::internal::nullAssignment(domainResampledLayers[i].f1, r1);
@@ -1085,12 +1078,12 @@ namespace RAT
       ::coder::array<cell_wrap_10, 2U> customFiles;
       ::coder::array<cell_wrap_2, 2U> dataLimits;
       ::coder::array<cell_wrap_2, 2U> repeatLayers;
-      ::coder::array<cell_wrap_2, 2U> simLimits;
-      ::coder::array<cell_wrap_47, 2U> contrastBackgroundIndices;
-      ::coder::array<cell_wrap_54, 2U> outParameterisedLayers;
-      ::coder::array<cell_wrap_66, 1U> layerSlds;
+      ::coder::array<cell_wrap_2, 2U> simulationLimits;
+      ::coder::array<cell_wrap_45, 2U> contrastBackgroundIndices;
+      ::coder::array<cell_wrap_52, 2U> layerValues;
+      ::coder::array<cell_wrap_63, 1U> layerSlds;
+      ::coder::array<cell_wrap_64, 1U> sldProfiles;
       ::coder::array<cell_wrap_66, 1U> resampledLayers;
-      ::coder::array<cell_wrap_67, 1U> sldProfiles;
       ::coder::array<cell_wrap_9, 2U> contrastLayers;
       ::coder::array<cell_wrap_9, 2U> contrastResolutionIndices;
       ::coder::array<cell_wrap_9, 2U> domainContrastLayers;
@@ -1098,23 +1091,23 @@ namespace RAT
       ::coder::array<cell_wrap_9, 1U> domainContrastLayers1;
       ::coder::array<cell_wrap_9, 1U> domainContrastLayers2;
       ::coder::array<double, 2U> a__2;
-      ::coder::array<double, 2U> backgroundParamArray;
-      ::coder::array<double, 2U> bulkInArray;
-      ::coder::array<double, 2U> bulkOutArray;
+      ::coder::array<double, 2U> backgroundParamValues;
+      ::coder::array<double, 2U> bulkInValues;
+      ::coder::array<double, 2U> bulkOutValues;
       ::coder::array<double, 2U> contrastBulkInIndices;
       ::coder::array<double, 2U> contrastBulkOutIndices;
       ::coder::array<double, 2U> contrastDomainRatioIndices;
       ::coder::array<double, 2U> contrastQzshiftIndices;
       ::coder::array<double, 2U> contrastScalefactorIndices;
       ::coder::array<double, 2U> dataPresent;
-      ::coder::array<double, 2U> domainRatioArray;
-      ::coder::array<double, 2U> params;
+      ::coder::array<double, 2U> domainRatioValues;
+      ::coder::array<double, 2U> paramValues;
       ::coder::array<double, 2U> r;
       ::coder::array<double, 2U> r1;
       ::coder::array<double, 2U> r2;
       ::coder::array<double, 2U> resample;
-      ::coder::array<double, 2U> resolutionParamArray;
-      ::coder::array<double, 2U> scalefactorArray;
+      ::coder::array<double, 2U> resolutionParamValues;
+      ::coder::array<double, 2U> scalefactorValues;
       double dv3[2];
       double dv4[2];
       double dv5[2];
@@ -1154,12 +1147,12 @@ namespace RAT
         geometry_size, contrastBackgroundIndices, contrastQzshiftIndices,
         contrastScalefactorIndices, contrastBulkInIndices,
         contrastBulkOutIndices, contrastResolutionIndices,
-        contrastDomainRatioIndices, backgroundParamArray, scalefactorArray,
-        bulkInArray, bulkOutArray, resolutionParamArray, domainRatioArray,
-        dataPresent, params, resample, contrastBackgroundTypes,
+        contrastDomainRatioIndices, backgroundParamValues, scalefactorValues,
+        bulkInValues, bulkOutValues, resolutionParamValues, domainRatioValues,
+        dataPresent, paramValues, resample, contrastBackgroundTypes,
         contrastBackgroundActions, contrastResolutionTypes, a__2, repeatLayers,
-        data, dataLimits, simLimits, contrastLayers, layersDetails, customFiles,
-        domainContrastLayers, nParams, a__1, useImaginary);
+        data, dataLimits, simulationLimits, contrastLayers, layersDetails,
+        customFiles, domainContrastLayers, nParams, a__1, useImaginary);
       resampleMinAngle = controls->resampleMinAngle;
       resampleNPoints = controls->resampleNPoints;
 
@@ -1171,12 +1164,12 @@ namespace RAT
       //  First we need to allocate the absolute values of the input
       //  parameters to all the layers in the layers list. This only needs
       //  to be done once, and so is done outside the contrasts loop
-      allocateParamsToLayers(params, layersDetails, outParameterisedLayers);
+      allocateParamsToLayers(paramValues, layersDetails, layerValues);
 
       //  Substrate roughness is always first parameter for standard layers
       subRoughs.set_size(unnamed_idx_0_tmp_tmp_tmp);
       for (int i{0}; i < unnamed_idx_0_tmp_tmp_tmp; i++) {
-        subRoughs[i] = params[0];
+        subRoughs[i] = paramValues[0];
       }
 
       domainContrastLayers1.set_size(unnamed_idx_0_tmp_tmp_tmp);
@@ -1219,7 +1212,7 @@ namespace RAT
         }
       }
 
-      if (coder::internal::n_strcmp(controls->parallel.data,
+      if (coder::internal::o_strcmp(controls->parallel.data,
            controls->parallel.size)) {
         //  Loop over all the contrasts
         resampledLayers.set_size(unnamed_idx_0_tmp_tmp_tmp);
@@ -1248,8 +1241,8 @@ namespace RAT
           iv6[1] = (*(int (*)[2])contrastResolutionIndices[c_i].f1.size())[1];
           dv3[0] = dataLimits[c_i].f1[0];
           dv3[1] = dataLimits[c_i].f1[1];
-          dv4[0] = simLimits[c_i].f1[0];
-          dv4[1] = simLimits[c_i].f1[1];
+          dv4[0] = simulationLimits[c_i].f1[0];
+          dv4[1] = simulationLimits[c_i].f1[1];
           dv5[0] = repeatLayers[c_i].f1[0];
           dv5[1] = repeatLayers[c_i].f1[1];
           iv7[0] = (*(int (*)[2])contrastBackgroundTypes[c_i].f1.size())[0];
@@ -1264,9 +1257,9 @@ namespace RAT
                               contrastBulkOutIndices[c_i], (const double *)
                               contrastResolutionIndices[c_i].f1.data(), iv6,
                               contrastDomainRatioIndices[c_i],
-                              backgroundParamArray, scalefactorArray,
-                              bulkInArray, bulkOutArray, resolutionParamArray,
-                              domainRatioArray, dataPresent[c_i], data[c_i].f1,
+                              backgroundParamValues, scalefactorValues,
+                              bulkInValues, bulkOutValues, resolutionParamValues,
+                              domainRatioValues, dataPresent[c_i], data[c_i].f1,
                               dv3, dv4, dv5, (const char *)
                               contrastBackgroundTypes[c_i].f1.data(), iv7, (
             const char *)contrastBackgroundActions[c_i].f1.data(), iv8, (const
@@ -1276,12 +1269,11 @@ namespace RAT
                               resampleNPoints, resample[c_i], geometry_data,
                               geometry_size, subRoughs[c_i], true,
                               domainContrastLayers1[c_i].f1,
-                              domainContrastLayers2[c_i].f1,
-                              outParameterisedLayers, reflectivity[c_i].f1,
-                              simulation[c_i].f1, r, backgrounds[c_i].f1,
-                              resolutions[c_i].f1, layerSlds[c_i].f1,
-                              sldProfiles[c_i].f1, resampledLayers[c_i].f1, d3,
-                              d2, d1, d);
+                              domainContrastLayers2[c_i].f1, layerValues,
+                              reflectivity[c_i].f1, simulation[c_i].f1, r,
+                              backgrounds[c_i].f1, resolutions[c_i].f1,
+                              layerSlds[c_i].f1, sldProfiles[c_i].f1,
+                              resampledLayers[c_i].f1, d3, d2, d1, d);
           c_loop_ub = r.size(0);
           shiftedData[c_i].f1.set_size(r.size(0), 3);
           for (i2 = 0; i2 < 3; i2++) {
@@ -1331,8 +1323,8 @@ namespace RAT
           iv1[1] = (*(int (*)[2])contrastResolutionIndices[i].f1.size())[1];
           b_dv[0] = dataLimits[i].f1[0];
           b_dv[1] = dataLimits[i].f1[1];
-          b_dv1[0] = simLimits[i].f1[0];
-          b_dv1[1] = simLimits[i].f1[1];
+          b_dv1[0] = simulationLimits[i].f1[0];
+          b_dv1[1] = simulationLimits[i].f1[1];
           dv2[0] = repeatLayers[i].f1[0];
           dv2[1] = repeatLayers[i].f1[1];
           iv2[0] = (*(int (*)[2])contrastBackgroundTypes[i].f1.size())[0];
@@ -1346,10 +1338,10 @@ namespace RAT
                               contrastBulkInIndices[i], contrastBulkOutIndices[i],
                               (const double *)contrastResolutionIndices[i].
                               f1.data(), iv1, contrastDomainRatioIndices[i],
-                              backgroundParamArray, scalefactorArray,
-                              bulkInArray, bulkOutArray, resolutionParamArray,
-                              domainRatioArray, dataPresent[i], data[i].f1, b_dv,
-                              b_dv1, dv2, (const char *)
+                              backgroundParamValues, scalefactorValues,
+                              bulkInValues, bulkOutValues, resolutionParamValues,
+                              domainRatioValues, dataPresent[i], data[i].f1,
+                              b_dv, b_dv1, dv2, (const char *)
                               contrastBackgroundTypes[i].f1.data(), iv2, (const
             char *)contrastBackgroundActions[i].f1.data(), iv3, (const char *)
                               contrastResolutionTypes[i].f1.data(), iv4,
@@ -1358,11 +1350,11 @@ namespace RAT
                               resampleNPoints, resample[i], geometry_data,
                               geometry_size, subRoughs[i], true,
                               domainContrastLayers1[i].f1,
-                              domainContrastLayers2[i].f1,
-                              outParameterisedLayers, reflectivity[i].f1,
-                              simulation[i].f1, r2, backgrounds[i].f1,
-                              resolutions[i].f1, layerSlds[i].f1, sldProfiles[i]
-                              .f1, resampledLayers[i].f1, d4, d5, d6, d7);
+                              domainContrastLayers2[i].f1, layerValues,
+                              reflectivity[i].f1, simulation[i].f1, r2,
+                              backgrounds[i].f1, resolutions[i].f1, layerSlds[i]
+                              .f1, sldProfiles[i].f1, resampledLayers[i].f1, d4,
+                              d5, d6, d7);
           chis[i] = d7;
           bulkOuts[i] = d6;
           bulkIns[i] = d5;
@@ -1403,36 +1395,43 @@ namespace RAT
           }
         }
 
-        loop_ub = layerSlds[i].f1[0].f1.size(0);
-        domainLayerSlds[i].f1.set_size(layerSlds[i].f1[0].f1.size(0), 4);
-        b_loop_ub = layerSlds[i].f1[1].f1.size(0);
-        domainLayerSlds[i + domainLayerSlds.size(0)].f1.set_size(layerSlds[i]
-          .f1[1].f1.size(0), 4);
-        unnamed_idx_0_tmp_tmp_tmp = resampledLayers[i].f1[0].f1.size(0);
-        domainResampledLayers[i].f1.set_size(resampledLayers[i].f1[0].f1.size(0),
-          4);
-        unnamed_idx_0 = resampledLayers[i].f1[1].f1.size(0);
-        domainResampledLayers[i + domainResampledLayers.size(0)].f1.set_size
-          (resampledLayers[i].f1[1].f1.size(0), 4);
-        for (int b_i{0}; b_i < 4; b_i++) {
-          for (int i1{0}; i1 < loop_ub; i1++) {
+        loop_ub = layerSlds[i].f1[0].f1.size(1);
+        domainLayerSlds[i].f1.set_size(layerSlds[i].f1[0].f1.size(0),
+          layerSlds[i].f1[0].f1.size(1));
+        for (int b_i{0}; b_i < loop_ub; b_i++) {
+          b_loop_ub = layerSlds[i].f1[0].f1.size(0);
+          for (int i1{0}; i1 < b_loop_ub; i1++) {
             domainLayerSlds[i].f1[i1 + domainLayerSlds[i].f1.size(0) * b_i] =
               layerSlds[i].f1[0].f1[i1 + layerSlds[i].f1[0].f1.size(0) * b_i];
           }
+        }
 
+        loop_ub = layerSlds[i].f1[1].f1.size(1);
+        domainLayerSlds[i + domainLayerSlds.size(0)].f1.set_size(layerSlds[i]
+          .f1[1].f1.size(0), layerSlds[i].f1[1].f1.size(1));
+        for (int b_i{0}; b_i < loop_ub; b_i++) {
+          b_loop_ub = layerSlds[i].f1[1].f1.size(0);
           for (int i1{0}; i1 < b_loop_ub; i1++) {
             domainLayerSlds[i + domainLayerSlds.size(0)].f1[i1 +
               domainLayerSlds[i + domainLayerSlds.size(0)].f1.size(0) * b_i] =
               layerSlds[i].f1[1].f1[i1 + layerSlds[i].f1[1].f1.size(0) * b_i];
           }
+        }
 
-          for (int i1{0}; i1 < unnamed_idx_0_tmp_tmp_tmp; i1++) {
+        loop_ub = resampledLayers[i].f1[0].f1.size(0);
+        domainResampledLayers[i].f1.set_size(resampledLayers[i].f1[0].f1.size(0),
+          4);
+        b_loop_ub = resampledLayers[i].f1[1].f1.size(0);
+        domainResampledLayers[i + domainResampledLayers.size(0)].f1.set_size
+          (resampledLayers[i].f1[1].f1.size(0), 4);
+        for (int b_i{0}; b_i < 4; b_i++) {
+          for (int i1{0}; i1 < loop_ub; i1++) {
             domainResampledLayers[i].f1[i1 + domainResampledLayers[i].f1.size(0)
               * b_i] = resampledLayers[i].f1[0].f1[i1 + resampledLayers[i].f1[0]
               .f1.size(0) * b_i];
           }
 
-          for (int i1{0}; i1 < unnamed_idx_0; i1++) {
+          for (int i1{0}; i1 < b_loop_ub; i1++) {
             domainResampledLayers[i + domainResampledLayers.size(0)].f1[i1 +
               domainResampledLayers[i + domainResampledLayers.size(0)].f1.size(0)
               * b_i] = resampledLayers[i].f1[1].f1[i1 + resampledLayers[i].f1[1]
@@ -1444,16 +1443,7 @@ namespace RAT
       //  Remove dummy imaginary column if present
       if (!useImaginary) {
         for (int i{0}; i < unnamed_idx_0_tmp; i++) {
-          coder::internal::nullAssignment(domainLayerSlds[i].f1, r1);
-          domainLayerSlds[i].f1.set_size(r1.size(0), 3);
-          loop_ub = r1.size(0);
-          for (int b_i{0}; b_i < 3; b_i++) {
-            for (int i1{0}; i1 < loop_ub; i1++) {
-              domainLayerSlds[i].f1[i1 + domainLayerSlds[i].f1.size(0) * b_i] =
-                r1[i1 + r1.size(0) * b_i];
-            }
-          }
-
+          coder::internal::nullAssignment(domainLayerSlds[i].f1);
           coder::internal::nullAssignment(domainLayerSlds[i +
             domainLayerSlds.size(0)].f1);
           coder::internal::nullAssignment(domainResampledLayers[i].f1, r1);

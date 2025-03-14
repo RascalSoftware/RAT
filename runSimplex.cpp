@@ -54,16 +54,16 @@ namespace RAT
                problemLimits_bulkIns, problemLimits_bulkOuts,
                problemLimits_resolutionParams, problemLimits_domainRatios,
                b_problemStruct);
-    if (coder::internal::v_strcmp(controls->display.data, controls->display.size))
+    if (coder::internal::w_strcmp(controls->display.data, controls->display.size))
     {
       outsize_idx_0 = 0;
-    } else if (coder::internal::w_strcmp(controls->display.data,
-                controls->display.size)) {
-      outsize_idx_0 = 1;
     } else if (coder::internal::x_strcmp(controls->display.data,
                 controls->display.size)) {
-      outsize_idx_0 = 2;
+      outsize_idx_0 = 1;
     } else if (coder::internal::y_strcmp(controls->display.data,
+                controls->display.size)) {
+      outsize_idx_0 = 2;
+    } else if (coder::internal::ab_strcmp(controls->display.data,
                 controls->display.size)) {
       outsize_idx_0 = 3;
     } else {
@@ -208,8 +208,8 @@ namespace RAT
     fMinSearch(x0u, controls->maxIterations, controls->maxFuncEvals,
                controls->xTolerance, controls->funcTolerance, dis_data, dis_size,
                problemStruct, controls->parallel.data, controls->parallel.size,
-               controls->resampleMinAngle, controls->resampleNPoints,
-               controls->calcSldDuringFit, controls->updateFreq,
+               controls->calcSldDuringFit, controls->resampleMinAngle,
+               controls->resampleNPoints, controls->updateFreq,
                controls->updatePlotFreq, controls->IPCFilePath.data,
                controls->IPCFilePath.size, expl_temp, a__4, a__3);
 

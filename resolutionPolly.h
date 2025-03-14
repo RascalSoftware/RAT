@@ -20,9 +20,9 @@
 namespace RAT
 {
   void resolutionPolly(const ::coder::array<double, 1U> &xdata, const ::coder::
-                       array<double, 1U> &ydata, const ::coder::array<double, 1U>
-                       &resolutionValues, double points, ::coder::array<double,
-                       1U> &resolutionCorrection);
+                       array<double, 1U> &rawSimulation, const ::coder::array<
+                       double, 1U> &resolutionValues, double points, ::coder::
+                       array<double, 1U> &simulation);
 }
 
 #endif

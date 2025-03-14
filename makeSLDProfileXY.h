@@ -21,10 +21,10 @@ namespace RAT
 {
   void makeSLDProfileXY(double bulkIn, double bulkOut, double ssub, const ::
                         coder::array<double, 2U> &layers, double numberOfLayers,
-                        double nrepeats, ::coder::array<double, 2U> &out);
+                        double nrepeats, ::coder::array<double, 2U> &SLDProfile);
   void makeSLDProfileXY(double ssub, const ::coder::array<double, 2U> &layers,
                         double numberOfLayers, double nrepeats, ::coder::array<
-                        double, 2U> &out);
+                        double, 2U> &SLDProfile);
 }
 
 #endif

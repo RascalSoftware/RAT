@@ -1107,7 +1107,7 @@ namespace RAT
           nContrastNames[i] = tmp_data[i];
         }
 
-        if (coder::internal::m_strcmp(varargin_2_TF_data, varargin_2_TF_size)) {
+        if (coder::internal::n_strcmp(varargin_2_TF_data, varargin_2_TF_size)) {
           i = 0;
         } else {
           i = -1;

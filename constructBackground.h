@@ -24,14 +24,14 @@ namespace RAT
     &backgroundType, const double backgroundParamIndices_data[], const int
     backgroundParamIndices_size[2], const ::coder::array<double, 2U>
     &shiftedData, const ::coder::array<cell_wrap_10, 2U> &customFiles, const ::
-    coder::array<double, 2U> &backgroundParamArray, const ::coder::array<double,
+    coder::array<double, 2U> &backgroundParamValues, const ::coder::array<double,
     1U> &simulationXData, const double dataIndices[2], ::coder::array<double, 2U>
     &background);
   void constructBackground(const char backgroundType_data[], const int
     backgroundType_size[2], const double backgroundParamIndices_data[], const
     int backgroundParamIndices_size[2], const ::coder::array<double, 2U>
     &shiftedData, const ::coder::array<cell_wrap_10, 2U> &customFiles, const ::
-    coder::array<double, 2U> &backgroundParamArray, const ::coder::array<double,
+    coder::array<double, 2U> &backgroundParamValues, const ::coder::array<double,
     1U> &simulationXData, const double dataIndices[2], ::coder::array<double, 2U>
     &background);
 }

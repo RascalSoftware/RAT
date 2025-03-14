@@ -118,7 +118,7 @@ namespace RAT
     }
 
     //  Reflection
-    if (coder::internal::eb_strcmp(paramInfo_boundhandling_data,
+    if (coder::internal::fb_strcmp(paramInfo_boundhandling_data,
          paramInfo_boundhandling_size)) {
       //  reflect in min
       b_max_d.set_size(ii_low.size(0));
@@ -146,7 +146,7 @@ namespace RAT
     }
 
     //  Bound
-    if (coder::internal::fb_strcmp(paramInfo_boundhandling_data,
+    if (coder::internal::gb_strcmp(paramInfo_boundhandling_data,
          paramInfo_boundhandling_size)) {
       //  set lower values to min
       loop_ub = ii_low.size(0);
@@ -162,7 +162,7 @@ namespace RAT
     }
 
     //  Folding
-    if (coder::internal::gb_strcmp(paramInfo_boundhandling_data,
+    if (coder::internal::hb_strcmp(paramInfo_boundhandling_data,
          paramInfo_boundhandling_size)) {
       //  Fold parameter space lower values
       b_max_d.set_size(ii_low.size(0));

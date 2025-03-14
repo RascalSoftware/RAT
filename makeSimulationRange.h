@@ -20,7 +20,8 @@
 namespace RAT
 {
   void makeSimulationRange(const ::coder::array<double, 2U> &data, const double
-    simulationLimits[2], ::coder::array<double, 1U> &simXdata, double splits[2]);
+    simulationLimits[2], ::coder::array<double, 1U> &simulationXdata, double
+    splits[2]);
 }
 
 #endif

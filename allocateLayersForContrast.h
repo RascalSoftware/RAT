@@ -20,9 +20,9 @@
 // Function Declarations
 namespace RAT
 {
-  void allocateLayersForContrast(const ::coder::array<double, 2U>
-    &contrastLayers, const ::coder::array<cell_wrap_54, 2U>
-    &outParameterisedLayers, ::coder::array<double, 2U> &thisContrastLayers);
+  void allocateLayersForContrast(const ::coder::array<double, 2U> &layerIndices,
+    const ::coder::array<cell_wrap_52, 2U> &layerValues, ::coder::array<double,
+    2U> &layers);
 }
 
 #endif

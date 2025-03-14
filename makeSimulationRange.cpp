@@ -19,7 +19,8 @@
 namespace RAT
 {
   void makeSimulationRange(const ::coder::array<double, 2U> &data, const double
-    simulationLimits[2], ::coder::array<double, 1U> &simXdata, double splits[2])
+    simulationLimits[2], ::coder::array<double, 1U> &simulationXdata, double
+    splits[2])
   {
     ::coder::array<double, 2U> firstSection;
     ::coder::array<double, 2U> lastSection;
@@ -92,20 +93,21 @@ namespace RAT
     }
 
     firstSection_idx_0 = firstSection.size(1);
-    simXdata.set_size((data.size(0) + firstSection.size(1)) + lastSection.size(1));
+    simulationXdata.set_size((data.size(0) + firstSection.size(1)) +
+      lastSection.size(1));
     loop_ub = firstSection.size(1);
     for (int i{0}; i < loop_ub; i++) {
-      simXdata[i] = firstSection[i];
+      simulationXdata[i] = firstSection[i];
     }
 
     loop_ub = data.size(0);
     for (int i{0}; i < loop_ub; i++) {
-      simXdata[i + firstSection_idx_0] = data[i];
+      simulationXdata[i + firstSection_idx_0] = data[i];
     }
 
     loop_ub = lastSection.size(1);
     for (int i{0}; i < loop_ub; i++) {
-      simXdata[(i + firstSection_idx_0) + data.size(0)] = lastSection[i];
+      simulationXdata[(i + firstSection_idx_0) + data.size(0)] = lastSection[i];
     }
 
     splits[0] = static_cast<unsigned int>(firstSection.size(1)) + 1U;

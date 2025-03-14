@@ -13,66 +13,18 @@
 #include "RATMain_data.h"
 #include "RATMain_rtwutil.h"
 #include "exp.h"
+#include "findkn.h"
 #include "rt_nonfinite.h"
-#include "sqrt.h"
 #include "coder_array.h"
 #include "omp.h"
 #include <cmath>
 
-// Function Declarations
-namespace RAT
-{
-  static creal_T findkn(double k0, const creal_T sld);
-}
-
 // Function Definitions
 namespace RAT
 {
-  static creal_T findkn(double k0, const creal_T sld)
-  {
-    creal_T dc;
-    creal_T dc1;
-    creal_T kn;
-    double k0_im;
-    double k0_re;
-    double re;
-
-    //  sqrt function with branch cut in zarg from 0 to infinity along a ray
-    //  at angle theta (in radians) measured from the +x axis in the usual way,
-    //  with -pi<=theta<=pi.  theta = pi is the usual square root.
-    //  for zarg on the +x axis, sqrt behavior is conserved,
-    //  i.e. sqrtbc(theta,zarg) is positive and real for any theta.
-    //
-    //  y = sqrtbc(theta,zarg)
-    dc.re = 0.0;
-    dc.im = -0.78539816339744828;
-    coder::b_exp(dc);
-    dc1.re = 0.0;
-    dc1.im = 1.5707963267948966;
-    coder::b_exp(dc1);
-    k0_re = k0 * k0 - 12.566370614359172 * sld.re;
-    k0_im = 0.0 - 12.566370614359172 * sld.im;
-    re = k0_re * dc1.re - k0_im * dc1.im;
-    k0_re = k0_re * dc1.im + k0_im * dc1.re;
-    dc1.re = re;
-    dc1.im = k0_re;
-    coder::internal::scalar::d_sqrt(&dc1);
-    kn.re = dc.re * dc1.re - dc.im * dc1.im;
-    kn.im = dc.re * dc1.im + dc.im * dc1.re;
-
-    //  translations:  sqrtbc(theta, z-b) has branch cut in the z plane from
-    //  branch point z = b out to infinity, along a ray at angle theta.
-    //
-    //  for the usual square root with branch cut along -x,
-    //  the real part of sqrt(z) is positive (or 0) for all z.
-    //  for the modified square root with branch cut along +x,
-    //  the imaginary part of sqrt(z) is positive (or 0) for all z.
-    return kn;
-  }
-
   void abelesParallelPoints(const ::coder::array<double, 1U> &q, double N, const
-    ::coder::array<double, 1U> &layers_thick, const ::coder::array<creal_T, 1U>
-    &layers_rho, const ::coder::array<double, 1U> &layers_sig, ::coder::array<
+    ::coder::array<double, 1U> &layersThick, const ::coder::array<creal_T, 1U>
+    &layersRho, const ::coder::array<double, 1U> &layersSigma, ::coder::array<
     double, 1U> &ref)
   {
     creal_T M_n[2][2];
@@ -80,7 +32,7 @@ namespace RAT
     creal_T M_tot[2][2];
     creal_T M_n_tmp;
     creal_T beta;
-    creal_T bulk_in_SLD;
+    creal_T bulkInSLD;
     creal_T denom1;
     creal_T denom_n;
     creal_T err1;
@@ -88,8 +40,8 @@ namespace RAT
     creal_T k1;
     creal_T kn_ptr;
     creal_T knp1;
-    creal_T layers_rho_1;
-    creal_T layers_rho_2;
+    creal_T layersRho1;
+    creal_T layersRho2;
     creal_T nom1;
     creal_T nom_n;
     creal_T r01;
@@ -105,7 +57,7 @@ namespace RAT
     double denom1_tmp;
     double denom_n_tmp;
     double k0;
-    double layers_sig_2;
+    double layersSigma2;
     double nom1_re;
     double nom1_tmp;
     double nom_n_tmp;
@@ -120,33 +72,33 @@ namespace RAT
       ref[i] = 0.0;
     }
 
-    layers_rho_1 = layers_rho[0];
-    layers_rho_2 = layers_rho[1];
-    layers_sig_2 = layers_sig[1];
+    layersRho1 = layersRho[0];
+    layersRho2 = layersRho[1];
+    layersSigma2 = layersSigma[1];
     loop_ub = q.size(0) - 1;
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
- private(beta,r_n_np1,err_n,sigmasqrd,denom_n,nom_n,knp1,sld_np1,R,kn_ptr,r01,err1,denom1,nom1,k1,sld_1,k0,bulk_in_SLD,M_res,M_n,M_tot,nom1_tmp,denom1_tmp,nom1_re,i1,n,nom_n_tmp,b_nom_n_tmp,denom_n_tmp,bim,M_n_tmp,brm,i2,M_tot_re_tmp,b_M_tot_re_tmp)
+ private(beta,r_n_np1,err_n,sigmasqrd,denom_n,nom_n,knp1,sld_np1,R,kn_ptr,r01,err1,denom1,nom1,k1,sld_1,k0,bulkInSLD,M_res,M_n,M_tot,nom1_tmp,denom1_tmp,nom1_re,i1,n,nom_n_tmp,b_nom_n_tmp,denom_n_tmp,bim,M_n_tmp,brm,i2,M_tot_re_tmp,b_M_tot_re_tmp)
 
     for (int points = 0; points <= loop_ub; points++) {
       M_res[0][0].re = 0.0;
       M_res[0][0].im = 0.0;
       M_res[0][1].re = 0.0;
       M_res[0][1].im = 0.0;
-      bulk_in_SLD.re = layers_rho_1.re;
-      bulk_in_SLD.im = layers_rho_1.im + 1.0E-30;
+      bulkInSLD.re = layersRho1.re;
+      bulkInSLD.im = layersRho1.im + 1.0E-30;
       k0 = q[points] / 2.0;
 
       //  Find k1..
-      sld_1.re = layers_rho_2.re - layers_rho_1.re;
-      sld_1.im = layers_rho_2.im - (layers_rho_1.im + 1.0E-30);
+      sld_1.re = layersRho2.re - layersRho1.re;
+      sld_1.im = layersRho2.im - (layersRho1.im + 1.0E-30);
       k1 = findkn(k0, sld_1);
 
       //  Find r01
       nom1_tmp = k0 - k1.re;
       denom1_tmp = k0 + k1.re;
-      sigmasqrd = layers_sig_2 * layers_sig_2;
+      sigmasqrd = layersSigma2 * layersSigma2;
       err1.re = sigmasqrd * (k0 * (-2.0 * k1.re));
       err1.im = sigmasqrd * (k0 * (-2.0 * k1.im));
       coder::b_exp(err1);
@@ -209,8 +161,8 @@ namespace RAT
       i1 = static_cast<int>((N - 1.0) - 1.0);
       for (n = 0; n < i1; n++) {
         //  Find kn and k_n+1 (ex. k1 and k2 for n=1): _/
-        sld_np1.re = layers_rho[n + 2].re - bulk_in_SLD.re;
-        sld_np1.im = layers_rho[n + 2].im - bulk_in_SLD.im;
+        sld_np1.re = layersRho[n + 2].re - bulkInSLD.re;
+        sld_np1.im = layersRho[n + 2].im - bulkInSLD.im;
         knp1 = findkn(k0, sld_np1);
 
         //  Find r_n,n+1:
@@ -218,7 +170,7 @@ namespace RAT
         b_nom_n_tmp = kn_ptr.im - knp1.im;
         nom1_tmp = kn_ptr.re + knp1.re;
         denom_n_tmp = kn_ptr.im + knp1.im;
-        denom1_tmp = layers_sig[n + 2];
+        denom1_tmp = layersSigma[n + 2];
         sigmasqrd = denom1_tmp * denom1_tmp;
         denom1_tmp = -2.0 * kn_ptr.re;
         bim = -2.0 * kn_ptr.im;
@@ -282,7 +234,7 @@ namespace RAT
         r_n_np1.im = nom1_re * err_n.im + denom1_tmp * err_n.re;
 
         //  Find the Phase Factor = (k_n * d_n)
-        denom1_tmp = layers_thick[n + 1];
+        denom1_tmp = layersThick[n + 1];
         bim = denom1_tmp * kn_ptr.re;
         denom1_tmp *= kn_ptr.im;
         beta.re = bim * 0.0 - denom1_tmp;

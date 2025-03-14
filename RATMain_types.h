@@ -69,7 +69,7 @@ namespace RAT
     ::coder::array<double, 2U> f1;
   };
 
-  struct cell_wrap_47
+  struct cell_wrap_45
   {
     ::coder::array<double, 2U> f1;
   };
@@ -99,9 +99,9 @@ namespace RAT
   {
     ::coder::bounded_array<char, 10000U, 2U> procedure;
     ::coder::bounded_array<char, 10000U, 2U> parallel;
+    boolean_T calcSldDuringFit;
     double resampleMinAngle;
     double resampleNPoints;
-    boolean_T calcSldDuringFit;
     ::coder::bounded_array<char, 10000U, 2U> display;
     double xTolerance;
     double funcTolerance;

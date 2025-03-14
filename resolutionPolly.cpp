@@ -18,18 +18,18 @@
 namespace RAT
 {
   void resolutionPolly(const ::coder::array<double, 1U> &xdata, const ::coder::
-                       array<double, 1U> &ydata, const ::coder::array<double, 1U>
-                       &resolutionValues, double points, ::coder::array<double,
-                       1U> &resolutionCorrection)
+                       array<double, 1U> &rawSimulation, const ::coder::array<
+                       double, 1U> &resolutionValues, double points, ::coder::
+                       array<double, 1U> &simulation)
   {
     int i;
     int loop_ub_tmp;
 
     //  Apply resolution correction
     loop_ub_tmp = static_cast<int>(points);
-    resolutionCorrection.set_size(loop_ub_tmp);
+    simulation.set_size(loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
-      resolutionCorrection[i] = 0.0;
+      simulation[i] = 0.0;
     }
 
     for (int j{0}; j < loop_ub_tmp; j++) {
@@ -49,11 +49,11 @@ namespace RAT
         a = (xdata[a_tmp] - xdata[j]) / (resolutionValues[j] * xdata[j]);
         g = std::exp(-(a * a));
         sumg += g;
-        resolutionCorrection[j] = resolutionCorrection[j] + ydata[a_tmp] * g;
+        simulation[j] = simulation[j] + rawSimulation[a_tmp] * g;
       }
 
       if (sumg != 0.0) {
-        resolutionCorrection[j] = resolutionCorrection[j] / sumg;
+        simulation[j] = simulation[j] / sumg;
       }
     }
   }

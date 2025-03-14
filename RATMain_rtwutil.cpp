@@ -21,7 +21,7 @@
 namespace RAT
 {
   void cast(const ::coder::array<cell_wrap_3, 2U> &r, ::coder::array<
-            cell_wrap_47, 2U> &r1)
+            cell_wrap_45, 2U> &r1)
   {
     int i;
     r1.set_size(1, r.size(1));

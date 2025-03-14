@@ -20,8 +20,8 @@
 namespace RAT
 {
   void abelesParallelPoints(const ::coder::array<double, 1U> &q, double N, const
-    ::coder::array<double, 1U> &layers_thick, const ::coder::array<creal_T, 1U>
-    &layers_rho, const ::coder::array<double, 1U> &layers_sig, ::coder::array<
+    ::coder::array<double, 1U> &layersThick, const ::coder::array<creal_T, 1U>
+    &layersRho, const ::coder::array<double, 1U> &layersSigma, ::coder::array<
     double, 1U> &ref);
 }
 

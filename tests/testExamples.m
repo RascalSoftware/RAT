@@ -173,7 +173,7 @@ classdef testExamples < matlab.unittest.TestCase
             % Write the script using a deep copy of the project 
             clonedProblem = problem.clone();
             testCase.verifyNotSameHandle(clonedProblem, problem);
-            clonedProblem.writeScript(objName="scriptProblem", script="projectScript");
+            clonedProblem.writeScript(objName="scriptProblem", path="projectScript");
             run("projectScript.m");
 
             % Test general properties

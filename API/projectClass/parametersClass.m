@@ -157,7 +157,7 @@ classdef parametersClass < tableUtilities
             % 
             % Parameters
             % ----------
-            % row : string or char array or integer
+            % row : string or char array or whole number
             %     If ``row`` is an integer, it is the row number of the parameter to remove. If it is text, 
             %     it is the name of the parameter to remove.
             obj.removeRow(row);
@@ -180,7 +180,7 @@ classdef parametersClass < tableUtilities
             % 
             % Parameters
             % ----------
-            % row : string or char array or integer
+            % row : string or char array or whole number
             %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
             %     it is the name of the parameter to update.
             % options
@@ -190,7 +190,7 @@ classdef parametersClass < tableUtilities
             %       * value (double, default: []) the new value of the parameter.
             %       * max (double, default: []) the new maximum value of the parameter.
             %       * fit (logical, default: logical.empty()) the new fit flag of the parameter.
-            %       * priorTypes (priorTypes, priorTypes.empty()) the new prior type of the parameter.            
+            %       * priorTypes (priorTypes, default: priorTypes.empty()) the new prior type of the parameter.            
             %       * mu (double, default: []) the new mean of the Gaussian function for the prior.            
             %       * sigma (double, default: []) The new standard deviation of the Gaussian function for the prior.            
             arguments
@@ -263,7 +263,7 @@ classdef parametersClass < tableUtilities
             %            
             % Parameters
             % ----------
-            % row : string or char array or integer
+            % row : string or char array or whole number
             %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
             %     it is the name of the parameter to update.
             % priorType : PriorTypes 
@@ -309,7 +309,7 @@ classdef parametersClass < tableUtilities
             %
             % Parameters
             % ----------
-            % row : string or char array or integer
+            % row : string or char array or whole number
             %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
             %     it is the name of the parameter to update.
             % value : double
@@ -339,7 +339,7 @@ classdef parametersClass < tableUtilities
             %
             % Parameters
             % ----------
-            % row : string or char array or integer
+            % row : string or char array or whole number
             %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
             %     it is the name of the parameter to update.
             % name : string or char array
@@ -368,7 +368,7 @@ classdef parametersClass < tableUtilities
             %
             % Parameters
             % ----------
-            % row : string or char array or integer
+            % row : string or char array or whole number
             %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
             %     it is the name of the parameter to update.
             % min : double
@@ -403,7 +403,7 @@ classdef parametersClass < tableUtilities
             %
             % Parameters
             % ----------
-            % row : string or char array or integer
+            % row : string or char array or whole number
             %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
             %     it is the name of the parameter to update.
             % fit : logical
@@ -458,7 +458,7 @@ classdef parametersClass < tableUtilities
         end
         
         function outStruct = toStruct(obj)
-            % Converts the class parameters into a structure array.
+            % Converts the parametersClass into a structure array.
             %
             % Returns
             % -------
@@ -535,7 +535,7 @@ classdef parametersClass < tableUtilities
             %
             % Parameters
             % ----------
-            % row : string or char array or integer
+            % row : string or char array or whole number
             %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
             %     it is the name of the parameter to update.
             % 

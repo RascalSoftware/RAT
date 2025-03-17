@@ -1,5 +1,12 @@
 function [x] = boundaryHandling(x,paramInfo)
-% Function to check whether parameter values remain within prior bounds
+% Check whether parameter values remain within prior bounds, and handle ones outside.
+%
+% Parameters
+% ----------
+% x : array
+%     The parameter values.
+% paramInfo : struct
+%     Ranges, priors and boundary handling for each parameter.
 
 % First determine the size of new
 [m,n] = size(x);

@@ -1,13 +1,24 @@
 function pVal2 = scaledGaussPrior(m,extras)
+% Scale a random value to a Gaussian prior.
+% 
+% Parameters
+% ----------
+% m : vector
+%     The point in parameter space to scale.
+% extras : struct
+%     Additional problem information, including which dimensions of ``m`` need scaling.
+%
+% Returns
+% -------
+% pVal2 : vector
+%     The parameter values rescaled to Gaussian priors.
+%
     
     problemStruct = extras.problemStruct;
     priorList = extras.priors;
     
     % All are in range, so check for Gaussian priors....
     % We pick out any priors that are Gaussians and calculate the mvnpdf
-
-    % Find all the Gaussian priors....
-    % usedPriorInd = find(strcmpi(priorList(:,1),'gaussian'));
 
     usedPriorInd = find(priorList(:,1) == 2);
 

@@ -1,6 +1,26 @@
 function [accept,idx_accept] = metropolisRule(DREAMPar,log_L_xnew,log_PR_xnew,log_L_xold,log_PR_xold)
-% Metropolis rule for acceptance or rejection
-
+% Calculates candidate acceptance for each point using the Metropolis rule.
+%
+% Parameters
+% ----------
+% DREAMPar : struct
+%     Algorithmic control information for DREAM.
+% log_L_xnew : array 
+%     The log-likelihood of the proposed new point for each chain. 
+% log_PR_xnew : array
+%     The log-prior of the proposed new point for each chain.
+% log_L_xold :  array
+%     The log-likelihood of the current newest point on the chain.
+% log_PR_xold : array
+%     The log-prior of the current newest point on the chain.
+% 
+% Returns
+% -------
+% accept : array
+%     An array of bools of whether the proposal is accepted for each parameter. 
+% idx_accept : array
+%     The parameter indices for which proposals were accepted.
+%
 if ~DREAMPar.ABC
 
     % No ABC --> regular MCMC with prior and likelihood

@@ -1,12 +1,40 @@
 function [outDREAMPar,paramInfo,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
         gen] = setupDREAM(DREAMPar,paramInfo,Meas_info)
-% Initializes the main variables used in DREAM
-% To keep coder happy, we have to define the full version of DREAMPar here
-% fieldNames = {'nParams','nChains','nGenerations','parallel','CPU','jumpProbability','pUnitGamma','nCR','delta','steps',...
-%     'zeta','outlier','adaptPCR','thinning','ABC','epsilon','IO','storeOutput','R'};
-% values = cell(length(fieldNames),1);
-% outDREAMPar = cell2struct(values,fieldNames);
+% Initialize the main variables used in DREAM.
+% 
+% Parameters
+% ----------
+% DREAMPar : struct
+%     Algorithmic control information for DREAM.
+% paramInfo : struct
+%     Ranges, priors and boundary handling for each parameter.
+% Meas_info : struct 
+%     Struct with measurements to evaluate against.
+%
+% Returns
+% -------
+% outDREAMPar : struct
+%     The options for DREAMPar with defaults applied.
+% paramInfo : struct
+%     The input ``paramInfo`` after range validation.
+% Meas_info : struct
+%     The input ``Meas_info`` after validation.
+% chain : array
+%     The initial MCMC chain array.
+% output : struct
+%     The initial empty output struct.
+% log_L : array
+%     The initial array of log-likelihood values sampled from chains.
+% Table_gamma : array
+%     The initial DE jump length values for each parameter.
+% iloc : int
+%     The index of the current sample in the chains.
+% iteration : int
+%     The initial iteration number.
+% gen : int
+%     The number of new candidates generated this generation.
 
+% To keep coder happy, we have to define the full version of DREAMPar here
 Rr = zeros(DREAMPar.nChains,DREAMPar.nChains);
 coder.varsize('Rr',[1e4 1e4],[1 1]);
 

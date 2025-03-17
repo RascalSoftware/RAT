@@ -1,40 +1,46 @@
 function [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMPar,paramInfo,Meas_info,chain,output,log_L,ratInputs)
-% Initializes the starting positions of the Markov chains 
-
-% Create the initial positions of the chains
-% switch paramInfo.prior
-%     
-%     case {'uniform'}
+% Initialize the starting positions of the Markov chains.
+%
+% Parameters
+% ----------
+% DREAMPar : struct
+%     Algorithmic control information for DREAM.
+% paramInfo : struct
+%     Prior, bound, and boundary handling information for each parameter.
+% Meas_info : struct 
+%     Struct with measurements to evaluate against.
+% chain : array
+%     The initial chain array created by setupDREAM.
+% output : struct
+%     The initial output struct created by setupDREAM.
+% log_L : array
+%     The array of log-likelihood values sampled from chains.
+% ratInputs : struct
+%     The project and controls inputs from RAT.
+%
+% Returns
+% -------
+% chain : array
+%     The initial MCMC chain array.
+% output : struct
+%     The initial empty output struct.
+% X : array
+%     The starting Markov chains.
+% fx : array
+%     The likelihood and log-likelihood at the initial chain points.
+% CR : array
+%     The crossover values for each parameter. 
+% pCR : array
+%     The selection probability of crossover for each parameter.
+% lCR : array
+%     The jumping distance weights for each crossover value. 
+% delta_tot : array
+%     The initial normalised Euclidean distance for each crossover value.
+% log_L : array
+%     The initial log-likelihood for each chain value.
+% 
+[x] = repmat(paramInfo.min,DREAMPar.nChains,1) + rand(DREAMPar.nChains,DREAMPar.nParams) .* ( repmat(paramInfo.max - paramInfo.min,DREAMPar.nChains,1) );
         
-        % Random sampling
-        [x] = repmat(paramInfo.min,DREAMPar.nChains,1) + rand(DREAMPar.nChains,DREAMPar.nParams) .* ( repmat(paramInfo.max - paramInfo.min,DREAMPar.nChains,1) );
-        
-%     case {'latin'}
-%         % Initialize chains with latinHypercubeSampling hypercube sampling
-%         if isfield(paramInfo,'min_initial') && isfield(paramInfo,'max_initial')
-%             [x] = latinHypercubeSampling(paramInfo.min_initial,paramInfo.max_initial,DREAMPar.nChains);
-%         else            
-%             [x] = latinHypercubeSampling(paramInfo.min,paramInfo.max,DREAMPar.nChains);
-%         end
-%     case {'normal'}
-%         
-%         % Initialize chains with (multi)-normal distribution
-%         [x] = repmat(paramInfo.mu,DREAMPar.nChains,1) + randn(DREAMPar.nChains,DREAMPar.nParams) * chol(paramInfo.cov);
-%         
-%     case {'prior'}
-%         
-%         % Create the initial position of each chain by drawing each parameter individually from the prior
-%         for qq = 1:DREAMPar.nParams
-%             for zz = 1:DREAMPar.nChains
-%                 x(zz,qq) = eval(char(paramInfo.prior_marginal(qq)));
-%             end
-%         end
-%         
-%     otherwise
-%         
-%         error('unknown initial sampling method');
-% end
-
 % If specified do boundary handling ( "Bound","Reflect","Fold")
 if isfield(paramInfo,'boundhandling')
     [x] = boundaryHandling(x,paramInfo);

@@ -15,6 +15,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function I_z = leftWin(S_x,S_y)
+% Compare the objective function for two DE candidate points.
+% 
+% Parameters
+% ----------
+% S_x, S_y : struct 
+%     The two points to compare.
+% 
+% Returns
+% -------
+% I_z : bool
+%     Whether S_x has a lower objective function value than S_y.
+%
 I_z = 1;  %start with I_z=1
 
 %----deal with the constraints first. If constraints are not met------

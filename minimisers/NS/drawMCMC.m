@@ -1,19 +1,45 @@
 function [sample, logL] = drawMCMC(livepoints, cholmat, logLmin, ...
     prior, data, likelihood, model, nMCMC, parnames, extraparvals)
-% This function will draw a multi-dimensional sample from the prior volume
-% for use in the nested sampling algorithm. The new point will have a
-% likelihood greater than the value logLmin. The new point will be found by
+% Draw a sample from the prior volume using MCMC chains.
+%
+% The new point will be found by
 % evolving a random multi-dimensional sample from within the sample array,
 % livepoints, using an MCMC with nMCMC iterations. The MCMC will use a 
 % Students-t (with N=2 degrees of freedom) proposal distribution based on
 % the Cholesky decomposed covariance matrix of the array, cholmat. 10% of 
 % the samples will actually be drawn using differential evolution by taking
-% two random points from the current live points. extraparvals is a vector
-% of additional parameters needed by the model.
+% two random points from the current live points. 
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% global verbose;
+% Parameters
+% ----------
+% livepoints : array
+%     The live points in the current iteration of the nested sampler.
+% cholmat : array
+%     The Cholesky decomposed covariance matrix of ``livepoints``.
+% logLmin : float
+%     The worst likelihood permitted in this iteration.
+% prior : array
+%     The prior information for the parameters.
+% data : array
+%     The problem struct, controls, and problem limits. 
+% likelihood : function
+%     The likelihood function for the problem.
+% model : unknown
+%     Unused.
+% nMCMC : int
+%     The number of chains to use.
+% parnames : array
+%     The names of the parameters.
+% extraparvals : array
+%     A vector of additional parameters needed by the model.
+%
+% Returns
+% -------
+% sample : array
+%     The new point sampled by the algorithm.
+% logL : float
+%     The log-likelihood of the new sample.
+%
 controls = data{2};
 logL = logLmin;
 mcmcfrac = 0.9; 
@@ -54,8 +80,8 @@ while 1
             pv = -l2p - log(p4) - (sample(j)-p3)^2/(2*p4^2);
             currentPrior = logPlus(currentPrior, pv);
         elseif priortype == 3
-            p3 = prior(j,2);
-            p4 = prior(j,3);
+            p3 = prior(j,4);
+            p4 = prior(j,5);
             pv = -log(10^(sample(j)*(log10(p4) - log10(p3)) + log10(p3)));
             currentPrior = logPlus(currentPrior, pv);
         end

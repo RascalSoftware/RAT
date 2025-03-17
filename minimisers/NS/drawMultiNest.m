@@ -1,14 +1,44 @@
 function [sample, logL] = drawMultiNest(fracvol, Bs, mus, ... 
     logLmin, prior, data, likelihood, model, parnames, extraparvals)
-    % This function draws a multi-dimensional sample from the prior volume
-    % for use in the nested sampling algorithm. The new point will have a
-    % likelihood greater than the value logLmin. The new point will be found by
-    % drawing a random multi-dimensional sample from within the set of optimal
-    % ellipsoids constructed using the MultiNest algorithm.  The bounding 
-    % ellipsoids are defined by their bounding matrices Bs and centroids mus.
-    % extraparvals is a vector of additional parameters needed by the model.
-    %
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Draw a sample from the prior volume using the MultiNest algorithm.
+%
+% The new point will be found by
+% drawing a random multi-dimensional sample from within the set of optimal
+% ellipsoids constructed using the MultiNest algorithm.
+%
+% Parameters
+% ----------
+% fracvol : float
+%     The cumulative fractional volume of the ellipsoids.
+% Bs : array
+%     The bounding matrices of the ellipsoids to draw from.
+% mus : array
+%     The centroids of the ellipsoids to draw from. 
+% logLmin : float
+%     The worst likelihood permitted in this iteration.
+% prior : array
+%     The prior information for the parameters.
+% data : array
+%     The problem struct, controls, and problem limits. 
+% likelihood : function
+%     The likelihood function for the problem.
+% model : unknown
+%     Unused.
+% nMCMC : int
+%     The number of chains to use.
+% parnames : array
+%     The names of the parameters.
+% extraparvals : array
+%     A vector of additional parameters needed by the model.
+%
+% Returns
+% -------
+% sample : array
+%     The new point sampled by the algorithm.
+% logL : float
+%     The log-likelihood of the new sample.
+%
+
     % extra number of ellipsoids, number of dimensions 
     K = size(mus, 1);
     ndims = size(mus,2);

@@ -1,13 +1,38 @@
 function [logZ, nest_samples, post_samples,H] = nestedSampler(data, ...
           nLive, nMCMC, tolerance, flike, model, prior, parnames)
-
-% function [logZ, nest_samples, post_samples] = nestedSampler(data, ...
-%           nLive, nMCMC, tolerance, likelihood, model, prior, extraparams)
+% Perform nested sampling on a given likelihood function and set of data with priors.
 %
-% This function performs nested sampling of the likelihood function from
-% the given prior (given a set of data, a model, and a set of extra model 
-% parameters).
-% 
+% Parameters
+% ----------
+% data : array
+%     The problem struct, controls, and problem limits.
+% nLive : int
+%     The number of live points to use.
+% nMCMC : int
+%     If 0, use MultiNest to draw points. if >0, use MCMC and differential evolution
+%     with ``nMCMC`` chains.
+% tolerance : float
+%     The tolerance of maximum log-likelihood changes between iterations.
+% flike : function
+%     The log-likelihood function to use.
+% model : function
+%     The function handle of a model function to pass to the likelihood function.
+% prior : array
+%     A cell array of parameter names, prior types, prior parameters, and boundary handling.
+% parnames : array
+%     The names of the parameters to optimise.
+%
+% Returns
+% -------
+% logZ : float
+%     The final log-evidence calculated.
+% nest_samples : array
+%     The full set of points sampled during the run.
+% post_samples : array
+%     The posterior values of each point in ``nest_samples``.
+% H : float
+%     The Shannon entropy of the evidence.
+
 % If nMCMC > 0, new samples will be drawn from a proposal using an MCMC 
 % and differential evolution. The sampling will stop once the 
 % tolerance critereon has been reached. This method is that of Veitch & 
@@ -39,13 +64,7 @@ function [logZ, nest_samples, post_samples,H] = nestedSampler(data, ...
 %                  'phi', 'uniform', 0, 2*pi, 'cyclic'};
 %
 % -----------------------------------------------------------------------
-%
-% extraparams is a cell array of fixed extra parameters (in addition
-% to those specified by prior) used by the model 
-% e.g.  extraparams = {'phi', 2;
-%                      'x', 4};
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 controls = data{2};
 
 ns = 1;

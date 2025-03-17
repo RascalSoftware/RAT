@@ -1,4 +1,24 @@
 function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,limits,priors)
+% Pack the parameters into an array of those being fitted.
+%
+% Parameters
+% ----------
+% problemStruct : struct
+%     The project struct.
+% problemLimits : struct
+%     The limits for each parameter.
+% priors : array
+%     The priors of each parameter.
+%
+% Returns
+% -------
+% problemStruct : struct
+%     The project struct with fit information.
+% fitNames : array
+%     The names of the parameters being fit.
+% fitPriors : array
+%     The priors of each fit parameter.
+
 
     % We need to pack the parameters into an array consisting of those
     % that are being fitted.

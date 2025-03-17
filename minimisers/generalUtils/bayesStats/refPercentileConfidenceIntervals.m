@@ -1,4 +1,21 @@
 function allPredInts = refPercentileConfidenceIntervals(bayesOutputs,problemStruct,controls,results)
+% Calculate the percentile confidence intervals for the reflectivity.
+%
+% Parameters
+% ----------
+% bayesOutputs : struct
+%     The outputs of the Bayesian optimisation.
+% problemStruct : struct
+%     The struct for the project.
+% controls : struct
+%     The struct for the controls.
+% results : struct
+%     The results object from the optimisation.
+%
+% Returns
+% -------
+% allPredInts : array
+%     The prediction intervals from the optimisation.
 
 % Need to deal slightly differently with SLDs if there are domains
 if strcmpi(problemStruct.TF, coderEnums.calculationTypes.Domains)

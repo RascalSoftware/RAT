@@ -1,4 +1,19 @@
 function [problemStruct,fitNames] = fitsetup(problemStruct,problemLimits)
+% Set up fit parameters.
+%
+% Parameters
+% ----------
+% problemStruct : struct
+%     The project struct.
+% problemLimits : struct
+%     The limits for each parameter.
+%
+% Returns
+% -------
+% problemStruct : struct
+%     The project struct with fit information.
+% fitNames : array
+%     The names of the parameters being fit.
 
 if ~isfield(problemStruct,'checks')
     problemStruct.checks.params = ones(length(problemStruct.params),1);

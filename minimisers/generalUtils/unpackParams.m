@@ -1,8 +1,16 @@
 function problemStruct = unpackParams(problemStruct)
-
-    % Unpack the params out of the fitParams and array back into
-    % problem.params  
-    
+% Unpack params out of fitParams and back into problem.params.
+%
+% Parameters
+% ----------
+% problemStruct : struct
+%     The project struct.
+%
+% Returns
+% -------
+% problemStruct : struct
+%     The project struct with unpacked fit information.
+ 
     % Note that this order of parameters fields is hard-coded by this
     % routine, packParams, packParamsPriors, and getFitNames
     fields = {"params", "backgroundParams", "scalefactors", "bulkIns",...

@@ -1,5 +1,22 @@
 function [problemStruct,result] = runSimplex(problemStruct,problemLimits,controls)
-
+% Run the Nelder-Mead simplex algorithm for a given problem and controls.
+%
+% Parameters
+% ----------
+% problemStruct : struct
+%     the Project struct.
+% problemLimits : array
+%     the value limits for each parameter.
+% controls : struct
+%     the Controls struct.
+%
+% Returns
+% -------
+% problemStruct : struct
+%     the output project struct.
+% result : struct
+%     the calculation and optimisation results object.
+%
 [problemStruct,~] = fitsetup(problemStruct,problemLimits);
 
 maxIter = controls.maxIterations;
@@ -104,8 +121,6 @@ end
 % intra-objective function.
 
 [xu,~,~,~] = fMinSearch(@simplexIntrafun,x0u,options,dis,problemStruct,controls,params);
-
-%[xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemStruct,controls,options,params,300);
 
 % undo the variable transformations into the original space
 x = simplexXTransform(xu,params);

@@ -38,7 +38,7 @@ classdef parametersClass < tableUtilities
     % fit : logical, default: false
     %     Whether the first parameter should be fitted in a calculation.
     % priorType : PriorTypes, default: PriorTypes.Uniform 
-    %     For Bayesian calculations, whether the prior likelihood is assumed to be ‘uniform’ or ‘gaussian’.
+    %     For Bayesian calculations, whether the prior likelihood is assumed to be ‘uniform’, ‘gaussian’, or ‘jeffreys’.
     % mu : double, default: 0
     %     If the prior type is Gaussian, the mean of the Gaussian function for the prior likelihood.
     % sigma : double, default: Inf
@@ -104,7 +104,7 @@ classdef parametersClass < tableUtilities
             % fit : logical, default: false
             %     Whether the parameter should be fitted in a calculation.
             % priorType : PriorTypes, default: PriorTypes.Uniform 
-            %     For Bayesian calculations, whether the prior likelihood is assumed to be ‘uniform’ or ‘gaussian’.
+            %     For Bayesian calculations, whether the prior likelihood is assumed to be ‘uniform’, ‘gaussian’, or ‘jeffreys’.
             % mu : double, default: 0.0
             %     If the prior type is Gaussian, the mean of the Gaussian function for the prior likelihood.
             % sigma : double, default: Inf

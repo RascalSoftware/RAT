@@ -79,15 +79,15 @@ classdef backgroundsClass < handle
             % 
             % To add a constant background.
             % 
-            % >>> background.addBackground(allowedNames, 'New Background', 'constant', 'param_name');
+            % >>> background.addBackground(allowedNames, 'New Background', 'constant', 'paramName');
             % 
             % To add a function background with 2 parameters.
             % 
-            % >>> background.addBackground(allowedNames, 'New Background', 'function', 'function_name', 'param_name', 'param_name2');    
+            % >>> background.addBackground(allowedNames, 'New Background', 'function', 'functionName', 'paramName', 'paramName2');    
             %
             % To add a data background with an offset.
             % 
-            % >>> background.addBackground(allowedNames, 'New Background', 'data', 'data_name', 'offset_param_name');
+            % >>> background.addBackground(allowedNames, 'New Background', 'data', 'dataName', 'offsetParamName');
             % 
             % Parameters
             % ----------
@@ -101,11 +101,11 @@ classdef backgroundsClass < handle
             %     The source of the background. 
             %     if type is 'constant', this should be the name (or the row index) of a background parameter.
             %     if type is 'data', this should be the name (or the row index) of a dataset defined in `projectClass.data`.
-            %     if type is 'function', this should be the name (or the row index) of a custom function defined in `projectClass.custom_files`.
+            %     if type is 'function', this should be the name (or the row index) of a custom function defined in `projectClass.customFiles`.
             % value1, value2, value3, value4, value5 : string or char array or whole number, default: ''
             %     Any extra values required for the background.
             %     if type is 'constant', all values will be ignored.
-            %     if type is 'data', value_1 may be the name (or the row index) of a background parameter for an optional offset. Other values are ignored.
+            %     if type is 'data', value1 may be the name (or the row index) of a background parameter for an optional offset. Other values are ignored.
             %     if type is 'function', these values may be the names (or the row index) of up to 5 parameters which are passed to the function.
             arguments
                 obj
@@ -185,7 +185,7 @@ classdef backgroundsClass < handle
             % 
             % To remove background with a specific name.
             % 
-            % >>> backgrounds.removeBackground('Back 1');
+            % >>> backgrounds.removeBackground('Background 1');
             % 
             % Parameters
             % ----------
@@ -203,11 +203,11 @@ classdef backgroundsClass < handle
             % To change the name and value of the second background in the table (background in row 2).
             % 
             % >>> allowedNames = project.getAllAllowedNames();
-            % >>> backgrounds.setBackground(2, allowedNames, name='back 1', type='constant', source='param_name');
+            % >>> backgrounds.setBackground(2, allowedNames, name='Background 1', type='constant', source='paramName');
             % 
-            % To change the properties of a background called 'back 1'.
+            % To change the properties of a background called 'Background 1'.
             % 
-            % >>> backgrounds.setBackground('back 1', allowedNames, name='new back', type='function', source='custom_func_name', value1='param_name');
+            % >>> backgrounds.setBackground('Background 1', allowedNames, name='New Background', type='function', source='customFuncName', value1='paramName');
             % 
             % Parameters
             % ----------

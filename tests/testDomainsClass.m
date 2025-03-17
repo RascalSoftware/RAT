@@ -98,6 +98,9 @@ classdef testDomainsClass < matlab.unittest.TestCase
             testCase.verifyFalse(normal.contrasts.domainsCalc, 'Calculation Type not set correctly')
             testCase.verifyEqual(normal.parameters, testCase.project.parameters, 'Parameters not copied correctly');
             testCase.verifyEqual(normal.layers, testCase.project.layers, 'Layers not copied correctly');
+
+            normal2 = projectClass(testCase.project);
+            testCase.verifyClass(normal2, 'projectClass')
         end
 
         function testModelType(testCase)

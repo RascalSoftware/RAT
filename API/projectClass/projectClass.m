@@ -1,7 +1,7 @@
 classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDisplay
     % ``projectClass`` stores all the information that describes the experiment which is essential for running a RAT calculation. There are several components of a 
     % project such as the parameters, backgrounds, resolutions, custom files, data, contrast etc, the ``projectClass`` provides a number of methods to add, remove, 
-    % and update these components. For example, for parameters, the ``addParameter``, ``removeParameter``, and ``setParameter`` methods are available for adding removing 
+    % and update these components. For example, for parameters, the ``addParameter``, ``removeParameter``, and ``setParameter`` methods are available for adding, removing,  
     % and updating parameters.
     % 
     % Examples
@@ -14,7 +14,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
     % ---------- 
     % experimentName : string or char array, default: ''
     %     The name of the project.
-    % modelType : modelTypes, default: modelTypes.StandardLayer
+    % modelType : modelTypes, default: modelTypes.StandardLayers
     %     The layer model type which can be 'standard layers', 'custom layers', or 'custom xy'.
     % geometry : geometryOptions, default: geometryOptions.AirSubstrate
     %     The geometry to use which can be 'air/substrate' or 'substrate/liquid'.  
@@ -309,7 +309,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % Other examples of adding background parameters with a subset of properties.
             % 
             % >>> project.addBackgroundParam('Backs Value D2O');  % Background parameter name only with others set to default
-            % >>> project.addBackgroundParam('Backs Value D2O', 1e-8);  % Background parameter name and min only. Value and max will be set to 23 to keep limits valid
+            % >>> project.addBackgroundParam('Backs Value D2O', 1e-8);  % Background parameter name and min only. Value and max will be set to 1e-8 to keep limits valid
             % >>> project.addBackgroundParam('Backs Value D2O', 1e-8, 2.8e-6, 1e-5, true);  % priors will be default
             % 
             % Parameters
@@ -325,7 +325,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % fit : logical, default: false
             %     Whether the background parameter should be fitted in a calculation.
             % priorType : PriorTypes, default: PriorTypes.Uniform 
-            %     For Bayesian calculations, whether the prior likelihood is assumed to be ‘uniform’ or ‘gaussian’.
+            %     For Bayesian calculations, whether the prior likelihood is assumed to be ‘uniform’, ‘gaussian’, or ‘jeffreys’.
             % mu : double, default: 0.0
             %     If the prior type is Gaussian, the mean of the Gaussian function for the prior likelihood.
             % sigma : double, default: Inf
@@ -424,15 +424,15 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % 
             % To add a constant background.
             % 
-            % >>> project.addBackground('New Background', 'constant', 'param_name');
+            % >>> project.addBackground('New Background', 'constant', 'paramName');
             % 
             % To add a function background with 2 parameters.
             % 
-            % >>> project.addBackground('New Background', 'function', 'function_name', 'param_name', 'param_name2');    
+            % >>> project.addBackground('New Background', 'function', 'functionName', 'paramName', 'paramName2');    
             %
             % To add a data background with an offset.
             % 
-            % >>> project.addBackground('New Background', 'data', 'data_name', 'offset_param_name');
+            % >>> project.addBackground('New Background', 'data', 'dataName', 'offsetParamName');
             % 
             % Parameters
             % ----------
@@ -444,11 +444,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             %     The source of the background. 
             %     if type is 'constant', this should be the name (or the row index) of a background parameter.
             %     if type is 'data', this should be the name (or the row index) of a dataset defined in `projectClass.data`.
-            %     if type is 'function', this should be the name (or the row index) of a custom function defined in `projectClass.custom_files`.
+            %     if type is 'function', this should be the name (or the row index) of a custom function defined in `projectClass.customFiles`.
             % value1, value2, value3, value4, value5 : string or char array or whole number, default: ''
             %     Any extra values required for the background.
             %     if type is 'constant', all values will be ignored.
-            %     if type is 'data', value_1 may be the name (or the row index) of a background parameter for an optional offset. Other values are ignored.
+            %     if type is 'data', value1 may be the name (or the row index) of a background parameter for an optional offset. Other values are ignored.
             %     if type is 'function', these values may be the names (or the row index) of up to 5 parameters which are passed to the function.
             arguments
                 obj
@@ -492,11 +492,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % --------
             % To change the name and value of the second background in the table (background in row 2).
             % 
-            % >>> backgrounds.setBackground(2, name='back 1', type='constant', source='param_name');
+            % >>> backgrounds.setBackground(2, name='Background 1', type='constant', source='paramName');
             % 
-            % To change the properties of a background called 'back 1'.
+            % To change the properties of a background called 'Background 1'.
             % 
-            % >>> backgrounds.setBackground('back 1', name='new back', type='function', source='custom_func_name', value1='param_name');
+            % >>> backgrounds.setBackground('Background 1', name='New Background', type='function', source='customFuncName', value1='paramName');
             % 
             % Parameters
             % ----------
@@ -540,13 +540,13 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % 
             % To add a resolution parameter with all available properties.
             % 
-            % >>> project.addResolutionParam('Resol Param 1', 20, 50, 60, true, 'gaussian', 1, 5);
+            % >>> project.addResolutionParam('Resolution Param 1', 20, 50, 60, true, 'gaussian', 1, 5);
             % 
             % Other examples of adding resolution parameters with a subset of properties.
             % 
-            % >>> project.addResolutionParam('Resol Param 1');  % Resolution parameter name only with others set to default
-            % >>> project.addResolutionParam('Resol Param 1', 23);  % Resolution parameter name and min only. Value and max will be set to 23 to keep limits valid
-            % >>> project.addResolutionParam('Resol Param 1', 23, 24, 25, true);  % priors will be default
+            % >>> project.addResolutionParam('Resolution Param 1');  % Resolution parameter name only with others set to default
+            % >>> project.addResolutionParam('Resolution Param 1', 23);  % Resolution parameter name and min only. Value and max will be set to 23 to keep limits valid
+            % >>> project.addResolutionParam('Resolution Param 1', 23, 24, 25, true);  % priors will be default
             % 
             % Parameters
             % ----------
@@ -561,7 +561,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % fit : logical, default: false
             %     Whether the resolution parameter should be fitted in a calculation.
             % priorType : PriorTypes, default: PriorTypes.Uniform 
-            %     For Bayesian calculations, whether the prior likelihood is assumed to be ‘uniform’ or ‘gaussian’.
+            %     For Bayesian calculations, whether the prior likelihood is assumed to be ‘uniform’, ‘gaussian’, or ‘jeffreys’.
             % mu : double, default: 0.0
             %     If the prior type is Gaussian, the mean of the Gaussian function for the prior likelihood.
             % sigma : double, default: Inf
@@ -591,7 +591,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % 
             % To remove resolution parameter with a specific name.
             % 
-            % >>> project.removeResolutionParam('Resol Param 1');
+            % >>> project.removeResolutionParam('Resolution Param 1');
             % 
             % Parameters
             % ----------
@@ -609,11 +609,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % --------
             % To change the name and value of the second resolution parameter in the table (parameter in row 2).
             % 
-            % >>> project.setResolutionParam(2, 'name', 'Resol Param 1', 'value', 50);
+            % >>> project.setResolutionParam(2, 'name', 'Resolution Param 1', 'value', 50);
             % 
             % To change the all properties of a resolution parameter called 'Resol Param'.
             % 
-            % >>> project.setResolutionParam('Resols', 'name', 'Resol Param 1', 'min', 20, 'value', 50, 'max', 60, ...
+            % >>> project.setResolutionParam('Resols', 'name', 'Resolution Param 1', 'min', 20, 'value', 50, 'max', 60, ...
             % >>>                            'fit', true, 'priorType', 'gaussian', 'mu', 1, 'sigma', 5);
             % 
             % Parameters
@@ -660,7 +660,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % 
             % To add a constant resolution.
             % 
-            % >>> project.addResolution(New Resolution', 'constant', 'param_name');
+            % >>> project.addResolution(New Resolution', 'constant', 'paramName');
             %
             % To add a data resolution.
             % 
@@ -722,11 +722,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % --------
             % To change the name and value of the second resolution in the table (resolution in row 2).
             % 
-            % >>> project.setResolution(2, name='resol 1', type='constant', source='param_name');
+            % >>> project.setResolution(2, name='Resolution 1', type='constant', source='paramName');
             % 
-            % To change the properties of a resolution called 'resol 1'.
+            % To change the properties of a resolution called 'Resolution 1'.
             % 
-            % >>> project.setResolution('resol 1', name='new resol', type='data');
+            % >>> project.setResolution('Resolution 1', name='New Resolution 1', type='data');
             % 
             % Parameters
             % ----------
@@ -777,7 +777,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % 
             % To remove dataset with a specific name.
             % 
-            % >>>  project.removeData('D2O_data');
+            % >>>  project.removeData('D2O');
             % 
             % Parameters
             % ----------
@@ -1007,15 +1007,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % domainsObj : domainsClass
             %     An instance of domainsClass with the same properties defined in the projectClass.
 
-            domainsObj = domainsClass(obj.experimentName, obj.modelType, obj.geometry, obj.absorption);
-            domainsObj = copyProperties(obj, domainsObj);
-
-            % Need to treat contrasts separately due to changes in the
-            % class for domains calculations
-            domainsObj.contrasts = copyProperties(obj.contrasts, contrastsClass(domains=true));
-            for i=1:domainsObj.contrasts.numberOfContrasts
-                domainsObj.contrasts.contrasts{i}.domainRatio = '';
-            end
+            domainsObj = domainsClass(obj);
         end
 
         function clonedProject = clone(obj)
@@ -1078,7 +1070,33 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
     end     % end public methods
     
     % ------------------------------------------------------------------
-    
+    methods (Hidden)
+        function domainsObj = domainsClass(obj)
+            % Object Converter method to convert to domainsClass 
+            % https://uk.mathworks.com/help/matlab/matlab_oop/converting-objects-to-another-class.html. 
+            %
+            % Examples
+            % --------
+            % >>> project = projectClass();
+            % >>> domainsProject = domainsClass(project);
+            %
+            % Returns
+            % -------
+            % domainsObj : domainsClass
+            %     An instance of domainsClass with the same properties defined in the projectClass.
+
+            domainsObj = domainsClass(obj.experimentName, obj.modelType, obj.geometry, obj.absorption);
+            domainsObj = copyProperties(obj, domainsObj);
+
+            % Need to treat contrasts separately due to changes in the
+            % class for domains calculations
+            domainsObj.contrasts = copyProperties(obj.contrasts, contrastsClass(domains=true));
+            for i=1:domainsObj.contrasts.numberOfContrasts
+                domainsObj.contrasts.contrasts{i}.domainRatio = '';
+            end
+        end
+    end
+
     methods (Access = protected)
         % Display methods
         function group = getPropertyGroup1(obj)
@@ -1161,10 +1179,6 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             obj.contrasts.displayContrastsObject;
             
         end
-        
-    end
-
-    methods (Access = protected)
 
         function modifyLayersTable(obj)
             % Add or remove a column from the layers table whenever the

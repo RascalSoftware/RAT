@@ -18,7 +18,7 @@ function obj = createProject(options)
     %     The name of the project.
     % calcType : calculationTypes, default: calculationTypes.Normal
     %     The calculation type which can be 'normal' or 'domains'.
-    % model : modelTypes, default: modelTypes.StandardLayer
+    % model : modelTypes, default: modelTypes.StandardLayers
     %     The layer model type which can be 'standard layers', 'custom layers', or 'custom xy'.
     % geometry : geometryOptions, default: geometryOptions.AirSubstrate
     %     The geometry to use which can be 'air/substrate' or 'substrate/liquid'.

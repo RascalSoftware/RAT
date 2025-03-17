@@ -3,15 +3,15 @@ classdef resolutionsClass < handle
     % actual fitted parameters. These resolution parameters are held in a ``parametersClass`` object 
     % and can be used define resolutions. 
     % 
-    % For constant resolution, only one resolution parameter is supplied. 
+    % For constant resolutions, only one resolution parameter is supplied. 
     % 
-    % For data resolution, there are no parameters supplied, but it informs RAT to expect a fourth 
+    % For data resolutions, there are no parameters supplied, but it informs RAT to expect a fourth 
     % column in the datafile. 
     %
     % Examples
     % --------
-    % >>> resolParams = parametersClass('resols par', 1e-8, 1e-5, 1e-3, true);
-    % >>> resolution = resolutionClass(resolParams, {'Resolution 1','constant','resols par'});
+    % >>> resolParams = parametersClass('Resolution Parameter 1', 1e-8, 1e-5, 1e-3, true);
+    % >>> resolution = resolutionClass(resolParams, {'Resolution 1','constant','Resolution Parameter 1'});
     %
     % Parameters
     % ----------
@@ -68,7 +68,7 @@ classdef resolutionsClass < handle
             % 
             % To add a constant resolution.
             % 
-            % >>> resolution.addResolution(New Resolution', 'constant', 'param_name');
+            % >>> resolution.addResolution(New Resolution', 'constant', 'paramName');
             %
             % To add a data resolution.
             % 
@@ -147,7 +147,7 @@ classdef resolutionsClass < handle
             % 
             % To remove resolution with a specific name.
             % 
-            % >>> resolutions.removeResolution('Resol 1');
+            % >>> resolutions.removeResolution('Resolution 1');
             % 
             % Parameters
             % ----------
@@ -164,11 +164,11 @@ classdef resolutionsClass < handle
             % --------
             % To change the name and value of the second resolution in the table (resolution in row 2).
             % 
-            % >>> resolutions.setResolution(2, name='resol 1', type='constant', source='param_name');
+            % >>> resolutions.setResolution(2, name='Resolution 1', type='constant', source='paramName');
             % 
-            % To change the properties of a resolution called 'resol 1'.
+            % To change the properties of a resolution called 'Resolution 1'.
             % 
-            % >>> resolutions.setResolution('resol 1', name='new resol', type='data');
+            % >>> resolutions.setResolution('Resolution 1', name='New Resolution', type='data');
             % 
             % Parameters
             % ----------

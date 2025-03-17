@@ -122,6 +122,9 @@ classdef testProjectClass < matlab.unittest.TestCase
             for i=1:domains.contrasts.numberOfContrasts
                 testCase.verifyTrue(isfield(domains.contrasts.contrasts{i}, 'domainRatio'))
             end
+            
+            domains2 = domainsClass(testCase.project);
+            testCase.verifyClass(domains2, 'domainsClass')
         end
         
         function testAbsorption(testCase)

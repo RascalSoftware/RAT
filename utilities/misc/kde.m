@@ -1,36 +1,45 @@
-function [bandwidth,density,xmesh,cdf]=kde(data,n,MIN,MAX)
-% Reliable and extremely fast kernel density estimator for one-dimensional data;
-%        Gaussian kernel is assumed and the bandwidth is chosen automatically;
-%        Unlike many other implementations, this one is immune to problems
-%        caused by multimodal densities with widely separated modes (see example). The
-%        estimation does not deteriorate for multimodal densities, because we never assume
-%        a parametric model for the data.
-% INPUTS:
-%     data    - a vector of data from which the density estimate is constructed;
-%          n  - the number of mesh points used in the uniform discretization of the
-%               interval [MIN, MAX]; n has to be a power of two; if n is not a power of two, then
-%               n is rounded up to the next power of two, i.e., n is set to n=2^ceil(log2(n));
-%               the default value of n is n=2^12;
-%   MIN, MAX  - defines the interval [MIN,MAX] on which the density estimate is constructed;
-%               the default values of MIN and MAX are:
-%               MIN=min(data)-Range/10 and MAX=max(data)+Range/10, where Range=max(data)-min(data);
-% OUTPUTS:
-%   bandwidth - the optimal bandwidth (Gaussian kernel assumed);
-%     density - column vector of length 'n' with the values of the density
-%               estimate at the grid points;
-%     xmesh   - the grid over which the density estimate is computed;
-%             - If no output is requested, then the code automatically plots a graph of
-%               the density estimate.
-%        cdf  - column vector of length 'n' with the values of the cdf
-%  Reference:
+% Reference:
 % Kernel density estimation via diffusion
 % Z. I. Botev, J. F. Grotowski, and D. P. Kroese (2010)
 % Annals of Statistics, Volume 38, Number 5, pages 2916-2957.
-
+function [bandwidth,density,xmesh,cdf]=kde(data,n,MIN,MAX)
+% Estimate kernel density for one-dimensional data.
 %
-%  Example:
-%           data=[randn(100,1);randn(100,1)*2+35 ;randn(100,1)+55];
-%              kde(data,2^14,min(data)-5,max(data)+5);
+% Reliable and extremely fast kernel density estimator for one-dimensional data;
+% Gaussian kernel is assumed and the bandwidth is chosen automatically;
+% Unlike many other implementations, this one is immune to problems
+% caused by multimodal densities with widely separated modes (see example). The
+% estimation does not deteriorate for multimodal densities, because we never assume
+% a parametric model for the data.
+%
+% Parameters
+% ----------
+% data : vector
+%     The vector of data from which the density estimate is constructed.
+% n : int
+%     The number of mesh points used in the discretisation of the interval.
+%     Must be a power of two; if not, then it is rounded up (to ``n=2^ceil(log2(n))``)
+% MIN : float, optional
+%     The minimum for the interval over which the estimate is constructed.
+%     Defaults to ``min(data) - range / 10``, where range is the data range.
+% MAX : float, optional
+%     The maximum for the interval over which the estimate is constructed.
+%     Defaults to ``max(data) + range / 10``, where range is the data range.
+% 
+% Returns
+% -------
+% bandwidth : 
+% density : vector
+%     Column vector with the values of the density estimate at the grid points.
+% xmesh : vector
+%     The grid over which the density estimate is coputed.
+% cdf : vector
+%     Column vector with the values of the CDF.
+%
+% Examples
+% --------
+%      >>> data=[randn(100,1);randn(100,1)*2+35 ;randn(100,1)+55];
+%          kde(data,2^14,min(data)-5,max(data)+5);
 
 data=data(:); %make data a column vector
 if nargin<2 % if n is not supplied switch to the default

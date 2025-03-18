@@ -1,9 +1,13 @@
 function newObj = copyProperties(oldObj, newObj)
-    % Get all property values from one instance of a class and copy over
-    % to an instance of a different class those that are defined,
-    % non-dependent, and publicly accessible
-    %.
-    % newObj = copyProperties(oldObj, newObj)
+    % Copy public, non-dependent property values between two instances of a class.
+    %
+    % Parameters
+    % ----------
+    % oldObj : object
+    %     The object to copy from.
+    % newObj : object
+    %     The object to copy to.
+    %
     P = metaclass(oldObj).Properties;
     for k = 1:length(P)
         if isprop(newObj, P{k}.Name) && ~P{k}.Dependent && strcmpi(findprop(newObj, P{k}.Name).SetAccess, 'public')

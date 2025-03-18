@@ -1,4 +1,5 @@
 classdef mockFunction < handle
+% A mock function file for testing custom functions.
     properties
        arguments;
        callCount; 

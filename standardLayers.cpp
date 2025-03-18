@@ -558,12 +558,12 @@ namespace RAT
       int iv9[2];
       int b_loop_ub;
       int c_loop_ub;
-      int d_loop_ub;
       int i;
       int i3;
       int i4;
       int loop_ub;
       int nParams;
+      int ub_loop;
       boolean_T useImaginary;
 
       //  This is the main reflectivity calculation of the standard layers
@@ -610,13 +610,13 @@ namespace RAT
         bulkIns.set_size(i);
         bulkOuts.set_size(i);
         chis.set_size(i);
-        loop_ub = i - 1;
+        ub_loop = i - 1;
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
- private(r,r1,r2,r3,d,d1,d2,d3,iv5,iv6,dv3,dv4,dv5,iv7,iv8,iv9,c_loop_ub,i3,i4,d_loop_ub)
+ private(r,r1,r2,r3,d,d1,d2,d3,iv5,iv6,dv3,dv4,dv5,iv7,iv8,iv9,b_loop_ub,i3,i4,c_loop_ub)
 
-        for (int c_i = 0; c_i <= loop_ub; c_i++) {
+        for (int c_i = 0; c_i <= ub_loop; c_i++) {
           iv5[0] = (*(int (*)[2])((::coder::array<double, 2U> *)
                      &problemStruct.contrastBackgroundParams[c_i].f1)->size())[0];
           iv5[1] = (*(int (*)[2])((::coder::array<double, 2U> *)
@@ -674,38 +674,38 @@ namespace RAT
                               reflectivity[c_i].f1, simulation[c_i].f1, r3,
                               backgrounds[c_i].f1, resolutions[c_i].f1, r2, r1,
                               r, d3, d2, d1, d);
-          c_loop_ub = r3.size(0);
+          b_loop_ub = r3.size(0);
           shiftedData[c_i].f1.set_size(r3.size(0), 3);
           for (i3 = 0; i3 < 3; i3++) {
-            for (i4 = 0; i4 < c_loop_ub; i4++) {
+            for (i4 = 0; i4 < b_loop_ub; i4++) {
               shiftedData[c_i].f1[i4 + shiftedData[c_i].f1.size(0) * i3] = r3[i4
                 + r3.size(0) * i3];
             }
           }
 
-          c_loop_ub = r2.size(1);
+          b_loop_ub = r2.size(1);
           layerSlds[c_i].f1.set_size(r2.size(0), r2.size(1));
-          for (i3 = 0; i3 < c_loop_ub; i3++) {
-            d_loop_ub = r2.size(0);
-            for (i4 = 0; i4 < d_loop_ub; i4++) {
+          for (i3 = 0; i3 < b_loop_ub; i3++) {
+            c_loop_ub = r2.size(0);
+            for (i4 = 0; i4 < c_loop_ub; i4++) {
               layerSlds[c_i].f1[i4 + layerSlds[c_i].f1.size(0) * i3] = r2[i4 +
                 r2.size(0) * i3];
             }
           }
 
-          c_loop_ub = r1.size(0);
+          b_loop_ub = r1.size(0);
           sldProfiles[c_i].f1.set_size(r1.size(0), 2);
           for (i3 = 0; i3 < 2; i3++) {
-            for (i4 = 0; i4 < c_loop_ub; i4++) {
+            for (i4 = 0; i4 < b_loop_ub; i4++) {
               sldProfiles[c_i].f1[i4 + sldProfiles[c_i].f1.size(0) * i3] = r1[i4
                 + r1.size(0) * i3];
             }
           }
 
-          c_loop_ub = r.size(0);
+          b_loop_ub = r.size(0);
           resampledLayers[c_i].f1.set_size(r.size(0), 4);
           for (i3 = 0; i3 < 4; i3++) {
-            for (i4 = 0; i4 < c_loop_ub; i4++) {
+            for (i4 = 0; i4 < b_loop_ub; i4++) {
               resampledLayers[c_i].f1[i4 + resampledLayers[c_i].f1.size(0) * i3]
                 = r[i4 + r.size(0) * i3];
             }
@@ -807,38 +807,38 @@ namespace RAT
           bulkOuts[b_i] = d6;
           bulkIns[b_i] = d5;
           scalefactors[b_i] = d4;
-          loop_ub = r5.size(0);
+          ub_loop = r5.size(0);
           shiftedData[b_i].f1.set_size(r5.size(0), 3);
           for (int i1{0}; i1 < 3; i1++) {
-            for (int i2{0}; i2 < loop_ub; i2++) {
+            for (int i2{0}; i2 < ub_loop; i2++) {
               shiftedData[b_i].f1[i2 + shiftedData[b_i].f1.size(0) * i1] = r5[i2
                 + r5.size(0) * i1];
             }
           }
 
-          loop_ub = r6.size(1);
+          ub_loop = r6.size(1);
           layerSlds[b_i].f1.set_size(r6.size(0), r6.size(1));
-          for (int i1{0}; i1 < loop_ub; i1++) {
-            b_loop_ub = r6.size(0);
-            for (int i2{0}; i2 < b_loop_ub; i2++) {
+          for (int i1{0}; i1 < ub_loop; i1++) {
+            loop_ub = r6.size(0);
+            for (int i2{0}; i2 < loop_ub; i2++) {
               layerSlds[b_i].f1[i2 + layerSlds[b_i].f1.size(0) * i1] = r6[i2 +
                 r6.size(0) * i1];
             }
           }
 
-          loop_ub = r7.size(0);
+          ub_loop = r7.size(0);
           sldProfiles[b_i].f1.set_size(r7.size(0), 2);
           for (int i1{0}; i1 < 2; i1++) {
-            for (int i2{0}; i2 < loop_ub; i2++) {
+            for (int i2{0}; i2 < ub_loop; i2++) {
               sldProfiles[b_i].f1[i2 + sldProfiles[b_i].f1.size(0) * i1] = r7[i2
                 + r7.size(0) * i1];
             }
           }
 
-          loop_ub = r8.size(0);
+          ub_loop = r8.size(0);
           resampledLayers[b_i].f1.set_size(r8.size(0), 4);
           for (int i1{0}; i1 < 4; i1++) {
-            for (int i2{0}; i2 < loop_ub; i2++) {
+            for (int i2{0}; i2 < ub_loop; i2++) {
               resampledLayers[b_i].f1[i2 + resampledLayers[b_i].f1.size(0) * i1]
                 = r8[i2 + r8.size(0) * i1];
             }
@@ -853,20 +853,20 @@ namespace RAT
         for (int b_i{0}; b_i < i; b_i++) {
           b_layerSlds.set_size(layerSlds[b_i].f1.size(0), layerSlds[b_i].f1.size
                                (1));
-          loop_ub = layerSlds[b_i].f1.size(1);
-          for (int i1{0}; i1 < loop_ub; i1++) {
-            b_loop_ub = layerSlds[b_i].f1.size(0);
-            for (int i2{0}; i2 < b_loop_ub; i2++) {
+          ub_loop = layerSlds[b_i].f1.size(1);
+          for (int i1{0}; i1 < ub_loop; i1++) {
+            loop_ub = layerSlds[b_i].f1.size(0);
+            for (int i2{0}; i2 < loop_ub; i2++) {
               b_layerSlds[i2 + b_layerSlds.size(0) * i1] = layerSlds[b_i].f1[i2
                 + layerSlds[b_i].f1.size(0) * i1];
             }
           }
 
           layerSlds[b_i].f1.set_size(b_layerSlds.size(0), b_layerSlds.size(1));
-          loop_ub = b_layerSlds.size(1);
-          for (int i1{0}; i1 < loop_ub; i1++) {
-            b_loop_ub = b_layerSlds.size(0);
-            for (int i2{0}; i2 < b_loop_ub; i2++) {
+          ub_loop = b_layerSlds.size(1);
+          for (int i1{0}; i1 < ub_loop; i1++) {
+            loop_ub = b_layerSlds.size(0);
+            for (int i2{0}; i2 < loop_ub; i2++) {
               layerSlds[b_i].f1[i2 + layerSlds[b_i].f1.size(0) * i1] =
                 b_layerSlds[i2 + b_layerSlds.size(0) * i1];
             }
@@ -875,9 +875,9 @@ namespace RAT
           coder::internal::nullAssignment(layerSlds[b_i].f1);
           coder::internal::nullAssignment(resampledLayers[b_i].f1, r4);
           resampledLayers[b_i].f1.set_size(r4.size(0), 3);
-          loop_ub = r4.size(0);
+          ub_loop = r4.size(0);
           for (int i1{0}; i1 < 3; i1++) {
-            for (int i2{0}; i2 < loop_ub; i2++) {
+            for (int i2{0}; i2 < ub_loop; i2++) {
               resampledLayers[b_i].f1[i2 + resampledLayers[b_i].f1.size(0) * i1]
                 = r4[i2 + r4.size(0) * i1];
             }

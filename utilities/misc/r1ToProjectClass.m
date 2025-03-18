@@ -64,6 +64,10 @@ project.setParameter(1, ...
     'value', problem.params(1), ...
     'fit', logical(problem.fityesno(1)));
 
+if ~strcmpi(project.parameters.varTable{1, 1}, problem.paramnames{1})
+    problem.paramnames{1} = project.parameters.varTable{1, 1};
+end
+
 switch lower(problem.module.type)
     case modelTypes.StandardLayers.value
         % Set layers (if standard layers)

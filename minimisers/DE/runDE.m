@@ -1,4 +1,4 @@
-function [problemStruct,result] = runDE(problemStruct,problemLimits,controls)
+function [problemStruct,result] = runDE(problemStruct,controls)
     % Run the differential evolution algorithm for a given problem and controls.
     %
     % Parameters
@@ -17,7 +17,6 @@ function [problemStruct,result] = runDE(problemStruct,problemLimits,controls)
     % result : struct
     %     the calculation and optimisation results object.
     %
-    [problemStruct,~] = fitsetup(problemStruct,problemLimits);
     F_VTR = controls.targetValue; %Value to reach
     I_D = length(problemStruct.fitParams);
     

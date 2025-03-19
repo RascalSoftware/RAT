@@ -49,7 +49,7 @@ fillType = [1 2; 2 1];
 fillAlpha = 0.3;
 
 controls = controlsClass();
-[projectStruct,~,~] = parseClassToStructs(project,controls);
+[projectStruct,~] = parseClassToStructs(project,controls);
 
 % Get the reflectivities and SLDs
 reflectivityValues = result.predictionIntervals.reflectivity;

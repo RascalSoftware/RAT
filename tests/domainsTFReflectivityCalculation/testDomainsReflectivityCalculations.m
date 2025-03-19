@@ -28,7 +28,6 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
         TFParams                   % Test TF Parameters read from file
         project                    % Input domainsClass object
         problemStruct              % Input parameters for the test problem
-        problemLimits              % Input limits for the test problem
         controlsInput              % Instrument controls class for the input problem
         controls                   % Instrument controls struct for the input problem
         expectedProblemStruct      % Expected output value of the problemStruct struct
@@ -70,7 +69,6 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
 
             testCase.project = testCase.inputs.inputs.project;
             testCase.problemStruct = testCase.inputs.inputs.problemStruct;
-            testCase.problemLimits = testCase.inputs.inputs.problemLimits;
             testCase.controlsInput = testCase.inputs.inputs.controlsInput;
             testCase.controls = testCase.inputs.inputs.controls;
         end
@@ -124,7 +122,7 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             % Note that we test only a single reflectivity calculation at
             % present
 
-            [testProblemStruct, result, bayesResults] = RATMain(testCase.problemStruct,testCase.problemLimits,testCase.controls);
+            [testProblemStruct, result, bayesResults] = RATMain(testCase.problemStruct,testCase.controls);
 
             testCase.verifyEqual(testProblemStruct, testCase.expectedProblemStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(result, testCase.expectedResultStructMain, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -191,10 +189,9 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
 %% Test Pre- and Post-Processing Routines
 
         function testParseClasstoStructs(testCase)
-            [testProblemStruct, testProblemLimits, testControls] = parseClassToStructs(testCase.project, testCase.controlsInput);
+            [testProblemStruct, testControls] = parseClassToStructs(testCase.project, testCase.controlsInput);
 
             testCase.verifyEqual(testProblemStruct, testCase.problemStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(testProblemLimits, testCase.problemLimits, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(testControls, testCase.controls, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 

@@ -1,4 +1,4 @@
-function [outProblemStruct,result,bayesResults] = runDREAM(problemStruct,problemLimits,controls)
+function [outProblemStruct,result,bayesResults] = runDREAM(problemStruct,controls)
 % Run the DREAM algorithm for a given problem and controls.
 %
 % Parameters
@@ -48,15 +48,15 @@ numberOfFitted = sum(checks.params) + ...
                  sum(checks.resolutionParams) + ...
                  sum(checks.domainRatios);
 
-fitParamNames = cell(numberOfFitted,1);
+fitNames = cell(numberOfFitted,1);
 for i = 1:numberOfFitted
-    fitParamNames{i} = 'x';
+    fitNames{i} = 'x';
 end
 
-[problemStruct,fitParamNames] = packParams(problemStruct,problemLimits);
+fitNames = getFitNames(problemStruct);
 
 % Get the priors for the fitted parameters...
-priorList = getFittedPriors(fitParamNames, problemStruct.priorNames, ...
+priorList = getFittedPriors(fitNames, problemStruct.priorNames, ...
                             problemStruct.priorValues, problemStruct.fitLimits);
 
 % Put all the RAT parameters together into one array...
@@ -69,7 +69,7 @@ totalGen = controls.nSamples;                   % Total number of generations
 nChains = controls.nChains;                     % Number of chains
 
 % Set the relevant parameters for the DREAM sampler....
-DREAMPar.nParams = length(fitParamNames);             % Dimension of the problem
+DREAMPar.nParams = length(fitNames);             % Dimension of the problem
 DREAMPar.nChains = nChains;                           % Number of Markov Chains
 DREAMPar.nGenerations = ceil(totalGen / nChains);          % Number of generations per chain
 %DREAMPar.lik = 1;                              % Model output is likelihood

@@ -1,4 +1,4 @@
-function [problemStruct,problemLimits,controls] = parseClassToStructs(project,inputControls)
+function [problemStruct,controls] = parseClassToStructs(project,inputControls)
 
 % Breaks up the classes into the relevant structures for inputting into C
  
@@ -130,35 +130,35 @@ end
 
 %% Now make the limits array
 for i = 1:length(inputStruct.paramLimits)
-    problemLimits.params(i,:) = inputStruct.paramLimits{i};
+    limits.params(i,:) = inputStruct.paramLimits{i};
 end
 
 for i = 1:length(inputStruct.backgroundParamLimits)
-    problemLimits.backgroundParams(i,:) = inputStruct.backgroundParamLimits{i};
+    limits.backgroundParams(i,:) = inputStruct.backgroundParamLimits{i};
 end
 
 for i = 1:length(inputStruct.scalefactorLimits)
-    problemLimits.scalefactors(i,:) = inputStruct.scalefactorLimits{i};
+    limits.scalefactors(i,:) = inputStruct.scalefactorLimits{i};
 end
 
 for i = 1:length(inputStruct.bulkInLimits)
-    problemLimits.bulkIns(i,:) = inputStruct.bulkInLimits{i};
+    limits.bulkIns(i,:) = inputStruct.bulkInLimits{i};
 end
 
 for i = 1:length(inputStruct.bulkOutLimits)
-    problemLimits.bulkOuts(i,:) = inputStruct.bulkOutLimits{i};
+    limits.bulkOuts(i,:) = inputStruct.bulkOutLimits{i};
 end
 
 for i = 1:length(inputStruct.resolutionParamLimits)
-    problemLimits.resolutionParams(i,:) = inputStruct.resolutionParamLimits{i};
+    limits.resolutionParams(i,:) = inputStruct.resolutionParamLimits{i};
 end
 
 if isa(project, 'domainsClass')
     for i = 1:length(inputStruct.domainRatioLimits)
-        problemLimits.domainRatios(i,:) = inputStruct.domainRatioLimits{i};
+        limits.domainRatios(i,:) = inputStruct.domainRatioLimits{i};
     end
 else
-    problemLimits.domainRatios = ones(0,2);
+    limits.domainRatios = ones(0,2);
 end
 
 
@@ -303,6 +303,6 @@ end
 controls.IPCFilePath = inputControls.getIPCFilePath();
 
 %% Finally, populate the fitParams and fitLimits arrays
-[problemStruct,~] = packParams(problemStruct,problemLimits);
+problemStruct = packParams(problemStruct,limits);
 
 end

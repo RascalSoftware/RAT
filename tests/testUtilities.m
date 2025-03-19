@@ -139,7 +139,7 @@ classdef testUtilities < matlab.unittest.TestCase
 
         function testCornerPlot(testCase)
             results = struct();
-            results.chain = zeros(3);
+            results.chain = [1 1 1; 2 2 2; 1 1 1];
             results.fitNames = ["A", "B", "C"];
             
             testCase.verifyError(@() cornerPlot(results, 'params', "D"), exceptions.invalidValue.errorID);

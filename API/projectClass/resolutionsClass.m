@@ -10,8 +10,8 @@ classdef resolutionsClass < handle
     %
     % Examples
     % --------
-    % >>> resolParams = parametersClass('Resolution Parameter 1', 1e-8, 1e-5, 1e-3, true);
-    % >>> resolution = resolutionClass(resolParams, {'Resolution 1','constant','Resolution Parameter 1'});
+    % >>> resolutionParams = parametersClass('Resolution Parameter 1', 1e-8, 1e-5, 1e-3, true);
+    % >>> resolution = resolutionClass(resolutionParams, {'Resolution 1','constant','Resolution Parameter 1'});
     %
     % Parameters
     % ----------
@@ -68,7 +68,7 @@ classdef resolutionsClass < handle
             % 
             % To add a constant resolution.
             % 
-            % >>> resolution.addResolution(New Resolution', 'constant', 'paramName');
+            % >>> resolution.addResolution(New Resolution', 'constant', 'param name');
             %
             % To add a data resolution.
             % 
@@ -164,7 +164,7 @@ classdef resolutionsClass < handle
             % --------
             % To change the name and value of the second resolution in the table (resolution in row 2).
             % 
-            % >>> resolutions.setResolution(2, name='Resolution 1', type='constant', source='paramName');
+            % >>> resolutions.setResolution(2, name='Resolution 1', type='constant', source='param name');
             % 
             % To change the properties of a resolution called 'Resolution 1'.
             % 

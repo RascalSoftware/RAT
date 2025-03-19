@@ -3,9 +3,9 @@ classdef backgroundsClass < handle
     % actual fitted parameters. These background parameters are held in a ``parametersClass`` object 
     % and can be used define backgrounds as constant, data or a function. 
     % 
-    % For constant background, only one background parameter is supplied. 
+    % For constant backgrounds, only one background parameter is supplied. 
     % 
-    % For data background, an entry in the data table and an optional offset is
+    % For data backgrounds, an entry in the data table and an optional offset is
     % required
     % 
     % For function, the function name is supplied, along with up to five
@@ -18,8 +18,8 @@ classdef backgroundsClass < handle
     % Examples
     % --------
     % >>> allowedNames = project.getAllAllowedNames();
-    % >>> backParams = parametersClass('Backs par SMW', 1e-8, 1e-5, 1e-3, true);
-    % >>> background = backgroundClass(backParams, {'Background SMW','constant','Backs par SMW'}, allowedNames);
+    % >>> backgroundParams = parametersClass('Background Parameter SMW', 1e-8, 1e-5, 1e-3, true);
+    % >>> background = backgroundClass(backgroundParams, {'Background SMW','constant','Background Parameter SMW'}, allowedNames);
     %
     % Parameters
     % ----------
@@ -79,15 +79,15 @@ classdef backgroundsClass < handle
             % 
             % To add a constant background.
             % 
-            % >>> background.addBackground(allowedNames, 'New Background', 'constant', 'paramName');
+            % >>> background.addBackground(allowedNames, 'New Background', 'constant', 'param name');
             % 
             % To add a function background with 2 parameters.
             % 
-            % >>> background.addBackground(allowedNames, 'New Background', 'function', 'functionName', 'paramName', 'paramName2');    
+            % >>> background.addBackground(allowedNames, 'New Background', 'function', 'function name', 'param name', 'param name 2');    
             %
             % To add a data background with an offset.
             % 
-            % >>> background.addBackground(allowedNames, 'New Background', 'data', 'dataName', 'offsetParamName');
+            % >>> background.addBackground(allowedNames, 'New Background', 'data', 'data name', 'offset param name');
             % 
             % Parameters
             % ----------
@@ -203,11 +203,11 @@ classdef backgroundsClass < handle
             % To change the name and value of the second background in the table (background in row 2).
             % 
             % >>> allowedNames = project.getAllAllowedNames();
-            % >>> backgrounds.setBackground(2, allowedNames, name='Background 1', type='constant', source='paramName');
+            % >>> backgrounds.setBackground(2, allowedNames, name='Background 1', type='constant', source='param name');
             % 
             % To change the properties of a background called 'Background 1'.
             % 
-            % >>> backgrounds.setBackground('Background 1', allowedNames, name='New Background', type='function', source='customFuncName', value1='paramName');
+            % >>> backgrounds.setBackground('Background 1', allowedNames, name='New Background', type='function', source='custom file name', value1='param name');
             % 
             % Parameters
             % ----------

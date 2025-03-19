@@ -304,13 +304,13 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % 
             % To add a background parameter with all available properties.
             % 
-            % >>> project.addBackgroundParam('Backs Value D2O'', 1e-8, 2.8e-6, 1e-5, true, 'gaussian', 1, 5);
+            % >>> project.addBackgroundParam('Background Value D2O'', 1e-8, 2.8e-6, 1e-5, true, 'gaussian', 1, 5);
             % 
             % Other examples of adding background parameters with a subset of properties.
             % 
-            % >>> project.addBackgroundParam('Backs Value D2O');  % Background parameter name only with others set to default
-            % >>> project.addBackgroundParam('Backs Value D2O', 1e-8);  % Background parameter name and min only. Value and max will be set to 1e-8 to keep limits valid
-            % >>> project.addBackgroundParam('Backs Value D2O', 1e-8, 2.8e-6, 1e-5, true);  % priors will be default
+            % >>> project.addBackgroundParam('Background Value D2O');  % Background parameter name only with others set to default
+            % >>> project.addBackgroundParam('Background Value D2O', 1e-8);  % Background parameter name and min only. Value and max will be set to 1e-8 to keep limits valid
+            % >>> project.addBackgroundParam('Background Value D2O', 1e-8, 2.8e-6, 1e-5, true);  % priors will be default
             % 
             % Parameters
             % ----------
@@ -355,7 +355,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % 
             % To remove background parameter with a specific name.
             % 
-            % >>>  project.removeBackgroundParam('Backs Value D2O');
+            % >>>  project.removeBackgroundParam('Background Value D2O');
             % 
             % Parameters
             % ----------
@@ -373,11 +373,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % --------
             % To change the name and value of the second background parameter in the table (parameter in row 2).
             % 
-            % >>> project.setBackgroundParam(2, 'name', 'Backs 2', 'value', 50);
+            % >>> project.setBackgroundParam(2, 'name', 'Background 2', 'value', 50);
             % 
-            % To change the all properties of a background parameter called 'Backs Value D2O'.
+            % To change the all properties of a background parameter called 'Background Value D2O'.
             % 
-            % >>> project.setBackgroundParam('Backs Value D2O', 'name', 'Backs 2', 'min', 20, 'value', 50, 'max', 60, ...
+            % >>> project.setBackgroundParam('Background Value D2O', 'name', 'Background 2', 'min', 20, 'value', 50, 'max', 60, ...
             % >>>                            'fit', true, 'priorType', 'gaussian', 'mu', 1, 'sigma', 5);
             % 
             % Parameters
@@ -424,15 +424,15 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % 
             % To add a constant background.
             % 
-            % >>> project.addBackground('New Background', 'constant', 'paramName');
+            % >>> project.addBackground('New Background', 'constant', 'param name');
             % 
             % To add a function background with 2 parameters.
             % 
-            % >>> project.addBackground('New Background', 'function', 'functionName', 'paramName', 'paramName2');    
+            % >>> project.addBackground('New Background', 'function', 'function name', 'param name', ''param name 2'');    
             %
             % To add a data background with an offset.
             % 
-            % >>> project.addBackground('New Background', 'data', 'dataName', 'offsetParamName');
+            % >>> project.addBackground('New Background', 'data', 'data name', 'offset param name');
             % 
             % Parameters
             % ----------
@@ -475,7 +475,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % 
             % To remove background with a specific name.
             % 
-            % >>> project.removeBackground('Back 1');
+            % >>> project.removeBackground('Background 1');
             % 
             % Parameters
             % ----------
@@ -492,11 +492,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % --------
             % To change the name and value of the second background in the table (background in row 2).
             % 
-            % >>> backgrounds.setBackground(2, name='Background 1', type='constant', source='paramName');
+            % >>> backgrounds.setBackground(2, name='Background 1', type='constant', source='param name');
             % 
             % To change the properties of a background called 'Background 1'.
             % 
-            % >>> backgrounds.setBackground('Background 1', name='New Background', type='function', source='customFuncName', value1='paramName');
+            % >>> backgrounds.setBackground('Background 1', name='New Background', type='function', source='custom file name', value1='param name');
             % 
             % Parameters
             % ----------
@@ -611,9 +611,9 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % 
             % >>> project.setResolutionParam(2, 'name', 'Resolution Param 1', 'value', 50);
             % 
-            % To change the all properties of a resolution parameter called 'Resol Param'.
+            % To change the all properties of a resolution parameter called 'Resolution Param 2'.
             % 
-            % >>> project.setResolutionParam('Resols', 'name', 'Resolution Param 1', 'min', 20, 'value', 50, 'max', 60, ...
+            % >>> project.setResolutionParam('Resolution Param 2', 'name', 'Resolution Param 1', 'min', 20, 'value', 50, 'max', 60, ...
             % >>>                            'fit', true, 'priorType', 'gaussian', 'mu', 1, 'sigma', 5);
             % 
             % Parameters
@@ -660,7 +660,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % 
             % To add a constant resolution.
             % 
-            % >>> project.addResolution(New Resolution', 'constant', 'paramName');
+            % >>> project.addResolution(New Resolution', 'constant', 'param name');
             %
             % To add a data resolution.
             % 
@@ -705,7 +705,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % 
             % To remove resolution with a specific name.
             % 
-            % >>> project.removeResolution('Resol 1');
+            % >>> project.removeResolution('Resolution 1');
             % 
             % Parameters
             % ----------
@@ -722,7 +722,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % --------
             % To change the name and value of the second resolution in the table (resolution in row 2).
             % 
-            % >>> project.setResolution(2, name='Resolution 1', type='constant', source='paramName');
+            % >>> project.setResolution(2, name='Resolution 1', type='constant', source='param name');
             % 
             % To change the properties of a resolution called 'Resolution 1'.
             % 
@@ -821,7 +821,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % 
             % To remove custom file with a specific name.
             % 
-            % >>>  project.removeCustomFile('customfile 1');
+            % >>>  project.removeCustomFile('custom file 1');
             % 
             % Parameters
             % ----------

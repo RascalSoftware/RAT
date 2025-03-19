@@ -1,4 +1,4 @@
-function  [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,problemLimits,controls)
+function  [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,controls)
 % Run the nested sampling algorithm for a given problem and controls.
 %
 % Parameters
@@ -19,8 +19,8 @@ function  [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,p
 % bayesResults : struct
 %     Additional Bayesian results from the algorithm.
 %
-[problemStruct,fitNames] = packParams(problemStruct,problemLimits);
 
+fitNames = getFitNames(problemStruct);
 logZ = 0;
 H = 0;
 
@@ -46,7 +46,7 @@ nLive = controls.nLive;
 tolerance = controls.nsTolerance;
 likelihood = @nsIntraFun;
 nMCMC = controls.nMCMC;
-data = {problemStruct ; controls ; problemLimits};
+data = {problemStruct; controls};
 
 [logZ, nestSamples, postSamples, H] = nestedSampler(data, nLive, nMCMC,...
     tolerance, likelihood, model, priorList, fitNames);

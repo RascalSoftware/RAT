@@ -1,4 +1,4 @@
-function [problemStruct,fitNames] = packParams(problemStruct,limits)
+function problemStruct = packParams(problemStruct,limits)
 % Pack the parameters into an array of those being fitted.
 %
 % Parameters
@@ -27,11 +27,6 @@ function [problemStruct,fitNames] = packParams(problemStruct,limits)
        
     fitParams = zeros(1, numberOfFitted);
     fitLimits = zeros(numberOfFitted, 2);
-
-    fitNames = cell(numberOfFitted, 1);
-    for i = 1:numberOfFitted
-        fitNames{i} = '';
-    end
     
     fitCounter = 1;
 
@@ -41,8 +36,7 @@ function [problemStruct,fitNames] = packParams(problemStruct,limits)
         for j = 1:length(fitIndices)
             fitParams(fitCounter) = problemStruct.(fields{i})(fitIndices(j));
             fitLimits(fitCounter,1) = limits.(fields{i})(fitIndices(j),1);
-            fitLimits(fitCounter,2) = limits.(fields{i})(fitIndices(j),2);        
-            fitNames{fitCounter} = problemStruct.names.(fields{i}){fitIndices(j)};
+            fitLimits(fitCounter,2) = limits.(fields{i})(fitIndices(j),2);
             fitCounter = fitCounter + 1;
         end
     end

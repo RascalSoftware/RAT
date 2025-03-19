@@ -61,7 +61,7 @@ function [project,result] = RAT(project,controls)
 % chain               [M x nParams] double MCMC chains where M is the length of each chain.
 % =================== ==================== ===============
 
-[problemStruct,problemLimits,controls] = parseClassToStructs(project,controls);
+[problemStruct,controls] = parseClassToStructs(project,controls);
 
 % Call the main RAT routine...
 display = ~strcmpi(controls.display, displayOptions.Off.value);
@@ -72,7 +72,7 @@ if display
 end
 
 tic
-[problemStruct,result,bayesResults] = RATMain_mex(problemStruct,problemLimits,controls);
+[problemStruct,result,bayesResults] = RATMain_mex(problemStruct,controls);
 
 if display
     toc

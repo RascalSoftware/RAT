@@ -1,5 +1,5 @@
-function plotContours(x, y, parent, smooth, smoothingFactor)
-    % Creates a contour plot.
+function plotContours(x, y, parent, smooth)
+    % Draw a contour plot for the posteriors of two parameters.
     %
     % Parameters
     % ----------
@@ -10,17 +10,13 @@ function plotContours(x, y, parent, smooth, smoothingFactor)
     % parent : matlab.graphics.axes.Axes or matlab.ui.Figure, or figure number, default: []
     %    axes or figure object to make plot on.
     % smooth : logical, default: false 
-    %    indicates if moving average smoothing is applied to the plot.
-    % smoothingFactor : double [0, 1], default: 0.25
-    %    adjusts the level of smoothing by scaling the window size, values near 0 produce smaller moving window sizes, 
-    %    resulting in less smoothing and values near 1 produce larger moving window sizes, resulting in more smoothing.
-    
+    %    indicates if KDE smoothing is applied to the plot.
+    % 
     arguments
         x {mustBeNumeric}
         y {mustBeNumeric}
         parent {mustBeA(parent, ["matlab.graphics.axis.Axes", "matlab.ui.Figure", "double"])} = []
         smooth {mustBeA(smooth, 'logical')} = false
-        smoothingFactor {mustBeInRange(smoothingFactor, 0, 1)} = 0.25
     end
 
     if isempty(parent)
@@ -37,26 +33,24 @@ function plotContours(x, y, parent, smooth, smoothingFactor)
 
     nbins = [50, 50];
 
-    [N, xEdges, yEdges] = histcounts2(x, y, nbins, 'Normalization', 'pdf');
 
     if (smooth)
-        N = smoothdata(N, 'movmean', 'SmoothingFactor', smoothingFactor);
+        [~,density,Xs,Ys]=kde2D([x y], 2^4, [min(x) min(y)], [max(x) max(y)]);
+    else
+        [N, xEdges, yEdges] = histcounts2(x, y, nbins, 'Normalization', 'pdf');
+        histogram2('XBinEdges', xEdges, 'YBinEdges', yEdges, 'BinCounts', N)
+        Xs = xEdges(2:end) - (xEdges(2)-xEdges(1))/2;
+        Ys = yEdges(2:end) - (yEdges(2)-yEdges(1))/2;
+
+        K=(1/10)*ones(5);
+        N=conv2(N,K,'same');
+
+        density = N/sum(N(:));
     end
 
-    histogram2('XBinEdges', xEdges, 'YBinEdges', yEdges, 'BinCounts', N)
-    C{1} = xEdges(2:end) - (xEdges(2)-xEdges(1))/2;
-    C{2} = yEdges(2:end) - (yEdges(2)-yEdges(1))/2;
+    levels = linspace(min(density, [], "all"), max(density, [], "all"), 10);
 
-    K=(1/10)*ones(5);
-    N=conv2(N,K,'same');
-
-    NN = N/sum(N(:));
-    NS = sort(NN(:));
-
-    [c, ind, ~] = unique(cumsum(NS),'stable');
-    levels = interp1(c, NS(ind), [0.015 0.1 0.3 0.65 0.9],'linear','extrap');
-
-    contourf(C{1}, C{2}, NN', levels, 'parent', parent);
+    contourf(Xs, Ys, density, levels, 'parent', parent);
 
     colormap(flipud(gray(5)));
 

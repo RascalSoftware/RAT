@@ -1,21 +1,52 @@
 classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDisplay
-    
-    % Class definition for Standard Layers with or without absorption.
-    % Layers defined in terms of thickness, roughness, real SLD and
-    % hydration.
-    %
-    % Sub objects used are:
-    % parametersClass      - parameter definition with priors
-    % layersClass          - layers defined as (d,rho_real,rough,hydration)
-    % backgroundsClass     - 
-    % resolutionsClass     -
-    % dataClass            -
-    % contrastsClass       -
-    % customFileClass      -
+    % ``projectClass`` stores all the information that describes the experiment which is essential for running a RAT calculation. There are several components of a 
+    % project such as the parameters, backgrounds, resolutions, custom files, data, contrast etc, the ``projectClass`` provides a number of methods to add, remove, 
+    % and update these components. For example, for parameters, the ``addParameter``, ``removeParameter``, and ``setParameter`` methods are available for adding, removing,  
+    % and updating parameters.
+    % 
+    % Examples
+    % --------
+    % >>> project = projectClass();
+    % >>> project = projectClass("Example Project");
+    % >>> project = projectClass("Example Project", 'custom layers', 'substrate/liquid', true);
+    % 
+    % Parameters
+    % ---------- 
+    % experimentName : string or char array, default: ''
+    %     The name of the project.
+    % modelType : modelTypes, default: modelTypes.StandardLayers
+    %     The layer model type which can be 'standard layers', 'custom layers', or 'custom xy'.
+    % geometry : geometryOptions, default: geometryOptions.AirSubstrate
+    %     The geometry to use which can be 'air/substrate' or 'substrate/liquid'.  
+    % absorption : logical, default: false
+    %     Indicates whether imaginary component is used for the SLD value in layers.
+    % 
+    % Attributes
+    % ----------
+    % parameters : parametersClass
+    %     The project parameters. 
+    % bulkIn : parametersClass
+    %     The bulkIn parameters. 
+    % bulkOut : parametersClass
+    %     The bulkOut parameters. 
+    % scalefactors : parametersClass
+    %     The scalefactors parameters. 
+    % layers : layersClass
+    %     An object which contains the layers information. 
+    % data : dataClass
+    %     An object which contains the data table. 
+    % customFile : Custom file object
+    %     An object which contains the defined customFiles. 
+    % background : backgroundsClass object
+    %     An object which contains defined backgrounds and background parameters. 
+    % resolution : resolutionClass object
+    %     An object which contains defined resolutions and resolution parameters. 
+    % contrasts : contrastsClass object
+    %     An object which contains contrast information. 
     
     properties
         experimentName
-        modelType = modelTypes.StandardLayers.value
+        modelType
         geometry
         showPriors = false
 
@@ -44,14 +75,6 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
     methods
 
         function obj = projectClass(experimentName, modelType, geometry, absorption)
-            % Creates a Project object. The input arguments are the
-            % experiment name which is a char array; the model type,
-            % which is a modelTypes enum; the geometry, which is a
-            % geometryOptions enum; and a logical to state whether or not
-            % absorption terms are included in the refractive index.
-            % All of the arguments are optional.
-            %
-            % project = projectClass('New experiment');
             arguments
                 experimentName {mustBeTextScalar} = ''
                 modelType = modelTypes.StandardLayers
@@ -89,7 +112,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % Initialise backgrounds object
             backgroundParams = parametersClass('Background Param 1',1e-7,1e-6,1e-5,false,priorTypes.Uniform,0,Inf);
             backgrounds = {'Background 1',allowedTypes.Constant.value,'Background Param 1','','','',''};
-            obj.background = backgroundsClass(backgroundParams, backgrounds, obj.getDataAndFunctionNames());
+            obj.background = backgroundsClass(backgroundParams, backgrounds, struct());
             
             % Initialise resolution object
             resolutionParams = parametersClass('Resolution par 1',0.01,0.03,0.05,false,priorTypes.Uniform,0,Inf);
@@ -103,17 +126,6 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         function delete(obj)
             % Destroys the wrappers
             delete(obj.customFile);
-        end
-
-        function domainsObj = toDomainsClass(obj)
-            % Alias of the converter routine from projectClass to
-            % domainsClass.
-            % This routine takes the currently defined project and
-            % converts it to a domains calculation, preserving all
-            % currently defined properties.
-            %
-            % domainsProject = project.toDomainsClass();
-            domainsObj = obj.domainsClass();
         end
 
         function set.showPriors(obj, flag)
@@ -145,7 +157,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
                                          strjoin(geometryOptions.values(), ', '));
             obj.geometry = validateOption(geometry, 'geometryOptions', invalidTypeMessage).value;
         end
-
+        
         function set.modelType(obj, modelType)
             % Setter for the model type used in the experiment. The type
             % should be a string, either "standard layers", "custom layers",
@@ -159,18 +171,17 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             obj.setLayersAndContrasts(oldModel);
         end
 
-        function names = getDataAndFunctionNames(obj)
-            % Returns a cell array of all currently
-            % set data and custom file names for the project.
-            % These are used to check backgrounds and resolutions of the
-            % Data and Function types.
-            names.dataNames = obj.data.getNames();
-            names.customFileNames = obj.customFile.getNames();
-        end
-
         function names = getAllAllowedNames(obj)
-            % Returns a cell array of all currently
-            % set parameter names for the project.
+            % Returns a struct with all currently set names of normal parameters, background and resolution 
+            % parameters, backgrounds, resolutions, bulk-ins, bulk-outs, scalefactors, data, custom files and 
+            % contrasts for the project.
+            % 
+            % Returns
+            % -------
+            % names : struct
+            %     A struct with names of all the normal parameters, background and resolution 
+            %     parameters, backgrounds, resolutions, bulk-ins, bulk-outs, scalefactors, data, custom files and 
+            %     contrasts entries in the project.
             names.paramNames = obj.parameters.getNames();
             names.backgroundNames = obj.background.getNames();
             names.backgroundParamNames = obj.background.backgroundParams.getNames();
@@ -194,7 +205,8 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
                 names.modelNames = obj.customFile.getNames();
             end
         end
-        
+
+
         % ---------------------------------------------------------------------------
         % Editing of layers block
         %----------------------------------------------------------------------------
@@ -238,10 +250,23 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         end
 
         function obj = removeLayer(obj, layer)
-            % Removes layer(s) from the layers object. Expects
-            % index/name of layer(s) to remove.
+            % Removes a given layer from the project.
             %
-            % project.removeLayer(1);
+            % Examples
+            % --------
+            % To remove the second layer in the table (layer in row 2).  
+            % 
+            % >>>  project.removeLayer(2);
+            % 
+            % To remove layer with a specific name.
+            % 
+            % >>>  project.removeLayer('D2O');
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the layer to remove. If it is text, 
+            %     it is the name of the layer to remove.
             if isa(obj.layers, 'layersClass')
                 obj.layers.removeRow(layer);
             else
@@ -268,118 +293,466 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         
         
         %(1) Background Parameters
-        function obj = addBackgroundParam(obj, varargin)
-            % Adds a new background parameter. A parameter consists 
-            % of a name, min, value, max, fit flag, prior type', mu,
-            % and sigma
+        function obj = addBackgroundParam(obj, name, min, value, max, fit, priorType, mu, sigma)
+            % Adds a new background parameter to project.
             %
-            % project.addBackgroundParam('Backs Value D2O', 1e-8, 2.8e-6, 1e-5);
-            obj.background.backgroundParams.addParameter(varargin{:});
+            % Examples
+            % --------
+            % To add a new background parameter with no properties and an autogenerated name.
+            % 
+            % >>> project.addBackgroundParam();
+            % 
+            % To add a background parameter with all available properties.
+            % 
+            % >>> project.addBackgroundParam('Background Value D2O'', 1e-8, 2.8e-6, 1e-5, true, 'gaussian', 1, 5);
+            % 
+            % Other examples of adding background parameters with a subset of properties.
+            % 
+            % >>> project.addBackgroundParam('Background Value D2O');  % Background parameter name only with others set to default
+            % >>> project.addBackgroundParam('Background Value D2O', 1e-8);  % Background parameter name and min only. Value and max will be set to 1e-8 to keep limits valid
+            % >>> project.addBackgroundParam('Background Value D2O', 1e-8, 2.8e-6, 1e-5, true);  % priors will be default
+            % 
+            % Parameters
+            % ----------
+            % name : string or char array, default: auto-generated name
+            %     The name of the background parameter. 
+            % min : double, default: 0.0
+            %     The minimum value that the background parameter could take when fitted.
+            % value : double, default: 0.0
+            %     The value of the background parameter, default will be equal to ``min`` if this is not set.
+            % max : double, default: 0.0
+            %     The maximum value that the background parameter could take when fitted, default will be equal to ``value`` if this is not set.
+            % fit : logical, default: false
+            %     Whether the background parameter should be fitted in a calculation.
+            % priorType : PriorTypes, default: PriorTypes.Uniform 
+            %     For Bayesian calculations, whether the prior likelihood is assumed to be ‘uniform’, ‘gaussian’, or ‘jeffreys’.
+            % mu : double, default: 0.0
+            %     If the prior type is Gaussian, the mean of the Gaussian function for the prior likelihood.
+            % sigma : double, default: Inf
+            %     If the prior type is Gaussian, the standard deviation of the Gaussian function for the prior likelihood.
+            arguments
+                obj
+                name {mustBeTextScalar} = ''
+                min {mustBeNumeric, isscalar} = 0.0
+                value {mustBeScalarOrEmpty, mustBeNumeric} = []
+                max {mustBeScalarOrEmpty, mustBeNumeric} = []
+                fit {mustBeA(fit, 'logical')} = false
+                priorType = priorTypes.Uniform
+                mu {mustBeNumeric, isscalar} = 0.0
+                sigma {mustBeNumeric, isscalar} = Inf
+            end
+            obj.background.backgroundParams.addParameter(name, min, value, max, fit, priorType, mu, sigma);
         end
 
         function obj = removeBackgroundParam(obj, row)
-            % Removes a given background parameter.
-            % Expects index or name of parameter to remove
+            % Removes a given background parameter from the project.
+            %
+            % Examples
+            % --------
+            % To remove the second background parameter in the table (parameter in row 2).  
             % 
-            % project.removeBackgroundParam(2);
+            % >>>  project.removeBackgroundParam(2);
+            % 
+            % To remove background parameter with a specific name.
+            % 
+            % >>>  project.removeBackgroundParam('Background Value D2O');
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the background parameter to remove. If it is text, 
+            %     it is the name of the background parameter to remove.
             obj.background.backgroundParams.removeParameter(row);
         end
 
-        function obj = setBackgroundParam(obj, varargin)
-            % Sets the value of an existing background parameter. Expects
-            % index or name of parameter and keyword/value pairs to set
+        function obj = setBackgroundParam(obj, row, options)
+            % General purpose method for updating properties of an existing parameter. 
+            % Any unset property will remain unchanged.
             %
-            % project.setBackgroundParam(1, 'name', 'Backs Value H2O');
-            obj.background.backgroundParams.setParameter(varargin{:});
+            % Examples
+            % --------
+            % To change the name and value of the second background parameter in the table (parameter in row 2).
+            % 
+            % >>> project.setBackgroundParam(2, 'name', 'Background 2', 'value', 50);
+            % 
+            % To change the all properties of a background parameter called 'Background Value D2O'.
+            % 
+            % >>> project.setBackgroundParam('Background Value D2O', 'name', 'Background 2', 'min', 20, 'value', 50, 'max', 60, ...
+            % >>>                            'fit', true, 'priorType', 'gaussian', 'mu', 1, 'sigma', 5);
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the background parameter to update. If it is text, 
+            %     it is the name of the background parameter to update.
+            % options
+            %    Keyword/value pair to properties to update for the specific background parameter.
+            %       * name (char array or string, default: '') the new name of the background parameter.
+            %       * min (double, default: []) the new minimum value of the background parameter.
+            %       * value (double, default: []) the new value of the background parameter.
+            %       * max (double, default: []) the new maximum value of the background parameter.
+            %       * fit (logical, default: logical.empty()) the new fit flag of the background parameter.
+            %       * priorTypes (priorTypes, default: priorTypes.empty()) the new prior type of the background parameter.            
+            %       * mu (double, default: []) the new mean of the Gaussian function for the prior.            
+            %       * sigma (double, default: []) The new standard deviation of the Gaussian function for the prior.   
+            arguments
+                obj
+                row
+                options.name {mustBeTextScalar} = ''
+                options.min {mustBeScalarOrEmpty, mustBeNumeric} = []
+                options.value {mustBeScalarOrEmpty, mustBeNumeric} = []
+                options.max {mustBeScalarOrEmpty, mustBeNumeric} = []
+                options.fit {mustBeScalarOrEmptyLogical} = logical.empty()
+                options.priorType = priorTypes.empty()
+                options.mu {mustBeScalarOrEmpty, mustBeNumeric} = []
+                options.sigma {mustBeScalarOrEmpty, mustBeNumeric} = []
+            end
+            obj.background.backgroundParams.setParameter(row, name=options.name, min=options.min, value=options.value, ... 
+                                                         max=options.max, fit=options.fit, priorType=options.priorType, ...
+                                                         mu=options.mu, sigma=options.sigma);
         end
         
         % (2) Backgrounds
-        function obj = addBackground(obj, varargin)
-            % Adds a background to the project. Expects a 
-            % cell array with background name and type and 
-            % up to 4 parameters
+        function obj = addBackground(obj, name, type, source, value1, value2, value3, value4, value5)
+            % Adds a new background to the project. 
             %
-            % project.addBackground('name', 'constant', 'par');
-            obj.background.addBackground(obj.getDataAndFunctionNames(), varargin{:});
+            % Examples
+            % --------
+            % To add a new constant background with name only.
+            % 
+            % >>> project.addBackground('New Background');
+            % 
+            % To add a constant background.
+            % 
+            % >>> project.addBackground('New Background', 'constant', 'param name');
+            % 
+            % To add a function background with 2 parameters.
+            % 
+            % >>> project.addBackground('New Background', 'function', 'function name', 'param name', ''param name 2'');    
+            %
+            % To add a data background with an offset.
+            % 
+            % >>> project.addBackground('New Background', 'data', 'data name', 'offset param name');
+            % 
+            % Parameters
+            % ----------
+            % name : string or char array, default: auto-generated name
+            %     The name of the background. 
+            % type : allowedTypes, default: allowedTypes.Constant
+            %     The type of background (constant, function or data).
+            % source : string or char array or whole number, default: ''
+            %     The source of the background. 
+            %     if type is 'constant', this should be the name (or the row index) of a background parameter.
+            %     if type is 'data', this should be the name (or the row index) of a dataset defined in `projectClass.data`.
+            %     if type is 'function', this should be the name (or the row index) of a custom function defined in `projectClass.customFiles`.
+            % value1, value2, value3, value4, value5 : string or char array or whole number, default: ''
+            %     Any extra values required for the background.
+            %     if type is 'constant', all values will be ignored.
+            %     if type is 'data', value1 may be the name (or the row index) of a background parameter for an optional offset. Other values are ignored.
+            %     if type is 'function', these values may be the names (or the row index) of up to 5 parameters which are passed to the function.
+            arguments
+                obj
+                name {mustBeTextScalar} = ''
+                type = allowedTypes.empty()
+                source {mustBeScalarTextOrWholeNumber} = ''
+                value1 {mustBeScalarTextOrWholeNumber} = ''
+                value2 {mustBeScalarTextOrWholeNumber} = ''
+                value3 {mustBeScalarTextOrWholeNumber} = ''
+                value4 {mustBeScalarTextOrWholeNumber} = ''
+                value5 {mustBeScalarTextOrWholeNumber} = ''
+            end
+            obj.background.addBackground(obj.getAllAllowedNames(), name, type, source, value1, value2, value3, value4, value5);
         end
         
         function obj = removeBackground(obj, row)
-            % Removes background from the project. Expects
-            % index or array of indices of background(s) to remove
+            % Removes a background from the project.
             %
-            % project.removeBackground(1);
+            % Examples
+            % --------
+            % To remove the second background in the table (background in row 2).  
+            % 
+            % >>> project.removeBackground(2);
+            % 
+            % To remove background with a specific name.
+            % 
+            % >>> project.removeBackground('Background 1');
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the background to remove. If it is text, 
+            %     it is the name of the background to remove.
             obj.background.removeBackground(row);
         end
         
-        function obj = setBackground(obj, row, varargin)
-            % Sets the value of an existing background. Expects
-            % index or name of background and keyword/value pairs to set
+        function obj = setBackground(obj, row, options)
+            % General purpose method for updating properties of an existing background.
             %
-            % project.setBackground(1, 'name', 'Background ACMW');
-            obj.background.setBackground(row, obj.getDataAndFunctionNames(), varargin{:});
-        end
-        
-        function obj = setBackgroundName(obj, row, name)
-            % Sets the name of an existing Background.
-            % Expects index or name of background and the new name
-            %
-            % project.setBackgroundName(2, 'new name');
-            obj.background.setBackgroundName(row, name);
+            % Examples
+            % --------
+            % To change the name and value of the second background in the table (background in row 2).
+            % 
+            % >>> backgrounds.setBackground(2, name='Background 1', type='constant', source='param name');
+            % 
+            % To change the properties of a background called 'Background 1'.
+            % 
+            % >>> backgrounds.setBackground('Background 1', name='New Background', type='function', source='custom file name', value1='param name');
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the background to update. If it is text, 
+            %     it is the name of the background to update.
+            % options
+            %    Keyword/value pair to properties to update for the specific background.
+            %       * name (char array or string, default: '') the new name of the background.
+            %       * type (allowedTypes, default: allowedTypes.empty()) the type of background (constant, function or data).
+            %       * source (char array or string or whole number, default: '') the new source of the background.
+            %       * value1, value2, value3, value4, value5 (char array or string or whole number, default: '') any extra values required for the background.
+            arguments
+                obj
+                row
+                options.name {mustBeTextScalar} = ''
+                options.type = allowedTypes.empty()
+                options.source {mustBeScalarTextOrWholeNumber} = ''
+                options.value1 {mustBeScalarTextOrWholeNumber} = ''
+                options.value2 {mustBeScalarTextOrWholeNumber} = ''
+                options.value3 {mustBeScalarTextOrWholeNumber} = ''
+                options.value4 {mustBeScalarTextOrWholeNumber} = ''
+                options.value5 {mustBeScalarTextOrWholeNumber} = ''
+            end
+            obj.background.setBackground(row, obj.getAllAllowedNames(), name=options.name, type=options.type, source=options.source, ...
+                                         value1=options.value1,  value2=options.value2, value3=options.value3, value4=options.value4, value5=options.value5);
         end
         
         % -------------------------------------------------------------
         %   Editing of Resolutions block
         
         % Resolution Params       
-        function obj = addResolutionParam(obj, varargin)
-            % Adds a new resolution parameter. A parameter consists 
-            % of a name, min, value, max, fit flag, prior type', mu,
-            % and sigma
+        function obj = addResolutionParam(obj, name, min, value, max, fit, priorType, mu, sigma)
+            % Adds a new resolution parameter to the project. 
             %
-            % project.addResolutionParam('Resolution Param 1', 1e-8, 2.8e-6, 1e-5);
-            obj.resolution.resolutionParams.addParameter(varargin{:});
+            % Examples
+            % --------
+            % To add a new resolution parameter with no properties and an autogenerated name.
+            % 
+            % >>> project.addResolutionParam();
+            % 
+            % To add a resolution parameter with all available properties.
+            % 
+            % >>> project.addResolutionParam('Resolution Param 1', 20, 50, 60, true, 'gaussian', 1, 5);
+            % 
+            % Other examples of adding resolution parameters with a subset of properties.
+            % 
+            % >>> project.addResolutionParam('Resolution Param 1');  % Resolution parameter name only with others set to default
+            % >>> project.addResolutionParam('Resolution Param 1', 23);  % Resolution parameter name and min only. Value and max will be set to 23 to keep limits valid
+            % >>> project.addResolutionParam('Resolution Param 1', 23, 24, 25, true);  % priors will be default
+            % 
+            % Parameters
+            % ----------
+            % name : string or char array, default: auto-generated name
+            %     The name of the resolution parameter. 
+            % min : double, default: 0.0
+            %     The minimum value that the resolution parameter could take when fitted.
+            % value : double, default: 0.0
+            %     The value of the resolution parameter, default will be equal to ``min`` if this is not set.
+            % max : double, default: 0.0
+            %     The maximum value that the resolution parameter could take when fitted, default will be equal to ``value`` if this is not set.
+            % fit : logical, default: false
+            %     Whether the resolution parameter should be fitted in a calculation.
+            % priorType : PriorTypes, default: PriorTypes.Uniform 
+            %     For Bayesian calculations, whether the prior likelihood is assumed to be ‘uniform’, ‘gaussian’, or ‘jeffreys’.
+            % mu : double, default: 0.0
+            %     If the prior type is Gaussian, the mean of the Gaussian function for the prior likelihood.
+            % sigma : double, default: Inf
+            %     If the prior type is Gaussian, the standard deviation of the Gaussian function for the prior likelihood.
+            arguments
+                obj
+                name {mustBeTextScalar} = ''
+                min {mustBeNumeric, isscalar} = 0.0
+                value {mustBeScalarOrEmpty, mustBeNumeric} = []
+                max {mustBeScalarOrEmpty, mustBeNumeric} = []
+                fit {mustBeA(fit, 'logical')} = false
+                priorType = priorTypes.Uniform
+                mu {mustBeNumeric, isscalar} = 0.0
+                sigma {mustBeNumeric, isscalar} = Inf
+            end
+            obj.resolution.resolutionParams.addParameter(name, min, value, max, fit, priorType, mu, sigma);
         end
         
         function obj = removeResolutionParam(obj, row)
-            % Removes a given resolution parameter.
-            % Expects index or name of parameter to remove
+            % Removes a resolution parameter from the project.
+            %
+            % Examples
+            % --------
+            % To remove the second resolution parameter in the table (parameter in row 2).  
             % 
-            % project.removeResolutionParam(2);
+            % >>> project.removeResolutionParam(2);
+            % 
+            % To remove resolution parameter with a specific name.
+            % 
+            % >>> project.removeResolutionParam('Resolution Param 1');
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the resolution parameter to remove. If it is text, 
+            %     it is the name of the resolution parameter to remove.
             obj.resolution.resolutionParams.removeParameter(row);
         end
 
-        function obj = setResolutionParam(obj, varargin)
-            % Sets the value of an existing resolution parameter. Expects
-            % index or name of parameter and keyword/value pairs to set
+        function obj = setResolutionParam(obj, row, options)
+            % General purpose method for updating properties of an existing resolution parameter. 
+            % Any unset property will remain unchanged.
             %
-            % project.setResolutionParam(1, 'name', 'Resolution Param');
-            obj.resolution.resolutionParams.setParameter(varargin{:});
+            % Examples
+            % --------
+            % To change the name and value of the second resolution parameter in the table (parameter in row 2).
+            % 
+            % >>> project.setResolutionParam(2, 'name', 'Resolution Param 1', 'value', 50);
+            % 
+            % To change the all properties of a resolution parameter called 'Resolution Param 2'.
+            % 
+            % >>> project.setResolutionParam('Resolution Param 2', 'name', 'Resolution Param 1', 'min', 20, 'value', 50, 'max', 60, ...
+            % >>>                            'fit', true, 'priorType', 'gaussian', 'mu', 1, 'sigma', 5);
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the resolution parameter to update. If it is text, 
+            %     it is the name of the resolution parameter to update.
+            % options
+            %    Keyword/value pair to properties to update for the specific resolution parameter.
+            %       * name (char array or string, default: '') the new name of the resolution parameter.
+            %       * min (double, default: []) the new minimum value of the resolution parameter.
+            %       * value (double, default: []) the new value of the resolution parameter.
+            %       * max (double, default: []) the new maximum value of the resolution parameter.
+            %       * fit (logical, default: logical.empty()) the new fit flag of the resolution parameter.
+            %       * priorTypes (priorTypes, default: priorTypes.empty()) the new prior type of the resolution parameter.            
+            %       * mu (double, default: []) the new mean of the Gaussian function for the prior.            
+            %       * sigma (double, default: []) The new standard deviation of the Gaussian function for the prior.   
+            arguments
+                obj
+                row
+                options.name {mustBeTextScalar} = ''
+                options.min {mustBeScalarOrEmpty, mustBeNumeric} = []
+                options.value {mustBeScalarOrEmpty, mustBeNumeric} = []
+                options.max {mustBeScalarOrEmpty, mustBeNumeric} = []
+                options.fit {mustBeScalarOrEmptyLogical} = logical.empty()
+                options.priorType = priorTypes.empty()
+                options.mu {mustBeScalarOrEmpty, mustBeNumeric} = []
+                options.sigma {mustBeScalarOrEmpty, mustBeNumeric} = []
+            end
+            obj.resolution.resolutionParams.setParameter(row, name=options.name, min=options.min, value=options.value, ... 
+                                                         max=options.max, fit=options.fit, priorType=options.priorType, ...
+                                                         mu=options.mu, sigma=options.sigma);
         end
 
         % Resolutions
-        function obj = addResolution(obj, varargin)
-            % Adds a resolution to the project. Expects a 
-            % cell array with resolution name and type and 
-            % up to 4 parameters
+        function obj = addResolution(obj, name, type, source, value1, value2, value3, value4, value5)
+            % Adds a new resolution to the project. 
             %
-            % project.addResolution('name','constant','par');
-            obj.resolution.addResolution(varargin{:});
+            % Examples
+            % --------
+            % To add a new constant resolution with name only.
+            % 
+            % >>> project.addResolution('New Resolution');
+            % 
+            % To add a constant resolution.
+            % 
+            % >>> project.addResolution(New Resolution', 'constant', 'param name');
+            %
+            % To add a data resolution.
+            % 
+            % >>> project.addResolution('New Resolution', 'data');
+            % 
+            % Parameters
+            % ----------
+            % name : string or char array, default: auto-generated name
+            %     The name of the resolution. 
+            % type : allowedTypes, default: allowedTypes.Constant
+            %     The type of resolution (constant or data).
+            % source : string or char array, default: ''
+            %     The source of the resolution. 
+            %     if type is 'constant', this should be the name (or the row index) of a resolution parameter.
+            %     if type is 'data', this should be empty. RAT will expect a fourth column in the datafile.
+            % value1, value2, value3, value4, value5 : string or char array, default: ''
+            %     Any extra values required by the resolution.
+            %     if type is 'constant', all values will be ignored.
+            %     if type is 'data', all values will be ignored.
+            arguments
+                obj
+                name {mustBeTextScalar} = ''
+                type = allowedTypes.empty()
+                source {mustBeScalarTextOrWholeNumber} = ''
+                value1 {mustBeScalarTextOrWholeNumber} = ''
+                value2 {mustBeScalarTextOrWholeNumber} = ''
+                value3 {mustBeScalarTextOrWholeNumber} = ''
+                value4 {mustBeScalarTextOrWholeNumber} = ''
+                value5 {mustBeScalarTextOrWholeNumber} = ''
+            end
+            obj.resolution.addResolution(name, type, source, value1, value2, value3, value4, value5);
         end
         
         function obj = removeResolution(obj, row)
-            % Removes resolution from the project. Expects
-            % index of resolution to remove
+            % Removes a resolution from project.
             %
-            % project.removeResolution(1);
+            % Examples
+            % --------
+            % To remove the second resolution in the table (resolution in row 2).  
+            % 
+            % >>> project.removeResolution(2);
+            % 
+            % To remove resolution with a specific name.
+            % 
+            % >>> project.removeResolution('Resolution 1');
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the resolution to remove. If it is text, 
+            %     it is the name of the resolution to remove.
             obj.resolution.removeResolution(row);
         end
         
-        function obj = setResolution(obj, row, varargin)
-            % Sets the value of an existing resolution. Expects
-            % index or name of resolution and keyword/value pairs to set
+        function obj = setResolution(obj, row, options)
+            % General purpose method for updating properties of an existing resolution.
             %
-            % project.setResolution(1, 'name', 'Resolution ACMW');
-            obj.resolution.setResolution(row, varargin{:});
+            % Examples
+            % --------
+            % To change the name and value of the second resolution in the table (resolution in row 2).
+            % 
+            % >>> project.setResolution(2, name='Resolution 1', type='constant', source='param name');
+            % 
+            % To change the properties of a resolution called 'Resolution 1'.
+            % 
+            % >>> project.setResolution('Resolution 1', name='New Resolution 1', type='data');
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the resolution to update. If it is text, 
+            %     it is the name of the resolution to update.
+            % options
+            %    Keyword/value pair to properties to update for the specific resolution.
+            %       * name (char array or string, default: '') the new name of the resolution.
+            %       * type (allowedTypes, default: allowedTypes.empty()) the type of resolution (constant or data).
+            %       * source (char array or string, or whole number, default: '') the new source of the resolution.
+            %       * value1, value2, value3, value4, value5 (char array or string or whole number, default: '') any extra values required for the resolution.
+            arguments
+                obj
+                row
+                options.name {mustBeTextScalar} = ''
+                options.type = allowedTypes.empty()
+                options.source {mustBeScalarTextOrWholeNumber} = ''
+                options.value1 {mustBeScalarTextOrWholeNumber} = ''
+                options.value2 {mustBeScalarTextOrWholeNumber} = ''
+                options.value3 {mustBeScalarTextOrWholeNumber} = ''
+                options.value4 {mustBeScalarTextOrWholeNumber} = ''
+                options.value5 {mustBeScalarTextOrWholeNumber} = ''
+            end
+            obj.resolution.setResolution(row, name=options.name, type=options.type, source=options.source, ...
+                                         value1=options.value1,  value2=options.value2, value3=options.value3, value4=options.value4, value5=options.value5);
         end
         
         % ------------------------------------------------------------
@@ -394,10 +767,23 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         end
         
         function obj = removeData(obj, row)
-            % Removes a dataset. Expects the index or array of
-            % indices of dataset(s) to remove.
+            % Removes a given dataset from the project.
+            %
+            % Examples
+            % --------
+            % To remove the second dataset in the table (dataset in row 2).  
             % 
-            % project.removeData(2);
+            % >>>  project.removeData(2);
+            % 
+            % To remove dataset with a specific name.
+            % 
+            % >>>  project.removeData('D2O');
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the dataset to remove. If it is text, 
+            %     it is the name of the dataset to remove.
             obj.data.removeData(row);
         end
         
@@ -425,10 +811,23 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         end
 
         function obj = removeCustomFile(obj, row)
-            % Removes custom file entry(ies) from the custom files object.
-            % Expects index of entry(ies) to remove.
+            % Removes a given custom file from the project.
             %
-            % project.removeCustomFile(1);
+            % Examples
+            % --------
+            % To remove the second custom file in the table (custom file in row 2).  
+            % 
+            % >>>  project.removeCustomFile(2);
+            % 
+            % To remove custom file with a specific name.
+            % 
+            % >>>  project.removeCustomFile('custom file 1');
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the custom file to remove. If it is text, 
+            %     it is the name of the custom file to remove.
             obj.customFile.removeRow(row);
         end
 
@@ -452,15 +851,27 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % "resolution", "resample", "model"
             % 
             % project.addContrast('contrast 1', 'bulkIn', 'Silicon');
-            allowedNames = obj.getAllAllowedNames();
-            obj.contrasts.addContrast(allowedNames, varargin{:});
+            obj.contrasts.addContrast(obj.getAllAllowedNames(), varargin{:});
         end
 
         function obj = removeContrast(obj, row)
-            % Removes a specified contrast parameter. Expects
-            % index or name of resolution to remove
+            % Removes a given contrast from the project.
             %
-            % project.removeContrast(1);
+            % Examples
+            % --------
+            % To remove the second contrast in the table (contrast in row 2).  
+            % 
+            % >>>  project.removeContrast(2);
+            % 
+            % To remove contrast with a specific name.
+            % 
+            % >>>  project.removeContrast('contrast 1');
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the contrast to remove. If it is text, 
+            %     it is the name of the contrast to remove.
             obj.contrasts.removeContrast(row);
         end
 
@@ -500,11 +911,16 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
              end
         end
 
-        % ----------------------------------------------------------------
-
+        %----------------------------------------------------------------
+        % Conversion Helper Methods
+        %----------------------------------------------------------------
         function outStruct = toStruct(obj)    
-            % Converts the class parameters into a struct array for input
-            % into the RAT toolbox
+            % Converts the projectClass into a structure array.
+            %
+            % Returns
+            % -------
+            % outStruct : struct
+            %     A struct which contains the properties from the projectClass.
             
             % Set which type of experiment this is
             generalStruct.experimentName = obj.experimentName;
@@ -579,43 +995,74 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             
         end
 
-        function problem = clone(obj)
-            % Makes a clone of the project by making a script and using it
-            % to recreate the project
+        function domainsObj = toDomainsClass(obj)
+            % Creates a new domainsClass object and copies the properties from current projectClass. 
             %
-            % project.clone();
+            % Examples
+            % --------
+            % >>> domainsProject = project.toDomainsClass();
+            %
+            % Returns
+            % -------
+            % domainsObj : domainsClass
+            %     An instance of domainsClass with the same properties defined in the projectClass.
+
+            domainsObj = domainsClass(obj);
+        end
+
+        function clonedProject = clone(obj)
+            % Creates a clone of the project.
+            %
+            % Examples
+            % --------
+            % >>> clonedProject = project.clone();
+            %
+            % Returns
+            % -------
+            % clonedProject : projectClass
+            %     A new instance of projectClass with the same properties defined in the current projectClass.
+
             script = obj.toScript(objName='problem', exportData=false);
             eval(script);
-            problem = eval('problem');
+            clonedProject = eval('problem');
         end
 
         function writeScript(obj, options)
-            % Writes a MATLAB script that can be run to reproduce this
-            % projectClass object.
+            % Writes a MATLAB script to a given file path. This script can be run to reproduce the current projectClass object.
             %
-            % project.writeScript(script = "newScript.m");
+            % Examples
+            % --------
+            % >>> project.writeScript(path="newScript.m");
+            % 
+            % Parameters
+            % ----------
+            % objName : string or char array, default: 'project'
+            %     The name to use for the project object in the script. 
+            % path : string or char array, default: 'projectScript.m'
+            %     The relative or absolute file path where the script should be written to.
+
             arguments
                 obj
                 options.objName {mustBeTextScalar} = 'project'
-                options.script {mustBeTextScalar} = 'projectScript.m'
+                options.path {mustBeTextScalar} = 'projectScript.m'
             end
 
             % Need to ensure correct format for script name
-            [filePath, fileName, extension] = fileparts(options.script);
+            [filePath, fileName, extension] = fileparts(options.path);
             
             % The empty string fails "isempty", so need to test for it
             % explicitly
             if strcmp(extension, "")
                 % Add the correct extension
                 fileName = sprintf('%s.m', fileName);
-                options.script = fullfile(filePath, fileName);
+                options.path = fullfile(filePath, fileName);
             elseif ~strcmp(extension, ".m")
                 % Raise error if incorrect format is used
                 throw(exceptions.invalidValue(sprintf('The filename chosen for the script has the "%s" extension, rather than a MATLAB ".m" extension', extension)));
             end
 
             script = obj.toScript(objName=options.objName);
-            fileID = fopen(options.script, 'w');
+            fileID = fopen(options.path, 'w');
             fprintf(fileID, '%s\n', script);
             fclose(fileID);
         end
@@ -623,7 +1070,33 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
     end     % end public methods
     
     % ------------------------------------------------------------------
-    
+    methods (Hidden)
+        function domainsObj = domainsClass(obj)
+            % Object Converter method to convert to domainsClass 
+            % https://uk.mathworks.com/help/matlab/matlab_oop/converting-objects-to-another-class.html. 
+            %
+            % Examples
+            % --------
+            % >>> project = projectClass();
+            % >>> domainsProject = domainsClass(project);
+            %
+            % Returns
+            % -------
+            % domainsObj : domainsClass
+            %     An instance of domainsClass with the same properties defined in the projectClass.
+
+            domainsObj = domainsClass(obj.experimentName, obj.modelType, obj.geometry, obj.absorption);
+            domainsObj = copyProperties(obj, domainsObj);
+
+            % Need to treat contrasts separately due to changes in the
+            % class for domains calculations
+            domainsObj.contrasts = copyProperties(obj.contrasts, contrastsClass(domains=true));
+            for i=1:domainsObj.contrasts.numberOfContrasts
+                domainsObj.contrasts.contrasts{i}.domainRatio = '';
+            end
+        end
+    end
+
     methods (Access = protected)
         % Display methods
         function group = getPropertyGroup1(obj)
@@ -675,11 +1148,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
 
             % Display the backgrounds object
             fprintf('\n    Backgrounds: ----------------------------------------------------------------------------------------------- \n\n');
-            obj.background.displayBackgroundsObject(obj.showPriors);
+            obj.background.displayTable(obj.showPriors);
             
             % Display the resolutions object
             fprintf('\n    Resolutions: --------------------------------------------------------------------------------------------- \n\n');
-            obj.resolution.displayResolutionsObject(obj.showPriors);
+            obj.resolution.displayTable(obj.showPriors);
 
             % Display the layers table if not a custom model
             if isa(obj.layers, 'layersClass')
@@ -706,10 +1179,6 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             obj.contrasts.displayContrastsObject;
             
         end
-        
-    end
-
-    methods (Access = protected, Hidden)
 
         function modifyLayersTable(obj)
             % Add or remove a column from the layers table whenever the
@@ -729,6 +1198,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         function setLayersAndContrasts(obj, oldModel)
             % Adjust layers and contrast objects when the model type is
             % changed.
+            %
+            % Parameters
+            % ----------
+            % oldModel : modelTypes
+            %     The model type of the project before it was changed.
 
             if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
                 if ~isa(obj.layers, 'layersClass')
@@ -749,31 +1223,22 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
 
     end
 
-    methods (Hidden)
-
-        function domainsObj = domainsClass(obj)
-            % Converter routine from projectClass to domainsClass.
-            % This routine takes the currently defined project and
-            % converts it to a domains calculation, preserving all
-            % currently defined properties.
-            %
-            % domainsProject = project.domainsClass();
-            domainsObj = domainsClass(obj.experimentName, obj.modelType, obj.geometry, obj.absorption);
-            domainsObj = copyProperties(obj, domainsObj);
-
-            % Need to treat contrasts separately due to changes in the
-            % class for domains calculations
-            domainsObj.contrasts = copyProperties(obj.contrasts, contrastsClass(domains=true));
-            for i=1:domainsObj.contrasts.numberOfContrasts
-                domainsObj.contrasts.contrasts{i}.domainRatio = '';
-            end
-        end
-
+    methods (Access = private)
         function script = toScript(obj, options)
             % Convert to a MATLAB script that can be run to reproduce this
             % projectClass object.
-            %
-            % script = project.toScript();
+            % 
+            % Examples
+            % --------
+            % >>> script = project.toScript(exportData=false);
+            % 
+            % Parameters
+            % ----------
+            % options
+            %     Keyword/value pair to properties to update for the specific parameter.
+            %       * objName (string or char array, default: 'project') the name to use for the project object in the script. 
+            %       * exportData (logical, default: true) indicates if the data should be exported to file otherwise the data is written into the script.
+
             arguments
                 obj
                 options.objName {mustBeTextScalar} = 'project'

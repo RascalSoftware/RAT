@@ -163,5 +163,27 @@ classdef testUtilities < matlab.unittest.TestCase
             testCase.verifyError(@() validateParameter('H2O', {'D2O', 'SMW'}), exceptions.nameNotRecognised.errorID);
             testCase.verifyError(@() validateParameter(3, {'D2O', 'SMW'}), exceptions.indexOutOfRange.errorID);
         end
+
+        function testMustBeScalarOrEmptyLogical(testCase)
+            mustBeScalarOrEmptyLogical(logical.empty());
+            mustBeScalarOrEmptyLogical(false);
+            mustBeScalarOrEmptyLogical(true);
+            testCase.verifyError(@() mustBeScalarOrEmptyLogical(1), 'RAT:validators:mustBeScalarOrEmptyLogical');
+            testCase.verifyError(@() mustBeScalarOrEmptyLogical('true'), 'RAT:validators:mustBeScalarOrEmptyLogical');
+            testCase.verifyError(@() mustBeScalarOrEmptyLogical([false, true]), 'RAT:validators:mustBeScalarOrEmptyLogical');
+        end
+
+        function mustBeScalarTextOrWholeNumber(testCase)
+            mustBeScalarTextOrWholeNumber('hello');
+            mustBeScalarTextOrWholeNumber("world")
+            mustBeScalarTextOrWholeNumber("");
+            mustBeScalarTextOrWholeNumber('');
+            mustBeScalarTextOrWholeNumber(1);
+            testCase.verifyError(@() mustBeScalarTextOrWholeNumber(1.5), 'RAT:validators:mustBeScalarTextOrWholeNumber');
+            testCase.verifyError(@() mustBeScalarTextOrWholeNumber([1, 2]), 'RAT:validators:mustBeScalarTextOrWholeNumber');
+            testCase.verifyError(@() mustBeScalarTextOrWholeNumber(["true", "false"]), 'RAT:validators:mustBeScalarTextOrWholeNumber');
+            testCase.verifyError(@() mustBeScalarTextOrWholeNumber(['false'; 'hello']), 'RAT:validators:mustBeScalarTextOrWholeNumber');
+            testCase.verifyError(@() mustBeScalarTextOrWholeNumber({'false'; 'true'}), 'RAT:validators:mustBeScalarTextOrWholeNumber');
+        end
     end
 end

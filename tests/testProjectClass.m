@@ -122,6 +122,9 @@ classdef testProjectClass < matlab.unittest.TestCase
             for i=1:domains.contrasts.numberOfContrasts
                 testCase.verifyTrue(isfield(domains.contrasts.contrasts{i}, 'domainRatio'))
             end
+            
+            domains2 = domainsClass(testCase.project);
+            testCase.verifyClass(domains2, 'domainsClass')
         end
         
         function testAbsorption(testCase)
@@ -485,9 +488,6 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Checks that background value can be modified
             testCase.project.setBackground(1, 'name', 'Background ACMW');
             testCase.verifyEqual(testCase.project.background.backgrounds.varTable{1, 1}, "Background ACMW", 'setBackground method not working');
-            % Checks that background name can be modified
-            testCase.project.setBackgroundName(1, 'Background H2O');
-            testCase.verifyEqual(testCase.project.background.backgrounds.varTable{1, 1}, "Background H2O", 'setBackgroundName method not working');
         end
 
         function testContrast(testCase)
@@ -603,8 +603,8 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.populateProject();
 
             % Verify error for invalid input and write the script
-            testCase.verifyError(@() testCase.project.writeScript(script="invalid.txt"), exceptions.invalidValue.errorID);
-            testCase.project.writeScript(objName="problem", script="newScript");
+            testCase.verifyError(@() testCase.project.writeScript(path="invalid.txt"), exceptions.invalidValue.errorID);
+            testCase.project.writeScript(objName="problem", path="newScript");
             run("newScript.m");
     
             % Test general properties

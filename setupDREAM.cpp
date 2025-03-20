@@ -238,10 +238,11 @@ namespace RAT
 
     loop_ub = y.size(1);
     for (int zz{0}; zz < 3; zz++) {
-      k = (zz + 1) << 1;
+      int b_y;
+      b_y = (zz + 1) << 1;
       r.set_size(y.size(1));
       for (i = 0; i < loop_ub; i++) {
-        r[i] = static_cast<double>(k) * y[i];
+        r[i] = static_cast<double>(b_y) * y[i];
       }
 
       i = r.size(0);

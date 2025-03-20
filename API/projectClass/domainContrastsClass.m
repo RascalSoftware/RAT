@@ -78,7 +78,7 @@ classdef domainContrastsClass < baseContrasts
             for i = 1:modelSize 
                 found = strcmpi(inputArray{i}, allowedModelNames);
                 if ~any(found)
-                    throw(exceptions.nameNotRecognised(sprintf('Model component name "%s" is not recognised. The allowed names are: "%s".', modelArray{i}, strjoin(allowedModelNames, '", "'))));
+                    throw(exceptions.nameNotRecognised(sprintf('Model component name "%s" is not recognised. The allowed names are: "%s".', inputArray{i}, strjoin(allowedModelNames, '", "'))));
                 end
                 model{i} = allowedModelNames{find(found, 1)};
             end

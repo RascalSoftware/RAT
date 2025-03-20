@@ -4,8 +4,8 @@ function [sample, logL] = drawMCMC(livepoints, cholmat, logLmin, ...
 %
 % The new point will be found by
 % evolving a random multi-dimensional sample from within the sample array,
-% livepoints, using an MCMC with nMCMC iterations. The MCMC will use a 
-% Students-t (with N=2 degrees of freedom) proposal distribution based on
+% livepoints, using an MCMC with nMCMC iterations. The MCMC proposals will use a 
+% Student's t-distribution (with 2 degrees of freedom) based on
 % the Cholesky decomposed covariance matrix of the array, cholmat. 10% of 
 % the samples will actually be drawn using differential evolution by taking
 % two random points from the current live points. 
@@ -48,7 +48,7 @@ l2p = 0.5*log(2*pi); % useful constant
 nLive = size(livepoints,1);
 nParams = size(livepoints,2);
 
-Ndegs = 2; % degrees of freedom of Students't distribution
+Ndegs = 2; % degrees of freedom of Student's t-distribution
 
 % initialise counters
 acctot = 0;

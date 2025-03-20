@@ -29,8 +29,12 @@ function [x,fval,exitflag,output] = fMinSearch(funfcn,x,options,dis,varargin)
 % fval : vector
 %     The objective function value at output point ``x``.
 % exitflag : integer
-%     Reason ``fimsearch`` stopped: 1 if converged, 0 if max iterations/evals exceeded,
-%     -1 if the output function returned an error.
+%     Reason ``fMinSearch`` stopped:
+%
+%      - 1 if converged;
+%      - 0 if max iterations/evals exceeded;
+%      - -1 if the output function returned an error.
+%
 % output : struct
 %     Diagnostic information about the optimisation process.
 %

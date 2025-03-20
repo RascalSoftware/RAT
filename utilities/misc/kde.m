@@ -28,7 +28,8 @@ function [bandwidth,density,xmesh,cdf]=kde(data,n,MIN,MAX)
 % 
 % Returns
 % -------
-% bandwidth : 
+% bandwidth : float
+%     The optimal bandwidth for a Gaussian kernel over the data.
 % density : vector
 %     Column vector with the values of the density estimate at the grid points.
 % xmesh : vector

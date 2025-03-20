@@ -1,5 +1,5 @@
 function [delta_tot] = calcDelta(DREAMPar,delta_tot,delta_normX,CR)
-% Calculate total normalized Euclidean distance for each crossover value.
+% Calculate total normalised Euclidean distance for each crossover value.
 %
 % Parameters
 % ----------

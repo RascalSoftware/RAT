@@ -19,7 +19,7 @@ function [sample, logL] = drawMultiNest(fracvol, Bs, mus, ...
 % prior : array
 %     The prior information for the parameters.
 % data : array
-%     The problem struct, controls, and problem limits. 
+%     The problem struct and controls. 
 % likelihood : function
 %     The likelihood function for the problem.
 % model : unknown

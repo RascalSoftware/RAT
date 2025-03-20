@@ -1,5 +1,5 @@
 function x = makeCell(m, n, vals)
-    % Creates a m by n cell array and initialise each cell with given value.
+    % Creates a m by n cell array and initialise each cell with the given value.
     %
     % Parameters
     % ----------
@@ -11,7 +11,7 @@ function x = makeCell(m, n, vals)
     % Returns
     % -------
     % x : array
-    %     The requierd cell array.
+    %     The required cell array.
     %
     % Examples
     % --------

@@ -31,11 +31,8 @@ classdef testCommonFunctions < matlab.unittest.TestCase
         jacobianEstInputs;
         jacobianEstOutputs;
 
-        makeSLDProfilesInputs;
-        makeSLDProfilesOutputs;
-        
-        makeSLDProfileXYInputs;
-        makeSLDProfileXYOutputs;
+        makeSLDProfileInputs;
+        makeSLDProfileOutputs;
         
         abelesParallelPointsInputs;
         abelesParallelPointsOutputs;
@@ -156,18 +153,11 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             testCase.groupLayersModOutputs = outputs.outputs;
         end
 
-        function loadMakeSLDProfiles(testCase)
-            inputs = load('makeSLDProfilesInputs.mat');
-            outputs = load('makeSLDProfilesOutputs.mat');
-            testCase.makeSLDProfilesInputs = inputs.inputs;
-            testCase.makeSLDProfilesOutputs = outputs.outputs;
-        end
-
-        function loadMakeSLDProfileXY(testCase)
-            inputs = load('makeSLDProfileXYInputs.mat');
-            outputs = load('makeSLDProfileXYOutputs.mat');
-            testCase.makeSLDProfileXYInputs = inputs.inputs;
-            testCase.makeSLDProfileXYOutputs = outputs.outputs;
+        function loadMakeSLDProfile(testCase)
+            inputs = load('makeSLDProfileInputs.mat');
+            outputs = load('makeSLDProfileOutputs.mat');
+            testCase.makeSLDProfileInputs = inputs.inputs;
+            testCase.makeSLDProfileOutputs = outputs.outputs;
         end
 
         function loadAbelesParallelPoints(testCase)
@@ -279,17 +269,11 @@ classdef testCommonFunctions < matlab.unittest.TestCase
 %            testCase.verifyEqual(testCase.jacobianEstimateOutputs,outputs);
 %        end
 
-        function testMakeSLDProfiles(testCase)
-            out1 = makeSLDProfiles(testCase.makeSLDProfilesInputs{1:end});
-            outputs = {out1};
-            testCase.verifyEqual(testCase.makeSLDProfilesOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
-        end
-
-        function testMakeSLDProfileXY(testCase)
-            out1 = makeSLDProfileXY(testCase.makeSLDProfileXYInputs{1:end});
+        function testMakeSLDProfile(testCase)
+            out1 = makeSLDProfile(testCase.makeSLDProfileInputs{1:end});
             outputs = {out1};
 
-            testCase.verifyEqual(testCase.makeSLDProfileXYOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.makeSLDProfileOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
         end
 
         function testAbelesParallelPoints(testCase)

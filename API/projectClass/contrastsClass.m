@@ -19,7 +19,7 @@ classdef contrastsClass < baseContrasts
         end
 
         function names = getDisplayNames(obj)
-            names = ["Name"; "Data"; "Background"; "Background Action"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Model"];
+            names = ["Name"; "Data"; "Background"; "Background Action"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Repeat Layers"; "Model"];
             if obj.domainsCalc
                 names = [names(1:end-1); "Domain Ratio"; names(end)];
             end
@@ -70,6 +70,7 @@ classdef contrastsClass < baseContrasts
             contrastScalefactors = ones(1,nContrasts);
             contrastResolutions = ones(1,nContrasts);
             resample = ones(1,nContrasts);
+            contrastRepeatLayers = ones(1,nContrasts);
 
             dataPresent = zeros(1,nContrasts);
             dataLimits = cell(1,nContrasts);
@@ -118,6 +119,7 @@ classdef contrastsClass < baseContrasts
                 contrastScalefactors(i) = find(strcmpi(thisContrast.scalefactor,allowedNames.scalefactorNames));
                 contrastResolutions(i) = find(strcmpi(thisContrast.resolution,allowedNames.resolutionNames));
                 resample(i) = thisContrast.resample;
+                contrastRepeatLayers(i) = thisContrast.repeatLayers;
 
                 thisDataVal = find(strcmpi(thisContrast.data,allowedNames.dataNames));
                 if ~isempty(thisDataVal)
@@ -153,6 +155,7 @@ classdef contrastsClass < baseContrasts
             contrastStruct.dataLimits = dataLimits;
             contrastStruct.simulationLimits = simulationLimits;
             contrastStruct.resample = resample;
+            contrastStruct.repeatLayers = contrastRepeatLayers;
 
         end
 
@@ -174,6 +177,7 @@ classdef contrastsClass < baseContrasts
             defaultScalefactor = '';
             defaultResolution = '';
             defaultResample = [];
+            defaultRepeatLayers = [];
             defaultModel = '';
         
             expectedBackground = cellstr(allowedNames.backgroundNames);
@@ -186,8 +190,8 @@ classdef contrastsClass < baseContrasts
             p = inputParser;
             p.PartialMatching = false;
 
-            addParameter(p,'name',          defaultName,        @isText);
-            addParameter(p,'data',          defaultData,        @isText);
+            addParameter(p,'name',             defaultName,               @isText);
+            addParameter(p,'data',             defaultData,               @isText);
             addParameter(p,'background',       defaultBackground,         @isText);
             addParameter(p,'backgroundAction', defaultBackgroundAction,   @(x) isText(x) || isenum(x))
             addParameter(p,'bulkIn',           defaultBulkIn,             @isText);
@@ -195,11 +199,12 @@ classdef contrastsClass < baseContrasts
             addParameter(p,'scalefactor',      defaultScalefactor,        @isText);
             addParameter(p,'resolution',       defaultResolution,         @isText);
             addParameter(p,'resample',         defaultResample,           @islogical);
+            addParameter(p,'repeatLayers',     defaultRepeatLayers,       @(x) isscalar(x) && isnumeric(x) && mod(x, 1) == 0  && x > 0);
 
             if obj.domainsCalc
                 defaultDomainRatio = '';
                 expectedDomainRatio = cellstr(allowedNames.domainRatioNames);
-                addParameter(p,'domainRatio',   defaultDomainRatio,       @isText);
+                addParameter(p,'domainRatio',  defaultDomainRatio,       @isText);
             end
 
             addParameter(p,'model',            defaultModel);
@@ -296,6 +301,10 @@ classdef contrastsClass < baseContrasts
 
             if isempty(contrast.resample)
                 contrast.resample = false;
+            end
+
+            if isempty(contrast.repeatLayers)
+                contrast.repeatLayers = 1;
             end
 
         end

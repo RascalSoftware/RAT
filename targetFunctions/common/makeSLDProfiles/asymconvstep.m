@@ -33,15 +33,13 @@ function f = asymconvstep(x,xw,xcen,s1,s2,h)
 %     throw(ME);
 % end
 
-r = xcen + (xw/2);
-l = xcen - (xw/2);
+r = xcen + (0.5*xw);
+l = xcen - (0.5*xw);
 
-aFactor = (2^0.5)*s1;
-bFactor = (2^0.5)*s2;
+aFactor = (2^0.5) * s1;
+bFactor = (2^0.5) * s2;
 
-a = (x-l)/aFactor;
-b = (x-r)/bFactor;
+a = (x-l) / aFactor;
+b = (x-r) / bFactor;
 
 f = (0.5*h) * (erf(a)-erf(b));
-
-

@@ -1,66 +1,47 @@
-function [x,fval,exitflag,output] = fMinSearch(funfcn,x,options,dis,varargin)
-%FMINSEARCH Multidimensional unconstrained nonlinear minimization (Nelder-Mead).
-%   X = FMINSEARCH(FUN,X0) starts at X0 and attempts to find a local minimizer 
-%   X of the function FUN.  FUN is a function handle.  FUN accepts input X and 
-%   returns a scalar function value F evaluated at X. X0 can be a scalar, vector 
-%   or matrix.
-%
-%   X = FMINSEARCH(FUN,X0,OPTIONS)  minimizes with the default optimization
-%   parameters replaced by values in the structure OPTIONS, created
-%   with the OPTIMSET function.  See OPTIMSET for details.  FMINSEARCH uses
-%   these options: Display, TolX, TolFun, MaxFunEvals, MaxIter, FunValCheck,
-%   PlotFcns, and OutputFcn.
-%
-%   X = FMINSEARCH(PROBLEM) finds the minimum for PROBLEM. PROBLEM is a
-%   structure with the function FUN in PROBLEM.objective, the start point
-%   in PROBLEM.x0, the options structure in PROBLEM.options, and solver
-%   name 'fminsearch' in PROBLEM.solver. 
-%
-%   [X,FVAL]= FMINSEARCH(...) returns the value of the objective function,
-%   described in FUN, at X.
-%
-%   [X,FVAL,EXITFLAG] = FMINSEARCH(...) returns an EXITFLAG that describes
-%   the exit condition. Possible values of EXITFLAG and the corresponding
-%   exit conditions are
-%
-%    1  Maximum coordinate difference between current best point and other
-%       points in simplex is less than or equal to TolX, and corresponding 
-%       difference in function values is less than or equal to TolFun.
-%    0  Maximum number of function evaluations or iterations reached.
-%   -1  Algorithm terminated by the output function.
-%
-%   [X,FVAL,EXITFLAG,OUTPUT] = FMINSEARCH(...) returns a structure
-%   OUTPUT with the number of iterations taken in OUTPUT.iterations, the
-%   number of function evaluations in OUTPUT.funcCount, the algorithm name 
-%   in OUTPUT.algorithm, and the exit message in OUTPUT.message.
-%
-%   Examples
-%     FUN can be specified using @:
-%        X = fminsearch(@sin,3)
-%     finds a minimum of the SIN function near 3.
-%     In this case, SIN is a function that returns a scalar function value
-%     SIN evaluated at X.
-%
-%     FUN can be an anonymous function:
-%        X = fminsearch(@(x) norm(x),[1;2;3])
-%     returns a point near the minimizer [0;0;0].
-%
-%     FUN can be a parameterized function. Use an anonymous function to
-%     capture the problem-dependent parameters:
-%        f = @(x,c) x(1).^2+c.*x(2).^2;  % The parameterized function.
-%        c = 1.5;                        % The parameter.
-%        X = fminsearch(@(x) f(x,c),[0.3;1])
-%        
-%   FMINSEARCH uses the Nelder-Mead simplex (direct search) method.
-%
-%   See also OPTIMSET, FMINBND, FUNCTION_HANDLE.
-
 %   Reference: Jeffrey C. Lagarias, James A. Reeds, Margaret H. Wright,
 %   Paul E. Wright, "Convergence Properties of the Nelder-Mead Simplex
 %   Method in Low Dimensions", SIAM Journal of Optimization, 9(1):
 %   p.112-147, 1998.
-
+%
 %   Copyright 1984-2018 The MathWorks, Inc.
+%
+% This is the MATLAB base ``fminsearch`` function adjusted for RAT.
+function [x,fval,exitflag,output] = fMinSearch(funfcn,x,options,dis,varargin)
+% Perform a Nelder-Mead Simplex minimisation of an objective function.
+%
+% Parameters
+% ----------
+% funfcn : function
+%     The function to minimise.
+% x : vector
+%     The starting point to minimise from.
+% options : struct
+%     Controls options for the algorithm.
+% dis : string 
+%     Options for how to display algorithm output.
+% varargin : options
+%     Other options from the Mathworks ``fminsearch``.
+%
+% Returns
+% -------
+% x : vector
+%     The minimum value found.
+% fval : vector
+%     The objective function value at output point ``x``.
+% exitflag : integer
+%     Reason ``fMinSearch`` stopped:
+%
+%      - 1 if converged;
+%      - 0 if max iterations/evals exceeded;
+%      - -1 if the output function returned an error.
+%
+% output : struct
+%     Diagnostic information about the optimisation process.
+%
+% Notes
+% -----
+% See also MathWorks ``fminsearch`` doc page: https://www.mathworks.com/help/matlab/ref/fminsearch.html
+%
 msg = 'ok';
 
 defaultopt = struct('Display','notify','MaxIter','200*numberOfVariables',...
@@ -77,65 +58,12 @@ if nargin < 3, options = []; end
 
 buildOutputStruct = nargout > 3;
 
-% -------- Inputs are standardised for RAT, so no need to check ---------
-% Detect problem structure input
-% if nargin == 1
-%     if isa(funfcn,'struct') 
-%         [funfcn,x,options] = separateOptimStruct(funfcn);
-%     else % Single input and non-structure
-%         error('MATLAB:fminsearch:InputArg',...
-%             sprintf('MATLAB:optimfun:fminsearch:InputArg'));
-%     end
-% end
-% 
-% if nargin == 0
-%     error('MATLAB:fminsearch:NotEnoughInputs',...
-%         sprintf('MATLAB:optimfun:fminsearch:NotEnoughInputs'));
-% end
-% 
-% 
-% % Check for non-double inputs
-% if ~isa(x,'double')
-%   error('MATLAB:fminsearch:NonDoubleInput',...
-%     sprintf('MATLAB:optimfun:fminsearch:NonDoubleInput'));
-% end
-% -------------------------------------------------------------------
-
-% n = numel(x);
-% numberOfVariables = n;
-
-% ------------- Check is done upstream ----------------
-% Check that options is a struct
-% if ~isempty(options) && ~isa(options,'struct')
-%     error('MATLAB:fminsearch:ArgNotStruct',...
-%         getString(message('MATLAB:optimfun:commonMessages:ArgNotStruct', 3)));
-% end
-% ------------------- AVH -----------------------------
-
 % printtype = optimget(options,'Display',defaultopt,'fast');
 tolx = optimget(options,'TolX',defaultopt,'fast');
 tolf = optimget(options,'TolFun',defaultopt,'fast');
 maxfun = optimget(options,'MaxFunEvals',defaultopt,'fast');
 maxiter = optimget(options,'MaxIter',defaultopt,'fast');
 funValCheck = strcmp(optimget(options,'FunValCheck',defaultopt,'fast'),'on');
-
-% In case the defaults were gathered from calling: optimset('fminsearch'):
-% if ischar(maxfun) || isstring(maxfun)
-%     if strcmpi(maxfun,'200*numberofvariables')
-%         maxfun = 200*numberOfVariables;
-%     else
-%         error('MATLAB:fminsearch:OptMaxFunEvalsNotInteger',...
-%             getString(message('MATLAB:optimfun:fminsearch:OptMaxFunEvalsNotInteger')));
-%     end
-% end
-% if ischar(maxiter) || isstring(maxiter)
-%     if strcmpi(maxiter,'200*numberofvariables')
-%         maxiter = 200*numberOfVariables;
-%     else
-%         error('MATLAB:fminsearch:OptMaxIterNotInteger',...
-%             getString(message('MATLAB:optimfun:fminsearch:OptMaxIterNotInteger')));
-%     end
-% end
 
 switch dis      % Changed from TMW fminsearch
     case {'notify','notify-detailed'}
@@ -151,30 +79,6 @@ switch dis      % Changed from TMW fminsearch
     otherwise
         prnt = 1;
 end
-
-% ----------------- Not using output functions for RAT ---------
-% % Handle the output
-% outputfcn = optimget(options,'OutputFcn',defaultopt,'fast');
-% if isempty(outputfcn)
-%     haveoutputfcn = false;
-% else
-%     haveoutputfcn = true;
-%     xOutputfcn = x; % Last x passed to outputfcn; has the input x's shape
-%     % Parse OutputFcn which is needed to support cell array syntax for OutputFcn.
-%     outputfcn = createCellArrayOfFunctions(outputfcn,'OutputFcn');
-% end
-% 
-% % Handle the plot
-% plotfcns = optimget(options,'PlotFcns',defaultopt,'fast');
-% if isempty(plotfcns)
-%     haveplotfcn = false;
-% else
-%     haveplotfcn = true;
-%     xOutputfcn = x; % Last x passed to plotfcns; has the input x's shape
-%     % Parse PlotFcns which is needed to support cell array syntax for PlotFcns.
-%     plotfcns = createCellArrayOfFunctions(plotfcns,'PlotFcns');
-% end
-% ---------------------- AVH ------------------------------
 
 header = ' Iteration   Func-count     min f(x)         Procedure';
 

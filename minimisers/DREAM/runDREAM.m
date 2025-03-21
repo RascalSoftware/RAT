@@ -1,5 +1,23 @@
 function [outProblemStruct,result,bayesResults] = runDREAM(problemStruct,problemLimits,controls)
-
+% Run the DREAM algorithm for a given problem and controls.
+%
+% Parameters
+% ----------
+% problemStruct : struct
+%     the Project struct.
+% problemLimits : array
+%     the value limits for each parameter.
+% controls : struct
+%     the Controls struct.
+%
+% Returns
+% -------
+% outProblemStruct : struct
+%     the output project struct.
+% result : struct
+%     the calculation and optimisation results object.
+% bayesResults : struct
+%     Additional Bayesian results from the algorithm.
 
 % Make an empty struct for bayesResults to hold the outputs of the
 % calculation

@@ -1,6 +1,18 @@
 function CR = drawCR(DREAMPar,pCR)
-    % Generates CR values based on current crossover probabilities
-
+    % Generate CR values based on current crossover probabilities.
+    %
+    % Parameters
+    % ----------
+    % DREAMPar : struct
+    %     The algorithmic control settings for DREAM.
+    % pCR : array
+    %     The selection probability of crossover for each parameter.
+    %
+    % Returns
+    % -------
+    % CR : array
+    %     The crossover values for each parameter.
+    %
     CR = [1,1];
     coder.varsize('CR',[1e2 1e6],[1 1]);
 

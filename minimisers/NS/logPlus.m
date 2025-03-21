@@ -1,12 +1,19 @@
 function logz  = logPlus(logx, logy)
+% Calculate log(x+y) given logx and logy.
 %
-% logz = logPlus(logx, logy)
-%
-% Given logx and logy, this function returns logz=log(x+y).
 % It avoids problems of dynamic range when the
 % exponentiated values of x or y are very large or small.
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Parameters
+% ----------
+% logx, logy : float
+%     The two logarithmic values to add.
+%
+% Returns
+% -------
+% logz : float
+%     The value of log(x+y).
+%
 if isinf(logx) && isinf(logy)
     logz = -inf;
     return;

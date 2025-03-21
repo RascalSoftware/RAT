@@ -1,22 +1,34 @@
 function [Bs, mus, VEs, ns] = optimalEllipsoids(u, VS)
-
-% function [Bs, mus, VEs, ns] = optimalEllipsoids(u, VS)
+% Optimally partition the samples u into a set of subclusters enclosed by ellipsoids.
 %
-% This function attempts to optimally partition the multi-dimensional
-% samples u (uniformly distributed within the sample volume VS), into
-% a set of subclusters enclosed by bounding ellipsoids.  The algorithm 
-% is based on Algorithm 1 of the MULTINEST paper by Feroz, Hobson, 
-% and Bridges, MNRAS, 398, 1601-1614 (2009).
+% Parameters
+% ----------
+% u : array
+%     The points to enclose in subclusters.
+% VS : float
+%     The minimum volume of the set of ellipsoids.
 %
-% Output:
-%   Bs:  an array of bounding matrices for the ellipsoids enclosing
-%        the subclusters, scaled to have at least the minimum volume
-%        required by the subclusters. ( (K x ndims) x ndims )
-%   mus: an array of centroids for the bounding ellipsoids (K x ndims)
-%   VEs: an array of volumes for the bounding ellipsoids   (K x 1)
-%   ns:  an array containing the number of points for each subcluster (K x 1)
+% Returns 
+% -------
+% Bs : array
+%     An array of bounding matrices for the ellipsoids enclosing
+%     the subclusters, scaled to have at least the minimum volume
+%     required by the subclusters. ( (K x ndims) x ndims )
+% mus : array
+%     An array of centroids for the bounding ellipsoids. (K x ndims)
+% VEs : array
+%     An array of volumes for the bounding ellipsoids. (K x 1)
+% ns : array
+%     An array containing the number of points for each subcluster. (K x 1)
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Notes
+% -----
+% This is Algorithm 1 in the paper:
+%   Feroz, F.; Hobson, M.P.; Bridges, M. (2008), 
+%   "MULTINEST: an efficient and robust Bayesian inference tool for cosmology and particle physics". 
+%   DOI: `10.1111/j.1365-2966.2009.14548.x <https://doi.org/10.1111/j.1365-2966.2009.14548.x>`_,
+%   URL: https://arxiv.org/abs/0809.3437
+%
 N = size(u,1); % number of samples in multi-dimensional space
 ndims = size(u,2); % number of dimensions
 K = 1;

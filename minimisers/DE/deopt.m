@@ -1,6 +1,5 @@
+% following comments are from the original source code:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Function:         [FVr_bestmem,S_bestval,I_nfeval] = deopt(fname,S_struct)
-%                    
 % Author:           Rainer Storn, Ken Price, Arnold Neumaier, Jim Van Zandt
 % Description:      Minimization of a user-supplied function with respect to x(1:I_D),
 %                   using the differential evolution (DE) algorithm.
@@ -27,9 +26,6 @@
 %                   Due to the vectorized expressions deopt executes fairly fast
 %                   in MATLAB's interpreter environment.
 %
-% Parameters:       fname        (I)    String naming a function f(x,y) to minimize.
-%                   S_struct     (I)    Problem data vector (must remain fixed during the
-%                                       minimization). For details see Rundeopt.m.
 %                   ---------members of S_struct----------------------------------------------------
 %                   F_VTR        (I)    "Value To Reach". deopt will stop its minimization
 %                                       if either the maximum number of iterations "I_itermax"
@@ -55,15 +51,7 @@
 %                                       iterations. No intermediate output will be produced
 %                                       if I_refresh is < 1.
 %                                       
-% Return value:     FVr_bestmem      (O)    Best parameter vector.
-%                   S_bestval.I_nc   (O)    Number of constraints
-%                   S_bestval.FVr_ca (O)    Constraint values. 0 means the constraints
-%                                           are met. Values > 0 measure the distance
-%                                           to a particular constraint.
-%                   S_bestval.I_no   (O)    Number of objectives.
-%                   S_bestval.FVr_oa (O)    Objective function values.
-%                   I_nfeval         (O)    Number of function evaluations.
-%
+
 % Note:
 % This program is free software; you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -78,6 +66,26 @@
 % Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [FVr_bestmem,problem] = deopt(fname,problem,controls,S_struct)
+% Minimise a user-supplied function with the differential evolution algorithm.
+%
+% Parameters
+% ----------
+% fname : string
+%     string naming a function to minimise.
+% problem : struct
+%     the Project struct.
+% controls : struct
+%     the Controls struct.
+% S_struct : struct
+%     problem data vector (data and controls).
+%
+% Returns
+% -------
+% FVr_bestmem : vector
+%     a vector of the best parameter values.   
+% problem : struct
+%     the Project struct.
+%
 
 str = struct('I_nc',0,'FVr_ca',0,'I_no',0,'FVr_oa',0);
 S_val = repmat(str,S_struct.I_NP,1);

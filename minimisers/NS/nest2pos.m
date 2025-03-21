@@ -1,13 +1,18 @@
-function post_samples = nest2pos(nest_samples, nLive)
-%
-% post_samples = nest2pos(nest_samples, nLive)
-% 
-% Convert nested samples with nLive livepoints
-% to samples from the posterior distribution
-% (logL values in last column of nest_samples)
-%
 % John Veitch 2009 (modified by J. Romano 2012)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function post_samples = nest2pos(nest_samples, nLive)
+% Convert nested samples to samples from the posterior distribution.
+%
+% Parameters
+% ----------
+% nest_samples : array
+%     The samples from the nested sampler.
+% nLive : int
+%     The number of live points.
+%
+% Returns
+% -------
+% post_samples
+%     The samples from the posterior distribution for each of ``nest_samples``.
 
 N=size(nest_samples, 1);
 Ncol=size(nest_samples, 2);

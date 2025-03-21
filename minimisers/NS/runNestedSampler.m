@@ -1,5 +1,24 @@
 function  [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,problemLimits,controls)
-
+% Run the nested sampling algorithm for a given problem and controls.
+%
+% Parameters
+% ----------
+% problemStruct : struct
+%     the Project struct.
+% problemLimits : array
+%     the value limits for each parameter.
+% controls : struct
+%     the Controls struct.
+%
+% Returns
+% -------
+% problemStruct : struct
+%     the output project struct.
+% result : struct
+%     the calculation and optimisation results object.
+% bayesResults : struct
+%     Additional Bayesian results from the algorithm.
+%
 [problemStruct,fitNames] = packParams(problemStruct,problemLimits);
 
 logZ = 0;

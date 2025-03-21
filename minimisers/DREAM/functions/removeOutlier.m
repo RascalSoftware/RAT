@@ -1,5 +1,25 @@
 function [X,log_L,outputOutlier] = removeOutlier(X,log_L,outlier,DREAMPar)
-% Finds outlier chains and removes them when needed
+% Find outlier chains and remove them when needed.
+%
+% Parameters
+% ----------
+% X : array
+%     The current position for each chain.
+% log_L : array
+%     The current log-likelihood for each chain.
+% outlier : array
+%     The current array of outlier chains.
+% DREAMPar : struct
+%     Algorithmic control information for DREAM.
+%
+% Returns
+% -------
+% X : array
+%     The position for each chain with outliers removed.
+% log_L : array
+%     The log-likelihood for each chain with outliers removed.
+% outputOutlier : 
+%     The ``outlier`` array with any new removed outliers added.
 
 % Determine the number of elements of L_density
 t = size(log_L,1); t_half = floor(t/2);
@@ -13,21 +33,6 @@ mean_log_L = mean(log_L(t_half:t,1:DREAMPar.nChains));
 % ---------------------------------- AVH
 chain_id = iqr(mean_log_L);
 
-% % Create outlier handle
-% evalstr = strcat('chain_id=',DREAMPar.outlier,'(mean_log_L);');
-% 
-% % Now evaluate outlier handle
-% try
-%     eval(evalstr);
-% catch
-%     % Warning -- not enough chains to do sampling -- increase number of chains!
-%     fprintf('DREAM WARNING: Unknown outlier detection test at %d generations \n',t);
-%     % Now print warning to screen and to file
-%     %fprintf(evalstr); % fprintf(fid,evalstr);
-%     % No outlier detected
-%     outlier = [];
-%     return
-% end
 outputOutlier = outlier;
 coder.varsize('outputOutlier',[1e3 1e3],[1 1]);
 

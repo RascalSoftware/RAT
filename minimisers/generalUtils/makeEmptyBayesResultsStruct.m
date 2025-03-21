@@ -1,25 +1,29 @@
 function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains)
-    % A function to make an empty container to hold the results of bayes
-    % calculations. The struct has the following format:
+    % A function to make an empty container to hold the results of a Bayesian calculation.
     %
-    % nParams = number of fitted parameters
-    % nContrasts = number of contrasts
+    % Parameters
+    % ----------
+    % nContrasts : int
+    %     The number of contrasts.
+    % isDomains : bool
+    %     Whether the calculation is a domains calculation.
+    % nChains : int
+    %     The number of chains in the calculation.
     %
-    % bayesResults = 
+    % Returns
+    % -------
+    % bayesResults : struct
+    %     A struct with the following fields:
     % 
-    %   struct with fields:
-    % 
-    % predictionIntervals: [1×1 struct]
-    % confidenceIntervals: [1×1 struct]
-    %         dreamParams: [1×1 struct]
-    %         dreamOutput: [1×1 struct]
-    % nestedSamplerOutput: [1×1 struct]
-    %               chain: [1000000xnParams double]
+    %     - predictionIntervals: [1×1 struct]
+    %     - confidenceIntervals: [1×1 struct]
+    %     - dreamParams: [1×1 struct]
+    %     - dreamOutput: [1×1 struct]
+    %     - nestedSamplerOutput: [1×1 struct]
+    %     - chain: [array of double]
     
-    % -----------------------------------------------------------
     % Make the individual structs....
-    % (1) bayesResults.predictionIntervals
-    
+    % (1) bayesResults.predictionIntervals  
     reflectivityIntervals = cell(nContrasts,1);
     reflectivityIntervalsCell = ones(5,1);
     for i = 1:nContrasts

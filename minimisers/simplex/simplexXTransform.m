@@ -1,6 +1,18 @@
 function xtrans = simplexXTransform(x,params)
-% converts unconstrained variables into their original domains
-
+% Convert unconstrained variables into their original domains.
+%
+% Parameters
+% ----------
+% x : vector
+%     The point to transform.
+% params : struct
+%     Parameter fit information.
+%
+% Returns
+% -------
+% xtrans : vector
+%     The point ``x`` transformed for the parameter bounds.
+%
 xtrans = x;
 for i = 1:length(x)
   switch params.BoundClass(i)

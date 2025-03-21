@@ -1,19 +1,28 @@
 function [u1, u2, VE1, VE2, nosplit] = splitEllipsoid(u, VS)
-
-% function [u1, u2, VE1, VE2, nosplit] = split_ellipsoid(u, VS)
+% Optimally bound a set of points by two ellipsoids.
 %
-% This function takes in a set of multi-dimensional data points u and the
-% sample volume (VS) that they occupy. It uses the k-means algorthim to
+% It uses the k-means algorthim to
 % split the points into two sub-clusters and uses an optimisation scheme to
 % re-assign points, if necessary, between the sub-clusters. This is based
-% on the description in Algorithm 1 of the MULTINEST paper by Feroz,
-% Hobson, and Bridges, MNRAS, 398, 1601-1614 (2009).
+% on the description in Algorithm 1 of the MultiNest paper by Feroz,
+% Hobson, and Bridges.
 %
-% The function returns the points in the two sub-cluster u1 and u2, and 
-% the volumes of the ellipsoid subclusters VE1 and VE2.  The flag nosplit 
-% is set to 1 if the splitting cannot be done; otherwise = 0.
+% Parameters
+% ----------
+% u : array
+%     The points to bound by two ellipsoids.
+% VS : float
+%     The minimum volume of the ellipsoids.
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Returns
+% -------
+% u1, u2 : array
+%     The points in each ellipsoid.
+% VE1, VE2 : float
+%     The volume of each ellipsoid.
+% nosplit : bool
+%     Equals 1 if splitting into two ellipsoids is not possible.
+%
 max_attempt = 50; % maximum number of attempts to recluster points
 
 % default return values

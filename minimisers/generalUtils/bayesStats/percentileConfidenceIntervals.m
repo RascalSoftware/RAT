@@ -11,7 +11,7 @@ function confidenceIntervals = percentileConfidenceIntervals(chain)
 % confidenceIntervals : array
 %     The mean and the 65% and 95% confidence intervals for the chain.
 
-CIFn = @(x,p)prctile(x,abs([0,100]-(100-p)/2),1);
+CIFn = @(x,p)prctile(x,abs([0,100]-0.5*(100-p)),1);
 
 percentile95 = CIFn(chain,95);
 percentile65 = CIFn(chain,65);

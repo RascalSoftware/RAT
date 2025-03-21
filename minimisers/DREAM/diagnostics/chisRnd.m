@@ -26,7 +26,7 @@ function rn=chisRnd(nn,v)
 
 rn = zeros(nn,1);
 for i=1:nn
-    rn(i,1) = 2*gammar1(v/2);
+    rn(i,1) = 2*gammar1(0.5*v);
 end
 
 

@@ -26,4 +26,4 @@ if nargin ~= 2
     error('Wrong # of arguments to chisPrb');
 end
 
-prob = gammainc(x/2, v/2);
+prob = gammainc(0.5*x, 0.5*v);

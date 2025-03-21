@@ -38,7 +38,7 @@ if N < ndims+1
 end
 
 % constant factor for volume of ellipsoid
-const = pi^(ndims/2)/gamma(ndims/2 + 1);
+const = pi^(0.5*ndims)/gamma(0.5*ndims + 1);
 
 % calculate covariance matrix and centroid
 C = cov(u);

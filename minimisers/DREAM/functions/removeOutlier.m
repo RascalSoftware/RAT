@@ -22,7 +22,7 @@ function [X,log_L,outputOutlier] = removeOutlier(X,log_L,outlier,DREAMPar)
 %     The ``outlier`` array with any new removed outliers added.
 
 % Determine the number of elements of L_density
-t = size(log_L,1); t_half = floor(t/2);
+t = size(log_L,1); t_half = floor(0.5*t);
 
 % Then determine the mean log density of the active chains
 mean_log_L = mean(log_L(t_half:t,1:DREAMPar.nChains));

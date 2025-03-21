@@ -101,10 +101,10 @@ for i = 1:n
       % lower and upper bounds
       if x0(i)<=LB(i)
         % infeasible starting value
-        x0u(i) = -pi/2;
+        x0u(i) = -0.5*pi;
       elseif x0(i)>=UB(i)
         % infeasible starting value
-        x0u(i) = pi/2;
+        x0u(i) = 0.5*pi;
       else
         x0u(i) = 2*(x0(i) - LB(i))/(UB(i)-LB(i)) - 1;
         x0u(i) = asin(max(-1,min(1,x0u(i))));

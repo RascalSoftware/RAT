@@ -89,15 +89,20 @@ namespace RAT
     boolean_T b;
     boolean_T empty_non_axis_sizes;
 
-    //
-    //  post_samples = nest2pos(nest_samples, nLive)
-    //
-    //  Convert nested samples with nLive livepoints
-    //  to samples from the posterior distribution
-    //  (logL values in last column of nest_samples)
-    //
     //  John Veitch 2009 (modified by J. Romano 2012)
-    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    //  Convert nested samples to samples from the posterior distribution.
+    //
+    //  Parameters
+    //  ----------
+    //  nest_samples : array
+    //      The samples from the nested sampler.
+    //  nLive : int
+    //      The number of live points.
+    //
+    //  Returns
+    //  -------
+    //  post_samples
+    //      The samples from the posterior distribution for each of ``nest_samples``.
     //  calculate logWt = log(L*w) = logL + logw = logL - i/nLive
     b_tmp = static_cast<double>(nest_samples.size(0)) - nLive;
     if (std::isnan(b_tmp)) {

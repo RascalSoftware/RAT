@@ -154,12 +154,46 @@ namespace RAT
     boolean_T b;
     boolean_T empty_non_axis_sizes;
 
-    //  Initializes the starting positions of the Markov chains
-    //  Create the initial positions of the chains
-    //  switch paramInfo.prior
+    //  Initialize the starting positions of the Markov chains.
     //
-    //      case {'uniform'}
-    //  Random sampling
+    //  Parameters
+    //  ----------
+    //  DREAMPar : struct
+    //      Algorithmic control information for DREAM.
+    //  paramInfo : struct
+    //      Prior, bound, and boundary handling information for each parameter.
+    //  Meas_info : struct
+    //      Struct with measurements to evaluate against.
+    //  chain : array
+    //      The initial chain array created by setupDREAM.
+    //  output : struct
+    //      The initial output struct created by setupDREAM.
+    //  log_L : array
+    //      The array of log-likelihood values sampled from chains.
+    //  ratInputs : struct
+    //      The project and controls inputs from RAT.
+    //
+    //  Returns
+    //  -------
+    //  chain : array
+    //      The initial MCMC chain array.
+    //  output : struct
+    //      The initial empty output struct.
+    //  X : array
+    //      The starting Markov chains.
+    //  fx : array
+    //      The likelihood and log-likelihood at the initial chain points.
+    //  CR : array
+    //      The crossover values for each parameter.
+    //  pCR : array
+    //      The selection probability of crossover for each parameter.
+    //  lCR : array
+    //      The jumping distance weights for each crossover value.
+    //  delta_tot : array
+    //      The initial normalised Euclidean distance for each crossover value.
+    //  log_L : array
+    //      The initial log-likelihood for each chain value.
+    //
     coder::b_rand(DREAMPar.nChains, DREAMPar.nParams, b_X);
     if (paramInfo_max.size(1) == paramInfo_min.size(1)) {
       b_paramInfo_max.set_size(1, paramInfo_max.size(1));
@@ -175,31 +209,6 @@ namespace RAT
 
     coder::repmat(paramInfo_min, DREAMPar.nChains, r1);
 
-    //      case {'latin'}
-    //          % Initialize chains with latinHypercubeSampling hypercube sampling
-    //          if isfield(paramInfo,'min_initial') && isfield(paramInfo,'max_initial')
-    //              [x] = latinHypercubeSampling(paramInfo.min_initial,paramInfo.max_initial,DREAMPar.nChains);
-    //          else
-    //              [x] = latinHypercubeSampling(paramInfo.min,paramInfo.max,DREAMPar.nChains);
-    //          end
-    //      case {'normal'}
-    //
-    //          % Initialize chains with (multi)-normal distribution
-    //          [x] = repmat(paramInfo.mu,DREAMPar.nChains,1) + randn(DREAMPar.nChains,DREAMPar.nParams) * chol(paramInfo.cov);
-    //
-    //      case {'prior'}
-    //
-    //          % Create the initial position of each chain by drawing each parameter individually from the prior
-    //          for qq = 1:DREAMPar.nParams
-    //              for zz = 1:DREAMPar.nChains
-    //                  x(zz,qq) = eval(char(paramInfo.prior_marginal(qq)));
-    //              end
-    //          end
-    //
-    //      otherwise
-    //
-    //          error('unknown initial sampling method');
-    //  end
     //  If specified do boundary handling ( "Bound","Reflect","Fold")
     if (b_X.size(0) == 1) {
       i = r.size(0);
@@ -359,15 +368,28 @@ namespace RAT
     }
 
     //  Compute the R-statistic
-    //  Calculates the R-statistic convergence diagnostic
     //  ----------------------------------------------------
     //  For more information please refer to: Gelman, A. and D.R. Rubin, 1992.
-    //  Inference from Iterative Simulation Using Multiple chain,
+    //  Inference from Iterative Simulation Using Multiple Chain,
     //  Statistical Science, Volume 7, Issue 4, 457-472.
+    //  URL: https://www.jstor.org/stable/2246093
     //
     //  Written by Jasper A. Vrugt
     //  Los Alamos, August 2007
     //  ----------------------------------------------------
+    //  Calculate the R-statistic convergence diagnostic.
+    //
+    //  Parameters
+    //  ----------
+    //  chain : array
+    //      The Markov chains from the optimisation so far.
+    //  DREAMPar : struct
+    //      Algorithmic control information for DREAM.
+    //
+    //  Returns
+    //  -------
+    //  R_stat
+    //      The R-statistic convergence diagnostic for each parameter.
     //  Compute the dimensions of chain
     //  Set the R-statistic to a large value
     output.R_stat[0] = DREAMPar.nChains;

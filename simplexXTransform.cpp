@@ -24,7 +24,20 @@ namespace RAT
   {
     int loop_ub;
 
-    //  converts unconstrained variables into their original domains
+    //  Convert unconstrained variables into their original domains.
+    //
+    //  Parameters
+    //  ----------
+    //  x : vector
+    //      The point to transform.
+    //  params : struct
+    //      Parameter fit information.
+    //
+    //  Returns
+    //  -------
+    //  xtrans : vector
+    //      The point ``x`` transformed for the parameter bounds.
+    //
     xtrans.set_size(x.size(0));
     loop_ub = x.size(0);
     for (int i{0}; i < loop_ub; i++) {

@@ -92,7 +92,28 @@ namespace RAT
     int i;
     int k;
 
-    //  Metropolis rule for acceptance or rejection
+    //  Calculates candidate acceptance for each point using the Metropolis rule.
+    //
+    //  Parameters
+    //  ----------
+    //  DREAMPar : struct
+    //      Algorithmic control information for DREAM.
+    //  log_L_xnew : array
+    //      The log-likelihood of the proposed new point for each chain.
+    //  log_PR_xnew : array
+    //      The log-prior of the proposed new point for each chain.
+    //  log_L_xold :  array
+    //      The log-likelihood of the current newest point on the chain.
+    //  log_PR_xold : array
+    //      The log-prior of the current newest point on the chain.
+    //
+    //  Returns
+    //  -------
+    //  accept : array
+    //      An array of bools of whether the proposal is accepted for each parameter.
+    //  idx_accept : array
+    //      The parameter indices for which proposals were accepted.
+    //
     //  No ABC --> regular MCMC with prior and likelihood
     //  Calculate the likelihood ratio
     //  Calculate the prior ration

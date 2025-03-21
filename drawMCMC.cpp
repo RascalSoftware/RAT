@@ -105,26 +105,53 @@ namespace RAT
     int nLive;
     int nParams;
 
-    //  This function will draw a multi-dimensional sample from the prior volume
-    //  for use in the nested sampling algorithm. The new point will have a
-    //  likelihood greater than the value logLmin. The new point will be found by
+    //  Draw a sample from the prior volume using MCMC chains.
+    //
+    //  The new point will be found by
     //  evolving a random multi-dimensional sample from within the sample array,
-    //  livepoints, using an MCMC with nMCMC iterations. The MCMC will use a
-    //  Students-t (with N=2 degrees of freedom) proposal distribution based on
+    //  livepoints, using an MCMC with nMCMC iterations. The MCMC proposals will use a
+    //  Student's t-distribution (with 2 degrees of freedom) based on
     //  the Cholesky decomposed covariance matrix of the array, cholmat. 10% of
     //  the samples will actually be drawn using differential evolution by taking
-    //  two random points from the current live points. extraparvals is a vector
-    //  of additional parameters needed by the model.
+    //  two random points from the current live points.
     //
-    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    //  global verbose;
+    //  Parameters
+    //  ----------
+    //  livepoints : array
+    //      The live points in the current iteration of the nested sampler.
+    //  cholmat : array
+    //      The Cholesky decomposed covariance matrix of ``livepoints``.
+    //  logLmin : float
+    //      The worst likelihood permitted in this iteration.
+    //  prior : array
+    //      The prior information for the parameters.
+    //  data : array
+    //      The problem struct, controls, and problem limits.
+    //  likelihood : function
+    //      The likelihood function for the problem.
+    //  model : unknown
+    //      Unused.
+    //  nMCMC : int
+    //      The number of chains to use.
+    //  parnames : array
+    //      The names of the parameters.
+    //  extraparvals : array
+    //      A vector of additional parameters needed by the model.
+    //
+    //  Returns
+    //  -------
+    //  sample : array
+    //      The new point sampled by the algorithm.
+    //  logL : float
+    //      The log-likelihood of the new sample.
+    //
     logL = logLmin;
 
     //  useful constant
     nLive = livepoints.size(0);
     nParams = livepoints.size(1) - 1;
 
-    //  degrees of freedom of Students't distribution
+    //  degrees of freedom of Student's t-distribution
     //  initialise counters
     Ntimes = 1.0;
     loop_ub = livepoints.size(1);
@@ -165,9 +192,9 @@ namespace RAT
           currentPrior = logPlus(currentPrior, (-0.91893853320467267 - std::log
             (p4)) - pv_tmp * pv_tmp / (2.0 * (p4 * p4)));
         } else if (priortype == 3.0) {
-          pv_tmp = std::log10(prior[j + prior.size(0)]);
+          pv_tmp = std::log10(prior[j + prior.size(0) * 3]);
           currentPrior = logPlus(currentPrior, -std::log(rt_powd_snf(10.0,
-            sample[j] * (std::log10(prior[j + prior.size(0) * 2]) - pv_tmp) +
+            sample[j] * (std::log10(prior[j + prior.size(0) * 4]) - pv_tmp) +
             pv_tmp)));
         }
       }

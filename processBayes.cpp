@@ -30,6 +30,25 @@ namespace RAT
   {
     int loop_ub;
 
+    //  Process the output of a Bayesian optimisation.
+    //
+    //  Parameters
+    //  ----------
+    //  bayesOutputs : struct
+    //      The outputs of the Bayesian optimisation.
+    //  problemStruct : struct
+    //      The struct for the project.
+    //  controls : struct
+    //      The struct for the controls.
+    //
+    //  Returns
+    //  -------
+    //  problemStruct : struct
+    //      The struct for the output project.
+    //  result : struct
+    //      The results object from the optimisation.
+    //  bayesResults : struct
+    //      The Bayesian-specific results from the optimisation.
     //  Need to impose that we calculate the SLD..
     controls.calcSldDuringFit = true;
 
@@ -47,7 +66,6 @@ namespace RAT
       bayesResults.confidenceIntervals.percentile65,
       bayesResults.confidenceIntervals.mean);
 
-    // iterShortest(output.chain,length(fitNames),[],0.95);
     //  Calculate 'mean' best fit curves
     b_reflectivityCalculation(problemStruct, &controls, result);
 
@@ -70,6 +88,25 @@ namespace RAT
   {
     int loop_ub;
 
+    //  Process the output of a Bayesian optimisation.
+    //
+    //  Parameters
+    //  ----------
+    //  bayesOutputs : struct
+    //      The outputs of the Bayesian optimisation.
+    //  problemStruct : struct
+    //      The struct for the project.
+    //  controls : struct
+    //      The struct for the controls.
+    //
+    //  Returns
+    //  -------
+    //  problemStruct : struct
+    //      The struct for the output project.
+    //  result : struct
+    //      The results object from the optimisation.
+    //  bayesResults : struct
+    //      The Bayesian-specific results from the optimisation.
     //  Need to impose that we calculate the SLD..
     controls.calcSldDuringFit = true;
 
@@ -87,7 +124,6 @@ namespace RAT
       bayesResults.confidenceIntervals.percentile65,
       bayesResults.confidenceIntervals.mean);
 
-    // iterShortest(output.chain,length(fitNames),[],0.95);
     //  Calculate 'mean' best fit curves
     b_reflectivityCalculation(problemStruct, &controls, result);
 

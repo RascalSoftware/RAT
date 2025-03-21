@@ -71,7 +71,14 @@ namespace RAT
     int i;
     int loop_ub;
 
-    //  Function to check whether parameter values remain within prior bounds
+    //  Check whether parameter values remain within prior bounds, and handle ones outside.
+    //
+    //  Parameters
+    //  ----------
+    //  x : array
+    //      The parameter values.
+    //  paramInfo : struct
+    //      Ranges, priors and boundary handling for each parameter.
     //  First determine the size of new
     //  Now replicate min and max
     coder::repmat(paramInfo_min, static_cast<double>(x.size(0)), min_d);

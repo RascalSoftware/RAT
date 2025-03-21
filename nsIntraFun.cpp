@@ -26,6 +26,16 @@ namespace RAT
     ProblemDefinition problemStruct;
     Results expl_temp;
     int loop_ub;
+
+    //  Calculate the log-likelihood of a data point during nested sampling.
+    //
+    //  Parameters
+    //  ----------
+    //  data : array
+    //      The problem struct, controls, and problem limits.
+    //  p : array
+    //      The point in parameter space to calculate likelihood for.
+    //
     problemStruct = data_f1;
 
     //  Removed use of cells....

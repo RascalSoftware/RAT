@@ -31,7 +31,20 @@ namespace RAT
     double L_data[3];
     int tmp_size[2];
 
-    //  Generates CR values based on current crossover probabilities
+    //  Generate CR values based on current crossover probabilities.
+    //
+    //  Parameters
+    //  ----------
+    //  DREAMPar : struct
+    //      The algorithmic control settings for DREAM.
+    //  pCR : array
+    //      The selection probability of crossover for each parameter.
+    //
+    //  Returns
+    //  -------
+    //  CR : array
+    //      The crossover values for each parameter.
+    //
     if (DREAMPar.adaptPCR) {
       double L2_data[4];
       double L_tmp;

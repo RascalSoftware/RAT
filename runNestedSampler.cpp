@@ -193,6 +193,27 @@ namespace RAT
     int bayesOutputs_bestParams_size[2];
     int loop_ub;
     int t8_predictionIntervals_sampleChi_size;
+
+    //  Run the nested sampling algorithm for a given problem and controls.
+    //
+    //  Parameters
+    //  ----------
+    //  problemStruct : struct
+    //      the Project struct.
+    //  problemLimits : array
+    //      the value limits for each parameter.
+    //  controls : struct
+    //      the Controls struct.
+    //
+    //  Returns
+    //  -------
+    //  problemStruct : struct
+    //      the output project struct.
+    //  result : struct
+    //      the calculation and optimisation results object.
+    //  bayesResults : struct
+    //      Additional Bayesian results from the algorithm.
+    //
     packParams(problemStruct, problemLimits_params,
                problemLimits_backgroundParams, problemLimits_scalefactors,
                problemLimits_bulkIns, problemLimits_bulkOuts,

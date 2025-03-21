@@ -63,6 +63,23 @@ namespace RAT
     int thisCol_size;
     boolean_T b;
 
+    //  Calculate the percentile confidence intervals for the reflectivity.
+    //
+    //  Parameters
+    //  ----------
+    //  bayesOutputs : struct
+    //      The outputs of the Bayesian optimisation.
+    //  problemStruct : struct
+    //      The struct for the project.
+    //  controls : struct
+    //      The struct for the controls.
+    //  results : struct
+    //      The results object from the optimisation.
+    //
+    //  Returns
+    //  -------
+    //  allPredInts : array
+    //      The prediction intervals from the optimisation.
     //  Need to deal slightly differently with SLDs if there are domains
     //  Prepare some arrays to hold the SLD's and Refs for all the chain, keeping only the Y values.
     //  We'll save x values in a separate array

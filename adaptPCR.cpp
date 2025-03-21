@@ -30,7 +30,25 @@ namespace RAT
     double b_zz;
     int b_CR;
 
-    //  Updates the probabilities of the various crossover values
+    //  Update the probabilities of the various crossover values.
+    //
+    //  Parameters
+    //  ----------
+    //  DREAMPar : struct
+    //      Algorithmic control settings for DREAM.
+    //  CR : vector
+    //      The vector of crossover values.
+    //  delta_tot : float
+    //      The normalised Euclidean distance for each crossover value.
+    //  lCRold : array
+    //      The old jumping distance weights for each crossover value.
+    //
+    //  Returns
+    //  -------
+    //  pCR : array
+    //      The crossover selection probability for each parameter.
+    //  lCR : array
+    //      The jumping distance weights for each crossover value.
     //  Make CR to be a single vector
     //  Determine lCR
     lCR_size[0] = 1;

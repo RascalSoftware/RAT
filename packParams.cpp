@@ -38,8 +38,21 @@ namespace RAT
     int i1;
     int loop_ub;
 
-    //  We need to pack the parameters into an array consisting of those
-    //  that are being fitted.
+    //  Pack the parameters into an array of those being fitted.
+    //
+    //  Parameters
+    //  ----------
+    //  problemStruct : struct
+    //      The project struct.
+    //  problemLimits : struct
+    //      The limits for each parameter.
+    //
+    //  Returns
+    //  -------
+    //  problemStruct : struct
+    //      The project struct with fit information.
+    //  fitNames : array
+    //      The names of the parameters being fit.
     //  Note that this order of parameters fields is hard-coded by this
     //  routine, packParamsPriors, unpackParams, and getFitNames
     numberOfFitted = (((((coder::sum(problemStruct.checks.params) + coder::sum

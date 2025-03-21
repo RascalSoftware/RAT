@@ -42,12 +42,40 @@ namespace RAT
     Meas_info.Y = 0.0;
     Meas_info.N = 0.0;
 
-    //  Initializes the main variables used in DREAM
+    //  Initialize the main variables used in DREAM.
+    //
+    //  Parameters
+    //  ----------
+    //  DREAMPar : struct
+    //      Algorithmic control information for DREAM.
+    //  paramInfo : struct
+    //      Ranges, priors and boundary handling for each parameter.
+    //  Meas_info : struct
+    //      Struct with measurements to evaluate against.
+    //
+    //  Returns
+    //  -------
+    //  outDREAMPar : struct
+    //      The options for DREAMPar with defaults applied.
+    //  paramInfo : struct
+    //      The input ``paramInfo`` after range validation.
+    //  Meas_info : struct
+    //      The input ``Meas_info`` after validation.
+    //  chain : array
+    //      The initial MCMC chain array.
+    //  output : struct
+    //      The initial empty output struct.
+    //  log_L : array
+    //      The initial array of log-likelihood values sampled from chains.
+    //  Table_gamma : array
+    //      The initial DE jump length values for each parameter.
+    //  iloc : int
+    //      The index of the current sample in the chains.
+    //  iteration : int
+    //      The initial iteration number.
+    //  gen : int
+    //      The number of new candidates generated this generation.
     //  To keep coder happy, we have to define the full version of DREAMPar here
-    //  fieldNames = {'nParams','nChains','nGenerations','parallel','CPU','jumpProbability','pUnitGamma','nCR','delta','steps',...
-    //      'zeta','outlier','adaptPCR','thinning','ABC','epsilon','IO','storeOutput','R'};
-    //  values = cell(length(fieldNames),1);
-    //  outDREAMPar = cell2struct(values,fieldNames);
     loop_ub_tmp = static_cast<int>(DREAMPar_nChains);
     outDREAMPar.R.set_size(loop_ub_tmp, loop_ub_tmp);
     for (i = 0; i < loop_ub_tmp; i++) {
@@ -238,11 +266,10 @@ namespace RAT
 
     loop_ub = y.size(1);
     for (int zz{0}; zz < 3; zz++) {
-      int b_y;
-      b_y = (zz + 1) << 1;
+      k = (zz + 1) << 1;
       r.set_size(y.size(1));
       for (i = 0; i < loop_ub; i++) {
-        r[i] = static_cast<double>(b_y) * y[i];
+        r[i] = static_cast<double>(k) * y[i];
       }
 
       i = r.size(0);

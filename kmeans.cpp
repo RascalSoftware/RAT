@@ -117,25 +117,35 @@ namespace RAT
     int i1;
     int loop_ub;
 
-    //    Finds K prototypes representing the samples in data matrix X,
-    //    where each row of X represents a sample.
-    //    Iterates until maximum norm difference between
-    //    prototypes found in successive iterations is < maxerr
-    //
-    //    This script uses square Euclidean distance,
-    //    but can be easily modified to use other metrics
-    //
-    //  Output arguments
-    //    means: matrix with each row a cluster prototype
-    //    Nmeans: Number of samples in each cluster
-    //    membership: Assigned class for each sample
-    //
-    //  Example:
-    //    X = [randn(100,1) ;  2+randn(100,1)];
-    //    K = 2;
-    //    [means Nmeans] = kmeans(X,K,0)
-    //
     //    Mauricio Martinez-Garcia, 2003, 2007, 2016
+    //  Perform K-means clustering for the data in ``X``.
+    //
+    //  Finds K prototypes representing the samples in data matrix X,
+    //  where each row of X represents a sample.
+    //  Iterates until maximum norm difference between
+    //  prototypes found in successive iterations is < maxerr
+    //
+    //  This script uses square Euclidean distance,
+    //  but can be easily modified to use other metrics.
+    //
+    //  Parameters
+    //  ----------
+    //  X : array
+    //      An array of points, where each row of X is one point.
+    //  K : int
+    //      The number of clusters to separate the points into.
+    //  maxerr : float
+    //      The maximum norm difference between cluster prototypes.
+    //
+    //  Returns
+    //  -------
+    //  means : array
+    //      matrix with each row a cluster prototype.
+    //  Nmeans : array
+    //      Number of samples in each cluster.
+    //  membership : array
+    //      Assigned class for each sample.
+    //
     Nmeans[0] = 0.0;
     Nmeans[1] = 0.0;
 

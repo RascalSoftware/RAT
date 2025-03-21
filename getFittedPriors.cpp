@@ -35,6 +35,25 @@ namespace RAT
     boolean_T c_tmp_data[10000];
     boolean_T tmp_data[10000];
 
+    //  Convert RAT prior information into an array.
+    //
+    //  Parameters
+    //  ----------
+    //  paramNames : array
+    //      The name of each parameter in the list.
+    //  priorNames : array
+    //      The name of the prior for each parameter ('uniform', 'gaussian', or 'jeffreys')
+    //  priorValues : array
+    //      The values for the prior (mu/sigma for Gaussian, unused otherwise)
+    //  fitLimits : array
+    //      The lower and upper limits for each parameter.
+    //
+    //  Returns
+    //  -------
+    //  priorFitList : array
+    //      a ``length(paramNames)x5`` array, where each row
+    //      is the index of the parameter, a numeric flag for the prior,
+    //      the prior values, and the limits for each parameter.
     //  Find the values for fitParams
     // priorFitList = cell(numberOfParams,5);
     //  for i = 1:numberOfParams

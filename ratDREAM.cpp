@@ -399,24 +399,8 @@ namespace RAT
     boolean_T exitg1;
     boolean_T tmp_data;
 
-    //  Modified version of Vrugt DREAm algorithm to be specific for RAT....
-    //  ----------------------------------------------------------------------------------------------%
-    //                                                                                                %
-    //  DDDDDDDDDDDDDDD    RRRRRRRRRRRRRR     EEEEEEEEEEEEEEEE       AAAAA       MMM             MMM  %
-    //  DDDDDDDDDDDDDDDD   RRRRRRRRRRRRRRR    EEEEEEEEEEEEEEEE       AAAAA       MMMM           MMMM  %
-    //  DDD          DDD   RRR          RRR   EEE                   AAA AAA      MMMMM         MMMMM  %
-    //  DDD          DDD   RRR          RRR   EEE                   AAA AAA      MMMMMM       MMMMMM  %
-    //  DDD          DDD   RRR          RRR   EEE                  AAA   AAA     MMM MMM     MMM MMM  %
-    //  DDD          DDD   RRR          RRR   EEE                  AAA   AAA     MMM  MMM   MMM  MMM  %
-    //  DDD          DDD   RRRRRRRRRRRRRRR    EEEEEEEEEEEEEEEE    AAA     AAA    MMM   MMM MMM   MMM  %
-    //  DDD          DDD   RRRRRRRRRRRRRR     EEEEEEEEEEEEEEEE    AAAAAAAAAAA    MMM    MMMM     MMM  %
-    //  DDD          DDD   RRR          RR    EEE                AAA       AAA   MMM             MMM  %
-    //  DDD          DDD   RRR          RRR   EEE                AAA       AAA   MMM             MMM  %
-    //  DDD          DDD   RRR          RRR   EEE               AAA         AAA  MMM             MMM  %
-    //  DDDDDDDDDDDDDDDD   RRR          RRR   EEEEEEEEEEEEEEEE  AAA         AAA  MMM             MMM  %
-    //  DDDDDDDDDDDDDDD    RRR          RRR   EEEEEEEEEEEEEEEE  AAA         AAA  MMM             MMM  %
-    //                                                                                                %
-    //  ----------------------------------------------------------------------------------------------%
+    //  Original DREAM docstring:
+    //  (this version is modified for RAT)
     //  ----------------- DiffeRential Evolution Adaptive Metropolis algorithm -----------------------%
     //                                                                                                %
     //  DREAM runs multiple different chains simultaneously for global exploration, and automatically %
@@ -426,28 +410,6 @@ namespace RAT
     //  multimodality.                                                                                %
     //                                                                                                %
     //  DREAM developed by Jasper A. Vrugt and Cajo ter Braak                                         %
-    //                                                                                                %
-    //  --------------------------------------------------------------------------------------------- %
-    //                                                                                                %
-    //  SYNOPSIS: [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar)                                 %
-    //            [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,paramInfo)                        %
-    //            [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,paramInfo,Meas_info)              %
-    //                                                                                                %
-    //  Input:    Func_name = name of the function ( = model ) that returns density of proposal       %
-    //            DREAMPar = structure with algorithmic / computatinal settings of DREAM              %
-    //            paramInfo = structure with parameter ranges, prior distribution, boundary handling   %
-    //            Meas_info = optional structure with measurements to be evaluated against            %
-    //                                                                                                %
-    //  Output:   chain = 3D array with chain trajectories, log-prior and log-likelihood values       %
-    //            output = structure with convergence properties, acceptance rate, CR values, etc.    %
-    //            fx = matrix with model simulations                                                  %
-    //            log_L = matrix with log-likelihood values sampled chains                            %
-    //                                                                                                %
-    //  The directory \PostProcessing contains a script "PostProcMCMC" that will compute various      %
-    //  posterior statistics (MEAN, STD, MAP, CORR) and create create various plots including,        %
-    //  marginal posterior parameter distributions, R_stat convergence diagnostic, two-dimensional    %
-    //  correlation plots of the posterior parameter samples, chain convergence plots, and parameter  %
-    //  and total posterior simulation uncertainty ranges (interval can be specified)                 %
     //                                                                                                %
     //  --------------------------------------------------------------------------------------------- %
     //                                                                                                %
@@ -525,11 +487,30 @@ namespace RAT
     //  Version 2.4: May 2014           Parallellization using parfor (done if CPU > 1)               %
     //                                                                                                %
     //  --------------------------------------------------------------------------------------------- %
-    // ------ AVH -- Always will have consistent variable numbers -------
-    //  Check how many input variables
-    //  if nargin < 4, Meas_info.Y = []; end;
-    //  if isempty(Meas_info), Meas_info.Y = []; end;
-    //  ------------------------------------------------------------------------
+    //  Optimise a function using the Differential Evolution Adaptive Metropolis (DREAM) algorithm.
+    //
+    //  Parameters
+    //  ----------
+    //  dreamVariables : struct
+    //      Algorithmic control information for DREAM.
+    //  paramInfo : struct
+    //      Ranges, priors and boundary handling for each parameter.
+    //  Meas_info : struct, optional
+    //      Struct with measurements to evaluate against.
+    //  ratInputs : struct
+    //      Project and controls information from RAT.
+    //
+    //  Returns
+    //  -------
+    //  chain : array
+    //      The MCMC chains generated by the algorithm, with log-prior and log-likelihood values.
+    //  output : struct
+    //      Diagnostic information such as convergence properties, acceptance rate, CR values, etc.
+    //  fx : array
+    //      Matrix of simulated probability distribution functions.
+    //  log_L : array
+    //      Matrix of log-likelihood values sampled from chains.
+    //
     //  Initialize the main variables used in DREAM
     b_paramInfo_min.set_size(1, paramInfo_min.size(1));
     loop_ub = paramInfo_min.size(1);
@@ -836,7 +817,23 @@ namespace RAT
         //  Use this information to update sum_p2 to update N_CR
         coder::blockedSummation(x, x.size(1), b_X);
 
-        //  Calculate total normalized Euclidean distance for each crossover value
+        //  Calculate total normalised Euclidean distance for each crossover value.
+        //
+        //  Parameters
+        //  ----------
+        //  DREAMPar : struct
+        //      Algorithmic control information for DREAM.
+        //  delta_tot : array
+        //      The initial normalised Euclidean distance for each crossover value.
+        //  delta_normX : array
+        //      The Euclidean distance between the new and old crossover value.
+        //  CR : array
+        //      The crossover values for each parameter.
+        //
+        //  Returns
+        //  -------
+        //  delta_tot : array
+        //      The updated normalised Euclidean distance for each crossover value.
         //  Derive sum_p2 for each different CR value
         for (int j{0}; j < 3; j++) {
           //  Find which chains are updated with j/DREAMPar.nCR

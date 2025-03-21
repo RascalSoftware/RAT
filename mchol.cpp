@@ -122,20 +122,6 @@ namespace RAT
     int loop_ub;
     int n;
 
-    //
-    //   [L,D,E,pneg]=mchol(G)
-    //
-    //   Given a symmetric matrix G, find a matrix E of "small" norm and c
-    //   L, and D such that  G+E is Positive Definite, and
-    //
-    //       G+E = L*D*L'
-    //
-    //   Also, calculate a direction pneg, such that if G is not PD, then
-    //
-    //       pneg'*G*pneg < 0
-    //
-    //   Note that if G is PD, then the routine will return pneg=[].
-    //
     //   Reference: Gill, Murray, and Wright, "Practical Optimization", p111.
     //   Author: Brian Borchers (borchers@nmt.edu)
     //
@@ -166,6 +152,36 @@ namespace RAT
     //  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
     //  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
     //  POSSIBILITY OF SUCH DAMAGE.
+    //  Calculate the Cholesky (LDL) decomposition of a symmetric matrix G.
+    //
+    //  Includes a potential small perturbation so that we can calculate for non-positive-definite matrices.
+    //
+    //  Given a symmetric matrix G, find a matrix E of "small" norm, lower-triangular matrix
+    //  L, and diagonal matrix D such that G+E is positive definite, and
+    //
+    //  .. math:: G+E = LDL'
+    //
+    //  Also, calculate a direction pneg, such that if G is not PD, then
+    //
+    //  .. math:: \text{pneg}' G \text{pneg} < 0
+    //
+    //  Note that if G is positive-definite, then the routine will return pneg=[].
+    //
+    //  Parameters
+    //  ----------
+    //  G : array
+    //      The matrix to calculate the Cholesky decomposition for.
+    //
+    //  Returns
+    //  -------
+    //  L : array
+    //      The lower-triangular matrix such that G+E = LDL'.
+    //  D : array
+    //      The diagonal matrix such that G+E = LDL'.
+    //  E : array
+    //      The perturbation matrix such that G+E = LDL'.
+    //  pneg : array
+    //      The descent direction when G is not positive-definite.
     //
     //   n gives the size of the matrix.
     //

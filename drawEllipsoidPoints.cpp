@@ -61,13 +61,22 @@ namespace RAT
     int i;
     int k;
 
-    //  function pnts = drawEllipsoidPoints(B, mu, N )
+    //  Draw points uniformly from an ellipsoid.
     //
-    //  This function draws points uniformly from an ndims-dimensional ellipsoid
-    //  with edges and orientation defined by the the bounding matrix B and
-    //  centroid mu.  The output is a Nxndims dimensional array pnts.
+    //  Parameters
+    //  ----------
+    //  B : array
+    //      The bounding matrix for the ellipsoid.
+    //  mu : float
+    //      The centroid of the ellipsoid.
+    //  N : int
+    //      The number of points to draw.
     //
-    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    //  Returns
+    //  -------
+    //  pnts : array
+    //      An array of N points drawn from the N-dimensional ellipsoid defined
+    //      by bounding matrix B and centroid mu.
     //  get number of dimensions from the bounding matrix B
     //  calculate eigenvalues and vectors of the bounding matrix
     coder::eig(B, V, E);

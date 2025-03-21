@@ -81,10 +81,22 @@ namespace RAT
     int i;
     int loop_ub;
 
+    //  Scale a random value to a Gaussian prior.
+    //
+    //  Parameters
+    //  ----------
+    //  m : vector
+    //      The point in parameter space to scale.
+    //  extras : struct
+    //      Additional problem information, including which dimensions of ``m`` need scaling.
+    //
+    //  Returns
+    //  -------
+    //  pVal2 : vector
+    //      The parameter values rescaled to Gaussian priors.
+    //
     //  All are in range, so check for Gaussian priors....
     //  We pick out any priors that are Gaussians and calculate the mvnpdf
-    //  Find all the Gaussian priors....
-    //  usedPriorInd = find(strcmpi(priorList(:,1),'gaussian'));
     b_extras_priors.set_size(extras_priors.size(0));
     loop_ub = extras_priors.size(0);
     for (i = 0; i < loop_ub; i++) {

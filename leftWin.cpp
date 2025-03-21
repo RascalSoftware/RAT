@@ -34,6 +34,18 @@ namespace RAT
     //                                        minimized.
     //  Return value:     I_z          (O)    If S_x wins over S_y then I_z=1 else I_z=0.
     // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    //  Compare the objective function for two DE candidate points.
+    //
+    //  Parameters
+    //  ----------
+    //  S_x, S_y : struct
+    //      The two points to compare.
+    //
+    //  Returns
+    //  -------
+    //  I_z : bool
+    //      Whether S_x has a lower objective function value than S_y.
+    //
     I_z = 1.0;
 
     // start with I_z=1

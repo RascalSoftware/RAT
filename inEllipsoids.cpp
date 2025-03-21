@@ -182,21 +182,22 @@ namespace RAT
     int i;
     int ndims;
 
-    //  function N = inEllipsoids(pnt, Bs, mus)
+    //  Calculate how many of the ellipsoids contain the point ``pnt``.
     //
-    //  This function works out how many of the ellipsoids (defined by the
-    //  bounding matrices Bs and centroids mus) contain the point pnt.
-    //  This number is returned in N.
+    //  Parameters
+    //  ----------
+    //  pnt : array
+    //      The point to calculate ellipsoid membership for.
+    //  Bs : array
+    //      The bounding matrices of the ellipsoids.
+    //  mus : array
+    //      The centroids of the ellipsoids.
     //
-    //  Bs is a [(Kxndims) x ndims] array, where K=total number of ellipsoids
-    //  and ndims = dimension of the parameter space.
-    //  mus is a [K x ndims] array.
-    //  pnt is a ndims-dimensional vector.
+    //  Returns
+    //  -------
+    //  N : int
+    //      The number of ellipsoids containing ``pnt``.
     //
-    //  NOTE: in the future it may be quicker to input precalculated eigenvalues
-    //  and eigenvectors into this function rather than the bounding matrices
-    //
-    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     N = 0.0;
 
     //  total number of ellipsoids and number of dimensions

@@ -27,20 +27,27 @@ namespace RAT
     ::coder::array<double, 2U> b_x;
     int loop_ub_tmp;
 
-    //  This function computes the likelihood and log-likelihood of each d-vector
-    //  of x values
-    //
-    //  Code both for sequential and parallel evaluation of model ( = pdf )
-    //
     //  Written by Jasper A. Vrugt
-    //  Check whether to store the output of each model evaluation (function call)
-    //  if DREAMPar.storeOutput && ( Meas_info.N > 0 )
+    //  Compute the likelihood and log-likelihood of each d-vector of x values.
     //
-    //      % Create initial fx of size model output by DREAMPar.nChains
-    //      fx = NaN(Meas_info.N,DREAMPar.nChains);
+    //  If DREAMPar.CPU > 1, runs in parallel.
     //
-    //  end
-    //  Now evaluate the model
+    //  Parameters
+    //  ----------
+    //  x : array
+    //      The points at which to calculate likelihood and log-likelihood.
+    //  DREAMPar : struct
+    //      Algorithmic control information for DREAM.
+    //  Meas_info : struct, optional
+    //      Struct with measurements to evaluate against.
+    //  ratInputs : struct
+    //      Project and controls information from RAT.
+    //
+    //  Returns
+    //  -------
+    //  fx : array
+    //      The likelihood and log-likelihood for each point in ``x``.
+    //
     loop_ub_tmp = static_cast<int>(DREAMPar.nChains);
     fx.set_size(1, loop_ub_tmp);
     for (int i{0}; i < loop_ub_tmp; i++) {

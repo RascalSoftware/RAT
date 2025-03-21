@@ -42,23 +42,27 @@ namespace RAT
     int b_flag;
     boolean_T b_y_data;
 
+    //  Calculate a bounding ellipsoid for a set of points u.
     //
-    //  calculate properties of ellipsoid given a set of points u
+    //  Parameters
+    //  ----------
+    //  u : array
+    //      Array of points to contain in the ellipsoid.
+    //      Nxndims array where N is the number point and ndims is the
+    //      number of dimensions.
+    //  VS : float
+    //      The minimum volume that the bounding ellipsoid should have.
     //
-    //  Inputs:
-    //     u:  Nxndims array where N is the number point and ndims is the
-    //         number of dimensions
-    //     VS: minimum volume that the bounding ellipsoid should have
-    //
-    //  Outputs:
-    //     B:    bounding matrix for ellipsoid including scale factor
-    //           for mininimum volume
-    //     mu:   centroid
-    //     VE:   volume of ellipsoid
-    //     flag: = 1 if number of points too small or bounding matrix
-    //           has bad condition number; otherwise = 0
-    //
-    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    //  Returns
+    //  -------
+    //  B : array
+    //      Bounding matrix for ellipsoid including scale factor for minimum volume.
+    //  mu : float
+    //      The centroid of the ellipsoid.
+    //  VE : float
+    //      The volume of the ellipsoid.
+    //  flag : bool
+    //      Equals 1 if the ellipsoid cannot be drawn (too few points or bad condition number).
     //  default values
     B.set_size(0, 0);
     mu.set_size(0, 0);

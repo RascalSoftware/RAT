@@ -28,6 +28,20 @@ namespace RAT
     Results expl_temp;
     int loop_ub;
 
+    //  Calculate the log-likelihood for a set of parameters.
+    //
+    //  Parameters
+    //  ----------
+    //  pars : vector
+    //      The current parameter values.
+    //  ratInputs : struct
+    //      The problem and controls to calculate log-likelihood from.
+    //
+    //  Returns
+    //  -------
+    //  Lik : float
+    //      The (natural) log-likelihood value for the given parameter values.
+    //
     //  Get the inputs for Reflectivity Calculation
     problemStruct = ratInputs_problemStruct;
 

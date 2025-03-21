@@ -101,6 +101,40 @@ namespace RAT
     ::coder::array<char, 2U> charStr;
     h_struct_T expl_temp;
     int loop_ub;
+
+    //  Run the differential evolution algorithm for a given problem and controls.
+    //
+    //  Parameters
+    //  ----------
+    //  problemStruct : struct
+    //      the Project struct.
+    //  problemLimits : array
+    //      the value limits for each parameter.
+    //  controls : struct
+    //      the Controls struct.
+    //
+    //  Returns
+    //  -------
+    //  problemStruct : struct
+    //      the output project struct.
+    //  result : struct
+    //      the calculation and optimisation results object.
+    //
+    //  Set up fit parameters.
+    //
+    //  Parameters
+    //  ----------
+    //  problemStruct : struct
+    //      The project struct.
+    //  problemLimits : struct
+    //      The limits for each parameter.
+    //
+    //  Returns
+    //  -------
+    //  problemStruct : struct
+    //      The project struct with fit information.
+    //  fitNames : array
+    //      The names of the parameters being fit.
     packParams(problemStruct, problemLimits_params,
                problemLimits_backgroundParams, problemLimits_scalefactors,
                problemLimits_bulkIns, problemLimits_bulkOuts,

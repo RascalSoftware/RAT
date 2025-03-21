@@ -21,10 +21,23 @@ namespace RAT
   {
     int i;
 
-    //  Creates a m by n cell array and initialise each cell with given
-    //  value
+    //  Creates a m by n cell array and initialise each cell with the given value.
     //
-    //  array = makeCell(5, 2, [1, 1])
+    //  Parameters
+    //  ----------
+    //  m, n : int
+    //      The dimension of the array.
+    //  vals : array
+    //     The values to fill the cell array with.
+    //
+    //  Returns
+    //  -------
+    //  x : array
+    //      The required cell array.
+    //
+    //  Examples
+    //  --------
+    //  >>> array = makeCell(5, 2, [1, 1])
     i = static_cast<int>(m);
     x.set_size(i, 2);
     for (int b_i{0}; b_i < i; b_i++) {
@@ -39,10 +52,23 @@ namespace RAT
 
   void makeCell(cell_wrap_9 x[50])
   {
-    //  Creates a m by n cell array and initialise each cell with given
-    //  value
+    //  Creates a m by n cell array and initialise each cell with the given value.
     //
-    //  array = makeCell(5, 2, [1, 1])
+    //  Parameters
+    //  ----------
+    //  m, n : int
+    //      The dimension of the array.
+    //  vals : array
+    //     The values to fill the cell array with.
+    //
+    //  Returns
+    //  -------
+    //  x : array
+    //      The required cell array.
+    //
+    //  Examples
+    //  --------
+    //  >>> array = makeCell(5, 2, [1, 1])
     x[0].f1.set_size(1, 1);
     x[0].f1[0] = 1.0;
     x[1].f1.set_size(1, 1);
@@ -149,10 +175,23 @@ namespace RAT
   {
     int i;
 
-    //  Creates a m by n cell array and initialise each cell with given
-    //  value
+    //  Creates a m by n cell array and initialise each cell with the given value.
     //
-    //  array = makeCell(5, 2, [1, 1])
+    //  Parameters
+    //  ----------
+    //  m, n : int
+    //      The dimension of the array.
+    //  vals : array
+    //     The values to fill the cell array with.
+    //
+    //  Returns
+    //  -------
+    //  x : array
+    //      The required cell array.
+    //
+    //  Examples
+    //  --------
+    //  >>> array = makeCell(5, 2, [1, 1])
     i = static_cast<int>(m);
     x.set_size(i, 1);
     for (int b_i{0}; b_i < i; b_i++) {

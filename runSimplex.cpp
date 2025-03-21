@@ -49,6 +49,40 @@ namespace RAT
     int dis_size[2];
     int outsize_idx_0;
     char dis_data[6];
+
+    //  Run the Nelder-Mead simplex algorithm for a given problem and controls.
+    //
+    //  Parameters
+    //  ----------
+    //  problemStruct : struct
+    //      the Project struct.
+    //  problemLimits : array
+    //      the value limits for each parameter.
+    //  controls : struct
+    //      the Controls struct.
+    //
+    //  Returns
+    //  -------
+    //  problemStruct : struct
+    //      the output project struct.
+    //  result : struct
+    //      the calculation and optimisation results object.
+    //
+    //  Set up fit parameters.
+    //
+    //  Parameters
+    //  ----------
+    //  problemStruct : struct
+    //      The project struct.
+    //  problemLimits : struct
+    //      The limits for each parameter.
+    //
+    //  Returns
+    //  -------
+    //  problemStruct : struct
+    //      The project struct with fit information.
+    //  fitNames : array
+    //      The names of the parameters being fit.
     packParams(problemStruct, problemLimits_params,
                problemLimits_backgroundParams, problemLimits_scalefactors,
                problemLimits_bulkIns, problemLimits_bulkOuts,
@@ -213,7 +247,6 @@ namespace RAT
                controls->updatePlotFreq, controls->IPCFilePath.data,
                controls->IPCFilePath.size, expl_temp, a__4, a__3);
 
-    // [xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemStruct,controls,options,params,300);
     //  undo the variable transformations into the original space
     simplexXTransform(x0u, expl_temp.LB, expl_temp.UB, expl_temp.BoundClass, x);
 

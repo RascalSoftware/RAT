@@ -83,7 +83,27 @@ namespace RAT
     int loop_ub;
     int t_half;
 
-    //  Finds outlier chains and removes them when needed
+    //  Find outlier chains and remove them when needed.
+    //
+    //  Parameters
+    //  ----------
+    //  X : array
+    //      The current position for each chain.
+    //  log_L : array
+    //      The current log-likelihood for each chain.
+    //  outlier : array
+    //      The current array of outlier chains.
+    //  DREAMPar : struct
+    //      Algorithmic control information for DREAM.
+    //
+    //  Returns
+    //  -------
+    //  X : array
+    //      The position for each chain with outliers removed.
+    //  log_L : array
+    //      The log-likelihood for each chain with outliers removed.
+    //  outputOutlier :
+    //      The ``outlier`` array with any new removed outliers added.
     //  Determine the number of elements of L_density
     t_half = static_cast<int>(std::floor(static_cast<double>(log_L.size(0)) /
       2.0));
@@ -118,22 +138,6 @@ namespace RAT
 
     coder::mean(b_log_L, chain_select);
     iqr(chain_select, chain_id);
-
-    //  % Create outlier handle
-    //  evalstr = strcat('chain_id=',DREAMPar.outlier,'(mean_log_L);');
-    //
-    //  % Now evaluate outlier handle
-    //  try
-    //      eval(evalstr);
-    //  catch
-    //      % Warning -- not enough chains to do sampling -- increase number of chains!
-    //      fprintf('DREAM WARNING: Unknown outlier detection test at %d generations \n',t);
-    //      % Now print warning to screen and to file
-    //      %fprintf(evalstr); % fprintf(fid,evalstr);
-    //      % No outlier detected
-    //      outlier = [];
-    //      return
-    //  end
     outputOutlier.set_size(outlier_size[0], 2);
     loop_ub = outlier_size[0];
     for (i = 0; i < 2; i++) {

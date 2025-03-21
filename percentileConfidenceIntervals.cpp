@@ -25,6 +25,18 @@ namespace RAT
   {
     ::coder::array<double, 2U> r;
     int loop_ub;
+
+    //  Calculate percentile confidence intervals for a chain.
+    //
+    //  Parameters
+    //  ----------
+    //  chain : array
+    //      The chain from an MCMC calculation.
+    //
+    //  Returns
+    //  -------
+    //  confidenceIntervals : array
+    //      The mean and the 65% and 95% confidence intervals for the chain.
     coder::prctile(chain, confidenceIntervals_percentile95);
     coder::b_prctile(chain, confidenceIntervals_percentile65);
     coder::blockedSummation(chain, chain.size(0), r);

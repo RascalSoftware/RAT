@@ -11,11 +11,10 @@ controlsInput = controlsClass();
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemStruct,problemLimits,controls] = parseClassToStructs(customLayersProblem,controlsInput);
+[problemStruct,controls] = parseClassToStructs(customLayersProblem,controlsInput);
 
 inputs.project = customLayersProblem;
 inputs.problemStruct = problemStruct;
-inputs.problemLimits = problemLimits;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
@@ -26,7 +25,7 @@ resultStruct = reflectivityCalculation(problemStruct,controls);
 
 outputs.resultStruct = resultStruct;
 
-[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemLimits,controls);
+[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,controls);
 
 outputs.problemStruct = problemStruct;
 outputs.resultStructMain = resultStructMain;
@@ -41,7 +40,7 @@ save([root filesep 'tests/normalTFReflectivityCalculation/customLayersOutputs'],
 
 % (c) TF Parameters
 [qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,simulation,...
- shiftedData,backgrounds,resolutions,layerSlds,sldProfiles,...
+ shiftedData,backgrounds,resolutions,sldProfiles,layers,...
  resampledLayers,subRoughs] = normalTF.customLayers(problemStruct,controls);
 
 TFParams.qzshifts = qzshifts;
@@ -56,8 +55,8 @@ TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;
 TFParams.backgrounds = backgrounds;
 TFParams.resolutions = resolutions;
-TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
+TFParams.layers = layers;
 TFParams.resampledLayers = resampledLayers;
 
 save([root filesep 'tests/normalTFReflectivityCalculation/customLayersTFParams'],'TFParams');
@@ -70,11 +69,10 @@ controlsInput = controlsClass();
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemStruct,problemLimits,controls] = parseClassToStructs(customXYProblem,controlsInput);
+[problemStruct,controls] = parseClassToStructs(customXYProblem,controlsInput);
 
 inputs.project = customXYProblem;
 inputs.problemStruct = problemStruct;
-inputs.problemLimits = problemLimits;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
@@ -85,7 +83,7 @@ resultStruct = reflectivityCalculation(problemStruct,controls);
 
 outputs.resultStruct = resultStruct;
 
-[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemLimits,controls);
+[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,controls);
 
 outputs.problemStruct = problemStruct;
 outputs.resultStructMain = resultStructMain;
@@ -100,7 +98,7 @@ save([root filesep 'tests/normalTFReflectivityCalculation/customXYOutputs'],'out
 
 % (c) TF Parameters
 [qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,simulation,...
- shiftedData,backgrounds,resolutions,layerSlds,sldProfiles,...
+ shiftedData,backgrounds,resolutions,sldProfiles,layers,...
  resampledLayers,subRoughs] = normalTF.customXY(problemStruct,controls);
 
 TFParams.qzshifts = qzshifts;
@@ -115,8 +113,8 @@ TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;
 TFParams.backgrounds = backgrounds;
 TFParams.resolutions = resolutions;
-TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
+TFParams.layers = layers;
 TFParams.resampledLayers = resampledLayers;
 
 save([root filesep 'tests/normalTFReflectivityCalculation/customXYTFParams'],'TFParams');
@@ -129,11 +127,10 @@ controlsInput = controlsClass();
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemStruct,problemLimits,controls] = parseClassToStructs(standardProblem,controlsInput);
+[problemStruct,controls] = parseClassToStructs(standardProblem,controlsInput);
 
 inputs.project = standardProblem;
 inputs.problemStruct = problemStruct;
-inputs.problemLimits = problemLimits;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
@@ -144,7 +141,7 @@ resultStruct = reflectivityCalculation(problemStruct,controls);
 
 outputs.resultStruct = resultStruct;
 
-[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemLimits,controls);
+[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,controls);
 
 outputs.problemStruct = problemStruct;
 outputs.resultStructMain = resultStructMain;
@@ -159,7 +156,7 @@ save([root filesep 'tests/normalTFReflectivityCalculation/standardLayersOutputs'
 
 % (c) TF Parameters
 [qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,simulation,...
- shiftedData,backgrounds,resolutions,layerSlds,sldProfiles,...
+ shiftedData,backgrounds,resolutions,sldProfiles,layers,...
  resampledLayers,subRoughs] = normalTF.standardLayers(problemStruct,controls);
 
 TFParams.qzshifts = qzshifts;
@@ -174,8 +171,8 @@ TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;
 TFParams.backgrounds = backgrounds;
 TFParams.resolutions = resolutions;
-TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
+TFParams.layers = layers;
 TFParams.resampledLayers = resampledLayers;
 
 save([root filesep 'tests/normalTFReflectivityCalculation/standardLayersTFParams'],'TFParams');
@@ -188,11 +185,10 @@ controlsInput = controlsClass();
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemStruct,problemLimits,controls] = parseClassToStructs(absorptionProblem,controlsInput);
+[problemStruct,controls] = parseClassToStructs(absorptionProblem,controlsInput);
 
 inputs.project = absorptionProblem;
 inputs.problemStruct = problemStruct;
-inputs.problemLimits = problemLimits;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
@@ -203,7 +199,7 @@ resultStruct = reflectivityCalculation(problemStruct,controls);
 
 outputs.resultStruct = resultStruct;
 
-[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemLimits,controls);
+[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,controls);
 
 outputs.problemStruct = problemStruct;
 outputs.resultStructMain = resultStructMain;
@@ -218,7 +214,7 @@ save([root filesep 'tests/normalTFReflectivityCalculation/absorptionOutputs'],'o
 
 % (c) TF Parameters
 [qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,simulation,...
- shiftedData,backgrounds,resolutions,layerSlds,sldProfiles,...
+ shiftedData,backgrounds,resolutions,sldProfiles,layers,...
  resampledLayers,subRoughs] = normalTF.customLayers(problemStruct,controls);
 
 TFParams.qzshifts = qzshifts;
@@ -233,8 +229,8 @@ TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;
 TFParams.backgrounds = backgrounds;
 TFParams.resolutions = resolutions;
-TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
+TFParams.layers = layers;
 TFParams.resampledLayers = resampledLayers;
 
 save([root filesep 'tests/normalTFReflectivityCalculation/absorptionTFParams'],'TFParams');

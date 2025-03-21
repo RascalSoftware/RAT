@@ -1,12 +1,10 @@
-function [problemStruct,result] = runSimplex(problemStruct,problemLimits,controls)
+function [problemStruct,result] = runSimplex(problemStruct,controls)
 % Run the Nelder-Mead simplex algorithm for a given problem and controls.
 %
 % Parameters
 % ----------
 % problemStruct : struct
 %     the Project struct.
-% problemLimits : array
-%     the value limits for each parameter.
 % controls : struct
 %     the Controls struct.
 %
@@ -17,7 +15,6 @@ function [problemStruct,result] = runSimplex(problemStruct,problemLimits,control
 % result : struct
 %     the calculation and optimisation results object.
 %
-[problemStruct,~] = fitsetup(problemStruct,problemLimits);
 
 maxIter = controls.maxIterations;
 tolFun = controls.funcTolerance;

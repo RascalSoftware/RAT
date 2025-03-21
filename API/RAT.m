@@ -28,8 +28,8 @@ function [project,result] = RAT(project,controls)
 % shiftedData        [nContrasts x 1] cell        Data shifted using given scale factor
 % backgrounds        [nContrasts x 1] cell        background values for each contrast
 % resolutions        [nContrasts x 1] cell        resolution values for each contrast 
-% layerSlds          [nContrasts x nDomains] cell layers parameter values for each contrast
 % sldProfiles        [nContrasts x nDomains] cell SLD profiles
+% layers             [nContrasts x nDomains] cell layers parameter values for each contrast
 % resampledLayers    [nContrasts x nDomains] cell resampled layer values for each contrast 
 %                                                 if resample is true otherwise an array of zeros
 % calculationResults [1 x 1] struct               Chi-squared goodness of fit results. The fields 
@@ -61,7 +61,7 @@ function [project,result] = RAT(project,controls)
 % chain               [M x nParams] double MCMC chains where M is the length of each chain.
 % =================== ==================== ===============
 
-[problemStruct,problemLimits,controls] = parseClassToStructs(project,controls);
+[problemStruct,controls] = parseClassToStructs(project,controls);
 
 % Call the main RAT routine...
 display = ~strcmpi(controls.display, displayOptions.Off.value);
@@ -72,7 +72,7 @@ if display
 end
 
 tic
-[problemStruct,result,bayesResults] = RATMain_mex(problemStruct,problemLimits,controls);
+[problemStruct,result,bayesResults] = RATMain_mex(problemStruct,controls);
 
 if display
     toc

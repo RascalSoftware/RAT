@@ -15,8 +15,8 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     %        shiftedData: [nContrastsx1 cell]
     %        backgrounds: [nContrastsx1 cell]
     %        resolutions: [nContrastsx1 cell]
-    %          layerSlds: [nContrastsxnDomains cell]
     %        sldProfiles: [nContrastsxnDomains cell]
+    %             layers: [nContrastsxnDomains cell]
     %    resampledLayers: [nContrastsxnDomains cell]
     % calculationResults: [1x1 struct]
     %     contrastParams: [1x1 struct]
@@ -94,22 +94,7 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
         resolutions{i} = resolutionCell;
     end
     coder.varsize('resolutions{:}',[maxArraySize 2],[1 0]);
-
-    layerSldCell = ones(2,3);
-    if domains
-        layerSlds = cell(nContrasts,2);
-        for i = 1:nContrasts
-            layerSlds{i,1} = layerSldCell;
-            layerSlds{i,2} = layerSldCell;
-        end
-    else
-        layerSlds = cell(nContrasts,1);
-        for i = 1:nContrasts
-            layerSlds{i} = layerSldCell;
-        end
-    end
-    coder.varsize('layerSlds{:}',[maxArraySize 4],[1 1]);
-    
+   
     sldProfileCell = ones(2,2);
     if domains
         sldProfiles = cell(nContrasts,2);
@@ -125,6 +110,21 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
     end
     coder.varsize('sldProfiles{:}',[maxArraySize 3],[1 1]);
 
+    layerCell = ones(2,3);
+    if domains
+        layers = cell(nContrasts,2);
+        for i = 1:nContrasts
+            layers{i,1} = layerCell;
+            layers{i,2} = layerCell;
+        end
+    else
+        layers = cell(nContrasts,1);
+        for i = 1:nContrasts
+            layers{i} = layerCell;
+        end
+    end
+    coder.varsize('layers{:}',[maxArraySize 4],[1 1]);
+    
     resampledLayersCell = ones(2,3);
     if domains
         resampledLayers = cell(nContrasts,2);
@@ -154,8 +154,8 @@ function result = makeEmptyResultStruct(nContrasts,nParams,domains)
                     'shiftedData', {shiftedData}, ...
                     'backgrounds', {backgrounds}, ...
                     'resolutions', {resolutions}, ...
-                    'layerSlds', {layerSlds}, ...
                     'sldProfiles', {sldProfiles}, ...
+                    'layers', {layers}, ...
                     'resampledLayers', {resampledLayers}, ...
                     'calculationResults', calculationResults, ...
                     'contrastParams', contrastParams, ...

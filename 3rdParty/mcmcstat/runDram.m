@@ -4,7 +4,8 @@ function  [problemStruct,outProblem,result,bayesResults] = runDram(problemStruct
 
 %coder.varsize('problemStruct.contrastBacks',[1 Inf],[0 1]);
 
-[problemStruct,fitNames] = packParams(problemStruct,problemLimits);
+problemStruct = packParams(problemStruct,problemLimits);
+fitNames = getFitNames(problemStruct);
 %fitPriors = packPriors(priors);
 
 % Seed the Random Number Generator

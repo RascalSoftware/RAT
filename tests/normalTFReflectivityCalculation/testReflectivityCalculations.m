@@ -28,7 +28,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         TFParams                   % Test TF Parameters read from file
         project                    % Input projectClass object
         problemStruct              % Input parameters for the test problem
-        problemLimits              % Input limits for the test problem
         controlsInput              % Instrument controls class for the input problem
         controls                   % Instrument controls struct for the input problem
         expectedProblemStruct      % Expected output value of the problemStruct struct
@@ -42,8 +41,8 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         TFShiftedData
         TFBackgrounds
         TFResolutions
-        TFLayerSLDs
         TFSLDProfiles
+        TFLayers
         TFResampledLayers
         TFQzshifts
         TFScalefactors
@@ -70,7 +69,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 
             testCase.project = testCase.inputs.inputs.project;
             testCase.problemStruct = testCase.inputs.inputs.problemStruct;
-            testCase.problemLimits = testCase.inputs.inputs.problemLimits;
             testCase.controlsInput = testCase.inputs.inputs.controlsInput;
             testCase.controls = testCase.inputs.inputs.controls;
         end
@@ -94,8 +92,8 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.TFShiftedData = testCase.TFParams.TFParams.shiftedData;
             testCase.TFBackgrounds = testCase.TFParams.TFParams.backgrounds;
             testCase.TFResolutions = testCase.TFParams.TFParams.resolutions;
-            testCase.TFLayerSLDs = testCase.TFParams.TFParams.layerSlds;
             testCase.TFSLDProfiles = testCase.TFParams.TFParams.sldProfiles;
+            testCase.TFLayers = testCase.TFParams.TFParams.layers;
             testCase.TFResampledLayers = testCase.TFParams.TFParams.resampledLayers;
 
             testCase.TFQzshifts = testCase.TFParams.TFParams.qzshifts;
@@ -137,7 +135,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             % Note that we test only a single reflectivity calculation at
             % present
 
-            [testProblemStruct, result, bayesResults] = RATMain(testCase.problemStruct,testCase.problemLimits,testCase.controls);
+            [testProblemStruct, result, bayesResults] = RATMain(testCase.problemStruct,testCase.controls);
 
             testCase.verifyEqual(testProblemStruct, testCase.expectedProblemStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(result, testCase.expectedResultStructMain, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -174,15 +172,15 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             switch TFFile
                 case 'standardLayersTFParams.mat'
                     [qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,...
-                    simulation,shiftedData,backgrounds,resolutions,layerSLDs,SLDProfiles,resampledLayers,...
+                    simulation,shiftedData,backgrounds,resolutions,SLDProfiles,layers,resampledLayers,...
                     subRoughs] = normalTF.standardLayers(testCase.problemStruct,testCase.controls);
                 case {'customLayersTFParams.mat', 'absorptionTFParams.mat'}
                     [qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,...
-                    simulation,shiftedData,backgrounds,resolutions,layerSLDs,SLDProfiles,resampledLayers,...
+                    simulation,shiftedData,backgrounds,resolutions,SLDProfiles,layers,resampledLayers,...
                     subRoughs] = normalTF.customLayers(testCase.problemStruct,testCase.controls);
                 case 'customXYTFParams.mat'
                     [qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,...
-                    simulation,shiftedData,backgrounds,resolutions,layerSLDs,SLDProfiles,resampledLayers,...
+                    simulation,shiftedData,backgrounds,resolutions,SLDProfiles,layers,resampledLayers,...
                     subRoughs] = normalTF.customXY(testCase.problemStruct,testCase.controls);
             end
 
@@ -196,8 +194,8 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(shiftedData, testCase.TFShiftedData, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(backgrounds, testCase.TFBackgrounds, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(resolutions, testCase.TFResolutions, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(layerSLDs, testCase.TFLayerSLDs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(SLDProfiles, testCase.TFSLDProfiles, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(layers, testCase.TFLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(resampledLayers, testCase.TFResampledLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(subRoughs, testCase.TFSubRoughs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
@@ -205,10 +203,9 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 %% Test Pre- and Post-Processing Routines
 
         function testParseClasstoStructs(testCase)
-            [testProblemStruct, testProblemLimits, testControls] = parseClassToStructs(testCase.project, testCase.controlsInput);
+            [testProblemStruct, testControls] = parseClassToStructs(testCase.project, testCase.controlsInput);
 
             testCase.verifyEqual(testProblemStruct, testCase.problemStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(testProblemLimits, testCase.problemLimits, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(testControls, testCase.controls, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 

@@ -1,6 +1,7 @@
 function  [problemStruct,problem,result,bayesResults] = runDram(problemStruct,problemLimits,priors,controls)
 
-[problemStruct,fitNames] = packParams(problemStruct,problemLimits);
+problemStruct = packParams(problemStruct,problemLimits);
+fitNames = getFitNames(problemStruct);
 %fitPriors = packPriors(priors);
 
 % Seed the Random Number Generator

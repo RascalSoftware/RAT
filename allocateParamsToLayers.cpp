@@ -60,7 +60,7 @@ namespace RAT
         layerValues[i].f1[4] = paramValues[static_cast<int>(layersDetails[i]
           .f1[layerLength - 2]) - 1];
       } else {
-        layerValues[i].f1[4] = rtNaN;
+        layerValues[i].f1[4] = 0.0;
       }
 
       //  Fill in "hydrate with" value

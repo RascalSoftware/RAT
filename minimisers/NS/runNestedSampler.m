@@ -5,8 +5,6 @@ function  [problemStruct,result,bayesResults] = runNestedSampler(problemStruct,c
 % ----------
 % problemStruct : struct
 %     the Project struct.
-% problemLimits : array
-%     the value limits for each parameter.
 % controls : struct
 %     the Controls struct.
 %

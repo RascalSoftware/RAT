@@ -5,8 +5,6 @@ function [outProblemStruct,result,bayesResults] = runDREAM(problemStruct,control
 % ----------
 % problemStruct : struct
 %     the Project struct.
-% problemLimits : array
-%     the value limits for each parameter.
 % controls : struct
 %     the Controls struct.
 %

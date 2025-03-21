@@ -1,4 +1,4 @@
-function [problemStruct,fitPriors] = packParamsPriors(problemStruct,priors)
+function [problemStruct,fitPriors] = packParamsPriors(problemStruct,limits,priors)
 % Pack the parameters into an array of those being fitted.
 %
 % Parameters

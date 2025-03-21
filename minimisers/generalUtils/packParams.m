@@ -5,7 +5,7 @@ function problemStruct = packParams(problemStruct,limits)
 % ----------
 % problemStruct : struct
 %     The project struct.
-% problemLimits : struct
+% limits : struct
 %     The limits for each parameter.
 %
 % Returns

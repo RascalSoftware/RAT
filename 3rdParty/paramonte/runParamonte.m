@@ -15,14 +15,16 @@ end
 rng('default');
 
 % Split problem using the routines from RAT..
-[problemStruct,problemLimits,controls] = parseClassToStructs(project,inputControls);
+[problemStruct,controls] = parseClassToStructs(project,inputControls);
 
 %controls.parallel = coderEnums.parallelOptions.Points;
 
 % Make an instance of the paramonte objective function class
 logFunc = pmLogFunction();
 
-[problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,problemLimits,priors);
+[problemStruct,fitPriors] = packParamsPriors(problemStruct,limits,priors);
+fitNames = getFitNames(problemStruct);
+
 nDims = length(problemStruct.fitParams);
 testPars = problemStruct.fitParams;
 

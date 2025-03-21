@@ -1,5 +1,5 @@
 function [log_L,log_PR] = calcDensity(x,fx,DREAMPar,paramInfo,Meas_info,ratInputs)
-% Calculate the log-likelihood of a point and the log-prior of each chain.
+% Calculate the likelihood (not used) and log-likelihood (used) of a point.
 % 
 % Parameters
 % ----------
@@ -33,12 +33,14 @@ end
 log_PR = zeros(DREAMPar.nChains,1);
 for i = 1:length(PR)
     if PR(i) ~= 0
-        log_PR(i) = log(PR(i));
+        log_PR(i) = PR(i);%log(PR(i));     % Does it even need to be log?
     else
         % Otherwise keep the zero values
         log_PR(i) = 0;
     end
 end
+
+% -------------------- Calculate log-likelihood ---------------------------
 
 % Loop over each model realization and calculate log-likelihood of each fx
 log_L  = zeros(DREAMPar.nChains,1);
@@ -46,4 +48,4 @@ for ii = 1 : DREAMPar.nChains
     log_L(ii,1) =  fx(1,ii) ;
 end
 
-end
+% ------------------ End Calculate log-likelihood -------------------------

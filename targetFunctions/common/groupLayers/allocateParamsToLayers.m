@@ -28,7 +28,7 @@ function layerValues = allocateParamsToLayers(paramValues, layersDetails)
         if ~isnan(layer(layerLength-1))
             outputLayer(5) = paramValues(layer(layerLength-1));
         else
-            outputLayer(5) = NaN;
+            outputLayer(5) = 0;
         end
 
         % Fill in "hydrate with" value

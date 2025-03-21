@@ -6,7 +6,7 @@ function cornerPlot(results, options)
     % --------
     % >>> cornerPlot(result, 'smooth', false);
     % >>> cornerPlot(result, 'smooth', false, 'params', [1, 3]);  % should plot 1st and 3rd fitted parameters only. 
-    % >>> cornerPlot(result, 'smooth', true, 'smoothingFactor', 0.5);
+    % >>> cornerPlot(result, 'smooth', true);
     %
     % Parameters
     % ----------
@@ -15,17 +15,14 @@ function cornerPlot(results, options)
     % options
     %    Keyword/value pair to configure plotting, the following are allowed
     %       * figure ('matlab.ui.Figure' or  whole number, default: []) figure or number of the figure to use for the plot.
-    %       * smooth (logical, default: true) indicates if moving average smoothing is applied to the plot.
+    %       * smooth (logical, default: true) indicates if KDE smoothing is applied to the plot.
     %       * params (1D 'array of whole numbers', 'array of string' or 'cell array of char vectors', default: []) indices or names of a subset of parameters to the plot.
-    %       * smoothingFactor (double [0, 1], default: 0.25) adjusts the level of smoothing by scaling the window size, values near 0 produce smaller moving window sizes, 
-    %             resulting in less smoothing and values near 1 produce larger moving window sizes, resulting in more smoothing.
-
+    %
     arguments
         results
         options.figure {isFigure} = []
         options.smooth {mustBeA(options.smooth, 'logical')} = true
         options.params {mustBeVector(options.params,'allow-all-empties')} = []
-        options.smoothingFactor {mustBeInRange(options.smoothingFactor, 0, 1)} = 0.25
     end
    
     chain = results.chain;
@@ -90,7 +87,7 @@ function cornerPlot(results, options)
                 xx = chain(:,params(j));
                 yy = chain(:,params(i));
         
-                plotContours(xx, yy, subAxes(i,j), options.smooth, options.smoothingFactor);
+                plotContours(xx, yy, subAxes(i,j), options.smooth);
                 
                 set(subAxes(i,j),'Visible','on','Tag','corrAxis','xlimmode','auto','ylimmode','auto','xgrid','off','ygrid','off');
                 
@@ -112,7 +109,7 @@ function cornerPlot(results, options)
                 [N,edges] = histcounts(chain(:, params(i)), 25, 'Normalization','pdf');
                 edges2 = edges(2:end) - (edges(2)-edges(1))/2;
                 if (options.smooth)
-                    N = smoothdata(N, 'movmean', 'SmoothingFactor', options.smoothingFactor);
+                    N = smoothdata(N, 'movmean', 'SmoothingFactor', 0.25);
                 end
                 bar(edges2(:), N(:), 1, 'w');
                 

@@ -27,9 +27,9 @@ namespace RAT
       void b_mergesort(::coder::array<int, 2U> &idx, const ::coder::array<double,
                        2U> &x, int n);
       void b_mergesort(::coder::array<int, 1U> &idx, const ::coder::array<double,
-                       1U> &x, int n);
-      void b_mergesort(::coder::array<int, 1U> &idx, const ::coder::array<double,
                        2U> &x, int n);
+      void b_mergesort(::coder::array<int, 1U> &idx, const ::coder::array<double,
+                       1U> &x, int n);
     }
   }
 }

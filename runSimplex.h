@@ -12,7 +12,6 @@
 
 // Include files
 #include "rtwtypes.h"
-#include "coder_array.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -27,15 +26,8 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void runSimplex(ProblemDefinition &problemStruct, const ::coder::array<double,
-                  2U> &problemLimits_params, const ::coder::array<double, 2U>
-                  &problemLimits_backgroundParams, const ::coder::array<double,
-                  2U> &problemLimits_scalefactors, const ::coder::array<double,
-                  2U> &problemLimits_bulkIns, const ::coder::array<double, 2U>
-                  &problemLimits_bulkOuts, const ::coder::array<double, 2U>
-                  &problemLimits_resolutionParams, const ::coder::array<double,
-                  2U> &problemLimits_domainRatios, const Controls *controls,
-                  Results *result);
+  void runSimplex(ProblemDefinition &problemStruct, Controls &controls, Results *
+                  result);
 }
 
 #endif

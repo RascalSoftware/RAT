@@ -26,7 +26,7 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  double nsIntraFun(const ProblemDefinition &data_f1, const Controls *data_f2,
+  double nsIntraFun(const ProblemDefinition &data_f1, const Controls &data_f2,
                     const ::coder::array<double, 2U> &p);
 }
 

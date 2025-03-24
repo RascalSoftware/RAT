@@ -19,9 +19,8 @@
 // Function Declarations
 namespace RAT
 {
-  extern void RATMain(b_ProblemDefinition *problemStruct, const ProblemLimits
-                      *problemLimits, Controls *controls, Results *results,
-                      BayesResults *bayesResults);
+  extern void RATMain(b_ProblemDefinition *problemStruct, Controls *controls,
+                      Results *results, BayesResults *bayesResults);
 }
 
 #endif

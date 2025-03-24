@@ -58,18 +58,12 @@ namespace RAT
     ::coder::bounded_array<double, 2000U, 2U> outlierChains;
     double runtime;
     double iteration;
-    double modelOutput;
     ::coder::bounded_array<double, 2000U, 2U> AR;
     ::coder::array<double, 2U> R_stat;
     ::coder::array<double, 2U> CR;
   };
 
   struct cell_wrap_1
-  {
-    ::coder::array<double, 2U> f1;
-  };
-
-  struct cell_wrap_45
   {
     ::coder::array<double, 2U> f1;
   };
@@ -160,24 +154,13 @@ namespace RAT
     ::coder::array<cell_wrap_8, 1U> shiftedData;
     ::coder::array<cell_wrap_8, 1U> backgrounds;
     ::coder::array<cell_wrap_7, 1U> resolutions;
-    ::coder::array<cell_wrap_9, 2U> layerSlds;
     ::coder::array<cell_wrap_9, 2U> sldProfiles;
+    ::coder::array<cell_wrap_9, 2U> layers;
     ::coder::array<cell_wrap_9, 2U> resampledLayers;
     CalculationResults calculationResults;
     ContrastParams contrastParams;
     ::coder::array<double, 2U> fitParams;
     ::coder::array<cell_wrap_10, 1U> fitNames;
-  };
-
-  struct ProblemLimits
-  {
-    ::coder::array<double, 2U> params;
-    ::coder::array<double, 2U> backgroundParams;
-    ::coder::array<double, 2U> scalefactors;
-    ::coder::array<double, 2U> bulkIns;
-    ::coder::array<double, 2U> bulkOuts;
-    ::coder::array<double, 2U> resolutionParams;
-    ::coder::array<double, 2U> domainRatios;
   };
 
   struct PredictionIntervals

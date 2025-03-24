@@ -173,7 +173,7 @@ namespace RAT
       }
 
       void b_mergesort(::coder::array<int, 1U> &idx, const ::coder::array<double,
-                       1U> &x, int n)
+                       2U> &x, int n)
       {
         ::coder::array<int, 1U> iwork;
         int b_i;
@@ -256,7 +256,7 @@ namespace RAT
       }
 
       void b_mergesort(::coder::array<int, 1U> &idx, const ::coder::array<double,
-                       2U> &x, int n)
+                       1U> &x, int n)
       {
         ::coder::array<int, 1U> iwork;
         int b_i;

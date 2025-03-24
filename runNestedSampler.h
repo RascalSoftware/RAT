@@ -11,6 +11,7 @@
 #define RUNNESTEDSAMPLER_H
 
 // Include files
+#include "RATMain_types.h"
 #include "rtwtypes.h"
 #include "coder_array.h"
 #include <cstddef>
@@ -20,34 +21,32 @@
 namespace RAT
 {
   struct ProblemDefinition;
-  struct Controls;
-  struct Results;
-  struct PredictionIntervals;
-  struct ConfidenceIntervals;
-  struct NestedSamplerOutput;
-  struct DreamParams;
-  struct DreamOutput;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void runNestedSampler(ProblemDefinition &problemStruct, const ::coder::array<
-                        double, 2U> &problemLimits_params, const ::coder::array<
-                        double, 2U> &problemLimits_backgroundParams, const ::
-                        coder::array<double, 2U> &problemLimits_scalefactors,
-                        const ::coder::array<double, 2U> &problemLimits_bulkIns,
-                        const ::coder::array<double, 2U> &problemLimits_bulkOuts,
-                        const ::coder::array<double, 2U>
-                        &problemLimits_resolutionParams, const ::coder::array<
-                        double, 2U> &problemLimits_domainRatios, const Controls *
-                        controls, Results *result, PredictionIntervals &
-                        bayesResults_predictionIntervals, ConfidenceIntervals &
-                        bayesResults_confidenceIntervals, NestedSamplerOutput &
-                        bayesResults_nestedSamplerOutput, ::coder::array<double,
-                        2U> &bayesResults_chain, DreamParams &
-                        bayesResults_dreamParams, DreamOutput &
-                        bayesResults_dreamOutput);
+  int runNestedSampler(ProblemDefinition &problemStruct, const char
+                       controls_parallel_data[], const int
+                       controls_parallel_size[2], boolean_T
+                       controls_calcSldDuringFit, double
+                       controls_resampleMinAngle, double
+                       controls_resampleNPoints, const char
+                       controls_display_data[], const int controls_display_size
+                       [2], double controls_nLive, double controls_nMCMC, double
+                       controls_nsTolerance, const char
+                       controls_IPCFilePath_data[], const int
+                       controls_IPCFilePath_size[2], Results *result, ::coder::
+                       array<cell_wrap_11, 1U>
+                       &bayesResults_predictionIntervals_reflectivity, ::coder::
+                       array<cell_wrap_11, 2U>
+                       &bayesResults_predictionIntervals_sld, double
+                       bayesResults_predictionIntervals_sampleChi_data[],
+                       ConfidenceIntervals &bayesResults_confidenceIntervals,
+                       NestedSamplerOutput &bayesResults_nestedSamplerOutput, ::
+                       coder::array<double, 2U> &bayesResults_chain, DreamParams
+                       &bayesResults_dreamParams, DreamOutput &
+                       bayesResults_dreamOutput);
 }
 
 #endif

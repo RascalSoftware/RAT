@@ -55,7 +55,7 @@ namespace RAT
                      t3_outlierChains_data[], int t3_outlierChains_size[2],
                      double t3_AR_data[], int t3_AR_size[2], ::coder::array<
                      double, 2U> &t3_R_stat, ::coder::array<double, 2U> &t3_CR,
-                     double &t3_iteration, double &t3_modelOutput);
+                     double &t3_iteration);
 }
 
 // Function Definitions
@@ -132,7 +132,7 @@ namespace RAT
                      t3_outlierChains_data[], int t3_outlierChains_size[2],
                      double t3_AR_data[], int t3_AR_size[2], ::coder::array<
                      double, 2U> &t3_R_stat, ::coder::array<double, 2U> &t3_CR,
-                     double &t3_iteration, double &t3_modelOutput)
+                     double &t3_iteration)
   {
     double t3_runtime;
     int b_loop_ub;
@@ -195,7 +195,6 @@ namespace RAT
 
     t3_runtime = 100.0;
     t3_iteration = 0.0;
-    t3_modelOutput = 0.0;
     return t3_runtime;
   }
 
@@ -379,7 +378,7 @@ namespace RAT
       bayesResults_dreamOutput.outlierChains.size,
       bayesResults_dreamOutput.AR.data, bayesResults_dreamOutput.AR.size,
       bayesResults_dreamOutput.R_stat, bayesResults_dreamOutput.CR,
-      bayesResults_dreamOutput.iteration, bayesResults_dreamOutput.modelOutput);
+      bayesResults_dreamOutput.iteration);
     bayesResults_nestedSamplerOutput.LogZ = 0.0;
     bayesResults_nestedSamplerOutput.LogZErr = 0.0;
 
@@ -582,7 +581,7 @@ namespace RAT
       bayesResults_dreamOutput.outlierChains.size,
       bayesResults_dreamOutput.AR.data, bayesResults_dreamOutput.AR.size,
       bayesResults_dreamOutput.R_stat, bayesResults_dreamOutput.CR,
-      bayesResults_dreamOutput.iteration, bayesResults_dreamOutput.modelOutput);
+      bayesResults_dreamOutput.iteration);
     bayesResults_nestedSamplerOutput.LogZ = 0.0;
     bayesResults_nestedSamplerOutput.LogZErr = 0.0;
 

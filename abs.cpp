@@ -48,10 +48,11 @@ namespace RAT
     void c_abs(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U>
                &y)
     {
-      y.set_size(x.size(0), x.size(1));
+      y.set_size(static_cast<int>(static_cast<short>(x.size(0))), static_cast<
+                 int>(static_cast<short>(x.size(1))));
       if ((x.size(0) != 0) && (x.size(1) != 0)) {
         int i;
-        i = x.size(1);
+        i = static_cast<short>(x.size(1));
         for (int k{0}; k < i; k++) {
           int i1;
           i1 = y.size(0);

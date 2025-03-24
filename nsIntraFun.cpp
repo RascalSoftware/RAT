@@ -20,7 +20,7 @@
 // Function Definitions
 namespace RAT
 {
-  double nsIntraFun(const ProblemDefinition &data_f1, const Controls *data_f2,
+  double nsIntraFun(const ProblemDefinition &data_f1, const Controls &data_f2,
                     const ::coder::array<double, 2U> &p)
   {
     ProblemDefinition problemStruct;
@@ -32,10 +32,9 @@ namespace RAT
     //  Parameters
     //  ----------
     //  data : array
-    //      The problem struct, controls, and problem limits.
+    //      The problem struct and controls.
     //  p : array
     //      The point in parameter space to calculate likelihood for.
-    //
     problemStruct = data_f1;
 
     //  Removed use of cells....
@@ -46,7 +45,7 @@ namespace RAT
     }
 
     unpackParams(problemStruct);
-    b_reflectivityCalculation(problemStruct, data_f2, &expl_temp);
+    b_reflectivityCalculation(problemStruct, &data_f2, &expl_temp);
     return -expl_temp.calculationResults.sumChi / 2.0;
   }
 }

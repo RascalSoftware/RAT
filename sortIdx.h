@@ -24,16 +24,16 @@ namespace RAT
     namespace internal
     {
       void b_sortIdx(::coder::array<double, 1U> &x, ::coder::array<int, 1U> &idx);
-      void merge_block(::coder::array<int, 2U> &idx, ::coder::array<double, 2U>
-                       &x, int offset, int n, int preSortLevel, ::coder::array<
-                       int, 1U> &iwork, ::coder::array<double, 1U> &xwork);
-      void merge_pow2_block(::coder::array<int, 2U> &idx, ::coder::array<double,
-                            2U> &x, int offset);
+      void merge_block(int idx_data[], ::coder::array<double, 2U> &x, int offset,
+                       int n, int preSortLevel, int iwork_data[], ::coder::array<
+                       double, 1U> &xwork);
+      void merge_pow2_block(int idx_data[], ::coder::array<double, 2U> &x, int
+                            offset);
       void sortIdx(const ::coder::array<double, 2U> &x, ::coder::array<int, 2U>
                    &idx);
-      void sortIdx(const ::coder::array<double, 1U> &x, ::coder::array<int, 1U>
-                   &idx);
       void sortIdx(const ::coder::array<double, 2U> &x, ::coder::array<int, 1U>
+                   &idx);
+      void sortIdx(const ::coder::array<double, 1U> &x, ::coder::array<int, 1U>
                    &idx);
     }
   }

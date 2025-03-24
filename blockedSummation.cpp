@@ -378,7 +378,7 @@ namespace RAT
       }
     }
 
-    double nestedIter(const ::coder::array<double, 1U> &x, int vlen)
+    double nestedIter(const ::coder::array<double, 2U> &x, int vlen)
     {
       double y;
       int firstBlockLength;
@@ -429,7 +429,7 @@ namespace RAT
       return y;
     }
 
-    double nestedIter(const ::coder::array<double, 2U> &x, int vlen)
+    double nestedIter(const ::coder::array<double, 1U> &x, int vlen)
     {
       double y;
       int firstBlockLength;

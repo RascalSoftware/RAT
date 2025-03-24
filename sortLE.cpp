@@ -50,20 +50,6 @@ namespace RAT
         return p;
       }
 
-      boolean_T sortLE(const ::coder::array<double, 1U> &v, int idx1, int idx2)
-      {
-        double d;
-        boolean_T p;
-        d = v[idx2 - 1];
-        if ((v[idx1 - 1] <= d) || std::isnan(d)) {
-          p = true;
-        } else {
-          p = false;
-        }
-
-        return p;
-      }
-
       boolean_T sortLE(const ::coder::array<double, 2U> &v, int idx1, int idx2)
       {
         int k;
@@ -83,6 +69,20 @@ namespace RAT
             p = sortAscendLE(v1, v2);
             exitg1 = true;
           }
+        }
+
+        return p;
+      }
+
+      boolean_T sortLE(const ::coder::array<double, 1U> &v, int idx1, int idx2)
+      {
+        double d;
+        boolean_T p;
+        d = v[idx2 - 1];
+        if ((v[idx1 - 1] <= d) || std::isnan(d)) {
+          p = true;
+        } else {
+          p = false;
         }
 
         return p;

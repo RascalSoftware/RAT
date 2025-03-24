@@ -31,8 +31,8 @@ namespace RAT
                     array<double, 3U> &y);
     void nestedIter(const ::coder::array<double, 2U> &x, int vlen, ::coder::
                     array<double, 2U> &y);
-    double nestedIter(const ::coder::array<double, 1U> &x, int vlen);
     double nestedIter(const ::coder::array<double, 2U> &x, int vlen);
+    double nestedIter(const ::coder::array<double, 1U> &x, int vlen);
   }
 }
 

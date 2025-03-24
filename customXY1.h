@@ -36,22 +36,10 @@ namespace RAT
                   &reflectivity, ::coder::array<cell_wrap_7, 1U> &simulation, ::
                   coder::array<cell_wrap_8, 1U> &shiftedData, ::coder::array<
                   cell_wrap_8, 1U> &backgrounds, ::coder::array<cell_wrap_7, 1U>
-                  &resolutions, ::coder::array<cell_wrap_9, 2U> &domainLayerSlds,
-                  ::coder::array<cell_wrap_9, 2U> &domainSldProfiles, ::coder::
-                  array<cell_wrap_9, 2U> &domainResampledLayers, ::coder::array<
-                  double, 1U> &subRoughs);
-    void customXY(const b_ProblemDefinition *problemStruct, const Controls
-                  *controls, ::coder::array<double, 1U> &qzshifts, ::coder::
-                  array<double, 1U> &scalefactors, ::coder::array<double, 1U>
-                  &bulkIns, ::coder::array<double, 1U> &bulkOuts, ::coder::array<
-                  double, 1U> &chis, ::coder::array<cell_wrap_7, 1U>
-                  &reflectivity, ::coder::array<cell_wrap_7, 1U> &simulation, ::
-                  coder::array<cell_wrap_8, 1U> &shiftedData, ::coder::array<
-                  cell_wrap_8, 1U> &backgrounds, ::coder::array<cell_wrap_7, 1U>
-                  &resolutions, ::coder::array<cell_wrap_9, 2U> &domainLayerSlds,
-                  ::coder::array<cell_wrap_9, 2U> &domainSldProfiles, ::coder::
-                  array<cell_wrap_9, 2U> &domainResampledLayers, ::coder::array<
-                  double, 1U> &subRoughs);
+                  &resolutions, ::coder::array<cell_wrap_9, 2U>
+                  &domainSldProfiles, ::coder::array<cell_wrap_9, 2U>
+                  &domainLayers, ::coder::array<cell_wrap_9, 2U>
+                  &domainResampledLayers, ::coder::array<double, 1U> &subRoughs);
   }
 }
 

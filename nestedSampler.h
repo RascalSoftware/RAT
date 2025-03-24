@@ -26,7 +26,7 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  double nestedSampler(const ProblemDefinition &data_f1, const Controls *data_f2,
+  double nestedSampler(const ProblemDefinition &data_f1, const Controls &data_f2,
                        double nLive, double nMCMC, double tolerance, const ::
                        coder::array<double, 2U> &prior, ::coder::array<double,
                        2U> &nest_samples, ::coder::array<double, 2U>

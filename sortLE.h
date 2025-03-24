@@ -25,8 +25,8 @@ namespace RAT
     {
       boolean_T b_sortLE(const ::coder::array<double, 2U> &v, int idx1, int idx2);
       boolean_T sortLE(const double v[4], int idx1, int idx2);
-      boolean_T sortLE(const ::coder::array<double, 1U> &v, int idx1, int idx2);
       boolean_T sortLE(const ::coder::array<double, 2U> &v, int idx1, int idx2);
+      boolean_T sortLE(const ::coder::array<double, 1U> &v, int idx1, int idx2);
     }
   }
 }

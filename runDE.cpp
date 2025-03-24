@@ -13,7 +13,6 @@
 #include "RATMain_internal_types.h"
 #include "RATMain_types.h"
 #include "deopt.h"
-#include "packParams.h"
 #include "reflectivityCalculation.h"
 #include "rt_nonfinite.h"
 #include "sprintf.h"
@@ -67,14 +66,7 @@ namespace RAT
     return S_MSE_I_nc;
   }
 
-  void runDE(ProblemDefinition &problemStruct, const ::coder::array<double, 2U>
-             &problemLimits_params, const ::coder::array<double, 2U>
-             &problemLimits_backgroundParams, const ::coder::array<double, 2U>
-             &problemLimits_scalefactors, const ::coder::array<double, 2U>
-             &problemLimits_bulkIns, const ::coder::array<double, 2U>
-             &problemLimits_bulkOuts, const ::coder::array<double, 2U>
-             &problemLimits_resolutionParams, const ::coder::array<double, 2U>
-             &problemLimits_domainRatios, const Controls *controls, Results
+  void runDE(ProblemDefinition &problemStruct, Controls &controls, Results
              *result)
   {
     static const double S_struct_FVr_x[50]{ -1.0, -0.95918367346938771,
@@ -95,8 +87,7 @@ namespace RAT
       0.79591836734693866, 0.836734693877551, 0.87755102040816324,
       0.91836734693877542, 0.95918367346938771, 1.0 };
 
-    ::coder::array<cell_wrap_10, 1U> b_problemStruct;
-    ::coder::array<double, 2U> r;
+    ::coder::array<double, 2U> res;
     ::coder::array<signed char, 2U> S_struct_FM_pop;
     ::coder::array<char, 2U> charStr;
     h_struct_T expl_temp;
@@ -108,8 +99,6 @@ namespace RAT
     //  ----------
     //  problemStruct : struct
     //      the Project struct.
-    //  problemLimits : array
-    //      the value limits for each parameter.
     //  controls : struct
     //      the Controls struct.
     //
@@ -120,27 +109,6 @@ namespace RAT
     //  result : struct
     //      the calculation and optimisation results object.
     //
-    //  Set up fit parameters.
-    //
-    //  Parameters
-    //  ----------
-    //  problemStruct : struct
-    //      The project struct.
-    //  problemLimits : struct
-    //      The limits for each parameter.
-    //
-    //  Returns
-    //  -------
-    //  problemStruct : struct
-    //      The project struct with fit information.
-    //  fitNames : array
-    //      The names of the parameters being fit.
-    packParams(problemStruct, problemLimits_params,
-               problemLimits_backgroundParams, problemLimits_scalefactors,
-               problemLimits_bulkIns, problemLimits_bulkOuts,
-               problemLimits_resolutionParams, problemLimits_domainRatios,
-               b_problemStruct);
-
     // Value to reach
     expl_temp.FVr_minbound.set_size(1, problemStruct.fitLimits.size(0));
     loop_ub = problemStruct.fitLimits.size(0);
@@ -184,7 +152,7 @@ namespace RAT
     // lower limit is -1
     // Tell compiler abut variable sizes
     // -----tie all important values to a structure that can be passed along----
-    loop_ub = static_cast<int>(controls->populationSize);
+    loop_ub = static_cast<int>(controls.populationSize);
     S_struct_FM_pop.set_size(loop_ub, 2);
     expl_temp.FVr_bestmem.set_size(1, 2);
     for (int i{0}; i < 2; i++) {
@@ -205,14 +173,14 @@ namespace RAT
 
     expl_temp.I_plotting = 0.0;
     expl_temp.I_refresh = 1.0;
-    expl_temp.I_strategy = controls->strategy;
-    expl_temp.F_VTR = controls->targetValue;
-    expl_temp.I_itermax = controls->numGenerations;
+    expl_temp.I_strategy = controls.strategy;
+    expl_temp.F_VTR = controls.targetValue;
+    expl_temp.I_itermax = controls.numGenerations;
     expl_temp.I_bnd_constr = 1.0;
     expl_temp.I_D = problemStruct.fitParams.size(1);
-    expl_temp.F_CR = controls->crossoverProbability;
-    expl_temp.fWeight = controls->fWeight;
-    expl_temp.I_NP = controls->populationSize;
+    expl_temp.F_CR = controls.crossoverProbability;
+    expl_temp.fWeight = controls.fWeight;
+    expl_temp.I_NP = controls.populationSize;
     for (int i{0}; i < 50; i++) {
       expl_temp.FVr_lim_lo[i] = -1.0;
       expl_temp.FVr_lim_up[i] = 1.0;
@@ -220,21 +188,24 @@ namespace RAT
     }
 
     expl_temp.I_lentol = 50.0;
-    deopt(problemStruct, controls->parallel.data, controls->parallel.size,
-          controls->calcSldDuringFit, controls->resampleMinAngle,
-          controls->resampleNPoints, controls->display.data,
-          controls->display.size, controls->updateFreq, controls->updatePlotFreq,
-          controls->IPCFilePath.data, controls->IPCFilePath.size, expl_temp, r);
-    problemStruct.fitParams.set_size(1, r.size(1));
-    loop_ub = r.size(1) - 1;
-    for (int i{0}; i <= loop_ub; i++) {
-      problemStruct.fitParams[i] = r[i];
+    deopt(problemStruct, controls.parallel.data, controls.parallel.size,
+          controls.calcSldDuringFit, controls.resampleMinAngle,
+          controls.resampleNPoints, controls.display.data, controls.display.size,
+          controls.updateFreq, controls.updatePlotFreq,
+          controls.IPCFilePath.data, controls.IPCFilePath.size, expl_temp, res);
+    problemStruct.fitParams.set_size(1, res.size(1));
+    loop_ub = res.size(1);
+    for (int i{0}; i < loop_ub; i++) {
+      problemStruct.fitParams[i] = res[i];
     }
 
     unpackParams(problemStruct);
-    b_reflectivityCalculation(problemStruct, controls, result);
-    if (!coder::internal::e_strcmp(controls->display.data,
-         controls->display.size)) {
+
+    //  Ensure SLD is calculated for final result
+    controls.calcSldDuringFit = true;
+    b_reflectivityCalculation(problemStruct, &controls, result);
+    if (!coder::internal::e_strcmp(controls.display.data, controls.display.size))
+    {
       coder::snPrint(result->calculationResults.sumChi, charStr);
       triggerEvent(charStr);
     }

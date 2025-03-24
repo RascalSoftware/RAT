@@ -24,19 +24,20 @@ namespace RAT
 {
   namespace normalTF
   {
-    void b_coreLayersCalculation(const ::coder::array<double, 2U> &layers,
-      double roughness, const char geometry_data[], const int geometry_size[2],
-      double bulkIn, double bulkOut, double resample, boolean_T calcSld, const ::
-      coder::array<double, 2U> &shiftedData, const ::coder::array<double, 1U>
-      &simulationXData, const double dataIndices[2], const double repeatLayers[2],
-      const ::coder::array<double, 2U> &resolution, const ::coder::array<double,
-      2U> &background, const char backgroundAction_data[], const int
-      backgroundAction_size[2], const char parallelPoints_data[], const int
-      parallelPoints_size[2], double resampleMinAngle, double resampleNPoints, ::
-      coder::array<double, 2U> &reflectivity, ::coder::array<double, 2U>
-      &simulation, ::coder::array<double, 2U> &b_shiftedData, ::coder::array<
-      double, 2U> &layerSld, ::coder::array<double, 2U> &sldProfile, ::coder::
-      array<double, 2U> &resampledLayers)
+    void b_coreLayersCalculation(const ::coder::array<double, 2U>
+      &contrastLayers, double roughness, const char geometry_data[], const int
+      geometry_size[2], double bulkIn, double bulkOut, double resample,
+      boolean_T calcSld, const ::coder::array<double, 2U> &shiftedData, const ::
+      coder::array<double, 1U> &simulationXData, const double dataIndices[2],
+      const double repeatLayers[2], const ::coder::array<double, 2U> &resolution,
+      const ::coder::array<double, 2U> &background, const char
+      backgroundAction_data[], const int backgroundAction_size[2], const char
+      parallelPoints_data[], const int parallelPoints_size[2], double
+      resampleMinAngle, double resampleNPoints, ::coder::array<double, 2U>
+      &reflectivity, ::coder::array<double, 2U> &simulation, ::coder::array<
+      double, 2U> &b_shiftedData, ::coder::array<double, 2U> &sldProfile, ::
+      coder::array<double, 2U> &layers, ::coder::array<double, 2U>
+      &resampledLayers)
     {
       ::coder::array<double, 2U> ImSLDLayers;
       ::coder::array<double, 2U> ReSLDLayers;
@@ -75,9 +76,9 @@ namespace RAT
       resampledLayers[resampledLayers.size(0) * 3] = 0.0;
 
       //  Build up the layers matrix for this contrast
-      ssubs = b_groupLayersMod(layers, roughness, geometry_data, geometry_size,
-        layerSld);
-      applyHydration(layerSld, bulkIn, bulkOut);
+      ssubs = b_groupLayersMod(contrastLayers, roughness, geometry_data,
+        geometry_size, layers);
+      applyHydration(layers, bulkIn, bulkOut);
 
       //  Make the SLD profiles.
       //  If resampling is needed, then enforce the SLD calculation, so as to
@@ -89,11 +90,11 @@ namespace RAT
         signed char y_data[10];
 
         //  We process real and imaginary parts of the SLD separately
-        if (layerSld.size(1) < 4) {
+        if (layers.size(1) < 4) {
           y_size_idx_1 = 0;
         } else {
-          y_size_idx_1 = layerSld.size(1) - 3;
-          loop_ub = layerSld.size(1) - 4;
+          y_size_idx_1 = layers.size(1) - 3;
+          loop_ub = layers.size(1) - 4;
           for (int i{0}; i <= loop_ub; i++) {
             y_data[i] = static_cast<signed char>(i + 4);
           }
@@ -106,20 +107,20 @@ namespace RAT
           tmp_data[i + 2] = static_cast<short>(y_data[i] - 1);
         }
 
-        ReSLDLayers.set_size(layerSld.size(0), tmp_size);
+        ReSLDLayers.set_size(layers.size(0), tmp_size);
         for (int i{0}; i < tmp_size; i++) {
-          loop_ub = layerSld.size(0);
+          loop_ub = layers.size(0);
           for (int i1{0}; i1 < loop_ub; i1++) {
-            ReSLDLayers[i1 + ReSLDLayers.size(0) * i] = layerSld[i1 +
-              layerSld.size(0) * tmp_data[i]];
+            ReSLDLayers[i1 + ReSLDLayers.size(0) * i] = layers[i1 + layers.size
+              (0) * tmp_data[i]];
           }
         }
 
-        if (layerSld.size(1) < 3) {
+        if (layers.size(1) < 3) {
           y_size_idx_1 = 0;
         } else {
-          y_size_idx_1 = layerSld.size(1) - 2;
-          loop_ub = layerSld.size(1) - 3;
+          y_size_idx_1 = layers.size(1) - 2;
+          loop_ub = layers.size(1) - 3;
           for (int i{0}; i <= loop_ub; i++) {
             b_y_data[i] = static_cast<signed char>(i + 3);
           }
@@ -131,12 +132,12 @@ namespace RAT
           tmp_data[i + 1] = static_cast<short>(b_y_data[i] - 1);
         }
 
-        ImSLDLayers.set_size(layerSld.size(0), tmp_size);
+        ImSLDLayers.set_size(layers.size(0), tmp_size);
         for (int i{0}; i < tmp_size; i++) {
-          loop_ub = layerSld.size(0);
+          loop_ub = layers.size(0);
           for (int i1{0}; i1 < loop_ub; i1++) {
-            ImSLDLayers[i1 + ImSLDLayers.size(0) * i] = layerSld[i1 +
-              layerSld.size(0) * tmp_data[i]];
+            ImSLDLayers[i1 + ImSLDLayers.size(0) * i] = layers[i1 + layers.size
+              (0) * tmp_data[i]];
           }
         }
 
@@ -160,13 +161,13 @@ namespace RAT
           }
         }
       } else {
-        inputLayers.set_size(layerSld.size(0), layerSld.size(1));
-        loop_ub = layerSld.size(1);
+        inputLayers.set_size(layers.size(0), layers.size(1));
+        loop_ub = layers.size(1);
         for (int i{0}; i < loop_ub; i++) {
-          y_size_idx_1 = layerSld.size(0);
+          y_size_idx_1 = layers.size(0);
           for (int i1{0}; i1 < y_size_idx_1; i1++) {
-            inputLayers[i1 + inputLayers.size(0) * i] = layerSld[i1 +
-              layerSld.size(0) * i];
+            inputLayers[i1 + inputLayers.size(0) * i] = layers[i1 + layers.size
+              (0) * i];
           }
         }
       }
@@ -191,10 +192,10 @@ namespace RAT
         background, backgroundAction_data, backgroundAction_size, b_shiftedData);
     }
 
-    void coreLayersCalculation(const ::coder::array<double, 2U> &layers, double
-      roughness, const char geometry_data[], const int geometry_size[2], double
-      bulkIn, double bulkOut, double resample, boolean_T calcSld, const ::coder::
-      array<double, 2U> &shiftedData, const ::coder::array<double, 1U>
+    void coreLayersCalculation(const ::coder::array<double, 2U> &contrastLayers,
+      double roughness, const char geometry_data[], const int geometry_size[2],
+      double bulkIn, double bulkOut, double resample, boolean_T calcSld, const ::
+      coder::array<double, 2U> &shiftedData, const ::coder::array<double, 1U>
       &simulationXData, const double dataIndices[2], const double repeatLayers[2],
       const ::coder::array<double, 2U> &resolution, const ::coder::array<double,
       2U> &background, const char backgroundAction_data[], const int
@@ -202,7 +203,7 @@ namespace RAT
       parallelPoints_size[2], double resampleMinAngle, double resampleNPoints, ::
       coder::array<double, 2U> &reflectivity, ::coder::array<double, 2U>
       &simulation, ::coder::array<double, 2U> &b_shiftedData, ::coder::array<
-      double, 2U> &layerSld, ::coder::array<double, 2U> &sldProfile, ::coder::
+      double, 2U> &sldProfile, ::coder::array<double, 2U> &layers, ::coder::
       array<double, 2U> &resampledLayers)
     {
       ::coder::array<double, 2U> ImSLDLayers;
@@ -243,24 +244,24 @@ namespace RAT
       resampledLayers[resampledLayers.size(0) * 3] = 0.0;
 
       //  Build up the layers matrix for this contrast
-      ssubs = groupLayersMod(layers, roughness, geometry_data, geometry_size,
-        layerSld);
-      r.set_size(layerSld.size(0), layerSld.size(1));
-      loop_ub = layerSld.size(1);
+      ssubs = groupLayersMod(contrastLayers, roughness, geometry_data,
+        geometry_size, layers);
+      r.set_size(layers.size(0), layers.size(1));
+      loop_ub = layers.size(1);
       for (int i{0}; i < loop_ub; i++) {
-        b_loop_ub = layerSld.size(0);
+        b_loop_ub = layers.size(0);
         for (int i1{0}; i1 < b_loop_ub; i1++) {
-          r[i1 + r.size(0) * i] = layerSld[i1 + layerSld.size(0) * i];
+          r[i1 + r.size(0) * i] = layers[i1 + layers.size(0) * i];
         }
       }
 
       applyHydration(r, bulkIn, bulkOut);
-      layerSld.set_size(r.size(0), r.size(1));
+      layers.set_size(r.size(0), r.size(1));
       loop_ub = r.size(1);
       for (int i{0}; i < loop_ub; i++) {
         b_loop_ub = r.size(0);
         for (int i1{0}; i1 < b_loop_ub; i1++) {
-          layerSld[i1 + layerSld.size(0) * i] = r[i1 + r.size(0) * i];
+          layers[i1 + layers.size(0) * i] = r[i1 + r.size(0) * i];
         }
       }
 
@@ -274,11 +275,11 @@ namespace RAT
         signed char y_data[10];
 
         //  We process real and imaginary parts of the SLD separately
-        if (layerSld.size(1) < 4) {
+        if (layers.size(1) < 4) {
           b_loop_ub = 0;
         } else {
-          b_loop_ub = layerSld.size(1) - 3;
-          loop_ub = layerSld.size(1) - 4;
+          b_loop_ub = layers.size(1) - 3;
+          loop_ub = layers.size(1) - 4;
           for (int i{0}; i <= loop_ub; i++) {
             y_data[i] = static_cast<signed char>(i + 4);
           }
@@ -291,20 +292,20 @@ namespace RAT
           tmp_data[i + 2] = static_cast<short>(y_data[i] - 1);
         }
 
-        ReSLDLayers.set_size(layerSld.size(0), tmp_size);
+        ReSLDLayers.set_size(layers.size(0), tmp_size);
         for (int i{0}; i < tmp_size; i++) {
-          loop_ub = layerSld.size(0);
+          loop_ub = layers.size(0);
           for (int i1{0}; i1 < loop_ub; i1++) {
-            ReSLDLayers[i1 + ReSLDLayers.size(0) * i] = layerSld[i1 +
-              layerSld.size(0) * tmp_data[i]];
+            ReSLDLayers[i1 + ReSLDLayers.size(0) * i] = layers[i1 + layers.size
+              (0) * tmp_data[i]];
           }
         }
 
-        if (layerSld.size(1) < 3) {
+        if (layers.size(1) < 3) {
           b_loop_ub = 0;
         } else {
-          b_loop_ub = layerSld.size(1) - 2;
-          loop_ub = layerSld.size(1) - 3;
+          b_loop_ub = layers.size(1) - 2;
+          loop_ub = layers.size(1) - 3;
           for (int i{0}; i <= loop_ub; i++) {
             b_y_data[i] = static_cast<signed char>(i + 3);
           }
@@ -316,12 +317,12 @@ namespace RAT
           tmp_data[i + 1] = static_cast<short>(b_y_data[i] - 1);
         }
 
-        ImSLDLayers.set_size(layerSld.size(0), tmp_size);
+        ImSLDLayers.set_size(layers.size(0), tmp_size);
         for (int i{0}; i < tmp_size; i++) {
-          loop_ub = layerSld.size(0);
+          loop_ub = layers.size(0);
           for (int i1{0}; i1 < loop_ub; i1++) {
-            ImSLDLayers[i1 + ImSLDLayers.size(0) * i] = layerSld[i1 +
-              layerSld.size(0) * tmp_data[i]];
+            ImSLDLayers[i1 + ImSLDLayers.size(0) * i] = layers[i1 + layers.size
+              (0) * tmp_data[i]];
           }
         }
 
@@ -345,13 +346,13 @@ namespace RAT
           }
         }
       } else {
-        inputLayers.set_size(layerSld.size(0), layerSld.size(1));
-        loop_ub = layerSld.size(1);
+        inputLayers.set_size(layers.size(0), layers.size(1));
+        loop_ub = layers.size(1);
         for (int i{0}; i < loop_ub; i++) {
-          b_loop_ub = layerSld.size(0);
+          b_loop_ub = layers.size(0);
           for (int i1{0}; i1 < b_loop_ub; i1++) {
-            inputLayers[i1 + inputLayers.size(0) * i] = layerSld[i1 +
-              layerSld.size(0) * i];
+            inputLayers[i1 + inputLayers.size(0) * i] = layers[i1 + layers.size
+              (0) * i];
           }
         }
       }

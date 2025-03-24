@@ -142,6 +142,7 @@ namespace RAT
     ::coder::array<double, 2U> r;
     ::coder::array<double, 2U> r1;
     ::coder::array<double, 2U> x;
+    ::coder::array<double, 2U> y;
     ::coder::array<double, 1U> log_L_x;
     ::coder::array<double, 1U> log_PR_x;
     int b_loop_ub;
@@ -207,34 +208,43 @@ namespace RAT
       binary_expand_op(r, paramInfo_max, paramInfo_min, DREAMPar);
     }
 
-    coder::repmat(paramInfo_min, DREAMPar.nChains, r1);
+    r1.set_size(r.size(0), r.size(1));
+    loop_ub = r.size(1);
+    for (i = 0; i < loop_ub; i++) {
+      b_loop_ub = r.size(0);
+      for (i1 = 0; i1 < b_loop_ub; i1++) {
+        r1[i1 + r1.size(0) * i] = r[i1 + r.size(0) * i];
+      }
+    }
+
+    coder::repmat(paramInfo_min, DREAMPar.nChains, r);
 
     //  If specified do boundary handling ( "Bound","Reflect","Fold")
     if (b_X.size(0) == 1) {
-      i = r.size(0);
+      i = r1.size(0);
     } else {
       i = b_X.size(0);
     }
 
     if (b_X.size(1) == 1) {
-      i1 = r.size(1);
+      i1 = r1.size(1);
     } else {
       i1 = b_X.size(1);
     }
 
-    if ((b_X.size(0) == r.size(0)) && (b_X.size(1) == r.size(1)) && (r1.size(0) ==
-         i) && (r1.size(1) == i1)) {
-      x.set_size(r1.size(0), r1.size(1));
-      loop_ub = r1.size(1);
+    if ((b_X.size(0) == r1.size(0)) && (b_X.size(1) == r1.size(1)) && (r.size(0)
+         == i) && (r.size(1) == i1)) {
+      x.set_size(r.size(0), r.size(1));
+      loop_ub = r.size(1);
       for (i = 0; i < loop_ub; i++) {
-        b_loop_ub = r1.size(0);
+        b_loop_ub = r.size(0);
         for (i1 = 0; i1 < b_loop_ub; i1++) {
-          x[i1 + x.size(0) * i] = r1[i1 + r1.size(0) * i] + b_X[i1 + b_X.size(0)
-            * i] * r[i1 + r.size(0) * i];
+          x[i1 + x.size(0) * i] = r[i1 + r.size(0) * i] + b_X[i1 + b_X.size(0) *
+            i] * r1[i1 + r1.size(0) * i];
         }
       }
     } else {
-      binary_expand_op(x, r1, b_X, r);
+      binary_expand_op(x, r, b_X, r1);
     }
 
     boundaryHandling(x, paramInfo_min, paramInfo_max,
@@ -329,20 +339,20 @@ namespace RAT
     int iv[2];
 
     //  Define selection probability of each crossover
-    b_paramInfo_max.set_size(1, 3);
+    y.set_size(1, 3);
     pCR_size[0] = 1;
     pCR_size[1] = 3;
-    b_paramInfo_max[0] = 0.33333333333333331;
+    y[0] = 0.33333333333333331;
     pCR_data[0] = 0.33333333333333331;
-    b_paramInfo_max[1] = 0.33333333333333331;
+    y[1] = 0.33333333333333331;
     pCR_data[1] = 0.33333333333333331;
-    b_paramInfo_max[2] = 0.33333333333333331;
+    y[2] = 0.33333333333333331;
     pCR_data[2] = 0.33333333333333331;
 
     //  Generate the actula CR value, lCR and delta_tot
-    iv[0] = (*(int (*)[2])b_paramInfo_max.size())[0];
-    iv[1] = (*(int (*)[2])b_paramInfo_max.size())[1];
-    drawCR(DREAMPar, (const double *)b_paramInfo_max.data(), iv, CR);
+    iv[0] = (*(int (*)[2])y.size())[0];
+    iv[1] = (*(int (*)[2])y.size())[1];
+    drawCR(DREAMPar, (const double *)y.data(), iv, CR);
     lCR_size[0] = 1;
     lCR_size[1] = 3;
     delta_tot_size[0] = 1;

@@ -2017,9 +2017,10 @@ namespace RAT
                  controls_parallel_size, controls_calcSldDuringFit,
                  controls_resampleMinAngle, controls_resampleNPoints, result,
                  expl_temp, b_expl_temp, c_expl_temp);
-        triggerEvent(result, problem.TF.data, problem.TF.size, problem.resample,
-                     problem.dataPresent, problem.modelType.data,
-                     problem.modelType.size, problem.names.contrasts);
+        b_triggerEvent(result, problem.TF.data, problem.TF.size,
+                       problem.resample, problem.dataPresent,
+                       problem.modelType.data, problem.modelType.size,
+                       problem.names.contrasts);
       }
 
       b_FVr_a1 = isRATStopped(controls_IPCFilePath_data,
@@ -2061,9 +2062,9 @@ namespace RAT
                controls_parallel_size, controls_calcSldDuringFit,
                controls_resampleMinAngle, controls_resampleNPoints, result,
                expl_temp, b_expl_temp, c_expl_temp);
-      triggerEvent(result, problem.TF.data, problem.TF.size, problem.resample,
-                   problem.dataPresent, problem.modelType.data,
-                   problem.modelType.size, problem.names.contrasts);
+      b_triggerEvent(result, problem.TF.data, problem.TF.size, problem.resample,
+                     problem.dataPresent, problem.modelType.data,
+                     problem.modelType.size, problem.names.contrasts);
     }
   }
 }

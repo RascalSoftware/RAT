@@ -33,14 +33,7 @@ namespace RAT
                   double controls_resampleMinAngle, double
                   controls_resampleNPoints, Results &result, double
                   &S_MSE_FVr_ca, double &S_MSE_I_no, double &S_MSE_FVr_oa);
-  void runDE(ProblemDefinition &problemStruct, const ::coder::array<double, 2U>
-             &problemLimits_params, const ::coder::array<double, 2U>
-             &problemLimits_backgroundParams, const ::coder::array<double, 2U>
-             &problemLimits_scalefactors, const ::coder::array<double, 2U>
-             &problemLimits_bulkIns, const ::coder::array<double, 2U>
-             &problemLimits_bulkOuts, const ::coder::array<double, 2U>
-             &problemLimits_resolutionParams, const ::coder::array<double, 2U>
-             &problemLimits_domainRatios, const Controls *controls, Results
+  void runDE(ProblemDefinition &problemStruct, Controls &controls, Results
              *result);
 }
 

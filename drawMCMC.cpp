@@ -89,7 +89,7 @@ namespace RAT
   double drawMCMC(const ::coder::array<double, 2U> &livepoints, const ::coder::
                   array<double, 2U> &cholmat, double logLmin, const ::coder::
                   array<double, 2U> &prior, const ProblemDefinition &data_f1,
-                  const Controls *data_f2, double nMCMC, ::coder::array<double,
+                  const Controls &data_f2, double nMCMC, ::coder::array<double,
                   2U> &sample)
   {
     ::coder::array<double, 2U> r1;
@@ -126,7 +126,7 @@ namespace RAT
     //  prior : array
     //      The prior information for the parameters.
     //  data : array
-    //      The problem struct, controls, and problem limits.
+    //      The problem struct and controls.
     //  likelihood : function
     //      The likelihood function for the problem.
     //  model : unknown
@@ -340,7 +340,7 @@ namespace RAT
     } while (exitg1 == 0);
 
     //  print out acceptance ratio
-    if (!coder::internal::e_strcmp(data_f2->display.data, data_f2->display.size))
+    if (!coder::internal::e_strcmp(data_f2.display.data, data_f2.display.size))
     {
       coder::b_snPrint(acc / (Ntimes * nMCMC), charStr);
       triggerEvent(charStr);

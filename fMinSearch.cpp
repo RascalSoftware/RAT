@@ -296,18 +296,20 @@ namespace RAT
 
     ::coder::array<double, 2U> b_v;
     ::coder::array<double, 2U> c_fv;
+    ::coder::array<double, 2U> c_v;
     ::coder::array<double, 2U> fv;
     ::coder::array<double, 2U> r1;
     ::coder::array<double, 2U> r2;
+    ::coder::array<double, 2U> r4;
     ::coder::array<double, 2U> v;
-    ::coder::array<double, 1U> c_v;
+    ::coder::array<double, 1U> d_v;
+    ::coder::array<double, 1U> r3;
     ::coder::array<double, 1U> xbar;
     ::coder::array<double, 1U> xc;
     ::coder::array<double, 1U> xcc;
     ::coder::array<double, 1U> xe;
     ::coder::array<double, 1U> xr;
     ::coder::array<double, 1U> y;
-    ::coder::array<int, 2U> iidx;
     ::coder::array<char, 2U> r;
     ::coder::array<boolean_T, 1U> b_tmp_data;
     ::coder::array<boolean_T, 1U> c_tmp_data;
@@ -318,7 +320,9 @@ namespace RAT
     double fval;
     double itercount;
     double output_funcCount;
+    int iidx_data[10001];
     int how_size[2];
+    int iidx_size[2];
     int b_index;
     int i;
     int i1;
@@ -540,13 +544,13 @@ namespace RAT
     }
 
     //  sort so v(1,:) has the lowest function value
-    coder::internal::sort(fv, iidx);
+    coder::internal::sort(fv, iidx_data, iidx_size);
     b_index = v.size(0);
-    b_v.set_size(v.size(0), iidx.size(1));
-    x_idx_1_tmp = iidx.size(1);
+    b_v.set_size(v.size(0), iidx_size[1]);
+    x_idx_1_tmp = iidx_size[1];
     for (i = 0; i < x_idx_1_tmp; i++) {
       for (i1 = 0; i1 < b_index; i1++) {
-        b_v[i1 + b_v.size(0) * i] = v[i1 + v.size(0) * (iidx[i] - 1)];
+        b_v[i1 + b_v.size(0) * i] = v[i1 + v.size(0) * (iidx_data[i] - 1)];
       }
     }
 
@@ -643,7 +647,7 @@ namespace RAT
         if ((func_evals < options_MaxFunEvals) && (itercount < options_MaxIter))
         {
           boolean_T b_guard1;
-          if (static_cast<unsigned int>(n) + 1U < 2U) {
+          if (n + 1 < 2) {
             i = 0;
             i1 = -1;
           } else {
@@ -662,7 +666,7 @@ namespace RAT
           b_guard1 = false;
           if (coder::internal::maximum(r1) <= std::fmax(options_TolFun, 10.0 *
                coder::eps(fv[0]))) {
-            if (static_cast<unsigned int>(n) + 1U < 2U) {
+            if (n + 1 < 2) {
               i = 0;
               i1 = -1;
             } else {
@@ -686,15 +690,15 @@ namespace RAT
               c_binary_expand_op(r2, v, i, i1, n);
             }
 
-            c_v.set_size(v.size(0));
+            d_v.set_size(v.size(0));
             x_idx_1_tmp = v.size(0);
             for (i = 0; i < x_idx_1_tmp; i++) {
-              c_v[i] = v[i];
+              d_v[i] = v[i];
             }
 
-            coder::internal::maximum(r2, r1);
-            if (coder::internal::maximum(r1) <= std::fmax(options_TolX, 10.0 *
-                 coder::eps(coder::internal::maximum(c_v)))) {
+            coder::internal::maximum(r2, r4);
+            if (coder::internal::maximum(r4) <= std::fmax(options_TolX, 10.0 *
+                 coder::eps(coder::internal::maximum(d_v)))) {
               guard1 = true;
               exitg1 = 1;
             } else {
@@ -715,19 +719,19 @@ namespace RAT
               x_idx_1_tmp = n;
             }
 
-            b_v.set_size(v.size(0), x_idx_1_tmp);
+            c_v.set_size(v.size(0), x_idx_1_tmp);
             for (i = 0; i < x_idx_1_tmp; i++) {
               b_index = v.size(0);
               for (i1 = 0; i1 < b_index; i1++) {
-                b_v[i1 + b_v.size(0) * i] = v[i1 + v.size(0) * i];
+                c_v[i1 + c_v.size(0) * i] = v[i1 + v.size(0) * i];
               }
             }
 
-            coder::blockedSummation(b_v, x_idx_1_tmp, c_v);
-            xbar.set_size(c_v.size(0));
-            x_idx_1_tmp = c_v.size(0);
+            coder::blockedSummation(c_v, x_idx_1_tmp, r3);
+            xbar.set_size(r3.size(0));
+            x_idx_1_tmp = r3.size(0);
             for (i = 0; i < x_idx_1_tmp; i++) {
-              xbar[i] = c_v[i] / static_cast<double>(n);
+              xbar[i] = r3[i] / static_cast<double>(n);
             }
 
             if (xbar.size(0) == v.size(0)) {
@@ -903,26 +907,26 @@ namespace RAT
 
               if (coder::internal::bb_strcmp(how_data, how_size)) {
                 for (int j{0}; j < n; j++) {
-                  c_v.set_size(v.size(0));
+                  d_v.set_size(v.size(0));
                   x_idx_1_tmp = v.size(0);
                   for (i = 0; i < x_idx_1_tmp; i++) {
                     b_fv = v[i];
-                    c_v[i] = b_fv + 0.5 * (v[i + v.size(0) * (j + 1)] - b_fv);
+                    d_v[i] = b_fv + 0.5 * (v[i + v.size(0) * (j + 1)] - b_fv);
                   }
 
-                  x_idx_1_tmp = c_v.size(0);
+                  x_idx_1_tmp = d_v.size(0);
                   for (i = 0; i < x_idx_1_tmp; i++) {
-                    v[i + v.size(0) * (j + 1)] = c_v[i];
+                    v[i + v.size(0) * (j + 1)] = d_v[i];
                   }
 
                   x_idx_1_tmp = v.size(0);
-                  c_v.set_size(v.size(0));
+                  d_v.set_size(v.size(0));
                   for (i = 0; i < x_idx_1_tmp; i++) {
-                    c_v[i] = v[i + v.size(0) * (j + 1)];
+                    d_v[i] = v[i + v.size(0) * (j + 1)];
                   }
 
                   b_varargin_1 = varargin_1;
-                  fv[j + 1] = simplexIntrafun(c_v, b_varargin_1,
+                  fv[j + 1] = simplexIntrafun(d_v, b_varargin_1,
                     varargin_2_parallel_data, varargin_2_parallel_size,
                     varargin_2_calcSldDuringFit, varargin_2_resampleMinAngle,
                     varargin_2_resampleNPoints, varargin_3.LB, varargin_3.UB,
@@ -933,13 +937,13 @@ namespace RAT
               }
             }
 
-            coder::internal::sort(fv, iidx);
+            coder::internal::sort(fv, iidx_data, iidx_size);
             b_index = v.size(0);
-            b_v.set_size(v.size(0), iidx.size(1));
-            x_idx_1_tmp = iidx.size(1);
+            b_v.set_size(v.size(0), iidx_size[1]);
+            x_idx_1_tmp = iidx_size[1];
             for (i = 0; i < x_idx_1_tmp; i++) {
               for (i1 = 0; i1 < b_index; i1++) {
-                b_v[i1 + b_v.size(0) * i] = v[i1 + v.size(0) * (iidx[i] - 1)];
+                b_v[i1 + b_v.size(0) * i] = v[i1 + v.size(0) * (iidx_data[i] - 1)];
               }
             }
 

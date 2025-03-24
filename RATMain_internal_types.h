@@ -53,6 +53,11 @@ namespace RAT
     ::coder::array<cell_wrap_11, 2U> f1;
   };
 
+  struct cell_wrap_45
+  {
+    ::coder::array<double, 2U> f1;
+  };
+
   struct ParamNames
   {
     ::coder::array<cell_wrap_10, 2U> params;
@@ -111,12 +116,12 @@ namespace RAT
 
   struct cell_wrap_63
   {
-    cell_wrap_9 f1[2];
+    cell_wrap_7 f1[2];
   };
 
   struct cell_wrap_64
   {
-    cell_wrap_7 f1[2];
+    cell_wrap_9 f1[2];
   };
 
   struct cell_wrap_65

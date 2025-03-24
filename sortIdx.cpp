@@ -22,9 +22,9 @@ namespace RAT
   {
     namespace internal
     {
-      static void merge(::coder::array<int, 2U> &idx, ::coder::array<double, 2U>
-                        &x, int offset, int np, int nq, ::coder::array<int, 1U>
-                        &iwork, ::coder::array<double, 1U> &xwork);
+      static void merge(int idx_data[], ::coder::array<double, 2U> &x, int
+                        offset, int np, int nq, int iwork_data[], ::coder::array<
+                        double, 1U> &xwork);
       static void merge(::coder::array<int, 1U> &idx, ::coder::array<double, 1U>
                         &x, int offset, int np, int nq, ::coder::array<int, 1U>
                         &iwork, ::coder::array<double, 1U> &xwork);
@@ -44,9 +44,9 @@ namespace RAT
   {
     namespace internal
     {
-      static void merge(::coder::array<int, 2U> &idx, ::coder::array<double, 2U>
-                        &x, int offset, int np, int nq, ::coder::array<int, 1U>
-                        &iwork, ::coder::array<double, 1U> &xwork)
+      static void merge(int idx_data[], ::coder::array<double, 2U> &x, int
+                        offset, int np, int nq, int iwork_data[], ::coder::array<
+                        double, 1U> &xwork)
       {
         if (nq != 0) {
           int iout;
@@ -56,7 +56,7 @@ namespace RAT
           n_tmp = np + nq;
           for (int j{0}; j < n_tmp; j++) {
             iout = offset + j;
-            iwork[j] = idx[iout];
+            iwork_data[j] = idx_data[iout];
             xwork[j] = x[iout];
           }
 
@@ -68,7 +68,7 @@ namespace RAT
             exitg1 = 0;
             iout++;
             if (xwork[p] <= xwork[q]) {
-              idx[iout] = iwork[p];
+              idx_data[iout] = iwork_data[p];
               x[iout] = xwork[p];
               if (p + 1 < np) {
                 p++;
@@ -76,7 +76,7 @@ namespace RAT
                 exitg1 = 1;
               }
             } else {
-              idx[iout] = iwork[q];
+              idx_data[iout] = iwork_data[q];
               x[iout] = xwork[q];
               if (q + 1 < n_tmp) {
                 q++;
@@ -84,7 +84,7 @@ namespace RAT
                 q = iout - p;
                 for (int j{p + 1}; j <= np; j++) {
                   iout = q + j;
-                  idx[iout] = iwork[j - 1];
+                  idx_data[iout] = iwork_data[j - 1];
                   x[iout] = xwork[j - 1];
                 }
 
@@ -490,9 +490,9 @@ namespace RAT
         }
       }
 
-      void merge_block(::coder::array<int, 2U> &idx, ::coder::array<double, 2U>
-                       &x, int offset, int n, int preSortLevel, ::coder::array<
-                       int, 1U> &iwork, ::coder::array<double, 1U> &xwork)
+      void merge_block(int idx_data[], ::coder::array<double, 2U> &x, int offset,
+                       int n, int preSortLevel, int iwork_data[], ::coder::array<
+                       double, 1U> &xwork)
       {
         int bLen;
         int nPairs;
@@ -506,27 +506,28 @@ namespace RAT
             tailOffset = bLen * nPairs;
             nTail = n - tailOffset;
             if (nTail > bLen) {
-              merge(idx, x, offset + tailOffset, bLen, nTail - bLen, iwork,
-                    xwork);
+              merge(idx_data, x, offset + tailOffset, bLen, nTail - bLen,
+                    iwork_data, xwork);
             }
           }
 
           tailOffset = bLen << 1;
           nPairs >>= 1;
           for (nTail = 0; nTail < nPairs; nTail++) {
-            merge(idx, x, offset + nTail * tailOffset, bLen, bLen, iwork, xwork);
+            merge(idx_data, x, offset + nTail * tailOffset, bLen, bLen,
+                  iwork_data, xwork);
           }
 
           bLen = tailOffset;
         }
 
         if (n > bLen) {
-          merge(idx, x, offset, bLen, n - bLen, iwork, xwork);
+          merge(idx_data, x, offset, bLen, n - bLen, iwork_data, xwork);
         }
       }
 
-      void merge_pow2_block(::coder::array<int, 2U> &idx, ::coder::array<double,
-                            2U> &x, int offset)
+      void merge_pow2_block(int idx_data[], ::coder::array<double, 2U> &x, int
+                            offset)
       {
         double xwork[256];
         int iwork[256];
@@ -545,7 +546,7 @@ namespace RAT
             blockOffset = offset + k * bLen2;
             for (int j{0}; j < bLen2; j++) {
               iout = blockOffset + j;
-              iwork[j] = idx[iout];
+              iwork[j] = idx_data[iout];
               xwork[j] = x[iout];
             }
 
@@ -557,7 +558,7 @@ namespace RAT
               exitg1 = 0;
               iout++;
               if (xwork[p] <= xwork[q]) {
-                idx[iout] = iwork[p];
+                idx_data[iout] = iwork[p];
                 x[iout] = xwork[p];
                 if (p + 1 < bLen) {
                   p++;
@@ -565,7 +566,7 @@ namespace RAT
                   exitg1 = 1;
                 }
               } else {
-                idx[iout] = iwork[q];
+                idx_data[iout] = iwork[q];
                 x[iout] = xwork[q];
                 if (q + 1 < bLen2) {
                   q++;
@@ -573,7 +574,7 @@ namespace RAT
                   iout -= p;
                   for (int j{p + 1}; j <= bLen; j++) {
                     q = iout + j;
-                    idx[q] = iwork[j - 1];
+                    idx_data[q] = iwork[j - 1];
                     x[q] = xwork[j - 1];
                   }
 
@@ -597,6 +598,27 @@ namespace RAT
 
         if (x.size(1) != 0) {
           b_mergesort(idx, x, x.size(1));
+        }
+      }
+
+      void sortIdx(const ::coder::array<double, 2U> &x, ::coder::array<int, 1U>
+                   &idx)
+      {
+        int k;
+        int n;
+        n = x.size(0);
+        idx.set_size(x.size(0));
+        k = x.size(0);
+        for (int i{0}; i < k; i++) {
+          idx[i] = 0;
+        }
+
+        if (x.size(0) == 0) {
+          for (k = 0; k < n; k++) {
+            idx[k] = k + 1;
+          }
+        } else {
+          b_mergesort(idx, x, x.size(0));
         }
       }
 
@@ -628,27 +650,6 @@ namespace RAT
         loop_ub = x.size(0);
         for (int i{0}; i < loop_ub; i++) {
           idx[i] = r[i];
-        }
-      }
-
-      void sortIdx(const ::coder::array<double, 2U> &x, ::coder::array<int, 1U>
-                   &idx)
-      {
-        int k;
-        int n;
-        n = x.size(0);
-        idx.set_size(x.size(0));
-        k = x.size(0);
-        for (int i{0}; i < k; i++) {
-          idx[i] = 0;
-        }
-
-        if (x.size(0) == 0) {
-          for (k = 0; k < n; k++) {
-            idx[k] = k + 1;
-          }
-        } else {
-          b_mergesort(idx, x, x.size(0));
         }
       }
     }

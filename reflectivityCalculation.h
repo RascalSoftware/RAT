@@ -21,7 +21,6 @@ namespace RAT
   struct ProblemDefinition;
   struct Controls;
   struct Results;
-  struct b_ProblemDefinition;
 }
 
 // Function Declarations
@@ -30,8 +29,6 @@ namespace RAT
   void b_reflectivityCalculation(const ProblemDefinition &problemStruct, const
     Controls *controls, Results *result);
   void reflectivityCalculation(const ProblemDefinition &problemStruct, const
-    Controls *controls, Results *result);
-  void reflectivityCalculation(const b_ProblemDefinition *problemStruct, const
     Controls *controls, Results *result);
 }
 

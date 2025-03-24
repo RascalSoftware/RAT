@@ -28,6 +28,7 @@ namespace RAT
     savedTime_not_empty_init();
     freq_not_empty_init();
     helper_not_empty_init();
+    notified_not_empty_init();
     triggerEvent_init();
     filedata_init();
     eml_rand_mt19937ar_stateful_init();

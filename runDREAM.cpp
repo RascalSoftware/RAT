@@ -12,11 +12,11 @@
 #include "runDREAM.h"
 #include "RATMain_internal_types.h"
 #include "RATMain_types.h"
+#include "getFitNames.h"
 #include "getFittedPriors.h"
 #include "ismember.h"
 #include "makeEmptyBayesResultsStruct.h"
 #include "mean.h"
-#include "packParams.h"
 #include "processBayes.h"
 #include "ratDREAM.h"
 #include "rt_nonfinite.h"
@@ -30,9 +30,9 @@
 // Function Definitions
 namespace RAT
 {
-  void runDREAM(const ProblemDefinition &problemStruct, const ProblemLimits
-                *problemLimits, const Controls *controls, Results *result,
-                c_struct_T &bayesResults, ProblemDefinition &outProblemStruct)
+  void runDREAM(const ProblemDefinition &problemStruct, const Controls *controls,
+                Results *result, c_struct_T &bayesResults, ProblemDefinition &
+                outProblemStruct)
   {
     static Controls b_controls;
     static const char b_cv1[43]{ 'J', 'e', 'f', 'f', 'r', 'e', 'y', 's', ' ',
@@ -40,7 +40,7 @@ namespace RAT
       'a', 'v', 'a', 'i', 'l', 'a', 'b', 'l', 'e', ' ', 'i', 'n', ' ', 'D', 'R',
       'E', 'A', 'M', '.' };
 
-    ::coder::array<cell_wrap_10, 1U> fitParamNames;
+    ::coder::array<cell_wrap_10, 1U> fitNames;
     ::coder::array<double, 2U> ParInfo_max;
     ::coder::array<double, 2U> ParInfo_min;
     ::coder::array<double, 2U> a__1;
@@ -63,8 +63,6 @@ namespace RAT
     //  ----------
     //  problemStruct : struct
     //      the Project struct.
-    //  problemLimits : array
-    //      the value limits for each parameter.
     //  controls : struct
     //      the Controls struct.
     //
@@ -115,12 +113,16 @@ namespace RAT
     }
 
     //  Pre-allocation
-    outProblemStruct = problemStruct;
-    packParams(outProblemStruct, problemLimits->params,
-               problemLimits->backgroundParams, problemLimits->scalefactors,
-               problemLimits->bulkIns, problemLimits->bulkOuts,
-               problemLimits->resolutionParams, problemLimits->domainRatios,
-               fitParamNames);
+    getFitNames(problemStruct.names.params, problemStruct.names.backgroundParams,
+                problemStruct.names.scalefactors, problemStruct.names.bulkIns,
+                problemStruct.names.bulkOuts,
+                problemStruct.names.resolutionParams,
+                problemStruct.names.domainRatios, problemStruct.checks.params,
+                problemStruct.checks.backgroundParams,
+                problemStruct.checks.scalefactors, problemStruct.checks.bulkIns,
+                problemStruct.checks.bulkOuts,
+                problemStruct.checks.resolutionParams,
+                problemStruct.checks.domainRatios, fitNames);
 
     //  Get the priors for the fitted parameters...
     //  Put all the RAT parameters together into one array...
@@ -136,34 +138,34 @@ namespace RAT
     //  Jump probabilities...
     //  This will change...
     //  Initial sampling and parameter range
-    ParInfo_min.set_size(1, outProblemStruct.fitLimits.size(0));
-    loop_ub = outProblemStruct.fitLimits.size(0);
-    ParInfo_max.set_size(1, outProblemStruct.fitLimits.size(0));
+    ParInfo_min.set_size(1, problemStruct.fitLimits.size(0));
+    loop_ub = problemStruct.fitLimits.size(0);
+    ParInfo_max.set_size(1, problemStruct.fitLimits.size(0));
     for (i = 0; i < loop_ub; i++) {
-      ParInfo_min[i] = outProblemStruct.fitLimits[i];
-      ParInfo_max[i] = outProblemStruct.fitLimits[i +
-        outProblemStruct.fitLimits.size(0)];
+      ParInfo_min[i] = problemStruct.fitLimits[i];
+      ParInfo_max[i] = problemStruct.fitLimits[i + problemStruct.fitLimits.size
+        (0)];
     }
 
     //  Run the sampler....
-    getFittedPriors(fitParamNames, outProblemStruct.priorNames,
-                    outProblemStruct.priorValues, outProblemStruct.fitLimits, r);
-    ratDREAM(static_cast<double>(fitParamNames.size(0)), controls->nChains, std::
-             ceil(controls->nSamples / controls->nChains),
-             controls->jumpProbability, controls->pUnitGamma, controls->adaptPCR,
-             ParInfo_min, ParInfo_max, controls->boundHandling.data,
-             controls->boundHandling.size, outProblemStruct, controls, r,
-             bayesResults.dreamOutput.allChains, dreamOutput, a__1);
+    getFittedPriors(fitNames, problemStruct.priorNames,
+                    problemStruct.priorValues, problemStruct.fitLimits, r);
+    ratDREAM(static_cast<double>(fitNames.size(0)), controls->nChains, std::ceil
+             (controls->nSamples / controls->nChains), controls->jumpProbability,
+             controls->pUnitGamma, controls->adaptPCR, ParInfo_min, ParInfo_max,
+             controls->boundHandling.data, controls->boundHandling.size,
+             problemStruct, controls, r, bayesResults.dreamOutput.allChains,
+             dreamOutput, a__1);
 
     //  Combine all chains....
     bayesResults.chain.set_size(0, 0);
     i = static_cast<int>(controls->nChains);
     if (static_cast<int>(controls->nChains) - 1 >= 0) {
       int cutoff;
-      if (fitParamNames.size(0) < 1) {
+      if (fitNames.size(0) < 1) {
         b_loop_ub = 0;
       } else {
-        b_loop_ub = fitParamNames.size(0);
+        b_loop_ub = fitNames.size(0);
       }
 
       cutoff = static_cast<int>(std::floor(static_cast<double>
@@ -249,6 +251,7 @@ namespace RAT
       }
     }
 
+    outProblemStruct = problemStruct;
     coder::mean(bayesResults.chain, r1);
     b_controls = *controls;
     processBayes(r1, bayesResults.chain, outProblemStruct, b_controls, result,
@@ -288,7 +291,6 @@ namespace RAT
     bayesResults.dreamOutput.outlierChains.size[1] = 2;
     bayesResults.dreamOutput.runtime = dreamOutput.runtime;
     bayesResults.dreamOutput.iteration = dreamOutput.iteration;
-    bayesResults.dreamOutput.modelOutput = 0.0;
     bayesResults.dreamOutput.AR.size[0] = dreamOutput.AR.size[0];
     bayesResults.dreamOutput.AR.size[1] = 2;
     loop_ub = dreamOutput.outlierChains.size[0];

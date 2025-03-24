@@ -48,7 +48,7 @@
 // Function Definitions
 namespace RAT
 {
-  double nestedSampler(const ProblemDefinition &data_f1, const Controls *data_f2,
+  double nestedSampler(const ProblemDefinition &data_f1, const Controls &data_f2,
                        double nLive, double nMCMC, double tolerance, const ::
                        coder::array<double, 2U> &prior, ::coder::array<double,
                        2U> &nest_samples, ::coder::array<double, 2U>
@@ -127,7 +127,7 @@ namespace RAT
     //  Parameters
     //  ----------
     //  data : array
-    //      The problem struct, controls, and problem limits.
+    //      The problem struct and controls.
     //  nLive : int
     //      The number of live points to use.
     //  nMCMC : int
@@ -547,8 +547,7 @@ namespace RAT
       tol = logPlus(logZ, logLmax - j / nLive) - logZ;
 
       //  display progress (optional)
-      b = !coder::internal::e_strcmp(data_f2->display.data,
-        data_f2->display.size);
+      b = !coder::internal::e_strcmp(data_f2.display.data, data_f2.display.size);
       if (b) {
         if (j < 2.147483648E+9) {
           i1 = static_cast<int>(j);
@@ -560,8 +559,8 @@ namespace RAT
         triggerEvent(r1);
       }
 
-      sizes_idx_1 = isRATStopped(data_f2->IPCFilePath.data,
-        data_f2->IPCFilePath.size, (boolean_T *)&tmp_data);
+      sizes_idx_1 = isRATStopped(data_f2.IPCFilePath.data,
+        data_f2.IPCFilePath.size, (boolean_T *)&tmp_data);
       b_tmp_data.set(&tmp_data, sizes_idx_1);
       if (coder::internal::ifWhileCond(b_tmp_data)) {
         if (b) {

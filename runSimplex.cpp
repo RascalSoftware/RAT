@@ -13,7 +13,6 @@
 #include "RATMain_internal_types.h"
 #include "RATMain_types.h"
 #include "fMinSearch.h"
-#include "packParams.h"
 #include "reflectivityCalculation.h"
 #include "rt_nonfinite.h"
 #include "simplexXTransform.h"
@@ -26,26 +25,18 @@
 // Function Definitions
 namespace RAT
 {
-  void runSimplex(ProblemDefinition &problemStruct, const ::coder::array<double,
-                  2U> &problemLimits_params, const ::coder::array<double, 2U>
-                  &problemLimits_backgroundParams, const ::coder::array<double,
-                  2U> &problemLimits_scalefactors, const ::coder::array<double,
-                  2U> &problemLimits_bulkIns, const ::coder::array<double, 2U>
-                  &problemLimits_bulkOuts, const ::coder::array<double, 2U>
-                  &problemLimits_resolutionParams, const ::coder::array<double,
-                  2U> &problemLimits_domainRatios, const Controls *controls,
-                  Results *result)
+  void runSimplex(ProblemDefinition &problemStruct, Controls &controls, Results *
+                  result)
   {
     static const char b_cv1[6]{ 'n', 'o', 't', 'i', 'f', 'y' };
 
     static const char b_cv[5]{ 'f', 'i', 'n', 'a', 'l' };
 
-    ::coder::array<cell_wrap_10, 1U> b_problemStruct;
     ::coder::array<double, 1U> x;
     ::coder::array<double, 1U> x0u;
-    g_struct_T a__4;
+    g_struct_T a__3;
     i_struct_T expl_temp;
-    double a__3;
+    double a__2;
     int dis_size[2];
     int outsize_idx_0;
     char dis_data[6];
@@ -56,8 +47,6 @@ namespace RAT
     //  ----------
     //  problemStruct : struct
     //      the Project struct.
-    //  problemLimits : array
-    //      the value limits for each parameter.
     //  controls : struct
     //      the Controls struct.
     //
@@ -68,37 +57,17 @@ namespace RAT
     //  result : struct
     //      the calculation and optimisation results object.
     //
-    //  Set up fit parameters.
-    //
-    //  Parameters
-    //  ----------
-    //  problemStruct : struct
-    //      The project struct.
-    //  problemLimits : struct
-    //      The limits for each parameter.
-    //
-    //  Returns
-    //  -------
-    //  problemStruct : struct
-    //      The project struct with fit information.
-    //  fitNames : array
-    //      The names of the parameters being fit.
-    packParams(problemStruct, problemLimits_params,
-               problemLimits_backgroundParams, problemLimits_scalefactors,
-               problemLimits_bulkIns, problemLimits_bulkOuts,
-               problemLimits_resolutionParams, problemLimits_domainRatios,
-               b_problemStruct);
-    if (coder::internal::w_strcmp(controls->display.data, controls->display.size))
+    if (coder::internal::w_strcmp(controls.display.data, controls.display.size))
     {
       outsize_idx_0 = 0;
-    } else if (coder::internal::x_strcmp(controls->display.data,
-                controls->display.size)) {
+    } else if (coder::internal::x_strcmp(controls.display.data,
+                controls.display.size)) {
       outsize_idx_0 = 1;
-    } else if (coder::internal::y_strcmp(controls->display.data,
-                controls->display.size)) {
+    } else if (coder::internal::y_strcmp(controls.display.data,
+                controls.display.size)) {
       outsize_idx_0 = 2;
-    } else if (coder::internal::ab_strcmp(controls->display.data,
-                controls->display.size)) {
+    } else if (coder::internal::ab_strcmp(controls.display.data,
+                controls.display.size)) {
       outsize_idx_0 = 3;
     } else {
       outsize_idx_0 = -1;
@@ -239,13 +208,13 @@ namespace RAT
 
     //  now we can call fminsearch, but with our own
     //  intra-objective function.
-    fMinSearch(x0u, controls->maxIterations, controls->maxFuncEvals,
-               controls->xTolerance, controls->funcTolerance, dis_data, dis_size,
-               problemStruct, controls->parallel.data, controls->parallel.size,
-               controls->calcSldDuringFit, controls->resampleMinAngle,
-               controls->resampleNPoints, controls->updateFreq,
-               controls->updatePlotFreq, controls->IPCFilePath.data,
-               controls->IPCFilePath.size, expl_temp, a__4, a__3);
+    fMinSearch(x0u, controls.maxIterations, controls.maxFuncEvals,
+               controls.xTolerance, controls.funcTolerance, dis_data, dis_size,
+               problemStruct, controls.parallel.data, controls.parallel.size,
+               controls.calcSldDuringFit, controls.resampleMinAngle,
+               controls.resampleNPoints, controls.updateFreq,
+               controls.updatePlotFreq, controls.IPCFilePath.data,
+               controls.IPCFilePath.size, expl_temp, a__3, a__2);
 
     //  undo the variable transformations into the original space
     simplexXTransform(x0u, expl_temp.LB, expl_temp.UB, expl_temp.BoundClass, x);
@@ -259,7 +228,10 @@ namespace RAT
     }
 
     unpackParams(problemStruct);
-    b_reflectivityCalculation(problemStruct, controls, result);
+
+    //  Ensure SLD is calculated for final result
+    controls.calcSldDuringFit = true;
+    b_reflectivityCalculation(problemStruct, &controls, result);
   }
 }
 

@@ -215,7 +215,7 @@ namespace RAT
     // rnd_jump = DREAMPar.jumpProbability * (2 * rand(DREAMPar.nChains,1) - 1);
     //  Randomly permute numbers [1,...,N-1] N times
     coder::b_rand(DREAMPar.nChains - 1.0, DREAMPar.nChains, b);
-    coder::internal::b_sort(b, draw);
+    coder::internal::sort(b, draw);
 
     //  Set jump vectors equal to zero
     loop_ub_tmp = static_cast<int>(DREAMPar.nChains);

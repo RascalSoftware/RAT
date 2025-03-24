@@ -29,7 +29,7 @@ namespace RAT
   double drawMCMC(const ::coder::array<double, 2U> &livepoints, const ::coder::
                   array<double, 2U> &cholmat, double logLmin, const ::coder::
                   array<double, 2U> &prior, const ProblemDefinition &data_f1,
-                  const Controls *data_f2, double nMCMC, ::coder::array<double,
+                  const Controls &data_f2, double nMCMC, ::coder::array<double,
                   2U> &sample);
 }
 

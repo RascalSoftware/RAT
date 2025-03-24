@@ -10,112 +10,13 @@
 
 // Include files
 #include "RATMain_rtwutil.h"
-#include "RATMain_types.h"
 #include "rt_nonfinite.h"
-#include "coder_array.h"
-#include "coder_bounded_array.h"
 #include <cfloat>
 #include <cmath>
 
 // Function Definitions
 namespace RAT
 {
-  void cast(const ::coder::array<cell_wrap_3, 2U> &r, ::coder::array<
-            cell_wrap_45, 2U> &r1)
-  {
-    int i;
-    r1.set_size(1, r.size(1));
-    i = r.size(1) - 1;
-    for (int i1{0}; i1 <= i; i1++) {
-      int loop_ub;
-      loop_ub = r[i1].f1.size[1];
-      r1[r1.size(0) * i1].f1.set_size(1, r[r.size(0) * i1].f1.size[1]);
-      for (int i2{0}; i2 < loop_ub; i2++) {
-        r1[i1].f1[i2] = r[i1].f1.data[i2];
-      }
-    }
-  }
-
-  void cast(const ::coder::array<cell_wrap_4, 2U> &r, ::coder::array<cell_wrap_9,
-            2U> &r1)
-  {
-    int i;
-    r1.set_size(1, r.size(1));
-    i = r.size(1) - 1;
-    for (int i1{0}; i1 <= i; i1++) {
-      int loop_ub;
-      loop_ub = r[i1].f1.size[1];
-      r1[r1.size(0) * i1].f1.set_size(r[r.size(0) * i1].f1.size[0], r[r.size(0) *
-        i1].f1.size[1]);
-      for (int i2{0}; i2 < loop_ub; i2++) {
-        int b_loop_ub;
-        b_loop_ub = r[i1].f1.size[0];
-        for (int i3{0}; i3 < b_loop_ub; i3++) {
-          r1[i1].f1[r1[i1].f1.size(0) * i2] = r[i1].f1.data[r[i1].f1.size[0] *
-            i2];
-        }
-      }
-    }
-  }
-
-  void cast(const ::coder::array<cell_wrap_6, 2U> &r, ::coder::array<cell_wrap_9,
-            2U> &r1)
-  {
-    int i;
-    r1.set_size(r.size(0), r.size(1));
-    i = r.size(0) * r.size(1);
-    for (int i1{0}; i1 < i; i1++) {
-      int loop_ub;
-      loop_ub = r[i1].f1.size[1];
-      r1[i1].f1.set_size(r[i1].f1.size[0], r[i1].f1.size[1]);
-      for (int i2{0}; i2 < loop_ub; i2++) {
-        int b_loop_ub;
-        b_loop_ub = r[i1].f1.size[0];
-        for (int i3{0}; i3 < b_loop_ub; i3++) {
-          r1[i1].f1[r1[i1].f1.size(0) * i2] = r[i1].f1.data[r[i1].f1.size[0] *
-            i2];
-        }
-      }
-    }
-  }
-
-  void cast(const ::coder::array<cell_wrap_0, 2U> &r, ::coder::array<
-            cell_wrap_10, 2U> &r1)
-  {
-    int i;
-    r1.set_size(1, r.size(1));
-    i = r.size(1) - 1;
-    for (int i1{0}; i1 <= i; i1++) {
-      int loop_ub;
-      loop_ub = r[i1].f1.size[1];
-      r1[r1.size(0) * i1].f1.set_size(1, r[r.size(0) * i1].f1.size[1]);
-      for (int i2{0}; i2 < loop_ub; i2++) {
-        r1[i1].f1[i2] = r[i1].f1.data[i2];
-      }
-    }
-  }
-
-  void cast(const ::coder::array<cell_wrap_5, 2U> &r, ::coder::array<cell_wrap_9,
-            2U> &r1)
-  {
-    int i;
-    r1.set_size(1, r.size(1));
-    i = r.size(1) - 1;
-    for (int i1{0}; i1 <= i; i1++) {
-      int loop_ub;
-      loop_ub = r[i1].f1.size(1);
-      r1[r1.size(0) * i1].f1.set_size(r[r.size(0) * i1].f1.size(0), r[r.size(0) *
-        i1].f1.size(1));
-      for (int i2{0}; i2 < loop_ub; i2++) {
-        int b_loop_ub;
-        b_loop_ub = r[i1].f1.size(0);
-        for (int i3{0}; i3 < b_loop_ub; i3++) {
-          r1[i1].f1[r1[i1].f1.size(0) * i2] = r[i1].f1[r[i1].f1.size(0) * i2];
-        }
-      }
-    }
-  }
-
   double rt_hypotd_snf(double u0, double u1)
   {
     double a;

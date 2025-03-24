@@ -29,8 +29,8 @@ namespace RAT
   double drawMultiNest(const ::coder::array<double, 1U> &fracvol, const ::coder::
                        array<double, 2U> &Bs, const ::coder::array<double, 2U>
                        &mus, double logLmin, const ::coder::array<double, 2U>
-                       &prior, const ProblemDefinition &data_f1, const Controls *
-                       data_f2, ::coder::array<double, 2U> &sample);
+                       &prior, const ProblemDefinition &data_f1, const Controls
+                       &data_f2, ::coder::array<double, 2U> &sample);
 }
 
 #endif

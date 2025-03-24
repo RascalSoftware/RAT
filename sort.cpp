@@ -15,6 +15,7 @@
 #include "sortIdx.h"
 #include "coder_array.h"
 #include <cmath>
+#include <cstring>
 
 // Function Definitions
 namespace RAT
@@ -23,58 +24,11 @@ namespace RAT
   {
     namespace internal
     {
-      void b_sort(::coder::array<double, 2U> &x, ::coder::array<int, 2U> &idx)
-      {
-        ::coder::array<double, 1U> vwork;
-        ::coder::array<int, 1U> iidx;
-        int dim;
-        int i;
-        int lowerDim;
-        int npages;
-        int vlen;
-        int vstride;
-        dim = nonSingletonDim(x) - 1;
-        vlen = x.size(dim) - 1;
-        vwork.set_size(x.size(dim));
-        idx.set_size(x.size(0), x.size(1));
-        vstride = 1;
-        i = static_cast<unsigned char>(dim);
-        for (int k{0}; k < i; k++) {
-          vstride *= x.size(0);
-        }
-
-        npages = 1;
-        lowerDim = dim + 2;
-        for (int k{lowerDim}; k < 3; k++) {
-          npages *= x.size(1);
-        }
-
-        lowerDim = x.size(dim) * vstride;
-        for (int b_i{0}; b_i < npages; b_i++) {
-          dim = b_i * lowerDim;
-          for (int j{0}; j < vstride; j++) {
-            int idx0;
-            idx0 = dim + j;
-            for (int k{0}; k <= vlen; k++) {
-              vwork[k] = x[idx0 + k * vstride];
-            }
-
-            b_sortIdx(vwork, iidx);
-            for (int k{0}; k <= vlen; k++) {
-              i = idx0 + k * vstride;
-              x[i] = vwork[k];
-              idx[i] = iidx[k];
-            }
-          }
-        }
-      }
-
-      void sort(::coder::array<double, 2U> &x, ::coder::array<int, 2U> &idx)
+      void sort(::coder::array<double, 2U> &x, int idx_data[], int idx_size[2])
       {
         ::coder::array<double, 1U> xwork;
-        ::coder::array<int, 1U> iwork;
         double x4[4];
-        int idx4[4];
+        int iwork_data[10001];
         int i2;
         int i3;
         int i4;
@@ -82,10 +36,13 @@ namespace RAT
         int n;
         int nNaNs;
         int quartetOffset;
+        short idx4[4];
         ib = x.size(1);
-        idx.set_size(1, ib);
-        for (i2 = 0; i2 < ib; i2++) {
-          idx[i2] = 0;
+        idx_size[0] = 1;
+        idx_size[1] = ib;
+        if (ib - 1 >= 0) {
+          std::memset(&idx_data[0], 0, static_cast<unsigned int>(ib) * sizeof
+                      (int));
         }
 
         n = x.size(1);
@@ -98,10 +55,9 @@ namespace RAT
         x4[3] = 0.0;
         idx4[3] = 0;
         ib = x.size(1);
-        iwork.set_size(ib);
         xwork.set_size(x.size(1));
         for (i2 = 0; i2 < ib; i2++) {
-          iwork[i2] = 0;
+          iwork_data[i2] = 0;
           xwork[i2] = 0.0;
         }
 
@@ -110,12 +66,12 @@ namespace RAT
         for (int k{0}; k < n; k++) {
           if (std::isnan(x[k])) {
             i3 = (n - nNaNs) - 1;
-            idx[i3] = k + 1;
+            idx_data[i3] = k + 1;
             xwork[i3] = x[k];
             nNaNs++;
           } else {
             ib++;
-            idx4[ib - 1] = k + 1;
+            idx4[ib - 1] = static_cast<short>(k + 1);
             x4[ib - 1] = x[k];
             if (ib == 4) {
               double d;
@@ -183,10 +139,10 @@ namespace RAT
                 }
               }
 
-              idx[quartetOffset - 3] = idx4[i - 1];
-              idx[quartetOffset - 2] = idx4[i1 - 1];
-              idx[quartetOffset - 1] = idx4[b_i2 - 1];
-              idx[quartetOffset] = idx4[b_i3 - 1];
+              idx_data[quartetOffset - 3] = idx4[i - 1];
+              idx_data[quartetOffset - 2] = idx4[i1 - 1];
+              idx_data[quartetOffset - 1] = idx4[b_i2 - 1];
+              idx_data[quartetOffset] = idx4[b_i3 - 1];
               x[quartetOffset - 3] = x4[i - 1];
               x[quartetOffset - 2] = x4[i1 - 1];
               x[quartetOffset - 1] = x4[b_i2 - 1];
@@ -244,7 +200,7 @@ namespace RAT
           for (int k{0}; k < i2; k++) {
             i3 = perm[k] - 1;
             quartetOffset = (i4 - ib) + k;
-            idx[quartetOffset] = idx4[i3];
+            idx_data[quartetOffset] = idx4[i3];
             x[quartetOffset] = x4[i3];
           }
         }
@@ -252,10 +208,10 @@ namespace RAT
         ib = nNaNs >> 1;
         for (int k{0}; k < ib; k++) {
           quartetOffset = i4 + k;
-          i2 = idx[quartetOffset];
+          i2 = idx_data[quartetOffset];
           i3 = (n - k) - 1;
-          idx[quartetOffset] = idx[i3];
-          idx[i3] = i2;
+          idx_data[quartetOffset] = idx_data[i3];
+          idx_data[i3] = i2;
           x[quartetOffset] = xwork[i3];
           x[i3] = xwork[quartetOffset];
         }
@@ -271,20 +227,20 @@ namespace RAT
             quartetOffset = i4 >> 8;
             if (quartetOffset > 0) {
               for (ib = 0; ib < quartetOffset; ib++) {
-                merge_pow2_block(idx, x, ib << 8);
+                merge_pow2_block(idx_data, x, ib << 8);
               }
 
               ib = quartetOffset << 8;
               quartetOffset = i4 - ib;
               if (quartetOffset > 0) {
-                merge_block(idx, x, ib, quartetOffset, 2, iwork, xwork);
+                merge_block(idx_data, x, ib, quartetOffset, 2, iwork_data, xwork);
               }
 
               ib = 8;
             }
           }
 
-          merge_block(idx, x, 0, i4, ib, iwork, xwork);
+          merge_block(idx_data, x, 0, i4, ib, iwork_data, xwork);
         }
       }
 
@@ -322,6 +278,52 @@ namespace RAT
             i = j + dim * vstride;
             x[i] = vwork[dim];
             idx[i] = iidx[dim];
+          }
+        }
+      }
+
+      void sort(::coder::array<double, 2U> &x, ::coder::array<int, 2U> &idx)
+      {
+        ::coder::array<double, 1U> vwork;
+        ::coder::array<int, 1U> iidx;
+        int dim;
+        int i;
+        int lowerDim;
+        int npages;
+        int vlen;
+        int vstride;
+        dim = nonSingletonDim(x) - 1;
+        vlen = x.size(dim) - 1;
+        vwork.set_size(x.size(dim));
+        idx.set_size(x.size(0), x.size(1));
+        vstride = 1;
+        i = static_cast<unsigned char>(dim);
+        for (int k{0}; k < i; k++) {
+          vstride *= x.size(0);
+        }
+
+        npages = 1;
+        lowerDim = dim + 2;
+        for (int k{lowerDim}; k < 3; k++) {
+          npages *= x.size(1);
+        }
+
+        lowerDim = x.size(dim) * vstride;
+        for (int b_i{0}; b_i < npages; b_i++) {
+          dim = b_i * lowerDim;
+          for (int j{0}; j < vstride; j++) {
+            int idx0;
+            idx0 = dim + j;
+            for (int k{0}; k <= vlen; k++) {
+              vwork[k] = x[idx0 + k * vstride];
+            }
+
+            b_sortIdx(vwork, iidx);
+            for (int k{0}; k <= vlen; k++) {
+              i = idx0 + k * vstride;
+              x[i] = vwork[k];
+              idx[i] = iidx[k];
+            }
           }
         }
       }

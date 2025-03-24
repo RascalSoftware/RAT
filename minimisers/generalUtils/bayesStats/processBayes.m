@@ -19,7 +19,7 @@ function [problemStruct,result,bayesResults] = processBayes(bayesOutputs,problem
 % bayesResults : struct
 %     The Bayesian-specific results from the optimisation.
 
-% Need to impose that we calculate the SLD..
+% Need to impose that we calculate the SLD
 controls.calcSldDuringFit = true;
 
 % ... and use the Bayes best params
@@ -28,8 +28,6 @@ problemStruct = unpackParams(problemStruct);
 confidenceIntervals = percentileConfidenceIntervals(bayesOutputs.chain);
 
 % Calculate 'mean' best fit curves
-% Ensure SLD is calculated for final result
-controls.calcSldDuringFit = true;
 result = reflectivityCalculation(problemStruct,controls);
 
 % 2. Reflectivity and SLD shading

@@ -2,7 +2,8 @@
 % Kernel density estimation via diffusion
 % Z. I. Botev, J. F. Grotowski, and D. P. Kroese (2010)
 % Annals of Statistics, Volume 38, Number 5, pages 2916-2957.
-function [bandwidth,density,X,Y]=kde2d(data,n,MIN_XY,MAX_XY)
+% from MATLAB File Exchange: https://www.mathworks.com/matlabcentral/fileexchange/17204-kernel-density-estimation
+function [bandwidth,density,X,Y]=kde2D(data,n,MIN_XY,MAX_XY)
 % Estimate kernel density for two-dimensional data.
 %
 % fast and accurate state-of-the-art bivariate kernel density estimator

@@ -1,12 +1,12 @@
 function cornerPlot(results, options)
     % Creates a corner plot from chain data in the result struct, with or without smoothing.
-    % If selected, smoothing is via a moving average algorithm.
+    % If selected, smoothing is via kernel density estimation.
     %
     % Examples
     % --------
+    % >>> cornerPlot(result);
     % >>> cornerPlot(result, 'smooth', false);
     % >>> cornerPlot(result, 'smooth', false, 'params', [1, 3]);  % should plot 1st and 3rd fitted parameters only. 
-    % >>> cornerPlot(result, 'smooth', true);
     %
     % Parameters
     % ----------
@@ -106,10 +106,13 @@ function cornerPlot(results, options)
                 histAxis = axes('Units',mainAxesUnits,'Position',axisPos,'HandleVisibility',mainAxesHV,'parent',mainAxesParent, 'Toolbar', []);
                 set(histAxis,'visible','on');
                 
-                [N,edges] = histcounts(chain(:, params(i)), 25, 'Normalization','pdf');
-                edges2 = edges(2:end) - (edges(2)-edges(1))/2;
+                paramChain = chain(:, params(i));
                 if (options.smooth)
-                    N = smoothdata(N, 'movmean', 'SmoothingFactor', 0.25);
+                  [~, N, edges2, ~] = kde(paramChain, 32, min(paramChain), max(paramChain));
+                  N = transpose(N);  % kde returns N as a column vector
+                else
+                    [N,edges] = histcounts(paramChain, 25, 'Normalization','pdf');
+                    edges2 = edges(2:end) - (edges(2)-edges(1))/2;
                 end
                 bar(edges2(:), N(:), 1, 'w');
                 

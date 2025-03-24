@@ -19,7 +19,7 @@ for points = 1:length(q)
     bulkInSLD = layersRho(1);
     bulkInSLD = bulkInSLD + complex(0,tiny);
 
-    k0 = Q/2;
+    k0 = 0.5 * Q;
 
     % Find k1..
     sld_1 = layersRho(2) - bulkInSLD;
@@ -76,7 +76,7 @@ for points = 1:length(q)
 
     end
 
-    R = abs(M_res(2,1)/M_res(1,1));
+    R = abs(M_res(2,1) / M_res(1,1));
     ref(points) = R^2;
 
 end

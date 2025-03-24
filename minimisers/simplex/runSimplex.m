@@ -127,6 +127,8 @@ x = simplexXTransform(xu,params);
 
 problemStruct.fitParams = x';
 problemStruct = unpackParams(problemStruct);
+% Ensure SLD is calculated for final result
+controls.calcSldDuringFit = true;
 result = reflectivityCalculation(problemStruct,controls);
 
 end

@@ -28,6 +28,8 @@ problemStruct = unpackParams(problemStruct);
 confidenceIntervals = percentileConfidenceIntervals(bayesOutputs.chain);
 
 % Calculate 'mean' best fit curves
+% Ensure SLD is calculated for final result
+controls.calcSldDuringFit = true;
 result = reflectivityCalculation(problemStruct,controls);
 
 % 2. Reflectivity and SLD shading

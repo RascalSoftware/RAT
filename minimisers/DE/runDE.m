@@ -96,6 +96,8 @@ function [problemStruct,result] = runDE(problemStruct,controls)
     [res,problemStruct] = deopt(@intrafun,problemStruct,controls,S_struct);
     problemStruct.fitParams = res;
     problemStruct = unpackParams(problemStruct);
+    % Ensure SLD is calculated for final result
+    controls.calcSldDuringFit = true;
     result = reflectivityCalculation(problemStruct,controls);
     
     if ~strcmpi(controls.display, coderEnums.displayOptions.Off)

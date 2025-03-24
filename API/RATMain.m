@@ -51,13 +51,6 @@ function [problemStruct,results,bayesResults] = RATMain(problemStruct,controls)
                 coderException(coderEnums.errorCodes.invalidOption, 'The procedure "%s" is not supported. The procedure must be one of "%s"', controls.procedure, strjoin(fieldnames(coderEnums.procedures), '", "'));
         end
     
-        % Then just do a final calculation to fill in SLD if necessary
-        % (i.e. if calcSLD is no for fit)
-        if ~controls.calcSldDuringFit
-            controls.calcSldDuringFit = true;
-            results = reflectivityCalculation(problemStruct,controls);
-        end
-    
     else
         coderException(coderEnums.errorCodes.domainError, 'RAT cannot proceed without at least one contrast defined in the project');
     end

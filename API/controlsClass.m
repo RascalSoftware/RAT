@@ -76,7 +76,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
     %     [NS] The tolerance threshold for when the algorithm should terminate.
     %
     % nSamples : whole number, default: 20000
-    %     [DREAM] The number of samples in the initial population for each chain.
+    %     [DREAM] The total number of function evaluations (number of algorithm generations times number of chains).
     % nChains : whole number, default: 10
     %     [DREAM] The number of Markov chains to use in the algorithm.
     % jumpProbability : float, default: 0.5

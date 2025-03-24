@@ -1,12 +1,10 @@
-function [problemStruct,result] = runDE(problemStruct,problemLimits,controls)
+function [problemStruct,result] = runDE(problemStruct,controls)
     % Run the differential evolution algorithm for a given problem and controls.
     %
     % Parameters
     % ----------
     % problemStruct : struct
     %     the Project struct.
-    % problemLimits : array
-    %     the value limits for each parameter.
     % controls : struct
     %     the Controls struct.
     %
@@ -17,7 +15,6 @@ function [problemStruct,result] = runDE(problemStruct,problemLimits,controls)
     % result : struct
     %     the calculation and optimisation results object.
     %
-    [problemStruct,~] = fitsetup(problemStruct,problemLimits);
     F_VTR = controls.targetValue; %Value to reach
     I_D = length(problemStruct.fitParams);
     
@@ -99,6 +96,8 @@ function [problemStruct,result] = runDE(problemStruct,problemLimits,controls)
     [res,problemStruct] = deopt(@intrafun,problemStruct,controls,S_struct);
     problemStruct.fitParams = res;
     problemStruct = unpackParams(problemStruct);
+    % Ensure SLD is calculated for final result
+    controls.calcSldDuringFit = true;
     result = reflectivityCalculation(problemStruct,controls);
     
     if ~strcmpi(controls.display, coderEnums.displayOptions.Off)

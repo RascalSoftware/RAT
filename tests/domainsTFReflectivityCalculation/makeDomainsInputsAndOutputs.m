@@ -12,11 +12,10 @@ controlsInput = controlsClass();
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemStruct,problemLimits,controls] = parseClassToStructs(standardProblem,controlsInput);
+[problemStruct,controls] = parseClassToStructs(standardProblem,controlsInput);
 
 inputs.project = standardProblem;
 inputs.problemStruct = problemStruct;
-inputs.problemLimits = problemLimits;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
@@ -27,7 +26,7 @@ resultStruct = reflectivityCalculation(problemStruct,controls);
 
 outputs.resultStruct = resultStruct;
 
-[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemLimits,controls);
+[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,controls);
 
 outputs.problemStruct = problemStruct;
 outputs.resultStructMain = resultStructMain;
@@ -42,7 +41,7 @@ save([root filesep 'tests/domainsTFReflectivityCalculation/domainsStandardLayers
 
 % (c) TF Parameters
 [qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,simulation,...
- shiftedData,backgrounds,resolutions,layerSlds,sldProfiles,...
+ shiftedData,backgrounds,resolutions,sldProfiles,layers,...
  resampledLayers,subRoughs] = domainsTF.standardLayers(problemStruct,controls);
 
 TFParams.qzshifts = qzshifts;
@@ -57,8 +56,8 @@ TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;
 TFParams.backgrounds = backgrounds;
 TFParams.resolutions = resolutions;
-TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
+TFParams.layers = layers;
 TFParams.resampledLayers = resampledLayers;
 
 save([root filesep 'tests/domainsTFReflectivityCalculation/domainsStandardLayersTFParams'],'TFParams');
@@ -71,11 +70,10 @@ controlsInput = controlsClass();
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemStruct,problemLimits,controls] = parseClassToStructs(customXYProblem,controlsInput);
+[problemStruct,controls] = parseClassToStructs(customXYProblem,controlsInput);
 
 inputs.project = customXYProblem;
 inputs.problemStruct = problemStruct;
-inputs.problemLimits = problemLimits;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
@@ -86,7 +84,7 @@ resultStruct = reflectivityCalculation(problemStruct,controls);
 
 outputs.resultStruct = resultStruct;
 
-[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemLimits,controls);
+[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,controls);
 
 outputs.problemStruct = problemStruct;
 outputs.resultStructMain = resultStructMain;
@@ -101,7 +99,7 @@ save([root filesep 'tests/domainsTFReflectivityCalculation/domainsCustomXYOutput
 
 % (c) TF Parameters
 [qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,simulation,...
- shiftedData,backgrounds,resolutions,layerSlds,sldProfiles,...
+ shiftedData,backgrounds,resolutions,sldProfiles,layers,...
  resampledLayers,subRoughs] = domainsTF.customXY(problemStruct,controls);
 
 TFParams.qzshifts = qzshifts;
@@ -116,8 +114,8 @@ TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;
 TFParams.backgrounds = backgrounds;
 TFParams.resolutions = resolutions;
-TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
+TFParams.layers = layers;
 TFParams.resampledLayers = resampledLayers;
 
 save([root filesep 'tests/domainsTFReflectivityCalculation/domainsCustomXYTFParams'],'TFParams');
@@ -129,11 +127,10 @@ controlsInput = controlsClass();
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemStruct,problemLimits,controls] = parseClassToStructs(customLayersProblem,controlsInput);
+[problemStruct,controls] = parseClassToStructs(customLayersProblem,controlsInput);
 
 inputs.project = customLayersProblem;
 inputs.problemStruct = problemStruct;
-inputs.problemLimits = problemLimits;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
@@ -144,7 +141,7 @@ resultStruct = reflectivityCalculation(problemStruct,controls);
 
 outputs.resultStruct = resultStruct;
 
-[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,problemLimits,controls);
+[problemStruct,resultStructMain,bayesResults] = RATMain(problemStruct,controls);
 
 outputs.problemStruct = problemStruct;
 outputs.resultStructMain = resultStructMain;
@@ -159,7 +156,7 @@ save([root filesep 'tests/domainsTFReflectivityCalculation/domainsCustomLayersOu
 
 % (c) TF Parameters
 [qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,simulation,...
- shiftedData,backgrounds,resolutions,layerSlds,sldProfiles,...
+ shiftedData,backgrounds,resolutions,sldProfiles,layers,...
  resampledLayers,subRoughs] = domainsTF.customLayers(problemStruct,controls);
 
 TFParams.qzshifts = qzshifts;
@@ -174,8 +171,8 @@ TFParams.simulation = simulation;
 TFParams.shiftedData = shiftedData;
 TFParams.backgrounds = backgrounds;
 TFParams.resolutions = resolutions;
-TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
+TFParams.layers = layers;
 TFParams.resampledLayers = resampledLayers;
 
 save([root filesep 'tests/domainsTFReflectivityCalculation/domainsCustomLayersTFParams'],'TFParams');

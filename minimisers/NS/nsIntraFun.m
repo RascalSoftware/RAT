@@ -4,11 +4,9 @@ function fval = nsIntraFun(data,p)
 % Parameters
 % ----------
 % data : array
-%     The problem struct, controls, and problem limits.
+%     The problem struct and controls.
 % p : array
 %     The point in parameter space to calculate likelihood for.
-%
-%
 
     problemStruct = data{1};
     controls = data{2};
@@ -19,5 +17,6 @@ function fval = nsIntraFun(data,p)
     problemStruct = unpackParams(problemStruct);
     result = reflectivityCalculation(problemStruct,controls);
 
-    fval = (-result.calculationResults.sumChi/2); 
+    fval = (-result.calculationResults.sumChi/2);
+    
 end

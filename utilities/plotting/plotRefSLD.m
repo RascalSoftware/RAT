@@ -31,7 +31,7 @@ function plotRefSLD(project, result, options)
     % Convert the project class to a struct.
     controls = controlsClass();
     data.modelType = project.modelType;
-    [projectStruct,~,~] = parseClassToStructs(project,controls);
+    [projectStruct,~] = parseClassToStructs(project,controls);
     
     data.reflectivity = result.reflectivity;
     data.shiftedData = result.shiftedData;

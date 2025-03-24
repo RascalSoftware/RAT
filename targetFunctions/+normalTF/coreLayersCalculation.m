@@ -1,5 +1,5 @@
-function [reflectivity,simulation,shiftedData,layerSld,sldProfile,resampledLayers] = ...
-    coreLayersCalculation(layers,roughness,geometry,bulkIn,bulkOut,resample,...
+function [reflectivity,simulation,shiftedData,sldProfile,layers,resampledLayers] = ...
+    coreLayersCalculation(contrastLayers,roughness,geometry,bulkIn,bulkOut,resample,...
     calcSld,shiftedData,simulationXData,dataIndices,repeatLayers,resolution,...
     background,backgroundAction,parallelPoints,resampleMinAngle,...
     resampleNPoints)
@@ -25,8 +25,8 @@ sldProfileIm = [0 0];
 resampledLayers = [0 0 0 0];
 
 % Build up the layers matrix for this contrast
-[layerSld, ssubs] = groupLayersMod(layers,roughness,geometry);
-layerSld = applyHydration(layerSld,bulkIn,bulkOut);
+[layers, ssubs] = groupLayersMod(contrastLayers,roughness,geometry);
+layers = applyHydration(layers,bulkIn,bulkOut);
 
 % Make the SLD profiles.
 % If resampling is needed, then enforce the SLD calculation, so as to
@@ -34,8 +34,8 @@ layerSld = applyHydration(layerSld,bulkIn,bulkOut);
 if calcSld || resample == 1
 
     % We process real and imaginary parts of the SLD separately
-    ReSLDLayers = layerSld(:, [1:2,4:end]);
-    ImSLDLayers = layerSld(:, [1,3:end]);
+    ReSLDLayers = layers(:, [1:2,4:end]);
+    ImSLDLayers = layers(:, [1,3:end]);
 
     % Note bulkIn and bulkOut = 0 since there is never any imaginary part
     % for the bulk phases.
@@ -49,7 +49,7 @@ if resample == 1
     resampledLayers = resampleLayers(sldProfile,sldProfileIm,resampleMinAngle,resampleNPoints);
     inputLayers = resampledLayers;
 else
-    inputLayers = layerSld;
+    inputLayers = layers;
 end
 
 % Calculate the reflectivity

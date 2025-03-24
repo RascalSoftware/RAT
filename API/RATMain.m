@@ -1,11 +1,10 @@
-function [problemStruct,results,bayesResults] = RATMain(problemStruct,problemLimits,controls)
+function [problemStruct,results,bayesResults] = RATMain(problemStruct,controls)
 
     % Adds C struct names for inputs
     coder.cstructname(problemStruct.names, 'ParamNames');
     coder.cstructname(problemStruct.checks, 'CheckFlags');
     coder.cstructname(problemStruct, 'ProblemDefinition');
     coder.cstructname(controls, 'Controls');
-    coder.cstructname(problemLimits,'ProblemLimits');
     
     coderEnums.initialise()
     
@@ -32,31 +31,24 @@ function [problemStruct,results,bayesResults] = RATMain(problemStruct,problemLim
                 if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
                     triggerEvent(coderEnums.eventTypes.Message, sprintf('\nRunning simplex\n\n'));
                 end
-                [problemStruct,results] = runSimplex(problemStruct,problemLimits,controls);
+                [problemStruct,results] = runSimplex(problemStruct,controls);
             case coderEnums.procedures.DE
                 if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
                     triggerEvent(coderEnums.eventTypes.Message, sprintf('\nRunning Differential Evolution\n\n'));
                 end
-                [problemStruct,results] = runDE(problemStruct,problemLimits,controls);
+                [problemStruct,results] = runDE(problemStruct,controls);
             case coderEnums.procedures.NS
                 if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
                     triggerEvent(coderEnums.eventTypes.Message, sprintf('\nRunning Nested Sampler\n\n'));
                 end            
-                [problemStruct,results,bayesResults] = runNestedSampler(problemStruct,problemLimits,controls);   
+                [problemStruct,results,bayesResults] = runNestedSampler(problemStruct,controls);   
             case coderEnums.procedures.Dream
                 if ~strcmpi(controls.display, coderEnums.displayOptions.Off)
                     triggerEvent(coderEnums.eventTypes.Message, sprintf('\nRunning DREAM\n\n'));
                 end
-                [problemStruct,results,bayesResults] = runDREAM(problemStruct,problemLimits,controls);
+                [problemStruct,results,bayesResults] = runDREAM(problemStruct,controls);
             otherwise
                 coderException(coderEnums.errorCodes.invalidOption, 'The procedure "%s" is not supported. The procedure must be one of "%s"', controls.procedure, strjoin(fieldnames(coderEnums.procedures), '", "'));
-        end
-    
-        % Then just do a final calculation to fill in SLD if necessary
-        % (i.e. if calcSLD is no for fit)
-        if ~controls.calcSldDuringFit
-            controls.calcSldDuringFit = true;
-            results = reflectivityCalculation(problemStruct,controls);
         end
     
     else

@@ -19,7 +19,7 @@ function [problemStruct,result,bayesResults] = processBayes(bayesOutputs,problem
 % bayesResults : struct
 %     The Bayesian-specific results from the optimisation.
 
-% Need to impose that we calculate the SLD..
+% Need to impose that we calculate the SLD
 controls.calcSldDuringFit = true;
 
 % ... and use the Bayes best params

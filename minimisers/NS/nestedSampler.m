@@ -5,7 +5,7 @@ function [logZ, nest_samples, post_samples,H] = nestedSampler(data, ...
 % Parameters
 % ----------
 % data : array
-%     The problem struct, controls, and problem limits.
+%     The problem struct and controls.
 % nLive : int
 %     The number of live points to use.
 % nMCMC : int

@@ -1,4 +1,4 @@
-function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,limits,priors)
+function [problemStruct,fitPriors] = packParamsPriors(problemStruct,limits,priors)
 % Pack the parameters into an array of those being fitted.
 %
 % Parameters
@@ -19,7 +19,6 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
 % fitPriors : array
 %     The priors of each fit parameter.
 
-
     % We need to pack the parameters into an array consisting of those
     % that are being fitted.
 
@@ -35,8 +34,6 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
 
     fitParams = zeros(1, numberOfFitted);
     fitLimits = zeros(numberOfFitted, 2);
-
-    fitNames = cell(numberOfFitted, 1);
     fitPriors = zeros(numberOfFitted, 2);
 
     fitCounter = 1;
@@ -47,8 +44,7 @@ function [problemStruct,fitNames,fitPriors] = packParamsPriors(problemStruct,lim
         for n = 1:length(fitIndices)
             fitParams(fitCounter) = problemStruct.(fields{i})(fitIndices(n));
             fitLimits(fitCounter,1) = limits.(fields{i})(fitIndices(n),1);
-            fitLimits(fitCounter,2) = limits.(fields{i})(fitIndices(n),2);        
-            fitNames{fitCounter} = problemStruct.names.(fields{i}){fitIndices(n)};
+            fitLimits(fitCounter,2) = limits.(fields{i})(fitIndices(n),2);
             thisPrior = priors.(fields{i}){fitIndices(n)};
             if (strcmpi(thisPrior{2},'gaussian'))
                 thisGausPrior = [thisPrior{3} thisPrior{4}];

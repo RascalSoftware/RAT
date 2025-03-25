@@ -9,7 +9,7 @@ function plotBayes(problem, results)
     plotHists(results,'figure', h3, 'smooth', true)
     
     % h4 = figure(5); clf
-    % cornerPlot(results,h4,'smooth',false)
+    % cornerPlot(results,'figure',h4,'smooth',false)
 
     figure(60); clf
     plotChain(results);        

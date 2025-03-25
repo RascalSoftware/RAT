@@ -184,15 +184,15 @@ controls.adaptPCR = true;
 
 %% 
 % ..and plot this out....
+figure(30); clf;
+bayesShadedPlot(problem, results,'keepAxes',true,'interval',65,'q4',false)
 
-    figure(30); clf;
-    bayesShadedPlot(problem, results,'keepAxes',true,'interval',65,'q4',false)
-    
-    h3 = figure(40); clf
-    plotHists(results,'figure', h3, 'smooth', true)
-    
-    h4 = figure(50); clf
-    cornerPlot(results, h4,'smooth',false)
+h3 = figure(40); clf
+plotHists(results, 'figure', h3, 'smooth', true)
+
+h4 = figure(50); clf
+cornerPlot(results, 'figure', h4, 'smooth', false)
+
 %% A Slightly Deeper Analysys - Plotting The Bayes Result as Volume Fractions
 % The model we're using here is built using Volume Fractions. It's convenient 
 % to be able to use these as outputs, so that the result of our Bayesian analysis 

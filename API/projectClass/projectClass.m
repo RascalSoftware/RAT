@@ -256,11 +256,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % --------
             % To remove the second layer in the table (layer in row 2).  
             % 
-            % >>>  project.removeLayer(2);
+            % >>> project.removeLayer(2);
             % 
             % To remove layer with a specific name.
             % 
-            % >>>  project.removeLayer('D2O');
+            % >>> project.removeLayer('D2O');
             % 
             % Parameters
             % ----------
@@ -351,11 +351,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % --------
             % To remove the second background parameter in the table (parameter in row 2).  
             % 
-            % >>>  project.removeBackgroundParam(2);
+            % >>> project.removeBackgroundParam(2);
             % 
             % To remove background parameter with a specific name.
             % 
-            % >>>  project.removeBackgroundParam('Background Value D2O');
+            % >>> project.removeBackgroundParam('Background Value D2O');
             % 
             % Parameters
             % ----------
@@ -773,11 +773,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % --------
             % To remove the second dataset in the table (dataset in row 2).  
             % 
-            % >>>  project.removeData(2);
+            % >>> project.removeData(2);
             % 
             % To remove dataset with a specific name.
             % 
-            % >>>  project.removeData('D2O');
+            % >>> project.removeData('D2O');
             % 
             % Parameters
             % ----------
@@ -817,11 +817,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % --------
             % To remove the second custom file in the table (custom file in row 2).  
             % 
-            % >>>  project.removeCustomFile(2);
+            % >>> project.removeCustomFile(2);
             % 
             % To remove custom file with a specific name.
             % 
-            % >>>  project.removeCustomFile('custom file 1');
+            % >>> project.removeCustomFile('custom file 1');
             % 
             % Parameters
             % ----------
@@ -861,11 +861,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % --------
             % To remove the second contrast in the table (contrast in row 2).  
             % 
-            % >>>  project.removeContrast(2);
+            % >>> project.removeContrast(2);
             % 
             % To remove contrast with a specific name.
             % 
-            % >>>  project.removeContrast('contrast 1');
+            % >>> project.removeContrast('contrast 1');
             % 
             % Parameters
             % ----------

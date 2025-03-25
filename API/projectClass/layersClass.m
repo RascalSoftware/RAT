@@ -35,6 +35,44 @@ classdef layersClass < tableUtilities
         end
 
         function obj = addLayer(obj, paramNames, varargin)
+            % Adds a new layer to the table. 
+            %
+            % Examples
+            % --------
+            % To add a new constant background with name only.
+            % 
+            % >>> allowedNames = project.getAllAllowedNames();
+            % >>> background.addBackground(allowedNames, 'New Background');
+            % 
+            % To add a constant background.
+            % 
+            % >>> background.addBackground(allowedNames, 'New Background', 'constant', 'param name');
+            % 
+            % To add a function background with 2 parameters.
+            % 
+            % >>> background.addBackground(allowedNames, 'New Background', 'function', 'function name', 'param name', 'param name 2');    
+            %
+            % To add a data background with an offset.
+            % 
+            % >>> background.addBackground(allowedNames, 'New Background', 'data', 'data name', 'offset param name');
+            % 
+            % Parameters
+            % ----------
+            % name : str
+            %     The name of this layer.
+            % thickness : str
+            %     The name of the parameter describing the thickness of this layer.
+            % SLD_real : str
+            %     The name of the parameter describing the real (scattering) term
+            %     for the scattering length density of this layer.
+            % SLD_imaginary : str
+            %     The name of the parameter describing the imaginary (absorption) term
+            %     for the scattering length density of this layer.
+            % roughness : str
+            %     The name of the parameter describing the roughness of this layer.
+            % hydration : str
+            % hydrate_with : str
+            
             % Add a layer to the layers table
             % The expected input is a string array of parameter names
             % defined in the project's parameter class and a variable
@@ -66,12 +104,12 @@ classdef layersClass < tableUtilities
             
             % Must be a parameter name or number
             for i = 2:(obj.varCount - 2)
-                newRow{i} = obj.findParameter(layerDetails{i}, paramNames);
+                newRow{i} = obj.validateParameter(layerDetails{i}, paramNames);
             end
 
             %  . . . (apart from the penultimate column which can also be empty or NaN)
             if ~(strcmpi(layerDetails{obj.varCount - 1}, '') || any(isnan(layerDetails{obj.varCount - 1})))
-                newRow{obj.varCount - 1} = obj.findParameter(layerDetails{obj.varCount - 1}, paramNames);
+                newRow{obj.varCount - 1} = obj.validateParameter(layerDetails{obj.varCount - 1}, paramNames);
             end
 
             obj.addRow(newRow{:});
@@ -79,11 +117,23 @@ classdef layersClass < tableUtilities
         end
 
         function obj = removeLayer(obj, row)
-            % Removes a layer from the layers table. 
-            % Expects a single layer name or index/array of layer names or
-            % indices to remove
+            % Removes a given layer from the table.
             %
-            % layers.removeLayer(2);
+            % Examples
+            % --------
+            % To remove the second layer in the table (layer in row 2).  
+            % 
+            % >>> layers.removeLayer(2);
+            % 
+            % To remove layer with a specific name.
+            % 
+            % >>> layers.removeLayer('D2O');
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the layer to remove. If it is text, 
+            %     it is the name of the layer to remove.
             obj.removeRow(row);
         end
         
@@ -129,27 +179,30 @@ classdef layersClass < tableUtilities
             if col == length(colNames)
                 val = validateOption(inputValue, 'hydrationTypes', obj.invalidTypeMessage).value;
             else
-                val = obj.findParameter(inputValue, paramNames);
+                val = obj.validateParameter(inputValue, paramNames);
             end
                 
             obj.varTable(row,col) = {val};
             
         end
         
-        function outStruct = toStruct(obj, paramNames)
-            % Convert the layers class to a struct.
-            %
-            % layers.toStruct()            
+        function layerStruct = toStruct(obj, paramNames)
+            % Converts the layersClass content into a structure array.
+            %TODO
+            % Returns
+            % -------
+            % layerStruct : struct
+            %     A struct which contains the properties for all the layers.    
             layersCell = obj.varTable{:,:};
 
-            outStruct.numberOfLayers = size(layersCell, 1);
-            outStruct.layerNames = layersCell(:,1);
+            layerStruct.numberOfLayers = size(layersCell, 1);
+            layerStruct.layerNames = layersCell(:,1);
             
             % parse the layers details
             layerValues = layersCell(:,2:end);         
-            layerDetails = cell([1, outStruct.numberOfLayers]);
+            layerDetails = cell([1, layerStruct.numberOfLayers]);
 
-            for i = 1:outStruct.numberOfLayers
+            for i = 1:layerStruct.numberOfLayers
 
                 thisLayer = layerValues(i,:);
                 numCols = length(thisLayer);
@@ -173,47 +226,12 @@ classdef layersClass < tableUtilities
                 
             end
 
-            if outStruct.numberOfLayers > 0
-                outStruct.layerDetails = layerDetails(:);
+            if layerStruct.numberOfLayers > 0
+                layerStruct.layerDetails = layerDetails(:);
             else
-                outStruct.layerDetails = {};
+                layerStruct.layerDetails = {};
             end
             
         end
-
-    end
-        
-    methods(Static)
-
-        function param = findParameter(inputVal, paramNames)
-            % Find whether or not a proposed layer parameter is included
-            % in a list of parameters, or obtain a parameter by index.
-            % The expected inputs are the potential layer parameter value
-            % (either name or index) and a list of parameter names.
-
-            paramNames = cellstr(paramNames);
-            if isText(inputVal)    
-                found = strcmpi(inputVal, paramNames);
-                if ~any(found)
-                    throw(exceptions.nameNotRecognised(sprintf('Parameter %s not recognized', inputVal)));
-                end
-                param = paramNames{find(found, 1)};
-
-            elseif isnumeric(inputVal)
-                if inputVal < 1 || inputVal > length(paramNames)
-                    throw(exceptions.indexOutOfRange(sprintf('Parameter ''%d'' is out of range 1 - %d', inputVal, length(paramNames))));
-                end
-                param = paramNames{inputVal};
-
-            else
-                throw(exceptions.invalidType(sprintf('Parameter %s is not in a recognizable format', inputVal)));
-                
-            end
-        end
-
-    end
+    end     
 end
-
-
-
-

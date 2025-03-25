@@ -66,7 +66,7 @@ z = 0:1:140;
 [vfOxide, oxSurface] = layer(z,siSurf,oxideThick,1,subRough,subRough);
 
 % We fill in the water at the end, but there may be a hydration layer
-% beyween the bilayer and the oxide, so we start the bilayer stack an
+% between the bilayer and the oxide, so we start the bilayer stack an
 % appropriate distance away...
 watSurface = oxSurface + waterThick;
 

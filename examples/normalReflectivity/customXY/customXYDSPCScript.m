@@ -193,7 +193,7 @@ plotHists(results, 'figure', h3, 'smooth', true)
 h4 = figure(50); clf
 cornerPlot(results, 'figure', h4, 'smooth', false)
 
-%% A Slightly Deeper Analysys - Plotting The Bayes Result as Volume Fractions
+%% A Slightly Deeper Analysis - Plotting The Bayes Result as Volume Fractions
 % The model we're using here is built using Volume Fractions. It's convenient 
 % to be able to use these as outputs, so that the result of our Bayesian analysis 
 % in terms of the VF's of the various components can be visualised. To do this, 

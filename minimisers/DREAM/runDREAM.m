@@ -30,12 +30,6 @@ end
 
 bayesResults = makeEmptyBayesResultsStruct(numberOfContrasts, domains, numberOfChains);
 
-% TODO remove when Jeffreys prior is implemented to DREAM 
-% https://github.com/RascalSoftware/RAT/issues/353
-if ismember(3, problemStruct.priorValues(:,1))
-    coderException(coderEnums.errorCodes.invalidOption, 'Jeffreys priors are not available in DREAM.')
-end
-
 % Pre-allocation
 checks = problemStruct.checks;
 numberOfFitted = sum(checks.params) + ...

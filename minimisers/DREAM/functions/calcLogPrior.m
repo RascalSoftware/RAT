@@ -34,7 +34,7 @@ for i = 1:height(priors)
         % log of Gaussian is -(x - mu)^2 / 2 sigma^2 - log(sqrt(2pi)*sigma)
         x(:, i) = -(((x(:, i) - paramPrior(2)).^2) / (2 * paramPrior(3)^2)) - log(sqrt_2pi * paramPrior(3));
     elseif priorType == 3  % jeffreys (1/x with a normalisation constant)
-        x(:, i) = log((1/log(paramPrior(5)/paramPrior(4)))*1/x(:, i));
+        x(:, i) = -log(log(paramPrior(5)/paramPrior(4))) - log(x(:, i));
     end
 end
 % finally, sum log(pr1(x1)) + log(pr2(x2)) + ... to get log(pr) for each chain

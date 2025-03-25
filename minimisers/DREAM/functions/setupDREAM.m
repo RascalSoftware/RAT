@@ -1,5 +1,5 @@
-function [outDREAMPar,paramInfo,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
-        gen] = setupDREAM(DREAMPar,paramInfo,Meas_info)
+function [outDREAMPar,paramInfo,chain,output,log_L,Table_gamma,iloc,iteration,...
+        gen] = setupDREAM(DREAMPar,paramInfo)
 % Initialize the main variables used in DREAM.
 % 
 % Parameters
@@ -8,8 +8,6 @@ function [outDREAMPar,paramInfo,Meas_info,chain,output,log_L,Table_gamma,iloc,it
 %     Algorithmic control information for DREAM.
 % paramInfo : struct
 %     Ranges, priors and boundary handling for each parameter.
-% Meas_info : struct 
-%     Struct with measurements to evaluate against.
 %
 % Returns
 % -------
@@ -17,8 +15,6 @@ function [outDREAMPar,paramInfo,Meas_info,chain,output,log_L,Table_gamma,iloc,it
 %     The options for DREAMPar with defaults applied.
 % paramInfo : struct
 %     The input ``paramInfo`` after range validation.
-% Meas_info : struct
-%     The input ``Meas_info`` after validation.
 % chain : array
 %     The initial MCMC chain array.
 % output : struct
@@ -98,7 +94,6 @@ output.outlierChains = outlierChains;
 % ..also run time
 output.runtime = 0;
 output.DREAMPar = outDREAMPar; 
-output.Meas_info = Meas_info;
 output.iteration = 1;
 output.iloc = 0;
 output.modelOutput = 0;
@@ -127,9 +122,6 @@ Table_gamma = zeros(outDREAMPar.nParams,outDREAMPar.delta);
 for zz = 1:outDREAMPar.delta
     Table_gamma(:,zz) = 2.38./sqrt(2 * zz * [1:outDREAMPar.nParams]');
 end
-
-% First calculate the number of calibration data measurements
-Meas_info.N = Meas_info.Y;
 
 % Initialize few important counters
 iloc = 1; iteration = 2; gen = 2;

@@ -91,8 +91,7 @@ ParInfo.mvnpdf = true;
 
 
 % Run the sampler....
-Meas_info = struct('Y',0,'N',0);
-[chain,dreamOutput,~] = ratDREAM(DREAMPar,ParInfo,Meas_info,ratInputs);
+[chain,dreamOutput,~] = ratDREAM(DREAMPar,ParInfo,ratInputs);
 
 % Combine all chains....
 nChains = DREAMPar.nChains;

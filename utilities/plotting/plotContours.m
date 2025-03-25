@@ -45,7 +45,7 @@ function plotContours(x, y, parent, smooth)
         K=(1/10)*ones(5);
         N=conv2(N,K,'same');
 
-        density = N/sum(N(:));
+        density = transpose(N/sum(N(:)));
     end
 
     levels = linspace(min(density, [], "all"), max(density, [], "all"), 10);

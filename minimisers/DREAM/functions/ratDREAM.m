@@ -219,7 +219,7 @@ for t = T_start : DREAMPar.nGenerations
         output.AR(iteration,1:2) = [ t * DREAMPar.nChains 100 * sum(totaccept) / (DREAMPar.nChains * DREAMPar.steps)];
         
         % Check whether to update individual pCR values
-        if ( t <= DREAMPar.nGenerations / 10 )
+        if ( t <= 0.1 * DREAMPar.nGenerations )
             if DREAMPar.adaptPCR
                 % Update pCR values
                 [pCR,lCR] = adaptPCR(DREAMPar,CR,delta_tot,lCR);
@@ -236,7 +236,7 @@ for t = T_start : DREAMPar.nGenerations
         CR = drawCR(DREAMPar,pCR);
         
         % Calculate Gelman and Rubin Convergence Diagnostic
-        start_idx = max(1,floor(iloc/2)); end_idx = iloc;
+        start_idx = max(1,floor(0.5*iloc)); end_idx = iloc;
         
         % Compute the R-statistic using 50% burn-in from chain
         [output.R_stat(iteration,1:DREAMPar.nParams+1)] = [ t * DREAMPar.nChains gelman(chain(start_idx:end_idx,1:DREAMPar.nParams,1:DREAMPar.nChains),DREAMPar)];

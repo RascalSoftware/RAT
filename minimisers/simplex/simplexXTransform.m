@@ -24,7 +24,7 @@ for i = 1:length(x)
       xtrans(i) = params.UB(i) - x(i).^2;
     case 3
       % lower and upper bounds
-      xtrans(i) = (sin(x(i))+1)/2;
+      xtrans(i) = 0.5*(sin(x(i))+1);
       xtrans(i) = xtrans(i)*(params.UB(i) - params.LB(i)) + params.LB(i);
     case 0
       % unconstrained variable. xtrans(i) is set.

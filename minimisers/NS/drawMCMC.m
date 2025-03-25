@@ -150,7 +150,7 @@ while 1
                 newPrior = logPlus(newPrior, pv);
                 
             elseif priortype == 2       % gaussian
-                pv = -l2p - sampletmp(j)^2/2;
+                pv = -l2p - 0.5*sampletmp(j)^2;
                 newPrior = logPlus(newPrior, pv);
             elseif priortype == 3 % 'jeffreys'
                 p3 = prior(j,2);

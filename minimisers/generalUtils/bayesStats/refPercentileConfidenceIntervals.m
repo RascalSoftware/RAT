@@ -24,7 +24,7 @@ else
     domains = false;
 end
 
-CIFn = @(x,p)prctile(x,abs([0,100]-(100-p)/2));
+CIFn = @(x,p)prctile(x,abs([0,100]-0.5*(100-p)));
 chain = bayesOutputs.chain;
 
 % Prepare some arrays to hold the SLD's and Refs for all the chain, keeping only the Y values.

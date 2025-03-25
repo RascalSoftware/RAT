@@ -30,6 +30,6 @@ result = reflectivityCalculation(problemStruct,controls);
 % Function value is chi-squared....
 chiSquared = result.calculationResults.sumChi;
 
-Lik = -chiSquared/2;
+Lik = -0.5*chiSquared;
 
 end

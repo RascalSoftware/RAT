@@ -17,6 +17,5 @@ function fval = nsIntraFun(data,p)
     problemStruct = unpackParams(problemStruct);
     result = reflectivityCalculation(problemStruct,controls);
 
-    fval = (-result.calculationResults.sumChi/2);
-    
+    fval = (-0.5*result.calculationResults.sumChi); 
 end

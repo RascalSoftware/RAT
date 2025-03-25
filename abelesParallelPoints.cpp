@@ -88,7 +88,7 @@ namespace RAT
       M_res[0][1].im = 0.0;
       bulkInSLD.re = layersRho1.re;
       bulkInSLD.im = layersRho1.im + 1.0E-30;
-      k0 = q[points] / 2.0;
+      k0 = 0.5 * q[points];
 
       //  Find k1..
       sld_1.re = layersRho2.re - layersRho1.re;

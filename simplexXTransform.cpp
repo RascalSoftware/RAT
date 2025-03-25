@@ -55,7 +55,7 @@ namespace RAT
 
        case 3:
         //  lower and upper bounds
-        xtrans[i] = (std::sin(x[i]) + 1.0) / 2.0 * (params_UB[i] - params_LB[i])
+        xtrans[i] = 0.5 * (std::sin(x[i]) + 1.0) * (params_UB[i] - params_LB[i])
           + params_LB[i];
         break;
 

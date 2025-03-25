@@ -80,7 +80,7 @@ namespace RAT
       double x;
 
       //  constant factor for volume of ellipsoid
-      d = static_cast<double>(u.size(1)) / 2.0;
+      d = 0.5 * static_cast<double>(u.size(1));
       d1 = d + 1.0;
       coder::b_gamma(d1);
 

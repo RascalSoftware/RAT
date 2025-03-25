@@ -10,7 +10,6 @@
 
 // Include files
 #include "findkn.h"
-#include "RATMain_data.h"
 #include "exp.h"
 #include "rt_nonfinite.h"
 #include "sqrt.h"
@@ -27,14 +26,9 @@ namespace RAT
     double k0_re;
     double re;
 
-    //  sqrt function with branch cut in zarg from 0 to infinity along a ray
-    //  at angle theta (in radians) measured from the +x axis in the usual way,
-    //  with -pi<=theta<=pi.  theta = pi is the usual square root.
-    //  for zarg on the +x axis, sqrt behavior is conserved,
-    //  i.e. sqrtbc(theta,zarg) is positive and real for any theta.
-    //
-    //  y = sqrtbc(theta,zarg)
-    dc.re = 0.0;
+    //  This is the sqrt function with branch cut in subtr from 0 to infinity
+    //  along a ray at angle theta = pi/2
+    dc.re = -0.0;
     dc.im = -0.78539816339744828;
     coder::b_exp(dc);
     dc1.re = 0.0;
@@ -49,14 +43,6 @@ namespace RAT
     coder::internal::scalar::d_sqrt(&dc1);
     kn.re = dc.re * dc1.re - dc.im * dc1.im;
     kn.im = dc.re * dc1.im + dc.im * dc1.re;
-
-    //  translations:  sqrtbc(theta, z-b) has branch cut in the z plane from
-    //  branch point z = b out to infinity, along a ray at angle theta.
-    //
-    //  for the usual square root with branch cut along -x,
-    //  the real part of sqrt(z) is positive (or 0) for all z.
-    //  for the modified square root with branch cut along +x,
-    //  the imaginary part of sqrt(z) is positive (or 0) for all z.
     return kn;
   }
 }

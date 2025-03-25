@@ -73,7 +73,7 @@ namespace RAT
       double kn_ptr_re;
       double r01_im;
       double r01_re;
-      k0 = q[points] / 2.0;
+      k0 = 0.5 * q[points];
 
       //  Find k1..
       k1 = findkn(k0, b_layersRho);

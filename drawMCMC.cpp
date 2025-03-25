@@ -281,8 +281,8 @@ namespace RAT
             j++;
           } else if (priortype == 2.0) {
             //  gaussian
-            newPrior = logPlus(newPrior, -0.91893853320467267 - sampletmp[j] *
-                               sampletmp[j] / 2.0);
+            newPrior = logPlus(newPrior, -0.91893853320467267 - 0.5 *
+                               (sampletmp[j] * sampletmp[j]));
             j++;
           } else if (priortype == 3.0) {
             //  'jeffreys'

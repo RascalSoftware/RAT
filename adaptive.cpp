@@ -199,8 +199,9 @@ namespace RAT
       i1 = i * stride_2_0;
       varargin_1 = in5[i1];
       b_varargin_1 = in5[i1 + in5.size(0)];
-      in1[i].re = ((in2[i * stride_0_0] + in3[i * stride_1_0]) - (varargin_1 *
-        varargin_1 + b_varargin_1 * b_varargin_1)) / 2.0 / in6[i * stride_3_0];
+      in1[i].re = 0.5 * ((in2[i * stride_0_0] + in3[i * stride_1_0]) -
+                         (varargin_1 * varargin_1 + b_varargin_1 * b_varargin_1))
+        / in6[i * stride_3_0];
       in1[i].im = 0.0;
     }
   }
@@ -321,8 +322,9 @@ namespace RAT
       for (i = 0; i < k; i++) {
         varargin_1 = longStep[i];
         b_varargin_1 = longStep[i + longStep.size(0)];
-        r2[i].re = ((firstStepSquared[i] + secondStepSquared[i]) - (varargin_1 *
-          varargin_1 + b_varargin_1 * b_varargin_1)) / 2.0 / r1[i];
+        r2[i].re = 0.5 * ((firstStepSquared[i] + secondStepSquared[i]) -
+                          (varargin_1 * varargin_1 + b_varargin_1 * b_varargin_1))
+          / r1[i];
         r2[i].im = 0.0;
       }
     } else {

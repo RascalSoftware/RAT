@@ -889,7 +889,7 @@ namespace RAT
           (DREAMPar.nChains * DREAMPar.steps);
 
         //  Check whether to update individual pCR values
-        if (static_cast<double>(t) + 2.0 <= DREAMPar.nGenerations / 10.0) {
+        if (static_cast<double>(t) + 2.0 <= 0.1 * DREAMPar.nGenerations) {
           if (DREAMPar.adaptPCR) {
             double b_lCR_data[3];
 
@@ -959,8 +959,8 @@ namespace RAT
         drawCR(DREAMPar, pCR_data, pCR_size, CR);
 
         //  Calculate Gelman and Rubin Convergence Diagnostic
-        start_idx = static_cast<int>(std::fmax(1.0, std::floor(static_cast<
-          double>(iloc) / 2.0)));
+        start_idx = static_cast<int>(std::fmax(1.0, std::floor(0.5 *
+          static_cast<double>(iloc))));
 
         //  Compute the R-statistic using 50% burn-in from chain
         if (start_idx > static_cast<int>(iloc)) {

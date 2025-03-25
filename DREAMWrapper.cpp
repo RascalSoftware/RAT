@@ -59,7 +59,7 @@ namespace RAT
     b_reflectivityCalculation(problemStruct, ratInputs_controls, &expl_temp);
 
     //  Function value is chi-squared....
-    return -expl_temp.calculationResults.sumChi / 2.0;
+    return -0.5 * expl_temp.calculationResults.sumChi;
   }
 }
 

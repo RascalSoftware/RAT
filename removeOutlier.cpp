@@ -105,8 +105,7 @@ namespace RAT
     //  outputOutlier :
     //      The ``outlier`` array with any new removed outliers added.
     //  Determine the number of elements of L_density
-    t_half = static_cast<int>(std::floor(static_cast<double>(log_L.size(0)) /
-      2.0));
+    t_half = static_cast<int>(std::floor(0.5 * static_cast<double>(log_L.size(0))));
 
     //  Then determine the mean log density of the active chains
     if (t_half > log_L.size(0)) {

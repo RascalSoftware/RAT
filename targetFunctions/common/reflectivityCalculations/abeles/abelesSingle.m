@@ -4,75 +4,48 @@ function ref = abelesSingle(q,N,layersThick,layersRho,layersSigma)
 % with complex rho...
 
 % Pre-allocation
-tiny = 1e-30;
-ci = complex(0,1);
+c1 = complex(1,0);
 c0 = complex(0,0);
-M_tot = [c0 c0 ; c0 c0];
-M_n = [c0 c0 ; c0 c0];
-M_res = [c0 c0 ; c0 c0];
+
 ref = zeros(length(q),1);
 
 for points = 1:length(q)
 
+    M_tot = [c1 c0 ; c0 c1];
+    M_n = [c1 c0 ; c0 c1];
+    M_res = [c1 c0 ; c0 c1];
+
     Q = q(points);
-
-    bulkInSLD = layersRho(1);
-    bulkInSLD = bulkInSLD + complex(0,tiny);
-
     k0 = 0.5 * Q;
 
-    % Find k1..
-    sld_1 = layersRho(2) - bulkInSLD;
-    k1 = findkn(k0, sld_1);
+    % Compute parameters for each layer
+    sigmaSquared = layersSigma.^2;
+    sld = layersRho(2:end) - layersRho(1);
+    kn1 = findkn(k0, sld);
+    kn = [k0; kn1];
+       
+    % Find the Phase Factors = (k_n * d_n)
+    beta = kn .* layersThick;
 
-    % Find r01
-    nom1 = k0 - k1;
-    denom1 = k0 + k1;
-    sigmasqrd = layersSigma(2) ^ 2;
-    err1 = exp(-2 * k1 * k0 * sigmasqrd);
-    r01 = (nom1 / denom1) * err1;
-
-    % Generate the M1 matrix:
-    M_tot(1,1) = complex(1,0);
-    M_tot(1,2) = r01;
-    M_tot(2,1) = r01;
-    M_tot(2,2) = complex(1,0);
-
-    kn_ptr = k1;
-
-    for n = 2:N-1
-
-        % Find kn and k_n+1 (ex. k1 and k2 for n=1): */
-        sld_np1 = layersRho(n + 1);
-        sld_np1 = sld_np1 - bulkInSLD;
-
-        kn = kn_ptr;
-        knp1 = findkn(k0, sld_np1);
+    for n = 1:N-1
 
         % Find r_n,n+1:
-        nom_n = kn - knp1;
-        denom_n = kn + knp1;
-        sigmasqrd = layersSigma(n + 1)^2;
-        err_n = exp(-2 * kn * knp1 * sigmasqrd);
+        nom_n = kn(n) - kn(n + 1);
+        denom_n = kn(n) + kn(n + 1);
+        err_n = exp(-2 * kn(n) * kn(n + 1) * sigmaSquared(n + 1));
         r_n_np1 = (nom_n / denom_n) * err_n;
 
-        % Find the Phase Factor = (k_n * d_n)
-        beta = kn * layersThick(n) * ci;
-
-        % Create the M_n matrix: */
-        M_n(1,1) = exp(beta);
-        M_n(1,2) = r_n_np1 * exp(beta);
-        M_n(2,1) = r_n_np1 * exp(-beta);
-        M_n(2,2) = exp(-beta);
+        % Create the M_n matrix
+        M_n(1,1) = exp(1i * beta(n));
+        M_n(1,2) = r_n_np1 * exp(1i * beta(n));
+        M_n(2,1) = r_n_np1 * exp(-1i * beta(n));
+        M_n(2,2) = exp(-1i * beta(n));
 
         % Multiply the matrices
         M_res = M_tot * M_n;
 
-        % Reassign the values back to M_tot:
+        % Reassign the values back to M_tot
         M_tot = M_res;
-
-        % Point to k_n+1 and sld_n+1 via kn_ptr sld_n_ptr:
-        kn_ptr = knp1;
 
     end
 

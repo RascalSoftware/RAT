@@ -249,6 +249,10 @@ classdef contrastsClass < baseContrasts
 
             % Check the input is as expected - modelNames tells us what the
             % model type is
+            if isempty(allowedNames.modelNames)
+                throw(exceptions.invalidValue('No model values have been specified in the project'))
+            end
+
             if all(size(allowedNames.modelNames) == size(allowedNames.customFileNames)) && all(cellfun(@strcmp, allowedNames.modelNames, allowedNames.customFileNames))
                 if length(inputArray) > 1
                     throw(exceptions.invalidValue('Only one model value is allowed for custom models'));

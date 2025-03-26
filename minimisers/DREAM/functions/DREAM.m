@@ -86,7 +86,7 @@
 % Version 2.4: May 2014           Parallellization using parfor (done if CPU > 1)               %
 %                                                                                               %
 % --------------------------------------------------------------------------------------------- %
-function [chain,output,log_L] = ratDREAM(dreamVariables,paramInfo,ratInputs)
+function [chain,output,log_L] = DREAM(dreamVariables,paramInfo,ratInputs)
 % Optimise a function using the Differential Evolution Adaptive Metropolis (DREAM) algorithm.
 % 
 % Parameters

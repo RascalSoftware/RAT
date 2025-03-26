@@ -85,7 +85,7 @@ ParInfo.mvnpdf = true;
 
 
 % Run the sampler....
-[chain,dreamOutput,~] = ratDREAM(DREAMPar,ParInfo,ratInputs);
+[chain,dreamOutput,~] = DREAM(DREAMPar,ParInfo,ratInputs);
 
 % Combine all chains....
 nChains = DREAMPar.nChains;

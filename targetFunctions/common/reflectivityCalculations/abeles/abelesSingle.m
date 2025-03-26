@@ -1,29 +1,23 @@
 function ref = abelesSingle(q,N,layersThick,layersRho,layersSigma)
 
-% New Matlab version of reflectivity
-% with complex rho...
+% Vectorised version of reflectivity with complex rho
 
-% Pre-allocation
 c1 = complex(1,0);
-c0 = complex(0,0);
-
 ref = zeros(length(q),1);
+
+% SLD is always relative to bulk in value
+sld = layersRho(2:end) - layersRho(1);
+
+% Always need the next sigma squared value for layers 1:end-1
+nextSigmaSquared = layersSigma(2:end).^2;
 
 for points = 1:length(q)
 
-    M_tot = [c1 c0 ; c0 c1];
-    M_n = [c1 c0 ; c0 c1];
-    M_res = [c1 c0 ; c0 c1];
-
-    Q = q(points);
-    k0 = 0.5 * Q;
+    M_n = eye(2, 'like', c1);
+    M = eye(2, 'like', c1);
+    k0 = 0.5 * q(points);
 
     % Compute parameters for each layer
-    nextSigmaSquared = layersSigma.^2;
-    % Always need the next sigma squared value for layers 1:end-1
-    nextSigmaSquared(1) = [];
-
-    sld = layersRho(2:end) - layersRho(1);
     kn1 = findkn(k0, sld);
     kn = [k0; kn1];
        
@@ -48,14 +42,11 @@ for points = 1:length(q)
         M_n(2,2) = exp(-1i * beta(n));
 
         % Multiply the matrices
-        M_res = M_tot * M_n;
-
-        % Reassign the values back to M_tot
-        M_tot = M_res;
+        M = M * M_n;
 
     end
 
-    R = abs(M_res(2,1) / M_res(1,1));
+    R = abs(M(2,1) / M(1,1));
     ref(points) = R^2;
 
 end

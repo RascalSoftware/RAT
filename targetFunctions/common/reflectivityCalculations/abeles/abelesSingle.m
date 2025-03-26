@@ -19,7 +19,10 @@ for points = 1:length(q)
     k0 = 0.5 * Q;
 
     % Compute parameters for each layer
-    sigmaSquared = layersSigma.^2;
+    nextSigmaSquared = layersSigma.^2;
+    % Always need the next sigma squared value for layers 1:end-1
+    nextSigmaSquared(1) = [];
+
     sld = layersRho(2:end) - layersRho(1);
     kn1 = findkn(k0, sld);
     kn = [k0; kn1];
@@ -27,18 +30,21 @@ for points = 1:length(q)
     % Find the Phase Factors = (k_n * d_n)
     beta = kn .* layersThick;
 
-    for n = 1:N-1
+    % Construct an array of kn(1:end-1) and kn(2:end) for parameters based
+    % on combining consecutive values
+    kn_np1 = [kn(2:end) kn(1:end-1)];
 
-        % Find r_n,n+1:
-        nom_n = kn(n) - kn(n + 1);
-        denom_n = kn(n) + kn(n + 1);
-        err_n = exp(-2 * kn(n) * kn(n + 1) * sigmaSquared(n + 1));
-        r_n_np1 = (nom_n / denom_n) * err_n;
+    numerator = diff(kn_np1, 1, 2);
+    denominator = sum(kn_np1, 2);
+    erf = exp(-2 * prod(kn_np1, 2) .* nextSigmaSquared);
+    r = (numerator ./ denominator) .* erf;
+
+    for n = 1:N-1
 
         % Create the M_n matrix
         M_n(1,1) = exp(1i * beta(n));
-        M_n(1,2) = r_n_np1 * exp(1i * beta(n));
-        M_n(2,1) = r_n_np1 * exp(-1i * beta(n));
+        M_n(1,2) = r(n) * exp(1i * beta(n));
+        M_n(2,1) = r(n) * exp(-1i * beta(n));
         M_n(2,2) = exp(-1i * beta(n));
 
         % Multiply the matrices

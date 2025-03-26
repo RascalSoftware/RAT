@@ -143,7 +143,7 @@ for t = T_start : DREAMPar.nGenerations
     % Now generate candidate in each sequence using current point and members of X
     [xnew,CR(:,gen)] = calcProposal(xold,CR(:,gen),DREAMPar,Table_gamma,paramInfo);
     
-    % Now evaluate the model ( = pdf ) and return fx
+    % Now evaluate the model ( = pdf ) and return log-likelihood
     log_L_xnew = calcLogLikelihood(xnew, DREAMPar, ratInputs);
     
     % Calculate log-prior

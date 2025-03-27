@@ -48,6 +48,7 @@ end
 if resample == 1
     resampledLayers = resampleLayers(sldProfile,sldProfileIm,resampleMinAngle,resampleNPoints);
     inputLayers = resampledLayers;
+    repeatLayers = 1;
 else
     inputLayers = layers;
 end

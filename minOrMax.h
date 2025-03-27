@@ -32,8 +32,6 @@ namespace RAT
       double maximum(const ::coder::array<double, 2U> &x);
       void maximum(const ::coder::array<double, 2U> &x, double ex[2]);
       double maximum(const double x[2]);
-      void maximum2(const ::coder::array<double, 1U> &x, const ::coder::array<
-                    double, 1U> &y, ::coder::array<double, 1U> &ex);
       double minimum(const ::coder::array<double, 1U> &x, int &idx);
       double minimum(const double x[2]);
       double minimum(const double x[50], int &idx);

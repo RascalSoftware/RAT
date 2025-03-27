@@ -10,7 +10,6 @@
 
 // Include files
 #include "minOrMax.h"
-#include "ixfun.h"
 #include "relop.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
@@ -258,25 +257,6 @@ namespace RAT
         }
 
         return ex;
-      }
-
-      void maximum2(const ::coder::array<double, 1U> &x, const ::coder::array<
-                    double, 1U> &y, ::coder::array<double, 1U> &ex)
-      {
-        if (x.size(0) == y.size(0)) {
-          int loop_ub;
-          ex.set_size(x.size(0));
-          loop_ub = x.size(0);
-          for (int i{0}; i < loop_ub; i++) {
-            double varargin_1;
-            double varargin_2;
-            varargin_1 = x[i];
-            varargin_2 = y[i];
-            ex[i] = std::fmax(varargin_1, varargin_2);
-          }
-        } else {
-          expand_max(x, y, ex);
-        }
       }
 
       double minimum(const ::coder::array<double, 1U> &x, int &idx)

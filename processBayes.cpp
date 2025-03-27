@@ -29,7 +29,7 @@ namespace RAT
                     2U> &bayesOutputs_chain, ProblemDefinition &problemStruct,
                     const char controls_parallel_data[], const int
                     controls_parallel_size[2], double controls_resampleMinAngle,
-                    double controls_resampleNPoints, Results *result, e_struct_T
+                    double controls_resampleNPoints, Results *result, d_struct_T
                     &bayesResults)
   {
     static Controls expl_temp;
@@ -99,7 +99,7 @@ namespace RAT
   void processBayes(const ::coder::array<double, 2U> &bayesOutputs_bestParams,
                     const ::coder::array<double, 2U> &bayesOutputs_chain,
                     ProblemDefinition &problemStruct, Controls &controls,
-                    Results *result, e_struct_T &bayesResults)
+                    Results *result, d_struct_T &bayesResults)
   {
     int loop_ub;
 

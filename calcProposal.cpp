@@ -165,6 +165,13 @@ namespace RAT
     //      The DE jump length values for each parameter.
     //  paramInfo : struct
     //      Prior, bound, and boundary handling information for each parameter.
+    //
+    //  Returns
+    //  -------
+    //  x_new : array
+    //      The new points in parameter space.
+    //  CR : array
+    //      The new crossover values for each parameter.
     //  Calculate the ergodicity perturbation
     coder::randn(DREAMPar.nChains, DREAMPar.nParams, b);
     eps.set_size(b.size(0), b.size(1));

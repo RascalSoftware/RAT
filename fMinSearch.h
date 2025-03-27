@@ -20,8 +20,8 @@
 namespace RAT
 {
   struct ProblemDefinition;
-  struct i_struct_T;
-  struct g_struct_T;
+  struct h_struct_T;
+  struct f_struct_T;
 }
 
 // Function Declarations
@@ -38,8 +38,8 @@ namespace RAT
                     varargin_2_resampleNPoints, double varargin_2_updateFreq,
                     double varargin_2_updatePlotFreq, const char
                     varargin_2_IPCFilePath_data[], const int
-                    varargin_2_IPCFilePath_size[2], const i_struct_T &varargin_3,
-                    g_struct_T &output, double &exitflag);
+                    varargin_2_IPCFilePath_size[2], const h_struct_T &varargin_3,
+                    f_struct_T &output, double &exitflag);
 }
 
 #endif

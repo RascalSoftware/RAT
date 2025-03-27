@@ -258,8 +258,8 @@ namespace RAT
                     varargin_2_resampleNPoints, double varargin_2_updateFreq,
                     double varargin_2_updatePlotFreq, const char
                     varargin_2_IPCFilePath_data[], const int
-                    varargin_2_IPCFilePath_size[2], const i_struct_T &varargin_3,
-                    g_struct_T &output, double &exitflag)
+                    varargin_2_IPCFilePath_size[2], const h_struct_T &varargin_3,
+                    f_struct_T &output, double &exitflag)
   {
     static const char cv6[35]{ 'E', 'x', 'i', 't', 'i', 'n', 'g', ':', ' ', 'M',
       'a', 'x', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'e', 'v', 'a',

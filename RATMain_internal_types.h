@@ -19,18 +19,12 @@
 // Type Definitions
 namespace RAT
 {
-  struct struct_T
-  {
-    double Y;
-    double N;
-  };
-
   struct cell_wrap_52
   {
     double f1[6];
   };
 
-  struct b_struct_T
+  struct struct_T
   {
     double LogZ;
     double LogZErr;
@@ -134,35 +128,34 @@ namespace RAT
     cell_wrap_65 f1[2];
   };
 
-  struct c_struct_T
+  struct b_struct_T
   {
     PredictionIntervals predictionIntervals;
     ConfidenceIntervals confidenceIntervals;
     DreamParams dreamParams;
     DreamOutput dreamOutput;
-    b_struct_T nestedSamplerOutput;
+    struct_T nestedSamplerOutput;
     ::coder::array<double, 2U> chain;
   };
 
-  struct d_struct_T
+  struct c_struct_T
   {
     ::coder::array<cell_wrap_11, 1U> reflectivity;
     ::coder::array<cell_wrap_11, 2U> sld;
     double sampleChi[1000];
   };
 
-  struct e_struct_T
+  struct d_struct_T
   {
-    d_struct_T predictionIntervals;
+    c_struct_T predictionIntervals;
     ConfidenceIntervals confidenceIntervals;
   };
 
-  struct f_struct_T
+  struct e_struct_T
   {
     ::coder::bounded_array<double, 2000U, 2U> outlierChains;
     double runtime;
     DreamParams DREAMPar;
-    struct_T Meas_info;
     double iteration;
     double iloc;
     double modelOutput;
@@ -171,7 +164,7 @@ namespace RAT
     ::coder::array<double, 2U> CR;
   };
 
-  struct g_struct_T
+  struct f_struct_T
   {
     double iterations;
     double funcCount;
@@ -179,7 +172,7 @@ namespace RAT
     ::coder::array<char, 2U> message;
   };
 
-  struct h_struct_T
+  struct g_struct_T
   {
     double I_lentol;
     double FVr_x[50];
@@ -206,14 +199,14 @@ namespace RAT
     ::coder::array<double, 2U> f1;
   };
 
-  struct i_struct_T
+  struct h_struct_T
   {
     ::coder::array<double, 1U> LB;
     ::coder::array<double, 1U> UB;
     ::coder::array<double, 1U> BoundClass;
   };
 
-  struct j_struct_T
+  struct i_struct_T
   {
     double I_no;
     double FVr_oa;

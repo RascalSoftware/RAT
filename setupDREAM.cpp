@@ -25,9 +25,9 @@ namespace RAT
   void setupDREAM(double DREAMPar_nParams, double DREAMPar_nChains, double
                   DREAMPar_nGenerations, double DREAMPar_jumpProbability, double
                   DREAMPar_pUnitGamma, boolean_T DREAMPar_adaptPCR, DreamParams
-                  &outDREAMPar, struct_T &Meas_info, ::coder::array<double, 3U>
-                  &chain, f_struct_T &output, ::coder::array<double, 2U> &log_L,
-                  ::coder::array<double, 2U> &Table_gamma)
+                  &outDREAMPar, ::coder::array<double, 3U> &chain, e_struct_T
+                  &output, ::coder::array<double, 2U> &log_L, ::coder::array<
+                  double, 2U> &Table_gamma)
   {
     ::coder::array<double, 2U> c;
     ::coder::array<double, 2U> y;
@@ -39,8 +39,6 @@ namespace RAT
     int k;
     int loop_ub;
     int loop_ub_tmp;
-    Meas_info.Y = 0.0;
-    Meas_info.N = 0.0;
 
     //  Initialize the main variables used in DREAM.
     //
@@ -50,8 +48,6 @@ namespace RAT
     //      Algorithmic control information for DREAM.
     //  paramInfo : struct
     //      Ranges, priors and boundary handling for each parameter.
-    //  Meas_info : struct
-    //      Struct with measurements to evaluate against.
     //
     //  Returns
     //  -------
@@ -59,8 +55,6 @@ namespace RAT
     //      The options for DREAMPar with defaults applied.
     //  paramInfo : struct
     //      The input ``paramInfo`` after range validation.
-    //  Meas_info : struct
-    //      The input ``Meas_info`` after validation.
     //  chain : array
     //      The initial MCMC chain array.
     //  output : struct
@@ -182,7 +176,6 @@ namespace RAT
     //  ..also run time
     output.runtime = 0.0;
     output.DREAMPar = outDREAMPar;
-    output.Meas_info = Meas_info;
     output.iteration = 1.0;
     output.iloc = 0.0;
     output.modelOutput = 0.0;
@@ -282,9 +275,6 @@ namespace RAT
         Table_gamma[i + Table_gamma.size(0) * zz] = 2.38 / r[i];
       }
     }
-
-    //  First calculate the number of calibration data measurements
-    Meas_info.N = 0.0;
 
     //  Initialize few important counters
   }

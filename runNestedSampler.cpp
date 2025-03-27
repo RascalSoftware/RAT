@@ -37,8 +37,8 @@ namespace RAT
                   coder::array<double, 2U> &t0_confidenceIntervals_percentile65,
                   const ::coder::array<double, 2U> &t0_confidenceIntervals_mean,
                   const DreamParams &t0_dreamParams, const DreamOutput &
-                  t0_dreamOutput, const b_struct_T t0_nestedSamplerOutput, const
-                  ::coder::array<double, 2U> &t0_chain, ::coder::array<
+                  t0_dreamOutput, const struct_T t0_nestedSamplerOutput, const ::
+                  coder::array<double, 2U> &t0_chain, ::coder::array<
                   cell_wrap_11, 1U> &t1_predictionIntervals_reflectivity, ::
                   coder::array<cell_wrap_11, 2U> &t1_predictionIntervals_sld,
                   double t1_predictionIntervals_sampleChi_data[], ::coder::array<
@@ -62,8 +62,8 @@ namespace RAT
                   coder::array<double, 2U> &t0_confidenceIntervals_percentile65,
                   const ::coder::array<double, 2U> &t0_confidenceIntervals_mean,
                   const DreamParams &t0_dreamParams, const DreamOutput &
-                  t0_dreamOutput, const b_struct_T t0_nestedSamplerOutput, const
-                  ::coder::array<double, 2U> &t0_chain, ::coder::array<
+                  t0_dreamOutput, const struct_T t0_nestedSamplerOutput, const ::
+                  coder::array<double, 2U> &t0_chain, ::coder::array<
                   cell_wrap_11, 1U> &t1_predictionIntervals_reflectivity, ::
                   coder::array<cell_wrap_11, 2U> &t1_predictionIntervals_sld,
                   double t1_predictionIntervals_sampleChi_data[], ::coder::array<
@@ -190,8 +190,8 @@ namespace RAT
     ::coder::array<double, 2U> t8_confidenceIntervals_percentile95;
     DreamOutput t8_dreamOutput;
     DreamParams t8_dreamParams;
-    b_struct_T t8_nestedSamplerOutput;
-    e_struct_T nestResults;
+    d_struct_T nestResults;
+    struct_T t8_nestedSamplerOutput;
     double t8_predictionIntervals_sampleChi_data[1000];
     double bayesOutputs_bestParams_data[51];
     double H;

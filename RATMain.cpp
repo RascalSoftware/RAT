@@ -740,7 +740,7 @@ namespace RAT
   {
     static Controls b_controls;
     static ProblemDefinition r;
-    static c_struct_T b_bayesResults;
+    static b_struct_T b_bayesResults;
     static const char b_cv1[71]{ 'R', 'A', 'T', ' ', 'c', 'a', 'n', 'n', 'o',
       't', ' ', 'p', 'r', 'o', 'c', 'e', 'e', 'd', ' ', 'w', 'i', 't', 'h', 'o',
       'u', 't', ' ', 'a', 't', ' ', 'l', 'e', 'a', 's', 't', ' ', 'o', 'n', 'e',

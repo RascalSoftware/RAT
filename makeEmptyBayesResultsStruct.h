@@ -20,7 +20,7 @@
 // Type Declarations
 namespace RAT
 {
-  struct b_struct_T;
+  struct struct_T;
 }
 
 // Function Declarations
@@ -34,7 +34,7 @@ namespace RAT
     &bayesResults_confidenceIntervals_percentile95, ::coder::array<double, 2U>
     &bayesResults_confidenceIntervals_percentile65, ::coder::array<double, 2U>
     &bayesResults_confidenceIntervals_mean, DreamParams &
-    bayesResults_dreamParams, DreamOutput &bayesResults_dreamOutput, b_struct_T
+    bayesResults_dreamParams, DreamOutput &bayesResults_dreamOutput, struct_T
     &bayesResults_nestedSamplerOutput, ::coder::array<double, 2U>
     &bayesResults_chain);
   int makeEmptyBayesResultsStruct(double nContrasts, boolean_T isDomains, double
@@ -45,7 +45,7 @@ namespace RAT
     &bayesResults_confidenceIntervals_percentile95, ::coder::array<double, 2U>
     &bayesResults_confidenceIntervals_percentile65, ::coder::array<double, 2U>
     &bayesResults_confidenceIntervals_mean, DreamParams &
-    bayesResults_dreamParams, DreamOutput &bayesResults_dreamOutput, b_struct_T
+    bayesResults_dreamParams, DreamOutput &bayesResults_dreamOutput, struct_T
     &bayesResults_nestedSamplerOutput, ::coder::array<double, 2U>
     &bayesResults_chain);
 }

@@ -3,12 +3,12 @@
 // granting, nonprofit, education, and research organizations only. Not
 // for commercial or industrial use.
 //
-// evaluateModel.h
+// calcLogLikelihood.h
 //
-// Code generation for function 'evaluateModel'
+// Code generation for function 'calcLogLikelihood'
 //
-#ifndef EVALUATEMODEL_H
-#define EVALUATEMODEL_H
+#ifndef CALCLOGLIKELIHOOD_H
+#define CALCLOGLIKELIHOOD_H
 
 // Include files
 #include "rtwtypes.h"
@@ -27,12 +27,11 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void evaluateModel(const ::coder::array<double, 2U> &x, const DreamParams &
-                     DREAMPar, const ProblemDefinition &ratInputs_problemStruct,
-                     const Controls *ratInputs_controls, ::coder::array<double,
-                     2U> &fx);
+  void calcLogLikelihood(const ::coder::array<double, 2U> &x, const DreamParams
+    &DREAMPar, const ProblemDefinition &ratInputs_problemStruct, const Controls *
+    ratInputs_controls, ::coder::array<double, 1U> &log_L_x);
 }
 
 #endif
 
-// End of code generation (evaluateModel.h)
+// End of code generation (calcLogLikelihood.h)

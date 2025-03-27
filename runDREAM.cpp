@@ -10,18 +10,16 @@
 
 // Include files
 #include "runDREAM.h"
+#include "DREAM.h"
 #include "RATMain_internal_types.h"
 #include "RATMain_types.h"
 #include "getFitNames.h"
 #include "getFittedPriors.h"
-#include "ismember.h"
 #include "makeEmptyBayesResultsStruct.h"
 #include "mean.h"
 #include "processBayes.h"
-#include "ratDREAM.h"
 #include "rt_nonfinite.h"
 #include "strcmp.h"
-#include "coderException.hpp"
 #include "coder_array.h"
 #include "coder_bounded_array.h"
 #include <algorithm>
@@ -31,15 +29,10 @@
 namespace RAT
 {
   void runDREAM(const ProblemDefinition &problemStruct, const Controls *controls,
-                Results *result, c_struct_T &bayesResults, ProblemDefinition &
+                Results *result, b_struct_T &bayesResults, ProblemDefinition &
                 outProblemStruct)
   {
     static Controls b_controls;
-    static const char b_cv1[43]{ 'J', 'e', 'f', 'f', 'r', 'e', 'y', 's', ' ',
-      'p', 'r', 'i', 'o', 'r', 's', ' ', 'a', 'r', 'e', ' ', 'n', 'o', 't', ' ',
-      'a', 'v', 'a', 'i', 'l', 'a', 'b', 'l', 'e', ' ', 'i', 'n', ' ', 'D', 'R',
-      'E', 'A', 'M', '.' };
-
     ::coder::array<cell_wrap_10, 1U> fitNames;
     ::coder::array<double, 2U> ParInfo_max;
     ::coder::array<double, 2U> ParInfo_min;
@@ -48,9 +41,8 @@ namespace RAT
     ::coder::array<double, 2U> c_bayesResults;
     ::coder::array<double, 2U> r;
     ::coder::array<double, 2U> r1;
-    ::coder::array<double, 1U> b_problemStruct;
-    e_struct_T dreamResults;
-    f_struct_T dreamOutput;
+    d_struct_T dreamResults;
+    e_struct_T dreamOutput;
     int b_loop_ub;
     int i;
     int i1;
@@ -87,30 +79,6 @@ namespace RAT
       bayesResults.confidenceIntervals.mean, bayesResults.dreamParams,
       bayesResults.dreamOutput, bayesResults.nestedSamplerOutput,
       bayesResults.chain);
-
-    //  TODO remove when Jeffreys prior is implemented to DREAM
-    //  https://github.com/RascalSoftware/RAT/issues/353
-    b_problemStruct.set_size(problemStruct.priorValues.size(0));
-    loop_ub = problemStruct.priorValues.size(0);
-    for (i = 0; i < loop_ub; i++) {
-      b_problemStruct[i] = problemStruct.priorValues[i];
-    }
-
-    if (coder::isMember(b_problemStruct)) {
-      char b_cv[43];
-
-      //  Ensures a proper exception is thrown in the generated C++ code.
-      //  The arguments should be the errorCode integer, error message as a char array (which can be a formatspec)
-      //  and other parameters if message is a formatspec.
-      //
-      //  coderException(coderEnums.errorCodes.invalidOption, 'The model type is not supported')
-      //  coderException(coderEnums.errorCodes.invalidOption, 'The model type "%s" is not supported', modelType)
-      for (i = 0; i < 43; i++) {
-        b_cv[i] = b_cv1[i];
-      }
-
-      coderException(1.0, &b_cv[0]);
-    }
 
     //  Pre-allocation
     getFitNames(problemStruct.names.params, problemStruct.names.backgroundParams,
@@ -150,12 +118,12 @@ namespace RAT
     //  Run the sampler....
     getFittedPriors(fitNames, problemStruct.priorNames,
                     problemStruct.priorValues, problemStruct.fitLimits, r);
-    ratDREAM(static_cast<double>(fitNames.size(0)), controls->nChains, std::ceil
-             (controls->nSamples / controls->nChains), controls->jumpProbability,
-             controls->pUnitGamma, controls->adaptPCR, ParInfo_min, ParInfo_max,
-             controls->boundHandling.data, controls->boundHandling.size,
-             problemStruct, controls, r, bayesResults.dreamOutput.allChains,
-             dreamOutput, a__1);
+    DREAM(static_cast<double>(fitNames.size(0)), controls->nChains, std::ceil
+          (controls->nSamples / controls->nChains), controls->jumpProbability,
+          controls->pUnitGamma, controls->adaptPCR, ParInfo_min, ParInfo_max,
+          controls->boundHandling.data, controls->boundHandling.size,
+          problemStruct, controls, r, bayesResults.dreamOutput.allChains,
+          dreamOutput, a__1);
 
     //  Combine all chains....
     bayesResults.chain.set_size(0, 0);

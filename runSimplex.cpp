@@ -34,8 +34,8 @@ namespace RAT
 
     ::coder::array<double, 1U> x;
     ::coder::array<double, 1U> x0u;
-    g_struct_T a__3;
-    i_struct_T expl_temp;
+    f_struct_T a__3;
+    h_struct_T expl_temp;
     double a__2;
     int dis_size[2];
     int outsize_idx_0;

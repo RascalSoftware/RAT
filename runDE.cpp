@@ -90,7 +90,7 @@ namespace RAT
     ::coder::array<double, 2U> res;
     ::coder::array<signed char, 2U> S_struct_FM_pop;
     ::coder::array<char, 2U> charStr;
-    h_struct_T expl_temp;
+    g_struct_T expl_temp;
     int loop_ub;
 
     //  Run the differential evolution algorithm for a given problem and controls.

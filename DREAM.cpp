@@ -3,23 +3,23 @@
 // granting, nonprofit, education, and research organizations only. Not
 // for commercial or industrial use.
 //
-// ratDREAM.cpp
+// DREAM.cpp
 //
-// Code generation for function 'ratDREAM'
+// Code generation for function 'DREAM'
 //
 
 // Include files
-#include "ratDREAM.h"
+#include "DREAM.h"
 #include "RATMain_internal_types.h"
 #include "RATMain_rtwutil.h"
 #include "RATMain_types.h"
 #include "adaptPCR.h"
 #include "blockedSummation.h"
-#include "calcDensity.h"
+#include "calcLogLikelihood.h"
+#include "calcLogPrior.h"
 #include "calcProposal.h"
 #include "combineVectorElements.h"
 #include "drawCR.h"
-#include "evaluateModel.h"
 #include "find.h"
 #include "gelman.h"
 #include "ifWhileCond.h"
@@ -63,86 +63,86 @@ namespace RAT
       '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-',
       '-', '\n' };
 
-    static const char t34_f2[72]{ '-', '-', '-', '-', '-', '-', '-', '-', '-',
+    static const char t33_f2[72]{ '-', '-', '-', '-', '-', '-', '-', '-', '-',
       '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-',
       '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-',
       '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-',
       '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-',
       '-', '-', '\n' };
 
-    static const char t15_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t14_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'n', 'P', 'a', 'r', 'a', 'm',
       's', ':', ' ' };
 
-    static const char t16_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t15_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'n', 'C', 'h', 'a', 'i', 'n',
       's', ':', ' ' };
 
-    static const char t17_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t16_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', 'n', 'G', 'e', 'n', 'e', 'r', 'a', 't', 'i', 'o', 'n',
       's', ':', ' ' };
 
-    static const char t18_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t17_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'a', 'r', 'a', 'l', 'l', 'e',
       'l', ':', ' ' };
 
-    static const char t19_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t18_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'C', 'P',
       'U', ':', ' ' };
 
-    static const char t20_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t19_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', 'j', 'u', 'm', 'p', 'P', 'r', 'o', 'b', 'a', 'b', 'i', 'l', 'i', 't',
       'y', ':', ' ' };
 
-    static const char t21_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t20_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'U', 'n', 'i', 't', 'G', 'a', 'm', 'm',
       'a', ':', ' ' };
 
-    static const char t22_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t21_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'n', 'C',
       'R', ':', ' ' };
 
-    static const char t23_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t22_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'd', 'e', 'l', 't',
       'a', ':', ' ' };
 
-    static const char t24_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t23_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 's', 't', 'e', 'p',
       's', ':', ' ' };
 
-    static const char t25_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t24_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'z', 'e', 't',
       'a', ':', ' ' };
 
-    static const char t26_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t25_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', 'u', 't', 'l', 'i', 'e',
       'r', ':', ' ' };
 
-    static const char t27_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t26_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'd', 'a', 'p', 't', 'P', 'C',
       'R', ':', ' ' };
 
-    static const char t28_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t27_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 't', 'h', 'i', 'n', 'n', 'i', 'n',
       'g', ':', ' ' };
 
-    static const char t29_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t28_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'B',
       'C', ':', ' ' };
 
-    static const char t30_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t29_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'p', 's', 'i', 'l', 'o',
       'n', ':', ' ' };
 
-    static const char t31_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t30_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'I',
       'O', ':', ' ' };
 
-    static const char t32_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t31_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', 's', 't', 'o', 'r', 'e', 'O', 'u', 't', 'p', 'u',
       't', ':', ' ' };
 
-    static const char t33_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    static const char t32_f2[27]{ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
       'R', ':', ' ' };
 
@@ -183,7 +183,7 @@ namespace RAT
     ::coder::array<char, 2U> r;
     ::coder::array<char, 2U> r_f1;
     ::coder::array<char, 2U> s_f1;
-    ::coder::array<char, 2U> t15_f1;
+    ::coder::array<char, 2U> t14_f1;
     ::coder::array<char, 2U> t_f1;
     ::coder::array<char, 2U> u_f1;
     ::coder::array<char, 2U> v_f1;
@@ -195,9 +195,9 @@ namespace RAT
     int i;
 
     //  Print the dream parameters
-    t15_f1.set_size(1, 72);
+    t14_f1.set_size(1, 72);
     for (i = 0; i < 72; i++) {
-      t15_f1[i] = b_cv[i];
+      t14_f1[i] = b_cv[i];
     }
 
     f1.set_size(1, 5);
@@ -214,71 +214,71 @@ namespace RAT
     bools[0].f1 = f1;
     bools[1].f1 = b_f1;
     c_f1.reserve(100);
-    coder::strjoin(t15_f1, t15_f2, (char *)c_f1.data(), iv);
+    coder::strjoin(t14_f1, t14_f2, (char *)c_f1.data(), iv);
     (*(int (*)[2])c_f1.size())[0] = iv[0];
     (*(int (*)[2])c_f1.size())[1] = iv[1];
     coder::c_snPrint(DREAMPar.nParams, d_f1);
     rv[0].f1 = c_f1;
     rv[1].f1 = d_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t16_f2, e_f1);
+    coder::strjoin(r, t15_f2, e_f1);
     coder::c_snPrint(DREAMPar.nChains, f_f1);
     rv[0].f1 = e_f1;
     rv[1].f1 = f_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t17_f2, g_f1);
+    coder::strjoin(r, t16_f2, g_f1);
     coder::c_snPrint(DREAMPar.nGenerations, h_f1);
     rv[0].f1 = g_f1;
     rv[1].f1 = h_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t18_f2, i_f1);
+    coder::strjoin(r, t17_f2, i_f1);
     iv[0] = (*(int (*)[2])f1.size())[0];
     iv[1] = (*(int (*)[2])f1.size())[1];
     coder::e_sprintf((const char *)f1.data(), iv, j_f1);
     rv[0].f1 = i_f1;
     rv[1].f1 = j_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t19_f2, k_f1);
+    coder::strjoin(r, t18_f2, k_f1);
     coder::c_snPrint(1.0, l_f1);
     rv[0].f1 = k_f1;
     rv[1].f1 = l_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t20_f2, m_f1);
+    coder::strjoin(r, t19_f2, m_f1);
     coder::c_snPrint(DREAMPar.jumpProbability, n_f1);
     rv[0].f1 = m_f1;
     rv[1].f1 = n_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t21_f2, o_f1);
+    coder::strjoin(r, t20_f2, o_f1);
     coder::c_snPrint(DREAMPar.pUnitGamma, p_f1);
     rv[0].f1 = o_f1;
     rv[1].f1 = p_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t22_f2, q_f1);
+    coder::strjoin(r, t21_f2, q_f1);
     coder::c_snPrint(3.0, r_f1);
     rv[0].f1 = q_f1;
     rv[1].f1 = r_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t23_f2, s_f1);
+    coder::strjoin(r, t22_f2, s_f1);
     coder::c_snPrint(3.0, t_f1);
     rv[0].f1 = s_f1;
     rv[1].f1 = t_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t24_f2, u_f1);
+    coder::strjoin(r, t23_f2, u_f1);
     coder::c_snPrint(DREAMPar.steps, v_f1);
     rv[0].f1 = u_f1;
     rv[1].f1 = v_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t25_f2, w_f1);
+    coder::strjoin(r, t24_f2, w_f1);
     coder::c_snPrint(1.0E-12, x_f1);
     rv[0].f1 = w_f1;
     rv[1].f1 = x_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t26_f2, y_f1);
+    coder::strjoin(r, t25_f2, y_f1);
     coder::b_sprintf(DREAMPar.outlier, ab_f1);
     rv[0].f1 = y_f1;
     rv[1].f1 = ab_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t27_f2, bb_f1);
+    coder::strjoin(r, t26_f2, bb_f1);
     iv[0] = (*(int (*)[2])bools[static_cast<int>(DREAMPar.adaptPCR)].f1.size())
       [0];
     iv[1] = (*(int (*)[2])bools[static_cast<int>(DREAMPar.adaptPCR)].f1.size())
@@ -288,38 +288,38 @@ namespace RAT
     rv[0].f1 = bb_f1;
     rv[1].f1 = cb_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t28_f2, db_f1);
+    coder::strjoin(r, t27_f2, db_f1);
     coder::c_snPrint(1.0, eb_f1);
     rv[0].f1 = db_f1;
     rv[1].f1 = eb_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t29_f2, fb_f1);
+    coder::strjoin(r, t28_f2, fb_f1);
     iv[0] = (*(int (*)[2])f1.size())[0];
     iv[1] = (*(int (*)[2])f1.size())[1];
     coder::e_sprintf((const char *)f1.data(), iv, gb_f1);
     rv[0].f1 = fb_f1;
     rv[1].f1 = gb_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t30_f2, hb_f1);
+    coder::strjoin(r, t29_f2, hb_f1);
     coder::c_snPrint(0.025, ib_f1);
     rv[0].f1 = hb_f1;
     rv[1].f1 = ib_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t31_f2, jb_f1);
+    coder::strjoin(r, t30_f2, jb_f1);
     iv[0] = (*(int (*)[2])f1.size())[0];
     iv[1] = (*(int (*)[2])f1.size())[1];
     coder::e_sprintf((const char *)f1.data(), iv, kb_f1);
     rv[0].f1 = jb_f1;
     rv[1].f1 = kb_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t32_f2, lb_f1);
+    coder::strjoin(r, t31_f2, lb_f1);
     iv[0] = (*(int (*)[2])f1.size())[0];
     iv[1] = (*(int (*)[2])f1.size())[1];
     coder::e_sprintf((const char *)f1.data(), iv, mb_f1);
     rv[0].f1 = lb_f1;
     rv[1].f1 = mb_f1;
     coder::strjoin(rv, r);
-    coder::strjoin(r, t33_f2, nb_f1);
+    coder::strjoin(r, t32_f2, nb_f1);
     i = DREAMPar.R.size(0) * DREAMPar.R.size(1);
     if (i != 1) {
       coder::snPrint(static_cast<double>(static_cast<short>(DREAMPar.R.size(0))),
@@ -327,29 +327,28 @@ namespace RAT
                      ob_f1);
       rv[0].f1 = nb_f1;
       rv[1].f1 = ob_f1;
-      coder::strjoin(rv, t15_f1);
+      coder::strjoin(rv, t14_f1);
     } else {
       coder::c_snPrint(DREAMPar.R[0], ob_f1);
       rv[0].f1 = nb_f1;
       rv[1].f1 = ob_f1;
-      coder::strjoin(rv, t15_f1);
+      coder::strjoin(rv, t14_f1);
     }
 
-    coder::b_strjoin(t15_f1, t34_f2, r);
+    coder::b_strjoin(t14_f1, t33_f2, r);
     triggerEvent(r);
   }
 
-  void ratDREAM(double dreamVariables_nParams, double dreamVariables_nChains,
-                double dreamVariables_nGenerations, double
-                dreamVariables_jumpProbability, double dreamVariables_pUnitGamma,
-                boolean_T dreamVariables_adaptPCR, const ::coder::array<double,
-                2U> &paramInfo_min, const ::coder::array<double, 2U>
-                &paramInfo_max, const char paramInfo_boundhandling_data[], const
-                int paramInfo_boundhandling_size[2], const ProblemDefinition &
-                ratInputs_problemStruct, const Controls *ratInputs_controls,
-                const ::coder::array<double, 2U> &ratInputs_priors, ::coder::
-                array<double, 3U> &chain, f_struct_T &output, ::coder::array<
-                double, 2U> &fx)
+  void DREAM(double dreamVariables_nParams, double dreamVariables_nChains,
+             double dreamVariables_nGenerations, double
+             dreamVariables_jumpProbability, double dreamVariables_pUnitGamma,
+             boolean_T dreamVariables_adaptPCR, const ::coder::array<double, 2U>
+             &paramInfo_min, const ::coder::array<double, 2U> &paramInfo_max,
+             const char paramInfo_boundhandling_data[], const int
+             paramInfo_boundhandling_size[2], const ProblemDefinition &
+             ratInputs_problemStruct, const Controls *ratInputs_controls, const ::
+             coder::array<double, 2U> &ratInputs_priors, ::coder::array<double,
+             3U> &chain, e_struct_T &output, ::coder::array<double, 2U> &log_L)
   {
     ::coder::array<double, 3U> b_chain;
     ::coder::array<double, 2U> CR;
@@ -359,8 +358,6 @@ namespace RAT
     ::coder::array<double, 2U> b_paramInfo_min;
     ::coder::array<double, 2U> b_r;
     ::coder::array<double, 2U> b_xnew;
-    ::coder::array<double, 2U> fx_new;
-    ::coder::array<double, 2U> log_L;
     ::coder::array<double, 2U> r1;
     ::coder::array<double, 2U> r2;
     ::coder::array<double, 2U> r3;
@@ -379,7 +376,6 @@ namespace RAT
     ::coder::array<boolean_T, 1U> b_tmp_data;
     ::coder::bounded_array<char, 10000U, 2U> paramInfo_boundhandling;
     DreamParams DREAMPar;
-    struct_T Meas_info;
     double delta_normX_data[100];
     double delta_tot_data[3];
     double lCR_data[3];
@@ -495,8 +491,6 @@ namespace RAT
     //      Algorithmic control information for DREAM.
     //  paramInfo : struct
     //      Ranges, priors and boundary handling for each parameter.
-    //  Meas_info : struct, optional
-    //      Struct with measurements to evaluate against.
     //  ratInputs : struct
     //      Project and controls information from RAT.
     //
@@ -506,8 +500,6 @@ namespace RAT
     //      The MCMC chains generated by the algorithm, with log-prior and log-likelihood values.
     //  output : struct
     //      Diagnostic information such as convergence properties, acceptance rate, CR values, etc.
-    //  fx : array
-    //      Matrix of simulated probability distribution functions.
     //  log_L : array
     //      Matrix of log-likelihood values sampled from chains.
     //
@@ -536,16 +528,11 @@ namespace RAT
     setupDREAM(dreamVariables_nParams, dreamVariables_nChains,
                dreamVariables_nGenerations, dreamVariables_jumpProbability,
                dreamVariables_pUnitGamma, dreamVariables_adaptPCR, DREAMPar,
-               Meas_info, chain, output, log_L, Table_gamma);
+               chain, output, log_L, Table_gamma);
     iloc = 1U;
     iteration = 1;
     gen = 1;
 
-    //  Check for setup errors
-    //  [stop,fid] = checkDREAM(DREAMPar,paramInfo,Meas_info);
-    //  stop = checkDREAM(inDREAMPar,paramInfo,Meas_info);
-    //  Return to main program
-    //  if stop; return; end
     //  Create computing environment (depending whether multi-core is used)
     //  We use 1 CPU (processor)
     DREAMPar.CPU = 1.0;
@@ -557,19 +544,11 @@ namespace RAT
       printParameters(DREAMPar);
     }
 
-    //  Now check how the measurement sigma is arranged (estimated or defined)
-    //
-    //  -----------------------------------------
-    //  We do not have user inputted sigma in this form for the RAT
-    //  implementation - Measurement Error is dealt with downstream in the
-    //  likelihood function. So, we can remove the check for sigma.
-    //  --------------- AVH -------------------------
-    // Meas_info = checkSigma(Meas_info);
     //  Create the initial states of each of the chains (initial population)
     initializeDREAM(DREAMPar, b_paramInfo_min, b_paramInfo_max,
                     paramInfo_boundhandling.data, paramInfo_boundhandling.size,
                     chain, output, log_L, ratInputs_problemStruct,
-                    ratInputs_controls, ratInputs_priors, X, fx, CR, pCR_data,
+                    ratInputs_controls, ratInputs_priors, X, CR, pCR_data,
                     pCR_size, lCR_data, lCR_size, delta_tot_data, delta_tot_size);
 
     //  Initialize waitbar.
@@ -623,13 +602,21 @@ namespace RAT
         CR[i + CR.size(0) * gen] = delta_normX_data[i];
       }
 
-      //  Now evaluate the model ( = pdf ) and return fx
-      evaluateModel(xnew, DREAMPar, ratInputs_problemStruct, ratInputs_controls,
-                    fx_new);
+      //  Now evaluate the model ( = pdf ) and return log-likelihood
+      calcLogLikelihood(xnew, DREAMPar, ratInputs_problemStruct,
+                        ratInputs_controls, log_L_xnew);
 
-      //  Calculate the log-likelihood and log-prior of x (fx)
-      calcDensity(xnew, fx_new, DREAMPar, ratInputs_problemStruct.fitLimits,
-                  ratInputs_priors, log_L_xnew, log_PR_xnew);
+      //  Calculate log-prior
+      b_xnew.set_size(xnew.size(0), xnew.size(1));
+      loop_ub = xnew.size(1) - 1;
+      for (i = 0; i <= loop_ub; i++) {
+        b_loop_ub = xnew.size(0) - 1;
+        for (i1 = 0; i1 <= b_loop_ub; i1++) {
+          b_xnew[i1 + b_xnew.size(0) * i] = xnew[i1 + xnew.size(0) * i];
+        }
+      }
+
+      calcLogPrior(b_xnew, ratInputs_priors, log_PR_xnew);
 
       //  Calculate the Metropolis ratio
       b_X.set_size(X.size(0));
@@ -731,17 +718,6 @@ namespace RAT
         }
       }
 
-      r.set_size(idx_ac.size(0));
-      loop_ub = idx_ac.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        r[i] = static_cast<int>(idx_ac[i]) - 1;
-      }
-
-      loop_ub = r.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        fx[r[i]] = fx_new[static_cast<int>(idx_ac[i]) - 1];
-      }
-
       //  Check whether to add the current points to the chains or not?
       if (coder::b_mod(static_cast<double>(t) + 2.0, 1.0) == 0.0) {
         //  Store the current sample in chain
@@ -767,11 +743,6 @@ namespace RAT
                    * chain.size(1) * i) - 1] = b_xnew[i1 + result * i];
           }
         }
-
-        //  kf added 16/10/2015
-        //  store the distance between the simualted and observed signatures
-        //  Store the model simulations (if appropriate)
-        //  storeDREAMResults(DREAMPar,fx,Meas_info,'a+');
       }
 
       //  Check whether we update the crossover values
@@ -1020,11 +991,8 @@ namespace RAT
     //  Determine total run time
     output.runtime = coder::toc();
 
-    //  Variables have been pre-allocated --> need to remove zeros at end
-    //  [chain,output,fx] = DREAMEnd(DREAMPar,Meas_info,chain,output,iteration,iloc);
     //  Place everything in output to do diagnostics later (outside C++)
     output.DREAMPar = DREAMPar;
-    output.Meas_info = Meas_info;
     output.iteration = iteration + 1;
     output.iloc = iloc;
 
@@ -1035,4 +1003,4 @@ namespace RAT
   }
 }
 
-// End of code generation (ratDREAM.cpp)
+// End of code generation (DREAM.cpp)

@@ -13,9 +13,9 @@
 #include "RATMain_internal_types.h"
 #include "RATMain_types.h"
 #include "boundaryHandling.h"
-#include "calcDensity.h"
+#include "calcLogLikelihood.h"
+#include "calcLogPrior.h"
 #include "drawCR.h"
-#include "evaluateModel.h"
 #include "rand.h"
 #include "repmat.h"
 #include "rt_nonfinite.h"
@@ -127,20 +127,19 @@ namespace RAT
                        2U> &paramInfo_min, const ::coder::array<double, 2U>
                        &paramInfo_max, const char paramInfo_boundhandling_data[],
                        const int paramInfo_boundhandling_size[2], ::coder::array<
-                       double, 3U> &chain, f_struct_T &output, ::coder::array<
+                       double, 3U> &chain, e_struct_T &output, ::coder::array<
                        double, 2U> &log_L, const ProblemDefinition &
                        ratInputs_problemStruct, const Controls
                        *ratInputs_controls, const ::coder::array<double, 2U>
                        &ratInputs_priors, ::coder::array<double, 2U> &X, ::coder::
-                       array<double, 2U> &fx, ::coder::array<double, 2U> &CR,
-                       double pCR_data[], int pCR_size[2], double lCR_data[],
-                       int lCR_size[2], double delta_tot_data[], int
-                       delta_tot_size[2])
+                       array<double, 2U> &CR, double pCR_data[], int pCR_size[2],
+                       double lCR_data[], int lCR_size[2], double
+                       delta_tot_data[], int delta_tot_size[2])
   {
     ::coder::array<double, 2U> b_X;
     ::coder::array<double, 2U> b_paramInfo_max;
+    ::coder::array<double, 2U> b_x;
     ::coder::array<double, 2U> r;
-    ::coder::array<double, 2U> r1;
     ::coder::array<double, 2U> x;
     ::coder::array<double, 2U> y;
     ::coder::array<double, 1U> log_L_x;
@@ -163,8 +162,6 @@ namespace RAT
     //      Algorithmic control information for DREAM.
     //  paramInfo : struct
     //      Prior, bound, and boundary handling information for each parameter.
-    //  Meas_info : struct
-    //      Struct with measurements to evaluate against.
     //  chain : array
     //      The initial chain array created by setupDREAM.
     //  output : struct
@@ -182,8 +179,6 @@ namespace RAT
     //      The initial empty output struct.
     //  X : array
     //      The starting Markov chains.
-    //  fx : array
-    //      The likelihood and log-likelihood at the initial chain points.
     //  CR : array
     //      The crossover values for each parameter.
     //  pCR : array
@@ -203,75 +198,84 @@ namespace RAT
         b_paramInfo_max[i] = paramInfo_max[i] - paramInfo_min[i];
       }
 
-      coder::repmat(b_paramInfo_max, DREAMPar.nChains, r);
+      coder::repmat(b_paramInfo_max, DREAMPar.nChains, x);
     } else {
-      binary_expand_op(r, paramInfo_max, paramInfo_min, DREAMPar);
+      binary_expand_op(x, paramInfo_max, paramInfo_min, DREAMPar);
     }
 
-    r1.set_size(r.size(0), r.size(1));
-    loop_ub = r.size(1);
+    r.set_size(x.size(0), x.size(1));
+    loop_ub = x.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = r.size(0);
+      b_loop_ub = x.size(0);
       for (i1 = 0; i1 < b_loop_ub; i1++) {
-        r1[i1 + r1.size(0) * i] = r[i1 + r.size(0) * i];
+        r[i1 + r.size(0) * i] = x[i1 + x.size(0) * i];
       }
     }
 
-    coder::repmat(paramInfo_min, DREAMPar.nChains, r);
+    coder::repmat(paramInfo_min, DREAMPar.nChains, x);
 
     //  If specified do boundary handling ( "Bound","Reflect","Fold")
     if (b_X.size(0) == 1) {
-      i = r1.size(0);
+      i = r.size(0);
     } else {
       i = b_X.size(0);
     }
 
     if (b_X.size(1) == 1) {
-      i1 = r1.size(1);
+      i1 = r.size(1);
     } else {
       i1 = b_X.size(1);
     }
 
-    if ((b_X.size(0) == r1.size(0)) && (b_X.size(1) == r1.size(1)) && (r.size(0)
-         == i) && (r.size(1) == i1)) {
-      x.set_size(r.size(0), r.size(1));
-      loop_ub = r.size(1);
+    if ((b_X.size(0) == r.size(0)) && (b_X.size(1) == r.size(1)) && (x.size(0) ==
+         i) && (x.size(1) == i1)) {
+      b_x.set_size(x.size(0), x.size(1));
+      loop_ub = x.size(1);
       for (i = 0; i < loop_ub; i++) {
-        b_loop_ub = r.size(0);
+        b_loop_ub = x.size(0);
         for (i1 = 0; i1 < b_loop_ub; i1++) {
-          x[i1 + x.size(0) * i] = r[i1 + r.size(0) * i] + b_X[i1 + b_X.size(0) *
-            i] * r1[i1 + r1.size(0) * i];
+          b_x[i1 + b_x.size(0) * i] = x[i1 + x.size(0) * i] + b_X[i1 + b_X.size
+            (0) * i] * r[i1 + r.size(0) * i];
         }
       }
     } else {
-      binary_expand_op(x, r, b_X, r1);
+      binary_expand_op(b_x, x, b_X, r);
     }
 
-    boundaryHandling(x, paramInfo_min, paramInfo_max,
+    boundaryHandling(b_x, paramInfo_min, paramInfo_max,
                      paramInfo_boundhandling_data, paramInfo_boundhandling_size);
 
-    //  Now evaluate the model ( = pdf ) and return fx
-    evaluateModel(x, DREAMPar, ratInputs_problemStruct, ratInputs_controls, fx);
+    //  Now evaluate the model ( = pdf ) and return log-likelihood
+    calcLogLikelihood(b_x, DREAMPar, ratInputs_problemStruct, ratInputs_controls,
+                      log_L_x);
 
-    //  Calculate the log-likelihood and log-prior of x (fx)
-    calcDensity(x, fx, DREAMPar, ratInputs_problemStruct.fitLimits,
-                ratInputs_priors, log_L_x, log_PR_x);
+    //  calculate log-prior
+    x.set_size(b_x.size(0), b_x.size(1));
+    loop_ub = b_x.size(1) - 1;
+    for (i = 0; i <= loop_ub; i++) {
+      b_loop_ub = b_x.size(0) - 1;
+      for (i1 = 0; i1 <= b_loop_ub; i1++) {
+        x[i1 + x.size(0) * i] = b_x[i1 + b_x.size(0) * i];
+      }
+    }
+
+    calcLogPrior(x, ratInputs_priors, log_PR_x);
 
     //  Define starting x values, corresponding density, log densty and simulations (Xfx)
-    b = ((x.size(0) != 0) && (x.size(1) != 0));
+    b = ((b_x.size(0) != 0) && (b_x.size(1) != 0));
     if (b) {
-      b_loop_ub = x.size(0);
+      b_loop_ub = b_x.size(0);
     } else if (log_PR_x.size(0) != 0) {
       b_loop_ub = log_PR_x.size(0);
     } else if (log_L_x.size(0) != 0) {
       b_loop_ub = log_L_x.size(0);
     } else {
-      b_loop_ub = x.size(0);
+      b_loop_ub = b_x.size(0);
     }
 
     empty_non_axis_sizes = (b_loop_ub == 0);
     if (empty_non_axis_sizes || b) {
-      input_sizes_idx_1 = x.size(1);
+      input_sizes_idx_1 = b_x.size(1);
     } else {
       input_sizes_idx_1 = 0;
     }
@@ -292,7 +296,7 @@ namespace RAT
     X.set_size(b_loop_ub, i + sizes_idx_1);
     for (i1 = 0; i1 < input_sizes_idx_1; i1++) {
       for (int i2{0}; i2 < b_loop_ub; i2++) {
-        X[i2 + X.size(0) * i1] = x[i2 + b_loop_ub * i1];
+        X[i2 + X.size(0) * i1] = b_x[i2 + b_loop_ub * i1];
       }
     }
 
@@ -310,8 +314,6 @@ namespace RAT
       }
     }
 
-    //  Store the model simulations (if appropriate)
-    //  storeDREAMResults(DREAMPar,fx,Meas_info,'w+');
     //  Set the first point of each of the DREAMPar.nChains chain equal to the initial X values
     b_X.set_size(X.size(1), X.size(0));
     loop_ub = X.size(0);

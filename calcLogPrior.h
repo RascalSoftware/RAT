@@ -3,12 +3,12 @@
 // granting, nonprofit, education, and research organizations only. Not
 // for commercial or industrial use.
 //
-// pow2.h
+// calcLogPrior.h
 //
-// Code generation for function 'pow2'
+// Code generation for function 'calcLogPrior'
 //
-#ifndef POW2_H
-#define POW2_H
+#ifndef CALCLOGPRIOR_H
+#define CALCLOGPRIOR_H
 
 // Include files
 #include "rtwtypes.h"
@@ -19,12 +19,10 @@
 // Function Declarations
 namespace RAT
 {
-  namespace coder
-  {
-    void pow2(const ::coder::array<double, 1U> &a, ::coder::array<double, 1U> &y);
-  }
+  void calcLogPrior(::coder::array<double, 2U> &x, const ::coder::array<double,
+                    2U> &priors, ::coder::array<double, 1U> &log_PR);
 }
 
 #endif
 
-// End of code generation (pow2.h)
+// End of code generation (calcLogPrior.h)

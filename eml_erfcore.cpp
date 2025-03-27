@@ -111,7 +111,7 @@ namespace RAT
                    30.338060743482458) + 1.0;
         }
 
-        s = b_log2(absx, &P);
+        s = b_log2(absx, P);
         s = std::floor(s * 2.097152E+6) / 2.097152E+6 * rt_powd_snf(2.0, P);
         y = std::exp(-s * s - 0.5625) * std::exp((s - absx) * (s + absx) + R / S)
           / absx;
@@ -215,7 +215,7 @@ namespace RAT
                    30.338060743482458) + 1.0;
         }
 
-        s = b_log2(absx, &P);
+        s = b_log2(absx, P);
         s = std::floor(s * 2.097152E+6) / 2.097152E+6 * rt_powd_snf(2.0, P);
         y = std::exp(-s * s - 0.5625) * std::exp((s - absx) * (s + absx) + R / S)
           / absx;
@@ -318,7 +318,7 @@ namespace RAT
                    30.338060743482458) + 1.0;
         }
 
-        s = b_log2(absx, &P);
+        s = b_log2(absx, P);
         s = std::floor(s * 2.097152E+6) / 2.097152E+6 * rt_powd_snf(2.0, P);
         y = std::exp(-s * s - 0.5625) * std::exp((s - absx) * (s + absx) + R / S)
           / absx;

@@ -13,6 +13,13 @@ function [x_new,CR] = calcProposal(X,CR,DREAMPar,Table_gamma,paramInfo)
 %     The DE jump length values for each parameter.
 % paramInfo : struct
 %     Prior, bound, and boundary handling information for each parameter.
+%
+% Returns
+% -------
+% x_new : array
+%     The new points in parameter space.
+% CR : array
+%     The new crossover values for each parameter.
 
 % Calculate the ergodicity perturbation
 eps = DREAMPar.zeta * randn(DREAMPar.nChains,DREAMPar.nParams);

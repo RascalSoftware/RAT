@@ -1,11 +1,4 @@
-function [reflectivity,simulation] = callReflectivity(bulkIn,bulkOut,simulationXData,dataIndices,repeatLayers,layers,ssubs,resolution,parallel,refType)
-
-repeatFlag = repeatLayers(1);
-if repeatFlag
-    nRepeats = repeatLayers(2);
-else
-    nRepeats = 1;
-end
+function [reflectivity,simulation] = callReflectivity(bulkIn,bulkOut,simulationXData,dataIndices,nRepeats,layers,ssubs,resolution,parallel,refType)
 
 % Build the input arrays for thick, sld and rough
 

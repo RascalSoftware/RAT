@@ -517,47 +517,4 @@ classdef parametersClass < tableUtilities
         end
         
     end
-    
-    methods (Access = protected)
-        
-        function index = getValidRow(obj, row)
-            % Gets a valid row index, if ``row`` is a parameter name; or validates the index, if ``row`` is an integer.
-            % 
-            % Examples
-            % --------
-            % To validate a row index is in table bounds.
-            % 
-            % >>> index = obj.getValidRow(2);
-            % 
-            % To find the index for a name.
-            % 
-            % >>> index = obj.getValidRow('Tails');
-            %
-            % Parameters
-            % ----------
-            % row : string or char array or whole number
-            %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
-            %     it is the name of the parameter to update.
-            % 
-            % Returns
-            % -------
-            % index : whole number
-            %     A valid row index.
-            %
-            % Raises
-            % ------
-            % indexOutOfRange
-            %     If ``row`` is an integer and it is less than 1 or more than the number of parameters.
-            % nameNotRecognised
-            %     If ``row`` is a parameter name and it cannot be found in the table.
-            if isText(row)
-                index = obj.findRowIndex(row, obj.varTable{:,1}, 'Unrecognised row name');
-            else
-                index = row;
-                if (index < 1) || (index > obj.rowCount)
-                    throw(exceptions.indexOutOfRange(sprintf('Row index out out of range 1 - %d', obj.rowCount)));
-                end     
-            end
-        end    
-    end
 end

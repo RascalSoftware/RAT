@@ -170,16 +170,9 @@ classdef dataClass < tableUtilities
                 options.dataRange {mustBeNumeric} = []
                 options.simRange {mustBeNumeric} = []
             end
-            dataNames = obj.varTable{:,1};
                
             % First input needs to be a data number or name
-            if isnumeric(row)
-                if (row > obj.rowCount) || (row < 1)
-                    throw(exceptions.indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.rowCount)));
-                end
-            elseif isText(row)
-                row = obj.findRowIndex(row, dataNames, sprintf('Data object name %s not recognised', row));
-            end
+            row = obj.getValidRow(row);
             
             if isempty(options.name)
                 options.name = obj.varTable{row, 1}{:};

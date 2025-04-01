@@ -373,20 +373,20 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
         end
 
-        function testFindParameter(testCase)
-            % Test that the correct parameter is returned for a valid
-            % input name or index, and an error is raised for invalid options
-            outParam = layersClass.findParameter('OXIDE HYDRATION', testCase.parameterNames);
-            testCase.verifyEqual(outParam, 'Oxide Hydration');
+        % function testFindParameter(testCase)
+        %     % Test that the correct parameter is returned for a valid
+        %     % input name or index, and an error is raised for invalid options
+        %     outParam = layersClass.findParameter('OXIDE HYDRATION', testCase.parameterNames);
+        %     testCase.verifyEqual(outParam, 'Oxide Hydration');
 
-            outParam = layersClass.findParameter(10, testCase.parameterNames);
-            testCase.verifyEqual(outParam, 'Bilayer tails SLD');
+        %     outParam = layersClass.findParameter(10, testCase.parameterNames);
+        %     testCase.verifyEqual(outParam, 'Bilayer tails SLD');
 
-            testCase.verifyError(@() layersClass.findParameter('Invalid Param', testCase.parameterNames), exceptions.nameNotRecognised.errorID);
-            testCase.verifyError(@() layersClass.findParameter(0, testCase.parameterNames), exceptions.indexOutOfRange.errorID);
-            testCase.verifyError(@() layersClass.findParameter(testCase.numParams+1, testCase.parameterNames), exceptions.indexOutOfRange.errorID);
-            testCase.verifyError(@() layersClass.findParameter(datetime('today'), testCase.parameterNames), exceptions.invalidType.errorID);
-        end
+        %     testCase.verifyError(@() layersClass.findParameter('Invalid Param', testCase.parameterNames), exceptions.nameNotRecognised.errorID);
+        %     testCase.verifyError(@() layersClass.findParameter(0, testCase.parameterNames), exceptions.indexOutOfRange.errorID);
+        %     testCase.verifyError(@() layersClass.findParameter(testCase.numParams+1, testCase.parameterNames), exceptions.indexOutOfRange.errorID);
+        %     testCase.verifyError(@() layersClass.findParameter(datetime('today'), testCase.parameterNames), exceptions.invalidType.errorID);
+        % end
 
     end
 

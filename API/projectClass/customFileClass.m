@@ -32,8 +32,6 @@ classdef customFileClass < tableUtilities
             end          
         end
 
-
-        
         function obj = addCustomFile(obj, name, filename, language, path, functionName)
             % Adds a new custom file to the file table. For MATLAB, the provided file must 
             % be in the matlab path when running.
@@ -147,17 +145,9 @@ classdef customFileClass < tableUtilities
                 options.path {mustBeTextScalar} = ''
                 options.functionName {mustBeTextScalar} = '' 
             end            
-            
-            customNames = obj.getNames;
                            
             % First input needs to be a data number or name
-            if isnumeric(row)
-                if (row > obj.rowCount) || (row < 1)
-                    throw(exceptions.indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.rowCount)));
-                end
-            elseif isText(row)
-                row = obj.findRowIndex(row, customNames, sprintf('Custom file object name %s not recognised', row));
-            end
+            row = obj.getValidRow(row);
             
             if isempty(options.name)
                 options.name = obj.varTable{row, 1}{:};

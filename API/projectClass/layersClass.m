@@ -41,20 +41,10 @@ classdef layersClass < tableUtilities
             % --------
             % To add a new constant background with name only.
             % 
-            % >>> allowedNames = project.getAllAllowedNames();
-            % >>> background.addBackground(allowedNames, 'New Background');
-            % 
-            % To add a constant background.
-            % 
-            % >>> background.addBackground(allowedNames, 'New Background', 'constant', 'param name');
-            % 
-            % To add a function background with 2 parameters.
-            % 
-            % >>> background.addBackground(allowedNames, 'New Background', 'function', 'function name', 'param name', 'param name 2');    
-            %
-            % To add a data background with an offset.
-            % 
-            % >>> background.addBackground(allowedNames, 'New Background', 'data', 'data name', 'offset param name');
+            % >>> parameterNames = project.parameters.getNames();
+            % >>> layers.addLayer(parameterNames);
+            % >>> layers.addLayer(parameterNames, 'New layer');
+            % >>> layers.addLayer(parameterNames, 'Another layer', 1, 2, 3);
             % 
             % Parameters
             % ----------
@@ -82,9 +72,7 @@ classdef layersClass < tableUtilities
             % (no hydration) or all parameters.
             % Parameters can be specified either by name or by index.
             %
-            % layers.addLayer(parameters.varTable{:, 1});
-            % layers.addLayer(parameters.varTable{:, 1}, 'New layer');
-            % layers.addLayer(parameters.varTable{:, 1}, 'Another layer', 1, 2, 3);
+
             layerDetails = varargin;
 
             % Layers must be fully defined
@@ -104,12 +92,12 @@ classdef layersClass < tableUtilities
             
             % Must be a parameter name or number
             for i = 2:(obj.varCount - 2)
-                newRow{i} = obj.validateParameter(layerDetails{i}, paramNames);
+                newRow{i} = validateParameter(layerDetails{i}, paramNames);
             end
 
             %  . . . (apart from the penultimate column which can also be empty or NaN)
             if ~(strcmpi(layerDetails{obj.varCount - 1}, '') || any(isnan(layerDetails{obj.varCount - 1})))
-                newRow{obj.varCount - 1} = obj.validateParameter(layerDetails{obj.varCount - 1}, paramNames);
+                newRow{obj.varCount - 1} = validateParameter(layerDetails{obj.varCount - 1}, paramNames);
             end
 
             obj.addRow(newRow{:});
@@ -147,19 +135,9 @@ classdef layersClass < tableUtilities
             % defined in the project's parameter class.
             %
             % layers.setLayerValue(1, 1, 'origin', parameters.varTable{:, 1});
-            layerNames = obj.varTable{:,1};
+
             colNames = obj.varTable.Properties.VariableNames;
-            
-            % Find the row index if we have a layer name
-            if isText(row)
-                row = obj.findRowIndex(row, layerNames, 'Unrecognised layer name');
-            elseif isnumeric(row)
-                if (row < 1) || (row > obj.rowCount)
-                    throw(exceptions.indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.rowCount)));
-                end
-            else
-                throw(exceptions.invalidType('Unrecognised layer type'));
-            end
+            row = obj.getValidRow(row);
             
             % Find the column index if we have a column name
             if isText(col)
@@ -179,7 +157,7 @@ classdef layersClass < tableUtilities
             if col == length(colNames)
                 val = validateOption(inputValue, 'hydrationTypes', obj.invalidTypeMessage).value;
             else
-                val = obj.validateParameter(inputValue, paramNames);
+                val = validateParameter(inputValue, paramNames);
             end
                 
             obj.varTable(row,col) = {val};
@@ -188,7 +166,17 @@ classdef layersClass < tableUtilities
         
         function layerStruct = toStruct(obj, paramNames)
             % Converts the layersClass content into a structure array.
-            %TODO
+            % 
+            % Examples
+            % --------
+            % >>> parameterNames = project.parameters.getNames();
+            % >>> layerStruct = layers.toStruct(parameterNames);
+            %  
+            % Parameters
+            % ----------
+            % paramNames : cell
+            %    A cell array which contains the names of available parameters.
+            % 
             % Returns
             % -------
             % layerStruct : struct

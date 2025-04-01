@@ -52,9 +52,7 @@ namespace RAT
         simulation[j] = simulation[j] + rawSimulation[a_tmp] * g;
       }
 
-      if (sumg != 0.0) {
-        simulation[j] = simulation[j] / sumg;
-      }
+      simulation[j] = simulation[j] / sumg;
     }
   }
 }

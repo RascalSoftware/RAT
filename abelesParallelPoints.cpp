@@ -13,6 +13,7 @@
 #include "RATMain_data.h"
 #include "RATMain_rtwutil.h"
 #include "exp.h"
+#include "eye.h"
 #include "findkn.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
@@ -27,319 +28,262 @@ namespace RAT
     &layersRho, const ::coder::array<double, 1U> &layersSigma, ::coder::array<
     double, 1U> &ref)
   {
-    creal_T M_n[2][2];
-    creal_T M_res[2][2];
-    creal_T M_tot[2][2];
-    creal_T M_n_tmp;
+    ::coder::array<creal_T, 1U> sld;
+    ::coder::array<double, 1U> nextSigmaSquared;
+    creal_T M[2][2];
+    creal_T a_exp_beta;
+    creal_T b_erf;
+    creal_T b_inv_exp_beta;
     creal_T beta;
-    creal_T bulkInSLD;
-    creal_T denom1;
-    creal_T denom_n;
-    creal_T err1;
-    creal_T err_n;
-    creal_T k1;
-    creal_T kn_ptr;
+    creal_T c_exp_beta;
+    creal_T d_inv_exp_beta;
+    creal_T denominator;
+    creal_T exp_beta;
+    creal_T inv_exp_beta;
+    creal_T kn;
     creal_T knp1;
-    creal_T layersRho1;
-    creal_T layersRho2;
-    creal_T nom1;
-    creal_T nom_n;
-    creal_T r01;
-    creal_T r_n_np1;
-    creal_T sld_1;
-    creal_T sld_np1;
-    double M_tot_re_tmp;
+    creal_T numerator;
+    creal_T r_n;
     double R;
-    double b_M_tot_re_tmp;
-    double b_nom_n_tmp;
-    double bim;
+    double b_denominator_tmp;
+    double b_numerator_tmp;
     double brm;
-    double denom1_tmp;
-    double denom_n_tmp;
+    double denominator_tmp;
+    double im;
     double k0;
-    double layersSigma2;
-    double nom1_re;
-    double nom1_tmp;
-    double nom_n_tmp;
-    double sigmasqrd;
+    double numerator_tmp;
+    double re;
+    double s;
+    int i;
     int i1;
-    int i2;
+    int i3;
     int loop_ub;
     int n;
+
+    //  Vectorised version of reflectivity with complex rho
     ref.set_size(q.size(0));
     loop_ub = q.size(0);
-    for (int i{0}; i < loop_ub; i++) {
+    for (i = 0; i < loop_ub; i++) {
       ref[i] = 0.0;
     }
 
-    layersRho1 = layersRho[0];
-    layersRho2 = layersRho[1];
-    layersSigma2 = layersSigma[1];
+    //  SLD is always relative to bulk in value
+    if (layersRho.size(0) < 2) {
+      i = 0;
+      i1 = 0;
+    } else {
+      i = 1;
+      i1 = layersRho.size(0);
+    }
+
+    loop_ub = i1 - i;
+    sld.set_size(loop_ub);
+    for (i1 = 0; i1 < loop_ub; i1++) {
+      int i2;
+      i2 = i + i1;
+      sld[i1].re = layersRho[i2].re - layersRho[0].re;
+      sld[i1].im = layersRho[i2].im - layersRho[0].im;
+    }
+
+    //  Always need the next sigma squared value for layers 1:end-1
+    if (layersSigma.size(0) < 2) {
+      i = 0;
+      i1 = 0;
+    } else {
+      i = 1;
+      i1 = layersSigma.size(0);
+    }
+
+    loop_ub = i1 - i;
+    nextSigmaSquared.set_size(loop_ub);
+    for (i1 = 0; i1 < loop_ub; i1++) {
+      double varargin_1;
+      varargin_1 = layersSigma[i + i1];
+      nextSigmaSquared[i1] = varargin_1 * varargin_1;
+    }
+
     loop_ub = q.size(0) - 1;
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
- private(beta,r_n_np1,err_n,sigmasqrd,denom_n,nom_n,knp1,sld_np1,R,kn_ptr,r01,err1,denom1,nom1,k1,sld_1,k0,bulkInSLD,M_res,M_n,M_tot,nom1_tmp,denom1_tmp,nom1_re,i1,n,nom_n_tmp,b_nom_n_tmp,denom_n_tmp,bim,M_n_tmp,brm,i2,M_tot_re_tmp,b_M_tot_re_tmp)
+ private(d_inv_exp_beta,c_exp_beta,b_inv_exp_beta,a_exp_beta,inv_exp_beta,exp_beta,r_n,b_erf,denominator,numerator,beta,knp1,R,kn,k0,M,i3,n,numerator_tmp,b_numerator_tmp,denominator_tmp,b_denominator_tmp,re,im,brm,s)
 
     for (int points = 0; points <= loop_ub; points++) {
-      M_res[0][0].re = 0.0;
-      M_res[0][0].im = 0.0;
-      M_res[0][1].re = 0.0;
-      M_res[0][1].im = 0.0;
-      bulkInSLD.re = layersRho1.re;
-      bulkInSLD.im = layersRho1.im + 1.0E-30;
+      coder::eye(M);
       k0 = 0.5 * q[points];
-
-      //  Find k1..
-      sld_1.re = layersRho2.re - layersRho1.re;
-      sld_1.im = layersRho2.im - (layersRho1.im + 1.0E-30);
-      k1 = findkn(k0, sld_1);
-
-      //  Find r01
-      nom1_tmp = k0 - k1.re;
-      denom1_tmp = k0 + k1.re;
-      sigmasqrd = layersSigma2 * layersSigma2;
-      err1.re = sigmasqrd * (k0 * (-2.0 * k1.re));
-      err1.im = sigmasqrd * (k0 * (-2.0 * k1.im));
-      coder::b_exp(err1);
-      if (k1.im == 0.0) {
-        nom1_re = nom1_tmp / denom1_tmp;
-        denom1_tmp = 0.0;
-      } else if (denom1_tmp == 0.0) {
-        if (nom1_tmp == 0.0) {
-          nom1_re = (0.0 - k1.im) / k1.im;
-          denom1_tmp = 0.0;
-        } else if (0.0 - k1.im == 0.0) {
-          nom1_re = 0.0;
-          denom1_tmp = -(nom1_tmp / k1.im);
-        } else {
-          nom1_re = (0.0 - k1.im) / k1.im;
-          denom1_tmp = -(nom1_tmp / k1.im);
-        }
-      } else {
-        brm = std::abs(denom1_tmp);
-        bim = std::abs(k1.im);
-        if (brm > bim) {
-          brm = k1.im / denom1_tmp;
-          bim = denom1_tmp + brm * k1.im;
-          nom1_re = (nom1_tmp + brm * (0.0 - k1.im)) / bim;
-          denom1_tmp = ((0.0 - k1.im) - brm * nom1_tmp) / bim;
-        } else if (bim == brm) {
-          if (denom1_tmp > 0.0) {
-            bim = 0.5;
-          } else {
-            bim = -0.5;
-          }
-
-          if (k1.im > 0.0) {
-            denom1_tmp = 0.5;
-          } else {
-            denom1_tmp = -0.5;
-          }
-
-          nom1_re = (nom1_tmp * bim + (0.0 - k1.im) * denom1_tmp) / brm;
-          denom1_tmp = ((0.0 - k1.im) * bim - nom1_tmp * denom1_tmp) / brm;
-        } else {
-          brm = denom1_tmp / k1.im;
-          bim = k1.im + brm * denom1_tmp;
-          nom1_re = (brm * nom1_tmp + (0.0 - k1.im)) / bim;
-          denom1_tmp = (brm * (0.0 - k1.im) - nom1_tmp) / bim;
-        }
-      }
-
-      r01.re = nom1_re * err1.re - denom1_tmp * err1.im;
-      r01.im = nom1_re * err1.im + denom1_tmp * err1.re;
-
-      //  Generate the M1 matrix:
-      M_tot[0][0].re = 1.0;
-      M_tot[0][0].im = 0.0;
-      M_tot[1][0] = r01;
-      M_tot[0][1] = r01;
-      M_tot[1][1].re = 1.0;
-      M_tot[1][1].im = 0.0;
-      kn_ptr = k1;
-      i1 = static_cast<int>((N - 1.0) - 1.0);
-      for (n = 0; n < i1; n++) {
-        //  Find kn and k_n+1 (ex. k1 and k2 for n=1): _/
-        sld_np1.re = layersRho[n + 2].re - bulkInSLD.re;
-        sld_np1.im = layersRho[n + 2].im - bulkInSLD.im;
-        knp1 = findkn(k0, sld_np1);
-
-        //  Find r_n,n+1:
-        nom_n_tmp = kn_ptr.re - knp1.re;
-        b_nom_n_tmp = kn_ptr.im - knp1.im;
-        nom1_tmp = kn_ptr.re + knp1.re;
-        denom_n_tmp = kn_ptr.im + knp1.im;
-        denom1_tmp = layersSigma[n + 2];
-        sigmasqrd = denom1_tmp * denom1_tmp;
-        denom1_tmp = -2.0 * kn_ptr.re;
-        bim = -2.0 * kn_ptr.im;
-        err_n.re = sigmasqrd * (denom1_tmp * knp1.re - bim * knp1.im);
-        err_n.im = sigmasqrd * (denom1_tmp * knp1.im + bim * knp1.re);
-        coder::b_exp(err_n);
-        if (denom_n_tmp == 0.0) {
-          if (b_nom_n_tmp == 0.0) {
-            nom1_re = nom_n_tmp / nom1_tmp;
-            denom1_tmp = 0.0;
-          } else if (nom_n_tmp == 0.0) {
-            nom1_re = 0.0;
-            denom1_tmp = b_nom_n_tmp / nom1_tmp;
-          } else {
-            nom1_re = nom_n_tmp / nom1_tmp;
-            denom1_tmp = b_nom_n_tmp / nom1_tmp;
-          }
-        } else if (nom1_tmp == 0.0) {
-          if (nom_n_tmp == 0.0) {
-            nom1_re = b_nom_n_tmp / denom_n_tmp;
-            denom1_tmp = 0.0;
-          } else if (b_nom_n_tmp == 0.0) {
-            nom1_re = 0.0;
-            denom1_tmp = -(nom_n_tmp / denom_n_tmp);
-          } else {
-            nom1_re = b_nom_n_tmp / denom_n_tmp;
-            denom1_tmp = -(nom_n_tmp / denom_n_tmp);
-          }
-        } else {
-          brm = std::abs(nom1_tmp);
-          bim = std::abs(denom_n_tmp);
-          if (brm > bim) {
-            brm = denom_n_tmp / nom1_tmp;
-            bim = nom1_tmp + brm * denom_n_tmp;
-            nom1_re = (nom_n_tmp + brm * b_nom_n_tmp) / bim;
-            denom1_tmp = (b_nom_n_tmp - brm * nom_n_tmp) / bim;
-          } else if (bim == brm) {
-            if (nom1_tmp > 0.0) {
-              bim = 0.5;
-            } else {
-              bim = -0.5;
-            }
-
-            if (denom_n_tmp > 0.0) {
-              denom1_tmp = 0.5;
-            } else {
-              denom1_tmp = -0.5;
-            }
-
-            nom1_re = (nom_n_tmp * bim + b_nom_n_tmp * denom1_tmp) / brm;
-            denom1_tmp = (b_nom_n_tmp * bim - nom_n_tmp * denom1_tmp) / brm;
-          } else {
-            brm = nom1_tmp / denom_n_tmp;
-            bim = denom_n_tmp + brm * nom1_tmp;
-            nom1_re = (brm * nom_n_tmp + b_nom_n_tmp) / bim;
-            denom1_tmp = (brm * b_nom_n_tmp - nom_n_tmp) / bim;
-          }
-        }
-
-        r_n_np1.re = nom1_re * err_n.re - denom1_tmp * err_n.im;
-        r_n_np1.im = nom1_re * err_n.im + denom1_tmp * err_n.re;
+      kn.re = k0;
+      kn.im = 0.0;
+      i3 = static_cast<int>(N - 1.0);
+      for (n = 0; n < i3; n++) {
+        knp1 = findkn(k0, sld[n]);
 
         //  Find the Phase Factor = (k_n * d_n)
-        denom1_tmp = layersThick[n + 1];
-        bim = denom1_tmp * kn_ptr.re;
-        denom1_tmp *= kn_ptr.im;
-        beta.re = bim * 0.0 - denom1_tmp;
-        beta.im = bim + denom1_tmp * 0.0;
+        beta.re = layersThick[n] * kn.re;
+        beta.im = layersThick[n] * kn.im;
+        numerator_tmp = knp1.re - kn.re;
+        b_numerator_tmp = knp1.im - kn.im;
+        denominator_tmp = knp1.re + kn.re;
+        b_denominator_tmp = knp1.im + kn.im;
+        re = -2.0 * knp1.re;
+        im = -2.0 * knp1.im;
+        b_erf.re = nextSigmaSquared[n] * (re * kn.re - im * kn.im);
+        b_erf.im = nextSigmaSquared[n] * (re * kn.im + im * kn.re);
+        coder::b_exp(b_erf);
+        if (b_denominator_tmp == 0.0) {
+          if (b_numerator_tmp == 0.0) {
+            im = numerator_tmp / denominator_tmp;
+            re = 0.0;
+          } else if (numerator_tmp == 0.0) {
+            im = 0.0;
+            re = b_numerator_tmp / denominator_tmp;
+          } else {
+            im = numerator_tmp / denominator_tmp;
+            re = b_numerator_tmp / denominator_tmp;
+          }
+        } else if (denominator_tmp == 0.0) {
+          if (numerator_tmp == 0.0) {
+            im = b_numerator_tmp / b_denominator_tmp;
+            re = 0.0;
+          } else if (b_numerator_tmp == 0.0) {
+            im = 0.0;
+            re = -(numerator_tmp / b_denominator_tmp);
+          } else {
+            im = b_numerator_tmp / b_denominator_tmp;
+            re = -(numerator_tmp / b_denominator_tmp);
+          }
+        } else {
+          brm = std::abs(denominator_tmp);
+          re = std::abs(b_denominator_tmp);
+          if (brm > re) {
+            s = b_denominator_tmp / denominator_tmp;
+            re = denominator_tmp + s * b_denominator_tmp;
+            im = (numerator_tmp + s * b_numerator_tmp) / re;
+            re = (b_numerator_tmp - s * numerator_tmp) / re;
+          } else if (re == brm) {
+            if (denominator_tmp > 0.0) {
+              s = 0.5;
+            } else {
+              s = -0.5;
+            }
 
-        //  Create the M_n matrix: _/
-        M_n_tmp = beta;
-        coder::b_exp(M_n_tmp);
-        M_n[0][0] = M_n_tmp;
-        M_n[1][0].re = r_n_np1.re * M_n_tmp.re - r_n_np1.im * M_n_tmp.im;
-        M_n[1][0].im = r_n_np1.re * M_n_tmp.im + r_n_np1.im * M_n_tmp.re;
-        M_n_tmp.re = -beta.re;
-        M_n_tmp.im = -beta.im;
-        coder::b_exp(M_n_tmp);
-        M_n[0][1].re = r_n_np1.re * M_n_tmp.re - r_n_np1.im * M_n_tmp.im;
-        M_n[0][1].im = r_n_np1.re * M_n_tmp.im + r_n_np1.im * M_n_tmp.re;
+            if (b_denominator_tmp > 0.0) {
+              re = 0.5;
+            } else {
+              re = -0.5;
+            }
 
-        //  Multiply the matrices
-        denom1_tmp = M_n[0][0].re;
-        nom1_re = M_n[0][0].im;
-        bim = M_n[0][1].re;
-        nom1_tmp = M_n[0][1].im;
-        brm = M_n[1][0].re;
-        denom_n_tmp = M_n[1][0].im;
-        for (i2 = 0; i2 < 2; i2++) {
-          nom_n_tmp = M_tot[0][i2].re;
-          b_nom_n_tmp = M_tot[0][i2].im;
-          M_tot_re_tmp = M_tot[1][i2].re;
-          b_M_tot_re_tmp = M_tot[1][i2].im;
-          M_res[0][i2].re = (nom_n_tmp * denom1_tmp - b_nom_n_tmp * nom1_re) +
-            (M_tot_re_tmp * bim - b_M_tot_re_tmp * nom1_tmp);
-          M_res[0][i2].im = (nom_n_tmp * nom1_re + b_nom_n_tmp * denom1_tmp) +
-            (M_tot_re_tmp * nom1_tmp + b_M_tot_re_tmp * bim);
-          M_res[1][i2].re = (nom_n_tmp * brm - b_nom_n_tmp * denom_n_tmp) +
-            (M_tot_re_tmp * M_n_tmp.re - b_M_tot_re_tmp * M_n_tmp.im);
-          M_res[1][i2].im = (nom_n_tmp * denom_n_tmp + b_nom_n_tmp * brm) +
-            (M_tot_re_tmp * M_n_tmp.im + b_M_tot_re_tmp * M_n_tmp.re);
+            im = (numerator_tmp * s + b_numerator_tmp * re) / brm;
+            re = (b_numerator_tmp * s - numerator_tmp * re) / brm;
+          } else {
+            s = denominator_tmp / b_denominator_tmp;
+            re = b_denominator_tmp + s * denominator_tmp;
+            im = (s * numerator_tmp + b_numerator_tmp) / re;
+            re = (s * b_numerator_tmp - numerator_tmp) / re;
+          }
         }
 
-        //  Reassign the values back to M_tot:
-        M_tot[0][0] = M_res[0][0];
-        M_tot[0][1] = M_res[0][1];
-        M_tot[1][0] = M_res[1][0];
-        M_tot[1][1] = M_res[1][1];
+        r_n.re = im * b_erf.re - re * b_erf.im;
+        r_n.im = im * b_erf.im + re * b_erf.re;
 
-        //  Point to k_n+1 and sld_n+1 via kn_ptr sld_n_ptr:
-        kn_ptr = knp1;
+        //  Multiply system transfer matrix by the layer transfer matrix
+        //  Coder behaves better if you just do it manually
+        //  rather than M = M * M_n;
+        //  we'll denote the entries M = [a b; c d]
+        re = 0.0 * beta.re;
+        exp_beta.re = re - beta.im;
+        im = 0.0 * beta.im;
+        exp_beta.im = im + beta.re;
+        coder::b_exp(exp_beta);
+        inv_exp_beta.re = re - (-beta.im);
+        inv_exp_beta.im = im - beta.re;
+        coder::b_exp(inv_exp_beta);
+        a_exp_beta.re = M[0][0].re * exp_beta.re - M[0][0].im * exp_beta.im;
+        a_exp_beta.im = M[0][0].re * exp_beta.im + M[0][0].im * exp_beta.re;
+        b_inv_exp_beta.re = M[1][0].re * inv_exp_beta.re - M[1][0].im *
+          inv_exp_beta.im;
+        b_inv_exp_beta.im = M[1][0].re * inv_exp_beta.im + M[1][0].im *
+          inv_exp_beta.re;
+        c_exp_beta.re = M[0][1].re * exp_beta.re - M[0][1].im * exp_beta.im;
+        c_exp_beta.im = M[0][1].re * exp_beta.im + M[0][1].im * exp_beta.re;
+        d_inv_exp_beta.re = M[1][1].re * inv_exp_beta.re - M[1][1].im *
+          inv_exp_beta.im;
+        d_inv_exp_beta.im = M[1][1].re * inv_exp_beta.im + M[1][1].im *
+          inv_exp_beta.re;
+        M[0][0].re = a_exp_beta.re + (r_n.re * b_inv_exp_beta.re - r_n.im *
+          b_inv_exp_beta.im);
+        M[0][0].im = a_exp_beta.im + (r_n.re * b_inv_exp_beta.im + r_n.im *
+          b_inv_exp_beta.re);
+        M[1][0].re = (r_n.re * a_exp_beta.re - r_n.im * a_exp_beta.im) +
+          b_inv_exp_beta.re;
+        M[1][0].im = (r_n.re * a_exp_beta.im + r_n.im * a_exp_beta.re) +
+          b_inv_exp_beta.im;
+        M[0][1].re = c_exp_beta.re + (r_n.re * d_inv_exp_beta.re - r_n.im *
+          d_inv_exp_beta.im);
+        M[0][1].im = c_exp_beta.im + (r_n.re * d_inv_exp_beta.im + r_n.im *
+          d_inv_exp_beta.re);
+        M[1][1].re = (r_n.re * c_exp_beta.re - r_n.im * c_exp_beta.im) +
+          d_inv_exp_beta.re;
+        M[1][1].im = (r_n.re * c_exp_beta.im + r_n.im * c_exp_beta.re) +
+          d_inv_exp_beta.im;
+
+        //  Set value of kn for the next layer
+        kn = knp1;
       }
 
-      if (M_res[0][0].im == 0.0) {
-        if (M_res[0][1].im == 0.0) {
-          M_n_tmp.re = M_res[0][1].re / M_res[0][0].re;
-          M_n_tmp.im = 0.0;
-        } else if (M_res[0][1].re == 0.0) {
-          M_n_tmp.re = 0.0;
-          M_n_tmp.im = M_res[0][1].im / M_res[0][0].re;
+      if (M[0][0].im == 0.0) {
+        if (M[0][1].im == 0.0) {
+          im = M[0][1].re / M[0][0].re;
+          re = 0.0;
+        } else if (M[0][1].re == 0.0) {
+          im = 0.0;
+          re = M[0][1].im / M[0][0].re;
         } else {
-          M_n_tmp.re = M_res[0][1].re / M_res[0][0].re;
-          M_n_tmp.im = M_res[0][1].im / M_res[0][0].re;
+          im = M[0][1].re / M[0][0].re;
+          re = M[0][1].im / M[0][0].re;
         }
-      } else if (M_res[0][0].re == 0.0) {
-        if (M_res[0][1].re == 0.0) {
-          M_n_tmp.re = M_res[0][1].im / M_res[0][0].im;
-          M_n_tmp.im = 0.0;
-        } else if (M_res[0][1].im == 0.0) {
-          M_n_tmp.re = 0.0;
-          M_n_tmp.im = -(M_res[0][1].re / M_res[0][0].im);
+      } else if (M[0][0].re == 0.0) {
+        if (M[0][1].re == 0.0) {
+          im = M[0][1].im / M[0][0].im;
+          re = 0.0;
+        } else if (M[0][1].im == 0.0) {
+          im = 0.0;
+          re = -(M[0][1].re / M[0][0].im);
         } else {
-          M_n_tmp.re = M_res[0][1].im / M_res[0][0].im;
-          M_n_tmp.im = -(M_res[0][1].re / M_res[0][0].im);
+          im = M[0][1].im / M[0][0].im;
+          re = -(M[0][1].re / M[0][0].im);
         }
       } else {
-        brm = std::abs(M_res[0][0].re);
-        bim = std::abs(M_res[0][0].im);
-        if (brm > bim) {
-          brm = M_res[0][0].im / M_res[0][0].re;
-          bim = M_res[0][0].re + brm * M_res[0][0].im;
-          M_n_tmp.re = (M_res[0][1].re + brm * M_res[0][1].im) / bim;
-          M_n_tmp.im = (M_res[0][1].im - brm * M_res[0][1].re) / bim;
-        } else if (bim == brm) {
-          if (M_res[0][0].re > 0.0) {
-            bim = 0.5;
+        brm = std::abs(M[0][0].re);
+        re = std::abs(M[0][0].im);
+        if (brm > re) {
+          s = M[0][0].im / M[0][0].re;
+          re = M[0][0].re + s * M[0][0].im;
+          im = (M[0][1].re + s * M[0][1].im) / re;
+          re = (M[0][1].im - s * M[0][1].re) / re;
+        } else if (re == brm) {
+          if (M[0][0].re > 0.0) {
+            s = 0.5;
           } else {
-            bim = -0.5;
+            s = -0.5;
           }
 
-          if (M_res[0][0].im > 0.0) {
-            denom1_tmp = 0.5;
+          if (M[0][0].im > 0.0) {
+            re = 0.5;
           } else {
-            denom1_tmp = -0.5;
+            re = -0.5;
           }
 
-          M_n_tmp.re = (M_res[0][1].re * bim + M_res[0][1].im * denom1_tmp) /
-            brm;
-          M_n_tmp.im = (M_res[0][1].im * bim - M_res[0][1].re * denom1_tmp) /
-            brm;
+          im = (M[0][1].re * s + M[0][1].im * re) / brm;
+          re = (M[0][1].im * s - M[0][1].re * re) / brm;
         } else {
-          brm = M_res[0][0].re / M_res[0][0].im;
-          bim = M_res[0][0].im + brm * M_res[0][0].re;
-          M_n_tmp.re = (brm * M_res[0][1].re + M_res[0][1].im) / bim;
-          M_n_tmp.im = (brm * M_res[0][1].im - M_res[0][1].re) / bim;
+          s = M[0][0].re / M[0][0].im;
+          re = M[0][0].im + s * M[0][0].re;
+          im = (s * M[0][1].re + M[0][1].im) / re;
+          re = (s * M[0][1].im - M[0][1].re) / re;
         }
       }
 
-      R = rt_hypotd_snf(M_n_tmp.re, M_n_tmp.im);
+      R = rt_hypotd_snf(im, re);
       ref[points] = R * R;
     }
   }

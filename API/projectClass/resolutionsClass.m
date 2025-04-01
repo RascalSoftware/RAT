@@ -24,7 +24,7 @@ classdef resolutionsClass < handle
     % ----------
     % resolutionParams : parameterClass
     %     The resolution parameters.
-    % resolutions = multiTypeTable
+    % resolutions : multiTypeTable
     %     A custom table object that contains the resolution entries.
     properties   
        resolutionParams 

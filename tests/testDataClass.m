@@ -68,9 +68,8 @@ classdef testDataClass < matlab.unittest.TestCase
             testCase.verifySize(testCase.data.varTable, [4, 4], 'data has wrong dimension');
             testCase.verifyEqual(testCase.data.varTable{:, 1}, ["New data 1"; "Sim 2"; "Sim 3"; "Bilayer / SMW"], 'addData method not working');
             testCase.verifyError(@() testCase.data.addData('Sim 2'), exceptions.duplicateName.errorID);  % duplicates not allowed
-            testCase.verifyError(@() testCase.data.addData(1), exceptions.invalidType.errorID);  % name should be string
-            testCase.verifyError(@() testCase.data.addData('Another Sim', 'data'), exceptions.invalidType.errorID);  % data should not string
-            testCase.verifyError(@() testCase.data.addData('Another Sim', zeros(4, 3), [-1, 1]), exceptions.invalidNumberOfInputs.errorID); % argument should be 1, 2 or 4
+            testCase.verifyError(@() testCase.data.addData(1), 'MATLAB:validators:mustBeTextScalar');  % name should be string
+            testCase.verifyError(@() testCase.data.addData('Another Sim', 'data'), 'MATLAB:validators:mustBeNumeric');  % data should not be string
             testCase.verifyError(@() testCase.data.addData('Another Sim', zeros(4, 3), [-1, 1, 6], [-0.5, 0.5]), exceptions.invalidType.errorID);  % range should be length 2
             testCase.verifyError(@() testCase.data.addData('Another Sim', zeros(4, 3), [-1, 1], [-0.5, 2, 0.5]), exceptions.invalidType.errorID);  % range should be length 2
             testCase.data.addData();
@@ -90,7 +89,7 @@ classdef testDataClass < matlab.unittest.TestCase
             % Checks that data can be modified
             testCase.addDataSets();
             % testCase.verifyError(@() testCase.data.setData(1, 'dataRange', [2, 4]), exceptions.invalidValue.errorID);
-            testCase.verifyError(@() testCase.data.setData(1, 'name'), exceptions.invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.data.setData(1, 'name'), 'MATLAB:TooManyInputs');
             names = testCase.data.setData(1, 'name', 'Sim 1', 'data', zeros(4, 3), 'dataRange', [0, 0],'simRange', [0, 2]);
             expected = {"Sim 1", {zeros(4, 3)}, {[0, 0]}, {[0, 2]}};
             for i = 1:4
@@ -105,13 +104,11 @@ classdef testDataClass < matlab.unittest.TestCase
             end
             testCase.verifyEqual(names.oldName, string(testCase.datasets{2, 1}), 'setData returned incorrect data');
             testCase.verifyEqual(names.newName, 'Sim 2', 'setData returned incorrect data');
-            testCase.verifyError(@() testCase.data.setData(1, 'name'), exceptions.invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.data.setData(1, 'name'), 'MATLAB:TooManyInputs');
             testCase.verifyError(@() testCase.data.setData('5', 'name', 'data_name'), exceptions.nameNotRecognised.errorID);
             testCase.verifyError(@() testCase.data.setData(5, 'name', 'data_name'), exceptions.indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.data.setDataName(1, 56), exceptions.invalidType.errorID);
-            testCase.verifyError(@() testCase.data.setDataName(1, 'Sim 2'), exceptions.duplicateName.errorID);
-            names = testCase.data.setDataName(1, 'Sim 3');
-            testCase.verifyEqual(testCase.data.varTable{1, 1}, "Sim 3", 'setDataName method not working');
+            names = testCase.data.setData(1, 'name', 'Sim 3');
+            testCase.verifyEqual(testCase.data.varTable{1, 1}, "Sim 3", 'setName method not working');
             testCase.verifyEqual(names.oldName, "Sim 1", 'setData returned incorrect data');
             testCase.verifyEqual(names.newName, 'Sim 3', 'setData returned incorrect data');
         end

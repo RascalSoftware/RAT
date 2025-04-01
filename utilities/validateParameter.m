@@ -24,7 +24,7 @@ function param = validateParameter(param, paramList, paramDesc)
     paramList = cellstr(paramList);
     if isnumeric(param)
         if (param < 1) || (param > length(paramList))
-            throw(exceptions.indexOutOfRange(sprintf('%s %d is out of range (1 - %d).', paramDesc, param, length(paramNames))));
+            throw(exceptions.indexOutOfRange(sprintf('%s %d is out of range (1 - %d).', paramDesc, param, length(paramList))));
         else
             param = paramList{param};
         end

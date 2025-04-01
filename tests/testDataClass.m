@@ -28,7 +28,9 @@ classdef testDataClass < matlab.unittest.TestCase
 
     methods (Test)
         function testCreation(testCase)
-            % Tests data class can be created and the first dataset is set correctly 
+            % Tests data class can be created and the first dataset is set correctly
+            newData = dataClass();
+            testCase.verifyEmpty(newData.varTable, 'dataClass constructor not working');
             newData = dataClass("New data 1");
             default = {"New data 1", {[]}, {[]}, {[0.0050, 0.7000]}};
             for i = 1:4

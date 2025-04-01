@@ -178,7 +178,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2), exceptions.invalidNumberOfInputs.errorID);
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3), exceptions.invalidNumberOfInputs.errorID);
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3, 1, 4), exceptions.invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3, 1, 4, hydrationTypes.None.value, 5), exceptions.invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3, 1, 4, hydrationTypes.BulkIn.value, 5), exceptions.invalidNumberOfInputs.errorID);
 
             % Invalid hydrate type
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, 1, 4, 'surface'), exceptions.invalidOption.errorID);

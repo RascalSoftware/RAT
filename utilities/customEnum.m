@@ -54,7 +54,7 @@ classdef customEnum
          % Gets the enumeration with the given value. An empty value is 
          % returned if value is not found. Expects the name of the 
          % enumeration class and the value of an enumeration. If acceptIndex 
-         % is true the function will accept an index inplace of the value (it will not 
+         % is true the function will accept an index in place of the value (it will not 
          % work if enum values are numeric)
          %
          % bulkInEnum = enum.fromValue('hydrationTypes', 'bulk in');

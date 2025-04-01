@@ -14,7 +14,6 @@ classdef hydrationTypes < customEnum
     end
 
     enumeration
-        None ('none')
         BulkIn ('bulk in')
         BulkOut ('bulk out')
     end

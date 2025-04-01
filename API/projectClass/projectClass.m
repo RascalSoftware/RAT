@@ -211,10 +211,21 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         % Editing of layers block
         %----------------------------------------------------------------------------
         function obj = addLayerGroup(obj, layerGroup)
-            % Adds a group of layers to the layers object. Expects 
-            % a cell array of layer cell arrays
+            % Adds a group of layers to the project.
+            %              
+            % Examples
+            % --------
+            % >>> firstLayer = {'Water Layer', 'Water thickness', 'Water SLD', 'Bilayer heads roughness', 'Water hydration', 'Bulk out'};
+            % >>> secondLayer = {'Layer 1', 'Layer thickness', 'Layer Real SLD', 'Layer Imaginary SLD', 'Layers roughness, 'Layer hydration', 'Bulk in'}; 
+            % >>> project.addLayerGroup({firstLayer, secondLayer});
+            %  
+            % Parameters
+            % ----------
+            % layerGroup : cell of cell array
+            %     The inner cells should contain the properties of the layers to add. 
             %
             % project.addLayerGroup({{'Layer 1'}, {'Layer 2'}});
+            
             if isa(obj.layers, 'layersClass')
                 for i = 1:length(layerGroup)
                     if iscell(layerGroup{i})
@@ -229,12 +240,47 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         end
         
         function obj = addLayer(obj, varargin)
-            % Adds a single layer to the layers object. Expects layer
-            % details which are name, thickness, SLD, roughness,
-            % hydration, and hydrate with, or provide with no details,
-            % or just a name, to create an empty layer.
+            % Adds a new layer to the project. This method can be called in 2 ways. The first for when ``absorption`` is false  
             %
-            % project.addLayer('New Layer');
+            % ``addLayer(name, thickness, realSLD, roughness, hydration, hydrateWith)``
+            % 
+            % and the second includes an extra argument imaginarySLD for when ``absorption`` is true.
+            % 
+            % ``addLayer(name, thickness, realSLD, imaginarySLD, roughness, hydration, hydrateWith)``
+            %
+            % Examples
+            % --------
+            % To add a new layer with name only.
+            % 
+            % >>> project.addLayer(, 'New layer');
+            % 
+            % To add a new layer when ``absorption`` is false.
+            % 
+            % >>> project.addLayer('Water Layer', 'Water thickness', 'Water SLD', 'Bilayer heads roughness', 'Water hydration', 'Bulk out');
+            % 
+            % To add a new layer when ``absorption`` is false.
+            % 
+            % >>> project.addLayer('Layer 1', 'Layer thickness', 'Layer Real SLD', 'Layer Imaginary SLD', 'Layers roughness, 'Layer hydration', 'Bulk in');
+            %  
+            % Parameters
+            % ----------
+            % name : string or char array, default: auto-generated name
+            %     The name of this layer.
+            % thickness : string or char array or whole number, default: ''
+            %     The name (or the row index) of the parameter describing the thickness of this layer.
+            % realSLD : string or char array or whole number, default: ''
+            %     The name (or the row index) of the parameter describing the real (scattering) term
+            %     for the scattering length density of this layer.
+            % imaginarySLD : string or char array or whole number, default: ''
+            %     The name (or the row index) of the parameter describing the imaginary (``absorption``) term
+            %     for the scattering length density of this layer.
+            % roughness : string or char array or whole number, default: ''
+            %     The name (or the row index) of the parameter describing the roughness of this layer.
+            % hydration : string or char array or whole number, default: ''
+            %     The name (or the row index) of the parameter describing the percent hydration for the layer
+            % hydrateWith : hydrationTypes, default: hydrationTypes.BulkOut
+            %     Whether the layer is hydrated with the "bulk in" or "bulk out".
+
             if isa(obj.layers, 'layersClass')
                 % If the input is wrapped in a cell (so varargin is a cell of a cell)
                 % need to unwrap one layer of it, otherwise keep varargin as it is
@@ -275,11 +321,38 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         end
 
         function obj = setLayerValue(obj, row, col, value)
-            % Sets a value of a given layer. Expects the row/name and
-            % column of layer value to set, then the name/index of the 
-            % parameter to set the value to.
+            % Change the value of a given layer parameter in the project (excluding the layer name).
+            %
+            % Examples
+            % --------
+            % To update the thickness of the second layer in the table (layer in row 2).
             % 
-            % project.setLayerValue(1, 2, 'Tails Thickness');
+            % >>> project.setLayerValue(2, 2, 'New thickness', paramNames);
+            % 
+            % The same can be achieved using names, to change the 'Thickness' of 'Layer 1'.
+            % 
+            % >>> project.setLayerValue('Layer 1', 'Thickness', 'New thickness');
+            % 
+            % Note that the number of columns change depending on whether ``absorption`` is true or false so the column indices will change also. 
+            % For example, the code below will update 'Roughness' if ``absorption`` is false, otherwise it will update the Imaginary SLD. So it is 
+            % recommended to use column names to ensure the correct change.
+            % 
+            % >>> project.setLayerValue(2, 4, 'New Roughness'); 
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row of the layer to update. If it is text, 
+            %     it is the name of the layer to update.
+            % col : string or char array or whole number
+            %     If ``col`` is an integer, it is the column of layer to update. If it is text, 
+            %     it is the name of the column to update. The column names are the following: 'Name', 'Thickness', 
+            %     'SLD', 'Roughness', 'Hydration', 'Hydrate with'. If ``absorption`` is true, the 'SLD' column is replaced 
+            %     with 'SLD Imaginary', and 'SLD Real'.
+            % inputValue : string or char array or whole number
+            %     The name (or row index) of a parameter to replace the one in specified row and column 
+            % paramNames: cell
+            %     A cell array which contains the valid names of parameters.
             if isa(obj.layers, 'layersClass')
                 obj.layers.setLayerValue(row, col, value, obj.parameters.varTable{:,1});
             else

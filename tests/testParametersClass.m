@@ -24,6 +24,8 @@ classdef testParametersClass < matlab.unittest.TestCase
     methods (Test)
         function testCreation(testCase)
             % Tests parameters class can be created and the start parameters is set correctly
+            params = parametersClass();
+            testCase.verifyEmpty(params.varTable, 'parametersClass constructor not working');
             params = parametersClass("new parameter 1");
             testCase.verifyEqual(params.varTable{end, 1}, "new parameter 1", 'addParameter method not working');
             params = parametersClass(testCase.parameters{1, :});

@@ -237,6 +237,9 @@ classdef testDomainContrastsClass < matlab.unittest.TestCase
 
             contrastStruct = testCase.exampleClass.parseContrastInput(testCase.allowedNames, testCase.newValues);
             testCase.verifyEqual(contrastStruct, expectedContrast, 'parseContrastInput does not work correctly');
+            
+            badContrast = {'name', 'New Sim Contrast', 'model', {'Bad name', 'Oxide Layer'}};
+            testCase.verifyError(@() testCase.exampleClass.parseContrastInput(testCase.allowedNames, badContrast), exceptions.nameNotRecognised.errorID);
         end
 
     end

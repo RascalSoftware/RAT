@@ -14,10 +14,8 @@ for j = 1:points
         sumg = sumg + g;
         simulation(j) = simulation(j) + rawSimulation(i+j) * g;
     end
-    
-    if (sumg ~= 0)
-        simulation(j) = simulation(j) / sumg;
-    end
+
+    simulation(j) = simulation(j) / sumg;
 
 end
 

@@ -3,12 +3,11 @@ classdef parametersClass < tableUtilities
     % Each parameter is stored as a row in a table and consists of a name, a value with its minimum and maximum limits, a flag indicating 
     % if the parameter should be fitted in the calculation, and priors for Bayesian calculations. The type of the prior (either "uniform", 
     % "gaussian", or "jeffreys") is included alongside the mean (mu) and standard deviation (sigma) of the Gaussian distribution for Gaussian 
-    % priors. ``parametersClass`` will be initialised with a default first parameter if no arguments are provided otherwise the provided 
-    % arguments will be used to create the first parameter.  
+    % priors.  
     %
     % Examples
     % --------
-    % Default values are used when adding the parameter if no arguments are provided.
+    % if no arguments are provided, the object is created with an empty table.
     % 
     % >>> params = parametersClass();
     % 
@@ -27,7 +26,7 @@ classdef parametersClass < tableUtilities
     %
     % Parameters
     % ----------
-    % name : string or char array, default: auto-generated name
+    % name : string or char array, default: ''
     %     The name of the first parameter. 
     % min : double, default: 0.0
     %     The minimum value that the first parameter could take when fitted.
@@ -65,9 +64,7 @@ classdef parametersClass < tableUtilities
             varTypes = {'string','double','double','double','logical','string','double','double'};
             varNames = {'Name','Min','Value','Max','Fit?','Prior Type','mu','sigma'};
             obj.varTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-            if isempty(name)
-                obj.addParameter();
-            else
+            if ~isempty(name)
                 obj.addParameter(name, min, value, max, fit, priorType, mu, sigma);
             end
         end

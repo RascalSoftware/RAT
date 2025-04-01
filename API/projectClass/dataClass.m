@@ -1,22 +1,26 @@
 % ``dataClass`` manages the datasets for the project. It provides methods to add, update and remove datasets.
 % Each dataset is stored as a row in a table and consists of a name, the data itself, the range of the data to use, 
-% and the range for simulation. ``dataClass`` will be initialised with a default empty dataset if no arguments are 
-% provided otherwise the provided arguments will be used to create the first dataset.
-%
+% and the range for simulation.
 %
 % Examples
 % --------
-% >>> data = dataClass('Data 1', data=[1, 0, 0; 2, 0, 0; 3, 0, 0; 4, 0, 0], dataRange=[2, 3], simRange=[1, 4]);
+% If no arguments are provided, the object is created with an empty table.
+% 
+% >>> data = dataClass();
+% 
+% Otherwise, the arguments are used to create the first dataset.
+% 
+% >>> data = dataClass('Data 1', [1, 0, 0; 2, 0, 0; 3, 0, 0; 4, 0, 0], [2, 3], [1, 4]);
 %
 % Parameters
 % ----------
-% name : string or char array
+% name : string or char array, default: ''
 %     The name of the dataset.
-% data : float
-%     3 or 4 column data for the dataset, the data should have (x, y, error) columns and may have optional resolution column.
-% dataRange : float
+% data : float, default: []
+%     3 or 4 column data for the dataset, the data should have (x, y, error) columns and may have an optional resolution column.
+% dataRange : float, default: default: [data(1), data(end)] or [] if no data 
 %     The minimum and maximum range of ``data`` to use from the dataset.
-% simRange : float
+% simRange : float, default: default: [0.005, 0.7]
 %     The minimum and maximum range to use for simulation.
 %
 % Attributes
@@ -41,7 +45,9 @@ classdef dataClass < tableUtilities
             varTypes = {'string','cell','cell','cell'};
             varNames = {'Name','Data','Data Range','Simulation Range'};
             obj.varTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames); 
-            obj.addData(name, data, dataRange, simRange); 
+            if ~isempty(name)
+                obj.addData(name, data, dataRange, simRange);
+            end
         end
 
         function obj = addData(obj, name, data, dataRange, simRange)
@@ -141,15 +147,15 @@ classdef dataClass < tableUtilities
             % 
             % >>> nameChanged = data.setData(2, name='Data 1', data=[1, 0, 0; 2, 0, 0; 3, 0, 0; 4, 0, 0]);
             % 
-            % To change the properties of a background called 'Data 1'.
+            % To change the properties of a dataset called 'Data 1'.
             % 
             % >>> nameChanged = data.setData('Data 1', name='Data H2O', dataRange=[2, 3]);
             % 
             % Parameters
             % ----------
             % row : string or char array or whole number
-            %     If ``row`` is an integer, it is the row number of the background to update. If it is text, 
-            %     it is the name of the background to update.
+            %     If ``row`` is an integer, it is the row number of the dataset to update. If it is text, 
+            %     it is the name of the dataset to update.
             % options
             %    Keyword/value pair to properties to update for the specific dataset.
             %       * name (char array or string, default: '') the new name of the dataset.

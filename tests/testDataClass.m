@@ -13,7 +13,7 @@ classdef testDataClass < matlab.unittest.TestCase
                     'Bilayer / SMW',   repmat(-1:1, 3, 1)',   [-1, 1],       [-2, 2];
                     'Bilayer / H2O',   ones(5, 3),    [0.2, 0.9],    [-3, 6];
                 };
-            testCase.data = dataClass();
+            testCase.data = dataClass("New data 1");
         end
     end
     methods
@@ -29,7 +29,7 @@ classdef testDataClass < matlab.unittest.TestCase
     methods (Test)
         function testCreation(testCase)
             % Tests data class can be created and the first dataset is set correctly 
-            newData = dataClass();
+            newData = dataClass("New data 1");
             default = {"New data 1", {[]}, {[]}, {[0.0050, 0.7000]}};
             for i = 1:4
                 testCase.verifyEqual(newData.varTable{1, i}, default{i}, 'Data default not set correctly');

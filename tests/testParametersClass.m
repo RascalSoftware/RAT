@@ -24,7 +24,7 @@ classdef testParametersClass < matlab.unittest.TestCase
     methods (Test)
         function testCreation(testCase)
             % Tests parameters class can be created and the start parameters is set correctly
-            params = parametersClass();
+            params = parametersClass("new parameter 1");
             testCase.verifyEqual(params.varTable{end, 1}, "new parameter 1", 'addParameter method not working');
             params = parametersClass(testCase.parameters{1, :});
             testCase.verifyEqual(string(params.varTable{1, :}), ...
@@ -231,7 +231,7 @@ classdef testParametersClass < matlab.unittest.TestCase
 
         function testDisplayTableEmpty(testCase)
             % Check that the empty parameter table is printed correctly
-            emptyClass = parametersClass();
+            emptyClass = parametersClass("new parameter 1");
             emptyClass.removeParameter(1);
 
             % Capture the standard output and format into string array -

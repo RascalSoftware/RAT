@@ -1,7 +1,36 @@
+% ``customFileClass`` manages the custom files for the project. It provides methods to add, update and remove custom files.
+% Each custom file is stored as a row in a table and consists of a name, the filename of the custom file, the language of the 
+% file, the path where the file is located, and the name of the function to call.
+%
+% Examples
+% --------
+% If no arguments are provided, the object is created with an empty table.
+% 
+% >>> file = customFileClass();
+% 
+% Otherwise, the arguments are used to create the first custom file.
+% 
+% >>> file = customFileClass('custom file 1', 'customBilayer.m', 'matlab');
+%
+% Parameters
+% ----------
+% name : string or char array, default: ''
+%     The name of this custom file object.
+% filename : string or char array, default: ''
+%     The name of the file containing the custom function.
+% language : supportedLanguages, default: supportedLanguages.Matlab
+%     What language the custom function is written in: 'matlab', 'python', or 'cpp' (via a dynamic library) 
+% path : string or char array, default: ''
+%     The path to the custom file.
+% functionName : string or char array, default: ''
+%     The name of the custom function within the file.
+%
+% Attributes
+% ----------
+% varTable : table
+%     A table object that contains the custom file entries entries.
+
 classdef customFileClass < tableUtilities
-    
-    % A container class for holding custom files for either
-    % models, backgrounds or resolutions.
    properties (SetAccess = private, Hidden = true)
         wrappers = {}
         canShowWarning = false; % ensures conflict warning only shows once if no change occurs
@@ -15,20 +44,21 @@ classdef customFileClass < tableUtilities
     
     methods
         
-        function obj = customFileClass(varargin)
-            % Construct a custom file class containing either an empty
-            % table or one with a single row.
-            % No input is required for an empty table, otherwise the
-            % parameters for the first row should be provided.
-            %
-            % customFiles = customFileClass()           
+        function obj = customFileClass(name, filename, language, path, functionName)
+            arguments
+                name {mustBeTextScalar} = ''
+                filename {mustBeTextScalar} = ''
+                language  = supportedLanguages.Matlab
+                path {mustBeTextScalar} = ''
+                functionName {mustBeTextScalar} = '' 
+            end         
             sz = [0 5];
             varTypes = {'string','string','string','string','string'};
             varNames = {'Name','Filename','Function Name','Language','Path'};
             obj.varTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
 
-            if ~isempty(varargin)
-                obj.addCustomFile(varargin{:});
+            if ~isempty(name)
+                obj.addCustomFile(name, filename, language, path, functionName);
             end          
         end
 
@@ -120,19 +150,19 @@ classdef customFileClass < tableUtilities
             % 
             % >>> file.setCustomFile(2, name='custom file 1', filename='customFunction.m');
             % 
-            % To change the properties of a background called 'custom file 1'.
+            % To change the properties of a custom file called 'custom file 1'.
             % 
             % >>> file.setCustomFile('custom file 1', name='new custom file', filename='customFunction.py', language='python');
             % 
             % Parameters
             % ----------
             % row : string or char array or whole number
-            %     If ``row`` is an integer, it is the row number of the background to update. If it is text, 
-            %     it is the name of the background to update.
+            %     If ``row`` is an integer, it is the row number of the custom file to update. If it is text, 
+            %     it is the name of the custom file to update.
             % options
             %    Keyword/value pair to properties to update for the specific custom file.
             %       * name (char array or string, default: '') the new name of the custom file.
-            %       * filename (char array or string, default: '') the new data array.
+            %       * filename (char array or string, default: '') the new filename of the custom file.
             %       * language (supportedLanguages, default: supportedLanguages.empty()) the new language of the custom file.
             %       * path (char array or string, default: '') the new path of the custom file.
             %       * functionName (char array or string, default: ') the new function name of the custom file.

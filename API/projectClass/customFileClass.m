@@ -1,6 +1,6 @@
 % ``customFileClass`` manages the custom files for the project. It provides methods to add, update and remove custom files.
 % Each custom file is stored as a row in a table and consists of a name, the filename of the custom file, the language of the 
-% file, the path where the file is located, and the name of the function to call.
+% file, the path where the file is located, and the name of the function in the file to call.
 %
 % Examples
 % --------
@@ -72,7 +72,7 @@ classdef customFileClass < tableUtilities
             % 
             % >>> file.addCustomFile('custom file 1');
             % 
-            % To add custom file with name, filename.
+            % To add custom file with name, and filename.
             % 
             % >>> file.addCustomFile('custom file 1', 'customBilayer.m');
             % 
@@ -378,8 +378,8 @@ classdef customFileClass < tableUtilities
         end
     end
 
-    methods(Static, Hidden)
-        function path = validatePath(path)
+    methods(Access = private)
+        function path = validatePath(~, path)
             % Validates custom file path exists.
             %
             % Parameters
@@ -396,7 +396,7 @@ classdef customFileClass < tableUtilities
             end
         end
         
-        function filename = addFileExtension(filename, language)
+        function filename = addFileExtension(~, filename, language)
             % Adds a file extension to the matlab and python filename if it is missing.
             %
             % Examples
@@ -430,13 +430,19 @@ classdef customFileClass < tableUtilities
             end
         end
 
-        function newFunctionName = validateFunctionName(filename, functionName, language)
+        function newFunctionName = validateFunctionName(~, filename, functionName, language)
             % Validates a function name is the same as filename for matlab
             % functions if a function name is provided.
             %
             % Examples
             % --------
-            % >>> funcName = obj.validateFunctionName('file.m', 'results', 'matlab')
+            % The snippet below will raise a warning as the function name "results" does not match "file.m".
+            %  
+            % >>> functionName = obj.validateFunctionName('file.m', 'results', 'matlab')
+            % 
+            % The snippet below will return "file" as the function name.
+            %  
+            % >>> functionName = obj.validateFunctionName('file.m', '', 'matlab')            
             % 
             % Parameters
             % ----------
@@ -449,8 +455,8 @@ classdef customFileClass < tableUtilities
             % 
             % Returns
             % -------
-            % filename : string or char array
-            %     The custom filename with extension.
+            % newFunctionName : string or char array
+            %     The valid function name for the given filename.
             [~, newFunctionName, ~] = fileparts(filename);
             if ~isempty(functionName) 
                 if strcmp(language, supportedLanguages.Matlab.value)

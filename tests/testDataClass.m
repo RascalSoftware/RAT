@@ -20,8 +20,8 @@ classdef testDataClass < matlab.unittest.TestCase
         function addDataSets(testCase)
             % Adds datasets for the tests
             for i = 1:size(testCase.datasets, 1)
-                testCase.data.varTable(i+1, :) = {testCase.datasets(i, 1), {testCase.datasets(i, 2)},...
-                                                   {testCase.datasets(i, 3)}, {testCase.datasets(i, 4)}};
+                testCase.data.varTable(i+1, :) = {testCase.datasets(i, 1), testCase.datasets(i, 2),...
+                                                  testCase.datasets(i, 3), testCase.datasets(i, 4)};
             end
         end
     end
@@ -113,6 +113,8 @@ classdef testDataClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.data.varTable{1, 1}, "Sim 3", 'setName method not working');
             testCase.verifyEqual(names.oldName, "Sim 1", 'setData returned incorrect data');
             testCase.verifyEqual(names.newName, 'Sim 3', 'setData returned incorrect data');
+            testCase.verifyError(@() testCase.data.setData(2, 'name', 'Sim 3'), exceptions.duplicateName.errorID);
+            testCase.verifyError(@() testCase.data.setData(2, 'data', [1, 2; 3, 4]), exceptions.invalidType.errorID);
         end
 
         function testRemoveData(testCase)

@@ -235,16 +235,6 @@ classdef backgroundsClass < handle
                 options.value4 {mustBeScalarTextOrWholeNumber} = ''
                 options.value5 {mustBeScalarTextOrWholeNumber} = ''
             end
-            % if isText(row)
-            %     row = obj.backgrounds.findRowIndex(row, obj.getNames(), 'Unrecognised background');
-            % elseif isnumeric(row)
-            %     count = obj.backgrounds.rowCount;
-            %     if (row < 1) || (row > count)
-            %         throw(exceptions.indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, count)));
-            %     end
-            % else
-            %     throw(exceptions.invalidType('Unrecognised row'));
-            % end
             row = obj.backgrounds.getValidRow(row);
             defaults = obj.backgrounds.varTable{row, :};
             fields = fieldnames(options);

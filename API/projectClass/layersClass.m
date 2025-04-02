@@ -2,17 +2,17 @@ classdef layersClass < tableUtilities
     % ``layersClass`` manages the layers for the project. It provides methods to add, update and remove layers. 
     % Each layer is stored as a row in a table and consists of a name, the thickness, the SLD, 
     % the roughness, the percent hydration, and whether the layer is hydrated with "bulk" in or "bulk out". If the 
-    % absorption is set to true, the SLD column is broken into a 'SLD Imaginary', and 'SLD Real'.
+    % absorption is set to true, the SLD column is split into a 'SLD Imaginary', and 'SLD Real'.
     % 
     % Parameters
     % ----------
-    % SLDValues : cell str, default: 'SLD'
-    %     The name of the SLD column(s). 
+    % SLDValues : cell string, default: 'SLD'
+    %     The name(s) of the SLD column(s). 
     %
     % Attributes
     % ----------
     % varTable : table
-    %     The table which contains the properties for each parameter. 
+    %     The table which contains the properties for each layer. 
 
     properties(Access = private, Constant, Hidden)
         invalidTypeMessage = sprintf('Hydration type must be a HydrationTypes enum or one of the following strings (%s)', ...
@@ -61,14 +61,14 @@ classdef layersClass < tableUtilities
             % 
             % >>> layers.addLayer(parameterNames, 'Water Layer', 'Water thickness', 'Water SLD', 'Bilayer heads roughness', 'Water hydration', 'Bulk out');
             % 
-            % To add a new layer when ``absorption`` is false.
+            % To add a new layer when ``absorption`` is true.
             % 
             % >>> layers.addLayer(parameterNames, 'Layer 1', 'Layer thickness', 'Layer Real SLD', 'Layer Imaginary SLD', 'Layers roughness, 'Layer hydration', 'Bulk in');
             %  
             % Parameters
             % ----------
             % paramNames: cell
-            %     A cell array which contains the valid names of parameters.
+            %     A cell array which contains the names of available parameters.
             % name : string or char array, default: auto-generated name
             %     The name of this layer.
             % thickness : string or char array or whole number, default: ''
@@ -169,9 +169,9 @@ classdef layersClass < tableUtilities
             %     'SLD', 'Roughness', 'Hydration', 'Hydrate with'. If ``absorption`` is true, the 'SLD' column is replaced 
             %     with 'SLD Imaginary', and 'SLD Real'.
             % inputValue : string or char array or whole number
-            %     The name (or row index) of a parameter to replace the one in specified row and column 
+            %     The name (or row index) of a parameter to replace the one in specified row and column.
             % paramNames: cell
-            %     A cell array which contains the valid names of parameters.
+            %     A cell array which contains the names of available parameters.
 
             colNames = obj.varTable.Properties.VariableNames;
             row = obj.getValidRow(row);

@@ -95,6 +95,8 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifySize(params.varTable, [7, 8], 'Parameters has wrong dimension');
             params.addParameter('Param 8', 0, 1, 2, false, priorTypes.Gaussian, -1, 1);
             testCase.verifyEqual(params.varTable{end, 6}, string(priorTypes.Gaussian.value), 'addParameter method not working');
+            params.addParameter('Param 9', 0, 1);
+            testCase.verifyEqual(params.varTable{end, 2:4}, [0, 1, 1], 'addParameter method not working');
         end
 
         function testRemoveParams(testCase) 

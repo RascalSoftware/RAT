@@ -87,6 +87,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             %                         'addResolution method not working');
             testCase.verifyWarning(@() testCase.resolution.addResolution("New Resolution 6", allowedTypes.Constant.value, "Resolution param 1", "extra_value", '', '', '', ''), 'warnings:invalidNumberOfInputs');
             testCase.verifyWarning(@() testCase.resolution.addResolution("New Resolution 7", allowedTypes.Data.value, "Resolution param 1", "Resolution param 2", "extra_value", '', '', ''), 'warnings:invalidNumberOfInputs');
+            testCase.verifyError(@() testCase.resolution.addResolution('New', allowedTypes.Function.value), exceptions.invalidOption.errorID);
             testCase.verifyError(@() testCase.resolution.addResolution('New', 'fixed'), exceptions.invalidOption.errorID);
             testCase.verifyError(@() testCase.resolution.addResolution('New', allowedTypes.Constant), exceptions.invalidNumberOfInputs.errorID);           
             testCase.verifyError(@() testCase.resolution.addResolution('New', allowedTypes.Constant.value, 6), exceptions.indexOutOfRange.errorID);
@@ -155,6 +156,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.resolution.resolutions.varTable{3, 1}, "New Name", 'setResolutionValue method not working');
             testCase.verifyEqual(testCase.resolution.resolutions.varTable{3, 2}, string(allowedTypes.Data.value), 'setResolutionValue method not working');
             testCase.verifyEqual(testCase.resolution.resolutions.varTable{3, 3}, "", 'setResolutionValue method not working');
+           
         end
 
         function testSetResolutionWarnings(testCase)
@@ -163,6 +165,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
 
             testCase.verifyWarning(@() testCase.resolution.setResolution(1, "Value1", "Resolution param 1"), 'warnings:invalidNumberOfInputs');
             testCase.verifyWarning(@() testCase.resolution.setResolution(3, "Value2", "Resolution param 1"), 'warnings:invalidNumberOfInputs');
+            testCase.verifyWarning(@() testCase.resolution.setResolution(1, 'type', allowedTypes.Data.value, 'source', 'Resolution param 1'), 'warnings:invalidNumberOfInputs');
         end
 
         function testDisplayTable(testCase)

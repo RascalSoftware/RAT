@@ -148,18 +148,19 @@ classdef (Abstract) tableUtilities < handle
         end 
     end
 
-    methods(Static, Hidden)
+    methods(Access = protected)
         
-        function row = findRowIndex(name, rowNames, errorMessage)
+        function row = findRowIndex(~, name, rowNames, errorMessage)
             % Find the index of a row in the table given its name.
             % The expected inputs are the name of the row, the
             % full list of row names, and, optionally, an error message.
             %
             % obj.findRowIndex('param')
             arguments
+                ~
                 name {mustBeTextScalar}
                 rowNames {mustBeText}
-                errorMessage {mustBeTextScalar} = 'The given name is not recognised'
+                errorMessage {mustBeTextScalar}
             end
 
             % Strip leading or trailing whitespaces from names

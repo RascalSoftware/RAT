@@ -258,7 +258,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % 
             % >>> project.addLayer('Water Layer', 'Water thickness', 'Water SLD', 'Bilayer heads roughness', 'Water hydration', 'Bulk out');
             % 
-            % To add a new layer when ``absorption`` is false.
+            % To add a new layer when ``absorption`` is true.
             % 
             % >>> project.addLayer('Layer 1', 'Layer thickness', 'Layer Real SLD', 'Layer Imaginary SLD', 'Layers roughness, 'Layer hydration', 'Bulk in');
             %  
@@ -350,7 +350,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             %     'SLD', 'Roughness', 'Hydration', 'Hydrate with'. If ``absorption`` is true, the 'SLD' column is replaced 
             %     with 'SLD Imaginary', and 'SLD Real'.
             % inputValue : string or char array or whole number
-            %     The name (or row index) of a parameter to replace the one in specified row and column 
+            %     The name (or row index) of a parameter to replace the one in specified row and column. 
             % paramNames: cell
             %     A cell array which contains the valid names of parameters.
             if isa(obj.layers, 'layersClass')
@@ -940,7 +940,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % 
             % >>> project.addCustomFile('custom file 1');
             % 
-            % To add custom file with name, filename.
+            % To add custom file with name, and filename.
             % 
             % >>> project.addCustomFile('custom file 1', 'customBilayer.m');
             % 

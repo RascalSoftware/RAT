@@ -353,6 +353,10 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.project.setBulkIn(1, 'name', 'Silicon', 'min', 2.07e-6, 'value',2.073e-6, 'max', 2.08e-6, 'fit', true);
             testCase.verifyEqual(string(testCase.project.bulkIn.varTable{1, :}),...
                                     string({'Silicon', 2.07e-6, 2.073e-6, 2.08e-6, true, priorTypes.Uniform.value, 0, Inf}), 'setBulkIn method not working');
+            testCase.project.addBulkIn();
+            testCase.verifySize(testCase.project.bulkIn.varTable, [2, 8], 'BulkIn has wrong dimension');
+            testCase.project.setBulkIn(2, 'name', 'new bulkin 1');
+            testCase.verifyEqual(testCase.project.bulkIn.varTable{end,1}, "new bulkin 1", 'addBulkIn method not working');
         end
 
         function testBulkOut(testCase)
@@ -374,6 +378,9 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.project.setBulkOut(1, 'name', 'SLD H2O', 'min', 2.07e-6, 'value',2.073e-6, 'max', 2.08e-6, 'fit', true);
             testCase.verifyEqual(string(testCase.project.bulkOut.varTable{1, :}),...
                                     string({'SLD H2O', 2.07e-6, 2.073e-6, 2.08e-6, true, priorTypes.Uniform.value, 0, Inf}), 'setBulkOut method not working');
+            testCase.project.addBulkOut();
+            testCase.verifySize(testCase.project.bulkOut.varTable, [3, 8], 'BulkOut has wrong dimension');
+            testCase.verifyEqual(testCase.project.bulkOut.varTable{end,1}, "new parameter 4", 'addBulkOut method not working');
         end
             
         function testScaleFactor(testCase)
@@ -394,6 +401,9 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.project.setScalefactor(1, 'name','Scalefactor 1','min',0.1,'value',0.23251,'max',0.4,'fit',true);
             testCase.verifyEqual(string(testCase.project.scalefactors.varTable{1, :}),...
                                     string({'Scalefactor 1', 0.1, 0.23251, 0.4, true, priorTypes.Uniform.value, 0, Inf}), 'setScalefactor method not working');
+            testCase.project.addScalefactor();
+            testCase.verifySize(testCase.project.scalefactors.varTable, [3, 8], 'Scalefactor has wrong dimension');
+            testCase.verifyEqual(testCase.project.scalefactors.varTable{end,1}, "new parameter 4", 'addScalefactor method not working');
         end
 
         function testResolution(testCase)

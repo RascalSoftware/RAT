@@ -192,9 +192,9 @@ classdef testLayersClass < matlab.unittest.TestCase
             % Invalid parameter indices
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, 0), exceptions.indexOutOfRange.errorID);
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, testCase.numParams+1), exceptions.indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', NaN ,3, 0), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, NaN, 0), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, NaN), 'MATLAB:badsubscript');         
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', NaN ,3, 0), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, NaN, 0), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, NaN), exceptions.invalidType.errorID);         
         end
 
         function testSetLayerValue(testCase)
@@ -372,21 +372,6 @@ classdef testLayersClass < matlab.unittest.TestCase
             rowString = """"" """" """" """" """" """"";
             testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
         end
-
-        % function testFindParameter(testCase)
-        %     % Test that the correct parameter is returned for a valid
-        %     % input name or index, and an error is raised for invalid options
-        %     outParam = layersClass.findParameter('OXIDE HYDRATION', testCase.parameterNames);
-        %     testCase.verifyEqual(outParam, 'Oxide Hydration');
-
-        %     outParam = layersClass.findParameter(10, testCase.parameterNames);
-        %     testCase.verifyEqual(outParam, 'Bilayer tails SLD');
-
-        %     testCase.verifyError(@() layersClass.findParameter('Invalid Param', testCase.parameterNames), exceptions.nameNotRecognised.errorID);
-        %     testCase.verifyError(@() layersClass.findParameter(0, testCase.parameterNames), exceptions.indexOutOfRange.errorID);
-        %     testCase.verifyError(@() layersClass.findParameter(testCase.numParams+1, testCase.parameterNames), exceptions.indexOutOfRange.errorID);
-        %     testCase.verifyError(@() layersClass.findParameter(datetime('today'), testCase.parameterNames), exceptions.invalidType.errorID);
-        % end
 
     end
 

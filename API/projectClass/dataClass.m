@@ -29,7 +29,7 @@
 %     A table object that contains the data entries.
 
 classdef dataClass < tableUtilities
-    properties (Constant, Hidden)
+    properties (Constant, Access = private)
         defaultSimRange = [0.005, 0.7]
     end
 
@@ -167,7 +167,7 @@ classdef dataClass < tableUtilities
             % -------
             % nameChanged : struct or []
             %     A struct which contains the former name ``oldName`` and the new name ``newName`` of the dataset or 
-            %     empty array if name is not changed.
+            %     an empty array if name is not changed.
             arguments
                 obj
                 row
@@ -319,7 +319,7 @@ classdef dataClass < tableUtilities
             %
             % Examples
             % --------
-            % [dataRange, simRange] = validateData(data, dataRange, simRange);
+            % >>> [dataRange, simRange] = validateData(data, dataRange, simRange);
             %
             % Parameters
             % ----------

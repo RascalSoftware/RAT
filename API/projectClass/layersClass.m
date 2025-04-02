@@ -179,16 +179,12 @@ classdef layersClass < tableUtilities
             % Find the column index if we have a column name
             if isText(col)
                 col = obj.findRowIndex(col, colNames, 'Unrecognised column name');
-            elseif isnumeric(col)
-                if (col < 1) || (col > length(colNames))
-                    throw(exceptions.indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', col, length(colNames))));
+            elseif isnumeric(col) && all(mod(col, 1) == 0)
+                if (col < 2) || (col > length(colNames)) 
+                    throw(exceptions.indexOutOfRange(sprintf('The column index %d is not within the range 2 - %d', col, length(colNames))));
                 end
             else
-                throw(exceptions.invalidType('Unrecognised layer table column type'));
-            end
-
-            if ~isnumeric(col) || col < 2  || col > length(colNames)
-                throw(exceptions.indexOutOfRange(sprintf('Column index should be a number between 2 and %d', length(colNames))));
+                throw(exceptions.invalidType('Layer table column type should be a text or whole number.'));
             end
 
             if col == length(colNames)

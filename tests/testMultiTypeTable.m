@@ -166,8 +166,8 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleTable.setValue(1, 'Invalid Name', 'Added'), exceptions.nameNotRecognised.errorID);
 
             % Float values within range
-            testCase.verifyError(@() testCase.exampleTable.setValue(1, 2.5, 'Added'), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleTable.setValue(2.5, 1, 'New Name'), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleTable.setValue(1, 2.5, 'Added'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleTable.setValue(2.5, 1, 'New Name'), exceptions.invalidType.errorID);
 
             % Invalid data types
             testCase.verifyError(@() testCase.exampleTable.setValue(testCase.initialTable, testCase.numCols, 'Added'), exceptions.invalidType.errorID);

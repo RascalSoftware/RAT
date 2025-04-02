@@ -22,7 +22,7 @@ function param = validateParameter(param, paramList, paramDesc)
     end
 
     paramList = cellstr(paramList);
-    if isnumeric(param) && mod(param, 1) == 0
+    if isnumeric(param) && all(mod(param, 1) == 0)
         if (param < 1) || (param > length(paramList))
             throw(exceptions.indexOutOfRange(sprintf('%s %d is out of range (1 - %d).', paramDesc, param, length(paramList))));
         else

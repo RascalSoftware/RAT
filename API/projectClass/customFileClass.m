@@ -29,7 +29,7 @@ classdef customFileClass < tableUtilities
     % Attributes
     % ----------
     % varTable : table
-    %     A table object that contains the custom file entries entries.
+    %     A table object that contains the custom file entries.
     
     properties (SetAccess = private, Hidden = true)
         wrappers = {}

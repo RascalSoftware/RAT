@@ -269,7 +269,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % thickness : string or char array or whole number, default: ''
             %     The name (or the row index) of the parameter describing the thickness of this layer.
             % realSLD : string or char array or whole number, default: ''
-            %     The name (or the row index) of the parameter describing the real (scattering) term
+            %     The name (or the row index) of the parameter describing the real (``absorption``) term
             %     for the scattering length density of this layer.
             % imaginarySLD : string or char array or whole number, default: ''
             %     The name (or the row index) of the parameter describing the imaginary (``absorption``) term
@@ -853,7 +853,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             %     The name of the dataset.
             % data : float, default: []
             %     3 or 4 column data for the dataset, the data should have (x, y, error) columns and may have optional resolution column.
-            % dataRange : float, default: [data(1), data(end)] or [] if no data 
+            % dataRange : float, default: [data(1, 1), data(end, 1)] or [] if no data 
             %     The minimum and maximum range of ``data`` to use from the dataset. 
             % simRange : float, default: [0.005, 0.7]
             %     The minimum and maximum range to use for simulation.

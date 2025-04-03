@@ -2,7 +2,7 @@ classdef layersClass < tableUtilities
     % ``layersClass`` manages the layers for the project. It provides methods to add, update and remove layers. 
     % Each layer is stored as a row in a table and consists of a name, the thickness, the SLD, 
     % the roughness, the percent hydration, and whether the layer is hydrated with "bulk" in or "bulk out". If the 
-    % absorption is set to true, the SLD column is split into a 'SLD Imaginary', and 'SLD Real'.
+    % absorption is set to true, the SLD column is split into 'SLD Imaginary', and 'SLD Real'.
     % 
     % Parameters
     % ----------
@@ -74,7 +74,7 @@ classdef layersClass < tableUtilities
             % thickness : string or char array or whole number, default: ''
             %     The name (or the row index) of the parameter describing the thickness of this layer.
             % realSLD : string or char array or whole number, default: ''
-            %     The name (or the row index) of the parameter describing the real (scattering) term
+            %     The name (or the row index) of the parameter describing the real (``absorption``) term
             %     for the scattering length density of this layer.
             % imaginarySLD : string or char array or whole number, default: ''
             %     The name (or the row index) of the parameter describing the imaginary (``absorption``) term

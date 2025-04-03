@@ -19,7 +19,7 @@ classdef dataClass < tableUtilities
     %     The name of the dataset.
     % data : float, default: []
     %     3 or 4 column data for the dataset, the data should have (x, y, error) columns and may have an optional resolution column.
-    % dataRange : float, default: default: [data(1), data(end)] or [] if no data 
+    % dataRange : float, default: default: [data(1, 1), data(end, 1)] or [] if no data 
     %     The minimum and maximum range of ``data`` to use from the dataset.
     % simRange : float, default: default: [0.005, 0.7]
     %     The minimum and maximum range to use for simulation.
@@ -73,7 +73,7 @@ classdef dataClass < tableUtilities
             %     The name of the dataset.
             % data : float, default: []
             %     3 or 4 column data for the dataset, the data should have (x, y, error) columns and may have optional resolution column.
-            % dataRange : float, default: [data(1), data(end)] or [] if no data 
+            % dataRange : float, default: [data(1, 1), data(end, 1)] or [] if no data 
             %     The minimum and maximum range of ``data`` to use from the dataset. 
             % simRange : float, default: [0.005, 0.7]
             %     The minimum and maximum range to use for simulation.
@@ -324,7 +324,7 @@ classdef dataClass < tableUtilities
             % Parameters
             % ----------
             % data : float
-            %     The 2D data array . 
+            %     The 2D data array. 
             % dataRange : float
             %     The minimum and maximum range of the data to use from the dataset.
             % simRange : float
@@ -338,11 +338,11 @@ classdef dataClass < tableUtilities
             %     The minimum and maximum range to use for simulation, adjusted if input was invalid. 
             if ~isempty(data)
                 % Data needs to be an [n x >3] array
-                if (~isnumeric(data) || size(data, 2) < 3)
+                if (size(data, 2) < 3)
                     throw(exceptions.invalidType('Data must be a numeric array with at least 3 columns.'));
                 end
 
-                if (~isnumeric(dataRange) || any(size(dataRange) ~= [1,2]) || any(size(simRange) ~= [1,2]))
+                if (any(size(dataRange) ~= [1,2]) || any(size(simRange) ~= [1,2]))
                     throw(exceptions.invalidType('Data range and sim range must be [1 x 2] numeric arrays'));
                 end
     

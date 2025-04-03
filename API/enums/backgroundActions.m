@@ -1,4 +1,4 @@
-classdef actions < customEnum
+classdef backgroundActions < customEnum
     % Ways in which a background can be included in a contrast.
     methods (Static)
         function s = toStruct()

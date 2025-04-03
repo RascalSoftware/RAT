@@ -310,10 +310,10 @@ classdef contrastsClass < baseContrasts
             end
 
             if isempty(contrast.backgroundAction)
-                contrast.backgroundAction = actions.Add.value;
+                contrast.backgroundAction = backgroundActions.Add.value;
             else
-                contrast.backgroundAction = validateOption(contrast.backgroundAction, 'actions',...
-                        sprintf('backgroundAction must be a actions enum or one of the following strings (%s)', strjoin(actions.values(), ', '))).value;
+                contrast.backgroundAction = validateOption(contrast.backgroundAction, 'backgroundActions',...
+                        sprintf('backgroundAction must be a actions enum or one of the following strings (%s)', strjoin(backgroundActions.values(), ', '))).value;
             end
 
             if isempty(contrast.resample)

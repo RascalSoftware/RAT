@@ -543,7 +543,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.model, {'Hydrogenated Heads', 'Deuterated Heads'}, 'setContrastModel method not working');
             testCase.project.setContrastModel('Another Bilayer', {'Deuterated Heads', 'Hydrogenated Heads'});
             testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.model, {'Deuterated Heads', 'Hydrogenated Heads'}, 'setContrastModel method not working');
-            testCase.project.addContrast('First Bilayer');
+            testCase.project.addContrast('name', 'First Bilayer');
             testCase.project.setContrastModel(1:2, {'Deuterated Heads'});
             testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.model, {'Deuterated Heads'}, 'setContrastModel method not working');
             testCase.verifyEqual(testCase.project.contrasts.contrasts{2}.model, {'Deuterated Heads'}, 'setContrastModel method not working');

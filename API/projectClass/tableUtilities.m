@@ -1,6 +1,6 @@
- % This class holds the common routines for handling table entries
- 
 classdef (Abstract) tableUtilities < handle
+    % This class holds the common routines for handling table entries.
+    
     properties
         varTable = table
     end

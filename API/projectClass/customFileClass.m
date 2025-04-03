@@ -1,40 +1,40 @@
-% ``customFileClass`` manages the custom files for the project. It provides methods to add, update and remove custom files.
-% Each custom file is stored as a row in a table and consists of a name, the filename of the custom file, the language of the 
-% file, the path where the file is located, and the name of the function in the file to call.
-%
-% Examples
-% --------
-% If no arguments are provided, the object is created with an empty table.
-% 
-% >>> file = customFileClass();
-% 
-% Otherwise, the arguments are used to create the first custom file.
-% 
-% >>> file = customFileClass('custom file 1', 'customBilayer.m', 'matlab');
-%
-% Parameters
-% ----------
-% name : string or char array, default: ''
-%     The name of this custom file object.
-% filename : string or char array, default: ''
-%     The name of the file containing the custom function.
-% language : supportedLanguages, default: supportedLanguages.Matlab
-%     What language the custom function is written in: 'matlab', 'python', or 'cpp' (via a dynamic library) 
-% path : string or char array, default: ''
-%     The path to the custom file.
-% functionName : string or char array, default: ''
-%     The name of the custom function within the file.
-%
-% Attributes
-% ----------
-% varTable : table
-%     A table object that contains the custom file entries entries.
-
 classdef customFileClass < tableUtilities
-   properties (SetAccess = private, Hidden = true)
+    % ``customFileClass`` manages the custom files for the project. It provides methods to add, update and remove custom files.
+    % Each custom file is stored as a row in a table and consists of a name, the filename of the custom file, the language of the 
+    % file, the path where the file is located, and the name of the function in the file to call.
+    %
+    % Examples
+    % --------
+    % If no arguments are provided, the object is created with an empty table.
+    % 
+    % >>> file = customFileClass();
+    % 
+    % Otherwise, the arguments are used to create the first custom file.
+    % 
+    % >>> file = customFileClass('custom file 1', 'customBilayer.m', 'matlab');
+    %
+    % Parameters
+    % ----------
+    % name : string or char array, default: ''
+    %     The name of this custom file object.
+    % filename : string or char array, default: ''
+    %     The name of the file containing the custom function.
+    % language : supportedLanguages, default: supportedLanguages.Matlab
+    %     What language the custom function is written in: 'matlab', 'python', or 'cpp' (via a dynamic library) 
+    % path : string or char array, default: ''
+    %     The path to the custom file.
+    % functionName : string or char array, default: ''
+    %     The name of the custom function within the file.
+    %
+    % Attributes
+    % ----------
+    % varTable : table
+    %     A table object that contains the custom file entries entries.
+    
+    properties (SetAccess = private, Hidden = true)
         wrappers = {}
         canShowWarning = false; % ensures conflict warning only shows once if no change occurs
-   end
+    end
 
     properties(Access = private, Constant, Hidden)
         invalidLanguageMessage = sprintf('Language must be a supportedLanguages enum or one of the following strings (%s)', ...

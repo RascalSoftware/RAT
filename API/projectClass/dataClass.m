@@ -1,34 +1,34 @@
-% ``dataClass`` manages the datasets for the project. It provides methods to add, update and remove datasets.
-% Each dataset is stored as a row in a table and consists of a name, the data itself, the range of the data to use, 
-% and the range for simulation.
-%
-% Examples
-% --------
-% If no arguments are provided, the object is created with an empty table.
-% 
-% >>> data = dataClass();
-% 
-% Otherwise, the arguments are used to create the first dataset.
-% 
-% >>> data = dataClass('Data 1', [1, 0, 0; 2, 0, 0; 3, 0, 0; 4, 0, 0], [2, 3], [1, 4]);
-%
-% Parameters
-% ----------
-% name : string or char array, default: ''
-%     The name of the dataset.
-% data : float, default: []
-%     3 or 4 column data for the dataset, the data should have (x, y, error) columns and may have an optional resolution column.
-% dataRange : float, default: default: [data(1), data(end)] or [] if no data 
-%     The minimum and maximum range of ``data`` to use from the dataset.
-% simRange : float, default: default: [0.005, 0.7]
-%     The minimum and maximum range to use for simulation.
-%
-% Attributes
-% ----------
-% varTable : table
-%     A table object that contains the data entries.
-
 classdef dataClass < tableUtilities
+    % ``dataClass`` manages the datasets for the project. It provides methods to add, update and remove datasets.
+    % Each dataset is stored as a row in a table and consists of a name, the data itself, the range of the data to use, 
+    % and the range for simulation.
+    %
+    % Examples
+    % --------
+    % If no arguments are provided, the object is created with an empty table.
+    % 
+    % >>> data = dataClass();
+    % 
+    % Otherwise, the arguments are used to create the first dataset.
+    % 
+    % >>> data = dataClass('Data 1', [1, 0, 0; 2, 0, 0; 3, 0, 0; 4, 0, 0], [2, 3], [1, 4]);
+    %
+    % Parameters
+    % ----------
+    % name : string or char array, default: ''
+    %     The name of the dataset.
+    % data : float, default: []
+    %     3 or 4 column data for the dataset, the data should have (x, y, error) columns and may have an optional resolution column.
+    % dataRange : float, default: default: [data(1), data(end)] or [] if no data 
+    %     The minimum and maximum range of ``data`` to use from the dataset.
+    % simRange : float, default: default: [0.005, 0.7]
+    %     The minimum and maximum range to use for simulation.
+    %
+    % Attributes
+    % ----------
+    % varTable : table
+    %     A table object that contains the data entries.
+    
     properties (Constant, Access = private)
         defaultSimRange = [0.005, 0.7]
     end

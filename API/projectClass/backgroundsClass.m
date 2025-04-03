@@ -36,6 +36,7 @@ classdef backgroundsClass < handle
     %     The background parameters.
     % backgrounds : multiTypeTable
     %     A custom table object that contains the background entries.
+    
     properties
        backgroundParams 
        backgrounds

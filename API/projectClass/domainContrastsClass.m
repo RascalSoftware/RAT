@@ -11,14 +11,17 @@ classdef domainContrastsClass < baseContrasts
         end
 
         function contrastStruct = toStruct(obj, allowedNames, ~, ~)
-            % Convert the contrasts class to a struct.
-            % This routine builds on that in the base class by dealing with
-            % the additional properties defined in this subclass.
-            % The expected input is the allowed names for each parameter.
-            %
-            % domainContrasts.toStruct(allowedNames, ~, ~)
-
-            % Call superclass version for common properties
+            % Converts the domains contrasts class to a struct.
+            % 
+            % Parameters
+            % ----------
+            % allowedNames: struct
+            %     A struct containing the valid names that can be referenced in the contrast.
+            % 
+            % Returns
+            % -------
+            % contrastStruct : struct
+            %     A struct which contains the properties for all the contrast entries.
             contrastStruct = toStruct@baseContrasts(obj);
 
             nContrasts = obj.numberOfContrasts;
@@ -62,6 +65,23 @@ classdef domainContrastsClass < baseContrasts
             inputBlock.model = obj.validateDomainContrastModel(inputBlock.model, expectedModel);
 
         end
+        
+        function contrast = setDefaultValues(~, contrast)
+            % Sets default values to empty fields when adding a contrast.
+            % 
+            % Parameters
+            % ----------
+            % contrast: struct
+            %     A struct containing properties of the contrast.
+            % 
+            % Returns
+            % -------
+            % contrast : struct
+            %     A struct containing properties of the contrast with empty fields set to a default.
+            if ~isempty(contrast.model)
+                contrast.model = cellstr(contrast.model);
+            end
+        end
     end
 
     methods(Access = private)
@@ -81,17 +101,6 @@ classdef domainContrastsClass < baseContrasts
                     throw(exceptions.nameNotRecognised(sprintf('Model component name "%s" is not recognised. The allowed names are: "%s".', inputArray{i}, strjoin(allowedModelNames, '", "'))));
                 end
                 model{i} = allowedModelNames{find(found, 1)};
-            end
-        end
-
-    end
-
-    methods(Static)
-
-        function contrast = setDefaultValues(contrast)
-            % Set non-empty default values when adding a contrast.
-            if ~isempty(contrast.model)
-                contrast.model = cellstr(contrast.model);
             end
         end
 

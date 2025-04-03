@@ -46,11 +46,6 @@ classdef (Abstract) baseContrasts < handle
     methods
         
         function obj = baseContrasts(isDomains)
-            % Class Constructor
-            % The (optional) input is a logical flag to state whether
-            % or not this is a domains calculation.
-            %
-            % contrasts = contrastsClass()
             arguments
                 isDomains {mustBeA(isDomains,'logical')} = false
             end
@@ -94,9 +89,9 @@ classdef (Abstract) baseContrasts < handle
             % To add a new contrast with other properties.
             % 
             % >>> contrasts.addContrast(allowedNames, name='new contrast', bulkIn='Silicon', bulkOut='D2O', background='D2O Background', ...
-            %                           resolution='Resolution 1', scalefactor='Scalefactor 1', data='dspc_bil_d2o', model={'Oxide', 'Bilayer tails'});
+            %                           resolution='Resolution 1', scalefactor='Scalefactor 1', data='DSPC Bilayer D2O', model={'Oxide', 'Bilayer tails'});
             %
-            % The Domain ratio can be added for domains project.
+            % Domain ratio can be added only for domains project.
             % 
             % >>> contrasts.addContrast(allowedNames, name='new contrast', domainRatio='Domain Ratio 1', model={'Domains 1', 'Domains 2'});
             %  
@@ -143,7 +138,7 @@ classdef (Abstract) baseContrasts < handle
                 inputVals = namedargs2cell(options);
             end
             
-            thisContrast = parseContrastInput(obj, allowedNames, inputVals);
+            thisContrast = obj.parseContrastInput(allowedNames, inputVals);
             thisContrast = obj.setDefaultValues(thisContrast);
 
             obj.contrasts{end+1} = thisContrast;
@@ -200,7 +195,7 @@ classdef (Abstract) baseContrasts < handle
             %
             % To change the properties of a contrast called 'Contrast 1'.
             % 
-            % >>> contrasts.addContrast('Contrast 1', allowedNames, {'Domains 1', 'Domains 2'});
+            % >>> contrasts.setContrastModel('Contrast 1', allowedNames, {'Domains 1', 'Domains 2'});
             %  
             % Parameters
             % ----------
@@ -224,7 +219,7 @@ classdef (Abstract) baseContrasts < handle
             % To change the properties of the second contrast in the object.
             % 
             % >>> contrasts.setContrast(2, allowedNames, name='new contrast', bulkIn='Silicon', bulkOut='D2O', background='D2O Background', ...
-            %                           resolution='Resolution 1', scalefactor='Scalefactor 1', data='dspc_bil_d2o', model='Oxide Model'});
+            %                           resolution='Resolution 1', scalefactor='Scalefactor 1', data='DSPC Bilayer D2O', model='Oxide Model'});
             %
             % To change the properties of a contrast called 'Contrast 1'.
             % 
@@ -269,19 +264,19 @@ classdef (Abstract) baseContrasts < handle
             end
 
             % Find if we are referencing an existing contrast
-            if isnumeric(row)
+            if isnumeric(row) && all(mod(row, 1) == 0)
                 if (row < 1 || row > obj.numberOfContrasts)
-                    throw(exceptions.indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', row, obj.numberOfContrasts)));
+                    throw(exceptions.indexOutOfRange(sprintf('Contrast index %d is out of range 1 - %d', row, obj.numberOfContrasts)));
                 end
                 contrastIndex = row;
-                
             elseif isText(row)
                 present = strcmpi(row, obj.getNames());
                 if ~any(present)
                     throw(exceptions.nameNotRecognised(sprintf('Contrast %s is not recognised',row)));
                 end
                 contrastIndex = find(present, 1);
-                
+            else
+                throw(exceptions.invalidType('Row should be a text or whole number.'));
             end
 
             thisContrast = obj.contrasts{contrastIndex};
@@ -345,7 +340,7 @@ classdef (Abstract) baseContrasts < handle
         end
 
         function contrastStruct = toStruct(obj)
-            % Converts the contrasts class to a struct.
+            % Converts the base contrasts class to a struct.
             % 
             % Returns
             % -------
@@ -439,5 +434,3 @@ classdef (Abstract) baseContrasts < handle
 
     end
 end
-
-

@@ -32,7 +32,7 @@ classdef testCreateProject < matlab.unittest.TestCase
             % Test for correct layers and contrasts
             layerColumns = [{'Name', 'Thickness'}, SLDValues, {'Roughness', 'Hydration', 'Hydrate with'}];
             testCase.verifyEqual(project.layers.varTable.Properties.VariableNames, layerColumns, 'project layers class does not initialise correctly');
-            testCase.verifyEqual(project.contrasts.domainsCalc, domainsCalc, 'project contrasts class does not initialise correctly');
+            testCase.verifyEqual(project.contrasts.isDomains, domainsCalc, 'project contrasts class does not initialise correctly');
 
             % Test setting experiment name
             newName = 'New Project Name';

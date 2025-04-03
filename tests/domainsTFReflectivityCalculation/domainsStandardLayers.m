@@ -33,8 +33,8 @@ function project = domainsStandardLayers()
     project.addLayerGroup({Layer1, Layer2});
     
     
-    project.addDomainContrast('Domain1');
-    project.addDomainContrast('Domain2');
+    project.addDomainContrast(name='Domain1');
+    project.addDomainContrast(name='Domain2');
     
     project.setDomainContrastModel(1,'Domain1 Layer');
     project.setDomainContrastModel(2,'Domain2 Layer');

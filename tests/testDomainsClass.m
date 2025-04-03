@@ -89,13 +89,13 @@ classdef testDomainsClass < matlab.unittest.TestCase
             % the properties are copied over
             testCase.verifyClass(testCase.project, 'domainsClass')
             testCase.verifyEqual(testCase.project.calculationType, calculationTypes.Domains.value, 'Calculation Type not set correctly');
-            testCase.verifyTrue(testCase.project.contrasts.domainsCalc, 'Calculation Type not set correctly')
+            testCase.verifyTrue(testCase.project.contrasts.isDomains, 'Calculation Type not set correctly')
 
             normal = testCase.project.toProjectClass();
             testCase.verifyClass(normal, 'projectClass')
             testCase.verifyEqual(normal.experimentName, testCase.project.experimentName, 'Experiment name not copied correctly');
             testCase.verifyEqual(normal.calculationType, calculationTypes.Normal.value, 'Calculation Type not set correctly');
-            testCase.verifyFalse(normal.contrasts.domainsCalc, 'Calculation Type not set correctly')
+            testCase.verifyFalse(normal.contrasts.isDomains, 'Calculation Type not set correctly')
             testCase.verifyEqual(normal.parameters, testCase.project.parameters, 'Parameters not copied correctly');
             testCase.verifyEqual(normal.layers, testCase.project.layers, 'Layers not copied correctly');
 

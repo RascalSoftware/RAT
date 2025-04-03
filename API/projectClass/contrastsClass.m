@@ -20,7 +20,7 @@ classdef contrastsClass < baseContrasts
 
         function names = getDisplayNames(obj)
             names = ["Name"; "Data"; "Background"; "Background Action"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Repeat Layers"; "Model"];
-            if obj.domainsCalc
+            if obj.isDomains
                 names = [names(1:end-1); "Domain Ratio"; names(end)];
             end
         end
@@ -33,7 +33,11 @@ classdef contrastsClass < baseContrasts
             % field of the contrasts and if it matches nameChange.oldName
             % then this is updated to nameChange.newName
             %
-            % contrasts.updateDataName(nameChange)            
+            % Parameters
+            % ----------
+            % nameChange: struct
+            %     A struct which contains the former name ``oldName`` and the new name ``newName`` of the dataset or 
+            %     an empty array if name is not changed        
             oldName = nameChange.oldName;
             newName = nameChange.newName;
             
@@ -47,13 +51,21 @@ classdef contrastsClass < baseContrasts
         end
         
         function contrastStruct = toStruct(obj, allowedNames, modelType, dataTable)
-            % Convert the contrasts class to a struct.
-            % This routine builds on that in the base class by dealing with
-            % the additional properties defined in this subclass.
-            % The expected input is the allowed names for each parameter,
-            % the model type and the data table from the data class.
-            %
-            % contrasts.toStruct(allowedNames, 'standard layers', dataTable)
+            % Converts the contrasts class to a struct.
+            % 
+            % Parameters
+            % ----------
+            % allowedNames: struct
+            %     A struct containing the valid names that can be referenced in the contrast.
+            % modelType: modelTypes
+            %     The layer model type which can be 'standard layers', 'custom layers', or 'custom xy'.
+            % dataTable: table
+            %     A table from the dataClass containing data.
+            % 
+            % Returns
+            % -------
+            % contrastStruct : struct
+            %     A struct which contains the properties for all the contrast entries.
 
             % Call superclass version for common properties
             contrastStruct = toStruct@baseContrasts(obj);
@@ -86,7 +98,7 @@ classdef contrastsClass < baseContrasts
                     case modelTypes.StandardLayers.value
                         thisModel = thisContrast.model;
                         thisArray = ones(1, length(thisModel));
-                        if obj.domainsCalc
+                        if obj.isDomains
                             for n = 1:length(thisModel)
                                 thisLayerNum = find(strcmpi(thisModel{n}, allowedNames.domainContrastNames));
                                 thisArray(n) = thisLayerNum;
@@ -160,14 +172,22 @@ classdef contrastsClass < baseContrasts
         end
 
         function inputBlock = parseContrastInput(obj, allowedNames, inputValues)
-            % Parse the parameters given for the contrast, assigning
+            % Parses the given keyword/value pairs of properties for the contrast, assigning
             % default values to those unspecified and ensuring specified
             % values are of the correct type, and included in the list of
             % allowed names where necessary.
-            %
-            % contrastsClass.parseContrastInput(allowedNames, ...
-            %                                   'name', 'Contrast Name', ...
-            %                                   'background', 'Background H2O')        
+            % 
+            % Parameters
+            % ----------
+            % allowedNames: struct
+            %     A struct containing the valid names that can be referenced in the contrast.
+            % inputValues: cell
+            %     A cell containing keyword/value pairs of properties for the contrast.
+            % 
+            % Returns
+            % -------
+            % inputBlock : struct
+            %     A struct containing properties of the contrast with empty fields set to default.
             defaultName = '';
             defaultBackground = '';
             defaultBackgroundAction = '';
@@ -201,7 +221,7 @@ classdef contrastsClass < baseContrasts
             addParameter(p,'resample',         defaultResample,           @islogical);
             addParameter(p,'repeatLayers',     defaultRepeatLayers,       @isnumeric);
 
-            if obj.domainsCalc
+            if obj.isDomains
                 defaultDomainRatio = '';
                 expectedDomainRatio = cellstr(allowedNames.domainRatioNames);
                 addParameter(p,'domainRatio',  defaultDomainRatio,       @isText);
@@ -224,11 +244,40 @@ classdef contrastsClass < baseContrasts
             end
 
             inputBlock.model = obj.validateContrastModel(inputBlock.model, allowedNames);
-            if obj.domainsCalc
+            if obj.isDomains
                 inputBlock.domainRatio = obj.validateExactString(inputBlock.domainRatio, expectedDomainRatio);
             end
         end
 
+            
+        function contrast = setDefaultValues(~, contrast)
+            % Sets default values to empty fields when adding a contrast.
+            % 
+            % Parameters
+            % ----------
+            % contrast: struct
+            %     A struct containing properties of the contrast.
+            % 
+            % Returns
+            % -------
+            % contrast : struct
+            %     A struct containing properties of the contrast with empty fields set to a default.
+            if ~isempty(contrast.model)
+                contrast.model = cellstr(contrast.model);
+            end
+
+            if isempty(contrast.backgroundAction)
+                contrast.backgroundAction = backgroundActions.Add.value;
+            else
+                contrast.backgroundAction = validateOption(contrast.backgroundAction, 'backgroundActions',...
+                        sprintf('backgroundAction must be a actions enum or one of the following strings (%s)', strjoin(backgroundActions.values(), ', '))).value;
+            end
+
+            if isempty(contrast.resample)
+                contrast.resample = false;
+            end
+
+        end
     end
 
     methods(Access = private)
@@ -282,7 +331,7 @@ classdef contrastsClass < baseContrasts
                     throw(exceptions.invalidValue('At least one layer must be added to the contrast model in a standard layers project. Did you forget to add the layers?'));
                 end
                
-                if obj.domainsCalc && length(inputArray) ~= 2
+                if obj.isDomains && length(inputArray) ~= 2
                     throw(exceptions.invalidValue('Exactly two model values are required for ''standard layers'' with domains'));
                 end
             end

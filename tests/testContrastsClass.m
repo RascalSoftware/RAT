@@ -259,12 +259,12 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % Standard calculation
             testClass = contrastsClass();
             testCase.verifyEqual(testClass.contrasts, {}, 'contrastsClass does not initialise correctly');
-            testCase.verifyFalse(testClass.domainsCalc);
+            testCase.verifyFalse(testClass.isDomains);
 
             % Domains Calculation
             testDomainsClass = contrastsClass(domains=true);
             testCase.verifyEqual(testDomainsClass.contrasts, {}, 'contrastsClass does not initialise correctly');
-            testCase.verifyTrue(testDomainsClass.domainsCalc);
+            testCase.verifyTrue(testDomainsClass.isDomains);
         end
 
         function testInitialiseContrastsClassIllogical(testCase)

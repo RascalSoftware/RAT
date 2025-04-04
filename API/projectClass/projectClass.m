@@ -284,7 +284,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             if isa(obj.layers, 'layersClass')
                 % If the input is wrapped in a cell (so varargin is a cell of a cell)
                 % need to unwrap one layer of it, otherwise keep varargin as it is
-                if length(varargin) == 1 && iscell(varargin{:})
+                if isscalar(varargin) && iscell(varargin{:})
                     thisLayer = varargin{:};
                 else
                     thisLayer = varargin;
@@ -1627,11 +1627,12 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
 
             for i=1:obj.contrasts.numberOfContrasts
 
-                reducedStruct = rmfield(obj.contrasts.contrasts{i}, {'resample', 'model'});
+                reducedStruct = rmfield(obj.contrasts.contrasts{i}, {'resample', 'repeatLayers', 'model'});
                 contrastParams = string(namedargs2cell(reducedStruct));
                 contrastSpec = options.objName + ".addContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
                 script = script + sprintf(contrastSpec, contrastParams);
                 script = script + sprintf(options.objName + ".setContrast(%d, 'resample', %s);\n", i, string(obj.contrasts.contrasts{i}.resample));
+                script = script + sprintf(options.objName + ".setContrast(%d, 'repeatLayers', %s);\n", i, string(obj.contrasts.contrasts{i}.repeatLayers));
                 if ~isempty(obj.contrasts.contrasts{i}.model)
                     script = script + sprintf(options.objName + ".setContrast(%d, 'model', {" + join(repmat("'%s'", 1, length(obj.contrasts.contrasts{i}.model))) +"});\n", i, obj.contrasts.contrasts{i}.model{:});
                 end

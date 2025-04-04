@@ -141,6 +141,10 @@ classdef contrastsClass < baseContrasts
                 end
             end
 
+            if ~strcmpi(modelType, modelTypes.StandardLayers.value) && any(contrastRepeatLayers)
+                warning("Repeat Layers are only supported for standard layers calculations")
+            end
+
             contrastStruct.contrastLayers = contrastLayers;
             contrastStruct.contrastCustomFile = contrastCustomFile;
             contrastStruct.contrastDomainRatios = contrastDomainRatios;

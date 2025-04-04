@@ -143,7 +143,7 @@ classdef (Abstract) baseContrasts < handle
             % Note that the model can only be set here, and not in
             % "addContrast" or "setContrast".
             %
-            % contrasts.setContrastModel(1, 'standard layers', allowedNames, 'Oxide Model')
+            % contrasts.setContrastModel(1, allowedNames, 'Oxide Model')
             obj.setContrast(row, allowedNames, 'model', model);
 
         end

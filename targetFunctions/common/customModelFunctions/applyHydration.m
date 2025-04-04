@@ -10,7 +10,7 @@ layersSize = size(layers);     % [nlayers x nCols]
 if  layersSize(2) == 6   % we need to calculate the hydrated SLD
 
     for i = 1:layersSize(1)
-        hydration = 0.01 * layers(i,5);   % Assume percent for backwards compatability
+        hydration = 0.01 * layers(i,5);   % Assume percent for backwards compatibility
 
         % Index 6 determines what we hydrate with
         if layers(i,6) == 1

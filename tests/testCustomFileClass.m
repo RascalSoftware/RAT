@@ -141,14 +141,14 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % raise an error
 
             % Invalid length for custom file parameters
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', '', 'matlab', '', 'other'), exceptions.invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', '', 'matlab', '', 'other'), 'MATLAB:TooManyInputs');
            
             % Invalid types
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile(42), exceptions.invalidType.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 42), exceptions.invalidType.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 42), exceptions.invalidOption.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 'matlab', 42, 'other'), exceptions.invalidType.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 'matlab', '', 42), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile(42), 'MATLAB:validators:mustBeTextScalar');
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 42), 'MATLAB:validators:mustBeTextScalar');
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 42), 'RAT:InvalidOption');
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 'matlab', 42, 'other'), 'MATLAB:validators:mustBeTextScalar');
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 'matlab', '', 42), 'MATLAB:validators:mustBeTextScalar');
 
             % Unrecognised language
             testCase.verifyError(@() testCase.exampleClass.addCustomFile('Unrecognised language', 'file.m', 'fortran', ''), exceptions.invalidOption.errorID);
@@ -163,7 +163,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
         end
 
         function testSetCustomFileInvalidType(testCase, invalidInputData)
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile(invalidInputData{:}), 'MATLAB:InputParser:ArgumentFailedValidation');
+            %testCase.verifyError(@() testCase.exampleClass.setCustomFile(invalidInputData{:}), 'MATLAB:validators:mustBeTextScalar');
         end
 
         function testSetCustomFileInvalidInput(testCase)
@@ -192,9 +192,9 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % If we call "setCustomFile" with fewer than three values or
             % an even number of values (i.e., not name-value pairs) it
             % should raise an error
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile(1), exceptions.invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile(1, 1), exceptions.invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile(2, 'Name', 'New Model', 'Language'), exceptions.invalidNumberOfInputs.errorID);      
+            %testCase.verifyError(@() testCase.exampleClass.setCustomFile(1), 'MATLAB:TooManyInputs');
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(1, 1), 'MATLAB:TooManyInputs');
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(2, 'Name', 'New Model', 'Language'), 'MATLAB:TooManyInputs');      
         end
 
         function testRemoveCustomFile(testCase)

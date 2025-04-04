@@ -1,7 +1,6 @@
 classdef (Abstract) tableUtilities < handle
-
-    % This class holds the common routines for handling table entries
-
+    % This class holds the common routines for handling table entries.
+    
     properties
         varTable = table
     end
@@ -21,19 +20,31 @@ classdef (Abstract) tableUtilities < handle
         end
 
         function names = getNames(obj)
-            % Get a string array of the names of each of the objects
-            % defined in the class.
-            %
-            % customFiles.getNames()
+            % Returns a N x 1 cell array of names in the first column of varTable. 
+            % 
+            % Returns
+            % -------
+            % names : cell
+            %     A cell array which contains the names in the first column of varTable.
             names = obj.varTable{:,1};  
         end
         
         function addRow(obj, varargin)
-            % Appends a new row to the table. Expects a cell array  
-            % with the row to append
+            % Appends a new entry to the table.
             % 
-            % obj.addRow('Tails', 10, 20, 30, true, 'uniform', 0, Inf)
-            % Ensure no duplicate names
+            % Examples
+            % -------- 
+            % >>> obj.addRow({'Tails', 10, 20, 30, true, 'uniform', 0, Inf});
+            % 
+            % Parameters
+            % ----------
+            % varargin : cell
+            %     A cell array with the contents to append.
+            % 
+            % Raises
+            % ------
+            % duplicateName
+            %     If name of the entry (first column), is a duplicate.
             if any(strcmpi(varargin{1}, obj.varTable{:,1}))
                 throw(exceptions.duplicateName('Duplicate row names not allowed'));
             end
@@ -43,52 +54,47 @@ classdef (Abstract) tableUtilities < handle
         end
 
         function removeRow(obj, row)
-            % Removes a row from the table. The expected input is an
-            % integer/string or integer/string array.
-            % NOTE that an input such as [1 3] leads to multiple rows
-            % being removed from the table
+            % Removes a given row from the table by index or name.
             %
-            % varTable.removeRow(2);
+            % Examples
+            % --------
+            % To remove the second row in the table.  
+            % 
+            % >>> obj.removeRow(2);
+            % 
+            % To remove row with a specific name.
+            % 
+            % >>> obj.removeData('Data D2O');
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number to remove. If it is text, 
+            %     it is the name of the row to remove.
+            % 
+            % Raises
+            % ------
+            % indexOutOfRange
+            %     If ``row`` is an integer and it is less than 1 or more than the number of parameters.
             arguments
                 obj
                 row
             end
-
-            % Arrange parameters into a cell array
-            if isa(row, 'double')
-
-                indices = row;
-
-            elseif isText(row) || iscell(row)
-
+            if iscell(row)
                 row = cellstr(row);
                 indices = zeros(1, length(row));
-
-                rowNames = obj.getNames;
                 for i = 1:length(row)
-                    currentRow = row{i};
-                    indices(i) = obj.findRowIndex(currentRow, rowNames, 'Unrecognised parameter name');
+                    indices(i) = obj.getValidRow(row{i});
                 end
-
             else
-
-                throw(exceptions.invalidType('Unrecognised Row'))
-
+                indices = obj.getValidRow(row);
             end
-
-            for i = 1:length(indices)
-                if indices(i) < 1 || indices(i) > obj.rowCount
-                    throw(exceptions.indexOutOfRange(sprintf('Row index %d out of range 1 - %d', indices(i), obj.rowCount)));
-                end
-            end
-
+            
             obj.varTable(indices, :) = [];
         end
 
         function displayTable(obj)
-            % Displays the param table with numbered rows
-            %
-            % layers.displayTable()
+            % Prints the varTable to the console.
             numParams = height(obj.varTable);
             dim = [1, width(obj.varTable)];
             
@@ -105,31 +111,91 @@ classdef (Abstract) tableUtilities < handle
             disp(newTable);
         end
 
+        function index = getValidRow(obj, row)
+            % Gets a valid row index from varTable, if ``row`` is a name; or validates the index, if ``row`` is an integer.
+            % 
+            % Examples
+            % --------
+            % To validate a row index is in table bounds.
+            % 
+            % >>> index = obj.getValidRow(2);
+            % 
+            % To find the index for a name.
+            % 
+            % >>> index = obj.getValidRow('Tails');
+            %
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
+            %     it is the name of the parameter to update.
+            % 
+            % Returns
+            % -------
+            % index : whole number
+            %     A valid row index.
+            % 
+            % Raises
+            % ------
+            % indexOutOfRange
+            %     If ``row`` is an integer and it is less than 1 or more than the number of parameters.
+            % nameNotRecognised
+            %     If ``row`` is a parameter name and it cannot be found in the table.
+            % invalidType
+            %     If ``row`` is not a text or whole number.
+            if isText(row)
+                index = obj.findRowIndex(row, obj.getNames(), sprintf('The row name "%s" is not recognised.', row));
+            elseif isnumeric(row) && all(mod(row, 1) == 0)
+                index = row;
+                for i = 1:length(row)    
+                    if (row(i) < 1) || (row(i) > obj.rowCount)
+                        throw(exceptions.indexOutOfRange(sprintf('Row index "%d" is out of range (1 - %d).', row(i), obj.rowCount)));
+                    end
+                end
+            else
+                throw(exceptions.invalidType('Row should be a text or whole number.'));
+            end
+        end 
     end
 
-    methods(Static)
+    methods(Access = protected)
         
-        function row = findRowIndex(name, rowNames, errorMessage)
-            % Find the index of a row in the table given its name.
-            % The expected inputs are the name of the row, the
-            % full list of row names, and, optionally, an error message.
+        function index = findRowIndex(~, name, nameList, errorMessage)
+            % Find the index of a name from a list of names.
             %
-            % obj.findRowIndex('param')
+            % Examples
+            % --------
+            % >>> index = obj.findRowIndex('param', obj.getNames(), 'Error occurred');
+            %
+            % Parameters
+            % ----------
+            % row : string or char array
+            %     The name to find.
+            % nameList : cell
+            %     A cell array containing a set of names.
+            % errorMessage : string or char array
+            %     Error message for when name is not found.
+            % 
+            % Raises
+            % ------
+            % nameNotRecognised
+            %     If a name cannot be found in the given list of names.
             arguments
+                ~
                 name {mustBeTextScalar}
-                rowNames {mustBeText}
-                errorMessage {mustBeTextScalar} = 'The given name is not recognised'
+                nameList {mustBeText}
+                errorMessage {mustBeTextScalar}
             end
 
             % Strip leading or trailing whitespaces from names
-            rowNames = strip(rowNames);
+            nameList = strip(nameList);
             name = strip(name);
 
             % Compare 'name' to list ignoring case
-            index = strcmpi(name, rowNames);
+            index = strcmpi(name, nameList);
             if any(index)
                 % Non-zero value in array is the row index
-                row = find(index);
+                index = find(index);
             else
                 throw(exceptions.nameNotRecognised(errorMessage));
             end

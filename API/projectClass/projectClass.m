@@ -211,10 +211,21 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         % Editing of layers block
         %----------------------------------------------------------------------------
         function obj = addLayerGroup(obj, layerGroup)
-            % Adds a group of layers to the layers object. Expects 
-            % a cell array of layer cell arrays
+            % Adds a group of layers to the project.
+            %              
+            % Examples
+            % --------
+            % >>> firstLayer = {'Water Layer', 'Water thickness', 'Water SLD', 'Bilayer heads roughness', 'Water hydration', 'Bulk out'};
+            % >>> secondLayer = {'Layer 1', 'Layer thickness', 'Layer Real SLD', 'Layer Imaginary SLD', 'Layers roughness, 'Layer hydration', 'Bulk in'}; 
+            % >>> project.addLayerGroup({firstLayer, secondLayer});
+            %  
+            % Parameters
+            % ----------
+            % layerGroup : cell of cell array
+            %     The inner cells should contain the properties of the layers to add. 
             %
             % project.addLayerGroup({{'Layer 1'}, {'Layer 2'}});
+            
             if isa(obj.layers, 'layersClass')
                 for i = 1:length(layerGroup)
                     if iscell(layerGroup{i})
@@ -229,12 +240,47 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         end
         
         function obj = addLayer(obj, varargin)
-            % Adds a single layer to the layers object. Expects layer
-            % details which are name, thickness, SLD, roughness,
-            % hydration, and hydrate with, or provide with no details,
-            % or just a name, to create an empty layer.
+            % Adds a new layer to the project. This method can be called in 2 ways. The first for when ``absorption`` is false  
             %
-            % project.addLayer('New Layer');
+            % ``addLayer(name, thickness, realSLD, roughness, hydration, hydrateWith)``
+            % 
+            % and the second includes an extra argument imaginarySLD for when ``absorption`` is true.
+            % 
+            % ``addLayer(name, thickness, realSLD, imaginarySLD, roughness, hydration, hydrateWith)``
+            %
+            % Examples
+            % --------
+            % To add a new layer with name only.
+            % 
+            % >>> project.addLayer(, 'New layer');
+            % 
+            % To add a new layer when ``absorption`` is false.
+            % 
+            % >>> project.addLayer('Water Layer', 'Water thickness', 'Water SLD', 'Bilayer heads roughness', 'Water hydration', 'Bulk out');
+            % 
+            % To add a new layer when ``absorption`` is true.
+            % 
+            % >>> project.addLayer('Layer 1', 'Layer thickness', 'Layer Real SLD', 'Layer Imaginary SLD', 'Layers roughness, 'Layer hydration', 'Bulk in');
+            %  
+            % Parameters
+            % ----------
+            % name : string or char array, default: auto-generated name
+            %     The name of this layer.
+            % thickness : string or char array or whole number, default: ''
+            %     The name (or the row index) of the parameter describing the thickness of this layer.
+            % realSLD : string or char array or whole number, default: ''
+            %     The name (or the row index) of the parameter describing the real (scattering) term
+            %     for the scattering length density of this layer.
+            % imaginarySLD : string or char array or whole number, default: ''
+            %     The name (or the row index) of the parameter describing the imaginary (absorption) term
+            %     for the scattering length density of this layer.
+            % roughness : string or char array or whole number, default: ''
+            %     The name (or the row index) of the parameter describing the roughness of this layer.
+            % hydration : string or char array or whole number, default: ''
+            %     The name (or the row index) of the parameter describing the percent hydration for the layer
+            % hydrateWith : hydrationTypes, default: hydrationTypes.BulkOut
+            %     Whether the layer is hydrated with the "bulk in" or "bulk out".
+
             if isa(obj.layers, 'layersClass')
                 % If the input is wrapped in a cell (so varargin is a cell of a cell)
                 % need to unwrap one layer of it, otherwise keep varargin as it is
@@ -256,11 +302,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % --------
             % To remove the second layer in the table (layer in row 2).  
             % 
-            % >>>  project.removeLayer(2);
+            % >>> project.removeLayer(2);
             % 
             % To remove layer with a specific name.
             % 
-            % >>>  project.removeLayer('D2O');
+            % >>> project.removeLayer('D2O');
             % 
             % Parameters
             % ----------
@@ -275,11 +321,38 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         end
 
         function obj = setLayerValue(obj, row, col, value)
-            % Sets a value of a given layer. Expects the row/name and
-            % column of layer value to set, then the name/index of the 
-            % parameter to set the value to.
+            % Change the value of a given layer parameter in the project (excluding the layer name).
+            %
+            % Examples
+            % --------
+            % To update the thickness of the second layer in the table (layer in row 2).
             % 
-            % project.setLayerValue(1, 2, 'Tails Thickness');
+            % >>> project.setLayerValue(2, 2, 'New thickness', paramNames);
+            % 
+            % The same can be achieved using names, to change the 'Thickness' of 'Layer 1'.
+            % 
+            % >>> project.setLayerValue('Layer 1', 'Thickness', 'New thickness');
+            % 
+            % Note that the number of columns change depending on whether ``absorption`` is true or false so the column indices will change also. 
+            % For example, the code below will update 'Roughness' if ``absorption`` is false, otherwise it will update the Imaginary SLD. So it is 
+            % recommended to use column names to ensure the correct change.
+            % 
+            % >>> project.setLayerValue(2, 4, 'New Roughness'); 
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row of the layer to update. If it is text, 
+            %     it is the name of the layer to update.
+            % col : string or char array or whole number
+            %     If ``col`` is an integer, it is the column of layer to update. If it is text, 
+            %     it is the name of the column to update. The column names are the following: 'Name', 'Thickness', 
+            %     'SLD', 'Roughness', 'Hydration', 'Hydrate with'. If ``absorption`` is true, the 'SLD' column is replaced 
+            %     with 'SLD Imaginary', and 'SLD Real'.
+            % inputValue : string or char array or whole number
+            %     The name (or row index) of a parameter to replace the one in specified row and column. 
+            % paramNames: cell
+            %     A cell array which contains the valid names of parameters.
             if isa(obj.layers, 'layersClass')
                 obj.layers.setLayerValue(row, col, value, obj.parameters.varTable{:,1});
             else
@@ -287,8 +360,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             end
         end
         
-        % ---------------------------------------------------------------
-        
+        % --------------------------------------------------------------- 
         % Editing of Backgrounds block
         
         
@@ -351,11 +423,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % --------
             % To remove the second background parameter in the table (parameter in row 2).  
             % 
-            % >>>  project.removeBackgroundParam(2);
+            % >>> project.removeBackgroundParam(2);
             % 
             % To remove background parameter with a specific name.
             % 
-            % >>>  project.removeBackgroundParam('Background Value D2O');
+            % >>> project.removeBackgroundParam('Background Value D2O');
             % 
             % Parameters
             % ----------
@@ -526,7 +598,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         end
         
         % -------------------------------------------------------------
-        %   Editing of Resolutions block
+        % Editing of Resolutions block
         
         % Resolution Params       
         function obj = addResolutionParam(obj, name, min, value, max, fit, priorType, mu, sigma)
@@ -756,14 +828,43 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         end
         
         % ------------------------------------------------------------
-        %   Editing of Data block
+        % Editing of Data block
         
-        function obj = addData(obj, varargin)
-            % Adds a new data parameter. Expects the name
-            % of data and the data array
+        function obj = addData(obj, name, data, dataRange, simRange)
+            % Adds a new dataset to the project.
             % 
-            % project.addData('Sim 2', data);
-            obj.data.addData(varargin{:});
+            % Examples
+            % --------
+            % To add a new dataset with name only.
+            % 
+            % >>> project.addData('Data 1');
+            % 
+            % To add dataset with name and data.
+            % 
+            % >>> project.addData('Data 1', [1, 0, 0; 2, 0, 0; 3, 0, 0; 4, 0, 0]);
+            % 
+            % To add dataset with name, data and the ranges.
+            % 
+            % >>> project.addData('Data 1', [1, 0, 0; 2, 0, 0; 3, 0, 0; 4, 0, 0], [2, 3], [1, 4]);
+            % 
+            % Parameters
+            % ----------
+            % name : string or char array, default: auto-generated name
+            %     The name of the dataset.
+            % data : float, default: []
+            %     3 or 4 column data for the dataset, the data should have (x, y, error) columns and may have optional resolution column.
+            % dataRange : float, default: [data(1, 1), data(end, 1)] or [] if no data 
+            %     The minimum and maximum range of ``data`` to use from the dataset. 
+            % simRange : float, default: [0.005, 0.7]
+            %     The minimum and maximum range to use for simulation.
+            arguments
+                obj
+                name {mustBeTextScalar} = ''
+                data {mustBeNumeric} = []
+                dataRange {mustBeNumeric} = []
+                simRange {mustBeNumeric} = []
+            end
+            obj.data.addData(name, data, dataRange, simRange);
         end
         
         function obj = removeData(obj, row)
@@ -773,11 +874,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % --------
             % To remove the second dataset in the table (dataset in row 2).  
             % 
-            % >>>  project.removeData(2);
+            % >>> project.removeData(2);
             % 
             % To remove dataset with a specific name.
             % 
-            % >>>  project.removeData('D2O');
+            % >>> project.removeData('D2O');
             % 
             % Parameters
             % ----------
@@ -787,12 +888,39 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             obj.data.removeData(row);
         end
         
-        function obj = setData(obj, varargin)
-            % Edits an existing data parameter. Expects the
-            % index of data to edit and key-value pairs
+        function obj = setData(obj, row, options)
+            % General purpose method for updating properties of an existing dataset.
             %
-            % project.setData(1, 'name', 'Sim 1', 'data', zeros(4, 3));
-            nameChanged = obj.data.setData(varargin{:});
+            % Examples
+            % --------
+            % To change the name and data of the second dataset in the table (dataset in row 2).
+            % 
+            % >>> project.setData(2, name='Data 1', data=[1, 0, 0; 2, 0, 0; 3, 0, 0; 4, 0, 0]);
+            % 
+            % To change the properties of a dataset called 'Data 1'.
+            % 
+            % >>> project.setData('Data 1', name='Data H2O', dataRange=[2, 3]);
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the dataset to update. If it is text, 
+            %     it is the name of the dataset to update.
+            % options
+            %    Keyword/value pair to properties to update for the specific dataset.
+            %       * name (char array or string, default: '') the new name of the dataset.
+            %       * data (float, default: []) the new data array.
+            %       * dataRange (float, default: []) the new data range.
+            %       * simRange (float, default: []) the new simulation range.
+            arguments
+                obj
+                row
+                options.name {mustBeTextScalar} = ''
+                options.data {mustBeNumeric} = []
+                options.dataRange {mustBeNumeric} = []
+                options.simRange {mustBeNumeric} = []
+            end
+            nameChanged = obj.data.setData(row, name=options.name, data=options.data, dataRange=options.dataRange, simRange=options.simRange);
             
             if ~isempty(nameChanged)
                 obj.contrasts.updateDataName(nameChanged);
@@ -802,12 +930,45 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         % -----------------------------------------------------------------
         % Editing of custom models block
         
-        function obj = addCustomFile(obj, varargin)            
-            % Adds a new custom file parameter. Expects a parameter name, filename, 
-            % language (matlab, octave, or cpp), and working directory
+        function obj = addCustomFile(obj, name, filename, language, path, functionName)            
+            % Adds a new custom file to the project. For MATLAB, the provided file must 
+            % be in the matlab path when running.
             % 
-            % project.addCustomFile('model 1', 'custom.m', 'matlab', pwd);
-            obj.customFile.addCustomFile(varargin{:});
+            % Examples
+            % --------
+            % To add a new custom file entry with name only.
+            % 
+            % >>> project.addCustomFile('custom file 1');
+            % 
+            % To add custom file with name, and filename.
+            % 
+            % >>> project.addCustomFile('custom file 1', 'customBilayer.m');
+            % 
+            % To add a Python custom files.
+            % 
+            % >>> project.addCustomFile('custom file 1', 'customBilayer.py', 'python', 'C:/stuff', 'custom_bilayer);
+            % 
+            % Parameters
+            % ----------
+            % name : string or char array, default: auto-generated name
+            %     The name of this custom file object.
+            % filename : string or char array, default: ''
+            %     The name of the file containing the custom function.
+            % language : supportedLanguages, default: supportedLanguages.Matlab
+            %     What language the custom function is written in: 'matlab', 'python', or 'cpp' (via a dynamic library) 
+            % path : string or char array, default: ''
+            %     The path to the custom file.
+            % functionName : string or char array, default: ''
+            %     The name of the custom function within the file.
+            arguments
+                obj
+                name {mustBeTextScalar} = ''
+                filename {mustBeTextScalar} = ''
+                language  = supportedLanguages.Matlab
+                path {mustBeTextScalar} = ''
+                functionName {mustBeTextScalar} = '' 
+            end
+            obj.customFile.addCustomFile(name, filename, language, path, functionName);
         end
 
         function obj = removeCustomFile(obj, row)
@@ -817,11 +978,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % --------
             % To remove the second custom file in the table (custom file in row 2).  
             % 
-            % >>>  project.removeCustomFile(2);
+            % >>> project.removeCustomFile(2);
             % 
             % To remove custom file with a specific name.
             % 
-            % >>>  project.removeCustomFile('custom file 1');
+            % >>> project.removeCustomFile('custom file 1');
             % 
             % Parameters
             % ----------
@@ -831,18 +992,47 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             obj.customFile.removeRow(row);
         end
 
-        function obj = setCustomFile(obj, row, varargin)
-            % Edits an existing custom file parameter. Expects the
-            % index of custom file to edit and key-value pairs
+        function obj = setCustomFile(obj, row, options)
+            % General purpose method for updating properties of an existing custom file.
             %
-            % project.setCustomFile(2, 'filename', 'custom.cpp');
-            obj.customFile.setCustomFile(row, varargin{:});
+            % Examples
+            % --------
+            % To change the name and filename of the second custom file in the table (custom file in row 2).
+            % 
+            % >>> file.setCustomFile(2, name='custom file 1', filename='customFunction.m');
+            % 
+            % To change the properties of a custom file called 'custom file 1'.
+            % 
+            % >>> file.setCustomFile('custom file 1', name='new custom file', filename='customFunction.py', language='python');
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the custom file to update. If it is text, 
+            %     it is the name of the custom file to update.
+            % options
+            %    Keyword/value pair to properties to update for the specific custom file.
+            %       * name (char array or string, default: '') the new name of the custom file.
+            %       * filename (char array or string, default: '') the new filename of the custom file.
+            %       * language (supportedLanguages, default: supportedLanguages.empty()) the new language of the custom file.
+            %       * path (char array or string, default: '') the new path of the custom file.
+            %       * functionName (char array or string, default: ') the new function name of the custom file.
+            arguments
+                obj
+                row
+                options.name {mustBeTextScalar} = ''
+                options.filename {mustBeTextScalar} = ''
+                options.language = supportedLanguages.empty()
+                options.path {mustBeTextScalar} = ''
+                options.functionName {mustBeTextScalar} = '' 
+            end
+            obj.customFile.setCustomFile(row, name=options.name, filename=options.filename, language=options.language, ...
+                                         path=options.path, functionName=options.functionName);
         end
         
         
         % ----------------------------------------------------------------
-        %
-        %   Editing of Contrasts Block
+        % Editing of Contrasts Block
         
         function obj = addContrast(obj, varargin)
             % Adds a new contrast parameter. Expects a parameter name, and with 
@@ -861,11 +1051,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % --------
             % To remove the second contrast in the table (contrast in row 2).  
             % 
-            % >>>  project.removeContrast(2);
+            % >>> project.removeContrast(2);
             % 
             % To remove contrast with a specific name.
             % 
-            % >>>  project.removeContrast('contrast 1');
+            % >>> project.removeContrast('contrast 1');
             % 
             % Parameters
             % ----------

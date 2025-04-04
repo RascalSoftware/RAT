@@ -12,7 +12,7 @@ project = projectClass('Orso lipid example');
 % in terms of thickness, SLD, roughness and hydration. These are then grouped 
 % into layers and the allocated to contrasts in the normal RasCAl way. For this 
 % sample, we have a DSPC bilayer on a Silicon substrate, which will  be coated 
-% by an oxide layer. Ususally there is a hydration layer between the substrate 
+% by an oxide layer. Usually there is a hydration layer between the substrate 
 % and the lipid, although this depends on the exact conditions of the measurement. 
 % Start by defining the parameters for the oxide layer. We need a thickness, SLD 
 % and hydration. The roughness is assumed to be the bulk substrate roughness.
@@ -43,9 +43,9 @@ Parameters = {
 % can have mostly the same values for the inner and outer tails and heads. We 
 % have to be a bit careful with roughness' however, since we want to have a slightly 
 % different roughness for the head/water interface and the head/alkyl interface, 
-% and for layer model in this geometry the roughnes for each layer refers to the 
+% and for layer model in this geometry the roughness for each layer refers to the 
 % next interface. So we'll make separate layers for inner and outer lipids, but 
-% all sharing the same parameters, and just differeing in the roughness order.
+% all sharing the same parameters, and just differing in the roughness order.
 % 
 % Define the parameters we will need:
 

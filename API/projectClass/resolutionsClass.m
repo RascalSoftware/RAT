@@ -24,8 +24,9 @@ classdef resolutionsClass < handle
     % ----------
     % resolutionParams : parameterClass
     %     The resolution parameters.
-    % resolutions = multiTypeTable
+    % resolutions : multiTypeTable
     %     A custom table object that contains the resolution entries.
+    
     properties   
        resolutionParams 
        resolutions
@@ -193,17 +194,7 @@ classdef resolutionsClass < handle
                 options.value4 {mustBeScalarTextOrWholeNumber} = ''
                 options.value5 {mustBeScalarTextOrWholeNumber} = ''
             end
-            
-            if isText(row)
-                row = obj.resolutions.findRowIndex(row, obj.getNames(), 'Unrecognised resolution');
-            elseif isnumeric(row)
-                count = obj.resolutions.rowCount;
-                if (row < 1) || (row > count)
-                    throw(exceptions.indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, count)));
-                end
-            else
-                throw(exceptions.invalidType('Unrecognised row'));
-            end
+            row = obj.resolutions.getValidRow(row);
             
             defaults = obj.resolutions.varTable{row, :};
             fields = fieldnames(options);

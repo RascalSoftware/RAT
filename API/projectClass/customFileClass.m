@@ -1,11 +1,40 @@
 classdef customFileClass < tableUtilities
+    % ``customFileClass`` manages the custom files for the project. It provides methods to add, update and remove custom files.
+    % Each custom file is stored as a row in a table and consists of a name, the filename of the custom file, the language of the 
+    % file, the path where the file is located, and the name of the function in the file to call.
+    %
+    % Examples
+    % --------
+    % If no arguments are provided, the object is created with an empty table.
+    % 
+    % >>> file = customFileClass();
+    % 
+    % Otherwise, the arguments are used to create the first custom file.
+    % 
+    % >>> file = customFileClass('custom file 1', 'customBilayer.m', 'matlab');
+    %
+    % Parameters
+    % ----------
+    % name : string or char array, default: ''
+    %     The name of this custom file object.
+    % filename : string or char array, default: ''
+    %     The name of the file containing the custom function.
+    % language : supportedLanguages, default: supportedLanguages.Matlab
+    %     What language the custom function is written in: 'matlab', 'python', or 'cpp' (via a dynamic library) 
+    % path : string or char array, default: ''
+    %     The path to the custom file.
+    % functionName : string or char array, default: ''
+    %     The name of the custom function within the file.
+    %
+    % Attributes
+    % ----------
+    % varTable : table
+    %     A table object that contains the custom file entries.
     
-    % A container class for holding custom files for either
-    % models, backgrounds or resolutions.
-   properties (SetAccess = private, Hidden = true)
+    properties (SetAccess = private, Hidden = true)
         wrappers = {}
         canShowWarning = false; % ensures conflict warning only shows once if no change occurs
-   end
+    end
 
     properties(Access = private, Constant, Hidden)
         invalidLanguageMessage = sprintf('Language must be a supportedLanguages enum or one of the following strings (%s)', ...
@@ -15,112 +44,72 @@ classdef customFileClass < tableUtilities
     
     methods
         
-        function obj = customFileClass(varargin)
-            % Construct a custom file class containing either an empty
-            % table or one with a single row.
-            % No input is required for an empty table, otherwise the
-            % parameters for the first row should be provided.
-            %
-            % customFiles = customFileClass()           
+        function obj = customFileClass(name, filename, language, path, functionName)
+            arguments
+                name {mustBeTextScalar} = ''
+                filename {mustBeTextScalar} = ''
+                language  = supportedLanguages.Matlab
+                path {mustBeTextScalar} = ''
+                functionName {mustBeTextScalar} = '' 
+            end         
             sz = [0 5];
             varTypes = {'string','string','string','string','string'};
             varNames = {'Name','Filename','Function Name','Language','Path'};
             obj.varTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
 
-            if ~isempty(varargin)
-                obj.addCustomFile(varargin{:});
+            if ~isempty(name)
+                obj.addCustomFile(name, filename, language, path, functionName);
             end          
         end
 
-        function delete(obj)
-            % Destroys the wrappers
-            for i=1:length(obj.wrappers) 
-                delete(obj.wrappers{i});
+        function obj = addCustomFile(obj, name, filename, language, path, functionName)
+            % Adds a new custom file to the file table. For MATLAB, the provided file must 
+            % be in the matlab path when running.
+            % 
+            % Examples
+            % --------
+            % To add a new custom file entry with name only.
+            % 
+            % >>> file.addCustomFile('custom file 1');
+            % 
+            % To add custom file with name, and filename.
+            % 
+            % >>> file.addCustomFile('custom file 1', 'customBilayer.m');
+            % 
+            % To add a Python custom files.
+            % 
+            % >>> file.addCustomFile('custom file 1', 'customBilayer.py', 'python', 'C:/stuff', 'custom_bilayer);
+            % 
+            % Parameters
+            % ----------
+            % name : string or char array, default: auto-generated name
+            %     The name of this custom file object.
+            % filename : string or char array, default: ''
+            %     The name of the file containing the custom function.
+            % language : supportedLanguages, default: supportedLanguages.Matlab
+            %     What language the custom function is written in: 'matlab', 'python', or 'cpp' (via a dynamic library) 
+            % path : string or char array, default: ''
+            %     The path to the custom file.
+            % functionName : string or char array, default: ''
+            %     The name of the custom function within the file.
+            arguments
+                obj
+                name {mustBeTextScalar} = ''
+                filename {mustBeTextScalar} = ''
+                language  = supportedLanguages.Matlab
+                path {mustBeTextScalar} = ''
+                functionName {mustBeTextScalar} = '' 
             end
-            obj.wrappers = {};
-        end
-
-        function obj = addCustomFile(obj, varargin)
-            % Add an entry to the file table.
-            % A custom file entry can be added with no parameters, just the
-            % name of the custom file entry, the name of the entry
-            % alongside a filename, or can be fully defined by specifying
-            % the name of the custom file entry, filename, language, 
-            % file path, and function name. For MATLAB, the provided path must 
-            % be in the matlab path
-            %
-            % customFiles.addCustomFile()
-            % customFiles.addCustomFile('New Row')
-            % customFiles.addCustomFile('New Row', 'file.m')
-            % customFiles.addCustomFile('New Row', 'file.m', 'matlab')
-            % customFiles.addCustomFile('New Row', 'file.py', 'python', 'C:/stuff')
-            % customFiles.addCustomFile('New Row', 'file.py', 'python', 'C:/stuff', 'py_function')
-            newFile = '';
-            newLang = supportedLanguages.Matlab.value;
-            newPath = '';
-            newFunc = '';
-            if isempty(varargin)
+            newName = name;
+            newFile = filename;
+            newLang = language;
+            newPath = path;
+            newFunc = functionName;
+            
+            if isempty(name)
                 % Nothing supplied - add empty data row
                 nameVal = obj.autoNameCounter();
                 newName = sprintf('New custom file %d', nameVal);
-            else
-                inputs = varargin;
-                newName = inputs{1};
-                
-                if ~isText(newName)
-                    throw(exceptions.invalidType('First value must be unique name identifier (text)'));
-                end
-                % Check length of added data
-                switch length(inputs)
-                    case 1   
-                    case 2
-                    
-                        % Two inputs supplied - assume both name and filename supplied;
-                        newName = inputs{1};
-                        newFile = inputs{2};
-                    
-                    case 3
-
-                        % Three inputs - assume all inputs except function name and path supplied
-                        newName = inputs{1};
-                        newFile = inputs{2};
-                        newLang = inputs{3};
-                        
-                    case 4
-
-                        % Four inputs - assume all inputs except function name supplied
-                        newName = inputs{1};
-                        newFile = inputs{2};
-                        newLang = inputs{3};
-                        newPath = inputs{4};
-
-                    case 5
-
-                        % Five inputs - assume all inputs supplied
-                        newName = inputs{1};
-                        newFile = inputs{2};
-                        newLang = inputs{3};
-                        newPath = inputs{4};
-                        newFunc = inputs{5};
-                        
-                    otherwise
-
-                        % Other length of inputs is not recognised
-                        throw(exceptions.invalidNumberOfInputs('Unrecognised input into addCustomFile'));
-                        
-                end
-            end
-
-            if ~isText(newFile)
-                throw(exceptions.invalidType('Second argument (Filename) must be text.'));
-            end
-
-            if ~isText(newPath)
-                throw(exceptions.invalidType('Forth argument (Path) must be text.'));
-            end
-
-            if ~isText(newFunc)
-                throw(exceptions.invalidType('Fifth argument (Function name) must be text.'));
             end
 
             % Check language is valid, then add the new entry
@@ -132,67 +121,94 @@ classdef customFileClass < tableUtilities
         end
 
         function obj = removeCustomFile(obj, row)
-            % Removes a custom file from the file table. 
-            % Expects a single custom file name or index/array of custom
-            % file names or indices to remove
+            % Removes a given custom file from the table.
             %
-            % customFiles.removeCustomFile(2);
+            % Examples
+            % --------
+            % To remove the second custom file in the table (custom file in row 2).  
+            % 
+            % >>> file.removeCustomFile(2);
+            % 
+            % To remove custom file with a specific name.
+            % 
+            % >>> file.removeCustomFile('custom file 1');
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the custom file to remove. If it is text, 
+            %     it is the name of the custom file to remove.
             obj.removeRow(row);
         end
 
-        function obj = setCustomFile(obj, row, varargin)
-            % Change the value of a given parameter in the file table.
-            % The expected inputs are the row of the file entry of
-            % interest (given either by name of index), and key-value pairs
-            % of the parameter(s) to change. The values of the keys are:
-            % "Name", "Filename", "Language", "Path" and "functionName" if 
-            % applicable.
+        function obj = setCustomFile(obj, row, options)
+            % General purpose method for updating properties of an existing custom file.
             %
-            % customFiles.setCustomFile(1, 'Name', 'New Name',...
-            %                           'Language', 'Octave')
-            customNames = obj.getNames;
-            
-            % Always need three or more inputs to set data value
-            if length(varargin) < 2 || mod(length(varargin), 2) ~= 0
-                throw(exceptions.invalidNumberOfInputs('The input to ''setCustomFile'' should be a file entry and a set of name-value pairs'));
-            end
-                
+            % Examples
+            % --------
+            % To change the name and filename of the second custom file in the table (custom file in row 2).
+            % 
+            % >>> file.setCustomFile(2, name='custom file 1', filename='customFunction.m');
+            % 
+            % To change the properties of a custom file called 'custom file 1'.
+            % 
+            % >>> file.setCustomFile('custom file 1', name='new custom file', filename='customFunction.py', language='python');
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the custom file to update. If it is text, 
+            %     it is the name of the custom file to update.
+            % options
+            %    Keyword/value pair to properties to update for the specific custom file.
+            %       * name (char array or string, default: '') the new name of the custom file.
+            %       * filename (char array or string, default: '') the new filename of the custom file.
+            %       * language (supportedLanguages, default: supportedLanguages.empty()) the new language of the custom file.
+            %       * path (char array or string, default: '') the new path of the custom file.
+            %       * functionName (char array or string, default: ') the new function name of the custom file.
+            arguments
+                obj
+                row
+                options.name {mustBeTextScalar} = ''
+                options.filename {mustBeTextScalar} = ''
+                options.language = supportedLanguages.empty()
+                options.path {mustBeTextScalar} = ''
+                options.functionName {mustBeTextScalar} = '' 
+            end            
+                           
             % First input needs to be a data number or name
-            if isnumeric(row)
-                if (row > obj.rowCount) || (row < 1)
-                    throw(exceptions.indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.rowCount)));
-                end
-            elseif isText(row)
-                row = obj.findRowIndex(row, customNames, sprintf('Custom file object name %s not recognised', row));
+            row = obj.getValidRow(row);
+            
+            if isempty(options.name)
+                options.name = obj.varTable{row, 1}{:};
             end
             
-            % Parse the name value pairs to see what is being set and make
-            % sure the data is of the correct size and type.
+            if isempty(options.filename)
+                options.filename = obj.varTable{row, 2}{:};
+            end
+            
+            if isempty(options.language)
+                options.language = obj.varTable{row, 4}{:};
+            end
+            
+            if isempty(options.path)
+                options.path = obj.varTable{row, 5}{:};
+            end
 
-            % Make an 'inputParser' object...
-            p = inputParser;
-            p.PartialMatching = false;
-            addParameter(p, 'name', obj.varTable{row, 1}{:}, @isText)
-            addParameter(p, 'filename', obj.varTable{row, 2}{:}, @isText)
-            addParameter(p, 'functionName', obj.varTable{row, 3}{:}, @isText)
-            addParameter(p, 'language', obj.varTable{row, 4}{:}, @(x) isText(x) || isenum(x))
-            addParameter(p, 'path', obj.varTable{row, 5}{:}, @isText) 
-            parse(p, varargin{:});
-                
-            results = p.Results;
-            results.language = validateOption(results.language, 'supportedLanguages', obj.invalidLanguageMessage).value;
-            obj.setCustomName(row, results.name); 
-            obj.varTable{row, 2} = {obj.addFileExtension(results.filename, results.language)};
-            obj.varTable{row, 4} = {results.language};
-            obj.varTable{row, 5} = {obj.validatePath(results.path)};
-            obj.varTable{row, 3} = {obj.validateFunctionName(results.filename, results.functionName, results.language)};
+            if isempty(options.functionName)
+                options.functionName = obj.varTable{row, 3}{:};
+            end
+            options.language = validateOption(options.language, 'supportedLanguages', obj.invalidLanguageMessage).value;
+            obj.setName(row, options.name); 
+            obj.varTable{row, 2} = {obj.addFileExtension(options.filename, options.language)};
+            obj.varTable{row, 4} = {options.language};
+            obj.varTable{row, 5} = {obj.validatePath(options.path)};
+            obj.varTable{row, 3} = {obj.validateFunctionName(options.filename, options.functionName, options.language)};
             obj.canShowWarning = true;
         end
 
         function displayTable(obj)
-            % Display the file table.
-            %
-            % customFiles.displayCustomFileObject()
+            % Prints the custom file table to the console.
             sz = [1,5];
             displayVarTypes = {'string','string','string','string','string'}; 
             displayVarNames = {'Name','Filename','Function Name','Language','Path'};
@@ -248,9 +264,12 @@ classdef customFileClass < tableUtilities
         end
         
         function fileStruct = toStruct(obj)
-            % Convert the custom files class to a struct
+            % Converts the customFileClass into a structure array.
             %
-            % customFiles.toStruct()
+            % Returns
+            % -------
+            % fileStruct : struct
+            %     A struct which contains the properties for all the custom files.
             fileStruct.files = cell(1, 0);
             fileStruct.fileIdentifiers = {};
             numberOfFiles = obj.rowCount;      
@@ -314,37 +333,89 @@ classdef customFileClass < tableUtilities
         end
 
     end
+    
+    methods(Hidden)
+        function delete(obj)
+            % Destroys the wrappers
+            for i=1:length(obj.wrappers) 
+                delete(obj.wrappers{i});
+            end
+            obj.wrappers = {};
+        end
+    end
 
     methods(Access = protected)
-        function obj = setCustomName(obj, whichCustom, name) 
-            % Check a potential new name is already
-            % specified, and set it if not
+        function obj = setName(obj, row, name) 
+            % Sets the name of an existing custom file entry.
+            % 
+            % Examples
+            % --------
+            % To change the name of the second custom file in the table (custom file in row 2)
+            % 
+            % >>> file.setName(2, 'custom file 1');
+            % 
+            % To change the name of a custom file called 'custom file 1' to 'new custom file'
+            % 
+            % >>> file.setName('custom file 1', 'new custom file');
+            %
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the custom file to update. If it is text, 
+            %     it is the name of the custom file to update.
+            % name : string or char array
+            %     The new name of the custom file.
 
             % Name must not be an existing name
             existingNames = obj.varTable{:,1};
-            existingNames(whichCustom) = [];
+            existingNames(row) = [];
             if any(strcmpi(name,existingNames))
                 throw(exceptions.duplicateName('Duplicate custom file names are not allowed'));
             end
             
             % Set the relevant name
-            obj.varTable{whichCustom,1} = {name};
+            obj.varTable{row, 1} = {name};
         end
     end
 
-    methods(Static)
-        function path = validatePath(path)
-            % Validate a new path exists
+    methods(Access = private)
+        function path = validatePath(~, path)
+            % Validates custom file path exists.
+            %
+            % Parameters
+            % ----------
+            % path : string or char array
+            %     The file path of a custom file entry.
+            %
+            % Returns
+            % -------
+            % path : string or char array
+            %     The file path of a custom file entry.
             if ~isempty(path) && ~exist(path, 'dir')
                 throw(exceptions.invalidPath(sprintf('The given path (%s) is not a valid directory', path)));
             end
         end
         
-        function filename = addFileExtension(filename, language)
-            % Adds a file extension to the matlab and python filename if it is
-            % missing.
+        function filename = addFileExtension(~, filename, language)
+            % Adds a file extension to the matlab and python filename if it is missing.
             %
-            % fileWithExt = obj.addFileExtension('file', 'python')
+            % Examples
+            % --------
+            % This will add the extension '.py' to the filename 'file'
+            % 
+            % >>> fileWithExt = obj.addFileExtension('file', 'python')
+            % 
+            % Parameters
+            % ----------
+            % filename : string or char array
+            %     The filename of a custom file entry with or without extension.
+            % language : string or char array
+            %     The file language of a custom file entry.
+            % 
+            % Returns
+            % -------
+            % filename : string or char array
+            %     The custom filename with extension.
             if isempty(filename)
                 return
             end
@@ -359,11 +430,33 @@ classdef customFileClass < tableUtilities
             end
         end
 
-        function newFunctionName = validateFunctionName(filename, functionName, language)
+        function newFunctionName = validateFunctionName(~, filename, functionName, language)
             % Validates a function name is the same as filename for matlab
             % functions if a function name is provided.
             %
-            % funcName = obj.validateFunctionName('file.m', 'results', 'matlab')
+            % Examples
+            % --------
+            % The snippet below will raise a warning as the function name "results" does not match "file.m".
+            %  
+            % >>> functionName = obj.validateFunctionName('file.m', 'results', 'matlab')
+            % 
+            % The snippet below will return "file" as the function name.
+            %  
+            % >>> functionName = obj.validateFunctionName('file.m', '', 'matlab')            
+            % 
+            % Parameters
+            % ----------
+            % filename : string or char array
+            %     The filename of a custom file entry.
+            % functionName : string or char array
+            %     The function name of a custom file entry.
+            % language : string or char array
+            %     The language of a custom file entry. 
+            % 
+            % Returns
+            % -------
+            % newFunctionName : string or char array
+            %     The valid function name for the given filename.
             [~, newFunctionName, ~] = fileparts(filename);
             if ~isempty(functionName) 
                 if strcmp(language, supportedLanguages.Matlab.value)

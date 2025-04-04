@@ -166,8 +166,8 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleTable.setValue(1, 'Invalid Name', 'Added'), exceptions.nameNotRecognised.errorID);
 
             % Float values within range
-            testCase.verifyError(@() testCase.exampleTable.setValue(1, 2.5, 'Added'), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleTable.setValue(2.5, 1, 'New Name'), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleTable.setValue(1, 2.5, 'Added'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleTable.setValue(2.5, 1, 'New Name'), exceptions.invalidType.errorID);
 
             % Invalid data types
             testCase.verifyError(@() testCase.exampleTable.setValue(testCase.initialTable, testCase.numCols, 'Added'), exceptions.invalidType.errorID);
@@ -216,24 +216,5 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             end
 
         end
-
-        function testFindRowIndex(testCase)
-            % Test that the correct row number is returned for a valid row
-            % or column, and an error is raised for invalid options
-            tableRows = testCase.exampleTable.varTable{:,1};
-            tableCols = testCase.exampleTable.varTable.Properties.VariableNames;
-
-            testCase.verifyEqual(multiTypeTable.findRowIndex('Background SMW', tableRows), 2);
-            testCase.verifyEqual(multiTypeTable.findRowIndex('Value 3', tableCols), 6);
-
-            % Check whitespace still matches
-            testCase.verifyEqual(multiTypeTable.findRowIndex(' Background D2O', tableRows), 1);
-            testCase.verifyEqual(multiTypeTable.findRowIndex(' Type ', tableCols), 2);
-
-            testCase.verifyError(@() multiTypeTable.findRowIndex('Invalid Row', tableRows), exceptions.nameNotRecognised.errorID);
-            testCase.verifyError(@() multiTypeTable.findRowIndex('Value 3', tableRows), exceptions.nameNotRecognised.errorID);
-            testCase.verifyError(@() multiTypeTable.findRowIndex('Value 6', tableCols), exceptions.nameNotRecognised.errorID);
-        end
-
     end
 end

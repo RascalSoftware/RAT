@@ -158,10 +158,12 @@ classdef testUtilities < matlab.unittest.TestCase
 
         function testValidateParameter(testCase)
             testCase.verifyEqual(validateParameter('d2o', {'D2O', 'SMW'}), 'D2O', 'validateParameter does not work correctly');
-            testCase.verifyEqual(validateParameter(2, {'D2O', 'SMW'}), 'SMW', 'validateParameter does not work correctly');
+            testCase.verifyEqual(validateParameter(2.0, {'D2O', 'SMW'}), 'SMW', 'validateParameter does not work correctly');
             
             testCase.verifyError(@() validateParameter('H2O', {'D2O', 'SMW'}), exceptions.nameNotRecognised.errorID);
             testCase.verifyError(@() validateParameter(3, {'D2O', 'SMW'}), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() validateParameter(2.3, {'D2O', 'SMW'}), exceptions.invalidType.errorID);
+            testCase.verifyError(@() validateParameter({5}, {'D2O', 'SMW'}), exceptions.invalidType.errorID);
         end
 
         function testMustBeScalarOrEmptyLogical(testCase)

@@ -151,6 +151,11 @@
          testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 2}, string(allowedTypes.Constant.value), 'setBackground method not working');
          testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 3}, "background param 3", 'setBackground method not working');
          testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 4}, "", 'setBackground method not working');
+
+         testCase.background.setBackground(3, testCase.names, 'type', allowedTypes.Function.value, 'source', 'function_name');
+
+         testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 2}, string(allowedTypes.Function.value), 'setBackground method not working');
+         testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 3}, "function_name", 'setBackground method not working');
       end
 
       function testSetBackgroundWarnings(testCase)

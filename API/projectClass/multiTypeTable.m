@@ -64,17 +64,7 @@ classdef multiTypeTable < tableUtilities
             %
             % multiTable.setValue(1, 1, 'origin');
             % First parameter needs to be either a row name or number
-            rowNames = obj.varTable{:,1};
-            
-            if isText(row)
-                row = obj.findRowIndex(row, rowNames, 'Unrecognised parameter name');
-            elseif isnumeric(row)
-                if (row < 1) || (row > obj.rowCount)
-                    throw(exceptions.indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.rowCount)));
-                end
-            else
-                throw(exceptions.invalidType('Unrecognised row'));
-            end
+            row = obj.getValidRow(row);
             
             % Second parameter needs to be either a column name or
             % number.
@@ -82,12 +72,12 @@ classdef multiTypeTable < tableUtilities
 
             if isText(col)
                 col = obj.findRowIndex(col,colNames, 'Unrecognised column name');
-            elseif isnumeric(col)
+            elseif isnumeric(col) && all(mod(col, 1) == 0)
                 if (col < 1) || (col > length(colNames))
                     throw(exceptions.indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', col, length(colNames))));
                 end
             else
-                throw(exceptions.invalidType('Unrecognised column'));
+                throw(exceptions.invalidType('Column type should be a text or whole number.'));
             end
             
             % Set the value
@@ -95,5 +85,4 @@ classdef multiTypeTable < tableUtilities
         end
 
     end
-
 end

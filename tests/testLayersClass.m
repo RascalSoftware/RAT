@@ -178,7 +178,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2), exceptions.invalidNumberOfInputs.errorID);
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3), exceptions.invalidNumberOfInputs.errorID);
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3, 1, 4), exceptions.invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3, 1, 4, hydrationTypes.None.value, 5), exceptions.invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3, 1, 4, hydrationTypes.BulkIn.value, 5), exceptions.invalidNumberOfInputs.errorID);
 
             % Invalid hydrate type
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, 1, 4, 'surface'), exceptions.invalidOption.errorID);
@@ -192,9 +192,9 @@ classdef testLayersClass < matlab.unittest.TestCase
             % Invalid parameter indices
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, 0), exceptions.indexOutOfRange.errorID);
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, testCase.numParams+1), exceptions.indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', NaN ,3, 0), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, NaN, 0), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, NaN), 'MATLAB:badsubscript');         
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', NaN ,3, 0), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, NaN, 0), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, NaN), exceptions.invalidType.errorID);         
         end
 
         function testSetLayerValue(testCase)
@@ -250,8 +250,8 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 6, 'Invalid hydrate', testCase.parameterNames), exceptions.invalidOption.errorID);
 
             % Float values within range
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(3, 2.5, 'Substrate Roughness', testCase.parameterNames), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(2.5, 3, 'Substrate Roughness', testCase.parameterNames), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(3, 2.5, 'Substrate Roughness', testCase.parameterNames), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(2.5, 3, 'Substrate Roughness', testCase.parameterNames), exceptions.invalidType.errorID);
             
             % Invalid data types
             testCase.verifyError(@() testCase.exampleClass.setLayerValue(testCase.initialLayersTable, testCase.numCols, 'Substrate Roughness', testCase.parameterNames), exceptions.invalidType.errorID);
@@ -371,21 +371,6 @@ classdef testLayersClass < matlab.unittest.TestCase
             outRow = strip(regexprep(displayedTable(3), '\s+', ' '));
             rowString = """"" """" """" """" """" """"";
             testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
-        end
-
-        function testFindParameter(testCase)
-            % Test that the correct parameter is returned for a valid
-            % input name or index, and an error is raised for invalid options
-            outParam = layersClass.findParameter('OXIDE HYDRATION', testCase.parameterNames);
-            testCase.verifyEqual(outParam, 'Oxide Hydration');
-
-            outParam = layersClass.findParameter(10, testCase.parameterNames);
-            testCase.verifyEqual(outParam, 'Bilayer tails SLD');
-
-            testCase.verifyError(@() layersClass.findParameter('Invalid Param', testCase.parameterNames), exceptions.nameNotRecognised.errorID);
-            testCase.verifyError(@() layersClass.findParameter(0, testCase.parameterNames), exceptions.indexOutOfRange.errorID);
-            testCase.verifyError(@() layersClass.findParameter(testCase.numParams+1, testCase.parameterNames), exceptions.indexOutOfRange.errorID);
-            testCase.verifyError(@() layersClass.findParameter(datetime('today'), testCase.parameterNames), exceptions.invalidType.errorID);
         end
 
     end

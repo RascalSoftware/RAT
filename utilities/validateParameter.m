@@ -22,17 +22,19 @@ function param = validateParameter(param, paramList, paramDesc)
     end
 
     paramList = cellstr(paramList);
-    if isnumeric(param)
+    if isnumeric(param) && all(mod(param, 1) == 0)
         if (param < 1) || (param > length(paramList))
-            throw(exceptions.indexOutOfRange(sprintf('%s %d is out of range', paramDesc, param)));
+            throw(exceptions.indexOutOfRange(sprintf('%s %d is out of range (1 - %d).', paramDesc, param, length(paramList))));
         else
             param = paramList{param};
         end
     elseif isText(param)
         found = strcmpi(param, paramList);
         if ~any(found)
-            throw(exceptions.nameNotRecognised(sprintf('Unrecognised %s name "%s"', paramDesc, param)));
+            throw(exceptions.nameNotRecognised(sprintf('Unrecognised %s name "%s".', lower(paramDesc), param)));
         end
         param = paramList{find(found, 1)};
+    else
+        throw(exceptions.invalidType(sprintf('Input %s should be a text or whole number.', lower(paramDesc))));
     end
 end

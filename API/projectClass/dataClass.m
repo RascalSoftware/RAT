@@ -1,190 +1,220 @@
 classdef dataClass < tableUtilities
+    % ``dataClass`` manages the datasets for the project. It provides methods to add, update and remove datasets.
+    % Each dataset is stored as a row in a table and consists of a name, the data itself, the range of the data to use, 
+    % and the range for simulation.
+    %
+    % Examples
+    % --------
+    % If no arguments are provided, the object is created with an empty table.
+    % 
+    % >>> data = dataClass();
+    % 
+    % Otherwise, the arguments are used to create the first dataset.
+    % 
+    % >>> data = dataClass('Data 1', [1, 0, 0; 2, 0, 0; 3, 0, 0; 4, 0, 0], [2, 3], [1, 4]);
+    %
+    % Parameters
+    % ----------
+    % name : string or char array, default: ''
+    %     The name of the dataset.
+    % data : float, default: []
+    %     3 or 4 column data for the dataset, the data should have (x, y, error) columns and may have an optional resolution column.
+    % dataRange : float, default: default: [data(1, 1), data(end, 1)] or [] if no data 
+    %     The minimum and maximum range of ``data`` to use from the dataset.
+    % simRange : float, default: default: [0.005, 0.7]
+    %     The minimum and maximum range to use for simulation.
+    %
+    % Attributes
+    % ----------
+    % varTable : table
+    %     A table object that contains the data entries.
     
-    % A container class for holding data
-
-    properties (Access = private)
-        defaultSimMin = 0.005
-        defaultSimMax = 0.7
+    properties (Constant, Access = private)
+        defaultSimRange = [0.005, 0.7]
     end
 
     methods
-        
-        function obj = dataClass(varargin)
-            % Creates a Data object. The argument should be contents of the first
-            % dataset which should consists of a name (string), data (N by 3 array), 
-            % dataRange (1 by 2 or empty array), and simRange (1 by 2 or empty array). 
-            %
-            % data = dataClass('data_name',  [],  [], []);
+        function obj = dataClass(name, data, dataRange, simRange)
+            arguments
+                name {mustBeTextScalar} = ''
+                data {mustBeNumeric} = []
+                dataRange {mustBeNumeric} = []
+                simRange {mustBeNumeric} = []
+            end
             sz = [0 4];
             varTypes = {'string','cell','cell','cell'};
             varNames = {'Name','Data','Data Range','Simulation Range'};
             obj.varTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames); 
-            obj.addData(varargin{:}); 
+            if ~isempty(name)
+                obj.addData(name, data, dataRange, simRange);
+            end
         end
 
-        function obj = addData(obj, varargin)
-            % Adds a dataset to the data table. Default values are used if no 
-            % arguments are provided, otherwise a subset of the arguments can 
-            % be provided.
-            % The following are assumed from number of arguments: 
-            % for 1 input, the name only is provided
-            % for 2 inputs, the name and data are provided
-            % for 4 inputs, the name, data, data range, and simulation range are provided      
-            %
-            % data.addData();
-            % data.addData('Sim');
-            % data.addData('Sim', ones(5, 3));
-            % data.addData('Sim', ones(5, 3), [0.2, 0.9],  [-3, 6]);
-            if isempty(varargin)
-                
+        function obj = addData(obj, name, data, dataRange, simRange)
+            % Adds a new dataset to the data table.
+            % 
+            % Examples
+            % --------
+            % To add a new dataset with name only.
+            % 
+            % >>> data.addData('Data 1');
+            % 
+            % To add dataset with name and data.
+            % 
+            % >>> data.addData('Data 1', [1, 0, 0; 2, 0, 0; 3, 0, 0; 4, 0, 0]);
+            % 
+            % To add dataset with name, data and the ranges.
+            % 
+            % >>> data.addData('Data 1', [1, 0, 0; 2, 0, 0; 3, 0, 0; 4, 0, 0], [2, 3], [1, 4]);
+            % 
+            % Parameters
+            % ----------
+            % name : string or char array, default: auto-generated name
+            %     The name of the dataset.
+            % data : float, default: []
+            %     3 or 4 column data for the dataset, the data should have (x, y, error) columns and may have optional resolution column.
+            % dataRange : float, default: [data(1, 1), data(end, 1)] or [] if no data 
+            %     The minimum and maximum range of ``data`` to use from the dataset. 
+            % simRange : float, default: [0.005, 0.7]
+            %     The minimum and maximum range to use for simulation.
+            arguments
+                obj
+                name {mustBeTextScalar} = ''
+                data {mustBeNumeric} = []
+                dataRange {mustBeNumeric} = []
+                simRange {mustBeNumeric} = []
+            end
+            newName = name;
+            newData = data;
+            newDataRange = dataRange;
+            newSimRange = simRange;
+                        
+            if isempty(name)
                 % Nothing supplied - add empty data row
-                newName = sprintf('New data %d', obj.autoNameCounter());
-                
-                newData = [];
-                newDataRange = [];
-                newSimRange = [obj.defaultSimMin, obj.defaultSimMax];
+                newName = sprintf('New data %d', obj.autoNameCounter());    
+            end
 
-            else
+            if ~isempty(data)
+                newDataX = newData(:,1);
+                newMin = newDataX(1);
+                newMax = newDataX(end);
 
-                inputs = varargin;
-                newName = inputs{1};
-
-                if ~isText(newName)
-                    throw(exceptions.invalidType('First input is expected to be a data name'));
+                if isempty(dataRange)
+                    newDataRange = [newMin newMax];
                 end
 
-                newData = [];
-                newDataRange = [];
-                newSimRange = [obj.defaultSimMin, obj.defaultSimMax];
-
-                % Check length of added data
-                switch length(inputs)
-                    case 1
-                    case 2
-                        % Two inputs supplied - assume both name and data
-                        % supplied;
-                        newData = inputs{2};
-                        
-                        newDataX = newData(:,1);
-                        newMin = newDataX(1);
-                        newMax = newDataX(end);
-                        
-                        newDataRange = [newMin newMax];
-                        newSimRange = [newMin newMax];
-
-                    case 4
-                        % Four inputs = assume data and simulation ranges also
-                        % supplied
-                        newData = inputs{2};                       
-                        newDataRange = inputs{3};
-                        if ~isempty(inputs{4})
-                            newSimRange = inputs{4};
-                        end
-
-                    otherwise  
-                        % Other length of inputs is not recognised
-                        throw(exceptions.invalidNumberOfInputs('Unrecognised input into addData'));
-                      
+                if isempty(simRange)
+                    newSimRange = [newMin newMax];
                 end
+            end
+            
+            if isempty(newSimRange)
+                newSimRange = obj.defaultSimRange;
             end
 
             % Check data is valid and add the new entry
-            newRow = {newName, newData, newDataRange, newSimRange};
-            newRow = obj.validateData(newRow);
-            obj.addRow(newRow{:});
-
+            [newDataRange, newSimRange] = obj.validateData(newData, newDataRange, newSimRange);
+            obj.addRow(newName, newData, newDataRange, newSimRange);
         end
 
         function obj = removeData(obj, row)
-            % Removes a dataset. Expects the index or array of
-            % indices of dataset(s) to remove.
+            % Removes a given dataset from the table.
+            %
+            % Examples
+            % --------
+            % To remove the second dataset in the table (dataset in row 2).  
             % 
-            % data.removeData(2);
+            % >>> data.removeData(2);
+            % 
+            % To remove dataset with a specific name.
+            % 
+            % >>> data.removeData('Data D2O');
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the dataset to remove. If it is text, 
+            %     it is the name of the dataset to remove.
             obj.removeRow(row);
         end
 
-        function nameChanged = setData(obj, row, varargin)
-            % Sets the values of an existing dataset. Expects the
-            % index or name of dataset and keyword/value pairs to set
+        function nameChanged = setData(obj, row, options)
+            % General purpose method for updating properties of an existing dataset.
             %
-            % data.setData(2, 'name', 'new_name');
-            dataNames = obj.varTable{:,1};
-            
-            % Always need three or more inputs to set data value
-            if length(varargin) < 2 || mod(length(varargin), 2) ~= 0
-                throw(exceptions.invalidNumberOfInputs('The input to ''setData'' should be a data entry and a set of name-value pairs'));
+            % Examples
+            % --------
+            % To change the name and data of the second dataset in the table (dataset in row 2).
+            % 
+            % >>> nameChanged = data.setData(2, name='Data 1', data=[1, 0, 0; 2, 0, 0; 3, 0, 0; 4, 0, 0]);
+            % 
+            % To change the properties of a dataset called 'Data 1'.
+            % 
+            % >>> nameChanged = data.setData('Data 1', name='Data H2O', dataRange=[2, 3]);
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the dataset to update. If it is text, 
+            %     it is the name of the dataset to update.
+            % options
+            %    Keyword/value pair to properties to update for the specific dataset.
+            %       * name (char array or string, default: '') the new name of the dataset.
+            %       * data (float, default: []) the new data array.
+            %       * dataRange (float, default: []) the new data range.
+            %       * simRange (float, default: []) the new simulation range.
+            % 
+            % Returns
+            % -------
+            % nameChanged : struct or []
+            %     A struct which contains the former name ``oldName`` and the new name ``newName`` of the dataset or 
+            %     an empty array if name is not changed.
+            arguments
+                obj
+                row
+                options.name {mustBeTextScalar} = ''
+                options.data {mustBeNumeric} = []
+                options.dataRange {mustBeNumeric} = []
+                options.simRange {mustBeNumeric} = []
             end
-                
+               
             % First input needs to be a data number or name
-            if isnumeric(row)
-                if (row > obj.rowCount) || (row < 1)
-                    throw(exceptions.indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.rowCount)));
-                end
-            elseif isText(row)
-                row = obj.findRowIndex(row, dataNames, sprintf('Data object name %s not recognised', row));
+            row = obj.getValidRow(row);
+            
+            if isempty(options.name)
+                options.name = obj.varTable{row, 1}{:};
             end
             
-            % Parse the name value pairs to see what is being set and make
-            % sure the data is of the correct size and type.
-
-            % Make an 'inputParser' object...
-            p = inputParser;
-            p.PartialMatching = false;
+            if isempty(options.data)
+                options.data = obj.varTable{row, 2}{:};
+            end
             
-            % dataRange and simRange need to be [1 x 2] arrays
-            isDimsRanges = @(x)all(size(x) == [1,2]);
+            if isempty(options.dataRange)
+                options.dataRange = obj.varTable{row, 3}{:};
+            end
             
-            % Data needs to be an [n x >3] array
-            isDimsData = @(x) size(x,2) >= 3;
-
-            addParameter(p,'name', obj.varTable{row, 1}{:}, @isText)
-            addParameter(p,'data', obj.varTable{row, 2}{:}, @(x) isnumeric(x) && isDimsData(x))
-            addParameter(p,'dataRange', obj.varTable{row, 3}{:}, @(x) isnumeric(x) && isDimsRanges(x))
-            addParameter(p,'simRange', obj.varTable{row, 4}{:}, @(x) isnumeric(x) && isDimsRanges(x)) 
-            parse(p,varargin{:});
-                
-            results = p.Results;
-            
-            % Any fields in results that are not empty are being set,
-            % so call the relevant set method for these (which will carry
-            % out some additional checks)
+            if isempty(options.simRange)
+                options.simRange = obj.varTable{row, 4}{:};
+            end
             
             nameChanged = []; % Flag which is passed up to the calling function (to change contrasts if necessary)
             
-            if ~strcmp(results.name, obj.varTable{row, 1}{:})
-                nameChanged = obj.setDataName(row, results.name);
+            [options.dataRange, options.simRange] = obj.validateData(options.data, options.dataRange, options.simRange);
+            
+            if ~strcmp(options.name, obj.varTable{row, 1}{:})
+                nameChanged = obj.setName(row, options.name);
             end
-            
-            obj.varTable{row, 2} = {results.data};
-            
-            newEntry = obj.validateData({results.name, results.data, results.dataRange, results.simRange});
-            obj.varTable{row, 3} = newEntry{3};
-            obj.varTable{row, 4} = newEntry{4};
+            obj.varTable{row, 2} = {options.data};
+            obj.varTable{row, 3} = {options.dataRange};
+            obj.varTable{row, 4} = {options.simRange};
         end
         
-        function nameChanged = setDataName(obj, whichData, name)
-            % Sets the name of an existing dataset. Expects index of data  
-            % and the new name. Name must be a char and not an existing name.
-            % Returns a structure with the new name and old name
+        function dataStruct = toStruct(obj)
+            % Converts the dataClass into a structure array.
             %
-            % names = data.setDataName({2, 'new name'});
-            if ~isText(name)
-                throw(exceptions.invalidType('Name must be a character array or string'));
-            end
-            
-            existingNames = obj.getNames;
-            if any(strcmpi(name,existingNames))
-                throw(exceptions.duplicateName('Duplicate data names are not allowed'));
-            end
-            
-            % Set the relevant name
-            nameChanged.oldName = obj.varTable{whichData,1};
-            nameChanged.newName = name;
-            obj.varTable{whichData,1} = {name};   
-        end
-
-        function outStruct = toStruct(obj)
-            % Converts the class parameters into a structure array.
+            % Returns
+            % -------
+            % dataStruct : struct
+            %     A struct which contains the properties for all the datasets.
             numData = obj.rowCount;
             dataNames = cell(numData, 1);
             allData = cell(numData, 1);
@@ -195,14 +225,12 @@ classdef dataClass < tableUtilities
                 allData{i} = obj.varTable{i,2};
             end
 
-            outStruct.dataNames = dataNames;
-            outStruct.allData = allData;
+            dataStruct.dataNames = dataNames;
+            dataStruct.allData = allData;
         end
 
-        function displayTable(obj)
-            % Displays the table object. The actual obj.varTable has the 
-            % format {string, cell, double, double}, but for display we 
-            % make a table that is all strings.
+        function displayTable(obj)           
+            % Prints the data table to the console.
             sz = [1,4];
             displayVarTypes = {'string','string','string','string'}; 
             displayVarNames = {'Name','Data','Data Range','Simulation Range'};
@@ -243,25 +271,78 @@ classdef dataClass < tableUtilities
         end
     end
 
-    methods(Static)  
-    
-        function row = validateData(row)
-            % Carry out checks of Data type and ranges in a table row.
-            % Expects the row of the data table as input.
+    methods(Access = protected)  
+        function nameChanged = setName(obj, row, name)
+            % Sets the name of an existing dataset.
             %
-            % row = obj.validateData(row);
-            name = row{1};
-            data = row{2};
-            dataRange = row{3};
-            simRange = row{4};
-                
-            if ~isempty(data)
+            % Examples
+            % --------
+            % To change the name of the second dataset in the table (dataset in row 2)
+            % 
+            % >>> nameChanged = data.setName(2, 'Data SMW');
+            % 
+            % To change the name of a dataset called 'Data D20' to 'Data SMW'
+            % 
+            % >>> nameChanged = data.setName('Data D20', 'Data SMW');
+            %
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the dataset to update. If it is text, 
+            %     it is the name of the dataset to update.
+            % name : string or char array
+            %     The new name of the dataset.
+            % 
+            % Returns
+            % -------
+            % nameChanged : struct
+            %     A struct which contains the former name ``oldName`` and the new name ``newName`` of the dataset.
+            arguments
+                obj
+                row
+                name {mustBeTextScalar, mustBeNonempty}
+            end
+            existingNames = obj.getNames;
+            if any(strcmpi(name, existingNames))
+                throw(exceptions.duplicateName('Duplicate data names are not allowed'));
+            end
+            
+            % Set the relevant name
+            nameChanged.oldName = obj.varTable{row, 1};
+            nameChanged.newName = name;
+            obj.varTable{row, 1} = {name};   
+        end
 
-                if ~isnumeric(data)
-                    throw(exceptions.invalidType('Data must be a numeric array'));
+        function [dataRange, simRange] = validateData(~, data, dataRange, simRange)
+            % Checks the data and simulation ranges are valid. If any range is invalid, 
+            % a warning is printed and the range is adjusted when possible.
+            %
+            % Examples
+            % --------
+            % >>> [dataRange, simRange] = validateData(data, dataRange, simRange);
+            %
+            % Parameters
+            % ----------
+            % data : float
+            %     The 2D data array. 
+            % dataRange : float
+            %     The minimum and maximum range of the data to use from the dataset.
+            % simRange : float
+            %     The minimum and maximum range to use for simulation.
+            % 
+            % Returns
+            % -------
+            % dataRange : float
+            %     The minimum and maximum range of ``data`` to use from the dataset, adjusted if input was invalid.
+            % simRange : float
+            %     The minimum and maximum range to use for simulation, adjusted if input was invalid. 
+            if ~isempty(data)
+                % Data needs to be an [n x >3] array
+                if (size(data, 2) < 3)
+                    throw(exceptions.invalidType('Data must be a numeric array with at least 3 columns.'));
                 end
-                
-                if ((~isnumeric(dataRange)) || any(size(dataRange) ~= [1,2]) || any(size(simRange) ~= [1,2]))
+
+                if (any(size(dataRange) ~= [1,2]) || any(size(simRange) ~= [1,2]))
                     throw(exceptions.invalidType('Data range and sim range must be [1 x 2] numeric arrays'));
                 end
     
@@ -296,10 +377,7 @@ classdef dataClass < tableUtilities
                     warning('simRange(2) can''t be less than max data range - resetting to %d', realDataRange(2));
                     simRange(2) = realDataRange(2);
                 end
-            end
-
-            row = {{name}, {data}, {dataRange}, {simRange}};
-    
+            end    
         end
     end
 end

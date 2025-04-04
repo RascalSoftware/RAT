@@ -141,7 +141,7 @@ classdef contrastsClass < baseContrasts
                 end
             end
 
-            if ~strcmpi(modelType, modelTypes.StandardLayers.value) && any(contrastRepeatLayers)
+            if ~strcmpi(modelType, modelTypes.StandardLayers.value) && any(contrastRepeatLayers-1)
                 warning("Repeat Layers are only supported for standard layers calculations")
             end
 
@@ -203,7 +203,7 @@ classdef contrastsClass < baseContrasts
             addParameter(p,'scalefactor',      defaultScalefactor,        @isText);
             addParameter(p,'resolution',       defaultResolution,         @isText);
             addParameter(p,'resample',         defaultResample,           @islogical);
-            addParameter(p,'repeatLayers',     defaultRepeatLayers,       @(x) isscalar(x) && isnumeric(x) && mod(x, 1) == 0  && x > 0);
+            addParameter(p,'repeatLayers',     defaultRepeatLayers,       @isnumeric);
 
             if obj.domainsCalc
                 defaultDomainRatio = '';
@@ -221,6 +221,7 @@ classdef contrastsClass < baseContrasts
             inputBlock.bulkOut = obj.validateExactString(inputBlock.bulkOut, expectedBulkOut);
             inputBlock.scalefactor = obj.validateExactString(inputBlock.scalefactor, expectedScalefactor);
             inputBlock.resolution = obj.validateExactString(inputBlock.resolution, expectedResolution);
+            inputBlock.repeatLayers = obj.validatePositiveInteger(inputBlock.repeatLayers);
             inputBlock.model = obj.validateContrastModel(inputBlock.model, allowedNames);
             if obj.domainsCalc
                 inputBlock.domainRatio = obj.validateExactString(inputBlock.domainRatio, expectedDomainRatio);
@@ -241,6 +242,17 @@ classdef contrastsClass < baseContrasts
                 throw(exceptions.nameNotRecognised(sprintf('The input "%s" is not recognised. The allowed names are: "%s".', input, strjoin(allowedNames, '", "'))));
             end
             output = allowedNames{find(found, 1)};
+        end
+
+        function output = validatePositiveInteger(~, input)
+            if isempty(input)
+                output = [];
+                return
+            end
+            if ~(isscalar(input) && mod(input, 1) == 0  && input > 0)
+                throw(exceptions.invalidValue('The input "%s" must be a whole number greater than zero.', input))
+            end
+            output = input;
         end
 
         function model = validateContrastModel(obj, input, allowedNames)

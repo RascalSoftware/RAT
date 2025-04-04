@@ -33,7 +33,7 @@ namespace RAT
 {
   static void cast(const b_ProblemDefinition *r, ProblemDefinition &r1);
   static void cast(const ::coder::array<cell_wrap_3, 2U> &r, ::coder::array<
-                   cell_wrap_45, 2U> &r1);
+                   cell_wrap_44, 2U> &r1);
   static void cast(const ::coder::array<cell_wrap_4, 2U> &r, ::coder::array<
                    cell_wrap_9, 2U> &r1);
   static void cast(const ::coder::array<cell_wrap_6, 2U> &r, ::coder::array<
@@ -60,7 +60,7 @@ namespace RAT
   static void cast(const ::coder::array<cell_wrap_0, 2U> &r, ::coder::array<
                    cell_wrap_10, 2U> &r1);
   static void cast(const ProblemDefinition &r, b_ProblemDefinition *r1);
-  static void cast(const ::coder::array<cell_wrap_45, 2U> &r, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_44, 2U> &r, ::coder::array<
                    cell_wrap_3, 2U> &r1);
   static void cast(const ::coder::array<cell_wrap_9, 2U> &r, ::coder::array<
                    cell_wrap_4, 2U> &r1);
@@ -234,7 +234,7 @@ namespace RAT
     }
   }
 
-  static void cast(const ::coder::array<cell_wrap_45, 2U> &r, ::coder::array<
+  static void cast(const ::coder::array<cell_wrap_44, 2U> &r, ::coder::array<
                    cell_wrap_3, 2U> &r1)
   {
     int i;
@@ -539,7 +539,7 @@ namespace RAT
   }
 
   static void cast(const ::coder::array<cell_wrap_3, 2U> &r, ::coder::array<
-                   cell_wrap_45, 2U> &r1)
+                   cell_wrap_44, 2U> &r1)
   {
     int i;
     r1.set_size(1, r.size(1));

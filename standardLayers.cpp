@@ -50,7 +50,7 @@ namespace RAT
       parallel_size[2], double resampleMinAngle, double resampleNPoints, double
       resample, const char geometry_data[], const int geometry_size[2], double
       roughness, boolean_T calcSld, const ::coder::array<double, 2U>
-      &layerIndices, const ::coder::array<cell_wrap_52, 2U> &layerValues, ::
+      &layerIndices, const ::coder::array<cell_wrap_51, 2U> &layerValues, ::
       coder::array<double, 2U> &reflectivity, ::coder::array<double, 2U>
       &simulation, ::coder::array<double, 2U> &shiftedData, ::coder::array<
       double, 2U> &background, ::coder::array<double, 2U> &resolution, ::coder::
@@ -82,7 +82,7 @@ namespace RAT
       parallel_size[2], double resampleMinAngle, double resampleNPoints, double
       resample, const char geometry_data[], const int geometry_size[2], double
       roughness, boolean_T calcSld, const ::coder::array<double, 2U>
-      &layerIndices, const ::coder::array<cell_wrap_52, 2U> &layerValues, ::
+      &layerIndices, const ::coder::array<cell_wrap_51, 2U> &layerValues, ::
       coder::array<double, 2U> &reflectivity, ::coder::array<double, 2U>
       &simulation, ::coder::array<double, 2U> &shiftedData, ::coder::array<
       double, 2U> &background, ::coder::array<double, 2U> &resolution, ::coder::
@@ -159,7 +159,7 @@ namespace RAT
                           2U> &resampledLayers, ::coder::array<double, 1U>
                           &subRoughs)
     {
-      ::coder::array<cell_wrap_52, 2U> layerValues;
+      ::coder::array<cell_wrap_51, 2U> layerValues;
       ::coder::array<double, 2U> b_layers;
       ::coder::array<double, 2U> r;
       ::coder::array<double, 2U> r1;
@@ -529,7 +529,7 @@ namespace RAT
                         coder::array<cell_wrap_9, 2U> &resampledLayers, ::coder::
                         array<double, 1U> &subRoughs)
     {
-      ::coder::array<cell_wrap_52, 2U> layerValues;
+      ::coder::array<cell_wrap_51, 2U> layerValues;
       ::coder::array<double, 2U> b_layers;
       ::coder::array<double, 2U> r;
       ::coder::array<double, 2U> r1;

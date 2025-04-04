@@ -27,7 +27,7 @@
 namespace RAT
 {
   static void b_binary_expand_op(::coder::array<boolean_T, 1U> &in1, const
-    cell_55 &in2, const ::coder::array<double, 1U> &in3, double in4);
+    cell_54 &in2, const ::coder::array<double, 1U> &in3, double in4);
   static void binary_expand_op(const ::coder::array<double, 2U> &in1, const ::
     coder::array<double, 2U> &in2, const ::coder::array<double, 2U> &in3, ::
     coder::array<double, 2U> &in4, ::coder::array<double, 2U> &in5, ::coder::
@@ -60,7 +60,7 @@ namespace RAT
 namespace RAT
 {
   static void b_binary_expand_op(::coder::array<boolean_T, 1U> &in1, const
-    cell_55 &in2, const ::coder::array<double, 1U> &in3, double in4)
+    cell_54 &in2, const ::coder::array<double, 1U> &in3, double in4)
   {
     int loop_ub;
     int stride_1_0;
@@ -628,7 +628,7 @@ namespace RAT
   }
 
   void adaptive(const ::coder::array<double, 2U> &sldProfile, const double
-                startDomain[2], double minAngle, double nPoints, cell_55 &out)
+                startDomain[2], double minAngle, double nPoints, cell_54 &out)
   {
     ::coder::array<double, 2U> b_out;
     ::coder::array<double, 2U> r;

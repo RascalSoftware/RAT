@@ -19,7 +19,7 @@
 namespace RAT
 {
   void allocateLayersForContrast(const ::coder::array<double, 2U> &layerIndices,
-    const ::coder::array<cell_wrap_52, 2U> &layerValues, ::coder::array<double,
+    const ::coder::array<cell_wrap_51, 2U> &layerValues, ::coder::array<double,
     2U> &layers)
   {
     int n_tmp;

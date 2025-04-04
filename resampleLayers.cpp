@@ -28,7 +28,7 @@ namespace RAT
     ::coder::array<double, 1U> b_sldProfileIm;
     ::coder::array<double, 1U> c_sldProfileIm;
     ::coder::array<double, 1U> newYIm;
-    cell_55 expl_temp;
+    cell_54 expl_temp;
     double b_sldProfile[2];
     int i;
     int loop_ub;

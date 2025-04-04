@@ -39,7 +39,7 @@ namespace RAT
         double hydration;
         hydration = 0.01 * layers[b_i + layers.size(0) * 4];
 
-        //  Assume percent for backwards compatability
+        //  Assume percent for backwards compatibility
         //  Index 6 determines what we hydrate with
         //  Hydrate the real component of the SLD.
         //  Note that we never hydrate the imaginary component of the SLD.

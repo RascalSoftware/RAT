@@ -53,11 +53,11 @@ namespace RAT
       double resampleNPoints, double resample, const char geometry_data[], const
       int geometry_size[2], double roughness, boolean_T calcSld, const ::coder::
       array<double, 2U> &domainLayersIndices1, const ::coder::array<double, 2U>
-      &domainLayersIndices2, const ::coder::array<cell_wrap_52, 2U> &layerValues,
+      &domainLayersIndices2, const ::coder::array<cell_wrap_51, 2U> &layerValues,
       ::coder::array<double, 2U> &reflectivity, ::coder::array<double, 2U>
       &simulation, ::coder::array<double, 2U> &shiftedData, ::coder::array<
       double, 2U> &background, ::coder::array<double, 2U> &resolution,
-      cell_wrap_7 sldProfile[2], cell_wrap_9 layers[2], cell_wrap_65
+      cell_wrap_7 sldProfile[2], cell_wrap_9 layers[2], cell_wrap_64
       resampledLayers[2], double &scalefactor, double &bulkIn, double &bulkOut,
       double &chi);
   }
@@ -87,11 +87,11 @@ namespace RAT
       double resampleNPoints, double resample, const char geometry_data[], const
       int geometry_size[2], double roughness, boolean_T calcSld, const ::coder::
       array<double, 2U> &domainLayersIndices1, const ::coder::array<double, 2U>
-      &domainLayersIndices2, const ::coder::array<cell_wrap_52, 2U> &layerValues,
+      &domainLayersIndices2, const ::coder::array<cell_wrap_51, 2U> &layerValues,
       ::coder::array<double, 2U> &reflectivity, ::coder::array<double, 2U>
       &simulation, ::coder::array<double, 2U> &shiftedData, ::coder::array<
       double, 2U> &background, ::coder::array<double, 2U> &resolution,
-      cell_wrap_7 sldProfile[2], cell_wrap_9 layers[2], cell_wrap_65
+      cell_wrap_7 sldProfile[2], cell_wrap_9 layers[2], cell_wrap_64
       resampledLayers[2], double &scalefactor, double &bulkIn, double &bulkOut,
       double &chi)
     {
@@ -103,8 +103,8 @@ namespace RAT
       ::coder::array<double, 2U> simulation1;
       ::coder::array<double, 2U> simulation2;
       ::coder::array<double, 1U> simulationXData;
-      cell_wrap_65 r2;
-      cell_wrap_65 r5;
+      cell_wrap_64 r2;
+      cell_wrap_64 r5;
       cell_wrap_7 r;
       cell_wrap_7 r3;
       cell_wrap_9 r1;
@@ -226,10 +226,10 @@ namespace RAT
                           cell_wrap_9, 2U> &domainResampledLayers, ::coder::
                           array<double, 1U> &subRoughs)
     {
-      ::coder::array<cell_wrap_52, 2U> layerValues;
-      ::coder::array<cell_wrap_63, 1U> sldProfiles;
-      ::coder::array<cell_wrap_64, 1U> layers;
-      ::coder::array<cell_wrap_66, 1U> resampledLayers;
+      ::coder::array<cell_wrap_51, 2U> layerValues;
+      ::coder::array<cell_wrap_62, 1U> sldProfiles;
+      ::coder::array<cell_wrap_63, 1U> layers;
+      ::coder::array<cell_wrap_65, 1U> resampledLayers;
       ::coder::array<cell_wrap_9, 1U> domainContrastLayers1;
       ::coder::array<cell_wrap_9, 1U> domainContrastLayers2;
       ::coder::array<double, 2U> r;
@@ -649,10 +649,10 @@ namespace RAT
                         &domainResampledLayers, ::coder::array<double, 1U>
                         &subRoughs)
     {
-      ::coder::array<cell_wrap_52, 2U> layerValues;
-      ::coder::array<cell_wrap_63, 1U> sldProfiles;
-      ::coder::array<cell_wrap_64, 1U> layers;
-      ::coder::array<cell_wrap_66, 1U> resampledLayers;
+      ::coder::array<cell_wrap_51, 2U> layerValues;
+      ::coder::array<cell_wrap_62, 1U> sldProfiles;
+      ::coder::array<cell_wrap_63, 1U> layers;
+      ::coder::array<cell_wrap_65, 1U> resampledLayers;
       ::coder::array<cell_wrap_9, 1U> domainContrastLayers1;
       ::coder::array<cell_wrap_9, 1U> domainContrastLayers2;
       ::coder::array<double, 2U> r;

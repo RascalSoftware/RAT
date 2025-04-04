@@ -55,8 +55,8 @@ namespace RAT
       array<double, 2U> &sldProfile2, ::coder::array<double, 2U> &reflectivity, ::
       coder::array<double, 2U> &simulation, ::coder::array<double, 2U>
       &shiftedData, ::coder::array<double, 2U> &background, ::coder::array<
-      double, 2U> &resolution, cell_wrap_9 sldProfile[2], cell_wrap_65 layers[2],
-      cell_wrap_65 resampledLayers[2], double &scalefactor, double &bulkIn,
+      double, 2U> &resolution, cell_wrap_9 sldProfile[2], cell_wrap_64 layers[2],
+      cell_wrap_64 resampledLayers[2], double &scalefactor, double &bulkIn,
       double &bulkOut, double &chi);
     static double c_contrastCalculation(const double backgroundParamIndex_data[],
       const int backgroundParamIndex_size[2], double scalefactorIndex, double
@@ -79,7 +79,7 @@ namespace RAT
       array<double, 2U> &reflectivity, ::coder::array<double, 2U> &simulation, ::
       coder::array<double, 2U> &shiftedData, ::coder::array<double, 2U>
       &background, ::coder::array<double, 2U> &resolution, cell_wrap_9
-      sldProfile[2], cell_wrap_65 layers[2], cell_wrap_65 resampledLayers[2],
+      sldProfile[2], cell_wrap_64 layers[2], cell_wrap_64 resampledLayers[2],
       double &scalefactor, double &bulkIn, double &bulkOut, double &chi);
   }
 }
@@ -109,8 +109,8 @@ namespace RAT
       array<double, 2U> &sldProfile2, ::coder::array<double, 2U> &reflectivity, ::
       coder::array<double, 2U> &simulation, ::coder::array<double, 2U>
       &shiftedData, ::coder::array<double, 2U> &background, ::coder::array<
-      double, 2U> &resolution, cell_wrap_9 sldProfile[2], cell_wrap_65 layers[2],
-      cell_wrap_65 resampledLayers[2], double &scalefactor, double &bulkIn,
+      double, 2U> &resolution, cell_wrap_9 sldProfile[2], cell_wrap_64 layers[2],
+      cell_wrap_64 resampledLayers[2], double &scalefactor, double &bulkIn,
       double &bulkOut, double &chi)
     {
       ::coder::array<double, 2U> b_data;
@@ -123,8 +123,8 @@ namespace RAT
       ::coder::array<double, 2U> simulation1;
       ::coder::array<double, 2U> simulation2;
       ::coder::array<double, 1U> simulationXData;
-      cell_wrap_65 r;
-      cell_wrap_65 r1;
+      cell_wrap_64 r;
+      cell_wrap_64 r1;
       cell_wrap_9 r2;
       cell_wrap_9 r3;
       double dataIndices[2];
@@ -297,7 +297,7 @@ namespace RAT
       array<double, 2U> &reflectivity, ::coder::array<double, 2U> &simulation, ::
       coder::array<double, 2U> &shiftedData, ::coder::array<double, 2U>
       &background, ::coder::array<double, 2U> &resolution, cell_wrap_9
-      sldProfile[2], cell_wrap_65 layers[2], cell_wrap_65 resampledLayers[2],
+      sldProfile[2], cell_wrap_64 layers[2], cell_wrap_64 resampledLayers[2],
       double &scalefactor, double &bulkIn, double &bulkOut, double &chi)
     {
       ::coder::array<double, 2U> b_data;
@@ -310,8 +310,8 @@ namespace RAT
       ::coder::array<double, 2U> simulation1;
       ::coder::array<double, 2U> simulation2;
       ::coder::array<double, 1U> simulationXData;
-      cell_wrap_65 r;
-      cell_wrap_65 r1;
+      cell_wrap_64 r;
+      cell_wrap_64 r1;
       cell_wrap_9 r2;
       cell_wrap_9 r3;
       double dataIndices[2];
@@ -476,9 +476,9 @@ namespace RAT
                   &domainLayers, ::coder::array<cell_wrap_9, 2U>
                   &domainResampledLayers, ::coder::array<double, 1U> &subRoughs)
     {
-      ::coder::array<cell_wrap_64, 1U> sldProfiles;
-      ::coder::array<cell_wrap_66, 1U> layers;
-      ::coder::array<cell_wrap_66, 1U> resampledLayers;
+      ::coder::array<cell_wrap_63, 1U> sldProfiles;
+      ::coder::array<cell_wrap_65, 1U> layers;
+      ::coder::array<cell_wrap_65, 1U> resampledLayers;
       ::coder::array<cell_wrap_9, 2U> slds;
       ::coder::array<cell_wrap_9, 1U> slds1;
       ::coder::array<cell_wrap_9, 1U> slds2;

@@ -242,14 +242,25 @@ classdef contrastsClass < baseContrasts
             
             inputArray = cellstr(input);
 
-            % Check the input is as expected - modelNames tells us what the
-            % model type is
-            if all(size(allowedNames.modelNames) == size(allowedNames.customFileNames)) && all(cellfun(@strcmp, allowedNames.modelNames, allowedNames.customFileNames))
-                if length(inputArray) > 1
-                    throw(exceptions.invalidValue('Only one model value is allowed for custom models'));
+            % Check the input is as expected - layerNames is only present in standard layers
+            if ~isfield(allowedNames, 'layerNames') 
+                if isempty(allowedNames.customFileNames) 
+                    throw(exceptions.invalidValue('At least one custom file must be added to the contrast model in a standard layers project. Did you forget to add the custom file?'));
                 end
-            elseif obj.domainsCalc && all(size(allowedNames.modelNames) == size(allowedNames.domainContrastNames)) && all(cellfun(@strcmp, allowedNames.modelNames, allowedNames.domainContrastNames))
-                if length(inputArray) ~= 2
+                  
+                if length(inputArray) > 1
+                    throw(exceptions.invalidValue('One custom file is required as the contrast model in a custom layers or xy project'));
+                end  
+            else
+                if isempty(allowedNames.layerNames) && ~isempty(allowedNames.customFileNames) && any(cellfun(@(x) any(strcmp(x, allowedNames.customFileNames)), inputArray))
+                    throw(exceptions.invalidValue('Custom files cannot be used in a standard layers model. Did you forget to change the model type?'));
+                end
+
+                if isempty(allowedNames.layerNames) 
+                    throw(exceptions.invalidValue('At least one layer must be added to the contrast model in a standard layers project. Did you forget to add the layers?'));
+                end
+               
+                if obj.domainsCalc && length(inputArray) ~= 2
                     throw(exceptions.invalidValue('Exactly two model values are required for ''standard layers'' with domains'));
                 end
             end
@@ -260,7 +271,7 @@ classdef contrastsClass < baseContrasts
             for i = 1:modelSize 
                 found = strcmpi(inputArray{i}, modelNames);
                 if ~any(found)
-                    throw(exceptions.nameNotRecognised(sprintf('Model component name "%s" is not recognised. The allowed names are: "%s".', inputArray{i}, strjoin(allowedNames.modelNames, '", "'))));
+                    throw(exceptions.nameNotRecognised(sprintf('Model component name "%s" is not recognised. The allowed names are: "%s".', inputArray{i}, strjoin(modelNames, '", "'))));
                 end
                 model{i} = modelNames{find(found, 1)};
             end

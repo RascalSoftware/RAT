@@ -334,12 +334,18 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
             noDomainsClass.setContrastModel(1, testCase.allowedNames, testModel);
             testCase.verifyEqual(noDomainsClass.contrasts{1}.model, testModel, 'setContrastModel does not work correctly');
+
+            testCase.allowedNames.layerNames = {};
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, {'Oxide Layer'}), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, {'DPPC Model'}), exceptions.invalidValue.errorID);
+
         end
 
         function testSetContrastModelCustomLayers(testCase)
             % Test setting a model for a contrast from the contrasts class
             % for a "custom XY" model type
             noDomainsClass = contrastsClass();
+            testCase.allowedNames = rmfield(testCase.allowedNames, 'layerNames');
             noDomainsClass.addContrast(testCase.allowedNames);
 
             testModel = {'DPPC Model'};
@@ -350,6 +356,9 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
             % only one model value is allowed
             testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, {'DPPC Model', 'DSPC Model'}), exceptions.invalidValue.errorID);
+
+            testCase.allowedNames.customFileNames = {};
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, {'DPPC Model'}), exceptions.invalidValue.errorID);
         end
 
         function testSetContrastModelInvalid(testCase)

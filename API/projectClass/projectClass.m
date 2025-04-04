@@ -269,10 +269,10 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % thickness : string or char array or whole number, default: ''
             %     The name (or the row index) of the parameter describing the thickness of this layer.
             % realSLD : string or char array or whole number, default: ''
-            %     The name (or the row index) of the parameter describing the real (``absorption``) term
+            %     The name (or the row index) of the parameter describing the real (scattering) term
             %     for the scattering length density of this layer.
             % imaginarySLD : string or char array or whole number, default: ''
-            %     The name (or the row index) of the parameter describing the imaginary (``absorption``) term
+            %     The name (or the row index) of the parameter describing the imaginary (absorption) term
             %     for the scattering length density of this layer.
             % roughness : string or char array or whole number, default: ''
             %     The name (or the row index) of the parameter describing the roughness of this layer.

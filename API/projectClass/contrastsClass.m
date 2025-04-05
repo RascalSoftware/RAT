@@ -1,21 +1,20 @@
 classdef contrastsClass < baseContrasts
-
     % This class holds the parameters for each contrast used in the
     % simulation
 
 
     methods   
-        function obj = contrastsClass(calcType)
+        function obj = contrastsClass(isDomains)
             % Class Constructor
             % The (optional) inputs is a logical flag to state whether
             % or not this is a domains calculation.
             %
             % contrasts = contrastsClass()
             arguments
-                calcType.domains {mustBeA(calcType.domains,'logical')} = false
+                isDomains {mustBeA(isDomains,'logical')} = false
             end
 
-            obj@baseContrasts(calcType.domains)
+            obj@baseContrasts(isDomains)
         end
 
         function names = getDisplayNames(obj)
@@ -248,8 +247,7 @@ classdef contrastsClass < baseContrasts
                 inputBlock.domainRatio = obj.validateExactString(inputBlock.domainRatio, expectedDomainRatio);
             end
         end
-
-            
+        
         function contrast = setDefaultValues(~, contrast)
             % Sets default values to empty fields when adding a contrast.
             % 
@@ -283,6 +281,19 @@ classdef contrastsClass < baseContrasts
     methods(Access = private)
 
         function output = validateExactString(~, input, allowedNames)
+            % Validates input name is found in list of allowed names.
+            % 
+            % Parameters
+            % ----------
+            % input: string or char array
+            %     A name to validate.
+            % allowedNames: cell
+            %     A cell containing the valid names.
+            % 
+            % Returns
+            % -------
+            % output: string or char array
+            %     The validated name.
             if isempty(input)
                 output = '';
                 return
@@ -306,6 +317,19 @@ classdef contrastsClass < baseContrasts
         end
 
         function model = validateContrastModel(obj, input, allowedNames)
+            % Validates contrast model.
+            % 
+            % Parameters
+            % ----------
+            % input: string or char array or cell string
+            %     The name(s) in the contrast model.
+            % allowedNames: struct
+            %     A struct containing the valid names that can be referenced in the contrast.
+            % 
+            % Returns
+            % -------
+            % model: cell string
+            %     The validated name(s) in the contrast model.
             if isempty(input)
                 model = '';
                 return

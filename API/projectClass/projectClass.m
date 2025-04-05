@@ -176,14 +176,14 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         function names = getAllAllowedNames(obj)
             % Returns a struct with all currently set names of normal parameters, background and resolution 
             % parameters, backgrounds, resolutions, bulk-ins, bulk-outs, scalefactors, data, custom files and 
-            % contrasts for the project.
+            % contrast model for the project.
             % 
             % Returns
             % -------
             % names : struct
             %     A struct with names of all the normal parameters, background and resolution 
             %     parameters, backgrounds, resolutions, bulk-ins, bulk-outs, scalefactors, data, custom files and 
-            %     contrasts entries in the project.
+            %     contrast model entries in the project.
             names.paramNames = obj.parameters.getNames();
             names.backgroundNames = obj.background.getNames();
             names.backgroundParamNames = obj.background.backgroundParams.getNames();

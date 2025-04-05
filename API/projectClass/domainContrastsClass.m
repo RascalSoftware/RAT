@@ -47,7 +47,17 @@ classdef domainContrastsClass < baseContrasts
             % values are of the correct type, and included in the list of
             % allowed names where necessary.
             %
-            % contrastsClass.parseContrastInput(~, allowedNames, 'name', 'Contrast Name')        
+            % Parameters
+            % ----------
+            % allowedNames: struct
+            %     A struct containing the valid names that can be referenced in the contrast.
+            % inputValues: cell
+            %     A cell containing keyword/value pairs of properties for the contrast.
+            % 
+            % Returns
+            % -------
+            % inputBlock : struct
+            %     A struct containing properties of the contrast with empty fields set to default.      
             defaultName = '';
             defaultModel = '';
 
@@ -87,6 +97,19 @@ classdef domainContrastsClass < baseContrasts
     methods(Access = private)
 
         function model = validateDomainContrastModel(~, input, allowedModelNames)
+            % Validates domain contrast model.
+            % 
+            % Parameters
+            % ----------
+            % input: string or char array or cell string
+            %     The name(s) in the domain contrast model.
+            % allowedNames: struct
+            %     A struct containing the valid names that can be referenced in the domain contrast.
+            % 
+            % Returns
+            % -------
+            % model: cell string
+            %     The validated name(s) in the domain contrast model.
             if isempty(input)
                 model = '';
                 return

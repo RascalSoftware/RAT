@@ -102,14 +102,14 @@ namespace RAT
     ::coder::array<double, 2U> b_G;
     ::coder::array<double, 2U> b_L;
     ::coder::array<double, 2U> ee;
-    ::coder::array<double, 2U> r;
+    ::coder::array<double, 2U> r1;
     ::coder::array<double, 2U> theta;
     ::coder::array<double, 2U> y;
     ::coder::array<double, 1U> b_C;
     ::coder::array<double, 1U> ind;
-    ::coder::array<double, 1U> varargin_1_tmp;
+    ::coder::array<double, 1U> r;
     ::coder::array<int, 2U> bb;
-    ::coder::array<int, 1U> r1;
+    ::coder::array<int, 1U> r2;
     double b_dv1[3];
     double dv2[3];
     double b_dv[2];
@@ -190,28 +190,28 @@ namespace RAT
     //
     //   gamma, zi, nu, and beta2 are quantities used by the algorithm.
     //
-    coder::diag(G, varargin_1_tmp);
-    coder::diag(varargin_1_tmp, r);
-    if ((G.size(0) == r.size(0)) && (G.size(1) == r.size(1))) {
+    coder::diag(G, r);
+    coder::diag(r, r1);
+    if ((G.size(0) == r1.size(0)) && (G.size(1) == r1.size(1))) {
       b_G.set_size(G.size(0), G.size(1));
       loop_ub = G.size(1);
       for (i = 0; i < loop_ub; i++) {
         b_loop_ub = G.size(0);
         for (i1 = 0; i1 < b_loop_ub; i1++) {
-          b_G[i1 + b_G.size(0) * i] = G[i1 + G.size(0) * i] - r[i1 + r.size(0) *
-            i];
+          b_G[i1 + b_G.size(0) * i] = G[i1 + G.size(0) * i] - r1[i1 + r1.size(0)
+            * i];
         }
       }
 
       coder::internal::maximum(b_G, y);
     } else {
-      c_binary_expand_op(y, G, r);
+      c_binary_expand_op(y, G, r1);
     }
 
     b_dv[0] = 1.0;
     b = static_cast<double>(G.size(0)) * static_cast<double>(G.size(0));
     b_dv[1] = std::sqrt(b - 1.0);
-    b_dv1[0] = coder::internal::maximum(varargin_1_tmp);
+    b_dv1[0] = coder::internal::maximum(r);
     b_dv1[1] = coder::internal::maximum(y) / coder::internal::maximum(b_dv);
     b_dv1[2] = 1.0E-15;
     beta2 = coder::internal::b_maximum(b_dv1);
@@ -219,12 +219,12 @@ namespace RAT
     //
     //   Initialize diag(C) to diag(G).
     //
-    C.set_size(r.size(0), r.size(1));
-    loop_ub = r.size(1);
+    C.set_size(r1.size(0), r1.size(1));
+    loop_ub = r1.size(1);
     for (i = 0; i < loop_ub; i++) {
-      b_loop_ub = r.size(0);
+      b_loop_ub = r1.size(0);
       for (i1 = 0; i1 < b_loop_ub; i1++) {
-        C[i1 + C.size(0) * i] = r[i1 + r.size(0) * i];
+        C[i1 + C.size(0) * i] = r1[i1 + r1.size(0) * i];
       }
     }
 
@@ -292,34 +292,34 @@ namespace RAT
       //   Calculate the jth row of L.
       //
       if (j + 1 > 1) {
-        varargin_1_tmp.set_size(bb.size(1));
+        r.set_size(bb.size(1));
         loop_ub = bb.size(1);
         for (i1 = 0; i1 < loop_ub; i1++) {
-          varargin_1_tmp[i1] = bb[i1];
+          r[i1] = bb[i1];
         }
 
-        r1.set_size(varargin_1_tmp.size(0));
-        loop_ub = varargin_1_tmp.size(0);
-        b_G.set_size(varargin_1_tmp.size(0), varargin_1_tmp.size(0));
+        r2.set_size(r.size(0));
+        loop_ub = r.size(0);
+        b_G.set_size(r.size(0), r.size(0));
         for (i1 = 0; i1 < loop_ub; i1++) {
-          i2 = static_cast<int>(varargin_1_tmp[i1]) - 1;
-          r1[i1] = i2;
-          b_loop_ub = varargin_1_tmp.size(0);
+          i2 = static_cast<int>(r[i1]) - 1;
+          r2[i1] = i2;
+          b_loop_ub = r.size(0);
           for (int i3{0}; i3 < b_loop_ub; i3++) {
-            b_G[i3 + b_G.size(0) * i1] = D[(static_cast<int>(varargin_1_tmp[i3])
-              + D.size(0) * i2) - 1];
+            b_G[i3 + b_G.size(0) * i1] = D[(static_cast<int>(r[i3]) + D.size(0) *
+              i2) - 1];
           }
         }
 
         coder::diag(b_G, b_C);
-        if (varargin_1_tmp.size(0) == b_C.size(0)) {
-          loop_ub = r1.size(0);
+        if (r.size(0) == b_C.size(0)) {
+          loop_ub = r2.size(0);
           for (i1 = 0; i1 < loop_ub; i1++) {
-            L[j + L.size(0) * r1[i1]] = C[j + C.size(0) * (static_cast<int>
-              (varargin_1_tmp[i1]) - 1)] / b_C[i1];
+            L[j + L.size(0) * r2[i1]] = C[j + C.size(0) * (static_cast<int>(r[i1])
+              - 1)] / b_C[i1];
           }
         } else {
-          binary_expand_op(L, j, r1, C, varargin_1_tmp, b_C);
+          binary_expand_op(L, j, r2, C, r, b_C);
         }
       }
 
@@ -328,19 +328,19 @@ namespace RAT
       //
       if (j + 1 >= 2) {
         if (j + 1 < n) {
-          varargin_1_tmp.set_size(bb.size(1));
+          r.set_size(bb.size(1));
           loop_ub = bb.size(1);
           for (i1 = 0; i1 < loop_ub; i1++) {
-            varargin_1_tmp[i1] = bb[i1];
+            r[i1] = bb[i1];
           }
 
-          r.set_size(ee.size(1), varargin_1_tmp.size(0));
-          loop_ub = varargin_1_tmp.size(0);
+          r1.set_size(ee.size(1), r.size(0));
+          loop_ub = r.size(0);
           for (i1 = 0; i1 < loop_ub; i1++) {
             b_loop_ub = ee.size(1);
             for (i2 = 0; i2 < b_loop_ub; i2++) {
-              r[i2 + r.size(0) * i1] = C[(static_cast<int>(ee[i2]) + C.size(0) *
-                (static_cast<int>(varargin_1_tmp[i1]) - 1)) - 1];
+              r1[i2 + r1.size(0) * i1] = C[(static_cast<int>(ee[i2]) + C.size(0)
+                * (static_cast<int>(r[i1]) - 1)) - 1];
             }
           }
 
@@ -350,46 +350,45 @@ namespace RAT
             b_C[i1] = ee[i1];
           }
 
-          r1.set_size(b_C.size(0));
+          r2.set_size(b_C.size(0));
           loop_ub = b_C.size(0);
           for (i1 = 0; i1 < loop_ub; i1++) {
-            r1[i1] = static_cast<int>(b_C[i1]) - 1;
+            r2[i1] = static_cast<int>(b_C[i1]) - 1;
           }
 
-          b_L.set_size(1, varargin_1_tmp.size(0));
-          loop_ub = varargin_1_tmp.size(0);
+          b_L.set_size(1, r.size(0));
+          loop_ub = r.size(0);
           for (i1 = 0; i1 < loop_ub; i1++) {
-            b_L[i1] = L[j + L.size(0) * (static_cast<int>(varargin_1_tmp[i1]) -
-              1)];
+            b_L[i1] = L[j + L.size(0) * (static_cast<int>(r[i1]) - 1)];
           }
 
-          coder::internal::blas::mtimes(b_L, r, y);
+          coder::internal::blas::mtimes(b_L, r1, y);
           if (b_C.size(0) == y.size(1)) {
-            loop_ub = r1.size(0);
+            loop_ub = r2.size(0);
             for (i1 = 0; i1 < loop_ub; i1++) {
-              C[r1[i1] + C.size(0) * j] = G[(static_cast<int>(b_C[i1]) + G.size
+              C[r2[i1] + C.size(0) * j] = G[(static_cast<int>(b_C[i1]) + G.size
                 (0) * j) - 1] - y[i1];
             }
           } else {
-            binary_expand_op(C, r1, j, G, b_C, y);
+            binary_expand_op(C, r2, j, G, b_C, y);
           }
         }
       } else {
-        varargin_1_tmp.set_size(ee.size(1));
+        r.set_size(ee.size(1));
         loop_ub = ee.size(1);
         for (i1 = 0; i1 < loop_ub; i1++) {
-          varargin_1_tmp[i1] = ee[i1];
+          r[i1] = ee[i1];
         }
 
-        r1.set_size(varargin_1_tmp.size(0));
-        loop_ub = varargin_1_tmp.size(0);
+        r2.set_size(r.size(0));
+        loop_ub = r.size(0);
         for (i1 = 0; i1 < loop_ub; i1++) {
-          r1[i1] = static_cast<int>(varargin_1_tmp[i1]) - 1;
+          r2[i1] = static_cast<int>(r[i1]) - 1;
         }
 
-        loop_ub = r1.size(0);
+        loop_ub = r2.size(0);
         for (i1 = 0; i1 < loop_ub; i1++) {
-          C[r1[i1]] = G[static_cast<int>(varargin_1_tmp[i1]) - 1];
+          C[r2[i1]] = G[static_cast<int>(r[i1]) - 1];
         }
       }
 
@@ -405,8 +404,8 @@ namespace RAT
           b_C[i1] = C[(static_cast<int>(ee[i1]) + C.size(0) * j) - 1];
         }
 
-        coder::b_abs(b_C, varargin_1_tmp);
-        theta[j] = coder::internal::maximum(varargin_1_tmp);
+        coder::b_abs(b_C, r);
+        theta[j] = coder::internal::maximum(r);
       }
 
       //
@@ -443,18 +442,18 @@ namespace RAT
       }
 
       a = 1.0 / D[j + D.size(0) * j];
-      varargin_1_tmp.set_size(ee.size(1));
+      r.set_size(ee.size(1));
       loop_ub = ee.size(1);
       for (i1 = 0; i1 < loop_ub; i1++) {
-        varargin_1_tmp[i1] = C[(static_cast<int>(ee[i1]) + C.size(0) * j) - 1];
+        r[i1] = C[(static_cast<int>(ee[i1]) + C.size(0) * j) - 1];
       }
 
-      if (ind.size(0) == varargin_1_tmp.size(0)) {
+      if (ind.size(0) == r.size(0)) {
         b_C.set_size(ind.size(0));
         loop_ub = ind.size(0);
         for (i1 = 0; i1 < loop_ub; i1++) {
           double varargin_1;
-          varargin_1 = varargin_1_tmp[i1];
+          varargin_1 = r[i1];
           b_C[i1] = C[static_cast<int>(ind[i1]) - 1] - a * (varargin_1 *
             varargin_1);
         }
@@ -464,7 +463,7 @@ namespace RAT
           C[static_cast<int>(ind[i1]) - 1] = b_C[i1];
         }
       } else {
-        binary_expand_op(C, ind, a, varargin_1_tmp);
+        binary_expand_op(C, ind, a, r);
       }
     }
 
@@ -486,15 +485,15 @@ namespace RAT
       }
     }
 
-    r1.set_size(y.size(1));
+    r2.set_size(y.size(1));
     loop_ub = y.size(1);
     for (i = 0; i < loop_ub; i++) {
-      r1[i] = static_cast<int>(y[i]);
+      r2[i] = static_cast<int>(y[i]);
     }
 
-    loop_ub = r1.size(0);
+    loop_ub = r2.size(0);
     for (i = 0; i < loop_ub; i++) {
-      L[r1[i] - 1] = 1.0;
+      L[r2[i] - 1] = 1.0;
     }
 
     // %%%%%%%%%%%%%%%%%%%%%%% M.Zibulevsky: end of changes %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -64,8 +64,8 @@ namespace RAT
     //               's2 must be single value');
     //      throw(ME);
     //  end
-    r = xcen + xw / 2.0;
-    l = xcen - xw / 2.0;
+    r = xcen + 0.5 * xw;
+    l = xcen - 0.5 * xw;
     aFactor = 1.4142135623730951 * s1;
     bFactor = 1.4142135623730951 * s2;
     a = 0.5 * h;
@@ -138,8 +138,8 @@ namespace RAT
     //               's2 must be single value');
     //      throw(ME);
     //  end
-    r = xcen + xw / 2.0;
-    l = xcen - xw / 2.0;
+    r = xcen + 0.5 * xw;
+    l = xcen - 0.5 * xw;
     aFactor = 1.4142135623730951 * s1;
     bFactor = 1.4142135623730951 * s2;
     b_x.set_size(1, x.size(1));

@@ -14,7 +14,7 @@
 #include "applyHydration.h"
 #include "callReflectivity.h"
 #include "groupLayersMod.h"
-#include "makeSLDProfiles.h"
+#include "makeSLDProfile.h"
 #include "resampleLayers.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
@@ -29,15 +29,14 @@ namespace RAT
       geometry_size[2], double bulkIn, double bulkOut, double resample,
       boolean_T calcSld, const ::coder::array<double, 2U> &shiftedData, const ::
       coder::array<double, 1U> &simulationXData, const double dataIndices[2],
-      const double repeatLayers[2], const ::coder::array<double, 2U> &resolution,
-      const ::coder::array<double, 2U> &background, const char
-      backgroundAction_data[], const int backgroundAction_size[2], const char
-      parallelPoints_data[], const int parallelPoints_size[2], double
-      resampleMinAngle, double resampleNPoints, ::coder::array<double, 2U>
-      &reflectivity, ::coder::array<double, 2U> &simulation, ::coder::array<
-      double, 2U> &b_shiftedData, ::coder::array<double, 2U> &sldProfile, ::
-      coder::array<double, 2U> &layers, ::coder::array<double, 2U>
-      &resampledLayers)
+      const ::coder::array<double, 2U> &resolution, const ::coder::array<double,
+      2U> &background, const char backgroundAction_data[], const int
+      backgroundAction_size[2], const char parallelPoints_data[], const int
+      parallelPoints_size[2], double resampleMinAngle, double resampleNPoints, ::
+      coder::array<double, 2U> &reflectivity, ::coder::array<double, 2U>
+      &simulation, ::coder::array<double, 2U> &b_shiftedData, ::coder::array<
+      double, 2U> &sldProfile, ::coder::array<double, 2U> &layers, ::coder::
+      array<double, 2U> &resampledLayers)
     {
       ::coder::array<double, 2U> ImSLDLayers;
       ::coder::array<double, 2U> ReSLDLayers;
@@ -143,9 +142,8 @@ namespace RAT
 
         //  Note bulkIn and bulkOut = 0 since there is never any imaginary part
         //  for the bulk phases.
-        makeSLDProfiles(bulkIn, bulkOut, ReSLDLayers, ssubs, repeatLayers,
-                        sldProfile);
-        makeSLDProfiles(ImSLDLayers, ssubs, repeatLayers, sldProfileIm);
+        makeSLDProfile(bulkIn, bulkOut, ReSLDLayers, ssubs, sldProfile);
+        makeSLDProfile(ImSLDLayers, ssubs, sldProfileIm);
       }
 
       //  If required, then resample the SLD
@@ -173,10 +171,9 @@ namespace RAT
       }
 
       //  Calculate the reflectivity
-      callReflectivity(bulkIn, bulkOut, simulationXData, dataIndices,
-                       repeatLayers, inputLayers, ssubs, resolution,
-                       parallelPoints_data, parallelPoints_size, reflectivity,
-                       simulation);
+      callReflectivity(bulkIn, bulkOut, simulationXData, dataIndices, 1.0,
+                       inputLayers, ssubs, resolution, parallelPoints_data,
+                       parallelPoints_size, reflectivity, simulation);
 
       //  Apply background correction
       c_shiftedData.set_size(shiftedData.size(0), 6);
@@ -196,9 +193,9 @@ namespace RAT
       double roughness, const char geometry_data[], const int geometry_size[2],
       double bulkIn, double bulkOut, double resample, boolean_T calcSld, const ::
       coder::array<double, 2U> &shiftedData, const ::coder::array<double, 1U>
-      &simulationXData, const double dataIndices[2], const double repeatLayers[2],
-      const ::coder::array<double, 2U> &resolution, const ::coder::array<double,
-      2U> &background, const char backgroundAction_data[], const int
+      &simulationXData, const double dataIndices[2], double repeatLayers, const ::
+      coder::array<double, 2U> &resolution, const ::coder::array<double, 2U>
+      &background, const char backgroundAction_data[], const int
       backgroundAction_size[2], const char parallelPoints_data[], const int
       parallelPoints_size[2], double resampleMinAngle, double resampleNPoints, ::
       coder::array<double, 2U> &reflectivity, ::coder::array<double, 2U>
@@ -328,9 +325,9 @@ namespace RAT
 
         //  Note bulkIn and bulkOut = 0 since there is never any imaginary part
         //  for the bulk phases.
-        makeSLDProfiles(bulkIn, bulkOut, ReSLDLayers, ssubs, repeatLayers,
-                        sldProfile);
-        makeSLDProfiles(ImSLDLayers, ssubs, repeatLayers, sldProfileIm);
+        makeSLDProfile(bulkIn, bulkOut, ReSLDLayers, ssubs, repeatLayers,
+                       sldProfile);
+        makeSLDProfile(ImSLDLayers, ssubs, repeatLayers, sldProfileIm);
       }
 
       //  If required, then resample the SLD
@@ -345,6 +342,8 @@ namespace RAT
               resampledLayers.size(0) * i];
           }
         }
+
+        repeatLayers = 1.0;
       } else {
         inputLayers.set_size(layers.size(0), layers.size(1));
         loop_ub = layers.size(1);

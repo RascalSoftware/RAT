@@ -20,12 +20,13 @@
 // Function Definitions
 namespace RAT
 {
-  void b_callReflectivity(double bulkIn, double bulkOut, const ::coder::array<
-    double, 1U> &simulationXData, const double dataIndices[2], const double
-    repeatLayers[2], ::coder::array<double, 2U> &layers, double ssubs, const ::
-    coder::array<double, 2U> &resolution, const char parallel_data[], const int
-    parallel_size[2], ::coder::array<double, 2U> &reflectivity, ::coder::array<
-    double, 2U> &simulation)
+  void callReflectivity(double bulkIn, double bulkOut, const ::coder::array<
+                        double, 1U> &simulationXData, const double dataIndices[2],
+                        double nRepeats, ::coder::array<double, 2U> &layers,
+                        double ssubs, const ::coder::array<double, 2U>
+                        &resolution, const char parallel_data[], const int
+                        parallel_size[2], ::coder::array<double, 2U>
+                        &reflectivity, ::coder::array<double, 2U> &simulation)
   {
     ::coder::array<creal_T, 1U> slds;
     ::coder::array<double, 1U> b_resolution;
@@ -34,19 +35,13 @@ namespace RAT
     ::coder::array<double, 1U> simRef;
     ::coder::array<double, 1U> thicknesses;
     double nLayersTot;
-    double nRepeats;
     int i;
     int i1;
     unsigned int layerCount;
     int loop_ub_tmp;
-    if (repeatLayers[0] != 0.0) {
-      nRepeats = repeatLayers[1];
-    } else {
-      nRepeats = 1.0;
-    }
 
     //  Build the input arrays for thick, sld and rough
-    if (layers.size(0) == 0) {
+    if ((layers.size(0) == 0) || (layers.size(1) == 0)) {
       //  No layers defined. Make a zeros dummy zero layer
       layers.set_size(1, 4);
       layers[0] = 0.0;
@@ -163,11 +158,11 @@ namespace RAT
 
   void callReflectivity(double bulkIn, double bulkOut, const ::coder::array<
                         double, 1U> &simulationXData, const double dataIndices[2],
-                        const double repeatLayers[2], ::coder::array<double, 2U>
-                        &layers, double ssubs, const ::coder::array<double, 2U>
-                        &resolution, const char parallel_data[], const int
-                        parallel_size[2], ::coder::array<double, 2U>
-                        &reflectivity, ::coder::array<double, 2U> &simulation)
+                        ::coder::array<double, 2U> &layers, double ssubs, const ::
+                        coder::array<double, 2U> &resolution, const char
+                        parallel_data[], const int parallel_size[2], ::coder::
+                        array<double, 2U> &reflectivity, ::coder::array<double,
+                        2U> &simulation)
   {
     ::coder::array<creal_T, 1U> slds;
     ::coder::array<double, 1U> b_resolution;
@@ -175,20 +170,12 @@ namespace RAT
     ::coder::array<double, 1U> roughnesses;
     ::coder::array<double, 1U> simRef;
     ::coder::array<double, 1U> thicknesses;
-    double nLayersTot;
-    double nRepeats;
     int i;
     int i1;
-    unsigned int layerCount;
     int loop_ub_tmp;
-    if (repeatLayers[0] != 0.0) {
-      nRepeats = repeatLayers[1];
-    } else {
-      nRepeats = 1.0;
-    }
 
     //  Build the input arrays for thick, sld and rough
-    if ((layers.size(0) == 0) || (layers.size(1) == 0)) {
+    if (layers.size(0) == 0) {
       //  No layers defined. Make a zeros dummy zero layer
       layers.set_size(1, 4);
       layers[0] = 0.0;
@@ -198,41 +185,31 @@ namespace RAT
     }
 
     //  Number of layers (including repeats)
-    nLayersTot = static_cast<double>(layers.size(0)) * nRepeats + 2.0;
-
     //  Make arrays for thick, sld, rough
-    loop_ub_tmp = static_cast<int>(nLayersTot);
-    thicknesses.set_size(loop_ub_tmp);
+    thicknesses.set_size(layers.size(0) + 2);
+    loop_ub_tmp = layers.size(0) + 2;
     for (i = 0; i < loop_ub_tmp; i++) {
       thicknesses[i] = 0.0;
     }
 
-    slds.set_size(loop_ub_tmp);
+    slds.set_size(layers.size(0) + 2);
     for (i = 0; i < loop_ub_tmp; i++) {
       slds[i].re = 0.0;
       slds[i].im = 0.0;
     }
 
-    roughnesses.set_size(loop_ub_tmp);
+    roughnesses.set_size(layers.size(0) + 2);
     for (i = 0; i < loop_ub_tmp; i++) {
       roughnesses[i] = 0.0;
     }
 
     //  Populate the d,rho,sig arrays...
-    layerCount = 2U;
-    i = static_cast<int>(nRepeats);
-    for (int m{0}; m < i; m++) {
-      i1 = layers.size(0);
-      for (int n{0}; n < i1; n++) {
-        loop_ub_tmp = static_cast<int>(layerCount + static_cast<unsigned int>(n))
-          - 1;
-        thicknesses[loop_ub_tmp] = layers[n];
-        slds[loop_ub_tmp].re = layers[n + layers.size(0)];
-        slds[loop_ub_tmp].im = layers[n + layers.size(0) * 2];
-        roughnesses[loop_ub_tmp] = layers[n + layers.size(0) * 3];
-      }
-
-      layerCount += static_cast<unsigned int>(layers.size(0));
+    i = layers.size(0);
+    for (int n{0}; n < i; n++) {
+      thicknesses[n + 1] = layers[n];
+      slds[n + 1].re = layers[n + layers.size(0)];
+      slds[n + 1].im = layers[n + layers.size(0) * 2];
+      roughnesses[n + 1] = layers[n + layers.size(0) * 3];
     }
 
     //  Add the air and substrate parameters
@@ -263,12 +240,12 @@ namespace RAT
     if (i == 0) {
       //  Parallelise over points
       //  Calculate reflectivity
-      abelesParallelPoints(simulationXData, nLayersTot, thicknesses, slds,
-                           roughnesses, simRef);
+      abelesParallelPoints(simulationXData, static_cast<double>(layers.size(0))
+                           + 2.0, thicknesses, slds, roughnesses, simRef);
     } else {
       //  Calculate reflectivity
-      abelesSingle(simulationXData, nLayersTot, thicknesses, slds, roughnesses,
-                   simRef);
+      abelesSingle(simulationXData, static_cast<double>(layers.size(0)) + 2.0,
+                   thicknesses, slds, roughnesses, simRef);
     }
 
     //  Apply resolution correction

@@ -225,7 +225,7 @@ namespace RAT
     double numberOfContrasts;
     ::coder::bounded_array<char, 10000U, 2U> geometry;
     boolean_T useImaginary;
-    ::coder::array<cell_wrap_2, 2U> repeatLayers;
+    ::coder::array<double, 2U> repeatLayers;
     ::coder::array<cell_wrap_3, 2U> contrastBackgroundParams;
     ::coder::array<cell_wrap_0, 2U> contrastBackgroundTypes;
     ::coder::array<cell_wrap_0, 2U> contrastBackgroundActions;

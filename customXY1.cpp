@@ -45,10 +45,10 @@ namespace RAT
       coder::array<double, 2U> &resolutionParamValues, const ::coder::array<
       double, 2U> &domainRatioValues, double dataPresent, const ::coder::array<
       double, 2U> &data, const double dataLimits[2], const double
-      simulationLimits[2], const double repeatLayers[2], const ::coder::array<
-      cell_wrap_10, 2U> &backgroundType, const char backgroundAction_data[],
-      const int backgroundAction_size[2], const char resolutionType_data[],
-      const int resolutionType_size[2], const ::coder::array<cell_wrap_10, 2U>
+      simulationLimits[2], const ::coder::array<cell_wrap_10, 2U>
+      &backgroundType, const char backgroundAction_data[], const int
+      backgroundAction_size[2], const char resolutionType_data[], const int
+      resolutionType_size[2], const ::coder::array<cell_wrap_10, 2U>
       &customFiles, double nParams, const char parallel_data[], const int
       parallel_size[2], double resampleMinAngle, double resampleNPoints, double
       roughness, const ::coder::array<double, 2U> &sldProfile1, const ::coder::
@@ -68,19 +68,19 @@ namespace RAT
       coder::array<double, 2U> &resolutionParamValues, const ::coder::array<
       double, 2U> &domainRatioValues, double dataPresent, const ::coder::array<
       double, 2U> &data, const double dataLimits[2], const double
-      simulationLimits[2], const double repeatLayers[2], const char
-      backgroundType_data[], const int backgroundType_size[2], const char
-      backgroundAction_data[], const int backgroundAction_size[2], const char
-      resolutionType_data[], const int resolutionType_size[2], const ::coder::
-      array<cell_wrap_10, 2U> &customFiles, double nParams, const char
-      parallel_data[], const int parallel_size[2], double resampleMinAngle,
-      double resampleNPoints, double roughness, const ::coder::array<double, 2U>
-      &sldProfile1, const ::coder::array<double, 2U> &sldProfile2, ::coder::
-      array<double, 2U> &reflectivity, ::coder::array<double, 2U> &simulation, ::
-      coder::array<double, 2U> &shiftedData, ::coder::array<double, 2U>
-      &background, ::coder::array<double, 2U> &resolution, cell_wrap_9
-      sldProfile[2], cell_wrap_64 layers[2], cell_wrap_64 resampledLayers[2],
-      double &scalefactor, double &bulkIn, double &bulkOut, double &chi);
+      simulationLimits[2], const char backgroundType_data[], const int
+      backgroundType_size[2], const char backgroundAction_data[], const int
+      backgroundAction_size[2], const char resolutionType_data[], const int
+      resolutionType_size[2], const ::coder::array<cell_wrap_10, 2U>
+      &customFiles, double nParams, const char parallel_data[], const int
+      parallel_size[2], double resampleMinAngle, double resampleNPoints, double
+      roughness, const ::coder::array<double, 2U> &sldProfile1, const ::coder::
+      array<double, 2U> &sldProfile2, ::coder::array<double, 2U> &reflectivity, ::
+      coder::array<double, 2U> &simulation, ::coder::array<double, 2U>
+      &shiftedData, ::coder::array<double, 2U> &background, ::coder::array<
+      double, 2U> &resolution, cell_wrap_9 sldProfile[2], cell_wrap_64 layers[2],
+      cell_wrap_64 resampledLayers[2], double &scalefactor, double &bulkIn,
+      double &bulkOut, double &chi);
   }
 }
 
@@ -99,10 +99,10 @@ namespace RAT
       coder::array<double, 2U> &resolutionParamValues, const ::coder::array<
       double, 2U> &domainRatioValues, double dataPresent, const ::coder::array<
       double, 2U> &data, const double dataLimits[2], const double
-      simulationLimits[2], const double repeatLayers[2], const ::coder::array<
-      cell_wrap_10, 2U> &backgroundType, const char backgroundAction_data[],
-      const int backgroundAction_size[2], const char resolutionType_data[],
-      const int resolutionType_size[2], const ::coder::array<cell_wrap_10, 2U>
+      simulationLimits[2], const ::coder::array<cell_wrap_10, 2U>
+      &backgroundType, const char backgroundAction_data[], const int
+      backgroundAction_size[2], const char resolutionType_data[], const int
+      resolutionType_size[2], const ::coder::array<cell_wrap_10, 2U>
       &customFiles, double nParams, const char parallel_data[], const int
       parallel_size[2], double resampleMinAngle, double resampleNPoints, double
       roughness, const ::coder::array<double, 2U> &sldProfile1, const ::coder::
@@ -215,14 +215,12 @@ namespace RAT
                           resolutionParamIndex_data, resolutionParamIndex_size,
                           b_shiftedData, resolutionParamValues, simulationXData,
                           dataIndices, resolution);
-      b_callReflectivity(bulkIn, bulkOut, simulationXData, dataIndices,
-                         repeatLayers, r.f1, roughness, resolution,
-                         parallel_data, parallel_size, reflectivity1,
-                         simulation1);
-      b_callReflectivity(bulkIn, bulkOut, simulationXData, dataIndices,
-                         repeatLayers, r1.f1, roughness, resolution,
-                         parallel_data, parallel_size, reflectivity2,
-                         simulation2);
+      callReflectivity(bulkIn, bulkOut, simulationXData, dataIndices, r.f1,
+                       roughness, resolution, parallel_data, parallel_size,
+                       reflectivity1, simulation1);
+      callReflectivity(bulkIn, bulkOut, simulationXData, dataIndices, r1.f1,
+                       roughness, resolution, parallel_data, parallel_size,
+                       reflectivity2, simulation2);
       b_data.set_size(b_shiftedData.size(0), 6);
       loop_ub = b_shiftedData.size(0) - 1;
       for (int i{0}; i < 6; i++) {
@@ -286,19 +284,19 @@ namespace RAT
       coder::array<double, 2U> &resolutionParamValues, const ::coder::array<
       double, 2U> &domainRatioValues, double dataPresent, const ::coder::array<
       double, 2U> &data, const double dataLimits[2], const double
-      simulationLimits[2], const double repeatLayers[2], const char
-      backgroundType_data[], const int backgroundType_size[2], const char
-      backgroundAction_data[], const int backgroundAction_size[2], const char
-      resolutionType_data[], const int resolutionType_size[2], const ::coder::
-      array<cell_wrap_10, 2U> &customFiles, double nParams, const char
-      parallel_data[], const int parallel_size[2], double resampleMinAngle,
-      double resampleNPoints, double roughness, const ::coder::array<double, 2U>
-      &sldProfile1, const ::coder::array<double, 2U> &sldProfile2, ::coder::
-      array<double, 2U> &reflectivity, ::coder::array<double, 2U> &simulation, ::
-      coder::array<double, 2U> &shiftedData, ::coder::array<double, 2U>
-      &background, ::coder::array<double, 2U> &resolution, cell_wrap_9
-      sldProfile[2], cell_wrap_64 layers[2], cell_wrap_64 resampledLayers[2],
-      double &scalefactor, double &bulkIn, double &bulkOut, double &chi)
+      simulationLimits[2], const char backgroundType_data[], const int
+      backgroundType_size[2], const char backgroundAction_data[], const int
+      backgroundAction_size[2], const char resolutionType_data[], const int
+      resolutionType_size[2], const ::coder::array<cell_wrap_10, 2U>
+      &customFiles, double nParams, const char parallel_data[], const int
+      parallel_size[2], double resampleMinAngle, double resampleNPoints, double
+      roughness, const ::coder::array<double, 2U> &sldProfile1, const ::coder::
+      array<double, 2U> &sldProfile2, ::coder::array<double, 2U> &reflectivity, ::
+      coder::array<double, 2U> &simulation, ::coder::array<double, 2U>
+      &shiftedData, ::coder::array<double, 2U> &background, ::coder::array<
+      double, 2U> &resolution, cell_wrap_9 sldProfile[2], cell_wrap_64 layers[2],
+      cell_wrap_64 resampledLayers[2], double &scalefactor, double &bulkIn,
+      double &bulkOut, double &chi)
     {
       ::coder::array<double, 2U> b_data;
       ::coder::array<double, 2U> b_reflectivity1;
@@ -402,14 +400,12 @@ namespace RAT
                           resolutionParamIndex_data, resolutionParamIndex_size,
                           b_shiftedData, resolutionParamValues, simulationXData,
                           dataIndices, resolution);
-      b_callReflectivity(bulkIn, bulkOut, simulationXData, dataIndices,
-                         repeatLayers, r.f1, roughness, resolution,
-                         parallel_data, parallel_size, reflectivity1,
-                         simulation1);
-      b_callReflectivity(bulkIn, bulkOut, simulationXData, dataIndices,
-                         repeatLayers, r1.f1, roughness, resolution,
-                         parallel_data, parallel_size, reflectivity2,
-                         simulation2);
+      callReflectivity(bulkIn, bulkOut, simulationXData, dataIndices, r.f1,
+                       roughness, resolution, parallel_data, parallel_size,
+                       reflectivity1, simulation1);
+      callReflectivity(bulkIn, bulkOut, simulationXData, dataIndices, r1.f1,
+                       roughness, resolution, parallel_data, parallel_size,
+                       reflectivity2, simulation2);
       b_data.set_size(b_shiftedData.size(0), 6);
       loop_ub = b_shiftedData.size(0) - 1;
       for (int i{0}; i < 6; i++) {
@@ -485,13 +481,12 @@ namespace RAT
       ::coder::array<double, 2U> r;
       ::coder::array<double, 2U> r1;
       ::coder::array<double, 2U> r2;
+      double dv2[2];
       double dv3[2];
-      double dv4[2];
-      double dv5[2];
       double d;
       double d1;
       double d2;
-      double d3;
+      double d4;
       double resampleMinAngle;
       double resampleNPoints;
       int iv4[2];
@@ -583,7 +578,7 @@ namespace RAT
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
- private(r,d,d1,d2,d3,iv4,iv5,dv3,dv4,dv5,iv6,iv7,iv8,d_loop_ub,i2,i3)
+ private(r,d,d1,d2,d4,iv4,iv5,dv2,dv3,iv6,iv7,iv8,d_loop_ub,i2,i3)
 
         for (int c_i = 0; c_i <= ub_loop; c_i++) {
           iv4[0] = (*(int (*)[2])((::coder::array<double, 2U> *)
@@ -594,12 +589,10 @@ namespace RAT
                      &problemStruct.contrastResolutionParams[c_i].f1)->size())[0];
           iv5[1] = (*(int (*)[2])((::coder::array<double, 2U> *)
                      &problemStruct.contrastResolutionParams[c_i].f1)->size())[1];
-          dv3[0] = problemStruct.dataLimits[c_i].f1[0];
-          dv3[1] = problemStruct.dataLimits[c_i].f1[1];
-          dv4[0] = problemStruct.simulationLimits[c_i].f1[0];
-          dv4[1] = problemStruct.simulationLimits[c_i].f1[1];
-          dv5[0] = problemStruct.repeatLayers[c_i].f1[0];
-          dv5[1] = problemStruct.repeatLayers[c_i].f1[1];
+          dv2[0] = problemStruct.dataLimits[c_i].f1[0];
+          dv2[1] = problemStruct.dataLimits[c_i].f1[1];
+          dv3[0] = problemStruct.simulationLimits[c_i].f1[0];
+          dv3[1] = problemStruct.simulationLimits[c_i].f1[1];
           iv6[0] = (*(int (*)[2])((::coder::array<char, 2U> *)
                      &problemStruct.contrastBackgroundTypes[c_i].f1)->size())[0];
           iv6[1] = (*(int (*)[2])((::coder::array<char, 2U> *)
@@ -628,10 +621,10 @@ namespace RAT
                                 problemStruct.resolutionParams,
                                 problemStruct.domainRatios,
                                 problemStruct.dataPresent[c_i],
-                                problemStruct.data[c_i].f1, dv3, dv4, dv5, (
-            const char *)((::coder::array<char, 2U> *)
-                          &problemStruct.contrastBackgroundTypes[c_i].f1)->data(),
-                                iv6, (const char *)((::coder::array<char, 2U> *)
+                                problemStruct.data[c_i].f1, dv2, dv3, (const
+            char *)((::coder::array<char, 2U> *)
+                    &problemStruct.contrastBackgroundTypes[c_i].f1)->data(), iv6,
+                                (const char *)((::coder::array<char, 2U> *)
             &problemStruct.contrastBackgroundActions[c_i].f1)->data(), iv7, (
             const char *)((::coder::array<char, 2U> *)
                           &problemStruct.contrastResolutionTypes[c_i].f1)->data(),
@@ -642,7 +635,7 @@ namespace RAT
                                 slds2[c_i].f1, reflectivity[c_i].f1,
                                 simulation[c_i].f1, r, backgrounds[c_i].f1,
                                 resolutions[c_i].f1, sldProfiles[c_i].f1,
-                                layers[c_i].f1, resampledLayers[c_i].f1, d3, d2,
+                                layers[c_i].f1, resampledLayers[c_i].f1, d4, d2,
                                 d1, d);
           d_loop_ub = r.size(0);
           shiftedData[c_i].f1.set_size(r.size(0), 3);
@@ -654,7 +647,7 @@ namespace RAT
           }
 
           qzshifts[c_i] = 0.0;
-          scalefactors[c_i] = d3;
+          scalefactors[c_i] = d4;
           bulkIns[c_i] = d2;
           bulkOuts[c_i] = d1;
           chis[c_i] = d;
@@ -676,8 +669,7 @@ namespace RAT
         for (int i{0}; i < unnamed_idx_0_tmp_tmp_tmp; i++) {
           double b_dv[2];
           double b_dv1[2];
-          double dv2[2];
-          double d4;
+          double d3;
           double d5;
           double d6;
           double d7;
@@ -697,8 +689,6 @@ namespace RAT
           b_dv[1] = problemStruct.dataLimits[i].f1[1];
           b_dv1[0] = problemStruct.simulationLimits[i].f1[0];
           b_dv1[1] = problemStruct.simulationLimits[i].f1[1];
-          dv2[0] = problemStruct.repeatLayers[i].f1[0];
-          dv2[1] = problemStruct.repeatLayers[i].f1[1];
           iv2[0] = (*(int (*)[2])((::coder::array<char, 2U> *)
                      &problemStruct.contrastBackgroundActions[i].f1)->size())[0];
           iv2[1] = (*(int (*)[2])((::coder::array<char, 2U> *)
@@ -721,7 +711,7 @@ namespace RAT
                                 problemStruct.resolutionParams,
                                 problemStruct.domainRatios,
                                 problemStruct.dataPresent[i],
-                                problemStruct.data[i].f1, b_dv, b_dv1, dv2,
+                                problemStruct.data[i].f1, b_dv, b_dv1,
                                 problemStruct.contrastBackgroundTypes, (const
             char *)((::coder::array<char, 2U> *)
                     &problemStruct.contrastBackgroundActions[i].f1)->data(), iv2,
@@ -734,11 +724,11 @@ namespace RAT
                                 slds1[i].f1, slds2[i].f1, reflectivity[i].f1,
                                 simulation[i].f1, r2, backgrounds[i].f1,
                                 resolutions[i].f1, sldProfiles[i].f1, layers[i].
-                                f1, resampledLayers[i].f1, d4, d5, d6, d7);
+                                f1, resampledLayers[i].f1, d3, d5, d6, d7);
           chis[i] = d7;
           bulkOuts[i] = d6;
           bulkIns[i] = d5;
-          scalefactors[i] = d4;
+          scalefactors[i] = d3;
           loop_ub = r2.size(0);
           shiftedData[i].f1.set_size(r2.size(0), 3);
           for (b_i = 0; b_i < 3; b_i++) {

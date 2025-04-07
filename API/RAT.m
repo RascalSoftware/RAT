@@ -68,7 +68,7 @@ display = ~strcmpi(controls.display, displayOptions.Off.value);
 textProgressBar(0, 0, display);
 % If display is not silent print a line confirming RAT is starting
 if display
-    fprintf('Starting RAT ________________________________________________________________________________________________\n\n');
+    fprintf('Starting RAT ______________________________________________________________________________________________\n\n');
 end
 
 tic
@@ -85,7 +85,7 @@ end
 project = parseOutToProjectClass(project,problemStruct);
 
 if ~strcmpi(controls.display, displayOptions.Off.value)
-   fprintf('\nFinished RAT ______________________________________________________________________________________________ \n\n');
+   fprintf('\nFinished RAT ______________________________________________________________________________________________\n\n');
 end
 
 end

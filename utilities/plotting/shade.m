@@ -253,7 +253,7 @@ end
 if isText(fc)
     fc = {fc};
     fc = repmat(fc,nf,1);
-elseif (iscell(fc) && numel(fc) == 1) || (~iscell(fc) && size(fc,1) == 1)
+elseif (iscell(fc) && isscalar(fc)) || (~iscell(fc) && size(fc,1) == 1)
     fc = repmat(fc,nf,1);
 end
 
@@ -288,7 +288,7 @@ if isempty(fa)
 end
 
 % if length 1, repeat
-if length(fa) == 1
+if isscalar(fa)
     fa = repmat(fa,nf,1);
 end
 

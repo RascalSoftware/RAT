@@ -39,8 +39,8 @@ if calcSld || resample == 1
 
     % Note bulkIn and bulkOut = 0 since there is never any imaginary part
     % for the bulk phases.
-    sldProfile = makeSLDProfiles(bulkIn,bulkOut,ReSLDLayers,ssubs,repeatLayers);
-    sldProfileIm = makeSLDProfiles(0,0,ImSLDLayers,ssubs,repeatLayers);
+    sldProfile = makeSLDProfile(bulkIn,bulkOut,ReSLDLayers,ssubs,repeatLayers);
+    sldProfileIm = makeSLDProfile(0,0,ImSLDLayers,ssubs,repeatLayers);
 
 end
 
@@ -48,6 +48,7 @@ end
 if resample == 1
     resampledLayers = resampleLayers(sldProfile,sldProfileIm,resampleMinAngle,resampleNPoints);
     inputLayers = resampledLayers;
+    repeatLayers = 1;
 else
     inputLayers = layers;
 end

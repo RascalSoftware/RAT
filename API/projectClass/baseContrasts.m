@@ -23,8 +23,8 @@ classdef (Abstract) baseContrasts < handle
     properties(Access = protected, Constant, Hidden)
         invalidTypeMessage = sprintf('Model type must be a modelTypes enum or one of the following strings (%s)', ...
                                      strjoin(modelTypes.values(), ', '))
-        rowHeaders = struct('key', ["Name"; "Data"; "Background"; "Background Action"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"], ...
-                            'field', ["name"; "data"; "background"; "backgroundAction"; "bulkIn"; "bulkOut"; "scalefactor"; "resolution"; "resample"; "domainRatio"; "model"])
+        rowHeaders = struct('key', ["Name"; "Data"; "Background"; "Background Action"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Repeat Layers"; "Domain Ratio"; "Model"], ...
+                            'field', ["name"; "data"; "background"; "backgroundAction"; "bulkIn"; "bulkOut"; "scalefactor"; "resolution"; "resample"; "repeatLayers"; "domainRatio"; "model"])
     end
 
     methods (Abstract)
@@ -32,10 +32,6 @@ classdef (Abstract) baseContrasts < handle
         parseContrastInput
         setDefaultValues
     end
-
-    % methods (Abstract, Static)
-    %     setDefaultValues
-    % end
 
     methods
         
@@ -87,7 +83,7 @@ classdef (Abstract) baseContrasts < handle
                 contrastName = sprintf('New contrast %d', obj.contrastAutoNameCounter);
                 inputVals = {'name', contrastName};
                 
-            elseif length(varargin) == 1
+            elseif isscalar(varargin)
                 % Just name of contrast
                 thisName = varargin{1};
                 inputVals = {'name', thisName};
@@ -147,7 +143,7 @@ classdef (Abstract) baseContrasts < handle
             % Note that the model can only be set here, and not in
             % "addContrast" or "setContrast".
             %
-            % contrasts.setContrastModel(1, 'standard layers', allowedNames, 'Oxide Model')
+            % contrasts.setContrastModel(1, allowedNames, 'Oxide Model')
             obj.setContrast(row, allowedNames, 'model', model);
 
         end
@@ -223,6 +219,10 @@ classdef (Abstract) baseContrasts < handle
                 thisContrast.resample = inputBlock.resample;
             end
             
+            if isfield(inputBlock, 'repeatLayers') && ~isempty(inputBlock.repeatLayers)
+                thisContrast.repeatLayers = inputBlock.repeatLayers;
+            end
+
             if isfield(inputBlock, 'domainRatio') && ~isempty(inputBlock.domainRatio)
                 thisContrast.domainRatio = inputBlock.domainRatio;
             end
@@ -256,28 +256,20 @@ classdef (Abstract) baseContrasts < handle
             %
             % contrasts.toStruct()
             nContrasts = obj.numberOfContrasts;
-            
             contrastNames = cell(1,nContrasts);
-            contrastRepeatSLDs = cell(1,nContrasts);
-            
+                        
             for i = 1:nContrasts
-
-                thisContrast = obj.contrasts{i};
-                
-                contrastRepeatSLDs{i} = [0 1]; % todo
-                contrastNames{i} = thisContrast.name;
-
+                contrastNames{i} = obj.contrasts{i}.name;
             end
 
             contrastStruct.contrastNames = contrastNames;
             contrastStruct.numberOfContrasts = nContrasts;
-            contrastStruct.contrastRepeatSLDs = contrastRepeatSLDs;
             
         end
 
         function displayContrastsObject(obj)
             % Display the contrasts object as a table.
-            % The subclass routine needs to pass in the rowNames for it's
+            % The subclass routine needs to pass in the rowNames for its
             % particular properties.
             %
             % contrasts.displayContrastsObject()         

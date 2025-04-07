@@ -1,4 +1,6 @@
-function SLDProfile = makeSLDProfileXY(bulkIn,bulkOut,ssub,layers,numberOfLayers,nrepeats)
+function SLDProfile = makeSLDProfile(bulkIn,bulkOut,layers,ssub,nrepeats)
+
+numberOfLayers = size(layers,1);
 
 if numberOfLayers>0
     totalThickness = sum(layers(:,1));

@@ -89,7 +89,6 @@ classdef testDomainContrastsClass < matlab.unittest.TestCase
 
             testCase.exampleStruct.contrastNames = {'Bilayer / D2O', 'Bilayer / SMW', 'Bilayer / H2O'};
             testCase.exampleStruct.contrastLayers = {[1 2 3 4 4 5] [1 2 3 4 4 5] [1 2 3 4 4 5]};
-            testCase.exampleStruct.contrastRepeatSLDs = {[0 1] [0 1] [0 1]};
         end
 
     end

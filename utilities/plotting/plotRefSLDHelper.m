@@ -146,9 +146,8 @@ function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, sh
                 if size(layers,2) == 4
                     layer = layer(:,[1:2,4]);
                 end
-                numberOfLayers = size(layer, 1);
-                nrepeats = 1;
-                newProf = makeSLDProfileXY(bulkIn,bulkOut,roughness,layer,numberOfLayers,nrepeats);
+                nRepeats = 1;
+                newProf = makeSLDProfile(bulkIn,bulkOut,layer,roughness,nRepeats);
                 plot(newProf(:,1)-49,newProf(:,2));
             end
         end

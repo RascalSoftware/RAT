@@ -143,6 +143,7 @@ classdef domainsClass < projectClass
             %       * scalefactor (char array or string, default: '') the name of the scalefactor which defines how much the data for this contrast should be scaled.
             %       * resolution (char array or string, default: '') the name of the instrument resolution for this contrast.
             %       * resample (logical, default: false) whether adaptive resampling should be used for interface microslicing.
+            %       * repeatLayers (whole number, default: 1) indicates the number of times the layers should be repeated, this is only available for standard layers.
             %       * domainRatio (char array or string, default: '') the name of the domain ratio parameter.
             %       * model (cell) if this is a standard layers model, this should be a list of domain contrast names for this contrast.
             %                      For custom models, this should contain just the custom file name for the custom model function.
@@ -157,6 +158,7 @@ classdef domainsClass < projectClass
                 options.scalefactor
                 options.resolution
                 options.resample
+                options.repeatLayers
                 options.domainRatio
                 options.model
             end
@@ -194,6 +196,7 @@ classdef domainsClass < projectClass
             %       * scalefactor (char array or string, default: '') the name of the scalefactor which defines how much the data for this contrast should be scaled.
             %       * resolution (char array or string, default: '') the name of the instrument resolution for this contrast.
             %       * resample (logical, default: false) whether adaptive resampling should be used for interface microslicing.
+            %       * repeatLayers (whole number, default: 1) indicates the number of times the layers should be repeated, this is only available for standard layers.
             %       * domainRatio (char array or string, default: '') the name of the domain ratio parameter.
             %       * model (char array or string or cell string) if this is a standard layers model, this should be a list of domain contrast names for this contrast.
             %                      For custom models, this should contain just the custom file name for the custom model function.
@@ -209,6 +212,7 @@ classdef domainsClass < projectClass
                 options.scalefactor
                 options.resolution
                 options.resample
+                options.repeatLayers
                 options.domainRatio
                 options.model
             end
@@ -241,7 +245,7 @@ classdef domainsClass < projectClass
             % model: char array or string or cell string
             %     If this is a standard layers model, this should be a list of domain contrast names for this contrast.
             %     For custom models, this should contain just the custom file name for the custom model function.
-            setContrastModel@MySuperClass(obj, row, model)
+            setContrastModel@projectClass(obj, row, model)
         end
 
         % -------------------------------------------------------------------

@@ -1,11 +1,9 @@
 classdef domainContrastsClass < baseContrasts
-
     % A simplified version of the contrast class that allows specification
     % of the model only (i.e. with no data). This is used for domains
     % calculations.
                 
     methods
-
         function names = getDisplayNames(~)
             names = ["Name"; "Model"];
         end

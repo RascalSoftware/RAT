@@ -1,7 +1,19 @@
 classdef contrastsClass < baseContrasts
-    % This class holds the parameters for each contrast used in the
-    % simulation
-
+    % This class holds the parameters for each contrast used in the simulation
+    % 
+    % Examples
+    % --------
+    % >>> contrasts = contrastsClass(true);
+    % 
+    % Parameters
+    % ----------
+    % isDomains : logical, default: false
+    %     Indicates if the contrast object is for a domains project.
+    %
+    % Attributes
+    % ----------
+    % contrasts : cell
+    %     A cell containing an the contrast entries.
 
     methods   
         function obj = contrastsClass(isDomains)
@@ -99,41 +111,37 @@ classdef contrastsClass < baseContrasts
                         thisArray = ones(1, length(thisModel));
                         if obj.isDomains
                             for n = 1:length(thisModel)
-                                thisLayerNum = find(strcmpi(thisModel{n}, allowedNames.domainContrastNames));
-                                thisArray(n) = thisLayerNum;
+                                thisArray(n) = obj.findParameterIndex(thisModel{n}, allowedNames.domainContrastNames, "domain contrast");
                             end
                         else
                             for n = 1:length(thisModel)
-                                thisLayerNum = find(strcmpi(thisModel{n}, allowedNames.layerNames));
-                                thisArray(n) = thisLayerNum;
+                                thisArray(n) = obj.findParameterIndex(thisModel{n}, allowedNames.layerNames, "layer");
                             end
                         end
                         contrastLayers{i} = thisArray;
                         contrastCustomFile(i) = NaN;
                     otherwise
                         contrastLayers{i} = [];
-                        whichFile = thisContrast.model;
-                        thisContrastFileNum = find(strcmpi(whichFile, allowedNames.customFileNames));
-                        contrastCustomFile(i) = thisContrastFileNum;
+                        contrastCustomFile(i) = obj.findParameterIndex(thisContrast.model{1}, allowedNames.customFileNames, "custom file");
                 end
 
                 if isfield(thisContrast, 'domainRatio')
-                    contrastDomainRatios(i) = find(strcmpi(thisContrast.domainRatio,allowedNames.domainRatioNames));
+                    contrastDomainRatios(i) = obj.findParameterIndex(thisContrast.domainRatio, allowedNames.domainRatioNames, "domain ratio");
                 else
                     contrastDomainRatios(i) = -1;
                 end
-
-                contrastBackgrounds(i) = find(strcmpi(thisContrast.background,allowedNames.backgroundNames));
+                
+                contrastBackgrounds(i) = obj.findParameterIndex(thisContrast.background, allowedNames.backgroundNames, "background");
                 contrastBackgroundActions{i} = thisContrast.backgroundAction;
-                contrastBulkIns(i) = find(strcmpi(thisContrast.bulkIn,allowedNames.bulkInNames));
-                contrastBulkOuts(i) = find(strcmpi(thisContrast.bulkOut,allowedNames.bulkOutNames));
-                contrastScalefactors(i) = find(strcmpi(thisContrast.scalefactor,allowedNames.scalefactorNames));
-                contrastResolutions(i) = find(strcmpi(thisContrast.resolution,allowedNames.resolutionNames));
+                contrastBulkIns(i) = obj.findParameterIndex(thisContrast.bulkIn, allowedNames.bulkInNames, "bulk in");
+                contrastBulkOuts(i) = obj.findParameterIndex(thisContrast.bulkOut, allowedNames.bulkOutNames, "bulk out");
+                contrastScalefactors(i) = obj.findParameterIndex(thisContrast.scalefactor, allowedNames.scalefactorNames, "scalefactor");
+                contrastResolutions(i) = obj.findParameterIndex(thisContrast.resolution, allowedNames.resolutionNames, "resolution");
                 resample(i) = thisContrast.resample;
                 contrastRepeatLayers(i) = thisContrast.repeatLayers;
-
-                thisDataVal = find(strcmpi(thisContrast.data,allowedNames.dataNames));
-                if ~isempty(thisDataVal)
+                
+                if ~isempty(thisContrast.data)
+                    thisDataVal = obj.findParameterIndex(thisContrast.data, allowedNames.dataNames, "dataset");
                     actualData = dataTable{thisDataVal,2}{:};
                     if ~isempty(actualData)
                         dataPresent(i) = 1;
@@ -146,9 +154,9 @@ classdef contrastsClass < baseContrasts
                     simulationLimits{i} = dataTable{thisDataVal,4}{:};
                     contrastData{i} = dataTable{thisDataVal,2}{:};
                 else
-                    dataLimits{i} = [0 0];
-                    simulationLimits{i} = [0 0];
-                    contrastData{i} = [0 0 0];
+                    dataLimits{i} = [0, 0];
+                    simulationLimits{i} = dataClass.defaultSimRange;
+                    contrastData{i} = [0, 0, 0];
                 end
             end
 
@@ -230,21 +238,21 @@ classdef contrastsClass < baseContrasts
             
             parse(p, inputValues{:});
             inputBlock = p.Results;
-            inputBlock.data = obj.validateExactString(inputBlock.data, expectedData);
-            inputBlock.background = obj.validateExactString(inputBlock.background, expectedBackground);
-            inputBlock.bulkIn = obj.validateExactString(inputBlock.bulkIn, expectedBulkIn);
-            inputBlock.bulkOut = obj.validateExactString(inputBlock.bulkOut, expectedBulkOut);
-            inputBlock.scalefactor = obj.validateExactString(inputBlock.scalefactor, expectedScalefactor);
-            inputBlock.resolution = obj.validateExactString(inputBlock.resolution, expectedResolution);
+            inputBlock.data = obj.validateExactString(inputBlock.data, expectedData, "dataset");
+            inputBlock.background = obj.validateExactString(inputBlock.background, expectedBackground, "background");
+            inputBlock.bulkIn = obj.validateExactString(inputBlock.bulkIn, expectedBulkIn, "bulk in");
+            inputBlock.bulkOut = obj.validateExactString(inputBlock.bulkOut, expectedBulkOut, "bulk out");
+            inputBlock.scalefactor = obj.validateExactString(inputBlock.scalefactor, expectedScalefactor, "scalefactor");
+            inputBlock.resolution = obj.validateExactString(inputBlock.resolution, expectedResolution, "resolution");
             inputBlock.repeatLayers = obj.validatePositiveInteger(inputBlock.repeatLayers);
 
             if ~isfield(allowedNames, 'layerNames')  && any(inputBlock.repeatLayers ~= 1)
                 warning("Repeat Layers are only supported for standard layers calculations")
             end
-
+            
             inputBlock.model = obj.validateContrastModel(inputBlock.model, allowedNames);
             if obj.isDomains
-                inputBlock.domainRatio = obj.validateExactString(inputBlock.domainRatio, expectedDomainRatio);
+                inputBlock.domainRatio = obj.validateExactString(inputBlock.domainRatio, expectedDomainRatio, "domain ratio");
             end
         end
         
@@ -275,12 +283,46 @@ classdef contrastsClass < baseContrasts
                 contrast.resample = false;
             end
 
+            if isempty(contrast.repeatLayers)
+                contrast.repeatLayers = 1;
+            end
+
         end
     end
 
     methods(Access = private)
+        function output = findParameterIndex(~, input, allowedNames, inputDesc)
+            % Get the index of an input name in list of allowed names.
+            % 
+            % Parameters
+            % ----------
+            % input: string or char array
+            %     A name to validate.
+            % allowedNames: cell
+            %     A cell containing the valid names.
+            % inputDesc: string or char array
+            %     A description of the input.
+            % 
+            % Returns
+            % -------
+            % output: whole number
+            %     Index of the input name in the allowed list of names.
+            if isempty(input)
+                throw(exceptions.invalidValue(sprintf("All contrasts must have a valid %s.", inputDesc)));
+            end
+            found = strcmpi(input, allowedNames);
+            if ~any(found)
+                if isempty(allowedNames)
+                    msg = sprintf('"%s" is not a recognised %s. Did you forget to add the %s?', input, inputDesc, inputDesc);
+                else
+                    msg = sprintf('"%s" is not a recognised %s. The allowed names are: "%s".', input, inputDesc, strjoin(allowedNames, '", "'));
+                end
+                throw(exceptions.nameNotRecognised(msg));
+            end
+            output = find(found, 1);
+        end
 
-        function output = validateExactString(~, input, allowedNames)
+        function output = validateExactString(~, input, allowedNames, inputDesc)
             % Validates input name is found in list of allowed names.
             % 
             % Parameters
@@ -289,6 +331,8 @@ classdef contrastsClass < baseContrasts
             %     A name to validate.
             % allowedNames: cell
             %     A cell containing the valid names.
+            % inputDesc: string or char array
+            %     A description of the input.
             % 
             % Returns
             % -------
@@ -300,7 +344,12 @@ classdef contrastsClass < baseContrasts
             end
             found = strcmpi(input, allowedNames);
             if ~any(found)
-                throw(exceptions.nameNotRecognised(sprintf('The input "%s" is not recognised. The allowed names are: "%s".', input, strjoin(allowedNames, '", "'))));
+                if isempty(allowedNames)
+                    msg = sprintf('The input "%s" is not a recognised %s. Did you forget to add the %s?', input, inputDesc, inputDesc);
+                else
+                    msg = sprintf('The input "%s" is not a recognised %s. The allowed names are: "%s".', input, inputDesc, strjoin(allowedNames, '", "'));
+                end
+                throw(exceptions.nameNotRecognised(msg));
             end
             output = allowedNames{find(found, 1)};
         end
@@ -370,33 +419,6 @@ classdef contrastsClass < baseContrasts
                 end
                 model{i} = modelNames{find(found, 1)};
             end
-        end
-
-    end
-
-    methods(Static)
-
-        function contrast = setDefaultValues(contrast)
-            % Set non-empty default values when adding a contrast.
-            if ~isempty(contrast.model)
-                contrast.model = cellstr(contrast.model);
-            end
-
-            if isempty(contrast.backgroundAction)
-                contrast.backgroundAction = backgroundActions.Add.value;
-            else
-                contrast.backgroundAction = validateOption(contrast.backgroundAction, 'backgroundActions',...
-                        sprintf('backgroundAction must be a actions enum or one of the following strings (%s)', strjoin(backgroundActions.values(), ', '))).value;
-            end
-
-            if isempty(contrast.resample)
-                contrast.resample = false;
-            end
-
-            if isempty(contrast.repeatLayers)
-                contrast.repeatLayers = 1;
-            end
-
         end
 
     end

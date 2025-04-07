@@ -27,10 +27,10 @@ if ~DREAMPar.ABC
     % Calculate the likelihood ratio
     alfa_L = exp ( log_L_xnew - log_L_xold );
     
-    % Calculate the prior ration
+    % Calculate the prior ratio
     alfa_PR = exp ( log_PR_xnew - log_PR_xold );
     
-    % Calculate product of two probabily ratios
+    % Calculate product of two probability ratios
     alfa = alfa_L .* alfa_PR;
     
     % Generate random numbers

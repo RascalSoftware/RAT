@@ -29,7 +29,7 @@ classdef dataClass < tableUtilities
     % varTable : table
     %     A table object that contains the data entries.
     
-    properties (Constant, Access = private)
+    properties (Constant, Hidden)
         defaultSimRange = [0.005, 0.7]
     end
 

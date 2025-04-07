@@ -17,32 +17,32 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
     % modelType : modelTypes, default: modelTypes.StandardLayers
     %     The layer model type which can be 'standard layers', 'custom layers', or 'custom xy'.
     % geometry : geometryOptions, default: geometryOptions.AirSubstrate
-    %     The geometry to use which can be 'air/substrate' or 'substrate/liquid'.  
+    %     The geometry to use which can be 'air/substrate' or 'substrate/liquid'.
     % absorption : logical, default: false
     %     Indicates whether imaginary component is used for the SLD value in layers.
     % 
     % Attributes
     % ----------
     % parameters : parametersClass
-    %     The project parameters. 
+    %     The project parameters.
     % bulkIn : parametersClass
-    %     The bulkIn parameters. 
+    %     The bulkIn parameters.
     % bulkOut : parametersClass
-    %     The bulkOut parameters. 
+    %     The bulkOut parameters.
     % scalefactors : parametersClass
-    %     The scalefactors parameters. 
+    %     The scalefactors parameters.
     % layers : layersClass
-    %     An object which contains the layers information. 
+    %     An object which contains the layers information.
     % data : dataClass
-    %     An object which contains the data table. 
+    %     An object which contains the data table.
     % customFile : Custom file object
-    %     An object which contains the defined customFiles. 
+    %     An object which contains the defined customFiles.
     % background : backgroundsClass object
-    %     An object which contains defined backgrounds and background parameters. 
+    %     An object which contains defined backgrounds and background parameters.
     % resolution : resolutionClass object
-    %     An object which contains defined resolutions and resolution parameters. 
+    %     An object which contains defined resolutions and resolution parameters.
     % contrasts : contrastsClass object
-    %     An object which contains contrast information. 
+    %     An object which contains contrast information.
     
     properties
         experimentName
@@ -1049,10 +1049,6 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % >>> project.addContrast(name='new contrast', bulkIn='Silicon', bulkOut='D2O', background='D2O Background', ...
             %                         resolution='Resolution 1', scalefactor='Scalefactor 1', data='DSPC Bilayer D2O', model={'Oxide', 'Bilayer tails'});
             %
-            % Domain ratio can be added only for domains project.
-            % 
-            % >>> project.addContrast(name='new contrast', domainRatio='Domain Ratio 1', model={'Domains 1', 'Domains 2'});
-            %  
             % Parameters
             % ----------
             % options
@@ -1066,7 +1062,6 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             %       * scalefactor (char array or string, default: '') the name of the scalefactor which defines how much the data for this contrast should be scaled.
             %       * resolution (char array or string, default: '') the name of the instrument resolution for this contrast.
             %       * resample (logical, default: false) whether adaptive resampling should be used for interface microslicing.
-            %       * domainRatio (char array or string, default: '') the name of the domain ration parameter, this is only available for domains projects.
             %       * model (cell) if this is a standard layers model, this should be a list of layer names that make up the slab model for this contrast.
             %                      For custom models, this should be a list containing just the custom file name for the custom model function.
             arguments
@@ -1080,7 +1075,6 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
                 options.scalefactor
                 options.resolution
                 options.resample
-                options.domainRatio
                 options.model
             end
             args = namedargs2cell(options);
@@ -1120,7 +1114,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             %
             % To change the properties of a contrast called 'Contrast 1'.
             % 
-            % >>> project.setContrast('Contrast 1', name='new contrast', domainRatio='Domain Ratio 1', model={'Domains 1', 'Domains 2'});
+            % >>> project.setContrast('Contrast 1', name='new contrast', scalefactor='Scalefactor 1', data='DSPC Bilayer D2O'});
             %  
             % Parameters
             % ----------
@@ -1138,7 +1132,6 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             %       * scalefactor (char array or string, default: '') the name of the scalefactor which defines how much the data for this contrast should be scaled.
             %       * resolution (char array or string, default: '') the name of the instrument resolution for this contrast.
             %       * resample (logical, default: false) whether adaptive resampling should be used for interface microslicing.
-            %       * domainRatio (char array or string, default: '') the name of the domain ration parameter, this is only available for domains projects.
             %       * model (char array or string or cell string) if this is a standard layers model, this should be a list of layer names that make up the slab model for this contrast.
             %                      For custom models, this should be a list containing just the custom file name for the custom model function.
             arguments
@@ -1153,7 +1146,6 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
                 options.scalefactor
                 options.resolution
                 options.resample
-                options.domainRatio
                 options.model
             end
             args = namedargs2cell(options);       
@@ -1377,7 +1369,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
 
             % Need to treat contrasts separately due to changes in the
             % class for domains calculations
-            domainsObj.contrasts = copyProperties(obj.contrasts, contrastsClass(domains=true));
+            domainsObj.contrasts = copyProperties(obj.contrasts, contrastsClass(true));
             for i=1:domainsObj.contrasts.numberOfContrasts
                 domainsObj.contrasts.contrasts{i}.domainRatio = '';
             end

@@ -1,14 +1,53 @@
 classdef domainsClass < projectClass
-    % Creates a Project object for a domains calculation.
-    % The input arguments are the experiment name which is a char
-    % array; the model type, which is a modelTypes enum; the
-    % geometry, which is a geometryOptions enum; and a logical to
-    % state whether or not absorption terms are included in the
-    % refractive index.
-    % All of the arguments are optional.
-    %
-    % project = domainsClass('New experiment');
-    
+    % ``domainsClass`` stores all the information that describes a domains experiment which is essential for running a RAT domains calculation. 
+    % The ``domainsClass`` contains similar components to a normal project such as the parameters, backgrounds, resolutions, custom files, 
+    % data, contrast etc, but also stores the domains ratio and domains contrast which are unique to a domains calculation. The 
+    % ``domainsClass`` provides a number of methods to add, remove, and update these components. For example, for domains ratio, the 
+    % ``addDomainsRatio``, ``removeDomainsRatio``, and ``setDomainsRatio`` methods are available for adding, removing, and updating parameters.
+    % 
+    % Examples
+    % --------
+    % >>> domains = domainsClass();
+    % >>> domains = domainsClass("Example Project");
+    % >>> domains = domainsClass("Example Project", 'custom layers', 'substrate/liquid', true);
+    % 
+    % Parameters
+    % ---------- 
+    % experimentName : string or char array, default: ''
+    %     The name of the domains project.
+    % modelType : modelTypes, default: modelTypes.StandardLayers
+    %     The layer model type which can be 'standard layers', 'custom layers', or 'custom xy'.
+    % geometry : geometryOptions, default: geometryOptions.AirSubstrate
+    %     The geometry to use which can be 'air/substrate' or 'substrate/liquid'.
+    % absorption : logical, default: false
+    %     Indicates whether imaginary component is used for the SLD value in layers.
+    % 
+    % Attributes
+    % ----------
+    % parameters : parametersClass
+    %     The project parameters.
+    % bulkIn : parametersClass
+    %     The bulkIn parameters.
+    % bulkOut : parametersClass
+    %     The bulkOut parameters.
+    % scalefactors : parametersClass
+    %     The scalefactors parameters.
+    % layers : layersClass
+    %     An object which contains the layers information.
+    % data : dataClass
+    %     An object which contains the data table.
+    % customFile : Custom file object
+    %     An object which contains the defined customFiles.
+    % background : backgroundsClass object
+    %     An object which contains defined backgrounds and background parameters.
+    % resolution : resolutionClass object
+    %     An object which contains defined resolutions and resolution parameters.
+    % contrasts : contrastsClass object
+    %     An object which contains contrast information.
+    % domainRatio : parametersClass
+    %     The bulkOut parameters.
+    % domainContrasts : domainContrastsClass
+    %     An object which contains domain contrast information.
     properties
         domainRatio          % Class for specifying the ratio between domains
         domainContrasts      % Modified contrast class with no data for domains
@@ -74,22 +113,136 @@ classdef domainsClass < projectClass
         end
     
         % ----------------------------------------------------------------
-        %
-        %   Editing of Domains Contrasts Block
+        % Editing of Domains Contrasts Block
 
-        % function obj = setContrastModel(obj, row, model)
-        %     % Edits the model of an existing contrast parameter. Expects
-        %     % the index of contrast parameter and cell array of layer names
-        %     %
-        %     % project.setContrastModel(1, {'layer 1'})
-                        
-        %     % Make a different allowed list depending on whether 
-        %     % it is custom or layers
-        %     allowedValues = obj.getAllAllowedNames();
-            
-        %     % Call the setContrastModel method
-        %     obj.contrasts.setContrastModel(row, allowedValues, model);
-        % end
+        function obj = addContrast(obj, options)
+            % Add a new contrast to the project.
+            %
+            % Examples
+            % --------
+            % To add a new contrast with name only.
+            % 
+            % >>> domains.addContrast(name='new contrast');
+            % 
+            % To add a new contrast with other properties.
+            % 
+            % >>> domains.addContrast(name='new contrast', bulkIn='Silicon', bulkOut='D2O', background='D2O Background', ...
+            %                         resolution='Resolution 1', scalefactor='Scalefactor 1', data='DSPC Bilayer D2O', ...
+            %                         domainRatio='Domain Ratio 1', model={'Domains 1', 'Domains 2'});
+            %  
+            % Parameters
+            % ----------
+            % options
+            %    Keyword/value pair to properties to update for the specific contrast.
+            %       * name (char array or string, default: '') the name of the contrast.
+            %       * data (char array or string, default: '') the name of the dataset parameter used by the contrast.
+            %       * background (char array or string, default: '') the name of the background parameter for the contrast.
+            %       * backgroundAction (backgroundActions, default: backgroundActions.Add)  BackgroundActions Whether the background should be added ('add') or subtracted ('subtract') from the data.
+            %       * bulkIn (char array or string, default: '') the name of the bulk-in parameter which defines the SLD of the interface between the first layer and the environment.
+            %       * bulkOut (char array or string, default: '') the name of the bulk-out parameter which defines the SLD of the interface between the last layer and the environment.
+            %       * scalefactor (char array or string, default: '') the name of the scalefactor which defines how much the data for this contrast should be scaled.
+            %       * resolution (char array or string, default: '') the name of the instrument resolution for this contrast.
+            %       * resample (logical, default: false) whether adaptive resampling should be used for interface microslicing.
+            %       * domainRatio (char array or string, default: '') the name of the domain ratio parameter.
+            %       * model (cell) if this is a standard layers model, this should be a list of domain contrast names for this contrast.
+            %                      For custom models, this should contain just the custom file name for the custom model function.
+            arguments
+                obj
+                options.name
+                options.data
+                options.background
+                options.backgroundAction
+                options.bulkIn
+                options.bulkOut
+                options.scalefactor
+                options.resolution
+                options.resample
+                options.domainRatio
+                options.model
+            end
+            args = namedargs2cell(options);
+            obj.contrasts.addContrast(obj.getAllAllowedNames(), args{:});
+        end
+
+        function obj = setContrast(obj, row, options)   
+            % General purpose method for updating properties of an existing contrast.
+            %
+            % Examples
+            % --------
+            % To change the properties of the second contrast in the object.
+            % 
+            % >>> domains.setContrast(2, name='new contrast', bulkIn='Silicon', bulkOut='D2O', background='D2O Background', ...
+            %                         resolution='Resolution 1', scalefactor='Scalefactor 1', data='DSPC Bilayer D2O', model={'Domains 1', 'Domains 2'}});
+            %
+            % To change the properties of a contrast called 'Contrast 1'.
+            % 
+            % >>> domains.setContrast('Contrast 1', name='new contrast', domainRatio='Domain Ratio 1', model={'Domains 1', 'Domains 2'});
+            %  
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the contrast to update. If it is text, 
+            %     it is the name of the contrast to update.
+            % options
+            %    Keyword/value pair to properties to update for the specific contrast.
+            %       * name (char array or string, default: '') the name of the contrast.
+            %       * data (char array or string, default: '') the name of the dataset parameter used by the contrast.
+            %       * background (char array or string, default: '') the name of the background parameter for the contrast.
+            %       * backgroundAction (backgroundActions, default: backgroundActions.Add)  BackgroundActions Whether the background should be added ('add') or subtracted ('subtract') from the data.
+            %       * bulkIn (char array or string, default: '') the name of the bulk-in parameter which defines the SLD of the interface between the first layer and the environment.
+            %       * bulkOut (char array or string, default: '') the name of the bulk-out parameter which defines the SLD of the interface between the last layer and the environment.
+            %       * scalefactor (char array or string, default: '') the name of the scalefactor which defines how much the data for this contrast should be scaled.
+            %       * resolution (char array or string, default: '') the name of the instrument resolution for this contrast.
+            %       * resample (logical, default: false) whether adaptive resampling should be used for interface microslicing.
+            %       * domainRatio (char array or string, default: '') the name of the domain ratio parameter.
+            %       * model (char array or string or cell string) if this is a standard layers model, this should be a list of domain contrast names for this contrast.
+            %                      For custom models, this should contain just the custom file name for the custom model function.
+            arguments
+                obj
+                row
+                options.name
+                options.data
+                options.background
+                options.backgroundAction
+                options.bulkIn
+                options.bulkOut
+                options.scalefactor
+                options.resolution
+                options.resample
+                options.domainRatio
+                options.model
+            end
+            args = namedargs2cell(options);       
+            obj.contrasts.setContrast(row, obj.getAllAllowedNames(), args{:});
+        end
+        
+        function obj = setContrastModel(obj, row, model)
+            % Updates the model of an existing contrast.
+            %
+            % Examples
+            % --------
+            % To change the model of the second contrast in the project.
+            % 
+            % >>> domains.setContrastModel(2, {'Domains 1', 'Domains 2'});
+            %
+            % To change the properties of a contrast called 'Contrast 1'.
+            % 
+            % >>> domains.setContrastModel('Contrast 1', {'Domains 1', 'Domains 2'});
+            % 
+            % To change multiple contrasts at once. The snippet below will change 1, 2, and 3.
+            % 
+            % >>> domains.setContrastModel(1:3, {'Domains 1', 'Domains 2'});  
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the contrast to update. If it is text, 
+            %     it is the name of the contrast to update.
+            % model: char array or string or cell string
+            %     If this is a standard layers model, this should be a list of domain contrast names for this contrast.
+            %     For custom models, this should contain just the custom file name for the custom model function.
+            setContrastModel@MySuperClass(obj, row, model)
+        end
 
         % -------------------------------------------------------------------
         % Editing of Domain Ratio block
@@ -212,7 +365,7 @@ classdef domainsClass < projectClass
                 options.mu {mustBeScalarOrEmpty, mustBeNumeric} = []
                 options.sigma {mustBeScalarOrEmpty, mustBeNumeric} = []
             end
-            args = namedargs2cell(options)
+            args = namedargs2cell(options);
             obj.domainRatio.setParameter(row, args{:});
         end
     
@@ -337,7 +490,7 @@ classdef domainsClass < projectClass
             %     it is the name of the domain contrast to update.
             % model: char array or string or cell string
             %     This should be a list of layer names that make up the slab model for this domain contrast.
-               if isa(obj.domainContrasts, 'domainContrastsClass')
+            if isa(obj.domainContrasts, 'domainContrastsClass')
                 obj.domainContrasts.setContrastModel(row, obj.getAllAllowedNames(), model);
             else
                 throw(exceptions.invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
@@ -431,7 +584,7 @@ classdef domainsClass < projectClass
 
             % Need to treat contrasts separately due to changes in the
             % class for domains calculations
-            projectObj.contrasts = copyProperties(obj.contrasts, contrastsClass(domains=false));
+            projectObj.contrasts = copyProperties(obj.contrasts, contrastsClass(false));
         end
 
     end

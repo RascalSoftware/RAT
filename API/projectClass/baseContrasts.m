@@ -110,7 +110,7 @@ classdef (Abstract) baseContrasts < handle
             %       * scalefactor (char array or string, default: '') the name of the scalefactor which defines how much the data for this contrast should be scaled.
             %       * resolution (char array or string, default: '') the name of the instrument resolution for this contrast.
             %       * resample (logical, default: false) whether adaptive resampling should be used for interface microslicing.
-            %       * domainRatio (char array or string, default: '') the name of the domain ration parameter, this is only available for domains projects.
+            %       * domainRatio (char array or string, default: '') the name of the domain ratio parameter, this is only available for domains projects.
             %       * model (cell) if this is a standard layers model, this should be a list of layer names that make up the slab model for this contrast.
             %                      For custom models, this should be a list containing just the custom file name for the custom model function.
             arguments
@@ -153,11 +153,11 @@ classdef (Abstract) baseContrasts < handle
             % --------
             % To remove the second contrast in the table (contrast in row 2).  
             % 
-            % >>>  contrast.removeContrast(2);
+            % >>> contrasts.removeContrast(2);
             % 
             % To remove contrast with a specific name.
             % 
-            % >>>  contrast.removeContrast('contrast 1');
+            % >>> contrasts.removeContrast('contrast 1');
             % 
             % Parameters
             % ----------
@@ -243,7 +243,7 @@ classdef (Abstract) baseContrasts < handle
             %       * scalefactor (char array or string, default: '') the name of the scalefactor which defines how much the data for this contrast should be scaled.
             %       * resolution (char array or string, default: '') the name of the instrument resolution for this contrast.
             %       * resample (logical, default: false) whether adaptive resampling should be used for interface microslicing.
-            %       * domainRatio (char array or string, default: '') the name of the domain ration parameter, this is only available for domains projects.
+            %       * domainRatio (char array or string, default: '') the name of the domain ratio parameter, this is only available for domains projects.
             %       * model (char array or string or cell string) if this is a standard layers model, this should be a list of layer names that make up the slab model for this contrast.
             %                      For custom models, this should be a list containing just the custom file name for the custom model function.
             arguments

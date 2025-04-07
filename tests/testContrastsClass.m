@@ -476,6 +476,14 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, 'background', 'Background H'), exceptions.nameNotRecognised.errorID);
         end
 
+        function testSetContrastWarning(testCase)
+            % Test setting repeatLayer values within a contrast for a
+            % non-standard layers model raises a warning
+            testCase.allowedNames = rmfield(testCase.allowedNames, 'layerNames');
+            testCase.verifyWarning(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, 'repeatLayers', 2), '', 'repeatLayers model warning should be triggered');
+        end
+
+
         function testGetAllContrastNames(testCase)
             testCase.verifyEqual(testCase.exampleClass.getAllContrastNames, {'Bilayer / D2O', 'Bilayer / SMW', 'Bilayer / H2O'}, 'getAllContrastNames does not work correctly');
         end
@@ -764,10 +772,19 @@ classdef testContrastsClass < matlab.unittest.TestCase
         function testParseContrastInputInvalidType(testCase)
             % Test parsing input data for a contrast within the contrasts
             % class.
-            % If values for the name and resample parameters are an
-            % invalid type, we should raise an error
+            % If values for the name, resample and repeatLayers parameters
+            % are an invalid type, we should raise an error
             testCase.verifyError(@() testCase.exampleClass.parseContrastInput(testCase.allowedNames, {'name', 42}), 'MATLAB:InputParser:ArgumentFailedValidation');
             testCase.verifyError(@() testCase.exampleClass.parseContrastInput(testCase.allowedNames, {'resample', datetime('today')}), 'MATLAB:InputParser:ArgumentFailedValidation');
+            testCase.verifyError(@() testCase.exampleClass.parseContrastInput(testCase.allowedNames, {'repeatLayers', 'one'}), 'MATLAB:InputParser:ArgumentFailedValidation');
+        end
+
+        function testInvalidRepeatLayers(testCase)           
+            % For repeatLayers, the type must be numeric, but also a
+            % positive whole number
+            testCase.verifyError(@() testCase.exampleClass.parseContrastInput(testCase.allowedNames, {'repeatLayers', [1 1]}), 'RAT:InvalidValue');
+            testCase.verifyError(@() testCase.exampleClass.parseContrastInput(testCase.allowedNames, {'repeatLayers', 0}), 'RAT:InvalidValue');
+            testCase.verifyError(@() testCase.exampleClass.parseContrastInput(testCase.allowedNames, {'repeatLayers', 1.5}), 'RAT:InvalidValue');
         end
 
     end

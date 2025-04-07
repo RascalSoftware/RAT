@@ -141,10 +141,6 @@ classdef contrastsClass < baseContrasts
                 end
             end
 
-            if ~strcmpi(modelType, modelTypes.StandardLayers.value) && any(contrastRepeatLayers-1)
-                warning("Repeat Layers are only supported for standard layers calculations")
-            end
-
             contrastStruct.contrastLayers = contrastLayers;
             contrastStruct.contrastCustomFile = contrastCustomFile;
             contrastStruct.contrastDomainRatios = contrastDomainRatios;
@@ -222,6 +218,11 @@ classdef contrastsClass < baseContrasts
             inputBlock.scalefactor = obj.validateExactString(inputBlock.scalefactor, expectedScalefactor);
             inputBlock.resolution = obj.validateExactString(inputBlock.resolution, expectedResolution);
             inputBlock.repeatLayers = obj.validatePositiveInteger(inputBlock.repeatLayers);
+
+            if ~isfield(allowedNames, 'layerNames')  && any(inputBlock.repeatLayers ~= 1)
+                warning("Repeat Layers are only supported for standard layers calculations")
+            end
+
             inputBlock.model = obj.validateContrastModel(inputBlock.model, allowedNames);
             if obj.domainsCalc
                 inputBlock.domainRatio = obj.validateExactString(inputBlock.domainRatio, expectedDomainRatio);
@@ -250,7 +251,7 @@ classdef contrastsClass < baseContrasts
                 return
             end
             if ~(isscalar(input) && mod(input, 1) == 0  && input > 0)
-                throw(exceptions.invalidValue('The input "%s" must be a whole number greater than zero.', input))
+                throw(exceptions.invalidValue(sprintf('The input "%s" must be a whole number greater than zero.', input)));
             end
             output = input;
         end

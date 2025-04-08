@@ -3,6 +3,7 @@ classdef contrastsClass < baseContrasts
     % 
     % Examples
     % --------
+    % >>> contrasts = contrastsClass();
     % >>> contrasts = contrastsClass(true);
     % 
     % Parameters
@@ -13,15 +14,10 @@ classdef contrastsClass < baseContrasts
     % Attributes
     % ----------
     % contrasts : cell
-    %     A cell containing an the contrast entries.
+    %     A cell containing all the contrast entries.
 
     methods   
         function obj = contrastsClass(isDomains)
-            % Class Constructor
-            % The (optional) inputs is a logical flag to state whether
-            % or not this is a domains calculation.
-            %
-            % contrasts = contrastsClass()
             arguments
                 isDomains {mustBeA(isDomains,'logical')} = false
             end
@@ -71,7 +67,7 @@ classdef contrastsClass < baseContrasts
             % modelType: modelTypes
             %     The layer model type which can be 'standard layers', 'custom layers', or 'custom xy'.
             % dataTable: table
-            %     A table from the dataClass containing data.
+            %     A table from the dataClass.
             % 
             % Returns
             % -------
@@ -194,7 +190,7 @@ classdef contrastsClass < baseContrasts
             % Returns
             % -------
             % inputBlock : struct
-            %     A struct containing properties of the contrast with empty fields set to default.
+            %     A struct containing the given properties of the contrast.
             defaultName = '';
             defaultBackground = '';
             defaultBackgroundAction = '';
@@ -267,7 +263,7 @@ classdef contrastsClass < baseContrasts
             % Returns
             % -------
             % contrast : struct
-            %     A struct containing properties of the contrast with empty fields set to a default.
+            %     A struct containing properties of the contrast with empty fields set to default.
             if ~isempty(contrast.model)
                 contrast.model = cellstr(contrast.model);
             end

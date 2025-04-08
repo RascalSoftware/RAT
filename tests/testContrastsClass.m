@@ -364,6 +364,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
             testCase.allowedNames.customFileNames = {};
             testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, {'DPPC Model'}), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1.5, testCase.allowedNames, {'DPPC Model'}), exceptions.invalidType.errorID);
         end
 
         function testSetContrastModelInvalid(testCase)
@@ -472,6 +473,9 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % be disallowed
             testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, 'backgr', 'Background H2O'), 'MATLAB:functionValidation:AmbiguousInputName');
             testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, 'background', 'Background H'), exceptions.nameNotRecognised.errorID);
+            testCase.allowedNames.backgroundNames = {};
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, 'background', 'Background H'), exceptions.nameNotRecognised.errorID);
+        
         end
 
         function testSetContrastWarning(testCase)
@@ -570,6 +574,15 @@ classdef testContrastsClass < matlab.unittest.TestCase
             nonDomainContrast =  contrastsClass();
             nonDomainContrast.contrasts(1) = {struct('name', '', 'model', {{'Oxide Layer', 'bad Layers name'}})};
             testCase.verifyError(@() nonDomainContrast.toStruct(testCase.allowedNames, 'standard layers', testCase.varTable), exceptions.nameNotRecognised.errorID);
+            
+            testCase.exampleClass.contrasts{contrastIndex} = oldContrast;
+            testCase.exampleClass.contrasts{contrastIndex}.background = '';
+            testCase.verifyError(@() testCase.exampleClass.toStruct(testCase.allowedNames, 'standard layers', testCase.varTable), exceptions.invalidValue.errorID);
+        
+            testCase.exampleClass.contrasts{contrastIndex} = oldContrast;
+            testCase.allowedNames.backgroundNames = {};
+            testCase.verifyError(@() testCase.exampleClass.toStruct(testCase.allowedNames, 'standard layers', testCase.varTable), exceptions.nameNotRecognised.errorID);
+
         end
 
         function testToStructEmptyData(testCase)

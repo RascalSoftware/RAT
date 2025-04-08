@@ -45,7 +45,7 @@ classdef domainsClass < projectClass
     % contrasts : contrastsClass object
     %     An object which contains contrast information.
     % domainRatio : parametersClass
-    %     The bulkOut parameters.
+    %     The domain ration parameters.
     % domainContrasts : domainContrastsClass
     %     An object which contains domain contrast information.
     properties
@@ -89,21 +89,21 @@ classdef domainsClass < projectClass
             % Returns
             % -------
             % projectObj : projectClass
-            %     An instance of projectClass with the same properties defined in the domainsClass.
+            %     An instance of projectClass with the common properties copied from the domainsClass.
             projectObj = obj.projectClass();
         end
 
         function names = getAllAllowedNames(obj)           
             % Returns a struct with all currently set names of normal parameters, background and resolution 
             % parameters, backgrounds, resolutions, bulk-ins, bulk-outs, scalefactors, data, custom files, 
-            % contrast model, and domain contrast for the project.
+            % contrast model, domain ratios, and domain contrasts for the project.
             % 
             % Returns
             % -------
             % names : struct
             %     A struct with names of all the normal parameters, background and resolution 
             %     parameters, backgrounds, resolutions, bulk-ins, bulk-outs, scalefactors, data, custom files, 
-            %     contrast model, and domain contrast entries in the project.
+            %     contrast model, domain ratios, and domain contrasts entries in the project.
             names = getAllAllowedNames@projectClass(obj);
             names.domainRatioNames = obj.domainRatio.getNames();
             if isa(obj.domainContrasts, 'domainContrastsClass')
@@ -146,7 +146,7 @@ classdef domainsClass < projectClass
             %       * repeatLayers (whole number, default: 1) indicates the number of times the layers should be repeated, this is only available for standard layers.
             %       * domainRatio (char array or string, default: '') the name of the domain ratio parameter.
             %       * model (cell) if this is a standard layers model, this should be a list of domain contrast names for this contrast.
-            %                      For custom models, this should contain just the custom file name for the custom model function.
+            %                      For custom models, this should be the custom file name for the custom model function.
             arguments
                 obj
                 options.name
@@ -199,7 +199,7 @@ classdef domainsClass < projectClass
             %       * repeatLayers (whole number, default: 1) indicates the number of times the layers should be repeated, this is only available for standard layers.
             %       * domainRatio (char array or string, default: '') the name of the domain ratio parameter.
             %       * model (char array or string or cell string) if this is a standard layers model, this should be a list of domain contrast names for this contrast.
-            %                      For custom models, this should contain just the custom file name for the custom model function.
+            %                      For custom models, this should be the custom file name for the custom model function.
             arguments
                 obj
                 row
@@ -244,8 +244,8 @@ classdef domainsClass < projectClass
             %     it is the name of the contrast to update.
             % model: char array or string or cell string
             %     If this is a standard layers model, this should be a list of domain contrast names for this contrast.
-            %     For custom models, this should contain just the custom file name for the custom model function.
-            setContrastModel@projectClass(obj, row, model)
+            %     For custom models, this should be the custom file name for the custom model function.
+            setContrastModel@projectClass(obj, row, model);
         end
 
         % -------------------------------------------------------------------
@@ -270,8 +270,8 @@ classdef domainsClass < projectClass
             % 
             % Other examples of adding domain ratios with a subset of properties.
             % 
-            % >>> domains.addDomainRatio('New Domain Ratio');  % Parameter name only with others set to default
-            % >>> domains.addDomainRatio('New Domain Ratio', 0.4);  % Parameter name and min only. Value and max will be set to 23 to keep limits valid
+            % >>> domains.addDomainRatio('New Domain Ratio');  % Domain ratio name only with others set to default
+            % >>> domains.addDomainRatio('New Domain Ratio', 0.4);  % Domain ratio name and min only. Value and max will be set to 0.4 to keep limits valid
             % >>> domains.addDomainRatio('New Domain Ratio', 0.4, 0.5, 0.6, true);  % priors will be default
             % 
             % Parameters
@@ -582,7 +582,7 @@ classdef domainsClass < projectClass
             % Returns
             % -------
             % projectObj : projectClass
-            %     An instance of projectClass with the same properties defined in the domainsClass.
+            %     An instance of projectClass with the common properties copied from the domainsClass.
             projectObj = projectClass(obj.experimentName, obj.modelType, obj.geometry, obj.absorption);
             projectObj = copyProperties(obj, projectObj);
 

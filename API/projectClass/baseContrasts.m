@@ -113,7 +113,8 @@ classdef (Abstract) baseContrasts < handle
             %       * repeatLayers (whole number, default: 1) indicates the number of times the layers should be repeated, this is only available for standard layers.
             %       * domainRatio (char array or string, default: '') the name of the domain ratio parameter.
             %       * model (cell) if this is a standard layers model, this should be a list of layer names that make up the slab model for this contrast.
-            %                      For custom models, this should be a list containing just the custom file name for the custom model function.
+            %                      For a domains standard layers model, this should be a list of domain contrast names for this contrast.
+            %                      For custom models, this should be the custom file name for the custom model function.
             arguments
                 obj
                 allowedNames
@@ -208,7 +209,8 @@ classdef (Abstract) baseContrasts < handle
             %     A struct containing the valid names that can be referenced in the contrast.
             % model: char array or string or cell string
             %     If this is a standard layers model, this should be a list of layer names that make up the slab model for this contrast.
-            %     For custom models, this should be a list containing just the custom file name for the custom model function.
+            %     For a domains standard layers model, this should be a list of domain contrast names for this contrast.
+            %     For custom models, this should be the custom file name for the custom model function.
             obj.setContrast(row, allowedNames, 'model', model);
 
         end
@@ -247,8 +249,9 @@ classdef (Abstract) baseContrasts < handle
             %       * resample (logical, default: false) whether adaptive resampling should be used for interface microslicing.
             %       * repeatLayers (whole number, default: 1) indicates the number of times the layers should be repeated, this is only available for standard layers.
             %       * domainRatio (char array or string, default: '') the name of the domain ratio parameter.
-            %       * model (char array or string or cell string) if this is a standard layers model, this should be a list of layer names that make up the slab model for this contrast.
-            %                      For custom models, this should be a list containing just the custom file name for the custom model function.
+            %       * model (char array or string or cell string) if this is a normal standard layers model, this should be a list of layer names that make up the slab model for this contrast.
+            %                      For a domains standard layers model, this should be a list of domain contrast names for this contrast.
+            %                      For custom models, this should be the custom file name for the custom model function.
             arguments
                 obj
                 row

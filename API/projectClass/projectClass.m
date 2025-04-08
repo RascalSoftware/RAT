@@ -1064,7 +1064,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             %       * resample (logical, default: false) whether adaptive resampling should be used for interface microslicing.
             %       * repeatLayers (whole number, default: 1) indicates the number of times the layers should be repeated, this is only available for standard layers.
             %       * model (cell) if this is a standard layers model, this should be a list of layer names that make up the slab model for this contrast.
-            %                      For custom models, this should be a list containing just the custom file name for the custom model function.
+            %                      For custom models, this should be the custom file name for the custom model function.
             arguments
                 obj
                 options.name
@@ -1136,7 +1136,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             %       * resample (logical, default: false) whether adaptive resampling should be used for interface microslicing.
             %       * repeatLayers (whole number, default: 1) indicates the number of times the layers should be repeated, this is only available for standard layers.
             %       * model (char array or string or cell string) if this is a standard layers model, this should be a list of layer names that make up the slab model for this contrast.
-            %                      For custom models, this should be a list containing just the custom file name for the custom model function.
+            %                      For custom models, this should be the custom file name for the custom model function.
             arguments
                 obj
                 row
@@ -1167,11 +1167,11 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             %
             % To change the properties of a contrast called 'Contrast 1'.
             % 
-            % >>> project.setContrastModel('Contrast 1', {'Domains 1', 'Domains 2'});
+            % >>> project.setContrastModel('Contrast 1', 'Oxide Model');
             % 
             % To change multiple contrasts at once. The snippet below will change 1, 2, and 3.
             % 
-            % >>> project.setContrastModel(1:3, {'Layer 1'});            %  
+            % >>> project.setContrastModel(1:3, {'Layer 1', 'Layer 2'});            %  
             % 
             % Parameters
             % ----------
@@ -1180,7 +1180,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             %     it is the name of the contrast to update.
             % model: char array or string or cell string
             %     If this is a standard layers model, this should be a list of layer names that make up the slab model for this contrast.
-            %     For custom models, this should be a list containing just the custom file name for the custom model function.
+            %     For custom models, this should be the custom file name for the custom model function.
             allowedValues = obj.getAllAllowedNames();
             
             % Call the setContrastModel method

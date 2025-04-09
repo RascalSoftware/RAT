@@ -67,7 +67,7 @@ classdef multiTypeTable < tableUtilities
         function obj = setValue(obj, row, col, value)
             % Change the value of a given parameter in the table. 
             %
-            % The row and column of the parameter can both be specified by either
+            % Both the row and column of the parameter can both be specified by either
             % name or index.
             %
             % Parameters

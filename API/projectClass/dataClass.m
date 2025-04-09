@@ -201,7 +201,9 @@ classdef dataClass < tableUtilities
             [options.dataRange, options.simRange] = obj.validateData(options.data, options.dataRange, options.simRange);
             
             if ~strcmp(options.name, obj.varTable{row, 1}{:})
-                nameChanged = obj.setName(row, options.name);
+                nameChanged.oldName = obj.varTable{row, 1};
+                nameChanged.newName = options.name;
+                obj.setRowName(row, options.name);
             end
             obj.varTable{row, 2} = {options.data};
             obj.varTable{row, 3} = {options.dataRange};
@@ -272,47 +274,6 @@ classdef dataClass < tableUtilities
     end
 
     methods(Access = protected)  
-        function nameChanged = setName(obj, row, name)
-            % Sets the name of an existing dataset.
-            %
-            % Examples
-            % --------
-            % To change the name of the second dataset in the table (dataset in row 2)
-            % 
-            % >>> nameChanged = data.setName(2, 'Data SMW');
-            % 
-            % To change the name of a dataset called 'Data D20' to 'Data SMW'
-            % 
-            % >>> nameChanged = data.setName('Data D20', 'Data SMW');
-            %
-            % Parameters
-            % ----------
-            % row : string or char array or whole number
-            %     If ``row`` is an integer, it is the row number of the dataset to update. If it is text, 
-            %     it is the name of the dataset to update.
-            % name : string or char array
-            %     The new name of the dataset.
-            % 
-            % Returns
-            % -------
-            % nameChanged : struct
-            %     A struct which contains the former name ``oldName`` and the new name ``newName`` of the dataset.
-            arguments
-                obj
-                row
-                name {mustBeTextScalar, mustBeNonempty}
-            end
-            existingNames = obj.getNames;
-            if any(strcmpi(name, existingNames))
-                throw(exceptions.duplicateName('Duplicate data names are not allowed'));
-            end
-            
-            % Set the relevant name
-            nameChanged.oldName = obj.varTable{row, 1};
-            nameChanged.newName = name;
-            obj.varTable{row, 1} = {name};   
-        end
-
         function [dataRange, simRange] = validateData(~, data, dataRange, simRange)
             % Checks the data and simulation ranges are valid. If any range is invalid, 
             % a warning is printed and the range is adjusted when possible.

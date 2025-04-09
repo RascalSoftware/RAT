@@ -1,6 +1,6 @@
 classdef searchStrategy < customEnum
-  % Strategies for generating base vectors in differential evolution.
-   methods (Static)           
+    % Strategies for generating base vectors in differential evolution.
+    methods (Static)           
         function s = toStruct()
             s = customEnum.toStruct(mfilename('class'), true);
         end

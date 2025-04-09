@@ -1,6 +1,6 @@
 classdef priorTypes < customEnum
-  % Prior distributions for parameters in Bayesian algorithms.
-   methods (Static)
+    % Prior distributions for parameters in Bayesian algorithms.
+    methods (Static)
         function s = toStruct()
             s = customEnum.toStruct(mfilename('class'));
         end

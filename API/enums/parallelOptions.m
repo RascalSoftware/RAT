@@ -1,5 +1,5 @@
 classdef parallelOptions < customEnum
-  % Ways in which the calculation can be parallelised.
+    % Ways in which the calculation can be parallelised.
     methods (Static)
         function s = toStruct()
             s = customEnum.toStruct(mfilename('class'));

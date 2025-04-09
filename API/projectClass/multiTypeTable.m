@@ -81,7 +81,11 @@ classdef multiTypeTable < tableUtilities
             end
             
             % Set the value
-            obj.varTable(row, col) = {value};
+            if col == 1
+                obj.setRowName(row, value);
+            else
+                obj.varTable(row, col) = {value};
+            end
         end
 
     end

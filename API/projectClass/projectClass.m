@@ -146,7 +146,9 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
                 throw(exceptions.invalidType('absorption must be true or false'));
             end
             obj.absorption = absorption;
-            obj.modifyLayersTable();
+            if isa(obj.layers, 'layersClass')
+                obj.layers.absorption = absorption;
+            end
         end
         
         function set.geometry(obj, geometry)
@@ -320,41 +322,40 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             end
         end
 
-        function obj = setLayerValue(obj, row, col, value)
-            % Change the value of a given layer parameter in the project (excluding the layer name).
+        function obj = setLayer(obj, row, varargin)
+            % Update properties of an existing layer. 
+            % Any unset property will remain unchanged.
             %
             % Examples
             % --------
             % To update the thickness of the second layer in the table (layer in row 2).
             % 
-            % >>> project.setLayerValue(2, 2, 'New thickness', paramNames);
+            % >>> project.setLayer(2, thickness='New thickness');
             % 
-            % The same can be achieved using names, to change the 'Thickness' of 'Layer 1'.
+            % To change the properties of a layer called 'Layer 1'.
             % 
-            % >>> project.setLayerValue('Layer 1', 'Thickness', 'New thickness');
+            % >>> project.setLayer('Layer 1', name='new layer', thickness='New thickness', sld='Layer SLD');
             % 
-            % Note that the number of columns change depending on whether ``absorption`` is true or false so the column indices will change also. 
-            % For example, the code below will update 'Roughness' if ``absorption`` is false, otherwise it will update the Imaginary SLD. So it is 
-            % recommended to use column names to ensure the correct change.
+            % To change the imaginary SLD when absorption is true.
             % 
-            % >>> project.setLayerValue(2, 4, 'New Roughness'); 
+            % >>> project.setLayer('Layer 1', name='new layer', thickness='New thickness', realSLD='Layer SLD', imaginarySLD='Layer Imaginary SLD');
             % 
             % Parameters
             % ----------
             % row : string or char array or whole number
             %     If ``row`` is an integer, it is the row of the layer to update. If it is text, 
             %     it is the name of the layer to update.
-            % col : string or char array or whole number
-            %     If ``col`` is an integer, it is the column of layer to update. If it is text, 
-            %     it is the name of the column to update. The column names are the following: 'Name', 'Thickness', 
-            %     'SLD', 'Roughness', 'Hydration', 'Hydrate with'. If ``absorption`` is true, the 'SLD' column is replaced 
-            %     with 'SLD Imaginary', and 'SLD Real'.
-            % inputValue : string or char array or whole number
-            %     The name (or row index) of a parameter to replace the one in specified row and column. 
-            % paramNames: cell
-            %     A cell array which contains the valid names of parameters.
+            % varargin
+            %    Keyword/value pair to properties to update for the specific parameter.
+            %       * name (string or char array or whole number, default: '') the new name of the layer.
+            %       * thickness (string or char array or whole number, default: '') The name (or the row index) of the parameter describing the thickness of this layer.
+            %       * sld, realSLD (string or char array or whole number, default: '') The name (or the row index) of the parameter describing the real (scattering) term of the SLD.
+            %       * imaginarySLD (string or char array or whole number, default: '') the new name (or the row index) of the parameter describing the imaginary (absorption) term of the SLD.
+            %       * roughness (string or char array or whole number, default: '') the new name (or the row index) of the parameter describing the roughness of this layer.           
+            %       * hydration (string or char array or whole number, default: '') the new name (or the row index) of the parameter describing the percent hydration for the layer           
+            %       * hydrateWith (hydrationTypes, default: hydrationTypes.empty()) whether the layer is hydrated with the "bulk in" or "bulk out".  
             if isa(obj.layers, 'layersClass')
-                obj.layers.setLayerValue(row, col, value, obj.parameters.varTable{:,1});
+                obj.layers.setLayer(row, obj.parameters.varTable{:,1}, varargin{:});
             else
                 throw(exceptions.invalidProperty(sprintf('Layer are not defined for the model type: %s', obj.modelType)));
             end
@@ -1370,21 +1371,6 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             
         end
 
-        function modifyLayersTable(obj)
-            % Add or remove a column from the layers table whenever the
-            % "absorption" property is modified.
-            if isa(obj.layers, 'layersClass')
-                if obj.absorption
-                    newCol = repmat("", height(obj.layers.varTable), 1);
-                    obj.layers.varTable = addvars(obj.layers.varTable, newCol, 'After', 'SLD', 'NewVariableNames', 'SLD Imaginary');
-                    obj.layers.varTable = renamevars(obj.layers.varTable, 'SLD', 'SLD Real');
-                else
-                    obj.layers.varTable = removevars(obj.layers.varTable, 'SLD Imaginary');
-                    obj.layers.varTable = renamevars(obj.layers.varTable, 'SLD Real', 'SLD');
-                end
-            end
-        end
-
         function setLayersAndContrasts(obj, oldModel)
             % Adjust layers and contrast objects when the model type is
             % changed.
@@ -1397,6 +1383,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
                 if ~isa(obj.layers, 'layersClass')
                     obj.layers = layersClass();
+                    obj.layers.absorption = obj.absorption;
                 end
             else
                 obj.layers = [];

@@ -199,7 +199,7 @@ classdef customFileClass < tableUtilities
                 options.functionName = obj.varTable{row, 3}{:};
             end
             options.language = validateOption(options.language, 'supportedLanguages', obj.invalidLanguageMessage).value;
-            obj.setName(row, options.name); 
+            obj.setRowName(row, options.name); 
             obj.varTable{row, 2} = {obj.addFileExtension(options.filename, options.language)};
             obj.varTable{row, 4} = {options.language};
             obj.varTable{row, 5} = {obj.validatePath(options.path)};
@@ -341,40 +341,6 @@ classdef customFileClass < tableUtilities
                 delete(obj.wrappers{i});
             end
             obj.wrappers = {};
-        end
-    end
-
-    methods(Access = protected)
-        function obj = setName(obj, row, name) 
-            % Sets the name of an existing custom file entry.
-            % 
-            % Examples
-            % --------
-            % To change the name of the second custom file in the table (custom file in row 2)
-            % 
-            % >>> file.setName(2, 'custom file 1');
-            % 
-            % To change the name of a custom file called 'custom file 1' to 'new custom file'
-            % 
-            % >>> file.setName('custom file 1', 'new custom file');
-            %
-            % Parameters
-            % ----------
-            % row : string or char array or whole number
-            %     If ``row`` is an integer, it is the row number of the custom file to update. If it is text, 
-            %     it is the name of the custom file to update.
-            % name : string or char array
-            %     The new name of the custom file.
-
-            % Name must not be an existing name
-            existingNames = obj.varTable{:,1};
-            existingNames(row) = [];
-            if any(strcmpi(name,existingNames))
-                throw(exceptions.duplicateName('Duplicate custom file names are not allowed'));
-            end
-            
-            % Set the relevant name
-            obj.varTable{row, 1} = {name};
         end
     end
 

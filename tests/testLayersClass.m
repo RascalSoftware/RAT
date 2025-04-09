@@ -144,17 +144,10 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyEqual(testClass.varTable, testCase.initialLayersTable, 'layersClass does not initialise correctly');
 
             % Adding the optional argument should give the same table
-            testClass = layersClass('SLD');
+            testClass = layersClass();
 
             testCase.verifySize(testClass.varTable, [0 6], 'layersClass does not initialise correctly');
             testCase.verifyEqual(testClass.varTable, testCase.initialLayersTable, 'layersClass does not initialise correctly');
-
-            % For a cell array with more than one element, more columns
-            % should be added
-            testClass = layersClass({'SLDReal', 'SLDImag'});
-
-            testCase.verifySize(testClass.varTable, [0 7], 'layersClass does not initialise correctly');
-            testCase.verifyEqual(testClass.varTable, testCase.initialAbsorptionTable, 'layersClass does not initialise correctly');
         end
 
         function testAddLayer(testCase, layerInput, addedLayer)
@@ -197,65 +190,70 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, NaN), exceptions.invalidType.errorID);         
         end
 
-        function testSetLayerValue(testCase)
+        function testSetLayer(testCase)
             % Test setting values in the layers class table using both
             % names and indices to refer to rows and columns.
 
             % Row and column indices
-            testCase.exampleClass.setLayerValue(1, 5, 'Water hydr', testCase.parameterNames);
+            testCase.exampleClass.setLayer(1, testCase.parameterNames, 'hydration', 'Water hydr');
             expectedRow = ["Bil inner head", "Bilayer heads thick", "Bilayer heads SLD", "Bilayer heads rough", "Water hydr", "bulk out"];
             testCase.verifyEqual(testCase.exampleClass.varTable{1, :}, expectedRow, 'setValue does not work correctly');
 
             % Row name and column index
-            testCase.exampleClass.setLayerValue('Bil Tail', 3, 'Water SLD', testCase.parameterNames);
+            testCase.exampleClass.setLayer('Bil Tail', testCase.parameterNames, 'sld', 'Water SLD');
             expectedRow = ["Bil tail", "Bilayer tails thick", "Water SLD", "Bilayer tails rough", "Bilayer tails hydr", "bulk out"];
             testCase.verifyEqual(testCase.exampleClass.varTable{2, :}, expectedRow, 'setValue does not work correctly');
 
             % Row index and column name
-            testCase.exampleClass.setLayerValue(1, 'Roughness', 'Substrate Roughness', testCase.parameterNames);
+            testCase.exampleClass.setLayer(1, testCase.parameterNames, 'roughness', 'Substrate Roughness');
             expectedRow = ["Bil inner head", "Bilayer heads thick", "Bilayer heads SLD", "Substrate Roughness", "Water hydr", "bulk out"];
             testCase.verifyEqual(testCase.exampleClass.varTable{1, :}, expectedRow, 'setValue does not work correctly');
 
             % Row and column names
-            testCase.exampleClass.setLayerValue('Bil Tail', 'Thickness', 'Water thick', testCase.parameterNames);
+            testCase.exampleClass.setLayer('Bil Tail', testCase.parameterNames, 'thickness', 'Water thick');
             expectedRow = ["Bil tail", "Water thick", "Water SLD", "Bilayer tails rough", "Bilayer tails hydr", "bulk out"];
             testCase.verifyEqual(testCase.exampleClass.varTable{2, :}, expectedRow, 'setValue does not work correctly');
 
             % Change hydration type
-            testCase.exampleClass.setLayerValue(3, 6, hydrationTypes.BulkIn.value, testCase.parameterNames);
+            testCase.exampleClass.setLayer(3, testCase.parameterNames, 'hydrateWith', hydrationTypes.BulkIn.value);
             expectedRow = ["Bil outer head", "Bilayer heads thick", "Bilayer heads SLD", "Bilayer heads rough", "Bilayer heads hydr", "bulk in"];
             testCase.verifyEqual(testCase.exampleClass.varTable{3, :}, expectedRow, 'setValue does not work correctly');
+            
+            testCase.exampleClass.absorption = true;
+            testCase.exampleClass.setLayer(3, testCase.parameterNames, 'name', 'New Layer', 'realSLD', 'Water SLD', 'imaginarySLD', 'Bilayer heads SLD', 'hydrateWith', hydrationTypes.BulkIn.value);
+            testCase.verifyEqual(testCase.exampleClass.varTable{3, :}, ["New Layer", "Bilayer heads thick", "Water SLD", "Bilayer heads SLD", ...
+                                                                        "Bilayer heads rough", "Bilayer heads hydr", "bulk in"], 'setValue does not work correctly');
+
+            testCase.exampleClass.setLayer(3, testCase.parameterNames, 'name', 'Another Layer');
+            testCase.verifyEqual(testCase.exampleClass.varTable{3, 1}, "Another Layer", 'setValue does not work correctly');
         end
 
-        function testSetLayerValueInvalid(testCase)
+        function testSetLayerInvalid(testCase)
             % Test setting values in the layers class table using invalid
             % values of both names and indices to refer to rows and columns
 
             % Row indices
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(0, testCase.numCols, 'Substrate Roughness', testCase.parameterNames), exceptions.indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(testCase.numRows+1, testCase.numCols, 'Substrate Roughness', testCase.parameterNames), exceptions.indexOutOfRange.errorID);
-
-            % Column indices
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 0, 'Substrate Roughness', testCase.parameterNames), exceptions.indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 1, 'Changed', testCase.parameterNames), exceptions.indexOutOfRange.errorID); % Can't change name
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, testCase.numCols+1, 'Substrate Roughness', testCase.parameterNames), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setLayer(0, testCase.parameterNames, 'roughness', 'Substrate Roughness'), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setLayer(testCase.numRows+1, testCase.parameterNames, 'roughness', 'Substrate Roughness'), exceptions.indexOutOfRange.errorID);
 
             % Row name
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue('Invalid Name', testCase.numCols, 'Substrate Roughness', testCase.parameterNames), exceptions.nameNotRecognised.errorID);
-
-            % Column name
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 'Invalid Name', 'Substrate Roughness', testCase.parameterNames), exceptions.nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setLayer('Invalid Name', testCase.parameterNames, 'roughness', 'Substrate Roughness'), exceptions.nameNotRecognised.errorID);
 
             % Invalid hydrate type
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 6, 'Invalid hydrate', testCase.parameterNames), exceptions.invalidOption.errorID);
-
-            % Float values within range
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(3, 2.5, 'Substrate Roughness', testCase.parameterNames), exceptions.invalidType.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(2.5, 3, 'Substrate Roughness', testCase.parameterNames), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setLayer(1, testCase.parameterNames, 'hydrateWith', 'Invalid hydrate'), exceptions.invalidOption.errorID);
+            % float index
+            testCase.verifyError(@() testCase.exampleClass.setLayer(2.5, testCase.parameterNames, 'roughness', 'Substrate Roughness'), exceptions.invalidType.errorID);
             
             % Invalid data types
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(testCase.initialLayersTable, testCase.numCols, 'Substrate Roughness', testCase.parameterNames), exceptions.invalidType.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, datetime('today'), 'Substrate Roughness', testCase.parameterNames), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setLayer(testCase.initialLayersTable, testCase.parameterNames, 'roughness', 'Substrate Roughness'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setLayer(1, testCase.parameterNames, 'name', 1), 'MATLAB:validators:mustBeTextScalar');
+            testCase.verifyError(@() testCase.exampleClass.setLayer(1, testCase.parameterNames, 'name', ''), 'MATLAB:validators:mustBeNonempty');
+            testCase.verifyError(@() testCase.exampleClass.setLayer(1, testCase.parameterNames, 'realSLD', ''), 'MATLAB:validators:mustBeNonempty');
+            testCase.verifyError(@() testCase.exampleClass.setLayer(1, testCase.parameterNames, 'imaginarySLD', ''), 'MATLAB:validators:mustBeNonempty');
+
+            % Invalid option
+            testCase.verifyError(@() testCase.exampleClass.setLayer(1, testCase.parameterNames, 'realSLD', 'SLDs', 'sld', 'SLDs'), exceptions.invalidOption.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setLayer(1, testCase.parameterNames, 'imaginarySLD', 'SLDs', 'sld', 'SLDs'), exceptions.invalidOption.errorID);
         end
 
         function testRemoveLayer(testCase)

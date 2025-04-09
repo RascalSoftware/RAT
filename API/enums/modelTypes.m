@@ -1,5 +1,5 @@
 classdef modelTypes < customEnum
-  % Types of layer model supported by RAT.
+    % Types of layer model supported by RAT.
     methods (Static)
         function s = toStruct()
             s = customEnum.toStruct(mfilename('class'));

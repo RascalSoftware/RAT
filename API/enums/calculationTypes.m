@@ -1,6 +1,6 @@
 classdef calculationTypes < customEnum
-  % Types of calculation that can be performed by RAT.
-   methods (Static)
+    % Types of calculation that can be performed by RAT.
+    methods (Static)
         function s = toStruct()
             s = customEnum.toStruct(mfilename('class'));
         end

@@ -202,7 +202,7 @@ classdef (Abstract) tableUtilities < handle
         end
         
         function obj = setRowName(obj, row, name) 
-            % Sets the name of an existing table entry.
+            % Set the name of an existing table entry.
             % 
             % Examples
             % --------

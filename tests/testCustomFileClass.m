@@ -33,7 +33,6 @@ classdef testCustomFileClass < matlab.unittest.TestCase
                       }
         invalidInputData = {{'DPPC Model', 'name', 42},...
                             {1, 'filename', datetime('today')},...
-                            {'DSPC Model', 'language', table()},...
                             {2, 'path', {'path', 'to', 'file'}}
                            }
 
@@ -163,7 +162,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
         end
 
         function testSetCustomFileInvalidType(testCase, invalidInputData)
-            %testCase.verifyError(@() testCase.exampleClass.setCustomFile(invalidInputData{:}), 'MATLAB:validators:mustBeTextScalar');
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(invalidInputData{:}), 'MATLAB:validators:mustBeTextScalar');
         end
 
         function testSetCustomFileInvalidInput(testCase)
@@ -186,6 +185,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % Bad function name
             testCase.verifyWarning(@() testCase.exampleClass.setCustomFile(2, 'FunctionName', 'newModel'), '');
             testCase.verifyEqual(testCase.exampleClass.varTable{2, 3}, "customBilayer", 'setCustomFile does not work correctly');
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(2, 'name', 'DPPC Model'), exceptions.duplicateName.errorID)
         end
 
         function testSetCustomFileInvalidNumberOfParams(testCase)

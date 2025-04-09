@@ -14,23 +14,23 @@ classdef layersClass < tableUtilities
     % varTable : table
     %     The table which contains the properties for each layer. 
 
-    properties(Access = private, Constant, Hidden)
+    properties(Access = private, Constant)
         invalidTypeMessage = sprintf('Hydration type must be a HydrationTypes enum or one of the following strings (%s)', ...
                                      strjoin(hydrationTypes.values(), ', '))
     end
-    
+
     properties (Dependent, SetAccess = private)
         varCount
+    end
+
+    properties (Dependent)
+        absorption
     end
     
     methods
         
-        function obj = layersClass(SLDValues)
-            arguments
-                SLDValues {mustBeText} = 'SLD'
-            end
-
-            varNames = [{'Name', 'Thickness'}, SLDValues, {'Roughness', 'Hydration', 'Hydrate with'}];
+        function obj = layersClass()
+            varNames = {'Name', 'Thickness', 'SLD', 'Roughness', 'Hydration', 'Hydrate with'};
 
             sz = [0 length(varNames)];
             varTypes = repmat({'string'}, 1, length(varNames));
@@ -39,6 +39,26 @@ classdef layersClass < tableUtilities
 
         function count = get.varCount(obj)
             count = length(obj.varTable.Properties.VariableNames);
+        end
+
+        function set.absorption(obj, value)
+            % Add or remove a column from the layers table whenever the
+            % "absorption" property is modified.
+            if value == obj.absorption
+                return
+            end
+            if value
+                newCol = repmat("", height(obj.varTable), 1);
+                obj.varTable = addvars(obj.varTable, newCol, 'After', 'SLD', 'NewVariableNames', 'SLD Imaginary');
+                obj.varTable = renamevars(obj.varTable, 'SLD', 'SLD Real');
+            else
+                obj.varTable = removevars(obj.varTable, 'SLD Imaginary');
+                obj.varTable = renamevars(obj.varTable, 'SLD Real', 'SLD');
+            end
+        end
+
+        function value = get.absorption(obj)
+            value = width(obj.varTable) == 7;
         end
 
         function obj = addLayer(obj, paramNames, varargin)
@@ -138,63 +158,109 @@ classdef layersClass < tableUtilities
             obj.removeRow(row);
         end
         
-        function obj = setLayerValue(obj, row, col, inputValue, paramNames)
-            % Change the value of a given layer parameter in the table (excluding the layer name).
+        function obj = setLayer(obj, row, paramNames, options)
+            % General purpose method for updating properties of an existing layer. 
+            % Any unset property will remain unchanged.
             %
             % Examples
             % --------
             % To update the thickness of the second layer in the table (layer in row 2).
             % 
             % >>> parameterNames = project.getAllAllowedNames().paramNames;
-            % >>> layers.setLayerValue(2, 2, 'New thickness', paramNames);
+            % >>> layers.setLayer(2, paramNames, thickness='New thickness');
             % 
-            % The same can be achieved using names, to change the 'Thickness' of 'Layer 1'.
+            % To change the properties of a layer called 'Layer 1'.
             % 
-            % >>> layers.setLayerValue('Layer 1', 'Thickness', 'New thickness', paramNames);
+            % >>> layers.setLayer('Layer 1', paramNames, name='new layer', thickness='New thickness', sld='Layer SLD');
             % 
-            % Note that the number of columns change depending on whether ``absorption`` is true or false so the column indices will change also. 
-            % For example, the code below will update 'Roughness' if ``absorption`` is false, otherwise it will update the Imaginary SLD. So it is 
-            % recommended to use column names to ensure the correct change.
+            % To change the imaginary SLD when absorption is true.
             % 
-            % >>> layers.setLayerValue(2, 4, 'New Roughness', paramNames); 
+            % >>> layers.setLayer('Layer 1', paramNames, name='new layer', thickness='New thickness', realSLD='Layer SLD', imaginarySLD='Layer Imaginary SLD');
             % 
             % Parameters
             % ----------
             % row : string or char array or whole number
             %     If ``row`` is an integer, it is the row of the layer to update. If it is text, 
             %     it is the name of the layer to update.
-            % col : string or char array or whole number
-            %     If ``col`` is an integer, it is the column of layer to update. If it is text, 
-            %     it is the name of the column to update. The column names are the following: 'Name', 'Thickness', 
-            %     'SLD', 'Roughness', 'Hydration', 'Hydrate with'. If ``absorption`` is true, the 'SLD' column is replaced 
-            %     with 'SLD Imaginary', and 'SLD Real'.
-            % inputValue : string or char array or whole number
-            %     The name (or row index) of a parameter to replace the one in specified row and column.
             % paramNames: cell
             %     A cell array which contains the names of available parameters.
-
-            colNames = obj.varTable.Properties.VariableNames;
+            % options
+            %    Keyword/value pair to properties to update for the specific parameter.
+            %       * name (string or char array or whole number, default: '') the new name of the layer.
+            %       * thickness (string or char array or whole number, default: '') The name (or the row index) of the parameter describing the thickness of this layer.
+            %       * sld, realSLD (string or char array or whole number, default: '') The name (or the row index) of the parameter describing the real (scattering) term.
+            %       * imaginarySLD (string or char array or whole number, default: '') the new name (or the row index) of the parameter describing the imaginary (absorption) term.
+            %       * roughness (string or char array or whole number, default: '') the new name (or the row index) of the parameter describing the roughness of this layer.           
+            %       * hydration (string or char array or whole number, default: '') the new name (or the row index) of the parameter describing the percent hydration for the layer           
+            %       * hydrateWith (hydrationTypes, default: hydrationTypes.empty()) whether the layer is hydrated with the "bulk in" or "bulk out". 
+            arguments
+                obj
+                row
+                paramNames
+                options.name {mustBeTextScalar, mustBeNonempty}
+                options.thickness {mustBeNonempty}
+                options.sld {mustBeNonempty}
+                options.realSLD {mustBeNonempty}
+                options.imaginarySLD {mustBeNonempty}
+                options.roughness {mustBeNonempty}
+                options.hydration
+                options.hydrateWith {mustBeNonempty}
+            end           
+            
             row = obj.getValidRow(row);
-            
-            % Find the column index if we have a column name
-            if isText(col)
-                col = obj.findRowIndex(col, colNames, 'Unrecognised column name');
-            elseif isnumeric(col) && all(mod(col, 1) == 0)
-                if (col < 2) || (col > length(colNames)) 
-                    throw(exceptions.indexOutOfRange(sprintf('The column index %d is not within the range 2 - %d', col, length(colNames))));
+            if isfield(options, 'sld') 
+                if isfield(options, 'realSLD')
+                    throw(exceptions.invalidOption('The "sld" and "realSLD" options cannot be set at the same time.'));
                 end
-            else
-                throw(exceptions.invalidType('Layer table column type should be a text or whole number.'));
+
+                options.realSLD = options.sld;
+            end
+            
+            if ~isfield(options, 'name')
+                options.name = obj.varTable{row, 1}{:};
+            end
+            
+            if ~isfield(options, 'thickness')
+                options.thickness = obj.varTable{row, 2}{:};
+            end
+            
+            if ~isfield(options, 'roughness')
+                options.roughness = obj.varTable{row, end-2}{:};
             end
 
-            if col == length(colNames)
-                val = validateOption(inputValue, 'hydrationTypes', obj.invalidTypeMessage).value;
-            else
-                val = validateParameter(inputValue, paramNames);
+            if ~isfield(options, 'hydration')
+                options.hydration = obj.varTable{row, end-1}{:};
             end
-                
-            obj.varTable(row,col) = {val};
             
+            if ~isfield(options, 'hydrateWith')
+                options.hydrateWith = obj.varTable{row, end}{:};
+            end
+            
+            if ~isfield(options, 'realSLD')
+                options.realSLD = obj.varTable{row, 3}{:};
+            end
+            
+            if obj.absorption
+                if ~isfield(options, 'imaginarySLD')
+                    options.imaginarySLD = obj.varTable{row, 4}{:};
+                end
+                values = {options.thickness, options.realSLD, options.imaginarySLD, options.roughness, options.hydration};
+            else
+                if isfield(options, 'imaginarySLD')
+                    throw(exceptions.invalidOption('The imaginarySLD option cannot be set when absorption is false.'));
+                end
+                values = {options.thickness, options.realSLD, options.roughness, options.hydration};
+            end
+
+            for i=1:length(values)
+                if ~isempty(values{i})
+                    values{i} = validateParameter(values{i}, paramNames);        
+                end
+            end
+            values{end + 1} = validateOption(options.hydrateWith, 'hydrationTypes', obj.invalidTypeMessage).value;
+            
+            obj.setRowName(row, options.name); 
+            obj.varTable(row, 2:end) = values;
         end
         
         function layerStruct = toStruct(obj, paramNames)
@@ -229,13 +295,13 @@ classdef layersClass < tableUtilities
                 numCols = length(thisLayer);
                 paramIndices = zeros(1,numCols-2);
                 for j = 1:numCols-2
-                    paramIndices(j) = find(strcmpi(thisLayer{j},paramNames));
+                    paramIndices(j) = findParameterIndex(thisLayer{j}, paramNames, 'layer');
                 end
 
-                if strcmpi(thisLayer(numCols-1), "")
+                if isempty(thisLayer{numCols-1})
                     hydr = NaN;
                 else
-                    hydr = find(strcmpi(thisLayer{numCols-1},paramNames));
+                    hydr =  findParameterIndex(thisLayer{numCols-1}, paramNames, 'layer');
                 end
 
                 if strcmpi(thisLayer{numCols}, hydrationTypes.BulkIn.value)

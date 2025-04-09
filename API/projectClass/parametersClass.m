@@ -346,8 +346,7 @@ classdef parametersClass < tableUtilities
                 row
                 name {mustBeTextScalar}
             end
-            row = obj.getValidRow(row);
-            obj.varTable{row, 1} = {name};
+            obj.setRowName(row, name);
         end
         
         function obj = setLimits(obj, row, min, max)

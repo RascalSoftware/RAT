@@ -250,6 +250,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.parameters.varTable{2, 1}, "NewParam", 'setParameterName method not working');
             testCase.project.setParameter(2, 'name', 'Tails Thickness');
             testCase.verifyError(@() testCase.project.setParameter(1, 'name', 'name'), exceptions.invalidOption.errorID) % can't rename substrate roughness
+            testCase.verifyError(@() testCase.project.setParameter(2, 'name', 'Substrate Roughness'), exceptions.duplicateName.errorID);
             testCase.verifyError(@() testCase.project.setParameter('substrate roughness', 'name', 'name'), exceptions.invalidOption.errorID) % can't rename substrate roughness
             testCase.project.setParameter('Tails Thickness', 'fit', false);
             testCase.verifyEqual(testCase.project.parameters.varTable{2, 5}, false, 'setParameterFit method not working');
@@ -283,14 +284,14 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifySize(testCase.project.layers.varTable, [5, 6], 'Layers has wrong dimension');
             testCase.verifyEqual(testCase.project.layers.varTable{5, 1}, "Another Layer", 'addLayer method not working');
             % Test setting value in a layer
-            testCase.verifyError(@() testCase.project.setLayerValue(1, 2, 'Tail'), exceptions.nameNotRecognised.errorID)  % parameter does not exist
-            testCase.verifyError(@() testCase.project.setLayerValue(1, 2, 11), exceptions.indexOutOfRange.errorID)  % index greater than parameter table
-            testCase.project.setLayerValue(1, 2, 'Tails Thickness');
-            testCase.verifyEqual(testCase.project.layers.varTable{1, 2}, "Tails Thickness", 'setLayerValue method not working');
-            testCase.project.setLayerValue('Hydrogenated Tails', 4, 'Heads Roughness');
-            testCase.verifyEqual(testCase.project.layers.varTable{1, 4}, "Heads Roughness", 'setLayerValue method not working');
-            testCase.project.setLayerValue(2, 3, 1);
-            testCase.verifyEqual(testCase.project.layers.varTable{2, 3}, "Substrate Roughness", 'setLayerValue method not working');
+            testCase.verifyError(@() testCase.project.setLayer(1, 'thickness', 'Tail'), exceptions.nameNotRecognised.errorID)  % parameter does not exist
+            testCase.verifyError(@() testCase.project.setLayer(1, 'thickness', 11), exceptions.indexOutOfRange.errorID)  % index greater than parameter table
+            testCase.project.setLayer(1, 'thickness', 'Tails Thickness');
+            testCase.verifyEqual(testCase.project.layers.varTable{1, 2}, "Tails Thickness", 'setLayer method not working');
+            testCase.project.setLayer('Hydrogenated Tails', 'roughness', 'Heads Roughness');
+            testCase.verifyEqual(testCase.project.layers.varTable{1, 4}, "Heads Roughness", 'setLayer method not working');
+            testCase.project.setLayer(2, 'sld', 1);
+            testCase.verifyEqual(testCase.project.layers.varTable{2, 3}, "Substrate Roughness", 'setLayer method not working');
             % Check removing a parameter removes it from layer
             testCase.verifyEqual(testCase.project.layers.varTable{2, 2}, "Heads Thickness", 'param not removed from layers');
             testCase.verifyEqual(testCase.project.layers.varTable{5, 2}, "Heads Thickness", 'param not removed from layers');
@@ -308,7 +309,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyError(@() customProject.addLayerGroup({{'New Layer'}, {'Another Layer'}}), exceptions.invalidProperty.errorID)
             testCase.verifyError(@() customProject.addLayer('New Layer'), exceptions.invalidProperty.errorID)
             testCase.verifyError(@() customProject.removeLayer(1), exceptions.invalidProperty.errorID)
-            testCase.verifyError(@() customProject.setLayerValue(1, 2, 'Tails Thickness'), exceptions.invalidProperty.errorID)
+            testCase.verifyError(@() customProject.setLayer(1, 2, 'Tails Thickness'), exceptions.invalidProperty.errorID)
         end
 
         function testData(testCase)
@@ -330,6 +331,7 @@ classdef testProjectClass < matlab.unittest.TestCase
                 testCase.verifyEqual(testCase.project.data.varTable{1, i}, expected{i}, 'setData method not working');
             end
             testCase.verifyEqual(testCase.project.data.varTable{2, 1}, "Sim 2", 'setData method not working');
+            testCase.verifyError(@() testCase.project.setData(2, 'name', 'Sim 1'), exceptions.duplicateName.errorID);
             % Tests that data can be removed
             testCase.project.removeData(2);
             testCase.verifySize(testCase.project.data.varTable, [1, 4], 'data has wrong dimension');
@@ -443,6 +445,7 @@ classdef testProjectClass < matlab.unittest.TestCase
                                     string({'Resolution 1', allowedTypes.Constant.value, 'Resolution par 1', '', '', '', '', ''}), 'resolution default');
             % Checks that resolution can be added
             testCase.project.addResolution('Resolution 2', allowedTypes.Constant,'Resolution par 1','','','','','');
+            testCase.verifyError(@() testCase.project.setResolution(2, 'name', 'Resolution 1'), exceptions.duplicateName.errorID);
             testCase.verifySize(testCase.project.resolution.resolutions.varTable, [2, 8], 'resolution has wrong dimension');
             testCase.verifyEqual(testCase.project.resolution.resolutions.varTable{:, 1}, ["Resolution 1"; "Resolution 2"], 'addResolution method not working');
             % Checks that resolution can be removed
@@ -489,6 +492,7 @@ classdef testProjectClass < matlab.unittest.TestCase
                                       string({'Background 1', allowedTypes.Constant.value, 'Background Param 1', '', '', '', '', ''}), 'background default');
             % Checks that background can be added
             testCase.project.addBackground('Background D2O',allowedTypes.Constant.value,'Backs Value D2O');
+            testCase.verifyError(@() testCase.project.setBackground(2, 'name', 'Background 1'), exceptions.duplicateName.errorID);
             testCase.verifySize(testCase.project.background.backgrounds.varTable, [2, 8], 'background has wrong dimension');
             testCase.verifyEqual(testCase.project.background.backgrounds.varTable{:, 1}, ["Background 1"; "Background D2O"], 'addBackground method not working');
             % Checks that background can be removed

@@ -200,6 +200,42 @@ classdef (Abstract) tableUtilities < handle
                 throw(exceptions.nameNotRecognised(errorMessage));
             end
         end
-
+        
+        function obj = setRowName(obj, row, name) 
+            % Sets the name of an existing table entry.
+            % 
+            % Examples
+            % --------
+            % To change the name of the second parameter in the table (parameter in row 2)
+            % 
+            % >>> obj.setRowName(2, 'parameter 1');
+            % 
+            % To change the name of a parameter called 'parameter 1' to 'new parameter'
+            % 
+            % >>> obj.setRowName('parameter 1', 'new parameter');
+            %
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the parameter to update. If it is text, 
+            %     it is the name of the parameter to update.
+            % name : string or char array
+            %     The new name of the parameter.
+            % 
+            % Raises
+            % ------
+            % duplicateName
+            %     Name must not be an existing name
+            row = obj.getValidRow(row);
+            existingNames = obj.varTable{:, 1};
+            existingNames(row) = [];
+            if any(strcmpi(name, existingNames))
+                throw(exceptions.duplicateName('Duplicate names are not allowed.'));
+            end
+            
+            % Set the relevant name
+            obj.varTable{row, 1} = {name};
+        end
     end
+
 end

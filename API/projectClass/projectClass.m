@@ -323,7 +323,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         end
 
         function obj = setLayer(obj, row, varargin)
-            % General purpose method for updating properties of an existing layer. 
+            % Update properties of an existing layer. 
             % Any unset property will remain unchanged.
             %
             % Examples

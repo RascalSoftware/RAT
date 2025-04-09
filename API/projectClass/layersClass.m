@@ -159,7 +159,7 @@ classdef layersClass < tableUtilities
         end
         
         function obj = setLayer(obj, row, paramNames, options)
-            % General purpose method for updating properties of an existing layer. 
+            % Update properties of an existing layer. 
             % Any unset property will remain unchanged.
             %
             % Examples

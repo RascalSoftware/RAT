@@ -252,7 +252,7 @@ classdef contrastsClass < baseContrasts
             end
         end
         
-        function contrast = setDefaultValues(~, contrast)
+        function contrast = setDefaultValues(obj, contrast)
             % Sets default values to empty fields when adding a contrast.
             % 
             % Parameters
@@ -264,9 +264,7 @@ classdef contrastsClass < baseContrasts
             % -------
             % contrast : struct
             %     A struct containing properties of the contrast with empty fields set to default.
-            if ~isempty(contrast.model)
-                contrast.model = cellstr(contrast.model);
-            end
+            contrast = setDefaultValues@baseContrasts(obj, contrast);
 
             if isempty(contrast.backgroundAction)
                 contrast.backgroundAction = backgroundActions.Add.value;

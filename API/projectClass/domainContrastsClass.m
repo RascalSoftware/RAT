@@ -73,23 +73,6 @@ classdef domainContrastsClass < baseContrasts
             inputBlock.model = obj.validateDomainContrastModel(inputBlock.model, expectedModel);
 
         end
-        
-        function contrast = setDefaultValues(~, contrast)
-            % Sets default values to empty fields when adding a contrast.
-            % 
-            % Parameters
-            % ----------
-            % contrast: struct
-            %     A struct containing properties of the contrast.
-            % 
-            % Returns
-            % -------
-            % contrast : struct
-            %     A struct containing properties of the contrast with empty fields set to a default.
-            if ~isempty(contrast.model)
-                contrast.model = cellstr(contrast.model);
-            end
-        end
     end
 
     methods(Access = private)

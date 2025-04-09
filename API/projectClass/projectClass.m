@@ -1055,16 +1055,16 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             %    Keyword/value pair to properties to update for the specific contrast.
             %       * name (char array or string, default: '') the name of the contrast.
             %       * data (char array or string, default: '') the name of the dataset parameter used by the contrast.
-            %       * background (char array or string, default: '') the name of the background parameter for the contrast.
-            %       * backgroundAction (backgroundActions, default: backgroundActions.Add)  BackgroundActions Whether the background should be added ('add') or subtracted ('subtract') from the data.
+            %       * background (char array or string, default: '') the name of the background for the contrast.
+            %       * backgroundAction (backgroundActions, default: backgroundActions.Add) whether the background should be added to the simulation ('add') or subtracted from the data('subtract').
             %       * bulkIn (char array or string, default: '') the name of the bulk-in parameter which defines the SLD of the interface between the first layer and the environment.
             %       * bulkOut (char array or string, default: '') the name of the bulk-out parameter which defines the SLD of the interface between the last layer and the environment.
-            %       * scalefactor (char array or string, default: '') the name of the scalefactor which defines how much the data for this contrast should be scaled.
+            %       * scalefactor (char array or string, default: '') the name of the scalefactor parameter which defines how much the data for this contrast should be scaled.
             %       * resolution (char array or string, default: '') the name of the instrument resolution for this contrast.
             %       * resample (logical, default: false) whether adaptive resampling should be used for interface microslicing.
-            %       * repeatLayers (whole number, default: 1) indicates the number of times the layers should be repeated, this is only available for standard layers.
+            %       * repeatLayers (whole number, default: 1) indicates the number of times the layers should be repeated, this is only supported for standard layers.
             %       * model (cell) if this is a standard layers model, this should be a list of layer names that make up the slab model for this contrast.
-            %                      For custom models, this should be the custom file name for the custom model function.
+            %                      For custom models, this should be a single custom file name for the custom model function.
             arguments
                 obj
                 options.name
@@ -1127,16 +1127,16 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             %    Keyword/value pair to properties to update for the specific contrast.
             %       * name (char array or string, default: '') the name of the contrast.
             %       * data (char array or string, default: '') the name of the dataset parameter used by the contrast.
-            %       * background (char array or string, default: '') the name of the background parameter for the contrast.
-            %       * backgroundAction (backgroundActions, default: backgroundActions.Add)  BackgroundActions Whether the background should be added ('add') or subtracted ('subtract') from the data.
+            %       * background (char array or string, default: '') the name of the background for the contrast.
+            %       * backgroundAction (backgroundActions, default: backgroundActions.Add) whether the background should be added to the simulation ('add') or subtracted from the data('subtract').
             %       * bulkIn (char array or string, default: '') the name of the bulk-in parameter which defines the SLD of the interface between the first layer and the environment.
             %       * bulkOut (char array or string, default: '') the name of the bulk-out parameter which defines the SLD of the interface between the last layer and the environment.
-            %       * scalefactor (char array or string, default: '') the name of the scalefactor which defines how much the data for this contrast should be scaled.
+            %       * scalefactor (char array or string, default: '') the name of the scalefactor parameter which defines how much the data for this contrast should be scaled.
             %       * resolution (char array or string, default: '') the name of the instrument resolution for this contrast.
             %       * resample (logical, default: false) whether adaptive resampling should be used for interface microslicing.
-            %       * repeatLayers (whole number, default: 1) indicates the number of times the layers should be repeated, this is only available for standard layers.
+            %       * repeatLayers (whole number, default: 1) indicates the number of times the layers should be repeated, this is only supported for standard layers.
             %       * model (char array or string or cell string) if this is a standard layers model, this should be a list of layer names that make up the slab model for this contrast.
-            %                      For custom models, this should be the custom file name for the custom model function.
+            %                      For custom models, this should be a single custom file name for the custom model function.
             arguments
                 obj
                 row
@@ -1171,7 +1171,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             % 
             % To change multiple contrasts at once. The snippet below will change 1, 2, and 3.
             % 
-            % >>> project.setContrastModel(1:3, {'Layer 1', 'Layer 2'});            %  
+            % >>> project.setContrastModel(1:3, {'Layer 1', 'Layer 2'});
             % 
             % Parameters
             % ----------
@@ -1180,8 +1180,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             %     it is the name of the contrast to update.
             % model: char array or string or cell string
             %     If this is a standard layers model, this should be a list of layer names that make up the slab model for this contrast.
-            %     For custom models, this should be the custom file name for the custom model function.
-            allowedValues = obj.getAllAllowedNames();
+            %     For custom models, this should be a single custom file name for the custom model function.
             
             % Call the setContrastModel method
              if isText(row)
@@ -1190,7 +1189,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
                 row = num2cell(row);
              end
              for i=1:length(row)
-                 obj.contrasts.setContrastModel(row{i}, allowedValues, model);
+                 obj.setContrast(row{i}, model=model);
              end
         end
 

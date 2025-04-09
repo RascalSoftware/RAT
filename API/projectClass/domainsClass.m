@@ -2,7 +2,7 @@ classdef domainsClass < projectClass
     % ``domainsClass`` stores all the information that describes a domains experiment which is essential for running a RAT domains calculation. 
     % The ``domainsClass`` contains similar components to a normal project such as the parameters, backgrounds, resolutions, custom files, 
     % data, contrast etc, but also stores the domains ratio and domains contrast which are unique to a domains calculation. The 
-    % ``domainsClass`` provides a number of methods to add, remove, and update these components. For example, for domains ratio, the 
+    % ``domainsClass`` provides a number of methods to add, remove, and update these components. For example, for domain ratio, the 
     % ``addDomainsRatio``, ``removeDomainsRatio``, and ``setDomainsRatio`` methods are available for adding, removing, and updating parameters.
     % 
     % Examples
@@ -45,7 +45,7 @@ classdef domainsClass < projectClass
     % contrasts : contrastsClass object
     %     An object which contains contrast information.
     % domainRatio : parametersClass
-    %     The domain ration parameters.
+    %     The domain ratio parameters.
     % domainContrasts : domainContrastsClass
     %     An object which contains domain contrast information.
     properties
@@ -113,7 +113,7 @@ classdef domainsClass < projectClass
         end
     
         % ----------------------------------------------------------------
-        % Editing of Domains Contrasts Block
+        % Editing of Contrasts Block
 
         function obj = addContrast(obj, options)
             % Add a new contrast to the project.
@@ -136,17 +136,17 @@ classdef domainsClass < projectClass
             %    Keyword/value pair to properties to update for the specific contrast.
             %       * name (char array or string, default: '') the name of the contrast.
             %       * data (char array or string, default: '') the name of the dataset parameter used by the contrast.
-            %       * background (char array or string, default: '') the name of the background parameter for the contrast.
-            %       * backgroundAction (backgroundActions, default: backgroundActions.Add)  BackgroundActions Whether the background should be added ('add') or subtracted ('subtract') from the data.
+            %       * background (char array or string, default: '') the name of the background for the contrast.
+            %       * backgroundAction (backgroundActions, default: backgroundActions.Add) whether the background should be added to the simulation ('add') or subtracted from the data('subtract').
             %       * bulkIn (char array or string, default: '') the name of the bulk-in parameter which defines the SLD of the interface between the first layer and the environment.
             %       * bulkOut (char array or string, default: '') the name of the bulk-out parameter which defines the SLD of the interface between the last layer and the environment.
-            %       * scalefactor (char array or string, default: '') the name of the scalefactor which defines how much the data for this contrast should be scaled.
+            %       * scalefactor (char array or string, default: '') the name of the scalefactor parameter which defines how much the data for this contrast should be scaled.
             %       * resolution (char array or string, default: '') the name of the instrument resolution for this contrast.
             %       * resample (logical, default: false) whether adaptive resampling should be used for interface microslicing.
-            %       * repeatLayers (whole number, default: 1) indicates the number of times the layers should be repeated, this is only available for standard layers.
+            %       * repeatLayers (whole number, default: 1) indicates the number of times the layers should be repeated, this is only supported for standard layers.
             %       * domainRatio (char array or string, default: '') the name of the domain ratio parameter.
             %       * model (cell) if this is a standard layers model, this should be a list of domain contrast names for this contrast.
-            %                      For custom models, this should be the custom file name for the custom model function.
+            %                      For custom models, this should be a single custom file name for the custom model function.
             arguments
                 obj
                 options.name
@@ -189,17 +189,17 @@ classdef domainsClass < projectClass
             %    Keyword/value pair to properties to update for the specific contrast.
             %       * name (char array or string, default: '') the name of the contrast.
             %       * data (char array or string, default: '') the name of the dataset parameter used by the contrast.
-            %       * background (char array or string, default: '') the name of the background parameter for the contrast.
-            %       * backgroundAction (backgroundActions, default: backgroundActions.Add)  BackgroundActions Whether the background should be added ('add') or subtracted ('subtract') from the data.
+            %       * background (char array or string, default: '') the name of the background for the contrast.
+            %       * backgroundAction (backgroundActions, default: backgroundActions.Add) whether the background should be added to the simulation ('add') or subtracted from the data('subtract').
             %       * bulkIn (char array or string, default: '') the name of the bulk-in parameter which defines the SLD of the interface between the first layer and the environment.
             %       * bulkOut (char array or string, default: '') the name of the bulk-out parameter which defines the SLD of the interface between the last layer and the environment.
-            %       * scalefactor (char array or string, default: '') the name of the scalefactor which defines how much the data for this contrast should be scaled.
+            %       * scalefactor (char array or string, default: '') the name of the scalefactor parameter which defines how much the data for this contrast should be scaled.
             %       * resolution (char array or string, default: '') the name of the instrument resolution for this contrast.
             %       * resample (logical, default: false) whether adaptive resampling should be used for interface microslicing.
-            %       * repeatLayers (whole number, default: 1) indicates the number of times the layers should be repeated, this is only available for standard layers.
+            %       * repeatLayers (whole number, default: 1) indicates the number of times the layers should be repeated, this is only supported for standard layers.
             %       * domainRatio (char array or string, default: '') the name of the domain ratio parameter.
             %       * model (char array or string or cell string) if this is a standard layers model, this should be a list of domain contrast names for this contrast.
-            %                      For custom models, this should be the custom file name for the custom model function.
+            %                      For custom models, this should be a single custom file name for the custom model function.
             arguments
                 obj
                 row
@@ -244,7 +244,7 @@ classdef domainsClass < projectClass
             %     it is the name of the contrast to update.
             % model: char array or string or cell string
             %     If this is a standard layers model, this should be a list of domain contrast names for this contrast.
-            %     For custom models, this should be the custom file name for the custom model function.
+            %     For custom models, this should be a single custom file name for the custom model function.
             setContrastModel@projectClass(obj, row, model);
         end
 
@@ -495,7 +495,7 @@ classdef domainsClass < projectClass
             % model: char array or string or cell string
             %     This should be a list of layer names that make up the slab model for this domain contrast.
             if isa(obj.domainContrasts, 'domainContrastsClass')
-                obj.domainContrasts.setContrastModel(row, obj.getAllAllowedNames(), model);
+                obj.setDomainContrast(row, model=model);
             else
                 throw(exceptions.invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
             end

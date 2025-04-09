@@ -1,5 +1,5 @@
 classdef coderEnums
-  % An Enum class which lets MATLAB Coder use Enums without redefinition or hardcoding.
+    % An Enum class which lets MATLAB Coder use Enums without redefinition or hardcoding.
     properties (Constant)
         actions = actions.toStruct()
         allowedTypes = allowedTypes.toStruct()

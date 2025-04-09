@@ -1,5 +1,5 @@
 classdef actions < customEnum
-  % Ways in which a background can be included in a contrast.
+    % Ways in which a background can be included in a contrast.
     methods (Static)
         function s = toStruct()
             s = customEnum.toStruct(mfilename('class'));

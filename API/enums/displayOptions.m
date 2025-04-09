@@ -1,5 +1,5 @@
 classdef displayOptions < customEnum 
-  % The available options for terminal output.
+    % The available options for terminal output.
     methods (Static)
         function s = toStruct()
             s = customEnum.toStruct(mfilename('class'));

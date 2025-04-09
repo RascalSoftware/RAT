@@ -1,5 +1,5 @@
 classdef hydrationTypes < customEnum
-  % Options for the 'hydrate with' parameter of a Layer.
+    % Options for the 'hydrate with' parameter of a Layer.
     methods (Static)
         function s = toStruct()
             s = customEnum.toStruct(mfilename('class'));

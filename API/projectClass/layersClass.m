@@ -188,8 +188,8 @@ classdef layersClass < tableUtilities
             %    Keyword/value pair to properties to update for the specific parameter.
             %       * name (string or char array or whole number, default: '') the new name of the layer.
             %       * thickness (string or char array or whole number, default: '') The name (or the row index) of the parameter describing the thickness of this layer.
-            %       * sld, realSLD (string or char array or whole number, default: '') The name (or the row index) of the parameter describing the real (scattering) term.
-            %       * imaginarySLD (string or char array or whole number, default: '') the new name (or the row index) of the parameter describing the imaginary (absorption) term.
+            %       * sld, realSLD (string or char array or whole number, default: '') The name (or the row index) of the parameter describing the real (scattering) term of the SLD.
+            %       * imaginarySLD (string or char array or whole number, default: '') the new name (or the row index) of the parameter describing the imaginary (absorption) term of the SLD.
             %       * roughness (string or char array or whole number, default: '') the new name (or the row index) of the parameter describing the roughness of this layer.           
             %       * hydration (string or char array or whole number, default: '') the new name (or the row index) of the parameter describing the percent hydration for the layer           
             %       * hydrateWith (hydrationTypes, default: hydrationTypes.empty()) whether the layer is hydrated with the "bulk in" or "bulk out". 

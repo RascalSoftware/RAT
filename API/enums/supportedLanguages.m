@@ -1,4 +1,5 @@
 classdef supportedLanguages < customEnum
+  % Languages for custom files.
    methods (Static)
         function s = toStruct()
             s = customEnum.toStruct(mfilename('class'));

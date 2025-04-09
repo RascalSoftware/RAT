@@ -1,4 +1,5 @@
 classdef allowedTypes < customEnum
+  % Ways of defining a background or resolution.
     methods (Static)
         function s = toStruct()
             s = customEnum.toStruct(mfilename('class'));

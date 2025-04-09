@@ -1,4 +1,5 @@
 classdef errorCodes < customEnum
+  % Internal error codes for MATLAB Coder exceptions (see compile/exceptions/coderException.m).
    methods (Static)
         function s = toStruct()
             s = customEnum.toStruct(mfilename('class'));

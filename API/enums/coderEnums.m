@@ -1,5 +1,5 @@
-% This allow enums to be used by coder without redefinition or hardcoding
 classdef coderEnums
+  % An Enum class which lets MATLAB Coder use Enums without redefinition or hardcoding.
     properties (Constant)
         actions = actions.toStruct()
         allowedTypes = allowedTypes.toStruct()

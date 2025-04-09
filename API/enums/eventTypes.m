@@ -1,4 +1,5 @@
 classdef eventTypes < customEnum
+  % Types of output event from a RAT run.
    methods (Static)
         function s = toStruct()
             s = customEnum.toStruct(mfilename('class'));

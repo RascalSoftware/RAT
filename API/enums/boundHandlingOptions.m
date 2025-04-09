@@ -1,4 +1,5 @@
 classdef boundHandlingOptions < customEnum
+  % Options for bound handling in DREAM.
     methods (Static)
         function s = toStruct()
             s = customEnum.toStruct(mfilename('class'));

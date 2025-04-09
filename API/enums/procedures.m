@@ -1,4 +1,5 @@
 classdef procedures < customEnum
+  % The algorithms available in RAT.
    methods (Static)
         function s = toStruct()
             s = customEnum.toStruct(mfilename('class'));

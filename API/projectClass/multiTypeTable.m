@@ -1,8 +1,5 @@
 classdef multiTypeTable < tableUtilities
-    
-    % This is the class definition for the backgrounds and resolutions
-    % tables.
-    
+    % A multi-type table, used in backgrounds and resolution tables.    
     properties
         typesAutoNameString = 'Row'
     end
@@ -12,7 +9,10 @@ classdef multiTypeTable < tableUtilities
         function obj = multiTypeTable()
             % Initialises a multi-type table.
             %
-            % multiTable = multiTypeTable();
+            % Examples
+            % --------
+            % >>> multiTable = multiTypeTable();
+            %
             sz = [0 8];
             varTypes = {'string','string','string','string','string','string','string','string'};
             varNames = {'Name','Type','Source','Value 1','Value 2','Value 3','Value 4','Value 5'};
@@ -24,7 +24,15 @@ classdef multiTypeTable < tableUtilities
             % with up to seven parameters, with empty strings used for
             % values that are not specified.
             %
-            % multiTable.addRow({'New Row'});
+            % Parameters
+            % ----------
+            % varargin : keyword arguments
+            %     The parameters to add to the row.
+            %
+            % Examples
+            % --------
+            % >>> multiTable.addRow({'New Row'});
+            %
             switch length(varargin)
 
                 case 0
@@ -57,17 +65,25 @@ classdef multiTypeTable < tableUtilities
         end
         
         function obj = setValue(obj, row, col, value)
-            % Change the value of a given parameter in the table. The row
-            % and column of the parameter can both be specified by either
-            % name or index. The expected input is three values: row,
-            % column, value
+            % Change the value of a given parameter in the table. 
             %
-            % multiTable.setValue(1, 1, 'origin');
-            % First parameter needs to be either a row name or number
+            % Both the row and column of the parameter can both be specified by either
+            % name or index.
+            %
+            % Parameters
+            % ----------
+            % row : string or int
+            %     The name or index of the row.
+            % col : string or int
+            %     The name or index of the column.
+            % value : any
+            %     The value to change the parameter to.
+            %
+            % Examples
+            % --------
+            % >>> multiTable.setValue(1, 1, 'origin');
+            % 
             row = obj.getValidRow(row);
-            
-            % Second parameter needs to be either a column name or
-            % number.
             colNames = obj.varTable.Properties.VariableNames;
 
             if isText(col)

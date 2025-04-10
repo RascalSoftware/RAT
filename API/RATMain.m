@@ -1,4 +1,21 @@
 function [problemStruct,results,bayesResults] = RATMain(problemStruct,controls)
+  % Select and run the internal RAT procedure.
+  %
+  % Parameters
+  % ----------
+  % problemStruct : struct
+  %     The project class in struct form (generated from parseClassToStructs)
+  % controls : struct
+  %     The controls struct (generated from parseClassToStructs)
+  % 
+  % Returns
+  % -------
+  % problemStruct : struct
+  %     The output problem struct.
+  % results : struct
+  %     The calculation results.
+  % bayesResults : struct
+  %     Additional results from a Bayesian calculation.
 
     % Adds C struct names for inputs
     coder.cstructname(problemStruct.names, 'ParamNames');

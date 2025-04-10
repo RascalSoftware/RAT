@@ -318,77 +318,77 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.removeContrast('Unrecognised Name'), exceptions.nameNotRecognised.errorID);
         end
 
-        % function testSetContrastModelStandardLayersDomains(testCase)
-        %     % Test setting a model for a contrast from the contrasts class
-        %     % for a "standard layers" model type
-        %     contrastIndex = 1;
-        %     testModel = {'Domain Contrast 1', 'Test Domain Contrast'};
-        % 
-        %     testCase.exampleClass.setContrastModel(contrastIndex, testCase.allowedNames, testModel);
-        %     testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}.model, testModel, 'setContrastModel does not work correctly');
-        % end
-        % 
-        % function testSetContrastModelStandardLayers(testCase)
-        %     % Test setting a model for a contrast from the contrasts class
-        %     % for a "standard layers" model type
-        %     noDomainsClass = contrastsClass();
-        %     noDomainsClass.addContrast(testCase.allowedNames);
-        % 
-        %     testModel = {'Oxide Layer', 'Water Layer'};
-        %     testCase.allowedNames.modelNames = testCase.layerNames;
-        % 
-        %     noDomainsClass.setContrastModel(1, testCase.allowedNames, testModel);
-        %     testCase.verifyEqual(noDomainsClass.contrasts{1}.model, testModel, 'setContrastModel does not work correctly');
-        % 
-        %     testCase.allowedNames.layerNames = {};
-        %     testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, {'Oxide Layer'}), exceptions.invalidValue.errorID);
-        %     testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, {'DPPC Model'}), exceptions.invalidValue.errorID);
-        % 
-        % end
-        % 
-        % function testSetContrastModelCustomLayers(testCase)
-        %     % Test setting a model for a contrast from the contrasts class
-        %     % for a "custom XY" model type
-        %     noDomainsClass = contrastsClass();
-        %     testCase.allowedNames = rmfield(testCase.allowedNames, 'layerNames');
-        %     noDomainsClass.addContrast(testCase.allowedNames);
-        % 
-        %     testModel = {'DPPC Model'};
-        %     testCase.allowedNames.modelNames = testCase.customNames;
-        % 
-        %     testCase.exampleClass.setContrastModel(1, testCase.allowedNames, testModel);
-        %     testCase.verifyEqual(testCase.exampleClass.contrasts{1}.model, testModel, 'setContrastModel does not work correctly');
-        % 
-        %     % only one model value is allowed
-        %     testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, {'DPPC Model', 'DSPC Model'}), exceptions.invalidValue.errorID);
-        % 
-        %     testCase.allowedNames.customFileNames = {};
-        %     testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, {'DPPC Model'}), exceptions.invalidValue.errorID);
-        %     testCase.verifyError(@() testCase.exampleClass.setContrastModel(1.5, testCase.allowedNames, {'DPPC Model'}), exceptions.invalidType.errorID);
-        % end
-        % 
-        % function testSetContrastModelInvalid(testCase)
-        %     % Test setting a model for a contrast from the contrasts class
-        %     % If the input is invalid we should raise an error
-        % 
-        %     % Contrast must be recognisable by name or index
-        %     testCase.verifyError(@() testCase.exampleClass.setContrastModel(0, testCase.allowedNames, {'Oxide Layer'}), exceptions.indexOutOfRange.errorID);
-        %     testCase.verifyError(@() testCase.exampleClass.setContrastModel(testCase.numContrasts+1, testCase.allowedNames, {'Oxide Layer'}), exceptions.indexOutOfRange.errorID);
-        %     testCase.verifyError(@() testCase.exampleClass.setContrastModel('Invalid Contrast', testCase.allowedNames, {'Oxide Layer'}), exceptions.nameNotRecognised.errorID);
-        % 
-        %     % Contrast models must be defined in allowed values, and only
-        %     % one model is allowed for "custom layers" and "custom XY"
-        %     testModel = {'Domain Contrast 1', 'Invalid Domain Contrast'};
-        %     testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, testModel), exceptions.nameNotRecognised.errorID);
-        % 
-        %     % Only two contrast models are allowed for "standard layers"
-        %     % with domains
-        %     testModel = {'Domain Contrast 1', 'Domain Contrast 2', 'Test Domain Contrast'};
-        %     testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, testModel), exceptions.invalidValue.errorID);
-        % 
-        %     % Partial matches must be disallowed
-        %     testCase.verifyError(@() testCase.exampleClass.setContrastModel('Oxide Lay', testCase.allowedNames, {'Oxide Layer'}), exceptions.nameNotRecognised.errorID);
-        % end
+        function testSetContrastModelStandardLayersDomains(testCase)
+            % Test setting a model for a contrast from the contrasts class
+            % for a "standard layers" model type
+            contrastIndex = 1;
+            testModel = {'Domain Contrast 1', 'Test Domain Contrast'};
+
+            testCase.exampleClass.setContrast(contrastIndex, testCase.allowedNames, model=testModel);
+            testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}.model, testModel, 'setContrastModel does not work correctly');
+        end
+
+        function testSetContrastModelStandardLayers(testCase)
+            % Test setting a model for a contrast from the contrasts class
+            % for a "standard layers" model type
+            noDomainsClass = contrastsClass();
+            noDomainsClass.addContrast(testCase.allowedNames);
+
+            testModel = {'Oxide Layer', 'Water Layer'};
+            testCase.allowedNames.modelNames = testCase.layerNames;
+
+            noDomainsClass.setContrast(1, testCase.allowedNames, model=testModel);
+            testCase.verifyEqual(noDomainsClass.contrasts{1}.model, testModel, 'setContrastModel does not work correctly');
+
+            testCase.allowedNames.layerNames = {};
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, model={'Oxide Layer'}), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, model={'DPPC Model'}), exceptions.invalidValue.errorID);
+
+        end
+
+        function testSetContrastModelCustomLayers(testCase)
+            % Test setting a model for a contrast from the contrasts class
+            % for a "custom XY" model type
+            noDomainsClass = contrastsClass();
+            testCase.allowedNames = rmfield(testCase.allowedNames, 'layerNames');
+            noDomainsClass.addContrast(testCase.allowedNames);
+
+            testModel = {'DPPC Model'};
+            testCase.allowedNames.modelNames = testCase.customNames;
+
+            testCase.exampleClass.setContrast(1, testCase.allowedNames, model=testModel);
+            testCase.verifyEqual(testCase.exampleClass.contrasts{1}.model, testModel, 'setContrastModel does not work correctly');
+
+            % only one model value is allowed
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, model={'DPPC Model', 'DSPC Model'}), exceptions.invalidValue.errorID);
+
+            testCase.allowedNames.customFileNames = {};
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, model={'DPPC Model'}), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1.5, testCase.allowedNames, model={'DPPC Model'}), exceptions.invalidType.errorID);
+        end
+
+        function testSetContrastModelInvalid(testCase)
+            % Test setting a model for a contrast from the contrasts class
+            % If the input is invalid we should raise an error
+
+            % Contrast must be recognisable by name or index
+            testCase.verifyError(@() testCase.exampleClass.setContrast(0, testCase.allowedNames, model={'Oxide Layer'}), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(testCase.numContrasts+1, testCase.allowedNames, model={'Oxide Layer'}), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast('Invalid Contrast', testCase.allowedNames, model={'Oxide Layer'}), exceptions.nameNotRecognised.errorID);
+
+            % Contrast models must be defined in allowed values, and only
+            % one model is allowed for "custom layers" and "custom XY"
+            testModel = {'Domain Contrast 1', 'Invalid Domain Contrast'};
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, model=testModel), exceptions.nameNotRecognised.errorID);
+
+            % Only two contrast models are allowed for "standard layers"
+            % with domains
+            testModel = {'Domain Contrast 1', 'Domain Contrast 2', 'Test Domain Contrast'};
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, model=testModel), exceptions.invalidValue.errorID);
+
+            % Partial matches must be disallowed
+            testCase.verifyError(@() testCase.exampleClass.setContrast('Oxide Lay', testCase.allowedNames, model={'Oxide Layer'}), exceptions.nameNotRecognised.errorID);
+        end
 
         function testSetContrast(testCase)
             contrastIndex = 1;

@@ -42,6 +42,8 @@ namespace RAT
     int b_index;
     char switch_expression_data[10000];
 
+    //  Compute the reflectivity and SLD curves for a given model using the Abeles matrix formalism.
+    //
     //  Main entry point into the reflectivity calculation for the toolbox.
     //  This is the main function that is called by any of the minimisers or
     //  analysis tools from the rest of the toolbox.
@@ -55,6 +57,17 @@ namespace RAT
     //
     //  * domains   - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
     //
+    //  Parameters
+    //  ----------
+    //  problemStruct : struct
+    //      The project class as a struct (generated via parseClassToStructs)
+    //  controls : struct
+    //      The controls struct (generated via parseClassToStructs)
+    //
+    //  Returns
+    //  -------
+    //  result : struct
+    //      The results of the calculation.
     //  Decide which target function we are calling and call the relevant routines
     if (coder::internal::j_strcmp(problemStruct.TF.data, problemStruct.TF.size))
     {
@@ -377,6 +390,8 @@ namespace RAT
     int b_index;
     char switch_expression_data[10000];
 
+    //  Compute the reflectivity and SLD curves for a given model using the Abeles matrix formalism.
+    //
     //  Main entry point into the reflectivity calculation for the toolbox.
     //  This is the main function that is called by any of the minimisers or
     //  analysis tools from the rest of the toolbox.
@@ -390,6 +405,17 @@ namespace RAT
     //
     //  * domains   - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
     //
+    //  Parameters
+    //  ----------
+    //  problemStruct : struct
+    //      The project class as a struct (generated via parseClassToStructs)
+    //  controls : struct
+    //      The controls struct (generated via parseClassToStructs)
+    //
+    //  Returns
+    //  -------
+    //  result : struct
+    //      The results of the calculation.
     //  Decide which target function we are calling and call the relevant routines
     if (coder::internal::j_strcmp(problemStruct.TF.data, problemStruct.TF.size))
     {

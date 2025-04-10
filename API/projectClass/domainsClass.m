@@ -137,7 +137,7 @@ classdef domainsClass < projectClass
             %       * name (char array or string, default: '') the name of the contrast.
             %       * data (char array or string, default: '') the name of the dataset parameter used by the contrast.
             %       * background (char array or string, default: '') the name of the background for the contrast.
-            %       * backgroundAction (backgroundActions, default: backgroundActions.Add) whether the background should be added to the simulation ('add') or subtracted from the data('subtract').
+            %       * backgroundAction (backgroundActions, default: backgroundActions.Add) whether the background should be added to the simulation ('add') or subtracted from the data ('subtract').
             %       * bulkIn (char array or string, default: '') the name of the bulk-in parameter which defines the SLD of the interface between the first layer and the environment.
             %       * bulkOut (char array or string, default: '') the name of the bulk-out parameter which defines the SLD of the interface between the last layer and the environment.
             %       * scalefactor (char array or string, default: '') the name of the scalefactor parameter which defines how much the data for this contrast should be scaled.
@@ -190,7 +190,7 @@ classdef domainsClass < projectClass
             %       * name (char array or string, default: '') the name of the contrast.
             %       * data (char array or string, default: '') the name of the dataset parameter used by the contrast.
             %       * background (char array or string, default: '') the name of the background for the contrast.
-            %       * backgroundAction (backgroundActions, default: backgroundActions.Add) whether the background should be added to the simulation ('add') or subtracted from the data('subtract').
+            %       * backgroundAction (backgroundActions, default: backgroundActions.Add) whether the background should be added to the simulation ('add') or subtracted from the data ('subtract').
             %       * bulkIn (char array or string, default: '') the name of the bulk-in parameter which defines the SLD of the interface between the first layer and the environment.
             %       * bulkOut (char array or string, default: '') the name of the bulk-out parameter which defines the SLD of the interface between the last layer and the environment.
             %       * scalefactor (char array or string, default: '') the name of the scalefactor parameter which defines how much the data for this contrast should be scaled.

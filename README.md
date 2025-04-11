@@ -6,7 +6,7 @@
 
 RAT
 ===
-The Reflectivity Algorithms Toolbox (RAT) for Rascal is a MATLAB toolbox for analysing non-polarized neutron reflectivity data. The toolbox is designed to fit multiple contrast neutron reflectivity data, using the Abeles formalism with either traditional layer models, or using user-defined custom models..
+The Reflectivity Algorithms Toolbox (RAT) for Rascal is a MATLAB toolbox for analysing non-polarized neutron reflectivity data. The toolbox is designed to fit multiple contrast neutron reflectivity data, using the Abeles formalism with either traditional layer models, or using user-defined custom models.
 
 How to Use
 ----------

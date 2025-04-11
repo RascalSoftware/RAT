@@ -10,7 +10,6 @@ The MATLAB IDE is recommended for development, the following toolboxes are requi
 - MATLAB Coder
 - MATLAB Compiler
 - Parallel Computing Toolbox
-- Statistics and Machine Learning Toolbox (for DREAM Minimizer)
 
 After installing the IDE, proceed by creating a fork of the RAT repo, then clone the fork
 

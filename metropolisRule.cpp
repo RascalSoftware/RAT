@@ -116,8 +116,8 @@ namespace RAT
     //
     //  No ABC --> regular MCMC with prior and likelihood
     //  Calculate the likelihood ratio
-    //  Calculate the prior ration
-    //  Calculate product of two probabily ratios
+    //  Calculate the prior ratio
+    //  Calculate product of two probability ratios
     //  Generate random numbers
     coder::b_rand(DREAMPar.nChains, Z);
 

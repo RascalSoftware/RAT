@@ -302,7 +302,7 @@ namespace RAT
       ::coder::array<double, 2U> b_reflectivity1;
       ::coder::array<double, 2U> b_shiftedData;
       ::coder::array<double, 2U> b_sldProfile1;
-      ::coder::array<double, 2U> c_sldProfile1;
+      ::coder::array<double, 2U> b_sldProfile2;
       ::coder::array<double, 2U> reflectivity1;
       ::coder::array<double, 2U> reflectivity2;
       ::coder::array<double, 2U> simulation1;
@@ -327,32 +327,32 @@ namespace RAT
 
       //  Resample the sld profiles
       b_sldProfile1.set_size(sldProfile1.size(0), 2);
-      c_sldProfile1.set_size(sldProfile1.size(0), 2);
+      b_sldProfile2.set_size(sldProfile1.size(0), 2);
       loop_ub = sldProfile1.size(0);
       for (int i{0}; i < 2; i++) {
         for (int i1{0}; i1 < loop_ub; i1++) {
           b_sldProfile1[i1 + b_sldProfile1.size(0) * i] = sldProfile1[i1 +
             sldProfile1.size(0) * i];
-          c_sldProfile1[i1 + c_sldProfile1.size(0) * i] = sldProfile1[i1 +
+          b_sldProfile2[i1 + b_sldProfile2.size(0) * i] = sldProfile1[i1 +
             sldProfile1.size(0) * (i << 1)];
         }
       }
 
-      resampleLayers(b_sldProfile1, c_sldProfile1, resampleMinAngle,
+      resampleLayers(b_sldProfile1, b_sldProfile2, resampleMinAngle,
                      resampleNPoints, r.f1);
       b_sldProfile1.set_size(sldProfile2.size(0), 2);
-      c_sldProfile1.set_size(sldProfile2.size(0), 2);
+      b_sldProfile2.set_size(sldProfile2.size(0), 2);
       loop_ub = sldProfile2.size(0);
       for (int i{0}; i < 2; i++) {
         for (int i1{0}; i1 < loop_ub; i1++) {
           b_sldProfile1[i1 + b_sldProfile1.size(0) * i] = sldProfile2[i1 +
             sldProfile2.size(0) * i];
-          c_sldProfile1[i1 + c_sldProfile1.size(0) * i] = sldProfile2[i1 +
+          b_sldProfile2[i1 + b_sldProfile2.size(0) * i] = sldProfile2[i1 +
             sldProfile2.size(0) * (i << 1)];
         }
       }
 
-      resampleLayers(b_sldProfile1, c_sldProfile1, resampleMinAngle,
+      resampleLayers(b_sldProfile1, b_sldProfile2, resampleMinAngle,
                      resampleNPoints, r1.f1);
       layers[0] = r;
       layers[1] = r1;

@@ -11,14 +11,13 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
     properties (TestParameter)
         contrastInput = {{}, ...
-                         {'Named Contrast'}, ...
                          {'name', 'Few params', ...
                           'background', 'Background D2O', ...
                           'resolution', 'Resolution 1'}, ...
                          {'name', 'All params', ...
                           'data', 'Simulation', ...
                           'background', 'Background H2O', ...
-                          'backgroundAction', actions.Subtract, ...
+                          'backgroundAction', backgroundActions.Subtract, ...
                           'bulkIn', 'Silicon', ...
                           'bulkOut', 'SLD H2O', ...
                           'scalefactor', 'Scalefactor 1', ...
@@ -36,7 +35,6 @@ classdef testContrastsClass < matlab.unittest.TestCase
                         }
         removeInput = {1, 'bilayer / d2o'}
         changedFields = {{{'name', 'New contrast 1'}}, ...
-                         {{'name', 'Named Contrast'}}, ...
                          {{'name', 'Few params'}, ...
                           {'background', 'Background D2O'}, ...
                           {'resolution', 'Resolution 1'}
@@ -66,10 +64,10 @@ classdef testContrastsClass < matlab.unittest.TestCase
         numContrasts            % Number of Contrasts defined in exampleClass
 
         % Define the layers from "DPPC_standard_layers.m"
-        layerNames = ["Oxide Layer" "Water Layer" "Bil inner head" "Bil tail" "Bil outer head"]
+        layerNames = ["Oxide Layer", "Water Layer", "Bil inner head", "Bil tail", "Bil outer head"]
         % Define the custom files from "orsoDSPC_custLay_script.m" and
         % "DPPC_customXY.m" 
-        customNames = ["DSPC Model" "DPPC Model"]
+        customNames = ["DSPC Model", "DPPC Model"]
         domainContrastNames = ["Domain Contrast 1", "Domain Contrast 2", "Test Domain Contrast"]
 
         % Data from data class
@@ -103,7 +101,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % resolution and domain ratios
             testCase.allowedNames = struct( ...
                 'backgroundNames', ["Background D2O" "Background SMW" "Background H2O"], ...
-                'bulkInNames', 'Silicon', ...
+                'bulkInNames', "Silicon", ...
                 'bulkOutNames', ["SLD D2O" "SLD SMW" "SLD H2O"], ...
                 'resolutionNames', ["Resolution 1" "Test Resolution"], ...
                 'layerNames',  testCase.layerNames, ...
@@ -136,7 +134,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 'name', '', ...
                 'data', '', ...
                 'background', '', ...
-                'backgroundAction', actions.Add.value, ...
+                'backgroundAction', backgroundActions.Add.value, ...
                 'bulkIn', '', ...
                 'bulkOut', '', ...
                 'scalefactor', '', ...
@@ -154,7 +152,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 'name', 'New Contrast', ...
                 'data', 'Simulation', ...
                 'background', 'Background SMW', ...
-                'backgroundAction', actions.Subtract, ...
+                'backgroundAction', backgroundActions.Subtract, ...
                 'bulkIn', 'Silicon', ...
                 'bulkOut', 'SLD SMW', ...
                 'scalefactor', 'Test Scalefactor', ...
@@ -174,13 +172,13 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % Set up an example contrasts class for testing
             % This example is used in the example calculation
             % "DPPC_standard_layers.m"
-            testCase.exampleClass = contrastsClass(domains=true);
+            testCase.exampleClass = contrastsClass(true);
 
             testCase.exampleClass.contrasts(1) = {struct( ...
                 'name', 'Bilayer / D2O', ...
                 'data', 'Bilayer / D2O', ...
                 'background', 'Background D2O', ...
-                'backgroundAction', actions.Add.value, ...
+                'backgroundAction', backgroundActions.Add.value, ...
                 'bulkIn', 'Silicon', ...
                 'bulkOut', 'SLD D2O', ...
                 'scalefactor', 'Scalefactor 1', ...
@@ -195,7 +193,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 'name', 'Bilayer / SMW', ...
                 'data', 'Bilayer / SMW', ...
                 'background', 'Background SMW', ...
-                'backgroundAction', actions.Add.value, ...
+                'backgroundAction', backgroundActions.Add.value, ...
                 'bulkIn', 'Silicon', ...
                 'bulkOut', 'SLD SMW', ...
                 'scalefactor', 'Scalefactor 1', ...
@@ -210,7 +208,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 'name', 'Bilayer / H2O', ...
                 'data', 'Bilayer / H2O', ...
                 'background', 'Background H2O', ...
-                'backgroundAction', actions.Add.value, ...
+                'backgroundAction', backgroundActions.Add.value, ...
                 'bulkIn', 'Silicon', ...
                 'bulkOut', 'SLD H2O', ...
                 'scalefactor', 'Scalefactor 1', ...
@@ -261,18 +259,18 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % Standard calculation
             testClass = contrastsClass();
             testCase.verifyEqual(testClass.contrasts, {}, 'contrastsClass does not initialise correctly');
-            testCase.verifyFalse(testClass.domainsCalc);
+            testCase.verifyFalse(testClass.isDomains);
 
             % Domains Calculation
-            testDomainsClass = contrastsClass(domains=true);
+            testDomainsClass = contrastsClass(true);
             testCase.verifyEqual(testDomainsClass.contrasts, {}, 'contrastsClass does not initialise correctly');
-            testCase.verifyTrue(testDomainsClass.domainsCalc);
+            testCase.verifyTrue(testDomainsClass.isDomains);
         end
 
         function testInitialiseContrastsClassIllogical(testCase)
             % If we initialise a contrasts class with a non-logical
             % variable we should fail validation
-            testCase.verifyError(@() contrastsClass(domains=0), 'MATLAB:validators:mustBeA');
+            testCase.verifyError(@() contrastsClass(0), 'MATLAB:validators:mustBeA');
         end
         
         function testAddContrast(testCase, contrastInput, changedFields)
@@ -326,10 +324,10 @@ classdef testContrastsClass < matlab.unittest.TestCase
             contrastIndex = 1;
             testModel = {'Domain Contrast 1', 'Test Domain Contrast'};
 
-            testCase.exampleClass.setContrastModel(contrastIndex, testCase.allowedNames, testModel);
+            testCase.exampleClass.setContrast(contrastIndex, testCase.allowedNames, model=testModel);
             testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}.model, testModel, 'setContrastModel does not work correctly');
         end
-        
+
         function testSetContrastModelStandardLayers(testCase)
             % Test setting a model for a contrast from the contrasts class
             % for a "standard layers" model type
@@ -339,12 +337,12 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testModel = {'Oxide Layer', 'Water Layer'};
             testCase.allowedNames.modelNames = testCase.layerNames;
 
-            noDomainsClass.setContrastModel(1, testCase.allowedNames, testModel);
+            noDomainsClass.setContrast(1, testCase.allowedNames, model=testModel);
             testCase.verifyEqual(noDomainsClass.contrasts{1}.model, testModel, 'setContrastModel does not work correctly');
 
             testCase.allowedNames.layerNames = {};
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, {'Oxide Layer'}), exceptions.invalidValue.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, {'DPPC Model'}), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, model={'Oxide Layer'}), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, model={'DPPC Model'}), exceptions.invalidValue.errorID);
 
         end
 
@@ -358,14 +356,15 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testModel = {'DPPC Model'};
             testCase.allowedNames.modelNames = testCase.customNames;
 
-            testCase.exampleClass.setContrastModel(1, testCase.allowedNames, testModel);
+            testCase.exampleClass.setContrast(1, testCase.allowedNames, model=testModel);
             testCase.verifyEqual(testCase.exampleClass.contrasts{1}.model, testModel, 'setContrastModel does not work correctly');
 
             % only one model value is allowed
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, {'DPPC Model', 'DSPC Model'}), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, model={'DPPC Model', 'DSPC Model'}), exceptions.invalidValue.errorID);
 
             testCase.allowedNames.customFileNames = {};
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, {'DPPC Model'}), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, model={'DPPC Model'}), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1.5, testCase.allowedNames, model={'DPPC Model'}), exceptions.invalidType.errorID);
         end
 
         function testSetContrastModelInvalid(testCase)
@@ -373,22 +372,22 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % If the input is invalid we should raise an error
 
             % Contrast must be recognisable by name or index
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(0, testCase.allowedNames, {'Oxide Layer'}), exceptions.indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(testCase.numContrasts+1, testCase.allowedNames, {'Oxide Layer'}), exceptions.indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel('Invalid Contrast', testCase.allowedNames, {'Oxide Layer'}), exceptions.nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(0, testCase.allowedNames, model={'Oxide Layer'}), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(testCase.numContrasts+1, testCase.allowedNames, model={'Oxide Layer'}), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast('Invalid Contrast', testCase.allowedNames, model={'Oxide Layer'}), exceptions.nameNotRecognised.errorID);
 
             % Contrast models must be defined in allowed values, and only
             % one model is allowed for "custom layers" and "custom XY"
             testModel = {'Domain Contrast 1', 'Invalid Domain Contrast'};
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, testModel), exceptions.nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, model=testModel), exceptions.nameNotRecognised.errorID);
 
             % Only two contrast models are allowed for "standard layers"
             % with domains
             testModel = {'Domain Contrast 1', 'Domain Contrast 2', 'Test Domain Contrast'};
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, testCase.allowedNames, testModel), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, model=testModel), exceptions.invalidValue.errorID);
 
             % Partial matches must be disallowed
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel('Oxide Lay', testCase.allowedNames, {'Oxide Layer'}), exceptions.nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast('Oxide Lay', testCase.allowedNames, model={'Oxide Layer'}), exceptions.nameNotRecognised.errorID);
         end
 
         function testSetContrast(testCase)
@@ -398,7 +397,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 'name', 'New Contrast', ...
                 'data', 'Simulation', ...
                 'background', 'Background SMW', ...
-                'backgroundAction', actions.Subtract.value, ...
+                'backgroundAction', backgroundActions.Subtract.value, ...
                 'bulkIn', 'Silicon', ...
                 'bulkOut', 'SLD SMW', ...
                 'scalefactor', 'Test Scalefactor', ...
@@ -427,7 +426,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 'name', 'No Domains Contrast', ...
                 'data', 'Simulation', ...
                 'background', 'Background SMW', ...
-                'backgroundAction', actions.Add, ...
+                'backgroundAction', backgroundActions.Add, ...
                 'bulkIn', 'Silicon', ...
                 'bulkOut', 'SLD SMW', ...
                 'scalefactor', 'Test Scalefactor', ...
@@ -440,7 +439,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 'name', 'No Domains Contrast', ...
                 'data', 'Simulation', ...
                 'background', 'Background SMW', ...
-                'backgroundAction', actions.Add.value, ...
+                'backgroundAction', backgroundActions.Add.value, ...
                 'bulkIn', 'Silicon', ...
                 'bulkOut', 'SLD SMW', ...
                 'scalefactor', 'Test Scalefactor', ...
@@ -463,17 +462,20 @@ classdef testContrastsClass < matlab.unittest.TestCase
         function testSetContrastInvalid(testCase)
             % Test setting parameter values within a contrast
             % Contrast must be recognisable by name or index
-            testCase.verifyError(@() testCase.exampleClass.setContrast(0, testCase.allowedNames, testCase.newValues), exceptions.indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrast(testCase.numContrasts+1, testCase.allowedNames, testCase.newValues), exceptions.indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrast('Invalid Contrast', testCase.allowedNames, testCase.newValues), exceptions.nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(0, testCase.allowedNames, testCase.newValues{:}), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(testCase.numContrasts+1, testCase.allowedNames, testCase.newValues{:}), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast('Invalid Contrast', testCase.allowedNames, testCase.newValues{:}), exceptions.nameNotRecognised.errorID);
 
             % "backgroundAction" should be a value of the "actions" enum
             testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, 'backgroundAction', 'random'), exceptions.invalidOption.errorID);
 
             % Partial matches of fields names and parameter values should
             % be disallowed
-            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, 'backgr', 'Background H2O'), 'MATLAB:InputParser:UnmatchedParameter');
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, 'backgr', 'Background H2O'), 'MATLAB:functionValidation:AmbiguousInputName');
             testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, 'background', 'Background H'), exceptions.nameNotRecognised.errorID);
+            testCase.allowedNames.backgroundNames = {};
+            testCase.verifyError(@() testCase.exampleClass.setContrast(1, testCase.allowedNames, 'background', 'Background H'), exceptions.nameNotRecognised.errorID);
+        
         end
 
         function testSetContrastWarning(testCase)
@@ -485,7 +487,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
 
         function testGetAllContrastNames(testCase)
-            testCase.verifyEqual(testCase.exampleClass.getAllContrastNames, {'Bilayer / D2O', 'Bilayer / SMW', 'Bilayer / H2O'}, 'getAllContrastNames does not work correctly');
+            testCase.verifyEqual(testCase.exampleClass.getNames, {'Bilayer / D2O'; 'Bilayer / SMW'; 'Bilayer / H2O'}, 'getAllContrastNames does not work correctly');
         end
 
         function testUpdateDataName(testCase)
@@ -549,7 +551,41 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'custom layers', testCase.varTable), testCase.exampleStruct);
         end
 
-        function testToStructDisallowedData(testCase)
+        function testToStructMissingData(testCase)
+            % Test converting the contrasts class to a struct with missing
+            % parameters throws exception.
+            contrastIndex = 2;
+            oldContrast = testCase.exampleClass.contrasts{contrastIndex};
+            inputs = {'data', 'background', 'resolution', 'domainRatio', 'bulkIn', 'bulkOut', 'scalefactor'};
+            for i=1:length(inputs)
+                testCase.exampleClass.contrasts{contrastIndex} = oldContrast;
+                testCase.exampleClass.contrasts{contrastIndex}.(inputs{i}) = 'bad name';
+                testCase.verifyError(@() testCase.exampleClass.toStruct(testCase.allowedNames, 'standard layers', testCase.varTable), exceptions.nameNotRecognised.errorID);
+            end
+            
+            testCase.exampleClass.contrasts{contrastIndex} = oldContrast;
+            testCase.exampleClass.contrasts{contrastIndex}.model{1} = 'bad domain contrast name';
+            testCase.verifyError(@() testCase.exampleClass.toStruct(testCase.allowedNames, 'standard layers', testCase.varTable), exceptions.nameNotRecognised.errorID);
+
+            testCase.exampleClass.contrasts{contrastIndex} = oldContrast;
+            testCase.exampleClass.contrasts{contrastIndex}.model{1} = 'bad file name';
+            testCase.verifyError(@() testCase.exampleClass.toStruct(testCase.allowedNames, 'custom layers', testCase.varTable), exceptions.nameNotRecognised.errorID);
+
+            nonDomainContrast =  contrastsClass();
+            nonDomainContrast.contrasts(1) = {struct('name', '', 'model', {{'Oxide Layer', 'bad Layers name'}})};
+            testCase.verifyError(@() nonDomainContrast.toStruct(testCase.allowedNames, 'standard layers', testCase.varTable), exceptions.nameNotRecognised.errorID);
+            
+            testCase.exampleClass.contrasts{contrastIndex} = oldContrast;
+            testCase.exampleClass.contrasts{contrastIndex}.background = '';
+            testCase.verifyError(@() testCase.exampleClass.toStruct(testCase.allowedNames, 'standard layers', testCase.varTable), exceptions.invalidValue.errorID);
+        
+            testCase.exampleClass.contrasts{contrastIndex} = oldContrast;
+            testCase.allowedNames.backgroundNames = {};
+            testCase.verifyError(@() testCase.exampleClass.toStruct(testCase.allowedNames, 'standard layers', testCase.varTable), exceptions.nameNotRecognised.errorID);
+
+        end
+
+        function testToStructEmptyData(testCase)
             % Test converting the contrasts class to a struct
             % If the data parameter is not in the allowed names, set some
             % dummy values in the struct
@@ -557,11 +593,11 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
             % Modify exampleClass and exampleStruct to remove a data entry
             % and insert the expected dummy values in the struct
-            testCase.exampleClass.contrasts{contrastIndex}.data = 'Disallowed data name';
+            testCase.exampleClass.contrasts{contrastIndex}.data = '';
 
             testCase.exampleStruct.dataPresent(contrastIndex) = 0;
             testCase.exampleStruct.dataLimits{contrastIndex} = [0 0];
-            testCase.exampleStruct.simulationLimits{contrastIndex} = [0 0];
+            testCase.exampleStruct.simulationLimits{contrastIndex} = dataClass.defaultSimRange;
             testCase.exampleStruct.contrastData{contrastIndex} = [0 0 0];
 
             testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'standard layers', testCase.varTable), testCase.exampleStruct);
@@ -727,7 +763,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 'name', 'New Contrast', ...
                 'data', 'Simulation', ...
                 'background', 'Background SMW', ...
-                'backgroundAction', actions.Subtract, ...
+                'backgroundAction', backgroundActions.Subtract, ...
                 'bulkIn', 'Silicon', ...
                 'bulkOut', 'SLD SMW', ...
                 'scalefactor', 'Test Scalefactor', ...
@@ -749,7 +785,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % Test parsing input data for a contrast within the contrasts
             % class.
             % If the input is empty, we should return the default values
-            emptyContrasts = contrastsClass(domains=true);
+            emptyContrasts = contrastsClass(true);
 
             % Need to change default contrast fields to empty defaults used
             % in parser

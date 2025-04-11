@@ -17,32 +17,32 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
     % modelType : modelTypes, default: modelTypes.StandardLayers
     %     The layer model type which can be 'standard layers', 'custom layers', or 'custom xy'.
     % geometry : geometryOptions, default: geometryOptions.AirSubstrate
-    %     The geometry to use which can be 'air/substrate' or 'substrate/liquid'.  
+    %     The geometry to use which can be 'air/substrate' or 'substrate/liquid'.
     % absorption : logical, default: false
     %     Indicates whether imaginary component is used for the SLD value in layers.
     % 
     % Attributes
     % ----------
     % parameters : parametersClass
-    %     The project parameters. 
+    %     The project parameters.
     % bulkIn : parametersClass
-    %     The bulkIn parameters. 
+    %     The bulkIn parameters.
     % bulkOut : parametersClass
-    %     The bulkOut parameters. 
+    %     The bulkOut parameters.
     % scalefactors : parametersClass
-    %     The scalefactors parameters. 
+    %     The scalefactors parameters.
     % layers : layersClass
-    %     An object which contains the layers information. 
+    %     An object which contains the layers information.
     % data : dataClass
-    %     An object which contains the data table. 
+    %     An object which contains the data table.
     % customFile : Custom file object
-    %     An object which contains the defined customFiles. 
+    %     An object which contains the defined customFiles.
     % background : backgroundsClass object
-    %     An object which contains defined backgrounds and background parameters. 
+    %     An object which contains defined backgrounds and background parameters.
     % resolution : resolutionClass object
-    %     An object which contains defined resolutions and resolution parameters. 
+    %     An object which contains defined resolutions and resolution parameters.
     % contrasts : contrastsClass object
-    %     An object which contains contrast information. 
+    %     An object which contains contrast information.
     
     properties
         experimentName
@@ -176,14 +176,14 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         function names = getAllAllowedNames(obj)
             % Returns a struct with all currently set names of normal parameters, background and resolution 
             % parameters, backgrounds, resolutions, bulk-ins, bulk-outs, scalefactors, data, custom files and 
-            % contrasts for the project.
+            % contrast model for the project.
             % 
             % Returns
             % -------
             % names : struct
             %     A struct with names of all the normal parameters, background and resolution 
             %     parameters, backgrounds, resolutions, bulk-ins, bulk-outs, scalefactors, data, custom files and 
-            %     contrasts entries in the project.
+            %     contrast model entries in the project.
             names.paramNames = obj.parameters.getNames();
             names.backgroundNames = obj.background.getNames();
             names.backgroundParamNames = obj.background.backgroundParams.getNames();
@@ -1035,14 +1035,52 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
         % ----------------------------------------------------------------
         % Editing of Contrasts Block
         
-        function obj = addContrast(obj, varargin)
-            % Adds a new contrast parameter. Expects a parameter name, and with 
-            % key-value pairs with one or more of the following "data",
-            % "background", "bulk in", "bulk out", "scalefactor",
-            % "resolution", "resample", "model"
+        function obj = addContrast(obj, options)
+            % Add a new contrast to the project.
+            %
+            % Examples
+            % --------
+            % To add a new contrast with name only.
             % 
-            % project.addContrast('contrast 1', 'bulkIn', 'Silicon');
-            obj.contrasts.addContrast(obj.getAllAllowedNames(), varargin{:});
+            % >>> project.addContrast(name='new contrast');
+            % 
+            % To add a new contrast with other properties.
+            % 
+            % >>> project.addContrast(name='new contrast', bulkIn='Silicon', bulkOut='D2O', background='D2O Background', ...
+            %                         resolution='Resolution 1', scalefactor='Scalefactor 1', data='DSPC Bilayer D2O', model={'Oxide', 'Bilayer tails'});
+            %
+            % Parameters
+            % ----------
+            % options
+            %    Keyword/value pair to properties to update for the specific contrast.
+            %       * name (char array or string, default: '') the name of the contrast.
+            %       * data (char array or string, default: '') the name of the dataset parameter used by the contrast.
+            %       * background (char array or string, default: '') the name of the background for the contrast.
+            %       * backgroundAction (backgroundActions, default: backgroundActions.Add) whether the background should be added to the simulation ('add') or subtracted from the data ('subtract').
+            %       * bulkIn (char array or string, default: '') the name of the bulk-in parameter which defines the SLD of the interface between the first layer and the environment.
+            %       * bulkOut (char array or string, default: '') the name of the bulk-out parameter which defines the SLD of the interface between the last layer and the environment.
+            %       * scalefactor (char array or string, default: '') the name of the scalefactor parameter which defines how much the data for this contrast should be scaled.
+            %       * resolution (char array or string, default: '') the name of the instrument resolution for this contrast.
+            %       * resample (logical, default: false) whether adaptive resampling should be used for interface microslicing.
+            %       * repeatLayers (whole number, default: 1) indicates the number of times the layers should be repeated, this is only supported for standard layers.
+            %       * model (cell) if this is a standard layers model, this should be a list of layer names that make up the slab model for this contrast.
+            %                      For custom models, this should be a single custom file name for the custom model function.
+            arguments
+                obj
+                options.name
+                options.data
+                options.background
+                options.backgroundAction
+                options.bulkIn
+                options.bulkOut
+                options.scalefactor
+                options.resolution
+                options.resample
+                options.repeatLayers
+                options.model
+            end
+            args = namedargs2cell(options);
+            obj.contrasts.addContrast(obj.getAllAllowedNames(), args{:});
         end
 
         function obj = removeContrast(obj, row)
@@ -1066,30 +1104,83 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
             obj.contrasts.removeContrast(row);
         end
 
-        function obj = setContrast(obj, row, varargin)   
-            % Allow setting of all parameters in terms of name value pairs.
-            % First input must be contrast number or name, subsequent
-            % inputs are name / value pairs for the parts involved
+        function obj = setContrast(obj, row, options)   
+            % General purpose method for updating properties of an existing contrast.
             %
-            % project.setContrast(1, 'name', 'contrast')
-                        
-            % Get the list of allowed values depending on what is
-            % set for the other contrasts.
-            allowedValues = obj.getAllAllowedNames();
-            
-            % Call the setContrast method
-            obj.contrasts.setContrast(row, allowedValues, varargin{:});
+            % Examples
+            % --------
+            % To change the properties of the second contrast in the object.
+            % 
+            % >>> project.setContrast(2, name='new contrast', bulkIn='Silicon', bulkOut='D2O', background='D2O Background', ...
+            %                         resolution='Resolution 1', scalefactor='Scalefactor 1', data='DSPC Bilayer D2O', model='Oxide Model'});
+            %
+            % To change the properties of a contrast called 'Contrast 1'.
+            % 
+            % >>> project.setContrast('Contrast 1', name='new contrast', scalefactor='Scalefactor 1', data='DSPC Bilayer D2O'});
+            %  
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the contrast to update. If it is text, 
+            %     it is the name of the contrast to update.
+            % options
+            %    Keyword/value pair to properties to update for the specific contrast.
+            %       * name (char array or string, default: '') the name of the contrast.
+            %       * data (char array or string, default: '') the name of the dataset parameter used by the contrast.
+            %       * background (char array or string, default: '') the name of the background for the contrast.
+            %       * backgroundAction (backgroundActions, default: backgroundActions.Add) whether the background should be added to the simulation ('add') or subtracted from the data ('subtract').
+            %       * bulkIn (char array or string, default: '') the name of the bulk-in parameter which defines the SLD of the interface between the first layer and the environment.
+            %       * bulkOut (char array or string, default: '') the name of the bulk-out parameter which defines the SLD of the interface between the last layer and the environment.
+            %       * scalefactor (char array or string, default: '') the name of the scalefactor parameter which defines how much the data for this contrast should be scaled.
+            %       * resolution (char array or string, default: '') the name of the instrument resolution for this contrast.
+            %       * resample (logical, default: false) whether adaptive resampling should be used for interface microslicing.
+            %       * repeatLayers (whole number, default: 1) indicates the number of times the layers should be repeated, this is only supported for standard layers.
+            %       * model (char array or string or cell string) if this is a standard layers model, this should be a list of layer names that make up the slab model for this contrast.
+            %                      For custom models, this should be a single custom file name for the custom model function.
+            arguments
+                obj
+                row
+                options.name
+                options.data
+                options.background
+                options.backgroundAction
+                options.bulkIn
+                options.bulkOut
+                options.scalefactor
+                options.resolution
+                options.resample
+                options.repeatLayers
+                options.model
+            end
+            args = namedargs2cell(options);       
+            obj.contrasts.setContrast(row, obj.getAllAllowedNames(), args{:});
         end
         
         function obj = setContrastModel(obj, row, model)
-            % Edits the model of an existing contrast parameter. Expects
-            % the index of contrast parameter and cell array of layer
-            % names. Multiple models can be set simultaneously by using 
-            % an 1D array of indices or cell of strings
+            % Updates the model of an existing contrast.
             %
-            % project.setContrastModel(1, {'layer 1'})
-            % project.setContrastModel(1:3, {'layer 1'})
-            allowedValues = obj.getAllAllowedNames();
+            % Examples
+            % --------
+            % To change the model of the second contrast in the project.
+            % 
+            % >>> project.setContrastModel(2, 'Oxide Model'});
+            %
+            % To change the properties of a contrast called 'Contrast 1'.
+            % 
+            % >>> project.setContrastModel('Contrast 1', 'Oxide Model');
+            % 
+            % To change multiple contrasts at once. The snippet below will change 1, 2, and 3.
+            % 
+            % >>> project.setContrastModel(1:3, {'Layer 1', 'Layer 2'});
+            % 
+            % Parameters
+            % ----------
+            % row : string or char array or whole number
+            %     If ``row`` is an integer, it is the row number of the contrast to update. If it is text, 
+            %     it is the name of the contrast to update.
+            % model: char array or string or cell string
+            %     If this is a standard layers model, this should be a list of layer names that make up the slab model for this contrast.
+            %     For custom models, this should be a single custom file name for the custom model function.
             
             % Call the setContrastModel method
              if isText(row)
@@ -1098,7 +1189,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
                 row = num2cell(row);
              end
              for i=1:length(row)
-                 obj.contrasts.setContrastModel(row{i}, allowedValues, model);
+                 obj.setContrast(row{i}, model=model);
              end
         end
 
@@ -1281,7 +1372,7 @@ classdef projectClass < handle & projectParametersMixin & matlab.mixin.CustomDis
 
             % Need to treat contrasts separately due to changes in the
             % class for domains calculations
-            domainsObj.contrasts = copyProperties(obj.contrasts, contrastsClass(domains=true));
+            domainsObj.contrasts = copyProperties(obj.contrasts, contrastsClass(true));
             for i=1:domainsObj.contrasts.numberOfContrasts
                 domainsObj.contrasts.contrasts{i}.domainRatio = '';
             end

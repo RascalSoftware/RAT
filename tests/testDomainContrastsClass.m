@@ -100,7 +100,7 @@ classdef testDomainContrastsClass < matlab.unittest.TestCase
         function testInitialiseDomainContrastsClass(testCase)
             testClass = domainContrastsClass();
             testCase.verifyEqual(testClass.contrasts, {}, 'domainContrastsClass does not initialise correctly');
-            testCase.verifyFalse(testClass.domainsCalc);
+            testCase.verifyFalse(testClass.isDomains);
         end
 
         function testToStruct(testCase)

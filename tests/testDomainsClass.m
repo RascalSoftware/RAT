@@ -89,13 +89,13 @@ classdef testDomainsClass < matlab.unittest.TestCase
             % the properties are copied over
             testCase.verifyClass(testCase.project, 'domainsClass')
             testCase.verifyEqual(testCase.project.calculationType, calculationTypes.Domains.value, 'Calculation Type not set correctly');
-            testCase.verifyTrue(testCase.project.contrasts.domainsCalc, 'Calculation Type not set correctly')
+            testCase.verifyTrue(testCase.project.contrasts.isDomains, 'Calculation Type not set correctly')
 
             normal = testCase.project.toProjectClass();
             testCase.verifyClass(normal, 'projectClass')
             testCase.verifyEqual(normal.experimentName, testCase.project.experimentName, 'Experiment name not copied correctly');
             testCase.verifyEqual(normal.calculationType, calculationTypes.Normal.value, 'Calculation Type not set correctly');
-            testCase.verifyFalse(normal.contrasts.domainsCalc, 'Calculation Type not set correctly')
+            testCase.verifyFalse(normal.contrasts.isDomains, 'Calculation Type not set correctly')
             testCase.verifyEqual(normal.parameters, testCase.project.parameters, 'Parameters not copied correctly');
             testCase.verifyEqual(normal.layers, testCase.project.layers, 'Layers not copied correctly');
 
@@ -155,11 +155,29 @@ classdef testDomainsClass < matlab.unittest.TestCase
             testCase.project.setDomainRatio(1, 'name','Domain Ratio 1','min',0.1,'value',0.23251,'max',0.4,'fit',true);
             testCase.verifyEqual(string(testCase.project.domainRatio.varTable{1, :}),...
                                     string({'Domain Ratio 1', 0.1, 0.23251, 0.4, true, priorTypes.Uniform.value, 0, Inf}), 'domainRatio method not working');
+            testCase.project.addDomainRatio();
+            testCase.verifyEqual(string(testCase.project.domainRatio.varTable{end, 1}), "new parameter 4"); 
+            testCase.project.setDomainRatio(3, 'min', -0.5);
+            testCase.verifyEqual(testCase.project.domainRatio.varTable{3, 2:4}, [-0.5, 0, 0]);
+            
+        end
+        
+        function testSetContrast(testCase)
+            % Populates project properties for the tests
+            testCase.populateProject();
+            testCase.project.addDomainContrast('name', 'Domains 1');
+            testCase.project.addDomainContrast('name', 'Domains 2');
+            testCase.project.addContrast('name', 'Bilayer / H2O');
+            testCase.project.addContrast('name', 'Bilayer / D2O');
+            testCase.project.setContrastModel(1:2,  {'Domains 1', 'Domains 2'});
+            testCase.verifyLength(testCase.project.contrasts.contrasts, 2, 'contrast has wrong dimension');
+            testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.model, {'Domains 1', 'Domains 2'}, 'addContrast method not working');
+            testCase.verifyEqual(testCase.project.contrasts.contrasts{2}.model, {'Domains 1', 'Domains 2'}, 'setContrastModel method not working');            
         end
 
         function testDomainContrast(testCase)
             % Populates project properties for the tests
-            testCase.populateProject()
+            testCase.populateProject();
             % Checks the default contrast
             testCase.verifyEmpty(testCase.project.domainContrasts.contrasts, 'contrast has wrong dimension');
             % Checks that contrast can be added
@@ -201,7 +219,6 @@ classdef testDomainsClass < matlab.unittest.TestCase
             testCase.verifyError(@() customProject.setDomainContrast(1, 'name', 'First Bilayer'), exceptions.invalidProperty.errorID)
             testCase.verifyError(@() customProject.setDomainContrastModel(1, {'Hydrogenated Heads', 'Deuterated Heads'}), exceptions.invalidProperty.errorID)
         end
-
 
         function testToStruct(testCase)
             projectStruct = testCase.project.toStruct();

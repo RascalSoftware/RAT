@@ -12,11 +12,11 @@ backData = background(lowIndex:highIndex,2);
 backError = background(lowIndex:highIndex,3);
 
 switch backgroundAction
-    case coderEnums.actions.Add
+    case coderEnums.backgroundActions.Add
         % Add the data to the simulation
         reflectivity(:,2) = reflectivity(:,2) + backData;
         simulation(:,2) = simulation(:,2) + background(:,2);
-    case coderEnums.actions.Subtract
+    case coderEnums.backgroundActions.Subtract
         % Subtract the background data from the shiftedData
         shiftedData(:,2) = shiftedData(:,2) - backData;
         shiftedData(:,3) = sqrt(shiftedData(:,3).^2 + backError.^2);   % Propagate the errors

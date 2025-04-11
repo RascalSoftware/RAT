@@ -1,4 +1,4 @@
-function h = plotHists(result, options)   
+function plotHists(result, options)   
     % Plots the Bayes histogram plot from the chain, with or without smoothing.
     % If selected, smoothing is via a moving average algorithm.
     %
@@ -28,7 +28,7 @@ function h = plotHists(result, options)
     smooth = options.smooth;
 
     if ~isempty(options.figure)
-      h = figure(options.figure);
+        h = figure(options.figure);
     else
         h = figure();
     end
@@ -53,9 +53,9 @@ function h = plotHists(result, options)
             N = smoothdata(N, 'movmean');
         end
     
-        bar(edges2,N,1,'w')
+        bar(edges2,N,1,'w');
     
         set(h,'ytick',[]);
-        title(sprintf('%s',fitNames{i}))
+        title(sprintf('%s',fitNames{i}));
     end
 end

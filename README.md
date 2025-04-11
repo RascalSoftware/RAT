@@ -8,6 +8,8 @@ RAT
 ===
 The Reflectivity Algorithms Toolbox (RAT) for Rascal is a MATLAB toolbox for analysing non-polarized neutron reflectivity data. The toolbox is designed to fit multiple contrast neutron reflectivity data, using the Abeles formalism with either traditional layer models, or using user-defined custom models.
 
-How to Use
-----------
-MATLAB is required to RAT, the minimum supported version is **R2023a**. To use RAT, download and extract the appropriate version for you OS from the [release](https://github.com/RascalSoftware/RAT/releases) page. In the extracted folder, run the `addPaths` script in the MATLAB console and you can now run your analysis.
+The RAT documentation is available online [here](https://rascalsoftware.github.io/RAT-Docs/dev/index.html).
+
+Installation
+------------
+MATLAB is required to use RAT; the minimum supported version is **R2023a**. To use RAT, download and extract the appropriate version for your OS from the [release](https://github.com/RascalSoftware/RAT/releases) page. In the extracted folder, run the `addPaths` script in the MATLAB console and you can now run your analysis. 

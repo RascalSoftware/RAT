@@ -47,7 +47,7 @@ else
 end
 
 % Set parameters block
-problem.constr = fixNonFitConstrs(length(problem.params), problem.paramnames, problem.constr, problem.params, problem.fityesno);
+problem.constr = fixConstrs(length(problem.params), problem.paramnames, problem.constr, problem.params, problem.fityesno);
 for i = 2:length(problem.params)
     % addParameter <- (name, min, value, max, fit)
     project.addParameter(problem.paramnames{i},...
@@ -109,7 +109,7 @@ project.removeScalefactor(1);
 
 % Set backgrounds
 backParamNames = num2cell(arrayfun(@(i) sprintf("Backs parameter %d", i), 1:problem.numberOfBacks));
-problem.backs_constr = fixNonFitConstrs(problem.numberOfBacks, backParamNames, problem.backs_constr, problem.backs, problem.backgrounds_fityesno);
+problem.backs_constr = fixConstrs(problem.numberOfBacks, backParamNames, problem.backs_constr, problem.backs, problem.backgrounds_fityesno);
 for i = 1:problem.numberOfBacks
     % Add backgrounds parameter
     % addBackgroundParam <- (name, min, value, max, fit)
@@ -125,7 +125,7 @@ for i = 1:problem.numberOfBacks
 end
 
 % Set bulk in params
-problem.nbairs_constr = fixNonFitConstrs(problem.numberOfNbas, problem.nbaNames, problem.nbairs_constr, problem.nba, problem.nbairs_fityesno);
+problem.nbairs_constr = fixConstrs(problem.numberOfNbas, problem.nbaNames, problem.nbairs_constr, problem.nba, problem.nbairs_fityesno);
 for i = 1:problem.numberOfNbas
     % addBulkIn <- (name, min, value, max, fit)
     % RasCAL-1 let you not bother with constraints for non-fit parameters,
@@ -138,7 +138,7 @@ for i = 1:problem.numberOfNbas
 end
 
 % Set bulk out params
-problem.nbsubs_constr = fixNonFitConstrs(problem.numberOfNbss, problem.nbsNames, problem.nbsubs_constr, problem.nbs, problem.nbsubs_fityesno);
+problem.nbsubs_constr = fixConstrs(problem.numberOfNbss, problem.nbsNames, problem.nbsubs_constr, problem.nbs, problem.nbsubs_fityesno);
 for i = 1:problem.numberOfNbss
     % addBulkOut <- (name, min, value, max, fit)
     project.addBulkOut(problem.nbsNames{i}, ...
@@ -149,7 +149,7 @@ for i = 1:problem.numberOfNbss
 end
 
 % Set scalefactors
-problem.scale_constr = fixNonFitConstrs(problem.numberOfScales, problem.scalesNames, problem.scale_constr, problem.scalefac, problem.scalefac_fityesno);
+problem.scale_constr = fixConstrs(problem.numberOfScales, problem.scalesNames, problem.scale_constr, problem.scalefac, problem.scalefac_fityesno);
 for i = 1:problem.numberOfScales
     % addScalefactor <- (name, min, value, max, fit)
     project.addScalefactor(problem.scalesNames{i}, ...
@@ -217,18 +217,25 @@ end
     end
 end
 
-function new_constrs = fixNonFitConstrs(num_items, names, constrs, vals, fits)
+function new_constrs = fixConstrs(num_items, names, constrs, vals, fits)
 % RasCAL-1 let you not bother with constraints for non-fit parameters,
-% so this function adjusts the constraints to avoid an error if needed.
+% and can allow parameters to have values outside their constraints.
+% Hence, this function adjusts the constraints to avoid an error if needed.
+new_constrs = constrs;
 for i = 1:num_items
-    new_constrs = constrs;
-    if ~fits(i)
-        new_constrs(i, :) = [min(constrs(i, 1), vals(i)) max(constrs(i, 2), vals(i))];
-        if new_constrs(i) ~= constrs(i)
-            warning("Non-fit parameter %s has invalid constraints, these " + ...
-                "have been adjusted to satisfy the current value of the parameter.", ...
-                names{i})
+    new_constrs(i, :) = [min(constrs(i, 1), vals(i)) max(constrs(i, 2), vals(i))];
+    if any(new_constrs(i, :) ~= constrs(i, :))
+        message = sprintf("Parameter %s (index %d) with value %d has the constraints " + ...
+            "[%d, %d], which are invalid. Therefore the constraints have " + ...
+            "been adjusted to [%d, %d].", ...
+            names{i}, i, vals(i), constrs(i, 1), constrs(i, 2), ...
+            new_constrs(i, 1), new_constrs(i, 2));
+        if fits(i)
+            message = sprintf(message + "\nThis parameter is to be fitted. You MUST " + ...
+                "review these limits before running RAT, as their values " + ...
+                "will have an impact on fitting output.");
         end
+        warning(message)
     end
 end
 end

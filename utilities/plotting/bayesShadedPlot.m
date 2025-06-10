@@ -106,7 +106,7 @@ for i = 1:numberOfContrasts
     end
     
     errorbar(dataX,dataY,dataErr,'.');
-    lines{i} = plot(refXValues,reflectivity,'-');
+    lines{i} = plot(refXValues,reflectivity,'-','LineWidth',1.5);
     shade(refXValues,min,refXValues,max,'FillColor',fillColor,'FillType',fillType,'FillAlpha',fillAlpha);
 
 end
@@ -134,7 +134,7 @@ if ~isDomains
         max = limits(vals(2),:);
 
         names{i} = projectStruct.names.contrasts{i};
-        lines{i} = plot(sldXValues,sld,'-');
+        lines{i} = plot(sldXValues,sld,'-','LineWidth',1.5);
         shade(sldXValues,min,sldXValues,max,'FillColor',fillColor,'FillType',fillType,'FillAlpha',fillAlpha);
 
     end

@@ -33,7 +33,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
     %     Which procedure RAT should execute. Can be 'calculate', 'simplex', 'de', 'ns', or 'dream'.
     % calcSldDuringFit : logical, default: false
     %     Whether SLD will be calculated during fit (for live plotting etc.)
-    % simulationNPoints : whole number, default: 500
+    % numSimulationPoints : whole number, default: 500
     %     The number of points used for a reflectivity simulation where no data is present.
     % resampleMinAngle : float, default: 0.9
     %     The upper threshold on the angle between three sampled points for resampling, in units of radians over pi.
@@ -95,7 +95,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
         procedure = procedures.Calculate.value
         parallel = parallelOptions.Single.value
         calcSldDuringFit = false
-        simulationNPoints = 500
+        numSimulationPoints = 500
         resampleMinAngle = 0.9
         resampleNPoints = 50
         display = displayOptions.Iter.value
@@ -174,12 +174,12 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             obj.updatePlotFreq = val;
         end
 
-        function set.simulationNPoints(obj,val)
-            validateNumber(val, 'simulationNPoints must be a whole number', true);
-            if (val <= 0)
-                throw(exceptions.invalidValue('simulationNPoints must be greater than 0'));
+        function set.numSimulationPoints(obj,val)
+            validateNumber(val, 'numSimulationPoints must be a whole number', true);
+            if (val < 2)
+                throw(exceptions.invalidValue('numSimulationPoints must be greater or equal to 2'));
             end
-            obj.simulationNPoints = val;
+            obj.numSimulationPoints = val;
         end
         
         function set.resampleMinAngle(obj,val)
@@ -473,7 +473,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
                 'nMCMC', {obj.nMCMC},...
                 'propScale', {obj.propScale},...
                 'nsTolerance', {obj.nsTolerance},...
-                'simulationNPoints', {obj.simulationNPoints},...
+                'numSimulationPoints', {obj.numSimulationPoints},...
                 'resampleMinAngle', {obj.resampleMinAngle},...
                 'resampleNPoints', {obj.resampleNPoints},...
                 'nSamples', {obj.nSamples},...
@@ -540,7 +540,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             % The parameters that can be set when using calculate procedure are
             % 1) parallel
             % 2) calcSldDuringFit
-            % 3) simulationNPoints
+            % 3) numSimulationPoints
             % 4) resampleMinAngle
             % 5) resampleNPoints
             % 6) display
@@ -548,7 +548,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             % The default values for Calculate
             defaultParallel = parallelOptions.Single.value;
             defaultCalcSldDuringFit = false;
-            defaultSimulationNPoints = 500;
+            defaultNumSimulationPoints = 500;
             defaultResampleMinAngle = 0.9;
             defaultResampleNPoints = 50;
             defaultDisplay = displayOptions.Iter.value;
@@ -558,20 +558,20 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             p.PartialMatching = false;
             addParameter(p,'parallel',  defaultParallel,   @(x) isText(x) || isenum(x));
             addParameter(p,'calcSldDuringFit',   defaultCalcSldDuringFit,    @islogical);
-            addParameter(p,'simulationNPoints', defaultSimulationNPoints,  @isnumeric);
+            addParameter(p,'numSimulationPoints', defaultNumSimulationPoints,  @isnumeric);
             addParameter(p,'resampleMinAngle', defaultResampleMinAngle,  @isnumeric);
             addParameter(p,'resampleNPoints', defaultResampleNPoints,  @isnumeric);
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
             properties = varargin{:};
             
             % Parses the input or raises invalidOption error
-            errorMsg = 'Only parallel, calcSldDuringFit, simulationNPoints, resampleMinAngle, resampleNPoints and display can be set while using the Calculate procedure';
+            errorMsg = 'Only parallel, calcSldDuringFit, numSimulationPoints, resampleMinAngle, resampleNPoints and display can be set while using the Calculate procedure';
             inputBlock = obj.parseInputs(p, properties, errorMsg);
             
             % Sets the values the for Calculate parameters
             obj.parallel = inputBlock.parallel;
             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-            obj.simulationNPoints = inputBlock.simulationNPoints;
+            obj.numSimulationPoints = inputBlock.numSimulationPoints;
             obj.resampleMinAngle = inputBlock.resampleMinAngle;
             obj.resampleNPoints = inputBlock.resampleNPoints;
             obj.display = inputBlock.display;
@@ -591,7 +591,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             % 6) updatePlotFreq
             % 7) parallel
             % 8) calcSldDuringFit
-            % 9) simulationNPoints
+            % 9) numSimulationPoints
             % 10) resampleMinAngle
             % 11) resampleNPoints
             % 12) display
@@ -605,7 +605,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             defaultUpdatePlotFreq = 20;
             defaultParallel = parallelOptions.Single.value;
             defaultCalcSldDuringFit = false;
-            defaultSimulationNPoints = 500;
+            defaultNumSimulationPoints = 500;
             defaultResampleMinAngle = 0.9;
             defaultResampleNPoints = 50;
             defaultDisplay = displayOptions.Iter.value;
@@ -621,14 +621,14 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             addParameter(p,'updatePlotFreq',   defaultUpdatePlotFreq,    @isnumeric);
             addParameter(p,'parallel',  defaultParallel,   @(x) isText(x) || isenum(x));
             addParameter(p,'calcSldDuringFit',   defaultCalcSldDuringFit,    @islogical);
-            addParameter(p,'simulationNPoints', defaultSimulationNPoints,  @isnumeric);
+            addParameter(p,'numSimulationPoints', defaultNumSimulationPoints,  @isnumeric);
             addParameter(p,'resampleMinAngle', defaultResampleMinAngle,  @isnumeric);
             addParameter(p,'resampleNPoints', defaultResampleNPoints,  @isnumeric);
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
             properties = varargin{:};
             
             % Parses the input or raises invalidOption error
-            errorMsg = 'Only xTolerance, funcTolerance, maxFuncEvals, maxIterations, updateFreq, updatePlotFreq, parallel, calcSldDuringFit, simulationNPoints, resampleMinAngle, resampleNPoints and display can be set while using the Simplex procedure.';
+            errorMsg = 'Only xTolerance, funcTolerance, maxFuncEvals, maxIterations, updateFreq, updatePlotFreq, parallel, calcSldDuringFit, numSimulationPoints, resampleMinAngle, resampleNPoints and display can be set while using the Simplex procedure.';
             inputBlock = obj.parseInputs(p, properties, errorMsg);
             
             % Sets the values the for simplex parameters
@@ -640,7 +640,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             obj.updatePlotFreq = inputBlock.updatePlotFreq;
             obj.parallel = inputBlock.parallel;
             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-            obj.simulationNPoints = inputBlock.simulationNPoints;
+            obj.numSimulationPoints = inputBlock.numSimulationPoints;
             obj.resampleMinAngle = inputBlock.resampleMinAngle;
             obj.resampleNPoints = inputBlock.resampleNPoints;
             obj.display = inputBlock.display;
@@ -660,7 +660,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             % 6) numGenerations
             % 7) parallel
             % 8) calcSldDuringFit
-            % 9) simulationNPoints
+            % 9) numSimulationPoints
             % 10) resampleMinAngle
             % 11) resampleNPoints
             % 12) display
@@ -676,7 +676,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             defaultNumGenerations = 500;
             defaultParallel = parallelOptions.Single.value;
             defaultCalcSldDuringFit = false;
-            defaultSimulationNPoints = 500;
+            defaultNumSimulationPoints = 500;
             defaultResampleMinAngle = 0.9;
             defaultResampleNPoints = 50;
             defaultDisplay = displayOptions.Iter.value;
@@ -694,7 +694,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             addParameter(p,'numGenerations',   defaultNumGenerations,    @isnumeric);
             addParameter(p,'parallel',  defaultParallel,   @(x) isText(x) || isenum(x));
             addParameter(p,'calcSldDuringFit',   defaultCalcSldDuringFit,    @islogical);
-            addParameter(p,'simulationNPoints', defaultSimulationNPoints,  @isnumeric);
+            addParameter(p,'numSimulationPoints', defaultNumSimulationPoints,  @isnumeric);
             addParameter(p,'resampleMinAngle', defaultResampleMinAngle,  @isnumeric);
             addParameter(p,'resampleNPoints', defaultResampleNPoints,  @isnumeric);
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
@@ -703,7 +703,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             properties = varargin{:};
             
             % Parses the input or raises invalidOption error
-            errorMsg = 'Only populationSize, fWeight, crossoverProbability, strategy, targetValue, numGenerations, parallel, calcSldDuringFit, simulationNPoints, resampleMinAngle, resampleNPoints, display, updateFreq, and updatePlotFreq can be set while using the Differential Evolution procedure';
+            errorMsg = 'Only populationSize, fWeight, crossoverProbability, strategy, targetValue, numGenerations, parallel, calcSldDuringFit, numSimulationPoints, resampleMinAngle, resampleNPoints, display, updateFreq, and updatePlotFreq can be set while using the Differential Evolution procedure';
             inputBlock = obj.parseInputs(p, properties, errorMsg);
             
             % Sets the values the for DE parameters
@@ -715,7 +715,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             obj.numGenerations = inputBlock.numGenerations;
             obj.parallel = inputBlock.parallel;
             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-            obj.simulationNPoints = inputBlock.simulationNPoints;
+            obj.numSimulationPoints = inputBlock.numSimulationPoints;
             obj.resampleMinAngle = inputBlock.resampleMinAngle;
             obj.resampleNPoints = inputBlock.resampleNPoints;
             obj.display = inputBlock.display;
@@ -735,7 +735,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             % 4) nsTolerance
             % 5) parallel
             % 6) calcSldDuringFit
-            % 7) simulationNPoints
+            % 7) numSimulationPoints
             % 8) resampleMinAngle
             % 9) resampleNPoints
             % 10) display
@@ -747,7 +747,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             defaultNsTolerance = 0.1;
             defaultParallel = parallelOptions.Single.value;
             defaultCalcSldDuringFit = false;
-            defaultSimulationNPoints = 500;
+            defaultNumSimulationPoints = 500;
             defaultResampleMinAngle = 0.9;
             defaultResampleNPoints = 50;
             defaultDisplay = displayOptions.Iter.value;
@@ -761,14 +761,14 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             addParameter(p,'nsTolerance',   defaultNsTolerance,    @isnumeric);
             addParameter(p,'parallel',  defaultParallel,   @(x) isText(x) || isenum(x));
             addParameter(p,'calcSldDuringFit',   defaultCalcSldDuringFit,    @islogical);
-            addParameter(p,'simulationNPoints', defaultSimulationNPoints,  @isnumeric);
+            addParameter(p,'numSimulationPoints', defaultNumSimulationPoints,  @isnumeric);
             addParameter(p,'resampleMinAngle', defaultResampleMinAngle,  @isnumeric);
             addParameter(p,'resampleNPoints', defaultResampleNPoints,  @isnumeric);
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
             properties = varargin{:};
             
             % Parses the input or raises invalidOption error
-            errorMsg = 'Only nLive, nMCMC, propScale, nsTolerance, parallel, calcSldDuringFit, simulationNPoints, resampleMinAngle, resampleNPoints and display can be set while using the Nested Sampler procedure';
+            errorMsg = 'Only nLive, nMCMC, propScale, nsTolerance, parallel, calcSldDuringFit, numSimulationPoints, resampleMinAngle, resampleNPoints and display can be set while using the Nested Sampler procedure';
             inputBlock = obj.parseInputs(p, properties, errorMsg);
             
             % Sets the values the for NS parameters
@@ -778,7 +778,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             obj.nsTolerance = inputBlock.nsTolerance;
             obj.parallel = inputBlock.parallel;
             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-            obj.simulationNPoints = inputBlock.simulationNPoints;
+            obj.numSimulationPoints = inputBlock.numSimulationPoints;
             obj.resampleMinAngle = inputBlock.resampleMinAngle;
             obj.resampleNPoints = inputBlock.resampleNPoints;
             obj.display = inputBlock.display;
@@ -798,7 +798,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             % 6) adaptPCR
             % 7) parallel
             % 8) calcSldDuringFit
-            % 9) simulationNPoints
+            % 9) numSimulationPoints
             % 10) resampleMinAngle
             % 11) resampleNPoints
             % 12) display
@@ -812,7 +812,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             defaultAdaptPCR = false;
             defaultParallel = parallelOptions.Single.value;
             defaultCalcSldDuringFit = false;
-            defaultSimulationNPoints = 500;
+            defaultNumSimulationPoints = 500;
             defaultResampleMinAngle = 0.9;
             defaultResampleNPoints = 50;
             defaultDisplay = displayOptions.Iter.value;
@@ -828,14 +828,14 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             addParameter(p,'adaptPCR', defaultAdaptPCR, @islogical);
             addParameter(p,'parallel',  defaultParallel,   @(x) isText(x) || isenum(x));
             addParameter(p,'calcSldDuringFit',   defaultCalcSldDuringFit,    @islogical);
-            addParameter(p,'simulationNPoints', defaultSimulationNPoints,  @isnumeric);
+            addParameter(p,'numSimulationPoints', defaultNumSimulationPoints,  @isnumeric);
             addParameter(p,'resampleMinAngle', defaultResampleMinAngle,  @isnumeric);
             addParameter(p,'resampleNPoints', defaultResampleNPoints,  @isnumeric);
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
             properties = varargin{:};
             
             % Parses the input or raises invalidOption error
-            errorMsg = 'Only nSamples, nChains, jumpProbability, pUnitGamma, boundHandling, adaptPCR, parallel, calcSldDuringFit, simulationNPoints, resampleMinAngle, resampleNPoints and display can be set while using the DREAM procedure';
+            errorMsg = 'Only nSamples, nChains, jumpProbability, pUnitGamma, boundHandling, adaptPCR, parallel, calcSldDuringFit, numSimulationPoints, resampleMinAngle, resampleNPoints and display can be set while using the DREAM procedure';
             inputBlock = obj.parseInputs(p, properties, errorMsg);
             
             % Sets the values the for Dream parameters
@@ -847,7 +847,7 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             obj.adaptPCR = inputBlock.adaptPCR;
             obj.parallel = inputBlock.parallel;
             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-            obj.simulationNPoints = inputBlock.simulationNPoints;
+            obj.numSimulationPoints = inputBlock.numSimulationPoints;
             obj.resampleMinAngle = inputBlock.resampleMinAngle;
             obj.resampleNPoints = inputBlock.resampleNPoints;
             obj.display = inputBlock.display;

@@ -85,6 +85,7 @@ ARGS_1_2 = struct;
 ARGS_1_2.procedure = coder.typeof('X',[1 maxArraySize],[0 1]);
 ARGS_1_2.parallel = coder.typeof('X',[1 maxArraySize],[0 1]);
 ARGS_1_2.calcSldDuringFit = coder.typeof(true);
+ARGS_1_2.numSimulationPoints = coder.typeof(0);
 ARGS_1_2.resampleMinAngle = coder.typeof(0);
 ARGS_1_2.resampleNPoints = coder.typeof(0);
 ARGS_1_2.display = coder.typeof('X',[1 maxArraySize],[0 1]);

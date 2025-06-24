@@ -1,9 +1,9 @@
-function encoded = projectToJson_new(problem,filename)
+function encoded = projectToJson(problem,filename)
 
 % Converts a projectClass to a json file...
 
-% For debug...
-% debug_json_struct = jsondecode(fileread('DSPC_standard_layers.json'));
+% % For debug...
+% debug_json_struct = jsondecode(fileread('DSPC_custom_layers.json'));
 
 % General Params....
 totalStruct.name = problem.experimentName;
@@ -71,15 +71,18 @@ resolsTable = resols.varTable;
 totalStruct.resolutions = makeTypeTableStruct(resolsTable);
 
 % Custom files..... TODO
-totalStruct.custom_files = [];
+customTable = problem.customFile.varTable;
+totalStruct.custom_files = makeCustomFileStruct(customTable);
 
 % Data...
 dataTable = problem.data.varTable;
 totalStruct.data = makeDataStruct(dataTable);
 
 % Layers...
-layersTable = problem.layers.varTable;
-totalStruct.layers = makeLayersStruct(layersTable);
+if ~isempty(problem.layers)
+    layersTable = problem.layers.varTable;
+    totalStruct.layers = makeLayersStruct(layersTable);
+end
 
 % Domains contrasts ........ TODO....
 totalStruct.domain_contrasts = [];
@@ -226,3 +229,38 @@ end
 
 end
 
+% ---------------------------------------------------------------------
+
+function customFileStruct = makeCustomFileStruct(customTable)
+
+% Rename columns to match Python (mainly case)....
+varNames =  ["name","filename","function name","language","path"];
+customTable.Properties.VariableNames = varNames;
+
+% Everything needs to be chars, not strings...
+for i = 1:length(customTable.Properties.VariableNames)
+    customTable.(varNames(i)) = char(customTable.(varNames(i)));
+end
+
+customFileStruct = table2struct(customTable);
+
+% Remove trailing spaces from chars...
+customFileStruct = removeSpaces(customFileStruct);
+
+end
+
+% ----------------------------------------------------------------
+
+function thisStruct = removeSpaces(thisStruct)
+% Remove trailing spaces from all chars in structs...
+
+fields = fieldnames(thisStruct);
+for i = 1:length(thisStruct)
+    for n = 1:length(fields)
+        thisStruct(i).(fields{n}) = strtrim(thisStruct(i).(fields{n}));
+    end
+end
+
+end
+
+% ----------------------------------------------------------------

@@ -29,12 +29,12 @@ namespace RAT
   void deopt(const ProblemDefinition &problem, const char
              controls_parallel_data[], const int controls_parallel_size[2],
              boolean_T controls_calcSldDuringFit, double
-             controls_resampleMinAngle, double controls_resampleNPoints, const
-             char controls_display_data[], const int controls_display_size[2],
-             double controls_updateFreq, double controls_updatePlotFreq, const
-             char controls_IPCFilePath_data[], const int
-             controls_IPCFilePath_size[2], const g_struct_T &S_struct, ::coder::
-             array<double, 2U> &FVr_bestmem);
+             controls_numSimulationPoints, double controls_resampleMinAngle,
+             double controls_resampleNPoints, const char controls_display_data[],
+             const int controls_display_size[2], double controls_updateFreq,
+             double controls_updatePlotFreq, const char
+             controls_IPCFilePath_data[], const int controls_IPCFilePath_size[2],
+             const g_struct_T &S_struct, ::coder::array<double, 2U> &FVr_bestmem);
 }
 
 #endif

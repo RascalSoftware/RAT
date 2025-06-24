@@ -34,6 +34,7 @@ namespace RAT
                     varargin_2_parallel_data[], const int
                     varargin_2_parallel_size[2], boolean_T
                     varargin_2_calcSldDuringFit, double
+                    varargin_2_numSimulationPoints, double
                     varargin_2_resampleMinAngle, double
                     varargin_2_resampleNPoints, double varargin_2_updateFreq,
                     double varargin_2_updatePlotFreq, const char

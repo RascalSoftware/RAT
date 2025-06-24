@@ -67,36 +67,6 @@ namespace RAT
         }
       }
     }
-
-    void linspace(double d1, double d2, double y[500])
-    {
-      y[499] = d2;
-      y[0] = d1;
-      if (d1 == -d2) {
-        double delta1;
-        delta1 = d2 / 499.0;
-        for (int k{0}; k < 498; k++) {
-          y[k + 1] = (2.0 * (static_cast<double>(k) + 2.0) - 501.0) * delta1;
-        }
-      } else if (((d1 < 0.0) != (d2 < 0.0)) && ((std::abs(d1) >
-                   8.9884656743115785E+307) || (std::abs(d2) >
-                   8.9884656743115785E+307))) {
-        double delta1;
-        double delta2;
-        delta1 = d1 / 499.0;
-        delta2 = d2 / 499.0;
-        for (int k{0}; k < 498; k++) {
-          y[k + 1] = (d1 + delta2 * (static_cast<double>(k) + 1.0)) - delta1 * (
-            static_cast<double>(k) + 1.0);
-        }
-      } else {
-        double delta1;
-        delta1 = (d2 - d1) / 499.0;
-        for (int k{0}; k < 498; k++) {
-          y[k + 1] = d1 + (static_cast<double>(k) + 1.0) * delta1;
-        }
-      }
-    }
   }
 }
 

@@ -135,7 +135,7 @@ namespace RAT
     double, 2U> &outputData)
   {
     ::coder::array<double, 1U> b_reflectivity;
-    ::coder::array<double, 1U> c_shiftedData;
+    ::coder::array<double, 1U> r1;
     ::coder::array<int, 1U> highXVals;
     ::coder::array<int, 1U> lowXVals;
     ::coder::array<char, 2U> r;
@@ -237,43 +237,42 @@ namespace RAT
         //  Subtract the background data from the shiftedData
         i4 = i - i1;
         if (shiftedData.size(0) == i4) {
-          c_shiftedData.set_size(shiftedData.size(0));
+          b_reflectivity.set_size(shiftedData.size(0));
           k = shiftedData.size(0);
           for (i = 0; i < k; i++) {
-            c_shiftedData[i] = shiftedData[i + shiftedData.size(0)] -
+            b_reflectivity[i] = shiftedData[i + shiftedData.size(0)] -
               background[(i1 + i) + background.size(0)];
           }
 
-          k = c_shiftedData.size(0);
+          k = b_reflectivity.size(0);
           for (i = 0; i < k; i++) {
-            shiftedData[i + shiftedData.size(0)] = c_shiftedData[i];
+            shiftedData[i + shiftedData.size(0)] = b_reflectivity[i];
           }
         } else {
           binary_expand_op(shiftedData, background, i1, i - 1);
         }
 
         if (shiftedData.size(0) == i4) {
-          b_reflectivity.set_size(shiftedData.size(0));
+          r1.set_size(shiftedData.size(0));
           k = shiftedData.size(0);
           for (i = 0; i < k; i++) {
             double varargin_1;
             b_shiftedData = shiftedData[i + shiftedData.size(0) * 2];
             varargin_1 = background[(i2 + i) + background.size(0) * 2];
-            b_reflectivity[i] = b_shiftedData * b_shiftedData + varargin_1 *
-              varargin_1;
+            r1[i] = b_shiftedData * b_shiftedData + varargin_1 * varargin_1;
           }
         } else {
-          binary_expand_op(b_reflectivity, shiftedData, background, i2, i3 - 1);
+          binary_expand_op(r1, shiftedData, background, i2, i3 - 1);
         }
 
-        i = b_reflectivity.size(0);
+        i = r1.size(0);
         for (k = 0; k < i; k++) {
-          b_reflectivity[k] = std::sqrt(b_reflectivity[k]);
+          r1[k] = std::sqrt(r1[k]);
         }
 
         k = shiftedData.size(0);
         for (i = 0; i < k; i++) {
-          shiftedData[i + shiftedData.size(0) * 2] = b_reflectivity[i];
+          shiftedData[i + shiftedData.size(0) * 2] = r1[i];
         }
 
         //  Propagate the errors

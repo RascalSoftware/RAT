@@ -28,9 +28,10 @@ namespace RAT
                     bayesOutputs_bestParams_size[2], const ::coder::array<double,
                     2U> &bayesOutputs_chain, ProblemDefinition &problemStruct,
                     const char controls_parallel_data[], const int
-                    controls_parallel_size[2], double controls_resampleMinAngle,
-                    double controls_resampleNPoints, Results *result, d_struct_T
-                    &bayesResults)
+                    controls_parallel_size[2], double
+                    controls_numSimulationPoints, double
+                    controls_resampleMinAngle, double controls_resampleNPoints,
+                    Results *result, d_struct_T &bayesResults)
   {
     static Controls expl_temp;
     ProblemDefinition b_problemStruct;
@@ -72,6 +73,7 @@ namespace RAT
     //  Calculate 'mean' best fit curves
     expl_temp.resampleNPoints = controls_resampleNPoints;
     expl_temp.resampleMinAngle = controls_resampleMinAngle;
+    expl_temp.numSimulationPoints = controls_numSimulationPoints;
     expl_temp.calcSldDuringFit = true;
     expl_temp.parallel.size[0] = 1;
     expl_temp.parallel.size[1] = controls_parallel_size[1];
@@ -86,7 +88,8 @@ namespace RAT
     //  2. Reflectivity and SLD shading
     b_problemStruct = problemStruct;
     refPercentileConfidenceIntervals(bayesOutputs_chain, b_problemStruct,
-      controls_parallel_data, controls_parallel_size, controls_resampleMinAngle,
+      controls_parallel_data, controls_parallel_size,
+      controls_numSimulationPoints, controls_resampleMinAngle,
       controls_resampleNPoints, result->reflectivity, result->sldProfiles,
       bayesResults.predictionIntervals.reflectivity,
       bayesResults.predictionIntervals.sld,

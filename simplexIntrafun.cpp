@@ -26,9 +26,10 @@ namespace RAT
   double simplexIntrafun(const ::coder::array<double, 1U> &x, ProblemDefinition
     &problemStruct, const char controls_parallel_data[], const int
     controls_parallel_size[2], boolean_T controls_calcSldDuringFit, double
-    controls_resampleMinAngle, double controls_resampleNPoints, const ::coder::
-    array<double, 1U> &params_LB, const ::coder::array<double, 1U> &params_UB,
-    const ::coder::array<double, 1U> &params_BoundClass, Results &result)
+    controls_numSimulationPoints, double controls_resampleMinAngle, double
+    controls_resampleNPoints, const ::coder::array<double, 1U> &params_LB, const
+    ::coder::array<double, 1U> &params_UB, const ::coder::array<double, 1U>
+    &params_BoundClass, Results &result)
   {
     static Controls expl_temp;
     ::coder::array<double, 1U> xtrans;
@@ -68,6 +69,7 @@ namespace RAT
     unpackParams(problemStruct);
     expl_temp.resampleNPoints = controls_resampleNPoints;
     expl_temp.resampleMinAngle = controls_resampleMinAngle;
+    expl_temp.numSimulationPoints = controls_numSimulationPoints;
     expl_temp.calcSldDuringFit = controls_calcSldDuringFit;
     expl_temp.parallel.size[0] = 1;
     expl_temp.parallel.size[1] = controls_parallel_size[1];

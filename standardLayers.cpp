@@ -47,16 +47,16 @@ namespace RAT
       backgroundAction_size[2], const char resolutionType_data[], const int
       resolutionType_size[2], const ::coder::array<cell_wrap_10, 2U>
       &customFiles, double nParams, const char parallel_data[], const int
-      parallel_size[2], double resampleMinAngle, double resampleNPoints, double
-      resample, const char geometry_data[], const int geometry_size[2], double
-      roughness, boolean_T calcSld, const ::coder::array<double, 2U>
-      &layerIndices, const ::coder::array<cell_wrap_51, 2U> &layerValues, ::
-      coder::array<double, 2U> &reflectivity, ::coder::array<double, 2U>
-      &simulation, ::coder::array<double, 2U> &shiftedData, ::coder::array<
-      double, 2U> &background, ::coder::array<double, 2U> &resolution, ::coder::
-      array<double, 2U> &sldProfile, ::coder::array<double, 2U> &layers, ::coder::
-      array<double, 2U> &resampledLayers, double &scalefactor, double &bulkIn,
-      double &bulkOut, double &chi);
+      parallel_size[2], double numSimulationPoints, double resampleMinAngle,
+      double resampleNPoints, double resample, const char geometry_data[], const
+      int geometry_size[2], double roughness, boolean_T calcSld, const ::coder::
+      array<double, 2U> &layerIndices, const ::coder::array<cell_wrap_51, 2U>
+      &layerValues, ::coder::array<double, 2U> &reflectivity, ::coder::array<
+      double, 2U> &simulation, ::coder::array<double, 2U> &shiftedData, ::coder::
+      array<double, 2U> &background, ::coder::array<double, 2U> &resolution, ::
+      coder::array<double, 2U> &sldProfile, ::coder::array<double, 2U> &layers, ::
+      coder::array<double, 2U> &resampledLayers, double &scalefactor, double
+      &bulkIn, double &bulkOut, double &chi);
   }
 }
 
@@ -79,16 +79,16 @@ namespace RAT
       backgroundAction_size[2], const char resolutionType_data[], const int
       resolutionType_size[2], const ::coder::array<cell_wrap_10, 2U>
       &customFiles, double nParams, const char parallel_data[], const int
-      parallel_size[2], double resampleMinAngle, double resampleNPoints, double
-      resample, const char geometry_data[], const int geometry_size[2], double
-      roughness, boolean_T calcSld, const ::coder::array<double, 2U>
-      &layerIndices, const ::coder::array<cell_wrap_51, 2U> &layerValues, ::
-      coder::array<double, 2U> &reflectivity, ::coder::array<double, 2U>
-      &simulation, ::coder::array<double, 2U> &shiftedData, ::coder::array<
-      double, 2U> &background, ::coder::array<double, 2U> &resolution, ::coder::
-      array<double, 2U> &sldProfile, ::coder::array<double, 2U> &layers, ::coder::
-      array<double, 2U> &resampledLayers, double &scalefactor, double &bulkIn,
-      double &bulkOut, double &chi)
+      parallel_size[2], double numSimulationPoints, double resampleMinAngle,
+      double resampleNPoints, double resample, const char geometry_data[], const
+      int geometry_size[2], double roughness, boolean_T calcSld, const ::coder::
+      array<double, 2U> &layerIndices, const ::coder::array<cell_wrap_51, 2U>
+      &layerValues, ::coder::array<double, 2U> &reflectivity, ::coder::array<
+      double, 2U> &simulation, ::coder::array<double, 2U> &shiftedData, ::coder::
+      array<double, 2U> &background, ::coder::array<double, 2U> &resolution, ::
+      coder::array<double, 2U> &sldProfile, ::coder::array<double, 2U> &layers, ::
+      coder::array<double, 2U> &resampledLayers, double &scalefactor, double
+      &bulkIn, double &bulkOut, double &chi)
     {
       ::coder::array<double, 2U> b_data;
       ::coder::array<double, 2U> b_shiftedData;
@@ -116,7 +116,7 @@ namespace RAT
       }
 
       shiftData(scalefactor, dataPresent, b_data, dataLimits, simulationLimits,
-                b_shiftedData);
+                numSimulationPoints, b_shiftedData);
       makeSimulationRange(b_shiftedData, simulationLimits, simulationXData,
                           dataIndices);
       constructBackground(backgroundType_data, backgroundType_size,
@@ -168,14 +168,13 @@ namespace RAT
       ::coder::array<double, 2U> r4;
       ::coder::array<double, 2U> r5;
       ::coder::array<double, 2U> r6;
-      ::coder::array<double, 2U> r7;
-      ::coder::array<double, 2U> r8;
       double dv2[2];
       double dv3[2];
       double d;
       double d1;
       double d2;
-      double d4;
+      double d3;
+      double numSimulationPoints;
       double resampleMinAngle;
       double resampleNPoints;
       int iv5[2];
@@ -206,6 +205,7 @@ namespace RAT
       //  values for the reflectivity calculation
       nParams = problemStruct.params.size(1);
       calcSld = controls->calcSldDuringFit;
+      numSimulationPoints = controls->numSimulationPoints;
       resampleMinAngle = controls->resampleMinAngle;
       resampleNPoints = controls->resampleNPoints;
 
@@ -243,7 +243,7 @@ namespace RAT
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
- private(r,r1,r2,r3,d,d1,d2,d4,iv5,iv6,dv2,dv3,iv7,iv8,iv9,c_loop_ub,i3,i4,d_loop_ub)
+ private(r,r1,r2,d,d1,d2,d3,iv5,iv6,dv2,dv3,iv7,iv8,iv9,c_loop_ub,i3,i4,d_loop_ub)
 
         for (int c_i = 0; c_i <= loop_ub; c_i++) {
           iv5[0] = (*(int (*)[2])((::coder::array<double, 2U> *)
@@ -293,23 +293,15 @@ namespace RAT
                           &problemStruct.contrastResolutionTypes[c_i].f1)->data(),
                               iv9, problemStruct.customFiles, static_cast<double>
                               (nParams), controls->parallel.data,
-                              controls->parallel.size, resampleMinAngle,
-                              resampleNPoints, problemStruct.resample[c_i],
+                              controls->parallel.size, numSimulationPoints,
+                              resampleMinAngle, resampleNPoints,
+                              problemStruct.resample[c_i],
                               problemStruct.geometry.data,
                               problemStruct.geometry.size, subRoughs[c_i],
                               calcSld, problemStruct.contrastLayers[c_i].f1,
                               layerValues, reflectivity[c_i].f1, simulation[c_i]
-                              .f1, r3, backgrounds[c_i].f1, resolutions[c_i].f1,
-                              r2, r1, r, d4, d2, d1, d);
-          c_loop_ub = r3.size(0);
-          shiftedData[c_i].f1.set_size(r3.size(0), 3);
-          for (i3 = 0; i3 < 3; i3++) {
-            for (i4 = 0; i4 < c_loop_ub; i4++) {
-              shiftedData[c_i].f1[i4 + shiftedData[c_i].f1.size(0) * i3] = r3[i4
-                + r3.size(0) * i3];
-            }
-          }
-
+                              .f1, shiftedData[c_i].f1, backgrounds[c_i].f1,
+                              resolutions[c_i].f1, r2, r1, r, d3, d2, d1, d);
           c_loop_ub = r2.size(0);
           sldProfiles[c_i].f1.set_size(r2.size(0), 2);
           for (i3 = 0; i3 < 2; i3++) {
@@ -339,7 +331,7 @@ namespace RAT
           }
 
           qzshifts[c_i] = 0.0;
-          scalefactors[c_i] = d4;
+          scalefactors[c_i] = d3;
           bulkIns[c_i] = d2;
           bulkOuts[c_i] = d1;
           chis[c_i] = d;
@@ -362,7 +354,7 @@ namespace RAT
         for (int b_i{0}; b_i < i; b_i++) {
           double b_dv[2];
           double b_dv1[2];
-          double d3;
+          double d4;
           double d5;
           double d6;
           double d7;
@@ -419,52 +411,43 @@ namespace RAT
                               iv4, problemStruct.customFiles, static_cast<double>
                               (problemStruct.params.size(1)),
                               controls->parallel.data, controls->parallel.size,
-                              resampleMinAngle, resampleNPoints,
-                              problemStruct.resample[b_i],
+                              numSimulationPoints, resampleMinAngle,
+                              resampleNPoints, problemStruct.resample[b_i],
                               problemStruct.geometry.data,
                               problemStruct.geometry.size, subRoughs[b_i],
                               calcSld, problemStruct.contrastLayers[b_i].f1,
                               layerValues, reflectivity[b_i].f1, simulation[b_i]
-                              .f1, r5, backgrounds[b_i].f1, resolutions[b_i].f1,
-                              r6, r7, r8, d3, d5, d6, d7);
+                              .f1, shiftedData[b_i].f1, backgrounds[b_i].f1,
+                              resolutions[b_i].f1, r4, r5, r6, d4, d5, d6, d7);
           chis[b_i] = d7;
           bulkOuts[b_i] = d6;
           bulkIns[b_i] = d5;
-          scalefactors[b_i] = d3;
-          loop_ub = r5.size(0);
-          shiftedData[b_i].f1.set_size(r5.size(0), 3);
-          for (int i1{0}; i1 < 3; i1++) {
-            for (int i2{0}; i2 < loop_ub; i2++) {
-              shiftedData[b_i].f1[i2 + shiftedData[b_i].f1.size(0) * i1] = r5[i2
-                + r5.size(0) * i1];
-            }
-          }
-
-          loop_ub = r6.size(0);
-          sldProfiles[b_i].f1.set_size(r6.size(0), 2);
+          scalefactors[b_i] = d4;
+          loop_ub = r4.size(0);
+          sldProfiles[b_i].f1.set_size(r4.size(0), 2);
           for (int i1{0}; i1 < 2; i1++) {
             for (int i2{0}; i2 < loop_ub; i2++) {
-              sldProfiles[b_i].f1[i2 + sldProfiles[b_i].f1.size(0) * i1] = r6[i2
-                + r6.size(0) * i1];
+              sldProfiles[b_i].f1[i2 + sldProfiles[b_i].f1.size(0) * i1] = r4[i2
+                + r4.size(0) * i1];
             }
           }
 
-          loop_ub = r7.size(1);
-          layers[b_i].f1.set_size(r7.size(0), r7.size(1));
+          loop_ub = r5.size(1);
+          layers[b_i].f1.set_size(r5.size(0), r5.size(1));
           for (int i1{0}; i1 < loop_ub; i1++) {
-            b_loop_ub = r7.size(0);
+            b_loop_ub = r5.size(0);
             for (int i2{0}; i2 < b_loop_ub; i2++) {
-              layers[b_i].f1[i2 + layers[b_i].f1.size(0) * i1] = r7[i2 + r7.size
+              layers[b_i].f1[i2 + layers[b_i].f1.size(0) * i1] = r5[i2 + r5.size
                 (0) * i1];
             }
           }
 
-          loop_ub = r8.size(0);
-          resampledLayers[b_i].f1.set_size(r8.size(0), 4);
+          loop_ub = r6.size(0);
+          resampledLayers[b_i].f1.set_size(r6.size(0), 4);
           for (int i1{0}; i1 < 4; i1++) {
             for (int i2{0}; i2 < loop_ub; i2++) {
               resampledLayers[b_i].f1[i2 + resampledLayers[b_i].f1.size(0) * i1]
-                = r8[i2 + r8.size(0) * i1];
+                = r6[i2 + r6.size(0) * i1];
             }
           }
 
@@ -496,13 +479,13 @@ namespace RAT
           }
 
           coder::internal::nullAssignment(layers[b_i].f1);
-          coder::internal::nullAssignment(resampledLayers[b_i].f1, r4);
-          resampledLayers[b_i].f1.set_size(r4.size(0), 3);
-          loop_ub = r4.size(0);
+          coder::internal::nullAssignment(resampledLayers[b_i].f1, r3);
+          resampledLayers[b_i].f1.set_size(r3.size(0), 3);
+          loop_ub = r3.size(0);
           for (int i1{0}; i1 < 3; i1++) {
             for (int i2{0}; i2 < loop_ub; i2++) {
               resampledLayers[b_i].f1[i2 + resampledLayers[b_i].f1.size(0) * i1]
-                = r4[i2 + r4.size(0) * i1];
+                = r3[i2 + r3.size(0) * i1];
             }
           }
         }
@@ -532,14 +515,13 @@ namespace RAT
       ::coder::array<double, 2U> r4;
       ::coder::array<double, 2U> r5;
       ::coder::array<double, 2U> r6;
-      ::coder::array<double, 2U> r7;
-      ::coder::array<double, 2U> r8;
       double dv2[2];
       double dv3[2];
       double d;
       double d1;
       double d2;
-      double d4;
+      double d3;
+      double numSimulationPoints;
       double resampleMinAngle;
       double resampleNPoints;
       int iv5[2];
@@ -568,6 +550,7 @@ namespace RAT
       //  qzshifts are not included as a parameter in RAT, so we set up dummy
       //  values for the reflectivity calculation
       nParams = problemStruct.params.size(1);
+      numSimulationPoints = controls->numSimulationPoints;
       resampleMinAngle = controls->resampleMinAngle;
       resampleNPoints = controls->resampleNPoints;
 
@@ -605,7 +588,7 @@ namespace RAT
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
- private(r,r1,r2,r3,d,d1,d2,d4,iv5,iv6,dv2,dv3,iv7,iv8,iv9,c_loop_ub,i3,i4,d_loop_ub)
+ private(r,r1,r2,d,d1,d2,d3,iv5,iv6,dv2,dv3,iv7,iv8,iv9,c_loop_ub,i3,i4,d_loop_ub)
 
         for (int c_i = 0; c_i <= loop_ub; c_i++) {
           iv5[0] = (*(int (*)[2])((::coder::array<double, 2U> *)
@@ -655,23 +638,15 @@ namespace RAT
                           &problemStruct.contrastResolutionTypes[c_i].f1)->data(),
                               iv9, problemStruct.customFiles, static_cast<double>
                               (nParams), controls->parallel.data,
-                              controls->parallel.size, resampleMinAngle,
-                              resampleNPoints, problemStruct.resample[c_i],
+                              controls->parallel.size, numSimulationPoints,
+                              resampleMinAngle, resampleNPoints,
+                              problemStruct.resample[c_i],
                               problemStruct.geometry.data,
                               problemStruct.geometry.size, subRoughs[c_i], true,
                               problemStruct.contrastLayers[c_i].f1, layerValues,
-                              reflectivity[c_i].f1, simulation[c_i].f1, r3,
-                              backgrounds[c_i].f1, resolutions[c_i].f1, r2, r1,
-                              r, d4, d2, d1, d);
-          c_loop_ub = r3.size(0);
-          shiftedData[c_i].f1.set_size(r3.size(0), 3);
-          for (i3 = 0; i3 < 3; i3++) {
-            for (i4 = 0; i4 < c_loop_ub; i4++) {
-              shiftedData[c_i].f1[i4 + shiftedData[c_i].f1.size(0) * i3] = r3[i4
-                + r3.size(0) * i3];
-            }
-          }
-
+                              reflectivity[c_i].f1, simulation[c_i].f1,
+                              shiftedData[c_i].f1, backgrounds[c_i].f1,
+                              resolutions[c_i].f1, r2, r1, r, d3, d2, d1, d);
           c_loop_ub = r2.size(0);
           sldProfiles[c_i].f1.set_size(r2.size(0), 2);
           for (i3 = 0; i3 < 2; i3++) {
@@ -701,7 +676,7 @@ namespace RAT
           }
 
           qzshifts[c_i] = 0.0;
-          scalefactors[c_i] = d4;
+          scalefactors[c_i] = d3;
           bulkIns[c_i] = d2;
           bulkOuts[c_i] = d1;
           chis[c_i] = d;
@@ -724,7 +699,7 @@ namespace RAT
         for (int b_i{0}; b_i < i; b_i++) {
           double b_dv[2];
           double b_dv1[2];
-          double d3;
+          double d4;
           double d5;
           double d6;
           double d7;
@@ -781,52 +756,43 @@ namespace RAT
                               iv4, problemStruct.customFiles, static_cast<double>
                               (problemStruct.params.size(1)),
                               controls->parallel.data, controls->parallel.size,
-                              resampleMinAngle, resampleNPoints,
-                              problemStruct.resample[b_i],
+                              numSimulationPoints, resampleMinAngle,
+                              resampleNPoints, problemStruct.resample[b_i],
                               problemStruct.geometry.data,
                               problemStruct.geometry.size, subRoughs[b_i], true,
                               problemStruct.contrastLayers[b_i].f1, layerValues,
-                              reflectivity[b_i].f1, simulation[b_i].f1, r5,
-                              backgrounds[b_i].f1, resolutions[b_i].f1, r6, r7,
-                              r8, d3, d5, d6, d7);
+                              reflectivity[b_i].f1, simulation[b_i].f1,
+                              shiftedData[b_i].f1, backgrounds[b_i].f1,
+                              resolutions[b_i].f1, r4, r5, r6, d4, d5, d6, d7);
           chis[b_i] = d7;
           bulkOuts[b_i] = d6;
           bulkIns[b_i] = d5;
-          scalefactors[b_i] = d3;
-          loop_ub = r5.size(0);
-          shiftedData[b_i].f1.set_size(r5.size(0), 3);
-          for (int i1{0}; i1 < 3; i1++) {
-            for (int i2{0}; i2 < loop_ub; i2++) {
-              shiftedData[b_i].f1[i2 + shiftedData[b_i].f1.size(0) * i1] = r5[i2
-                + r5.size(0) * i1];
-            }
-          }
-
-          loop_ub = r6.size(0);
-          sldProfiles[b_i].f1.set_size(r6.size(0), 2);
+          scalefactors[b_i] = d4;
+          loop_ub = r4.size(0);
+          sldProfiles[b_i].f1.set_size(r4.size(0), 2);
           for (int i1{0}; i1 < 2; i1++) {
             for (int i2{0}; i2 < loop_ub; i2++) {
-              sldProfiles[b_i].f1[i2 + sldProfiles[b_i].f1.size(0) * i1] = r6[i2
-                + r6.size(0) * i1];
+              sldProfiles[b_i].f1[i2 + sldProfiles[b_i].f1.size(0) * i1] = r4[i2
+                + r4.size(0) * i1];
             }
           }
 
-          loop_ub = r7.size(1);
-          layers[b_i].f1.set_size(r7.size(0), r7.size(1));
+          loop_ub = r5.size(1);
+          layers[b_i].f1.set_size(r5.size(0), r5.size(1));
           for (int i1{0}; i1 < loop_ub; i1++) {
-            b_loop_ub = r7.size(0);
+            b_loop_ub = r5.size(0);
             for (int i2{0}; i2 < b_loop_ub; i2++) {
-              layers[b_i].f1[i2 + layers[b_i].f1.size(0) * i1] = r7[i2 + r7.size
+              layers[b_i].f1[i2 + layers[b_i].f1.size(0) * i1] = r5[i2 + r5.size
                 (0) * i1];
             }
           }
 
-          loop_ub = r8.size(0);
-          resampledLayers[b_i].f1.set_size(r8.size(0), 4);
+          loop_ub = r6.size(0);
+          resampledLayers[b_i].f1.set_size(r6.size(0), 4);
           for (int i1{0}; i1 < 4; i1++) {
             for (int i2{0}; i2 < loop_ub; i2++) {
               resampledLayers[b_i].f1[i2 + resampledLayers[b_i].f1.size(0) * i1]
-                = r8[i2 + r8.size(0) * i1];
+                = r6[i2 + r6.size(0) * i1];
             }
           }
 
@@ -858,13 +824,13 @@ namespace RAT
           }
 
           coder::internal::nullAssignment(layers[b_i].f1);
-          coder::internal::nullAssignment(resampledLayers[b_i].f1, r4);
-          resampledLayers[b_i].f1.set_size(r4.size(0), 3);
-          loop_ub = r4.size(0);
+          coder::internal::nullAssignment(resampledLayers[b_i].f1, r3);
+          resampledLayers[b_i].f1.set_size(r3.size(0), 3);
+          loop_ub = r3.size(0);
           for (int i1{0}; i1 < 3; i1++) {
             for (int i2{0}; i2 < loop_ub; i2++) {
               resampledLayers[b_i].f1[i2 + resampledLayers[b_i].f1.size(0) * i1]
-                = r4[i2 + r4.size(0) * i1];
+                = r3[i2 + r3.size(0) * i1];
             }
           }
         }

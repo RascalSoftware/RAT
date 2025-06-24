@@ -22,7 +22,6 @@ namespace RAT
   namespace coder
   {
     void linspace(double d1, double d2, double n, ::coder::array<double, 2U> &y);
-    void linspace(double d1, double d2, double y[500]);
   }
 }
 

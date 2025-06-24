@@ -32,9 +32,10 @@ namespace RAT
                     bayesOutputs_bestParams_size[2], const ::coder::array<double,
                     2U> &bayesOutputs_chain, ProblemDefinition &problemStruct,
                     const char controls_parallel_data[], const int
-                    controls_parallel_size[2], double controls_resampleMinAngle,
-                    double controls_resampleNPoints, Results *result, d_struct_T
-                    &bayesResults);
+                    controls_parallel_size[2], double
+                    controls_numSimulationPoints, double
+                    controls_resampleMinAngle, double controls_resampleNPoints,
+                    Results *result, d_struct_T &bayesResults);
   void processBayes(const ::coder::array<double, 2U> &bayesOutputs_bestParams,
                     const ::coder::array<double, 2U> &bayesOutputs_chain,
                     ProblemDefinition &problemStruct, Controls &controls,

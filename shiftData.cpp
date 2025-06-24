@@ -20,8 +20,10 @@ namespace RAT
 {
   void shiftData(double scalefactor, double dataPresent, ::coder::array<double,
                  2U> &data, const double dataLimits[2], const double
-                 simulationLimits[2], ::coder::array<double, 2U> &shiftedData)
+                 simulationLimits[2], double numSimulationPoints, ::coder::array<
+                 double, 2U> &shiftedData)
   {
+    ::coder::array<double, 2U> r;
     ::coder::array<double, 1U> b_data;
     ::coder::array<int, 1U> b_i;
     ::coder::array<boolean_T, 1U> b_data_data;
@@ -38,6 +40,7 @@ namespace RAT
     //      * data: problemStruct.data
     //      * dataLimits: problemStruct.dataLimits
     //      * simulationLimits: problemStruct.simulationLimits
+    //      * numSimulationPoints: controls.numSimulationPoints
     //
     //  OUTPUTS:
     //      * shiftedData: Data shifted using given scale factor
@@ -45,6 +48,7 @@ namespace RAT
       int data_size;
       int hiIndex;
       int i;
+      int i1;
       int loop_ub;
       int lowIndex;
       if (scalefactor == 0.0) {
@@ -114,32 +118,38 @@ namespace RAT
 
       if (lowIndex > hiIndex) {
         i = 0;
-        data_size = 0;
+        i1 = 0;
       } else {
         i = lowIndex - 1;
-        data_size = hiIndex;
+        i1 = hiIndex;
       }
 
-      loop_ub = data_size - i;
+      loop_ub = i1 - i;
       shiftedData.set_size(loop_ub, 6);
-      for (data_size = 0; data_size < 6; data_size++) {
-        for (int i1{0}; i1 < loop_ub; i1++) {
-          shiftedData[i1 + shiftedData.size(0) * data_size] = data[(i + i1) +
-            data.size(0) * data_size];
+      for (i1 = 0; i1 < 6; i1++) {
+        for (data_size = 0; data_size < loop_ub; data_size++) {
+          shiftedData[data_size + shiftedData.size(0) * i1] = data[(i +
+            data_size) + data.size(0) * i1];
         }
       }
     } else {
-      double b_dv[500];
-      shiftedData.set_size(500, 6);
+      int simXData_size_idx_1;
+      coder::linspace(simulationLimits[0], simulationLimits[1],
+                      numSimulationPoints, r);
+      simXData_size_idx_1 = r.size(1);
+      coder::linspace(simulationLimits[0], simulationLimits[1],
+                      numSimulationPoints, r);
+      shiftedData.set_size(r.size(1), 6);
       for (int i{0}; i < 6; i++) {
-        for (int data_size{0}; data_size < 500; data_size++) {
-          shiftedData[data_size + shiftedData.size(0) * i] = 0.0;
+        for (int i1{0}; i1 < simXData_size_idx_1; i1++) {
+          shiftedData[i1 + shiftedData.size(0) * i] = 0.0;
         }
       }
 
-      coder::linspace(simulationLimits[0], simulationLimits[1], b_dv);
-      for (int i{0}; i < 500; i++) {
-        shiftedData[i] = b_dv[i];
+      coder::linspace(simulationLimits[0], simulationLimits[1],
+                      numSimulationPoints, r);
+      for (int i{0}; i < simXData_size_idx_1; i++) {
+        shiftedData[i] = r[i];
       }
     }
   }

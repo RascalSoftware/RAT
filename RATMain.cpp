@@ -869,10 +869,10 @@ namespace RAT
         cast(problemStruct, b_problemStruct);
         bayesResults->predictionIntervals.sampleChi.size[0] = runNestedSampler
           (b_problemStruct, controls->parallel.data, controls->parallel.size,
-           controls->calcSldDuringFit, controls->resampleMinAngle,
-           controls->resampleNPoints, controls->display.data,
-           controls->display.size, controls->nLive, controls->nMCMC,
-           controls->nsTolerance, controls->IPCFilePath.data,
+           controls->calcSldDuringFit, controls->numSimulationPoints,
+           controls->resampleMinAngle, controls->resampleNPoints,
+           controls->display.data, controls->display.size, controls->nLive,
+           controls->nMCMC, controls->nsTolerance, controls->IPCFilePath.data,
            controls->IPCFilePath.size, results,
            bayesResults->predictionIntervals.reflectivity,
            bayesResults->predictionIntervals.sld,

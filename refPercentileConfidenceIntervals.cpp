@@ -32,9 +32,10 @@ namespace RAT
   void refPercentileConfidenceIntervals(const ::coder::array<double, 2U>
     &bayesOutputs_chain, ProblemDefinition &problemStruct, const char
     controls_parallel_data[], const int controls_parallel_size[2], double
-    controls_resampleMinAngle, double controls_resampleNPoints, const ::coder::
-    array<cell_wrap_7, 1U> &results_reflectivity, const ::coder::array<
-    cell_wrap_9, 2U> &results_sldProfiles, ::coder::array<cell_wrap_11, 1U>
+    controls_numSimulationPoints, double controls_resampleMinAngle, double
+    controls_resampleNPoints, const ::coder::array<cell_wrap_7, 1U>
+    &results_reflectivity, const ::coder::array<cell_wrap_9, 2U>
+    &results_sldProfiles, ::coder::array<cell_wrap_11, 1U>
     &allPredInts_reflectivity, ::coder::array<cell_wrap_11, 2U> &allPredInts_sld,
     double allPredInts_sampleChi[1000])
   {
@@ -216,6 +217,7 @@ namespace RAT
     loop_ub = bayesOutputs_chain.size(1);
     expl_temp.resampleNPoints = controls_resampleNPoints;
     expl_temp.resampleMinAngle = controls_resampleMinAngle;
+    expl_temp.numSimulationPoints = controls_numSimulationPoints;
     expl_temp.calcSldDuringFit = true;
     b_loop_ub = controls_parallel_size[1];
     for (int b_i{0}; b_i < 1000; b_i++) {

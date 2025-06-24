@@ -160,6 +160,7 @@ namespace RAT
                        controls_parallel_data[], const int
                        controls_parallel_size[2], boolean_T
                        controls_calcSldDuringFit, double
+                       controls_numSimulationPoints, double
                        controls_resampleMinAngle, double
                        controls_resampleNPoints, const char
                        controls_display_data[], const int controls_display_size
@@ -275,6 +276,7 @@ namespace RAT
 
     expl_temp.resampleNPoints = controls_resampleNPoints;
     expl_temp.resampleMinAngle = controls_resampleMinAngle;
+    expl_temp.numSimulationPoints = controls_numSimulationPoints;
     expl_temp.calcSldDuringFit = controls_calcSldDuringFit;
     expl_temp.parallel.size[0] = 1;
     expl_temp.parallel.size[1] = controls_parallel_size[1];
@@ -334,8 +336,9 @@ namespace RAT
 
     processBayes(bayesOutputs_bestParams_data, bayesOutputs_bestParams_size,
                  bayesOutputs_chain, problemStruct, controls_parallel_data,
-                 controls_parallel_size, controls_resampleMinAngle,
-                 controls_resampleNPoints, result, nestResults);
+                 controls_parallel_size, controls_numSimulationPoints,
+                 controls_resampleMinAngle, controls_resampleNPoints, result,
+                 nestResults);
     bayesResults_predictionIntervals_reflectivity.set_size
       (nestResults.predictionIntervals.reflectivity.size(0));
     b_loop_ub = nestResults.predictionIntervals.reflectivity.size(0);

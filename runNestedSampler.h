@@ -30,6 +30,7 @@ namespace RAT
                        controls_parallel_data[], const int
                        controls_parallel_size[2], boolean_T
                        controls_calcSldDuringFit, double
+                       controls_numSimulationPoints, double
                        controls_resampleMinAngle, double
                        controls_resampleNPoints, const char
                        controls_display_data[], const int controls_display_size

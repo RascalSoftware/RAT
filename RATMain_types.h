@@ -94,6 +94,7 @@ namespace RAT
     ::coder::bounded_array<char, 10000U, 2U> procedure;
     ::coder::bounded_array<char, 10000U, 2U> parallel;
     boolean_T calcSldDuringFit;
+    double numSimulationPoints;
     double resampleMinAngle;
     double resampleNPoints;
     ::coder::bounded_array<char, 10000U, 2U> display;

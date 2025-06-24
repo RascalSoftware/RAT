@@ -14,13 +14,13 @@ end
 % problem.showPriors = false;
 
 % Call the backwards conversion...
-projectToJson_new(problem,'TestFile');
+projectToJson(problem,'TestFile');
 
-% 2. Converter from a normal project...
+% 2. Convert from a normal project...
 standardLayersDSPCScript;
 
 % Call the conversion...
-projectToJson_new(problem,'TestFile');
+projectToJson(problem,'TestFile');
 
 
 

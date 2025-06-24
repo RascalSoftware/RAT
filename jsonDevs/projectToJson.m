@@ -234,7 +234,7 @@ end
 function customFileStruct = makeCustomFileStruct(customTable)
 
 % Rename columns to match Python (mainly case)....
-varNames =  ["name","filename","function name","language","path"];
+varNames =  ["name","filename","function_name","language","path"];
 customTable.Properties.VariableNames = varNames;
 
 % Everything needs to be chars, not strings...

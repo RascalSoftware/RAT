@@ -1,203 +1,231 @@
-function projectToJson(problem,filename)
+function encoded = projectToJson_new(problem,filename)
 
 % Converts a projectClass to a json file...
 
+% %%%%%%%%%
+% We (presumably) want to match the result of jsondecode with our eventual
+% jsonencode, so make this to check we do as we go along....
+debug_json_struct = jsondecode(fileread('DSPC_standard_layers.json'));
 
+% General Params....
+totalStruct.name = problem.experimentName;
+totalStruct.calculation = 'normal'; % Will gove optio for magnetic etc...
+totalStruct.model = problem.modelType;
+totalStruct.geometry = problem.geometry;
+totalStruct.absorption = problem.absorption;
 
+% Global priors flag..
+show_priors = problem.showPriors;
 
+% Parameters...
+paramsTable = problem.parameters.varTable;
+nRows = problem.parameters.rowCount;
+totalStruct.parameters = makeParamStruct(paramsTable,nRows,show_priors);
 
+% Sanity check....
+if ~(isequal(debug_json_struct.parameters,totalStruct.parameters))
+    warning('Parameters class check failed!');
+end
 
+% Bulk in...
+bulkInTable = problem.bulkIn.varTable;
+nRows = problem.bulkIn.rowCount;
+totalStruct.bulk_in = makeParamStruct(bulkInTable,nRows,show_priors);
 
-% Start by converting the project to a struct...
-problemStruct = problem.toStruct;
+% Bulk Out...
+bulkOutTable = problem.bulkOut.varTable;
+nRows = problem.bulkOut.rowCount;
+totalStruct.bulk_out = makeParamStruct(bulkOutTable,nRows,show_priors);
 
+% Scalefactors...
+scalefactorTable = problem.scalefactors.varTable;
+nRows = problem.scalefactors.rowCount;
+totalStruct.scalefactors = makeParamStruct(scalefactorTable,nRows,show_priors);
 
-%%%-----------
+% Domain ratios.... TODO
+totalStruct.domain_ratios = [];
 
-% Need to match this struct:
-%
-% json_struct = jsondecode(fileread('DSPC_custom_layers.json'));
-%
-% json_struct = 
-% 
-%   struct with fields:
-% 
-%                      name: 'original_dspc_bilayer'
-%               calculation: 'normal'
-%                     model: 'standard layers'
-%                  geometry: 'substrate/liquid'
-%                absorption: 0
-%                parameters: [21×1 struct]
-%                   bulk_in: [1×1 struct]
-%                  bulk_out: [2×1 struct]
-%              scalefactors: [2×1 struct]
-%             domain_ratios: []
-%     background_parameters: [2×1 struct]
-%               backgrounds: [2×1 struct]
-%     resolution_parameters: [1×1 struct]
-%               resolutions: [1×1 struct]
-%              custom_files: []
-%                      data: [3×1 struct]
-%                    layers: [6×1 struct]
-%          domain_contrasts: []
-%                 contrasts: [2×1 struct]
-%
-% --------------------
+% Background 
+backPars = problem.background.backgroundParams;
+backs = problem.background.backgrounds;
 
-% Make all the fields of the struct individually:
+backParsTable = backPars.varTable;
+bp_nRows = backPars.rowCount;
+totalStruct.background_parameters = makeParamStruct(backParsTable,bp_nRows,show_priors);
 
-% General...
-name = problemStruct.experimentName;
-calculation = problemStruct.TF;
-geometry = problemStruct.geometry;
-absorption = problemStruct.useImaginary;
-showPriors = problem.showPriors; 
+backsTable = backs.varTable;
+totalStruct.backgrounds = makeTypeTableStruct(backsTable);
 
-% Parameters..
-parameters = makeParamStruct(problemStruct.paramNames,...
-                             problemStruct.paramLimits,...
-                             problemStruct.paramValues,... 
-                             problemStruct.fitParam,...
-                             problemStruct.paramPriors,...
-                             showPriors); 
+% Backs table sanity check....
+if ~(isequal(debug_json_struct.backgrounds(1),totalStruct.backgrounds(1)))
+    warning('Types table conversion failed');
+end
 
-% bulk in....
-bulk_in = makeParamStruct(problemStruct.bulkInNames,...
-                          problemStruct.bulkInLimits,...
-                          problemStruct.bulkInValues,... 
-                          problemStruct.fitBulkIn,...
-                          problemStruct.bulkInPriors,...
-                          showPriors); 
+% resolution...
+resolPars = problem.resolution.resolutionParams;
+resols = problem.resolution.resolutions;
 
-% bulk out....
-bulk_out = makeParamStruct(problemStruct.bulkOutNames,...
-                           problemStruct.bulkOutLimits,...
-                           problemStruct.bulkOutValues,... 
-                           problemStruct.fitBulkOut,...
-                           problemStruct.bulkOutPriors,...
-                           showPriors); 
+resolParsTable = resolPars.varTable;
+rp_nRows = resolPars.rowCount;
+totalStruct.resolution_parameters = makeParamStruct(resolParsTable,rp_nRows,show_priors);
 
-% scalefactors....
-scalefactors = makeParamStruct(problemStruct.scalefactorNames,...
-                               problemStruct.scalefactorLimits,...
-                               problemStruct.scalefactorValues,... 
-                               problemStruct.fitScalefactor,...
-                               problemStruct.scalefactorPriors,...
-                               showPriors); 
-% Domain ratios... TODO
-domain_ratios = [];
+resolsTable = resols.varTable;  
+totalStruct.resolutions = makeTypeTableStruct(resolsTable);
 
-% Background parameters...
-background_parameters = makeParamStruct(problemStruct.backgroundParamNames,...
-                                        problemStruct.backgroundParamLimits,...
-                                        problemStruct.backgroundParamValues,... 
-                                        problemStruct.fitBackgroundParam,...
-                                        problemStruct.backgroundParamPriors,...
-                                        showPriors); 
+% Custom files..... TODO
+totalStruct.custom_files = [];
 
-% Backgrounds
-backgrounds = makeBackgroundStruct(problemStruct.backgroundNames,...
-                                   problemStruct.backgroundTypes,...
-                                   problemStruct.backgroundValues);
+% Data...
+dataTable = problem.data.varTable;
+totalStruct.data = makeDataStruct(dataTable);
 
-% Resolution parameters...
-resolution_parameters = makeParamStruct(problemStruct.resolutionParamNames,...
-                                        problemStruct.resolutionParamLimits,...
-                                        problemStruct.resolutionParamValues,... 
-                                        problemStruct.fitResolutionParam,...
-                                        problemStruct.resolutionParamPriors,...
-                                        showPriors); 
+% Layers...
+layersTable = problem.layers.varTable;
+totalStruct.layers = makeLayersStruct(layersTable);
 
-% Backgrounds
-resolutions = makeBackgroundStruct(problemStruct.resolutionNames,...
-                                   problemStruct.resolutionTypes,...
-                                   problemStruct.resolutionValues);
+% Domains contrasts ........ TODO....
+totalStruct.domain_contrasts = [];
 
-% Custom Files.... TODO..
-custom_files = [];
+% Contrasts....
+contrastArray = problem.contrasts.contrasts;
+totalStruct.contrasts = makeContrastsStruct(contrastArray);
 
-% Data....
-% (We do this from the datatable, since 'toStruct' seems to lose some
-% info..)
-data = makeDataStruct(problem.data.varTable);
+% Save the file 
+encoded = jsonencode(totalStruct);
 
+% [path,filename,~] = fileparts(filename);
+% filename = fullfile(path,filename,'.json');
+% fid = fopen(filename,'w');
+% fprintf(fid,'%s',encoded);
+% fclose(fid);
 
 end
 
-% -----------------------------------------------------------------------
+% ---------------------------------------
 
-function paramsArray = makeParamStruct(names,limits,values,fit,priors,showPriors)
+function paramStruct = makeParamStruct(paramsTable,nRows,show_priors)
 
-nParams = length(names);
+% Takes a parameters table, adds the show priors column, changes the
+% variable names to match python (mainly changing case), changes the contents
+% of some columns to chars from strings and 
+% then converts the table to a struct.....
 
-for i = 1:nParams
-    thisName  = names{i};
-    thisMin = limits{i}(1);
-    thisVal = values(i);
-    thisMax = limits{1}(2);
-    thisFit = fit(i);
-    thisPriorType = priors{i}{2};
-    thisMu = priors{i}{3};
-    thisSig = priors{i}{4};
+% Add the show priors col...
+paramsTable.('show_priors') = repmat(show_priors,nRows,1);
 
-    thisStruct = struct('name',thisName,'min',thisMin,'value',thisVal,...
-                        'max',thisMax,'fit',thisFit,'prior_type',thisPriorType,...
-                        'mu',thisMu,'sigma',thisSig,'show_priors',showPriors);
-    paramsArray(i) = thisStruct;
+% Rename columns to match Python (mainly case)....
+paramsTable.Properties.VariableNames = ["name", "min", "value", "max", "fit",...
+                                        "prior_type", "mu", "sigma", "show_priors"];
+
+% Columns that contain strings need to contain chars..
+paramsTable.name = char(paramsTable.name);
+paramsTable.prior_type = char(paramsTable.prior_type);
+
+% Make the struct array..
+paramStruct = table2struct(paramsTable);
+
+% For some reason, we end up with trailing spaces in our chars after the 
+% conversion, with the number of spaces added to match the longest char in
+% the original table column. We have to loop over all of them to correct
+% these... (running strtrim on the 'char' conversion above doesn't work - the
+% padding seems to happen during table2array).
+for i = 1:length(paramStruct)
+    paramStruct(i).name = strtrim(paramStruct(i).name);
+    paramStruct(i).prior_type = strtrim(paramStruct(i).prior_type);
 end
 
 end
 
-% -----------------------------------------------------------------------
+% ------------------------------------------
 
-function backgroundStruct = makeBackgroundStruct(names,types,values)
+function typeStruct = makeTypeTableStruct(typeTable)
 
-nBacks = length(names);
+% Rename columns to match Python (mainly case)....
+typeTable.Properties.VariableNames = ["name", "type", "source", "value_1", "value_2",...
+                                        "value_3", "value_4", "value_5"];
 
-for i = 1:nBacks
-    thisName = names{i};
-    thisType = types{i};
-    theseVals = values{i};
-
-    % 'Values' can have different lengths (up to 6..). Just making an empty
-    % cell array of the maximum length makes populating the struct easier..
-    vals = repmat({''},6,1);
-    for n = 1:length(theseVals)
-        vals{n} = theseVals{n};
+% Everything needs to be chars, not strings...
+for i = 1:length(typeTable.Properties.VariableNames)
+    % Seem to have to loop over rows (otherwise fails when only one row...)
+    for n = 1:height(typeTable)
+        typeTable.(i)(n) = char(typeTable.(i)(n));
     end
+end
 
-    thisStruct = struct('name',thisName,...
-                        'type',thisType,...
-                        'source',vals{1},...
-                        'value_1',vals{2},...
-                        'value_2',vals{3},...
-                        'value_3',vals{4},...
-                        'value_4',vals{5},...
-                        'value_5',vals{5});
-    backgroundStruct(i) = thisStruct;
+% Convert to a struct array..
+typeStruct = table2struct(typeTable);
+
+% Again, we have a problem with the conversion, with empty cells becoming
+% [1x0] character arrays rather than [0x0] character arrays (!!?)...
+fields = fieldnames(typeStruct);
+for i = 1:length(typeStruct)
+    for n = 1:length(fields)
+        typeStruct(i).(fields{n}) = strtrim(typeStruct(1).(fields{n}));
+    end
 end
 
 end
 
-% -----------------------------------------------------------------------
+% -----------------------------------------
 
 function dataStruct = makeDataStruct(dataTable)
 
-nData = size(dataTable,1);
+% Rename columns to match Python (case and underscores)....
+dataTable.Properties.VariableNames = ["name", "data", "data_range", "simulation_range"]; 
 
-for i = 1:nData
-    thisName = dataTable{i,1};
-    thisData = dataTable{i,2}{:};
-    thisDataRange = dataTable{i,3}{:};
-    thisSimRange = dataTable{i,4}{:};
-    dataStruct(i) = struct('name',thisName,...
-                           'data',thisData,...
-                           'data_range',thisDataRange,...
-                           'simulation_range',thisSimRange);
-end
+dataStruct = table2struct(dataTable);
 
 end
 
-% -----------------------------------------------------------------------
+% ------------------------------------------
 
+function layersStruct = makeLayersStruct(layersTable)
+
+% Rename columns to match Python (case and underscores)....
+layersTable.Properties.VariableNames = ["name", "thickness", "SLD", "roughness",...
+                                        "hydration", "hydrate_with"]; 
+
+layersStruct = table2struct(layersTable);
+
+end
+
+% -------------------------------------------
+
+function newContrastStruct = makeContrastsStruct(contrastArray)
+
+numberOfContrasts = length(contrastArray);
+
+% Order of fields we need for the json...
+jsonFields = ["name","data","background","background_action","bulk_in",...
+              "bulk_out","scalefactor","resolution","resample","model"];
+
+for i = 1:numberOfContrasts
+    thisContrastStruct = contrastArray{i};
+    
+    % remove the repeats field...
+    thisContrastStruct = rmfield(thisContrastStruct,'repeatLayers');
+
+    % rename the fields...
+    newFieldldNames = ["background",...
+                "background_action",...
+                "bulk_in"          ,...
+                "bulk_out"         ,...
+                "data"             ,...
+                "model"            ,...
+                "name"             ,...
+                "resample"         ,...
+                "resolution"       ,...
+                "scalefactor"      ];
+
+    thisContrastStruct = cell2struct(struct2cell(thisContrastStruct), newFieldldNames);
+
+    % Order them according to the json requirements...
+    thisContrastStruct = orderfields(thisContrastStruct,jsonFields);
+
+    newContrastStruct(1,i) = thisContrastStruct; 
+end
+
+%contrastStruct = cell2struct(newContrastArray);
+
+end
 

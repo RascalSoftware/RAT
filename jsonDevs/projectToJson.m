@@ -70,7 +70,7 @@ totalStruct.resolution_parameters = makeParamStruct(resolParsTable,rp_nRows,show
 resolsTable = resols.varTable;  
 totalStruct.resolutions = makeTypeTableStruct(resolsTable);
 
-% Custom files..... TODO
+% Custom files....
 customTable = problem.customFile.varTable;
 totalStruct.custom_files = makeCustomFileStruct(customTable);
 
@@ -92,8 +92,8 @@ contrastArray = problem.contrasts.contrasts;
 totalStruct.contrasts = makeContrastsStruct(contrastArray);
 
 % Save the file 
-encoded = jsonencode(totalStruct,ConvertInfAndNaN=true);
-encoded = replace(encoded,'null','Inf');
+encoded = jsonencode(totalStruct,ConvertInfAndNaN=false);
+encoded = replace(encoded,'Infinity','Inf');
 
 [path,filename,~] = fileparts(filename);
 fid = fullfile(path,[filename '.json']);

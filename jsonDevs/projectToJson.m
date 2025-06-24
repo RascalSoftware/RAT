@@ -2,10 +2,8 @@ function encoded = projectToJson_new(problem,filename)
 
 % Converts a projectClass to a json file...
 
-% %%%%%%%%%
-% We (presumably) want to match the result of jsondecode with our eventual
-% jsonencode, so make this to check we do as we go along....
-debug_json_struct = jsondecode(fileread('DSPC_standard_layers.json'));
+% For debug...
+% debug_json_struct = jsondecode(fileread('DSPC_standard_layers.json'));
 
 % General Params....
 totalStruct.name = problem.experimentName;
@@ -22,10 +20,10 @@ paramsTable = problem.parameters.varTable;
 nRows = problem.parameters.rowCount;
 totalStruct.parameters = makeParamStruct(paramsTable,nRows,show_priors);
 
-% Sanity check....
-if ~(isequal(debug_json_struct.parameters,totalStruct.parameters))
-    warning('Parameters class check failed!');
-end
+% % Sanity check....
+% if ~(isequal(debug_json_struct.parameters,totalStruct.parameters))
+%     warning('Parameters class check failed!');
+% end
 
 % Bulk in...
 bulkInTable = problem.bulkIn.varTable;
@@ -56,10 +54,10 @@ totalStruct.background_parameters = makeParamStruct(backParsTable,bp_nRows,show_
 backsTable = backs.varTable;
 totalStruct.backgrounds = makeTypeTableStruct(backsTable);
 
-% Backs table sanity check....
-if ~(isequal(debug_json_struct.backgrounds(1),totalStruct.backgrounds(1)))
-    warning('Types table conversion failed');
-end
+% % Backs table sanity check....
+% if ~(isequal(debug_json_struct.backgrounds(1),totalStruct.backgrounds(1)))
+%     warning('Types table conversion failed');
+% end
 
 % resolution...
 resolPars = problem.resolution.resolutionParams;
@@ -91,13 +89,14 @@ contrastArray = problem.contrasts.contrasts;
 totalStruct.contrasts = makeContrastsStruct(contrastArray);
 
 % Save the file 
-encoded = jsonencode(totalStruct);
+encoded = jsonencode(totalStruct,ConvertInfAndNaN=true);
+encoded = replace(encoded,'null','Inf');
 
-% [path,filename,~] = fileparts(filename);
-% filename = fullfile(path,filename,'.json');
-% fid = fopen(filename,'w');
-% fprintf(fid,'%s',encoded);
-% fclose(fid);
+[path,filename,~] = fileparts(filename);
+fid = fullfile(path,[filename '.json']);
+fid = fopen(fid,'w');
+fprintf(fid,'%s',encoded);
+fclose(fid);
 
 end
 
@@ -160,7 +159,7 @@ typeStruct = table2struct(typeTable);
 fields = fieldnames(typeStruct);
 for i = 1:length(typeStruct)
     for n = 1:length(fields)
-        typeStruct(i).(fields{n}) = strtrim(typeStruct(1).(fields{n}));
+        typeStruct(i).(fields{n}) = strtrim(typeStruct(i).(fields{n}));
     end
 end
 
@@ -224,8 +223,6 @@ for i = 1:numberOfContrasts
 
     newContrastStruct(1,i) = thisContrastStruct; 
 end
-
-%contrastStruct = cell2struct(newContrastArray);
 
 end
 

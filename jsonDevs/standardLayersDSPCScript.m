@@ -8,25 +8,25 @@ problem.showPriors = false;
 
 % Set up the relevant parameters
 paramGroup = {
-              {'Oxide thick',           5,      19.54,      60,     true,   'uniform',      0,  Inf};
+              {'Oxide Thickness',           5,      19.54,      60,     true,   'uniform',      0,  Inf};
               {'Oxide SLD',         3.39e-06,   3.39e-06, 3.41e-06, false,  'uniform',      0,  Inf};
-              {'Sam tails thick',       15,     22.66,      35,     true,   'uniform',      0,  Inf};
-              {'Sam tails SLD',         -5e-07, -4.01e-07, -3e-07,  false,  'uniform',      0,  Inf};
-              {'Sam tails hydration',   1,      5.253,      50,     true,   'uniform',      0,  Inf};
-              {'Sam rough',             1,      5.64,       15,     true,   'uniform',      0,  Inf};
-              {'cw thick',              10,     17.12,      28,     true,   'uniform',      0,  Inf};
-              {'cw SLD',                0,      0,          1e-09,  false,  'uniform',      0,  Inf};
-              {'SAM head thick',        5,      8.56,       17,     true,   'gaussian',    10,    2};
-              {'SAM head SLD',          1e-07,  1.75e-06,   2e-06,  false,  'uniform',      0,  Inf};
-              {'SAM head hydration',    10,     45.45,      50,     true,   'uniform',      0,  Inf};
-              {'Bilayer head thick',    7,      10.70,      17,     true,   'gaussian',    10,    2};
-              {'Bilayer head SLD',      5e-07,  1.47e-06, 1.5e-06,  false,  'uniform',      0,  Inf};
-              {'Bilayer rough',         2,      6.014,      15,     true,   'uniform',      0,  Inf};
-              {'Bilayer tails thick',   14,     17.82,      22,     true,   'uniform',      0,  Inf};
-              {'Bilayer tails SLD',     -5e-07, -4.610e-07, 0,      false,  'uniform',      0,  Inf};
-              {'Bilayer tails hydr',    10,     17.64,      50,     true,   'uniform',      0,  Inf};
-              {'Bilayer heads hydr',    10,     36.15,      50,     true,   'gaussian',    30,    3};
-              {'cw hydration',          99.9,   100,        100,    false,  'uniform',      0,  Inf};
+              {'Sam Tails Thickness',       15,     22.66,      35,     true,   'uniform',      0,  Inf};
+              {'Sam Tails SLD',         -5e-07, -4.01e-07, -3e-07,  false,  'uniform',      0,  Inf};
+              {'Sam Tails Hydration',   1,      5.253,      50,     true,   'uniform',      0,  Inf};
+              {'Sam Roughness',             1,      5.64,       15,     true,   'uniform',      0,  Inf};
+              {'CW Thickness',              10,     17.12,      28,     true,   'uniform',      0,  Inf};
+              {'CW SLD',                0,      0,          1e-09,  false,  'uniform',      0,  Inf};
+              {'SAM Heads Thickness',        5,      8.56,       17,     true,   'gaussian',    10,    2};
+              {'SAM Heads SLD',          1e-07,  1.75e-06,   2e-06,  false,  'uniform',      0,  Inf};
+              {'SAM Heads Hydration',    10,     45.45,      50,     true,   'uniform',      0,  Inf};
+              {'Bilayer Heads Thickness',    7,      10.70,      17,     true,   'gaussian',    10,    2};
+              {'Bilayer Heads SLD',      5e-07,  1.47e-06, 1.5e-06,  false,  'uniform',      0,  Inf};
+              {'Bilayer Roughness',         2,      6.014,      15,     true,   'uniform',      0,  Inf};
+              {'Bilayer Tails Thickness',   14,     17.82,      22,     true,   'uniform',      0,  Inf};
+              {'Bilayer Tails SLD',     -5e-07, -4.610e-07, 0,      false,  'uniform',      0,  Inf};
+              {'Bilayer Tails Hydration',    10,     17.64,      50,     true,   'uniform',      0,  Inf};
+              {'Bilayer Heads Hydration',    10,     36.15,      50,     true,   'gaussian',    30,    3};
+              {'CW Hydration',          99.9,   100,        100,    false,  'uniform',      0,  Inf};
               {'Oxide Hydration',       0,      23.61,      60,     true,   'uniform',      0,  Inf};
               };
 problem.addParameterGroup(paramGroup);
@@ -34,12 +34,12 @@ problem.setParameter(1,'max',10);
 
 % Group these into layers....
 Layers =    {
-            {'Oxide',           'Oxide thick',          'Oxide SLD',        'substrate roughness',  'Oxide Hydration',      'bulk out'};
-            {'Sam tails',       'Sam tails thick',      'Sam tails SLD',    'Sam rough',            'Sam tails hydration',  'bulk out'};
-            {'Sam heads',       'SAM head thick',       'SAM head SLD',     'Sam rough',            'SAM head hydration',   'bulk out'};
-            {'Central water',   'cw thick',             'cw SLD',           'Bilayer rough',        'cw hydration',         'bulk out'};
-            {'Bilayer heads',   'Bilayer head thick',   'Bilayer head SLD', 'Bilayer rough',        'Bilayer heads hydr',   'bulk out'};
-            {'Bilayer tails',   'Bilayer tails thick',  'Bilayer tails SLD','Bilayer rough',        'Bilayer tails hydr',   'bulk out'};
+            {'Oxide',           'Oxide Thickness',          'Oxide SLD',         'Substrate Roughness',     'Oxide Hydration',      'bulk out'};
+            {'Sam Tails',       'Sam Tails Thickness',      'Sam Tails SLD',     'Sam Roughness',           'Sam Tails Hydration',  'bulk out'};
+            {'Sam Heads',       'SAM Heads Thickness',       'SAM Heads SLD',     'Sam Roughness',            'SAM Heads Hydration',   'bulk out'};
+            {'Central water',   'CW Thickness',             'CW SLD',            'Bilayer Roughness',        'CW Hydration',         'bulk out'};
+            {'Bilayer heads',   'Bilayer Heads Thickness',  'Bilayer Heads SLD', 'Bilayer Roughness',        'Bilayer Heads Hydration',   'bulk out'};
+            {'Bilayer tails',   'Bilayer Tails Thickness',  'Bilayer Tails SLD', 'Bilayer Roughness',        'Bilayer Tails Hydration',   'bulk out'};
 };
 problem.addLayerGroup(Layers);
 

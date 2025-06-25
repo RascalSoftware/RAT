@@ -108,14 +108,7 @@ function [qzshift,scalefactor,bulkIn,bulkOut,chi,reflectivity,simulation,...
     [qzshift,scalefactor,bulkIn,bulkOut] = backSort( ...
         qzshiftIndex,scalefactorIndex,bulkInIndex,bulkOutIndex, ...
         qzshiftValues,scalefactorValues,bulkInValues,bulkOutValues);
-     
-    % Resample the layers
-    reSLD = sldProfile(:,[1,2]);
-    imSLD = sldProfile(:,[1,3]);
-    resampledLayers = resampleLayers(reSLD,imSLD,resampleMinAngle,resampleNPoints);
     
-    layers = resampledLayers;
-
     % Apply scale factors and q shifts to the data
     shiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simulationLimits,numSimulationPoints);
     [simulationXData, dataIndices] = makeSimulationRange(shiftedData, simulationLimits);
@@ -124,6 +117,13 @@ function [qzshift,scalefactor,bulkIn,bulkOut,chi,reflectivity,simulation,...
         shiftedData,customFiles,backgroundParams,simulationXData,dataIndices);
     resolution = constructResolution(resolutionType,resolutionParamIndex,...
         shiftedData,customFiles,resolutionParamValues,simulationXData,dataIndices);
+
+    % Resample the layers
+    reSLD = sldProfile(:,[1,2]);
+    imSLD = sldProfile(:,[1,3]);
+    resampledLayers = resampleLayers(reSLD,imSLD,resampleMinAngle,resampleNPoints);
+    
+    layers = resampledLayers;
 
     reflectivityType = 'standardAbeles';
     [reflectivity,simulation] = callReflectivity(bulkIn,bulkOut,simulationXData,dataIndices,1,layers,roughness,resolution,parallel,reflectivityType);

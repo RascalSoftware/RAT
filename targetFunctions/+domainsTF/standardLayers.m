@@ -26,10 +26,6 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
     resampleNPoints = controls.resampleNPoints;
     
     % Allocate the memory for the output arrays before the main loop
-    qzshifts = zeros(numberOfContrasts,1);
-    scalefactors = zeros(numberOfContrasts,1);
-    bulkIns = zeros(numberOfContrasts,1);
-    bulkOuts = zeros(numberOfContrasts,1);
     domainRatios = zeros(numberOfContrasts,1);
     subRoughs = zeros(numberOfContrasts,1);
     chis = zeros(numberOfContrasts,1);
@@ -68,12 +64,12 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
     % Extract the relevant parameter values for this contrast from the
     % input arrays. We need to determine which values of the data shifts,
     % scalefactors, and bulk contrasts are associated with this contrast.
-    for i = 1:numberOfContrasts
+    [qzshifts,scalefactors,bulkIns,bulkOuts] = backSort(...
+     contrastQzshiftIndices,contrastScalefactorIndices,...
+     contrastBulkInIndices,contrastBulkOutIndices,...
+     qzshiftValues,scalefactorValues,bulkInValues,bulkOutValues);
 
-        [qzshifts(i),scalefactors(i),bulkIns(i),bulkOuts(i)] = backSort( ...
-         contrastQzshiftIndices(i),contrastScalefactorIndices(i),...
-         contrastBulkInIndices(i),contrastBulkOutIndices(i),...
-         qzshiftValues,scalefactorValues,bulkInValues,bulkOutValues);
+    for i = 1:numberOfContrasts
 
         % Get the domain ratio for this contrast
         if isempty(contrastDomainRatioIndices(i))

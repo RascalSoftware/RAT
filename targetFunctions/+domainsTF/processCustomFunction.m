@@ -1,8 +1,9 @@
-function [outputs,subRoughs] = processCustomFunction(bulkIns,bulkOuts,...
+function [outputs1,outputs2,subRoughs] = processCustomFunction(bulkIns,bulkOuts,...
     contrastCustomFiles,numberOfContrasts,numberOfOutputColumns,customFiles,paramValues,useImaginary)
 
     % Top-level function for processing custom layers for all the contrasts
-    outputs = cell(numberOfContrasts,2);
+    outputs1 = cell(numberOfContrasts,1);
+    outputs2 = cell(numberOfContrasts,1);
     subRoughs = zeros(numberOfContrasts,1);
     
     for i = 1:numberOfContrasts
@@ -26,11 +27,11 @@ function [outputs,subRoughs] = processCustomFunction(bulkIns,bulkOuts,...
 
         % If SLD is real, add dummy imaginary column
         if ~useImaginary
-            outputs{i,1} = [output1(:,1:2) zeros(size(output1, 1), 1) output1(:,3:end)];
-            outputs{i,2} = [output2(:,1:2) zeros(size(output2, 1), 1) output2(:,3:end)];
+            outputs1{i} = [output1(:,1:2) zeros(size(output1, 1), 1) output1(:,3:end)];
+            outputs2{i} = [output2(:,1:2) zeros(size(output2, 1), 1) output2(:,3:end)];
         else
-            outputs{i,1} = output1;
-            outputs{i,2} = output2;
+            outputs1{i} = output1;
+            outputs2{i} = output2;
         end
 
     end

@@ -1,6 +1,6 @@
 function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
     simulation,shiftedData,backgrounds,resolutions,sldProfiles,layers,...
-    resampledLayers,subRoughs] = standardLayers(problemStruct,controls)
+    resampledLayers,subRoughs] = normalReflectivity(problemStruct,controls)
     % This is the main normal reflectivity calculation.
     % It extracts the required parameters for the contrasts
     % from the input arrays, then passes the main calculation to
@@ -61,8 +61,9 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
         case coderEnums.modelTypes.StandardLayers
 
             % First we need to allocate the absolute values of the input
-            % parameters to all the layers in the layers list. This only needs
-            % to be done once, and so is done outside the contrasts loop
+            % parameters to all the layers in the layers list. This only
+            % needs to be done once, and so is done outside the contrasts
+            % loop
             layerValues = allocateParamsToLayers(paramValues, layersDetails);
 
             for i = 1:numberOfContrasts
@@ -74,7 +75,8 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
                 % Also need to determine which layers from the overall
                 % layers list are required for this contrast, and put them
                 % in the correct order according to geometry. 
-                contrastLayers{i} = allocateLayersForContrast(contrastLayersIndices{i},layerValues);
+                contrastLayers{i} = allocateLayersForContrast( ...
+                    contrastLayersIndices{i},layerValues);
     
             end
 
@@ -107,7 +109,6 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
 
         if strcmpi(parallel, coderEnums.parallelOptions.Contrasts)
         
-            % Loop over all the contrasts
             parfor i = 1:numberOfContrasts
 
                 [inputBackground,inputResolution,inputShiftedData,...
@@ -134,7 +135,6 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
             
         else
         
-            % Loop over all the contrasts
             for i = 1:numberOfContrasts
 
                 [inputBackground,inputResolution,inputShiftedData,...
@@ -164,7 +164,6 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
     
         if strcmpi(parallel, coderEnums.parallelOptions.Contrasts)
         
-            % Loop over all the contrasts
             parfor i = 1:numberOfContrasts
         
                 [inputBackground,inputResolution,inputShiftedData,...
@@ -197,7 +196,6 @@ function [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
             
         else
         
-            % Loop over all the contrasts
             for i = 1:numberOfContrasts
                 
                 [inputBackground,inputResolution,inputShiftedData,...
@@ -249,14 +247,18 @@ function [reflectivity,simulation,shiftedData,sldProfile,layers,...
     % Resample the layers
     sldProfile = sld(:,[1,2]);
     sldProfileIm = sld(:,[1,3]);
-    resampledLayers = resampleLayers(sldProfile,sldProfileIm,resampleMinAngle,resampleNPoints);
+    resampledLayers = resampleLayers(sldProfile,sldProfileIm,...
+        resampleMinAngle,resampleNPoints);
     
     layers = resampledLayers;
 
     reflectivityType = 'standardAbeles';
-    [reflectivity,simulation] = callReflectivity(bulkIn,bulkOut,simulationXData,dataIndices,1,layers,roughness,resolution,parallel,reflectivityType);
+    [reflectivity,simulation] = callReflectivity(bulkIn,bulkOut,...
+     simulationXData,dataIndices,1,layers,roughness,resolution,parallel,...
+     reflectivityType);
 
-    [reflectivity,simulation,shiftedData] = applyBackgroundCorrection(reflectivity,simulation,shiftedData,background,backgroundAction);
+    [reflectivity,simulation,shiftedData] = applyBackgroundCorrection(...
+        reflectivity,simulation,shiftedData,background,backgroundAction);
     
     chi = chiSquared(shiftedData,reflectivity,nParams);
 

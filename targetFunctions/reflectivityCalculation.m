@@ -27,27 +27,24 @@ function result = reflectivityCalculation(problemStruct,controls)
 %     The results of the calculation.
 
 % Decide which target function we are calling and call the relevant routines
-targetFunction = problemStruct.TF;
-modelType = problemStruct.modelType;
-
-switch targetFunction
+switch problemStruct.TF
     
     case coderEnums.calculationTypes.Normal      
         
         [~,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
          simulation,shiftedData,backgrounds,resolutions,sldProfiles,...
          layers,resampledLayers,subRoughs...
-         ] = normalTF.standardLayers(problemStruct,controls);
+         ] = normalTF.normalReflectivity(problemStruct,controls);
 
     case coderEnums.calculationTypes.Domains
      
         [~,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
          simulation,shiftedData,backgrounds,resolutions,sldProfiles,...
          layers,resampledLayers,subRoughs...
-         ] = domainsTF.standardLayers(problemStruct,controls);
+         ] = domainsTF.domainsReflectivity(problemStruct,controls);
 
     otherwise
-        coderException(coderEnums.errorCodes.invalidOption, 'The calculation type "%s" is not supported', targetFunction);
+        coderException(coderEnums.errorCodes.invalidOption, 'The calculation type "%s" is not supported', problemStruct.TF);
 end
 
 % Make the result struct

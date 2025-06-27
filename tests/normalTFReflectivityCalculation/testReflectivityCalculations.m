@@ -170,7 +170,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.controls.parallel = parallel;
             [qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,...
             simulation,shiftedData,backgrounds,resolutions,SLDProfiles,layers,resampledLayers,...
-            subRoughs] = normalTF.standardLayers(testCase.problemStruct,testCase.controls);
+            subRoughs] = normalTF.normalReflectivity(testCase.problemStruct,testCase.controls);
 
             testCase.verifyEqual(qzshifts, testCase.TFQzshifts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(scalefactors, testCase.TFScalefactors, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);

@@ -12,10 +12,10 @@ function [outputs1,outputs2,subRoughs] = processCustomFunction(bulkIns,bulkOuts,
         functionHandle = customFiles{contrastCustomFiles(i)};
 
         output1 = zeros(1, numberOfOutputColumns);
-        coder.varsize('output1',[10000 numberOfOutputColumns],[1 1]);
+        coder.varsize('output1',[10000 numberOfOutputColumns], [1 1]);
 
         output2 = zeros(1, numberOfOutputColumns);
-        coder.varsize('output2',[10000 numberOfOutputColumns],[1 1]);
+        coder.varsize('output2',[10000 numberOfOutputColumns], [1 1]);
 
         if isnan(str2double(functionHandle))
             [output1, subRoughs(i)] = callMatlabFunction(functionHandle, paramValues, bulkIns(i), bulkOuts, i, 1);

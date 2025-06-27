@@ -41,7 +41,7 @@ save([root filesep 'tests/normalTFReflectivityCalculation/customLayersOutputs'],
 % (c) TF Parameters
 [qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,simulation,...
  shiftedData,backgrounds,resolutions,sldProfiles,layers,...
- resampledLayers,subRoughs] = normalTF.customLayers(problemStruct,controls);
+ resampledLayers,subRoughs] = normalTF.normalReflectivity(problemStruct,controls);
 
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
@@ -99,7 +99,7 @@ save([root filesep 'tests/normalTFReflectivityCalculation/customXYOutputs'],'out
 % (c) TF Parameters
 [qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,simulation,...
  shiftedData,backgrounds,resolutions,sldProfiles,layers,...
- resampledLayers,subRoughs] = normalTF.customXY(problemStruct,controls);
+ resampledLayers,subRoughs] = normalTF.normalReflectivity(problemStruct,controls);
 
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
@@ -157,7 +157,7 @@ save([root filesep 'tests/normalTFReflectivityCalculation/standardLayersOutputs'
 % (c) TF Parameters
 [qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,simulation,...
  shiftedData,backgrounds,resolutions,sldProfiles,layers,...
- resampledLayers,subRoughs] = normalTF.standardLayers(problemStruct,controls);
+ resampledLayers,subRoughs] = normalTF.normalReflectivity(problemStruct,controls);
 
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;
@@ -215,7 +215,7 @@ save([root filesep 'tests/normalTFReflectivityCalculation/absorptionOutputs'],'o
 % (c) TF Parameters
 [qzshifts,scalefactors,bulkIn,bulkOut,chis,reflectivity,simulation,...
  shiftedData,backgrounds,resolutions,sldProfiles,layers,...
- resampledLayers,subRoughs] = normalTF.customLayers(problemStruct,controls);
+ resampledLayers,subRoughs] = normalTF.normalReflectivity(problemStruct,controls);
 
 TFParams.qzshifts = qzshifts;
 TFParams.scalefactors = scalefactors;

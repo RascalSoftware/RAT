@@ -18,7 +18,7 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
     end
 
     properties (TestParameter)    
-        parallel = {'single', 'points', 'contrasts'} % How the reflectivity calculation is parallelised
+        parallel = {'single', 'points', 'contrasts'}      % How the reflectivity calculation is parallelised
         useCompiled = {false, true}                       % Choose either the MATLAB or MEX version
     end
 

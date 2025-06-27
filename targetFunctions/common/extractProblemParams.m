@@ -1,5 +1,5 @@
-function [numberOfContrasts, geometry, contrastBackgroundParams, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
-contrastResolutionParams, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIns, bulkOuts, resolutionParams,...
+function [numberOfContrasts, geometry, contrastBackgroundParams,...
+contrastResolutionParams, contrastDomainRatios, backgroundParams, resolutionParams, qzshifts, scalefactors, bulkIns, bulkOuts,...
 domainRatios, dataPresent, nParams, params, resample, contrastBackgroundTypes, contrastBackgroundActions, contrastResolutionTypes,...
 contrastCustomFiles, useImaginary, repeatLayers, data, dataLimits, simulationLimits, contrastLayers, layersDetails, customFiles, domainContrastLayers] = extractProblemParams(problemStruct)
 
@@ -8,17 +8,11 @@ geometry = problemStruct.geometry;
 contrastBackgroundParams = problemStruct.contrastBackgroundParams;
 contrastBackgroundTypes = problemStruct.contrastBackgroundTypes;
 contrastBackgroundActions = problemStruct.contrastBackgroundActions;
-contrastScalefactors = problemStruct.contrastScalefactors;
-contrastBulkIns = problemStruct.contrastBulkIns;
-contrastBulkOuts = problemStruct.contrastBulkOuts;
 contrastResolutionParams = problemStruct.contrastResolutionParams;
 contrastResolutionTypes = problemStruct.contrastResolutionTypes;
 contrastDomainRatios = problemStruct.contrastDomainRatios;
 contrastCustomFiles = problemStruct.contrastCustomFiles;
 backgroundParams = problemStruct.backgroundParams;
-scalefactors = problemStruct.scalefactors;
-bulkIns = problemStruct.bulkIns;
-bulkOuts = problemStruct.bulkOuts;
 resolutionParams = problemStruct.resolutionParams;
 domainRatios = problemStruct.domainRatios;
 dataPresent = problemStruct.dataPresent;
@@ -38,6 +32,20 @@ domainContrastLayers = problemStruct.domainContrastLayers;
 % qzshifts are not included as a parameter in RAT, so we set up dummy
 % values for the reflectivity calculation
 contrastQzshifts = ones(1,problemStruct.numberOfContrasts);
-qzshifts = 0.0;
+qzshiftValues = 0.0;
+
+contrastScalefactors = problemStruct.contrastScalefactors;
+contrastBulkIns = problemStruct.contrastBulkIns;
+contrastBulkOuts = problemStruct.contrastBulkOuts;
+
+scalefactorValues = problemStruct.scalefactors;
+bulkInValues = problemStruct.bulkIns;
+bulkOutValues = problemStruct.bulkOuts;
+
+% Find the actual values from the indices given in each contrast
+qzshifts = qzshiftValues(contrastQzshifts)';
+scalefactors = scalefactorValues(contrastScalefactors)';
+bulkIns = bulkInValues(contrastBulkIns)';
+bulkOuts = bulkOutValues(contrastBulkOuts)';
 
 end

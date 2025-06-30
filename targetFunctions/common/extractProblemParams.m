@@ -3,31 +3,32 @@ contrastResolutionParams, contrastDomainRatios, backgroundParams, resolutionPara
 domainRatios, dataPresent, nParams, params, resample, contrastBackgroundTypes, contrastBackgroundActions, contrastResolutionTypes,...
 contrastCustomFiles, useImaginary, repeatLayers, data, dataLimits, simulationLimits, contrastLayers, layersDetails, customFiles, domainContrastLayers] = extractProblemParams(problemStruct)
 
+resample = problemStruct.resample;
+data = problemStruct.data;
+dataPresent = problemStruct.dataPresent;
+dataLimits = problemStruct.dataLimits;
+simulationLimits = problemStruct.simulationLimits;
 numberOfContrasts = problemStruct.numberOfContrasts;
 geometry = problemStruct.geometry;
+useImaginary = problemStruct.useImaginary;
+repeatLayers = problemStruct.repeatLayers;
 contrastBackgroundParams = problemStruct.contrastBackgroundParams;
 contrastBackgroundTypes = problemStruct.contrastBackgroundTypes;
 contrastBackgroundActions = problemStruct.contrastBackgroundActions;
 contrastResolutionParams = problemStruct.contrastResolutionParams;
 contrastResolutionTypes = problemStruct.contrastResolutionTypes;
 contrastDomainRatios = problemStruct.contrastDomainRatios;
-contrastCustomFiles = problemStruct.contrastCustomFiles;
 backgroundParams = problemStruct.backgroundParams;
 resolutionParams = problemStruct.resolutionParams;
-domainRatios = problemStruct.domainRatios;
-dataPresent = problemStruct.dataPresent;
 nParams = length(problemStruct.params);
 params = problemStruct.params;
-resample = problemStruct.resample;
-useImaginary = problemStruct.useImaginary;
-repeatLayers = problemStruct.repeatLayers;
-data = problemStruct.data;
-dataLimits = problemStruct.dataLimits;
-simulationLimits = problemStruct.simulationLimits;
 contrastLayers = problemStruct.contrastLayers;
-layersDetails = problemStruct.layersDetails;
 customFiles = problemStruct.customFiles;
+contrastCustomFiles = problemStruct.contrastCustomFiles;
+layersDetails = problemStruct.layersDetails;
+domainRatios = problemStruct.domainRatios;
 domainContrastLayers = problemStruct.domainContrastLayers;
+
 
 % qzshifts are not included as a parameter in RAT, so we set up dummy
 % values for the reflectivity calculation

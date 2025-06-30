@@ -7,15 +7,10 @@ function chi2 = chiSquared(shiftedData,reflectivity,nParams)
     eb = shiftedData(:,3);
     fit = reflectivity(:,2);
     
-    N = max(size(y));
-    if N <= nParams
-        N = (nParams + 1);
-    end
+    N = max([size(y), nParams + 1]);
     terms = ((y-fit)./eb).^2;
-    n = find(terms == Inf);
-    if ~isempty(n)
-        terms(n) = 0;
-    end
+    terms(terms==Inf)=0;
+    
     chi2 = sum(terms)/(N-nParams);
 
 end

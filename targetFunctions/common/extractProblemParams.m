@@ -1,44 +1,52 @@
-function [numberOfContrasts, geometry, contrastBackgroundParams, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
-contrastResolutionParams, contrastDomainRatios, backgroundParams, qzshifts, scalefactors, bulkIns, bulkOuts, resolutionParams,...
-domainRatios, dataPresent, nParams, params, numberOfLayers, resample, contrastBackgroundTypes, contrastBackgroundActions, contrastResolutionTypes,...
+function [numberOfContrasts, geometry, contrastBackgroundParams,...
+contrastResolutionParams, contrastDomainRatios, backgroundParams, resolutionParams, qzshifts, scalefactors, bulkIns, bulkOuts,...
+domainRatios, dataPresent, nParams, params, resample, contrastBackgroundTypes, contrastBackgroundActions, contrastResolutionTypes,...
 contrastCustomFiles, useImaginary, repeatLayers, data, dataLimits, simulationLimits, contrastLayers, layersDetails, customFiles, domainContrastLayers] = extractProblemParams(problemStruct)
 
+resample = problemStruct.resample;
+data = problemStruct.data;
+dataPresent = problemStruct.dataPresent;
+dataLimits = problemStruct.dataLimits;
+simulationLimits = problemStruct.simulationLimits;
 numberOfContrasts = problemStruct.numberOfContrasts;
 geometry = problemStruct.geometry;
+useImaginary = problemStruct.useImaginary;
+repeatLayers = problemStruct.repeatLayers;
 contrastBackgroundParams = problemStruct.contrastBackgroundParams;
 contrastBackgroundTypes = problemStruct.contrastBackgroundTypes;
 contrastBackgroundActions = problemStruct.contrastBackgroundActions;
-contrastScalefactors = problemStruct.contrastScalefactors;
-contrastBulkIns = problemStruct.contrastBulkIns;
-contrastBulkOuts = problemStruct.contrastBulkOuts;
 contrastResolutionParams = problemStruct.contrastResolutionParams;
 contrastResolutionTypes = problemStruct.contrastResolutionTypes;
 contrastDomainRatios = problemStruct.contrastDomainRatios;
-contrastCustomFiles = problemStruct.contrastCustomFiles;
 backgroundParams = problemStruct.backgroundParams;
-scalefactors = problemStruct.scalefactors;
-bulkIns = problemStruct.bulkIns;
-bulkOuts = problemStruct.bulkOuts;
 resolutionParams = problemStruct.resolutionParams;
-domainRatios = problemStruct.domainRatios;
-dataPresent = problemStruct.dataPresent;
 nParams = length(problemStruct.params);
 params = problemStruct.params;
-numberOfLayers = problemStruct.numberOfLayers;
-resample = problemStruct.resample;
-useImaginary = problemStruct.useImaginary;
-repeatLayers = problemStruct.repeatLayers;
-data = problemStruct.data;
-dataLimits = problemStruct.dataLimits;
-simulationLimits = problemStruct.simulationLimits;
 contrastLayers = problemStruct.contrastLayers;
-layersDetails = problemStruct.layersDetails;
 customFiles = problemStruct.customFiles;
+contrastCustomFiles = problemStruct.contrastCustomFiles;
+layersDetails = problemStruct.layersDetails;
+domainRatios = problemStruct.domainRatios;
 domainContrastLayers = problemStruct.domainContrastLayers;
+
 
 % qzshifts are not included as a parameter in RAT, so we set up dummy
 % values for the reflectivity calculation
 contrastQzshifts = ones(1,problemStruct.numberOfContrasts);
-qzshifts = 0.0;
+qzshiftValues = 0.0;
+
+contrastScalefactors = problemStruct.contrastScalefactors;
+contrastBulkIns = problemStruct.contrastBulkIns;
+contrastBulkOuts = problemStruct.contrastBulkOuts;
+
+scalefactorValues = problemStruct.scalefactors;
+bulkInValues = problemStruct.bulkIns;
+bulkOutValues = problemStruct.bulkOuts;
+
+% Find the actual values from the indices given in each contrast
+qzshifts = qzshiftValues(contrastQzshifts)';
+scalefactors = scalefactorValues(contrastScalefactors)';
+bulkIns = bulkInValues(contrastBulkIns)';
+bulkOuts = bulkOutValues(contrastBulkOuts)';
 
 end

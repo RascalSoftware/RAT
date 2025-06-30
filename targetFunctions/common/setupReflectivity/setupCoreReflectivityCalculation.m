@@ -5,13 +5,16 @@ function [background,resolution,shiftedData,simulationXData,dataIndices...
     backgroundType,resolutionType,customFiles,numSimulationPoints)
    
     % Apply scale factors and q shifts to the data
-    shiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simulationLimits,numSimulationPoints);
+    fullShiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simulationLimits,numSimulationPoints);
     
-    [simulationXData, dataIndices] = makeSimulationRange(shiftedData, simulationLimits);
+    [simulationXData, dataIndices] = makeSimulationRange(fullShiftedData, simulationLimits);
 
     background = constructBackground(backgroundType,backgroundParamIndex,...
-        shiftedData,customFiles,backgroundParams,simulationXData,dataIndices);
+        fullShiftedData,customFiles,backgroundParams,simulationXData,dataIndices);
     resolution = constructResolution(resolutionType,resolutionParamIndex,...
-        shiftedData,customFiles,resolutionParams,simulationXData,dataIndices);
+        fullShiftedData,customFiles,resolutionParams,simulationXData,dataIndices);
+
+    % Reduce data to original three columns
+    shiftedData = fullShiftedData(:,1:3);
 
 end

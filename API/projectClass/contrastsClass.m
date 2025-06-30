@@ -85,7 +85,7 @@ classdef contrastsClass < baseContrasts
             contrastBackgroundActions = cell(1,nContrasts);
             contrastBulkIns = ones(1,nContrasts);
             contrastBulkOuts = ones(1,nContrasts);
-            contrastDomainRatios = zeros(1,nContrasts);
+            contrastDomainRatios = ones(1,nContrasts);
             contrastScalefactors = ones(1,nContrasts);
             contrastResolutions = ones(1,nContrasts);
             resample = ones(1,nContrasts);
@@ -123,8 +123,6 @@ classdef contrastsClass < baseContrasts
 
                 if isfield(thisContrast, 'domainRatio')
                     contrastDomainRatios(i) = obj.findParameterIndex(thisContrast.domainRatio, allowedNames.domainRatioNames, "domain ratio");
-                else
-                    contrastDomainRatios(i) = -1;
                 end
                 
                 contrastBackgrounds(i) = obj.findParameterIndex(thisContrast.background, allowedNames.backgroundNames, "background");

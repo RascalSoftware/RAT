@@ -27,70 +27,24 @@ function result = reflectivityCalculation(problemStruct,controls)
 %     The results of the calculation.
 
 % Decide which target function we are calling and call the relevant routines
-targetFunction = problemStruct.TF;
-modelType = problemStruct.modelType;
-
-switch targetFunction
+switch problemStruct.TF
+    
     case coderEnums.calculationTypes.Normal      
-           
-        switch lower(modelType)
-
-            case coderEnums.modelTypes.StandardLayers
         
-                [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
-                 simulation,shiftedData,backgrounds,resolutions,sldProfiles,...
-                 layers,resampledLayers,subRoughs...
-                 ] = normalTF.standardLayers(problemStruct,controls);
-        
-            case coderEnums.modelTypes.CustomLayers
-        
-                [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
-                 simulation,shiftedData,backgrounds,resolutions,sldProfiles,...
-                 layers,resampledLayers,subRoughs...
-                 ] = normalTF.customLayers(problemStruct,controls);
-        
-            case coderEnums.modelTypes.CustomXY
-                
-                [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
-                 simulation,shiftedData,backgrounds,resolutions,sldProfiles,...
-                 layers,resampledLayers,subRoughs...
-                 ] = normalTF.customXY(problemStruct,controls);
-
-            otherwise
-                coderException(coderEnums.errorCodes.invalidOption, 'The model type "%s" is not supported', modelType);
-        end
+        [reflectivity,simulation,shiftedData,backgrounds,resolutions,...
+         sldProfiles,layers,resampledLayers,~,scalefactors,bulkIns,...
+         bulkOuts,subRoughs,chis...
+         ] = normalTF.normalReflectivity(problemStruct,controls);
 
     case coderEnums.calculationTypes.Domains
-
-        switch lower(modelType)
-
-            case coderEnums.modelTypes.StandardLayers
-        
-                [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
-                 simulation,shiftedData,backgrounds,resolutions,sldProfiles,...
-                 layers,resampledLayers,subRoughs...
-                 ] = domainsTF.standardLayers(problemStruct,controls);        
-        
-            case coderEnums.modelTypes.CustomLayers
-        
-                [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
-                 simulation,shiftedData,backgrounds,resolutions,sldProfiles,...
-                 layers,resampledLayers,subRoughs...
-                 ] = domainsTF.customLayers(problemStruct,controls);
-        
-            case coderEnums.modelTypes.CustomXY
-        
-                [qzshifts,scalefactors,bulkIns,bulkOuts,chis,reflectivity,...
-                 simulation,shiftedData,backgrounds,resolutions,sldProfiles,...
-                 layers,resampledLayers,subRoughs...
-                 ] = domainsTF.customXY(problemStruct,controls);
-
-            otherwise
-                coderException(coderEnums.errorCodes.invalidOption, 'The model type "%s" is not supported', modelType);
-        end
+     
+        [reflectivity,simulation,shiftedData,backgrounds,resolutions,...
+         sldProfiles,layers,resampledLayers,~,scalefactors,bulkIns,...
+         bulkOuts,subRoughs,chis...
+         ] = domainsTF.domainsReflectivity(problemStruct,controls);
 
     otherwise
-        coderException(coderEnums.errorCodes.invalidOption, 'The calculation type "%s" is not supported', targetFunction);
+        coderException(coderEnums.errorCodes.invalidOption, 'The calculation type "%s" is not supported', problemStruct.TF);
 end
 
 % Make the result struct

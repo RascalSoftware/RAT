@@ -2,8 +2,6 @@
 
 classdef testCommonFunctions < matlab.unittest.TestCase 
     properties
-        backSortInputs;
-        backSortOutputs;
         chiSquaredInputs;
         chiSquaredOutputs;
         shiftDataInputs;
@@ -71,13 +69,6 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             import matlab.unittest.fixtures.PathFixture
             path = fullfile(getappdata(0, 'root'), 'tests', 'testCommonFunctions');
             testCase.applyFixture(PathFixture(path))  
-        end
-
-        function loadBackSort(testCase)
-            inputs = load('backSortInputs.mat');
-            outputs = load('backSortOutputs.mat');
-            testCase.backSortInputs = inputs.inputs;
-            testCase.backSortOutputs = outputs.outputs;
         end
         
         function loadChiSquared(testCase)

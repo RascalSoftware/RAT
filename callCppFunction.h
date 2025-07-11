@@ -21,15 +21,15 @@ namespace RAT
 {
   double b_callCppFunction(const char pointer_data[], const int pointer_size[2],
     const ::coder::array<double, 2U> &varargin_1, double varargin_2, const ::
-    coder::array<double, 2U> &varargin_3, double varargin_4, ::coder::array<
+    coder::array<double, 1U> &varargin_3, double varargin_4, ::coder::array<
     double, 2U> &output);
   double c_callCppFunction(const char pointer_data[], const int pointer_size[2],
     const ::coder::array<double, 2U> &varargin_1, double varargin_2, const ::
-    coder::array<double, 2U> &varargin_3, double varargin_4, ::coder::array<
+    coder::array<double, 1U> &varargin_3, double varargin_4, ::coder::array<
     double, 2U> &output);
   double callCppFunction(const char pointer_data[], const int pointer_size[2],
     const ::coder::array<double, 2U> &varargin_1, double varargin_2, const ::
-    coder::array<double, 2U> &varargin_3, double varargin_4, ::coder::array<
+    coder::array<double, 1U> &varargin_3, double varargin_4, ::coder::array<
     double, 2U> &output);
   void callCppFunction(const char pointer_data[], const int pointer_size[2],
                        const ::coder::array<double, 1U> &varargin_1, const

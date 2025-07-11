@@ -24,7 +24,7 @@ namespace RAT
                     const ::coder::array<double, 2U> &p)
   {
     ProblemDefinition problemStruct;
-    Results expl_temp;
+    b_struct_T expl_temp;
     int loop_ub;
 
     //  Calculate the log-likelihood of a data point during nested sampling.
@@ -45,7 +45,7 @@ namespace RAT
     }
 
     unpackParams(problemStruct);
-    b_reflectivityCalculation(problemStruct, &data_f2, &expl_temp);
+    b_reflectivityCalculation(problemStruct, &data_f2, expl_temp);
     return -0.5 * expl_temp.calculationResults.sumChi;
   }
 }

@@ -33,7 +33,7 @@
 namespace RAT
 {
   static void binary_expand_op(::coder::array<double, 2U> &in1, int in2, const
-    g_struct_T &in3, const ::coder::array<double, 2U> &in4);
+    h_struct_T &in3, const ::coder::array<double, 2U> &in4);
   static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, double in3, const ::coder::array<double, 2U> &in4,
     const ::coder::array<double, 2U> &in5);
@@ -74,7 +74,7 @@ namespace RAT
 namespace RAT
 {
   static void binary_expand_op(::coder::array<double, 2U> &in1, int in2, const
-    g_struct_T &in3, const ::coder::array<double, 2U> &in4)
+    h_struct_T &in3, const ::coder::array<double, 2U> &in4)
   {
     int loop_ub;
     int stride_0_1_tmp;
@@ -955,9 +955,9 @@ namespace RAT
              const int controls_display_size[2], double controls_updateFreq,
              double controls_updatePlotFreq, const char
              controls_IPCFilePath_data[], const int controls_IPCFilePath_size[2],
-             const g_struct_T &S_struct, ::coder::array<double, 2U> &FVr_bestmem)
+             const h_struct_T &S_struct, ::coder::array<double, 2U> &FVr_bestmem)
   {
-    ::coder::array<i_struct_T, 1U> S_val;
+    ::coder::array<j_struct_T, 1U> S_val;
     ::coder::array<double, 2U> FM_bm;
     ::coder::array<double, 2U> FM_origin;
     ::coder::array<double, 2U> FM_pm1;
@@ -982,10 +982,10 @@ namespace RAT
     ::coder::array<boolean_T, 2U> FM_mui;
     ::coder::array<boolean_T, 1U> b_tmp_data;
     ProblemDefinition b_problem;
-    Results a__1;
-    Results a__2;
-    Results a__3;
-    Results result;
+    b_struct_T a__1;
+    b_struct_T a__2;
+    b_struct_T a__3;
+    b_struct_T result;
     double validatedHoleFilling[5];
     double F_CR;
     double I_D;
@@ -1259,7 +1259,7 @@ namespace RAT
         FVr_bestmem[i] = problem.params[i];
       }
     } else {
-      if (coder::internal::db_strcmp(controls_display_data,
+      if (coder::internal::cb_strcmp(controls_display_data,
            controls_display_size)) {
         //  This should ensure the first result is printed.
         coder::internal::validate_print_arguments(0.0, S_bestval_FVr_oa,
@@ -1991,7 +1991,7 @@ namespace RAT
       //  iteration. This is needed for some of the strategies.
       // ----Output section----------------------------------------------------------
       if (((rt_remd_snf(I_iter, 1.0) == 0.0) || (I_iter == 1.0)) && coder::
-          internal::db_strcmp(controls_display_data, controls_display_size) &&
+          internal::cb_strcmp(controls_display_data, controls_display_size) &&
           (rt_remd_snf(I_iter, controls_updateFreq) == 0.0)) {
         coder::internal::validate_print_arguments(I_iter, S_bestval_FVr_oa,
           fWeight, F_CR, I_NP, validatedHoleFilling);
@@ -2047,7 +2047,7 @@ namespace RAT
     }
 
     // ---end while ((I_iter < I_itermax) ...
-    if (coder::internal::db_strcmp(controls_display_data, controls_display_size)
+    if (coder::internal::cb_strcmp(controls_display_data, controls_display_size)
         && (rt_remd_snf(I_iter - 1.0, controls_updateFreq) != 0.0)) {
       //  This should ensure the final result is printed at the end of a run irrespective of update frequency
       coder::internal::validate_print_arguments(I_iter - 1.0, S_bestval_FVr_oa,

@@ -25,7 +25,7 @@ namespace RAT
                       *ratInputs_controls)
   {
     ProblemDefinition problemStruct;
-    Results expl_temp;
+    b_struct_T expl_temp;
     int loop_ub;
 
     //  Calculate the log-likelihood for a set of parameters.
@@ -56,7 +56,7 @@ namespace RAT
     unpackParams(problemStruct);
 
     //  Calculate....
-    b_reflectivityCalculation(problemStruct, ratInputs_controls, &expl_temp);
+    b_reflectivityCalculation(problemStruct, ratInputs_controls, expl_temp);
 
     //  Function value is chi-squared....
     return -0.5 * expl_temp.calculationResults.sumChi;

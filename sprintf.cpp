@@ -36,17 +36,22 @@ namespace RAT
       str.set_size(str.size(0), nbytes);
     }
 
-    void b_sprintf(double varargin_1, double varargin_2, int varargin_3, int
-                   varargin_4, double varargin_5, ::coder::array<char, 2U> &str)
+    void b_sprintf(double varargin_3, ::coder::array<char, 2U> &str)
     {
+      ::coder::array<char, 2U> b_varargin_4;
+      ::coder::array<char, 2U> varargin_4;
       int nbytes;
+      varargin_4.set_size(1, 1);
+      varargin_4[0] = '\x00';
+      b_varargin_4.set_size(1, 1);
+      b_varargin_4[0] = '\x00';
       nbytes = std::snprintf(nullptr, 0,
-        "log(Z): %.5e, tol = %.5e, K = %d, iteration = %d, H = %.5e\n",
-        varargin_1, varargin_2, varargin_3, varargin_4, varargin_5);
+        " %5.0f        %5.0f     %12.6g         %s\n", 0.0, 1.0, varargin_3,
+        &b_varargin_4[0]);
       str.set_size(1, nbytes + 1);
       std::snprintf(&str[0], (size_t)(nbytes + 1),
-                    "log(Z): %.5e, tol = %.5e, K = %d, iteration = %d, H = %.5e\n",
-                    varargin_1, varargin_2, varargin_3, varargin_4, varargin_5);
+                    " %5.0f        %5.0f     %12.6g         %s\n", 0.0, 1.0,
+                    varargin_3, &varargin_4[0]);
       if (nbytes < 1) {
         nbytes = 0;
       }
@@ -71,11 +76,10 @@ namespace RAT
       b_varargin_1_data[varargin_1_size[1]] = '\x00';
       c_varargin_1_data[varargin_1_size[1]] = '\x00';
       nbytes = std::snprintf(nullptr, 0,
-        "\"%s\" does not represent a valid contrast background action.",
-        &c_varargin_1_data[0]);
+        "The model type \"%s\" is not supported", &c_varargin_1_data[0]);
       str.set_size(1, nbytes + 1);
       std::snprintf(&str[0], (size_t)(nbytes + 1),
-                    "\"%s\" does not represent a valid contrast background action.",
+                    "The model type \"%s\" is not supported",
                     &b_varargin_1_data[0]);
       if (nbytes < 1) {
         nbytes = 0;
@@ -100,6 +104,24 @@ namespace RAT
       nbytes = std::snprintf(nullptr, 0, "\'%s\'\n", &c_varargin_1[0]);
       str.set_size(1, nbytes + 1);
       std::snprintf(&str[0], (size_t)(nbytes + 1), "\'%s\'\n", &b_varargin_1[0]);
+      if (nbytes < 1) {
+        nbytes = 0;
+      }
+
+      str.set_size(str.size(0), nbytes);
+    }
+
+    void b_sprintf(double varargin_1, double varargin_2, int varargin_3, int
+                   varargin_4, double varargin_5, ::coder::array<char, 2U> &str)
+    {
+      int nbytes;
+      nbytes = std::snprintf(nullptr, 0,
+        "log(Z): %.5e, tol = %.5e, K = %d, iteration = %d, H = %.5e\n",
+        varargin_1, varargin_2, varargin_3, varargin_4, varargin_5);
+      str.set_size(1, nbytes + 1);
+      std::snprintf(&str[0], (size_t)(nbytes + 1),
+                    "log(Z): %.5e, tol = %.5e, K = %d, iteration = %d, H = %.5e\n",
+                    varargin_1, varargin_2, varargin_3, varargin_4, varargin_5);
       if (nbytes < 1) {
         nbytes = 0;
       }
@@ -219,29 +241,6 @@ namespace RAT
       str.set_size(str.size(0), nbytes);
     }
 
-    void b_sprintf(double varargin_3, ::coder::array<char, 2U> &str)
-    {
-      ::coder::array<char, 2U> b_varargin_4;
-      ::coder::array<char, 2U> varargin_4;
-      int nbytes;
-      varargin_4.set_size(1, 1);
-      varargin_4[0] = '\x00';
-      b_varargin_4.set_size(1, 1);
-      b_varargin_4[0] = '\x00';
-      nbytes = std::snprintf(nullptr, 0,
-        " %5.0f        %5.0f     %12.6g         %s\n", 0.0, 1.0, varargin_3,
-        &b_varargin_4[0]);
-      str.set_size(1, nbytes + 1);
-      std::snprintf(&str[0], (size_t)(nbytes + 1),
-                    " %5.0f        %5.0f     %12.6g         %s\n", 0.0, 1.0,
-                    varargin_3, &varargin_4[0]);
-      if (nbytes < 1) {
-        nbytes = 0;
-      }
-
-      str.set_size(str.size(0), nbytes);
-    }
-
     void c_snPrint(double varargin_1, ::coder::array<char, 2U> &str)
     {
       int nbytes;
@@ -272,10 +271,11 @@ namespace RAT
       b_varargin_1_data[varargin_1_size[1]] = '\x00';
       c_varargin_1_data[varargin_1_size[1]] = '\x00';
       nbytes = std::snprintf(nullptr, 0,
-        "The model type \"%s\" is not supported", &c_varargin_1_data[0]);
+        "\"%s\" does not represent a valid contrast background action.",
+        &c_varargin_1_data[0]);
       str.set_size(1, nbytes + 1);
       std::snprintf(&str[0], (size_t)(nbytes + 1),
-                    "The model type \"%s\" is not supported",
+                    "\"%s\" does not represent a valid contrast background action.",
                     &b_varargin_1_data[0]);
       if (nbytes < 1) {
         nbytes = 0;
@@ -371,6 +371,22 @@ namespace RAT
       str.set_size(str.size(0), nbytes);
     }
 
+    void snPrint(double varargin_1, double varargin_2, ::coder::array<char, 2U>
+                 &str)
+    {
+      int nbytes;
+      nbytes = std::snprintf(nullptr, 0, "[%gx%g %s]\n", varargin_1, varargin_2,
+        "double");
+      str.set_size(1, nbytes + 1);
+      std::snprintf(&str[0], (size_t)(nbytes + 1), "[%gx%g %s]\n", varargin_1,
+                    varargin_2, "double");
+      if (nbytes < 1) {
+        nbytes = 0;
+      }
+
+      str.set_size(str.size(0), nbytes);
+    }
+
     void snPrint(const ::coder::array<char, 2U> &varargin_1, const ::coder::
                  array<char, 2U> &varargin_2, ::coder::array<char, 2U> &str)
     {
@@ -409,22 +425,6 @@ namespace RAT
       std::snprintf(&str[0], (size_t)(nbytes + 1),
                     "The procedure \"%s\" is not supported. The procedure must be one of \"%s\"",
                     &b_varargin_1[0], &b_varargin_2[0]);
-      if (nbytes < 1) {
-        nbytes = 0;
-      }
-
-      str.set_size(str.size(0), nbytes);
-    }
-
-    void snPrint(double varargin_1, double varargin_2, ::coder::array<char, 2U>
-                 &str)
-    {
-      int nbytes;
-      nbytes = std::snprintf(nullptr, 0, "[%gx%g %s]\n", varargin_1, varargin_2,
-        "double");
-      str.set_size(1, nbytes + 1);
-      std::snprintf(&str[0], (size_t)(nbytes + 1), "[%gx%g %s]\n", varargin_1,
-                    varargin_2, "double");
       if (nbytes < 1) {
         nbytes = 0;
       }

@@ -24,38 +24,27 @@ namespace RAT
 {
   namespace normalTF
   {
-    void b_processCustomFunction(const ::coder::array<double, 2U>
-      &contrastBulkIns, const ::coder::array<double, 2U> &contrastBulkOuts,
-      const ::coder::array<double, 2U> &bulkInValues, const ::coder::array<
-      double, 2U> &bulkOutValues, const ::coder::array<double, 2U>
-      &contrastCustomFiles, double numberOfContrasts, const ::coder::array<
+    void b_processCustomFunction(const ::coder::array<double, 1U> &bulkIns,
+      const ::coder::array<double, 1U> &bulkOuts, const ::coder::array<double,
+      2U> &contrastCustomFiles, double numberOfContrasts, const ::coder::array<
       cell_wrap_10, 2U> &customFiles, const ::coder::array<double, 2U>
       &paramValues, boolean_T useImaginary, ::coder::array<cell_wrap_9, 1U>
       &outputs, ::coder::array<double, 1U> &subRoughs)
     {
       ::coder::array<double, 2U> b_output;
-      ::coder::array<double, 2U> bulkOuts;
       ::coder::array<double, 2U> c_output;
       ::coder::array<double, 2U> output;
       int i;
-      int i1;
-      int loop_ub;
 
-      //  Top-level function for processing custom layers for all the
-      //  contrasts.
+      //  Top-level function for processing custom layers for all the contrasts
       i = static_cast<int>(numberOfContrasts);
       subRoughs.set_size(i);
-      bulkOuts.set_size(1, contrastBulkOuts.size(1));
-      loop_ub = contrastBulkOuts.size(1);
-      for (i1 = 0; i1 < loop_ub; i1++) {
-        bulkOuts[i1] = bulkOutValues[static_cast<int>(contrastBulkOuts[i1]) - 1];
-      }
-
       outputs.set_size(i);
       for (int b_i{0}; b_i < i; b_i++) {
         creal_T x;
         double d;
         int iv[2];
+        int i1;
 
         //  TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..
         //  Choose which custom file is associated with this contrast
@@ -89,14 +78,15 @@ namespace RAT
                     static_cast<int>(d) - 1].f1)->size())[1];
           subRoughs[b_i] = callCppFunction((const char *)((::coder::array<char,
             2U> *)&customFiles[static_cast<int>(d) - 1].f1)->data(), iv,
-            paramValues, bulkInValues[static_cast<int>(contrastBulkIns[b_i]) - 1],
-            bulkOuts, (static_cast<double>(b_i) + 1.0) - 1.0, output);
+            paramValues, bulkIns[b_i], bulkOuts, (static_cast<double>(b_i) + 1.0)
+            - 1.0, output);
         }
 
         //  If SLD is real, add dummy imaginary column
         if (!useImaginary) {
           int b_loop_ub;
           int i2;
+          int loop_ub;
           int result;
           signed char b_input_sizes_idx_1;
           signed char input_sizes_idx_1;
@@ -182,6 +172,7 @@ namespace RAT
             }
           }
         } else {
+          int loop_ub;
           loop_ub = output.size(1);
           outputs[b_i].f1.set_size(output.size(0), output.size(1));
           for (i1 = 0; i1 < loop_ub; i1++) {
@@ -196,38 +187,27 @@ namespace RAT
       }
     }
 
-    void processCustomFunction(const ::coder::array<double, 2U> &contrastBulkIns,
-      const ::coder::array<double, 2U> &contrastBulkOuts, const ::coder::array<
-      double, 2U> &bulkInValues, const ::coder::array<double, 2U> &bulkOutValues,
-      const ::coder::array<double, 2U> &contrastCustomFiles, double
-      numberOfContrasts, const ::coder::array<cell_wrap_10, 2U> &customFiles,
-      const ::coder::array<double, 2U> &paramValues, boolean_T useImaginary, ::
-      coder::array<cell_wrap_9, 1U> &outputs, ::coder::array<double, 1U>
-      &subRoughs)
+    void processCustomFunction(const ::coder::array<double, 1U> &bulkIns, const ::
+      coder::array<double, 1U> &bulkOuts, const ::coder::array<double, 2U>
+      &contrastCustomFiles, double numberOfContrasts, const ::coder::array<
+      cell_wrap_10, 2U> &customFiles, const ::coder::array<double, 2U>
+      &paramValues, boolean_T useImaginary, ::coder::array<cell_wrap_9, 1U>
+      &outputs, ::coder::array<double, 1U> &subRoughs)
     {
       ::coder::array<double, 2U> b_output;
-      ::coder::array<double, 2U> bulkOuts;
       ::coder::array<double, 2U> c_output;
       ::coder::array<double, 2U> output;
       int i;
-      int i1;
-      int loop_ub;
 
-      //  Top-level function for processing custom layers for all the
-      //  contrasts.
+      //  Top-level function for processing custom layers for all the contrasts
       i = static_cast<int>(numberOfContrasts);
       subRoughs.set_size(i);
-      bulkOuts.set_size(1, contrastBulkOuts.size(1));
-      loop_ub = contrastBulkOuts.size(1);
-      for (i1 = 0; i1 < loop_ub; i1++) {
-        bulkOuts[i1] = bulkOutValues[static_cast<int>(contrastBulkOuts[i1]) - 1];
-      }
-
       outputs.set_size(i);
       for (int b_i{0}; b_i < i; b_i++) {
         creal_T x;
         double d;
         int iv[2];
+        int i1;
 
         //  TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..
         //  Choose which custom file is associated with this contrast
@@ -261,14 +241,15 @@ namespace RAT
                     static_cast<int>(d) - 1].f1)->size())[1];
           subRoughs[b_i] = callCppFunction((const char *)((::coder::array<char,
             2U> *)&customFiles[static_cast<int>(d) - 1].f1)->data(), iv,
-            paramValues, bulkInValues[static_cast<int>(contrastBulkIns[b_i]) - 1],
-            bulkOuts, (static_cast<double>(b_i) + 1.0) - 1.0, output);
+            paramValues, bulkIns[b_i], bulkOuts, (static_cast<double>(b_i) + 1.0)
+            - 1.0, output);
         }
 
         //  If SLD is real, add dummy imaginary column
         if (!useImaginary) {
           int b_loop_ub;
           int i2;
+          int loop_ub;
           int result;
           signed char b_input_sizes_idx_1;
           signed char input_sizes_idx_1;
@@ -354,6 +335,7 @@ namespace RAT
             }
           }
         } else {
+          int loop_ub;
           loop_ub = output.size(1);
           outputs[b_i].f1.set_size(output.size(0), output.size(1));
           for (i1 = 0; i1 < loop_ub; i1++) {

@@ -21,6 +21,7 @@
 namespace RAT
 {
   struct ProblemDefinition;
+  struct b_struct_T;
 }
 
 // Function Declarations
@@ -37,7 +38,7 @@ namespace RAT
                        [2], double controls_nLive, double controls_nMCMC, double
                        controls_nsTolerance, const char
                        controls_IPCFilePath_data[], const int
-                       controls_IPCFilePath_size[2], Results *result, ::coder::
+                       controls_IPCFilePath_size[2], b_struct_T &result, ::coder::
                        array<cell_wrap_11, 1U>
                        &bayesResults_predictionIntervals_reflectivity, ::coder::
                        array<cell_wrap_11, 2U>

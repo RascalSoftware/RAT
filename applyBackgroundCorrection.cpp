@@ -131,8 +131,7 @@ namespace RAT
   void applyBackgroundCorrection(::coder::array<double, 2U> &reflectivity, ::
     coder::array<double, 2U> &simulation, ::coder::array<double, 2U>
     &shiftedData, const ::coder::array<double, 2U> &background, const char
-    backgroundAction_data[], const int backgroundAction_size[2], ::coder::array<
-    double, 2U> &outputData)
+    backgroundAction_data[], const int backgroundAction_size[2])
   {
     ::coder::array<double, 1U> b_reflectivity;
     ::coder::array<double, 1U> r1;
@@ -184,10 +183,10 @@ namespace RAT
       i3 = highXVals[highXVals.size(0) - 1];
     }
 
-    if (coder::internal::t_strcmp(backgroundAction_data, backgroundAction_size))
+    if (coder::internal::s_strcmp(backgroundAction_data, backgroundAction_size))
     {
       k = 0;
-    } else if (coder::internal::u_strcmp(backgroundAction_data,
+    } else if (coder::internal::t_strcmp(backgroundAction_data,
                 backgroundAction_size)) {
       k = 1;
     } else {
@@ -237,8 +236,8 @@ namespace RAT
         //  Subtract the background data from the shiftedData
         i4 = i - i1;
         if (shiftedData.size(0) == i4) {
-          b_reflectivity.set_size(shiftedData.size(0));
           k = shiftedData.size(0);
+          b_reflectivity.set_size(k);
           for (i = 0; i < k; i++) {
             b_reflectivity[i] = shiftedData[i + shiftedData.size(0)] -
               background[(i1 + i) + background.size(0)];
@@ -286,19 +285,9 @@ namespace RAT
       //
       //  coderException(coderEnums.errorCodes.invalidOption, 'The model type is not supported')
       //  coderException(coderEnums.errorCodes.invalidOption, 'The model type "%s" is not supported', modelType)
-      coder::b_sprintf(backgroundAction_data, backgroundAction_size, r);
+      coder::c_sprintf(backgroundAction_data, backgroundAction_size, r);
       coderException(1.0, &r[0]);
       break;
-    }
-
-    //  Reduce data to original three columns
-    outputData.set_size(shiftedData.size(0), 3);
-    k = shiftedData.size(0);
-    for (i = 0; i < 3; i++) {
-      for (i1 = 0; i1 < k; i1++) {
-        outputData[i1 + outputData.size(0) * i] = shiftedData[i1 +
-          shiftedData.size(0) * i];
-      }
     }
   }
 }

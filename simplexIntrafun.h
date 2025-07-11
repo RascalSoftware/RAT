@@ -20,7 +20,7 @@
 namespace RAT
 {
   struct ProblemDefinition;
-  struct Results;
+  struct b_struct_T;
 }
 
 // Function Declarations
@@ -32,7 +32,7 @@ namespace RAT
     controls_numSimulationPoints, double controls_resampleMinAngle, double
     controls_resampleNPoints, const ::coder::array<double, 1U> &params_LB, const
     ::coder::array<double, 1U> &params_UB, const ::coder::array<double, 1U>
-    &params_BoundClass, Results &result);
+    &params_BoundClass, b_struct_T &result);
 }
 
 #endif

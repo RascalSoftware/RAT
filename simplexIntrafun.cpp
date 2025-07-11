@@ -29,10 +29,10 @@ namespace RAT
     controls_numSimulationPoints, double controls_resampleMinAngle, double
     controls_resampleNPoints, const ::coder::array<double, 1U> &params_LB, const
     ::coder::array<double, 1U> &params_UB, const ::coder::array<double, 1U>
-    &params_BoundClass, Results &result)
+    &params_BoundClass, b_struct_T &result)
   {
-    static Controls expl_temp;
     ::coder::array<double, 1U> xtrans;
+    Controls expl_temp;
     int loop_ub;
 
     //  Produce a chi-squared fit value at a point for a given problem and controls.
@@ -79,7 +79,7 @@ namespace RAT
                 &expl_temp.parallel.data[0]);
     }
 
-    b_reflectivityCalculation(problemStruct, &expl_temp, &result);
+    b_reflectivityCalculation(problemStruct, &expl_temp, result);
     return result.calculationResults.sumChi;
   }
 }

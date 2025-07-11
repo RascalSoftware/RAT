@@ -20,8 +20,8 @@
 namespace RAT
 {
   void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::array<
-                        double, 2U> &in2, const ::coder::array<double, 2U> &in3,
-                        double in4, const ::coder::array<double, 2U> &in5);
+                        double, 2U> &in2, double in3, const ::coder::array<
+                        double, 2U> &in4);
 }
 
 #endif

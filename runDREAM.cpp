@@ -29,8 +29,8 @@
 namespace RAT
 {
   void runDREAM(const ProblemDefinition &problemStruct, const Controls *controls,
-                Results *result, b_struct_T &bayesResults, ProblemDefinition &
-                outProblemStruct)
+                b_struct_T &result, c_struct_T &bayesResults, ProblemDefinition
+                &outProblemStruct)
   {
     static Controls b_controls;
     ::coder::array<cell_wrap_10, 1U> fitNames;
@@ -41,8 +41,8 @@ namespace RAT
     ::coder::array<double, 2U> c_bayesResults;
     ::coder::array<double, 2U> r;
     ::coder::array<double, 2U> r1;
-    d_struct_T dreamResults;
-    e_struct_T dreamOutput;
+    e_struct_T dreamResults;
+    f_struct_T dreamOutput;
     int b_loop_ub;
     int i;
     int i1;

@@ -259,8 +259,8 @@ namespace RAT
                     varargin_2_resampleNPoints, double varargin_2_updateFreq,
                     double varargin_2_updatePlotFreq, const char
                     varargin_2_IPCFilePath_data[], const int
-                    varargin_2_IPCFilePath_size[2], const h_struct_T &varargin_3,
-                    f_struct_T &output, double &exitflag)
+                    varargin_2_IPCFilePath_size[2], const i_struct_T &varargin_3,
+                    g_struct_T &output, double &exitflag)
   {
     static const char cv6[35]{ 'E', 'x', 'i', 't', 'i', 'n', 'g', ':', ' ', 'M',
       'a', 'x', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'e', 'v', 'a',
@@ -315,7 +315,7 @@ namespace RAT
     ::coder::array<boolean_T, 1U> b_tmp_data;
     ::coder::array<boolean_T, 1U> c_tmp_data;
     ProblemDefinition b_varargin_1;
-    Results result;
+    b_struct_T result;
     double b_fv;
     double func_evals;
     double fval;
@@ -911,7 +911,7 @@ namespace RAT
                 }
               }
 
-              if (coder::internal::bb_strcmp(how_data, how_size)) {
+              if (coder::internal::ab_strcmp(how_data, how_size)) {
                 for (int j{0}; j < n; j++) {
                   d_v.set_size(v.size(0));
                   x_idx_1_tmp = v.size(0);

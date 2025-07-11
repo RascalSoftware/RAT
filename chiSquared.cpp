@@ -10,7 +10,6 @@
 
 // Include files
 #include "chiSquared.h"
-#include "find.h"
 #include "minOrMax.h"
 #include "rt_nonfinite.h"
 #include "sum.h"
@@ -24,34 +23,22 @@ namespace RAT
                     array<double, 2U> &reflectivity, double nParams)
   {
     ::coder::array<double, 1U> terms;
-    ::coder::array<int, 1U> n;
-    ::coder::array<boolean_T, 1U> b_terms;
-    double b_shiftedData[2];
-    double N;
-    int i;
     int loop_ub;
 
     //  Chi-squared function is used to evaluate the goodness of fit.
     //  It is a measure of the difference between the observed and expected
     //  reflectivity.
-    b_shiftedData[0] = shiftedData.size(0);
-    b_shiftedData[1] = 1.0;
-    N = coder::internal::maximum(b_shiftedData);
-    if (N <= nParams) {
-      N = nParams + 1.0;
-    }
-
     if (shiftedData.size(0) == 1) {
-      i = reflectivity.size(0);
+      loop_ub = reflectivity.size(0);
     } else {
-      i = shiftedData.size(0);
+      loop_ub = shiftedData.size(0);
     }
 
-    if ((shiftedData.size(0) == reflectivity.size(0)) && (i == shiftedData.size
-         (0))) {
+    if ((shiftedData.size(0) == reflectivity.size(0)) && (loop_ub ==
+         shiftedData.size(0))) {
       terms.set_size(shiftedData.size(0));
       loop_ub = shiftedData.size(0);
-      for (i = 0; i < loop_ub; i++) {
+      for (int i{0}; i < loop_ub; i++) {
         double varargin_1;
         varargin_1 = (shiftedData[i + shiftedData.size(0)] - reflectivity[i +
                       reflectivity.size(0)]) / shiftedData[i + shiftedData.size
@@ -62,21 +49,19 @@ namespace RAT
       binary_expand_op(terms, shiftedData, reflectivity);
     }
 
-    b_terms.set_size(terms.size(0));
-    loop_ub = terms.size(0);
-    for (i = 0; i < loop_ub; i++) {
-      b_terms[i] = (terms[i] == rtInf);
-    }
-
-    coder::eml_find(b_terms, n);
-    if (n.size(0) != 0) {
-      loop_ub = n.size(0);
-      for (i = 0; i < loop_ub; i++) {
-        terms[n[i] - 1] = 0.0;
+    loop_ub = terms.size(0) - 1;
+    for (int i{0}; i <= loop_ub; i++) {
+      if (terms[i] == rtInf) {
+        terms[i] = 0.0;
       }
     }
 
-    return coder::sum(terms) / (N - nParams);
+    double b_shiftedData[3];
+    b_shiftedData[0] = shiftedData.size(0);
+    b_shiftedData[1] = 1.0;
+    b_shiftedData[2] = nParams + 1.0;
+    return coder::sum(terms) / (coder::internal::maximum(b_shiftedData) -
+      nParams);
   }
 }
 

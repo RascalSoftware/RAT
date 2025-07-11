@@ -25,15 +25,15 @@ namespace RAT
 {
   double b_callCppFunction(const char pointer_data[], const int pointer_size[2],
     const ::coder::array<double, 2U> &varargin_1, double varargin_2, const ::
-    coder::array<double, 2U> &varargin_3, double varargin_4, ::coder::array<
+    coder::array<double, 1U> &varargin_3, double varargin_4, ::coder::array<
     double, 2U> &output)
   {
     CallbackInterface * callback;
     ClassHandle<CallbackInterface> * callbackHandle;
     std::vector<double> outArray;
-    ::coder::array<double, 2U> bulkOut;
     ::coder::array<double, 2U> params;
     ::coder::array<double, 2U> tempOutput;
+    ::coder::array<double, 1U> bulkOut;
     ::coder::array<char, 2U> charStr;
     double outputSize[2];
     double actualSize;
@@ -66,8 +66,8 @@ namespace RAT
     }
 
     bulkIn = varargin_2;
-    bulkOut.set_size(1, varargin_3.size(1));
-    loop_ub = varargin_3.size(1);
+    bulkOut.set_size(varargin_3.size(0));
+    loop_ub = varargin_3.size(0);
     for (i = 0; i < loop_ub; i++) {
       bulkOut[i] = varargin_3[i];
     }
@@ -78,8 +78,8 @@ namespace RAT
     paramsArray = convertPtr2Vector(&params[0], static_cast<double>
       (varargin_1.size(1)));
     bulkInArray = convertPtr2Vector(&bulkIn, 1.0);
-    bulkOutArray = convertPtr2Vector(&bulkOut[0], static_cast<double>
-      (varargin_3.size(1)));
+    bulkOutArray = convertPtr2Vector(&(bulkOut.data())[0], static_cast<double>
+      (varargin_3.size(0)));
 
     //  domain should either before 0 or 1. A value less than zero indicates no domains
     std::mem_fn<void(std::vector<double>&, std::vector<double>&, std::vector<
@@ -137,15 +137,15 @@ namespace RAT
 
   double c_callCppFunction(const char pointer_data[], const int pointer_size[2],
     const ::coder::array<double, 2U> &varargin_1, double varargin_2, const ::
-    coder::array<double, 2U> &varargin_3, double varargin_4, ::coder::array<
+    coder::array<double, 1U> &varargin_3, double varargin_4, ::coder::array<
     double, 2U> &output)
   {
     CallbackInterface * callback;
     ClassHandle<CallbackInterface> * callbackHandle;
     std::vector<double> outArray;
-    ::coder::array<double, 2U> bulkOut;
     ::coder::array<double, 2U> params;
     ::coder::array<double, 2U> tempOutput;
+    ::coder::array<double, 1U> bulkOut;
     ::coder::array<char, 2U> charStr;
     double outputSize[2];
     double actualSize;
@@ -178,8 +178,8 @@ namespace RAT
     }
 
     bulkIn = varargin_2;
-    bulkOut.set_size(1, varargin_3.size(1));
-    loop_ub = varargin_3.size(1);
+    bulkOut.set_size(varargin_3.size(0));
+    loop_ub = varargin_3.size(0);
     for (i = 0; i < loop_ub; i++) {
       bulkOut[i] = varargin_3[i];
     }
@@ -190,8 +190,8 @@ namespace RAT
     paramsArray = convertPtr2Vector(&params[0], static_cast<double>
       (varargin_1.size(1)));
     bulkInArray = convertPtr2Vector(&bulkIn, 1.0);
-    bulkOutArray = convertPtr2Vector(&bulkOut[0], static_cast<double>
-      (varargin_3.size(1)));
+    bulkOutArray = convertPtr2Vector(&(bulkOut.data())[0], static_cast<double>
+      (varargin_3.size(0)));
 
     //  domain should either before 0 or 1. A value less than zero indicates no domains
     std::mem_fn<void(std::vector<double>&, std::vector<double>&, std::vector<
@@ -249,15 +249,15 @@ namespace RAT
 
   double callCppFunction(const char pointer_data[], const int pointer_size[2],
     const ::coder::array<double, 2U> &varargin_1, double varargin_2, const ::
-    coder::array<double, 2U> &varargin_3, double varargin_4, ::coder::array<
+    coder::array<double, 1U> &varargin_3, double varargin_4, ::coder::array<
     double, 2U> &output)
   {
     CallbackInterface * callback;
     ClassHandle<CallbackInterface> * callbackHandle;
     std::vector<double> outArray;
-    ::coder::array<double, 2U> bulkOut;
     ::coder::array<double, 2U> params;
     ::coder::array<double, 2U> tempOutput;
+    ::coder::array<double, 1U> bulkOut;
     ::coder::array<char, 2U> charStr;
     double outputSize[2];
     double actualSize;
@@ -290,8 +290,8 @@ namespace RAT
     }
 
     bulkIn = varargin_2;
-    bulkOut.set_size(1, varargin_3.size(1));
-    loop_ub = varargin_3.size(1);
+    bulkOut.set_size(varargin_3.size(0));
+    loop_ub = varargin_3.size(0);
     for (i = 0; i < loop_ub; i++) {
       bulkOut[i] = varargin_3[i];
     }
@@ -302,8 +302,8 @@ namespace RAT
     paramsArray = convertPtr2Vector(&params[0], static_cast<double>
       (varargin_1.size(1)));
     bulkInArray = convertPtr2Vector(&bulkIn, 1.0);
-    bulkOutArray = convertPtr2Vector(&bulkOut[0], static_cast<double>
-      (varargin_3.size(1)));
+    bulkOutArray = convertPtr2Vector(&(bulkOut.data())[0], static_cast<double>
+      (varargin_3.size(0)));
 
     //  domain should either before 0 or 1. A value less than zero indicates no domains
     std::mem_fn<void(std::vector<double>&, std::vector<double>&, std::vector<

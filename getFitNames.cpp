@@ -40,8 +40,8 @@ namespace RAT
                    double, 2U> &problemStruct_checks_domainRatios, ::coder::
                    array<cell_wrap_10, 1U> &fitNames)
   {
-    static int fitIndices_data[10000];
     double fitCounter;
+    int fitIndices_data[10000];
     int fitIndices_size[2];
     int i;
     int loop_ub;

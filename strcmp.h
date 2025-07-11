@@ -36,18 +36,17 @@ namespace RAT
       boolean_T d_strcmp(const char a_data[], const int a_size[2]);
       boolean_T d_strcmp(const char a_data[], const int a_size[2], const char b
                          [3]);
-      boolean_T db_strcmp(const char a_data[], const int a_size[2]);
+      int db_strcmp(const cell_wrap_10 &a, const ::coder::array<cell_wrap_10, 1U>
+                    &b, boolean_T bool_data[]);
       boolean_T e_strcmp(const char a_data[], const int a_size[2]);
       boolean_T e_strcmp(const char a_data[], const int a_size[2], const char b
                          [5]);
-      int eb_strcmp(const cell_wrap_10 &a, const ::coder::array<cell_wrap_10, 1U>
-                    &b, boolean_T bool_data[]);
+      boolean_T eb_strcmp(const char a_data[], const int a_size[2]);
       boolean_T f_strcmp(const char a_data[], const int a_size[2]);
       boolean_T fb_strcmp(const char a_data[], const int a_size[2]);
       boolean_T g_strcmp(const char a_data[], const int a_size[2]);
       boolean_T gb_strcmp(const char a_data[], const int a_size[2]);
       boolean_T h_strcmp(const char a_data[], const int a_size[2]);
-      boolean_T hb_strcmp(const char a_data[], const int a_size[2]);
       boolean_T i_strcmp(const char a_data[], const int a_size[2]);
       boolean_T j_strcmp(const char a_data[], const int a_size[2]);
       boolean_T k_strcmp(const char a_data[], const int a_size[2]);
@@ -61,8 +60,7 @@ namespace RAT
       boolean_T s_strcmp(const char a_data[], const int a_size[2]);
       boolean_T t_strcmp(const char a_data[], const int a_size[2]);
       boolean_T u_strcmp(const char a_data[], const int a_size[2]);
-      void v_strcmp(const ::coder::array<cell_wrap_10, 2U> &a, boolean_T
-                    bool_data[], int bool_size[2]);
+      boolean_T v_strcmp(const char a_data[], const int a_size[2]);
       boolean_T w_strcmp(const char a_data[], const int a_size[2]);
       boolean_T x_strcmp(const char a_data[], const int a_size[2]);
       boolean_T y_strcmp(const char a_data[], const int a_size[2]);

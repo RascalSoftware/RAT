@@ -20,16 +20,16 @@ namespace RAT
 {
   struct ProblemDefinition;
   struct Controls;
-  struct Results;
+  struct b_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
   void b_reflectivityCalculation(const ProblemDefinition &problemStruct, const
-    Controls *controls, Results *result);
+    Controls *controls, b_struct_T &result);
   void reflectivityCalculation(const ProblemDefinition &problemStruct, const
-    Controls *controls, Results *result);
+    Controls *controls, b_struct_T &result);
 }
 
 #endif

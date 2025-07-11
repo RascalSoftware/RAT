@@ -108,27 +108,23 @@ namespace RAT
     CheckFlags checks;
   };
 
-  struct cell_wrap_62
-  {
-    cell_wrap_7 f1[2];
-  };
-
-  struct cell_wrap_63
-  {
-    cell_wrap_9 f1[2];
-  };
-
-  struct cell_wrap_64
-  {
-    ::coder::array<double, 2U> f1;
-  };
-
-  struct cell_wrap_65
-  {
-    cell_wrap_64 f1[2];
-  };
-
   struct b_struct_T
+  {
+    ::coder::array<cell_wrap_7, 1U> reflectivity;
+    ::coder::array<cell_wrap_7, 1U> simulation;
+    ::coder::array<cell_wrap_8, 1U> shiftedData;
+    ::coder::array<cell_wrap_8, 1U> backgrounds;
+    ::coder::array<cell_wrap_7, 1U> resolutions;
+    ::coder::array<cell_wrap_7, 2U> sldProfiles;
+    ::coder::array<cell_wrap_9, 2U> layers;
+    ::coder::array<cell_wrap_9, 2U> resampledLayers;
+    CalculationResults calculationResults;
+    ContrastParams contrastParams;
+    ::coder::array<double, 2U> fitParams;
+    ::coder::array<cell_wrap_10, 1U> fitNames;
+  };
+
+  struct c_struct_T
   {
     PredictionIntervals predictionIntervals;
     ConfidenceIntervals confidenceIntervals;
@@ -138,20 +134,20 @@ namespace RAT
     ::coder::array<double, 2U> chain;
   };
 
-  struct c_struct_T
+  struct d_struct_T
   {
     ::coder::array<cell_wrap_11, 1U> reflectivity;
     ::coder::array<cell_wrap_11, 2U> sld;
     double sampleChi[1000];
   };
 
-  struct d_struct_T
+  struct e_struct_T
   {
-    c_struct_T predictionIntervals;
+    d_struct_T predictionIntervals;
     ConfidenceIntervals confidenceIntervals;
   };
 
-  struct e_struct_T
+  struct f_struct_T
   {
     ::coder::bounded_array<double, 2000U, 2U> outlierChains;
     double runtime;
@@ -164,7 +160,7 @@ namespace RAT
     ::coder::array<double, 2U> CR;
   };
 
-  struct f_struct_T
+  struct g_struct_T
   {
     double iterations;
     double funcCount;
@@ -172,7 +168,7 @@ namespace RAT
     ::coder::array<char, 2U> message;
   };
 
-  struct g_struct_T
+  struct h_struct_T
   {
     double I_lentol;
     double FVr_x[50];
@@ -194,19 +190,19 @@ namespace RAT
     ::coder::array<double, 2U> FVr_bestmem;
   };
 
-  struct cell_54
+  struct cell_52
   {
     ::coder::array<double, 2U> f1;
   };
 
-  struct h_struct_T
+  struct i_struct_T
   {
     ::coder::array<double, 1U> LB;
     ::coder::array<double, 1U> UB;
     ::coder::array<double, 1U> BoundClass;
   };
 
-  struct i_struct_T
+  struct j_struct_T
   {
     double I_no;
     double FVr_oa;

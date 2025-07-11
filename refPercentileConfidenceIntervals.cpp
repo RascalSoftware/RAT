@@ -34,7 +34,7 @@ namespace RAT
     controls_parallel_data[], const int controls_parallel_size[2], double
     controls_numSimulationPoints, double controls_resampleMinAngle, double
     controls_resampleNPoints, const ::coder::array<cell_wrap_7, 1U>
-    &results_reflectivity, const ::coder::array<cell_wrap_9, 2U>
+    &results_reflectivity, const ::coder::array<cell_wrap_7, 2U>
     &results_sldProfiles, ::coder::array<cell_wrap_11, 1U>
     &allPredInts_reflectivity, ::coder::array<cell_wrap_11, 2U> &allPredInts_sld,
     double allPredInts_sampleChi[1000])
@@ -52,7 +52,7 @@ namespace RAT
     ::coder::array<double, 2U> sldArray2;
     ::coder::array<double, 1U> c_expl_temp;
     ::coder::array<double, 1U> d_expl_temp;
-    Results b_expl_temp;
+    b_struct_T b_expl_temp;
     double a[1000];
     double isample[1000];
     double thisCol_data[1000];
@@ -237,7 +237,7 @@ namespace RAT
                   &expl_temp.parallel.data[0]);
       }
 
-      b_reflectivityCalculation(problemStruct, &expl_temp, &b_expl_temp);
+      b_reflectivityCalculation(problemStruct, &expl_temp, b_expl_temp);
       allPredInts_sampleChi[b_i] = b_expl_temp.calculationResults.sumChi;
       for (int n{0}; n < i; n++) {
         k = b_expl_temp.reflectivity[n].f1.size(0);
@@ -488,7 +488,7 @@ namespace RAT
   void refPercentileConfidenceIntervals(const ::coder::array<double, 2U>
     &bayesOutputs_chain, ProblemDefinition &problemStruct, const Controls &
     controls, const ::coder::array<cell_wrap_7, 1U> &results_reflectivity, const
-    ::coder::array<cell_wrap_9, 2U> &results_sldProfiles, ::coder::array<
+    ::coder::array<cell_wrap_7, 2U> &results_sldProfiles, ::coder::array<
     cell_wrap_11, 1U> &allPredInts_reflectivity, ::coder::array<cell_wrap_11, 2U>
     &allPredInts_sld, double allPredInts_sampleChi[1000])
   {
@@ -504,7 +504,7 @@ namespace RAT
     ::coder::array<double, 2U> sldArray2;
     ::coder::array<double, 1U> b_expl_temp;
     ::coder::array<double, 1U> c_expl_temp;
-    Results expl_temp;
+    b_struct_T expl_temp;
     double a[1000];
     double isample[1000];
     double thisCol_data[1000];
@@ -676,7 +676,7 @@ namespace RAT
       unpackParams(problemStruct);
 
       //  Calc the reflectivities....
-      b_reflectivityCalculation(problemStruct, &controls, &expl_temp);
+      b_reflectivityCalculation(problemStruct, &controls, expl_temp);
       allPredInts_sampleChi[b_i] = expl_temp.calculationResults.sumChi;
       for (int n{0}; n < i; n++) {
         k = expl_temp.reflectivity[n].f1.size(0);

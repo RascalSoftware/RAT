@@ -212,9 +212,9 @@ namespace RAT
     b = static_cast<double>(G.size(0)) * static_cast<double>(G.size(0));
     b_dv[1] = std::sqrt(b - 1.0);
     b_dv1[0] = coder::internal::maximum(varargin_1_tmp);
-    b_dv1[1] = coder::internal::maximum(y) / coder::internal::maximum(b_dv);
+    b_dv1[1] = coder::internal::maximum(y) / coder::internal::b_maximum(b_dv);
     b_dv1[2] = 1.0E-15;
-    beta2 = coder::internal::b_maximum(b_dv1);
+    beta2 = coder::internal::maximum(b_dv1);
 
     //
     //   Initialize diag(C) to diag(G).
@@ -414,7 +414,7 @@ namespace RAT
       //
       dv2[1] = std::abs(C[j + C.size(0) * j]);
       dv2[2] = theta[j] * theta[j] / beta2;
-      D[j + D.size(0) * j] = coder::internal::b_maximum(dv2);
+      D[j + D.size(0) * j] = coder::internal::maximum(dv2);
 
       //
       //  Update E.

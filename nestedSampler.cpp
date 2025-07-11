@@ -446,7 +446,7 @@ namespace RAT
           b_FS[b_FS.size(0) * i1] = (FS[i1] >= 1.1);
         }
 
-        if (coder::internal::c_ifWhileCond(b_FS)) {
+        if (coder::internal::b_ifWhileCond(b_FS)) {
           //  NOTE: THIS CODE IS GUARANTEED TO RUN THE 1ST TIME THROUGH
           //  calculate optimal ellipsoids
           optimalEllipsoids(livepoints, VS, Bs, mus, VEs, ns);
@@ -463,7 +463,7 @@ namespace RAT
           for (int k{0}; k < K; k++) {
             double scalefac;
             b_dv[1] = d1 * ns[k] / nLive / VEs[k];
-            scalefac = coder::internal::maximum(b_dv);
+            scalefac = coder::internal::b_maximum(b_dv);
 
             //  scale bounding matrix and volume
             if (scalefac != 1.0) {

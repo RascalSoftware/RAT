@@ -22,8 +22,7 @@ namespace RAT
   void applyBackgroundCorrection(::coder::array<double, 2U> &reflectivity, ::
     coder::array<double, 2U> &simulation, ::coder::array<double, 2U>
     &shiftedData, const ::coder::array<double, 2U> &background, const char
-    backgroundAction_data[], const int backgroundAction_size[2], ::coder::array<
-    double, 2U> &outputData);
+    backgroundAction_data[], const int backgroundAction_size[2]);
 }
 
 #endif

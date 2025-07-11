@@ -31,7 +31,7 @@ namespace RAT
                     controls_parallel_size[2], double
                     controls_numSimulationPoints, double
                     controls_resampleMinAngle, double controls_resampleNPoints,
-                    Results *result, d_struct_T &bayesResults)
+                    b_struct_T &result, e_struct_T &bayesResults)
   {
     static Controls expl_temp;
     ProblemDefinition b_problemStruct;
@@ -90,7 +90,7 @@ namespace RAT
     refPercentileConfidenceIntervals(bayesOutputs_chain, b_problemStruct,
       controls_parallel_data, controls_parallel_size,
       controls_numSimulationPoints, controls_resampleMinAngle,
-      controls_resampleNPoints, result->reflectivity, result->sldProfiles,
+      controls_resampleNPoints, result.reflectivity, result.sldProfiles,
       bayesResults.predictionIntervals.reflectivity,
       bayesResults.predictionIntervals.sld,
       bayesResults.predictionIntervals.sampleChi);
@@ -102,7 +102,7 @@ namespace RAT
   void processBayes(const ::coder::array<double, 2U> &bayesOutputs_bestParams,
                     const ::coder::array<double, 2U> &bayesOutputs_chain,
                     ProblemDefinition &problemStruct, Controls &controls,
-                    Results *result, d_struct_T &bayesResults)
+                    b_struct_T &result, e_struct_T &bayesResults)
   {
     int loop_ub;
 
@@ -148,7 +148,7 @@ namespace RAT
     //  2. Reflectivity and SLD shading
     b_problemStruct = problemStruct;
     refPercentileConfidenceIntervals(bayesOutputs_chain, b_problemStruct,
-      controls, result->reflectivity, result->sldProfiles,
+      controls, result.reflectivity, result.sldProfiles,
       bayesResults.predictionIntervals.reflectivity,
       bayesResults.predictionIntervals.sld,
       bayesResults.predictionIntervals.sampleChi);

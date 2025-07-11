@@ -30,17 +30,17 @@ namespace RAT
     {
       boolean_T ab_strcmp(const char a_data[], const int a_size[2])
       {
-        static const char b_cv[5]{ 'f', 'i', 'n', 'a', 'l' };
+        static const char b_cv[6]{ 's', 'h', 'r', 'i', 'n', 'k' };
 
         boolean_T b_bool;
         b_bool = false;
-        if (a_size[1] == 5) {
+        if (a_size[1] == 6) {
           int kstr;
           kstr = 0;
           int exitg1;
           do {
             exitg1 = 0;
-            if (kstr < 5) {
+            if (kstr < 6) {
               if (a_data[kstr] != b_cv[kstr]) {
                 exitg1 = 1;
               } else {
@@ -114,17 +114,17 @@ namespace RAT
 
       boolean_T bb_strcmp(const char a_data[], const int a_size[2])
       {
-        static const char b_cv[6]{ 's', 'h', 'r', 'i', 'n', 'k' };
+        static const char b_cv[3]{ 'a', 'l', 'l' };
 
         boolean_T b_bool;
         b_bool = false;
-        if (a_size[1] == 6) {
+        if (a_size[1] == 3) {
           int kstr;
           kstr = 0;
           int exitg1;
           do {
             exitg1 = 0;
-            if (kstr < 6) {
+            if (kstr < 3) {
               if (a_data[kstr] != b_cv[kstr]) {
                 exitg1 = 1;
               } else {
@@ -196,18 +196,19 @@ namespace RAT
 
       boolean_T cb_strcmp(const char a_data[], const int a_size[2])
       {
-        static const char b_cv[3]{ 'a', 'l', 'l' };
+        static const char b_cv[4]{ 'i', 't', 'e', 'r' };
 
         boolean_T b_bool;
         b_bool = false;
-        if (a_size[1] == 3) {
+        if (a_size[1] == 4) {
           int kstr;
           kstr = 0;
           int exitg1;
           do {
             exitg1 = 0;
-            if (kstr < 3) {
-              if (a_data[kstr] != b_cv[kstr]) {
+            if (kstr < 4) {
+              if (cv[static_cast<unsigned char>(a_data[kstr]) & 127] != cv[
+                  static_cast<int>(b_cv[kstr])]) {
                 exitg1 = 1;
               } else {
                 kstr++;
@@ -277,33 +278,43 @@ namespace RAT
         return b_bool;
       }
 
-      boolean_T db_strcmp(const char a_data[], const int a_size[2])
+      int db_strcmp(const cell_wrap_10 &a, const ::coder::array<cell_wrap_10, 1U>
+                    &b, boolean_T bool_data[])
       {
-        static const char b_cv[4]{ 'i', 't', 'e', 'r' };
-
-        boolean_T b_bool;
-        b_bool = false;
-        if (a_size[1] == 4) {
-          int kstr;
-          kstr = 0;
-          int exitg1;
-          do {
-            exitg1 = 0;
-            if (kstr < 4) {
-              if (cv[static_cast<unsigned char>(a_data[kstr]) & 127] != cv[
-                  static_cast<int>(b_cv[kstr])]) {
-                exitg1 = 1;
+        int bool_size;
+        int i;
+        bool_size = b.size(0);
+        i = b.size(0);
+        for (int k{0}; k < i; k++) {
+          int i1;
+          boolean_T b_b;
+          bool_data[k] = false;
+          i1 = b[k].f1.size(1);
+          b_b = (a.f1.size(1) == 0);
+          if (b_b && (i1 == 0)) {
+            bool_data[k] = true;
+          } else if (a.f1.size(1) == i1) {
+            int kstr;
+            kstr = 0;
+            int exitg1;
+            do {
+              exitg1 = 0;
+              if (kstr <= i1 - 1) {
+                if (cv[static_cast<unsigned char>(a.f1[kstr]) & 127] != cv[
+                    static_cast<unsigned char>(b[k].f1[kstr]) & 127]) {
+                  exitg1 = 1;
+                } else {
+                  kstr++;
+                }
               } else {
-                kstr++;
+                bool_data[k] = true;
+                exitg1 = 1;
               }
-            } else {
-              b_bool = true;
-              exitg1 = 1;
-            }
-          } while (exitg1 == 0);
+            } while (exitg1 == 0);
+          }
         }
 
-        return b_bool;
+        return bool_size;
       }
 
       boolean_T e_strcmp(const char a_data[], const int a_size[2])
@@ -362,43 +373,32 @@ namespace RAT
         return b_bool;
       }
 
-      int eb_strcmp(const cell_wrap_10 &a, const ::coder::array<cell_wrap_10, 1U>
-                    &b, boolean_T bool_data[])
+      boolean_T eb_strcmp(const char a_data[], const int a_size[2])
       {
-        int bool_size;
-        int i;
-        bool_size = b.size(0);
-        i = b.size(0);
-        for (int k{0}; k < i; k++) {
-          int i1;
-          boolean_T b_b;
-          bool_data[k] = false;
-          i1 = b[k].f1.size(1);
-          b_b = (a.f1.size(1) == 0);
-          if (b_b && (i1 == 0)) {
-            bool_data[k] = true;
-          } else if (a.f1.size(1) == i1) {
-            int kstr;
-            kstr = 0;
-            int exitg1;
-            do {
-              exitg1 = 0;
-              if (kstr <= i1 - 1) {
-                if (cv[static_cast<unsigned char>(a.f1[kstr]) & 127] != cv[
-                    static_cast<unsigned char>(b[k].f1[kstr]) & 127]) {
-                  exitg1 = 1;
-                } else {
-                  kstr++;
-                }
-              } else {
-                bool_data[k] = true;
+        static const char b_cv[7]{ 'r', 'e', 'f', 'l', 'e', 'c', 't' };
+
+        boolean_T b_bool;
+        b_bool = false;
+        if (a_size[1] == 7) {
+          int kstr;
+          kstr = 0;
+          int exitg1;
+          do {
+            exitg1 = 0;
+            if (kstr < 7) {
+              if (a_data[kstr] != b_cv[kstr]) {
                 exitg1 = 1;
+              } else {
+                kstr++;
               }
-            } while (exitg1 == 0);
-          }
+            } else {
+              b_bool = true;
+              exitg1 = 1;
+            }
+          } while (exitg1 == 0);
         }
 
-        return bool_size;
+        return b_bool;
       }
 
       boolean_T f_strcmp(const char a_data[], const int a_size[2])
@@ -431,17 +431,17 @@ namespace RAT
 
       boolean_T fb_strcmp(const char a_data[], const int a_size[2])
       {
-        static const char b_cv[7]{ 'r', 'e', 'f', 'l', 'e', 'c', 't' };
+        static const char b_cv[5]{ 'b', 'o', 'u', 'n', 'd' };
 
         boolean_T b_bool;
         b_bool = false;
-        if (a_size[1] == 7) {
+        if (a_size[1] == 5) {
           int kstr;
           kstr = 0;
           int exitg1;
           do {
             exitg1 = 0;
-            if (kstr < 7) {
+            if (kstr < 5) {
               if (a_data[kstr] != b_cv[kstr]) {
                 exitg1 = 1;
               } else {
@@ -487,17 +487,17 @@ namespace RAT
 
       boolean_T gb_strcmp(const char a_data[], const int a_size[2])
       {
-        static const char b_cv[5]{ 'b', 'o', 'u', 'n', 'd' };
+        static const char b_cv[4]{ 'f', 'o', 'l', 'd' };
 
         boolean_T b_bool;
         b_bool = false;
-        if (a_size[1] == 5) {
+        if (a_size[1] == 4) {
           int kstr;
           kstr = 0;
           int exitg1;
           do {
             exitg1 = 0;
-            if (kstr < 5) {
+            if (kstr < 4) {
               if (a_data[kstr] != b_cv[kstr]) {
                 exitg1 = 1;
               } else {
@@ -526,34 +526,6 @@ namespace RAT
           do {
             exitg1 = 0;
             if (kstr < 2) {
-              if (a_data[kstr] != b_cv[kstr]) {
-                exitg1 = 1;
-              } else {
-                kstr++;
-              }
-            } else {
-              b_bool = true;
-              exitg1 = 1;
-            }
-          } while (exitg1 == 0);
-        }
-
-        return b_bool;
-      }
-
-      boolean_T hb_strcmp(const char a_data[], const int a_size[2])
-      {
-        static const char b_cv[4]{ 'f', 'o', 'l', 'd' };
-
-        boolean_T b_bool;
-        b_bool = false;
-        if (a_size[1] == 4) {
-          int kstr;
-          kstr = 0;
-          int exitg1;
-          do {
-            exitg1 = 0;
-            if (kstr < 4) {
               if (a_data[kstr] != b_cv[kstr]) {
                 exitg1 = 1;
               } else {
@@ -627,6 +599,34 @@ namespace RAT
 
       boolean_T k_strcmp(const char a_data[], const int a_size[2])
       {
+        static const char b_cv[7]{ 'd', 'o', 'm', 'a', 'i', 'n', 's' };
+
+        boolean_T b_bool;
+        b_bool = false;
+        if (a_size[1] == 7) {
+          int kstr;
+          kstr = 0;
+          int exitg1;
+          do {
+            exitg1 = 0;
+            if (kstr < 7) {
+              if (a_data[kstr] != b_cv[kstr]) {
+                exitg1 = 1;
+              } else {
+                kstr++;
+              }
+            } else {
+              b_bool = true;
+              exitg1 = 1;
+            }
+          } while (exitg1 == 0);
+        }
+
+        return b_bool;
+      }
+
+      boolean_T l_strcmp(const char a_data[], const int a_size[2])
+      {
         static const char b_cv[15]{ 's', 't', 'a', 'n', 'd', 'a', 'r', 'd', ' ',
           'l', 'a', 'y', 'e', 'r', 's' };
 
@@ -654,7 +654,36 @@ namespace RAT
         return b_bool;
       }
 
-      boolean_T l_strcmp(const char a_data[], const int a_size[2])
+      boolean_T m_strcmp(const char a_data[], const int a_size[2])
+      {
+        static const char b_cv[9]{ 'c', 'o', 'n', 't', 'r', 'a', 's', 't', 's' };
+
+        boolean_T b_bool;
+        b_bool = false;
+        if (a_size[1] == 9) {
+          int kstr;
+          kstr = 0;
+          int exitg1;
+          do {
+            exitg1 = 0;
+            if (kstr < 9) {
+              if (cv[static_cast<unsigned char>(a_data[kstr]) & 127] != cv[
+                  static_cast<int>(b_cv[kstr])]) {
+                exitg1 = 1;
+              } else {
+                kstr++;
+              }
+            } else {
+              b_bool = true;
+              exitg1 = 1;
+            }
+          } while (exitg1 == 0);
+        }
+
+        return b_bool;
+      }
+
+      boolean_T n_strcmp(const char a_data[], const int a_size[2])
       {
         static const char b_cv[13]{ 'c', 'u', 's', 't', 'o', 'm', ' ', 'l', 'a',
           'y', 'e', 'r', 's' };
@@ -683,7 +712,7 @@ namespace RAT
         return b_bool;
       }
 
-      boolean_T m_strcmp(const char a_data[], const int a_size[2])
+      boolean_T o_strcmp(const char a_data[], const int a_size[2])
       {
         boolean_T b_bool;
         b_bool = false;
@@ -695,63 +724,6 @@ namespace RAT
             exitg1 = 0;
             if (kstr < 9) {
               if (a_data[kstr] != cv2[kstr]) {
-                exitg1 = 1;
-              } else {
-                kstr++;
-              }
-            } else {
-              b_bool = true;
-              exitg1 = 1;
-            }
-          } while (exitg1 == 0);
-        }
-
-        return b_bool;
-      }
-
-      boolean_T n_strcmp(const char a_data[], const int a_size[2])
-      {
-        static const char b_cv[7]{ 'd', 'o', 'm', 'a', 'i', 'n', 's' };
-
-        boolean_T b_bool;
-        b_bool = false;
-        if (a_size[1] == 7) {
-          int kstr;
-          kstr = 0;
-          int exitg1;
-          do {
-            exitg1 = 0;
-            if (kstr < 7) {
-              if (a_data[kstr] != b_cv[kstr]) {
-                exitg1 = 1;
-              } else {
-                kstr++;
-              }
-            } else {
-              b_bool = true;
-              exitg1 = 1;
-            }
-          } while (exitg1 == 0);
-        }
-
-        return b_bool;
-      }
-
-      boolean_T o_strcmp(const char a_data[], const int a_size[2])
-      {
-        static const char b_cv[9]{ 'c', 'o', 'n', 't', 'r', 'a', 's', 't', 's' };
-
-        boolean_T b_bool;
-        b_bool = false;
-        if (a_size[1] == 9) {
-          int kstr;
-          kstr = 0;
-          int exitg1;
-          do {
-            exitg1 = 0;
-            if (kstr < 9) {
-              if (cv[static_cast<unsigned char>(a_data[kstr]) & 127] != cv[
-                  static_cast<int>(b_cv[kstr])]) {
                 exitg1 = 1;
               } else {
                 kstr++;
@@ -826,6 +798,90 @@ namespace RAT
 
       boolean_T r_strcmp(const char a_data[], const int a_size[2])
       {
+        static const char b_cv[6]{ 'p', 'o', 'i', 'n', 't', 's' };
+
+        boolean_T b_bool;
+        b_bool = false;
+        if (a_size[1] == 6) {
+          int kstr;
+          kstr = 0;
+          int exitg1;
+          do {
+            exitg1 = 0;
+            if (kstr < 6) {
+              if (a_data[kstr] != b_cv[kstr]) {
+                exitg1 = 1;
+              } else {
+                kstr++;
+              }
+            } else {
+              b_bool = true;
+              exitg1 = 1;
+            }
+          } while (exitg1 == 0);
+        }
+
+        return b_bool;
+      }
+
+      boolean_T s_strcmp(const char a_data[], const int a_size[2])
+      {
+        static const char b_cv[3]{ 'a', 'd', 'd' };
+
+        boolean_T b_bool;
+        b_bool = false;
+        if (a_size[1] == 3) {
+          int kstr;
+          kstr = 0;
+          int exitg1;
+          do {
+            exitg1 = 0;
+            if (kstr < 3) {
+              if (a_data[kstr] != b_cv[kstr]) {
+                exitg1 = 1;
+              } else {
+                kstr++;
+              }
+            } else {
+              b_bool = true;
+              exitg1 = 1;
+            }
+          } while (exitg1 == 0);
+        }
+
+        return b_bool;
+      }
+
+      boolean_T t_strcmp(const char a_data[], const int a_size[2])
+      {
+        static const char b_cv[8]{ 's', 'u', 'b', 't', 'r', 'a', 'c', 't' };
+
+        boolean_T b_bool;
+        b_bool = false;
+        if (a_size[1] == 8) {
+          int kstr;
+          kstr = 0;
+          int exitg1;
+          do {
+            exitg1 = 0;
+            if (kstr < 8) {
+              if (a_data[kstr] != b_cv[kstr]) {
+                exitg1 = 1;
+              } else {
+                kstr++;
+              }
+            } else {
+              b_bool = true;
+              exitg1 = 1;
+            }
+          } while (exitg1 == 0);
+        }
+
+        return b_bool;
+      }
+
+      boolean_T u_strcmp(const char a_data[], const int a_size[2])
+      {
         static const char b_cv[13]{ 'a', 'i', 'r', '/', 's', 'u', 'b', 's', 't',
           'r', 'a', 't', 'e' };
 
@@ -854,124 +910,7 @@ namespace RAT
         return b_bool;
       }
 
-      boolean_T s_strcmp(const char a_data[], const int a_size[2])
-      {
-        static const char b_cv[6]{ 'p', 'o', 'i', 'n', 't', 's' };
-
-        boolean_T b_bool;
-        b_bool = false;
-        if (a_size[1] == 6) {
-          int kstr;
-          kstr = 0;
-          int exitg1;
-          do {
-            exitg1 = 0;
-            if (kstr < 6) {
-              if (a_data[kstr] != b_cv[kstr]) {
-                exitg1 = 1;
-              } else {
-                kstr++;
-              }
-            } else {
-              b_bool = true;
-              exitg1 = 1;
-            }
-          } while (exitg1 == 0);
-        }
-
-        return b_bool;
-      }
-
-      boolean_T t_strcmp(const char a_data[], const int a_size[2])
-      {
-        static const char b_cv[3]{ 'a', 'd', 'd' };
-
-        boolean_T b_bool;
-        b_bool = false;
-        if (a_size[1] == 3) {
-          int kstr;
-          kstr = 0;
-          int exitg1;
-          do {
-            exitg1 = 0;
-            if (kstr < 3) {
-              if (a_data[kstr] != b_cv[kstr]) {
-                exitg1 = 1;
-              } else {
-                kstr++;
-              }
-            } else {
-              b_bool = true;
-              exitg1 = 1;
-            }
-          } while (exitg1 == 0);
-        }
-
-        return b_bool;
-      }
-
-      boolean_T u_strcmp(const char a_data[], const int a_size[2])
-      {
-        static const char b_cv[8]{ 's', 'u', 'b', 't', 'r', 'a', 'c', 't' };
-
-        boolean_T b_bool;
-        b_bool = false;
-        if (a_size[1] == 8) {
-          int kstr;
-          kstr = 0;
-          int exitg1;
-          do {
-            exitg1 = 0;
-            if (kstr < 8) {
-              if (a_data[kstr] != b_cv[kstr]) {
-                exitg1 = 1;
-              } else {
-                kstr++;
-              }
-            } else {
-              b_bool = true;
-              exitg1 = 1;
-            }
-          } while (exitg1 == 0);
-        }
-
-        return b_bool;
-      }
-
-      void v_strcmp(const ::coder::array<cell_wrap_10, 2U> &a, boolean_T
-                    bool_data[], int bool_size[2])
-      {
-        static const char b_cv[8]{ 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n' };
-
-        int i;
-        bool_size[0] = 1;
-        bool_size[1] = a.size(1);
-        i = a.size(1);
-        for (int k{0}; k < i; k++) {
-          bool_data[k] = false;
-          if (a[k].f1.size(1) == 8) {
-            int kstr;
-            kstr = 0;
-            int exitg1;
-            do {
-              exitg1 = 0;
-              if (kstr < 8) {
-                if (cv[static_cast<unsigned char>(a[k].f1[kstr]) & 127] != cv[
-                    static_cast<int>(b_cv[kstr])]) {
-                  exitg1 = 1;
-                } else {
-                  kstr++;
-                }
-              } else {
-                bool_data[k] = true;
-                exitg1 = 1;
-              }
-            } while (exitg1 == 0);
-          }
-        }
-      }
-
-      boolean_T w_strcmp(const char a_data[], const int a_size[2])
+      boolean_T v_strcmp(const char a_data[], const int a_size[2])
       {
         static const char b_cv[3]{ 'o', 'f', 'f' };
 
@@ -999,7 +938,7 @@ namespace RAT
         return b_bool;
       }
 
-      boolean_T x_strcmp(const char a_data[], const int a_size[2])
+      boolean_T w_strcmp(const char a_data[], const int a_size[2])
       {
         static const char b_cv[4]{ 'i', 't', 'e', 'r' };
 
@@ -1027,7 +966,7 @@ namespace RAT
         return b_bool;
       }
 
-      boolean_T y_strcmp(const char a_data[], const int a_size[2])
+      boolean_T x_strcmp(const char a_data[], const int a_size[2])
       {
         static const char b_cv[6]{ 'n', 'o', 't', 'i', 'f', 'y' };
 
@@ -1040,6 +979,34 @@ namespace RAT
           do {
             exitg1 = 0;
             if (kstr < 6) {
+              if (a_data[kstr] != b_cv[kstr]) {
+                exitg1 = 1;
+              } else {
+                kstr++;
+              }
+            } else {
+              b_bool = true;
+              exitg1 = 1;
+            }
+          } while (exitg1 == 0);
+        }
+
+        return b_bool;
+      }
+
+      boolean_T y_strcmp(const char a_data[], const int a_size[2])
+      {
+        static const char b_cv[5]{ 'f', 'i', 'n', 'a', 'l' };
+
+        boolean_T b_bool;
+        b_bool = false;
+        if (a_size[1] == 5) {
+          int kstr;
+          kstr = 0;
+          int exitg1;
+          do {
+            exitg1 = 0;
+            if (kstr < 5) {
               if (a_data[kstr] != b_cv[kstr]) {
                 exitg1 = 1;
               } else {

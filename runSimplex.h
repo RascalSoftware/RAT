@@ -20,14 +20,14 @@ namespace RAT
 {
   struct ProblemDefinition;
   struct Controls;
-  struct Results;
+  struct b_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void runSimplex(ProblemDefinition &problemStruct, Controls &controls, Results *
-                  result);
+  void runSimplex(ProblemDefinition &problemStruct, Controls &controls,
+                  b_struct_T &result);
 }
 
 #endif

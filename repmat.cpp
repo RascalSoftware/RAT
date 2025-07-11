@@ -19,7 +19,7 @@ namespace RAT
 {
   namespace coder
   {
-    void repmat(double varargin_1, ::coder::array<i_struct_T, 1U> &b)
+    void repmat(double varargin_1, ::coder::array<j_struct_T, 1U> &b)
     {
       int loop_ub_tmp;
       loop_ub_tmp = static_cast<int>(varargin_1);

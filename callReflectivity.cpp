@@ -107,7 +107,7 @@ namespace RAT
       simulation[i] = simulationXData[i];
     }
 
-    if (coder::internal::s_strcmp(parallel_data, parallel_size)) {
+    if (coder::internal::r_strcmp(parallel_data, parallel_size)) {
       i = 0;
     } else {
       i = -1;
@@ -231,7 +231,7 @@ namespace RAT
       simulation[i] = simulationXData[i];
     }
 
-    if (coder::internal::s_strcmp(parallel_data, parallel_size)) {
+    if (coder::internal::r_strcmp(parallel_data, parallel_size)) {
       i = 0;
     } else {
       i = -1;

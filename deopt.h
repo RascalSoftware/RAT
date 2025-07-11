@@ -20,7 +20,7 @@
 namespace RAT
 {
   struct ProblemDefinition;
-  struct g_struct_T;
+  struct h_struct_T;
 }
 
 // Function Declarations
@@ -34,7 +34,7 @@ namespace RAT
              const int controls_display_size[2], double controls_updateFreq,
              double controls_updatePlotFreq, const char
              controls_IPCFilePath_data[], const int controls_IPCFilePath_size[2],
-             const g_struct_T &S_struct, ::coder::array<double, 2U> &FVr_bestmem);
+             const h_struct_T &S_struct, ::coder::array<double, 2U> &FVr_bestmem);
 }
 
 #endif

@@ -87,6 +87,33 @@ namespace RAT
         x.set_size(x.size(0), nxout);
       }
 
+      void nullAssignment(const ::coder::array<double, 2U> &x, ::coder::array<
+                          double, 2U> &b_x)
+      {
+        ::coder::array<double, 2U> c_x;
+        int nrowx;
+        c_x.set_size(x.size(0), 4);
+        nrowx = x.size(0);
+        for (int i{0}; i < 4; i++) {
+          for (int b_i{0}; b_i < nrowx; b_i++) {
+            c_x[b_i + c_x.size(0) * i] = x[b_i + x.size(0) * i];
+          }
+        }
+
+        nrowx = x.size(0);
+        for (int i{0}; i < nrowx; i++) {
+          c_x[i + c_x.size(0) * 2] = c_x[i + c_x.size(0) * 3];
+        }
+
+        b_x.set_size(c_x.size(0), 3);
+        nrowx = c_x.size(0);
+        for (int i{0}; i < 3; i++) {
+          for (int b_i{0}; b_i < nrowx; b_i++) {
+            b_x[b_i + b_x.size(0) * i] = c_x[b_i + c_x.size(0) * i];
+          }
+        }
+      }
+
       void nullAssignment(::coder::array<double, 2U> &x, const int idx_data[],
                           const int idx_size[2])
       {
@@ -137,33 +164,6 @@ namespace RAT
         }
 
         x.set_size(nrowx, ncolx);
-      }
-
-      void nullAssignment(const ::coder::array<double, 2U> &x, ::coder::array<
-                          double, 2U> &b_x)
-      {
-        ::coder::array<double, 2U> c_x;
-        int nrowx;
-        c_x.set_size(x.size(0), 4);
-        nrowx = x.size(0);
-        for (int i{0}; i < 4; i++) {
-          for (int b_i{0}; b_i < nrowx; b_i++) {
-            c_x[b_i + c_x.size(0) * i] = x[b_i + x.size(0) * i];
-          }
-        }
-
-        nrowx = x.size(0);
-        for (int i{0}; i < nrowx; i++) {
-          c_x[i + c_x.size(0) * 2] = c_x[i + c_x.size(0) * 3];
-        }
-
-        b_x.set_size(c_x.size(0), 3);
-        nrowx = c_x.size(0);
-        for (int i{0}; i < 3; i++) {
-          for (int b_i{0}; b_i < nrowx; b_i++) {
-            b_x[b_i + b_x.size(0) * i] = c_x[b_i + c_x.size(0) * i];
-          }
-        }
       }
 
       void nullAssignment(::coder::array<double, 2U> &x)

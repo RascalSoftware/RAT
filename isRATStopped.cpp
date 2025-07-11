@@ -34,7 +34,7 @@ namespace RAT
     } else {
       int fileID;
       int tmp_size;
-      if (coder::internal::cb_strcmp(IPCFilePath_data, IPCFilePath_size)) {
+      if (coder::internal::bb_strcmp(IPCFilePath_data, IPCFilePath_size)) {
         fileID = 0;
       } else {
         signed char fileid;

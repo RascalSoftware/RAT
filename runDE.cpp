@@ -31,7 +31,7 @@ namespace RAT
                   controls_parallel_size[2], boolean_T controls_calcSldDuringFit,
                   double controls_numSimulationPoints, double
                   controls_resampleMinAngle, double controls_resampleNPoints,
-                  Results &result, double &S_MSE_FVr_ca, double &S_MSE_I_no,
+                  b_struct_T &result, double &S_MSE_FVr_ca, double &S_MSE_I_no,
                   double &S_MSE_FVr_oa)
   {
     Controls expl_temp;
@@ -56,7 +56,7 @@ namespace RAT
                 &expl_temp.parallel.data[0]);
     }
 
-    b_reflectivityCalculation(problemStruct, &expl_temp, &result);
+    b_reflectivityCalculation(problemStruct, &expl_temp, result);
 
     // no constraints                 THESE FIRST FEW VALS MAY BE WRONG
     // no constraint array
@@ -68,8 +68,8 @@ namespace RAT
     return S_MSE_I_nc;
   }
 
-  void runDE(ProblemDefinition &problemStruct, Controls &controls, Results
-             *result)
+  void runDE(ProblemDefinition &problemStruct, Controls &controls, b_struct_T
+             &result)
   {
     static const double S_struct_FVr_x[50]{ -1.0, -0.95918367346938771,
       -0.91836734693877542, -0.87755102040816324, -0.836734693877551,
@@ -92,7 +92,7 @@ namespace RAT
     ::coder::array<double, 2U> res;
     ::coder::array<signed char, 2U> S_struct_FM_pop;
     ::coder::array<char, 2U> charStr;
-    g_struct_T expl_temp;
+    h_struct_T expl_temp;
     int loop_ub;
 
     //  Run the differential evolution algorithm for a given problem and controls.
@@ -209,7 +209,7 @@ namespace RAT
     b_reflectivityCalculation(problemStruct, &controls, result);
     if (!coder::internal::e_strcmp(controls.display.data, controls.display.size))
     {
-      coder::snPrint(result->calculationResults.sumChi, charStr);
+      coder::snPrint(result.calculationResults.sumChi, charStr);
       triggerEvent(charStr);
     }
   }

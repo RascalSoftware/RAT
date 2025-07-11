@@ -31,14 +31,14 @@ namespace RAT
     controls_parallel_data[], const int controls_parallel_size[2], double
     controls_numSimulationPoints, double controls_resampleMinAngle, double
     controls_resampleNPoints, const ::coder::array<cell_wrap_7, 1U>
-    &results_reflectivity, const ::coder::array<cell_wrap_9, 2U>
+    &results_reflectivity, const ::coder::array<cell_wrap_7, 2U>
     &results_sldProfiles, ::coder::array<cell_wrap_11, 1U>
     &allPredInts_reflectivity, ::coder::array<cell_wrap_11, 2U> &allPredInts_sld,
     double allPredInts_sampleChi[1000]);
   void refPercentileConfidenceIntervals(const ::coder::array<double, 2U>
     &bayesOutputs_chain, ProblemDefinition &problemStruct, const Controls &
     controls, const ::coder::array<cell_wrap_7, 1U> &results_reflectivity, const
-    ::coder::array<cell_wrap_9, 2U> &results_sldProfiles, ::coder::array<
+    ::coder::array<cell_wrap_7, 2U> &results_sldProfiles, ::coder::array<
     cell_wrap_11, 1U> &allPredInts_reflectivity, ::coder::array<cell_wrap_11, 2U>
     &allPredInts_sld, double allPredInts_sampleChi[1000]);
 }

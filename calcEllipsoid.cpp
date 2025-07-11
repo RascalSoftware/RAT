@@ -141,7 +141,7 @@ namespace RAT
           }
 
           c_y_data.set(&b_y_data, y_size[0], y_size[1]);
-          if (coder::internal::c_ifWhileCond(c_y_data)) {
+          if (coder::internal::b_ifWhileCond(c_y_data)) {
             fB = y_data;
           }
         }
@@ -165,7 +165,7 @@ namespace RAT
         fV_data = 1.0;
         b_y_data = (x < VS);
         d_y_data.set(&b_y_data, 1, 1);
-        if (coder::internal::c_ifWhileCond(d_y_data)) {
+        if (coder::internal::b_ifWhileCond(d_y_data)) {
           //  the original implementation calculates this as
           // fV = (VS/VE)^(2/ndims);
           //  however when compiled to C++,

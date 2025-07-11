@@ -407,23 +407,23 @@ namespace RAT
   {
     ::coder::array<cell_wrap_43, 2U> b_f1;
     ::coder::array<cell_wrap_43, 1U> f1;
-    ::coder::array<double, 3U> t34_allChains;
-    ::coder::array<double, 2U> t34_AR;
-    ::coder::array<double, 2U> t34_CR;
-    ::coder::array<double, 2U> t34_R_stat;
-    ::coder::array<double, 2U> t34_outlierChains;
+    ::coder::array<double, 3U> t35_allChains;
+    ::coder::array<double, 2U> t35_AR;
+    ::coder::array<double, 2U> t35_CR;
+    ::coder::array<double, 2U> t35_R_stat;
+    ::coder::array<double, 2U> t35_outlierChains;
     ::coder::array<double, 1U> c_f1;
     cell_wrap_45 r3;
     cell_wrap_46 r4;
     cell_wrap_47 r;
     cell_wrap_48 r1;
     cell_wrap_49 r2;
-    double t35_percentile65_data[2000];
-    double t35_percentile95_data[2000];
-    double t35_mean_data[1000];
-    int t35_mean_size[2];
-    int t35_percentile65_size[2];
-    int t35_percentile95_size[2];
+    double t36_percentile65_data[2000];
+    double t36_percentile95_data[2000];
+    double t36_mean_data[1000];
+    int t36_mean_size[2];
+    int t36_percentile65_size[2];
+    int t36_percentile95_size[2];
     int bayesResults_predictionIntervals_sampleChi_size;
     int i;
     int loop_ub_tmp;
@@ -496,19 +496,19 @@ namespace RAT
 
     //  ------------------------------------------------------------------
     //  (2) bayesResults.confidenceIntervals
-    t35_percentile95_size[0] = 2;
-    t35_percentile95_size[1] = 1;
-    t35_percentile65_size[0] = 2;
-    t35_percentile65_size[1] = 1;
-    t35_percentile95_data[0] = 0.0;
-    t35_percentile65_data[0] = 0.0;
-    t35_percentile95_data[1] = 0.0;
-    t35_percentile65_data[1] = 0.0;
-    t35_mean_size[0] = 1;
-    t35_mean_size[1] = 1;
-    t35_mean_data[0] = 0.0;
-    cast(t35_percentile95_data, t35_percentile95_size, t35_percentile65_data,
-         t35_percentile65_size, t35_mean_data, t35_mean_size,
+    t36_percentile95_size[0] = 2;
+    t36_percentile95_size[1] = 1;
+    t36_percentile65_size[0] = 2;
+    t36_percentile65_size[1] = 1;
+    t36_percentile95_data[0] = 0.0;
+    t36_percentile65_data[0] = 0.0;
+    t36_percentile95_data[1] = 0.0;
+    t36_percentile65_data[1] = 0.0;
+    t36_mean_size[0] = 1;
+    t36_mean_size[1] = 1;
+    t36_mean_data[0] = 0.0;
+    cast(t36_percentile95_data, t36_percentile95_size, t36_percentile65_data,
+         t36_percentile65_size, t36_mean_data, t36_mean_size,
          bayesResults_confidenceIntervals_percentile95,
          bayesResults_confidenceIntervals_percentile65,
          bayesResults_confidenceIntervals_mean);
@@ -544,17 +544,17 @@ namespace RAT
 
     //  -------------------------------------------------------------------
     //  (4) bayesResults.dreamOutput
-    t34_allChains.set_size(1, 3, 1);
+    t35_allChains.set_size(1, 3, 1);
     bayesResults_dreamParams.outlier[0] = 'i';
-    t34_allChains[0] = 1.0;
+    t35_allChains[0] = 1.0;
     bayesResults_dreamParams.outlier[1] = 'q';
-    t34_allChains[t34_allChains.size(0)] = 1.0;
+    t35_allChains[t35_allChains.size(0)] = 1.0;
     bayesResults_dreamParams.outlier[2] = 'r';
-    t34_allChains[t34_allChains.size(0) * 2] = 1.0;
-    t34_outlierChains.set_size(1, 2);
-    t34_AR.set_size(1, 2);
-    t34_R_stat.set_size(1, 2);
-    t34_CR.set_size(1, 2);
+    t35_allChains[t35_allChains.size(0) * 2] = 1.0;
+    t35_outlierChains.set_size(1, 2);
+    t35_AR.set_size(1, 2);
+    t35_R_stat.set_size(1, 2);
+    t35_CR.set_size(1, 2);
 
     //  -------------------------------------------------------------------
     //  (5) bayesResults.nestedSamplerOutput
@@ -563,20 +563,20 @@ namespace RAT
     bayesResults_nestedSamplerOutput.nestSamples.size[1] = 2;
     bayesResults_nestedSamplerOutput.postSamples.size[0] = 1;
     bayesResults_nestedSamplerOutput.postSamples.size[1] = 2;
-    t34_outlierChains[0] = 1.0;
-    t34_AR[0] = 0.0;
-    t34_R_stat[0] = 0.0;
-    t34_CR[0] = 0.0;
+    t35_outlierChains[0] = 1.0;
+    t35_AR[0] = 0.0;
+    t35_R_stat[0] = 0.0;
+    t35_CR[0] = 0.0;
     bayesResults_nestedSamplerOutput.nestSamples.data[0] = 0.0;
     bayesResults_nestedSamplerOutput.postSamples.data[0] = 0.0;
-    t34_outlierChains[t34_outlierChains.size(0)] = 1.0;
-    t34_AR[t34_AR.size(0)] = 0.0;
-    t34_R_stat[t34_R_stat.size(0)] = 0.0;
-    t34_CR[t34_CR.size(0)] = 0.0;
+    t35_outlierChains[t35_outlierChains.size(0)] = 1.0;
+    t35_AR[t35_AR.size(0)] = 0.0;
+    t35_R_stat[t35_R_stat.size(0)] = 0.0;
+    t35_CR[t35_CR.size(0)] = 0.0;
     bayesResults_nestedSamplerOutput.nestSamples.data[1] = 0.0;
     bayesResults_nestedSamplerOutput.postSamples.data[1] = 0.0;
-    bayesResults_dreamOutput.runtime = cast(t34_allChains, t34_outlierChains,
-      t34_AR, t34_R_stat, t34_CR, bayesResults_dreamOutput.allChains,
+    bayesResults_dreamOutput.runtime = cast(t35_allChains, t35_outlierChains,
+      t35_AR, t35_R_stat, t35_CR, bayesResults_dreamOutput.allChains,
       bayesResults_dreamOutput.outlierChains.data,
       bayesResults_dreamOutput.outlierChains.size,
       bayesResults_dreamOutput.AR.data, bayesResults_dreamOutput.AR.size,

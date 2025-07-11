@@ -24,11 +24,6 @@ namespace RAT
                       double, 2U> &SLDProfile);
   void makeSLDProfile(const ::coder::array<double, 2U> &layers, double ssub,
                       double nrepeats, ::coder::array<double, 2U> &SLDProfile);
-  void makeSLDProfile(double bulkIn, double bulkOut, const ::coder::array<double,
-                      2U> &layers, double ssub, ::coder::array<double, 2U>
-                      &SLDProfile);
-  void makeSLDProfile(const ::coder::array<double, 2U> &layers, double ssub, ::
-                      coder::array<double, 2U> &SLDProfile);
 }
 
 #endif

@@ -401,7 +401,7 @@ namespace RAT
               }
 
               d_tmp_data.set(&c_tmp_data, end_tmp, d_loop_ub);
-              if (coder::internal::c_ifWhileCond(d_tmp_data)) {
+              if (coder::internal::b_ifWhileCond(d_tmp_data)) {
                 m1++;
                 end_tmp = u1new.size(1);
                 for (int b_i{0}; b_i < end_tmp; b_i++) {

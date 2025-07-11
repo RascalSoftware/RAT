@@ -20,16 +20,16 @@ namespace RAT
 {
   struct ProblemDefinition;
   struct Controls;
-  struct Results;
   struct b_struct_T;
+  struct c_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
   void runDREAM(const ProblemDefinition &problemStruct, const Controls *controls,
-                Results *result, b_struct_T &bayesResults, ProblemDefinition &
-                outProblemStruct);
+                b_struct_T &result, c_struct_T &bayesResults, ProblemDefinition
+                &outProblemStruct);
 }
 
 #endif

@@ -66,40 +66,13 @@ namespace RAT
   {
     namespace internal
     {
-      double b_maximum(const double x[3])
+      double b_maximum(const double x[2])
       {
         double ex;
-        int idx;
-        int k;
-        if (!std::isnan(x[0])) {
-          idx = 1;
+        if ((x[0] < x[1]) || (std::isnan(x[0]) && (!std::isnan(x[1])))) {
+          ex = x[1];
         } else {
-          boolean_T exitg1;
-          idx = 0;
-          k = 2;
-          exitg1 = false;
-          while ((!exitg1) && (k <= 3)) {
-            if (!std::isnan(x[k - 1])) {
-              idx = k;
-              exitg1 = true;
-            } else {
-              k++;
-            }
-          }
-        }
-
-        if (idx == 0) {
           ex = x[0];
-        } else {
-          ex = x[idx - 1];
-          idx++;
-          for (k = idx; k < 4; k++) {
-            double d;
-            d = x[k - 1];
-            if (ex < d) {
-              ex = d;
-            }
-          }
         }
 
         return ex;
@@ -247,13 +220,40 @@ namespace RAT
         }
       }
 
-      double maximum(const double x[2])
+      double maximum(const double x[3])
       {
         double ex;
-        if ((x[0] < x[1]) || (std::isnan(x[0]) && (!std::isnan(x[1])))) {
-          ex = x[1];
+        int idx;
+        int k;
+        if (!std::isnan(x[0])) {
+          idx = 1;
         } else {
+          boolean_T exitg1;
+          idx = 0;
+          k = 2;
+          exitg1 = false;
+          while ((!exitg1) && (k <= 3)) {
+            if (!std::isnan(x[k - 1])) {
+              idx = k;
+              exitg1 = true;
+            } else {
+              k++;
+            }
+          }
+        }
+
+        if (idx == 0) {
           ex = x[0];
+        } else {
+          ex = x[idx - 1];
+          idx++;
+          for (k = idx; k < 4; k++) {
+            double d;
+            d = x[k - 1];
+            if (ex < d) {
+              ex = d;
+            }
+          }
         }
 
         return ex;

@@ -20,7 +20,7 @@
 namespace RAT
 {
   struct ProblemDefinition;
-  struct Results;
+  struct b_struct_T;
   struct Controls;
 }
 
@@ -32,10 +32,10 @@ namespace RAT
                   controls_parallel_size[2], boolean_T controls_calcSldDuringFit,
                   double controls_numSimulationPoints, double
                   controls_resampleMinAngle, double controls_resampleNPoints,
-                  Results &result, double &S_MSE_FVr_ca, double &S_MSE_I_no,
+                  b_struct_T &result, double &S_MSE_FVr_ca, double &S_MSE_I_no,
                   double &S_MSE_FVr_oa);
-  void runDE(ProblemDefinition &problemStruct, Controls &controls, Results
-             *result);
+  void runDE(ProblemDefinition &problemStruct, Controls &controls, b_struct_T
+             &result);
 }
 
 #endif

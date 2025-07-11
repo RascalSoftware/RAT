@@ -21,7 +21,7 @@ namespace RAT
 {
   void unpackParams(ProblemDefinition &problemStruct)
   {
-    static int fitIndices_data[10000];
+    int fitIndices_data[10000];
     int fitIndices_size[2];
     unsigned int fitCounter;
     int i;

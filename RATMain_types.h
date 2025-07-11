@@ -148,22 +148,6 @@ namespace RAT
     ::coder::array<double, 2U> resample;
   };
 
-  struct Results
-  {
-    ::coder::array<cell_wrap_7, 1U> reflectivity;
-    ::coder::array<cell_wrap_7, 1U> simulation;
-    ::coder::array<cell_wrap_8, 1U> shiftedData;
-    ::coder::array<cell_wrap_8, 1U> backgrounds;
-    ::coder::array<cell_wrap_7, 1U> resolutions;
-    ::coder::array<cell_wrap_9, 2U> sldProfiles;
-    ::coder::array<cell_wrap_9, 2U> layers;
-    ::coder::array<cell_wrap_9, 2U> resampledLayers;
-    CalculationResults calculationResults;
-    ContrastParams contrastParams;
-    ::coder::array<double, 2U> fitParams;
-    ::coder::array<cell_wrap_10, 1U> fitNames;
-  };
-
   struct PredictionIntervals
   {
     ::coder::array<cell_wrap_11, 1U> reflectivity;
@@ -257,6 +241,22 @@ namespace RAT
     ::coder::array<double, 2U> priorValues;
     b_ParamNames names;
     CheckFlags checks;
+  };
+
+  struct Results
+  {
+    ::coder::array<cell_wrap_7, 1U> reflectivity;
+    ::coder::array<cell_wrap_7, 1U> simulation;
+    ::coder::array<cell_wrap_8, 1U> shiftedData;
+    ::coder::array<cell_wrap_8, 1U> backgrounds;
+    ::coder::array<cell_wrap_7, 1U> resolutions;
+    ::coder::array<cell_wrap_9, 2U> sldProfiles;
+    ::coder::array<cell_wrap_9, 2U> layers;
+    ::coder::array<cell_wrap_9, 2U> resampledLayers;
+    CalculationResults calculationResults;
+    ContrastParams contrastParams;
+    ::coder::array<double, 2U> fitParams;
+    ::coder::array<cell_wrap_10, 1U> fitNames;
   };
 
   struct NestedSamplerOutput

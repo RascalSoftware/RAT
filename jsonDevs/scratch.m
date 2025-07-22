@@ -1,31 +1,24 @@
 
 
-problem.contrasts.contrasts{1}
 
-debug_json_struct.contrasts
 
-% Get fieldnames (and order) from the json...
-jsonFields = fieldnames(debug_json_struct.contrasts);
+problem = jsonToProject('DSPC_standard_layers.json');
+controls = controlsClass();
 
-% get one of the matlab structs
-mStruct = problem.contrasts.contrasts{1};
+[problem,results] = RAT(problem,controls);
 
-% remove the repeats field...
-mStruct = rmfield(mStruct,'repeatLayers');
+filename = 'resultsCheck.json';
 
-% rename the fields...
-newFeildNames = ["background",...
-                "background_action",...
-                "bulk_in"          ,...
-                "bulk_out"         ,...
-                "data"            ,...
-                "model"           ,...
-                "name"            ,...
-                "resample"        ,...
-                "resolution"      ,...
-                "scalefactor"     ];
+encoded = jsonencode(results,ConvertInfAndNaN=false);
+encoded = replace(encoded,'Infinity','Inf');
 
-mStruct = cell2struct(struct2cell(mStruct), newFieldNames);
+[path,filename,~] = fileparts(filename);
+fid = fullfile(path,[filename '.json']);
+fid = fopen(fid,'w');
+fprintf(fid,'%s',encoded);
+fclose(fid);
 
-% Order them according to the json requirements...
-mStruct = orderfields(mStruct,jsonFields);
+
+
+res_struct = jsondecode(fileread('resultsCheck.json'))
+res_struct_2 = jsondecode(fileread('DSPC_standard_layers_results.json'))

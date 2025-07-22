@@ -11,17 +11,28 @@ function [reflectivity,simulation,shiftedData,backgrounds,resolutions,...
     % Extract parameters from problemStruct
     [numberOfContrasts, geometry, contrastBackgroundIndices,...
      contrastResolutionIndices, backgroundParamValues, resolutionParamValues,...
-     qzshifts, scalefactors, bulkIns, bulkOuts, domainRatios, dataPresent,...
-     nParams, paramValues, resample, contrastBackgroundTypes, contrastBackgroundActions,...
-     contrastResolutionTypes, contrastCustomFiles, useImaginary, repeatLayers,...
-     data, dataLimits, simulationLimits, inputContrastLayers, customFiles,...
-     domainContrastLayers] = extractProblemParams(problemStruct);
+     dataPresent, paramValues, resample, contrastBackgroundTypes,...
+     contrastBackgroundActions, contrastResolutionTypes, contrastCustomFiles,...
+     useImaginary, repeatLayers, data, dataLimits, simulationLimits,...
+     inputContrastLayers, layersDetails, customFiles, domainContrastLayers...
+     ] = extractProblemParams(problemStruct);
     
+    nParams = length(problemStruct.params);
     calcSld = controls.calcSldDuringFit;
     parallel = controls.parallel;
     numSimulationPoints = controls.numSimulationPoints;
     resampleMinAngle = controls.resampleMinAngle;
     resampleNPoints = controls.resampleNPoints;
+
+    % Find the actual values from the indices given in each contrast
+    scalefactors = problemStruct.scalefactors(problemStruct.contrastScalefactors)';
+    bulkIns = problemStruct.bulkIns(problemStruct.contrastBulkIns)';
+    bulkOuts = problemStruct.bulkOuts(problemStruct.contrastBulkOuts)';
+    domainRatios = problemStruct.domainRatios(problemStruct.contrastDomainRatios)';
+
+    % qzshifts are not included as a parameter in RAT,
+    % so we set up dummy values for the reflectivity calculation
+    qzshifts = zeros(problemStruct.numberOfContrasts,1);
     
     % Allocate the memory for the output arrays before the main loop
     subRoughs = zeros(numberOfContrasts,1);
@@ -77,7 +88,7 @@ function [reflectivity,simulation,shiftedData,backgrounds,resolutions,...
             % parameters to all the layers in the layers list. This only
             % needs to be done once, and so is done outside the contrasts
             % loop
-            layerValues = allocateParamsToLayers(paramValues, problemStruct.layersDetails);
+            layerValues = allocateParamsToLayers(paramValues, layersDetails);
 
             for i = 1:numberOfContrasts
 

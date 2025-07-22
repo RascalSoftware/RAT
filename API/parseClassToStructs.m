@@ -202,7 +202,7 @@ problemStruct.contrastDomainRatios = inputStruct.contrastDomainRatios;
 if isa(project, 'domainsClass')
     problemStruct.domainRatios = inputStruct.domainRatioValues;
 else
-    problemStruct.domainRatios = ones(1,0);
+    problemStruct.domainRatios = zeros(1,1);
 end
 
 if isa(project, 'domainsClass') && isa(project.domainContrasts, 'domainContrastsClass')
@@ -210,7 +210,7 @@ if isa(project, 'domainsClass') && isa(project.domainContrasts, 'domainContrasts
     problemStruct.domainContrastLayers = inputStruct.domainContrastLayers;
 else
     problemStruct.numberOfDomainContrasts = 0;
-    problemStruct.domainContrastLayers = cell(1, 0);
+    problemStruct.domainContrastLayers = cell(1,0);
 end
 
 % Initialise the lists of fitting parameters    

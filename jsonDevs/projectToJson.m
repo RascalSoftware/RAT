@@ -20,11 +20,6 @@ paramsTable = problem.parameters.varTable;
 nRows = problem.parameters.rowCount;
 totalStruct.parameters = makeParamStruct(paramsTable,nRows,show_priors);
 
-% % Sanity check....
-% if ~(isequal(debug_json_struct.parameters,totalStruct.parameters))
-%     warning('Parameters class check failed!');
-% end
-
 % Bulk in...
 bulkInTable = problem.bulkIn.varTable;
 nRows = problem.bulkIn.rowCount;

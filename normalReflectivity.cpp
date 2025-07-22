@@ -54,14 +54,11 @@ namespace RAT
       ::coder::array<cell_wrap_2, 2U> simulationLimits;
       ::coder::array<cell_wrap_44, 2U> contrastBackgroundIndices;
       ::coder::array<cell_wrap_51, 2U> layerValues;
-      ::coder::array<cell_wrap_9, 2U> a__3;
+      ::coder::array<cell_wrap_9, 2U> a__2;
       ::coder::array<cell_wrap_9, 2U> contrastLayersIndices;
       ::coder::array<cell_wrap_9, 2U> contrastResolutionIndices;
-      ::coder::array<cell_wrap_9, 2U> layersDetails;
       ::coder::array<cell_wrap_9, 1U> contrastLayers;
       ::coder::array<cell_wrap_9, 1U> contrastSlds;
-      ::coder::array<double, 2U> a__1;
-      ::coder::array<double, 2U> a__2;
       ::coder::array<double, 2U> b_layers;
       ::coder::array<double, 2U> backgroundParamValues;
       ::coder::array<double, 2U> contrastCustomFiles;
@@ -78,6 +75,7 @@ namespace RAT
       ::coder::array<double, 2U> repeatLayers;
       ::coder::array<double, 2U> resample;
       ::coder::array<double, 2U> resolutionParamValues;
+      ::coder::array<double, 1U> a__1;
       ::coder::array<double, 1U> b_simulationXData;
       ::coder::array<double, 1U> simulationXData;
       ::coder::array<char, 2U> r;
@@ -119,12 +117,12 @@ namespace RAT
       //  Extract parameters from problemStruct
       numberOfContrasts = extractProblemParams(problemStruct, geometry_data,
         geometry_size, contrastBackgroundIndices, contrastResolutionIndices,
-        a__1, backgroundParamValues, resolutionParamValues, qzshifts,
-        scalefactors, bulkIns, bulkOuts, a__2, dataPresent, paramValues,
-        resample, contrastBackgroundTypes, contrastBackgroundActions,
+        backgroundParamValues, resolutionParamValues, qzshifts, scalefactors,
+        bulkIns, bulkOuts, a__1, dataPresent, paramValues, resample,
+        contrastBackgroundTypes, contrastBackgroundActions,
         contrastResolutionTypes, contrastCustomFiles, repeatLayers, data,
-        dataLimits, simulationLimits, contrastLayersIndices, layersDetails,
-        customFiles, a__3, nParams, useImaginary);
+        dataLimits, simulationLimits, contrastLayersIndices, customFiles, a__2,
+        nParams, useImaginary);
       calcSld = controls->calcSldDuringFit;
       numSimulationPoints = controls->numSimulationPoints;
       resampleMinAngle = controls->resampleMinAngle;
@@ -183,7 +181,8 @@ namespace RAT
         //  parameters to all the layers in the layers list. This only
         //  needs to be done once, and so is done outside the contrasts
         //  loop
-        allocateParamsToLayers(paramValues, layersDetails, layerValues);
+        allocateParamsToLayers(paramValues, problemStruct.layersDetails,
+          layerValues);
         subRoughs.set_size(i);
         contrastLayers.set_size(i);
         for (int b_i{0}; b_i < i; b_i++) {
@@ -592,14 +591,11 @@ namespace RAT
       ::coder::array<cell_wrap_2, 2U> simulationLimits;
       ::coder::array<cell_wrap_44, 2U> contrastBackgroundIndices;
       ::coder::array<cell_wrap_51, 2U> layerValues;
-      ::coder::array<cell_wrap_9, 2U> a__3;
+      ::coder::array<cell_wrap_9, 2U> a__2;
       ::coder::array<cell_wrap_9, 2U> contrastLayersIndices;
       ::coder::array<cell_wrap_9, 2U> contrastResolutionIndices;
-      ::coder::array<cell_wrap_9, 2U> layersDetails;
       ::coder::array<cell_wrap_9, 1U> contrastLayers;
       ::coder::array<cell_wrap_9, 1U> contrastSlds;
-      ::coder::array<double, 2U> a__1;
-      ::coder::array<double, 2U> a__2;
       ::coder::array<double, 2U> b_layers;
       ::coder::array<double, 2U> backgroundParamValues;
       ::coder::array<double, 2U> contrastCustomFiles;
@@ -616,6 +612,7 @@ namespace RAT
       ::coder::array<double, 2U> repeatLayers;
       ::coder::array<double, 2U> resample;
       ::coder::array<double, 2U> resolutionParamValues;
+      ::coder::array<double, 1U> a__1;
       ::coder::array<double, 1U> b_simulationXData;
       ::coder::array<double, 1U> simulationXData;
       ::coder::array<char, 2U> r;
@@ -656,12 +653,12 @@ namespace RAT
       //  Extract parameters from problemStruct
       numberOfContrasts = extractProblemParams(problemStruct, geometry_data,
         geometry_size, contrastBackgroundIndices, contrastResolutionIndices,
-        a__1, backgroundParamValues, resolutionParamValues, qzshifts,
-        scalefactors, bulkIns, bulkOuts, a__2, dataPresent, paramValues,
-        resample, contrastBackgroundTypes, contrastBackgroundActions,
+        backgroundParamValues, resolutionParamValues, qzshifts, scalefactors,
+        bulkIns, bulkOuts, a__1, dataPresent, paramValues, resample,
+        contrastBackgroundTypes, contrastBackgroundActions,
         contrastResolutionTypes, contrastCustomFiles, repeatLayers, data,
-        dataLimits, simulationLimits, contrastLayersIndices, layersDetails,
-        customFiles, a__3, nParams, useImaginary);
+        dataLimits, simulationLimits, contrastLayersIndices, customFiles, a__2,
+        nParams, useImaginary);
       numSimulationPoints = controls->numSimulationPoints;
       resampleMinAngle = controls->resampleMinAngle;
       resampleNPoints = controls->resampleNPoints;
@@ -719,7 +716,8 @@ namespace RAT
         //  parameters to all the layers in the layers list. This only
         //  needs to be done once, and so is done outside the contrasts
         //  loop
-        allocateParamsToLayers(paramValues, layersDetails, layerValues);
+        allocateParamsToLayers(paramValues, problemStruct.layersDetails,
+          layerValues);
         subRoughs.set_size(i);
         contrastLayers.set_size(i);
         for (int b_i{0}; b_i < i; b_i++) {

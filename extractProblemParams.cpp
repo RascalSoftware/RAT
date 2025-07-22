@@ -23,22 +23,21 @@ namespace RAT
   double extractProblemParams(const ProblemDefinition &problemStruct, char
     geometry_data[], int geometry_size[2], ::coder::array<cell_wrap_44, 2U>
     &contrastBackgroundParams, ::coder::array<cell_wrap_9, 2U>
-    &contrastResolutionParams, ::coder::array<double, 2U> &contrastDomainRatios,
-    ::coder::array<double, 2U> &backgroundParams, ::coder::array<double, 2U>
-    &resolutionParams, ::coder::array<double, 1U> &qzshifts, ::coder::array<
-    double, 1U> &scalefactors, ::coder::array<double, 1U> &bulkIns, ::coder::
-    array<double, 1U> &bulkOuts, ::coder::array<double, 2U> &domainRatios, ::
-    coder::array<double, 2U> &dataPresent, ::coder::array<double, 2U> &params, ::
-    coder::array<double, 2U> &resample, ::coder::array<cell_wrap_10, 2U>
-    &contrastBackgroundTypes, ::coder::array<cell_wrap_10, 2U>
+    &contrastResolutionParams, ::coder::array<double, 2U> &backgroundParams, ::
+    coder::array<double, 2U> &resolutionParams, ::coder::array<double, 1U>
+    &qzshifts, ::coder::array<double, 1U> &scalefactors, ::coder::array<double,
+    1U> &bulkIns, ::coder::array<double, 1U> &bulkOuts, ::coder::array<double,
+    1U> &domainRatios, ::coder::array<double, 2U> &dataPresent, ::coder::array<
+    double, 2U> &params, ::coder::array<double, 2U> &resample, ::coder::array<
+    cell_wrap_10, 2U> &contrastBackgroundTypes, ::coder::array<cell_wrap_10, 2U>
     &contrastBackgroundActions, ::coder::array<cell_wrap_10, 2U>
     &contrastResolutionTypes, ::coder::array<double, 2U> &contrastCustomFiles, ::
     coder::array<double, 2U> &repeatLayers, ::coder::array<cell_wrap_1, 2U>
     &data, ::coder::array<cell_wrap_2, 2U> &dataLimits, ::coder::array<
     cell_wrap_2, 2U> &simulationLimits, ::coder::array<cell_wrap_9, 2U>
-    &contrastLayers, ::coder::array<cell_wrap_9, 2U> &layersDetails, ::coder::
-    array<cell_wrap_10, 2U> &customFiles, ::coder::array<cell_wrap_9, 2U>
-    &domainContrastLayers, double &nParams, boolean_T &useImaginary)
+    &contrastLayers, ::coder::array<cell_wrap_10, 2U> &customFiles, ::coder::
+    array<cell_wrap_9, 2U> &domainContrastLayers, double &nParams, boolean_T
+    &useImaginary)
   {
     double numberOfContrasts;
     int b_nParams;
@@ -122,12 +121,6 @@ namespace RAT
       contrastResolutionTypes[i] = problemStruct.contrastResolutionTypes[i];
     }
 
-    contrastDomainRatios.set_size(1, problemStruct.contrastDomainRatios.size(1));
-    loop_ub = problemStruct.contrastDomainRatios.size(1);
-    for (int i{0}; i < loop_ub; i++) {
-      contrastDomainRatios[i] = problemStruct.contrastDomainRatios[i];
-    }
-
     backgroundParams.set_size(1, problemStruct.backgroundParams.size(1));
     loop_ub = problemStruct.backgroundParams.size(1);
     for (int i{0}; i < loop_ub; i++) {
@@ -165,23 +158,6 @@ namespace RAT
       contrastCustomFiles[i] = problemStruct.contrastCustomFiles[i];
     }
 
-    layersDetails.set_size(problemStruct.layersDetails.size(0),
-      problemStruct.layersDetails.size(1));
-    loop_ub = problemStruct.layersDetails.size(1);
-    for (int i{0}; i < loop_ub; i++) {
-      int b_loop_ub;
-      b_loop_ub = problemStruct.layersDetails.size(0);
-      for (int i1{0}; i1 < b_loop_ub; i1++) {
-        layersDetails[i1] = problemStruct.layersDetails[i1];
-      }
-    }
-
-    domainRatios.set_size(1, problemStruct.domainRatios.size(1));
-    loop_ub = problemStruct.domainRatios.size(1);
-    for (int i{0}; i < loop_ub; i++) {
-      domainRatios[i] = problemStruct.domainRatios[i];
-    }
-
     domainContrastLayers.set_size(1, problemStruct.domainContrastLayers.size(1));
     loop_ub = problemStruct.domainContrastLayers.size(1);
     for (int i{0}; i < loop_ub; i++) {
@@ -216,6 +192,13 @@ namespace RAT
     for (int i{0}; i < loop_ub; i++) {
       bulkOuts[i] = problemStruct.bulkOuts[static_cast<int>
         (problemStruct.contrastBulkOuts[i]) - 1];
+    }
+
+    domainRatios.set_size(problemStruct.contrastDomainRatios.size(1));
+    loop_ub = problemStruct.contrastDomainRatios.size(1);
+    for (int i{0}; i < loop_ub; i++) {
+      domainRatios[i] = problemStruct.domainRatios[static_cast<int>
+        (problemStruct.contrastDomainRatios[i]) - 1];
     }
 
     numberOfContrasts = problemStruct.numberOfContrasts;

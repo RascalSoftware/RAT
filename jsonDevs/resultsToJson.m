@@ -1,9 +1,7 @@
 
 function resultsToJson(results,filename)
 
-% Just a simple encode and save...(?)
-% sldProfiles and layers encode in the wrong way...
-% debugResults = jsondecode(fileread('DSPC_standard_layers_results.json'));
+% Encodes the results into a json file...
 
 encoded = jsonencode(results,ConvertInfAndNaN=false);
 encoded = replace(encoded,'Infinity','Inf');

@@ -3,8 +3,7 @@ contrastResolutionParams, backgroundParams, resolutionParams, qzshifts,...
 scalefactors, bulkIns, bulkOuts, domainRatios, dataPresent, nParams, params,...
 resample, contrastBackgroundTypes, contrastBackgroundActions, contrastResolutionTypes,...
 contrastCustomFiles, useImaginary, repeatLayers, data, dataLimits, simulationLimits,...
-contrastLayers, layersDetails, customFiles, domainContrastLayers...
-] = extractProblemParams(problemStruct)
+contrastLayers, customFiles, domainContrastLayers] = extractProblemParams(problemStruct)
 
 resample = problemStruct.resample;
 data = problemStruct.data;
@@ -27,7 +26,6 @@ params = problemStruct.params;
 contrastLayers = problemStruct.contrastLayers;
 customFiles = problemStruct.customFiles;
 contrastCustomFiles = problemStruct.contrastCustomFiles;
-layersDetails = problemStruct.layersDetails;
 domainContrastLayers = problemStruct.domainContrastLayers;
 
 

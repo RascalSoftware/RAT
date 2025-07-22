@@ -2,9 +2,6 @@ function encoded = projectToJson(problem,filename)
 
 % Converts a projectClass to a json file...
 
-% % For debug...
-% debug_json_struct = jsondecode(fileread('DSPC_custom_layers.json'));
-
 % General Params....
 totalStruct.name = problem.experimentName;
 totalStruct.calculation = 'normal'; % Will gove optio for magnetic etc...
@@ -48,11 +45,6 @@ totalStruct.background_parameters = makeParamStruct(backParsTable,bp_nRows,show_
 
 backsTable = backs.varTable;
 totalStruct.backgrounds = makeTypeTableStruct(backsTable);
-
-% % Backs table sanity check....
-% if ~(isequal(debug_json_struct.backgrounds(1),totalStruct.backgrounds(1)))
-%     warning('Types table conversion failed');
-% end
 
 % resolution...
 resolPars = problem.resolution.resolutionParams;

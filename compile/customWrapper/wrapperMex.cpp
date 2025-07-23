@@ -52,7 +52,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         if (nrhs != 2)
 		    mexErrMsgTxt("Second input for delete command should be a class instance handle.");
         size_t size = mxGetNumberOfElements(prhs[1]);
-        destroyObject<CallbackInterface>(getStringFromMxArray(prhs[1], "class instance handle should a row vector char array"), size);
+        destroyObject<CallbackInterface>(getStringFromMxArray(prhs[1], "class instance handle should be a row vector char array"), size);
         if (nlhs != 0 || nrhs != 2)
             mexWarnMsgTxt("Delete: Unexpected arguments ignored.");
         return;

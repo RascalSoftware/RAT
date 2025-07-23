@@ -9,9 +9,9 @@ template<class base> inline mxArray *convertPtr2Mat(base *ptr)
     return mxCreateString(convertPtr2String<base>(ptr).c_str());
 }
 
-template<class base> inline void destroyObject(const char* in)
+template<class base> inline void destroyObject(const char* in, size_t size)
 {
-    delete convertString2HandlePtr<base>(in);
+    delete convertString2HandlePtr<base>(in, size);
     mexUnlock();
 }
 
@@ -51,7 +51,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     if (!strcmp("delete", cmd)) {    
         if (nrhs != 2)
 		    mexErrMsgTxt("Second input for delete command should be a class instance handle.");
-        destroyObject<CallbackInterface>(getStringFromMxArray(prhs[1], "class instance handle should a row vector char array"));
+        size_t size = mxGetNumberOfElements(prhs[1]);
+        destroyObject<CallbackInterface>(getStringFromMxArray(prhs[1], "class instance handle should be a row vector char array"), size);
         if (nlhs != 0 || nrhs != 2)
             mexWarnMsgTxt("Delete: Unexpected arguments ignored.");
         return;

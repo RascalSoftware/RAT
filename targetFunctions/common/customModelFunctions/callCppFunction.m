@@ -8,7 +8,7 @@ function [output, varargout] = callCppFunction(pointer, varargin)
     coder.cinclude('classHandle.hpp')
     
     callbackHandle = coder.opaque('ClassHandle<CallbackInterface> *','NULL');
-    callbackHandle = coder.ceval('convertString2HandlePtr<CallbackInterface>', pointer);
+    callbackHandle = coder.ceval('convertString2HandlePtr<CallbackInterface>', pointer, numel(pointer));
 
     callback = coder.opaque('CallbackInterface *','NULL');
     callback = coder.ceval('std::mem_fn(&ClassHandle<CallbackInterface>::ptr)', callbackHandle);

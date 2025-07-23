@@ -47,7 +47,8 @@ paths = {
     fullfile(root,'targetFunctions','common','makeSLDProfiles');
     fullfile(root,'targetFunctions','common','reflectivityCalculations','abeles');
     fullfile(root,'targetFunctions','common','resampleLayers');
-    fullfile(root,'targetFunctions','common','resolutionFunctions','simpleGaussian'); 
+    fullfile(root,'targetFunctions','common','resolutionFunctions','simpleGaussian');
+    fullfile(root,'targetFunctions','common','setupReflectivity');
     
     fullfile(root,'utilities');
     fullfile(root,'utilities','misc');

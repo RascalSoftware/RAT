@@ -65,7 +65,7 @@ function checkIndices(problemStruct, customFiles)
     numDomainRatios = length(problemStruct.domainRatios);
     for i = 1:length(problemStruct.contrastDomainRatios)
         index = problemStruct.contrastDomainRatios(i);
-        if (index < 1 && index ~= -1) || index > numDomainRatios
+        if index < 1 || index > numDomainRatios
             throw(exceptions.indexOutOfRange(sprintf('contrastDomainRatios(%i) is %i, which is outside the range of domainRatio', i, index)));
         end
     end

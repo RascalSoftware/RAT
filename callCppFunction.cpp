@@ -55,7 +55,7 @@ namespace RAT
     }
 
     callbackHandle = convertString2HandlePtr<CallbackInterface>(&b_pointer_data
-      [0]);
+      [0], static_cast<double>(pointer_size[1]));
     callback = std::mem_fn(&ClassHandle<CallbackInterface>::ptr)(callbackHandle);
     outArray = { };
 
@@ -167,7 +167,7 @@ namespace RAT
     }
 
     callbackHandle = convertString2HandlePtr<CallbackInterface>(&b_pointer_data
-      [0]);
+      [0], static_cast<double>(pointer_size[1]));
     callback = std::mem_fn(&ClassHandle<CallbackInterface>::ptr)(callbackHandle);
     outArray = { };
 
@@ -279,7 +279,7 @@ namespace RAT
     }
 
     callbackHandle = convertString2HandlePtr<CallbackInterface>(&b_pointer_data
-      [0]);
+      [0], static_cast<double>(pointer_size[1]));
     callback = std::mem_fn(&ClassHandle<CallbackInterface>::ptr)(callbackHandle);
     outArray = { };
 
@@ -385,7 +385,7 @@ namespace RAT
     }
 
     callbackHandle = convertString2HandlePtr<CallbackInterface>(&b_pointer_data
-      [0]);
+      [0], static_cast<double>(pointer_size[1]));
     callback = std::mem_fn(&ClassHandle<CallbackInterface>::ptr)(callbackHandle);
     outArray = { };
 

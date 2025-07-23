@@ -60,9 +60,9 @@ template<class base> inline std::string convertPtr2String(base *ptr)
     return std::to_string(handle);
 }
 
-template<class base> inline ClassHandle<base> *convertString2HandlePtr(const char* in)
+template<class base> inline ClassHandle<base> *convertString2HandlePtr(const char* in, int size)
 {
-    uint64_t value = stoull(std::string(in));
+    uint64_t value = stoull(std::string(in).substr(0, size));
     ClassHandle<base> *ptr = reinterpret_cast<ClassHandle<base> *>(value);
     if (!ptr->isValid())
        throw std::invalid_argument("callback handle is not valid");

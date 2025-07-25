@@ -2,6 +2,13 @@ function encoded = projectToJson(problem,filename)
 
 % Converts a projectClass to a json file...
 
+% Check is we have a domains project..
+if isa(problem,'domainsClass')
+    isDomains = true;
+else 
+    isDomains = false;
+end
+
 % General Params....
 totalStruct.name = problem.experimentName;
 totalStruct.calculation = 'normal'; % Will gove optio for magnetic etc...
@@ -32,8 +39,12 @@ scalefactorTable = problem.scalefactors.varTable;
 nRows = problem.scalefactors.rowCount;
 totalStruct.scalefactors = makeParamStruct(scalefactorTable,nRows,show_priors);
 
-% Domain ratios.... TODO
-totalStruct.domain_ratios = [];
+% Domain ratios..
+if isDomains
+    domainRatioTable = problem.domainRatio.varTable;
+    nRows = problem.domainRatio.rowCount;
+    totalStruct.domain_ratios = makeParamStruct(domainRatioTable, nRows, show_priors);
+end
 
 % Background 
 backPars = problem.background.backgroundParams;
@@ -71,12 +82,20 @@ if ~isempty(problem.layers)
     totalStruct.layers = makeLayersStruct(layersTable);
 end
 
-% Domains contrasts ........ TODO....
-totalStruct.domain_contrasts = [];
+% Domains contrasts 
+if isDomains && strcmpi(totalStruct.model,'standard layers')
+    domainContrastArray = problem.domainContrasts.contrasts;
+    totalStruct.domain_contrasts = makeDomainContrastsStruct(domainContrastArray);
+end
 
 % Contrasts....
-contrastArray = problem.contrasts.contrasts;
-totalStruct.contrasts = makeContrastsStruct(contrastArray);
+if isDomains
+    contrastArray = problem.contrasts.contrasts;
+    totalStruct.contrasts = makeContrastsStruct_domains(contrastArray);
+else
+    contrastArray = problem.contrasts.contrasts;
+    totalStruct.contrasts = makeContrastsStruct(contrastArray);
+end
 
 % Save the file 
 encoded = jsonencode(totalStruct,ConvertInfAndNaN=false);
@@ -180,6 +199,21 @@ end
 
 % -------------------------------------------
 
+
+function contrastStruct = makeDomainContrastsStruct(contrastArray)
+
+numberOfContrasts = length(contrastArray);
+
+for i = 1:numberOfContrasts
+    thisContrast = contrastArray{i};
+    thisContrast = orderfields(thisContrast,["name","model"]);
+    contrastStruct(i,1) = thisContrast;
+end
+
+end
+% ---------------------------------------------
+
+
 function newContrastStruct = makeContrastsStruct(contrastArray)
 
 numberOfContrasts = length(contrastArray);
@@ -200,6 +234,45 @@ for i = 1:numberOfContrasts
                 "bulk_in"          ,...
                 "bulk_out"         ,...
                 "data"             ,...
+                "model"            ,...
+                "name"             ,...
+                "resample"         ,...
+                "resolution"       ,...
+                "scalefactor"      ];
+
+    thisContrastStruct = cell2struct(struct2cell(thisContrastStruct), newFieldldNames);
+
+    % Order them according to the json requirements...
+    thisContrastStruct = orderfields(thisContrastStruct,jsonFields);
+
+    newContrastStruct(1,i) = thisContrastStruct; 
+end
+
+end
+
+% ---------------------------------------------------------------------
+
+function newContrastStruct = makeContrastsStruct_domains(contrastArray)
+
+numberOfContrasts = length(contrastArray);
+
+% Order of fields we need for the json...
+jsonFields = ["name","data","background","background_action","bulk_in",...
+              "bulk_out","scalefactor","resolution","resample","domain_ratio","model"];
+
+for i = 1:numberOfContrasts
+    thisContrastStruct = contrastArray{i};
+   
+    % remove the repeats field...
+    thisContrastStruct = rmfield(thisContrastStruct,'repeatLayers');
+
+    % rename the fields...
+    newFieldldNames = ["background",...
+                "background_action",...
+                "bulk_in"          ,...
+                "bulk_out"         ,...
+                "data"             ,...
+                "domain_ratio"     ,...
                 "model"            ,...
                 "name"             ,...
                 "resample"         ,...

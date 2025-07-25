@@ -61,8 +61,7 @@ problem.setData(4,'dataRange',[0.013 0.37]);
 %% 
 % Add the custom file to the project....
 
-problem.addCustomFile('DSPC Model','customBilayerDSPC.m','matlab',fullfile(pwd,'customLayers'));
-problem.addCustomFile('DSPC Model 2','customBilayerDSPC.py','python',fullfile(pwd,'customLayers'));
+problem.addCustomFile('DSPC Model','customBilayerDSPC.m','matlab',pwd);
 %% 
 % Also, add the relevant background parameters - one each for each contrast:
 

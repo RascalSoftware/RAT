@@ -1,4 +1,4 @@
-function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, showLegend)
+function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, showLegend, shiftValue)
     % Helper function to plot the reflectivity and SLD profiles from plot event struct. 
     % Most users never need to use this function, rather use ``useLivePlot`` for live 
     % plotting or ``plotRefSLD`` for simple SLD plots. 
@@ -39,7 +39,9 @@ function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, sh
     % showGrid : logical, default: false
     %    Indicates if the grid should be shown.
     % showLegend : logical, default: true
-    %    Indicates if the legend should be shown.    
+    %    Indicates if the legend should be shown.
+    % shiftValue : float, default: 100
+    %    A value between 1 and 100 that controls the spacing between the reflectivity plots for each contrasts.     
 
     arguments
         data
@@ -49,8 +51,8 @@ function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, sh
         showErrorBar {mustBeA(showErrorBar, 'logical')} = true
         showGrid {mustBeA(showGrid, 'logical')} = false
         showLegend {mustBeA(showLegend, 'logical')} = true
-    end
-
+        shiftValue {mustBeGreaterThanOrEqual(shiftValue, 1), mustBeLessThanOrEqual(shiftValue, 100)} = 100
+    end 
     defaultState = 'on';
     s = warning();
     if any(strcmp({s.identifier}, 'MATLAB:Axes:NegativeDataInLogAxis'))
@@ -81,7 +83,7 @@ function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, sh
         thisRef = data.reflectivity{i};
         thisData = data.shiftedData{i};
         if i > 1 || q4
-            mult = 2^(4*i);
+            mult = 10.^((i/100)*shiftValue);
         end
         
         if q4 && data.dataPresent(i)

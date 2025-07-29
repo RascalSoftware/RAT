@@ -41,7 +41,7 @@ function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, sh
     % showLegend : logical, default: true
     %    Indicates if the legend should be shown.
     % shiftValue : float, default: 100
-    %    A value between 1 and 100 that controls the spacing between the reflectivity plots for each contrasts.     
+    %    A value between 1 and 100 that controls the spacing between the reflectivity plots for each of the contrasts.     
 
     arguments
         data

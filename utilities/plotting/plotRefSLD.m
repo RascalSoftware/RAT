@@ -18,7 +18,7 @@ function plotRefSLD(project, result, options)
     %       * showErrorBar (logical, default: true) indicates if the error bar should be shown.
     %       * showGrid (logical, default: false) indicates if the grid should be shown.
     %       * showLegend (logical, default: true) indicates if the legend should be shown.
-    %       * shiftValue (float, default: 100) A value between 1 and 100 that controls the spacing between the reflectivity plots for each contrasts.   
+    %       * shiftValue (float, default: 100) A value between 1 and 100 that controls the spacing between the reflectivity plots for each of the contrasts.   
     
     arguments
         project

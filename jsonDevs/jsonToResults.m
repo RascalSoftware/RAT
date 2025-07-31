@@ -18,9 +18,9 @@ results.simulation = simArray2Cells(jsonRes.simulation);
 results.shiftedData = dataArray2Cells(jsonRes.shiftedData);
 results.backgrounds = simArray2Cells(jsonRes.backgrounds);
 results.resolutions = simArray2Cells(jsonRes.resolutions);
-results.sldProfiles = sldArray2Cells(jsonRes.sldProfiles);
-results.layers = sldArray2Cells(jsonRes.layers);    % Layers array is in the same format as the SLDs
-results.resampledLayers = sldArray2Cells(jsonRes.resampledLayers);
+results.sldProfiles = sldArray2Cells(jsonRes.sldProfiles,numel(results.reflectivity));
+results.layers = sldArray2Cells(jsonRes.layers,numel(results.reflectivity));    % Layers array is in the same format as the SLDs
+results.resampledLayers = sldArray2Cells(jsonRes.resampledLayers,numel(results.reflectivity));
 
 % These correctly load in as structs or arrays....
 results.calculationResults = jsonRes.calculationResults;
@@ -61,11 +61,16 @@ end
 
 % ----------------------------------------------------------
 
-function outCell = sldArray2Cells(inArray)
+function outCell = sldArray2Cells(inArray,nContrasts)
 
 % Check we don't already have cells..
 if iscell(inArray)
-    outCell = inArray;
+    nArrays = numel(inArray);
+    if nArrays == nContrasts % (not domains)
+        outCell = inArray;
+    else  % ..domains - [n x 2] cell array
+        outCell = reshape(inArray,nContrasts,nArrays/2);
+    end
 else
 
     % Get number of profiles...
@@ -86,7 +91,7 @@ function outCell = dataArray2Cells(inArray)
 
 % Check we don't already have cells..
 if iscell(inArray)
-    outCell = inArray;
+    outCell = reshape(inArray,1,numel(inArray));
 else
 
     % Get number of profiles...

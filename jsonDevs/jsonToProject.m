@@ -107,7 +107,8 @@ if json_struct.model == "standard layers"
 end
 
 
-if json_struct.model == "domains"
+if json_struct.calculation == "domains"
+    project.removeDomainRatio(1);
     for i=1:length(json_struct.domain_ratios)
         p = json_struct.domain_ratios(i);
         project.addDomainRatio(p.name, p.min, p.value, p.max, p.fit, p.prior_type, p.mu, p.sigma);
@@ -123,6 +124,7 @@ if json_struct.model == "domains"
         'scalefactor', p.scalefactor, ...
         'resample', p.resample, ...
         'domainRatio', p.domain_ratio, ...
+        'resolution',p.resolution, ...
         'model', p.model);
     end
 else

@@ -13,6 +13,10 @@ controls = controlsClass();
 % Check it runs...
 [problem,results] = RAT(problem,controls);
 
+% Plot what we have..
+figure(1); clf
+plotRefSLD(problem,results)
+
 % Try saving a loading of problem and controls...
 projectToJson(problem,'problemSaveTest.json');
 controlsToJson(controls,'controlsSaveTest.json');
@@ -51,6 +55,8 @@ else
     error('Warning: Reloaded results do not match the original results.');
 end
 
+% Plot to check....
+figure(1); plotRefSLD(problem,results);
 
 % Clean up...
 files = {'problemSaveTest.json','controlsSaveTest.json','resultsSaveTest.json'};

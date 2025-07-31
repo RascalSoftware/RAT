@@ -11,7 +11,12 @@ end
 
 % General Params....
 totalStruct.name = problem.experimentName;
-totalStruct.calculation = 'normal'; % Will gove optio for magnetic etc...
+if isDomains
+    totalStruct.calculation = 'domains';
+else
+    totalStruct.calculation = 'normal';
+end
+
 totalStruct.model = problem.modelType;
 totalStruct.geometry = problem.geometry;
 totalStruct.absorption = problem.absorption;

@@ -52,7 +52,7 @@ results_reload = jsonToResults('resultsSaveTest.json');
 if isequal(results, results_reload)
     disp('Reloaded results match the original results.');
 else
-    error('Warning: Reloaded results do not match the original results.');
+    checkresults(results,results_reload);
 end
 
 % Plot to check....

@@ -69,17 +69,31 @@ if iscell(inArray)
     if nArrays == nContrasts % (not domains)
         outCell = inArray;
     else  % ..domains - [n x 2] cell array
-        outCell = reshape(inArray,nContrasts,nArrays/2);
+        outCell = reshape(inArray,nContrasts,2);
     end
 else
 
     % Get number of profiles...
     nProfiles = size(inArray,1);
-
+    
+    % Make them into cells....
     for i = 1:nProfiles
         thisSLD = inArray(i,:,:,:);
         thisSLD = squeeze(thisSLD); % Collapse singleton dims....
         outCell{i,1} = thisSLD;
+    end
+
+    % If domains, reorganise the cells...
+    if nProfiles > nContrasts
+        outCell = transpose(reshape(outCell,nContrasts,2));
+    end
+end
+
+% We have an annoying automatic reshape of single layers into columns.
+% Fix this...
+for i = 1:numel(outCell)
+    if iscolumn(outCell{i})
+        outCell{i} = transpose(outCell{i});
     end
 end
 
@@ -91,7 +105,7 @@ function outCell = dataArray2Cells(inArray)
 
 % Check we don't already have cells..
 if iscell(inArray)
-    outCell = reshape(inArray,1,numel(inArray));
+    outCell = reshape(inArray,numel(inArray),1);
 else
 
     % Get number of profiles...

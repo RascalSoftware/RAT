@@ -9,6 +9,9 @@ checkJsons(problem);
 problem = domainsStandardLayersScript();
 checkJsons(problem);
 
+problem = absorptionDPPC50();
+checkJsons(problem)
+
 function checkJsons(problem)
 
 % Make controls...

@@ -1,6 +1,9 @@
 %% Custom Layers Example for Supported DSPC layer.
 % Example of using Custom layers to model a DSPC supported bilayer.
 
+function problem = customLayersDSPCScript()
+
+
 % Start by making the class and setting it to a custom layers type:
 problem = createProject(name='Orso lipid example - custom layers', model='custom layers');
 problem.geometry = 'Substrate/liquid';
@@ -121,3 +124,5 @@ problem.addContrast('name',        'Bilayer / H2O',...
                     'BulkIn',      'Silicon',...
                     'data',        'Bilayer / H2O',...
                     'model',       'DSPC Model');
+
+end

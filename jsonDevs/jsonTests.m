@@ -1,14 +1,19 @@
 
 % Test the save and load of jsons....
-% (1) Standard Layers...
+problem = standardLayersDSPCScript();
+checkJsons(problem);
 
-% Make the project...
-% standardLayersDSPCScript;
-% customLayersDSPCScript;
-domainsStandardLayersScript;
+problem = customLayersDSPCScript();
+checkJsons(problem);
+
+problem = domainsStandardLayersScript();
+checkJsons(problem);
+
+function checkJsons(problem)
 
 % Make controls...
 controls = controlsClass();
+controls.display = 'final';
 
 % Check it runs...
 [problem,results] = RAT(problem,controls);
@@ -62,4 +67,8 @@ figure(1); plotRefSLD(problem,results);
 files = {'problemSaveTest.json','controlsSaveTest.json','resultsSaveTest.json'};
 for i = 1:length(files)
     delete(files{i});
+end
+
+close all
+
 end

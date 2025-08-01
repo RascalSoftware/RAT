@@ -1,3 +1,5 @@
+function problem = domainsStandardLayersScript()
+
 %% Domains Samples Using Standard Layers
 % Domains Standard Layers projects proceed in much the same way as a normal 
 % SL problem, except that there is an additional grouping step between layers 
@@ -100,4 +102,7 @@ problem.addContrast('name','Domain Test2',...
     'domainRatio',  'Domain Ratio 1',....
     'data',         'Simulation',...
     'model',        {'Domain2', 'Domain1'});
+
+
+end
 

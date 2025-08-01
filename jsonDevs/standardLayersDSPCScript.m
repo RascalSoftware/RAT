@@ -1,4 +1,5 @@
 % Standard Layers fit of a DSPC floating bilayer
+function problem = standardLayersDSPCScript()
 
 % Make the project
 problem = createProject(name='original_dspc_bilayer', calcType='normal', model='standard layers', geometry='substrate/liquid', absorption=false);
@@ -103,4 +104,6 @@ problem.addContrast('name',         'SMW',...
                     'data',         'dspc_bil_smw',...
                     'resample',      true,...
                     'model',         stack);
+
+end
 

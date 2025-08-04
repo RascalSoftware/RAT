@@ -43,8 +43,7 @@ classdef useLivePlot < handle
             % Register the close function with the figure
             set(h,'CloseRequestFcn', @(varargin) obj.closeFigure());
             
-            fprintf(['Live updating plot started in figure %d.\n To ensure slds are plotted, ' ...
-                     'set controls.calcSldDuringFit = true\n'], figureId);
+            fprintf('Live updating plot started in figure %d.\n', figureId);
         end
     end
     methods (Hidden)

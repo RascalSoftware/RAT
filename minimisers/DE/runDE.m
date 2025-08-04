@@ -79,7 +79,7 @@ function [problemStruct,result] = runDE(problemStruct,controls)
     S_struct.FVr_lim_lo = FVr_lim_lo;
     
     S_struct.I_NP         = I_NP;
-    S_struct.fWeight     = fWeight;
+    S_struct.fWeight      = fWeight;
     S_struct.F_CR         = F_CR;
     S_struct.I_D          = I_D;
     S_struct.FVr_minbound = FVr_minbound;
@@ -97,7 +97,7 @@ function [problemStruct,result] = runDE(problemStruct,controls)
     problemStruct.fitParams = res;
     problemStruct = unpackParams(problemStruct);
     % Ensure SLD is calculated for final result
-    controls.calcSldDuringFit = true;
+    controls.calcSLD = true;
     result = reflectivityCalculation(problemStruct,controls);
     
     if ~strcmpi(controls.display, coderEnums.displayOptions.Off)

@@ -26,7 +26,7 @@ pars = theta;
 
 problemStruct = problem{1};
 controls = problem{2};
-controls.calcSldDuringFit = true;
+controls.calcSLD = true;
 
 problemStruct.fitParams = pars;
 problemStruct = unpackParams(problemStruct);

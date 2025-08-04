@@ -24,7 +24,6 @@ root = getappdata(0, 'root');
 d2oproblem = r1ToProjectClass(fullfile(root, 'utilities', 'misc', 'defaultR1ProjectTemplate.mat'));
 
 controls = controlsClass();
-controls.calcSldDuringFit = true;
 controls.nsTolerance = 1;
 controls.nLive = 500;
 

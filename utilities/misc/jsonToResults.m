@@ -1,5 +1,5 @@
 
-function results = jsonToResults(filename,debugResults)
+function results = jsonToResults(filename)
 
 % Loads in the results from a json results file, and converts it so the
 % format required for matlabRAT. The conversion mainly means convertinf
@@ -7,7 +7,7 @@ function results = jsonToResults(filename,debugResults)
 
 % Load in the json array
 [path,filename,~] = fileparts(filename);
-file = fullfile(path,[filename '.json']);
+file = fullfile(path, append(filename, '.json'));
 jsonRes = jsondecode(fileread(file));
 
 % Go through converting all arrays to cells (where the arrays have been
@@ -46,18 +46,6 @@ end
 
 end
 
-% --------------------------------------------------------------
-
-function outCell = array2Cells(inArray)
-
-% Get 3rd dimension of array...
-dims = size(inArray,1);
-
-for i = 1:dims
-    outCell{i,1} = inArray(:,:,i);
-end
-
-end
 
 % ----------------------------------------------------------
 

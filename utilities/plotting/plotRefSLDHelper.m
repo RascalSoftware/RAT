@@ -79,9 +79,6 @@ function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, sh
     lines = cell(numberOfContrasts, 1);
     mult = 1;
     q4Data = 1;
-
-    shiftValue = 100;
-
     for i = 1:numberOfContrasts
         thisRef = data.reflectivity{i};
         thisData = data.shiftedData{i};

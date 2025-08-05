@@ -632,7 +632,7 @@ namespace RAT
           nContrastNames[i] = tmp_data[i];
         }
 
-        if (coder::internal::k_strcmp(varargin_2_TF_data, varargin_2_TF_size)) {
+        if (coder::internal::j_strcmp(varargin_2_TF_data, varargin_2_TF_size)) {
           i = 0;
         } else {
           i = -1;
@@ -1290,7 +1290,7 @@ namespace RAT
           nContrastNames[i] = tmp_data[i];
         }
 
-        if (coder::internal::k_strcmp(varargin_2_TF_data, varargin_2_TF_size)) {
+        if (coder::internal::j_strcmp(varargin_2_TF_data, varargin_2_TF_size)) {
           i = 0;
         } else {
           i = -1;

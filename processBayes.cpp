@@ -71,10 +71,10 @@ namespace RAT
       bayesResults.confidenceIntervals.mean);
 
     //  Calculate 'mean' best fit curves
+    expl_temp.calcSLD = true;
     expl_temp.resampleNPoints = controls_resampleNPoints;
     expl_temp.resampleMinAngle = controls_resampleMinAngle;
     expl_temp.numSimulationPoints = controls_numSimulationPoints;
-    expl_temp.calcSldDuringFit = true;
     expl_temp.parallel.size[0] = 1;
     expl_temp.parallel.size[1] = controls_parallel_size[1];
     loop_ub = controls_parallel_size[1];
@@ -126,7 +126,7 @@ namespace RAT
     //  bayesResults : struct
     //      The Bayesian-specific results from the optimisation.
     //  Need to impose that we calculate the SLD
-    controls.calcSldDuringFit = true;
+    controls.calcSLD = true;
 
     //  ... and use the Bayes best params
     problemStruct.fitParams.set_size(1, bayesOutputs_bestParams.size(1));

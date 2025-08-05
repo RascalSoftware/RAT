@@ -538,7 +538,7 @@ namespace RAT
     DREAMPar.CPU = 1.0;
 
     //  Now print to screen all the settings
-    b = !coder::internal::e_strcmp(ratInputs_controls->display.data,
+    b = !coder::internal::d_strcmp(ratInputs_controls->display.data,
       ratInputs_controls->display.size);
     if (b) {
       printParameters(DREAMPar);

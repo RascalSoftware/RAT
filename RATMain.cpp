@@ -956,28 +956,21 @@ namespace RAT
     bayesResults->nestedSamplerOutput.postSamples
       [bayesResults->nestedSamplerOutput.postSamples.size(0)] =
       b_bayesResults.nestedSamplerOutput.postSamples.data[1];
-
-    //  Set controls.calcSLD to 1 if we are doing customXY
-    if (coder::internal::c_strcmp(problemStruct->modelType.data,
-         problemStruct->modelType.size)) {
-      controls->calcSldDuringFit = true;
-    }
-
     if (problemStruct->numberOfContrasts > 0.0) {
       int b_index;
-      if (coder::internal::d_strcmp(controls->procedure.data,
+      if (coder::internal::c_strcmp(controls->procedure.data,
            controls->procedure.size)) {
         b_index = 0;
-      } else if (coder::internal::f_strcmp(controls->procedure.data,
+      } else if (coder::internal::e_strcmp(controls->procedure.data,
                   controls->procedure.size)) {
         b_index = 1;
-      } else if (coder::internal::g_strcmp(controls->procedure.data,
+      } else if (coder::internal::f_strcmp(controls->procedure.data,
                   controls->procedure.size)) {
         b_index = 2;
-      } else if (coder::internal::h_strcmp(controls->procedure.data,
+      } else if (coder::internal::g_strcmp(controls->procedure.data,
                   controls->procedure.size)) {
         b_index = 3;
-      } else if (coder::internal::i_strcmp(controls->procedure.data,
+      } else if (coder::internal::h_strcmp(controls->procedure.data,
                   controls->procedure.size)) {
         b_index = 4;
       } else {
@@ -987,7 +980,7 @@ namespace RAT
       switch (b_index) {
        case 0:
         //  Just a single reflectivity calculation
-        controls->calcSldDuringFit = true;
+        controls->calcSLD = true;
         cast(problemStruct, r);
         reflectivityCalculation(r, controls, expl_temp);
         cast(expl_temp.reflectivity, expl_temp.simulation, expl_temp.shiftedData,
@@ -1003,7 +996,7 @@ namespace RAT
         break;
 
        case 1:
-        if (!coder::internal::e_strcmp(controls->display.data,
+        if (!coder::internal::d_strcmp(controls->display.data,
              controls->display.size)) {
           triggerEvent();
         }
@@ -1025,7 +1018,7 @@ namespace RAT
         break;
 
        case 2:
-        if (!coder::internal::e_strcmp(controls->display.data,
+        if (!coder::internal::d_strcmp(controls->display.data,
              controls->display.size)) {
           d_triggerEvent();
         }
@@ -1047,7 +1040,7 @@ namespace RAT
         break;
 
        case 3:
-        if (!coder::internal::e_strcmp(controls->display.data,
+        if (!coder::internal::d_strcmp(controls->display.data,
              controls->display.size)) {
           i_triggerEvent();
         }
@@ -1055,10 +1048,10 @@ namespace RAT
         cast(problemStruct, b_problemStruct);
         bayesResults->predictionIntervals.sampleChi.size[0] = runNestedSampler
           (b_problemStruct, controls->parallel.data, controls->parallel.size,
-           controls->calcSldDuringFit, controls->numSimulationPoints,
-           controls->resampleMinAngle, controls->resampleNPoints,
-           controls->display.data, controls->display.size, controls->nLive,
-           controls->nMCMC, controls->nsTolerance, controls->IPCFilePath.data,
+           controls->numSimulationPoints, controls->resampleMinAngle,
+           controls->resampleNPoints, controls->display.data,
+           controls->display.size, controls->nLive, controls->nMCMC,
+           controls->nsTolerance, controls->calcSLD, controls->IPCFilePath.data,
            controls->IPCFilePath.size, expl_temp,
            bayesResults->predictionIntervals.reflectivity,
            bayesResults->predictionIntervals.sld,
@@ -1081,7 +1074,7 @@ namespace RAT
 
        case 4:
         {
-          if (!coder::internal::e_strcmp(controls->display.data,
+          if (!coder::internal::d_strcmp(controls->display.data,
                controls->display.size)) {
             j_triggerEvent();
           }

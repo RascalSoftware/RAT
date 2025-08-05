@@ -158,15 +158,14 @@ namespace RAT
 
   int runNestedSampler(ProblemDefinition &problemStruct, const char
                        controls_parallel_data[], const int
-                       controls_parallel_size[2], boolean_T
-                       controls_calcSldDuringFit, double
+                       controls_parallel_size[2], double
                        controls_numSimulationPoints, double
                        controls_resampleMinAngle, double
                        controls_resampleNPoints, const char
                        controls_display_data[], const int controls_display_size
                        [2], double controls_nLive, double controls_nMCMC, double
-                       controls_nsTolerance, const char
-                       controls_IPCFilePath_data[], const int
+                       controls_nsTolerance, boolean_T controls_calcSLD, const
+                       char controls_IPCFilePath_data[], const int
                        controls_IPCFilePath_size[2], b_struct_T &result, ::coder::
                        array<cell_wrap_11, 1U>
                        &bayesResults_predictionIntervals_reflectivity, ::coder::
@@ -266,6 +265,7 @@ namespace RAT
                 &expl_temp.IPCFilePath.data[0]);
     }
 
+    expl_temp.calcSLD = controls_calcSLD;
     expl_temp.display.size[0] = 1;
     expl_temp.display.size[1] = controls_display_size[1];
     loop_ub = controls_display_size[1];
@@ -277,7 +277,6 @@ namespace RAT
     expl_temp.resampleNPoints = controls_resampleNPoints;
     expl_temp.resampleMinAngle = controls_resampleMinAngle;
     expl_temp.numSimulationPoints = controls_numSimulationPoints;
-    expl_temp.calcSldDuringFit = controls_calcSldDuringFit;
     expl_temp.parallel.size[0] = 1;
     expl_temp.parallel.size[1] = controls_parallel_size[1];
     loop_ub = controls_parallel_size[1];

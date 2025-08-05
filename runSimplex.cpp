@@ -211,9 +211,9 @@ namespace RAT
     fMinSearch(x0u, controls.maxIterations, controls.maxFuncEvals,
                controls.xTolerance, controls.funcTolerance, dis_data, dis_size,
                problemStruct, controls.parallel.data, controls.parallel.size,
-               controls.calcSldDuringFit, controls.numSimulationPoints,
-               controls.resampleMinAngle, controls.resampleNPoints,
-               controls.updateFreq, controls.updatePlotFreq,
+               controls.numSimulationPoints, controls.resampleMinAngle,
+               controls.resampleNPoints, controls.updateFreq,
+               controls.updatePlotFreq, controls.calcSLD,
                controls.IPCFilePath.data, controls.IPCFilePath.size, expl_temp,
                a__3, a__2);
 
@@ -231,7 +231,7 @@ namespace RAT
     unpackParams(problemStruct);
 
     //  Ensure SLD is calculated for final result
-    controls.calcSldDuringFit = true;
+    controls.calcSLD = true;
     b_reflectivityCalculation(problemStruct, &controls, result);
   }
 }

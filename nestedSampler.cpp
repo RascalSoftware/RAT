@@ -547,7 +547,7 @@ namespace RAT
       tol = logPlus(logZ, logLmax - j / nLive) - logZ;
 
       //  display progress (optional)
-      b = !coder::internal::e_strcmp(data_f2.display.data, data_f2.display.size);
+      b = !coder::internal::d_strcmp(data_f2.display.data, data_f2.display.size);
       if (b) {
         if (j < 2.147483648E+9) {
           i1 = static_cast<int>(j);

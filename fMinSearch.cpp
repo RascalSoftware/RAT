@@ -252,15 +252,14 @@ namespace RAT
                     options_TolFun, const char dis_data[], const int dis_size[2],
                     const ProblemDefinition &varargin_1, const char
                     varargin_2_parallel_data[], const int
-                    varargin_2_parallel_size[2], boolean_T
-                    varargin_2_calcSldDuringFit, double
+                    varargin_2_parallel_size[2], double
                     varargin_2_numSimulationPoints, double
                     varargin_2_resampleMinAngle, double
                     varargin_2_resampleNPoints, double varargin_2_updateFreq,
-                    double varargin_2_updatePlotFreq, const char
-                    varargin_2_IPCFilePath_data[], const int
-                    varargin_2_IPCFilePath_size[2], const i_struct_T &varargin_3,
-                    g_struct_T &output, double &exitflag)
+                    double varargin_2_updatePlotFreq, boolean_T
+                    varargin_2_calcSLD, const char varargin_2_IPCFilePath_data[],
+                    const int varargin_2_IPCFilePath_size[2], const i_struct_T
+                    &varargin_3, g_struct_T &output, double &exitflag)
   {
     static const char cv6[35]{ 'E', 'x', 'i', 't', 'i', 'n', 'g', ':', ' ', 'M',
       'a', 'x', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'e', 'v', 'a',
@@ -450,10 +449,10 @@ namespace RAT
     //  Change x to the form expected by funfcn
     b_varargin_1 = varargin_1;
     fv[0] = simplexIntrafun(x, b_varargin_1, varargin_2_parallel_data,
-      varargin_2_parallel_size, varargin_2_calcSldDuringFit,
-      varargin_2_numSimulationPoints, varargin_2_resampleMinAngle,
-      varargin_2_resampleNPoints, varargin_3.LB, varargin_3.UB,
-      varargin_3.BoundClass, result);
+      varargin_2_parallel_size, varargin_2_numSimulationPoints,
+      varargin_2_resampleMinAngle, varargin_2_resampleNPoints,
+      varargin_2_calcSLD, varargin_3.LB, varargin_3.UB, varargin_3.BoundClass,
+      result);
 
     //  Initial simplex setup continues later
     //  Initialize the output and plot functions.
@@ -540,10 +539,10 @@ namespace RAT
 
       b_varargin_1 = varargin_1;
       fv[j + 1] = simplexIntrafun(y, b_varargin_1, varargin_2_parallel_data,
-        varargin_2_parallel_size, varargin_2_calcSldDuringFit,
-        varargin_2_numSimulationPoints, varargin_2_resampleMinAngle,
-        varargin_2_resampleNPoints, varargin_3.LB, varargin_3.UB,
-        varargin_3.BoundClass, result);
+        varargin_2_parallel_size, varargin_2_numSimulationPoints,
+        varargin_2_resampleMinAngle, varargin_2_resampleNPoints,
+        varargin_2_calcSLD, varargin_3.LB, varargin_3.UB, varargin_3.BoundClass,
+        result);
     }
 
     //  sort so v(1,:) has the lowest function value
@@ -750,11 +749,11 @@ namespace RAT
             b_varargin_1 = varargin_1;
             fxr = simplexIntrafun(xr, b_varargin_1, varargin_2_parallel_data,
                                   varargin_2_parallel_size,
-                                  varargin_2_calcSldDuringFit,
                                   varargin_2_numSimulationPoints,
                                   varargin_2_resampleMinAngle,
-                                  varargin_2_resampleNPoints, varargin_3.LB,
-                                  varargin_3.UB, varargin_3.BoundClass, result);
+                                  varargin_2_resampleNPoints, varargin_2_calcSLD,
+                                  varargin_3.LB, varargin_3.UB,
+                                  varargin_3.BoundClass, result);
             func_evals++;
             if (fxr < fv[0]) {
               double fxe;
@@ -773,10 +772,10 @@ namespace RAT
               b_varargin_1 = varargin_1;
               fxe = simplexIntrafun(xe, b_varargin_1, varargin_2_parallel_data,
                                     varargin_2_parallel_size,
-                                    varargin_2_calcSldDuringFit,
                                     varargin_2_numSimulationPoints,
                                     varargin_2_resampleMinAngle,
-                                    varargin_2_resampleNPoints, varargin_3.LB,
+                                    varargin_2_resampleNPoints,
+                                    varargin_2_calcSLD, varargin_3.LB,
                                     varargin_3.UB, varargin_3.BoundClass, result);
               func_evals++;
               if (fxe < fxr) {
@@ -840,10 +839,10 @@ namespace RAT
                 b_varargin_1 = varargin_1;
                 fxc = simplexIntrafun(xc, b_varargin_1, varargin_2_parallel_data,
                                       varargin_2_parallel_size,
-                                      varargin_2_calcSldDuringFit,
                                       varargin_2_numSimulationPoints,
                                       varargin_2_resampleMinAngle,
-                                      varargin_2_resampleNPoints, varargin_3.LB,
+                                      varargin_2_resampleNPoints,
+                                      varargin_2_calcSLD, varargin_3.LB,
                                       varargin_3.UB, varargin_3.BoundClass,
                                       result);
                 func_evals++;
@@ -885,9 +884,9 @@ namespace RAT
                 b_varargin_1 = varargin_1;
                 fxcc = simplexIntrafun(xcc, b_varargin_1,
                   varargin_2_parallel_data, varargin_2_parallel_size,
-                  varargin_2_calcSldDuringFit, varargin_2_numSimulationPoints,
-                  varargin_2_resampleMinAngle, varargin_2_resampleNPoints,
-                  varargin_3.LB, varargin_3.UB, varargin_3.BoundClass, result);
+                  varargin_2_numSimulationPoints, varargin_2_resampleMinAngle,
+                  varargin_2_resampleNPoints, varargin_2_calcSLD, varargin_3.LB,
+                  varargin_3.UB, varargin_3.BoundClass, result);
                 func_evals++;
                 if (fxcc < b_fv) {
                   x_idx_1_tmp = v.size(0);
@@ -934,8 +933,8 @@ namespace RAT
                   b_varargin_1 = varargin_1;
                   fv[j + 1] = simplexIntrafun(d_v, b_varargin_1,
                     varargin_2_parallel_data, varargin_2_parallel_size,
-                    varargin_2_calcSldDuringFit, varargin_2_numSimulationPoints,
-                    varargin_2_resampleMinAngle, varargin_2_resampleNPoints,
+                    varargin_2_numSimulationPoints, varargin_2_resampleMinAngle,
+                    varargin_2_resampleNPoints, varargin_2_calcSLD,
                     varargin_3.LB, varargin_3.UB, varargin_3.BoundClass, result);
                 }
 

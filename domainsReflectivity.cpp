@@ -330,7 +330,7 @@ namespace RAT
       //  Extract parameters from problemStruct
       useImaginary = problemStruct.useImaginary;
       nParams = problemStruct.params.size(1);
-      calcSld = controls->calcSldDuringFit;
+      calcSld = controls->calcSLD;
       numSimulationPoints = controls->numSimulationPoints;
       resampleMinAngle = controls->resampleMinAngle;
       resampleNPoints = controls->resampleNPoints;
@@ -426,7 +426,7 @@ namespace RAT
       //  Obtain model specific parameters
       coder::lower(problemStruct.modelType.data, problemStruct.modelType.size,
                    switch_expression_data, switch_expression_size);
-      if (coder::internal::l_strcmp(switch_expression_data,
+      if (coder::internal::k_strcmp(switch_expression_data,
            switch_expression_size)) {
         b_index = 0;
       } else if (coder::internal::n_strcmp(switch_expression_data,
@@ -515,7 +515,7 @@ namespace RAT
       }
 
       //  Run the core calculation for each contrast
-      if (coder::internal::c_strcmp(problemStruct.modelType.data,
+      if (coder::internal::l_strcmp(problemStruct.modelType.data,
            problemStruct.modelType.size)) {
         if (coder::internal::m_strcmp(controls->parallel.data,
              controls->parallel.size)) {
@@ -1010,7 +1010,7 @@ namespace RAT
       //  Obtain model specific parameters
       coder::lower(problemStruct.modelType.data, problemStruct.modelType.size,
                    switch_expression_data, switch_expression_size);
-      if (coder::internal::l_strcmp(switch_expression_data,
+      if (coder::internal::k_strcmp(switch_expression_data,
            switch_expression_size)) {
         b_index = 0;
       } else if (coder::internal::n_strcmp(switch_expression_data,
@@ -1099,7 +1099,7 @@ namespace RAT
       }
 
       //  Run the core calculation for each contrast
-      if (coder::internal::c_strcmp(problemStruct.modelType.data,
+      if (coder::internal::l_strcmp(problemStruct.modelType.data,
            problemStruct.modelType.size)) {
         if (coder::internal::m_strcmp(controls->parallel.data,
              controls->parallel.size)) {

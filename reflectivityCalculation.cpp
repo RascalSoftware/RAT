@@ -64,10 +64,10 @@ namespace RAT
     //  result : struct
     //      The results of the calculation.
     //  Decide which target function we are calling and call the relevant routines
-    if (coder::internal::j_strcmp(problemStruct.TF.data, problemStruct.TF.size))
+    if (coder::internal::i_strcmp(problemStruct.TF.data, problemStruct.TF.size))
     {
       b_index = 0;
-    } else if (coder::internal::k_strcmp(problemStruct.TF.data,
+    } else if (coder::internal::j_strcmp(problemStruct.TF.data,
                 problemStruct.TF.size)) {
       b_index = 1;
     } else {
@@ -213,10 +213,10 @@ namespace RAT
     //  result : struct
     //      The results of the calculation.
     //  Decide which target function we are calling and call the relevant routines
-    if (coder::internal::j_strcmp(problemStruct.TF.data, problemStruct.TF.size))
+    if (coder::internal::i_strcmp(problemStruct.TF.data, problemStruct.TF.size))
     {
       b_index = 0;
-    } else if (coder::internal::k_strcmp(problemStruct.TF.data,
+    } else if (coder::internal::j_strcmp(problemStruct.TF.data,
                 problemStruct.TF.size)) {
       b_index = 1;
     } else {

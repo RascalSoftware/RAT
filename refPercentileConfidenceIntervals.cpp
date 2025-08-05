@@ -215,10 +215,10 @@ namespace RAT
 
     //  Calculate all the samples....
     loop_ub = bayesOutputs_chain.size(1);
+    expl_temp.calcSLD = true;
     expl_temp.resampleNPoints = controls_resampleNPoints;
     expl_temp.resampleMinAngle = controls_resampleMinAngle;
     expl_temp.numSimulationPoints = controls_numSimulationPoints;
-    expl_temp.calcSldDuringFit = true;
     b_loop_ub = controls_parallel_size[1];
     for (int b_i{0}; b_i < 1000; b_i++) {
       problemStruct.fitParams.set_size(1, bayesOutputs_chain.size(1));

@@ -39,10 +39,12 @@ namespace RAT
     ::coder::array<double, 2U> ImSLDLayers;
     ::coder::array<double, 2U> ReSLDLayers;
     ::coder::array<double, 2U> inputLayers;
-    ::coder::array<double, 2U> sldProfileIm;
+    ::coder::array<double, 2U> r;
     double ssubs;
     int loop_ub;
+    int tmp_size;
     int y_size_idx_1;
+    short tmp_data[12];
 
     //    This is the main reflectivity calculation for all layers models in the
     //    normal target function.
@@ -60,11 +62,8 @@ namespace RAT
     //    Finally, the background correction is applied.
     //  Pre-definition for Coder
     sldProfile.set_size(1, 2);
-    sldProfileIm.set_size(1, 2);
     sldProfile[0] = 0.0;
-    sldProfileIm[0] = 0.0;
     sldProfile[sldProfile.size(0)] = 0.0;
-    sldProfileIm[sldProfileIm.size(0)] = 0.0;
     resampledLayers.set_size(1, 4);
     resampledLayers[0] = 0.0;
     resampledLayers[resampledLayers.size(0)] = 0.0;
@@ -80,9 +79,6 @@ namespace RAT
     //  If resampling is needed, then enforce the SLD calculation, so as to
     //  prevent the error of trying to resample a non-existent profile.
     if (calcSld || (resample == 1.0)) {
-      int tmp_size;
-      short tmp_data[12];
-      signed char b_y_data[11];
       signed char y_data[10];
 
       //  We process real and imaginary parts of the SLD separately
@@ -112,6 +108,17 @@ namespace RAT
         }
       }
 
+      makeSLDProfile(bulkIn, bulkOut, ReSLDLayers, ssubs, repeatLayers,
+                     sldProfile);
+    }
+
+    //  If required, then resample the SLD
+    if (resample == 1.0) {
+      signed char b_y_data[11];
+
+      //  Here, we need the imaginary part of the SLD
+      //  Note bulkIn and bulkOut = 0 since there is never any imaginary part
+      //  for the bulk phases.
       if (layers.size(1) < 3) {
         y_size_idx_1 = 0;
       } else {
@@ -137,16 +144,8 @@ namespace RAT
         }
       }
 
-      //  Note bulkIn and bulkOut = 0 since there is never any imaginary part
-      //  for the bulk phases.
-      makeSLDProfile(bulkIn, bulkOut, ReSLDLayers, ssubs, repeatLayers,
-                     sldProfile);
-      makeSLDProfile(ImSLDLayers, ssubs, repeatLayers, sldProfileIm);
-    }
-
-    //  If required, then resample the SLD
-    if (resample == 1.0) {
-      resampleLayers(sldProfile, sldProfileIm, resampleMinAngle, resampleNPoints,
+      makeSLDProfile(ImSLDLayers, ssubs, repeatLayers, r);
+      resampleLayers(sldProfile, r, resampleMinAngle, resampleNPoints,
                      resampledLayers);
       inputLayers.set_size(resampledLayers.size(0), 4);
       loop_ub = resampledLayers.size(0);

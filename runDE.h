@@ -29,9 +29,9 @@ namespace RAT
 {
   double intrafun(const ::coder::array<double, 2U> &p, ProblemDefinition &
                   problemStruct, const char controls_parallel_data[], const int
-                  controls_parallel_size[2], boolean_T controls_calcSldDuringFit,
-                  double controls_numSimulationPoints, double
-                  controls_resampleMinAngle, double controls_resampleNPoints,
+                  controls_parallel_size[2], double controls_numSimulationPoints,
+                  double controls_resampleMinAngle, double
+                  controls_resampleNPoints, boolean_T controls_calcSLD,
                   b_struct_T &result, double &S_MSE_FVr_ca, double &S_MSE_I_no,
                   double &S_MSE_FVr_oa);
   void runDE(ProblemDefinition &problemStruct, Controls &controls, b_struct_T

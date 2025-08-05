@@ -93,7 +93,6 @@ namespace RAT
   {
     ::coder::bounded_array<char, 10000U, 2U> procedure;
     ::coder::bounded_array<char, 10000U, 2U> parallel;
-    boolean_T calcSldDuringFit;
     double numSimulationPoints;
     double resampleMinAngle;
     double resampleNPoints;
@@ -120,6 +119,7 @@ namespace RAT
     double pUnitGamma;
     ::coder::bounded_array<char, 10000U, 2U> boundHandling;
     boolean_T adaptPCR;
+    boolean_T calcSLD;
     ::coder::bounded_array<char, 10000U, 2U> IPCFilePath;
   };
 

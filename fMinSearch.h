@@ -32,15 +32,14 @@ namespace RAT
                     options_TolFun, const char dis_data[], const int dis_size[2],
                     const ProblemDefinition &varargin_1, const char
                     varargin_2_parallel_data[], const int
-                    varargin_2_parallel_size[2], boolean_T
-                    varargin_2_calcSldDuringFit, double
+                    varargin_2_parallel_size[2], double
                     varargin_2_numSimulationPoints, double
                     varargin_2_resampleMinAngle, double
                     varargin_2_resampleNPoints, double varargin_2_updateFreq,
-                    double varargin_2_updatePlotFreq, const char
-                    varargin_2_IPCFilePath_data[], const int
-                    varargin_2_IPCFilePath_size[2], const i_struct_T &varargin_3,
-                    g_struct_T &output, double &exitflag);
+                    double varargin_2_updatePlotFreq, boolean_T
+                    varargin_2_calcSLD, const char varargin_2_IPCFilePath_data[],
+                    const int varargin_2_IPCFilePath_size[2], const i_struct_T
+                    &varargin_3, g_struct_T &output, double &exitflag);
 }
 
 #endif

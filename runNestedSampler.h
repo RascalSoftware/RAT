@@ -29,15 +29,14 @@ namespace RAT
 {
   int runNestedSampler(ProblemDefinition &problemStruct, const char
                        controls_parallel_data[], const int
-                       controls_parallel_size[2], boolean_T
-                       controls_calcSldDuringFit, double
+                       controls_parallel_size[2], double
                        controls_numSimulationPoints, double
                        controls_resampleMinAngle, double
                        controls_resampleNPoints, const char
                        controls_display_data[], const int controls_display_size
                        [2], double controls_nLive, double controls_nMCMC, double
-                       controls_nsTolerance, const char
-                       controls_IPCFilePath_data[], const int
+                       controls_nsTolerance, boolean_T controls_calcSLD, const
+                       char controls_IPCFilePath_data[], const int
                        controls_IPCFilePath_size[2], b_struct_T &result, ::coder::
                        array<cell_wrap_11, 1U>
                        &bayesResults_predictionIntervals_reflectivity, ::coder::

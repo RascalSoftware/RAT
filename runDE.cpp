@@ -28,9 +28,9 @@ namespace RAT
 {
   double intrafun(const ::coder::array<double, 2U> &p, ProblemDefinition &
                   problemStruct, const char controls_parallel_data[], const int
-                  controls_parallel_size[2], boolean_T controls_calcSldDuringFit,
-                  double controls_numSimulationPoints, double
-                  controls_resampleMinAngle, double controls_resampleNPoints,
+                  controls_parallel_size[2], double controls_numSimulationPoints,
+                  double controls_resampleMinAngle, double
+                  controls_resampleNPoints, boolean_T controls_calcSLD,
                   b_struct_T &result, double &S_MSE_FVr_ca, double &S_MSE_I_no,
                   double &S_MSE_FVr_oa)
   {
@@ -44,10 +44,10 @@ namespace RAT
     }
 
     unpackParams(problemStruct);
+    expl_temp.calcSLD = controls_calcSLD;
     expl_temp.resampleNPoints = controls_resampleNPoints;
     expl_temp.resampleMinAngle = controls_resampleMinAngle;
     expl_temp.numSimulationPoints = controls_numSimulationPoints;
-    expl_temp.calcSldDuringFit = controls_calcSldDuringFit;
     expl_temp.parallel.size[0] = 1;
     expl_temp.parallel.size[1] = controls_parallel_size[1];
     loop_ub = controls_parallel_size[1];
@@ -191,11 +191,10 @@ namespace RAT
 
     expl_temp.I_lentol = 50.0;
     deopt(problemStruct, controls.parallel.data, controls.parallel.size,
-          controls.calcSldDuringFit, controls.numSimulationPoints,
-          controls.resampleMinAngle, controls.resampleNPoints,
-          controls.display.data, controls.display.size, controls.updateFreq,
-          controls.updatePlotFreq, controls.IPCFilePath.data,
-          controls.IPCFilePath.size, expl_temp, res);
+          controls.numSimulationPoints, controls.resampleMinAngle,
+          controls.resampleNPoints, controls.display.data, controls.display.size,
+          controls.updateFreq, controls.updatePlotFreq, controls.calcSLD,
+          controls.IPCFilePath.data, controls.IPCFilePath.size, expl_temp, res);
     problemStruct.fitParams.set_size(1, res.size(1));
     loop_ub = res.size(1);
     for (int i{0}; i < loop_ub; i++) {
@@ -205,9 +204,9 @@ namespace RAT
     unpackParams(problemStruct);
 
     //  Ensure SLD is calculated for final result
-    controls.calcSldDuringFit = true;
+    controls.calcSLD = true;
     b_reflectivityCalculation(problemStruct, &controls, result);
-    if (!coder::internal::e_strcmp(controls.display.data, controls.display.size))
+    if (!coder::internal::d_strcmp(controls.display.data, controls.display.size))
     {
       coder::snPrint(result.calculationResults.sumChi, charStr);
       triggerEvent(charStr);

@@ -18,7 +18,7 @@ function [reflectivity,simulation,shiftedData,backgrounds,resolutions,...
      ] = extractProblemParams(problemStruct);
     
     nParams = length(problemStruct.params);
-    calcSld = controls.calcSldDuringFit;
+    calcSld = controls.calcSLD;
     parallel = controls.parallel;
     numSimulationPoints = controls.numSimulationPoints;
     resampleMinAngle = controls.resampleMinAngle;

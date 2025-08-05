@@ -300,6 +300,7 @@ for i=1:length(controlsFields)
     controls.(controlsFields{i}) = inputControls.(controlsFields{i});
 end
 
+controls.calcSLD = false;
 controls.IPCFilePath = inputControls.getIPCFilePath();
 
 %% Finally, populate the fitParams and fitLimits arrays

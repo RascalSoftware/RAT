@@ -31,7 +31,7 @@ classdef testJsonToProject < matlab.unittest.TestCase
     end
 
     % test that JSON to Project successfully converts projects
-    methods (Test, ParameterCombination='exhaustive')
+    methods (Test)
         function testJsonConversion(testCase, file)
             project = jsonToProject(append(file, ".json"));
             projectToJson(project, "test.json");

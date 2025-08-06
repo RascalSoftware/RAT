@@ -23,13 +23,9 @@ project = createProject('name', json_struct.name, ...
 for i=1:length(json_struct.parameters)
     p = json_struct.parameters(i);
     if p.name == "Substrate Roughness"
-        project.setParameter(i, 'min', p.min, 'value', p.value, 'max', p.max, 'fit', p.fit, 'prior', p.prior_type, 'mu', p.mu, 'sigma', p.sigma);
+        project.setParameter(1, 'min', p.min, 'value', p.value, 'max', p.max, 'fit', p.fit, 'prior', p.prior_type, 'mu', p.mu, 'sigma', p.sigma);
     else
-        try
         project.addParameter(p.name, p.min, p.value, p.max, p.fit, p.prior_type, p.mu, p.sigma);
-        catch 
-            disp('oops')
-        end
     end
 end
 

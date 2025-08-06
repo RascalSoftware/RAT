@@ -2,7 +2,7 @@
 function results = jsonToResults(filename)
 
 % Loads in the results from a json results file, and converts it so the
-% format required for matlabRAT. The conversion mainly means convertinf
+% format required for matlabRAT. The conversion mainly means converting
 % flattened array back to cells..
 
 % Load in the json array

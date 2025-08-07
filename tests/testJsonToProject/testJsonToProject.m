@@ -13,6 +13,9 @@ classdef testJsonToProject < matlab.unittest.TestCase
             'DSPC_custom_layers', ...
             'DSPC_custom_XY', ...
             'DSPC_standard_layers'}
+
+        resultFile = {'result', ...
+            'result_bayes'}
     end
 
     methods(TestClassSetup)
@@ -28,9 +31,44 @@ classdef testJsonToProject < matlab.unittest.TestCase
     end
 
     % test that JSON to Project successfully converts projects
-    methods (Test, ParameterCombination='exhaustive')
+    methods (Test)
         function testJsonConversion(testCase, file)
-            jsonToProject(append(file, ".json"));
+            project = jsonToProject(append(file, ".json"));
+            projectToJson(project, "test.json");
+            project2 = jsonToProject("test.json");
+
+            props = properties(project);
+            for i = 1:length(props)
+                testCase.verifyEqual(project.(props{i}), project2.(props{i}));
+            end
+        end
+
+       function testJsonResultConversion(testCase, resultFile)
+            result = jsonToResults(append(resultFile, ".json"));
+            resultsToJson(result, "test.json");
+            result2 = jsonToResults("test.json");
+
+            props = properties(result);
+            for i = 1:length(props)
+                testCase.verifyEqual(result.(props{i}), result2.(props{i}));
+            end
+       end
+
+       function testJsonControlsConversion(testCase)
+            controls = controlsClass();
+            controls.numSimulationPoints = 100;
+            controls.xTolerance = 19;
+            controls.populationSize = 200;
+            controls.nLive = 140;
+            controls.nSamples = 200;
+
+            controlsToJson(controls, "test.json");
+            controls2 = jsonToControls("test.json");
+
+            props = properties(controls);
+            for i = 1:length(props)
+                testCase.verifyEqual(controls.(props{i}), controls2.(props{i}));
+            end
         end
     end
 

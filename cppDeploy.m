@@ -12,5 +12,5 @@ copyfile('compile/events/eventManagerImpl.hpp', 'compile/fullCompile/cppDeploy/e
 
 % Clean up
 delete 'compile/fullCompile/deploy.zip' 'compile/fullCompile/cppDeploy/buildInfo.mat'...
-       'compile/fullCompile/cppDeploy/rtw_proj.tmw' 'compile/fullCompile/cppDeploy/defines.txt'
-       'compile/fullCompile/cppDeploy/RATMain.a';
+       'compile/fullCompile/cppDeploy/rtw_proj.tmw' 'compile/fullCompile/cppDeploy/defines.txt'...
+       'compile/fullCompile/cppDeploy/RATMain.a' 'compile/fullCompile/cppDeploy/RATMain.lib';

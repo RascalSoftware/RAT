@@ -63,7 +63,7 @@ tolx = optimget(options,'TolX',defaultopt,'fast');
 tolf = optimget(options,'TolFun',defaultopt,'fast');
 maxfun = optimget(options,'MaxFunEvals',defaultopt,'fast');
 maxiter = optimget(options,'MaxIter',defaultopt,'fast');
-funValCheck = strcmp(optimget(options,'FunValCheck',defaultopt,'fast'),'on');
+% funValCheck = strcmp(optimget(options,'FunValCheck',defaultopt,'fast'),'on');
 
 switch dis      % Changed from TMW fminsearch
     case {'notify','notify-detailed'}
@@ -85,9 +85,11 @@ header = ' Iteration   Func-count     min f(x)         Procedure';
 % Convert to function handle as needed.
 % funfcn = fcnchk(funfcn,length(varargin));
 % Add a wrapper function to check for Inf/NaN/complex values
-controls = varargin{2};
 problemStruct = varargin{1};
-if funValCheck
+controls = varargin{2};
+params = varargin{3};
+doPlotEvent = hasPlotHandler();
+% if funValCheck
     % Add a wrapper function, CHECKFUN, to check for NaN/complex values without
     % having to change the calls that look like this:
     % f = funfcn(x,varargin{:});
@@ -95,9 +97,9 @@ if funValCheck
     % then the elements of varargin. To accomplish this we need to add the 
     % user's function to the beginning of varargin, and change funfcn to be
     % CHECKFUN.
-    varargin = [{funfcn}, varargin];
-    funfcn = @checkfun;
-end
+%     varargin = [{funfcn}, varargin];
+%     funfcn = @checkfun;
+% end
 % 
 n = numel(x);
 
@@ -112,7 +114,11 @@ xin = x(:); % Force xin to be a column vector
 v = zeros(n,n+1); fv = zeros(1,n+1);
 v(:,1) = xin;    % Place input guess in the simplex! (credit L.Pfeffer at Stanford)
 x(:) = xin;    % Change x to the form expected by funfcn
-[fv(:,1), result] = funfcn(x,varargin{:});
+if doPlotEvent
+    controls.calcSLD = true;
+end
+[fv(:,1), result] = funfcn(x, problemStruct, controls, params);
+controls.calcSLD = false;
 func_evals = 1;
 itercount = 0;
 coder.varsize('how',[1 Inf],[0 1]);
@@ -164,7 +170,9 @@ if prnt == 3
 %     fprintf('%g \n', func_evals)
 end
 
-triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
+if doPlotEvent 
+    triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
+end
 
 % OutputFcn and PlotFcns call
 % if haveoutputfcn || haveplotfcn
@@ -191,7 +199,11 @@ for j = 1:n
         y(j) = zero_term_delta;
     end
     v(:,j+1) = y;
-    x(:) = y; [f, result] = funfcn(x,varargin{:});
+    if doPlotEvent
+        controls.calcSLD = true;
+    end
+    x(:) = y; [f, result] = funfcn(x, problemStruct, controls, params);
+    controls.calcSLD = false;
     fv(1,j+1) = f;
 end
 
@@ -215,7 +227,7 @@ if prnt == 3 && rem(itercount, controls.updateFreq) == 0
 %     fprintf('%s \n', 'func_evals = ')
 %     fprintf('%g \n', func_evals)
 end
-if rem(itercount, controls.updatePlotFreq) == 0
+if doPlotEvent && rem(itercount, controls.updatePlotFreq) == 0
     triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
 end
 if isRATStopped(controls.IPCFilePath)
@@ -247,6 +259,9 @@ end
 % The iteration stops if the maximum number of iterations or function evaluations 
 % are exceeded
 while func_evals < maxfun && itercount < maxiter
+    if doPlotEvent
+        controls.calcSLD = true;
+    end
     if max(abs(fv(1)-fv(2:n+1))) <= max(tolf,10*eps(fv(1))) && ...
             max(max(abs(v(:,2:n+1)-v(:,onesn)))) <= max(tolx,10*eps(max(v(:,1))))
         break
@@ -257,13 +272,15 @@ while func_evals < maxfun && itercount < maxiter
     % xbar = average of the n (NOT n+1) best points
     xbar = sum(v(:,1:n), 2)/n;
     xr = (1 + rho)*xbar - rho*v(:,end);
-    x(:) = xr; [fxr, result] = funfcn(x,varargin{:});
+    x(:) = xr; [fxr, result] = funfcn(x, problemStruct, controls, params);
     func_evals = func_evals+1;
     
     if fxr < fv(:,1)
         % Calculate the expansion point
         xe = (1 + rho*chi)*xbar - rho*chi*v(:,end);
-        x(:) = xe; [fxe, result] = funfcn(x,varargin{:});
+
+        x(:) = xe; [fxe, result] = funfcn(x, problemStruct, controls, params);
+        controls.calcSLD = false;
         func_evals = func_evals+1;
         if fxe < fxr
             v(:,end) = xe;
@@ -284,7 +301,7 @@ while func_evals < maxfun && itercount < maxiter
             if fxr < fv(:,end)
                 % Perform an outside contraction
                 xc = (1 + psi*rho)*xbar - psi*rho*v(:,end);
-                x(:) = xc; [fxc, result] = funfcn(x,varargin{:});
+                x(:) = xc; [fxc, result] = funfcn(x, problemStruct, controls, params);
                 func_evals = func_evals+1;
                 
                 if fxc <= fxr
@@ -298,7 +315,7 @@ while func_evals < maxfun && itercount < maxiter
             else
                 % Perform an inside contraction
                 xcc = (1-psi)*xbar + psi*v(:,end);
-                x(:) = xcc; [fxcc, result] = funfcn(x,varargin{:});
+                x(:) = xcc; [fxcc, result] = funfcn(x, problemStruct, controls, params);
                 func_evals = func_evals+1;
                 
                 if fxcc < fv(:,end)
@@ -313,7 +330,7 @@ while func_evals < maxfun && itercount < maxiter
             if strcmp(how,'shrink')
                 for j=2:n+1
                     v(:,j)=v(:,1)+sigma*(v(:,j) - v(:,1));
-                    x(:) = v(:,j); [fv(:,j), result] = funfcn(x,varargin{:});
+                    x(:) = v(:,j); [fv(:,j), result] = funfcn(x, problemStruct, controls, params);
                 end
                 func_evals = func_evals + n;
             end
@@ -334,7 +351,8 @@ while func_evals < maxfun && itercount < maxiter
 %         fprintf('%s \n', 'func_evals = ')
 %         fprintf('%s \n', num2str(func_evals))
     end
-    if rem(itercount, controls.updatePlotFreq) == 0   
+    controls.calcSLD = false;
+    if doPlotEvent && rem(itercount, controls.updatePlotFreq) == 0   
         triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
     end
     if isRATStopped(controls.IPCFilePath)
@@ -362,7 +380,7 @@ if prnt == 3 && rem(itercount, controls.updateFreq) ~= 0
     % This should ensure the final result is printed at the end of a run irrespective of update frequency
     triggerEvent(coderEnums.eventTypes.Message, sprintf(' %5.0f        %5.0f     %12.6g         %s\n', itercount, func_evals, fv(1), how));
 end
-if rem(itercount, controls.updatePlotFreq) ~= 0
+if doPlotEvent && rem(itercount, controls.updatePlotFreq) ~= 0
     % This should ensure the final result is always plotted irrespective of update frequency
    triggerEvent(coderEnums.eventTypes.Plot, result, problemStruct);
 end

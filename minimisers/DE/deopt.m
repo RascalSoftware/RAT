@@ -112,6 +112,8 @@ I_strategy   = S_struct.I_strategy;
 I_refresh    = S_struct.I_refresh;
 I_plotting   = S_struct.I_plotting;
 
+doPlotEvent = hasPlotHandler();
+
 %-----Check input variables---------------------------------------------
 if (I_NP < 5)
    I_NP=5;
@@ -343,8 +345,10 @@ while ((I_iter < I_itermax) && (S_bestval.FVr_oa(1) > F_VTR))
      end
     
      % Trigger the output event...
-     if rem(I_iter, controls.updatePlotFreq) == 0
+     if doPlotEvent && rem(I_iter, controls.updatePlotFreq) == 0
+        controls.calcSLD = true;
         [~,result] = fname(FVr_bestmem,problem,controls);
+        controls.calcSLD = false;
         triggerEvent(coderEnums.eventTypes.Plot, result, problem);
      end
     
@@ -366,9 +370,11 @@ if strcmpi(controls.display, coderEnums.displayOptions.Iter) && rem(I_iter-1, co
     triggerEvent(coderEnums.eventTypes.Message, ...
                      sprintf('Iteration: %g,  Best: %f,  fWeight: %f,  F_CR: %f,  I_NP: %g\n\n', I_iter-1,S_bestval.FVr_oa(1),fWeight,F_CR,I_NP));
 end
-if rem(I_iter-1, controls.updatePlotFreq) ~= 0
+if doPlotEvent && rem(I_iter-1, controls.updatePlotFreq) ~= 0
    % This should ensure the final result is always plotted irrespective of update frequency
+   controls.calcSLD = true;
    [~,result] = fname(FVr_bestmem,problem,controls);
+   controls.calcSLD = false;
    triggerEvent(coderEnums.eventTypes.Plot, result, problem);
 end
 end

@@ -60,11 +60,6 @@ function triggerEvent(eventType, varargin)
             elseif eventType == coderEnums.eventTypes.Progress
                 coder.ceval('std::mem_fn(&eventHelper::updateProgress)', helper, [varargin{1},0], varargin{2});
             elseif eventType == coderEnums.eventTypes.Plot
-                hasPlotHandler = coder.ceval('std::mem_fn(&eventHelper::hasPlotHandler)', helper);
-                if ~hasPlotHandler
-                    return;
-                end
-
                 result = varargin{1};
                 problemStruct = varargin{2};
                 subRoughs = result.contrastParams.subRoughs;

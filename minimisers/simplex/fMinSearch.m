@@ -63,7 +63,6 @@ tolx = optimget(options,'TolX',defaultopt,'fast');
 tolf = optimget(options,'TolFun',defaultopt,'fast');
 maxfun = optimget(options,'MaxFunEvals',defaultopt,'fast');
 maxiter = optimget(options,'MaxIter',defaultopt,'fast');
-% funValCheck = strcmp(optimget(options,'FunValCheck',defaultopt,'fast'),'on');
 
 switch dis      % Changed from TMW fminsearch
     case {'notify','notify-detailed'}
@@ -89,18 +88,6 @@ problemStruct = varargin{1};
 controls = varargin{2};
 params = varargin{3};
 doPlotEvent = hasPlotHandler();
-% if funValCheck
-    % Add a wrapper function, CHECKFUN, to check for NaN/complex values without
-    % having to change the calls that look like this:
-    % f = funfcn(x,varargin{:});
-    % x is the first argument to CHECKFUN, then the user's function,
-    % then the elements of varargin. To accomplish this we need to add the 
-    % user's function to the beginning of varargin, and change funfcn to be
-    % CHECKFUN.
-%     varargin = [{funfcn}, varargin];
-%     funfcn = @checkfun;
-% end
-% 
 n = numel(x);
 
 % Initialize parameters
@@ -199,14 +186,13 @@ for j = 1:n
         y(j) = zero_term_delta;
     end
     v(:,j+1) = y;
-    if doPlotEvent
+    if doPlotEvent && j==n 
         controls.calcSLD = true;
     end
     x(:) = y; [f, result] = funfcn(x, problemStruct, controls, params);
-    controls.calcSLD = false;
     fv(1,j+1) = f;
 end
-
+controls.calcSLD = false;
 % sort so v(1,:) has the lowest function value
 [fv,j] = sort(fv);
 v = v(:,j);
@@ -280,7 +266,6 @@ while func_evals < maxfun && itercount < maxiter
         xe = (1 + rho*chi)*xbar - rho*chi*v(:,end);
 
         x(:) = xe; [fxe, result] = funfcn(x, problemStruct, controls, params);
-        controls.calcSLD = false;
         func_evals = func_evals+1;
         if fxe < fxr
             v(:,end) = xe;

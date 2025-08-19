@@ -16,6 +16,7 @@
 #include "abs.h"
 #include "blockedSummation.h"
 #include "eps.h"
+#include "hasPlotHandler.h"
 #include "ifWhileCond.h"
 #include "isRATStopped.h"
 #include "minOrMax.h"
@@ -330,6 +331,8 @@ namespace RAT
     int prnt;
     int x_idx_1_tmp;
     char how_data[16];
+    boolean_T controls_calcSLD;
+    boolean_T doPlotEvent;
     boolean_T tmp_data;
 
     //    Reference: Jeffrey C. Lagarias, James A. Reeds, Margaret H. Wright,
@@ -420,7 +423,7 @@ namespace RAT
     //  Convert to function handle as needed.
     //  funfcn = fcnchk(funfcn,length(varargin));
     //  Add a wrapper function to check for Inf/NaN/complex values
-    //
+    doPlotEvent = hasPlotHandler();
     n = x.size(0);
 
     //  Initialize parameters
@@ -450,9 +453,10 @@ namespace RAT
     b_varargin_1 = varargin_1;
     fv[0] = simplexIntrafun(x, b_varargin_1, varargin_2_parallel_data,
       varargin_2_parallel_size, varargin_2_numSimulationPoints,
-      varargin_2_resampleMinAngle, varargin_2_resampleNPoints,
+      varargin_2_resampleMinAngle, varargin_2_resampleNPoints, doPlotEvent ||
       varargin_2_calcSLD, varargin_3.LB, varargin_3.UB, varargin_3.BoundClass,
       result);
+    controls_calcSLD = false;
 
     //  Initial simplex setup continues later
     //  Initialize the output and plot functions.
@@ -497,10 +501,12 @@ namespace RAT
       //      fprintf('%g \n', func_evals)
     }
 
-    triggerEvent(result, varargin_1.TF.data, varargin_1.TF.size,
-                 varargin_1.resample, varargin_1.dataPresent,
-                 varargin_1.modelType.data, varargin_1.modelType.size,
-                 varargin_1.names.contrasts);
+    if (doPlotEvent) {
+      triggerEvent(result, varargin_1.TF.data, varargin_1.TF.size,
+                   varargin_1.resample, varargin_1.dataPresent,
+                   varargin_1.modelType.data, varargin_1.modelType.size,
+                   varargin_1.names.contrasts);
+    }
 
     //  OutputFcn and PlotFcns call
     //  if haveoutputfcn || haveplotfcn
@@ -537,11 +543,15 @@ namespace RAT
         v[i1 + v.size(0) * (j + 1)] = y[i1];
       }
 
+      if (doPlotEvent && (j + 1 == n)) {
+        controls_calcSLD = true;
+      }
+
       b_varargin_1 = varargin_1;
       fv[j + 1] = simplexIntrafun(y, b_varargin_1, varargin_2_parallel_data,
         varargin_2_parallel_size, varargin_2_numSimulationPoints,
         varargin_2_resampleMinAngle, varargin_2_resampleNPoints,
-        varargin_2_calcSLD, varargin_3.LB, varargin_3.UB, varargin_3.BoundClass,
+        controls_calcSLD, varargin_3.LB, varargin_3.UB, varargin_3.BoundClass,
         result);
     }
 
@@ -588,7 +598,7 @@ namespace RAT
       //      fprintf('%g \n', func_evals)
     }
 
-    if (rt_remd_snf(1.0, varargin_2_updatePlotFreq) == 0.0) {
+    if (doPlotEvent && (rt_remd_snf(1.0, varargin_2_updatePlotFreq) == 0.0)) {
       triggerEvent(result, varargin_1.TF.data, varargin_1.TF.size,
                    varargin_1.resample, varargin_1.dataPresent,
                    varargin_1.modelType.data, varargin_1.modelType.size,
@@ -751,7 +761,7 @@ namespace RAT
                                   varargin_2_parallel_size,
                                   varargin_2_numSimulationPoints,
                                   varargin_2_resampleMinAngle,
-                                  varargin_2_resampleNPoints, varargin_2_calcSLD,
+                                  varargin_2_resampleNPoints, doPlotEvent,
                                   varargin_3.LB, varargin_3.UB,
                                   varargin_3.BoundClass, result);
             func_evals++;
@@ -774,9 +784,9 @@ namespace RAT
                                     varargin_2_parallel_size,
                                     varargin_2_numSimulationPoints,
                                     varargin_2_resampleMinAngle,
-                                    varargin_2_resampleNPoints,
-                                    varargin_2_calcSLD, varargin_3.LB,
-                                    varargin_3.UB, varargin_3.BoundClass, result);
+                                    varargin_2_resampleNPoints, doPlotEvent,
+                                    varargin_3.LB, varargin_3.UB,
+                                    varargin_3.BoundClass, result);
               func_evals++;
               if (fxe < fxr) {
                 x_idx_1_tmp = v.size(0);
@@ -841,10 +851,9 @@ namespace RAT
                                       varargin_2_parallel_size,
                                       varargin_2_numSimulationPoints,
                                       varargin_2_resampleMinAngle,
-                                      varargin_2_resampleNPoints,
-                                      varargin_2_calcSLD, varargin_3.LB,
-                                      varargin_3.UB, varargin_3.BoundClass,
-                                      result);
+                                      varargin_2_resampleNPoints, doPlotEvent,
+                                      varargin_3.LB, varargin_3.UB,
+                                      varargin_3.BoundClass, result);
                 func_evals++;
                 if (fxc <= fxr) {
                   x_idx_1_tmp = v.size(0);
@@ -885,7 +894,7 @@ namespace RAT
                 fxcc = simplexIntrafun(xcc, b_varargin_1,
                   varargin_2_parallel_data, varargin_2_parallel_size,
                   varargin_2_numSimulationPoints, varargin_2_resampleMinAngle,
-                  varargin_2_resampleNPoints, varargin_2_calcSLD, varargin_3.LB,
+                  varargin_2_resampleNPoints, doPlotEvent, varargin_3.LB,
                   varargin_3.UB, varargin_3.BoundClass, result);
                 func_evals++;
                 if (fxcc < b_fv) {
@@ -934,8 +943,8 @@ namespace RAT
                   fv[j + 1] = simplexIntrafun(d_v, b_varargin_1,
                     varargin_2_parallel_data, varargin_2_parallel_size,
                     varargin_2_numSimulationPoints, varargin_2_resampleMinAngle,
-                    varargin_2_resampleNPoints, varargin_2_calcSLD,
-                    varargin_3.LB, varargin_3.UB, varargin_3.BoundClass, result);
+                    varargin_2_resampleNPoints, doPlotEvent, varargin_3.LB,
+                    varargin_3.UB, varargin_3.BoundClass, result);
                 }
 
                 func_evals += static_cast<double>(n);
@@ -979,7 +988,8 @@ namespace RAT
               //          fprintf('%s \n', num2str(func_evals))
             }
 
-            if (rt_remd_snf(itercount, varargin_2_updatePlotFreq) == 0.0) {
+            if (doPlotEvent && (rt_remd_snf(itercount, varargin_2_updatePlotFreq)
+                                == 0.0)) {
               triggerEvent(result, varargin_1.TF.data, varargin_1.TF.size,
                            varargin_1.resample, varargin_1.dataPresent,
                            varargin_1.modelType.data, varargin_1.modelType.size,
@@ -1049,7 +1059,8 @@ namespace RAT
           triggerEvent(r);
         }
 
-        if (rt_remd_snf(itercount, varargin_2_updatePlotFreq) != 0.0) {
+        if (doPlotEvent && (rt_remd_snf(itercount, varargin_2_updatePlotFreq) !=
+                            0.0)) {
           //  This should ensure the final result is always plotted irrespective of update frequency
           triggerEvent(result, varargin_1.TF.data, varargin_1.TF.size,
                        varargin_1.resample, varargin_1.dataPresent,

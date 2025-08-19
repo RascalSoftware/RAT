@@ -610,97 +610,92 @@ namespace RAT
 
     initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
     if (initialised) {
-      boolean_T hasPlotHandler;
-      hasPlotHandler = std::mem_fn(&eventHelper::hasPlotHandler)(helper);
-      if (hasPlotHandler) {
-        subRoughs.set_size(varargin_1.contrastParams.subRoughs.size(0));
-        loop_ub = varargin_1.contrastParams.subRoughs.size(0);
-        for (i = 0; i < loop_ub; i++) {
-          subRoughs[i] = varargin_1.contrastParams.subRoughs[i];
-        }
-
-        int tmp_size[2];
-        packCellArray(varargin_1.reflectivity, reflect, nReflect);
-        packCellArray(varargin_1.shiftedData, shiftedData, nShiftedData);
-        packCellArray(varargin_1.sldProfiles, sldProfiles, nSldProfiles);
-        packCellArray(varargin_1.resampledLayers, layers, nLayers);
-        coder::strjoin(varargin_2_names_contrasts, contrastNames);
-        coder::intstrlen(varargin_2_names_contrasts, tmp_data, tmp_size);
-        nContrastNames.set_size(1, tmp_size[1]);
-        loop_ub = tmp_size[1];
-        for (i = 0; i < loop_ub; i++) {
-          nContrastNames[i] = tmp_data[i];
-        }
-
-        if (coder::internal::j_strcmp(varargin_2_TF_data, varargin_2_TF_size)) {
-          i = 0;
-        } else {
-          i = -1;
-        }
-
-        if (i == 0) {
-          b_packCellArray(varargin_1.sldProfiles, b_sldProfiles2, nSldProfiles2);
-          loop_ub = b_sldProfiles2.size(0);
-          sldProfiles2.set_size(b_sldProfiles2.size(0), 1);
-          for (i = 0; i < loop_ub; i++) {
-            sldProfiles2[i] = b_sldProfiles2[i];
-          }
-
-          loop_ub = nSldProfiles2.size(0);
-          b_nSldProfiles2.set_size(nSldProfiles2.size(0), 1);
-          for (i = 0; i < loop_ub; i++) {
-            b_nSldProfiles2[i] = nSldProfiles2[i];
-          }
-
-          b_packCellArray(varargin_1.resampledLayers, b_sldProfiles2,
-                          nSldProfiles2);
-          loop_ub = b_sldProfiles2.size(0);
-          layers2.set_size(b_sldProfiles2.size(0), 1);
-          for (i = 0; i < loop_ub; i++) {
-            layers2[i] = b_sldProfiles2[i];
-          }
-
-          loop_ub = nSldProfiles2.size(0);
-          nLayers2.set_size(nSldProfiles2.size(0), 1);
-          for (i = 0; i < loop_ub; i++) {
-            nLayers2[i] = nSldProfiles2[i];
-          }
-        } else {
-          sldProfiles2.set_size(0, 0);
-          b_nSldProfiles2.set_size(0, 0);
-          layers2.set_size(0, 0);
-          nLayers2.set_size(0, 0);
-        }
-
-        loop_ub = varargin_2_modelType_size[1];
-        if (loop_ub - 1 >= 0) {
-          std::copy(&varargin_2_modelType_data[0],
-                    &varargin_2_modelType_data[loop_ub], &modelType_data[0]);
-        }
-
-        modelType_data[varargin_2_modelType_size[1]] = '\x00';
-        resample.set_size(1, varargin_2_resample.size(1));
-        loop_ub = varargin_2_resample.size(1);
-        for (i = 0; i < loop_ub; i++) {
-          resample[i] = varargin_2_resample[i];
-        }
-
-        dataPresent.set_size(1, varargin_2_dataPresent.size(1));
-        loop_ub = varargin_2_dataPresent.size(1);
-        for (i = 0; i < loop_ub; i++) {
-          dataPresent[i] = varargin_2_dataPresent[i];
-        }
-
-        std::mem_fn(&eventHelper::updatePlot)(helper, static_cast<double>
-          (varargin_1.reflectivity.size(0)), &(reflect.data())[0],
-          &(nReflect.data())[0], &(shiftedData.data())[0], &(nShiftedData.data())
-          [0], &(sldProfiles.data())[0], &(nSldProfiles.data())[0],
-          &(layers.data())[0], &(nLayers.data())[0], &sldProfiles2[0],
-          &b_nSldProfiles2[0], &layers2[0], &nLayers2[0], &(subRoughs.data())[0],
-          &resample[0], &dataPresent[0], &modelType_data[0], &contrastNames[0],
-          &nContrastNames[0]);
-        notified = false;
+      subRoughs.set_size(varargin_1.contrastParams.subRoughs.size(0));
+      loop_ub = varargin_1.contrastParams.subRoughs.size(0);
+      for (i = 0; i < loop_ub; i++) {
+        subRoughs[i] = varargin_1.contrastParams.subRoughs[i];
       }
+
+      int tmp_size[2];
+      packCellArray(varargin_1.reflectivity, reflect, nReflect);
+      packCellArray(varargin_1.shiftedData, shiftedData, nShiftedData);
+      packCellArray(varargin_1.sldProfiles, sldProfiles, nSldProfiles);
+      packCellArray(varargin_1.resampledLayers, layers, nLayers);
+      coder::strjoin(varargin_2_names_contrasts, contrastNames);
+      coder::intstrlen(varargin_2_names_contrasts, tmp_data, tmp_size);
+      nContrastNames.set_size(1, tmp_size[1]);
+      loop_ub = tmp_size[1];
+      for (i = 0; i < loop_ub; i++) {
+        nContrastNames[i] = tmp_data[i];
+      }
+
+      if (coder::internal::j_strcmp(varargin_2_TF_data, varargin_2_TF_size)) {
+        i = 0;
+      } else {
+        i = -1;
+      }
+
+      if (i == 0) {
+        b_packCellArray(varargin_1.sldProfiles, b_sldProfiles2, nSldProfiles2);
+        loop_ub = b_sldProfiles2.size(0);
+        sldProfiles2.set_size(b_sldProfiles2.size(0), 1);
+        for (i = 0; i < loop_ub; i++) {
+          sldProfiles2[i] = b_sldProfiles2[i];
+        }
+
+        loop_ub = nSldProfiles2.size(0);
+        b_nSldProfiles2.set_size(nSldProfiles2.size(0), 1);
+        for (i = 0; i < loop_ub; i++) {
+          b_nSldProfiles2[i] = nSldProfiles2[i];
+        }
+
+        b_packCellArray(varargin_1.resampledLayers, b_sldProfiles2,
+                        nSldProfiles2);
+        loop_ub = b_sldProfiles2.size(0);
+        layers2.set_size(b_sldProfiles2.size(0), 1);
+        for (i = 0; i < loop_ub; i++) {
+          layers2[i] = b_sldProfiles2[i];
+        }
+
+        loop_ub = nSldProfiles2.size(0);
+        nLayers2.set_size(nSldProfiles2.size(0), 1);
+        for (i = 0; i < loop_ub; i++) {
+          nLayers2[i] = nSldProfiles2[i];
+        }
+      } else {
+        sldProfiles2.set_size(0, 0);
+        b_nSldProfiles2.set_size(0, 0);
+        layers2.set_size(0, 0);
+        nLayers2.set_size(0, 0);
+      }
+
+      loop_ub = varargin_2_modelType_size[1];
+      if (loop_ub - 1 >= 0) {
+        std::copy(&varargin_2_modelType_data[0],
+                  &varargin_2_modelType_data[loop_ub], &modelType_data[0]);
+      }
+
+      modelType_data[varargin_2_modelType_size[1]] = '\x00';
+      resample.set_size(1, varargin_2_resample.size(1));
+      loop_ub = varargin_2_resample.size(1);
+      for (i = 0; i < loop_ub; i++) {
+        resample[i] = varargin_2_resample[i];
+      }
+
+      dataPresent.set_size(1, varargin_2_dataPresent.size(1));
+      loop_ub = varargin_2_dataPresent.size(1);
+      for (i = 0; i < loop_ub; i++) {
+        dataPresent[i] = varargin_2_dataPresent[i];
+      }
+
+      std::mem_fn(&eventHelper::updatePlot)(helper, static_cast<double>
+        (varargin_1.reflectivity.size(0)), &(reflect.data())[0], &(nReflect.data
+        ())[0], &(shiftedData.data())[0], &(nShiftedData.data())[0],
+        &(sldProfiles.data())[0], &(nSldProfiles.data())[0], &(layers.data())[0],
+        &(nLayers.data())[0], &sldProfiles2[0], &b_nSldProfiles2[0], &layers2[0],
+        &nLayers2[0], &(subRoughs.data())[0], &resample[0], &dataPresent[0],
+        &modelType_data[0], &contrastNames[0], &nContrastNames[0]);
+      notified = false;
 
       //  This avoids printing the error message multiple times during the optimization.
     } else if (!notified) {
@@ -1268,97 +1263,92 @@ namespace RAT
 
     initialised = std::mem_fn(&eventHelper::isInitialised)(helper);
     if (initialised) {
-      boolean_T hasPlotHandler;
-      hasPlotHandler = std::mem_fn(&eventHelper::hasPlotHandler)(helper);
-      if (hasPlotHandler) {
-        subRoughs.set_size(varargin_1.contrastParams.subRoughs.size(0));
-        loop_ub = varargin_1.contrastParams.subRoughs.size(0);
-        for (i = 0; i < loop_ub; i++) {
-          subRoughs[i] = varargin_1.contrastParams.subRoughs[i];
-        }
-
-        int tmp_size[2];
-        packCellArray(varargin_1.reflectivity, reflect, nReflect);
-        packCellArray(varargin_1.shiftedData, shiftedData, nShiftedData);
-        packCellArray(varargin_1.sldProfiles, sldProfiles, nSldProfiles);
-        packCellArray(varargin_1.resampledLayers, layers, nLayers);
-        coder::strjoin(varargin_2_names_contrasts, contrastNames);
-        coder::intstrlen(varargin_2_names_contrasts, tmp_data, tmp_size);
-        nContrastNames.set_size(1, tmp_size[1]);
-        loop_ub = tmp_size[1];
-        for (i = 0; i < loop_ub; i++) {
-          nContrastNames[i] = tmp_data[i];
-        }
-
-        if (coder::internal::j_strcmp(varargin_2_TF_data, varargin_2_TF_size)) {
-          i = 0;
-        } else {
-          i = -1;
-        }
-
-        if (i == 0) {
-          b_packCellArray(varargin_1.sldProfiles, b_sldProfiles2, nSldProfiles2);
-          loop_ub = b_sldProfiles2.size(0);
-          sldProfiles2.set_size(b_sldProfiles2.size(0), 1);
-          for (i = 0; i < loop_ub; i++) {
-            sldProfiles2[i] = b_sldProfiles2[i];
-          }
-
-          loop_ub = nSldProfiles2.size(0);
-          b_nSldProfiles2.set_size(nSldProfiles2.size(0), 1);
-          for (i = 0; i < loop_ub; i++) {
-            b_nSldProfiles2[i] = nSldProfiles2[i];
-          }
-
-          b_packCellArray(varargin_1.resampledLayers, b_sldProfiles2,
-                          nSldProfiles2);
-          loop_ub = b_sldProfiles2.size(0);
-          layers2.set_size(b_sldProfiles2.size(0), 1);
-          for (i = 0; i < loop_ub; i++) {
-            layers2[i] = b_sldProfiles2[i];
-          }
-
-          loop_ub = nSldProfiles2.size(0);
-          nLayers2.set_size(nSldProfiles2.size(0), 1);
-          for (i = 0; i < loop_ub; i++) {
-            nLayers2[i] = nSldProfiles2[i];
-          }
-        } else {
-          sldProfiles2.set_size(0, 0);
-          b_nSldProfiles2.set_size(0, 0);
-          layers2.set_size(0, 0);
-          nLayers2.set_size(0, 0);
-        }
-
-        loop_ub = varargin_2_modelType_size[1];
-        if (loop_ub - 1 >= 0) {
-          std::copy(&varargin_2_modelType_data[0],
-                    &varargin_2_modelType_data[loop_ub], &modelType_data[0]);
-        }
-
-        modelType_data[varargin_2_modelType_size[1]] = '\x00';
-        resample.set_size(1, varargin_2_resample.size(1));
-        loop_ub = varargin_2_resample.size(1);
-        for (i = 0; i < loop_ub; i++) {
-          resample[i] = varargin_2_resample[i];
-        }
-
-        dataPresent.set_size(1, varargin_2_dataPresent.size(1));
-        loop_ub = varargin_2_dataPresent.size(1);
-        for (i = 0; i < loop_ub; i++) {
-          dataPresent[i] = varargin_2_dataPresent[i];
-        }
-
-        std::mem_fn(&eventHelper::updatePlot)(helper, static_cast<double>
-          (varargin_1.reflectivity.size(0)), &(reflect.data())[0],
-          &(nReflect.data())[0], &(shiftedData.data())[0], &(nShiftedData.data())
-          [0], &(sldProfiles.data())[0], &(nSldProfiles.data())[0],
-          &(layers.data())[0], &(nLayers.data())[0], &sldProfiles2[0],
-          &b_nSldProfiles2[0], &layers2[0], &nLayers2[0], &(subRoughs.data())[0],
-          &resample[0], &dataPresent[0], &modelType_data[0], &contrastNames[0],
-          &nContrastNames[0]);
-        notified = false;
+      subRoughs.set_size(varargin_1.contrastParams.subRoughs.size(0));
+      loop_ub = varargin_1.contrastParams.subRoughs.size(0);
+      for (i = 0; i < loop_ub; i++) {
+        subRoughs[i] = varargin_1.contrastParams.subRoughs[i];
       }
+
+      int tmp_size[2];
+      packCellArray(varargin_1.reflectivity, reflect, nReflect);
+      packCellArray(varargin_1.shiftedData, shiftedData, nShiftedData);
+      packCellArray(varargin_1.sldProfiles, sldProfiles, nSldProfiles);
+      packCellArray(varargin_1.resampledLayers, layers, nLayers);
+      coder::strjoin(varargin_2_names_contrasts, contrastNames);
+      coder::intstrlen(varargin_2_names_contrasts, tmp_data, tmp_size);
+      nContrastNames.set_size(1, tmp_size[1]);
+      loop_ub = tmp_size[1];
+      for (i = 0; i < loop_ub; i++) {
+        nContrastNames[i] = tmp_data[i];
+      }
+
+      if (coder::internal::j_strcmp(varargin_2_TF_data, varargin_2_TF_size)) {
+        i = 0;
+      } else {
+        i = -1;
+      }
+
+      if (i == 0) {
+        b_packCellArray(varargin_1.sldProfiles, b_sldProfiles2, nSldProfiles2);
+        loop_ub = b_sldProfiles2.size(0);
+        sldProfiles2.set_size(b_sldProfiles2.size(0), 1);
+        for (i = 0; i < loop_ub; i++) {
+          sldProfiles2[i] = b_sldProfiles2[i];
+        }
+
+        loop_ub = nSldProfiles2.size(0);
+        b_nSldProfiles2.set_size(nSldProfiles2.size(0), 1);
+        for (i = 0; i < loop_ub; i++) {
+          b_nSldProfiles2[i] = nSldProfiles2[i];
+        }
+
+        b_packCellArray(varargin_1.resampledLayers, b_sldProfiles2,
+                        nSldProfiles2);
+        loop_ub = b_sldProfiles2.size(0);
+        layers2.set_size(b_sldProfiles2.size(0), 1);
+        for (i = 0; i < loop_ub; i++) {
+          layers2[i] = b_sldProfiles2[i];
+        }
+
+        loop_ub = nSldProfiles2.size(0);
+        nLayers2.set_size(nSldProfiles2.size(0), 1);
+        for (i = 0; i < loop_ub; i++) {
+          nLayers2[i] = nSldProfiles2[i];
+        }
+      } else {
+        sldProfiles2.set_size(0, 0);
+        b_nSldProfiles2.set_size(0, 0);
+        layers2.set_size(0, 0);
+        nLayers2.set_size(0, 0);
+      }
+
+      loop_ub = varargin_2_modelType_size[1];
+      if (loop_ub - 1 >= 0) {
+        std::copy(&varargin_2_modelType_data[0],
+                  &varargin_2_modelType_data[loop_ub], &modelType_data[0]);
+      }
+
+      modelType_data[varargin_2_modelType_size[1]] = '\x00';
+      resample.set_size(1, varargin_2_resample.size(1));
+      loop_ub = varargin_2_resample.size(1);
+      for (i = 0; i < loop_ub; i++) {
+        resample[i] = varargin_2_resample[i];
+      }
+
+      dataPresent.set_size(1, varargin_2_dataPresent.size(1));
+      loop_ub = varargin_2_dataPresent.size(1);
+      for (i = 0; i < loop_ub; i++) {
+        dataPresent[i] = varargin_2_dataPresent[i];
+      }
+
+      std::mem_fn(&eventHelper::updatePlot)(helper, static_cast<double>
+        (varargin_1.reflectivity.size(0)), &(reflect.data())[0], &(nReflect.data
+        ())[0], &(shiftedData.data())[0], &(nShiftedData.data())[0],
+        &(sldProfiles.data())[0], &(nSldProfiles.data())[0], &(layers.data())[0],
+        &(nLayers.data())[0], &sldProfiles2[0], &b_nSldProfiles2[0], &layers2[0],
+        &nLayers2[0], &(subRoughs.data())[0], &resample[0], &dataPresent[0],
+        &modelType_data[0], &contrastNames[0], &nContrastNames[0]);
+      notified = false;
 
       //  This avoids printing the error message multiple times during the optimization.
     } else if (!notified) {

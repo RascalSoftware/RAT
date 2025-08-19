@@ -13,6 +13,7 @@
 #include "RATMain_internal_types.h"
 #include "RATMain_rtwutil.h"
 #include "RATMain_types.h"
+#include "hasPlotHandler.h"
 #include "ifWhileCond.h"
 #include "isRATStopped.h"
 #include "leftWin.h"
@@ -1012,6 +1013,7 @@ namespace RAT
     int i1;
     int loop_ub;
     int loop_ub_tmp;
+    boolean_T doPlotEvent;
     boolean_T exitg1;
     boolean_T tmp_data;
 
@@ -1109,6 +1111,7 @@ namespace RAT
     I_D = S_struct.I_D;
     I_itermax = S_struct.I_itermax;
     I_strategy = S_struct.I_strategy;
+    doPlotEvent = hasPlotHandler();
 
     // -----Check input variables---------------------------------------------
     if (S_struct.I_NP < 5.0) {
@@ -2012,12 +2015,14 @@ namespace RAT
       }
 
       //  Trigger the output event...
-      if (rt_remd_snf(I_iter, controls_updatePlotFreq) == 0.0) {
+      if (doPlotEvent && (rt_remd_snf(I_iter, controls_updatePlotFreq) == 0.0))
+      {
         b_problem = problem;
         intrafun(FVr_bestmem, b_problem, controls_parallel_data,
                  controls_parallel_size, controls_numSimulationPoints,
-                 controls_resampleMinAngle, controls_resampleNPoints,
-                 controls_calcSLD, result, expl_temp, b_expl_temp, c_expl_temp);
+                 controls_resampleMinAngle, controls_resampleNPoints, true,
+                 result, expl_temp, b_expl_temp, c_expl_temp);
+        controls_calcSLD = false;
         b_triggerEvent(result, problem.TF.data, problem.TF.size,
                        problem.resample, problem.dataPresent,
                        problem.modelType.data, problem.modelType.size,
@@ -2056,13 +2061,14 @@ namespace RAT
       triggerEvent(charStr);
     }
 
-    if (rt_remd_snf(I_iter - 1.0, controls_updatePlotFreq) != 0.0) {
+    if (doPlotEvent && (rt_remd_snf(I_iter - 1.0, controls_updatePlotFreq) !=
+                        0.0)) {
       //  This should ensure the final result is always plotted irrespective of update frequency
       b_problem = problem;
       intrafun(FVr_bestmem, b_problem, controls_parallel_data,
                controls_parallel_size, controls_numSimulationPoints,
-               controls_resampleMinAngle, controls_resampleNPoints,
-               controls_calcSLD, result, expl_temp, b_expl_temp, c_expl_temp);
+               controls_resampleMinAngle, controls_resampleNPoints, true, result,
+               expl_temp, b_expl_temp, c_expl_temp);
       b_triggerEvent(result, problem.TF.data, problem.TF.size, problem.resample,
                      problem.dataPresent, problem.modelType.data,
                      problem.modelType.size, problem.names.contrasts);

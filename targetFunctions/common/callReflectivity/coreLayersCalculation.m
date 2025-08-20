@@ -35,22 +35,27 @@ if calcSld || resample == 1
 
     % We process real and imaginary parts of the SLD separately
     ReSLDLayers = layers(:, [1:2,4:end]);
-    ImSLDLayers = layers(:, [1,3:end]);
-
-    % Note bulkIn and bulkOut = 0 since there is never any imaginary part
-    % for the bulk phases.
     sldProfile = makeSLDProfile(bulkIn,bulkOut,ReSLDLayers,ssubs,repeatLayers);
-    sldProfileIm = makeSLDProfile(0,0,ImSLDLayers,ssubs,repeatLayers);
 
 end
 
 % If required, then resample the SLD
 if resample == 1
+
+    % Here, we need the imaginary part of the SLD
+    % Note bulkIn and bulkOut = 0 since there is never any imaginary part
+    % for the bulk phases.
+    ImSLDLayers = layers(:, [1,3:end]);
+    sldProfileIm = makeSLDProfile(0,0,ImSLDLayers,ssubs,repeatLayers);
+
     resampledLayers = resampleLayers(sldProfile,sldProfileIm,resampleMinAngle,resampleNPoints);
     inputLayers = resampledLayers;
     repeatLayers = 1;
+
 else
+
     inputLayers = layers;
+
 end
 
 % Calculate the reflectivity

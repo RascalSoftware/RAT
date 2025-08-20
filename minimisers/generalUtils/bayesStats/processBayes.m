@@ -20,7 +20,7 @@ function [problemStruct,result,bayesResults] = processBayes(bayesOutputs,problem
 %     The Bayesian-specific results from the optimisation.
 
 % Need to impose that we calculate the SLD
-controls.calcSldDuringFit = true;
+controls.calcSLD = true;
 
 % ... and use the Bayes best params
 problemStruct.fitParams = bayesOutputs.bestParams;

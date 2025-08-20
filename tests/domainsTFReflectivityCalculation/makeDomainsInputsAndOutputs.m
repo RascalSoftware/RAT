@@ -42,7 +42,7 @@ save([root filesep 'tests/domainsTFReflectivityCalculation/domainsStandardLayers
 % (c) TF Parameters
 [reflectivity,simulation,shiftedData,backgrounds,resolutions,sldProfiles,...
  layers,resampledLayers,qzshifts,scalefactors,bulkIn,bulkOut,subRoughs,chis...
- ] = normalTF.normalReflectivity(problemStruct,controls);
+ ] = domainsTF.domainsReflectivity(problemStruct,controls);
 
 TFParams.reflectivity = reflectivity;
 TFParams.simulation = simulation;
@@ -99,7 +99,7 @@ save([root filesep 'tests/domainsTFReflectivityCalculation/domainsCustomXYOutput
 % (c) TF Parameters
 [reflectivity,simulation,shiftedData,backgrounds,resolutions,sldProfiles,...
  layers,resampledLayers,qzshifts,scalefactors,bulkIn,bulkOut,subRoughs,chis...
- ] = normalTF.normalReflectivity(problemStruct,controls);
+ ] = domainsTF.domainsReflectivity(problemStruct,controls);
 
 TFParams.reflectivity = reflectivity;
 TFParams.simulation = simulation;
@@ -155,7 +155,7 @@ save([root filesep 'tests/domainsTFReflectivityCalculation/domainsCustomLayersOu
 % (c) TF Parameters
 [reflectivity,simulation,shiftedData,backgrounds,resolutions,sldProfiles,...
  layers,resampledLayers,qzshifts,scalefactors,bulkIn,bulkOut,subRoughs,chis...
- ] = normalTF.normalReflectivity(problemStruct,controls);
+ ] = domainsTF.domainsReflectivity(problemStruct,controls);
 
 TFParams.reflectivity = reflectivity;
 TFParams.simulation = simulation;

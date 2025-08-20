@@ -23,7 +23,7 @@ project = createProject('name', json_struct.name, ...
 for i=1:length(json_struct.parameters)
     p = json_struct.parameters(i);
     if p.name == "Substrate Roughness"
-        project.setParameter(i, 'min', p.min, 'value', p.value, 'max', p.max, 'fit', p.fit, 'prior', p.prior_type, 'mu', p.mu, 'sigma', p.sigma);
+        project.setParameter(1, 'min', p.min, 'value', p.value, 'max', p.max, 'fit', p.fit, 'prior', p.prior_type, 'mu', p.mu, 'sigma', p.sigma);
     else
         project.addParameter(p.name, p.min, p.value, p.max, p.fit, p.prior_type, p.mu, p.sigma);
     end
@@ -103,7 +103,8 @@ if json_struct.model == "standard layers"
 end
 
 
-if json_struct.model == "domains"
+if json_struct.calculation == "domains"
+    project.removeDomainRatio(1);
     for i=1:length(json_struct.domain_ratios)
         p = json_struct.domain_ratios(i);
         project.addDomainRatio(p.name, p.min, p.value, p.max, p.fit, p.prior_type, p.mu, p.sigma);
@@ -119,6 +120,7 @@ if json_struct.model == "domains"
         'scalefactor', p.scalefactor, ...
         'resample', p.resample, ...
         'domainRatio', p.domain_ratio, ...
+        'resolution',p.resolution, ...
         'model', p.model);
     end
 else
@@ -132,6 +134,7 @@ else
         'bulkOut', p.bulk_out, ...
         'scalefactor', p.scalefactor, ...
         'resample', p.resample, ...
+        'resolution',p.resolution, ...
         'model', p.model);
     end
 end

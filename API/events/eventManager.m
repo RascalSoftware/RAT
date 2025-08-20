@@ -26,6 +26,8 @@ classdef eventManager < handle
             persistent events
             
             if isempty(events) 
+                % Events are stored in a 3 column cell containing the ID,
+                % event type and callback for the event.
                 events =  cell(0, 3);
             end
 
@@ -36,6 +38,15 @@ classdef eventManager < handle
             value = events;
         end
         
+        function state=hasEvent(event_type)
+            
+            state = false;
+            events = eventManager.getEvents();
+            if any(find([events{:, 2}] == event_type, 1))
+                state = true;
+            end
+        end
+
         function funcID = getCallbackID(callback)
             % Generates a id for a callback handle function
             %

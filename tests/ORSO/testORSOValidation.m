@@ -48,7 +48,7 @@ classdef testORSOValidation < matlab.unittest.TestCase
             ref_data(2).SubstrateRoughness = 0; % BulkOut roughness
             % layers model
             ref_data(2).LayerThickness = repmat([30,70],1,10);
-            ref_data(2).SLD_real = repmat([-1.9493,9.4245],1,10);
+            ref_data(2).SLD_real = repmat([-1.9493e-6,9.4245e-6],1,10);
             ref_data(2).SLD_img =  [];
             ref_data(2).LayersRoughness =  zeros(1,20);
             %
@@ -69,7 +69,7 @@ classdef testORSOValidation < matlab.unittest.TestCase
             ref_data(4).BulkOutSLD = 6.36e-6;
             ref_data(4).SubstrateRoughness = 3; % BulkOut roughness
             % layers model
-            BF =  [1001   1.0e+03*0.169705623424947]; % ~100*sqrt(3)
+            BF =  [1001   1e+03*0.169705623424947]; % ~100*sqrt(3)
             ii = 1:2001;
             ref_data(4).LayerThickness = repmat(2.5,1,2001);
             ref_data(4).SLD_real = 6.36e-6*(erf((ii-BF(1))/BF(2))+1)/2;

@@ -4,7 +4,7 @@ classdef testORSOValidation < matlab.unittest.TestCase
     %
     % (For now, we exclude test 4 and test 5, as these test resolution
     % functions which will diverge until phase 2 of the resolution calculations
-    % is implemented)    
+    % is implemented)
 
     properties
         orsoTolerance = 1.0e-10;
@@ -46,7 +46,7 @@ classdef testORSOValidation < matlab.unittest.TestCase
             %                      (in orso_ref_data property)
             % Stores reference structure in the test folder for rapid
             % recovery if the structure is not present
-            % 
+            %
             ref_data = struct();
 
             % Test 0
@@ -194,6 +194,11 @@ classdef testORSOValidation < matlab.unittest.TestCase
 
             % run model simulation
             controls = controlsClass();
+            if obj.plot_test_results
+                controls.display = 'final';
+            else
+                controls.display = 'off';
+            end
             [out_proj,results] = RAT(problem,controls);
 
             % plot results
@@ -206,14 +211,59 @@ classdef testORSOValidation < matlab.unittest.TestCase
             total_error = sum((results.reflectivity{1}(:, 2) - results.shiftedData{1}(:, 2)).^2);
         end
 
+        function out = orsoTest(obj, test_number)
+            % old orso validation test, which tests MATLAB abeles
+            % procedure only.
+            %
+            % original reference data for this test are stored in ORSO folder
+            % under this test folder, but modern test data are recovered
+            % from pre-calculated MATLAB structure array.
+
+            orso_info = obj.orso_ref_data(test_number);
+
+            use_absorption = ~isempty(orso_info.SLD_img)&&any(orso_info.SLD_img>0);
+            if use_absorption
+                bulk_in = complex(orso_info.BulkInSLD,0);
+                sld     = complex(orso_info.SLD_real,orso_info.SLD_img);
+                bulk_out = complex(orso_info.BulkOutSLD,0);
+            else
+                bulk_in  = orso_info.BulkInSLD;
+                sld      = orso_info.SLD_real;
+                bulk_out = orso_info.BulkOutSLD;
+            end
+            % accompany layers parameters with boundary parameters of bulk
+            % phases
+            sld = [bulk_in,sld,bulk_out];
+            thick = [0,orso_info.LayerThickness,0];
+            rough = [0,orso_info.LayersRoughness,orso_info.SubstrateRoughness];
+
+            % get the data.....
+            data = orso_info.Data;
+
+            % Calculate reflectivity...
+            q = data(:,1);
+            N = numel(sld);
+            ref = abelesSingle(q,N,thick,sld,rough);
+
+            % Plot the comparison....
+            if obj.plot_test_results
+                figure(1); clf
+                semilogy(q,ref,'k-','LineWidth',2)
+                hold on
+                plot(data(:,1),data(:,2),'r.')
+            end
+
+            % Calculate the output....
+            out = sum(sum((data(:,2) - ref).^2));
+        end
 
     end
 
     methods (Test, ParameterCombination='sequential')
 
-        % function testORSO(testCase, layersFile, dataFile)
-        %     testCase.verifyLessThanOrEqual(testORSOValidation.orsoTest(layersFile, dataFile), testCase.orsoTolerance, 'ORSO test has failed');
-        % end
+        function testORSOAbeles(testCase,sample_number)
+            testCase.verifyLessThanOrEqual(testCase.orsoTest(sample_number), testCase.orsoTolerance, 'ORSO Abeles test has failed');
+        end
         function testORSOWorkflow(testCase,sample_number)
             testCase.verifyLessThanOrEqual(testCase.orsoWorkflowTest(sample_number), testCase.orsoTolerance, 'ORSO workflow test has failed');
         end
@@ -226,40 +276,4 @@ classdef testORSOValidation < matlab.unittest.TestCase
         end
     end
 
-    methods (Static)
-
-        function out = orsoTest(layersFile, dataFile)
-            % old orso validation test, not currently used and left for
-            % references only
-            % The reference data for this test are stored in ORSO folder
-            layers = dlmread(layersFile);
-
-            % Change the units to Å^-2
-            layers(:,2) = layers(:,2) .* 1e-6;
-            layers(:,3) = layers(:,3) .* 1e-6;
-
-            % Read in the data.....
-            data = dlmread(dataFile);
-
-            % Group the Layers
-            thick = layers(:,1);
-            sld = complex(layers(:,2),layers(:,3));
-            rough = layers(:,4);
-
-            % Calculate reflectivity...
-            q = data(:,1);
-            N = size(layers,1);
-            ref = abelesSingle(q,N,thick,sld,rough);
-
-            % Plot the comparison....
-            figure(1); clf
-            semilogy(q,ref,'k-','LineWidth',2)
-            hold on
-            plot(data(:,1),data(:,2),'r.')
-
-            % Calculate the output....
-            out = sum(sum((data(:,2) - ref).^2));
-
-        end
-    end
 end

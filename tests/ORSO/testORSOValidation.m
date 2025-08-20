@@ -1,12 +1,10 @@
 classdef testORSOValidation < matlab.unittest.TestCase
     %%
     % Runs ORSO Validations.
-    % (For now, we exclude test 4 and test 5, as these test resolution
-    % functions which will diverge until phase 2 of the resolution calculations
-    % is implemented)
 
     properties
         orsoTolerance = 1.0e-10;
+        orso_ref_data; % store
     end
 
     properties (TestParameter)
@@ -14,6 +12,34 @@ classdef testORSOValidation < matlab.unittest.TestCase
         dataFile = {'test0.dat', 'test1.dat', 'test2.dat', 'test3.dat', 'test6.dat', 'test7.dat'}
         % layersFile = {'test0.layers', 'test1.layers', 'test2.layers', 'test3.layers', 'test0.layers', 'test1.layers', 'test6.layers', 'test7.layers'}
         % dataFile = {'test0.dat', 'test1.dat', 'test2.dat', 'test3.dat', 'test4.dat', 'test5.dat', 'test6.dat', 'test7.dat'}
+    end
+    methods
+        function obj = testORSOValidation(varargin)
+            if isfile('orso_reference_data.mat')
+                ld = load('orso_reference_data.mat');
+                obj.orso_ref_data = ld.orso_ref_data;
+            else
+                this_folder = fileparts(mfilename('fullpath'));
+                ref_data_location = fullfile(this_folder,'');
+                obj.orso_ref_data = obj.construct_orso_ref_data(ref_data_location );
+            end
+        end
+        function obj = construct_orso_ref_data(obj,ref_data_location)
+            ref_data = struct();
+
+            ref_data.BulkInSLD = 2.07e-6;
+            ref_data.BulkOutSLD = 6e-6;
+            ref_data.SubstrateRoughness = 5; % BulkOut roughness
+            % layers model
+            ref_data.LayerThickness = [100,200];
+            ref_data.SLD_real = [3.45e-6, 5e-6];
+            ref_data .SLD_img =  [1.e-7, 1e-8];
+            ref_data .LayersRoughness =  [3, 1];
+            % ref data
+            % ref_data.Data =  readmatrix(dataFile);
+            % ref_data.Data =  [orso_info.Data,zeros(size(orso_info.Data,1),1)];
+        end
+
     end
 
     methods (Test, ParameterCombination='sequential')
@@ -31,52 +57,65 @@ classdef testORSOValidation < matlab.unittest.TestCase
     end
 
     methods (Static)
-        function out = orsoTest2(layersFile,dataFile)
-            orso_info = struct();
-            orso_info.SubstrateRoughness = 3;
-            orso_info.BulkInSLD = 2.07e-7;
-            orso_info.BulkOutSLD = 6e-6;
-            orso_info.LayerThickness = [100,200];
-            orso_info.SLD_real = [3.45e-6, 5e-6];
-            orso_info.SLD_img =  [1.e-7, 1e-8];
-            orso_info.LayersRoughness =  [3, 1];
-            orso_info.BulkOut_Roughness = 5;
-            orso_info.Data =  readmatrix(dataFile);
-            orso_info.Data =  [orso_info.Data,zeros(size(orso_info.Data,1),1)];
 
-            % set up generic project parameters
-            problem = createProject(name = 'Test 1',  absorption = true);
+        function total_error = orsoTest2(layersFile,dataFile)
+
+            % set up common for orso tests project parameters and change
+            % default project parameters to suppress default values not
+            % used in ORSO data
+            proj_name = 'Test 1';
+            use_absorption = ~isempty(orso_info.SLD_img)&&any(orso_info.SLD_img>0);
+            problem = createProject(name = proj_name,  absorption = use_absorption);
             problem.bulkIn.removeParameter('SLD Air');
             problem.bulkOut.removeParameter('SLD D2O');
-            problem.addParameter('Background 1',0);
-            %problem.setScalefactor('Scalefactor 1','value',1.0);
+            problem.background.backgroundParams.setParameter('Background Param 1','value',0,'min',0,'max',0);
+            problem.scalefactors.setParameter('Scalefactor 1','value',1,'min',1,'max',1);
+            problem.resolution.resolutionParams.setParameter('Resolution par 1','value',0,'min',0,'max',0)
 
-            % set test specific parameters
-            problem.addBulkIn('Test 1 BulkIn', orso_info.BulkInSLD);
-            problem.addBulkOut('Test 1 BulkOut', orso_info.BulkOutSLD);
-            for i=1:numel(orso_info.LayerThickness)
 
-                problem.addParameterGroup({ ...
-                    {sprintf('Layer %d Thickness',i ),orso_info.LayerThickness(i)},...
-                    {sprintf('Layer %d SLD real',i ),orso_info.SLD_real(i)},...
-                    {sprintf('Layer %d SLD imaginary',i ),orso_info.SLD_img(i)},...
-                    {sprintf('Layer %d Roughness',i ),orso_info.LayersRoughness(i)}});
-                problem.addLayer( ...
-                    sprintf('Layer %d',i),...
-                    sprintf('Layer %d Thickness',i ),...
-                    sprintf('Layer %d SLD real',i ),...
-                    sprintf('Layer %d SLD imaginary',i ),...
-                    sprintf('Layer %d Roughness',i ));
+            % set test specific parameters related to enviroment
+            problem.addBulkIn([proj_name,' BulkIn'], orso_info.BulkInSLD);
+            problem.addBulkOut([proj_name,' BulkOut'], orso_info.BulkOutSLD);
+            sr = orso_info.SubstrateRoughness;
+            problem.setParameter('Substrate Roughness','value',sr,'min',sr,'max',sr);
+            layer_name = cell(1,numel(orso_info.LayerThickness));
+            use_param = true(1,4);
+            if use_absorption
+                param_val_names = {'LayerThickness','SLD_real','SLD_img','LayersRoughness'};
+            else
+                param_val_names = {'LayerThickness','SLD_real','LayersRoughness'};
+                use_param(3) = false;
             end
-            problem.addData('Test 1 Data', orso_info.Data);
-            problem.addContrast('name', 'Test 1 Data',...
-                'BulkIn', 'Test 1 BulkIn',...
-                'BulkOut', 'Test 1 BulkOut',...
+            % set up test specific parameters related to model
+            for i=1:numel(orso_info.LayerThickness)
+                layer_name{i} = sprintf('Layer %d',i);
+                param_names = {[layer_name{i},' Thickness'],...
+                    [layer_name{i},' SLD real'],[layer_name{i},' SLD imaginary'],[
+                    layer_name{i},' Roughness']};
+                if ~use_absorption
+                    param_names = param_names(use_param);
+                end
+                idx = 1:numel(param_names);
+                name_value_par = arrayfun(@(ii)({param_names{ii},orso_info.(param_val_names{ii})(i)}),idx,'UniformOutput',false);
+
+
+                problem.addParameterGroup(name_value_par);
+                problem.addLayer([layer_name{i};param_names(:)]);
+            end
+            % set up test data (used as reference data)
+            problem.addData([proj_name,' Data'], orso_info.Data);
+            % define theoretical contrast
+            problem.addContrast('name', [proj_name,' Data'],...
+                'BulkIn', [proj_name,' BulkIn'],...
+                'BulkOut', [proj_name,' BulkOut'],...
                 'background','Background 1',...
+                'backgroundAction','add',...
                 'scalefactor','Scalefactor 1',...
                 'resolution','Resolution 1',...
+                'model',layer_name,...
                 'data', 'Test 1 Data');
 
+            % run model simulation
             controls = controlsClass();
             [out_proj,results] = RAT(problem,controls);
 
@@ -84,8 +123,7 @@ classdef testORSOValidation < matlab.unittest.TestCase
             clOb = onCleanup(@()close(fh));
             plotRefSLD(out_proj,results);
 
-            total_error = sum((results.reflectivity{1}(:, 1) - results.shiftedData{1}(:, 1)).^2);
-            out = total_error<1.e-10;
+            total_error = sum((results.reflectivity{1}(:, 2) - results.shiftedData{1}(:, 2)).^2);
         end
 
         function out = orsoTest(layersFile, dataFile)

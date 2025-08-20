@@ -224,7 +224,7 @@ classdef testORSOValidation < matlab.unittest.TestCase
         function out = orsoTest(layersFile, dataFile)
             % old orso validation test, not currently used and left for
             % references only
-            
+            % The reference data for this test are stored in ORSO folder
             layers = dlmread(layersFile);
 
             % Change the units to Å^-2

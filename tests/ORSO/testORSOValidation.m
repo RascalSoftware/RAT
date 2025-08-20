@@ -71,12 +71,34 @@ classdef testORSOValidation < matlab.unittest.TestCase
             % layers model
             BF =  [1001   1e+03*0.169705623424947]; % ~100*sqrt(3)
             ii = 1:2001;
-            ref_data(4).LayerThickness = repmat(2.5,1,2001);
+            ref_data(4).LayerThickness = repmat(2.5e-2,1,2001);
             ref_data(4).SLD_real = 6.36e-6*(erf((ii-BF(1))/BF(2))+1)/2;
             ref_data(4).SLD_img =  [];
             ref_data(4).LayersRoughness =  zeros(1,2001);
+            %
+            %
+            ref_data(5).name = 'Test 6';
+            ref_data(5).BulkInSLD  = 2.07e-6;
+            ref_data(5).BulkOutSLD = 6.36e-6;
+            ref_data(5).SubstrateRoughness = 3; % BulkOut roughness
+            % layers model
+            ref_data(5).LayerThickness = 1200;
+            ref_data(5).SLD_real = 4.66e-6;
+            ref_data(5).SLD_img =  1.6e-8;
+            ref_data(5).LayersRoughness =  10;
+            %
+            %
+            ref_data(6).name = 'Test 7';
+            ref_data(6).BulkInSLD  = 0;
+            ref_data(6).BulkOutSLD = 6.36e-6;
+            ref_data(6).SubstrateRoughness = 3; % BulkOut roughness
+            % layers model
+            ref_data(6).LayerThickness = 1200;
+            ref_data(6).SLD_real = 4.66e-6;
+            ref_data(6).SLD_img =  1.6e-8;
+            ref_data(6).LayersRoughness =  10;
 
-            for i=1:4
+            for i=1:6
                 ref_data(i).Data = readmatrix(fullfile(ref_data_location,obj.dataFile{i}));
                 if size(ref_data(i).Data,2)==2
                     % expand data if necessary as RAT needs 3 column data
@@ -132,7 +154,8 @@ classdef testORSOValidation < matlab.unittest.TestCase
                 use_param(3) = false;
             end
             param_val_names = param_val_names(use_param);
-            % set up test specific parameters related to model
+            % set up test specific parameters related to model (standard
+            % layers)
             for i=1:numel(orso_info.LayerThickness)
                 layer_name{i} = sprintf('Layer %d',i);
                 param_names = {[layer_name{i},' Thickness'],...
@@ -165,6 +188,7 @@ classdef testORSOValidation < matlab.unittest.TestCase
             controls = controlsClass();
             [out_proj,results] = RAT(problem,controls);
 
+            % plot results
             fh = figure;
             clOb = onCleanup(@()close(fh));
             plotRefSLD(out_proj,results);
@@ -176,7 +200,7 @@ classdef testORSOValidation < matlab.unittest.TestCase
 
             layers = dlmread(layersFile);
 
-            % Change the units to Å
+            % Change the units to Å^-2
             layers(:,2) = layers(:,2) .* 1e-6;
             layers(:,3) = layers(:,3) .* 1e-6;
 
@@ -203,21 +227,5 @@ classdef testORSOValidation < matlab.unittest.TestCase
             out = sum(sum((data(:,2) - ref).^2));
 
         end
-        % orso_project.contrasts.set_fields(
-        %     "ORSO Contrast",
-        %     data=f"Data {test_index}",
-        %     bulk_in=f"Bulk In {test_index}",
-        %     bulk_out=f"Bulk Out {test_index}",
-        %     model=layer_model,
-        % )
-        %
-        % controls = RAT.Controls(procedure="calculate")
-        % output_project, results = RAT.run(orso_project, controls)
-        %
-        % plot_ref_sld(output_project, results)
-        %
-        % total_error = sum((results.reflectivity[0][:, 1] - results.shiftedData[0][:, 1]) ** 2)
-        %
-        % assert total_error < 1e-10
     end
 end

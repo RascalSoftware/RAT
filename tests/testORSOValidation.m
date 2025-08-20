@@ -4,12 +4,16 @@ classdef testORSOValidation < matlab.unittest.TestCase
 
     properties
         orsoTolerance = 1.0e-10;
-        orso_ref_data; % store
+        orso_ref_data; % holder for orso reference data structure
+        plot_test_results = false; % change to true if want to plot test
+        % result as tests are progressing. Should set up break-point in the
+        % test to see the images
     end
 
     properties (TestParameter)
         layersFile = {'test0.layers', 'test1.layers', 'test2.layers', 'test3.layers', 'test6.layers', 'test7.layers'}
         dataFile = {'test0.dat', 'test1.dat', 'test2.dat', 'test3.dat', 'test6.dat', 'test7.dat'}
+        sample_number = num2cell(1:6);
         % layersFile = {'test0.layers', 'test1.layers', 'test2.layers', 'test3.layers', 'test0.layers', 'test1.layers', 'test6.layers', 'test7.layers'}
         % dataFile = {'test0.dat', 'test1.dat', 'test2.dat', 'test3.dat', 'test4.dat', 'test5.dat', 'test6.dat', 'test7.dat'}
     end
@@ -17,14 +21,25 @@ classdef testORSOValidation < matlab.unittest.TestCase
         function obj = testORSOValidation(varargin)
             if isfile('orso_reference_data.mat')
                 ld = load('orso_reference_data.mat');
-                obj.orso_ref_data = ld.orso_ref_data;
+                obj.orso_ref_data = ld.ref_data;
             else
                 this_folder = fileparts(mfilename('fullpath'));
-                ref_data_location = fullfile(this_folder);
+                ref_data_location = fullfile(this_folder,'ORSO');
                 obj = obj.construct_orso_ref_data(ref_data_location );
             end
         end
+
         function obj = construct_orso_ref_data(obj,ref_data_location)
+            % Construct reference data structure for all ORSO datasets
+            % and read reference datafiles
+            %
+            % Inputs:
+            % ref_data_location -- folder containing reference datasets
+            %
+            % Returns:
+            % obj               -- test file which contains initialized
+            %                      reference information.
+            %                      (in orso_ref_data property)
             ref_data = struct();
 
             % Test 0
@@ -105,68 +120,54 @@ classdef testORSOValidation < matlab.unittest.TestCase
                     ref_data(i).Data = [ref_data(i).Data,zeros(size(ref_data(i).Data,1),1)];
                 end
             end
-
+            save('orso_reference_data.mat','ref_data');
             obj.orso_ref_data = ref_data;
         end
 
-    end
-
-    methods (Test, ParameterCombination='sequential')
-
-        function testORSO(testCase, layersFile, dataFile)
-            testCase.verifyLessThanOrEqual(testORSOValidation.orsoTest(layersFile, dataFile), testCase.orsoTolerance, 'ORSO test has failed');
-        end
-
-    end
-
-    methods (TestClassTeardown)
-        function clear(~)
-            close all  % Close figure after run
-        end
-    end
-
-    methods (Static)
-
-        function total_error = orsoTest2(orso_info)
+        function total_error = orsoWorkflowTest(obj,test_number)
+            % retrieve particular orso reference data
+            orso_info = obj.orso_ref_data(test_number);
 
             % set up common for orso tests project parameters and change
             % default project parameters to suppress default values not
             % used in ORSO data
             proj_name = orso_info.name;
             use_absorption = ~isempty(orso_info.SLD_img)&&any(orso_info.SLD_img>0);
+
             problem = createProject(name = proj_name,  absorption = use_absorption);
             problem.bulkIn.removeParameter('SLD Air');
             problem.bulkOut.removeParameter('SLD D2O');
             problem.background.backgroundParams.setParameter('Background Param 1','value',0,'min',0,'max',0);
             problem.scalefactors.setParameter('Scalefactor 1','value',1,'min',1,'max',1);
-            problem.resolution.resolutionParams.setParameter('Resolution par 1','value',0,'min',0,'max',0)
+            problem.resolution.resolutionParams.setParameter('Resolution par 1','value',0,'min',0,'max',0);
 
 
-            % set test specific parameters related to enviroment
+            % set test specific parameters related to the enviroment
             problem.addBulkIn([proj_name,' BulkIn'], orso_info.BulkInSLD);
             problem.addBulkOut([proj_name,' BulkOut'], orso_info.BulkOutSLD);
             sr = orso_info.SubstrateRoughness;
             problem.setParameter('Substrate Roughness','value',sr,'min',sr,'max',sr);
-            layer_name = cell(1,numel(orso_info.LayerThickness));
+
+            % define different set of layer parameters depending on
+            % accounting for adsorbtion.
             use_param = true(1,4);
             param_val_names = {'LayerThickness','SLD_real','SLD_img','LayersRoughness'};
+            layer_par_names = {' Thickness',' SLD real',' SLD imaginary',' Roughness'};
             if ~use_absorption
                 use_param(3) = false;
             end
             param_val_names = param_val_names(use_param);
-            % set up test specific parameters related to model (standard
-            % layers)
+            layer_par_names = layer_par_names(use_param);
+
+            % set up test specific parameters related to the model
+            % (standard layers model only)
+            layer_name = cell(1,numel(orso_info.LayerThickness));
             for i=1:numel(orso_info.LayerThickness)
                 layer_name{i} = sprintf('Layer %d',i);
-                param_names = {[layer_name{i},' Thickness'],...
-                    [layer_name{i},' SLD real'],[layer_name{i},' SLD imaginary'],[
-                    layer_name{i},' Roughness']};
-                if ~use_absorption
-                    param_names = param_names(use_param);
-                end
+                param_names= cellfun(@(par_name)[layer_name{i},par_name],layer_par_names,'UniformOutput',false);
+
                 idx = 1:numel(param_names);
                 name_value_par = arrayfun(@(ii)({param_names{ii},orso_info.(param_val_names{ii})(i)}),idx,'UniformOutput',false);
-
 
                 problem.addParameterGroup(name_value_par);
                 problem.addLayer([layer_name{i};param_names(:)]);
@@ -189,15 +190,41 @@ classdef testORSOValidation < matlab.unittest.TestCase
             [out_proj,results] = RAT(problem,controls);
 
             % plot results
-            fh = figure;
-            clOb = onCleanup(@()close(fh));
-            plotRefSLD(out_proj,results);
+            if obj.plot_test_results
+                fh = figure;
+                clOb = onCleanup(@()close(fh));
+                plotRefSLD(out_proj,results);
+            end
 
             total_error = sum((results.reflectivity{1}(:, 2) - results.shiftedData{1}(:, 2)).^2);
         end
 
-        function out = orsoTest(layersFile, dataFile)
 
+    end
+
+    methods (Test, ParameterCombination='sequential')
+
+        % function testORSO(testCase, layersFile, dataFile)
+        %     testCase.verifyLessThanOrEqual(testORSOValidation.orsoTest(layersFile, dataFile), testCase.orsoTolerance, 'ORSO test has failed');
+        % end
+        function testORSOWorkflow(testCase,sample_number)
+            testCase.verifyLessThanOrEqual(testCase.orsoWorkflowTest(sample_number), testCase.orsoTolerance, 'ORSO workflow test has failed');
+        end
+
+    end
+
+    methods (TestClassTeardown)
+        function clear(~)
+            close all  % Close figure after run
+        end
+    end
+
+    methods (Static)
+
+        function out = orsoTest(layersFile, dataFile)
+            % old orso validation test, not currently used and left for
+            % references only
+            
             layers = dlmread(layersFile);
 
             % Change the units to Å^-2

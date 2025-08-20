@@ -44,6 +44,9 @@ classdef testORSOValidation < matlab.unittest.TestCase
             % obj               -- test file which contains initialized
             %                      reference information.
             %                      (in orso_ref_data property)
+            % Stores reference structure in the test folder for rapid
+            % recovery if the structure is not present
+            % 
             ref_data = struct();
 
             % Test 0

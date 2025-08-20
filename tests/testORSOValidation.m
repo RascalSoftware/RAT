@@ -1,6 +1,10 @@
 classdef testORSOValidation < matlab.unittest.TestCase
     %%
     % Runs ORSO Validations.
+    %
+    % (For now, we exclude test 4 and test 5, as these test resolution
+    % functions which will diverge until phase 2 of the resolution calculations
+    % is implemented)    
 
     properties
         orsoTolerance = 1.0e-10;

@@ -194,7 +194,7 @@ classdef testORSOValidation < matlab.unittest.TestCase
 
             % run model simulation
             controls = controlsClass();
-                controls.display = 'off';
+            controls.display = 'off';
 
             [out_proj,results] = RAT(problem,controls);
 

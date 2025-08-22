@@ -94,7 +94,7 @@ classdef testORSOValidation < matlab.unittest.TestCase
             BF =  [1001   1e+03*0.169705623424947]; % ~100*sqrt(3)
             ii = 1:2001;
             ref_data(4).LayerThickness = repmat(2.5e-2,1,2001);
-            ref_data(4).SLD_real = 6.36e-6*(erf((ii-BF(1))/BF(2))+1)/2;
+            ref_data(4).SLD_real = (6.36e-6/2)*(erf((ii-BF(1))/BF(2))+1);
             ref_data(4).SLD_img =  [];
             ref_data(4).LayersRoughness =  zeros(1,2001);
             %
@@ -171,7 +171,7 @@ classdef testORSOValidation < matlab.unittest.TestCase
             layer_name = cell(1,numel(orso_info.LayerThickness));
             for i=1:numel(orso_info.LayerThickness)
                 layer_name{i} = sprintf('Layer %d',i);
-                param_names= cellfun(@(par_name)[layer_name{i},par_name],layer_par_names,'UniformOutput',false);
+                param_names = cellfun(@(par_name)[layer_name{i},par_name],layer_par_names,'UniformOutput',false);
 
                 idx = 1:numel(param_names);
                 name_value_par = arrayfun(@(ii)({param_names{ii},orso_info.(param_val_names{ii})(i)}),idx,'UniformOutput',false);
@@ -182,7 +182,7 @@ classdef testORSOValidation < matlab.unittest.TestCase
             % set up test data (used as reference data)
             problem.addData([proj_name,' Data'], orso_info.Data);
             % define theoretical contrast
-            problem.addContrast('name', [proj_name,' Data'],...
+            problem.addContrast('name', 'ORSO contrast',...
                 'BulkIn', [proj_name,' BulkIn'],...
                 'BulkOut', [proj_name,' BulkOut'],...
                 'background','Background 1',...
@@ -217,7 +217,7 @@ classdef testORSOValidation < matlab.unittest.TestCase
             %
             % original reference data for this test are stored in ORSO folder
             % under this test folder, but modern test data are recovered
-            % from pre-calculated MATLAB structure array.
+            % from pre-defined MATLAB structure array.
 
             orso_info = obj.orso_ref_data(test_number);
 

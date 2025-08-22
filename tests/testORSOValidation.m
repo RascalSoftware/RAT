@@ -194,11 +194,8 @@ classdef testORSOValidation < matlab.unittest.TestCase
 
             % run model simulation
             controls = controlsClass();
-            if obj.plot_test_results
-                controls.display = 'final';
-            else
                 controls.display = 'off';
-            end
+
             [out_proj,results] = RAT(problem,controls);
 
             % plot results
@@ -222,18 +219,16 @@ classdef testORSOValidation < matlab.unittest.TestCase
             orso_info = obj.orso_ref_data(test_number);
 
             use_absorption = ~isempty(orso_info.SLD_img)&&any(orso_info.SLD_img>0);
-            if use_absorption
-                bulk_in = complex(orso_info.BulkInSLD,0);
-                sld     = complex(orso_info.SLD_real,orso_info.SLD_img);
-                bulk_out = complex(orso_info.BulkOutSLD,0);
-            else
-                bulk_in  = orso_info.BulkInSLD;
-                sld      = orso_info.SLD_real;
-                bulk_out = orso_info.BulkOutSLD;
+            if ~use_absorption
+                orso_info.SLD_img = zeros(1,numel(orso_info.SLD_real));
             end
+            bulk_in  = complex(orso_info.BulkInSLD,0);
+            bulk_out = complex(orso_info.BulkOutSLD,0);
+            sld      = complex(orso_info.SLD_real,orso_info.SLD_img);            
+            
             % accompany layers parameters with boundary parameters of bulk
             % phases
-            sld = [bulk_in,sld,bulk_out];
+            sld   = [bulk_in,sld,bulk_out];
             thick = [0,orso_info.LayerThickness,0];
             rough = [0,orso_info.LayersRoughness,orso_info.SubstrateRoughness];
 

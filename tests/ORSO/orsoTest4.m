@@ -22,9 +22,9 @@ N = size(layers,1);
 ref = abelesSingle(q,N,thick,sld,rough);
 
 % Apply resolution....
-%resol = 0.035;
-%ref = resolutionPolly(q,ref,resol,length(q));
-ref = dataResolutionPolly(q,ref,datResol,length(q));
+resol = datResol;
+ref = resolutionPolly(q,ref,resol,length(q));
+%ref = dataResolutionPolly(q,ref,datResol,length(q));
 
 % Plot the comparison....
 figure(1); clf

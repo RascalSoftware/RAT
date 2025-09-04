@@ -1,6 +1,8 @@
-function out = orsoTest4()
+function out = orsoTest4(mm)
 % ORSO validation Test4 - Reflectivity plus resolution...
-
+if ~exist('mm','var')
+    mm = 1
+end
 layers = dlmread('test0.layers');
 
 % Change the units to Å
@@ -22,8 +24,15 @@ N = size(layers,1);
 ref = abelesSingle(q,N,thick,sld,rough);
 
 % Apply resolution....
-resol = datResol;
-ref = resolutionPolly(q,ref,resol,length(q));
+%resol = datResol;
+%mm  = 2
+resol = repmat(log(2)*mm,1,numel(q));
+tic
+for i = 1:100000
+%ref = resolutionPolly_mex(q',ref',resol',length(q));
+ref = resolutionPolly(q',ref',resol',length(q));
+end
+toc
 %ref = dataResolutionPolly(q,ref,datResol,length(q));
 
 % Plot the comparison....

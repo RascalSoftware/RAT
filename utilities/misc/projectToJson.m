@@ -1,6 +1,17 @@
 function encoded = projectToJson(problem,filename)
 
 % Converts a projectClass to a json file...
+try
+    jpath = java.nio.file.Paths.get(filename, javaArray('java.lang.String', 0));
+    if ~jpath.isAbsolute()
+       jpath = java.nio.file.Paths.get(pwd, javaArray('java.lang.String', 0));
+       jpath = jpath.resolve(filename);
+    end
+    filename = jpath.toString().toCharArray';
+catch ME
+    % When delete was failed, do some error handle
+    error(ME.message)
+end
 
 % Check is we have a domains project..
 if isa(problem,'domainsClass')
@@ -75,7 +86,7 @@ totalStruct.resolutions = makeTypeTableStruct(resolsTable);
 
 % Custom files....
 customTable = problem.customFile.varTable;
-totalStruct.custom_files = makeCustomFileStruct(customTable);
+totalStruct.custom_files = makeCustomFileStruct(customTable, filename);
 
 % Data...
 dataTable = problem.data.varTable;
@@ -298,7 +309,7 @@ end
 
 % ---------------------------------------------------------------------
 
-function customFileStruct = makeCustomFileStruct(customTable)
+function customFileStruct = makeCustomFileStruct(customTable, jsonFilePath)
 
 % Rename columns to match Python (mainly case)....
 varNames =  ["name","filename","function_name","language","path"];
@@ -315,7 +326,23 @@ customFileStruct = table2struct(customTable);
 customFileStruct = removeSpaces(customFileStruct);
 
 customFileStruct = correctScalarStruct(customFileStruct);
-
+% [filepath,~,~] = fileparts(jsonFilePath);
+for i = 1:length(customFileStruct)
+    try
+        jpath1 = java.nio.file.Paths.get(jsonFilePath, javaArray('java.lang.String', 0)).getParent();
+        jpath2 = java.nio.file.Paths.get(customFileStruct(i).path, javaArray('java.lang.String', 0));
+        if jpath1.equals(jpath2)
+            filepath = '.';
+        else
+            filepath = jpath1.relativize(jpath2).toString().toCharArray';
+        end
+        
+    catch ME
+        % When delete was failed, do some error handle
+        error(ME.message)
+    end
+    customFileStruct(i).path = filepath;
+end
 end
 
 % ----------------------------------------------------------------

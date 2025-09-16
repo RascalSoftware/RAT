@@ -103,6 +103,8 @@ end
 % Remove defaults
 project.removeBackgroundParam(1);
 project.removeBackground(1);
+project.removeResolutionParam(1);
+project.removeResolution(1);
 project.removeBulkIn(1);
 project.removeBulkOut(1);
 project.removeScalefactor(1);
@@ -122,6 +124,23 @@ for i = 1:problem.numberOfBacks
     project.addBackground(problem.backsNames{i}, ...
         allowedTypes.Constant.value, ...
         backParamNames{i});
+end
+
+% Set resolutions
+resolParamNames = num2cell(arrayfun(@(i) sprintf("Resolution par %d", i), 1:problem.numberOfResolutions));
+problem.resolution_constr = fixConstrs(problem.numberOfResolutions, resolParamNames, problem.resolution_constr, problem.resolution, problem.resolution_fityesno);
+for i = 1:problem.numberOfResolutions
+    % Add resolutions parameter
+    % addResolutionParam <- (name, min, value, max, fit)
+    project.addResolutionParam(resolParamNames{i}, ...
+        problem.resolution_constr(i,1), ...
+        problem.resolution(i), ...
+        problem.resolution_constr(i,2), ...
+        logical(problem.resolution_fityesno(i)));
+    % Add resolution
+    project.addResolution(problem.resolNames{i}, ...
+        allowedTypes.Constant.value, ...
+        resolParamNames{i});
 end
 
 % Set bulk in params

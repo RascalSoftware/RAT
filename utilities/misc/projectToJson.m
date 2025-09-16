@@ -104,7 +104,6 @@ end
 
 % Save the file 
 encoded = jsonencode(totalStruct,ConvertInfAndNaN=false);
-encoded = replace(encoded,'Infinity','Inf');
 
 [path,filename,~] = fileparts(filename);
 fid = fullfile(path, append(filename, '.json'));
@@ -146,7 +145,7 @@ for i = 1:length(paramStruct)
     paramStruct(i).name = strtrim(paramStruct(i).name);
     paramStruct(i).prior_type = strtrim(paramStruct(i).prior_type);
 end
-
+paramStruct = correctScalarStruct(paramStruct);
 end
 
 % ------------------------------------------
@@ -176,6 +175,7 @@ for i = 1:length(typeStruct)
         typeStruct(i).(fields{n}) = strtrim(typeStruct(i).(fields{n}));
     end
 end
+typeStruct = correctScalarStruct(typeStruct);
 
 end
 
@@ -187,6 +187,7 @@ function dataStruct = makeDataStruct(dataTable)
 dataTable.Properties.VariableNames = ["name", "data", "data_range", "simulation_range"]; 
 
 dataStruct = table2struct(dataTable);
+dataStruct = correctScalarStruct(dataStruct);
 
 end
 
@@ -199,7 +200,7 @@ layersTable.Properties.VariableNames = ["name", "thickness", "SLD", "roughness",
                                         "hydration", "hydrate_with"]; 
 
 layersStruct = table2struct(layersTable);
-
+layersStruct = correctScalarStruct(layersStruct);
 end
 
 % -------------------------------------------
@@ -214,7 +215,7 @@ for i = 1:numberOfContrasts
     thisContrast = orderfields(thisContrast,["name","model"]);
     contrastStruct(i,1) = thisContrast;
 end
-
+contrastStruct = correctScalarStruct(contrastStruct);
 end
 % ---------------------------------------------
 
@@ -252,7 +253,7 @@ for i = 1:numberOfContrasts
 
     newContrastStruct(1,i) = thisContrastStruct; 
 end
-
+newContrastStruct = correctScalarStruct(newContrastStruct);
 end
 
 % ---------------------------------------------------------------------
@@ -291,6 +292,7 @@ for i = 1:numberOfContrasts
 
     newContrastStruct(1,i) = thisContrastStruct; 
 end
+newContrastStruct = correctScalarStruct(newContrastStruct);
 
 end
 
@@ -312,6 +314,8 @@ customFileStruct = table2struct(customTable);
 % Remove trailing spaces from chars...
 customFileStruct = removeSpaces(customFileStruct);
 
+customFileStruct = correctScalarStruct(customFileStruct);
+
 end
 
 % ----------------------------------------------------------------
@@ -326,6 +330,13 @@ for i = 1:length(thisStruct)
     end
 end
 
+end
+
+function thisStruct = correctScalarStruct(thisStruct)
+% Corrects scalar struct so its written as an array in json 
+    if length(thisStruct) == 1
+         thisStruct = {thisStruct};
+    end
 end
 
 % ----------------------------------------------------------------

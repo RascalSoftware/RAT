@@ -9,7 +9,6 @@ try
     end
     filename = jpath.toString().toCharArray';
 catch ME
-    % When delete was failed, do some error handle
     error(ME.message)
 end
 
@@ -325,24 +324,23 @@ customFileStruct = table2struct(customTable);
 % Remove trailing spaces from chars...
 customFileStruct = removeSpaces(customFileStruct);
 
-customFileStruct = correctScalarStruct(customFileStruct);
-% [filepath,~,~] = fileparts(jsonFilePath);
 for i = 1:length(customFileStruct)
     try
+        path2 = customFileStruct(i).path;
         jpath1 = java.nio.file.Paths.get(jsonFilePath, javaArray('java.lang.String', 0)).getParent();
-        jpath2 = java.nio.file.Paths.get(customFileStruct(i).path, javaArray('java.lang.String', 0));
-        if jpath1.equals(jpath2)
+        jpath2 = java.nio.file.Paths.get(path2, javaArray('java.lang.String', 0));
+        if isempty(path2) || strcmp(path2, '.') || jpath1.equals(jpath2)
             filepath = '.';
         else
             filepath = jpath1.relativize(jpath2).toString().toCharArray';
         end
         
     catch ME
-        % When delete was failed, do some error handle
         error(ME.message)
     end
     customFileStruct(i).path = filepath;
 end
+customFileStruct = correctScalarStruct(customFileStruct);
 end
 
 % ----------------------------------------------------------------

@@ -187,10 +187,10 @@ namespace RAT
     ::coder::array<double, 2U> x;
     ::coder::array<double, 1U> b_SLD;
     ::coder::array<double, 1U> b_layers;
-    int b_loop_ub;
     int i;
     int i2;
     int loop_ub;
+    int x_idx_0;
     if (layers.size(0) > 0) {
       double d;
       double lastBoxEdge;
@@ -221,8 +221,8 @@ namespace RAT
       Lays.set_size(x.size(1), static_cast<int>(subsBoxCen_tmp + 2.0));
       loop_ub = static_cast<int>(subsBoxCen_tmp + 2.0);
       for (i = 0; i < loop_ub; i++) {
-        b_loop_ub = x.size(1);
-        for (i1 = 0; i1 < b_loop_ub; i1++) {
+        x_idx_0 = x.size(1);
+        for (i1 = 0; i1 < x_idx_0; i1++) {
           Lays[i1 + Lays.size(0) * i] = 0.0;
         }
       }
@@ -256,8 +256,8 @@ namespace RAT
           asymconvstep(x, layerThickness, thisBoxCentre, roughnessValues[b_i], d,
                        layers[b_i + layers.size(0)], r1);
           loop_ub = Lays.size(0);
-          for (b_loop_ub = 0; b_loop_ub < loop_ub; b_loop_ub++) {
-            Lays[b_loop_ub + Lays.size(0) * i1] = r1[b_loop_ub];
+          for (x_idx_0 = 0; x_idx_0 < loop_ub; x_idx_0++) {
+            Lays[x_idx_0 + Lays.size(0) * i1] = r1[x_idx_0];
           }
 
           lastBoxEdge = thisBoxCentre + 0.5 * layerThickness;
@@ -280,9 +280,9 @@ namespace RAT
       }
 
       coder::blockedSummation(Lays, Lays.size(1), b_SLD);
-      b_loop_ub = b_SLD.size(0);
+      x_idx_0 = b_SLD.size(0);
       SLD.set_size(b_SLD.size(0), 1);
-      for (i = 0; i < b_loop_ub; i++) {
+      for (i = 0; i < x_idx_0; i++) {
         SLD[i] = b_SLD[i];
       }
     } else {
@@ -314,14 +314,14 @@ namespace RAT
       }
     }
 
-    b_loop_ub = SLD.size(0) * SLD.size(1);
+    x_idx_0 = SLD.size(0) * SLD.size(1);
     SLDProfile.set_size(x.size(1), 2);
     loop_ub = x.size(1);
     for (i = 0; i < loop_ub; i++) {
       SLDProfile[i] = x[i];
     }
 
-    for (i = 0; i < b_loop_ub; i++) {
+    for (i = 0; i < x_idx_0; i++) {
       SLDProfile[i + SLDProfile.size(0)] = SLD[i];
     }
   }

@@ -441,7 +441,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             fileStruct = customClass.toStruct();
             wrapper2 = customClass.wrappers{2};
             testCase.verifyEqual(wrapper2.libPath, filename);
-            testCase.verifyEqual(fileStruct.files, {wrapper.getHandle(); fakeID});
+            testCase.verifyEqual(fileStruct.files, {wrapper.getHandle(), fakeID});
             delete(customClass);
             testCase.assertEqual(wrapperMexMock.callCount, 2);   
         end

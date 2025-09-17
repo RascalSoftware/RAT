@@ -270,11 +270,11 @@ classdef customFileClass < tableUtilities
             % -------
             % fileStruct : struct
             %     A struct which contains the properties for all the custom files.
-            fileStruct.files = cell(1, 0);
+            fileStruct.files = cell(0, 1);
             fileStruct.fileIdentifiers = {};
             numberOfFiles = obj.rowCount;      
             if numberOfFiles > 0
-                filesList = cell(numberOfFiles, 1);
+                filesList = cell(1, numberOfFiles);
                 for i = 1:numberOfFiles
                     thisRow = obj.varTable{i,:};
                     thisFile = thisRow{2};

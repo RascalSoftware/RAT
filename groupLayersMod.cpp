@@ -139,11 +139,7 @@ namespace RAT
         }
       }
     } else {
-      outputLayers.set_size(1, 4);
-      outputLayers[0] = 0.0;
-      outputLayers[outputLayers.size(0)] = 0.0;
-      outputLayers[outputLayers.size(0) * 2] = 0.0;
-      outputLayers[outputLayers.size(0) * 3] = 0.0;
+      outputLayers.set_size(0, 4);
     }
 
     return ssubs;

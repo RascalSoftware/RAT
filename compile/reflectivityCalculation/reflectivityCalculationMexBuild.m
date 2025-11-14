@@ -3,11 +3,11 @@
 % Generates MEX-function (reflectivityCalculation_mex) from reflectivityCalculation.
 
 % Create configuration object of class 'coder.MexCodeConfig'.
-% cfg = coder.config('mex');
-% cfg.GenerateReport = true;
-% cfg.EnableJIT = false;
-% cfg.EnableOpenMP = true;
-% cfg.TargetLang = 'C++';
+cfg = coder.config('mex');
+cfg.GenerateReport = true;
+cfg.EnableJIT = false;
+cfg.EnableOpenMP = true;
+cfg.TargetLang = 'C++';
 
 % Define the input argument types..
 ARGS = makeCompileArgs();

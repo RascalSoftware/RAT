@@ -59,17 +59,17 @@ jobs:
         command: addPaths; generateMexFromCpp; testScript
     - name: Create build archive (Windows and macOS)
       if: runner.os != 'Linux'
-      run:  tar --exclude="**/-lang:c++.zip" --exclude=".git*/" --exclude="htmlcov/" -acvf ../${{ runner.os }}.zip *
+      run:  tar --exclude="**/-lang:c++.zip" --exclude=".git*/" --exclude="**/codegen/" --exclude="htmlcov/" -acvf ../${{ runner.os }}-${{ runner.arch }}.zip *
     - name: Create build archive (Linux)
       if: runner.os == 'Linux'
-      run: zip -r ../${{ runner.os }}.zip * -x "**/-lang:c++.zip" ".git*/" "htmlcov/*"
-    - run: mv ../${{ runner.os }}.zip ${{ runner.os }}.zip
+      run: zip -r ../${{ runner.os }}-${{ runner.arch }}.zip * -x "**/-lang:c++.zip" ".git*/" "htmlcov/*" "**/codegen/*"
+    - run: mv ../${{ runner.os }}-${{ runner.arch }}.zip ${{ runner.os }}-${{ runner.arch }}.zip
     - name: Upload releases
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ runner.os }}
+        name: ${{ runner.os }}-${{ runner.arch }}
         retention-days: 1
-        path: ${{ runner.os }}.zip
+        path: ${{ runner.os }}-${{ runner.arch }}.zip
   
   deploy-nightly:
     if: github.ref == 'refs/heads/master'
@@ -85,7 +85,7 @@ jobs:
       - name: Create nightly release
         run: |
           output=$(gh release delete nightly --cleanup-tag --yes --repo ${{ github.repository }} 2>&1) || [[ "${output}" == "release not found" ]]
-          gh release create nightly Windows.zip Linux.zip macOS.zip --prerelease --title "Nightly Build" --latest=false --repo ${{ github.repository }}
+          gh release create nightly Windows-X64.zip Linux-X64.zip macOS-X64.zip macOS-ARM64.zip --prerelease --title "Nightly Build" --latest=false --repo ${{ github.repository }}
         env:
           GH_TOKEN: ${{ github.token }}
   

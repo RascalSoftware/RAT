@@ -1,4 +1,7 @@
+curPath = pwd;
 root = getappdata(0, 'root');
+cd(fullfile(root,'compile','fullCompile'));
+
 mex_path = [fullfile(root, 'compile', 'fullCompile', 'codegen', 'mex', 'RATMain'), filesep];
 mex_interface_path = [fullfile(mex_path, 'interface'), filesep];
 
@@ -27,8 +30,7 @@ else
     mex(includes{:}, 'COMPFLAGS=$COMPFLAGS /openmp -DHAVE_LAPACK_CONFIG_H -DLAPACK_COMPLEX_STRUCTURE -DMW_HAVE_LAPACK_DECLS -DMW_NEEDS_VERSION_H', main_file, sources{:}, '-output', 'RATMain_mex', '-v', '-llibemlrt', '-llibmwmathutil', '-lmwblas', '-lmwlapack')
 end
 
-% Build custom file wrapper 
-thisPath = pwd;
+% Build custom file wrapper
 cd(fullfile(root,'compile','customWrapper'));
 wrapperMexBuild;
-cd(thisPath);
+cd(curPath);

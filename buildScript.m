@@ -1,20 +1,20 @@
-pwd;
 addPaths;
+root = getappdata(0,'root');
 
 % Save this path
 thisPath = pwd;
 
 % Go to the correct compile directory
-compilePath = fullfile(thisPath,'compile','reflectivityCalculation');
+compilePath = fullfile(root,'compile','reflectivityCalculation');
 cd(compilePath);
 reflectivityCalculationMexBuild;
 
-compilePath = fullfile(thisPath,'compile','fullCompile');
+compilePath = fullfile(root,'compile','fullCompile');
 cd(compilePath);
 ratMainMexBuild;
 ratMainCodeGen;
 
-compilePath = fullfile(thisPath,'compile','customWrapper');
+compilePath = fullfile(root,'compile','customWrapper');
 cd(compilePath);
 wrapperMexBuild;
 

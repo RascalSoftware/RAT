@@ -1,16 +1,21 @@
 % Copies all files required to build cpp to 'cppDeploy' folder
-[~, ~, ~] = rmdir('compile/fullCompile/cppDeploy', 's');
-load compile/fullCompile/codegen/lib/RATMain/buildInfo.mat;
+root = getappdata(0, 'root');
+compileDir = fullfile(root, 'compile');
+curPath = pwd;
+cd(compileDir)
+[~, ~, ~] = rmdir('fullCompile/cppDeploy', 's');
+load fullCompile/codegen/lib/RATMain/buildInfo.mat;
 packNGo(buildInfo,'fileName','deploy.zip');
-unzip('compile/fullCompile/deploy.zip', 'compile/fullCompile/cppDeploy');
+unzip('fullCompile/deploy.zip', 'fullCompile/cppDeploy');
 
 % Copy events
-mkdir('compile/fullCompile/cppDeploy/events/');
-copyfile('compile/events/eventManager.cpp', 'compile/fullCompile/cppDeploy/events/eventManager.cpp');
-copyfile('compile/events/eventManager.h', 'compile/fullCompile/cppDeploy/events/eventManager.h');
-copyfile('compile/events/eventManagerImpl.hpp', 'compile/fullCompile/cppDeploy/events/eventManagerImpl.hpp');
+mkdir('fullCompile/cppDeploy/events/');
+copyfile('events/eventManager.cpp', 'fullCompile/cppDeploy/events/eventManager.cpp');
+copyfile('events/eventManager.h', 'fullCompile/cppDeploy/events/eventManager.h');
+copyfile('events/eventManagerImpl.hpp', 'fullCompile/cppDeploy/events/eventManagerImpl.hpp');
 
 % Clean up
-delete 'compile/fullCompile/deploy.zip' 'compile/fullCompile/cppDeploy/buildInfo.mat'...
-       'compile/fullCompile/cppDeploy/rtw_proj.tmw' 'compile/fullCompile/cppDeploy/defines.txt'...
-       'compile/fullCompile/cppDeploy/RATMain.a' 'compile/fullCompile/cppDeploy/RATMain.lib';
+delete 'fullCompile/deploy.zip' 'fullCompile/cppDeploy/buildInfo.mat'...
+       'fullCompile/cppDeploy/rtw_proj.tmw' 'fullCompile/cppDeploy/defines.txt'...
+       'fullCompile/cppDeploy/RATMain.a' 'fullCompile/cppDeploy/RATMain.lib';
+cd(curPath);

@@ -291,7 +291,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             % Here we use a "standard layers" model type
             expectedStruct.numberOfLayers = 3;
             expectedStruct.layerNames = ["Bil inner head"; "Bil tail"; "Bil outer head"];
-            expectedStruct.layerDetails = {[5 6 8 7 2]; [9 10 12 11 2]; [5 6 8 7 2]};
+            expectedStruct.layerDetails = {[5 6 8 7 1]; [9 10 12 11 1]; [5 6 8 7 1]};
 
             testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.parameterNames), expectedStruct);
         end

@@ -43,7 +43,7 @@ namespace RAT
         //  Index 6 determines what we hydrate with
         //  Hydrate the real component of the SLD.
         //  Note that we never hydrate the imaginary component of the SLD.
-        if (layers[b_i + layers.size(0) * 5] == 1.0) {
+        if (layers[b_i + layers.size(0) * 5] == 0.0) {
           d = bulkIn;
         } else {
           d = bulkOut;

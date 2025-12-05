@@ -305,9 +305,9 @@ classdef layersClass < tableUtilities
                 end
 
                 if strcmpi(thisLayer{numCols}, hydrationTypes.BulkIn.value)
-                    hydrWhat = 1;
+                    hydrWhat = 0;
                 else
-                    hydrWhat = 2;
+                    hydrWhat = 1;
                 end
                 layerDetails{i} = [paramIndices hydr hydrWhat];
                 

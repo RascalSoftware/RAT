@@ -15,7 +15,7 @@ jobs:
     runs-on: Linux
     steps:
     - name: Checkout RAT
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
     - name: Generate CPP
       uses: matlab-actions/run-command@v2
       with:
@@ -42,7 +42,7 @@ jobs:
  
     steps:
     - name: Checkout RAT
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
     - name: Download Mex CPP
       uses: actions/download-artifact@v4
       with:
@@ -95,7 +95,7 @@ jobs:
     needs: [build_and_test_mex]
     steps:
     - name: Checkout Source
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         ref: generated_source
         path: rat_source

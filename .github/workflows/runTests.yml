@@ -11,53 +11,70 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
-    strategy:
-      matrix:
-        platform: [Windows, Linux, macOS]
-    runs-on: ${{ matrix.platform }}
- 
+  build_cpp:
+    runs-on: Linux
     steps:
     - name: Checkout RAT
-      uses: actions/checkout@v4
-    - name: Build Mex
+      uses: actions/checkout@v5
+    - name: Generate CPP
       uses: matlab-actions/run-command@v2
       with:
-        command: buildScript  
-    - name: Run tests
-      uses: matlab-actions/run-command@v2
-      with:
-        command: testScript
-    - name: Create build archive (Windows and macOS)
-      if: runner.os != 'Linux'
-      run:  tar --exclude="**/-lang:c++.zip" --exclude=".git*/" --exclude="htmlcov/" -acvf ../${{ runner.os }}.zip *
-    - name: Create build archive (Linux)
-      if: runner.os == 'Linux'
-      run: zip -r ../${{ runner.os }}.zip * -x "**/-lang:c++.zip" ".git*/" "htmlcov/*"
-    - run: mv ../${{ runner.os }}.zip ${{ runner.os }}.zip
-    - name: Upload releases
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ runner.os }}
-        retention-days: 1
-        path: ${{ runner.os }}.zip
-    - name: Create cppDeploy
-      if: runner.os == 'Linux'
-      uses: matlab-actions/run-command@v2
-      with:
-        command: cppDeploy  
+        command: addPaths; generateCpps; 
     - name: Upload cppDeploy
-      if: runner.os == 'Linux'
       uses: actions/upload-artifact@v4
       with:
         name: cppDeploy
         retention-days: 1
         path: compile/fullCompile/cppDeploy/
+    - name: Upload cppDeploy
+      uses: actions/upload-artifact@v4
+      with:
+        name: codegen
+        retention-days: 1
+        path: compile/fullCompile/codegen/
+  
+  build_and_test_mex:
+    strategy:
+      matrix:
+        platform: [windows-latest, ubuntu-latest, macos-15-intel, macos-latest]
+    runs-on: ${{ matrix.platform }}
+    needs: [build_cpp]
+ 
+    steps:
+    - name: Checkout RAT
+      uses: actions/checkout@v5
+    - name: Download Mex CPP
+      uses: actions/download-artifact@v4
+      with:
+        name: codegen
+        path: compile/fullCompile/codegen/
+    - name: Set up MATLAB
+      uses: matlab-actions/setup-matlab@v2
+      with:
+        release: R2023a
+        products: Parallel_Computing_Toolbox
+    - name: Build Mex and Run Tests
+      uses: matlab-actions/run-command@v2
+      with:
+        command: addPaths; generateMexFromCpp; testScript
+    - name: Create build archive (Windows and macOS)
+      if: runner.os != 'Linux'
+      run:  tar --exclude="**/-lang:c++.zip" --exclude=".git*/" --exclude="**/codegen/" --exclude="htmlcov/" -acvf ../${{ runner.os }}-${{ runner.arch }}.zip *
+    - name: Create build archive (Linux)
+      if: runner.os == 'Linux'
+      run: zip -r ../${{ runner.os }}-${{ runner.arch }}.zip * -x "**/-lang:c++.zip" ".git*/" "htmlcov/*" "**/codegen/*"
+    - run: mv ../${{ runner.os }}-${{ runner.arch }}.zip ${{ runner.os }}-${{ runner.arch }}.zip
+    - name: Upload releases
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ runner.os }}-${{ runner.arch }}
+        retention-days: 1
+        path: ${{ runner.os }}-${{ runner.arch }}.zip
   
   deploy-nightly:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
-    needs: [test]
+    needs: [build_and_test_mex]
     permissions:
       contents: write
     steps:
@@ -68,17 +85,17 @@ jobs:
       - name: Create nightly release
         run: |
           output=$(gh release delete nightly --cleanup-tag --yes --repo ${{ github.repository }} 2>&1) || [[ "${output}" == "release not found" ]]
-          gh release create nightly Windows.zip Linux.zip macOS.zip --prerelease --title "Nightly Build" --latest=false --repo ${{ github.repository }}
+          gh release create nightly Windows-X64.zip Linux-X64.zip macOS-X64.zip macOS-ARM64.zip --prerelease --title "Nightly Build" --latest=false --repo ${{ github.repository }}
         env:
           GH_TOKEN: ${{ github.token }}
   
   cpp-deploy:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
-    needs: [test]
+    needs: [build_and_test_mex]
     steps:
     - name: Checkout Source
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         ref: generated_source
         path: rat_source

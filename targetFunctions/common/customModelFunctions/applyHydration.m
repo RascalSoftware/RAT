@@ -13,7 +13,7 @@ if  layersSize(2) == 6   % we need to calculate the hydrated SLD
         hydration = 0.01 * layers(i,5);   % Assume percent for backwards compatibility
 
         % Index 6 determines what we hydrate with
-        if layers(i,6) == 1
+        if layers(i,6) == 0
             bulkHydration = bulkIn;
         else
             bulkHydration = bulkOut;

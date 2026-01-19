@@ -40,7 +40,7 @@ if ~isempty(layers)
 
 else
 
-    outputLayers = zeros(1, 4);
+    outputLayers = zeros(0, 4);
     
 end
 

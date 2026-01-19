@@ -58,7 +58,7 @@ classdef useLivePlot < handle
             figure(obj.figureId);
             subplot(1, 2, 1); cla;
             subplot(1, 2, 2); cla;
-            obj.callback(data, false);
+            obj.callback(data);
         end
 
         function closeFigure(obj)

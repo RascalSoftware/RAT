@@ -1,6 +1,16 @@
 function encoded = projectToJson(problem,filename)
 
 % Converts a projectClass to a json file...
+try
+    jpath = java.nio.file.Paths.get(filename, javaArray('java.lang.String', 0));
+    if ~jpath.isAbsolute()
+       jpath = java.nio.file.Paths.get(pwd, javaArray('java.lang.String', 0));
+       jpath = jpath.resolve(filename);
+    end
+    filename = jpath.toString().toCharArray';
+catch ME
+    error(ME.message)
+end
 
 % Check is we have a domains project..
 if isa(problem,'domainsClass')
@@ -75,7 +85,7 @@ totalStruct.resolutions = makeTypeTableStruct(resolsTable);
 
 % Custom files....
 customTable = problem.customFile.varTable;
-totalStruct.custom_files = makeCustomFileStruct(customTable);
+totalStruct.custom_files = makeCustomFileStruct(customTable, filename);
 
 % Data...
 dataTable = problem.data.varTable;
@@ -104,7 +114,6 @@ end
 
 % Save the file 
 encoded = jsonencode(totalStruct,ConvertInfAndNaN=false);
-encoded = replace(encoded,'Infinity','Inf');
 
 [path,filename,~] = fileparts(filename);
 fid = fullfile(path, append(filename, '.json'));
@@ -146,7 +155,7 @@ for i = 1:length(paramStruct)
     paramStruct(i).name = strtrim(paramStruct(i).name);
     paramStruct(i).prior_type = strtrim(paramStruct(i).prior_type);
 end
-
+paramStruct = correctScalarStruct(paramStruct);
 end
 
 % ------------------------------------------
@@ -176,6 +185,7 @@ for i = 1:length(typeStruct)
         typeStruct(i).(fields{n}) = strtrim(typeStruct(i).(fields{n}));
     end
 end
+typeStruct = correctScalarStruct(typeStruct);
 
 end
 
@@ -187,6 +197,7 @@ function dataStruct = makeDataStruct(dataTable)
 dataTable.Properties.VariableNames = ["name", "data", "data_range", "simulation_range"]; 
 
 dataStruct = table2struct(dataTable);
+dataStruct = correctScalarStruct(dataStruct);
 
 end
 
@@ -199,7 +210,7 @@ layersTable.Properties.VariableNames = ["name", "thickness", "SLD", "roughness",
                                         "hydration", "hydrate_with"]; 
 
 layersStruct = table2struct(layersTable);
-
+layersStruct = correctScalarStruct(layersStruct);
 end
 
 % -------------------------------------------
@@ -214,7 +225,7 @@ for i = 1:numberOfContrasts
     thisContrast = orderfields(thisContrast,["name","model"]);
     contrastStruct(i,1) = thisContrast;
 end
-
+contrastStruct = correctScalarStruct(contrastStruct);
 end
 % ---------------------------------------------
 
@@ -252,7 +263,7 @@ for i = 1:numberOfContrasts
 
     newContrastStruct(1,i) = thisContrastStruct; 
 end
-
+newContrastStruct = correctScalarStruct(newContrastStruct);
 end
 
 % ---------------------------------------------------------------------
@@ -291,12 +302,13 @@ for i = 1:numberOfContrasts
 
     newContrastStruct(1,i) = thisContrastStruct; 
 end
+newContrastStruct = correctScalarStruct(newContrastStruct);
 
 end
 
 % ---------------------------------------------------------------------
 
-function customFileStruct = makeCustomFileStruct(customTable)
+function customFileStruct = makeCustomFileStruct(customTable, jsonFilePath)
 
 % Rename columns to match Python (mainly case)....
 varNames =  ["name","filename","function_name","language","path"];
@@ -312,6 +324,23 @@ customFileStruct = table2struct(customTable);
 % Remove trailing spaces from chars...
 customFileStruct = removeSpaces(customFileStruct);
 
+for i = 1:length(customFileStruct)
+    try
+        path2 = customFileStruct(i).path;
+        jpath1 = java.nio.file.Paths.get(jsonFilePath, javaArray('java.lang.String', 0)).getParent();
+        jpath2 = java.nio.file.Paths.get(path2, javaArray('java.lang.String', 0));
+        if isempty(path2) || strcmp(path2, '.') || jpath1.equals(jpath2)
+            filepath = '.';
+        else
+            filepath = jpath1.relativize(jpath2).toString().toCharArray';
+        end
+        
+    catch ME
+        error(ME.message)
+    end
+    customFileStruct(i).path = filepath;
+end
+customFileStruct = correctScalarStruct(customFileStruct);
 end
 
 % ----------------------------------------------------------------
@@ -326,6 +355,13 @@ for i = 1:length(thisStruct)
     end
 end
 
+end
+
+function thisStruct = correctScalarStruct(thisStruct)
+% Corrects scalar struct so its written as an array in json 
+    if length(thisStruct) == 1
+         thisStruct = {thisStruct};
+    end
 end
 
 % ----------------------------------------------------------------

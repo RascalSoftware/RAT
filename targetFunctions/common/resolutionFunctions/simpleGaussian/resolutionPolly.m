@@ -6,8 +6,8 @@ arguments
     resolutionValues (1,:) double
     points (1,1) double
 end
-persistent exps
-persistent sigma
+%persistent exps
+%persistent sigma
 % np0 = floor(numel(xdata)/2);
 % if isempty(exps) || sigma ~= resolutionValues(1)
 %     ii = -10:+10;
@@ -17,12 +17,30 @@ persistent sigma
 %     sigma = resolutionValues(1);
 % end
 
+width = 10;
 
+
+n_points = zeros(1,points);
+sum_d    = zeros(1,points);
+for j = 1:points
+    ilow = max(-width, -j + 1);
+    ihi = min(width, points - j);
+    % idx = j+ilow:j+ihi;
+    % sumg = exp(-((xdata(idx)/xdata(j)-1)/resolutionValues(j)).^2);
+    % simulation(j) = sum(rawSimulation(idx).*sumg)/sum(sumg);
+    n_points(j) = ihi-ilow;
+    sumg = 0;
+    for i = ilow:ihi
+        g = exp(-((xdata(j+i)/xdata(j)-1)/resolutionValues(j))^2);
+        sumg = sumg + g;
+    end
+    sum_d(j) = sumg;
+end
 simulation = zeros(points,1);
 for j = 1:points
 
-    ilow = max(-10, -j + 1);
-    ihi = min(10, points - j);
+    ilow = max(-width, -j + 1);
+    ihi = min(width, points - j);
     % idx = j+ilow:j+ihi;
     % sumg = exp(-((xdata(idx)/xdata(j)-1)/resolutionValues(j)).^2);
     % simulation(j) = sum(rawSimulation(idx).*sumg)/sum(sumg);
@@ -34,7 +52,6 @@ for j = 1:points
         simulation(j) = simulation(j) + rawSimulation(i+j) * g;
     end
     simulation(j) = simulation(j) / sumg;
-
 end
 
 end

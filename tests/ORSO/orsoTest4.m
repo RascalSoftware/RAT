@@ -30,7 +30,7 @@ resol = datResol;
 tic
 %for i = 1:100000
 %ref = resolutionPolly_mex(q',ref',resol',length(q));
-ref = resolutionPolly(q',ref',resol',length(q),thick,sld,rough);
+ref = resolutionPollyWithPoints(q',ref',resol',length(q),thick,sld,rough);
 %end
 toc
 %ref = dataResolutionPolly(q,ref,datResol,length(q));

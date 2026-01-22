@@ -1,4 +1,4 @@
-function simulation = resolutionPolly(xdata,rawSimulation,resolutionValues,points,thick,sld,rough) %#codegen
+function simulation = resolutionPollyWithPoints(xdata,rawSimulation,resolutionValues,points,thick,sld,rough) %#codegen
 % Apply resolution correction
 % arguments
 %     xdata (1,:) double

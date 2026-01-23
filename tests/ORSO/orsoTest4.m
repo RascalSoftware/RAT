@@ -42,7 +42,7 @@ toc
 tic
 for i = 1:10000
 %ref = resolutionPolly_mex(q',ref',resol',length(q));
-    refI = resolutionExpansionWithPoints(q',ref',resol',length(q),thick,sld,rough);
+    refI = resolutionPollyWithPoints(q',ref',resol',length(q),thick,sld,rough);
 end
 toc
 

@@ -65,7 +65,7 @@ function av = res_fun(x,x0,sig,x_data,y_data,thick,sld,rough)
     %N = numel(rough);
     %res_val= abelesSingle(x,N,thick,sld,rough)';
     
-    res_val = interp1(x_data,y_data,x,'linear');
+    res_val = interp1(x_data,y_data,x,'spline');
     av  = exp_val.*res_val;
 end
 

@@ -28,20 +28,32 @@ resol = datResol;
 %mm  = 2
 %resol = repmat(log(2)*mm,1,numel(q));
 tic
-%for i = 1:100000
-%ref = resolutionPolly_mex(q',ref',resol',length(q));
-ref = resolutionPollyWithPoints(q',ref',resol',length(q),thick,sld,rough);
-%end
+for i = 1:10000
+    refI = resolutionPolly_mex(q',ref',resol',length(q));
+%ref = resolutionPollyWithPoints(q',ref',resol',length(q),thick,sld,rough);
+end
 toc
+tic
+for i = 1:10000
+    refI = resolutionPolly(q',ref',resol',length(q));
+%ref = resolutionPollyWithPoints(q',ref',resol',length(q),thick,sld,rough);
+end
+toc
+tic
+for i = 1:10000
+%ref = resolutionPolly_mex(q',ref',resol',length(q));
+    refI = resolutionExpansionWithPoints(q',ref',resol',length(q),thick,sld,rough);
+end
+toc
+
 %ref = dataResolutionPolly(q,ref,datResol,length(q));
 
 % Plot the comparison....
 figure(1); clf
-semilogy(q,ref,'k-','LineWidth',2)
+semilogy(q,refI,'k-','LineWidth',2)
 hold on
 plot(data(:,1),data(:,2),'ro')
 
 % Calculate the output....
-%ic = [1:25,27:numel(ref)];
-out = sum((data(:,2) - ref).^2)
+out = sum((data(:,2) - refI).^2)
 

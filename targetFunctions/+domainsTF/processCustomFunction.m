@@ -21,8 +21,8 @@ function [outputs1,outputs2,subRoughs] = processCustomFunction(bulkIns,bulkOuts,
             [output1, subRoughs(i)] = callMatlabFunction(functionHandle, paramValues, bulkIns(i), bulkOuts, i, 1);
             [output2, ~] = callMatlabFunction(functionHandle, paramValues, bulkIns(i), bulkOuts, i, 2);
         else
-            [output1, subRoughs(i)] = callCppFunction(functionHandle, paramValues, bulkIns(i), bulkOuts, i-1, 0);
-            [output2, ~] = callCppFunction(functionHandle, paramValues, bulkIns(i), bulkOuts, i-1, 1);
+            [output1, subRoughs(i)] = callCppFunction(functionHandle, paramValues, bulkIns(i), bulkOuts, i, 1);
+            [output2, ~] = callCppFunction(functionHandle, paramValues, bulkIns(i), bulkOuts, i, 2);
         end
 
         % If SLD is real, add dummy imaginary column

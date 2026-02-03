@@ -84,8 +84,10 @@ jobs:
           merge-multiple: true
       - name: Create nightly release
         run: |
+          mv Linux-X64.zip Linux.zip
+          mv Windows-X64.zip Windows.zip
           output=$(gh release delete nightly --cleanup-tag --yes --repo ${{ github.repository }} 2>&1) || [[ "${output}" == "release not found" ]]
-          gh release create nightly Windows-X64.zip Linux-X64.zip macOS-X64.zip macOS-ARM64.zip --prerelease --title "Nightly Build" --latest=false --repo ${{ github.repository }}
+          gh release create nightly Windows.zip Linux.zip macOS-X64.zip macOS-ARM64.zip --prerelease --title "Nightly Build" --latest=false --repo ${{ github.repository }}
         env:
           GH_TOKEN: ${{ github.token }}
   

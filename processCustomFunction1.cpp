@@ -83,8 +83,8 @@ namespace RAT
                     static_cast<int>(d) - 1].f1)->size())[1];
           subRoughs[b_i] = b_callCppFunction((const char *)((::coder::array<char,
             2U> *)&customFiles[static_cast<int>(d) - 1].f1)->data(), iv,
-            paramValues, bulkIns[b_i], bulkOuts, (static_cast<double>(b_i) + 1.0)
-            - 1.0, output1);
+            paramValues, bulkIns[b_i], bulkOuts, static_cast<double>(b_i) + 1.0,
+            output1);
           loop_ub = output1.size(1);
           b_output1.set_size(output1.size(0), output1.size(1));
           for (i1 = 0; i1 < loop_ub; i1++) {
@@ -103,8 +103,8 @@ namespace RAT
             [1];
           c_callCppFunction((const char *)((::coder::array<char, 2U> *)
             &customFiles[static_cast<int>(contrastCustomFiles[b_i]) - 1].f1)
-                            ->data(), iv, paramValues, bulkIns[b_i], bulkOuts, (
-            static_cast<double>(b_i) + 1.0) - 1.0, output1);
+                            ->data(), iv, paramValues, bulkIns[b_i], bulkOuts,
+                            static_cast<double>(b_i) + 1.0, output1);
         }
 
         //  If SLD is real, add dummy imaginary column
@@ -356,8 +356,8 @@ namespace RAT
                     static_cast<int>(d) - 1].f1)->size())[1];
           subRoughs[b_i] = b_callCppFunction((const char *)((::coder::array<char,
             2U> *)&customFiles[static_cast<int>(d) - 1].f1)->data(), iv,
-            paramValues, bulkIns[b_i], bulkOuts, (static_cast<double>(b_i) + 1.0)
-            - 1.0, output1);
+            paramValues, bulkIns[b_i], bulkOuts, static_cast<double>(b_i) + 1.0,
+            output1);
           loop_ub = output1.size(1);
           b_output1.set_size(output1.size(0), output1.size(1));
           for (i1 = 0; i1 < loop_ub; i1++) {
@@ -376,8 +376,8 @@ namespace RAT
             [1];
           c_callCppFunction((const char *)((::coder::array<char, 2U> *)
             &customFiles[static_cast<int>(contrastCustomFiles[b_i]) - 1].f1)
-                            ->data(), iv, paramValues, bulkIns[b_i], bulkOuts, (
-            static_cast<double>(b_i) + 1.0) - 1.0, output1);
+                            ->data(), iv, paramValues, bulkIns[b_i], bulkOuts,
+                            static_cast<double>(b_i) + 1.0, output1);
         }
 
         //  If SLD is real, add dummy imaginary column

@@ -81,11 +81,11 @@ namespace RAT
     bulkOutArray = convertPtr2Vector(&(bulkOut.data())[0], static_cast<double>
       (varargin_3.size(0)));
 
-    //  domain should either before 0 or 1. A value less than zero indicates no domains
+    //  domain should either be 1 or 2. A value less than 1 indicates no domains
     std::mem_fn<void(std::vector<double>&, std::vector<double>&, std::vector<
                      double>&, int, int, std::vector<double>&, double*, double*)>
       (&CallbackInterface::invoke)(callback, paramsArray, bulkInArray,
-      bulkOutArray, varargin_4, 0.0, outArray, &outputSize[0], &varargout_1);
+      bulkOutArray, varargin_4, 1.0, outArray, &outputSize[0], &varargout_1);
     actualSize = getVectorSize(outArray);
     loop_ub = static_cast<int>(actualSize);
     tempOutput.set_size(1, static_cast<int>(actualSize));
@@ -193,11 +193,11 @@ namespace RAT
     bulkOutArray = convertPtr2Vector(&(bulkOut.data())[0], static_cast<double>
       (varargin_3.size(0)));
 
-    //  domain should either before 0 or 1. A value less than zero indicates no domains
+    //  domain should either be 1 or 2. A value less than 1 indicates no domains
     std::mem_fn<void(std::vector<double>&, std::vector<double>&, std::vector<
                      double>&, int, int, std::vector<double>&, double*, double*)>
       (&CallbackInterface::invoke)(callback, paramsArray, bulkInArray,
-      bulkOutArray, varargin_4, 1.0, outArray, &outputSize[0], &varargout_1);
+      bulkOutArray, varargin_4, 2.0, outArray, &outputSize[0], &varargout_1);
     actualSize = getVectorSize(outArray);
     loop_ub = static_cast<int>(actualSize);
     tempOutput.set_size(1, static_cast<int>(actualSize));
@@ -305,7 +305,7 @@ namespace RAT
     bulkOutArray = convertPtr2Vector(&(bulkOut.data())[0], static_cast<double>
       (varargin_3.size(0)));
 
-    //  domain should either before 0 or 1. A value less than zero indicates no domains
+    //  domain should either be 1 or 2. A value less than 1 indicates no domains
     std::mem_fn<void(std::vector<double>&, std::vector<double>&, std::vector<
                      double>&, int, std::vector<double>&, double*, double*)>
       (&CallbackInterface::invoke)(callback, paramsArray, bulkInArray,

@@ -78,8 +78,8 @@ namespace RAT
                     static_cast<int>(d) - 1].f1)->size())[1];
           subRoughs[b_i] = callCppFunction((const char *)((::coder::array<char,
             2U> *)&customFiles[static_cast<int>(d) - 1].f1)->data(), iv,
-            paramValues, bulkIns[b_i], bulkOuts, (static_cast<double>(b_i) + 1.0)
-            - 1.0, output);
+            paramValues, bulkIns[b_i], bulkOuts, static_cast<double>(b_i) + 1.0,
+            output);
         }
 
         //  If SLD is real, add dummy imaginary column
@@ -241,8 +241,8 @@ namespace RAT
                     static_cast<int>(d) - 1].f1)->size())[1];
           subRoughs[b_i] = callCppFunction((const char *)((::coder::array<char,
             2U> *)&customFiles[static_cast<int>(d) - 1].f1)->data(), iv,
-            paramValues, bulkIns[b_i], bulkOuts, (static_cast<double>(b_i) + 1.0)
-            - 1.0, output);
+            paramValues, bulkIns[b_i], bulkOuts, static_cast<double>(b_i) + 1.0,
+            output);
         }
 
         //  If SLD is real, add dummy imaginary column

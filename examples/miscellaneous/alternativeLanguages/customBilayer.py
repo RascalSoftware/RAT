@@ -2,6 +2,8 @@
 import numpy as np
 
 def customBilayer(params, bulk_in, bulk_out, contrast):
+    # Note - The first contrast number is 1 (not 0) so be careful if you use 
+    # this variable for array indexing. 
     params = params
     bulk_in = bulk_in
     bulk_out = bulk_out
@@ -58,13 +60,13 @@ def customBilayer(params, bulk_in, bulk_out, contrast):
 
     # Manually deal with hydration for layers in
     # this example.
-    oxSLD = (oxide_hydration * bulk_out[contrast]) + ((1 - oxide_hydration) * oxide_SLD)
-    headSLD = (headHydration * bulk_out[contrast]) + ((1 - headHydration) * SLDhead)
-    tailSLD = (bilayerHydration * bulk_out[contrast]) + ((1 - bilayerHydration) * SLDtail)   
+    oxSLD = (oxide_hydration * bulk_out[contrast-1]) + ((1 - oxide_hydration) * oxide_SLD)
+    headSLD = (headHydration * bulk_out[contrast-1]) + ((1 - headHydration) * SLDhead)
+    tailSLD = (bilayerHydration * bulk_out[contrast-1]) + ((1 - bilayerHydration) * SLDtail)   
 
     # Make the layers
     oxide = [oxide_thick, oxSLD, sub_rough]
-    water = [waterThick, bulk_out[contrast], bilayerRough]
+    water = [waterThick, bulk_out[contrast-1], bilayerRough]
     head = [headThick, headSLD, bilayerRough]
     tail = [tailThick, tailSLD, bilayerRough]
     

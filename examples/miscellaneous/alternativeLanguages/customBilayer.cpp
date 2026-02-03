@@ -13,6 +13,8 @@ extern "C" {
 
     LIB_EXPORT void customBilayer(std::vector<double>& params, std::vector<double>& bulkIn, std::vector<double>& bulkOut, int contrast, std::vector<double>& output, double* outputSize, double* rough)
     {
+        # Note - The first contrast number is 1 (not 0) so be careful if you use 
+        # this variable for array indexing. 
         double subRough = params[0];
         double oxideThick = params[1];
         double oxideHydration = params[2];
@@ -65,9 +67,9 @@ extern "C" {
 
         // Manually deal with hydration for layers in
         // this example.
-        double oxSLD = (oxideHydration * bulkOut[contrast]) + ((1 - oxideHydration) * oxideSLD);
-        double headSLD = (headHydration * bulkOut[contrast]) + ((1 - headHydration) * SLDhead);
-        double tailSLD = (bilayerHydration * bulkOut[contrast]) + ((1 - bilayerHydration) * SLDtail);
+        double oxSLD = (oxideHydration * bulkOut[contrast-1]) + ((1 - oxideHydration) * oxideSLD);
+        double headSLD = (headHydration * bulkOut[contrast-1]) + ((1 - headHydration) * SLDhead);
+        double tailSLD = (bilayerHydration * bulkOut[contrast-1]) + ((1 - bilayerHydration) * SLDtail);
 
         // Make the layers
         // oxide...
@@ -77,7 +79,7 @@ extern "C" {
 
         // Water...
         output.push_back(waterThick);
-        output.push_back(bulkOut[contrast]);
+        output.push_back(bulkOut[contrast-1]);
         output.push_back(bilayerRough);
 
         // Heads...

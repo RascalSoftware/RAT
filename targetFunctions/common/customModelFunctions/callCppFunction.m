@@ -50,8 +50,8 @@ function [output, varargout] = callCppFunction(pointer, varargin)
         bulkOutArray = coder.opaque('std::vector<double>');
         bulkOutArray = coder.ceval('convertPtr2Vector', coder.ref(bulkOut), numel(bulkOut));
 
-        % domain should either before 0 or 1. A value less than zero indicates no domains
-        if (domains < 0)
+        % domain should either be 1 or 2. A value less than 1 indicates no domains
+        if (domains < 1)
             coder.ceval(['std::mem_fn<void(std::vector<double>&, std::vector<double>&, std::vector<double>&, int, ' ...
                         'std::vector<double>&, double*, double*)>(&CallbackInterface::invoke)'], ...
                          callback, paramsArray, bulkInArray, bulkOutArray, contrast, outArray, ...

@@ -36,7 +36,7 @@ jobs:
   build_and_test_mex:
     strategy:
       matrix:
-        platform: [windows-latest, ubuntu-latest, macos-15-intel, macos-latest]
+        platform: [windows-latest, ubuntu-22.04, macos-15-intel, macos-latest]
     runs-on: ${{ matrix.platform }}
     needs: [build_cpp]
  

@@ -1,12 +1,11 @@
-function simulation = resolutionExpansionWithPoints(xdata,rawSimulation,resolutionValues,points,thick,sld,rough) %#codegen
+function simulation = resolutionExpansionWithPoints(xdata,rawSimulation,resolutionValues,points) %#codegen
 % Apply resolution correction
-% arguments
-%     xdata (1,:) double
-%     rawSimulation (1,:) double
-%     resolutionValues (1,:) double
-%     points (1,1) double
-%     thi
-% end
+arguments
+    xdata (1,:) double
+    rawSimulation (1,:) double
+    resolutionValues (1,:) double
+    points (1,1) double
+end
 %persistent exps
 %persistent sigma
 % np0 = floor(numel(xdata)/2);
@@ -22,7 +21,7 @@ width = 10;
 LOG_RESLIMIT = -6.907755278982137;
 fhhw = sqrt(-LOG_RESLIMIT);
 simulation = zeros(points,1);
-simulationf = zeros(points,1);
+
 sq2 = sqrt(2);
 for j = 1:points
     %width = max()

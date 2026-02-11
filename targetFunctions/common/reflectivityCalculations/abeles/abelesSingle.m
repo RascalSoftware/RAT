@@ -1,4 +1,13 @@
-function ref = abelesSingle(q,N,layersThick,layersRho,layersSigma)
+function ref = abelesSingle(q,N,layersThick,re_sld,img_sld,layersSigma)
+arguments
+    q(1,:) double
+    N (1,1) double    
+    layersThick(:,1) double
+    re_sld (:,1) double
+    img_sld (:,1) double
+    layersSigma  (:,1) double
+end
+layersRho = complex(re_sld,img_sld);
 
 % Vectorised version of reflectivity with complex rho
 

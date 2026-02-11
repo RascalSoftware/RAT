@@ -21,7 +21,11 @@ rough = layers(:,4);
 % Calculate reflectivity....
 q = data(:,1);
 N = size(layers,1);
-ref = abelesSingle(q,N,thick,sld,rough);
+tic
+for i=1:10000
+ref = abelesSingle_mex(q',N,thick,layers(:,2),layers(:,3),rough);
+end
+toc
 
 % Apply resolution....
 resol = datResol;
@@ -41,8 +45,10 @@ end
 toc
 tic
 for i = 1:10000
-%ref = resolutionPolly_mex(q',ref',resol',length(q));
-    refI = resolutionPollyWithPoints(q',ref',resol',length(q),thick,sld,rough);
+%reIf = resolutionPolly_mex(q',ref',resol',length(q));
+    %refI = resolutionTrapezoidPolly_mex(q',ref',resol',length(q));
+    %refI = resolutionPollyWithPoints_mex(q',ref',resol',length(q),thick,layers(:,2),layers(:,3),rough);
+    refI = resolutionExpansionWithPoints_mex(q',ref',resol',length(q));    
 end
 toc
 

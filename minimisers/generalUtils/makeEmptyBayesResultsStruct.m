@@ -147,8 +147,8 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     % (5) bayesResults.nestedSamplerOutput
     
     % Nested Sampler
-    LogZ = 0;
-    LogZErr = 0;
+    logZ = 0;
+    logZErr = 0;
     
     nestSamples = zeros(1,2);
     coder.varsize('nestSamples');
@@ -156,7 +156,7 @@ function bayesResults = makeEmptyBayesResultsStruct(nContrasts,isDomains,nChains
     postSamples = zeros(1,2);
     coder.varsize('postSamples');
     
-    nestedSamplerOutput = struct('LogZ',LogZ,'LogZErr',LogZErr,...
+    nestedSamplerOutput = struct('logZ',logZ,'logZErr',logZErr,...
     'nestSamples',nestSamples,'postSamples',postSamples);
     
     % ------------------------------------------------------------------

@@ -132,8 +132,8 @@ namespace RAT
 
     t1_dreamParams = t0_dreamParams;
     t1_dreamOutput = t0_dreamOutput;
-    t1_nestedSamplerOutput.LogZ = t0_nestedSamplerOutput.LogZ;
-    t1_nestedSamplerOutput.LogZErr = t0_nestedSamplerOutput.LogZErr;
+    t1_nestedSamplerOutput.logZ = t0_nestedSamplerOutput.logZ;
+    t1_nestedSamplerOutput.logZErr = t0_nestedSamplerOutput.logZErr;
     t1_nestedSamplerOutput.nestSamples.set_size(1, 2);
     t1_nestedSamplerOutput.postSamples.set_size(1, 2);
     t1_nestedSamplerOutput.nestSamples[0] =
@@ -287,7 +287,7 @@ namespace RAT
 
     getFittedPriors(fitNames, problemStruct.priorNames,
                     problemStruct.priorValues, problemStruct.fitLimits, r);
-    bayesResults_nestedSamplerOutput.LogZ = nestedSampler(problemStruct,
+    bayesResults_nestedSamplerOutput.logZ = nestedSampler(problemStruct,
       expl_temp, controls_nLive, controls_nMCMC, controls_nsTolerance, r,
       bayesResults_nestedSamplerOutput.nestSamples,
       bayesResults_nestedSamplerOutput.postSamples, H);
@@ -377,7 +377,7 @@ namespace RAT
       }
     }
 
-    bayesResults_nestedSamplerOutput.LogZErr = std::sqrt(H / controls_nLive);
+    bayesResults_nestedSamplerOutput.logZErr = std::sqrt(H / controls_nLive);
     return bayesResults_predictionIntervals_sampleChi_size;
   }
 }

@@ -940,10 +940,10 @@ namespace RAT
       bayesResults->confidenceIntervals.mean, bayesResults->dreamParams,
       bayesResults->dreamOutput, b_bayesResults.nestedSamplerOutput,
       bayesResults->chain);
-    bayesResults->nestedSamplerOutput.LogZ =
-      b_bayesResults.nestedSamplerOutput.LogZ;
-    bayesResults->nestedSamplerOutput.LogZErr =
-      b_bayesResults.nestedSamplerOutput.LogZErr;
+    bayesResults->nestedSamplerOutput.logZ =
+      b_bayesResults.nestedSamplerOutput.logZ;
+    bayesResults->nestedSamplerOutput.logZErr =
+      b_bayesResults.nestedSamplerOutput.logZErr;
     bayesResults->nestedSamplerOutput.nestSamples.set_size(1, 2);
     bayesResults->nestedSamplerOutput.postSamples.set_size(1, 2);
     bayesResults->nestedSamplerOutput.nestSamples[0] =
@@ -1108,10 +1108,10 @@ namespace RAT
                expl_temp.contrastParams.subRoughs,
                expl_temp.contrastParams.resample, expl_temp.fitParams,
                expl_temp.fitNames, results);
-          bayesResults->nestedSamplerOutput.LogZ =
-            b_bayesResults.nestedSamplerOutput.LogZ;
-          bayesResults->nestedSamplerOutput.LogZErr =
-            b_bayesResults.nestedSamplerOutput.LogZErr;
+          bayesResults->nestedSamplerOutput.logZ =
+            b_bayesResults.nestedSamplerOutput.logZ;
+          bayesResults->nestedSamplerOutput.logZErr =
+            b_bayesResults.nestedSamplerOutput.logZErr;
           bayesResults->nestedSamplerOutput.nestSamples.set_size(1, 2);
           bayesResults->nestedSamplerOutput.postSamples.set_size(1, 2);
           bayesResults->nestedSamplerOutput.nestSamples[0] =

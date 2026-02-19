@@ -379,8 +379,8 @@ namespace RAT
       bayesResults_dreamOutput.AR.data, bayesResults_dreamOutput.AR.size,
       bayesResults_dreamOutput.R_stat, bayesResults_dreamOutput.CR,
       bayesResults_dreamOutput.iteration);
-    bayesResults_nestedSamplerOutput.LogZ = 0.0;
-    bayesResults_nestedSamplerOutput.LogZErr = 0.0;
+    bayesResults_nestedSamplerOutput.logZ = 0.0;
+    bayesResults_nestedSamplerOutput.logZErr = 0.0;
 
     //  ------------------------------------------------------------------
     //  (6) chain
@@ -582,8 +582,8 @@ namespace RAT
       bayesResults_dreamOutput.AR.data, bayesResults_dreamOutput.AR.size,
       bayesResults_dreamOutput.R_stat, bayesResults_dreamOutput.CR,
       bayesResults_dreamOutput.iteration);
-    bayesResults_nestedSamplerOutput.LogZ = 0.0;
-    bayesResults_nestedSamplerOutput.LogZErr = 0.0;
+    bayesResults_nestedSamplerOutput.logZ = 0.0;
+    bayesResults_nestedSamplerOutput.logZErr = 0.0;
 
     //  ------------------------------------------------------------------
     //  (6) chain

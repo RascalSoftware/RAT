@@ -261,8 +261,8 @@ namespace RAT
 
   struct NestedSamplerOutput
   {
-    double LogZ;
-    double LogZErr;
+    double logZ;
+    double logZErr;
     ::coder::array<double, 2U> nestSamples;
     ::coder::array<double, 2U> postSamples;
   };

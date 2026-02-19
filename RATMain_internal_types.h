@@ -26,8 +26,8 @@ namespace RAT
 
   struct struct_T
   {
-    double LogZ;
-    double LogZErr;
+    double logZ;
+    double logZErr;
     ::coder::bounded_array<double, 2U, 2U> nestSamples;
     ::coder::bounded_array<double, 2U, 2U> postSamples;
   };

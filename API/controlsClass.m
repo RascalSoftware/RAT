@@ -440,11 +440,8 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
             fwrite(fileID, true, 'uchar');
             fclose(fileID);
         end
-    end
-    
-    %------------------------- Display Methods --------------------------
-    methods (Access = protected)
-        function groups = getPropertyGroups(obj)
+
+        function dispPropList = getAvailableFields(obj)
             masterPropList = struct('parallel', {obj.parallel},...
                 'procedure', {obj.procedure},...
                 'display', {obj.display},...
@@ -499,20 +496,29 @@ classdef controlsClass < handle & matlab.mixin.CustomDisplay
                 'boundHandling',...
                 'adaptPCR'};
             
+           
+            dispPropList = masterPropList;
+            if strcmpi(obj.procedure, 'calculate')
+                dispPropList = rmfield(masterPropList, [deCell, simplexCell, nsCell, dreamCell, {'updatePlotFreq','updateFreq'}]);
+            elseif strcmpi(obj.procedure, 'simplex')
+                dispPropList = rmfield(masterPropList, [deCell, nsCell, dreamCell]);
+            elseif strcmpi(obj.procedure, 'de')
+                dispPropList = rmfield(masterPropList, [simplexCell, nsCell, dreamCell]);
+                % Add the update back...
+            elseif strcmpi(obj.procedure, 'ns')
+                dispPropList = rmfield(masterPropList, [simplexCell, deCell, dreamCell, {'updatePlotFreq','updateFreq'}]);
+            elseif strcmpi(obj.procedure, 'dream')
+                dispPropList = rmfield(masterPropList, [simplexCell, deCell, nsCell, {'updatePlotFreq','updateFreq'}]);
+            end
+        end
+    end
+    
+    %------------------------- Display Methods --------------------------
+    methods (Access = protected)
+        function groups = getPropertyGroups(obj)
+            
             if isscalar(obj)
-                dispPropList = masterPropList;
-                if strcmpi(obj.procedure, 'calculate')
-                    dispPropList = rmfield(masterPropList, [deCell, simplexCell, nsCell, dreamCell, {'updatePlotFreq','updateFreq'}]);
-                elseif strcmpi(obj.procedure, 'simplex')
-                    dispPropList = rmfield(masterPropList, [deCell, nsCell, dreamCell]);
-                elseif strcmpi(obj.procedure, 'de')
-                    dispPropList = rmfield(masterPropList, [simplexCell, nsCell, dreamCell]);
-                    % Add the update back...
-                elseif strcmpi(obj.procedure, 'ns')
-                    dispPropList = rmfield(masterPropList, [simplexCell, deCell, dreamCell, {'updatePlotFreq','updateFreq'}]);
-                elseif strcmpi(obj.procedure, 'dream')
-                    dispPropList = rmfield(masterPropList, [simplexCell, deCell, nsCell, {'updatePlotFreq','updateFreq'}]);
-                end
+                dispPropList = obj.getAvailableFields();
                 groups = matlab.mixin.util.PropertyGroup(dispPropList);
             else
                 groups = getPropertyGroups@matlab.mixin.CustomDisplay(obj);

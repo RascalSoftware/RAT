@@ -2,7 +2,7 @@
 function controlsToJson(controls,filename)
 
 % Saves the current controls block as a json..
-encoded = jsonencode(controls,ConvertInfAndNaN=false);
+encoded = jsonencode(controls.getAvailableFields(),ConvertInfAndNaN=false);
 
 [path,filename,~] = fileparts(filename);
 fid = fullfile(path, append(filename, '.json'));

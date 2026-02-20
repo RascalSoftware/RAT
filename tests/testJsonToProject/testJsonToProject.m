@@ -16,6 +16,12 @@ classdef testJsonToProject < matlab.unittest.TestCase
 
         resultFile = {'result', ...
             'result_bayes'}
+
+        controlsParams = {{'calculate', 'numSimulationPoints', 100},...
+                          {'simplex' 'xTolerance', 19},...
+                          {'de' 'populationSize', 200},...
+                          {'ns' 'nLive', 19},...
+                          {'dream' 'nSamples', 200}}
     end
 
     methods(TestClassSetup)
@@ -54,13 +60,9 @@ classdef testJsonToProject < matlab.unittest.TestCase
             end
        end
 
-       function testJsonControlsConversion(testCase)
+       function testJsonControlsConversion(testCase, controlsParams)
             controls = controlsClass();
-            controls.numSimulationPoints = 100;
-            controls.xTolerance = 19;
-            controls.populationSize = 200;
-            controls.nLive = 140;
-            controls.nSamples = 200;
+            controls.setProcedure(controlsParams{1}, controlsParams{2:end})
 
             controlsToJson(controls, "test.json");
             controls2 = jsonToControls("test.json");

@@ -231,7 +231,6 @@ namespace RAT
             }
           }
         } else if (B.size(0) == 1) {
-          int Y_idx_0;
           int loop_ub;
           b_Y.set_size(A.size(0));
           loop_ub = A.size(0);
@@ -239,9 +238,9 @@ namespace RAT
             b_Y[i] = A[i] / B[0];
           }
 
-          Y_idx_0 = b_Y.size(0);
+          loop_ub = b_Y.size(0);
           Y.set_size(b_Y.size(0), 1);
-          for (int i{0}; i < Y_idx_0; i++) {
+          for (int i{0}; i < loop_ub; i++) {
             Y[i] = b_Y[i];
           }
         } else {

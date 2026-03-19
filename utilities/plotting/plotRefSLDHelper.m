@@ -41,7 +41,7 @@ function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, sh
     % showLegend : logical, default: true
     %    Indicates if the legend should be shown.
     % shiftValue : float, default: 100
-    %    A value between 1 and 100 that controls the spacing between the reflectivity plots for each of the contrasts.     
+    %    A value between 0 and 100 that controls the spacing between the reflectivity plots for each of the contrasts.     
 
     arguments
         data
@@ -51,8 +51,9 @@ function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, sh
         showErrorBar {mustBeA(showErrorBar, 'logical')} = true
         showGrid {mustBeA(showGrid, 'logical')} = false
         showLegend {mustBeA(showLegend, 'logical')} = true
-        shiftValue {mustBeGreaterThanOrEqual(shiftValue, 1), mustBeLessThanOrEqual(shiftValue, 100)} = 100
-    end 
+        shiftValue {mustBeGreaterThanOrEqual(shiftValue, 0), mustBeLessThanOrEqual(shiftValue, 100)} = 100
+    end
+
     defaultState = 'on';
     s = warning();
     if any(strcmp({s.identifier}, 'MATLAB:Axes:NegativeDataInLogAxis'))
@@ -72,24 +73,24 @@ function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, sh
 
     if showGrid
        set(gca,'YGrid','on','XGrid','on');
-    end   
+    end
+
     hold on
     xlabel('$\textrm{Q}_{z} (\AA^{-1})$', 'Interpreter', 'Latex') 
     ylabel('Reflectivity', 'Interpreter', 'Latex') 
     lines = cell(numberOfContrasts, 1);
-    mult = 1;
-    q4Data = 1;
+    q4Data = 1.0;
+
     for i = 1:numberOfContrasts
         thisRef = data.reflectivity{i};
         thisData = data.shiftedData{i};
-        if i > 1 || q4
-            mult = 10.^((i/100)*shiftValue);
-        end
-        
+
         if q4 && data.dataPresent(i)
             q4Data = thisData(:,1).^4;
         end
-        mult = q4Data/mult;
+
+        div = 10.0^(shiftValue*(i-1)/100.0);
+        mult = q4Data/div;
         refY = thisRef(:,2) .* mult;
         % If there is data present
         % plot it - size of data.shiftedData
@@ -102,9 +103,9 @@ function plotRefSLDHelper(data, noDelay, linearX, q4, showErrorBar, showGrid, sh
         end
     
         % Plot the fit
-        lines{i} = plot(thisRef(:,1), refY, '-', 'LineWidth', 2);
-        
+        lines{i} = plot(thisRef(:,1), refY, '-', 'LineWidth', 2);   
     end
+
     if showLegend
         legend([lines{:}], data.contrastNames{:});
     end

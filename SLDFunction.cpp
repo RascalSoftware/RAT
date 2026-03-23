@@ -132,16 +132,16 @@ namespace RAT
 
     coder::eml_find(b_SLD, where);
     if (where.size(0) != 0) {
-      int below_idx_0;
+      int stride_1_0;
       aboveY.set_size(where.size(0));
       loop_ub = where.size(0);
       for (int i{0}; i < loop_ub; i++) {
         aboveY[i] = SLD[(where[i] + SLD.size(0)) - 1];
       }
 
-      below_idx_0 = where.size(0);
+      stride_1_0 = where.size(0);
       sldVal.set_size(where.size(0), 1);
-      for (int i{0}; i < below_idx_0; i++) {
+      for (int i{0}; i < stride_1_0; i++) {
         sldVal[i] = aboveY[i];
       }
     } else {

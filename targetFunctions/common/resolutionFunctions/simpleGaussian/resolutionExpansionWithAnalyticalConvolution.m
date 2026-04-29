@@ -1,5 +1,6 @@
 function simulation = resolutionExpansionWithPoints(xdata,rawSimulation,resolutionValues,points) %#codegen
 % Apply resolution correction
+% 
 arguments
     xdata (1,:) double
     rawSimulation (1,:) double

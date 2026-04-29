@@ -1,6 +1,7 @@
-function simulation = resolutionExpansionWithPoints(xdata,rawSimulation,resolutionValues,points) %#codegen
+function simulation = resolutionExpansionWithAnalyticalConvolution(xdata,rawSimulation,resolutionValues,points) %#codegen
 % Apply resolution correction
-% 
+% Analytical integration, reflectivity function is linearly interpolated between points
+% exp is analytically integrated.
 arguments
     xdata (1,:) double
     rawSimulation (1,:) double

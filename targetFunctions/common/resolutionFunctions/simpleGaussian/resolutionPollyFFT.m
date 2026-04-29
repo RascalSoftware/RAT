@@ -1,5 +1,6 @@
 function simulation = resolutionPollyFFT(xdata,rawSimulation,resolutionValues,points) %#codegen
 % Apply resolution correction
+% Incomplete
 arguments
     xdata (1,:) double
     rawSimulation (1,:) double

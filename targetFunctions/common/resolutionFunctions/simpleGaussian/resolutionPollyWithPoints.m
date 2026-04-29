@@ -1,5 +1,7 @@
 function simulation = resolutionPollyWithPoints(xdata,rawSimulation,resolutionValues,points,thick,re_sld,img_sld,rough) %#codegen
+%
 % Apply resolution correction
+% algorithm inserts points.
 arguments
     xdata (1,:) double
     rawSimulation (1,:) double

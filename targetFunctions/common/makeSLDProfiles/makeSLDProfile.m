@@ -3,8 +3,15 @@ function SLDProfile = makeSLDProfile(bulkIn,bulkOut,layers,ssub,nrepeats)
 numberOfLayers = size(layers,1);
 
 if numberOfLayers>0
+    % Find the maximum thickness, including any long roughness tail on final layer...
     totalThickness = sum(layers(:,1));
-    totalRange = (totalThickness*nrepeats) + 150;
+    outerLayerCentre = totalThickness - (layers(end,1)/2);
+    outerLayerTailLim = (erfcinv(0.01) * sqrt(2) * layers(end,3)) + outerLayerCentre;   % 99% confidence interval of outer error func..
+    outerLayerTailExtension = outerLayerTailLim - outerLayerCentre;
+    totalRange = ((totalThickness + outerLayerTailExtension)*nrepeats); % + 150;
+    totalRange = totalRange + (0.75 * totalRange);
+
+    
     x = 0:totalRange;
     Lays = zeros(length(x),(numberOfLayers*nrepeats)+2);
     boxCen = 0;

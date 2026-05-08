@@ -47,9 +47,9 @@ function plotRefSLD(project, result, options)
     % If we have air/substrate geometry, modify the SLD profiles slightly
     % so that the substrates line up (for custom XY the user does this
     % themselves)...
-    if strcmpi(projectStruct.geometry,'air/substrate') && ~strcmpi(projectStruct.modelType,'custom xy')
-        data = alignALProfiles(data);
-    end
+    % if strcmpi(projectStruct.geometry,'air/substrate') && ~strcmpi(projectStruct.modelType,'custom xy')
+    %     data = alignALProfiles(data);
+    % end
     
     plotRefSLDHelper(data, false, options.linearX, options.q4, options.showErrorBar, ...
                      options.showGrid, options.showLegend, options.shiftValue);
@@ -68,6 +68,13 @@ resamLays = data.resampledLayers;
 f = @(x)size(x{:},1);
 lengths = arrayfun(f,slds);
 maxPos = find(lengths == max(lengths));
+
+% If maxPos is an array we have many of equal (leng) length.
+% We can just pick one of them...
+if length(maxPos) > 1
+    maxPos = maxPos(1);
+end
+
 maxLen = lengths(maxPos);
 max_XValue = slds{maxPos}(end,1);
 

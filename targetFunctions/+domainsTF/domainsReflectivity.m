@@ -100,10 +100,18 @@ function [reflectivity,simulation,shiftedData,backgrounds,resolutions,...
                 % layers list are required for this contrast, and put them
                 % in the correct order according to geometry. We run it
                 % twice, once for each domain
+                if isempty(inputContrastLayers{i})
+                    inputDomainContrastLayers1 = [];
+                    inputDomainContrastLayers2 = [];
+                else
+                    inputDomainContrastLayers1 = domainContrastLayers{inputContrastLayers{i}(1)};
+                    inputDomainContrastLayers2 = domainContrastLayers{inputContrastLayers{i}(2)};
+                end
+
                 contrastLayers1{i} = allocateLayersForContrast(...
-                    domainContrastLayers{inputContrastLayers{i}(1)}, layerValues);
+                    inputDomainContrastLayers1, layerValues);
                 contrastLayers2{i} = allocateLayersForContrast(...
-                    domainContrastLayers{inputContrastLayers{i}(2)}, layerValues);
+                    inputDomainContrastLayers2, layerValues);
 
             end
 

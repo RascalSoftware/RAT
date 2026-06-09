@@ -47,9 +47,9 @@ function plotRefSLD(project, result, options)
     % If we have air/substrate geometry, modify the SLD profiles slightly
     % so that the substrates line up (for custom XY the user does this
     % themselves)...
-    % if strcmpi(projectStruct.geometry,'air/substrate') && ~strcmpi(projectStruct.modelType,'custom xy')
-    %     data = alignALProfiles(data);
-    % end
+    if strcmpi(projectStruct.geometry,'air/substrate') && ~strcmpi(projectStruct.modelType,'custom xy')
+        data = alignALProfiles(data);
+    end
     
     plotRefSLDHelper(data, false, options.linearX, options.q4, options.showErrorBar, ...
                      options.showGrid, options.showLegend, options.shiftValue);

@@ -1,61 +1,76 @@
-function SLDProfile = makeSLDProfile(bulkIn,bulkOut,layers,ssub,nrepeats)
+function SLD = makeSLDProfile(bulkIn,bulkOut,layers,subRough,nRepeats)
 
-numberOfLayers = size(layers,1);
+    bulkIn = bulkIn * 1e6;
+    bulkOut = bulkOut * 1e6;
 
-if numberOfLayers>0
+if size(layers,1) > 0
+    % Make a z range for the profile...
     % Find the maximum thickness, including any long roughness tail on final layer...
     totalThickness = sum(layers(:,1));
     outerLayerCentre = totalThickness - (layers(end,1)/2);
-    outerLayerTailLim = (erfcinv(0.01) * sqrt(2) * layers(end,3)) + outerLayerCentre;   % 99% confidence interval of outer error func..
+
+    % Find the point which covers 99% of the outer error function..
+    outerLayerTailLim = (erfcinv(0.01) * sqrt(2) * layers(end,3)) + outerLayerCentre;
+
+    % We need to make sure the total SLD range includes this...
     outerLayerTailExtension = outerLayerTailLim - outerLayerCentre;
-    totalRange = ((totalThickness + outerLayerTailExtension)*nrepeats); % + 150;
-    totalRange = totalRange + (0.75 * totalRange);
+    totalRange = ((totalThickness + outerLayerTailExtension)*nRepeats);
 
-    
-    x = 0:totalRange;
-    Lays = zeros(length(x),(numberOfLayers*nrepeats)+2);
-    boxCen = 0;
-    boxWidth = 100;
+    % Add some extra range at the end...
+    totalRange = totalRange + 100;
+    z = 0:totalRange;
 
-    roughnessValues = layers(:,3)';
-    roughnessValues(end+1) = ssub;
+    % Scale the SLDs...
+    layers(:,2) = layers(:,2) * 1e6;
 
-    nextLayerRoughness = roughnessValues(1);
-    airBox = asymconvstep(x,boxWidth,boxCen,nextLayerRoughness,nextLayerRoughness,bulkIn);
-    lastBoxEdge = boxCen + (0.5 * boxWidth);
+    % Arrange the roughnes' in the layers to reflect the 'next roughness'
+    % loop...
+    outLayer  = [0 bulkOut subRough];
+    layers = [layers; outLayer];
 
-    for n = 1:nrepeats
-        for i = 1:numberOfLayers
-            layerThickness = layers(i,1);
-            layerSLD = layers(i,2);
-            layerRoughness = roughnessValues(i);
-            nextLayerRoughness = roughnessValues(i+1);
-            thisBoxCentre = lastBoxEdge + (0.5 * layerThickness);
-            thisBox = asymconvstep(x,layerThickness,thisBoxCentre,layerRoughness,nextLayerRoughness,layerSLD);
-            Lays(:,i+(numberOfLayers*(n-1))) = thisBox;
-            lastBoxEdge = thisBoxCentre + (0.5 * layerThickness);
+    nLayers = size(layers,1);
+    allFuncs = zeros(length(z),nLayers);
+    alpha = zeros(1,nLayers);
+
+    lastLayerSLD = bulkIn;
+    thisPos = 50;
+
+    % Make the profile by adding an error function for each interface (we
+    % use 'normcdf' because it scales more easily than 'erf'...)
+    for n = 1:nRepeats
+        for i = 1:nLayers
+            nextRough = layers(i,3);
+            nextLayerSLD = layers(i,2);
+            diff = nextLayerSLD - lastLayerSLD;
+
+            thisFun = normcdf(z,thisPos,nextRough);
+            if diff < 0
+                thisFun = -thisFun;
+            end
+
+            allFuncs(:,i) = thisFun(:);
+            alpha(i) = abs(diff);
+            thisPos = layers(i,1) + thisPos;
+            lastLayerSLD = nextLayerSLD;
         end
     end
-
-    layerRoughness = nextLayerRoughness;
-    layerThickness = (x(end)-lastBoxEdge)*2;
-    layerSLD = bulkOut;
-    nextLayerRoughness = ssub;
-    thisBoxCentre = x(end);
-    Lays(:,(numberOfLayers*nrepeats)+1) = asymconvstep(x,layerThickness,thisBoxCentre,layerRoughness,nextLayerRoughness,layerSLD);
+    allFuncs = allFuncs .* alpha;
+    total = sum(allFuncs,2);
     
-    Lays(:,(numberOfLayers*nrepeats)+2) = airBox;
-    SLD = sum(Lays,2);
 else
-    x = 0:100;
-    subsBoxCen = max(x);
-    airBoxCen = 0;
-    widths = max(x);
-    airBox = asymconvstep(x,widths,airBoxCen,ssub,ssub,bulkIn);
-    subBox = asymconvstep(x,widths,subsBoxCen,ssub,ssub,bulkOut);
-    SLD = airBox + subBox;
+    % If we have no layers (i.e. just a bare interface), we only need one
+    % cdf...
+    z = 0:100;
+    pos = 50;
+    diff = bulkOut - bulkIn;
+    thisFun = normcdf(z,pos,subRough);
+    if diff < 1
+        thisFun = -thisFun;
+    end
+    total = thisFun * abs(diff);
 end
 
-SLDProfile = [x(:), SLD(:)];
+total = (total + bulkIn) * 1e-6;
+SLD = [z(:) total(:)];
 
 end

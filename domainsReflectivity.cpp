@@ -295,6 +295,8 @@ namespace RAT
       ::coder::array<cell_wrap_9, 1U> contrastLayers2;
       ::coder::array<cell_wrap_9, 1U> contrastSlds1;
       ::coder::array<cell_wrap_9, 1U> contrastSlds2;
+      ::coder::array<double, 2U> inputDomainContrastLayers1_tmp;
+      ::coder::array<double, 2U> inputDomainContrastLayers2;
       ::coder::array<double, 2U> r1;
       ::coder::array<double, 1U> b_simulationXData;
       ::coder::array<double, 1U> domainRatios;
@@ -313,7 +315,7 @@ namespace RAT
       int iv5[2];
       int iv6[2];
       int switch_expression_size[2];
-      int b_index;
+      int b_loop_ub;
       int loop_ub;
       int loop_ub_tmp;
       int nParams;
@@ -428,18 +430,18 @@ namespace RAT
                    switch_expression_data, switch_expression_size);
       if (coder::internal::k_strcmp(switch_expression_data,
            switch_expression_size)) {
-        b_index = 0;
+        loop_ub = 0;
       } else if (coder::internal::n_strcmp(switch_expression_data,
                   switch_expression_size)) {
-        b_index = 1;
+        loop_ub = 1;
       } else if (coder::internal::o_strcmp(switch_expression_data,
                   switch_expression_size)) {
-        b_index = 2;
+        loop_ub = 2;
       } else {
-        b_index = -1;
+        loop_ub = -1;
       }
 
-      switch (b_index) {
+      switch (loop_ub) {
        case 0:
         //  First we need to allocate the absolute values of the input
         //  parameters to all the layers in the layers list. This only
@@ -459,9 +461,61 @@ namespace RAT
           //  layers list are required for this contrast, and put them
           //  in the correct order according to geometry. We run it
           //  twice, once for each domain
-          allocateLayersForContrast(problemStruct.domainContrastLayers[
-            static_cast<int>(problemStruct.contrastLayers[b_i].f1[0]) - 1].f1,
-            layerValues, r1);
+          if ((problemStruct.contrastLayers[b_i].f1.size(0) == 0) ||
+              (problemStruct.contrastLayers[b_i].f1.size(1) == 0)) {
+            inputDomainContrastLayers1_tmp.set_size(0, 0);
+            inputDomainContrastLayers2.set_size(0, 0);
+          } else {
+            inputDomainContrastLayers1_tmp.set_size
+              (problemStruct.domainContrastLayers[problemStruct.domainContrastLayers.size
+               (0) * (static_cast<int>
+                      (problemStruct.contrastLayers[problemStruct.contrastLayers.size
+                       (0) * b_i].f1[0]) - 1)].f1.size(0),
+               problemStruct.domainContrastLayers[problemStruct.domainContrastLayers.size
+               (0) * (static_cast<int>
+                      (problemStruct.contrastLayers[problemStruct.contrastLayers.size
+                       (0) * b_i].f1[0]) - 1)].f1.size(1));
+            loop_ub = problemStruct.domainContrastLayers[static_cast<int>
+              (problemStruct.contrastLayers[b_i].f1[0]) - 1].f1.size(1);
+            for (int i{0}; i < loop_ub; i++) {
+              b_loop_ub = problemStruct.domainContrastLayers[static_cast<int>
+                (problemStruct.contrastLayers[b_i].f1[0]) - 1].f1.size(0);
+              for (int i1{0}; i1 < b_loop_ub; i1++) {
+                inputDomainContrastLayers1_tmp[i1 +
+                  inputDomainContrastLayers1_tmp.size(0) * i] =
+                  problemStruct.domainContrastLayers[static_cast<int>
+                  (problemStruct.contrastLayers[b_i].f1[0]) - 1].f1[i1 +
+                  problemStruct.domainContrastLayers[static_cast<int>
+                  (problemStruct.contrastLayers[b_i].f1[0]) - 1].f1.size(0) * i];
+              }
+            }
+
+            inputDomainContrastLayers2.set_size
+              (problemStruct.domainContrastLayers[problemStruct.domainContrastLayers.size
+               (0) * (static_cast<int>
+                      (problemStruct.contrastLayers[problemStruct.contrastLayers.size
+                       (0) * b_i].f1[1]) - 1)].f1.size(0),
+               problemStruct.domainContrastLayers[problemStruct.domainContrastLayers.size
+               (0) * (static_cast<int>
+                      (problemStruct.contrastLayers[problemStruct.contrastLayers.size
+                       (0) * b_i].f1[1]) - 1)].f1.size(1));
+            loop_ub = problemStruct.domainContrastLayers[static_cast<int>
+              (problemStruct.contrastLayers[b_i].f1[1]) - 1].f1.size(1);
+            for (int i{0}; i < loop_ub; i++) {
+              b_loop_ub = problemStruct.domainContrastLayers[static_cast<int>
+                (problemStruct.contrastLayers[b_i].f1[1]) - 1].f1.size(0);
+              for (int i1{0}; i1 < b_loop_ub; i1++) {
+                inputDomainContrastLayers2[i1 + inputDomainContrastLayers2.size
+                  (0) * i] = problemStruct.domainContrastLayers[static_cast<int>
+                  (problemStruct.contrastLayers[b_i].f1[1]) - 1].f1[i1 +
+                  problemStruct.domainContrastLayers[static_cast<int>
+                  (problemStruct.contrastLayers[b_i].f1[1]) - 1].f1.size(0) * i];
+              }
+            }
+          }
+
+          allocateLayersForContrast(inputDomainContrastLayers1_tmp, layerValues,
+            r1);
           contrastLayers1[b_i].f1.set_size(r1.size(0), 6);
           loop_ub = r1.size(0);
           for (int i{0}; i < 6; i++) {
@@ -471,9 +525,7 @@ namespace RAT
             }
           }
 
-          allocateLayersForContrast(problemStruct.domainContrastLayers[
-            static_cast<int>(problemStruct.contrastLayers[b_i].f1[1]) - 1].f1,
-            layerValues, r1);
+          allocateLayersForContrast(inputDomainContrastLayers2, layerValues, r1);
           contrastLayers2[b_i].f1.set_size(r1.size(0), 6);
           loop_ub = r1.size(0);
           for (int i{0}; i < 6; i++) {
@@ -526,13 +578,13 @@ namespace RAT
           simulation.set_size(loop_ub_tmp);
           reflectivity.set_size(loop_ub_tmp);
           sldProfiles.set_size(loop_ub_tmp, 2);
-          b_index = static_cast<int>(problemStruct.numberOfContrasts) - 1;
+          loop_ub = static_cast<int>(problemStruct.numberOfContrasts) - 1;
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
  private(simulationXData,d,b_dataIndices,iv3,iv4,iv5,iv6,dv2,dv3)
 
-          for (int c_i = 0; c_i <= b_index; c_i++) {
+          for (int c_i = 0; c_i <= loop_ub; c_i++) {
             iv3[0] = (*(int (*)[2])((::coder::array<double, 2U> *)
                        &problemStruct.contrastBackgroundParams[c_i].f1)->size())
               [0];
@@ -677,13 +729,13 @@ namespace RAT
         simulation.set_size(loop_ub_tmp);
         reflectivity.set_size(loop_ub_tmp);
         sldProfiles.set_size(loop_ub_tmp, 2);
-        b_index = loop_ub_tmp - 1;
+        loop_ub = loop_ub_tmp - 1;
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
  private(simulationXData,d,b_dataIndices,iv3,iv4,iv5,iv6,dv2,dv3)
 
-        for (int c_i = 0; c_i <= b_index; c_i++) {
+        for (int c_i = 0; c_i <= loop_ub; c_i++) {
           iv3[0] = (*(int (*)[2])((::coder::array<double, 2U> *)
                      &problemStruct.contrastBackgroundParams[c_i].f1)->size())[0];
           iv3[1] = (*(int (*)[2])((::coder::array<double, 2U> *)
@@ -828,8 +880,8 @@ namespace RAT
           layers[b_i + layers.size(0) * j].f1.set_size(domainLayers[b_i].f1[j].
             f1.size(0), domainLayers[b_i].f1[j].f1.size(1));
           for (int i{0}; i < loop_ub; i++) {
-            b_index = domainLayers[b_i].f1[j].f1.size(0);
-            for (int i1{0}; i1 < b_index; i1++) {
+            b_loop_ub = domainLayers[b_i].f1[j].f1.size(0);
+            for (int i1{0}; i1 < b_loop_ub; i1++) {
               layers[b_i + layers.size(0) * j].f1[i1 + layers[b_i + layers.size
                 (0) * j].f1.size(0) * i] = domainLayers[b_i].f1[j].f1[i1 +
                 domainLayers[b_i].f1[j].f1.size(0) * i];
@@ -881,6 +933,8 @@ namespace RAT
       ::coder::array<cell_wrap_9, 1U> contrastLayers2;
       ::coder::array<cell_wrap_9, 1U> contrastSlds1;
       ::coder::array<cell_wrap_9, 1U> contrastSlds2;
+      ::coder::array<double, 2U> inputDomainContrastLayers1_tmp;
+      ::coder::array<double, 2U> inputDomainContrastLayers2;
       ::coder::array<double, 2U> r1;
       ::coder::array<double, 1U> b_simulationXData;
       ::coder::array<double, 1U> domainRatios;
@@ -899,7 +953,7 @@ namespace RAT
       int iv5[2];
       int iv6[2];
       int switch_expression_size[2];
-      int b_index;
+      int b_loop_ub;
       int loop_ub;
       int loop_ub_tmp;
       int nParams;
@@ -1012,18 +1066,18 @@ namespace RAT
                    switch_expression_data, switch_expression_size);
       if (coder::internal::k_strcmp(switch_expression_data,
            switch_expression_size)) {
-        b_index = 0;
+        loop_ub = 0;
       } else if (coder::internal::n_strcmp(switch_expression_data,
                   switch_expression_size)) {
-        b_index = 1;
+        loop_ub = 1;
       } else if (coder::internal::o_strcmp(switch_expression_data,
                   switch_expression_size)) {
-        b_index = 2;
+        loop_ub = 2;
       } else {
-        b_index = -1;
+        loop_ub = -1;
       }
 
-      switch (b_index) {
+      switch (loop_ub) {
        case 0:
         //  First we need to allocate the absolute values of the input
         //  parameters to all the layers in the layers list. This only
@@ -1043,9 +1097,61 @@ namespace RAT
           //  layers list are required for this contrast, and put them
           //  in the correct order according to geometry. We run it
           //  twice, once for each domain
-          allocateLayersForContrast(problemStruct.domainContrastLayers[
-            static_cast<int>(problemStruct.contrastLayers[b_i].f1[0]) - 1].f1,
-            layerValues, r1);
+          if ((problemStruct.contrastLayers[b_i].f1.size(0) == 0) ||
+              (problemStruct.contrastLayers[b_i].f1.size(1) == 0)) {
+            inputDomainContrastLayers1_tmp.set_size(0, 0);
+            inputDomainContrastLayers2.set_size(0, 0);
+          } else {
+            inputDomainContrastLayers1_tmp.set_size
+              (problemStruct.domainContrastLayers[problemStruct.domainContrastLayers.size
+               (0) * (static_cast<int>
+                      (problemStruct.contrastLayers[problemStruct.contrastLayers.size
+                       (0) * b_i].f1[0]) - 1)].f1.size(0),
+               problemStruct.domainContrastLayers[problemStruct.domainContrastLayers.size
+               (0) * (static_cast<int>
+                      (problemStruct.contrastLayers[problemStruct.contrastLayers.size
+                       (0) * b_i].f1[0]) - 1)].f1.size(1));
+            loop_ub = problemStruct.domainContrastLayers[static_cast<int>
+              (problemStruct.contrastLayers[b_i].f1[0]) - 1].f1.size(1);
+            for (int i{0}; i < loop_ub; i++) {
+              b_loop_ub = problemStruct.domainContrastLayers[static_cast<int>
+                (problemStruct.contrastLayers[b_i].f1[0]) - 1].f1.size(0);
+              for (int i1{0}; i1 < b_loop_ub; i1++) {
+                inputDomainContrastLayers1_tmp[i1 +
+                  inputDomainContrastLayers1_tmp.size(0) * i] =
+                  problemStruct.domainContrastLayers[static_cast<int>
+                  (problemStruct.contrastLayers[b_i].f1[0]) - 1].f1[i1 +
+                  problemStruct.domainContrastLayers[static_cast<int>
+                  (problemStruct.contrastLayers[b_i].f1[0]) - 1].f1.size(0) * i];
+              }
+            }
+
+            inputDomainContrastLayers2.set_size
+              (problemStruct.domainContrastLayers[problemStruct.domainContrastLayers.size
+               (0) * (static_cast<int>
+                      (problemStruct.contrastLayers[problemStruct.contrastLayers.size
+                       (0) * b_i].f1[1]) - 1)].f1.size(0),
+               problemStruct.domainContrastLayers[problemStruct.domainContrastLayers.size
+               (0) * (static_cast<int>
+                      (problemStruct.contrastLayers[problemStruct.contrastLayers.size
+                       (0) * b_i].f1[1]) - 1)].f1.size(1));
+            loop_ub = problemStruct.domainContrastLayers[static_cast<int>
+              (problemStruct.contrastLayers[b_i].f1[1]) - 1].f1.size(1);
+            for (int i{0}; i < loop_ub; i++) {
+              b_loop_ub = problemStruct.domainContrastLayers[static_cast<int>
+                (problemStruct.contrastLayers[b_i].f1[1]) - 1].f1.size(0);
+              for (int i1{0}; i1 < b_loop_ub; i1++) {
+                inputDomainContrastLayers2[i1 + inputDomainContrastLayers2.size
+                  (0) * i] = problemStruct.domainContrastLayers[static_cast<int>
+                  (problemStruct.contrastLayers[b_i].f1[1]) - 1].f1[i1 +
+                  problemStruct.domainContrastLayers[static_cast<int>
+                  (problemStruct.contrastLayers[b_i].f1[1]) - 1].f1.size(0) * i];
+              }
+            }
+          }
+
+          allocateLayersForContrast(inputDomainContrastLayers1_tmp, layerValues,
+            r1);
           contrastLayers1[b_i].f1.set_size(r1.size(0), 6);
           loop_ub = r1.size(0);
           for (int i{0}; i < 6; i++) {
@@ -1055,9 +1161,7 @@ namespace RAT
             }
           }
 
-          allocateLayersForContrast(problemStruct.domainContrastLayers[
-            static_cast<int>(problemStruct.contrastLayers[b_i].f1[1]) - 1].f1,
-            layerValues, r1);
+          allocateLayersForContrast(inputDomainContrastLayers2, layerValues, r1);
           contrastLayers2[b_i].f1.set_size(r1.size(0), 6);
           loop_ub = r1.size(0);
           for (int i{0}; i < 6; i++) {
@@ -1110,13 +1214,13 @@ namespace RAT
           simulation.set_size(loop_ub_tmp);
           reflectivity.set_size(loop_ub_tmp);
           sldProfiles.set_size(loop_ub_tmp, 2);
-          b_index = static_cast<int>(problemStruct.numberOfContrasts) - 1;
+          loop_ub = static_cast<int>(problemStruct.numberOfContrasts) - 1;
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
  private(simulationXData,d,b_dataIndices,iv3,iv4,iv5,iv6,dv2,dv3)
 
-          for (int c_i = 0; c_i <= b_index; c_i++) {
+          for (int c_i = 0; c_i <= loop_ub; c_i++) {
             iv3[0] = (*(int (*)[2])((::coder::array<double, 2U> *)
                        &problemStruct.contrastBackgroundParams[c_i].f1)->size())
               [0];
@@ -1261,13 +1365,13 @@ namespace RAT
         simulation.set_size(loop_ub_tmp);
         reflectivity.set_size(loop_ub_tmp);
         sldProfiles.set_size(loop_ub_tmp, 2);
-        b_index = loop_ub_tmp - 1;
+        loop_ub = loop_ub_tmp - 1;
 
 #pragma omp parallel for \
  num_threads(omp_get_max_threads()) \
  private(simulationXData,d,b_dataIndices,iv3,iv4,iv5,iv6,dv2,dv3)
 
-        for (int c_i = 0; c_i <= b_index; c_i++) {
+        for (int c_i = 0; c_i <= loop_ub; c_i++) {
           iv3[0] = (*(int (*)[2])((::coder::array<double, 2U> *)
                      &problemStruct.contrastBackgroundParams[c_i].f1)->size())[0];
           iv3[1] = (*(int (*)[2])((::coder::array<double, 2U> *)
@@ -1411,8 +1515,8 @@ namespace RAT
           layers[b_i + layers.size(0) * j].f1.set_size(domainLayers[b_i].f1[j].
             f1.size(0), domainLayers[b_i].f1[j].f1.size(1));
           for (int i{0}; i < loop_ub; i++) {
-            b_index = domainLayers[b_i].f1[j].f1.size(0);
-            for (int i1{0}; i1 < b_index; i1++) {
+            b_loop_ub = domainLayers[b_i].f1[j].f1.size(0);
+            for (int i1{0}; i1 < b_loop_ub; i1++) {
               layers[b_i + layers.size(0) * j].f1[i1 + layers[b_i + layers.size
                 (0) * j].f1.size(0) * i] = domainLayers[b_i].f1[j].f1[i1 +
                 domainLayers[b_i].f1[j].f1.size(0) * i];

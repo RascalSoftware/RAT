@@ -23,17 +23,20 @@ if size(layers,1) > 0
     % Scale the SLDs...
     layers(:,2) = layers(:,2) * 1e6;
 
-    % Arrange the roughnes' in the layers to reflect the 'next roughness'
-    % loop...
+    % Add an aditional 'layer' for the transition to bulk out...
     outLayer  = [0 bulkOut subRough];
     layers = [layers; outLayer];
 
+    % Pre-definitions....
     nLayers = size(layers,1);
     allFuncs = zeros(length(z),nLayers);
     alpha = zeros(1,nLayers);
 
     lastLayerSLD = bulkIn;
     thisPos = 50;
+
+    fullStack = [];
+    fullAlpha = [];
 
     % Make the profile by adding an error function for each interface (we
     % use 'normcdf' because it scales more easily than 'erf'...)
@@ -53,9 +56,11 @@ if size(layers,1) > 0
             thisPos = layers(i,1) + thisPos;
             lastLayerSLD = nextLayerSLD;
         end
+        fullStack = [fullStack, allFuncs];
+        fullAlpha = [fullAlpha, alpha];
     end
-    allFuncs = allFuncs .* alpha;
-    total = sum(allFuncs,2);
+    totalFuncs = fullStack .* fullAlpha;
+    total = sum(totalFuncs,2);
     
 else
     % If we have no layers (i.e. just a bare interface), we only need one

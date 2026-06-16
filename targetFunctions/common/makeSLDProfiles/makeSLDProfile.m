@@ -1,7 +1,7 @@
-function SLD = makeSLDProfile(bulkIn,bulkOut,layers,subRough,nRepeats)
+function SLD = makeSLDProfile(bulkIn,bulkOut,layers,lastRough,nRepeats)
 
-    bulkIn = bulkIn * 1e6;
-    bulkOut = bulkOut * 1e6;
+bulkIn = bulkIn * 1e6;
+bulkOut = bulkOut * 1e6;
 
 if size(layers,1) > 0
     % Make a z range for the profile...
@@ -16,16 +16,18 @@ if size(layers,1) > 0
     outerLayerTailExtension = outerLayerTailLim - outerLayerCentre;
     totalRange = ((totalThickness + outerLayerTailExtension)*nRepeats);
 
-    % Add some extra range at the end...
+    % Add some extra range at the end for bulk_out...
     totalRange = totalRange + 100;
     z = 0:totalRange;
 
     % Scale the SLDs...
     layers(:,2) = layers(:,2) * 1e6;
+
+    % Repeat the stack according to 'nRepeats'...
     layers = repmat(layers,nRepeats,1);
 
     % Add an aditional 'layer' for the transition to bulk out...
-    outLayer  = [0 bulkOut subRough];
+    outLayer  = [0 bulkOut lastRough];
     layers = [layers; outLayer];
 
     % Pre-definitions....
@@ -36,40 +38,32 @@ if size(layers,1) > 0
     lastLayerSLD = bulkIn;
     thisPos = 50;
 
-    fullStack = [];
-    fullAlpha = [];
-
     % Make the profile by adding an error function for each interface (we
     % use 'normcdf' because it scales more easily than 'erf'...)
-    for n = 1:nRepeats
-        for i = 1:nLayers
-            nextRough = layers(i,3);
-            nextLayerSLD = layers(i,2);
-            diff = nextLayerSLD - lastLayerSLD;
+    for i = 1:nLayers
+        nextRough = layers(i,3);
+        nextLayerSLD = layers(i,2);
+        diff = nextLayerSLD - lastLayerSLD;
 
-            thisFun = normcdf(z,thisPos,nextRough);
-            if diff < 0
-                thisFun = -thisFun;
-            end
-
-            allFuncs(:,i) = thisFun(:);
-            alpha(i) = abs(diff);
-            thisPos = layers(i,1) + thisPos;
-            lastLayerSLD = nextLayerSLD;
+        thisFun = normcdf(z,thisPos,nextRough);
+        if diff < 0
+            thisFun = -thisFun;
         end
-        fullStack = [fullStack, allFuncs];
-        fullAlpha = [fullAlpha, alpha];
+
+        allFuncs(:,i) = thisFun(:);
+        alpha(i) = abs(diff);
+        thisPos = layers(i,1) + thisPos;
+        lastLayerSLD = nextLayerSLD;
     end
-    totalFuncs = fullStack .* fullAlpha;
+    totalFuncs = allFuncs.* alpha;
     total = sum(totalFuncs,2);
-    
 else
     % If we have no layers (i.e. just a bare interface), we only need one
     % cdf...
     z = 0:100;
     pos = 50;
     diff = bulkOut - bulkIn;
-    thisFun = normcdf(z,pos,subRough);
+    thisFun = normcdf(z,pos,lastRough);
     if diff < 1
         thisFun = -thisFun;
     end

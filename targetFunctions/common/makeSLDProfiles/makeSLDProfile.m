@@ -22,6 +22,7 @@ if size(layers,1) > 0
 
     % Scale the SLDs...
     layers(:,2) = layers(:,2) * 1e6;
+    layers = repmat(layers,nRepeats,1);
 
     % Add an aditional 'layer' for the transition to bulk out...
     outLayer  = [0 bulkOut subRough];

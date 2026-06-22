@@ -205,7 +205,7 @@ namespace RAT
 
       coder::internal::maximum(b_G, y);
     } else {
-      c_binary_expand_op(y, G, r);
+      binary_expand_op(y, G, r);
     }
 
     b_dv[0] = 1.0;

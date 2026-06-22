@@ -22,6 +22,8 @@ namespace RAT
 {
   namespace coder
   {
+    void b_repmat(const ::coder::array<double, 2U> &a, double varargin_1, ::
+                  coder::array<double, 2U> &b);
     void repmat(double varargin_1, ::coder::array<j_struct_T, 1U> &b);
     void repmat(const ::coder::array<double, 2U> &a, double varargin_1, ::coder::
                 array<double, 2U> &b);

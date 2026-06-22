@@ -56,7 +56,7 @@ namespace RAT
       b_in2[i] = in2[i * stride_0_1] - in3[i * stride_1_1];
     }
 
-    coder::repmat(b_in2, in4.nChains, in1);
+    coder::b_repmat(b_in2, in4.nChains, in1);
   }
 
   static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
@@ -198,7 +198,7 @@ namespace RAT
         b_paramInfo_max[i] = paramInfo_max[i] - paramInfo_min[i];
       }
 
-      coder::repmat(b_paramInfo_max, DREAMPar.nChains, x);
+      coder::b_repmat(b_paramInfo_max, DREAMPar.nChains, x);
     } else {
       binary_expand_op(x, paramInfo_max, paramInfo_min, DREAMPar);
     }
@@ -212,7 +212,7 @@ namespace RAT
       }
     }
 
-    coder::repmat(paramInfo_min, DREAMPar.nChains, x);
+    coder::b_repmat(paramInfo_min, DREAMPar.nChains, x);
 
     //  If specified do boundary handling ( "Bound","Reflect","Fold")
     if (b_X.size(0) == 1) {

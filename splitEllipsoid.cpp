@@ -89,16 +89,16 @@ namespace RAT
     ::coder::array<double, 2U> u2new;
     ::coder::array<int, 1U> r;
     ::coder::array<int, 1U> r1;
-    ::coder::array<boolean_T, 2U> e_tmp_data;
+    ::coder::array<boolean_T, 2U> d_tmp_data;
     cell_wrap_9 temp_u1_tmp[50];
     double mu[2];
+    double VE1_tmp_data;
     double b_tmp_data;
-    double c_tmp_data;
     double tmp_data;
     int D;
     int N;
     int b_nosplit;
-    boolean_T d_tmp_data;
+    boolean_T c_tmp_data;
 
     //  Optimally bound a set of points by two ellipsoids.
     //
@@ -307,8 +307,8 @@ namespace RAT
             c_loop_ub = u.size(1);
             iindx = u.size(1);
             for (int i{0}; i < N; i++) {
+              int VE1_tmp_size[2];
               int b_tmp_size[2];
-              int c_tmp_size[2];
               int tmp_size[2];
               int d_loop_ub;
 
@@ -339,14 +339,15 @@ namespace RAT
                   }
                 }
 
-                coder::internal::blas::mtimes(r2, b_u, (double *)&tmp_data,
-                  tmp_size);
+                coder::internal::blas::mtimes(r2, b_u, (double *)&VE1_tmp_data,
+                  VE1_tmp_size);
               } else {
-                c_binary_expand_op((double *)&tmp_data, r2, u, i, mu1, tmp_size);
+                c_binary_expand_op((double *)&VE1_tmp_data, r2, u, i, mu1,
+                                   VE1_tmp_size);
               }
 
               coder::internal::blas::mtimes(VE1_data, VE1_size, (const double *)
-                &tmp_data, tmp_size, (double *)&b_tmp_data, b_tmp_size);
+                &VE1_tmp_data, VE1_tmp_size, (double *)&tmp_data, tmp_size);
               if (u.size(1) == mu2.size(1)) {
                 b_u.set_size(mu2.size(0), u.size(1));
                 for (int b_i{0}; b_i < c_loop_ub; b_i++) {
@@ -372,34 +373,35 @@ namespace RAT
                   }
                 }
 
-                coder::internal::blas::mtimes(r2, b_u, (double *)&tmp_data,
-                  tmp_size);
+                coder::internal::blas::mtimes(r2, b_u, (double *)&VE1_tmp_data,
+                  VE1_tmp_size);
               } else {
-                c_binary_expand_op((double *)&tmp_data, r2, u, i, mu2, tmp_size);
+                c_binary_expand_op((double *)&VE1_tmp_data, r2, u, i, mu2,
+                                   VE1_tmp_size);
               }
 
               coder::internal::blas::mtimes(VE2_data, VE2_size, (const double *)
-                &tmp_data, tmp_size, (double *)&c_tmp_data, c_tmp_size);
-              if (c_tmp_size[0] == 1) {
-                end_tmp = b_tmp_size[0];
+                &VE1_tmp_data, VE1_tmp_size, (double *)&b_tmp_data, b_tmp_size);
+              if (b_tmp_size[0] == 1) {
+                end_tmp = tmp_size[0];
               } else {
-                end_tmp = c_tmp_size[0];
+                end_tmp = b_tmp_size[0];
               }
 
-              if (c_tmp_size[1] == 1) {
-                d_loop_ub = b_tmp_size[1];
+              if (b_tmp_size[1] == 1) {
+                d_loop_ub = tmp_size[1];
               } else {
-                d_loop_ub = c_tmp_size[1];
+                d_loop_ub = b_tmp_size[1];
               }
 
               for (int b_i{0}; b_i < d_loop_ub; b_i++) {
                 for (int i1{0}; i1 < end_tmp; i1++) {
-                  d_tmp_data = (b_tmp_data / VS1 < c_tmp_data / VS2);
+                  c_tmp_data = (tmp_data / VS1 < b_tmp_data / VS2);
                 }
               }
 
-              e_tmp_data.set(&d_tmp_data, end_tmp, d_loop_ub);
-              if (coder::internal::b_ifWhileCond(e_tmp_data)) {
+              d_tmp_data.set(&c_tmp_data, end_tmp, d_loop_ub);
+              if (coder::internal::b_ifWhileCond(d_tmp_data)) {
                 m1++;
                 end_tmp = u1new.size(1);
                 for (int b_i{0}; b_i < end_tmp; b_i++) {

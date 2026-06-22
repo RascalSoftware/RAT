@@ -33,24 +33,24 @@
 // Type Definitions
 namespace RAT
 {
-  struct cell_wrap_62
+  struct cell_wrap_63
   {
     cell_wrap_7 f1[2];
   };
 
-  struct cell_wrap_63
+  struct cell_wrap_64
   {
     cell_wrap_9 f1[2];
   };
 
-  struct cell_wrap_64
+  struct cell_wrap_65
   {
     ::coder::array<double, 2U> f1;
   };
 
-  struct cell_wrap_65
+  struct cell_wrap_66
   {
-    cell_wrap_64 f1[2];
+    cell_wrap_65 f1[2];
   };
 }
 
@@ -69,7 +69,7 @@ namespace RAT
       resampleNPoints, double roughness, const ::coder::array<double, 2U>
       &contrastSld1, const ::coder::array<double, 2U> &contrastSld2, ::coder::
       array<double, 2U> &reflectivity, ::coder::array<double, 2U> &simulation,
-      cell_wrap_7 sldProfile[2], cell_wrap_9 layers[2], cell_wrap_64
+      cell_wrap_7 sldProfile[2], cell_wrap_9 layers[2], cell_wrap_65
       resampledLayers[2]);
     static double contrastLayersCalculation(double bulkIn, double bulkOut,
       double domainRatio, ::coder::array<double, 2U> &shiftedData, const ::coder::
@@ -83,7 +83,7 @@ namespace RAT
       array<double, 2U> &contrastLayers1, const ::coder::array<double, 2U>
       &contrastLayers2, ::coder::array<double, 2U> &reflectivity, ::coder::array<
       double, 2U> &simulation, cell_wrap_7 sldProfile[2], cell_wrap_9 layers[2],
-      cell_wrap_64 resampledLayers[2]);
+      cell_wrap_65 resampledLayers[2]);
   }
 }
 
@@ -102,7 +102,7 @@ namespace RAT
       resampleNPoints, double roughness, const ::coder::array<double, 2U>
       &contrastSld1, const ::coder::array<double, 2U> &contrastSld2, ::coder::
       array<double, 2U> &reflectivity, ::coder::array<double, 2U> &simulation,
-      cell_wrap_7 sldProfile[2], cell_wrap_9 layers[2], cell_wrap_64
+      cell_wrap_7 sldProfile[2], cell_wrap_9 layers[2], cell_wrap_65
       resampledLayers[2])
     {
       ::coder::array<double, 2U> a__4;
@@ -110,8 +110,8 @@ namespace RAT
       ::coder::array<double, 2U> reflectivity2;
       ::coder::array<double, 2U> simulation1;
       ::coder::array<double, 2U> simulation2;
-      cell_wrap_64 r2;
-      cell_wrap_64 r5;
+      cell_wrap_65 r2;
+      cell_wrap_65 r5;
       cell_wrap_7 r;
       cell_wrap_7 r3;
       cell_wrap_9 r1;
@@ -193,15 +193,15 @@ namespace RAT
       array<double, 2U> &contrastLayers1, const ::coder::array<double, 2U>
       &contrastLayers2, ::coder::array<double, 2U> &reflectivity, ::coder::array<
       double, 2U> &simulation, cell_wrap_7 sldProfile[2], cell_wrap_9 layers[2],
-      cell_wrap_64 resampledLayers[2])
+      cell_wrap_65 resampledLayers[2])
     {
       ::coder::array<double, 2U> a__1;
       ::coder::array<double, 2U> reflectivity1;
       ::coder::array<double, 2U> reflectivity2;
       ::coder::array<double, 2U> simulation1;
       ::coder::array<double, 2U> simulation2;
-      cell_wrap_64 r2;
-      cell_wrap_64 r5;
+      cell_wrap_65 r2;
+      cell_wrap_65 r5;
       cell_wrap_7 r;
       cell_wrap_7 r3;
       cell_wrap_9 r1;
@@ -288,9 +288,9 @@ namespace RAT
       &subRoughs, ::coder::array<double, 1U> &chis)
     {
       ::coder::array<cell_wrap_51, 2U> layerValues;
-      ::coder::array<cell_wrap_62, 1U> domainSldProfiles;
-      ::coder::array<cell_wrap_63, 1U> domainLayers;
-      ::coder::array<cell_wrap_65, 1U> domainResampledLayers;
+      ::coder::array<cell_wrap_63, 1U> domainSldProfiles;
+      ::coder::array<cell_wrap_64, 1U> domainLayers;
+      ::coder::array<cell_wrap_66, 1U> domainResampledLayers;
       ::coder::array<cell_wrap_9, 1U> contrastLayers1;
       ::coder::array<cell_wrap_9, 1U> contrastLayers2;
       ::coder::array<cell_wrap_9, 1U> contrastSlds1;
@@ -926,9 +926,9 @@ namespace RAT
       &subRoughs, ::coder::array<double, 1U> &chis)
     {
       ::coder::array<cell_wrap_51, 2U> layerValues;
-      ::coder::array<cell_wrap_62, 1U> domainSldProfiles;
-      ::coder::array<cell_wrap_63, 1U> domainLayers;
-      ::coder::array<cell_wrap_65, 1U> domainResampledLayers;
+      ::coder::array<cell_wrap_63, 1U> domainSldProfiles;
+      ::coder::array<cell_wrap_64, 1U> domainLayers;
+      ::coder::array<cell_wrap_66, 1U> domainResampledLayers;
       ::coder::array<cell_wrap_9, 1U> contrastLayers1;
       ::coder::array<cell_wrap_9, 1U> contrastLayers2;
       ::coder::array<cell_wrap_9, 1U> contrastSlds1;

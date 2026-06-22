@@ -18,8 +18,8 @@
 // Function Definitions
 namespace RAT
 {
-  void c_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::array<
-    double, 2U> &in2, const ::coder::array<double, 2U> &in3)
+  void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::array<
+                        double, 2U> &in2, const ::coder::array<double, 2U> &in3)
   {
     ::coder::array<double, 2U> b_in2;
     int aux_0_1;
@@ -100,16 +100,16 @@ namespace RAT
         }
       }
 
-      double maximum(const ::coder::array<double, 1U> &x)
+      double maximum(const ::coder::array<double, 2U> &x)
       {
         double ex;
         int last;
-        last = x.size(0);
-        if (x.size(0) <= 2) {
-          if (x.size(0) == 1) {
+        last = x.size(1);
+        if (x.size(1) <= 2) {
+          if (x.size(1) == 1) {
             ex = x[0];
           } else {
-            ex = x[x.size(0) - 1];
+            ex = x[x.size(1) - 1];
             if ((!(x[0] < ex)) && ((!std::isnan(x[0])) || std::isnan(ex))) {
               ex = x[0];
             }
@@ -152,16 +152,16 @@ namespace RAT
         return ex;
       }
 
-      double maximum(const ::coder::array<double, 2U> &x)
+      double maximum(const ::coder::array<double, 1U> &x)
       {
         double ex;
         int last;
-        last = x.size(1);
-        if (x.size(1) <= 2) {
-          if (x.size(1) == 1) {
+        last = x.size(0);
+        if (x.size(0) <= 2) {
+          if (x.size(0) == 1) {
             ex = x[0];
           } else {
-            ex = x[x.size(1) - 1];
+            ex = x[x.size(0) - 1];
             if ((!(x[0] < ex)) && ((!std::isnan(x[0])) || std::isnan(ex))) {
               ex = x[0];
             }

@@ -762,7 +762,7 @@ namespace RAT
         }
 
         coder::b_std(b_xnew, r1);
-        coder::repmat(r1, DREAMPar.nChains, b_r);
+        coder::b_repmat(r1, DREAMPar.nChains, b_r);
 
         //  Compute the Euclidean distance between new X and old X
         if (xold.size(0) < 1) {

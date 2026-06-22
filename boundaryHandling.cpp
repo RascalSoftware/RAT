@@ -81,7 +81,7 @@ namespace RAT
     //      Ranges, priors and boundary handling for each parameter.
     //  First determine the size of new
     //  Now replicate min and max
-    coder::repmat(paramInfo_min, static_cast<double>(x.size(0)), r);
+    coder::b_repmat(paramInfo_min, static_cast<double>(x.size(0)), r);
     min_d.set_size(r.size(0), r.size(1));
     loop_ub = r.size(1);
     for (i = 0; i < loop_ub; i++) {
@@ -91,7 +91,7 @@ namespace RAT
       }
     }
 
-    coder::repmat(paramInfo_max, static_cast<double>(x.size(0)), r);
+    coder::b_repmat(paramInfo_max, static_cast<double>(x.size(0)), r);
 
     //  Now find which elements of x are smaller than their respective bound
     if ((x.size(0) == min_d.size(0)) && (x.size(1) == min_d.size(1))) {

@@ -63,7 +63,6 @@ namespace RAT
         }
       } else {
         int b_sizes_idx_0;
-        int c_sizes_idx_0;
         int i;
         int i1;
         int loop_ub;
@@ -118,8 +117,8 @@ namespace RAT
           }
         }
 
-        c_sizes_idx_0 = layers.size(0);
-        sizes_idx_1_tmp = b_sizes_idx_1_tmp;
+        sizes_idx_1_tmp = layers.size(0);
+        loop_ub = b_sizes_idx_1_tmp;
         outputLayers.set_size(layers.size(0), b_sizes_idx_1_tmp + 4);
         for (i = 0; i < 3; i++) {
           for (i1 = 0; i1 < sizes_idx_0; i1++) {
@@ -132,10 +131,10 @@ namespace RAT
           outputLayers[i + outputLayers.size(0) * 3] = roughnesses[i];
         }
 
-        for (i = 0; i < sizes_idx_1_tmp; i++) {
-          for (i1 = 0; i1 < c_sizes_idx_0; i1++) {
+        for (i = 0; i < loop_ub; i++) {
+          for (i1 = 0; i1 < sizes_idx_1_tmp; i1++) {
             outputLayers[i1 + outputLayers.size(0) * (i + 4)] = c_layers[i1 +
-              c_sizes_idx_0 * i];
+              sizes_idx_1_tmp * i];
           }
         }
       }

@@ -28,7 +28,7 @@ namespace RAT
 {
   double DREAMWrapper(const ::coder::array<double, 2U> &pars, const
                       ProblemDefinition &ratInputs_problemStruct, const Controls
-                      *ratInputs_controls);
+                      &ratInputs_controls);
 }
 
 #endif

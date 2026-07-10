@@ -12,6 +12,7 @@
 #include "allOrAny.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
+#include <cmath>
 
 // Function Definitions
 namespace RAT
@@ -76,6 +77,26 @@ namespace RAT
             k++;
           }
         }
+      }
+
+      boolean_T b_allOrAny_anonFcn3(int n, const ::coder::array<double, 1U> &X)
+      {
+        int k;
+        boolean_T exitg1;
+        boolean_T varargout_1;
+        varargout_1 = false;
+        k = 0;
+        exitg1 = false;
+        while ((!exitg1) && (k <= n - 1)) {
+          if ((X[k] == 0.0) || std::isnan(X[k])) {
+            k++;
+          } else {
+            varargout_1 = true;
+            exitg1 = true;
+          }
+        }
+
+        return varargout_1;
       }
     }
   }

@@ -78,6 +78,61 @@ namespace RAT
         return ex;
       }
 
+      double maximum(const ::coder::array<double, 2U> &x, int &idx)
+      {
+        double ex;
+        int last_tmp;
+        last_tmp = x.size(0) * x.size(1);
+        if (last_tmp <= 2) {
+          if (last_tmp == 1) {
+            ex = x[0];
+            idx = 1;
+          } else if ((x[0] < x[last_tmp - 1]) || (std::isnan(x[0]) && (!std::
+                       isnan(x[last_tmp - 1])))) {
+            ex = x[last_tmp - 1];
+            idx = last_tmp;
+          } else {
+            ex = x[0];
+            idx = 1;
+          }
+        } else {
+          int k;
+          if (!std::isnan(x[0])) {
+            idx = 1;
+          } else {
+            boolean_T exitg1;
+            idx = 0;
+            k = 2;
+            exitg1 = false;
+            while ((!exitg1) && (k <= last_tmp)) {
+              if (!std::isnan(x[k - 1])) {
+                idx = k;
+                exitg1 = true;
+              } else {
+                k++;
+              }
+            }
+          }
+
+          if (idx == 0) {
+            ex = x[0];
+            idx = 1;
+          } else {
+            int i;
+            ex = x[idx - 1];
+            i = idx + 1;
+            for (k = i; k <= last_tmp; k++) {
+              if (ex < x[k - 1]) {
+                ex = x[k - 1];
+                idx = k;
+              }
+            }
+          }
+        }
+
+        return ex;
+      }
+
       void maximum(const ::coder::array<double, 2U> &x, ::coder::array<double,
                    2U> &ex)
       {

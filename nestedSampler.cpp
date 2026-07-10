@@ -111,15 +111,9 @@ namespace RAT
     int i2;
     int iindx;
     int loop_ub;
-    int result;
-    int sizes_idx_0;
     int sizes_idx_1;
     char b_cv2[99];
     char b_cv[39];
-    signed char b_sizes_idx_1;
-    boolean_T b;
-    boolean_T empty_non_axis_sizes;
-    boolean_T exitg1;
     boolean_T tmp_data;
 
     //  Perform nested sampling on a given likelihood function and set of data with priors.
@@ -314,61 +308,368 @@ namespace RAT
     j = 1.0;
 
     //  MAIN LOOP
-    exitg1 = false;
-    while ((!exitg1) && ((tol > tolerance) || (j <= nLive))) {
-      double VS;
-      double b_b;
-      double d;
-      double logLmin;
-      double logWt;
-      double logZold;
+    int exitg1;
+    do {
+      exitg1 = 0;
+      if ((tol > tolerance) || (j <= nLive)) {
+        double VS;
+        double b_b;
+        double d;
+        double logLmin;
+        double logWt;
+        double logZold;
+        int input_sizes_idx_1;
+        boolean_T b;
 
-      //  expected value of true remaining prior volume X
-      VS = std::exp(-j / nLive);
+        //  expected value of true remaining prior volume X
+        VS = std::exp(-j / nLive);
 
-      //  find minimum of likelihoods
-      logLmin = coder::internal::minimum(logL, iindx);
+        //  find minimum of likelihoods
+        logLmin = coder::internal::minimum(logL, iindx);
 
-      //  set the sample to the minimum value
-      //  (Need to do some work brcause we are growing nest_samples in a loop)
-      if (j == 1.0) {
-        loop_ub = livepoints.size(1);
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          nest_samples[nest_samples.size(0) * i1] = livepoints[(iindx +
-            livepoints.size(0) * i1) - 1];
-        }
+        //  set the sample to the minimum value
+        //  (Need to do some work brcause we are growing nest_samples in a loop)
+        if (j == 1.0) {
+          loop_ub = livepoints.size(1);
+          for (i1 = 0; i1 < loop_ub; i1++) {
+            nest_samples[nest_samples.size(0) * i1] = livepoints[(iindx +
+              livepoints.size(0) * i1) - 1];
+          }
 
-        nest_samples[nest_samples.size(0) * livepoints.size(1)] = logLmin;
-      } else {
-        toAdd.set_size(1, livepoints.size(1) + 1);
-        loop_ub = livepoints.size(1);
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          toAdd[i1] = livepoints[(iindx + livepoints.size(0) * i1) - 1];
-        }
-
-        toAdd[livepoints.size(1)] = logLmin;
-        if (nest_samples.size(1) != 0) {
-          sizes_idx_1 = nest_samples.size(1);
+          nest_samples[nest_samples.size(0) * livepoints.size(1)] = logLmin;
         } else {
-          sizes_idx_1 = toAdd.size(1);
-        }
+          toAdd.set_size(1, livepoints.size(1) + 1);
+          loop_ub = livepoints.size(1);
+          for (i1 = 0; i1 < loop_ub; i1++) {
+            toAdd[i1] = livepoints[(iindx + livepoints.size(0) * i1) - 1];
+          }
 
-        if (nest_samples.size(1) != 0) {
-          sizes_idx_0 = nest_samples.size(0);
-        } else {
-          sizes_idx_0 = 0;
-        }
+          toAdd[livepoints.size(1)] = logLmin;
+          if (nest_samples.size(1) != 0) {
+            input_sizes_idx_1 = nest_samples.size(1);
+          } else {
+            input_sizes_idx_1 = toAdd.size(1);
+          }
 
-        b_nest_samples.set_size(sizes_idx_0 + 1, sizes_idx_1);
-        for (i1 = 0; i1 < sizes_idx_1; i1++) {
-          for (i2 = 0; i2 < sizes_idx_0; i2++) {
-            b_nest_samples[i2 + b_nest_samples.size(0) * i1] = nest_samples[i2 +
-              sizes_idx_0 * i1];
+          if (nest_samples.size(1) != 0) {
+            sizes_idx_1 = nest_samples.size(0);
+          } else {
+            sizes_idx_1 = 0;
+          }
+
+          b_nest_samples.set_size(sizes_idx_1 + 1, input_sizes_idx_1);
+          for (i1 = 0; i1 < input_sizes_idx_1; i1++) {
+            for (i2 = 0; i2 < sizes_idx_1; i2++) {
+              b_nest_samples[i2 + b_nest_samples.size(0) * i1] = nest_samples[i2
+                + sizes_idx_1 * i1];
+            }
+          }
+
+          for (i1 = 0; i1 < input_sizes_idx_1; i1++) {
+            b_nest_samples[sizes_idx_1 + b_nest_samples.size(0) * i1] = toAdd[i1];
+          }
+
+          nest_samples.set_size(b_nest_samples.size(0), b_nest_samples.size(1));
+          loop_ub = b_nest_samples.size(1);
+          for (i1 = 0; i1 < loop_ub; i1++) {
+            sizes_idx_1 = b_nest_samples.size(0);
+            for (i2 = 0; i2 < sizes_idx_1; i2++) {
+              nest_samples[i2 + nest_samples.size(0) * i1] = b_nest_samples[i2 +
+                b_nest_samples.size(0) * i1];
+            }
           }
         }
 
-        for (i1 = 0; i1 < sizes_idx_1; i1++) {
-          b_nest_samples[sizes_idx_0 + b_nest_samples.size(0) * i1] = toAdd[i1];
+        //  get the log weight (Wt = L*w)
+        logWt = logLmin + logw;
+
+        //  save old evidence and information
+        logZold = logZ;
+
+        //  update evidence, information, and width
+        logZ = logPlus(logZ, logWt);
+        if (std::isnan(H)) {
+          d = 0.0;
+        } else {
+          d = H;
+        }
+
+        H = (std::exp(logWt - logZ) * logLmin + std::exp(logZold - logZ) * (d +
+              logZold)) - logZ;
+
+        // logw = logw - logt(nLive);
+        logw -= 1.0 / nLive;
+
+        // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        if (nMCMC > 0.0) {
+          //  do MCMC nested sampling
+          //  get the Cholesky decomposed covariance of the live points
+          //  (we do this every 100th iteration - this is arbitrary!)
+          if (coder::c_mod(j - 1.0) == 0.0) {
+            //  NOTE that for numbers of parameters >~10 covariances are often
+            //  not positive definite and cholcov will have "problems".
+            //  use modified Cholesky decomposition, which works even for
+            //  matrices that are not quite positive definite
+            //  (via http://stats.stackexchange.com/questions/6364
+            //  /making-square-root-of-covariance-matrix-positive-definite-matlab
+            coder::cov(livepoints, b_result);
+            b_Bs.set_size(b_result.size(0), b_result.size(1));
+            loop_ub = b_result.size(1);
+            for (i1 = 0; i1 < loop_ub; i1++) {
+              sizes_idx_1 = b_result.size(0);
+              for (i2 = 0; i2 < sizes_idx_1; i2++) {
+                b_Bs[i2 + b_Bs.size(0) * i1] = 0.1 * b_result[i2 + b_result.size
+                  (0) * i1];
+              }
+            }
+
+            mchol(b_Bs, l, b_result);
+            coder::b_sqrt(b_result);
+            coder::internal::blas::b_mtimes(l, b_result, cholmat);
+          }
+
+          //  draw a new sample using mcmc algorithm
+          logL[iindx - 1] = drawMCMC(livepoints, cholmat, logLmin, prior,
+            data_f1, data_f2, nMCMC, b_livepoints);
+          loop_ub = livepoints.size(1);
+          for (i1 = 0; i1 < loop_ub; i1++) {
+            livepoints[(iindx + livepoints.size(0) * i1) - 1] = b_livepoints[i1];
+          }
+        } else {
+          // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+          //  do MultiNest nested sampling
+          b_FS.set_size(1, FS.size(1));
+          loop_ub = FS.size(1);
+          for (i1 = 0; i1 < loop_ub; i1++) {
+            b_FS[b_FS.size(0) * i1] = (FS[i1] >= 1.1);
+          }
+
+          if (coder::internal::b_ifWhileCond(b_FS)) {
+            //  NOTE: THIS CODE IS GUARANTEED TO RUN THE 1ST TIME THROUGH
+            //  calculate optimal ellipsoids
+            optimalEllipsoids(livepoints, VS, Bs, mus, VEs, ns);
+            K = coder::internal::intlength(VEs.size(0), VEs.size(1));
+
+            //  number of ellipsoids (subclusters)
+          } else {
+            //  simply rescale the bounding ellipsoids
+            if (K - 1 >= 0) {
+              d1 = std::exp(-(j + 1.0) / nLive);
+              b_dv[0] = 1.0;
+            }
+
+            for (int k{0}; k < K; k++) {
+              double scalefac;
+              b_dv[1] = d1 * ns[k] / nLive / VEs[k];
+              scalefac = coder::internal::b_maximum(b_dv);
+
+              //  scale bounding matrix and volume
+              if (scalefac != 1.0) {
+                int result;
+                b_b = ((static_cast<double>(k) + 1.0) - 1.0) * static_cast<
+                  double>(D) + 1.0;
+                d = (static_cast<double>(k) + 1.0) * static_cast<double>(D);
+                if (b_b > d) {
+                  i1 = 0;
+                  i2 = 0;
+                  result = 0;
+                  input_sizes_idx_1 = 0;
+                } else {
+                  i1 = static_cast<int>(b_b) - 1;
+                  i2 = static_cast<int>(d);
+                  result = static_cast<int>(b_b) - 1;
+                  input_sizes_idx_1 = static_cast<int>(d);
+                }
+
+                b_b = rt_powd_snf(scalefac, 2.0 / static_cast<double>(D));
+                loop_ub = i2 - i1;
+                sizes_idx_1 = Bs.size(1);
+                b_Bs.set_size(loop_ub, Bs.size(1));
+                for (i2 = 0; i2 < sizes_idx_1; i2++) {
+                  for (int i3{0}; i3 < loop_ub; i3++) {
+                    b_Bs[i3 + b_Bs.size(0) * i2] = Bs[(i1 + i3) + Bs.size(0) *
+                      i2] * b_b;
+                  }
+                }
+
+                input_sizes_idx_1 -= result;
+                loop_ub = Bs.size(1);
+                for (i1 = 0; i1 < loop_ub; i1++) {
+                  for (i2 = 0; i2 < input_sizes_idx_1; i2++) {
+                    Bs[(result + i2) + Bs.size(0) * i1] = b_Bs[i2 +
+                      input_sizes_idx_1 * i1];
+                  }
+                }
+
+                VEs[k] = scalefac * VEs[k];
+              }
+            }
+          }
+
+          //  calculate ratio of volumes (FS>=1) and cumulative fractional volume
+          coder::sum(VEs, Vtot);
+          FS.set_size(1, Vtot.size(1));
+          loop_ub = Vtot.size(1);
+          for (i1 = 0; i1 < loop_ub; i1++) {
+            FS[i1] = Vtot[i1] / VS;
+          }
+
+          //  draw a new sample using multinest algorithm
+          b_result.set_size(VEs.size(0), VEs.size(1));
+          loop_ub = VEs.size(1);
+          for (i1 = 0; i1 < loop_ub; i1++) {
+            sizes_idx_1 = VEs.size(0);
+            for (i2 = 0; i2 < sizes_idx_1; i2++) {
+              b_result[i2 + b_result.size(0) * i1] = VEs[i2 + VEs.size(0) * i1];
+            }
+          }
+
+          coder::internal::useConstantDim(b_result, coder::internal::
+            nonSingletonDim(VEs));
+          coder::internal::mrdiv(b_result, Vtot, r2);
+          logL[iindx - 1] = drawMultiNest(r2, Bs, mus, logLmin, prior, data_f1,
+            data_f2, r3);
+          loop_ub = livepoints.size(1);
+          for (i1 = 0; i1 < loop_ub; i1++) {
+            livepoints[(iindx + livepoints.size(0) * i1) - 1] = r3[i1];
+          }
+        }
+
+        // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        //  update maximum likelihood if appropriate
+        b_b = logL[iindx - 1];
+        if (b_b > logLmax) {
+          logLmax = b_b;
+        }
+
+        //  work out tolerance for stopping criterion
+        tol = logPlus(logZ, logLmax - j / nLive) - logZ;
+
+        //  display progress (optional)
+        b = !coder::internal::d_strcmp(data_f2.display.data,
+          data_f2.display.size);
+        if (b) {
+          if (j < 2.147483648E+9) {
+            i1 = static_cast<int>(j);
+          } else {
+            i1 = MAX_int32_T;
+          }
+
+          coder::b_sprintf(logZ, tol, K, i1, H, r1);
+          triggerEvent(r1);
+        }
+
+        input_sizes_idx_1 = isRATStopped(data_f2.IPCFilePath.data,
+          data_f2.IPCFilePath.size, (boolean_T *)&tmp_data);
+        b_tmp_data.set(&tmp_data, input_sizes_idx_1);
+        if (coder::internal::ifWhileCond(b_tmp_data)) {
+          if (b) {
+            h_triggerEvent();
+          }
+
+          post_samples.set_size(0, 0);
+          exitg1 = 1;
+        } else {
+          //  update counter
+          j++;
+        }
+      } else {
+        int input_sizes_idx_1;
+        int result;
+        boolean_T b;
+        boolean_T empty_non_axis_sizes;
+
+        //  sort the remaining points (in order of likelihood) and add them on to
+        //  the evidence
+        coder::internal::sort(logL, iidx);
+        livepoints_sorted.set_size(iidx.size(0), livepoints.size(1));
+        loop_ub = livepoints.size(1);
+        for (i1 = 0; i1 < loop_ub; i1++) {
+          sizes_idx_1 = iidx.size(0);
+          for (i2 = 0; i2 < sizes_idx_1; i2++) {
+            livepoints_sorted[i2 + livepoints_sorted.size(0) * i1] = livepoints
+              [(iidx[i2] + livepoints.size(0) * i1) - 1];
+          }
+        }
+
+        for (int b_i{0}; b_i < i; b_i++) {
+          logZ = logPlus(logZ, logL[b_i] + logw);
+        }
+
+        //  append the additional livepoints to the nested samples
+        b = ((iidx.size(0) != 0) && (livepoints.size(1) != 0));
+        if (b) {
+          result = iidx.size(0);
+        } else if (logL.size(0) != 0) {
+          result = logL.size(0);
+        } else {
+          result = iidx.size(0);
+        }
+
+        empty_non_axis_sizes = (result == 0);
+        if (empty_non_axis_sizes || b) {
+          input_sizes_idx_1 = livepoints.size(1);
+        } else {
+          input_sizes_idx_1 = 0;
+        }
+
+        if (empty_non_axis_sizes || (logL.size(0) != 0)) {
+          sizes_idx_1 = 1;
+        } else {
+          sizes_idx_1 = 0;
+        }
+
+        b_result.set_size(result, input_sizes_idx_1 + sizes_idx_1);
+        for (i = 0; i < input_sizes_idx_1; i++) {
+          for (i1 = 0; i1 < result; i1++) {
+            b_result[i1 + b_result.size(0) * i] = livepoints_sorted[i1 + result *
+              i];
+          }
+        }
+
+        for (i = 0; i < sizes_idx_1; i++) {
+          for (i1 = 0; i1 < result; i1++) {
+            b_result[i1 + b_result.size(0) * input_sizes_idx_1] = logL[i1];
+          }
+        }
+
+        if (nest_samples.size(1) != 0) {
+          result = nest_samples.size(1);
+        } else if ((b_result.size(0) != 0) && (b_result.size(1) != 0)) {
+          result = b_result.size(1);
+        } else {
+          result = 0;
+          if (b_result.size(1) > 0) {
+            result = b_result.size(1);
+          }
+        }
+
+        empty_non_axis_sizes = (result == 0);
+        if (empty_non_axis_sizes || (nest_samples.size(1) != 0)) {
+          input_sizes_idx_1 = nest_samples.size(0);
+        } else {
+          input_sizes_idx_1 = 0;
+        }
+
+        if (empty_non_axis_sizes || ((b_result.size(0) != 0) && (b_result.size(1)
+              != 0))) {
+          sizes_idx_1 = b_result.size(0);
+        } else {
+          sizes_idx_1 = 0;
+        }
+
+        i = input_sizes_idx_1 + sizes_idx_1;
+        b_nest_samples.set_size(i, result);
+        for (i1 = 0; i1 < result; i1++) {
+          for (i2 = 0; i2 < input_sizes_idx_1; i2++) {
+            b_nest_samples[i2 + b_nest_samples.size(0) * i1] = nest_samples[i2 +
+              input_sizes_idx_1 * i1];
+          }
+
+          for (i2 = 0; i2 < sizes_idx_1; i2++) {
+            b_nest_samples[(i2 + input_sizes_idx_1) + b_nest_samples.size(0) *
+              i1] = b_result[i2 + sizes_idx_1 * i1];
+          }
         }
 
         nest_samples.set_size(b_nest_samples.size(0), b_nest_samples.size(1));
@@ -380,326 +681,34 @@ namespace RAT
               b_nest_samples.size(0) * i1];
           }
         }
-      }
 
-      //  get the log weight (Wt = L*w)
-      logWt = logLmin + logw;
-
-      //  save old evidence and information
-      logZold = logZ;
-
-      //  update evidence, information, and width
-      logZ = logPlus(logZ, logWt);
-      if (std::isnan(H)) {
-        d = 0.0;
-      } else {
-        d = H;
-      }
-
-      H = (std::exp(logWt - logZ) * logLmin + std::exp(logZold - logZ) * (d +
-            logZold)) - logZ;
-
-      // logw = logw - logt(nLive);
-      logw -= 1.0 / nLive;
-
-      // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-      if (nMCMC > 0.0) {
-        //  do MCMC nested sampling
-        //  get the Cholesky decomposed covariance of the live points
-        //  (we do this every 100th iteration - this is arbitrary!)
-        if (coder::c_mod(j - 1.0) == 0.0) {
-          //  NOTE that for numbers of parameters >~10 covariances are often
-          //  not positive definite and cholcov will have "problems".
-          //  use modified Cholesky decomposition, which works even for
-          //  matrices that are not quite positive definite
-          //  (via http://stats.stackexchange.com/questions/6364
-          //  /making-square-root-of-covariance-matrix-positive-definite-matlab
-          coder::cov(livepoints, b_result);
-          b_Bs.set_size(b_result.size(0), b_result.size(1));
-          loop_ub = b_result.size(1);
-          for (i1 = 0; i1 < loop_ub; i1++) {
-            sizes_idx_1 = b_result.size(0);
-            for (i2 = 0; i2 < sizes_idx_1; i2++) {
-              b_Bs[i2 + b_Bs.size(0) * i1] = 0.1 * b_result[i2 + b_result.size(0)
-                * i1];
-            }
+        //  rescale the samples back to their true ranges
+        i = coder::internal::intlength(i, result);
+        for (int b_i{0}; b_i < i; b_i++) {
+          if (nest_samples.size(1) - 1 < 1) {
+            input_sizes_idx_1 = 0;
+          } else {
+            input_sizes_idx_1 = nest_samples.size(1) - 1;
           }
 
-          mchol(b_Bs, l, b_result);
-          coder::b_sqrt(b_result);
-          coder::internal::blas::b_mtimes(l, b_result, cholmat);
-        }
-
-        //  draw a new sample using mcmc algorithm
-        logL[iindx - 1] = drawMCMC(livepoints, cholmat, logLmin, prior, data_f1,
-          data_f2, nMCMC, b_livepoints);
-        loop_ub = livepoints.size(1);
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          livepoints[(iindx + livepoints.size(0) * i1) - 1] = b_livepoints[i1];
-        }
-      } else {
-        // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        //  do MultiNest nested sampling
-        b_FS.set_size(1, FS.size(1));
-        loop_ub = FS.size(1);
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          b_FS[b_FS.size(0) * i1] = (FS[i1] >= 1.1);
-        }
-
-        if (coder::internal::b_ifWhileCond(b_FS)) {
-          //  NOTE: THIS CODE IS GUARANTEED TO RUN THE 1ST TIME THROUGH
-          //  calculate optimal ellipsoids
-          optimalEllipsoids(livepoints, VS, Bs, mus, VEs, ns);
-          K = coder::internal::intlength(VEs.size(0), VEs.size(1));
-
-          //  number of ellipsoids (subclusters)
-        } else {
-          //  simply rescale the bounding ellipsoids
-          if (K - 1 >= 0) {
-            d1 = std::exp(-(j + 1.0) / nLive);
-            b_dv[0] = 1.0;
+          for (i1 = 0; i1 < input_sizes_idx_1; i1++) {
+            nest_samples_data[i1] = nest_samples[b_i + nest_samples.size(0) * i1];
           }
 
-          for (int k{0}; k < K; k++) {
-            double scalefac;
-            b_dv[1] = d1 * ns[k] / nLive / VEs[k];
-            scalefac = coder::internal::b_maximum(b_dv);
-
-            //  scale bounding matrix and volume
-            if (scalefac != 1.0) {
-              b_b = ((static_cast<double>(k) + 1.0) - 1.0) * static_cast<double>
-                (D) + 1.0;
-              d = (static_cast<double>(k) + 1.0) * static_cast<double>(D);
-              if (b_b > d) {
-                i1 = 0;
-                i2 = 0;
-                result = 0;
-                sizes_idx_0 = 0;
-              } else {
-                i1 = static_cast<int>(b_b) - 1;
-                i2 = static_cast<int>(d);
-                result = static_cast<int>(b_b) - 1;
-                sizes_idx_0 = static_cast<int>(d);
-              }
-
-              b_b = rt_powd_snf(scalefac, 2.0 / static_cast<double>(D));
-              loop_ub = i2 - i1;
-              sizes_idx_1 = Bs.size(1);
-              b_Bs.set_size(loop_ub, Bs.size(1));
-              for (i2 = 0; i2 < sizes_idx_1; i2++) {
-                for (int i3{0}; i3 < loop_ub; i3++) {
-                  b_Bs[i3 + b_Bs.size(0) * i2] = Bs[(i1 + i3) + Bs.size(0) * i2]
-                    * b_b;
-                }
-              }
-
-              sizes_idx_0 -= result;
-              loop_ub = Bs.size(1);
-              for (i1 = 0; i1 < loop_ub; i1++) {
-                for (i2 = 0; i2 < sizes_idx_0; i2++) {
-                  Bs[(result + i2) + Bs.size(0) * i1] = b_Bs[i2 + sizes_idx_0 *
-                    i1];
-                }
-              }
-
-              VEs[k] = scalefac * VEs[k];
-            }
+          b_nest_samples_data.set(&nest_samples_data[0], 1, input_sizes_idx_1);
+          rescaleParameters(prior, b_nest_samples_data, b_livepoints);
+          for (i1 = 0; i1 < input_sizes_idx_1; i1++) {
+            nest_samples[b_i + nest_samples.size(0) * i1] = b_livepoints[i1];
           }
         }
 
-        //  calculate ratio of volumes (FS>=1) and cumulative fractional volume
-        coder::sum(VEs, Vtot);
-        FS.set_size(1, Vtot.size(1));
-        loop_ub = Vtot.size(1);
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          FS[i1] = Vtot[i1] / VS;
-        }
-
-        //  draw a new sample using multinest algorithm
-        b_result.set_size(VEs.size(0), VEs.size(1));
-        loop_ub = VEs.size(1);
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          sizes_idx_1 = VEs.size(0);
-          for (i2 = 0; i2 < sizes_idx_1; i2++) {
-            b_result[i2 + b_result.size(0) * i1] = VEs[i2 + VEs.size(0) * i1];
-          }
-        }
-
-        coder::internal::useConstantDim(b_result, coder::internal::
-          nonSingletonDim(VEs));
-        coder::internal::mrdiv(b_result, Vtot, r2);
-        logL[iindx - 1] = drawMultiNest(r2, Bs, mus, logLmin, prior, data_f1,
-          data_f2, r3);
-        loop_ub = livepoints.size(1);
-        for (i1 = 0; i1 < loop_ub; i1++) {
-          livepoints[(iindx + livepoints.size(0) * i1) - 1] = r3[i1];
-        }
+        //  convert nested samples into posterior samples - nest2pos assumes that the
+        //  final column in the sample chain is the log likelihood
+        nest2pos(nest_samples, nLive, post_samples);
+        exitg1 = 1;
       }
+    } while (exitg1 == 0);
 
-      // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-      //  update maximum likelihood if appropriate
-      b_b = logL[iindx - 1];
-      if (b_b > logLmax) {
-        logLmax = b_b;
-      }
-
-      //  work out tolerance for stopping criterion
-      tol = logPlus(logZ, logLmax - j / nLive) - logZ;
-
-      //  display progress (optional)
-      b = !coder::internal::d_strcmp(data_f2.display.data, data_f2.display.size);
-      if (b) {
-        if (j < 2.147483648E+9) {
-          i1 = static_cast<int>(j);
-        } else {
-          i1 = MAX_int32_T;
-        }
-
-        coder::b_sprintf(logZ, tol, K, i1, H, r1);
-        triggerEvent(r1);
-      }
-
-      sizes_idx_1 = isRATStopped(data_f2.IPCFilePath.data,
-        data_f2.IPCFilePath.size, (boolean_T *)&tmp_data);
-      b_tmp_data.set(&tmp_data, sizes_idx_1);
-      if (coder::internal::ifWhileCond(b_tmp_data)) {
-        if (b) {
-          h_triggerEvent();
-        }
-
-        exitg1 = true;
-      } else {
-        //  update counter
-        j++;
-      }
-    }
-
-    //  sort the remaining points (in order of likelihood) and add them on to
-    //  the evidence
-    coder::internal::sort(logL, iidx);
-    livepoints_sorted.set_size(iidx.size(0), livepoints.size(1));
-    loop_ub = livepoints.size(1);
-    for (i1 = 0; i1 < loop_ub; i1++) {
-      sizes_idx_1 = iidx.size(0);
-      for (i2 = 0; i2 < sizes_idx_1; i2++) {
-        livepoints_sorted[i2 + livepoints_sorted.size(0) * i1] = livepoints
-          [(iidx[i2] + livepoints.size(0) * i1) - 1];
-      }
-    }
-
-    for (int b_i{0}; b_i < i; b_i++) {
-      logZ = logPlus(logZ, logL[b_i] + logw);
-    }
-
-    //  append the additional livepoints to the nested samples
-    b = ((iidx.size(0) != 0) && (livepoints.size(1) != 0));
-    if (b) {
-      result = iidx.size(0);
-    } else if (logL.size(0) != 0) {
-      result = logL.size(0);
-    } else {
-      result = iidx.size(0);
-    }
-
-    empty_non_axis_sizes = (result == 0);
-    if (empty_non_axis_sizes || b) {
-      sizes_idx_1 = livepoints.size(1);
-    } else {
-      sizes_idx_1 = 0;
-    }
-
-    if (empty_non_axis_sizes || (logL.size(0) != 0)) {
-      b_sizes_idx_1 = 1;
-    } else {
-      b_sizes_idx_1 = 0;
-    }
-
-    b_result.set_size(result, sizes_idx_1 + b_sizes_idx_1);
-    for (i = 0; i < sizes_idx_1; i++) {
-      for (i1 = 0; i1 < result; i1++) {
-        b_result[i1 + b_result.size(0) * i] = livepoints_sorted[i1 + result * i];
-      }
-    }
-
-    loop_ub = b_sizes_idx_1;
-    for (i = 0; i < loop_ub; i++) {
-      for (i1 = 0; i1 < result; i1++) {
-        b_result[i1 + b_result.size(0) * sizes_idx_1] = logL[i1];
-      }
-    }
-
-    if (nest_samples.size(1) != 0) {
-      result = nest_samples.size(1);
-    } else if ((b_result.size(0) != 0) && (b_result.size(1) != 0)) {
-      result = b_result.size(1);
-    } else {
-      result = 0;
-      if (b_result.size(1) > 0) {
-        result = b_result.size(1);
-      }
-    }
-
-    empty_non_axis_sizes = (result == 0);
-    if (empty_non_axis_sizes || (nest_samples.size(1) != 0)) {
-      sizes_idx_1 = nest_samples.size(0);
-    } else {
-      sizes_idx_1 = 0;
-    }
-
-    if (empty_non_axis_sizes || ((b_result.size(0) != 0) && (b_result.size(1) !=
-          0))) {
-      sizes_idx_0 = b_result.size(0);
-    } else {
-      sizes_idx_0 = 0;
-    }
-
-    i = sizes_idx_1 + sizes_idx_0;
-    b_nest_samples.set_size(i, result);
-    for (i1 = 0; i1 < result; i1++) {
-      for (i2 = 0; i2 < sizes_idx_1; i2++) {
-        b_nest_samples[i2 + b_nest_samples.size(0) * i1] = nest_samples[i2 +
-          sizes_idx_1 * i1];
-      }
-
-      for (i2 = 0; i2 < sizes_idx_0; i2++) {
-        b_nest_samples[(i2 + sizes_idx_1) + b_nest_samples.size(0) * i1] =
-          b_result[i2 + sizes_idx_0 * i1];
-      }
-    }
-
-    nest_samples.set_size(b_nest_samples.size(0), b_nest_samples.size(1));
-    loop_ub = b_nest_samples.size(1);
-    for (i1 = 0; i1 < loop_ub; i1++) {
-      sizes_idx_1 = b_nest_samples.size(0);
-      for (i2 = 0; i2 < sizes_idx_1; i2++) {
-        nest_samples[i2 + nest_samples.size(0) * i1] = b_nest_samples[i2 +
-          b_nest_samples.size(0) * i1];
-      }
-    }
-
-    //  rescale the samples back to their true ranges
-    i = coder::internal::intlength(i, result);
-    for (int b_i{0}; b_i < i; b_i++) {
-      if (nest_samples.size(1) - 1 < 1) {
-        sizes_idx_1 = 0;
-      } else {
-        sizes_idx_1 = nest_samples.size(1) - 1;
-      }
-
-      for (i1 = 0; i1 < sizes_idx_1; i1++) {
-        nest_samples_data[i1] = nest_samples[b_i + nest_samples.size(0) * i1];
-      }
-
-      b_nest_samples_data.set(&nest_samples_data[0], 1, sizes_idx_1);
-      rescaleParameters(prior, b_nest_samples_data, b_livepoints);
-      for (i1 = 0; i1 < sizes_idx_1; i1++) {
-        nest_samples[b_i + nest_samples.size(0) * i1] = b_livepoints[i1];
-      }
-    }
-
-    //  convert nested samples into posterior samples - nest2pos assumes that the
-    //  final column in the sample chain is the log likelihood
-    nest2pos(nest_samples, nLive, post_samples);
     return logZ;
   }
 }

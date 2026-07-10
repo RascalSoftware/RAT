@@ -26,6 +26,7 @@ namespace RAT
     namespace internal
     {
       double b_maximum(const double x[2]);
+      double maximum(const ::coder::array<double, 2U> &x, int &idx);
       void maximum(const ::coder::array<double, 2U> &x, ::coder::array<double,
                    2U> &ex);
       double maximum(const ::coder::array<double, 2U> &x);

@@ -79,7 +79,7 @@ namespace RAT
                 &expl_temp.parallel.data[0]);
     }
 
-    b_reflectivityCalculation(problemStruct, &expl_temp, result);
+    reflectivityCalculation(problemStruct, expl_temp, result);
     return result.calculationResults.sumChi;
   }
 }

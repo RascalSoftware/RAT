@@ -41,21 +41,21 @@ namespace RAT
 {
   static void cast(const cell_wrap_47 &r, cell_wrap_45 &r1);
   static void cast(const cell_wrap_48 &r, cell_wrap_46 &r1);
-  static void cast(const double t4_percentile95_data[], const int
-                   t4_percentile95_size[2], const double t4_percentile65_data[],
-                   const int t4_percentile65_size[2], const double t4_mean_data[],
-                   const int t4_mean_size[2], ::coder::array<double, 2U>
-                   &t5_percentile95, ::coder::array<double, 2U> &t5_percentile65,
-                   ::coder::array<double, 2U> &t5_mean);
-  static double cast(const ::coder::array<double, 3U> &t2_allChains, const ::
-                     coder::array<double, 2U> &t2_outlierChains, const ::coder::
-                     array<double, 2U> &t2_AR, const ::coder::array<double, 2U>
-                     &t2_R_stat, const ::coder::array<double, 2U> &t2_CR, ::
-                     coder::array<double, 3U> &t3_allChains, double
-                     t3_outlierChains_data[], int t3_outlierChains_size[2],
-                     double t3_AR_data[], int t3_AR_size[2], ::coder::array<
-                     double, 2U> &t3_R_stat, ::coder::array<double, 2U> &t3_CR,
-                     double &t3_iteration);
+  static void cast(const double t23_percentile95_data[], const int
+                   t23_percentile95_size[2], const double t23_percentile65_data[],
+                   const int t23_percentile65_size[2], const double
+                   t23_mean_data[], const int t23_mean_size[2], ::coder::array<
+                   double, 2U> &t24_percentile95, ::coder::array<double, 2U>
+                   &t24_percentile65, ::coder::array<double, 2U> &t24_mean);
+  static double cast(const ::coder::array<double, 3U> &t21_allChains, const ::
+                     coder::array<double, 2U> &t21_outlierChains, const ::coder::
+                     array<double, 2U> &t21_AR, const ::coder::array<double, 2U>
+                     &t21_R_stat, const ::coder::array<double, 2U> &t21_CR, ::
+                     coder::array<double, 3U> &t22_allChains, double
+                     t22_outlierChains_data[], int t22_outlierChains_size[2],
+                     double t22_AR_data[], int t22_AR_size[2], ::coder::array<
+                     double, 2U> &t22_R_stat, ::coder::array<double, 2U> &t22_CR,
+                     double &t22_iteration);
 }
 
 // Function Definitions
@@ -95,107 +95,108 @@ namespace RAT
     }
   }
 
-  static void cast(const double t4_percentile95_data[], const int
-                   t4_percentile95_size[2], const double t4_percentile65_data[],
-                   const int t4_percentile65_size[2], const double t4_mean_data[],
-                   const int t4_mean_size[2], ::coder::array<double, 2U>
-                   &t5_percentile95, ::coder::array<double, 2U> &t5_percentile65,
-                   ::coder::array<double, 2U> &t5_mean)
+  static void cast(const double t23_percentile95_data[], const int
+                   t23_percentile95_size[2], const double t23_percentile65_data[],
+                   const int t23_percentile65_size[2], const double
+                   t23_mean_data[], const int t23_mean_size[2], ::coder::array<
+                   double, 2U> &t24_percentile95, ::coder::array<double, 2U>
+                   &t24_percentile65, ::coder::array<double, 2U> &t24_mean)
   {
     int loop_ub;
-    t5_percentile95.set_size(2, t4_percentile95_size[1]);
-    loop_ub = t4_percentile95_size[1];
+    t24_percentile95.set_size(2, t23_percentile95_size[1]);
+    loop_ub = t23_percentile95_size[1];
     for (int i{0}; i < loop_ub; i++) {
-      t5_percentile95[2 * i] = t4_percentile95_data[2 * i];
-      t5_percentile95[2 * i + 1] = t4_percentile95_data[2 * i + 1];
+      t24_percentile95[2 * i] = t23_percentile95_data[2 * i];
+      t24_percentile95[2 * i + 1] = t23_percentile95_data[2 * i + 1];
     }
 
-    t5_percentile65.set_size(2, t4_percentile65_size[1]);
-    loop_ub = t4_percentile65_size[1];
+    t24_percentile65.set_size(2, t23_percentile65_size[1]);
+    loop_ub = t23_percentile65_size[1];
     for (int i{0}; i < loop_ub; i++) {
-      t5_percentile65[2 * i] = t4_percentile65_data[2 * i];
-      t5_percentile65[2 * i + 1] = t4_percentile65_data[2 * i + 1];
+      t24_percentile65[2 * i] = t23_percentile65_data[2 * i];
+      t24_percentile65[2 * i + 1] = t23_percentile65_data[2 * i + 1];
     }
 
-    t5_mean.set_size(1, t4_mean_size[1]);
-    loop_ub = t4_mean_size[1];
+    t24_mean.set_size(1, t23_mean_size[1]);
+    loop_ub = t23_mean_size[1];
     for (int i{0}; i < loop_ub; i++) {
-      t5_mean[i] = t4_mean_data[i];
+      t24_mean[i] = t23_mean_data[i];
     }
   }
 
-  static double cast(const ::coder::array<double, 3U> &t2_allChains, const ::
-                     coder::array<double, 2U> &t2_outlierChains, const ::coder::
-                     array<double, 2U> &t2_AR, const ::coder::array<double, 2U>
-                     &t2_R_stat, const ::coder::array<double, 2U> &t2_CR, ::
-                     coder::array<double, 3U> &t3_allChains, double
-                     t3_outlierChains_data[], int t3_outlierChains_size[2],
-                     double t3_AR_data[], int t3_AR_size[2], ::coder::array<
-                     double, 2U> &t3_R_stat, ::coder::array<double, 2U> &t3_CR,
-                     double &t3_iteration)
+  static double cast(const ::coder::array<double, 3U> &t21_allChains, const ::
+                     coder::array<double, 2U> &t21_outlierChains, const ::coder::
+                     array<double, 2U> &t21_AR, const ::coder::array<double, 2U>
+                     &t21_R_stat, const ::coder::array<double, 2U> &t21_CR, ::
+                     coder::array<double, 3U> &t22_allChains, double
+                     t22_outlierChains_data[], int t22_outlierChains_size[2],
+                     double t22_AR_data[], int t22_AR_size[2], ::coder::array<
+                     double, 2U> &t22_R_stat, ::coder::array<double, 2U> &t22_CR,
+                     double &t22_iteration)
   {
-    double t3_runtime;
+    double t22_runtime;
     int b_loop_ub;
     int loop_ub;
-    t3_allChains.set_size(t2_allChains.size(0), t2_allChains.size(1),
-                          t2_allChains.size(2));
-    loop_ub = t2_allChains.size(2);
+    t22_allChains.set_size(t21_allChains.size(0), t21_allChains.size(1),
+      t21_allChains.size(2));
+    loop_ub = t21_allChains.size(2);
     for (int i{0}; i < loop_ub; i++) {
-      b_loop_ub = t2_allChains.size(1);
+      b_loop_ub = t21_allChains.size(1);
       for (int i1{0}; i1 < b_loop_ub; i1++) {
         int c_loop_ub;
-        c_loop_ub = t2_allChains.size(0);
+        c_loop_ub = t21_allChains.size(0);
         for (int i2{0}; i2 < c_loop_ub; i2++) {
-          t3_allChains[(i2 + t3_allChains.size(0) * i1) + t3_allChains.size(0) *
-            t3_allChains.size(1) * i] = t2_allChains[(i2 + t2_allChains.size(0) *
-            i1) + t2_allChains.size(0) * t2_allChains.size(1) * i];
+          t22_allChains[(i2 + t22_allChains.size(0) * i1) + t22_allChains.size(0)
+            * t22_allChains.size(1) * i] = t21_allChains[(i2 +
+            t21_allChains.size(0) * i1) + t21_allChains.size(0) *
+            t21_allChains.size(1) * i];
         }
       }
     }
 
-    t3_outlierChains_size[0] = t2_outlierChains.size(0);
-    t3_outlierChains_size[1] = t2_outlierChains.size(1);
-    loop_ub = t2_outlierChains.size(1);
+    t22_outlierChains_size[0] = t21_outlierChains.size(0);
+    t22_outlierChains_size[1] = t21_outlierChains.size(1);
+    loop_ub = t21_outlierChains.size(1);
     for (int i{0}; i < loop_ub; i++) {
-      b_loop_ub = t2_outlierChains.size(0);
+      b_loop_ub = t21_outlierChains.size(0);
       for (int i1{0}; i1 < b_loop_ub; i1++) {
-        t3_outlierChains_data[i1 + t3_outlierChains_size[0] * i] =
-          t2_outlierChains[i1 + t2_outlierChains.size(0) * i];
+        t22_outlierChains_data[i1 + t22_outlierChains_size[0] * i] =
+          t21_outlierChains[i1 + t21_outlierChains.size(0) * i];
       }
     }
 
-    t3_AR_size[0] = t2_AR.size(0);
-    t3_AR_size[1] = t2_AR.size(1);
-    loop_ub = t2_AR.size(1);
+    t22_AR_size[0] = t21_AR.size(0);
+    t22_AR_size[1] = t21_AR.size(1);
+    loop_ub = t21_AR.size(1);
     for (int i{0}; i < loop_ub; i++) {
-      b_loop_ub = t2_AR.size(0);
+      b_loop_ub = t21_AR.size(0);
       for (int i1{0}; i1 < b_loop_ub; i1++) {
-        t3_AR_data[i1 + t3_AR_size[0] * i] = t2_AR[i1 + t2_AR.size(0) * i];
+        t22_AR_data[i1 + t22_AR_size[0] * i] = t21_AR[i1 + t21_AR.size(0) * i];
       }
     }
 
-    t3_R_stat.set_size(t2_R_stat.size(0), t2_R_stat.size(1));
-    loop_ub = t2_R_stat.size(1);
+    t22_R_stat.set_size(t21_R_stat.size(0), t21_R_stat.size(1));
+    loop_ub = t21_R_stat.size(1);
     for (int i{0}; i < loop_ub; i++) {
-      b_loop_ub = t2_R_stat.size(0);
+      b_loop_ub = t21_R_stat.size(0);
       for (int i1{0}; i1 < b_loop_ub; i1++) {
-        t3_R_stat[i1 + t3_R_stat.size(0) * i] = t2_R_stat[i1 + t2_R_stat.size(0)
-          * i];
+        t22_R_stat[i1 + t22_R_stat.size(0) * i] = t21_R_stat[i1 +
+          t21_R_stat.size(0) * i];
       }
     }
 
-    t3_CR.set_size(t2_CR.size(0), t2_CR.size(1));
-    loop_ub = t2_CR.size(1);
+    t22_CR.set_size(t21_CR.size(0), t21_CR.size(1));
+    loop_ub = t21_CR.size(1);
     for (int i{0}; i < loop_ub; i++) {
-      b_loop_ub = t2_CR.size(0);
+      b_loop_ub = t21_CR.size(0);
       for (int i1{0}; i1 < b_loop_ub; i1++) {
-        t3_CR[i1 + t3_CR.size(0) * i] = t2_CR[i1 + t2_CR.size(0) * i];
+        t22_CR[i1 + t22_CR.size(0) * i] = t21_CR[i1 + t21_CR.size(0) * i];
       }
     }
 
-    t3_runtime = 100.0;
-    t3_iteration = 0.0;
-    return t3_runtime;
+    t22_runtime = 100.0;
+    t22_iteration = 0.0;
+    return t22_runtime;
   }
 
   int b_makeEmptyBayesResultsStruct(double nContrasts, boolean_T isDomains, ::
@@ -212,23 +213,23 @@ namespace RAT
   {
     ::coder::array<cell_wrap_43, 2U> b_f1;
     ::coder::array<cell_wrap_43, 1U> f1;
-    ::coder::array<double, 3U> t6_allChains;
-    ::coder::array<double, 2U> t6_AR;
-    ::coder::array<double, 2U> t6_CR;
-    ::coder::array<double, 2U> t6_R_stat;
-    ::coder::array<double, 2U> t6_outlierChains;
+    ::coder::array<double, 3U> t29_allChains;
+    ::coder::array<double, 2U> t29_AR;
+    ::coder::array<double, 2U> t29_CR;
+    ::coder::array<double, 2U> t29_R_stat;
+    ::coder::array<double, 2U> t29_outlierChains;
     ::coder::array<double, 1U> c_f1;
     cell_wrap_45 r3;
     cell_wrap_46 r4;
     cell_wrap_47 r;
     cell_wrap_48 r1;
     cell_wrap_49 r2;
-    double t7_percentile65_data[2000];
-    double t7_percentile95_data[2000];
-    double t7_mean_data[1000];
-    int t7_mean_size[2];
-    int t7_percentile65_size[2];
-    int t7_percentile95_size[2];
+    double t30_percentile65_data[2000];
+    double t30_percentile95_data[2000];
+    double t30_mean_data[1000];
+    int t30_mean_size[2];
+    int t30_percentile65_size[2];
+    int t30_percentile95_size[2];
     int bayesResults_predictionIntervals_sampleChi_size;
     int i;
 
@@ -300,19 +301,19 @@ namespace RAT
 
     //  ------------------------------------------------------------------
     //  (2) bayesResults.confidenceIntervals
-    t7_percentile95_size[0] = 2;
-    t7_percentile95_size[1] = 1;
-    t7_percentile65_size[0] = 2;
-    t7_percentile65_size[1] = 1;
-    t7_percentile95_data[0] = 0.0;
-    t7_percentile65_data[0] = 0.0;
-    t7_percentile95_data[1] = 0.0;
-    t7_percentile65_data[1] = 0.0;
-    t7_mean_size[0] = 1;
-    t7_mean_size[1] = 1;
-    t7_mean_data[0] = 0.0;
-    cast(t7_percentile95_data, t7_percentile95_size, t7_percentile65_data,
-         t7_percentile65_size, t7_mean_data, t7_mean_size,
+    t30_percentile95_size[0] = 2;
+    t30_percentile95_size[1] = 1;
+    t30_percentile65_size[0] = 2;
+    t30_percentile65_size[1] = 1;
+    t30_percentile95_data[0] = 0.0;
+    t30_percentile65_data[0] = 0.0;
+    t30_percentile95_data[1] = 0.0;
+    t30_percentile65_data[1] = 0.0;
+    t30_mean_size[0] = 1;
+    t30_mean_size[1] = 1;
+    t30_mean_data[0] = 0.0;
+    cast(t30_percentile95_data, t30_percentile95_size, t30_percentile65_data,
+         t30_percentile65_size, t30_mean_data, t30_mean_size,
          bayesResults_confidenceIntervals_percentile95,
          bayesResults_confidenceIntervals_percentile65,
          bayesResults_confidenceIntervals_mean);
@@ -341,17 +342,17 @@ namespace RAT
 
     //  -------------------------------------------------------------------
     //  (4) bayesResults.dreamOutput
-    t6_allChains.set_size(1, 3, 1);
+    t29_allChains.set_size(1, 3, 1);
     bayesResults_dreamParams.outlier[0] = 'i';
-    t6_allChains[0] = 1.0;
+    t29_allChains[0] = 1.0;
     bayesResults_dreamParams.outlier[1] = 'q';
-    t6_allChains[t6_allChains.size(0)] = 1.0;
+    t29_allChains[t29_allChains.size(0)] = 1.0;
     bayesResults_dreamParams.outlier[2] = 'r';
-    t6_allChains[t6_allChains.size(0) * 2] = 1.0;
-    t6_outlierChains.set_size(1, 2);
-    t6_AR.set_size(1, 2);
-    t6_R_stat.set_size(1, 2);
-    t6_CR.set_size(1, 2);
+    t29_allChains[t29_allChains.size(0) * 2] = 1.0;
+    t29_outlierChains.set_size(1, 2);
+    t29_AR.set_size(1, 2);
+    t29_R_stat.set_size(1, 2);
+    t29_CR.set_size(1, 2);
 
     //  -------------------------------------------------------------------
     //  (5) bayesResults.nestedSamplerOutput
@@ -360,20 +361,20 @@ namespace RAT
     bayesResults_nestedSamplerOutput.nestSamples.size[1] = 2;
     bayesResults_nestedSamplerOutput.postSamples.size[0] = 1;
     bayesResults_nestedSamplerOutput.postSamples.size[1] = 2;
-    t6_outlierChains[0] = 1.0;
-    t6_AR[0] = 0.0;
-    t6_R_stat[0] = 0.0;
-    t6_CR[0] = 0.0;
+    t29_outlierChains[0] = 1.0;
+    t29_AR[0] = 0.0;
+    t29_R_stat[0] = 0.0;
+    t29_CR[0] = 0.0;
     bayesResults_nestedSamplerOutput.nestSamples.data[0] = 0.0;
     bayesResults_nestedSamplerOutput.postSamples.data[0] = 0.0;
-    t6_outlierChains[t6_outlierChains.size(0)] = 1.0;
-    t6_AR[t6_AR.size(0)] = 0.0;
-    t6_R_stat[t6_R_stat.size(0)] = 0.0;
-    t6_CR[t6_CR.size(0)] = 0.0;
+    t29_outlierChains[t29_outlierChains.size(0)] = 1.0;
+    t29_AR[t29_AR.size(0)] = 0.0;
+    t29_R_stat[t29_R_stat.size(0)] = 0.0;
+    t29_CR[t29_CR.size(0)] = 0.0;
     bayesResults_nestedSamplerOutput.nestSamples.data[1] = 0.0;
     bayesResults_nestedSamplerOutput.postSamples.data[1] = 0.0;
-    bayesResults_dreamOutput.runtime = cast(t6_allChains, t6_outlierChains,
-      t6_AR, t6_R_stat, t6_CR, bayesResults_dreamOutput.allChains,
+    bayesResults_dreamOutput.runtime = cast(t29_allChains, t29_outlierChains,
+      t29_AR, t29_R_stat, t29_CR, bayesResults_dreamOutput.allChains,
       bayesResults_dreamOutput.outlierChains.data,
       bayesResults_dreamOutput.outlierChains.size,
       bayesResults_dreamOutput.AR.data, bayesResults_dreamOutput.AR.size,
@@ -407,23 +408,23 @@ namespace RAT
   {
     ::coder::array<cell_wrap_43, 2U> b_f1;
     ::coder::array<cell_wrap_43, 1U> f1;
-    ::coder::array<double, 3U> t35_allChains;
-    ::coder::array<double, 2U> t35_AR;
-    ::coder::array<double, 2U> t35_CR;
-    ::coder::array<double, 2U> t35_R_stat;
-    ::coder::array<double, 2U> t35_outlierChains;
+    ::coder::array<double, 3U> t25_allChains;
+    ::coder::array<double, 2U> t25_AR;
+    ::coder::array<double, 2U> t25_CR;
+    ::coder::array<double, 2U> t25_R_stat;
+    ::coder::array<double, 2U> t25_outlierChains;
     ::coder::array<double, 1U> c_f1;
     cell_wrap_45 r3;
     cell_wrap_46 r4;
     cell_wrap_47 r;
     cell_wrap_48 r1;
     cell_wrap_49 r2;
-    double t36_percentile65_data[2000];
-    double t36_percentile95_data[2000];
-    double t36_mean_data[1000];
-    int t36_mean_size[2];
-    int t36_percentile65_size[2];
-    int t36_percentile95_size[2];
+    double t26_percentile65_data[2000];
+    double t26_percentile95_data[2000];
+    double t26_mean_data[1000];
+    int t26_mean_size[2];
+    int t26_percentile65_size[2];
+    int t26_percentile95_size[2];
     int bayesResults_predictionIntervals_sampleChi_size;
     int i;
     int loop_ub_tmp;
@@ -496,19 +497,19 @@ namespace RAT
 
     //  ------------------------------------------------------------------
     //  (2) bayesResults.confidenceIntervals
-    t36_percentile95_size[0] = 2;
-    t36_percentile95_size[1] = 1;
-    t36_percentile65_size[0] = 2;
-    t36_percentile65_size[1] = 1;
-    t36_percentile95_data[0] = 0.0;
-    t36_percentile65_data[0] = 0.0;
-    t36_percentile95_data[1] = 0.0;
-    t36_percentile65_data[1] = 0.0;
-    t36_mean_size[0] = 1;
-    t36_mean_size[1] = 1;
-    t36_mean_data[0] = 0.0;
-    cast(t36_percentile95_data, t36_percentile95_size, t36_percentile65_data,
-         t36_percentile65_size, t36_mean_data, t36_mean_size,
+    t26_percentile95_size[0] = 2;
+    t26_percentile95_size[1] = 1;
+    t26_percentile65_size[0] = 2;
+    t26_percentile65_size[1] = 1;
+    t26_percentile95_data[0] = 0.0;
+    t26_percentile65_data[0] = 0.0;
+    t26_percentile95_data[1] = 0.0;
+    t26_percentile65_data[1] = 0.0;
+    t26_mean_size[0] = 1;
+    t26_mean_size[1] = 1;
+    t26_mean_data[0] = 0.0;
+    cast(t26_percentile95_data, t26_percentile95_size, t26_percentile65_data,
+         t26_percentile65_size, t26_mean_data, t26_mean_size,
          bayesResults_confidenceIntervals_percentile95,
          bayesResults_confidenceIntervals_percentile65,
          bayesResults_confidenceIntervals_mean);
@@ -544,17 +545,17 @@ namespace RAT
 
     //  -------------------------------------------------------------------
     //  (4) bayesResults.dreamOutput
-    t35_allChains.set_size(1, 3, 1);
+    t25_allChains.set_size(1, 3, 1);
     bayesResults_dreamParams.outlier[0] = 'i';
-    t35_allChains[0] = 1.0;
+    t25_allChains[0] = 1.0;
     bayesResults_dreamParams.outlier[1] = 'q';
-    t35_allChains[t35_allChains.size(0)] = 1.0;
+    t25_allChains[t25_allChains.size(0)] = 1.0;
     bayesResults_dreamParams.outlier[2] = 'r';
-    t35_allChains[t35_allChains.size(0) * 2] = 1.0;
-    t35_outlierChains.set_size(1, 2);
-    t35_AR.set_size(1, 2);
-    t35_R_stat.set_size(1, 2);
-    t35_CR.set_size(1, 2);
+    t25_allChains[t25_allChains.size(0) * 2] = 1.0;
+    t25_outlierChains.set_size(1, 2);
+    t25_AR.set_size(1, 2);
+    t25_R_stat.set_size(1, 2);
+    t25_CR.set_size(1, 2);
 
     //  -------------------------------------------------------------------
     //  (5) bayesResults.nestedSamplerOutput
@@ -563,20 +564,20 @@ namespace RAT
     bayesResults_nestedSamplerOutput.nestSamples.size[1] = 2;
     bayesResults_nestedSamplerOutput.postSamples.size[0] = 1;
     bayesResults_nestedSamplerOutput.postSamples.size[1] = 2;
-    t35_outlierChains[0] = 1.0;
-    t35_AR[0] = 0.0;
-    t35_R_stat[0] = 0.0;
-    t35_CR[0] = 0.0;
+    t25_outlierChains[0] = 1.0;
+    t25_AR[0] = 0.0;
+    t25_R_stat[0] = 0.0;
+    t25_CR[0] = 0.0;
     bayesResults_nestedSamplerOutput.nestSamples.data[0] = 0.0;
     bayesResults_nestedSamplerOutput.postSamples.data[0] = 0.0;
-    t35_outlierChains[t35_outlierChains.size(0)] = 1.0;
-    t35_AR[t35_AR.size(0)] = 0.0;
-    t35_R_stat[t35_R_stat.size(0)] = 0.0;
-    t35_CR[t35_CR.size(0)] = 0.0;
+    t25_outlierChains[t25_outlierChains.size(0)] = 1.0;
+    t25_AR[t25_AR.size(0)] = 0.0;
+    t25_R_stat[t25_R_stat.size(0)] = 0.0;
+    t25_CR[t25_CR.size(0)] = 0.0;
     bayesResults_nestedSamplerOutput.nestSamples.data[1] = 0.0;
     bayesResults_nestedSamplerOutput.postSamples.data[1] = 0.0;
-    bayesResults_dreamOutput.runtime = cast(t35_allChains, t35_outlierChains,
-      t35_AR, t35_R_stat, t35_CR, bayesResults_dreamOutput.allChains,
+    bayesResults_dreamOutput.runtime = cast(t25_allChains, t25_outlierChains,
+      t25_AR, t25_R_stat, t25_CR, bayesResults_dreamOutput.allChains,
       bayesResults_dreamOutput.outlierChains.data,
       bayesResults_dreamOutput.outlierChains.size,
       bayesResults_dreamOutput.AR.data, bayesResults_dreamOutput.AR.size,

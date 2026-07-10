@@ -20,7 +20,7 @@
 namespace RAT
 {
   struct DreamParams;
-  struct f_struct_T;
+  struct c_struct_T;
   struct ProblemDefinition;
   struct Controls;
 }
@@ -32,10 +32,10 @@ namespace RAT
                        2U> &paramInfo_min, const ::coder::array<double, 2U>
                        &paramInfo_max, const char paramInfo_boundhandling_data[],
                        const int paramInfo_boundhandling_size[2], ::coder::array<
-                       double, 3U> &chain, f_struct_T &output, ::coder::array<
+                       double, 3U> &chain, c_struct_T &output, ::coder::array<
                        double, 2U> &log_L, const ProblemDefinition &
-                       ratInputs_problemStruct, const Controls
-                       *ratInputs_controls, const ::coder::array<double, 2U>
+                       ratInputs_problemStruct, const Controls &
+                       ratInputs_controls, const ::coder::array<double, 2U>
                        &ratInputs_priors, ::coder::array<double, 2U> &X, ::coder::
                        array<double, 2U> &CR, double pCR_data[], int pCR_size[2],
                        double lCR_data[], int lCR_size[2], double

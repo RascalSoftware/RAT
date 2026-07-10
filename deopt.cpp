@@ -34,7 +34,7 @@
 namespace RAT
 {
   static void binary_expand_op(::coder::array<double, 2U> &in1, int in2, const
-    h_struct_T &in3, const ::coder::array<double, 2U> &in4);
+    g_struct_T &in3, const ::coder::array<double, 2U> &in4);
   static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, double in3, const ::coder::array<double, 2U> &in4,
     const ::coder::array<double, 2U> &in5);
@@ -75,7 +75,7 @@ namespace RAT
 namespace RAT
 {
   static void binary_expand_op(::coder::array<double, 2U> &in1, int in2, const
-    h_struct_T &in3, const ::coder::array<double, 2U> &in4)
+    g_struct_T &in3, const ::coder::array<double, 2U> &in4)
   {
     int loop_ub;
     int stride_0_1_tmp;
@@ -955,10 +955,10 @@ namespace RAT
              char controls_display_data[], const int controls_display_size[2],
              double controls_updateFreq, double controls_updatePlotFreq,
              boolean_T controls_calcSLD, const char controls_IPCFilePath_data[],
-             const int controls_IPCFilePath_size[2], const h_struct_T &S_struct,
+             const int controls_IPCFilePath_size[2], const g_struct_T &S_struct,
              ::coder::array<double, 2U> &FVr_bestmem)
   {
-    ::coder::array<j_struct_T, 1U> S_val;
+    ::coder::array<k_struct_T, 1U> S_val;
     ::coder::array<double, 2U> FM_bm;
     ::coder::array<double, 2U> FM_origin;
     ::coder::array<double, 2U> FM_pm1;
@@ -2025,6 +2025,7 @@ namespace RAT
         controls_calcSLD = false;
         b_triggerEvent(result, problem.TF.data, problem.TF.size,
                        problem.resample, problem.dataPresent,
+                       problem.geometry.data, problem.geometry.size,
                        problem.modelType.data, problem.modelType.size,
                        problem.names.contrasts);
       }
@@ -2070,7 +2071,8 @@ namespace RAT
                controls_resampleMinAngle, controls_resampleNPoints, true, result,
                expl_temp, b_expl_temp, c_expl_temp);
       b_triggerEvent(result, problem.TF.data, problem.TF.size, problem.resample,
-                     problem.dataPresent, problem.modelType.data,
+                     problem.dataPresent, problem.geometry.data,
+                     problem.geometry.size, problem.modelType.data,
                      problem.modelType.size, problem.names.contrasts);
     }
   }

@@ -17,24 +17,20 @@
 #include <cstddef>
 #include <cstdlib>
 
-// Type Declarations
-namespace RAT
-{
-  struct b_struct_T;
-}
-
 // Function Declarations
 namespace RAT
 {
   void b_triggerEvent(double varargin_2);
-  void b_triggerEvent();
   void b_triggerEvent(const b_struct_T &varargin_1, const char
                       varargin_2_TF_data[], const int varargin_2_TF_size[2],
                       const ::coder::array<double, 2U> &varargin_2_resample,
                       const ::coder::array<double, 2U> &varargin_2_dataPresent,
-                      const char varargin_2_modelType_data[], const int
+                      const char varargin_2_geometry_data[], const int
+                      varargin_2_geometry_size[2], const char
+                      varargin_2_modelType_data[], const int
                       varargin_2_modelType_size[2], const ::coder::array<
                       cell_wrap_10, 2U> &varargin_2_names_contrasts);
+  void b_triggerEvent();
   void c_triggerEvent();
   void d_triggerEvent();
   void e_triggerEvent();
@@ -49,11 +45,13 @@ namespace RAT
                     const int varargin_2_TF_size[2], const ::coder::array<double,
                     2U> &varargin_2_resample, const ::coder::array<double, 2U>
                     &varargin_2_dataPresent, const char
+                    varargin_2_geometry_data[], const int
+                    varargin_2_geometry_size[2], const char
                     varargin_2_modelType_data[], const int
                     varargin_2_modelType_size[2], const ::coder::array<
                     cell_wrap_10, 2U> &varargin_2_names_contrasts);
-  void triggerEvent(const ::coder::array<char, 2U> &varargin_1);
   void triggerEvent();
+  void triggerEvent(const ::coder::array<char, 2U> &varargin_1);
   void triggerEvent(double varargin_2);
   void triggerEvent_init();
 }

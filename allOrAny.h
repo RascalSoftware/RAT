@@ -27,6 +27,7 @@ namespace RAT
       boolean_T allOrAny_anonFcn3(int n, const ::coder::array<boolean_T, 1U> &X);
       void b_allOrAny_anonFcn2(int n, const boolean_T X_data[], boolean_T
         Y_data[]);
+      boolean_T b_allOrAny_anonFcn3(int n, const ::coder::array<double, 1U> &X);
     }
   }
 }

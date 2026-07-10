@@ -11,7 +11,9 @@
 #define RUNDREAM_H
 
 // Include files
+#include "RATMain_types.h"
 #include "rtwtypes.h"
+#include "coder_array.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -19,17 +21,35 @@
 namespace RAT
 {
   struct ProblemDefinition;
-  struct Controls;
-  struct b_struct_T;
-  struct c_struct_T;
+  struct e_struct_T;
 }
 
 // Function Declarations
 namespace RAT
 {
-  void runDREAM(const ProblemDefinition &problemStruct, const Controls *controls,
-                b_struct_T &result, c_struct_T &bayesResults, ProblemDefinition
-                &outProblemStruct);
+  void runDREAM(ProblemDefinition &problemStruct, const char
+                controls_parallel_data[], const int controls_parallel_size[2],
+                double controls_numSimulationPoints, double
+                controls_resampleMinAngle, double controls_resampleNPoints,
+                const char controls_display_data[], const int
+                controls_display_size[2], double controls_nSamples, double
+                controls_nChains, double controls_jumpProbability, double
+                controls_pUnitGamma, const char controls_boundHandling_data[],
+                const int controls_boundHandling_size[2], boolean_T
+                controls_adaptPCR, boolean_T controls_calcSLD, const char
+                controls_IPCFilePath_data[], const int
+                controls_IPCFilePath_size[2], ::coder::array<cell_wrap_7, 1U>
+                &result_reflectivity, ::coder::array<cell_wrap_7, 1U>
+                &result_simulation, ::coder::array<cell_wrap_8, 1U>
+                &result_shiftedData, ::coder::array<cell_wrap_8, 1U>
+                &result_backgrounds, ::coder::array<cell_wrap_7, 1U>
+                &result_resolutions, ::coder::array<cell_wrap_9, 2U>
+                &result_sldProfiles, ::coder::array<cell_wrap_9, 2U>
+                &result_layers, ::coder::array<cell_wrap_9, 2U>
+                &result_resampledLayers, ::coder::array<double, 2U>
+                &result_fitParams, ::coder::array<cell_wrap_10, 1U>
+                &result_fitNames, e_struct_T &bayesResults, CalculationResults &
+                result_calculationResults, ContrastParams &result_contrastParams);
 }
 
 #endif

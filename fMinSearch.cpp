@@ -259,8 +259,8 @@ namespace RAT
                     varargin_2_resampleNPoints, double varargin_2_updateFreq,
                     double varargin_2_updatePlotFreq, boolean_T
                     varargin_2_calcSLD, const char varargin_2_IPCFilePath_data[],
-                    const int varargin_2_IPCFilePath_size[2], const i_struct_T
-                    &varargin_3, g_struct_T &output, double &exitflag)
+                    const int varargin_2_IPCFilePath_size[2], const j_struct_T
+                    &varargin_3, f_struct_T &output, double &exitflag)
   {
     static const char cv6[35]{ 'E', 'x', 'i', 't', 'i', 'n', 'g', ':', ' ', 'M',
       'a', 'x', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'e', 'v', 'a',
@@ -504,6 +504,7 @@ namespace RAT
     if (doPlotEvent) {
       triggerEvent(result, varargin_1.TF.data, varargin_1.TF.size,
                    varargin_1.resample, varargin_1.dataPresent,
+                   varargin_1.geometry.data, varargin_1.geometry.size,
                    varargin_1.modelType.data, varargin_1.modelType.size,
                    varargin_1.names.contrasts);
     }
@@ -601,6 +602,7 @@ namespace RAT
     if (doPlotEvent && (rt_remd_snf(1.0, varargin_2_updatePlotFreq) == 0.0)) {
       triggerEvent(result, varargin_1.TF.data, varargin_1.TF.size,
                    varargin_1.resample, varargin_1.dataPresent,
+                   varargin_1.geometry.data, varargin_1.geometry.size,
                    varargin_1.modelType.data, varargin_1.modelType.size,
                    varargin_1.names.contrasts);
     }
@@ -992,6 +994,7 @@ namespace RAT
                                 == 0.0)) {
               triggerEvent(result, varargin_1.TF.data, varargin_1.TF.size,
                            varargin_1.resample, varargin_1.dataPresent,
+                           varargin_1.geometry.data, varargin_1.geometry.size,
                            varargin_1.modelType.data, varargin_1.modelType.size,
                            varargin_1.names.contrasts);
             }
@@ -1064,6 +1067,7 @@ namespace RAT
           //  This should ensure the final result is always plotted irrespective of update frequency
           triggerEvent(result, varargin_1.TF.data, varargin_1.TF.size,
                        varargin_1.resample, varargin_1.dataPresent,
+                       varargin_1.geometry.data, varargin_1.geometry.size,
                        varargin_1.modelType.data, varargin_1.modelType.size,
                        varargin_1.names.contrasts);
         }

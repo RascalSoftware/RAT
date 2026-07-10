@@ -24,6 +24,26 @@ namespace RAT
     double f1[6];
   };
 
+  struct cell_wrap_36
+  {
+    ::coder::array<cell_wrap_10, 1U> f1;
+  };
+
+  struct cell_wrap_33
+  {
+    ::coder::array<cell_wrap_7, 1U> f1;
+  };
+
+  struct cell_wrap_34
+  {
+    ::coder::array<cell_wrap_8, 1U> f1;
+  };
+
+  struct cell_wrap_35
+  {
+    ::coder::array<cell_wrap_9, 2U> f1;
+  };
+
   struct struct_T
   {
     double logZ;
@@ -108,46 +128,7 @@ namespace RAT
     CheckFlags checks;
   };
 
-  struct b_struct_T
-  {
-    ::coder::array<cell_wrap_7, 1U> reflectivity;
-    ::coder::array<cell_wrap_7, 1U> simulation;
-    ::coder::array<cell_wrap_8, 1U> shiftedData;
-    ::coder::array<cell_wrap_8, 1U> backgrounds;
-    ::coder::array<cell_wrap_7, 1U> resolutions;
-    ::coder::array<cell_wrap_7, 2U> sldProfiles;
-    ::coder::array<cell_wrap_9, 2U> layers;
-    ::coder::array<cell_wrap_9, 2U> resampledLayers;
-    CalculationResults calculationResults;
-    ContrastParams contrastParams;
-    ::coder::array<double, 2U> fitParams;
-    ::coder::array<cell_wrap_10, 1U> fitNames;
-  };
-
   struct c_struct_T
-  {
-    PredictionIntervals predictionIntervals;
-    ConfidenceIntervals confidenceIntervals;
-    DreamParams dreamParams;
-    DreamOutput dreamOutput;
-    struct_T nestedSamplerOutput;
-    ::coder::array<double, 2U> chain;
-  };
-
-  struct d_struct_T
-  {
-    ::coder::array<cell_wrap_11, 1U> reflectivity;
-    ::coder::array<cell_wrap_11, 2U> sld;
-    double sampleChi[1000];
-  };
-
-  struct e_struct_T
-  {
-    d_struct_T predictionIntervals;
-    ConfidenceIntervals confidenceIntervals;
-  };
-
-  struct f_struct_T
   {
     ::coder::bounded_array<double, 2000U, 2U> outlierChains;
     double runtime;
@@ -160,7 +141,27 @@ namespace RAT
     ::coder::array<double, 2U> CR;
   };
 
-  struct g_struct_T
+  struct d_struct_T
+  {
+    PredictionIntervals predictionIntervals;
+    ConfidenceIntervals confidenceIntervals;
+    DreamParams dreamParams;
+    DreamOutput dreamOutput;
+    NestedSamplerOutput nestedSamplerOutput;
+    ::coder::array<double, 2U> chain;
+  };
+
+  struct e_struct_T
+  {
+    PredictionIntervals predictionIntervals;
+    ConfidenceIntervals confidenceIntervals;
+    DreamParams dreamParams;
+    DreamOutput dreamOutput;
+    struct_T nestedSamplerOutput;
+    ::coder::array<double, 2U> chain;
+  };
+
+  struct f_struct_T
   {
     double iterations;
     double funcCount;
@@ -168,7 +169,7 @@ namespace RAT
     ::coder::array<char, 2U> message;
   };
 
-  struct h_struct_T
+  struct g_struct_T
   {
     double I_lentol;
     double FVr_x[50];
@@ -190,19 +191,32 @@ namespace RAT
     ::coder::array<double, 2U> FVr_bestmem;
   };
 
+  struct h_struct_T
+  {
+    ::coder::array<cell_wrap_11, 1U> reflectivity;
+    ::coder::array<cell_wrap_11, 2U> sld;
+    double sampleChi[1000];
+  };
+
+  struct i_struct_T
+  {
+    h_struct_T predictionIntervals;
+    ConfidenceIntervals confidenceIntervals;
+  };
+
   struct cell_52
   {
     ::coder::array<double, 2U> f1;
   };
 
-  struct i_struct_T
+  struct j_struct_T
   {
     ::coder::array<double, 1U> LB;
     ::coder::array<double, 1U> UB;
     ::coder::array<double, 1U> BoundClass;
   };
 
-  struct j_struct_T
+  struct k_struct_T
   {
     double I_no;
     double FVr_oa;

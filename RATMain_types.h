@@ -24,6 +24,62 @@ namespace RAT
     double f1[2];
   };
 
+  struct cell_wrap_7
+  {
+    ::coder::array<double, 2U> f1;
+  };
+
+  struct cell_wrap_8
+  {
+    ::coder::array<double, 2U> f1;
+  };
+
+  struct cell_wrap_9
+  {
+    ::coder::array<double, 2U> f1;
+  };
+
+  struct CalculationResults
+  {
+    ::coder::array<double, 1U> chiValues;
+    double sumChi;
+  };
+
+  struct ContrastParams
+  {
+    ::coder::array<double, 1U> scalefactors;
+    ::coder::array<double, 1U> bulkIn;
+    ::coder::array<double, 1U> bulkOut;
+    ::coder::array<double, 1U> subRoughs;
+    ::coder::array<double, 2U> resample;
+  };
+
+  struct cell_wrap_10
+  {
+    ::coder::array<char, 2U> f1;
+  };
+
+  struct cell_wrap_0
+  {
+    ::coder::bounded_array<char, 10000U, 2U> f1;
+  };
+
+  struct Results
+  {
+    ::coder::array<cell_wrap_7, 1U> reflectivity;
+    ::coder::array<cell_wrap_7, 1U> simulation;
+    ::coder::array<cell_wrap_8, 1U> shiftedData;
+    ::coder::array<cell_wrap_8, 1U> backgrounds;
+    ::coder::array<cell_wrap_7, 1U> resolutions;
+    ::coder::array<cell_wrap_9, 2U> sldProfiles;
+    ::coder::array<cell_wrap_9, 2U> layers;
+    ::coder::array<cell_wrap_9, 2U> resampledLayers;
+    CalculationResults calculationResults;
+    ContrastParams contrastParams;
+    ::coder::array<double, 2U> fitParams;
+    ::coder::array<cell_wrap_10, 1U> fitNames;
+  };
+
   struct cell_wrap_11
   {
     ::coder::array<double, 2U> f1;
@@ -64,16 +120,6 @@ namespace RAT
   };
 
   struct cell_wrap_1
-  {
-    ::coder::array<double, 2U> f1;
-  };
-
-  struct cell_wrap_10
-  {
-    ::coder::array<char, 2U> f1;
-  };
-
-  struct cell_wrap_9
   {
     ::coder::array<double, 2U> f1;
   };
@@ -123,53 +169,25 @@ namespace RAT
     ::coder::bounded_array<char, 10000U, 2U> IPCFilePath;
   };
 
-  struct cell_wrap_7
+  struct b_struct_T
   {
-    ::coder::array<double, 2U> f1;
-  };
-
-  struct cell_wrap_8
-  {
-    ::coder::array<double, 2U> f1;
-  };
-
-  struct CalculationResults
-  {
-    ::coder::array<double, 1U> chiValues;
-    double sumChi;
-  };
-
-  struct ContrastParams
-  {
-    ::coder::array<double, 1U> scalefactors;
-    ::coder::array<double, 1U> bulkIn;
-    ::coder::array<double, 1U> bulkOut;
-    ::coder::array<double, 1U> subRoughs;
-    ::coder::array<double, 2U> resample;
-  };
-
-  struct PredictionIntervals
-  {
-    ::coder::array<cell_wrap_11, 1U> reflectivity;
-    ::coder::array<cell_wrap_11, 2U> sld;
-    ::coder::bounded_array<double, 1000U, 1U> sampleChi;
-  };
-
-  struct ConfidenceIntervals
-  {
-    ::coder::array<double, 2U> percentile95;
-    ::coder::array<double, 2U> percentile65;
-    ::coder::array<double, 2U> mean;
+    ::coder::array<cell_wrap_7, 1U> reflectivity;
+    ::coder::array<cell_wrap_7, 1U> simulation;
+    ::coder::array<cell_wrap_8, 1U> shiftedData;
+    ::coder::array<cell_wrap_8, 1U> backgrounds;
+    ::coder::array<cell_wrap_7, 1U> resolutions;
+    ::coder::array<cell_wrap_7, 2U> sldProfiles;
+    ::coder::array<cell_wrap_9, 2U> layers;
+    ::coder::array<cell_wrap_9, 2U> resampledLayers;
+    CalculationResults calculationResults;
+    ContrastParams contrastParams;
+    ::coder::array<double, 2U> fitParams;
+    ::coder::array<cell_wrap_10, 1U> fitNames;
   };
 
   struct cell_wrap_3
   {
     ::coder::bounded_array<double, 5U, 2U> f1;
-  };
-
-  struct cell_wrap_0
-  {
-    ::coder::bounded_array<char, 10000U, 2U> f1;
   };
 
   struct cell_wrap_4
@@ -243,20 +261,18 @@ namespace RAT
     CheckFlags checks;
   };
 
-  struct Results
+  struct PredictionIntervals
   {
-    ::coder::array<cell_wrap_7, 1U> reflectivity;
-    ::coder::array<cell_wrap_7, 1U> simulation;
-    ::coder::array<cell_wrap_8, 1U> shiftedData;
-    ::coder::array<cell_wrap_8, 1U> backgrounds;
-    ::coder::array<cell_wrap_7, 1U> resolutions;
-    ::coder::array<cell_wrap_9, 2U> sldProfiles;
-    ::coder::array<cell_wrap_9, 2U> layers;
-    ::coder::array<cell_wrap_9, 2U> resampledLayers;
-    CalculationResults calculationResults;
-    ContrastParams contrastParams;
-    ::coder::array<double, 2U> fitParams;
-    ::coder::array<cell_wrap_10, 1U> fitNames;
+    ::coder::array<cell_wrap_11, 1U> reflectivity;
+    ::coder::array<cell_wrap_11, 2U> sld;
+    ::coder::bounded_array<double, 1000U, 1U> sampleChi;
+  };
+
+  struct ConfidenceIntervals
+  {
+    ::coder::array<double, 2U> percentile95;
+    ::coder::array<double, 2U> percentile65;
+    ::coder::array<double, 2U> mean;
   };
 
   struct NestedSamplerOutput

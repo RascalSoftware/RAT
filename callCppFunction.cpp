@@ -24,20 +24,20 @@
 namespace RAT
 {
   double b_callCppFunction(const char pointer_data[], const int pointer_size[2],
-    const ::coder::array<double, 2U> &varargin_1, double varargin_2, const ::
-    coder::array<double, 1U> &varargin_3, double varargin_4, ::coder::array<
-    double, 2U> &output)
+    const ::coder::array<double, 2U> &varargin_1, const ::coder::array<double,
+    1U> &varargin_2, const ::coder::array<double, 1U> &varargin_3, double
+    varargin_4, ::coder::array<double, 2U> &output)
   {
     CallbackInterface * callback;
     ClassHandle<CallbackInterface> * callbackHandle;
     std::vector<double> outArray;
     ::coder::array<double, 2U> params;
     ::coder::array<double, 2U> tempOutput;
+    ::coder::array<double, 1U> bulkIn;
     ::coder::array<double, 1U> bulkOut;
     ::coder::array<char, 2U> charStr;
     double outputSize[2];
     double actualSize;
-    double bulkIn;
     double d;
     double varargout_1;
     int i;
@@ -65,7 +65,12 @@ namespace RAT
       params[i] = varargin_1[i];
     }
 
-    bulkIn = varargin_2;
+    bulkIn.set_size(varargin_2.size(0));
+    loop_ub = varargin_2.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      bulkIn[i] = varargin_2[i];
+    }
+
     bulkOut.set_size(varargin_3.size(0));
     loop_ub = varargin_3.size(0);
     for (i = 0; i < loop_ub; i++) {
@@ -77,7 +82,8 @@ namespace RAT
     std::vector<double> paramsArray;
     paramsArray = convertPtr2Vector(&params[0], static_cast<double>
       (varargin_1.size(1)));
-    bulkInArray = convertPtr2Vector(&bulkIn, 1.0);
+    bulkInArray = convertPtr2Vector(&(bulkIn.data())[0], static_cast<double>
+      (varargin_2.size(0)));
     bulkOutArray = convertPtr2Vector(&(bulkOut.data())[0], static_cast<double>
       (varargin_3.size(0)));
 
@@ -136,20 +142,20 @@ namespace RAT
   }
 
   double c_callCppFunction(const char pointer_data[], const int pointer_size[2],
-    const ::coder::array<double, 2U> &varargin_1, double varargin_2, const ::
-    coder::array<double, 1U> &varargin_3, double varargin_4, ::coder::array<
-    double, 2U> &output)
+    const ::coder::array<double, 2U> &varargin_1, const ::coder::array<double,
+    1U> &varargin_2, const ::coder::array<double, 1U> &varargin_3, double
+    varargin_4, ::coder::array<double, 2U> &output)
   {
     CallbackInterface * callback;
     ClassHandle<CallbackInterface> * callbackHandle;
     std::vector<double> outArray;
     ::coder::array<double, 2U> params;
     ::coder::array<double, 2U> tempOutput;
+    ::coder::array<double, 1U> bulkIn;
     ::coder::array<double, 1U> bulkOut;
     ::coder::array<char, 2U> charStr;
     double outputSize[2];
     double actualSize;
-    double bulkIn;
     double d;
     double varargout_1;
     int i;
@@ -177,7 +183,12 @@ namespace RAT
       params[i] = varargin_1[i];
     }
 
-    bulkIn = varargin_2;
+    bulkIn.set_size(varargin_2.size(0));
+    loop_ub = varargin_2.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      bulkIn[i] = varargin_2[i];
+    }
+
     bulkOut.set_size(varargin_3.size(0));
     loop_ub = varargin_3.size(0);
     for (i = 0; i < loop_ub; i++) {
@@ -189,7 +200,8 @@ namespace RAT
     std::vector<double> paramsArray;
     paramsArray = convertPtr2Vector(&params[0], static_cast<double>
       (varargin_1.size(1)));
-    bulkInArray = convertPtr2Vector(&bulkIn, 1.0);
+    bulkInArray = convertPtr2Vector(&(bulkIn.data())[0], static_cast<double>
+      (varargin_2.size(0)));
     bulkOutArray = convertPtr2Vector(&(bulkOut.data())[0], static_cast<double>
       (varargin_3.size(0)));
 
@@ -248,20 +260,20 @@ namespace RAT
   }
 
   double callCppFunction(const char pointer_data[], const int pointer_size[2],
-    const ::coder::array<double, 2U> &varargin_1, double varargin_2, const ::
-    coder::array<double, 1U> &varargin_3, double varargin_4, ::coder::array<
-    double, 2U> &output)
+    const ::coder::array<double, 2U> &varargin_1, const ::coder::array<double,
+    1U> &varargin_2, const ::coder::array<double, 1U> &varargin_3, double
+    varargin_4, ::coder::array<double, 2U> &output)
   {
     CallbackInterface * callback;
     ClassHandle<CallbackInterface> * callbackHandle;
     std::vector<double> outArray;
     ::coder::array<double, 2U> params;
     ::coder::array<double, 2U> tempOutput;
+    ::coder::array<double, 1U> bulkIn;
     ::coder::array<double, 1U> bulkOut;
     ::coder::array<char, 2U> charStr;
     double outputSize[2];
     double actualSize;
-    double bulkIn;
     double d;
     double varargout_1;
     int i;
@@ -289,7 +301,12 @@ namespace RAT
       params[i] = varargin_1[i];
     }
 
-    bulkIn = varargin_2;
+    bulkIn.set_size(varargin_2.size(0));
+    loop_ub = varargin_2.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      bulkIn[i] = varargin_2[i];
+    }
+
     bulkOut.set_size(varargin_3.size(0));
     loop_ub = varargin_3.size(0);
     for (i = 0; i < loop_ub; i++) {
@@ -301,7 +318,8 @@ namespace RAT
     std::vector<double> paramsArray;
     paramsArray = convertPtr2Vector(&params[0], static_cast<double>
       (varargin_1.size(1)));
-    bulkInArray = convertPtr2Vector(&bulkIn, 1.0);
+    bulkInArray = convertPtr2Vector(&(bulkIn.data())[0], static_cast<double>
+      (varargin_2.size(0)));
     bulkOutArray = convertPtr2Vector(&(bulkOut.data())[0], static_cast<double>
       (varargin_3.size(0)));
 

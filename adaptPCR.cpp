@@ -27,7 +27,7 @@ namespace RAT
     ::coder::array<double, 2U> y;
     ::coder::array<int, 1U> r;
     ::coder::array<boolean_T, 1U> c_CR;
-    double b_zz;
+    double d;
     int b_CR;
 
     //  Update the probabilities of the various crossover values.
@@ -58,6 +58,8 @@ namespace RAT
     y.set_size(1, 3);
     b_CR = CR.size(0) * CR.size(1);
     for (int zz{0}; zz < 3; zz++) {
+      double b_zz;
+
       //  Determine how many times a particular CR value is used
       //  This is used to weight delta_tot
       b_zz = (static_cast<double>(zz) + 1.0) / 3.0;
@@ -67,18 +69,18 @@ namespace RAT
       }
 
       coder::eml_find(c_CR, r);
-      b_zz = lCRold_data[zz] + static_cast<double>(r.size(0));
-      lCR_data[zz] = b_zz;
-      y[zz] = DREAMPar.nChains * (delta_tot_data[zz] / b_zz);
+      d = lCRold_data[zz] + static_cast<double>(r.size(0));
+      lCR_data[zz] = d;
+      y[zz] = DREAMPar.nChains * (delta_tot_data[zz] / d);
     }
 
     //  / sum(delta_tot);
     //  Normalize pCR so that selection probabilities add up to 1
-    b_zz = coder::sum(y);
+    d = coder::sum(y);
     pCR_size[0] = 1;
     pCR_size[1] = 3;
     for (int i{0}; i < 3; i++) {
-      pCR_data[i] = y[i] / b_zz;
+      pCR_data[i] = y[i] / d;
     }
   }
 }

@@ -83,7 +83,7 @@ namespace RAT
                     static_cast<int>(d) - 1].f1)->size())[1];
           subRoughs[b_i] = b_callCppFunction((const char *)((::coder::array<char,
             2U> *)&customFiles[static_cast<int>(d) - 1].f1)->data(), iv,
-            paramValues, bulkIns[b_i], bulkOuts, static_cast<double>(b_i) + 1.0,
+            paramValues, bulkIns, bulkOuts, static_cast<double>(b_i) + 1.0,
             output1);
           loop_ub = output1.size(1);
           b_output1.set_size(output1.size(0), output1.size(1));
@@ -103,7 +103,7 @@ namespace RAT
             [1];
           c_callCppFunction((const char *)((::coder::array<char, 2U> *)
             &customFiles[static_cast<int>(contrastCustomFiles[b_i]) - 1].f1)
-                            ->data(), iv, paramValues, bulkIns[b_i], bulkOuts,
+                            ->data(), iv, paramValues, bulkIns, bulkOuts,
                             static_cast<double>(b_i) + 1.0, output1);
         }
 
@@ -356,7 +356,7 @@ namespace RAT
                     static_cast<int>(d) - 1].f1)->size())[1];
           subRoughs[b_i] = b_callCppFunction((const char *)((::coder::array<char,
             2U> *)&customFiles[static_cast<int>(d) - 1].f1)->data(), iv,
-            paramValues, bulkIns[b_i], bulkOuts, static_cast<double>(b_i) + 1.0,
+            paramValues, bulkIns, bulkOuts, static_cast<double>(b_i) + 1.0,
             output1);
           loop_ub = output1.size(1);
           b_output1.set_size(output1.size(0), output1.size(1));
@@ -376,7 +376,7 @@ namespace RAT
             [1];
           c_callCppFunction((const char *)((::coder::array<char, 2U> *)
             &customFiles[static_cast<int>(contrastCustomFiles[b_i]) - 1].f1)
-                            ->data(), iv, paramValues, bulkIns[b_i], bulkOuts,
+                            ->data(), iv, paramValues, bulkIns, bulkOuts,
                             static_cast<double>(b_i) + 1.0, output1);
         }
 

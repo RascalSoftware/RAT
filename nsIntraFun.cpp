@@ -45,7 +45,7 @@ namespace RAT
     }
 
     unpackParams(problemStruct);
-    reflectivityCalculation(problemStruct, data_f2, expl_temp);
+    b_reflectivityCalculation(problemStruct, &data_f2, expl_temp);
     return -0.5 * expl_temp.calculationResults.sumChi;
   }
 }

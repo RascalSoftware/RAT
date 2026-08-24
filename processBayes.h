@@ -22,6 +22,7 @@ namespace RAT
   struct ProblemDefinition;
   struct b_struct_T;
   struct i_struct_T;
+  struct Controls;
 }
 
 // Function Declarations
@@ -37,10 +38,7 @@ namespace RAT
                     b_struct_T &result, i_struct_T &bayesResults);
   void processBayes(const ::coder::array<double, 2U> &bayesOutputs_bestParams,
                     const ::coder::array<double, 2U> &bayesOutputs_chain,
-                    ProblemDefinition &problemStruct, const char
-                    controls_parallel_data[], const int controls_parallel_size[2],
-                    double controls_numSimulationPoints, double
-                    controls_resampleMinAngle, double controls_resampleNPoints,
+                    ProblemDefinition &problemStruct, Controls &controls,
                     b_struct_T &result, i_struct_T &bayesResults);
 }
 

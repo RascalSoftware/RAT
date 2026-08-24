@@ -20,8 +20,8 @@
 namespace RAT
 {
   void calcLogLikelihood(const ::coder::array<double, 2U> &x, const DreamParams
-    &DREAMPar, const ProblemDefinition &ratInputs_problemStruct, const Controls
-    &ratInputs_controls, ::coder::array<double, 1U> &log_L_x)
+    &DREAMPar, const ProblemDefinition &ratInputs_problemStruct, const Controls *
+    ratInputs_controls, ::coder::array<double, 1U> &log_L_x)
   {
     ::coder::array<double, 2U> b_x;
     int loop_ub_tmp;

@@ -12,14 +12,46 @@
 #include "callReflectivity.h"
 #include "abelesParallelPoints.h"
 #include "abelesSingle.h"
-#include "resolutionPolly.h"
+#include "gaussianConvolution.h"
 #include "rt_nonfinite.h"
 #include "strcmp.h"
 #include "coder_array.h"
 
+// Function Declarations
+namespace RAT
+{
+  static void binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
+    array<double, 1U> &in2, const ::coder::array<double, 1U> &in3, const ::coder::
+    array<double, 2U> &in4);
+}
+
 // Function Definitions
 namespace RAT
 {
+  static void binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
+    array<double, 1U> &in2, const ::coder::array<double, 1U> &in3, const ::coder::
+    array<double, 2U> &in4)
+  {
+    ::coder::array<double, 1U> b_in4;
+    int loop_ub;
+    int stride_0_0;
+    int stride_1_0;
+    if (in2.size(0) == 1) {
+      loop_ub = in4.size(0);
+    } else {
+      loop_ub = in2.size(0);
+    }
+
+    b_in4.set_size(loop_ub);
+    stride_0_0 = (in4.size(0) != 1);
+    stride_1_0 = (in2.size(0) != 1);
+    for (int i{0}; i < loop_ub; i++) {
+      b_in4[i] = in4[i * stride_0_0 + in4.size(0)] * in2[i * stride_1_0];
+    }
+
+    gaussianConvolution(in2, in3, in2, b_in4, in1);
+  }
+
   void callReflectivity(double bulkIn, double bulkOut, const ::coder::array<
                         double, 1U> &simulationXData, const double dataIndices[2],
                         double nRepeats, ::coder::array<double, 2U> &layers,
@@ -125,14 +157,19 @@ namespace RAT
     }
 
     //  Apply resolution correction
-    b_resolution.set_size(resolution.size(0));
-    loop_ub_tmp = resolution.size(0);
-    for (i = 0; i < loop_ub_tmp; i++) {
-      b_resolution[i] = resolution[i + resolution.size(0)];
+    if (resolution.size(0) == simulationXData.size(0)) {
+      b_resolution.set_size(resolution.size(0));
+      loop_ub_tmp = resolution.size(0);
+      for (i = 0; i < loop_ub_tmp; i++) {
+        b_resolution[i] = resolution[i + resolution.size(0)] * simulationXData[i];
+      }
+
+      gaussianConvolution(simulationXData, simRef, simulationXData, b_resolution,
+                          r);
+    } else {
+      binary_expand_op(r, simulationXData, simRef, resolution);
     }
 
-    resolutionPolly(simulationXData, simRef, b_resolution, static_cast<double>
-                    (simulationXData.size(0)), r);
     loop_ub_tmp = simulation.size(0);
     for (i = 0; i < loop_ub_tmp; i++) {
       simulation[i + simulation.size(0)] = r[i];
@@ -249,14 +286,19 @@ namespace RAT
     }
 
     //  Apply resolution correction
-    b_resolution.set_size(resolution.size(0));
-    loop_ub_tmp = resolution.size(0);
-    for (i = 0; i < loop_ub_tmp; i++) {
-      b_resolution[i] = resolution[i + resolution.size(0)];
+    if (resolution.size(0) == simulationXData.size(0)) {
+      b_resolution.set_size(resolution.size(0));
+      loop_ub_tmp = resolution.size(0);
+      for (i = 0; i < loop_ub_tmp; i++) {
+        b_resolution[i] = resolution[i + resolution.size(0)] * simulationXData[i];
+      }
+
+      gaussianConvolution(simulationXData, simRef, simulationXData, b_resolution,
+                          r);
+    } else {
+      binary_expand_op(r, simulationXData, simRef, resolution);
     }
 
-    resolutionPolly(simulationXData, simRef, b_resolution, static_cast<double>
-                    (simulationXData.size(0)), r);
     loop_ub_tmp = simulation.size(0);
     for (i = 0; i < loop_ub_tmp; i++) {
       simulation[i + simulation.size(0)] = r[i];

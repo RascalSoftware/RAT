@@ -346,7 +346,7 @@ namespace RAT
              &paramInfo_min, const ::coder::array<double, 2U> &paramInfo_max,
              const char paramInfo_boundhandling_data[], const int
              paramInfo_boundhandling_size[2], const ProblemDefinition &
-             ratInputs_problemStruct, const Controls &ratInputs_controls, const ::
+             ratInputs_problemStruct, const Controls *ratInputs_controls, const ::
              coder::array<double, 2U> &ratInputs_priors, ::coder::array<double,
              3U> &chain, c_struct_T &output, ::coder::array<double, 2U> &log_L)
   {
@@ -537,8 +537,8 @@ namespace RAT
     DREAMPar.CPU = 1.0;
 
     //  Now print to screen all the settings
-    b = !coder::internal::d_strcmp(ratInputs_controls.display.data,
-      ratInputs_controls.display.size);
+    b = !coder::internal::d_strcmp(ratInputs_controls->display.data,
+      ratInputs_controls->display.size);
     if (b) {
       printParameters(DREAMPar);
     }
@@ -975,8 +975,8 @@ namespace RAT
           totaccept = 0.0;
         }
 
-        b_loop_ub = isRATStopped(ratInputs_controls.IPCFilePath.data,
-          ratInputs_controls.IPCFilePath.size, (boolean_T *)&tmp_data);
+        b_loop_ub = isRATStopped(ratInputs_controls->IPCFilePath.data,
+          ratInputs_controls->IPCFilePath.size, (boolean_T *)&tmp_data);
         b_tmp_data.set(&tmp_data, b_loop_ub);
         if (coder::internal::ifWhileCond(b_tmp_data)) {
           if (b) {

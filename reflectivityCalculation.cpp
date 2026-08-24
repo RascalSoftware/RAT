@@ -26,7 +26,7 @@
 // Function Definitions
 namespace RAT
 {
-  void reflectivityCalculation(const ProblemDefinition &problemStruct, const
+  void b_reflectivityCalculation(const ProblemDefinition &problemStruct, const
     Controls *controls, b_struct_T &result)
   {
     ::coder::array<cell_wrap_7, 2U> sldProfiles;
@@ -76,12 +76,12 @@ namespace RAT
 
     switch (b_index) {
      case 0:
-      normalTF::normalReflectivity(problemStruct, controls, result.reflectivity,
-        result.simulation, result.shiftedData, result.backgrounds,
-        result.resolutions, sldProfiles, layers, resampledLayers, a__1,
-        result.contrastParams.scalefactors, result.contrastParams.bulkIn,
-        result.contrastParams.bulkOut, result.contrastParams.subRoughs,
-        result.calculationResults.chiValues);
+      normalTF::b_normalReflectivity(problemStruct, controls,
+        result.reflectivity, result.simulation, result.shiftedData,
+        result.backgrounds, result.resolutions, sldProfiles, layers,
+        resampledLayers, a__1, result.contrastParams.scalefactors,
+        result.contrastParams.bulkIn, result.contrastParams.bulkOut,
+        result.contrastParams.subRoughs, result.calculationResults.chiValues);
       result.sldProfiles.set_size(sldProfiles.size(0), 1);
       b_index = sldProfiles.size(0);
       for (int i{0}; i < b_index; i++) {
@@ -105,7 +105,7 @@ namespace RAT
       {
         int b_loop_ub;
         int loop_ub;
-        domainsTF::domainsReflectivity(problemStruct, controls,
+        domainsTF::b_domainsReflectivity(problemStruct, controls,
           result.reflectivity, result.simulation, result.shiftedData,
           result.backgrounds, result.resolutions, sldProfiles, layers,
           resampledLayers, a__2, result.contrastParams.scalefactors,
@@ -176,7 +176,7 @@ namespace RAT
   }
 
   void reflectivityCalculation(const ProblemDefinition &problemStruct, const
-    Controls &controls, b_struct_T &result)
+    Controls *controls, b_struct_T &result)
   {
     ::coder::array<cell_wrap_7, 2U> sldProfiles;
     ::coder::array<cell_wrap_9, 2U> layers;

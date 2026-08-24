@@ -11,6 +11,7 @@
 // Include files
 #include "erfinv.h"
 #include "eml_erfcore.h"
+#include "erf.h"
 #include "rt_nonfinite.h"
 #include <cmath>
 
@@ -60,9 +61,9 @@ namespace RAT
             x));
           x -= z / (x * z + 1.0);
         } else {
-          z = (b_eml_erfcore(x) - y) / (1.1283791670955126 * std::exp(-x * x));
+          z = (b_erf(x) - y) / (1.1283791670955126 * std::exp(-x * x));
           x -= z / (x * z + 1.0);
-          z = (b_eml_erfcore(x) - y) / (1.1283791670955126 * std::exp(-x * x));
+          z = (b_erf(x) - y) / (1.1283791670955126 * std::exp(-x * x));
           x -= z / (x * z + 1.0);
         }
       }

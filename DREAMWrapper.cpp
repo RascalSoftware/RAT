@@ -22,7 +22,7 @@ namespace RAT
 {
   double DREAMWrapper(const ::coder::array<double, 2U> &pars, const
                       ProblemDefinition &ratInputs_problemStruct, const Controls
-                      &ratInputs_controls)
+                      *ratInputs_controls)
   {
     ProblemDefinition problemStruct;
     b_struct_T expl_temp;
@@ -56,7 +56,7 @@ namespace RAT
     unpackParams(problemStruct);
 
     //  Calculate....
-    reflectivityCalculation(problemStruct, ratInputs_controls, expl_temp);
+    b_reflectivityCalculation(problemStruct, ratInputs_controls, expl_temp);
 
     //  Function value is chi-squared....
     return -0.5 * expl_temp.calculationResults.sumChi;

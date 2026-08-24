@@ -232,7 +232,7 @@ namespace RAT
 
     //  Ensure SLD is calculated for final result
     controls.calcSLD = true;
-    reflectivityCalculation(problemStruct, controls, result);
+    b_reflectivityCalculation(problemStruct, &controls, result);
   }
 }
 

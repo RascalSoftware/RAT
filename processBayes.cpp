@@ -83,7 +83,7 @@ namespace RAT
                 &expl_temp.parallel.data[0]);
     }
 
-    reflectivityCalculation(problemStruct, expl_temp, result);
+    b_reflectivityCalculation(problemStruct, &expl_temp, result);
 
     //  2. Reflectivity and SLD shading
     b_problemStruct = problemStruct;
@@ -101,14 +101,9 @@ namespace RAT
 
   void processBayes(const ::coder::array<double, 2U> &bayesOutputs_bestParams,
                     const ::coder::array<double, 2U> &bayesOutputs_chain,
-                    ProblemDefinition &problemStruct, const char
-                    controls_parallel_data[], const int controls_parallel_size[2],
-                    double controls_numSimulationPoints, double
-                    controls_resampleMinAngle, double controls_resampleNPoints,
+                    ProblemDefinition &problemStruct, Controls &controls,
                     b_struct_T &result, i_struct_T &bayesResults)
   {
-    static Controls expl_temp;
-    ProblemDefinition b_problemStruct;
     int loop_ub;
 
     //  Process the output of a Bayesian optimisation.
@@ -131,6 +126,8 @@ namespace RAT
     //  bayesResults : struct
     //      The Bayesian-specific results from the optimisation.
     //  Need to impose that we calculate the SLD
+    controls.calcSLD = true;
+
     //  ... and use the Bayes best params
     problemStruct.fitParams.set_size(1, bayesOutputs_bestParams.size(1));
     loop_ub = bayesOutputs_bestParams.size(1);
@@ -138,6 +135,7 @@ namespace RAT
       problemStruct.fitParams[i] = bayesOutputs_bestParams[i];
     }
 
+    ProblemDefinition b_problemStruct;
     unpackParams(problemStruct);
     percentileConfidenceIntervals(bayesOutputs_chain,
       bayesResults.confidenceIntervals.percentile95,
@@ -145,26 +143,12 @@ namespace RAT
       bayesResults.confidenceIntervals.mean);
 
     //  Calculate 'mean' best fit curves
-    expl_temp.calcSLD = true;
-    expl_temp.resampleNPoints = controls_resampleNPoints;
-    expl_temp.resampleMinAngle = controls_resampleMinAngle;
-    expl_temp.numSimulationPoints = controls_numSimulationPoints;
-    expl_temp.parallel.size[0] = 1;
-    expl_temp.parallel.size[1] = controls_parallel_size[1];
-    loop_ub = controls_parallel_size[1];
-    if (loop_ub - 1 >= 0) {
-      std::copy(&controls_parallel_data[0], &controls_parallel_data[loop_ub],
-                &expl_temp.parallel.data[0]);
-    }
-
-    reflectivityCalculation(problemStruct, expl_temp, result);
+    b_reflectivityCalculation(problemStruct, &controls, result);
 
     //  2. Reflectivity and SLD shading
     b_problemStruct = problemStruct;
     refPercentileConfidenceIntervals(bayesOutputs_chain, b_problemStruct,
-      controls_parallel_data, controls_parallel_size,
-      controls_numSimulationPoints, controls_resampleMinAngle,
-      controls_resampleNPoints, result.reflectivity, result.sldProfiles,
+      controls, result.reflectivity, result.sldProfiles,
       bayesResults.predictionIntervals.reflectivity,
       bayesResults.predictionIntervals.sld,
       bayesResults.predictionIntervals.sampleChi);

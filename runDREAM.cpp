@@ -32,22 +32,11 @@
 // Function Definitions
 namespace RAT
 {
-  void runDREAM(ProblemDefinition &problemStruct, const char
-                controls_parallel_data[], const int controls_parallel_size[2],
-                double controls_numSimulationPoints, double
-                controls_resampleMinAngle, double controls_resampleNPoints,
-                const char controls_display_data[], const int
-                controls_display_size[2], double controls_nSamples, double
-                controls_nChains, double controls_jumpProbability, double
-                controls_pUnitGamma, const char controls_boundHandling_data[],
-                const int controls_boundHandling_size[2], boolean_T
-                controls_adaptPCR, boolean_T controls_calcSLD, const char
-                controls_IPCFilePath_data[], const int
-                controls_IPCFilePath_size[2], ::coder::array<cell_wrap_7, 1U>
-                &result_reflectivity, ::coder::array<cell_wrap_7, 1U>
-                &result_simulation, ::coder::array<cell_wrap_8, 1U>
-                &result_shiftedData, ::coder::array<cell_wrap_8, 1U>
-                &result_backgrounds, ::coder::array<cell_wrap_7, 1U>
+  void runDREAM(ProblemDefinition &problemStruct, const Controls *controls, ::
+                coder::array<cell_wrap_7, 1U> &result_reflectivity, ::coder::
+                array<cell_wrap_7, 1U> &result_simulation, ::coder::array<
+                cell_wrap_8, 1U> &result_shiftedData, ::coder::array<cell_wrap_8,
+                1U> &result_backgrounds, ::coder::array<cell_wrap_7, 1U>
                 &result_resolutions, ::coder::array<cell_wrap_9, 2U>
                 &result_sldProfiles, ::coder::array<cell_wrap_9, 2U>
                 &result_layers, ::coder::array<cell_wrap_9, 2U>
@@ -56,7 +45,7 @@ namespace RAT
                 &result_fitNames, e_struct_T &bayesResults, CalculationResults &
                 result_calculationResults, ContrastParams &result_contrastParams)
   {
-    static Controls expl_temp;
+    static Controls b_controls;
     ::coder::array<cell_wrap_10, 1U> fitNames;
     ::coder::array<double, 3U> chain;
     ::coder::array<double, 2U> ParInfo_max;
@@ -101,7 +90,7 @@ namespace RAT
       problemStruct.TF.size);
     bayesResults.predictionIntervals.sampleChi.size[0] =
       makeEmptyBayesResultsStruct(problemStruct.numberOfContrasts, domains,
-      controls_nChains, bayesResults.predictionIntervals.reflectivity,
+      controls->nChains, bayesResults.predictionIntervals.reflectivity,
       bayesResults.predictionIntervals.sld,
       bayesResults.predictionIntervals.sampleChi.data,
       bayesResults.confidenceIntervals.percentile95,
@@ -146,44 +135,15 @@ namespace RAT
     }
 
     //  Run the sampler....
-    expl_temp.IPCFilePath.size[0] = 1;
-    expl_temp.IPCFilePath.size[1] = controls_IPCFilePath_size[1];
-    loop_ub = controls_IPCFilePath_size[1];
-    if (loop_ub - 1 >= 0) {
-      std::copy(&controls_IPCFilePath_data[0],
-                &controls_IPCFilePath_data[loop_ub],
-                &expl_temp.IPCFilePath.data[0]);
-    }
-
-    expl_temp.calcSLD = controls_calcSLD;
-    expl_temp.display.size[0] = 1;
-    expl_temp.display.size[1] = controls_display_size[1];
-    loop_ub = controls_display_size[1];
-    if (loop_ub - 1 >= 0) {
-      std::copy(&controls_display_data[0], &controls_display_data[loop_ub],
-                &expl_temp.display.data[0]);
-    }
-
-    expl_temp.resampleNPoints = controls_resampleNPoints;
-    expl_temp.resampleMinAngle = controls_resampleMinAngle;
-    expl_temp.numSimulationPoints = controls_numSimulationPoints;
-    expl_temp.parallel.size[0] = 1;
-    expl_temp.parallel.size[1] = controls_parallel_size[1];
-    loop_ub = controls_parallel_size[1];
-    if (loop_ub - 1 >= 0) {
-      std::copy(&controls_parallel_data[0], &controls_parallel_data[loop_ub],
-                &expl_temp.parallel.data[0]);
-    }
-
     getFittedPriors(fitNames, problemStruct.priorNames,
                     problemStruct.priorValues, problemStruct.fitLimits, r);
-    DREAM(static_cast<double>(fitNames.size(0)), controls_nChains, std::ceil
-          (controls_nSamples / controls_nChains), controls_jumpProbability,
-          controls_pUnitGamma, controls_adaptPCR, ParInfo_min, ParInfo_max,
-          controls_boundHandling_data, controls_boundHandling_size,
-          problemStruct, expl_temp, r, chain, dreamOutput, a__1);
-    loop_ub = isRATStopped(controls_IPCFilePath_data, controls_IPCFilePath_size,
-      (boolean_T *)&tmp_data);
+    DREAM(static_cast<double>(fitNames.size(0)), controls->nChains, std::ceil
+          (controls->nSamples / controls->nChains), controls->jumpProbability,
+          controls->pUnitGamma, controls->adaptPCR, ParInfo_min, ParInfo_max,
+          controls->boundHandling.data, controls->boundHandling.size,
+          problemStruct, controls, r, chain, dreamOutput, a__1);
+    loop_ub = isRATStopped(controls->IPCFilePath.data,
+      controls->IPCFilePath.size, (boolean_T *)&tmp_data);
     b_tmp_data.set(&tmp_data, loop_ub);
     if (coder::internal::ifWhileCond(b_tmp_data)) {
       makeEmptyResultStruct(problemStruct.numberOfContrasts, static_cast<double>
@@ -199,8 +159,8 @@ namespace RAT
 
       //  Combine all chains....
       bayesResults.chain.set_size(0, 0);
-      i = static_cast<int>(controls_nChains);
-      if (static_cast<int>(controls_nChains) - 1 >= 0) {
+      i = static_cast<int>(controls->nChains);
+      if (static_cast<int>(controls->nChains) - 1 >= 0) {
         int cutoff;
         if (fitNames.size(0) < 1) {
           b_loop_ub = 0;
@@ -290,9 +250,8 @@ namespace RAT
       }
 
       coder::mean(bayesResults.chain, r1);
-      processBayes(r1, bayesResults.chain, problemStruct, controls_parallel_data,
-                   controls_parallel_size, controls_numSimulationPoints,
-                   controls_resampleMinAngle, controls_resampleNPoints, result,
+      b_controls = *controls;
+      processBayes(r1, bayesResults.chain, problemStruct, b_controls, result,
                    dreamResults);
       cast(result, result_reflectivity, result_simulation, result_shiftedData,
            result_backgrounds, result_resolutions, result_sldProfiles,

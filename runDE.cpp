@@ -56,7 +56,7 @@ namespace RAT
                 &expl_temp.parallel.data[0]);
     }
 
-    reflectivityCalculation(problemStruct, expl_temp, result);
+    b_reflectivityCalculation(problemStruct, &expl_temp, result);
 
     // no constraints                 THESE FIRST FEW VALS MAY BE WRONG
     // no constraint array
@@ -205,7 +205,7 @@ namespace RAT
 
     //  Ensure SLD is calculated for final result
     controls.calcSLD = true;
-    reflectivityCalculation(problemStruct, controls, result);
+    b_reflectivityCalculation(problemStruct, &controls, result);
     if (!coder::internal::d_strcmp(controls.display.data, controls.display.size))
     {
       coder::snPrint(result.calculationResults.sumChi, charStr);

@@ -23,6 +23,7 @@ namespace RAT
   {
     void b_erf(const ::coder::array<double, 2U> &x, ::coder::array<double, 2U>
                &y);
+    double b_erf(double x);
   }
 }
 

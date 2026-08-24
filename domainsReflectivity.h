@@ -28,7 +28,7 @@ namespace RAT
 {
   namespace domainsTF
   {
-    void domainsReflectivity(const ProblemDefinition &problemStruct, const
+    void b_domainsReflectivity(const ProblemDefinition &problemStruct, const
       Controls *controls, ::coder::array<cell_wrap_7, 1U> &reflectivity, ::coder::
       array<cell_wrap_7, 1U> &simulation, ::coder::array<cell_wrap_8, 1U>
       &shiftedData, ::coder::array<cell_wrap_8, 1U> &backgrounds, ::coder::array<
@@ -39,7 +39,7 @@ namespace RAT
       &bulkIns, ::coder::array<double, 1U> &bulkOuts, ::coder::array<double, 1U>
       &subRoughs, ::coder::array<double, 1U> &chis);
     void domainsReflectivity(const ProblemDefinition &problemStruct, const
-      Controls &controls, ::coder::array<cell_wrap_7, 1U> &reflectivity, ::coder::
+      Controls *controls, ::coder::array<cell_wrap_7, 1U> &reflectivity, ::coder::
       array<cell_wrap_7, 1U> &simulation, ::coder::array<cell_wrap_8, 1U>
       &shiftedData, ::coder::array<cell_wrap_8, 1U> &backgrounds, ::coder::array<
       cell_wrap_7, 1U> &resolutions, ::coder::array<cell_wrap_7, 2U>

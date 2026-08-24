@@ -20,7 +20,6 @@ namespace RAT
 {
   namespace coder
   {
-    double b_eml_erfcore(double x);
     double eml_erfcore(double x);
     double scalar_erf(double x);
   }

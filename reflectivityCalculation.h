@@ -26,10 +26,10 @@ namespace RAT
 // Function Declarations
 namespace RAT
 {
-  void reflectivityCalculation(const ProblemDefinition &problemStruct, const
+  void b_reflectivityCalculation(const ProblemDefinition &problemStruct, const
     Controls *controls, b_struct_T &result);
   void reflectivityCalculation(const ProblemDefinition &problemStruct, const
-    Controls &controls, b_struct_T &result);
+    Controls *controls, b_struct_T &result);
 }
 
 #endif

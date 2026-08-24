@@ -903,10 +903,18 @@ namespace RAT
           }
 
           cast(problemStruct, b_problemStruct);
-          runDREAM(b_problemStruct, controls, results->reflectivity,
-                   results->simulation, results->shiftedData,
-                   results->backgrounds, results->resolutions,
-                   results->sldProfiles, results->layers,
+          runDREAM(b_problemStruct, controls->parallel.data,
+                   controls->parallel.size, controls->numSimulationPoints,
+                   controls->resampleMinAngle, controls->resampleNPoints,
+                   controls->display.data, controls->display.size,
+                   controls->nSamples, controls->nChains,
+                   controls->jumpProbability, controls->pUnitGamma,
+                   controls->boundHandling.data, controls->boundHandling.size,
+                   controls->adaptPCR, controls->calcSLD,
+                   controls->IPCFilePath.data, controls->IPCFilePath.size,
+                   results->reflectivity, results->simulation,
+                   results->shiftedData, results->backgrounds,
+                   results->resolutions, results->sldProfiles, results->layers,
                    results->resampledLayers, results->fitParams,
                    results->fitNames, b_bayesResults,
                    results->calculationResults, results->contrastParams);

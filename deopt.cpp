@@ -1261,7 +1261,7 @@ namespace RAT
         FVr_bestmem[i] = problem.params[i];
       }
     } else {
-      if (coder::internal::cb_strcmp(controls_display_data,
+      if (coder::internal::bb_strcmp(controls_display_data,
            controls_display_size)) {
         //  This should ensure the first result is printed.
         coder::internal::validate_print_arguments(0.0, S_bestval_FVr_oa,
@@ -1993,7 +1993,7 @@ namespace RAT
       //  iteration. This is needed for some of the strategies.
       // ----Output section----------------------------------------------------------
       if (((rt_remd_snf(I_iter, 1.0) == 0.0) || (I_iter == 1.0)) && coder::
-          internal::cb_strcmp(controls_display_data, controls_display_size) &&
+          internal::bb_strcmp(controls_display_data, controls_display_size) &&
           (rt_remd_snf(I_iter, controls_updateFreq) == 0.0)) {
         coder::internal::validate_print_arguments(I_iter, S_bestval_FVr_oa,
           fWeight, F_CR, I_NP, validatedHoleFilling);
@@ -2051,7 +2051,7 @@ namespace RAT
     }
 
     // ---end while ((I_iter < I_itermax) ...
-    if (coder::internal::cb_strcmp(controls_display_data, controls_display_size)
+    if (coder::internal::bb_strcmp(controls_display_data, controls_display_size)
         && (rt_remd_snf(I_iter - 1.0, controls_updateFreq) != 0.0)) {
       //  This should ensure the final result is printed at the end of a run irrespective of update frequency
       coder::internal::validate_print_arguments(I_iter - 1.0, S_bestval_FVr_oa,

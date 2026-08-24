@@ -35,12 +35,6 @@ namespace RAT
     &results_sldProfiles, ::coder::array<cell_wrap_11, 1U>
     &allPredInts_reflectivity, ::coder::array<cell_wrap_11, 2U> &allPredInts_sld,
     double allPredInts_sampleChi[1000]);
-  void refPercentileConfidenceIntervals(const ::coder::array<double, 2U>
-    &bayesOutputs_chain, ProblemDefinition &problemStruct, const Controls &
-    controls, const ::coder::array<cell_wrap_7, 1U> &results_reflectivity, const
-    ::coder::array<cell_wrap_7, 2U> &results_sldProfiles, ::coder::array<
-    cell_wrap_11, 1U> &allPredInts_reflectivity, ::coder::array<cell_wrap_11, 2U>
-    &allPredInts_sld, double allPredInts_sampleChi[1000]);
 }
 
 #endif

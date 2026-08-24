@@ -148,42 +148,6 @@ namespace RAT
     double fval;
 
     // --------------------------------------------------------------------------
-    //  function [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,x,xOutputfcn,state,iter,...
-    //      numf,how,f,varargin)
-    //  CALLOUTPUTANDPLOTFCNS assigns values to the struct OptimValues and then calls the
-    //  outputfcn/plotfcns.
-    //
-    //  state - can have the values 'init','iter', or 'done'.
-    //  For the 'done' state we do not check the value of 'stop' because the
-    //  optimization is already done.
-    //  optimValues.iteration = iter;
-    //  optimValues.funccount = numf;
-    //  optimValues.fval = f;
-    //  optimValues.procedure = how;
-    //  xOutputfcn(:) = x;  % Set x to have user expected size
-    //  stop = false;
-    //  state = char(state);
-    //  Call output functions
-    //  ---- Remove these from function for compile - AVH
-    //  if ~isempty(outputfcn)
-    //      switch state
-    //          case {'iter','init'}
-    //              stop = callAllOptimOutputFcns(outputfcn,xOutputfcn,optimValues,state,varargin{:}) || stop;
-    //          case 'done'
-    //              callAllOptimOutputFcns(outputfcn,xOutputfcn,optimValues,state,varargin{:});
-    //      end
-    //  end
-    //  % Call plot functions
-    //  if ~isempty(plotfcns)
-    //      switch state
-    //          case {'iter','init'}
-    //              stop = callAllOptimPlotFcns(plotfcns,xOutputfcn,optimValues,state,varargin{:}) || stop;
-    //          case 'done'
-    //              callAllOptimPlotFcns(plotfcns,xOutputfcn,optimValues,state,varargin{:});
-    //      end
-    //  end
-    //  -----------------------------------
-    // --------------------------------------------------------------------------
     fval = optVal;
     output_iterations = iteration;
     output_funcCount = funccount;
@@ -262,38 +226,36 @@ namespace RAT
                     const int varargin_2_IPCFilePath_size[2], const j_struct_T
                     &varargin_3, f_struct_T &output, double &exitflag)
   {
-    static const char cv6[35]{ 'E', 'x', 'i', 't', 'i', 'n', 'g', ':', ' ', 'M',
+    static const char cv5[35]{ 'E', 'x', 'i', 't', 'i', 'n', 'g', ':', ' ', 'M',
       'a', 'x', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'e', 'v', 'a',
       'l', 's', ' ', 'r', 'e', 'a', 'c', 'h', 'e', 'd' };
 
-    static const char cv7[31]{ 'E', 'x', 'i', 't', 'i', 'n', 'g', ':', ' ', 'M',
+    static const char cv6[31]{ 'E', 'x', 'i', 't', 'i', 'n', 'g', ':', ' ', 'M',
       'a', 'x', ' ', 'i', 't', 'e', 'r', 'a', 't', 'i', 'o', 'n', 's', ' ', 'r',
       'e', 'a', 'c', 'h', 'e', 'd' };
 
-    static const char cv12[16]{ 'c', 'o', 'n', 't', 'r', 'a', 'c', 't', ' ', 'o',
+    static const char cv11[16]{ 'c', 'o', 'n', 't', 'r', 'a', 'c', 't', ' ', 'o',
       'u', 't', 's', 'i', 'd', 'e' };
 
-    static const char cv11[15]{ 'c', 'o', 'n', 't', 'r', 'a', 'c', 't', ' ', 'i',
+    static const char cv10[15]{ 'c', 'o', 'n', 't', 'r', 'a', 'c', 't', ' ', 'i',
       'n', 's', 'i', 'd', 'e' };
 
-    static const char cv5[15]{ 'i', 'n', 'i', 't', 'i', 'a', 'l', ' ', 's', 'i',
+    static const char cv4[15]{ 'i', 'n', 'i', 't', 'i', 'a', 'l', ' ', 's', 'i',
       'm', 'p', 'l', 'e', 'x' };
 
-    static const char cv8[7]{ 'r', 'e', 'f', 'l', 'e', 'c', 't' };
+    static const char cv7[7]{ 'r', 'e', 'f', 'l', 'e', 'c', 't' };
 
-    static const char b_cv[6]{ 'n', 'o', 't', 'i', 'f', 'y' };
+    static const char cv8[6]{ 'e', 'x', 'p', 'a', 'n', 'd' };
 
-    static const char cv10[6]{ 's', 'h', 'r', 'i', 'n', 'k' };
+    static const char cv9[6]{ 's', 'h', 'r', 'i', 'n', 'k' };
 
-    static const char cv9[6]{ 'e', 'x', 'p', 'a', 'n', 'd' };
+    static const char b_cv3[5]{ 'f', 'i', 'n', 'a', 'l' };
 
-    static const char cv4[5]{ 'f', 'i', 'n', 'a', 'l' };
+    static const char b_cv[4]{ 'n', 'o', 'n', 'e' };
 
-    static const char b_cv1[4]{ 'n', 'o', 'n', 'e' };
+    static const char b_cv2[4]{ 'i', 't', 'e', 'r' };
 
-    static const char b_cv3[4]{ 'i', 't', 'e', 'r' };
-
-    static const char b_cv2[3]{ 'o', 'f', 'f' };
+    static const char b_cv1[3]{ 'o', 'f', 'f' };
 
     ::coder::array<double, 2U> b_v;
     ::coder::array<double, 2U> c_fv;
@@ -383,13 +345,11 @@ namespace RAT
     if (coder::internal::b_strcmp(dis_data, dis_size, b_cv)) {
       b_index = 0;
     } else if (coder::internal::c_strcmp(dis_data, dis_size, b_cv1)) {
+      b_index = 0;
+    } else if (coder::internal::b_strcmp(dis_data, dis_size, b_cv2)) {
       b_index = 1;
-    } else if (coder::internal::d_strcmp(dis_data, dis_size, b_cv2)) {
-      b_index = 1;
-    } else if (coder::internal::c_strcmp(dis_data, dis_size, b_cv3)) {
+    } else if (coder::internal::d_strcmp(dis_data, dis_size, b_cv3)) {
       b_index = 2;
-    } else if (coder::internal::e_strcmp(dis_data, dis_size, cv4)) {
-      b_index = 3;
     } else {
       b_index = -1;
     }
@@ -397,26 +357,19 @@ namespace RAT
     switch (b_index) {
      case 0:
       //  Changed from TMW fminsearch
-      prnt = 1;
-      break;
-
-     case 1:
       prnt = 0;
       break;
 
-     case 2:
-      prnt = 3;
+     case 1:
+      prnt = 2;
       break;
 
-     case 3:
-      prnt = 2;
-
-      //      case 'simplex'
-      //          prnt = 4;
+     case 2:
+      prnt = 1;
       break;
 
      default:
-      prnt = 1;
+      prnt = 2;
       break;
     }
 
@@ -459,46 +412,11 @@ namespace RAT
     controls_calcSLD = false;
 
     //  Initial simplex setup continues later
-    //  Initialize the output and plot functions.
-    //
-    //  ----------------------------------------
-    //  RAT doesn't use output or plot functions...
-    //
-    //  --------------------- AVH -----------
-    //  if haveoutputfcn || haveplotfcn
-    //      [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,v(:,1),xOutputfcn,'init',itercount, ...
-    //          func_evals, how, fv(:,1),varargin{:});
-    //      if stop
-    //          [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
-    //          if  prnt > 0
-    //              fprintf('%s \n', output.message)
-    //          end
-    //          return;
-    //      end
-    //  end
     //  Print out initial f(x) as 0th iteration
-    if (prnt == 3) {
+    if (prnt == 2) {
       b_triggerEvent();
       coder::b_sprintf(fv[0], r);
       triggerEvent(r);
-
-      //  elseif prnt == 4
-      //  Option never used in RAT
-      //      formatsave.format = get(0,'format');
-      //      formatsave.formatspacing = get(0,'formatspacing');
-      //      % reset format when done
-      //      oc1 = onCleanup(@()set(0,'format',formatsave.format));
-      //      oc2 = onCleanup(@()set(0,'formatspacing',formatsave.formatspacing));
-      //      format compact
-      //      format short e
-      //      fprintf('%s \n', ' ')
-      //      fprintf('%s \n', how)
-      //      fprintf('%s \n', 'v = ')
-      //      fprintf('%g \n', v)
-      //      fprintf('%s \n', 'fv = ')
-      //      fprintf('%g \n', fv)
-      //      fprintf('%s \n', 'func_evals = ')
-      //      fprintf('%g \n', func_evals)
     }
 
     if (doPlotEvent) {
@@ -509,18 +427,6 @@ namespace RAT
                    varargin_1.names.contrasts);
     }
 
-    //  OutputFcn and PlotFcns call
-    //  if haveoutputfcn || haveplotfcn
-    //      [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,v(:,1),xOutputfcn,'iter',itercount, ...
-    //          func_evals, how, fv(:,1),varargin{:});
-    //      if stop  % Stop per user request.
-    //          [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
-    //          if  prnt > 0
-    //              fprintf('%s \n', output.message)
-    //          end
-    //          return;
-    //      end
-    //  end
     //  Continue setting up the initial simplex.
     //  Following improvement suggested by L.Pfeffer at Stanford
     //  5 percent deltas for non-zero terms
@@ -579,24 +485,14 @@ namespace RAT
     how_size[0] = 1;
     how_size[1] = 15;
     for (i = 0; i < 15; i++) {
-      how_data[i] = cv5[i];
+      how_data[i] = cv4[i];
     }
 
     itercount = 1.0;
     func_evals = static_cast<double>(x.size(0)) + 1.0;
-    if ((prnt == 3) && (rt_remd_snf(1.0, varargin_2_updateFreq) == 0.0)) {
+    if ((prnt == 2) && (rt_remd_snf(1.0, varargin_2_updateFreq) == 0.0)) {
       coder::b_sprintf(static_cast<double>(x.size(0)) + 1.0, fv[0], how_data, r);
       triggerEvent(r);
-
-      //  elseif prnt == 4
-      //      fprintf('%s \n', ' ')
-      //      fprintf('%s \n', how)
-      //      fprintf('%s \n', 'v = ')
-      //      fprintf('%g \n', v)
-      //      fprintf('%s \n', 'fv = ')
-      //      fprintf('%g \n', fv)
-      //      fprintf('%s \n', 'func_evals = ')
-      //      fprintf('%g \n', func_evals)
     }
 
     if (doPlotEvent && (rt_remd_snf(1.0, varargin_2_updatePlotFreq) == 0.0)) {
@@ -631,19 +527,6 @@ namespace RAT
     } else {
       boolean_T guard1;
 
-      //  OutputFcn and PlotFcns call
-      //  if haveoutputfcn || haveplotfcn
-      //      [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,v(:,1),xOutputfcn,'iter',itercount, ...
-      //          func_evals, how, fv(:,1),varargin{:});
-      //      if stop  % Stop per user request.
-      //          [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
-      //          if  prnt > 0
-      //              fprintf('%s \n', output.message)
-      //          end
-      //          return;
-      //      end
-      //  end
-      //  exitflag = 1;
       //  Main algorithm: iterate until
       //  (a) the maximum coordinate difference between the current best point and the
       //  other points in the simplex is less than or equal to TolX. Specifically,
@@ -800,7 +683,7 @@ namespace RAT
                 how_size[0] = 1;
                 how_size[1] = 6;
                 for (i = 0; i < 6; i++) {
-                  how_data[i] = cv9[i];
+                  how_data[i] = cv8[i];
                 }
               } else {
                 x_idx_1_tmp = v.size(0);
@@ -812,7 +695,7 @@ namespace RAT
                 how_size[0] = 1;
                 how_size[1] = 7;
                 for (i = 0; i < 7; i++) {
-                  how_data[i] = cv8[i];
+                  how_data[i] = cv7[i];
                 }
               }
 
@@ -827,7 +710,7 @@ namespace RAT
               how_size[0] = 1;
               how_size[1] = 7;
               for (i = 0; i < 7; i++) {
-                how_data[i] = cv8[i];
+                how_data[i] = cv7[i];
               }
             } else {
               //  fxr >= fv(:,n)
@@ -867,14 +750,14 @@ namespace RAT
                   how_size[0] = 1;
                   how_size[1] = 16;
                   for (i = 0; i < 16; i++) {
-                    how_data[i] = cv12[i];
+                    how_data[i] = cv11[i];
                   }
                 } else {
                   //  perform a shrink
                   how_size[0] = 1;
                   how_size[1] = 6;
                   for (i = 0; i < 6; i++) {
-                    how_data[i] = cv10[i];
+                    how_data[i] = cv9[i];
                   }
                 }
               } else {
@@ -909,19 +792,19 @@ namespace RAT
                   how_size[0] = 1;
                   how_size[1] = 15;
                   for (i = 0; i < 15; i++) {
-                    how_data[i] = cv11[i];
+                    how_data[i] = cv10[i];
                   }
                 } else {
                   //  perform a shrink
                   how_size[0] = 1;
                   how_size[1] = 6;
                   for (i = 0; i < 6; i++) {
-                    how_data[i] = cv10[i];
+                    how_data[i] = cv9[i];
                   }
                 }
               }
 
-              if (coder::internal::ab_strcmp(how_data, how_size)) {
+              if (coder::internal::y_strcmp(how_data, how_size)) {
                 for (int j{0}; j < n; j++) {
                   d_v.set_size(v.size(0));
                   x_idx_1_tmp = v.size(0);
@@ -973,21 +856,11 @@ namespace RAT
             }
 
             itercount++;
-            if ((prnt == 3) && (rt_remd_snf(itercount, varargin_2_updateFreq) ==
+            if ((prnt == 2) && (rt_remd_snf(itercount, varargin_2_updateFreq) ==
                                 0.0)) {
               coder::b_sprintf(itercount, func_evals, fv[0], how_data, how_size,
                                r);
               triggerEvent(r);
-
-              //      elseif prnt == 4
-              //          fprintf('%s \n', ' ')
-              //          fprintf('%s \n', num2str(how))
-              //          fprintf('%s \n', 'v = ')
-              //          fprintf('%s \n', v)
-              //          fprintf('%s \n', 'fv = ')
-              //          fprintf('%s \n', fv)
-              //          fprintf('%s \n', 'func_evals = ')
-              //          fprintf('%s \n', num2str(func_evals))
             }
 
             if (doPlotEvent && (rt_remd_snf(itercount, varargin_2_updatePlotFreq)
@@ -1023,18 +896,6 @@ namespace RAT
 
               exitg1 = 1;
             } else {
-              //  OutputFcn and PlotFcns call
-              //      if haveoutputfcn || haveplotfcn
-              //          [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,v(:,1),xOutputfcn,'iter',itercount, ...
-              //              func_evals, how, fv(:,1),varargin{:});
-              //          if stop  % Stop per user request.
-              //              [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
-              //              if  prnt > 0
-              //                  fprintf('%s \n', output.message)
-              //              end
-              //              return;
-              //          end
-              //      end
               guard1 = false;
             }
           }
@@ -1055,7 +916,7 @@ namespace RAT
         }
 
         fval = fv[0];
-        if ((prnt == 3) && (rt_remd_snf(itercount, varargin_2_updateFreq) != 0.0))
+        if ((prnt == 2) && (rt_remd_snf(itercount, varargin_2_updateFreq) != 0.0))
         {
           //  This should ensure the final result is printed at the end of a run irrespective of update frequency
           coder::b_sprintf(itercount, func_evals, fv[0], how_data, how_size, r);
@@ -1072,17 +933,13 @@ namespace RAT
                        varargin_1.names.contrasts);
         }
 
-        //  OutputFcn and PlotFcns call
-        //  if haveoutputfcn || haveplotfcn
-        //      callOutputAndPlotFcns(outputfcn,plotfcns,x,xOutputfcn,'done',itercount, func_evals, how, fval, varargin{:});
-        //  end
         if (func_evals >= options_MaxFunEvals) {
           printMsg = (prnt > 0);
 
           // msg = getString(message('MATLAB:optimfun:fminsearch:ExitingMaxFunctionEvals', sprintf('%f',fval)));
           output.message.set_size(1, 35);
           for (i = 0; i < 35; i++) {
-            output.message[i] = cv6[i];
+            output.message[i] = cv5[i];
           }
 
           b_index = 0;
@@ -1092,12 +949,12 @@ namespace RAT
           // msg = getString(message('MATLAB:optimfun:fminsearch:ExitingMaxIterations', sprintf('%f',fval)));
           output.message.set_size(1, 31);
           for (i = 0; i < 31; i++) {
-            output.message[i] = cv7[i];
+            output.message[i] = cv6[i];
           }
 
           b_index = 0;
         } else {
-          printMsg = (prnt > 1);
+          printMsg = (prnt > 0);
           coder::b_sprintf(options_TolX, options_TolFun, output.message);
           b_index = 1;
         }

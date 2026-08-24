@@ -28,8 +28,6 @@ namespace RAT
   void runSimplex(ProblemDefinition &problemStruct, Controls &controls,
                   b_struct_T &result)
   {
-    static const char b_cv1[6]{ 'n', 'o', 't', 'i', 'f', 'y' };
-
     static const char b_cv[5]{ 'f', 'i', 'n', 'a', 'l' };
 
     ::coder::array<double, 1U> x;
@@ -39,7 +37,7 @@ namespace RAT
     double a__2;
     int dis_size[2];
     int outsize_idx_0;
-    char dis_data[6];
+    char dis_data[5];
 
     //  Run the Nelder-Mead simplex algorithm for a given problem and controls.
     //
@@ -66,9 +64,6 @@ namespace RAT
     } else if (coder::internal::x_strcmp(controls.display.data,
                 controls.display.size)) {
       outsize_idx_0 = 2;
-    } else if (coder::internal::y_strcmp(controls.display.data,
-                controls.display.size)) {
-      outsize_idx_0 = 3;
     } else {
       outsize_idx_0 = -1;
     }
@@ -93,14 +88,6 @@ namespace RAT
       break;
 
      case 2:
-      dis_size[0] = 1;
-      dis_size[1] = 6;
-      for (int i{0}; i < 6; i++) {
-        dis_data[i] = b_cv1[i];
-      }
-      break;
-
-     case 3:
       dis_size[0] = 1;
       dis_size[1] = 5;
       for (int i{0}; i < 5; i++) {
@@ -232,7 +219,7 @@ namespace RAT
 
     //  Ensure SLD is calculated for final result
     controls.calcSLD = true;
-    b_reflectivityCalculation(problemStruct, &controls, result);
+    reflectivityCalculation(problemStruct, controls, result);
   }
 }
 

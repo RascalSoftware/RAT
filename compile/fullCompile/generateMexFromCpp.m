@@ -18,12 +18,14 @@ sources{end+1} = [mex_interface_path, '_coder_RATMain_info.cpp'];
 main_file = [mex_interface_path, '_coder_RATMain_mex.cpp'];
 if ismac
     if strcmp(computer('arch'), 'maci64')
+        flags = '';
         ompLib = {['-L', fullfile(matlabroot, 'sys', 'os', 'maci64')], '-liomp5'};
     else
+        flags = 'LDFLAGS=$LDFLAGS -ld_classic';
         ompLib = {['-L', fullfile(matlabroot, 'toolbox', 'eml', 'externalDependency', 'omp', 'maca64', 'lib')], '-lomp'};
     end
     includes{end+1} = ['-I', fullfile(matlabroot, 'toolbox', 'eml', 'externalDependency', 'omp', computer('arch'), 'include')];
-    mex(includes{:}, 'CXXFLAGS=$CXXFLAGS -fPIC -Xpreprocessor -fopenmp -fvisibility=default -ffp-contract=off -std=c++11 -stdlib=libc++', main_file, sources{:}, '-output', 'RATMain_mex', '-v', '-lemlrt', '-lmwmathutil', '-lmwblas', '-lmwlapack', ompLib{:}) 
+    mex(includes{:}, flags, 'CXXFLAGS=$CXXFLAGS -fPIC -Xpreprocessor -fopenmp -fvisibility=default -ffp-contract=off -std=c++11 -stdlib=libc++', main_file, sources{:}, '-output', 'RATMain_mex', '-v', '-lemlrt', '-lmwmathutil', '-lmwblas', '-lmwlapack', ompLib{:}) 
 elseif isunix
     mex(includes{:}, 'CXXFLAGS=$CXXFLAGS -fopenmp -fvisibility=default -std=c++11', main_file, sources{:}, '-output', 'RATMain_mex', '-v', '-lemlrt', '-lmwmathutil', '-lmwblas', '-lmwlapack', ['-L"', matlabroot, '/sys/os/glnxa64"'], '-liomp5') 
 else

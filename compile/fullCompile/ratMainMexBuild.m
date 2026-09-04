@@ -1,13 +1,18 @@
+function ratMainMexBuild(codeOnly)
 % ratMainMexBuild
 %
 % Generates MEX-function (RATMain_mex) from RATMain.
-
+arguments
+    codeOnly {logical} = false
+end
 % Create configuration object of class 'coder.MexCodeConfig'.
 cfg = coder.config('mex');
 cfg.GenerateReport = true;
+cfg.GenCodeOnly = codeOnly;
 cfg.EnableJIT = false;
 cfg.EnableOpenMP = true;
 cfg.TargetLang = 'C++';
+cfg.SIMDAcceleration = 'None';
 
 % Define the input argument types..
 ARGS = makeCompileArgsFull();
@@ -18,3 +23,4 @@ includes = cell(length(includeDirs)*2, 1);
 includes(1:2:end) = {'-I'};
 includes(2:2:end) = includeDirs;
 codegen('RATMain', '-config', cfg, '-args',  ARGS{1}, includes{:});
+end

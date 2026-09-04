@@ -4,7 +4,7 @@ curPath = pwd;
 [compilePath, ~, ~] = fileparts(mfilename("fullpath"));
 
 cd(compilePath);
-ratMainMexBuild;
+ratMainMexBuild(true);
 ratMainCodeGen;
 cppDeploy;
 

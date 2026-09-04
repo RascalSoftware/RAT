@@ -78,8 +78,8 @@ namespace RAT
     ::coder::array<double, 2U> z;
     ::coder::array<double, 1U> b_layers;
     ::coder::array<double, 1U> b_total;
+    int b_loop_ub;
     int i;
-    int input_sizes_idx_0;
     int loop_ub;
 
     //  Scale the SLDs...
@@ -103,6 +103,7 @@ namespace RAT
       double lastLayerSLD;
       double thisPos;
       double totalRange;
+      int total_idx_0;
 
       //  Make a z range for the profile...
       //  Find the maximum thickness, including any long roughness tail on final layer...
@@ -142,8 +143,8 @@ namespace RAT
       c_layers.set_size(layers.size(0), layers.size(1));
       loop_ub = layers.size(1) - 1;
       for (i = 0; i <= loop_ub; i++) {
-        input_sizes_idx_0 = layers.size(0) - 1;
-        for (int i1{0}; i1 <= input_sizes_idx_0; i1++) {
+        b_loop_ub = layers.size(0) - 1;
+        for (int i1{0}; i1 <= b_loop_ub; i1++) {
           c_layers[i1 + c_layers.size(0) * i] = layers[i1 + layers.size(0) * i];
         }
       }
@@ -152,29 +153,28 @@ namespace RAT
 
       //  Add an aditional 'layer' for the transition to bulk out...
       if ((layers.size(0) != 0) && (layers.size(1) != 0)) {
-        input_sizes_idx_0 = layers.size(0);
+        b_loop_ub = layers.size(0);
       } else {
-        input_sizes_idx_0 = 0;
+        b_loop_ub = 0;
       }
 
-      d_layers.set_size(input_sizes_idx_0 + 1, 3);
+      d_layers.set_size(b_loop_ub + 1, 3);
       for (i = 0; i < 3; i++) {
-        for (int i1{0}; i1 < input_sizes_idx_0; i1++) {
-          d_layers[i1 + d_layers.size(0) * i] = layers[i1 + input_sizes_idx_0 *
-            i];
+        for (int i1{0}; i1 < b_loop_ub; i1++) {
+          d_layers[i1 + d_layers.size(0) * i] = layers[i1 + b_loop_ub * i];
         }
       }
 
-      d_layers[input_sizes_idx_0] = 0.0;
-      d_layers[input_sizes_idx_0 + d_layers.size(0)] = bulkOut;
-      d_layers[input_sizes_idx_0 + d_layers.size(0) * 2] = lastRough;
+      d_layers[b_loop_ub] = 0.0;
+      d_layers[b_loop_ub + d_layers.size(0)] = bulkOut;
+      d_layers[b_loop_ub + d_layers.size(0) * 2] = lastRough;
 
       //  Pre-definitions....
       allFuncs.set_size(z.size(1), d_layers.size(0));
       loop_ub = d_layers.size(0);
       for (i = 0; i < loop_ub; i++) {
-        input_sizes_idx_0 = z.size(1);
-        for (int i1{0}; i1 < input_sizes_idx_0; i1++) {
+        b_loop_ub = z.size(1);
+        for (int i1{0}; i1 < b_loop_ub; i1++) {
           allFuncs[i1 + allFuncs.size(0) * i] = 0.0;
         }
       }
@@ -200,21 +200,21 @@ namespace RAT
 
         coder::b_erf(b_z, r);
         thisFun.set_size(1, r.size(1));
-        input_sizes_idx_0 = r.size(1);
-        for (int i1{0}; i1 < input_sizes_idx_0; i1++) {
+        b_loop_ub = r.size(1);
+        for (int i1{0}; i1 < b_loop_ub; i1++) {
           thisFun[i1] = 0.5 * (r[i1] + 1.0);
         }
 
         if (diff < 0.0) {
           thisFun.set_size(1, thisFun.size(1));
-          input_sizes_idx_0 = thisFun.size(1);
-          for (int i1{0}; i1 < input_sizes_idx_0; i1++) {
+          b_loop_ub = thisFun.size(1);
+          for (int i1{0}; i1 < b_loop_ub; i1++) {
             thisFun[i1] = -thisFun[i1];
           }
         }
 
-        input_sizes_idx_0 = allFuncs.size(0);
-        for (int i1{0}; i1 < input_sizes_idx_0; i1++) {
+        b_loop_ub = allFuncs.size(0);
+        for (int i1{0}; i1 < b_loop_ub; i1++) {
           allFuncs[i1 + allFuncs.size(0) * b_i] = thisFun[i1];
         }
 
@@ -227,8 +227,8 @@ namespace RAT
         totalFuncs.set_size(allFuncs.size(0), allFuncs.size(1));
         loop_ub = allFuncs.size(1);
         for (i = 0; i < loop_ub; i++) {
-          input_sizes_idx_0 = allFuncs.size(0);
-          for (int i1{0}; i1 < input_sizes_idx_0; i1++) {
+          b_loop_ub = allFuncs.size(0);
+          for (int i1{0}; i1 < b_loop_ub; i1++) {
             totalFuncs[i1 + totalFuncs.size(0) * i] = allFuncs[i1 +
               allFuncs.size(0) * i] * alpha[i];
           }
@@ -238,9 +238,9 @@ namespace RAT
       }
 
       coder::blockedSummation(totalFuncs, totalFuncs.size(1), b_total);
-      input_sizes_idx_0 = b_total.size(0);
+      total_idx_0 = b_total.size(0);
       total.set_size(b_total.size(0), 1);
-      for (i = 0; i < input_sizes_idx_0; i++) {
+      for (i = 0; i < total_idx_0; i++) {
         total[i] = b_total[i];
       }
     } else {
@@ -284,21 +284,21 @@ namespace RAT
     //  Scale the SLD's back to Angstroms...
     loop_ub = total.size(1);
     for (i = 0; i < loop_ub; i++) {
-      input_sizes_idx_0 = total.size(0);
-      for (int i1{0}; i1 < input_sizes_idx_0; i1++) {
+      b_loop_ub = total.size(0);
+      for (int i1{0}; i1 < b_loop_ub; i1++) {
         total[i1 + total.size(0) * i] = (total[i1 + total.size(0) * i] + bulkIn)
           * 1.0E-6;
       }
     }
 
-    input_sizes_idx_0 = total.size(0) * total.size(1);
+    b_loop_ub = total.size(0) * total.size(1);
     SLD.set_size(z.size(1), 2);
     loop_ub = z.size(1);
     for (i = 0; i < loop_ub; i++) {
       SLD[i] = z[i];
     }
 
-    for (i = 0; i < input_sizes_idx_0; i++) {
+    for (i = 0; i < b_loop_ub; i++) {
       SLD[i + SLD.size(0)] = total[i];
     }
   }

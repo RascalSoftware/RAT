@@ -144,7 +144,7 @@ maxRefinements = 10;
 %nPoints = 20;
 %minAngle = 0.8*pi;
 minSignal = 0.2; % units normalized to data range
-minLength = 0; % units normalized to data range
+minLength = 0.005; % units normalized to data range
 maxLength = Inf; % units normalized to data range
 maxArea = 5e-4; % units normalized to data range
 
@@ -204,7 +204,7 @@ maxArea = 5e-4; % units normalized to data range
 %       n = n+2;
 %     case 'minlength'
 %       minLength = varargin{n+1};
-%       thresholdingLength = true;
+       thresholdingLength = true;
 %       n = n+2;
 %     case 'minsignal'
 %       minSignal = varargin{n+1};
@@ -286,14 +286,14 @@ for nRefinements = 1:maxRefinements
   % triangle side is a segment, which can be split or not depending on the
   % refinement parameters.
   segmentsToSplit = [trianglesToRefine; false] | [false; trianglesToRefine];
-%   if thresholdingLength
-%     dataSegments = diff(dataPoints(:,1:2));
-%     normalizedSegments = bsxfun(@rdivide, dataSegments, dataBoxSize);
-%     segmentsLengthNormalized = hypot(normalizedSegments(:,1), normalizedSegments(:,2));
-%     tooLongSegments = segmentsLengthNormalized > maxLength;
-%     longEnoughSegments = segmentsLengthNormalized > minLength;
-%     segmentsToSplit = (segmentsToSplit | tooLongSegments) & longEnoughSegments;
-%   end
+  if thresholdingLength
+    dataSegments = diff(dataPoints(:,1:2));
+    normalizedSegments = bsxfun(@rdivide, dataSegments, dataBoxSize);
+    segmentsLengthNormalized = hypot(normalizedSegments(:,1), normalizedSegments(:,2));
+    tooLongSegments = segmentsLengthNormalized > maxLength;
+    longEnoughSegments = segmentsLengthNormalized > minLength;
+    segmentsToSplit = (segmentsToSplit | tooLongSegments) & longEnoughSegments;
+  end
 %   if thresholdingSignal
 %     segmentsCenters = (dataPoints(1:end-1,2)+dataPoints(2:end,2))/2;
 %     centerAboveThreshold = segmentsCenters > minSignal * max(abs(dataPoints(:,2)));

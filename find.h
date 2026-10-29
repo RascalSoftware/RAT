@@ -23,8 +23,6 @@ namespace RAT
                         double, 1U> &in2, const ::coder::array<double, 1U> &in3);
   void binary_expand_op(::coder::array<int, 1U> &in1, const ::coder::array<
                         double, 2U> &in2, const ::coder::array<double, 2U> &in3);
-  void c_binary_expand_op(::coder::array<int, 1U> &in1, const ::coder::array<
-    double, 2U> &in2, const ::coder::array<double, 2U> &in3);
   namespace coder
   {
     int b_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[]);
@@ -40,6 +38,9 @@ namespace RAT
     void g_eml_find(const ::coder::array<boolean_T, 2U> &x, ::coder::array<int,
                     2U> &i);
   }
+
+  void d_binary_expand_op(::coder::array<int, 1U> &in1, const ::coder::array<
+    double, 2U> &in2, const ::coder::array<double, 2U> &in3);
 }
 
 #endif

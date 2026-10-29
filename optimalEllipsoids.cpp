@@ -21,7 +21,7 @@
 // Function Declarations
 namespace RAT
 {
-  static void d_binary_expand_op(boolean_T in1_data[], const double in2_data[],
+  static void e_binary_expand_op(boolean_T in1_data[], const double in2_data[],
     const int in2_size[2], const double in3_data[], const int in3_size[2], const
     ::coder::array<double, 2U> &in4, int in1_size[2]);
 }
@@ -29,7 +29,7 @@ namespace RAT
 // Function Definitions
 namespace RAT
 {
-  static void d_binary_expand_op(boolean_T in1_data[], const double in2_data[],
+  static void e_binary_expand_op(boolean_T in1_data[], const double in2_data[],
     const int in2_size[2], const double in3_data[], const int in3_size[2], const
     ::coder::array<double, 2U> &in4, int in1_size[2])
   {
@@ -230,7 +230,7 @@ namespace RAT
         coder::all((const boolean_T *)&empty_non_axis_sizes, b_VE1_size,
                    (boolean_T *)&tmp_data, tmp_size);
       } else {
-        d_binary_expand_op((boolean_T *)&tmp_data, (const double *)&VE1_data,
+        e_binary_expand_op((boolean_T *)&tmp_data, (const double *)&VE1_data,
                            VE1_size, (const double *)&VE2_data, VE2_size, VEs,
                            tmp_size);
       }

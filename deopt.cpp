@@ -38,35 +38,35 @@ namespace RAT
   static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, double in3, const ::coder::array<double, 2U> &in4,
     const ::coder::array<double, 2U> &in5);
-  static void c_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+  static void d_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, double in3, const ::coder::array<double, 2U> &in4,
     const ::coder::array<double, 2U> &in5);
-  static void h_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+  static void i_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, const ::coder::array<boolean_T, 2U> &in3, const ::
     coder::array<double, 2U> &in4, double in5, const ::coder::array<double, 2U>
     &in6, const ::coder::array<double, 2U> &in7, const ::coder::array<boolean_T,
     2U> &in8);
-  static void i_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+  static void j_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, const ::coder::array<boolean_T, 2U> &in3, double in4,
     const ::coder::array<double, 2U> &in5, const ::coder::array<double, 2U> &in6,
     const ::coder::array<double, 2U> &in7, const ::coder::array<boolean_T, 2U>
     &in8);
-  static void j_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+  static void k_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, const ::coder::array<boolean_T, 2U> &in3, const ::
     coder::array<double, 2U> &in4, const ::coder::array<double, 2U> &in5, const ::
     coder::array<double, 2U> &in6, const ::coder::array<double, 2U> &in7, double
     in8, const ::coder::array<boolean_T, 2U> &in9);
-  static void k_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+  static void l_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, const ::coder::array<boolean_T, 2U> &in3, const ::
     coder::array<double, 2U> &in4, const ::coder::array<double, 2U> &in5, const ::
     coder::array<double, 2U> &in6, const ::coder::array<double, 2U> &in7, const ::
     coder::array<boolean_T, 2U> &in8);
-  static void l_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+  static void m_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, const ::coder::array<boolean_T, 2U> &in3, const ::
     coder::array<double, 2U> &in4, const ::coder::array<double, 2U> &in5, const ::
     coder::array<double, 2U> &in6, double in7, const ::coder::array<boolean_T,
     2U> &in8);
-  static void m_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+  static void n_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, const ::coder::array<boolean_T, 2U> &in3, const ::
     coder::array<boolean_T, 2U> &in4);
 }
@@ -157,7 +157,7 @@ namespace RAT
     }
   }
 
-  static void c_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+  static void d_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, double in3, const ::coder::array<double, 2U> &in4,
     const ::coder::array<double, 2U> &in5)
   {
@@ -233,7 +233,7 @@ namespace RAT
     }
   }
 
-  static void h_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+  static void i_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, const ::coder::array<boolean_T, 2U> &in3, const ::
     coder::array<double, 2U> &in4, double in5, const ::coder::array<double, 2U>
     &in6, const ::coder::array<double, 2U> &in7, const ::coder::array<boolean_T,
@@ -347,7 +347,7 @@ namespace RAT
     }
   }
 
-  static void i_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+  static void j_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, const ::coder::array<boolean_T, 2U> &in3, double in4,
     const ::coder::array<double, 2U> &in5, const ::coder::array<double, 2U> &in6,
     const ::coder::array<double, 2U> &in7, const ::coder::array<boolean_T, 2U>
@@ -486,7 +486,7 @@ namespace RAT
     }
   }
 
-  static void j_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+  static void k_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, const ::coder::array<boolean_T, 2U> &in3, const ::
     coder::array<double, 2U> &in4, const ::coder::array<double, 2U> &in5, const ::
     coder::array<double, 2U> &in6, const ::coder::array<double, 2U> &in7, double
@@ -616,7 +616,7 @@ namespace RAT
     }
   }
 
-  static void k_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+  static void l_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, const ::coder::array<boolean_T, 2U> &in3, const ::
     coder::array<double, 2U> &in4, const ::coder::array<double, 2U> &in5, const ::
     coder::array<double, 2U> &in6, const ::coder::array<double, 2U> &in7, const ::
@@ -745,7 +745,7 @@ namespace RAT
     }
   }
 
-  static void l_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+  static void m_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, const ::coder::array<boolean_T, 2U> &in3, const ::
     coder::array<double, 2U> &in4, const ::coder::array<double, 2U> &in5, const ::
     coder::array<double, 2U> &in6, double in7, const ::coder::array<boolean_T,
@@ -859,7 +859,7 @@ namespace RAT
     }
   }
 
-  static void m_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+  static void n_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, const ::coder::array<boolean_T, 2U> &in3, const ::
     coder::array<boolean_T, 2U> &in4)
   {
@@ -1479,7 +1479,7 @@ namespace RAT
             }
           }
         } else {
-          h_binary_expand_op(FM_ui, FM_pop, FM_mpo, FM_pm3, fWeight, FM_pm1,
+          i_binary_expand_op(FM_ui, FM_pop, FM_mpo, FM_pm3, fWeight, FM_pm1,
                              FM_pm2, FM_mui);
         }
 
@@ -1560,7 +1560,7 @@ namespace RAT
             }
           }
         } else {
-          i_binary_expand_op(FM_ui, FM_pop, FM_mpo, fWeight, FM_bm, FM_pm1,
+          j_binary_expand_op(FM_ui, FM_pop, FM_mpo, fWeight, FM_bm, FM_pm1,
                              FM_pm2, FM_mui);
         }
 
@@ -1628,7 +1628,7 @@ namespace RAT
             }
           }
         } else {
-          j_binary_expand_op(FM_ui, FM_pop, FM_mpo, FM_bm, FM_pm1, FM_pm2, b,
+          k_binary_expand_op(FM_ui, FM_pop, FM_mpo, FM_bm, FM_pm1, FM_pm2, b,
                              fWeight, FM_mui);
         }
 
@@ -1732,7 +1732,7 @@ namespace RAT
             }
           }
         } else {
-          k_binary_expand_op(FM_ui, FM_pop, FM_mpo, FM_pm3, FM_pm1, FM_pm2,
+          l_binary_expand_op(FM_ui, FM_pop, FM_mpo, FM_pm3, FM_pm1, FM_pm2,
                              FM_pm5, FM_mui);
         }
 
@@ -1803,7 +1803,7 @@ namespace RAT
             }
           }
         } else {
-          l_binary_expand_op(FM_ui, FM_pop, FM_mpo, FM_pm3, FM_pm1, FM_pm2, a,
+          m_binary_expand_op(FM_ui, FM_pop, FM_mpo, FM_pm3, FM_pm1, FM_pm2, a,
                              FM_mui);
         }
 
@@ -1882,7 +1882,7 @@ namespace RAT
               }
             }
           } else {
-            c_binary_expand_op(FM_ui, FM_pm3, a, FM_pm1, FM_pm2);
+            d_binary_expand_op(FM_ui, FM_pm3, a, FM_pm1, FM_pm2);
           }
         }
 
@@ -1913,7 +1913,7 @@ namespace RAT
             }
           }
         } else {
-          m_binary_expand_op(FM_ui, FM_pop, FM_mpo, FM_mui);
+          n_binary_expand_op(FM_ui, FM_pop, FM_mpo, FM_mui);
         }
 
         //  crossover

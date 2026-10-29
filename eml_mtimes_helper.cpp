@@ -71,7 +71,7 @@ namespace RAT
     coder::internal::blas::mtimes(b_in2, in4, in1);
   }
 
-  void c_binary_expand_op(double in1_data[], const ::coder::array<double, 2U>
+  void d_binary_expand_op(double in1_data[], const ::coder::array<double, 2U>
     &in2, const ::coder::array<double, 2U> &in3, int in4, const ::coder::array<
     double, 2U> &in5, int in1_size[2])
   {

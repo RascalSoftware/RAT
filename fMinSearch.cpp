@@ -43,16 +43,16 @@ namespace RAT
 {
   static void binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
     array<double, 1U> &in2, const ::coder::array<double, 2U> &in3);
-  static void c_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
-    array<double, 2U> &in2, int in3, int in4, int in5);
-  static void c_binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
-    array<double, 1U> &in2, const ::coder::array<double, 2U> &in3);
   static double cleanUpInterrupt(double optVal, double iteration, double
     funccount, double display, double &output_iterations, double
     &output_funcCount, char output_algorithm[33], char output_message[31]);
-  static void f_binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
+  static void d_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<double, 2U> &in2, int in3, int in4, int in5);
+  static void d_binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
     array<double, 1U> &in2, const ::coder::array<double, 2U> &in3);
   static void g_binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
+    array<double, 1U> &in2, const ::coder::array<double, 2U> &in3);
+  static void h_binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
     array<double, 1U> &in2, const ::coder::array<double, 2U> &in3);
 }
 
@@ -78,61 +78,6 @@ namespace RAT
     stride_1_0 = (in3.size(0) != 1);
     for (int i{0}; i < loop_ub; i++) {
       in1[i] = 3.0 * in2[i * stride_0_0] - 2.0 * in3[i * stride_1_0 + in3.size(0)
-        * (b_in3 - 1)];
-    }
-  }
-
-  static void c_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
-    array<double, 2U> &in2, int in3, int in4, int in5)
-  {
-    ::coder::array<double, 2U> b_in2;
-    int aux_0_1;
-    int i;
-    int loop_ub;
-    int stride_0_1;
-    i = (in4 - in3) + 1;
-    if (in5 == 1) {
-      loop_ub = i;
-    } else {
-      loop_ub = in5;
-    }
-
-    b_in2.set_size(in2.size(0), loop_ub);
-    stride_0_1 = (i != 1);
-    aux_0_1 = 0;
-    for (i = 0; i < loop_ub; i++) {
-      int b_loop_ub;
-      b_loop_ub = in2.size(0);
-      for (int i1{0}; i1 < b_loop_ub; i1++) {
-        b_in2[i1 + b_in2.size(0) * i] = in2[i1 + in2.size(0) * (in3 + aux_0_1)]
-          - in2[i1];
-      }
-
-      aux_0_1 += stride_0_1;
-    }
-
-    coder::c_abs(b_in2, in1);
-  }
-
-  static void c_binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
-    array<double, 1U> &in2, const ::coder::array<double, 2U> &in3)
-  {
-    int b_in3;
-    int loop_ub;
-    int stride_0_0;
-    int stride_1_0;
-    b_in3 = in3.size(1);
-    if (in3.size(0) == 1) {
-      loop_ub = in2.size(0);
-    } else {
-      loop_ub = in3.size(0);
-    }
-
-    in1.set_size(loop_ub);
-    stride_0_0 = (in2.size(0) != 1);
-    stride_1_0 = (in3.size(0) != 1);
-    for (int i{0}; i < loop_ub; i++) {
-      in1[i] = 1.5 * in2[i * stride_0_0] - 0.5 * in3[i * stride_1_0 + in3.size(0)
         * (b_in3 - 1)];
     }
   }
@@ -166,7 +111,62 @@ namespace RAT
     return fval;
   }
 
-  static void f_binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
+  static void d_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+    array<double, 2U> &in2, int in3, int in4, int in5)
+  {
+    ::coder::array<double, 2U> b_in2;
+    int aux_0_1;
+    int i;
+    int loop_ub;
+    int stride_0_1;
+    i = (in4 - in3) + 1;
+    if (in5 == 1) {
+      loop_ub = i;
+    } else {
+      loop_ub = in5;
+    }
+
+    b_in2.set_size(in2.size(0), loop_ub);
+    stride_0_1 = (i != 1);
+    aux_0_1 = 0;
+    for (i = 0; i < loop_ub; i++) {
+      int b_loop_ub;
+      b_loop_ub = in2.size(0);
+      for (int i1{0}; i1 < b_loop_ub; i1++) {
+        b_in2[i1 + b_in2.size(0) * i] = in2[i1 + in2.size(0) * (in3 + aux_0_1)]
+          - in2[i1];
+      }
+
+      aux_0_1 += stride_0_1;
+    }
+
+    coder::c_abs(b_in2, in1);
+  }
+
+  static void d_binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
+    array<double, 1U> &in2, const ::coder::array<double, 2U> &in3)
+  {
+    int b_in3;
+    int loop_ub;
+    int stride_0_0;
+    int stride_1_0;
+    b_in3 = in3.size(1);
+    if (in3.size(0) == 1) {
+      loop_ub = in2.size(0);
+    } else {
+      loop_ub = in3.size(0);
+    }
+
+    in1.set_size(loop_ub);
+    stride_0_0 = (in2.size(0) != 1);
+    stride_1_0 = (in3.size(0) != 1);
+    for (int i{0}; i < loop_ub; i++) {
+      in1[i] = 1.5 * in2[i * stride_0_0] - 0.5 * in3[i * stride_1_0 + in3.size(0)
+        * (b_in3 - 1)];
+    }
+  }
+
+  static void g_binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
     array<double, 1U> &in2, const ::coder::array<double, 2U> &in3)
   {
     int b_in3;
@@ -189,7 +189,7 @@ namespace RAT
     }
   }
 
-  static void g_binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
+  static void h_binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
     array<double, 1U> &in2, const ::coder::array<double, 2U> &in3)
   {
     int b_in3;
@@ -584,7 +584,7 @@ namespace RAT
 
               coder::c_abs(b_v, r2);
             } else {
-              c_binary_expand_op(r2, v, i, i1, n);
+              d_binary_expand_op(r2, v, i, i1, n);
             }
 
             d_v.set_size(v.size(0));
@@ -638,7 +638,7 @@ namespace RAT
                 xr[i] = 2.0 * xbar[i] - v[i + v.size(0) * (v.size(1) - 1)];
               }
             } else {
-              g_binary_expand_op(xr, xbar, v);
+              h_binary_expand_op(xr, xbar, v);
             }
 
             b_varargin_1 = varargin_1;
@@ -728,7 +728,7 @@ namespace RAT
                       1)];
                   }
                 } else {
-                  c_binary_expand_op(xc, xbar, v);
+                  d_binary_expand_op(xc, xbar, v);
                 }
 
                 b_varargin_1 = varargin_1;
@@ -772,7 +772,7 @@ namespace RAT
                       - 1)];
                   }
                 } else {
-                  f_binary_expand_op(xcc, xbar, v);
+                  g_binary_expand_op(xcc, xbar, v);
                 }
 
                 b_varargin_1 = varargin_1;

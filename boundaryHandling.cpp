@@ -107,7 +107,7 @@ namespace RAT
 
       coder::f_eml_find(b_x, ii_up);
     } else {
-      c_binary_expand_op(ii_up, x, min_d);
+      d_binary_expand_op(ii_up, x, min_d);
     }
 
     ii_low.set_size(ii_up.size(0));
@@ -221,7 +221,7 @@ namespace RAT
 
       coder::f_eml_find(b_x, ii_up);
     } else {
-      c_binary_expand_op(ii_up, x, min_d);
+      d_binary_expand_op(ii_up, x, min_d);
     }
 
     ii_low.set_size(ii_up.size(0));

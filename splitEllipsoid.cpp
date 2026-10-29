@@ -326,7 +326,7 @@ namespace RAT
 
                 coder::internal::mrdiv(b_u, B1, r2);
               } else {
-                c_binary_expand_op(r2, u, i, mu1, B1);
+                d_binary_expand_op(r2, u, i, mu1, B1);
               }
 
               if (u.size(1) == mu1.size(1)) {
@@ -342,7 +342,7 @@ namespace RAT
                 coder::internal::blas::mtimes(r2, b_u, (double *)&VE1_tmp_data,
                   VE1_tmp_size);
               } else {
-                c_binary_expand_op((double *)&VE1_tmp_data, r2, u, i, mu1,
+                d_binary_expand_op((double *)&VE1_tmp_data, r2, u, i, mu1,
                                    VE1_tmp_size);
               }
 
@@ -360,7 +360,7 @@ namespace RAT
 
                 coder::internal::mrdiv(b_u, B2, r2);
               } else {
-                c_binary_expand_op(r2, u, i, mu2, B2);
+                d_binary_expand_op(r2, u, i, mu2, B2);
               }
 
               if (u.size(1) == mu2.size(1)) {
@@ -376,7 +376,7 @@ namespace RAT
                 coder::internal::blas::mtimes(r2, b_u, (double *)&VE1_tmp_data,
                   VE1_tmp_size);
               } else {
-                c_binary_expand_op((double *)&VE1_tmp_data, r2, u, i, mu2,
+                d_binary_expand_op((double *)&VE1_tmp_data, r2, u, i, mu2,
                                    VE1_tmp_size);
               }
 

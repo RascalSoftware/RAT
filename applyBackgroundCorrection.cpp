@@ -28,7 +28,7 @@ namespace RAT
   static void binary_expand_op(::coder::array<double, 1U> &in1, const ::coder::
     array<double, 2U> &in3, const ::coder::array<double, 2U> &in4, int in5, int
     in6);
-  static void c_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+  static void d_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, int in3, int in4);
 }
 
@@ -106,7 +106,7 @@ namespace RAT
     }
   }
 
-  static void c_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
+  static void d_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<double, 2U> &in2, int in3, int in4)
   {
     ::coder::array<double, 1U> b_in1;
@@ -209,7 +209,7 @@ namespace RAT
           reflectivity[i + reflectivity.size(0)] = b_reflectivity[i];
         }
       } else {
-        c_binary_expand_op(reflectivity, background, i1, i - 1);
+        d_binary_expand_op(reflectivity, background, i1, i - 1);
       }
 
       if (simulation.size(0) == background.size(0)) {

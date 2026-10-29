@@ -23,15 +23,16 @@ namespace RAT
                         double, 2U> &in2, const ::coder::array<double, 2U> &in3,
                         const ::coder::array<double, 1U> &in4, int in5, int in6,
                         int in7);
-  void c_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::array<
-    double, 2U> &in2, const ::coder::array<double, 2U> &in3, const ::coder::
-    array<double, 1U> &in4, int in5, int in6, int in7);
   namespace coder
   {
     double b_combineVectorElements(const ::coder::array<double, 1U> &x, int vlen);
     int c_combineVectorElements(const ::coder::array<boolean_T, 1U> &x);
     int combineVectorElements(const ::coder::array<boolean_T, 2U> &x);
   }
+
+  void d_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::array<
+    double, 2U> &in2, const ::coder::array<double, 2U> &in3, const ::coder::
+    array<double, 1U> &in4, int in5, int in6, int in7);
 }
 
 #endif

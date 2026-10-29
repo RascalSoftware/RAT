@@ -409,7 +409,7 @@ namespace RAT
 
           coder::blockedSummation(r4, b_loop_ub_tmp, r1);
         } else {
-          c_binary_expand_op(r1, r5, r6, DE_pairs, b_i, i1, i);
+          d_binary_expand_op(r1, r5, r6, DE_pairs, b_i, i1, i);
         }
 
         if (r3.size(0) == 1) {

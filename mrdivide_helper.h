@@ -26,9 +26,6 @@ namespace RAT
                         double, 1U> &in2, const ::coder::array<double, 2U> &in3,
                         const ::coder::array<int, 1U> &in4, const int in5_data[],
                         const int &in5_size);
-  void c_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::array<
-    double, 2U> &in2, int in3, const ::coder::array<double, 2U> &in4, const ::
-    coder::array<double, 2U> &in5);
   namespace coder
   {
     namespace internal
@@ -41,6 +38,10 @@ namespace RAT
                  double, 1U> &B, ::coder::array<double, 2U> &Y);
     }
   }
+
+  void d_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::array<
+    double, 2U> &in2, int in3, const ::coder::array<double, 2U> &in4, const ::
+    coder::array<double, 2U> &in5);
 }
 
 #endif

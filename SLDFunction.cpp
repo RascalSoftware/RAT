@@ -24,7 +24,7 @@ namespace RAT
     array<double, 1U> &in2, const double in3_data[], const int &in3_size);
   static void binary_expand_op(::coder::array<double, 2U> &in1, const double
     in2_data[], const int &in3_size, const ::coder::array<double, 2U> &in4);
-  static void c_binary_expand_op(::coder::array<double, 2U> &in1, const double
+  static void d_binary_expand_op(::coder::array<double, 2U> &in1, const double
     in2_data[], const int &in3_size, const ::coder::array<double, 2U> &in4);
 }
 
@@ -74,7 +74,7 @@ namespace RAT
     }
   }
 
-  static void c_binary_expand_op(::coder::array<double, 2U> &in1, const double
+  static void d_binary_expand_op(::coder::array<double, 2U> &in1, const double
     in2_data[], const int &in3_size, const ::coder::array<double, 2U> &in4)
   {
     int b_loop_ub;
@@ -243,7 +243,7 @@ namespace RAT
           }
         }
       } else {
-        c_binary_expand_op(sldVal, (const double *)&belowY_data, below_size,
+        d_binary_expand_op(sldVal, (const double *)&belowY_data, below_size,
                            deltaY);
       }
     }

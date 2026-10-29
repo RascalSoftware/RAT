@@ -20,7 +20,7 @@
 // Function Declarations
 namespace RAT
 {
-  static void e_binary_expand_op(::coder::array<boolean_T, 1U> &in1, const ::
+  static void f_binary_expand_op(::coder::array<boolean_T, 1U> &in1, const ::
     coder::array<double, 1U> &in2, const ::coder::array<double, 1U> &in3, const ::
     coder::array<double, 1U> &in4);
   static void minus(::coder::array<double, 1U> &in1, const ::coder::array<double,
@@ -30,7 +30,7 @@ namespace RAT
 // Function Definitions
 namespace RAT
 {
-  static void e_binary_expand_op(::coder::array<boolean_T, 1U> &in1, const ::
+  static void f_binary_expand_op(::coder::array<boolean_T, 1U> &in1, const ::
     coder::array<double, 1U> &in2, const ::coder::array<double, 1U> &in3, const ::
     coder::array<double, 1U> &in4)
   {
@@ -165,7 +165,7 @@ namespace RAT
         accept[i] = (r[i] * r1[i] > Z[i]);
       }
     } else {
-      e_binary_expand_op(accept, r, r1, Z);
+      f_binary_expand_op(accept, r, r1, Z);
     }
 
     //  ABC --> check if summary metrics as prior (diagnostic Bayes) or likelihood (regular ABC)

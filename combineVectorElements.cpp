@@ -69,41 +69,6 @@ namespace RAT
     coder::blockedSummation(b_in2, i, in1);
   }
 
-  void c_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::array<
-    double, 2U> &in2, const ::coder::array<double, 2U> &in3, const ::coder::
-    array<double, 1U> &in4, int in5, int in6, int in7)
-  {
-    ::coder::array<double, 2U> b_in2;
-    int b_loop_ub;
-    int i;
-    int loop_ub;
-    int stride_0_0;
-    int stride_1_0;
-    if (in3.size(0) == 1) {
-      loop_ub = in2.size(0);
-    } else {
-      loop_ub = in3.size(0);
-    }
-
-    b_in2.set_size(loop_ub, in2.size(1));
-    stride_0_0 = (in2.size(0) != 1);
-    stride_1_0 = (in3.size(0) != 1);
-    b_loop_ub = in2.size(1);
-    for (i = 0; i < b_loop_ub; i++) {
-      for (int i1{0}; i1 < loop_ub; i1++) {
-        b_in2[i1 + b_in2.size(0) * i] = in2[i1 * stride_0_0 + in2.size(0) * i] -
-          in3[i1 * stride_1_0 + in3.size(0) * i];
-      }
-    }
-
-    i = static_cast<int>(in4[in5]);
-    if (i == 1) {
-      i = in6 - in7;
-    }
-
-    coder::blockedSummation(b_in2, i, in1);
-  }
-
   namespace coder
   {
     double b_combineVectorElements(const ::coder::array<double, 1U> &x, int vlen)
@@ -155,6 +120,41 @@ namespace RAT
 
       return y;
     }
+  }
+
+  void d_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::array<
+    double, 2U> &in2, const ::coder::array<double, 2U> &in3, const ::coder::
+    array<double, 1U> &in4, int in5, int in6, int in7)
+  {
+    ::coder::array<double, 2U> b_in2;
+    int b_loop_ub;
+    int i;
+    int loop_ub;
+    int stride_0_0;
+    int stride_1_0;
+    if (in3.size(0) == 1) {
+      loop_ub = in2.size(0);
+    } else {
+      loop_ub = in3.size(0);
+    }
+
+    b_in2.set_size(loop_ub, in2.size(1));
+    stride_0_0 = (in2.size(0) != 1);
+    stride_1_0 = (in3.size(0) != 1);
+    b_loop_ub = in2.size(1);
+    for (i = 0; i < b_loop_ub; i++) {
+      for (int i1{0}; i1 < loop_ub; i1++) {
+        b_in2[i1 + b_in2.size(0) * i] = in2[i1 * stride_0_0 + in2.size(0) * i] -
+          in3[i1 * stride_1_0 + in3.size(0) * i];
+      }
+    }
+
+    i = static_cast<int>(in4[in5]);
+    if (i == 1) {
+      i = in6 - in7;
+    }
+
+    coder::blockedSummation(b_in2, i, in1);
   }
 }
 

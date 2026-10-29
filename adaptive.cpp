@@ -14,6 +14,9 @@
 #include "SLDFunction.h"
 #include "acos.h"
 #include "allOrAny.h"
+#include "bsxfun.h"
+#include "diff.h"
+#include "hypot.h"
 #include "linspace.h"
 #include "minOrMax.h"
 #include "repmat.h"
@@ -26,8 +29,8 @@
 // Function Declarations
 namespace RAT
 {
-  static void b_binary_expand_op(::coder::array<boolean_T, 1U> &in1, const
-    cell_52 &in2, const ::coder::array<double, 1U> &in3, double in4);
+  static void b_binary_expand_op(::coder::array<boolean_T, 1U> &in1, const ::
+    coder::array<boolean_T, 1U> &in2, const ::coder::array<double, 1U> &in3);
   static void binary_expand_op(const ::coder::array<double, 2U> &in1, const ::
     coder::array<double, 2U> &in2, const ::coder::array<double, 2U> &in3, ::
     coder::array<double, 2U> &in4, ::coder::array<double, 2U> &in5, ::coder::
@@ -42,6 +45,8 @@ namespace RAT
   static void binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::
     array<int, 1U> &in2, const ::coder::array<double, 2U> &in3, const ::coder::
     array<int, 1U> &in4, const ::coder::array<int, 1U> &in5);
+  static void c_binary_expand_op(::coder::array<boolean_T, 1U> &in1, const
+    cell_52 &in2, const ::coder::array<double, 1U> &in3, double in4);
   static void calculateCentralAngles(const ::coder::array<double, 2U> &XYdata,
     const double dataBoxSize[2], ::coder::array<double, 1U> &cornerAngle);
   static void calculateTrianglesSides(const ::coder::array<double, 2U> &XYdata, ::
@@ -59,21 +64,44 @@ namespace RAT
 // Function Definitions
 namespace RAT
 {
-  static void b_binary_expand_op(::coder::array<boolean_T, 1U> &in1, const
-    cell_52 &in2, const ::coder::array<double, 1U> &in3, double in4)
+  static void b_binary_expand_op(::coder::array<boolean_T, 1U> &in1, const ::
+    coder::array<boolean_T, 1U> &in2, const ::coder::array<double, 1U> &in3)
   {
+    ::coder::array<boolean_T, 1U> b_in1;
+    ::coder::array<boolean_T, 1U> r;
     int loop_ub;
-    int stride_1_0;
+    int stride_0_0;
+    int stride_1_0_tmp;
+    in1.set_size(in2.size(0) + 1);
+    loop_ub = in2.size(0);
+    r.set_size(in2.size(0) + 1);
+    r[0] = false;
+    for (int i{0}; i < loop_ub; i++) {
+      in1[i] = in2[i];
+      r[i + 1] = in2[i];
+    }
+
+    in1[in2.size(0)] = false;
     if (in3.size(0) == 1) {
-      loop_ub = in2.f1.size(0) - 2;
+      loop_ub = in1.size(0);
     } else {
       loop_ub = in3.size(0);
     }
 
-    in1.set_size(loop_ub);
-    stride_1_0 = (in3.size(0) != 1);
+    b_in1.set_size(loop_ub);
+    stride_0_0 = (in1.size(0) != 1);
+    stride_1_0_tmp = (in3.size(0) != 1);
     for (int i{0}; i < loop_ub; i++) {
-      in1[i] = (in3[i * stride_1_0] < in4);
+      int in1_tmp;
+      in1_tmp = i * stride_0_0;
+      b_in1[i] = ((in1[in1_tmp] || r[in1_tmp]) && (in3[i * stride_1_0_tmp] >
+        0.005));
+    }
+
+    in1.set_size(b_in1.size(0));
+    loop_ub = b_in1.size(0);
+    for (int i{0}; i < loop_ub; i++) {
+      in1[i] = b_in1[i];
     }
   }
 
@@ -218,6 +246,24 @@ namespace RAT
     loop_ub = in2.size(0);
     for (int i{0}; i < loop_ub; i++) {
       in1[i] = 0.5 * (in3[in4[i * stride_0_0]] + in3[in5[i * stride_1_0]]);
+    }
+  }
+
+  static void c_binary_expand_op(::coder::array<boolean_T, 1U> &in1, const
+    cell_52 &in2, const ::coder::array<double, 1U> &in3, double in4)
+  {
+    int loop_ub;
+    int stride_1_0;
+    if (in3.size(0) == 1) {
+      loop_ub = in2.f1.size(0) - 2;
+    } else {
+      loop_ub = in3.size(0);
+    }
+
+    in1.set_size(loop_ub);
+    stride_1_0 = (in3.size(0) != 1);
+    for (int i{0}; i < loop_ub; i++) {
+      in1[i] = (in3[i * stride_1_0] < in4);
     }
   }
 
@@ -631,14 +677,20 @@ namespace RAT
                 startDomain[2], double minAngle, double nPoints, cell_52 &out)
   {
     ::coder::array<double, 2U> b_out;
+    ::coder::array<double, 2U> normalizedSegments;
     ::coder::array<double, 2U> r;
+    ::coder::array<double, 2U> r1;
+    ::coder::array<double, 1U> b_normalizedSegments;
+    ::coder::array<double, 1U> c_normalizedSegments;
     ::coder::array<double, 1U> cornerAngle;
     ::coder::array<double, 1U> hiVal;
     ::coder::array<double, 1U> newDomain;
+    ::coder::array<double, 1U> segmentsLengthNormalized;
     ::coder::array<boolean_T, 1U> b_trianglesToRefine;
-    ::coder::array<boolean_T, 1U> r1;
+    ::coder::array<boolean_T, 1U> r2;
     ::coder::array<boolean_T, 1U> segmentsToSplit;
     ::coder::array<boolean_T, 1U> trianglesToRefine;
+    int i;
     int loop_ub;
     int nRefinements;
     boolean_T exitg1;
@@ -823,7 +875,6 @@ namespace RAT
     //        n = n+2;
     //      case 'minlength'
     //        minLength = varargin{n+1};
-    //        thresholdingLength = true;
     //        n = n+2;
     //      case 'minsignal'
     //        minSignal = varargin{n+1};
@@ -856,7 +907,7 @@ namespace RAT
     coder::linspace(startDomain[0], startDomain[1], nPoints, r);
     newDomain.set_size(r.size(1));
     loop_ub = r.size(1);
-    for (int i{0}; i < loop_ub; i++) {
+    for (i = 0; i < loop_ub; i++) {
       newDomain[i] = r[i];
     }
 
@@ -870,12 +921,12 @@ namespace RAT
     // dataPoints = [initialDomain(:), func(initialDomain(:))];
     out.f1.set_size(newDomain.size(0), 2);
     loop_ub = newDomain.size(0);
-    for (int i{0}; i < loop_ub; i++) {
+    for (i = 0; i < loop_ub; i++) {
       out.f1[i] = newDomain[i];
     }
 
     loop_ub = hiVal.size(0);
-    for (int i{0}; i < loop_ub; i++) {
+    for (i = 0; i < loop_ub; i++) {
       out.f1[i + out.f1.size(0)] = hiVal[i];
     }
 
@@ -890,9 +941,29 @@ namespace RAT
     while ((!exitg1) && (nRefinements < 10)) {
       double b_dv[2];
       double b_dv1[2];
+      double dataBoxSize[2];
       boolean_T y;
 
       //  calculate the box which encloses the current data points:
+      b_out.set_size(out.f1.size(0), 2);
+      loop_ub = out.f1.size(0);
+      for (i = 0; i < 2; i++) {
+        for (int i1{0}; i1 < loop_ub; i1++) {
+          b_out[i1 + b_out.size(0) * i] = out.f1[i1 + out.f1.size(0) * i];
+        }
+      }
+
+      coder::internal::maximum(b_out, b_dv);
+      b_out.set_size(out.f1.size(0), 2);
+      loop_ub = out.f1.size(0);
+      for (i = 0; i < 2; i++) {
+        for (int i1{0}; i1 < loop_ub; i1++) {
+          b_out[i1 + b_out.size(0) * i] = out.f1[i1 + out.f1.size(0) * i];
+        }
+      }
+
+      coder::internal::minimum(b_out, b_dv1);
+
       //  Each point is considered as the central corner of the triangle formed
       //  with its left and right hand side neighbours. The first and the last
       //  points are not the central corner of any triangle, so for N points
@@ -904,70 +975,77 @@ namespace RAT
       //    end
       b_out.set_size(out.f1.size(0), 2);
       loop_ub = out.f1.size(0);
-      for (int i{0}; i < 2; i++) {
+      for (i = 0; i < 2; i++) {
+        dataBoxSize[i] = b_dv[i] - b_dv1[i];
         for (int i1{0}; i1 < loop_ub; i1++) {
           b_out[i1 + b_out.size(0) * i] = out.f1[i1 + out.f1.size(0) * i];
         }
       }
 
-      coder::internal::maximum(b_out, b_dv);
-      b_out.set_size(out.f1.size(0), 2);
-      loop_ub = out.f1.size(0);
-      for (int i{0}; i < 2; i++) {
-        for (int i1{0}; i1 < loop_ub; i1++) {
-          b_out[i1 + b_out.size(0) * i] = out.f1[i1 + out.f1.size(0) * i];
-        }
-      }
-
-      coder::internal::minimum(b_out, b_dv1);
-      b_out.set_size(out.f1.size(0), 2);
-      loop_ub = out.f1.size(0);
-      for (int i{0}; i < 2; i++) {
-        for (int i1{0}; i1 < loop_ub; i1++) {
-          b_out[i1 + b_out.size(0) * i] = out.f1[i1 + out.f1.size(0) * i];
-        }
-
-        b_dv[i] -= b_dv1[i];
-      }
-
-      calculateCentralAngles(b_out, b_dv, cornerAngle);
+      calculateCentralAngles(b_out, dataBoxSize, cornerAngle);
       if (out.f1.size(0) - 2 == cornerAngle.size(0)) {
         trianglesToRefine.set_size(out.f1.size(0) - 2);
         loop_ub = out.f1.size(0) - 2;
-        for (int i{0}; i < loop_ub; i++) {
+        for (i = 0; i < loop_ub; i++) {
           trianglesToRefine[i] = (cornerAngle[i] < minAngle);
         }
       } else {
-        b_binary_expand_op(trianglesToRefine, out, cornerAngle, minAngle);
+        c_binary_expand_op(trianglesToRefine, out, cornerAngle, minAngle);
       }
 
       //  For N points there are N-2 triangles and N-1 triangle sides. Each
       //  triangle side is a segment, which can be split or not depending on the
       //  refinement parameters.
-      b_trianglesToRefine.set_size(trianglesToRefine.size(0) + 1);
-      loop_ub = trianglesToRefine.size(0);
-      r1.set_size(trianglesToRefine.size(0) + 1);
-      r1[0] = false;
-      for (int i{0}; i < loop_ub; i++) {
-        b_trianglesToRefine[i] = trianglesToRefine[i];
-        r1[i + 1] = trianglesToRefine[i];
+      b_out.set_size(out.f1.size(0), 2);
+      loop_ub = out.f1.size(0);
+      for (i = 0; i < 2; i++) {
+        for (int i1{0}; i1 < loop_ub; i1++) {
+          b_out[i1 + b_out.size(0) * i] = out.f1[i1 + out.f1.size(0) * i];
+        }
       }
 
-      b_trianglesToRefine[trianglesToRefine.size(0)] = false;
-      segmentsToSplit.set_size(b_trianglesToRefine.size(0));
-      loop_ub = b_trianglesToRefine.size(0);
-      for (int i{0}; i < loop_ub; i++) {
-        segmentsToSplit[i] = (b_trianglesToRefine[i] || r1[i]);
+      coder::diff(b_out, r1);
+      coder::bsxfun(r1, dataBoxSize, normalizedSegments);
+      b_normalizedSegments.set_size(normalizedSegments.size(0));
+      loop_ub = normalizedSegments.size(0);
+      c_normalizedSegments.set_size(normalizedSegments.size(0));
+      for (i = 0; i < loop_ub; i++) {
+        b_normalizedSegments[i] = normalizedSegments[i];
+        c_normalizedSegments[i] = normalizedSegments[i + normalizedSegments.size
+          (0)];
       }
 
-      //    if thresholdingLength
-      //      dataSegments = diff(dataPoints(:,1:2));
-      //      normalizedSegments = bsxfun(@rdivide, dataSegments, dataBoxSize);
-      //      segmentsLengthNormalized = hypot(normalizedSegments(:,1), normalizedSegments(:,2));
-      //      tooLongSegments = segmentsLengthNormalized > maxLength;
-      //      longEnoughSegments = segmentsLengthNormalized > minLength;
-      //      segmentsToSplit = (segmentsToSplit | tooLongSegments) & longEnoughSegments;
-      //    end
+      coder::b_hypot(b_normalizedSegments, c_normalizedSegments,
+                     segmentsLengthNormalized);
+      if (trianglesToRefine.size(0) + 1 == 1) {
+        i = segmentsLengthNormalized.size(0);
+      } else {
+        i = trianglesToRefine.size(0) + 1;
+      }
+
+      if ((trianglesToRefine.size(0) + 1 == segmentsLengthNormalized.size(0)) &&
+          (i == segmentsLengthNormalized.size(0))) {
+        b_trianglesToRefine.set_size(trianglesToRefine.size(0) + 1);
+        loop_ub = trianglesToRefine.size(0);
+        r2.set_size(trianglesToRefine.size(0) + 1);
+        r2[0] = false;
+        for (i = 0; i < loop_ub; i++) {
+          b_trianglesToRefine[i] = trianglesToRefine[i];
+          r2[i + 1] = trianglesToRefine[i];
+        }
+
+        b_trianglesToRefine[trianglesToRefine.size(0)] = false;
+        segmentsToSplit.set_size(b_trianglesToRefine.size(0));
+        loop_ub = b_trianglesToRefine.size(0);
+        for (i = 0; i < loop_ub; i++) {
+          segmentsToSplit[i] = ((b_trianglesToRefine[i] || r2[i]) &&
+                                (segmentsLengthNormalized[i] > 0.005));
+        }
+      } else {
+        b_binary_expand_op(segmentsToSplit, trianglesToRefine,
+                           segmentsLengthNormalized);
+      }
+
       //    if thresholdingSignal
       //      segmentsCenters = (dataPoints(1:end-1,2)+dataPoints(2:end,2))/2;
       //      centerAboveThreshold = segmentsCenters > minSignal * max(abs(dataPoints(:,2)));

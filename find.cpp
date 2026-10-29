@@ -83,50 +83,6 @@ namespace RAT
     coder::f_eml_find(b_in2, in1);
   }
 
-  void c_binary_expand_op(::coder::array<int, 1U> &in1, const ::coder::array<
-    double, 2U> &in2, const ::coder::array<double, 2U> &in3)
-  {
-    ::coder::array<boolean_T, 2U> b_in2;
-    int aux_0_1;
-    int aux_1_1;
-    int b_loop_ub;
-    int loop_ub;
-    int stride_0_0;
-    int stride_0_1;
-    int stride_1_0;
-    int stride_1_1;
-    if (in3.size(0) == 1) {
-      loop_ub = in2.size(0);
-    } else {
-      loop_ub = in3.size(0);
-    }
-
-    if (in3.size(1) == 1) {
-      b_loop_ub = in2.size(1);
-    } else {
-      b_loop_ub = in3.size(1);
-    }
-
-    b_in2.set_size(loop_ub, b_loop_ub);
-    stride_0_0 = (in2.size(0) != 1);
-    stride_0_1 = (in2.size(1) != 1);
-    stride_1_0 = (in3.size(0) != 1);
-    stride_1_1 = (in3.size(1) != 1);
-    aux_0_1 = 0;
-    aux_1_1 = 0;
-    for (int i{0}; i < b_loop_ub; i++) {
-      for (int i1{0}; i1 < loop_ub; i1++) {
-        b_in2[i1 + b_in2.size(0) * i] = (in2[i1 * stride_0_0 + in2.size(0) *
-          aux_0_1] < in3[i1 * stride_1_0 + in3.size(0) * aux_1_1]);
-      }
-
-      aux_1_1 += stride_1_1;
-      aux_0_1 += stride_0_1;
-    }
-
-    coder::f_eml_find(b_in2, in1);
-  }
-
   namespace coder
   {
     int b_eml_find(const ::coder::array<boolean_T, 1U> &x, int i_data[])
@@ -380,6 +336,50 @@ namespace RAT
         i.set_size(i.size(0), idx);
       }
     }
+  }
+
+  void d_binary_expand_op(::coder::array<int, 1U> &in1, const ::coder::array<
+    double, 2U> &in2, const ::coder::array<double, 2U> &in3)
+  {
+    ::coder::array<boolean_T, 2U> b_in2;
+    int aux_0_1;
+    int aux_1_1;
+    int b_loop_ub;
+    int loop_ub;
+    int stride_0_0;
+    int stride_0_1;
+    int stride_1_0;
+    int stride_1_1;
+    if (in3.size(0) == 1) {
+      loop_ub = in2.size(0);
+    } else {
+      loop_ub = in3.size(0);
+    }
+
+    if (in3.size(1) == 1) {
+      b_loop_ub = in2.size(1);
+    } else {
+      b_loop_ub = in3.size(1);
+    }
+
+    b_in2.set_size(loop_ub, b_loop_ub);
+    stride_0_0 = (in2.size(0) != 1);
+    stride_0_1 = (in2.size(1) != 1);
+    stride_1_0 = (in3.size(0) != 1);
+    stride_1_1 = (in3.size(1) != 1);
+    aux_0_1 = 0;
+    aux_1_1 = 0;
+    for (int i{0}; i < b_loop_ub; i++) {
+      for (int i1{0}; i1 < loop_ub; i1++) {
+        b_in2[i1 + b_in2.size(0) * i] = (in2[i1 * stride_0_0 + in2.size(0) *
+          aux_0_1] < in3[i1 * stride_1_0 + in3.size(0) * aux_1_1]);
+      }
+
+      aux_1_1 += stride_1_1;
+      aux_0_1 += stride_0_1;
+    }
+
+    coder::f_eml_find(b_in2, in1);
   }
 }
 

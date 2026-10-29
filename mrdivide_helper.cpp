@@ -70,42 +70,6 @@ namespace RAT
     coder::internal::mrdiv(in2, b_in3, in1);
   }
 
-  void c_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::array<
-    double, 2U> &in2, int in3, const ::coder::array<double, 2U> &in4, const ::
-    coder::array<double, 2U> &in5)
-  {
-    ::coder::array<double, 2U> b_in2;
-    int aux_0_1;
-    int aux_1_1;
-    int loop_ub;
-    int stride_0_1;
-    int stride_1_1;
-    if (in4.size(1) == 1) {
-      loop_ub = in2.size(1);
-    } else {
-      loop_ub = in4.size(1);
-    }
-
-    b_in2.set_size(in4.size(0), loop_ub);
-    stride_0_1 = (in2.size(1) != 1);
-    stride_1_1 = (in4.size(1) != 1);
-    aux_0_1 = 0;
-    aux_1_1 = 0;
-    for (int i{0}; i < loop_ub; i++) {
-      int b_loop_ub;
-      b_loop_ub = in4.size(0);
-      for (int i1{0}; i1 < b_loop_ub; i1++) {
-        b_in2[b_in2.size(0) * i] = in2[in3 + in2.size(0) * aux_0_1] -
-          in4[in4.size(0) * aux_1_1];
-      }
-
-      aux_1_1 += stride_1_1;
-      aux_0_1 += stride_0_1;
-    }
-
-    coder::internal::mrdiv(b_in2, in5, in1);
-  }
-
   namespace coder
   {
     namespace internal
@@ -271,6 +235,42 @@ namespace RAT
         }
       }
     }
+  }
+
+  void d_binary_expand_op(::coder::array<double, 2U> &in1, const ::coder::array<
+    double, 2U> &in2, int in3, const ::coder::array<double, 2U> &in4, const ::
+    coder::array<double, 2U> &in5)
+  {
+    ::coder::array<double, 2U> b_in2;
+    int aux_0_1;
+    int aux_1_1;
+    int loop_ub;
+    int stride_0_1;
+    int stride_1_1;
+    if (in4.size(1) == 1) {
+      loop_ub = in2.size(1);
+    } else {
+      loop_ub = in4.size(1);
+    }
+
+    b_in2.set_size(in4.size(0), loop_ub);
+    stride_0_1 = (in2.size(1) != 1);
+    stride_1_1 = (in4.size(1) != 1);
+    aux_0_1 = 0;
+    aux_1_1 = 0;
+    for (int i{0}; i < loop_ub; i++) {
+      int b_loop_ub;
+      b_loop_ub = in4.size(0);
+      for (int i1{0}; i1 < b_loop_ub; i1++) {
+        b_in2[b_in2.size(0) * i] = in2[in3 + in2.size(0) * aux_0_1] -
+          in4[in4.size(0) * aux_1_1];
+      }
+
+      aux_1_1 += stride_1_1;
+      aux_0_1 += stride_0_1;
+    }
+
+    coder::internal::mrdiv(b_in2, in5, in1);
   }
 }
 
